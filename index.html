@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ryan Duguid - Australian Computational Accounting</title>
+  <meta name="description" content="Open-source computational accounting engines, MCP servers, Excel LAMBDAs, and deterministic AI workflows for Australian taxation and payroll." />
+  <meta property="og:title" content="Ryan Duguid - Australian Computational Accounting" />
+  <meta property="og:description" content="Open-source computational accounting engines, MCP servers, and AI agent workflows for Australian tax." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ryanduguid.github.io" />
+  <style>
+    :root {
+      --bg: #04001F;
+      --surface: #140E24;
+      --surface-2: #1E1236;
+      --surface-3: #2D184E;
+      --accent: #5C2D91;
+      --accent-light: #8A4AC7;
+      --text: #ECECEC;
+      --text-muted: #B1AFAD;
+      --border: #4F485E;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    header { text-align: center; padding: 3rem 0 2rem; }
+    header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    header p.subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 640px; margin: 0 auto 1rem; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
+    .badge {
+      display: inline-block; padding: 0.3rem 0.75rem; border-radius: 4px;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+    }
+
+    .install-section {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .install-section h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+    pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    code { font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace; }
+    .comment { color: var(--text-muted); }
+    .cmd { color: var(--accent-light); }
+
+    h2.section-title {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    @media (min-width: 640px) {
+      .stack { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .stack-col h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .stack-col.layer-1 h3 { border-color: var(--border); }
+    .stack-col.layer-2 h3 { border-color: var(--accent); }
+    .stack-col.layer-3 h3 { border-color: var(--accent-light); }
+
+    .repo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .repo-card .name { font-weight: 600; font-size: 0.9rem; }
+    .repo-card .alias { color: var(--text-muted); font-size: 0.8rem; font-family: monospace; }
+    .repo-card .desc { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    @media (max-width: 639px) {
+      .principles { grid-template-columns: 1fr; }
+    }
+    .principle {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .principle strong { display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .principle span { color: var(--text-muted); font-size: 0.8rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--accent-light); }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .links a:hover { background: var(--surface); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Ryan Duguid</h1>
+      <p class="subtitle">
+        Australian accountant based in Newcastle, NSW. Open-source computational accounting engines, MCP servers, Excel LAMBDAs, and deterministic AI workflows for Australian taxation and payroll.
+      </p>
+      <div class="badges">
+        <span class="badge">Provisional Member CA ANZ</span>
+        <span class="badge">SAP S/4HANA FI &amp; CO</span>
+        <span class="badge">Xero L3 Specialist</span>
+      </div>
+      <div class="links" style="margin-top: 1.5rem;">
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </div>
+    </header>
+
+    <div class="install-section">
+      <h2>Install in 3 commands</h2>
+      <pre><code><span class="comment"># Add Australian Accounting &amp; Tax MCP server to Claude Code</span>
+<span class="cmd">claude mcp add aus-accounting -- uvx --from \
+  git+https://github.com/ryanduguid/JohnKenley aus-accounting-mcp</span>
+
+<span class="comment"># Add Public Practice &amp; Tax skills</span>
+<span class="cmd">npx skills add ryanduguid/MaryAddisonHamilton</span>
+
+<span class="comment"># Add Construction &amp; Mining Subcontractor skills</span>
+<span class="cmd">npx skills add ryanduguid/hardhat-ledger</span></code></pre>
+    </div>
+
+    <h2 class="section-title">The Stack</h2>
+    <div class="stack">
+      <div class="stack-col layer-1">
+        <h3>1. Data &amp; Ledgers</h3>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/JohnSpenceOgilvy">JohnSpenceOgilvy</a>
+          <div class="alias">xero-trial-balance-export</div>
+          <div class="desc">Validated Xero trial balance export to CSV for Power BI, Excel and pandas.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/SirAlexanderFitzgerald">SirAlexanderFitzgerald</a>
+          <div class="desc">Power Query (M) and VBA utilities for Australian ledger work.</div>
+        </div>
+      </div>
+
+      <div class="stack-col layer-2">
+        <h3>2. Rules &amp; Engines</h3>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/Ozzit">Ozzit</a>
+          <div class="desc">130 native Excel LAMBDA functions for dynamic-array financial modelling.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/TheExchequerTally">TheExchequerTally</a>
+          <div class="desc">Company tax rate (BRE), franking account balance, Division 203 checks.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/SolomonsSword">SolomonsSword</a>
+          <div class="desc">Trust Div 6 allocation, s100A risk flags, s99B foreign trust receipts.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/CharlesHenryWickens">CharlesHenryWickens</a>
+          <div class="alias">payday-super-checker</div>
+          <div class="desc">Payday Super 2026 contribution timing and SG-charge estimates.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/RaymondChambers">RaymondChambers</a>
+          <div class="alias">ato-benchmark-compare</div>
+          <div class="desc">Offline variance analysis against ATO small-business benchmarks.</div>
+        </div>
+      </div>
+
+      <div class="stack-col layer-3">
+        <h3>3. Agent Workflows</h3>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/JohnKenley">JohnKenley</a>
+          <div class="alias">aus-accounting-mcp</div>
+          <div class="desc">Unified MCP server for Claude, Cursor, and Antigravity.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/MaryAddisonHamilton">MaryAddisonHamilton</a>
+          <div class="desc">9 Claude Code skills for public practice (BAS, FBT, Div 7A, STP).</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/hardhat-ledger">Hardhat Ledger</a>
+          <div class="desc">Construction and mining subcontractor skills.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/DrDebits">DrDebits</a>
+          <div class="desc">APES 110 and TPB Code ethics guardrails for LLM tax work.</div>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/ElizabethAnneAlexander">ElizabethAnneAlexander</a>
+          <div class="desc">Zero-network safety boundary for AI-assisted TB review.</div>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Engineering Principles</h2>
+    <div class="principles">
+      <div class="principle">
+        <strong>Primary Source Grounding</strong>
+        <span>Computations cite Commonwealth legislation, ATO rulings, and AASB/APESB standards.</span>
+      </div>
+      <div class="principle">
+        <strong>Exact Decimal Arithmetic</strong>
+        <span>Decimal quantisation prevents binary floating-point drift in financial outputs.</span>
+      </div>
+      <div class="principle">
+        <strong>Local Privacy Boundaries</strong>
+        <span>Client data stays in local memory or zero-network sandboxes. Public fixtures use synthetic data only.</span>
+      </div>
+      <div class="principle">
+        <strong>Human-in-the-Loop Signoff</strong>
+        <span>Pipelines automate calculation and validation. Professional judgement and lodgement remain human-controlled.</span>
+      </div>
+    </div>
+
+    <h2 class="section-title">More</h2>
+    <div class="links">
+      <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
+      <a href="https://github.com/ryanduguid/SirArthurFadden">Legislation Corpus</a>
+      <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
+      <a href="https://github.com/ryanduguid/RussellMathews">Close Controls</a>
+      <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
+    </div>
+
+    <footer>
+      <p>Not advice. Computational outputs are review aids, not compliance determinations.</p>
+      <p style="margin-top: 0.5rem;">
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </p>
+    </footer>
+  </div>
+</body>
+</html>
