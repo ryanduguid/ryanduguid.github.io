@@ -135,6 +135,43 @@ test('D11b casual: January 2024 itself is NOT legacy', () => {
   assert.equal(r.eligibleWagesCents, 225000);
 });
 
+test('casualWages rejects an empty reportingMonth', () => {
+  // Guards against "" < "2024-01" (true in JS), which would otherwise
+  // silently misroute a blank field to the pre-2024 branch.
+  assert.throws(() => casualWages({ reportingMonth: '' }), TypeError);
+});
+
+test('casualWages rejects an undefined reportingMonth', () => {
+  assert.throws(() => casualWages({ reportingMonth: undefined }), TypeError);
+});
+
+test('casualWages rejects a full-date reportingMonth', () => {
+  // Wrong shape, not just a wrong value: 'YYYY-MM-DD' must not pass.
+  assert.throws(() => casualWages({ reportingMonth: '2024-01-01' }), TypeError);
+});
+
+test('casualWages still accepts valid YYYY-MM values and routes them as before', () => {
+  const post = casualWages({
+    reportingMonth: '2024-01',
+    instrumentSpecifiesLoading: true,
+    loadingQuantifiable: true,
+    baseRatePayCents: d(1800),
+    casualLoadingCents: d(450),
+  });
+  assert.equal(post.branch, 's 3B(3)(a)');
+  assert.equal(post.eligibleWagesCents, 225000);
+
+  const pre = casualWages({
+    reportingMonth: '2023-12',
+    instrumentSpecifiesLoading: true,
+    loadingQuantifiable: true,
+    baseRatePayCents: d(1800),
+    casualLoadingCents: d(450),
+  });
+  assert.equal(pre.branch, 'pre-2024');
+  assert.equal(pre.eligibleWagesCents, 180000);
+});
+
 test('D12 zero wages produce zero levy', () => {
   const r = baseRateWages({ baseRateCents: 0 });
   assert.equal(r.eligibleWagesCents, 0);

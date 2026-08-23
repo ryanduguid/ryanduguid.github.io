@@ -87,6 +87,9 @@ export function casualWages({
   ordinaryRatePayCents = 0,
   bonuses,
 }) {
+  if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
+    throw new TypeError('reportingMonth must be a YYYY-MM string');
+  }
   const bonus = bonusCents(bonuses);
   if (reportingMonth < CASUAL_METHOD_CHANGE_MONTH) {
     // Mirrors the s 3B(1)(a) shape, with no casual loading component.

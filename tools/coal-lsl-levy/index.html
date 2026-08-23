@@ -211,6 +211,11 @@
       }
 
       function explain(result) {
+        if (result.branch === 'pre-2024') {
+          return `The pre-January-2024 casual method applied this month, before the
+                  separate casual loading component existed. There is no greater-of
+                  test and no 75 per cent factor.`;
+        }
         if (result.branch !== 's 3B(1)') {
           return `Section ${result.branch} applies. There is no greater-of test and no
                   75 per cent factor on this branch.`;
@@ -312,6 +317,21 @@
       }
 
       document.getElementById('add-employee').addEventListener('click', () => {
+        // A click, unlike a form submit, does not run HTML5 constraint
+        // validation on its own (see the "required" reportingMonth field in
+        // the casual template), so it is checked explicitly here before
+        // compute() ever sees the form. Without this, an empty casual
+        // reportingMonth reaches casualWages() and (previously) silently
+        // misrouted to the pre-2024 branch; it now throws, so this check
+        // exists to give a message instead of an uncaught exception.
+        if (!calcForm.checkValidity()) {
+          resultEl.innerHTML = '';
+          const msg = document.createElement('p');
+          msg.className = 'result-why';
+          msg.textContent = 'Fill in every required field above (for example, the reporting month) before adding this employee to the table.';
+          resultEl.append(msg);
+          return;
+        }
         const result = compute(calcForm);
         const labelInput = document.getElementById('employeeLabel');
         const label = labelInput.value.trim() || `Employee ${employees.length + 1}`;
