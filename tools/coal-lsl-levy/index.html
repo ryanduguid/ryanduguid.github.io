@@ -11,6 +11,7 @@
   <meta property="og:url" content="https://ryanduguid.github.io/tools/coal-lsl-levy/" />
   <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/coal-lsl-levy/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -447,5 +448,68 @@
       });
     </script>
   </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Coal LSL levy calculator",
+    "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://ryanduguid.github.io/tools/coal-lsl-levy/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What levy rate does this calculator use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The levy rate applied is 2.7 per cent, shown as at 24 August 2026. Check the current prescribed percentage in section 6 of the Payroll Levy Regulations 2018 on the Federal Register of Legislation before relying on any figure."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which bonuses count toward eligible wages?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Only bonuses paid weekly, fortnightly or monthly count. Quarterly, half-yearly and annual amounts are excluded, not spread across the year."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does the levy apply to employer superannuation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does this tool round the levy?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No rounding rule is published in the Act, the Regulations or the guidance note. This tool rounds the levy half up to the nearest cent at the final step only, and shows the unrounded figure whenever it differs from the rounded one."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I lodge my monthly Coal LSL return with this tool?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL."
+        }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>

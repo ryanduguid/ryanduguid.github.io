@@ -4,9 +4,14 @@ Checks, in order, per file:
 1. Every github.com/ryanduguid/<repo> link resolves to that exact repository.
    A rename redirect (301 to a different repo path) is a FAILURE even though
    the request ends in a 200, because redirects break if the old name is reused.
-2. Every other absolute http(s) link resolves (2xx after redirects).
-3. The HTML parses cleanly and links carry no empty href.
-4. Retired repository names and em or en dashes must not appear.
+2. Every same-origin ryanduguid.github.io link (canonical tags, above all)
+   resolves to a file on disk instead of being fetched. The site is served
+   from main; this branch's own pages are not live yet, so fetching them
+   would fail even when the link is correct. Checking the file on disk
+   catches a typo immediately, sooner than a live fetch ever could.
+3. Every other absolute http(s) link resolves (2xx after redirects).
+4. The HTML parses cleanly and links carry no empty href.
+5. Retired repository names and em or en dashes must not appear.
 
 Exit 0 clean, 1 on any failure. Stdlib only.
 """
@@ -18,6 +23,7 @@ import sys
 import urllib.request
 from html.parser import HTMLParser
 from pathlib import Path
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parent.parent
 
@@ -36,6 +42,8 @@ RETIRED_NAMES = [
 ]
 
 USER_AGENT = "ryanduguid.github.io-link-check"
+
+SELF_ORIGIN = "https://ryanduguid.github.io"
 
 
 class LinkCollector(HTMLParser):
@@ -57,6 +65,27 @@ def fetch_final_url(url: str) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.status, resp.geturl()
+
+
+def is_self_origin(href: str) -> bool:
+    """True for any href whose scheme and host are this site's own."""
+    parts = urlsplit(href)
+    return f"{parts.scheme}://{parts.netloc}" == SELF_ORIGIN
+
+
+def self_origin_target(href: str) -> Path:
+    """Map a same-origin URL's path to the file it must resolve to on disk.
+
+    The bare origin and any path ending in "/" map to that directory's
+    index.html, matching how GitHub Pages serves a directory. A path with no
+    trailing slash maps to a file of that exact name.
+    """
+    path = urlsplit(href).path
+    if not path or path == "/":
+        return ROOT / "index.html"
+    if path.endswith("/"):
+        return ROOT / path.strip("/") / "index.html"
+    return ROOT / path.lstrip("/")
 
 
 OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)")
@@ -86,6 +115,16 @@ def check_file(path: Path) -> list[str]:
         if not href.startswith("http") or href in seen:
             continue
         seen.add(href)
+        if is_self_origin(href):
+            target = self_origin_target(href)
+            if not target.is_file():
+                failures.append(
+                    f"{rel}: {href} -> no file at {target.relative_to(ROOT).as_posix()} "
+                    "(same-origin link does not resolve on disk)"
+                )
+            else:
+                print(f"ok {rel}: {href} -> {target.relative_to(ROOT).as_posix()} (same-origin, checked on disk)")
+            continue
         try:
             status, final = fetch_final_url(href)
         except Exception as exc:  # noqa: BLE001 - report every failure mode
