@@ -53,8 +53,12 @@ export function baseRateWages({
   const bonus = bonusCents(bonuses);
   const formulaA = baseRateCents + bonus;
   const aggregate = baseRateCents + bonus + overtimeAndPenaltyCents + allowancesCents;
-  // 75 per cent as an exact quarter division. Multiplying an integer by 3 and
-  // dividing by 4 is exact in IEEE754; multiplying by 0.75 as a decimal is not.
+  // 75 per cent as an exact quarter division. Both this and `* 0.75` are exact
+  // here, because 0.75 is 3 x 2^-2 and so is representable; the integer form is
+  // kept because it is exact by construction rather than by a property of the
+  // literal that a later reader has to know. The value that matters is that
+  // formulaB keeps its fractional cents: rounding here instead of at levyCents
+  // would compound.
   const formulaB = (aggregate * 3) / 4;
   return {
     branch: 's 3B(1)',

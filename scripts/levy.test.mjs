@@ -155,11 +155,14 @@ test('bonus frequency test admits weekly, fortnightly and monthly only', () => {
   assert.equal(bonusCents(undefined), 0);
 });
 
-test('Formula B quarter division is exact, never a float artefact', () => {
-  // 3/4 is exact in IEEE754. This guards against anyone rewriting it as * 0.75
-  // on a float dollar amount.
+test('Formula B keeps fractional cents and is never rounded early', () => {
+  // The real risk is not the literal, it is premature rounding. Rounding Formula B
+  // to whole cents here would compound with the rounding in levyCents and would
+  // also change which formula wins in a near-tie. This asserts the fraction
+  // survives.
   const r = baseRateWages({ baseRateCents: 100003, overtimeAndPenaltyCents: 0 });
   assert.equal(r.formulaB, 75002.25);
+  assert.notEqual(r.formulaB, Math.round(r.formulaB), 'must not be pre-rounded');
 });
 
 test('toCents rejects a non-finite amount', () => {
