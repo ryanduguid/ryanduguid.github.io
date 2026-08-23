@@ -245,4 +245,24 @@
     .page-calculator table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
     .page-calculator table th,
     .page-calculator table td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    .page-calculator .disclaimer,
+    .page-calculator .unresolved,
+    .page-calculator .rounding-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .page-calculator .disclaimer p,
+    .page-calculator .unresolved p,
+    .page-calculator .rounding-note p { margin-bottom: 0.75rem; }
+    .page-calculator .disclaimer p:last-child,
+    .page-calculator .unresolved p:last-child,
+    .page-calculator .rounding-note p:last-child { margin-bottom: 0; }
+    .page-calculator .unresolved ul { padding-left: 1.25rem; }
+    .page-calculator .unresolved li { margin-bottom: 0.5rem; }
+    .page-calculator .unresolved li:last-child { margin-bottom: 0; }
+    .page-calculator .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
     .page-calculator tfoot td { font-weight: 700; border-top: 2px solid var(--border); border-bottom: none; }
