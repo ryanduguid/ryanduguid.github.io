@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coal LSL levy calculator - eligible wages under section 3B</title>
+  <meta name="description" content="Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice." />
+  <meta property="og:title" content="Coal LSL levy calculator - eligible wages under section 3B" />
+  <meta property="og:description" content="Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/coal-lsl-levy/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body class="page-calculator">
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>Coal LSL levy calculator</h1>
+    <p class="lead">
+      Work out eligible wages and the payroll levy under section 3B of the Coal
+      Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992.
+      Pick how the employee is paid, enter this month's figures, and see which
+      formula applies and why.
+    </p>
+
+    <form id="calc-form">
+      <fieldset>
+        <legend>How is this employee paid?</legend>
+        <label><input type="radio" name="branch" value="baseRate" checked /> A base rate of pay (section 3B(1))</label>
+        <label><input type="radio" name="branch" value="annual" /> An annual salary (section 3B(2))</label>
+        <label><input type="radio" name="branch" value="casual" /> As a casual (section 3B(3))</label>
+      </fieldset>
+
+      <div id="branch-fields"></div>
+
+      <div class="field">
+        <label for="sacrificed">Salary sacrificed amount</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="sacrificed" name="sacrificed" />
+        <p class="field-note">
+          Applies to base rate of pay, ordinary rate of pay and annual salary.
+          It does not apply to casual loading, bonuses, overtime or allowances.
+        </p>
+      </div>
+
+      <div class="field">
+        <h2 class="section-title">Bonuses</h2>
+        <div id="bonus-rows"></div>
+        <button type="button" id="add-bonus">Add a bonus</button>
+        <p class="field-note">
+          Only bonuses paid weekly, fortnightly or monthly count. Quarterly,
+          half-yearly and annual amounts are excluded, not spread across the year.
+        </p>
+      </div>
+
+      <button type="submit">Calculate</button>
+    </form>
+
+    <div id="result"></div>
+
+    <!-- Task 4: disclaimer, unresolved-components panel, rounding note and
+         provenance byline go here. Left empty on purpose, out of scope here. -->
+    <div id="disclaimer"></div>
+
+    <h2 class="section-title">Employees this month</h2>
+    <div class="field">
+      <label for="employeeLabel">Employee name or ID</label>
+      <input type="text" id="employeeLabel" placeholder="e.g. J Smith" />
+      <button type="button" id="add-employee">Add to table</button>
+    </div>
+    <div id="employee-table-wrap" hidden>
+      <table id="employee-table">
+        <thead>
+          <tr><th>Label</th><th>Branch</th><th>Eligible wages</th><th>Levy</th><th></th></tr>
+        </thead>
+        <tbody id="employee-rows"></tbody>
+        <tfoot>
+          <tr>
+            <td>Total</td>
+            <td></td>
+            <td id="employee-total-wages">$0.00</td>
+            <td id="employee-total-levy">$0.00</td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+      <button type="button" id="export-csv">Export CSV</button>
+    </div>
+
+    <template id="fields-baseRate">
+      <div class="field">
+        <label for="baseRate">Base rate of pay</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="baseRate" name="baseRate" />
+      </div>
+      <div class="field">
+        <label for="overtime">Overtime and penalty rates</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="overtime" name="overtime" />
+      </div>
+      <div class="field">
+        <label for="allowances">Allowances, excluding expense reimbursements</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="allowances" name="allowances" />
+        <p class="field-note">
+          Expense reimbursements are excluded under section 3B(1)(b)(iii).
+          Including them here is a common error.
+        </p>
+      </div>
+    </template>
+
+    <template id="fields-annual">
+      <div class="field">
+        <label for="annualSalary">Annual salary paid this month</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="annualSalary" name="annualSalary" />
+      </div>
+    </template>
+
+    <template id="fields-casual">
+      <div class="field">
+        <label for="reportingMonth">Reporting month</label>
+        <input type="month" id="reportingMonth" name="reportingMonth" required />
+      </div>
+      <div class="field field-checkbox">
+        <label><input type="checkbox" id="instrumentSpecifiesLoading" name="instrumentSpecifiesLoading" /> An industrial instrument specifies a casual loading</label>
+      </div>
+      <div class="field field-checkbox">
+        <label><input type="checkbox" id="loadingQuantifiable" name="loadingQuantifiable" /> That loading can be quantified separately from the ordinary rate</label>
+      </div>
+      <div class="field">
+        <label for="casualBasePay">Base rate pay</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualBasePay" name="casualBasePay" />
+        <p class="field-note">
+          Used with the casual loading below, when the instrument specifies a
+          loading that can be quantified separately.
+        </p>
+      </div>
+      <div class="field">
+        <label for="casualLoading">Casual loading</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualLoading" name="casualLoading" />
+      </div>
+      <div class="field">
+        <label for="ordinaryPay">All-in ordinary rate pay</label>
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="ordinaryPay" name="ordinaryPay" />
+        <p class="field-note">
+          Used instead of base rate pay and loading, when the loading is
+          already inside the ordinary rate or cannot be quantified separately.
+        </p>
+      </div>
+    </template>
+
+    <template id="bonus-row-template">
+      <div class="bonus-row">
+        <input type="number" step="0.01" min="0" inputmode="decimal" class="bonus-amount" placeholder="Amount" aria-label="Bonus amount" />
+        <select class="bonus-frequency" aria-label="Bonus frequency">
+          <option value="weekly">Weekly</option>
+          <option value="fortnightly">Fortnightly</option>
+          <option value="monthly">Monthly</option>
+          <option value="quarterly">Quarterly</option>
+          <option value="halfYearly">Half-yearly</option>
+          <option value="annually">Annually</option>
+        </select>
+        <button type="button" class="bonus-remove">Remove</button>
+      </div>
+    </template>
+
+    <script type="module">
+      import {
+        toCents, grossUp, baseRateWages, annualSalaryWages, casualWages,
+        levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
+      } from '/assets/levy.mjs';
+
+      const money = (cents) =>
+        (cents / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
+
+      function readBonuses(root) {
+        return [...root.querySelectorAll('.bonus-row')].map((row) => ({
+          amount: Number(row.querySelector('.bonus-amount').value || 0),
+          frequency: row.querySelector('.bonus-frequency').value,
+        }));
+      }
+
+      function compute(form) {
+        const branch = form.querySelector('input[name="branch"]:checked').value;
+        const bonuses = readBonuses(form);
+        // Fields for the branches that are hidden do not exist in the DOM,
+        // so form.elements[name] is undefined. Optional chaining, not a crash.
+        const num = (name) => Number(form.elements[name]?.value || 0);
+
+        if (branch === 'annual') {
+          return annualSalaryWages({
+            annualSalaryPaidCents: grossUp(toCents(num('annualSalary')), toCents(num('sacrificed'))),
+            bonuses,
+          });
+        }
+        if (branch === 'casual') {
+          return casualWages({
+            reportingMonth: form.elements.reportingMonth.value,
+            instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
+            loadingQuantifiable: form.elements.loadingQuantifiable.checked,
+            baseRatePayCents: grossUp(toCents(num('casualBasePay')), toCents(num('sacrificed'))),
+            casualLoadingCents: toCents(num('casualLoading')),
+            ordinaryRatePayCents: grossUp(toCents(num('ordinaryPay')), toCents(num('sacrificed'))),
+            bonuses,
+          });
+        }
+        return baseRateWages({
+          baseRateCents: grossUp(toCents(num('baseRate')), toCents(num('sacrificed'))),
+          bonuses,
+          overtimeAndPenaltyCents: toCents(num('overtime')),
+          allowancesCents: toCents(num('allowances')),
+        });
+      }
+
+      function explain(result) {
+        if (result.branch !== 's 3B(1)') {
+          return `Section ${result.branch} applies. There is no greater-of test and no
+                  75 per cent factor on this branch.`;
+        }
+        return result.winner === 'B'
+          ? `Formula B wins this month. Overtime, penalty rates and allowances reached
+             the levy base only because 75 per cent of the aggregate (${money(result.formulaB)})
+             exceeded base pay plus at-least-monthly bonuses (${money(result.formulaA)}).`
+          : `Formula A wins this month. Overtime, penalty rates and allowances did not
+             affect the levy at all, because 75 per cent of the aggregate
+             (${money(result.formulaB)}) did not exceed base pay plus at-least-monthly
+             bonuses (${money(result.formulaA)}).`;
+      }
+
+      function render(result, into) {
+        const cents = result.eligibleWagesCents;
+        // Deviation from the brief's literal snippet: the brief hardcodes
+        // (cents * 27) / 1000 here, which duplicates the rate levy.mjs already
+        // exports. This page sources it from the engine's own constants
+        // instead. The numbers are identical either way.
+        const exact = (cents * LEVY_RATE_NUMERATOR) / LEVY_RATE_DENOMINATOR;
+        const rounded = levyCents(cents);
+        into.innerHTML = '';
+        const rows = [
+          ['Branch applied', `section ${result.branch}`],
+          ...(result.branch === 's 3B(1)'
+            ? [['Formula A', money(result.formulaA)], ['Formula B', money(result.formulaB)]]
+            : []),
+          ['Eligible wages', money(cents)],
+          [`Levy at 2.7 per cent, as at ${LEVY_RATE_AS_AT}`, money(rounded)],
+          ...(exact !== rounded ? [['Before rounding', `${(exact / 100).toFixed(4)} dollars`]] : []),
+        ];
+        for (const [label, value] of rows) {
+          const row = document.createElement('div');
+          row.className = 'result-row';
+          row.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+          into.append(row);
+        }
+        const why = document.createElement('p');
+        why.className = 'result-why';
+        why.textContent = explain(result);
+        into.append(why);
+      }
+
+      // Wiring beyond the engine call: branch switching, bonus rows, the
+      // per-employee table and CSV export. None of this touches the formulas
+      // above; it only reads and displays what compute() and render() return.
+
+      const calcForm = document.getElementById('calc-form');
+      const branchFields = document.getElementById('branch-fields');
+      const bonusRows = document.getElementById('bonus-rows');
+      const resultEl = document.getElementById('result');
+      const employeeRows = document.getElementById('employee-rows');
+      const employeeTableWrap = document.getElementById('employee-table-wrap');
+
+      function showBranch(branch) {
+        branchFields.innerHTML = '';
+        branchFields.append(document.getElementById(`fields-${branch}`).content.cloneNode(true));
+      }
+      calcForm.querySelectorAll('input[name="branch"]').forEach((r) =>
+        r.addEventListener('change', (e) => showBranch(e.target.value))
+      );
+      showBranch(calcForm.elements.branch.value);
+
+      document.getElementById('add-bonus').addEventListener('click', () => {
+        bonusRows.append(document.getElementById('bonus-row-template').content.cloneNode(true));
+      });
+      bonusRows.addEventListener('click', (e) => {
+        if (e.target.classList.contains('bonus-remove')) e.target.closest('.bonus-row').remove();
+      });
+
+      calcForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        render(compute(calcForm), resultEl);
+      });
+
+      let employees = [];
+
+      function escapeHtml(s) {
+        return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      }
+
+      function renderEmployees() {
+        employeeRows.innerHTML = '';
+        let totalWages = 0;
+        let totalLevy = 0;
+        employees.forEach((emp, i) => {
+          totalWages += emp.eligibleWagesCents;
+          totalLevy += emp.levyCents;
+          const tr = document.createElement('tr');
+          tr.innerHTML = `<td>${escapeHtml(emp.label)}</td><td>${emp.branch}</td>` +
+            `<td>${money(emp.eligibleWagesCents)}</td><td>${money(emp.levyCents)}</td>` +
+            `<td><button type="button" class="link-button" data-remove="${i}">Remove</button></td>`;
+          employeeRows.append(tr);
+        });
+        document.getElementById('employee-total-wages').textContent = money(totalWages);
+        document.getElementById('employee-total-levy').textContent = money(totalLevy);
+        employeeTableWrap.hidden = employees.length === 0;
+      }
+
+      document.getElementById('add-employee').addEventListener('click', () => {
+        const result = compute(calcForm);
+        const labelInput = document.getElementById('employeeLabel');
+        const label = labelInput.value.trim() || `Employee ${employees.length + 1}`;
+        employees.push({
+          label,
+          branch: result.branch,
+          eligibleWagesCents: result.eligibleWagesCents,
+          levyCents: levyCents(result.eligibleWagesCents),
+        });
+        labelInput.value = '';
+        renderEmployees();
+      });
+
+      employeeRows.addEventListener('click', (e) => {
+        const idx = e.target.dataset.remove;
+        if (idx !== undefined) {
+          employees.splice(Number(idx), 1);
+          renderEmployees();
+        }
+      });
+
+      function csvField(s) {
+        return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+      }
+
+      document.getElementById('export-csv').addEventListener('click', () => {
+        const lines = ['Estimate only, not advice.', 'Label,Branch,Eligible wages,Levy'];
+        let totalWages = 0;
+        let totalLevy = 0;
+        for (const emp of employees) {
+          totalWages += emp.eligibleWagesCents;
+          totalLevy += emp.levyCents;
+          lines.push([csvField(emp.label), emp.branch, (emp.eligibleWagesCents / 100).toFixed(2),
+            (emp.levyCents / 100).toFixed(2)].join(','));
+        }
+        lines.push(['Total', '', (totalWages / 100).toFixed(2), (totalLevy / 100).toFixed(2)].join(','));
+        const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'coal-lsl-levy.csv';
+        document.body.append(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      });
+    </script>
+  </div>
+</body>
+</html>

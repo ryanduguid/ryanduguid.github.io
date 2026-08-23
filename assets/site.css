@@ -172,3 +172,77 @@
     }
     .page-404 .links a:first-child { border-color: var(--accent); }
     .page-404 .links a:hover { background: var(--surface); text-decoration: underline; }
+
+    /* tools/coal-lsl-levy/index.html-only rules, scoped so they cannot affect other pages */
+    .page-calculator .lead { color: var(--text-muted); margin: 1rem 0 1.5rem; }
+    .page-calculator fieldset {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    .page-calculator legend { padding: 0 0.4rem; font-weight: 600; }
+    .page-calculator fieldset label { display: block; margin: 0.4rem 0; font-weight: 400; }
+    .page-calculator .field { margin: 1rem 0; }
+    .page-calculator .field > label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.9rem; }
+    .page-calculator .field input[type="number"],
+    .page-calculator .field input[type="month"],
+    .page-calculator .field input[type="text"] {
+      width: 100%;
+      max-width: 260px;
+      padding: 0.4rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .page-calculator .field-note { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.3rem; }
+    .page-calculator .field-checkbox label { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; }
+    .page-calculator .bonus-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+    .page-calculator .bonus-row input,
+    .page-calculator .bonus-row select {
+      padding: 0.4rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+    }
+    .page-calculator button {
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .page-calculator button:hover { background: var(--accent-light); border-color: var(--accent-light); }
+    .page-calculator button.link-button {
+      background: none;
+      border: none;
+      color: var(--accent-light);
+      text-decoration: underline;
+      padding: 0.2rem 0.4rem;
+    }
+    .page-calculator #result {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .page-calculator #result:empty { display: none; }
+    .page-calculator .result-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-calculator .result-row:last-of-type { border-bottom: none; }
+    .page-calculator .result-why { margin-top: 0.75rem; color: var(--text-muted); font-size: 0.9rem; }
+    .page-calculator table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    .page-calculator table th,
+    .page-calculator table td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    .page-calculator tfoot td { font-weight: 700; border-top: 2px solid var(--border); border-bottom: none; }
