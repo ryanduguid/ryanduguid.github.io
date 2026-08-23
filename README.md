@@ -24,7 +24,7 @@ then visit `http://localhost:8000/`.
 Run locally:
 
 ```bash
-python tools/check_links.py
+python scripts/check_links.py
 ```
 
 ## Licence
