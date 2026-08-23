@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>When is payday super actually due?</title>
+  <meta name="description" content="From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line." />
+  <meta property="og:title" content="When is payday super actually due?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/payday-super/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>When is payday super actually due, and what happens if it is late</h1>
+    <p>
+      Since 1 July 2026, super guarantee contributions are generally due within
+      seven business days of each payday, not once a quarter. Business days are
+      defined nationally: a public holiday in any state or territory stops the
+      clock for every employer, not just employers in that state. A contribution
+      only counts as on time once the fund receives it, not once you have sent it
+      to a clearing house.
+    </p>
+    <p>
+      Miss the deadline and the ATO can raise an SG shortfall, notional earnings
+      and an administrative uplift of up to 60 per cent, on top of the amount
+      owed. This tool reads a CSV export from payroll, clearing house and fund
+      records, flags every contribution that missed the deadline on the facts
+      supplied, and produces an experimental SG charge estimate for those lines.
+      The repository's own framing is "Experimental review aid. Not a compliance
+      determination."
+    </p>
+    <p>
+      Payroll exports usually only show when money left the business, not when
+      the fund received it, and the law tests receipt by the fund. Without a
+      fund receipt date, a line can only come back "at risk", not a real verdict.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Checks a payroll export against the payday super deadline, seven business days after payday or twenty for the first contribution to a new fund, using a national public holiday calendar.</li>
+      <li>Produces an experimental SG charge estimate for lines that the supplied facts show are late, combining the shortfall, notional earnings and administrative uplift.</li>
+      <li>Refuses to guess: a line is marked unknown, rather than given a verdict, wherever the records supplied do not establish the facts the law actually tests.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        This is an educational tool, not tax, legal or financial advice, and
+        using it creates no professional relationship. The ATO assesses the SG
+        charge; figures here are experimental estimates that exclude components
+        listed above. Check anything material against current ATO guidance and
+        calculators, and get advice for your circumstances.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/payday-super-checker.git
+cd payday-super-checker &amp;&amp; pip install .</code></pre>
+    <p><a href="https://github.com/ryanduguid/payday-super-checker">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Subcontract ledger skills for construction, mining</title>
+  <meta name="description" content="Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes." />
+  <meta property="og:title" content="Subcontract ledger skills for construction, mining" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/subcontractor-ledgers/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>Subcontract ledger workflows for construction and mining</h1>
+    <p>
+      This is not a standalone calculator. It is a set of Claude Code skills,
+      so you need an AI coding agent, such as Claude Code, already set up
+      before any of it does anything. Without one, these skills will not run.
+    </p>
+    <p>
+      With an agent in place, the skills cover the contracting core: progress
+      claim preparation, retention schedules, work in progress and
+      over-and-under billing under AASB 15, and contract cost tracking. For
+      mining services and earthmoving specifically, they cover fuel tax credit
+      claims, the Coal LSL levy, payroll tax on contractors, and plant and
+      equipment costing.
+    </p>
+    <p>
+      Each skill encodes the workflow, the steps, the tie-outs, the exceptions
+      to chase, rather than hard-coding rates and thresholds that go stale and
+      differ by state; it sends the agent back to the primary source instead.
+      Two things it deliberately will not do: decide whether a contract is
+      covered by a security of payment Act, or conclude that a worker is a
+      contractor rather than an employee. Both stay with a person.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>The contracting core: progress claim preparation, retention schedules, work in progress and over-and-under billing under AASB 15, and contract cost tracking.</li>
+      <li>Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</li>
+      <li>Paying subcontractors: super guarantee under the extended definition, TPAR, and a shared reference skill for the exports these workflows need.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        These skills prepare and check. They do not serve a payment claim,
+        lodge a return, or sign anything. Contract interpretation, eligibility
+        conclusions and professional judgement stay with a person. Nothing
+        here is tax, accounting or legal advice.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>npx skills add ryanduguid/hardhat-ledger</code></pre>
+    <p><a href="https://github.com/ryanduguid/hardhat-ledger">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+</body>
+</html>
