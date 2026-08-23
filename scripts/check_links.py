@@ -1,6 +1,6 @@
-"""Link and content checks for index.html.
+"""Link and content checks for every HTML file in the repository.
 
-Checks, in order:
+Checks, in order, per file:
 1. Every github.com/ryanduguid/<repo> link resolves to that exact repository.
    A rename redirect (301 to a different repo path) is a FAILURE even though
    the request ends in a 200, because redirects break if the old name is reused.
@@ -20,7 +20,6 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-INDEX = ROOT / "index.html"
 
 RETIRED_NAMES = [
     "CharlesHenryWickens",
@@ -60,24 +59,28 @@ def fetch_final_url(url: str) -> tuple[int, str]:
         return resp.status, resp.geturl()
 
 
-def main() -> int:
+OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)")
+
+
+def check_file(path: Path) -> list[str]:
+    """Run every check against a single HTML file, return its failures."""
     failures: list[str] = []
-    html = INDEX.read_text(encoding="utf-8")
+    rel = path.relative_to(ROOT).as_posix()
+    html = path.read_text(encoding="utf-8")
 
     parser = LinkCollector()
     parser.feed(html)
     parser.close()
     if parser.empty_hrefs:
-        failures.append(f"{parser.empty_hrefs} empty href/src attribute(s)")
+        failures.append(f"{rel}: {parser.empty_hrefs} empty href/src attribute(s)")
 
     for name in RETIRED_NAMES:
         if name in html:
-            failures.append(f"retired repository name in index.html: {name}")
+            failures.append(f"{rel}: retired repository name: {name}")
     for ch, label in (("—", "em dash"), ("–", "en dash")):
         if ch in html:
-            failures.append(f"{label} in index.html")
+            failures.append(f"{rel}: {label} present")
 
-    own_repo = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)")
     seen: set[str] = set()
     for href in parser.hrefs:
         if not href.startswith("http") or href in seen:
@@ -86,26 +89,53 @@ def main() -> int:
         try:
             status, final = fetch_final_url(href)
         except Exception as exc:  # noqa: BLE001 - report every failure mode
-            failures.append(f"{href} -> {exc}")
+            failures.append(f"{rel}: {href} -> {exc}")
             continue
         if status >= 400:
-            failures.append(f"{href} -> HTTP {status}")
+            failures.append(f"{rel}: {href} -> HTTP {status}")
             continue
-        m = own_repo.match(href)
+        m = OWN_REPO.match(href)
         if m:
-            fm = own_repo.match(final)
+            fm = OWN_REPO.match(final)
             if not fm or fm.group(1).lower() != m.group(1).lower():
                 failures.append(
-                    f"{href} redirected to {final} (rename redirect, repoint the link)"
+                    f"{rel}: {href} redirected to {final} (rename redirect, repoint the link)"
                 )
-        print(f"ok {href}")
+        print(f"ok {rel}: {href}")
+
+    print(f"{rel}: {len(seen)} links checked")
+    return failures
+
+
+def html_files() -> list[Path]:
+    """Every HTML file in the repository, sorted, excluding dot directories."""
+    return sorted(
+        p
+        for p in ROOT.rglob("*.html")
+        if not any(part.startswith(".") for part in p.relative_to(ROOT).parts)
+    )
+
+
+def _self_check() -> None:
+    found = html_files()
+    names = {p.relative_to(ROOT).as_posix() for p in found}
+    assert "index.html" in names, f"index.html not discovered, got {sorted(names)}"
+    assert "404.html" in names, f"404.html not discovered, got {sorted(names)}"
+    assert all(p.suffix == ".html" for p in found), "non-HTML path returned"
+    print(f"self-check OK: {len(found)} HTML files discovered")
+
+
+def main() -> int:
+    failures: list[str] = []
+    for path in html_files():
+        failures.extend(check_file(path))
 
     if failures:
         print(f"\n{len(failures)} failure(s):")
         for f in failures:
             print(f"  FAIL {f}")
         return 1
-    print(f"\nall clear: {len(seen)} links checked")
+    print("\nall clear")
     return 0
 
 

@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: "3.12"
       - name: Link and content checks
-        run: python tools/check_links.py
+        run: python scripts/check_links.py
