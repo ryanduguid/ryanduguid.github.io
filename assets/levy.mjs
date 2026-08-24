@@ -92,8 +92,13 @@ export function casualWages({
   }
   const bonus = bonusCents(bonuses);
   if (reportingMonth < CASUAL_METHOD_CHANGE_MONTH) {
-    // Mirrors the s 3B(1)(a) shape, with no casual loading component.
-    return { branch: 'pre-2024', eligibleWagesCents: baseRatePayCents + bonus };
+    // Mirrors the s 3B(1)(a) shape, with no casual loading component. The
+    // base-rate/ordinary-rate split is a post-2024 UI distinction; before
+    // then there was just one figure, so fall back to the ordinary rate
+    // field when only that one was filled in. Without this, a user who
+    // enters the all-in rate for a pre-2024 month got a silent $0.00.
+    const payCents = baseRatePayCents || ordinaryRatePayCents;
+    return { branch: 'pre-2024', eligibleWagesCents: payCents + bonus };
   }
   if (instrumentSpecifiesLoading && loadingQuantifiable) {
     return {

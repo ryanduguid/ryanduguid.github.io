@@ -4,14 +4,23 @@ Checks, in order, per file:
 1. Every github.com/ryanduguid/<repo> link resolves to that exact repository.
    A rename redirect (301 to a different repo path) is a FAILURE even though
    the request ends in a 200, because redirects break if the old name is reused.
-2. Every same-origin ryanduguid.github.io link (canonical tags, above all)
-   resolves to a file on disk instead of being fetched. The site is served
-   from main; this branch's own pages are not live yet, so fetching them
-   would fail even when the link is correct. Checking the file on disk
-   catches a typo immediately, sooner than a live fetch ever could.
+2. Every same-origin link, whether an absolute https://ryanduguid.github.io/...
+   href or a root-relative one like "/tools/payday-super/" or
+   "/assets/site.css", resolves to a file on disk instead of being fetched.
+   The site is served from main; this branch's own pages are not live yet, so
+   fetching them would fail even when the link is correct. Checking the file
+   on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects).
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
+
+Known gap: the calculator page loads its engine with an ES module import
+("import { ... } from '/assets/levy.mjs'" inside a <script type="module">
+body), not an href or src attribute, so HTMLParser never sees that path and
+a typo there would not be caught here even after the module resolution
+below. That import is not checked; the levy engine tests are the guard for
+that file instead. This script deliberately stays a stdlib HTML-attribute
+checker, not a JavaScript parser.
 
 Exit 0 clean, 1 on any failure. Stdlib only.
 """
@@ -112,10 +121,15 @@ def check_file(path: Path) -> list[str]:
 
     seen: set[str] = set()
     for href in parser.hrefs:
-        if not href.startswith("http") or href in seen:
+        if href in seen:
+            continue
+        # Root-relative hrefs ("/", "/tools/foo/", "/assets/site.css") are
+        # same-origin by construction; admit them alongside absolute http(s)
+        # links rather than skipping them, which is the bug this fixes.
+        if not (href.startswith("http") or href.startswith("/")):
             continue
         seen.add(href)
-        if is_self_origin(href):
+        if href.startswith("/") or is_self_origin(href):
             target = self_origin_target(href)
             if not target.is_file():
                 failures.append(

@@ -102,6 +102,7 @@ test('D10 casual: unquantifiable loading uses the ordinary rate and is not added
     instrumentSpecifiesLoading: true,
     loadingQuantifiable: false,
     ordinaryRatePayCents: d(2250),  // 50.00/hr all-in x 45 hours
+    casualLoadingCents: d(450),     // must be ignored on this branch
   });
   assert.equal(r.branch, 's 3B(3)(b)');
   assert.equal(r.eligibleWagesCents, 225000);

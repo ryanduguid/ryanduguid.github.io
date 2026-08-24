@@ -369,10 +369,8 @@
       function renderEmployees() {
         employeeRows.innerHTML = '';
         let totalWages = 0;
-        let totalLevy = 0;
         employees.forEach((emp, i) => {
           totalWages += emp.eligibleWagesCents;
-          totalLevy += emp.levyCents;
           const tr = document.createElement('tr');
           tr.innerHTML = `<td>${escapeHtml(emp.label)}</td><td>${emp.branch}</td>` +
             `<td>${money(emp.eligibleWagesCents)}</td><td>${money(emp.levyCents)}</td>` +
@@ -380,7 +378,10 @@
           employeeRows.append(tr);
         });
         document.getElementById('employee-total-wages').textContent = money(totalWages);
-        document.getElementById('employee-total-levy').textContent = money(totalLevy);
+        // Round once on the summed eligible wages, not the sum of already
+        // rounded per-employee levies (the levy is imposed on the employer's
+        // aggregate, and rounding happens once, at the final step only).
+        document.getElementById('employee-total-levy').textContent = money(levyCents(totalWages));
         employeeTableWrap.hidden = employees.length === 0;
       }
 
@@ -422,20 +423,25 @@
       });
 
       function csvField(s) {
-        return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+        // A field starting with =, +, - or @ is read as a formula by Excel.
+        // A leading apostrophe forces it back to text, same as Excel's own
+        // "format as text" convention, before the usual quoting for commas,
+        // quotes and newlines.
+        const safe = /^[=+\-@]/.test(s) ? `'${s}` : s;
+        return /[",\n]/.test(safe) ? `"${safe.replace(/"/g, '""')}"` : safe;
       }
 
       document.getElementById('export-csv').addEventListener('click', () => {
         const lines = ['Estimate only, not advice.', 'Label,Branch,Eligible wages,Levy'];
         let totalWages = 0;
-        let totalLevy = 0;
         for (const emp of employees) {
           totalWages += emp.eligibleWagesCents;
-          totalLevy += emp.levyCents;
           lines.push([csvField(emp.label), emp.branch, (emp.eligibleWagesCents / 100).toFixed(2),
             (emp.levyCents / 100).toFixed(2)].join(','));
         }
-        lines.push(['Total', '', (totalWages / 100).toFixed(2), (totalLevy / 100).toFixed(2)].join(','));
+        // Same rounding rule as the on-page total: round once on the summed
+        // eligible wages, not the sum of already rounded per-employee levies.
+        lines.push(['Total', '', (totalWages / 100).toFixed(2), (levyCents(totalWages) / 100).toFixed(2)].join(','));
         const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');

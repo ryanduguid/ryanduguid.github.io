@@ -21,6 +21,29 @@
     a { color: var(--accent-light); text-decoration: none; }
     a:hover { text-decoration: underline; }
 
+    /* Base content typography, shared by every page. The six tool description
+       pages are built from plain p/ul/ol/li/blockquote/h1 and need these to
+       read at all. Everywhere else these elements already have a more
+       specific rule (header h1, .page-404, .tools-intro, .lead, .field-note,
+       .disclaimer/.unresolved/.rounding-note, .byline) that wins on
+       specificity, so it keeps its current look unchanged. */
+    p { margin-bottom: 1rem; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    ul, ol { padding-left: 1.25rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.5rem; }
+    li:last-child { margin-bottom: 0; }
+    blockquote {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 0.75rem 1rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
+    blockquote p { margin-bottom: 0.75rem; }
+    blockquote p:last-child { margin-bottom: 0; }
+    .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
+
     .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
 
     header { text-align: center; padding: 3rem 0 2rem; }
@@ -150,6 +173,10 @@
       margin-top: 2rem;
     }
     footer a { color: var(--accent-light); }
+    /* Compensates the new base `p { margin-bottom }` above so the two footer
+       paragraphs keep their current spacing (governed by the inline
+       margin-top on the second one), not a new collapsed margin. */
+    footer p { margin-bottom: 0; }
 
     .links {
       display: flex;
@@ -223,7 +250,7 @@
       color: var(--text);
       font-size: 0.95rem;
     }
-    .page-calculator .field-note { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.3rem; }
+    .page-calculator .field-note { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.3rem; margin-bottom: 0; }
     .page-calculator .field-checkbox label { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; }
     .page-calculator .bonus-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
     .page-calculator .bonus-row input,
@@ -287,7 +314,7 @@
     .page-calculator .disclaimer p:last-child,
     .page-calculator .unresolved p:last-child,
     .page-calculator .rounding-note p:last-child { margin-bottom: 0; }
-    .page-calculator .unresolved ul { padding-left: 1.25rem; }
+    .page-calculator .unresolved ul { padding-left: 1.25rem; margin-bottom: 0; }
     .page-calculator .unresolved li { margin-bottom: 0.5rem; }
     .page-calculator .unresolved li:last-child { margin-bottom: 0; }
     .page-calculator .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
