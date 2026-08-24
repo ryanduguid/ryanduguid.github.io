@@ -1,32 +1,46 @@
 # Ryan Duguid
 
-> Australian accountant based in Newcastle, NSW, building open-source computational accounting engines, MCP servers, Excel LAMBDAs and deterministic AI workflows for Australian taxation and payroll. Provisional member of CA ANZ. Nothing here is tax, legal or financial advice.
+> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. This site is the index of those tools. It offers no accounting services and takes no engagements.
 
-All tools compute from primary sources (Commonwealth legislation, ATO rulings and rate schedules, AASB/APESB standards), use exact decimal arithmetic, keep client data local, and leave lodgement decisions to a qualified professional. Figures are free to cite with attribution; verify them against current ATO guidance before relying on them.
+Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic, client data stays local, and lodgement decisions stay with a qualified professional. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution, and should be verified against current guidance before anyone relies on them.
+
+## Person
+
+- [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
 
 ## Reference tables
 
-- [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today, with the payday-super timing change from 1 July 2026. Sourced from the ATO key rates page.
+- [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
 
-## Browser tools (nothing to install)
+## Browser tools, nothing to install
 
-- [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): work out eligible wages and the levy owed under Coal LSL Scheme section 3B.
+- [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
 
-## Tool guides (open source, install and run locally)
+## Tool guides, open source, install and run locally
 
-- [When is payday super actually due, and what happens if it is late](https://ryanduguid.github.io/tools/payday-super/): check contribution timing against the seven-business-day deadline and estimate SG charge exposure.
-- [How does this business compare to the ATO small business benchmarks](https://ryanduguid.github.io/tools/ato-benchmarks/): offline variance analysis against published benchmark ranges.
-- [Is this trust distribution inside the section 100A green zone](https://ryanduguid.github.io/tools/trust-distributions/): check a distribution against green zone guidance.
-- [What company tax rate applies, and is the franking account in order](https://ryanduguid.github.io/tools/company-tax-franking/): base-rate-entity test, applicable rate and franking account checks.
-- [Subcontract ledger workflows for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): practical ledger workflows for subcontractors.
-- [How to export a Xero trial balance to CSV that actually balances](https://ryanduguid.github.io/tools/xero-trial-balance/): validated TB export ready for Excel, Power BI or pandas.
+- [Payday super due dates and SG charge](https://ryanduguid.github.io/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
+- [ATO small business benchmark comparison](https://ryanduguid.github.io/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
+- [Section 100A and Division 6 trust distributions](https://ryanduguid.github.io/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
+- [Company tax rate and franking account](https://ryanduguid.github.io/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
+- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run.
+- [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
 
 ## Install
 
-- Australian Accounting & Tax MCP server (aus-accounting-mcp): `claude mcp add aus-accounting -- uvx --from git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp`
-- Public practice & tax skills (9 skills: BAS, FBT, Div 7A, STP and more): `npx skills add ryanduguid/australian-accounting-skills`
-- Construction & mining subcontractor skills: `npx skills add ryanduguid/hardhat-ledger`
+- Australian accounting and tax MCP server (aus-accounting-mcp): `claude mcp add aus-accounting -- uvx --from git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp`
+- Public practice and tax skills, nine of them, covering BAS, FBT, Division 7A and STP: `npx skills add ryanduguid/australian-accounting-skills`
+- Construction and mining subcontractor skills: `npx skills add ryanduguid/hardhat-ledger`
+
+## Source code
+
+- [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
+- [Awesome Australian Accounting Tech](https://github.com/ryanduguid/awesome-australian-accounting-tech): curated index of open-source Australian accounting libraries, ATO datasets and Commonwealth legislation APIs.
+
+## Optional
+
+- [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
+- [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.
 
 ## About
 
-Written independently by Ryan Duguid, a provisional member of Chartered Accountants ANZ, in his own time and on his own equipment. Contact and source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+Written independently by Ryan Duguid, a provisional member of Chartered Accountants ANZ, in his own time and on his own equipment. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
