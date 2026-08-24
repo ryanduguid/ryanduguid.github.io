@@ -1,0 +1,321 @@
+
+    :root {
+      --bg: #04001F;
+      --surface: #140E24;
+      --surface-2: #1E1236;
+      --surface-3: #2D184E;
+      --accent: #5C2D91;
+      --accent-light: #9F6FD8;
+      --text: #ECECEC;
+      --text-muted: #B1AFAD;
+      --border: #4F485E;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    a { color: var(--accent-light); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* Base content typography, shared by every page. The six tool description
+       pages are built from plain p/ul/ol/li/blockquote/h1 and need these to
+       read at all. Everywhere else these elements already have a more
+       specific rule (header h1, .page-404, .tools-intro, .lead, .field-note,
+       .disclaimer/.unresolved/.rounding-note, .byline) that wins on
+       specificity, so it keeps its current look unchanged. */
+    p { margin-bottom: 1rem; }
+    h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    ul, ol { padding-left: 1.25rem; margin-bottom: 1rem; }
+    li { margin-bottom: 0.5rem; }
+    li:last-child { margin-bottom: 0; }
+    blockquote {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 4px 4px 0;
+      padding: 0.75rem 1rem;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+    }
+    blockquote p { margin-bottom: 0.75rem; }
+    blockquote p:last-child { margin-bottom: 0; }
+    .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
+
+    .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+    header { text-align: center; padding: 3rem 0 2rem; }
+    header h1 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    header p.subtitle { color: var(--text-muted); font-size: 1.05rem; max-width: 640px; margin: 0 auto 1rem; }
+    .badges { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
+    .badge {
+      display: inline-block; padding: 0.3rem 0.75rem; border-radius: 4px;
+      font-size: 0.8rem; font-weight: 600;
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
+    }
+
+    .install-section {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .install-section h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+    pre {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+    code { font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace; }
+    .comment { color: var(--text-muted); }
+    .cmd { color: var(--accent-light); }
+
+    h2.section-title {
+      font-size: 1.1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.5rem;
+      margin: 2.5rem 0 1rem;
+    }
+
+    .tools-intro { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
+    .tools-list {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    @media (min-width: 640px) {
+      .tools-list { grid-template-columns: 1fr 1fr; }
+    }
+    .tool-card {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 0.9rem 1rem;
+    }
+    .tool-card .tool-name { font-weight: 600; font-size: 0.95rem; }
+    .tool-card .desc { color: var(--text-muted); font-size: 0.85rem; margin-top: 0.35rem; }
+
+    .repo-card .tool-link {
+      display: inline-block;
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .stack {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    @media (min-width: 640px) {
+      .stack { grid-template-columns: 1fr 1fr 1fr; }
+    }
+    .stack-col h3 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+    .stack-col.layer-1 h3 { border-color: var(--border); }
+    .stack-col.layer-2 h3 { border-color: var(--accent); }
+    .stack-col.layer-3 h3 { border-color: var(--accent-light); }
+
+    .repo-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .repo-card .name { font-weight: 600; font-size: 0.9rem; }
+    .repo-card .alias { color: var(--text-muted); font-size: 0.8rem; font-family: monospace; }
+    .repo-card .desc { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.25rem; }
+
+    .principles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+    @media (max-width: 639px) {
+      .principles { grid-template-columns: 1fr; }
+    }
+    .principle {
+      background: var(--surface);
+      border-left: 3px solid var(--accent);
+      padding: 0.75rem 1rem;
+      border-radius: 0 4px 4px 0;
+    }
+    .principle strong { display: block; margin-bottom: 0.25rem; font-size: 0.9rem; }
+    .principle span { color: var(--text-muted); font-size: 0.8rem; }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--accent-light); }
+    /* Compensates the new base `p { margin-bottom }` above so the two footer
+       paragraphs keep their current spacing (governed by the inline
+       margin-top on the second one), not a new collapsed margin. */
+    footer p { margin-bottom: 0; }
+
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: 1rem;
+    }
+    .links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.2s;
+    }
+    .links a:hover { background: var(--surface); text-decoration: none; }
+  
+    /* 404.html-only rules, scoped so they cannot affect index.html */
+    body.page-404 { display: flex; align-items: center; justify-content: center; }
+    .page-404 .container { max-width: 640px; padding: 2rem 1.5rem; text-align: center; margin: 0; }
+    .page-404 .code {
+      font-family: "JetBrains Mono", "Fira Code", "Cascadia Code", Consolas, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+    .page-404 h1 { font-size: 1.9rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .page-404 p.lead { color: var(--text-muted); margin-bottom: 1.75rem; }
+    .page-404 .links { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-top: 0; }
+    .page-404 .links a {
+      display: inline-block;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--accent-light);
+      text-decoration: none;
+      transition: none;
+    }
+    .page-404 .links a:first-child { border-color: var(--accent); }
+    .page-404 .links a:hover { background: var(--surface); text-decoration: underline; }
+
+    /* tools/coal-lsl-levy/index.html-only rules, scoped so they cannot affect other pages */
+    .page-calculator .lead { color: var(--text-muted); margin: 1rem 0 1.5rem; }
+    .page-calculator fieldset {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1rem;
+      margin: 1.5rem 0;
+    }
+    .page-calculator legend { padding: 0 0.4rem; font-weight: 600; }
+    .page-calculator fieldset label { display: block; margin: 0.4rem 0; font-weight: 400; }
+    .page-calculator .field { margin: 1rem 0; }
+    .page-calculator .field > label { display: block; margin-bottom: 0.3rem; font-weight: 600; font-size: 0.9rem; }
+    .page-calculator .field input[type="number"],
+    .page-calculator .field input[type="month"],
+    .page-calculator .field input[type="text"] {
+      width: 100%;
+      max-width: 260px;
+      padding: 0.4rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+    .page-calculator .field-note { color: var(--text-muted); font-size: 0.8rem; margin-top: 0.3rem; margin-bottom: 0; }
+    .page-calculator .field-checkbox label { display: flex; align-items: center; gap: 0.5rem; font-weight: 400; }
+    .page-calculator .bonus-row { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; margin-bottom: 0.5rem; }
+    .page-calculator .bonus-row input,
+    .page-calculator .bonus-row select {
+      padding: 0.4rem 0.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text);
+    }
+    .page-calculator button {
+      padding: 0.5rem 1rem;
+      background: var(--accent);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      color: var(--text);
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+    .page-calculator button:hover { background: var(--accent-light); border-color: var(--accent-light); }
+    .page-calculator button.link-button {
+      background: none;
+      border: none;
+      color: var(--accent-light);
+      text-decoration: underline;
+      padding: 0.2rem 0.4rem;
+    }
+    .page-calculator #result {
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .page-calculator #result:empty { display: none; }
+    .page-calculator .result-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.35rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .page-calculator .result-row:last-of-type { border-bottom: none; }
+    .page-calculator .result-why { margin-top: 0.75rem; color: var(--text-muted); font-size: 0.9rem; }
+    .page-calculator table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.9rem; }
+    .page-calculator table th,
+    .page-calculator table td { text-align: left; padding: 0.5rem; border-bottom: 1px solid var(--border); }
+    .page-calculator .disclaimer,
+    .page-calculator .unresolved,
+    .page-calculator .rounding-note {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+    .page-calculator .disclaimer p,
+    .page-calculator .unresolved p,
+    .page-calculator .rounding-note p { margin-bottom: 0.75rem; }
+    .page-calculator .disclaimer p:last-child,
+    .page-calculator .unresolved p:last-child,
+    .page-calculator .rounding-note p:last-child { margin-bottom: 0; }
+    .page-calculator .unresolved ul { padding-left: 1.25rem; margin-bottom: 0; }
+    .page-calculator .unresolved li { margin-bottom: 0.5rem; }
+    .page-calculator .unresolved li:last-child { margin-bottom: 0; }
+    .page-calculator .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
+    .page-calculator tfoot td { font-weight: 700; border-top: 2px solid var(--border); border-bottom: none; }

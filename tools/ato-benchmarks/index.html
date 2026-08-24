@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How does this business compare to ATO benchmarks?</title>
+  <meta name="description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta property="og:title" content="How does this business compare to ATO benchmarks?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/ato-benchmarks/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/ato-benchmarks/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>How does this business compare to the ATO small business benchmarks</h1>
+    <p>
+      The ATO publishes benchmark ranges for around 100 industries and uses them
+      to decide which small businesses to look at more closely. Checking a
+      client against them before lodgement is a sensible thing to do, and it is
+      usually done by hand: find the industry page, work out which turnover band
+      applies, add up the right accounts, and divide.
+    </p>
+    <p>
+      This tool does that on your own machine, with no network call in the
+      runtime, and it records which account went into which figure so the
+      answer can be checked by someone else later. It applies the ATO's own
+      narrow definitions rather than a rough "expenses over income": wages
+      sitting inside cost of sales are excluded from that ratio, and payments to
+      associated persons come out of total expenses before the division.
+    </p>
+    <p>
+      The workflow is two steps on purpose. First the tool drafts a mapping from
+      the profit and loss, suggesting a bucket for each account from its name
+      alone. Then a person reviews and corrects that mapping, because no account
+      name on its own tells you whether wages went to an associate.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
+      <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
+      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range, so the comparison can be checked by someone else.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        It is not tax advice, and sitting outside a range is not a finding that
+        anything is wrong. The ATO publishes ranges precisely because
+        businesses differ.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/ato-benchmark-compare.git ato-benchmark-compare
+cd ato-benchmark-compare
+pip install .</code></pre>
+    <p><a href="https://github.com/ryanduguid/ato-benchmark-compare">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "ATO small business benchmark comparison tool",
+    "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://ryanduguid.github.io/tools/ato-benchmarks/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD"
+    }
+  }
+  </script>
+</body>
+</html>

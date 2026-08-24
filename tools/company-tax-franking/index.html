@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What company tax rate applies, and is franking OK?</title>
+  <meta name="description" content="Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule." />
+  <meta property="og:title" content="What company tax rate applies, and is franking OK?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/company-tax-franking/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/company-tax-franking/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>What company tax rate applies, and is the franking account in order</h1>
+    <p>
+      A company's tax rate turns on whether it is a base rate entity: aggregated
+      turnover under the year's threshold, and no more than 80 per cent of
+      assessable income being base rate entity passive income. Get that test
+      wrong and the error carries straight through to the rate used to frank a
+      dividend.
+    </p>
+    <p>
+      This tool runs the base rate entity test, then tracks a franking account
+      ledger, PAYG instalments, company tax paid, dividends paid and received,
+      and refunds, and works out franking deficit tax and the 30 per cent offset
+      reduction penalty where a deficit exceeds 10 per cent of annual credits.
+      It also checks distributions in a franking period against the Division
+      203 benchmark rule, for over-franking tax and franking debit shortfalls.
+    </p>
+    <p>
+      It builds the statement fields a dividend distribution statement needs,
+      too. That is a review helper for the statement, not a lodgement or a
+      compliance certificate.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Tests whether a company is a base rate entity for a given financial year, against the aggregated turnover threshold and the 80 per cent passive income test.</li>
+      <li>Tracks a franking account ledger and works out franking deficit tax and the 30 per cent offset reduction penalty where the deficit exceeds 10 per cent of annual credits.</li>
+      <li>Checks distributions in a franking period against the Division 203 benchmark rule, for over-franking tax and franking debit shortfalls.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        Nothing this engine produces is tax, legal or financial advice, an
+        assessment or a determination. Outputs are review aids: confirm every
+        rate, threshold and consequence against the current law and the
+        entity's facts before acting, and leave lodgement decisions with a
+        registered practitioner.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/TheExchequerTally.git
+cd TheExchequerTally &amp;&amp; pip install .</code></pre>
+    <p><a href="https://github.com/ryanduguid/TheExchequerTally">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Company tax rate and franking account checker",
+    "description": "Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://ryanduguid.github.io/tools/company-tax-franking/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD"
+    }
+  }
+  </script>
+</body>
+</html>

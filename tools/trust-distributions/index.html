@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Is this trust distribution in the s100A green zone?</title>
+  <meta name="description" content="Check a trust distribution against the ATO's section 100A risk zones, and work out Division 6 allocations and section 99B foreign trust amounts." />
+  <meta property="og:title" content="Is this trust distribution in the s100A green zone?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/trust-distributions/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/trust-distributions/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>Is this trust distribution inside the section 100A green zone</h1>
+    <p>
+      Section 100A can treat a trust distribution as a reimbursement agreement
+      and tax it at the top rate instead of the beneficiary's own rate. The
+      ATO's finalised guideline, PCG 2022/2, sorts arrangements into risk zones.
+      It is easy to mix this up with the earlier draft: PCG 2022/D1 proposed a
+      blue zone, but the final PCG 2022/2 has only white, green and red. There
+      is no blue zone.
+    </p>
+    <p>
+      This tool classifies the facts you supply against the green and red
+      zones. The white zone, for income years ending before 1 July 2014, is
+      out of scope because the tool does not take an income year. It also
+      works out each beneficiary's proportionate share of trust income under
+      Division 6, following the High Court's decision in <em>Bamford</em>, and
+      the assessable amount on a foreign trust distribution under section 99B.
+    </p>
+    <p>
+      Where the tool does not implement a rule, such as streamed capital gains
+      and franked dividends under the Division 6E carve-out, it refuses the
+      input rather than returning a number it cannot stand behind.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Classifies a trust distribution against the ATO's section 100A green and red risk zones under PCG 2022/2, from facts you supply.</li>
+      <li>Works out each beneficiary's proportionate share of trust income under Division 6, following the Bamford case.</li>
+      <li>Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        Nothing this engine produces is tax, legal or financial advice, an
+        assessment or a determination. Outputs are review aids: confirm every
+        allocation, zone and exemption against the current law, the trust deed
+        and the entity's facts before acting, and leave lodgement decisions with
+        a registered practitioner. Where the model does not implement a rule it
+        refuses the input rather than returning a number it cannot stand
+        behind.
+      </p>
+    </blockquote>
+    <p><a href="https://github.com/ryanduguid/SolomonsSword">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Section 100A trust distribution checker",
+    "description": "Check a trust distribution against the ATO's section 100A risk zones, and work out Division 6 allocations and section 99B foreign trust amounts.",
+    "applicationCategory": "FinanceApplication",
+    "url": "https://ryanduguid.github.io/tools/trust-distributions/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD"
+    }
+  }
+  </script>
+</body>
+</html>

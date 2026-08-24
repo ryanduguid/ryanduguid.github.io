@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Export a Xero trial balance to CSV that balances</title>
+  <meta name="description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas." />
+  <meta property="og:title" content="Export a Xero trial balance to CSV that balances" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/xero-trial-balance/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/xero-trial-balance/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>How to export a Xero trial balance to CSV that actually balances</h1>
+    <p>
+      The manual path, Reports, Trial Balance, Export, fix the header rows, fix
+      the account codes, takes about ten minutes per entity per month and
+      produces a slightly different file every time. This tool pulls the same
+      report straight from Xero's own reporting API instead, into the same
+      tidy shape every run.
+    </p>
+    <p>
+      Before anything is written to disk, it runs a balance check: both the
+      current month's movement and the year to date figures must balance, or
+      no file is written at all. Note the real limit: <code>--date</code> is an
+      as-at date, not a range, because Xero's Trial Balance endpoint only
+      accepts a date, so Trial Balance by Date Range, a report that exists in
+      the Xero interface only, cannot be reproduced this way. The movement
+      columns already cover the usual reason someone reaches for a range: the
+      current month.
+    </p>
+    <p>
+      It is read-only. The scope it asks Xero for is report reading only, so
+      it cannot write anything back to your ledger.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without cleanup.</li>
+      <li>Refuses to write a file unless both the month's movement and the year to date figures balance.</li>
+      <li>Is read-only: it cannot write to any ledger.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        Read-only (accounting.reports.trialbalance.read); this tool cannot
+        write to any ledger.
+      </p>
+      <p>
+        MIT-licensed utility code, no warranty; outputs feed professional
+        review like any other workpaper input. Not affiliated with or
+        endorsed by Xero.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>python -m pip install --require-hashes -r requirements.lock</code></pre>
+    <p><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source on GitHub</a></p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Xero trial balance CSV export tool",
+    "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
+    "applicationCategory": "BusinessApplication",
+    "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "AUD"
+    }
+  }
+  </script>
+</body>
+</html>
