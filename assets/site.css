@@ -44,6 +44,15 @@
     blockquote p:last-child { margin-bottom: 0; }
     .byline { color: var(--text-muted); font-size: 0.8rem; margin-top: 2rem; }
 
+    /* Reference table pages (rates/*): plain semantic tables, no calculator. */
+    .container > table { width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem; font-size: 0.95rem; }
+    .container > table th,
+    .container > table td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
+    .container > table th { color: var(--text-muted); font-weight: 600; border-bottom: 2px solid var(--border); }
+    .container dl { margin: 1rem 0; }
+    .container dt { font-weight: 600; margin-top: 1rem; }
+    .container dd { margin: 0.25rem 0 0; }
+
     .container { max-width: 860px; margin: 0 auto; padding: 2rem 1.5rem; }
 
     header { text-align: center; padding: 3rem 0 2rem; }
