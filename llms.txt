@@ -1,0 +1,32 @@
+# Ryan Duguid
+
+> Australian accountant based in Newcastle, NSW, building open-source computational accounting engines, MCP servers, Excel LAMBDAs and deterministic AI workflows for Australian taxation and payroll. Provisional member of CA ANZ. Nothing here is tax, legal or financial advice.
+
+All tools compute from primary sources (Commonwealth legislation, ATO rulings and rate schedules, AASB/APESB standards), use exact decimal arithmetic, keep client data local, and leave lodgement decisions to a qualified professional. Figures are free to cite with attribution; verify them against current ATO guidance before relying on them.
+
+## Reference tables
+
+- [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today, with the payday-super timing change from 1 July 2026. Sourced from the ATO key rates page.
+
+## Browser tools (nothing to install)
+
+- [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): work out eligible wages and the levy owed under Coal LSL Scheme section 3B.
+
+## Tool guides (open source, install and run locally)
+
+- [When is payday super actually due, and what happens if it is late](https://ryanduguid.github.io/tools/payday-super/): check contribution timing against the seven-business-day deadline and estimate SG charge exposure.
+- [How does this business compare to the ATO small business benchmarks](https://ryanduguid.github.io/tools/ato-benchmarks/): offline variance analysis against published benchmark ranges.
+- [Is this trust distribution inside the section 100A green zone](https://ryanduguid.github.io/tools/trust-distributions/): check a distribution against green zone guidance.
+- [What company tax rate applies, and is the franking account in order](https://ryanduguid.github.io/tools/company-tax-franking/): base-rate-entity test, applicable rate and franking account checks.
+- [Subcontract ledger workflows for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): practical ledger workflows for subcontractors.
+- [How to export a Xero trial balance to CSV that actually balances](https://ryanduguid.github.io/tools/xero-trial-balance/): validated TB export ready for Excel, Power BI or pandas.
+
+## Install
+
+- Australian Accounting & Tax MCP server (aus-accounting-mcp): `claude mcp add aus-accounting -- uvx --from git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp`
+- Public practice & tax skills (9 skills: BAS, FBT, Div 7A, STP and more): `npx skills add ryanduguid/australian-accounting-skills`
+- Construction & mining subcontractor skills: `npx skills add ryanduguid/hardhat-ledger`
+
+## About
+
+Written independently by Ryan Duguid, a provisional member of Chartered Accountants ANZ, in his own time and on his own equipment. Contact and source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
