@@ -4,7 +4,7 @@ Source for [ryanduguid.github.io](https://ryanduguid.github.io/), the landing pa
 
 ## Local preview
 
-The site is a single static page. Open `index.html` in a browser, or serve the folder:
+The site is eight static HTML pages: `index.html`, `404.html`, and one per tool under `tools/`. Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 8000
@@ -16,15 +16,18 @@ then visit `http://localhost:8000/`.
 
 `.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule:
 
+- the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect
+- every same-origin link, absolute or root-relative, must resolve to a file on disk
 - external links must resolve
 - the HTML must parse cleanly
-- retired repository names and em dashes must not appear
+- retired repository names and em or en dashes must not appear
 
 Run locally:
 
 ```bash
-python tools/check_links.py
+node --test scripts/levy.test.mjs
+python scripts/check_links.py
 ```
 
 ## Licence
