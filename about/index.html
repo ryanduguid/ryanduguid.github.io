@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Ryan Duguid, accountant in Newcastle NSW</title>
+  <meta name="description" content="Australian accountant in Newcastle, NSW, and a provisional member of Chartered Accountants ANZ. Builds open-source tools for Australian tax and payroll compliance." />
+  <meta property="og:title" content="About Ryan Duguid, accountant in Newcastle NSW" />
+  <meta property="og:description" content="Australian accountant in Newcastle, NSW. Provisional member of Chartered Accountants ANZ, SAP S/4HANA certified in financial and management accounting, Xero specialist certified." />
+  <meta property="og:type" content="profile" />
+  <meta property="og:url" content="https://ryanduguid.github.io/about/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://ryanduguid.github.io/about/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>About Ryan Duguid</h1>
+
+    <p class="short-answer">
+      Ryan Duguid is an Australian accountant based in Newcastle, New South
+      Wales, and a provisional member of Chartered Accountants Australia and
+      New Zealand. He builds open-source computational accounting tools for
+      Australian tax, payroll and statutory compliance, and publishes them at
+      github.com/ryanduguid. He does not take client work through this site.
+    </p>
+
+    <p>
+      The work here sits where accounting practice meets code. Australian
+      statutory rules are detailed, they change on fixed dates, and most of the
+      arithmetic around them is still done by hand in spreadsheets nobody can
+      check afterwards. Each tool on this site takes one of those jobs, grounds
+      it in the legislation or the regulator's own published guidance, and
+      shows its working so a second person can review the answer.
+    </p>
+
+    <h2 class="section-title">The short facts</h2>
+    <table class="facts">
+      <tbody>
+        <tr><th scope="row">Name</th><td>Ryan Duguid</td></tr>
+        <tr><th scope="row">Based in</th><td>Newcastle, New South Wales, Australia</td></tr>
+        <tr><th scope="row">Field</th><td>Accounting, Australian taxation, payroll and statutory compliance</td></tr>
+        <tr><th scope="row">Professional body</th><td>Provisional member, Chartered Accountants Australia and New Zealand, since May 2026</td></tr>
+        <tr><th scope="row">Certifications</th><td>SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO). Xero specialist certification, level 3.</td></tr>
+        <tr><th scope="row">Education</th><td>Bachelor of Commerce (Accounting), University of Newcastle</td></tr>
+        <tr><th scope="row">Writes about</th><td>Payday super, the superannuation guarantee charge, Division 7A, trust distributions and section 100A, fringe benefits tax, ATO small business benchmarks, the Coal LSL payroll levy, Xero data extraction, and running AI agents safely over accounting work</td></tr>
+        <tr><th scope="row">Code</th><td><a href="https://github.com/ryanduguid">github.com/ryanduguid</a></td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">What he builds</h2>
+    <p>
+      Three layers, each meant to be readable on its own. Data and ledger tools
+      pull figures out of accounting systems without breaking them. Rules
+      engines apply a statutory test to those figures in exact decimal
+      arithmetic. Agent workflows let an AI coding assistant run those engines
+      inside a fixed boundary, so the calculation stays deterministic even when
+      the assistant is not.
+    </p>
+    <ul>
+      <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>, the eligible wages test under section 3B, running in the browser.</li>
+      <li><a href="/tools/payday-super/">Payday super timing and SG charge exposure</a>, checked against a payroll export.</li>
+      <li><a href="/tools/ato-benchmarks/">ATO small business benchmark comparison</a>, run on your own machine.</li>
+      <li><a href="/tools/trust-distributions/">Section 100A risk zones and Division 6 allocation</a>.</li>
+      <li><a href="/tools/company-tax-franking/">Base rate entity test and franking account checks</a>.</li>
+      <li><a href="/tools/subcontractor-ledgers/">Construction and mining subcontract ledger skills</a>.</li>
+      <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that has to balance</a>.</li>
+    </ul>
+
+    <h2 class="section-title">How the work is grounded</h2>
+    <ul>
+      <li><strong>Primary sources only.</strong> Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.</li>
+      <li><strong>Exact decimal arithmetic.</strong> Statutory calculations use fixed-point decimals, so binary floating point drift never reaches a figure someone might lodge.</li>
+      <li><strong>Refusal over guessing.</strong> Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.</li>
+      <li><strong>Synthetic data in public.</strong> Every public fixture, test and example uses fabricated data. Client information stays out of public repositories entirely.</li>
+      <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
+    </ul>
+
+    <h2 class="section-title">What this site is not</h2>
+    <p>
+      Nothing here is tax, legal or financial advice, and using any of it
+      creates no professional relationship. The tools are review aids for a
+      qualified professional, not compliance determinations. This site does not
+      offer accounting services, does not take engagements, and carries no
+      contact form.
+    </p>
+
+    <h2 class="section-title">Citing this work</h2>
+    <p>
+      Duguid, R. (2026). <em>Australian computational accounting tools</em>.
+      https://ryanduguid.github.io/. Each tool page names the source it is
+      grounded in, and each linked repository carries its own licence and
+      disclaimer.
+    </p>
+
+    <p class="page-meta">Last reviewed 24 August 2026.</p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfilePage",
+        "@id": "https://ryanduguid.github.io/about/#webpage",
+        "url": "https://ryanduguid.github.io/about/",
+        "name": "About Ryan Duguid, accountant in Newcastle NSW",
+        "description": "Ryan Duguid is an Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants ANZ. He builds open-source computational accounting tools for Australian tax, payroll and statutory compliance.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-24",
+        "isPartOf": { "@id": "https://ryanduguid.github.io/#website" },
+        "mainEntity": { "@id": "https://ryanduguid.github.io/about/#person" },
+        "about": { "@id": "https://ryanduguid.github.io/about/#person" },
+        "breadcrumb": { "@id": "https://ryanduguid.github.io/about/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ryanduguid.github.io/about/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ryanduguid.github.io/" },
+          { "@type": "ListItem", "position": 2, "name": "About", "item": "https://ryanduguid.github.io/about/" }
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ryanduguid.github.io/about/#person",
+        "name": "Ryan Duguid",
+        "givenName": "Ryan",
+        "familyName": "Duguid",
+        "url": "https://ryanduguid.github.io/about/",
+        "mainEntityOfPage": "https://ryanduguid.github.io/about/",
+        "jobTitle": "Accountant",
+        "description": "Australian accountant based in Newcastle, New South Wales. Provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance.",
+        "knowsLanguage": "en-AU",
+        "nationality": { "@type": "Country", "name": "Australia" },
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Newcastle",
+          "addressRegion": "NSW",
+          "addressCountry": "AU"
+        },
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "University of Newcastle",
+          "url": "https://www.newcastle.edu.au/"
+        },
+        "knowsAbout": [
+          "Australian taxation",
+          "Superannuation guarantee and payday super",
+          "Superannuation guarantee charge",
+          "Division 7A",
+          "Trust distributions and section 100A",
+          "Fringe benefits tax",
+          "ATO small business benchmarks",
+          "Coal Mining Industry Long Service Leave payroll levy",
+          "Xero",
+          "SAP S/4HANA financial and management accounting",
+          "Model Context Protocol",
+          "Excel LAMBDA functions",
+          "Power Query",
+          "Deterministic AI workflows for accounting"
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "Professional membership",
+            "name": "Provisional member, Chartered Accountants Australia and New Zealand",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "Chartered Accountants Australia and New Zealand",
+              "url": "https://www.charteredaccountantsanz.com/"
+            }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI)",
+            "url": "https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url",
+            "recognizedBy": { "@type": "Organization", "name": "SAP", "url": "https://www.sap.com/" }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "SAP Certified, SAP S/4HANA Cloud Private Edition, Management Accounting (C_TS4CO)",
+            "url": "https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url",
+            "recognizedBy": { "@type": "Organization", "name": "SAP", "url": "https://www.sap.com/" }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "certification",
+            "name": "Xero specialist certification, level 3",
+            "recognizedBy": { "@type": "Organization", "name": "Xero", "url": "https://www.xero.com/" }
+          },
+          {
+            "@type": "EducationalOccupationalCredential",
+            "credentialCategory": "degree",
+            "name": "Bachelor of Commerce (Accounting)",
+            "recognizedBy": { "@type": "CollegeOrUniversity", "name": "University of Newcastle" }
+          }
+        ],
+        "sameAs": [
+          "https://github.com/ryanduguid",
+          "https://www.linkedin.com/in/ryan-duguid"
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

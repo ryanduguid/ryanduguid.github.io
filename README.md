@@ -4,7 +4,7 @@ Source for [ryanduguid.github.io](https://ryanduguid.github.io/), the landing pa
 
 ## Local preview
 
-The site is eight static HTML pages: `index.html`, `404.html`, and one per tool under `tools/`. Open `index.html` in a browser, or serve the folder:
+The site is ten static HTML pages: `index.html`, `404.html`, `about/index.html`, and one per tool under `tools/`. Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 8000
@@ -22,12 +22,16 @@ then visit `http://localhost:8000/`.
 - external links must resolve
 - the HTML must parse cleanly
 - retired repository names and em or en dashes must not appear
+- every page carries a title, a meta description in the length band, a canonical matching its own path, Open Graph tags and parseable JSON-LD
+- every question marked up as an FAQ is visible on the page that claims it
+- `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 
 Run locally:
 
 ```bash
 node --test scripts/levy.test.mjs
 python scripts/check_links.py
+python scripts/check_seo.py
 ```
 
 ## Licence
