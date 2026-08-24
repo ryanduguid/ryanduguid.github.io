@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>When is payday super actually due?</title>
-  <meta name="description" content="From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line." />
+  <meta name="description" content="From 1 July 2026 super must reach the fund within seven business days of payday. This tool checks a payroll export against that deadline and estimates the SG charge." />
   <meta property="og:title" content="When is payday super actually due?" />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://ryanduguid.github.io/tools/payday-super/" />
@@ -17,6 +17,9 @@
   <div class="container">
     <p><a href="/">Home</a></p>
     <h1>When is payday super actually due, and what happens if it is late</h1>
+    <p class="short-answer">
+      Since 1 July 2026 a super contribution is on time only when the fund receives it within seven business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock. A late line attracts the shortfall, notional earnings and an administrative uplift of up to 60 per cent.
+    </p>
     <p>
       Since 1 July 2026, super guarantee contributions are generally due within
       seven business days of each payday, not once a quarter. Business days are
@@ -59,6 +62,25 @@
     <pre><code>git clone https://github.com/ryanduguid/payday-super-checker.git
 cd payday-super-checker &amp;&amp; pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/payday-super-checker">Source on GitHub</a></p>
+    <!-- geo-blocks -->
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq">
+      <h3>When is super due under payday super?</h3>
+      <p>The fund must receive the contribution within seven business days of the payday, or twenty business days for a first contribution to a new fund. The test is receipt by the fund, not the day the employer sent the money.</p>
+      <h3>Does a public holiday in another state change my due date?</h3>
+      <p>Yes. A business day excludes any day that is a public holiday for the whole of a state or territory, so one national calendar applies to every employer. A holiday in Western Australia moves a Sydney employer's deadline.</p>
+      <h3>Is paying the clearing house on time enough?</h3>
+      <p>No. The law tests when the fund received the contribution, so transit time through a clearing house is the employer's risk.</p>
+      <h3>What happens if a contribution is late?</h3>
+      <p>The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination.</p>
+    </div>
+    <h2 class="section-title">Related</h2>
+    <ul class="related">
+      <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
+      <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
+      <li><a href="/about/">About Ryan Duguid</a></li>
+    </ul>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 24 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
@@ -67,16 +89,134 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": "Payday super due date checker",
-    "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
-    "applicationCategory": "FinanceApplication",
-    "url": "https://ryanduguid.github.io/tools/payday-super/",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "AUD"
-    }
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://ryanduguid.github.io/tools/payday-super/#webpage",
+        "url": "https://ryanduguid.github.io/tools/payday-super/",
+        "name": "When is payday super actually due?",
+        "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-24",
+        "isPartOf": {
+          "@id": "https://ryanduguid.github.io/#website"
+        },
+        "author": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "publisher": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://ryanduguid.github.io/tools/payday-super/#software"
+        },
+        "breadcrumb": {
+          "@id": "https://ryanduguid.github.io/tools/payday-super/#breadcrumb"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Payday super due date and SG charge checker"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ryanduguid.github.io/tools/payday-super/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://ryanduguid.github.io/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://ryanduguid.github.io/#tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Payday super due date and SG charge checker",
+            "item": "https://ryanduguid.github.io/tools/payday-super/"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Payday super due date checker",
+        "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
+        "applicationCategory": "FinanceApplication",
+        "url": "https://ryanduguid.github.io/tools/payday-super/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "AUD"
+        },
+        "@id": "https://ryanduguid.github.io/tools/payday-super/#software",
+        "author": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "creator": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-24"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://ryanduguid.github.io/tools/payday-super/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "When is super due under payday super?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The fund must receive the contribution within seven business days of the payday, or twenty business days for a first contribution to a new fund. The test is receipt by the fund, not the day the employer sent the money."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does a public holiday in another state change my due date?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. A business day excludes any day that is a public holiday for the whole of a state or territory, so one national calendar applies to every employer. A holiday in Western Australia moves a Sydney employer's deadline."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is paying the clearing house on time enough?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The law tests when the fund received the contribution, so transit time through a clearing house is the employer's risk."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What happens if a contribution is late?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ryanduguid.github.io/about/#person",
+        "name": "Ryan Duguid",
+        "url": "https://ryanduguid.github.io/about/",
+        "jobTitle": "Accountant",
+        "sameAs": [
+          "https://github.com/ryanduguid",
+          "https://www.linkedin.com/in/ryan-duguid"
+        ]
+      }
+    ]
   }
   </script>
 </body>

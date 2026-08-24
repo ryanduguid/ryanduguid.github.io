@@ -14,26 +14,6 @@
   <link rel="canonical" href="https://ryanduguid.github.io/" />
   <link rel="alternate" type="text/plain" href="https://ryanduguid.github.io/llms.txt" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Person",
-    "name": "Ryan Duguid",
-    "jobTitle": "Accountant",
-    "description": "Australian accountant based in Newcastle, NSW, building open-source computational accounting engines, MCP servers, Excel LAMBDAs and deterministic AI workflows for Australian taxation and payroll.",
-    "url": "https://ryanduguid.github.io/",
-    "knowsAbout": ["Australian taxation", "superannuation guarantee", "payroll", "Xero", "financial modelling", "Excel LAMBDA functions"],
-    "sameAs": [
-      "https://github.com/ryanduguid"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Newcastle",
-      "addressRegion": "NSW",
-      "addressCountry": "AU"
-    }
-  }
-  </script>
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
@@ -49,6 +29,7 @@
         <span class="badge">Xero L3 Specialist</span>
       </div>
       <div class="links" style="margin-top: 1.5rem;">
+        <a href="/about/">About</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
       </div>
@@ -67,7 +48,7 @@
 <span class="cmd">npx skills add ryanduguid/hardhat-ledger</span></code></pre>
     </div>
 
-    <h2 class="section-title">Tools for Accountants and Business Owners</h2>
+    <h2 class="section-title" id="tools">Tools for Accountants and Business Owners</h2>
     <p class="tools-intro">
       The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The other six are open-source tools you install and run yourself.
     </p>
@@ -205,9 +186,242 @@
     <footer>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <p style="margin-top: 0.5rem;">
+        <a href="/about/">About Ryan Duguid</a>
         <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
       </p>
+      <p class="page-meta">Last reviewed 24 August 2026.</p>
     </footer>
   </div>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://ryanduguid.github.io/#website",
+        "url": "https://ryanduguid.github.io/",
+        "name": "Ryan Duguid",
+        "alternateName": "Ryan Duguid, Australian computational accounting",
+        "description": "Open-source computational accounting engines, MCP servers, Excel LAMBDAs and deterministic AI workflows for Australian taxation and payroll.",
+        "inLanguage": "en-AU",
+        "publisher": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "author": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://ryanduguid.github.io/#webpage",
+        "url": "https://ryanduguid.github.io/",
+        "name": "Ryan Duguid - Australian Computational Accounting",
+        "description": "Open-source computational accounting engines, MCP servers, Excel LAMBDAs, and deterministic AI workflows for Australian taxation and payroll.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-22",
+        "dateModified": "2026-08-24",
+        "isPartOf": {
+          "@id": "https://ryanduguid.github.io/#website"
+        },
+        "about": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "author": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "publisher": {
+          "@id": "https://ryanduguid.github.io/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://ryanduguid.github.io/#tools-list"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://ryanduguid.github.io/about/#person",
+        "name": "Ryan Duguid",
+        "url": "https://ryanduguid.github.io/about/",
+        "jobTitle": "Accountant",
+        "description": "Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance.",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Newcastle",
+          "addressRegion": "NSW",
+          "addressCountry": "AU"
+        },
+        "sameAs": [
+          "https://github.com/ryanduguid",
+          "https://www.linkedin.com/in/ryan-duguid"
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://ryanduguid.github.io/#tools-list",
+        "name": "Tools for Australian accountants and business owners",
+        "itemListOrder": "https://schema.org/ItemListUnordered",
+        "numberOfItems": 7,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://ryanduguid.github.io/tools/coal-lsl-levy/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/coal-lsl-levy/#software",
+              "name": "Coal LSL levy calculator",
+              "description": "Work out eligible wages and the payroll levy owed under section 3B.",
+              "url": "https://ryanduguid.github.io/tools/coal-lsl-levy/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://ryanduguid.github.io/tools/payday-super/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/payday-super/#software",
+              "name": "When is payday super actually due, and what happens if it is late",
+              "description": "Check contribution timing against the seven business day rule and estimate the SG charge exposure on a late line.",
+              "url": "https://ryanduguid.github.io/tools/payday-super/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://ryanduguid.github.io/tools/ato-benchmarks/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/ato-benchmarks/#software",
+              "name": "How does this business compare to the ATO small business benchmarks",
+              "description": "Compare a profit and loss against the published ATO benchmark ranges on your own machine.",
+              "url": "https://ryanduguid.github.io/tools/ato-benchmarks/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://ryanduguid.github.io/tools/trust-distributions/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/trust-distributions/#software",
+              "name": "Is this trust distribution inside the section 100A green zone",
+              "description": "Classify a distribution against the PCG 2022/2 risk zones and work out Division 6 shares.",
+              "url": "https://ryanduguid.github.io/tools/trust-distributions/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://ryanduguid.github.io/tools/company-tax-franking/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/company-tax-franking/#software",
+              "name": "What company tax rate applies, and is the franking account in order",
+              "description": "Run the base rate entity test, track the franking account and check the Division 203 benchmark rule.",
+              "url": "https://ryanduguid.github.io/tools/company-tax-franking/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://ryanduguid.github.io/tools/subcontractor-ledgers/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/subcontractor-ledgers/#software",
+              "name": "Subcontract ledger workflows for construction and mining",
+              "description": "Agent skills for progress claims, retentions, work in progress, fuel tax credits and the Coal LSL levy.",
+              "url": "https://ryanduguid.github.io/tools/subcontractor-ledgers/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/xero-trial-balance/#software",
+              "name": "How to export a Xero trial balance to CSV that actually balances",
+              "description": "Pull the trial balance from the Xero API into a CSV that only writes when it balances.",
+              "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
