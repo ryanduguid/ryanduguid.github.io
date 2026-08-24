@@ -11,6 +11,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Reference tables
 
 - [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
+- [Division 7A benchmark interest rate](https://ryanduguid.github.io/rates/div7a-benchmark-rate/): 8.77 per cent for 2026-27, 8.37 per cent for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
+- [Cents per kilometre rate for car expenses](https://ryanduguid.github.io/rates/cents-per-kilometre/): 91 cents for 2026-27, 88 cents for 2024-25 and 2025-26, capped at the first 5,000 business kilometres per car. One rate for every car, whatever the engine size, each year's rate set by its own legislative instrument.
 
 ## Browser tools, nothing to install
 
