@@ -28,12 +28,24 @@
     </div>
   </header>
   <main id="main" class="site-main">
-  <div class="container">
-    <p><a href="/">Home</a></p>
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
     <h1>Subcontract ledger workflows for construction and mining</h1>
-    <p class="short-answer">
+    <p class="lead-note">
       These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and over and under billing under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
     </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
     <p>
       This is not a standalone calculator. It is a set of Claude Code skills,
       so you need an AI coding agent, such as Claude Code, already set up
@@ -63,13 +75,16 @@
       invent cost-to-cost progress, constrained variations, or the
       contract-asset versus contract-liability split.
     </p>
-    <h2 class="section-title">What this tool does</h2>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
     <ul>
       <li>The contracting core: progress claim preparation, retention schedules, work in progress and over-and-under billing under AASB 15, and contract cost tracking.</li>
       <li>Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</li>
       <li>Paying subcontractors: super guarantee under the extended definition, TPAR, and a shared reference skill for the exports these workflows need.</li>
     </ul>
-    <h2 class="section-title">Limits</h2>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
     <blockquote>
       <p>
         These skills prepare and check. They do not serve a payment claim,
@@ -78,11 +93,15 @@
         here is tax, accounting or legal advice.
       </p>
     </blockquote>
-    <h2 class="section-title">Get it</h2>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
     <pre><code>npx skills add ryanduguid/hardhat-ledger</code></pre>
     <p><a href="https://github.com/ryanduguid/hardhat-ledger">Source on GitHub</a></p>
     <!-- geo-blocks -->
-    <h2 class="section-title">Common questions</h2>
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
     <div class="faq">
       <h3>Do I need Claude Code to use these skills?</h3>
       <p>Yes. They are agent skills, not a standalone program. Without an AI coding agent such as Claude Code already set up, they will not run.</p>
@@ -91,19 +110,24 @@
       <h3>Do the skills hard-code rates and thresholds?</h3>
       <p>No. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state.</p>
     </div>
-    <h2 class="section-title">Related</h2>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
     <ul class="related">
       <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a></li>
       <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></li>
       <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
+    </section>
     <p class="page-meta">Published 24 August 2026. Last reviewed 25 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
     </p>
-  </div>
+        </div>
+      </div>
+    </article>
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">

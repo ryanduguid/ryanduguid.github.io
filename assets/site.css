@@ -572,7 +572,7 @@ a:hover { color: var(--text); }
 .article-toc p { margin: 0 0 4px; color: var(--text-muted); font-weight: 700; }
 .article-toc a { color: var(--text-muted); }
 .article-toc a:hover { color: var(--text); }
-.article-body { width: min(100%, var(--reading-width)); }
+.article-body { width: min(100%, var(--reading-width)); min-width: 0; }
 .article-body > :first-child { margin-top: 0; }
 .article-body a { text-decoration: underline; }
 .article-body section { scroll-margin-top: 24px; }
@@ -605,6 +605,24 @@ a:hover { color: var(--text); }
   font-weight: 700;
 }
 .article-body table.facts tbody th { width: 34%; color: var(--text-muted); font-weight: 700; }
+.article-body table:not(.facts) {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.92rem;
+}
+.article-body table:not(.facts) th,
+.article-body table:not(.facts) td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  vertical-align: top;
+}
+.article-body table:not(.facts) thead th {
+  border-top: 1px solid var(--border);
+  color: var(--text-muted);
+  font-weight: 700;
+}
 .table-scroll {
   max-width: 100%;
   margin: 0 0 24px;
@@ -616,7 +634,61 @@ a:hover { color: var(--text); }
   outline: 2px solid var(--accent-light);
   outline-offset: 3px;
 }
-.table-scroll .rate-table--wide { min-width: 640px; }
+.table-scroll .rate-table--wide,
+.table-scroll .tool-table--wide { min-width: 640px; }
+.article-body pre {
+  max-width: 100%;
+  margin: 0 0 20px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  -webkit-overflow-scrolling: touch;
+}
+.article-body pre code { white-space: pre; }
+.article-body .install-panel > p:last-child {
+  margin-bottom: 0;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+.article-body blockquote {
+  margin: 0;
+  padding: 0 0 0 20px;
+  border-left: 2px solid var(--accent-light);
+  border-radius: 0;
+  background: transparent;
+  color: var(--text-muted);
+}
+.article-body blockquote p { margin-bottom: 12px; }
+.article-body blockquote p:last-child { margin-bottom: 0; }
+.article-body .faq {
+  margin: 0;
+  border-top: 1px solid var(--border);
+}
+.article-body .faq h3 {
+  margin: 0;
+  padding-top: 18px;
+  font-size: 1rem;
+}
+.article-body .faq h3:not(:first-child) { border-top: 1px solid var(--border); }
+.article-body .faq p {
+  margin: 4px 0 18px;
+  color: var(--text-muted);
+}
+.article-body .sources,
+.article-body .related {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+.article-body .sources li,
+.article-body .related li { margin-bottom: 10px; }
+.article-body .page-meta {
+  margin-top: 56px;
+  padding-top: 20px;
+  border-top: 1px solid var(--border);
+}
+.article-body .byline {
+  max-width: 65ch;
+  margin-top: 12px;
+}
 .evidence-list { border-top: 1px solid var(--border); }
 .evidence-row {
   display: grid;

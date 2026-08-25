@@ -28,12 +28,24 @@
     </div>
   </header>
   <main id="main" class="site-main">
-  <div class="container">
-    <p><a href="/">Home</a></p>
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
     <h1>How does this business compare to the ATO small business benchmarks</h1>
-    <p class="short-answer">
+    <p class="lead-note">
       The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to look at more closely. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
     <p>
       The ATO publishes benchmark ranges for around 100 industries and uses them
       to decide which small businesses to look at more closely. Checking a
@@ -55,13 +67,16 @@
       alone. Then a person reviews and corrects that mapping, because no account
       name on its own tells you whether wages went to an associate.
     </p>
-    <h2 class="section-title">What this tool does</h2>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
     <ul>
       <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
       <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
       <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range, so the comparison can be checked by someone else.</li>
     </ul>
-    <h2 class="section-title">Limits</h2>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
     <blockquote>
       <p>
         It is not tax advice, and sitting outside a range is not a finding that
@@ -69,13 +84,17 @@
         businesses differ.
       </p>
     </blockquote>
-    <h2 class="section-title">Get it</h2>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
     <pre><code>git clone https://github.com/ryanduguid/ato-benchmark-compare.git ato-benchmark-compare
 cd ato-benchmark-compare
 pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/ato-benchmark-compare">Source on GitHub</a></p>
     <!-- geo-blocks -->
-    <h2 class="section-title">Common questions</h2>
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
     <div class="faq">
       <h3>What are the ATO small business benchmarks?</h3>
       <p>Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely.</p>
@@ -86,18 +105,23 @@ pip install .</code></pre>
       <h3>Why does a person have to review the account mapping?</h3>
       <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
     </div>
-    <h2 class="section-title">Related</h2>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
     <ul class="related">
       <li><a href="/tools/company-tax-franking/">Company tax rate and franking account checks</a></li>
       <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that balances</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
+    </section>
     <p class="page-meta">Published 24 August 2026. Last reviewed 24 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
     </p>
-  </div>
+        </div>
+      </div>
+    </article>
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
