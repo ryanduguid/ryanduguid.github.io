@@ -65,6 +65,44 @@
       background: var(--surface); border: 1px solid var(--border); color: var(--text-muted);
     }
 
+    .path-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+      margin: 1.5rem 0 0;
+    }
+    .path-card {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      padding: 1rem;
+      color: var(--text);
+      text-align: left;
+    }
+    .path-card:hover { background: var(--surface-2); text-decoration: none; }
+    .path-card:focus-visible { outline: 3px solid var(--accent-light); outline-offset: 3px; }
+    .path-card strong { display: block; color: var(--accent-light); margin-bottom: 0.25rem; }
+    .path-card span { color: var(--text-muted); font-size: 0.9rem; }
+    .route-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+    }
+    .route-section .section-title { margin-top: 0; }
+    .route-section > :last-child { margin-bottom: 0; }
+    .boundary {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 0.75rem;
+    }
+    @media (min-width: 640px) {
+      .path-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
     .install-section {
       background: var(--surface);
       border: 1px solid var(--accent);
@@ -72,7 +110,7 @@
       padding: 1.5rem;
       margin: 2rem 0;
     }
-    .install-section h2 { font-size: 1.2rem; margin-bottom: 0.75rem; }
+    .install-section h3 { font-size: 1.2rem; margin-bottom: 0.75rem; }
     pre {
       background: var(--bg);
       border: 1px solid var(--border);
