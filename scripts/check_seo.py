@@ -70,13 +70,13 @@ AUTHORITY_URLS = {
     "verify": EVIDENCE_URL,
 }
 PRIMARY_INSTALL_PATTERNS = (
-    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
-    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
-    r"aus-accounting-mcp\b",
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
 )
-RETIRED_PYPI_INSTALL_PATTERN = (
-    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b"
+RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
+    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
+    r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
     "Provisional membership does not represent endorsement by Chartered Accountants ANZ."
@@ -587,14 +587,16 @@ def check_authority_surface() -> list[str]:
         for pattern in PRIMARY_INSTALL_PATTERNS
     ):
         failures.append("index.html: install commands must appear only inside #adopt")
+    if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, home_text, re.I):
+        failures.append("index.html: retired GitHub-source install command")
 
     llms_path = ROOT / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
     failures.extend(check_llms_authority_surface(llms))
     if any(re.search(pattern, llms, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
         failures.append("llms.txt: supported install commands must link to /#adopt instead")
-    if re.search(RETIRED_PYPI_INSTALL_PATTERN, llms, re.I):
-        failures.append("llms.txt: retired direct-PyPI install command")
+    if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
+        failures.append("llms.txt: retired GitHub-source install command")
 
     for path in sorted(ROOT.rglob("*.html")):
         rel = path.relative_to(ROOT).as_posix()
@@ -614,8 +616,8 @@ def check_authority_surface() -> list[str]:
             for pattern in PRIMARY_INSTALL_PATTERNS
         ):
             failures.append(f"{rel}: supported install commands must link to /#adopt instead")
-        if re.search(RETIRED_PYPI_INSTALL_PATTERN, indexable_text, re.I):
-            failures.append(f"{rel}: retired direct-PyPI install command")
+        if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
+            failures.append(f"{rel}: retired GitHub-source install command")
 
     catalogue_label = "Original firm-focused tools"
     catalogue = re.search(
@@ -1446,13 +1448,15 @@ def _self_check() -> None:
                 "<section id=\"adopt\">"
                 "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
                 "</section>"
-                "<pre>claude mcp add aus-accounting -- uvx --from \\\\ "
+                "<pre>claude mcp add aus-accounting -- uvx aus-accounting-mcp</pre>"
+                "<pre>claude mcp add aus-accounting -- uvx --from \\ "
                 "git+https://github.com/ryanduguid/au-tax-mcp-server "
                 "aus-accounting-mcp</pre>",
                 encoding="utf-8",
             )
             failures = check_authority_surface()
             assert "index.html: install commands must appear only inside #adopt" in failures
+            assert "index.html: retired GitHub-source install command" in failures
         finally:
             ROOT = original_root
 
@@ -1470,7 +1474,10 @@ def _self_check() -> None:
             mcp_page.mkdir(parents=True)
             (mcp_page / "index.html").write_text(
                 "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
-                "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>",
+                "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>"
+                "<p>claude mcp add aus-accounting -- uvx --from "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server "
+                "aus-accounting-mcp</p>",
                 encoding="utf-8",
             )
             failures = check_authority_surface()
@@ -1478,12 +1485,12 @@ def _self_check() -> None:
                 "llms.txt: supported install commands must link to /#adopt instead"
                 in failures
             )
-            assert "llms.txt: retired direct-PyPI install command" in failures
+            assert "llms.txt: retired GitHub-source install command" in failures
             assert (
                 f"{MCP_REL}: supported install commands must link to /#adopt instead"
                 in failures
             )
-            assert f"{MCP_REL}: retired direct-PyPI install command" in failures
+            assert f"{MCP_REL}: retired GitHub-source install command" in failures
         finally:
             ROOT = original_root
 
@@ -1527,8 +1534,7 @@ def _self_check() -> None:
                 '<a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Review</a>'
                 "</section>"
                 '<section id="adopt" style="display: none"><pre>'
-                "claude mcp add aus-accounting -- uvx --from \\\\ "
-                "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+                "claude mcp add aus-accounting -- uvx aus-accounting-mcp\n"
                 "npx skills add ryanduguid/australian-accounting-skills"
                 "</pre></section>"
                 '<section id="verify" aria-hidden="true"></section>'
