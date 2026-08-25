@@ -48,6 +48,42 @@ DESC_MIN = 50
 DESC_MAX = 200
 DESC_WARN = 165
 
+PERSON_ID = f"{SITE}/about/#person"
+PERSON_SAME_AS = [
+    "https://github.com/ryanduguid",
+    "https://www.linkedin.com/in/ryan-duguid",
+]
+AUTHORED_SOFTWARE = {
+    "payday-super-checker": {
+        "id": f"{SITE}/about/#payday-super-checker",
+        "repository": "https://github.com/ryanduguid/payday-super-checker",
+        "references": ["https://pypi.org/project/payday-super-checker/"],
+    },
+    "aus-accounting-mcp": {
+        "id": f"{SITE}/about/#aus-accounting-mcp",
+        "repository": "https://github.com/ryanduguid/au-tax-mcp-server",
+        "references": [
+            "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
+            "https://registry.modelcontextprotocol.io/v0.1/servers/"
+            "io.github.ryanduguid%2Faus-accounting/versions/latest",
+        ],
+    },
+}
+RETRIEVAL_CRAWLERS = {
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "Claude-SearchBot",
+    "Claude-User",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Applebot",
+    "DuckAssistBot",
+    "MistralAI-User",
+    "YouBot",
+}
+TRAINING_CRAWLERS = {"GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"}
+UNCLASSIFIED_CRAWLERS = {"CCBot", "Bytespider", "Amazonbot"}
+
 warnings: list[str] = []
 
 
@@ -90,6 +126,141 @@ def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[dict]:
 def nodes(block: dict) -> list[dict]:
     graph = block.get("@graph")
     return graph if isinstance(graph, list) else [block]
+
+
+def has_type(node: dict, expected: str) -> bool:
+    """Whether a JSON-LD node declares the requested type."""
+    value = node.get("@type")
+    return value == expected or (isinstance(value, list) and expected in value)
+
+
+def indexed_nodes(paths: list[Path], failures: list[str]) -> list[tuple[str, dict]]:
+    """Return every top-level JSON-LD node from indexable HTML files."""
+    found: list[tuple[str, dict]] = []
+    for path in paths:
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in NOT_INDEXED:
+            continue
+        for block in json_ld_blocks(path.read_text(encoding="utf-8"), rel, failures):
+            found.extend((rel, node) for node in nodes(block) if isinstance(node, dict))
+    return found
+
+
+def check_person_graph(paths: list[Path]) -> list[str]:
+    """Check that About owns the one canonical Person and authored works."""
+    failures: list[str] = []
+    graph_nodes = indexed_nodes(paths, failures)
+    people = [(rel, node) for rel, node in graph_nodes if has_type(node, "Person")]
+    if len(people) != 1:
+        found = ", ".join(rel for rel, _ in people) or "none"
+        failures.append(
+            f"person graph: expected exactly one Person node across indexable HTML, found "
+            f"{len(people)} ({found})"
+        )
+    canonical_people = [(rel, node) for rel, node in people if rel == "about/index.html"]
+    if len(canonical_people) != 1:
+        failures.append("person graph: about/index.html must contain the canonical Person node")
+    else:
+        person_rel, person = canonical_people[0]
+        if person_rel != "about/index.html":
+            failures.append(f"person graph: Person node is in {person_rel}, not about/index.html")
+        if person.get("@id") != PERSON_ID:
+            failures.append(
+                f"person graph: Person @id is {person.get('@id')!r}, expected {PERSON_ID!r}"
+            )
+        if person.get("sameAs") != PERSON_SAME_AS:
+            failures.append(
+                "person graph: Person sameAs must contain only the GitHub user and LinkedIn "
+                "URLs in the required order"
+            )
+
+    software = [
+        (rel, node) for rel, node in graph_nodes if has_type(node, "SoftwareSourceCode")
+    ]
+    if len(software) != len(AUTHORED_SOFTWARE):
+        failures.append(
+            f"person graph: expected {len(AUTHORED_SOFTWARE)} SoftwareSourceCode nodes, "
+            f"found {len(software)}"
+        )
+    for name, expected in AUTHORED_SOFTWARE.items():
+        matches = [(rel, node) for rel, node in software if node.get("name") == name]
+        if len(matches) != 1:
+            failures.append(
+                f"person graph: expected one SoftwareSourceCode node named {name!r}, "
+                f"found {len(matches)}"
+            )
+            continue
+        rel, node = matches[0]
+        if rel != "about/index.html":
+            failures.append(f"person graph: {name} is in {rel}, not about/index.html")
+        if node.get("@id") != expected["id"]:
+            failures.append(f"person graph: {name} does not have its stable About @id")
+        if node.get("author") != {"@id": PERSON_ID}:
+            failures.append(f"person graph: {name} is not authored by the canonical Person")
+        if node.get("codeRepository") != expected["repository"]:
+            failures.append(f"person graph: {name} does not name its GitHub repository")
+        if not node.get("license"):
+            failures.append(f"person graph: {name} does not declare a licence")
+        same_as = node.get("sameAs")
+        if not isinstance(same_as, list) or any(
+            reference not in same_as for reference in expected["references"]
+        ):
+            failures.append(f"person graph: {name} is missing its distribution references")
+    return failures
+
+
+def robots_groups(robots: str) -> dict[str, list[str]]:
+    """Parse the simple one-agent robots groups used by this site."""
+    groups: dict[str, list[str]] = {}
+    agents: list[str] = []
+    directives_started = False
+    for raw_line in robots.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            agents = []
+            directives_started = False
+            continue
+        key, separator, value = line.partition(":")
+        if not separator:
+            continue
+        key = key.strip().casefold()
+        value = value.strip()
+        if key == "user-agent":
+            if directives_started:
+                agents = []
+                directives_started = False
+            agents.append(value)
+            groups.setdefault(value, [])
+        elif key in {"allow", "disallow"}:
+            for agent in agents:
+                groups[agent].append(f"{key.title()}: {value}")
+            directives_started = True
+    return groups
+
+
+def check_robots_policy(robots: str) -> list[str]:
+    """Keep search and user retrieval open while blocking training crawlers."""
+    failures: list[str] = []
+    groups = robots_groups(robots)
+    expected = {"*": ["Allow: /"]}
+    expected.update({agent: ["Allow: /"] for agent in RETRIEVAL_CRAWLERS})
+    expected.update({agent: ["Disallow: /"] for agent in TRAINING_CRAWLERS})
+
+    for agent, directives in expected.items():
+        if groups.get(agent) != directives:
+            failures.append(
+                f"robots.txt: {agent} must have exactly {directives!r}, found "
+                f"{groups.get(agent)!r}"
+            )
+    unexpected = sorted(set(groups) - set(expected))
+    if unexpected:
+        failures.append(
+            f"robots.txt: unclassified crawler groups are not allowed: {', '.join(unexpected)}"
+        )
+    for agent in UNCLASSIFIED_CRAWLERS:
+        if agent.casefold() in robots.casefold():
+            failures.append(f"robots.txt: must not mention unclassified crawler {agent}")
+    return failures
 
 
 def check_faq_visible(node: dict, text: str, rel: str, failures: list[str]) -> None:
@@ -196,6 +367,8 @@ def check_site(paths: list[Path]) -> list[str]:
     robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
     if f"Sitemap: {SITE}/sitemap.xml" not in robots:
         failures.append("robots.txt: no Sitemap line")
+    failures.extend(check_person_graph(paths))
+    failures.extend(check_robots_policy(robots))
 
     print(f"checked sitemap.xml ({len(listed)} URLs), llms.txt, robots.txt")
     return failures
