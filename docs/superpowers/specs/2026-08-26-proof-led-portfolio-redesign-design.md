@@ -1,6 +1,6 @@
 # Proof-led portfolio redesign
 
-**Status:** Approved in the visual design review, pending written-spec review  
+**Status:** Approved by Ryan Duguid on 26 August 2026  
 **Date:** 26 August 2026  
 **Source baseline:** `825b5f601f814cfc30c64e6af796fe681e44852d`
 
