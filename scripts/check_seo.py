@@ -193,6 +193,43 @@ RATE_PAGES = {
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
 }
+CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+CALCULATOR_MARKERS = [
+    'name="branch"',
+    'id="branch-fields"',
+    'id="sacrificed"',
+    'id="bonus-rows"',
+    'type="submit"',
+]
+CALCULATOR_REQUIRED_IDS = {
+    "calc-form",
+    "branch-fields",
+    "sacrificed",
+    "bonus-rows",
+    "add-bonus",
+    "result",
+    "employeeLabel",
+    "add-employee",
+    "employee-table",
+    "employee-rows",
+    "employee-total-wages",
+    "employee-total-levy",
+    "export-csv",
+    "fields-baseRate",
+    "baseRate",
+    "overtime",
+    "allowances",
+    "fields-annual",
+    "annualSalary",
+    "fields-casual",
+    "reportingMonth",
+    "instrumentSpecifiesLoading",
+    "loadingQuantifiable",
+    "casualBasePay",
+    "casualLoading",
+    "ordinaryPay",
+    "bonus-row-template",
+}
 
 
 def opening_tags(html: str, tag: str) -> list[str]:
@@ -253,6 +290,48 @@ def check_rate_table_region(html: str, rel: str, failures: list[str]) -> None:
     )
     if not regions:
         failures.append(f"{rel}: reference table is not inside a labelled keyboard-scroll region")
+
+
+def check_calculator_contract(html: str, failures: list[str]) -> None:
+    positions = [html.find(marker) for marker in CALCULATOR_MARKERS]
+    if any(position < 0 for position in positions) or positions != sorted(positions):
+        failures.append(
+            f"{CALCULATOR_REL}: calculator markers missing or out of order: {positions}"
+        )
+
+    ids = {
+        value
+        for _, value in re.findall(r"\bid\s*=\s*([\"'])(.*?)\1", html, re.I | re.S)
+    }
+    missing_ids = sorted(CALCULATOR_REQUIRED_IDS - ids)
+    if missing_ids:
+        failures.append(f"{CALCULATOR_REL}: missing protected field IDs: {missing_ids}")
+    for value in ("baseRate", "annual", "casual"):
+        if not re.search(
+            rf'<input\b(?=[^>]*\bname="branch")(?=[^>]*\bvalue="{value}")',
+            html,
+            re.I,
+        ):
+            failures.append(f"{CALCULATOR_REL}: missing protected branch value {value}")
+
+    result_tags = [tag for tag in opening_tags(html, "div") if tag_attr(tag, "id") == "result"]
+    if len(result_tags) != 1:
+        failures.append(f"{CALCULATOR_REL}: expected one #result region")
+    else:
+        result_tag = result_tags[0]
+        if tag_attr(result_tag, "role") != "status" or tag_attr(result_tag, "aria-live") != "polite":
+            failures.append(f"{CALCULATOR_REL}: #result must be a polite status region")
+
+    result_position = html.find('id="result"')
+    employee_position = html.find('id="employeeLabel"')
+    disclaimer_position = html.find('id="disclaimer"')
+    if not 0 <= result_position < employee_position < disclaimer_position:
+        failures.append(
+            f"{CALCULATOR_REL}: result, employee workflow and disclaimer are out of order"
+        )
+
+    if "from '/assets/levy.mjs'" not in html:
+        failures.append(f"{CALCULATOR_REL}: protected levy engine import changed")
 
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
@@ -696,6 +775,8 @@ def check_file(path: Path) -> list[str]:
         check_article_pattern(html, rel, failures)
     if rel in RATE_PAGES:
         check_rate_table_region(html, rel, failures)
+    if rel == CALCULATOR_REL:
+        check_calculator_contract(html, failures)
 
     print(f"checked {rel}")
     return failures
@@ -841,6 +922,31 @@ def _self_check() -> None:
     article_failures: list[str] = []
     check_article_pattern(valid_article, "self-check", article_failures)
     assert article_failures == []
+    valid_calculator = """
+    <form id="calc-form"><input name="branch" value="baseRate">
+      <input name="branch" value="annual"><input name="branch" value="casual">
+      <div id="branch-fields"></div><input id="sacrificed">
+      <div id="bonus-rows"></div><button id="add-bonus" type="button"></button>
+      <button type="submit"></button>
+    </form>
+    <div id="result" role="status" aria-live="polite"></div>
+    <input id="employeeLabel"><button id="add-employee"></button>
+    <table id="employee-table"><tbody id="employee-rows"></tbody>
+      <tfoot><tr><td id="employee-total-wages"></td>
+      <td id="employee-total-levy"></td></tr></tfoot></table>
+    <button id="export-csv"></button><div id="disclaimer"></div>
+    <template id="fields-baseRate"><input id="baseRate"><input id="overtime">
+      <input id="allowances"></template>
+    <template id="fields-annual"><input id="annualSalary"></template>
+    <template id="fields-casual"><input id="reportingMonth">
+      <input id="instrumentSpecifiesLoading"><input id="loadingQuantifiable">
+      <input id="casualBasePay"><input id="casualLoading"><input id="ordinaryPay"></template>
+    <template id="bonus-row-template"></template>
+    <script type="module">import {} from '/assets/levy.mjs';</script>
+    """
+    calculator_failures: list[str] = []
+    check_calculator_contract(valid_calculator, calculator_failures)
+    assert calculator_failures == []
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )
