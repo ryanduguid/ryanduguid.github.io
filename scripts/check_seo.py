@@ -134,10 +134,15 @@ def meta(html: str, attr: str, value: str) -> str | None:
     return html_lib.unescape(m.group(1)).strip() if m else None
 
 
+def visible_html(html: str) -> str:
+    """HTML with non-rendered script, style, template and comment content removed."""
+    html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
+    return re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+
+
 def visible_text(html: str) -> str:
     """The page with script, style and tags stripped, whitespace collapsed."""
-    body = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
-    body = re.sub(r"<!--.*?-->", " ", body, flags=re.S)
+    body = visible_html(html)
     body = re.sub(r"<[^>]+>", " ", body)
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
 
@@ -634,9 +639,18 @@ def _self_check() -> None:
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )
-    rendered_mcp_page = re.sub(
-        r"<(script|style|template)\b.*?</\1>", " ", mcp_page, flags=re.S | re.I
+    rendered_mcp_page = visible_html(mcp_page)
+    commented_pypi_page = mcp_page.replace(
+        '<a href="https://pypi.org/project/aus-accounting-mcp/">PyPI</a>',
+        '<!-- <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI</a> -->',
+        1,
     )
+    commented_rendered_mcp_page = visible_html(commented_pypi_page)
+    assert not re.search(
+        r'<a\b[^>]*href="https://pypi\.org/project/aus-accounting-mcp/"[^>]*>',
+        commented_rendered_mcp_page,
+        re.I,
+    ), "a commented-out PyPI route must not satisfy the visible-route check"
     assert re.search(
         r'<a\b[^>]*href="https://pypi\.org/project/aus-accounting-mcp/"[^>]*>',
         rendered_mcp_page,
@@ -650,6 +664,11 @@ def _self_check() -> None:
     assert re.search(
         r"\buvx\s+aus-accounting-mcp\b", visible_text(rendered_mcp_page)
     ), "Australian tax AI agents page has no visible direct PyPI install command"
+    assert not re.search(
+        r"\buntil\s+its\s+own\s+first\s+pypi\s+release\b",
+        visible_text(rendered_mcp_page),
+        re.I,
+    ), "Australian tax AI agents page still says the PyPI release is pending"
     nested_and_array_nodes = [
         {"@type": "Article", "author": {"@type": "Person"}},
         {"@type": "SoftwareSourceCode"},
