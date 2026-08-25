@@ -30,6 +30,7 @@
       </div>
       <div class="links" style="margin-top: 1.5rem;">
         <a href="/about/">About</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
       </div>
@@ -50,9 +51,13 @@
 
     <h2 class="section-title" id="tools">Tools for Accountants and Business Owners</h2>
     <p class="tools-intro">
-      The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The other six are open-source tools you install and run yourself.
+      The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install. The other six are open-source tools you install and run yourself.
     </p>
     <div class="tools-list">
+      <div class="tool-card">
+        <a class="tool-name" href="/tools/australian-tax-ai-agents/">Which Australian tax MCP should an AI agent use</a>
+        <div class="desc">Local computational engines versus a hosted ATO document library. What aus-accounting-mcp does, and what it refuses.</div>
+      </div>
       <div class="tool-card">
         <a class="tool-name" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
         <div class="desc">Work out eligible wages and the levy owed under section 3B.</div>
@@ -132,6 +137,7 @@
           <a class="name" href="https://github.com/ryanduguid/au-tax-mcp-server">au-tax-mcp-server</a>
           <div class="alias">aus-accounting-mcp</div>
           <div class="desc">Unified MCP server for Claude, Cursor, and Antigravity.</div>
+          <a class="tool-link" href="/tools/australian-tax-ai-agents/">How this differs from a document MCP</a>
         </div>
         <div class="repo-card">
           <a class="name" href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a>
@@ -191,7 +197,7 @@
         <a href="/about/">About Ryan Duguid</a>
         <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
       </p>
-      <p class="page-meta">Last reviewed 24 August 2026.</p>
+      <p class="page-meta">Last reviewed 25 August 2026.</p>
     </footer>
   </div>
   <script type="application/ld+json">
@@ -224,7 +230,7 @@
         "description": "Open-source computational accounting engines, MCP servers, Excel LAMBDAs, and deterministic AI workflows for Australian taxation and payroll.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-08-24",
+        "dateModified": "2026-08-25",
         "isPartOf": {
           "@id": "https://ryanduguid.github.io/#website"
         },
@@ -247,6 +253,8 @@
         "name": "Ryan Duguid",
         "url": "https://ryanduguid.github.io/about/",
         "jobTitle": "Accountant",
+        "alternateName": "Ryan Duguid, accountant in Newcastle NSW",
+        "disambiguatingDescription": "Australian accountant in Newcastle NSW; provisional member of Chartered Accountants ANZ; author of aus-accounting-mcp. Distinct from the US software product executive of the same name.",
         "description": "Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance.",
         "address": {
           "@type": "PostalAddress",
@@ -256,7 +264,9 @@
         },
         "sameAs": [
           "https://github.com/ryanduguid",
-          "https://www.linkedin.com/in/ryan-duguid"
+          "https://www.linkedin.com/in/ryan-duguid",
+          "https://pypi.org/project/payday-super-checker/",
+          "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server"
         ]
       },
       {
@@ -264,11 +274,26 @@
         "@id": "https://ryanduguid.github.io/#tools-list",
         "name": "Tools for Australian accountants and business owners",
         "itemListOrder": "https://schema.org/ItemListUnordered",
-        "numberOfItems": 7,
+        "numberOfItems": 8,
         "itemListElement": [
           {
             "@type": "ListItem",
             "position": 1,
+            "url": "https://ryanduguid.github.io/tools/australian-tax-ai-agents/",
+            "item": {
+              "@type": "TechArticle",
+              "@id": "https://ryanduguid.github.io/tools/australian-tax-ai-agents/#article",
+              "name": "Australian tax tools for AI agents",
+              "description": "Local computational MCP for Payday Super and ATO benchmarks, not a hosted ATO document store.",
+              "url": "https://ryanduguid.github.io/tools/australian-tax-ai-agents/",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
             "url": "https://ryanduguid.github.io/tools/coal-lsl-levy/",
             "item": {
               "@type": "SoftwareApplication",
@@ -290,7 +315,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 2,
+            "position": 3,
             "url": "https://ryanduguid.github.io/tools/payday-super/",
             "item": {
               "@type": "SoftwareApplication",
@@ -312,7 +337,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 4,
             "url": "https://ryanduguid.github.io/tools/ato-benchmarks/",
             "item": {
               "@type": "SoftwareApplication",
@@ -334,7 +359,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 5,
             "url": "https://ryanduguid.github.io/tools/trust-distributions/",
             "item": {
               "@type": "SoftwareApplication",
@@ -356,7 +381,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 5,
+            "position": 6,
             "url": "https://ryanduguid.github.io/tools/company-tax-franking/",
             "item": {
               "@type": "SoftwareApplication",
@@ -378,7 +403,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 6,
+            "position": 7,
             "url": "https://ryanduguid.github.io/tools/subcontractor-ledgers/",
             "item": {
               "@type": "SoftwareApplication",
@@ -400,7 +425,7 @@
           },
           {
             "@type": "ListItem",
-            "position": 7,
+            "position": 8,
             "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
             "item": {
               "@type": "SoftwareApplication",
