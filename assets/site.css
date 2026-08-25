@@ -641,7 +641,7 @@ a:hover { color: var(--text); }
 @media (max-width: 860px) {
   .article { padding: 40px 0 64px; }
   .article-header { margin-bottom: 32px; }
-  .article-layout { grid-template-columns: 1fr; gap: 32px; }
+  .article-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .article-toc {
     position: static;
     width: min(100%, var(--reading-width));
