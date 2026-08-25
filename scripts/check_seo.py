@@ -64,15 +64,16 @@ AUTHORITY_PATHS = {
     "adopt": "Adopt",
     "verify": "Verify",
 }
-ASSURANCE_HEADINGS = (
-    "Identity and credentials",
-    "Packages, releases and repositories",
-    "Sources and review dates",
-    "Data and privacy boundary",
-    "Security, tests and release evidence",
-    "Human accountability and refusals",
-    "Independent evaluation",
-)
+ASSURANCE_ANCHORS = {
+    "identity-and-credentials": "Identity and credentials",
+    "packages-releases-and-repositories": "Packages, releases and repositories",
+    "sources-and-review-dates": "Sources and review dates",
+    "data-and-privacy-boundary": "Data and privacy boundary",
+    "security-tests-and-release-evidence": "Security, tests and release evidence",
+    "human-accountability-and-refusals": "Human accountability and refusals",
+    "independent-evaluation": "Independent evaluation",
+}
+ASSURANCE_HEADINGS = tuple(ASSURANCE_ANCHORS.values())
 AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
@@ -507,6 +508,8 @@ def check_authority_surface() -> list[str]:
     about_text = (
         visible_text(about_path.read_text(encoding="utf-8")) if about_path.is_file() else ""
     )
+    if re.search(r"\b(?:do\s+not|don't)\s+take\s+client\s+work\b", about_text, re.I):
+        failures.append("about/index.html: short answer contradicts scoped enquiries")
     has_client_file_boundary = re.search(
         r"\b(?:do\s+not|don't|never)\b.{0,80}\bclient\s+files?\b",
         about_text,
@@ -545,13 +548,63 @@ def check_authority_surface() -> list[str]:
         failures.append("about/index.html: enquiry boundary is incomplete")
 
     evidence_path = ROOT / EVIDENCE_REL
-    evidence_headings = (
-        heading_texts(visible_html(evidence_path.read_text(encoding="utf-8")))
-        if evidence_path.is_file()
-        else set()
-    )
+    evidence_html = evidence_path.read_text(encoding="utf-8") if evidence_path.is_file() else ""
+    rendered_evidence = visible_html(evidence_html)
+    evidence_headings = heading_texts(rendered_evidence)
     if any(heading.casefold() not in evidence_headings for heading in ASSURANCE_HEADINGS):
         failures.append("evidence/index.html: missing assurance heading")
+
+    short_answer = re.search(
+        r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bshort-answer\b[^"\']*["\'])[^>]*>'
+        r".*?</p\s*>",
+        rendered_evidence,
+        re.S | re.I,
+    )
+    contents_nav = re.search(
+        r'<nav\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bcontents-nav\b[^"\']*["\'])[^>]*>'
+        r".*?</nav\s*>",
+        rendered_evidence,
+        re.S | re.I,
+    )
+    first_assurance_heading = re.search(
+        rf'<h[1-6]\b(?=[^>]*\bid\s*=\s*["\']{next(iter(ASSURANCE_ANCHORS))}["\'])[^>]*>',
+        rendered_evidence,
+        re.I,
+    )
+    anchored_headings = {}
+    for identifier in ASSURANCE_ANCHORS:
+        match = re.search(
+            rf'<h[1-6]\b(?=[^>]*\bid\s*=\s*["\']{re.escape(identifier)}["\'])[^>]*>'
+            r"(.*?)</h[1-6]\s*>",
+            rendered_evidence,
+            re.S | re.I,
+        )
+        anchored_headings[identifier] = visible_text(match.group(1)) if match else ""
+    expected_contents_hrefs = [f"#{identifier}" for identifier in ASSURANCE_ANCHORS]
+    contents_hrefs = anchor_hrefs(contents_nav.group(0)) if contents_nav else []
+    contents_labels = (
+        [
+            visible_text(label)
+            for label in re.findall(
+                r"<a\b[^>]*>(.*?)</a\s*>", contents_nav.group(0), re.S | re.I
+            )
+        ]
+        if contents_nav
+        else []
+    )
+    if (
+        not short_answer
+        or not contents_nav
+        or not first_assurance_heading
+        or contents_nav.start() < short_answer.end()
+        or contents_nav.end() > first_assurance_heading.start()
+        or contents_hrefs != expected_contents_hrefs
+        or contents_labels != list(ASSURANCE_ANCHORS.values())
+        or anchored_headings != ASSURANCE_ANCHORS
+    ):
+        failures.append(
+            "evidence/index.html: contents navigator does not match assurance headings"
+        )
 
     for path in sorted(ROOT.glob("tools/*/index.html")):
         rel = path.relative_to(ROOT).as_posix()
@@ -1021,6 +1074,43 @@ def _self_check() -> None:
     )
 
     original_root = ROOT
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                "<p>I do not take client work through this site.</p>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "about/index.html: short answer contradicts scoped enquiries" in failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text(
+                '<p class="short-answer">Evidence summary.</p>'
+                + "".join(
+                    f'<h2 id="{identifier}">{heading}</h2>'
+                    for identifier, heading in ASSURANCE_ANCHORS.items()
+                ),
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "evidence/index.html: contents navigator does not match assurance headings"
+                in failures
+            )
+        finally:
+            ROOT = original_root
+
     with tempfile.TemporaryDirectory() as temp_dir:
         ROOT = Path(temp_dir)
         try:
