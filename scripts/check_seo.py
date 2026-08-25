@@ -172,7 +172,18 @@ HOMEPAGE_REQUIRED_HREFS = [
     "/tools/australian-tax-ai-agents/",
     "/tools/coal-lsl-levy/",
 ]
-ARTICLE_PATTERN_PAGES = {"about/index.html", "evidence/index.html"}
+ARTICLE_PATTERN_PAGES = {
+    "about/index.html",
+    "evidence/index.html",
+    "rates/super-guarantee/index.html",
+    "rates/div7a-benchmark-rate/index.html",
+    "rates/cents-per-kilometre/index.html",
+}
+RATE_PAGES = {
+    "rates/super-guarantee/index.html",
+    "rates/div7a-benchmark-rate/index.html",
+    "rates/cents-per-kilometre/index.html",
+}
 
 
 def opening_tags(html: str, tag: str) -> list[str]:
@@ -220,6 +231,19 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
         href = tag_attr(tag, "href") or ""
         if not href.startswith("#") or href[1:] not in target_ids:
             failures.append(f"{rel}: local contents target does not exist: {href}")
+
+
+def check_rate_table_region(html: str, rel: str, failures: list[str]) -> None:
+    rendered = visible_html(html)
+    regions = re.findall(
+        r"<div\b(?=[^>]*\brole\s*=\s*([\"'])region\1)"
+        r"(?=[^>]*\baria-label\s*=\s*([\"']).+?\2)"
+        r"(?=[^>]*\btabindex\s*=\s*([\"'])0\3)[^>]*>.*?<table\b",
+        rendered,
+        re.I | re.S,
+    )
+    if not regions:
+        failures.append(f"{rel}: reference table is not inside a labelled keyboard-scroll region")
 
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
@@ -661,6 +685,8 @@ def check_file(path: Path) -> list[str]:
         check_homepage_contract(html, failures)
     if rel in ARTICLE_PATTERN_PAGES:
         check_article_pattern(html, rel, failures)
+    if rel in RATE_PAGES:
+        check_rate_table_region(html, rel, failures)
 
     print(f"checked {rel}")
     return failures

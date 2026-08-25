@@ -605,6 +605,18 @@ a:hover { color: var(--text); }
   font-weight: 700;
 }
 .article-body table.facts tbody th { width: 34%; color: var(--text-muted); font-weight: 700; }
+.table-scroll {
+  max-width: 100%;
+  margin: 0 0 24px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+}
+.table-scroll:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
+.table-scroll .rate-table--wide { min-width: 640px; }
 .evidence-list { border-top: 1px solid var(--border); }
 .evidence-row {
   display: grid;
