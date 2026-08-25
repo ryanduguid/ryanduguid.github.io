@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Is this workpaper pack allowed into manager review</title>
+  <meta name="description" content="Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer." />
+  <meta property="og:title" content="Is this workpaper pack allowed into manager review" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/tools/review-ready-gate/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <link rel="canonical" href="https://ryanduguid.github.io/tools/review-ready-gate/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <div class="container">
+    <p><a href="/">Home</a></p>
+    <h1>Is this workpaper pack allowed into manager review</h1>
+    <p class="short-answer">
+      This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
+    </p>
+    <p>
+      Preparation got cheaper. Review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it. Most of what then happens on the review desk is not judgement: it is finding the missing tie-out, the open item still sitting in email, the same error as last period.
+    </p>
+    <p>
+      Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared, that the trial balance balances, and for a BAS that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
+    </p>
+    <h2 class="section-title">What this tool does</h2>
+    <ul>
+      <li>Gates BAS, month-end and year-end packs before they reach a reviewer.</li>
+      <li>Writes a cover sheet, a findings CSV and a hashed JSON pack a manager can archive.</li>
+      <li>Flags findings that were still OPEN on the prior pack as repeats.</li>
+    </ul>
+    <h2 class="section-title">Limits</h2>
+    <blockquote>
+      <p>
+        Local files only. No Xero connection, no lodgment, no LLM, no period lock. A READY result is not sign-off.
+      </p>
+      <p>
+        MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the ATO or Xero. Not tax advice.
+      </p>
+    </blockquote>
+    <h2 class="section-title">Get it</h2>
+    <pre><code>python -m pip install -e ".[dev]"
+review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-ready</code></pre>
+    <p><a href="https://github.com/ryanduguid/review-ready-gate">Source on GitHub</a></p>
+    <h2 class="section-title">Common questions</h2>
+    <div class="faq">
+      <h3>Is READY the same as approved?</h3>
+      <p>No. READY means no configured gate tripped on the files that were present. A human still decides whether the file can be signed or lodged.</p>
+      <h3>Does this replace monthly close review?</h3>
+      <p>No. monthly-close-control-plane still produces the exception pack once a trial balance is allowed onto the desk. This tool sits upstream of that.</p>
+      <h3>Can it change a client's ledger?</h3>
+      <p>No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period.</p>
+    </div>
+    <h2 class="section-title">Related</h2>
+    <ul class="related">
+      <li><a href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a></li>
+      <li><a href="https://github.com/ryanduguid/monthly-close-control-plane">Monthly close control plane</a></li>
+      <li><a href="/about/">About Ryan Duguid</a></li>
+    </ul>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 25 August 2026.</p>
+    <p class="byline">
+      Written independently by Ryan Duguid, a provisional member of
+      Chartered Accountants ANZ, in his own time and on his own equipment.
+    </p>
+  </div>
+</body>
+</html>
