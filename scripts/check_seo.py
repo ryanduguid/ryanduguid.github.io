@@ -37,6 +37,7 @@ import html as html_lib
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -47,6 +48,71 @@ TITLE_MAX = 65
 DESC_MIN = 50
 DESC_MAX = 200
 DESC_WARN = 165
+
+PERSON_ID = f"{SITE}/about/#person"
+EVIDENCE_REL = "evidence/index.html"
+EVIDENCE_URL = f"{SITE}/evidence/"
+PERSON_SAME_AS = [
+    "https://github.com/ryanduguid",
+    "https://www.linkedin.com/in/ryan-duguid",
+]
+AUTHORED_SOFTWARE = {
+    "payday-super-checker": {
+        "id": f"{SITE}/about/#payday-super-checker",
+        "repository": "https://github.com/ryanduguid/payday-super-checker",
+        "references": ["https://pypi.org/project/payday-super-checker/"],
+    },
+    "aus-accounting-mcp": {
+        "id": f"{SITE}/about/#aus-accounting-mcp",
+        "repository": "https://github.com/ryanduguid/au-tax-mcp-server",
+        "references": [
+            "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
+            "https://registry.modelcontextprotocol.io/v0.1/servers/"
+            "io.github.ryanduguid%2Faus-accounting/versions/latest",
+        ],
+    },
+}
+RETRIEVAL_CRAWLERS = {
+    "OAI-SearchBot",
+    "ChatGPT-User",
+    "Claude-SearchBot",
+    "Claude-User",
+    "PerplexityBot",
+    "Perplexity-User",
+    "Applebot",
+    "DuckAssistBot",
+    "MistralAI-User",
+    "YouBot",
+}
+TRAINING_CRAWLERS = {"GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"}
+UNCLASSIFIED_CRAWLERS = {"CCBot", "Bytespider", "Amazonbot"}
+WORKED_EXAMPLES = {
+    "tools/payday-super/index.html": {
+        "fixture_urls": [
+            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+            "tests/test_integration.py#L836-L887"
+        ],
+        "labels": {
+            "on-time": r"\bon[-_ ]time\b",
+            "late": r"\blate\b",
+            "at-risk or unknown": r"\b(?:at[-_ ]risk|unknown)\b",
+        },
+    },
+    "tools/xero-trial-balance/index.html": {
+        "fixture_urls": [
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
+            "tests/test_export_tb.py#L189-L208",
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
+            "tests/test_export_tb.py#L419-L431",
+        ],
+        "labels": {
+            "balanced": r"\bbalanced\b",
+            "write": r"\b(?:write|writes|written)\b",
+            "unbalanced": r"\bunbalanced\b",
+            "refused": r"\brefus\w*\b",
+        },
+    },
+}
 
 warnings: list[str] = []
 
@@ -75,8 +141,8 @@ def visible_text(html: str) -> str:
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
 
 
-def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[dict]:
-    blocks: list[dict] = []
+def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
+    blocks: list[object] = []
     for raw in re.findall(
         r'<script type="application/ld\+json">(.*?)</script>', html, re.S
     ):
@@ -87,9 +153,309 @@ def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[dict]:
     return blocks
 
 
-def nodes(block: dict) -> list[dict]:
-    graph = block.get("@graph")
-    return graph if isinstance(graph, list) else [block]
+def nodes(value: object) -> list[dict]:
+    """Return JSON-LD objects recursively, including objects inside arrays."""
+    found: list[dict] = []
+
+    def visit(candidate: object) -> None:
+        if isinstance(candidate, dict):
+            found.append(candidate)
+            for child in candidate.values():
+                visit(child)
+        elif isinstance(candidate, list):
+            for child in candidate:
+                visit(child)
+
+    visit(value)
+    return found
+
+
+def has_type(node: dict, expected: str) -> bool:
+    """Whether a JSON-LD node declares the requested type."""
+    value = node.get("@type")
+    return value == expected or (isinstance(value, list) and expected in value)
+
+
+def indexed_nodes(paths: list[Path], failures: list[str]) -> list[tuple[str, dict]]:
+    """Return every top-level JSON-LD node from indexable HTML files."""
+    found: list[tuple[str, dict]] = []
+    for path in paths:
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in NOT_INDEXED:
+            continue
+        for block in json_ld_blocks(path.read_text(encoding="utf-8"), rel, failures):
+            found.extend((rel, node) for node in nodes(block) if isinstance(node, dict))
+    return found
+
+
+def check_person_graph(paths: list[Path]) -> list[str]:
+    """Check that About owns the one canonical Person and authored works."""
+    failures: list[str] = []
+    graph_nodes = indexed_nodes(paths, failures)
+    people = [(rel, node) for rel, node in graph_nodes if has_type(node, "Person")]
+    if len(people) != 1:
+        found = ", ".join(rel for rel, _ in people) or "none"
+        failures.append(
+            f"person graph: expected exactly one Person node across indexable HTML, found "
+            f"{len(people)} ({found})"
+        )
+    canonical_people = [(rel, node) for rel, node in people if rel == "about/index.html"]
+    if len(canonical_people) != 1:
+        failures.append("person graph: about/index.html must contain the canonical Person node")
+    else:
+        person_rel, person = canonical_people[0]
+        if person_rel != "about/index.html":
+            failures.append(f"person graph: Person node is in {person_rel}, not about/index.html")
+        if person.get("@id") != PERSON_ID:
+            failures.append(
+                f"person graph: Person @id is {person.get('@id')!r}, expected {PERSON_ID!r}"
+            )
+        if person.get("sameAs") != PERSON_SAME_AS:
+            failures.append(
+                "person graph: Person sameAs must contain only the GitHub user and LinkedIn "
+                "URLs in the required order"
+            )
+
+    software = [
+        (rel, node) for rel, node in graph_nodes if has_type(node, "SoftwareSourceCode")
+    ]
+    if len(software) != len(AUTHORED_SOFTWARE):
+        failures.append(
+            f"person graph: expected {len(AUTHORED_SOFTWARE)} SoftwareSourceCode nodes, "
+            f"found {len(software)}"
+        )
+    for name, expected in AUTHORED_SOFTWARE.items():
+        matches = [(rel, node) for rel, node in software if node.get("name") == name]
+        if len(matches) != 1:
+            failures.append(
+                f"person graph: expected one SoftwareSourceCode node named {name!r}, "
+                f"found {len(matches)}"
+            )
+            continue
+        rel, node = matches[0]
+        if rel != "about/index.html":
+            failures.append(f"person graph: {name} is in {rel}, not about/index.html")
+        if node.get("@id") != expected["id"]:
+            failures.append(f"person graph: {name} does not have its stable About @id")
+        if node.get("author") != {"@id": PERSON_ID}:
+            failures.append(f"person graph: {name} is not authored by the canonical Person")
+        if node.get("codeRepository") != expected["repository"]:
+            failures.append(f"person graph: {name} does not name its GitHub repository")
+        if not node.get("license"):
+            failures.append(f"person graph: {name} does not declare a licence")
+        same_as = node.get("sameAs")
+        if not isinstance(same_as, list) or any(
+            reference not in same_as for reference in expected["references"]
+        ):
+            failures.append(f"person graph: {name} is missing its distribution references")
+    return failures
+
+
+def check_evidence_page() -> list[str]:
+    """Keep the public evidence page linked, bounded and person-referential."""
+    failures: list[str] = []
+    evidence_path = ROOT / EVIDENCE_REL
+    if not evidence_path.is_file():
+        failures.append(f"{EVIDENCE_REL}: evidence page does not exist")
+
+    sitemap_count = sitemap_urls().count(EVIDENCE_URL)
+    if sitemap_count != 1:
+        failures.append(
+            f"sitemap.xml: evidence URL must appear once, found {sitemap_count}"
+        )
+    llms_count = (ROOT / "llms.txt").read_text(encoding="utf-8").count(EVIDENCE_URL)
+    if llms_count != 1:
+        failures.append(f"llms.txt: evidence URL must appear once, found {llms_count}")
+
+    for rel in ("index.html", "about/index.html"):
+        page = (ROOT / rel).read_text(encoding="utf-8")
+        page = re.sub(r"<(script|style|template)\b.*?</\1>", " ", page, flags=re.S | re.I)
+        page = re.sub(r"<!--.*?-->", " ", page, flags=re.S)
+        if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):
+            failures.append(f"{rel}: no visible link to /evidence/")
+
+    if not evidence_path.is_file():
+        return failures
+
+    html = evidence_path.read_text(encoding="utf-8")
+    text = visible_text(html).casefold()
+    canonical_match = re.search(r'<link rel="canonical" href="(.*?)"', html)
+    if not canonical_match or canonical_match.group(1) != EVIDENCE_URL:
+        found = canonical_match.group(1) if canonical_match else None
+        failures.append(
+            f"{EVIDENCE_REL}: canonical is {found!r}, expected {EVIDENCE_URL!r}"
+        )
+
+    nodes_on_evidence = [
+        node
+        for block in json_ld_blocks(html, EVIDENCE_REL, failures)
+        for node in nodes(block)
+    ]
+    articles = [
+        node
+        for node in nodes_on_evidence
+        if has_type(node, "TechArticle") or has_type(node, "WebPage")
+    ]
+    if not any(node.get("author") == {"@id": PERSON_ID} for node in articles):
+        failures.append(
+            f"{EVIDENCE_REL}: TechArticle or WebPage is not authored by the canonical Person"
+        )
+    if any(has_type(node, "Person") for node in nodes_on_evidence):
+        failures.append(f"{EVIDENCE_REL}: must not define a local Person node")
+
+    concepts = {
+        "synthetic": r"\bsynthetic\b",
+        "versioned": r"\bversion(?:ed|ing|s)?\b",
+        "local": r"\blocal\b",
+        "human review": r"\bhuman\b.{0,80}\breview\w*\b",
+        "primary source": r"\bprimary\s+source\w*\b",
+    }
+    for label, pattern in concepts.items():
+        if not re.search(pattern, text, re.S | re.I):
+            failures.append(f"{EVIDENCE_REL}: visible text does not name {label}")
+    return failures
+
+
+def check_payday_receipt_boundary(html: str) -> list[str]:
+    """Keep the three missing-receipt branches accurate without freezing prose."""
+    failures: list[str] = []
+    visible_html = re.sub(
+        r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
+    )
+    visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
+    paragraphs = [
+        visible_text(paragraph)
+        for paragraph in re.findall(r"<p\b[^>]*>.*?</p>", visible_html, re.S | re.I)
+    ]
+    text = " ".join(paragraphs)
+
+    categorical_at_risk = (
+        r"\b(?:without|missing|no)\b.{0,80}\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b"
+        r".{0,80}\b(?:can|will)\s+only\b.{0,40}\b(?:at[-_ ]risk|unknown)\b"
+    )
+    if re.search(categorical_at_risk, text, re.S | re.I):
+        failures.append(
+            "tools/payday-super/index.html: must not say a missing receipt can only be "
+            "at-risk or unknown"
+        )
+
+    boundary_patterns = (
+        r"\b(?:without|missing|no)\b.{0,80}\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b"
+        r".{0,100}\b(?:cannot|can't|does\s+not|doesn't)\b.{0,40}\bprov\w*\b"
+        r".{0,30}\bon[-_ ]time\b",
+        r"\bremittance\s+tim\w*\b.{0,80}\bprov\w*\b.{0,30}\blate\b",
+        r"\btimely\s+remittance\b.{0,80}\bwithout\b.{0,50}"
+        r"\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b.{0,80}"
+        r"\b(?:remain\w*|stay\w*|is)\b.{0,30}\bat[-_ ]risk\b",
+    )
+    if not any(
+        all(re.search(pattern, paragraph, re.S | re.I) for pattern in boundary_patterns)
+        for paragraph in paragraphs
+    ):
+        failures.append(
+            "tools/payday-super/index.html: no visible paragraph says missing receipt "
+            "cannot prove on-time, remittance timing can prove late, and timely remittance "
+            "without receipt remains at-risk"
+        )
+    return failures
+
+
+def check_worked_examples() -> list[str]:
+    """Keep each synthetic example visible and tied to tagged test evidence."""
+    failures: list[str] = []
+    for rel, expected in WORKED_EXAMPLES.items():
+        html = (ROOT / rel).read_text(encoding="utf-8")
+        visible_html = re.sub(
+            r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
+        )
+        visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
+        heading = re.search(
+            r"<h([1-6])\b[^>]*>.*?\bsynthetic\s+worked\s+example\b.*?</h\1>",
+            visible_html,
+            re.S | re.I,
+        )
+        if not heading:
+            failures.append(f"{rel}: no visible Synthetic worked example heading")
+            example_html = ""
+        else:
+            remainder = visible_html[heading.end():]
+            next_heading = re.search(r"<h[1-6]\b", remainder, re.I)
+            example_end = (
+                heading.end() + next_heading.start() if next_heading else len(visible_html)
+            )
+            example_html = visible_html[heading.start():example_end]
+        example_text = visible_text(example_html)
+
+        for fixture_url in expected["fixture_urls"]:
+            if not re.search(
+                rf'<a\b[^>]*href="{re.escape(fixture_url)}"[^>]*>',
+                example_html,
+                re.I,
+            ):
+                failures.append(f"{rel}: no visible tagged fixture link to {fixture_url}")
+        if re.search(r'href="[^"]*github\.com/[^"]*/blob/main/', example_html, re.I):
+            failures.append(f"{rel}: worked-example evidence must not use an unpinned main URL")
+
+        for label, pattern in expected["labels"].items():
+            if not re.search(pattern, example_text, re.I):
+                failures.append(f"{rel}: visible worked example does not label {label}")
+        if rel == "tools/payday-super/index.html":
+            failures.extend(check_payday_receipt_boundary(html))
+    return failures
+
+
+def robots_groups(robots: str) -> dict[str, list[str]]:
+    """Parse the simple one-agent robots groups used by this site."""
+    groups: dict[str, list[str]] = {}
+    agents: list[str] = []
+    directives_started = False
+    for raw_line in robots.splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#"):
+            agents = []
+            directives_started = False
+            continue
+        key, separator, value = line.partition(":")
+        if not separator:
+            continue
+        key = key.strip().casefold()
+        value = value.strip()
+        if key == "user-agent":
+            if directives_started:
+                agents = []
+                directives_started = False
+            agents.append(value)
+            groups.setdefault(value, [])
+        elif key in {"allow", "disallow"}:
+            for agent in agents:
+                groups[agent].append(f"{key.title()}: {value}")
+            directives_started = True
+    return groups
+
+
+def check_robots_policy(robots: str) -> list[str]:
+    """Keep search and user retrieval open while blocking training crawlers."""
+    failures: list[str] = []
+    groups = robots_groups(robots)
+    expected = {"*": ["Allow: /"]}
+    expected.update({agent: ["Allow: /"] for agent in RETRIEVAL_CRAWLERS})
+    expected.update({agent: ["Disallow: /"] for agent in TRAINING_CRAWLERS})
+
+    for agent, directives in expected.items():
+        if groups.get(agent) != directives:
+            failures.append(
+                f"robots.txt: {agent} must have exactly {directives!r}, found "
+                f"{groups.get(agent)!r}"
+            )
+    unexpected = sorted(set(groups) - set(expected))
+    if unexpected:
+        failures.append(
+            f"robots.txt: unclassified crawler groups are not allowed: {', '.join(unexpected)}"
+        )
+    for agent in UNCLASSIFIED_CRAWLERS:
+        if agent.casefold() in robots.casefold():
+            failures.append(f"robots.txt: must not mention unclassified crawler {agent}")
+    return failures
 
 
 def check_faq_visible(node: dict, text: str, rel: str, failures: list[str]) -> None:
@@ -160,7 +526,15 @@ def check_file(path: Path) -> list[str]:
         if not blocks:
             failures.append(f"{rel}: no JSON-LD structured data")
         for block in blocks:
-            if block.get("@context") != "https://schema.org":
+            if isinstance(block, dict):
+                contexts = [block.get("@context")]
+            elif isinstance(block, list):
+                contexts = [
+                    item.get("@context") for item in block if isinstance(item, dict)
+                ]
+            else:
+                contexts = []
+            if not contexts or any(context != "https://schema.org" for context in contexts):
                 failures.append(f"{rel}: JSON-LD @context is not https://schema.org")
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
@@ -196,6 +570,10 @@ def check_site(paths: list[Path]) -> list[str]:
     robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
     if f"Sitemap: {SITE}/sitemap.xml" not in robots:
         failures.append("robots.txt: no Sitemap line")
+    failures.extend(check_person_graph(paths))
+    failures.extend(check_evidence_page())
+    failures.extend(check_worked_examples())
+    failures.extend(check_robots_policy(robots))
 
     print(f"checked sitemap.xml ({len(listed)} URLs), llms.txt, robots.txt")
     return failures
@@ -215,6 +593,56 @@ def _self_check() -> None:
     assert site_url("404.html") == f"{SITE}/404.html"
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
+    nested_and_array_nodes = [
+        {"@type": "Article", "author": {"@type": "Person"}},
+        {"@type": "SoftwareSourceCode"},
+    ]
+    assert [node.get("@type") for node in nodes(nested_and_array_nodes)] == [
+        "Article",
+        "Person",
+        "SoftwareSourceCode",
+    ]
+    inaccurate_receipt_boundary = (
+        '<p>Without a fund receipt date, a line can only be "at risk".</p>'
+    )
+    assert any(
+        "must not say" in failure
+        for failure in check_payday_receipt_boundary(inaccurate_receipt_boundary)
+    )
+    accurate_receipt_boundary = (
+        "<p>Missing fund receipt evidence does not prove on-time. Remittance timing can "
+        "prove late. A timely remittance without fund receipt evidence remains at-risk.</p>"
+    )
+    assert check_payday_receipt_boundary(accurate_receipt_boundary) == []
+
+    global ROOT
+    original_root = ROOT
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<!-- <a href=\"/evidence/\">Evidence</a> -->"
+                "<script><a href=\"/evidence/\">Evidence</a></script>"
+                "<template><a href=\"/evidence/\">Evidence</a></template>",
+                encoding="utf-8",
+            )
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                '<a href="/evidence/">Evidence</a>', encoding="utf-8"
+            )
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text("", encoding="utf-8")
+            (ROOT / "sitemap.xml").write_text(
+                f"<loc>{EVIDENCE_URL}</loc>", encoding="utf-8"
+            )
+            (ROOT / "llms.txt").write_text(EVIDENCE_URL, encoding="utf-8")
+
+            failures = check_evidence_page()
+            assert "index.html: no visible link to /evidence/" in failures
+        finally:
+            ROOT = original_root
     print("self-check OK")
 
 

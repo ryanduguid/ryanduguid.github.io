@@ -11,6 +11,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Person
 
 - [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
+- [Evidence for the work](https://ryanduguid.github.io/evidence/): public proof links, source hierarchy, local-data boundary and the limits of tests and human review.
 
 ## Reference tables
 
@@ -28,7 +29,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [ATO small business benchmark comparison](https://ryanduguid.github.io/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
 - [Section 100A and Division 6 trust distributions](https://ryanduguid.github.io/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
 - [Company tax rate and franking account](https://ryanduguid.github.io/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
-- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; [TheWIPTally](https://ryanduguid.github.io/tools/wip-schedule/) computes the schedule.
+- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
 - [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
 - [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
 
