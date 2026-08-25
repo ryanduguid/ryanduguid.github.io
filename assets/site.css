@@ -28,6 +28,9 @@ img { display: block; max-width: 100%; }
 a { color: var(--accent-light); text-decoration-thickness: 0.08em; text-underline-offset: 0.18em; }
 a:hover { color: var(--text); }
 :focus-visible { outline: 2px solid var(--accent-light); outline-offset: 3px; }
+nav a:not(.button) { border-bottom: 2px solid transparent; text-decoration: none; }
+nav a:not(.button):hover,
+nav a:not(.button):focus-visible { border-bottom-color: currentColor; }
 .skip-link { position: fixed; z-index: 100; top: 8px; left: 8px; padding: 10px 14px; background: var(--text); color: var(--bg); transform: translateY(-160%); }
 .skip-link:focus { transform: translateY(0); }
 .site-shell { width: min(var(--site-width), calc(100% - 48px)); margin-inline: auto; }
@@ -37,7 +40,10 @@ a:hover { color: var(--text); }
 .site-identity { color: var(--text); font-weight: 750; text-decoration: none; letter-spacing: -0.02em; }
 .site-nav { display: flex; align-items: center; gap: 24px; white-space: nowrap; }
 .site-nav a { min-height: 44px; display: inline-flex; align-items: center; color: var(--text-muted); }
-.site-nav a[aria-current="page"], .site-nav a:hover { color: var(--text); }
+.site-nav a[aria-current="page"],
+.site-nav a:hover,
+.site-nav a:focus-visible { color: var(--text); }
+.site-nav a[aria-current="page"] { border-bottom-color: currentColor; }
 .site-main { min-height: 60vh; }
 .site-footer { border-top: 1px solid var(--border); color: var(--text-muted); }
 .site-footer__inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; padding-block: 32px; }
@@ -616,6 +622,18 @@ a:hover { color: var(--text); }
   align-items: center;
 }
 .proof-feature__copy > p { max-width: 42ch; margin-bottom: 28px; }
+.proof-feature__links {
+  display: grid;
+  max-width: 42ch;
+  border-bottom: 1px solid var(--border);
+}
+.proof-feature__links .button { justify-self: start; margin-bottom: 18px; }
+.proof-feature__links a:not(.button) {
+  padding: 10px 0;
+  border-top: 1px solid var(--border);
+  font-size: 0.84rem;
+  font-weight: 650;
+}
 .proof-feature figure { margin: 0; }
 .proof-feature img {
   width: 100%;
@@ -716,8 +734,6 @@ a:hover { color: var(--text); }
   align-items: start;
 }
 .article-toc {
-  position: sticky;
-  top: 24px;
   display: grid;
   gap: 8px;
   padding-top: 4px;
@@ -870,7 +886,6 @@ a:hover { color: var(--text); }
   .article-header { margin-bottom: 32px; }
   .article-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   .article-toc {
-    position: static;
     width: min(100%, var(--reading-width));
     padding: 16px 0;
     border-top: 1px solid var(--border);
