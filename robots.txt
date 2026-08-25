@@ -1,14 +1,10 @@
 User-agent: *
 Allow: /
 
-# Explicitly welcome AI answer engines and training crawlers
-User-agent: GPTBot
-Allow: /
+# Permit AI search and user-requested retrieval.
 User-agent: OAI-SearchBot
 Allow: /
 User-agent: ChatGPT-User
-Allow: /
-User-agent: ClaudeBot
 Allow: /
 User-agent: Claude-SearchBot
 Allow: /
@@ -18,13 +14,7 @@ User-agent: PerplexityBot
 Allow: /
 User-agent: Perplexity-User
 Allow: /
-User-agent: Google-Extended
-Allow: /
 User-agent: Applebot
-Allow: /
-User-agent: Applebot-Extended
-Allow: /
-User-agent: Amazonbot
 Allow: /
 User-agent: DuckAssistBot
 Allow: /
@@ -32,9 +22,15 @@ User-agent: MistralAI-User
 Allow: /
 User-agent: YouBot
 Allow: /
-User-agent: CCBot
-Allow: /
-User-agent: Bytespider
-Allow: /
+
+# Do not permit training crawlers.
+User-agent: GPTBot
+Disallow: /
+User-agent: ClaudeBot
+Disallow: /
+User-agent: Google-Extended
+Disallow: /
+User-agent: Applebot-Extended
+Disallow: /
 
 Sitemap: https://ryanduguid.github.io/sitemap.xml
