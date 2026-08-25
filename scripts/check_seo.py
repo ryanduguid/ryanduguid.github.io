@@ -508,6 +508,17 @@ def check_authority_surface() -> list[str]:
         about_text,
         re.S | re.I,
     )
+    has_site_content_advice_boundary = re.search(
+        r"\bnothing\s+here\b.{0,80}\b(?:tax|legal|financial)\s+advice\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_review_aid_boundary = re.search(
+        r"\btools?\b.{0,80}\breview\s+aids?\b.{0,80}"
+        r"\bnot\s+compliance\s+determinations?\b",
+        about_text,
+        re.S | re.I,
+    )
     has_no_engagement_boundary = re.search(
         r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
         r"\b(?:professional\s+)?engagement\b",
@@ -518,6 +529,8 @@ def check_authority_surface() -> list[str]:
         CONTACT_EMAIL not in about_text
         or not has_client_file_boundary
         or not has_tax_advice_boundary
+        or not has_site_content_advice_boundary
+        or not has_review_aid_boundary
         or not has_no_engagement_boundary
     ):
         failures.append("about/index.html: enquiry boundary is incomplete")
@@ -869,6 +882,17 @@ def _self_check() -> None:
         r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
         r"\b(?:professional\s+)?engagement\b",
         "An email does not create a professional engagement.",
+        re.I,
+    )
+    assert re.search(
+        r"\bnothing\s+here\b.{0,80}\b(?:tax|legal|financial)\s+advice\b",
+        "Nothing here is tax, legal or financial advice.",
+        re.I,
+    )
+    assert re.search(
+        r"\btools?\b.{0,80}\breview\s+aids?\b.{0,80}"
+        r"\bnot\s+compliance\s+determinations?\b",
+        "The tools are review aids for a qualified professional, not compliance determinations.",
         re.I,
     )
     assert site_url("about/index.html") == f"{SITE}/about/"
