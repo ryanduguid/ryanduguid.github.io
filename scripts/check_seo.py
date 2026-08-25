@@ -153,9 +153,24 @@ def meta(html: str, attr: str, value: str) -> str | None:
 
 
 def visible_html(html: str) -> str:
-    """HTML with non-rendered script, style, template and comment content removed."""
+    """HTML with non-rendered, hidden and comment content removed."""
     html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
-    return re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+    html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+    hidden_element = re.compile(
+        r"<(?P<tag>[a-z][\w:-]*)\b(?=[^>]*(?:"
+        r"\shidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
+        r"|\saria-hidden\s*=\s*(?:\"true\"|'true'|true)"
+        r"|\sstyle\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
+        r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
+        r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)))"
+        r"[^>]*>.*?</(?P=tag)\s*>",
+        re.S | re.I,
+    )
+    previous = None
+    while html != previous:
+        previous = html
+        html = hidden_element.sub(" ", html)
+    return html
 
 
 def visible_text(html: str) -> str:
@@ -414,13 +429,15 @@ def check_authority_surface() -> list[str]:
 
     catalogue_label = "Original firm-focused tools"
     catalogue = re.search(
-        r'<div\b[^>]*\bclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'][^>]*>',
+        r'<[a-z][\w:-]*\b(?=[^>]*\sclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'])[^>]*>',
         rendered_home,
         re.I,
     )
     label_position = visible_text(rendered_home).find(catalogue_label)
     if label_position < 0:
         failures.append(f"index.html: missing visible catalogue label {catalogue_label}")
+    if not catalogue:
+        failures.append("index.html: missing visible lower tools catalogue")
     elif catalogue and rendered_home.find(catalogue_label) > catalogue.start():
         failures.append(f"index.html: catalogue label {catalogue_label} must precede the tools")
 
@@ -1002,6 +1019,78 @@ def _self_check() -> None:
                 "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
                 in failures
             )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a hidden href="#engage">Engage</a>'
+                '<a style="display: none" href="#adopt">Adopt</a>'
+                '<a aria-hidden="true" href="#verify">Verify</a>'
+                '<section id="engage" hidden>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm</a>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Adopt</a>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Review</a>'
+                "</section>"
+                '<section id="adopt" style="display: none"><pre>'
+                "claude mcp add aus-accounting -- uvx --from \\\\ "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+                "npx skills add ryanduguid/australian-accounting-skills"
+                "</pre></section>"
+                '<section id="verify" aria-hidden="true"></section>'
+                '<h2 style="display: none">Original firm-focused tools</h2>'
+                '<div class="tools-list"></div>',
+                encoding="utf-8",
+            )
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                "<p style=\"visibility: hidden\">ryan@duguid.com.au. Do not email client files or tax advice. "
+                "A message does not create a professional engagement.</p>",
+                encoding="utf-8",
+            )
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text(
+                "".join(f"<h2 hidden>{heading}</h2>" for heading in ASSURANCE_HEADINGS),
+                encoding="utf-8",
+            )
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                f'<a aria-hidden="true" href="/evidence/">Evidence</a>'
+                f'<a style="display: none" href="{AUS_ACCOUNTING_PYPI}">PyPI</a>',
+                encoding="utf-8",
+            )
+
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
+            assert "index.html: missing visible authority route #adopt" in failures
+            assert "index.html: missing visible authority route #verify" in failures
+            assert "index.html: install commands must appear only inside #adopt" in failures
+            assert (
+                "index.html: missing visible catalogue label Original firm-focused tools"
+                in failures
+            )
+            assert "about/index.html: enquiry boundary is incomplete" in failures
+            assert "evidence/index.html: missing assurance heading" in failures
+            assert "tools/australian-tax-ai-agents/index.html: no visible link to /evidence/" in failures
+            assert "tools/australian-tax-ai-agents/index.html: no visible PyPI route" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<h2>Original firm-focused tools</h2>"
+                '<section class="tools-catalogue"></section>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible lower tools catalogue" in failures
         finally:
             ROOT = original_root
     print("self-check OK")
