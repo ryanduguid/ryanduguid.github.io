@@ -11,6 +11,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Person
 
 - [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
+- [Evidence for the work](https://ryanduguid.github.io/evidence/): public proof links, source hierarchy, local-data boundary and the limits of tests and human review.
 
 ## Reference tables
 
