@@ -49,6 +49,8 @@ DESC_MAX = 200
 DESC_WARN = 165
 
 PERSON_ID = f"{SITE}/about/#person"
+EVIDENCE_REL = "evidence/index.html"
+EVIDENCE_URL = f"{SITE}/evidence/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
@@ -221,6 +223,69 @@ def check_person_graph(paths: list[Path]) -> list[str]:
     return failures
 
 
+def check_evidence_page() -> list[str]:
+    """Keep the public evidence page linked, bounded and person-referential."""
+    failures: list[str] = []
+    evidence_path = ROOT / EVIDENCE_REL
+    if not evidence_path.is_file():
+        failures.append(f"{EVIDENCE_REL}: evidence page does not exist")
+
+    sitemap_count = sitemap_urls().count(EVIDENCE_URL)
+    if sitemap_count != 1:
+        failures.append(
+            f"sitemap.xml: evidence URL must appear once, found {sitemap_count}"
+        )
+    llms_count = (ROOT / "llms.txt").read_text(encoding="utf-8").count(EVIDENCE_URL)
+    if llms_count != 1:
+        failures.append(f"llms.txt: evidence URL must appear once, found {llms_count}")
+
+    for rel in ("index.html", "about/index.html"):
+        page = (ROOT / rel).read_text(encoding="utf-8")
+        if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):
+            failures.append(f"{rel}: no visible link to /evidence/")
+
+    if not evidence_path.is_file():
+        return failures
+
+    html = evidence_path.read_text(encoding="utf-8")
+    text = visible_text(html).casefold()
+    canonical_match = re.search(r'<link rel="canonical" href="(.*?)"', html)
+    if not canonical_match or canonical_match.group(1) != EVIDENCE_URL:
+        found = canonical_match.group(1) if canonical_match else None
+        failures.append(
+            f"{EVIDENCE_REL}: canonical is {found!r}, expected {EVIDENCE_URL!r}"
+        )
+
+    nodes_on_evidence = [
+        node
+        for block in json_ld_blocks(html, EVIDENCE_REL, failures)
+        for node in nodes(block)
+    ]
+    articles = [
+        node
+        for node in nodes_on_evidence
+        if has_type(node, "TechArticle") or has_type(node, "WebPage")
+    ]
+    if not any(node.get("author") == {"@id": PERSON_ID} for node in articles):
+        failures.append(
+            f"{EVIDENCE_REL}: TechArticle or WebPage is not authored by the canonical Person"
+        )
+    if any(has_type(node, "Person") for node in nodes_on_evidence):
+        failures.append(f"{EVIDENCE_REL}: must not define a local Person node")
+
+    concepts = {
+        "synthetic": r"\bsynthetic\b",
+        "versioned": r"\bversion(?:ed|ing|s)?\b",
+        "local": r"\blocal\b",
+        "human review": r"\bhuman\b.{0,80}\breview\w*\b",
+        "primary source": r"\bprimary\s+source\w*\b",
+    }
+    for label, pattern in concepts.items():
+        if not re.search(pattern, text, re.S | re.I):
+            failures.append(f"{EVIDENCE_REL}: visible text does not name {label}")
+    return failures
+
+
 def robots_groups(robots: str) -> dict[str, list[str]]:
     """Parse the simple one-agent robots groups used by this site."""
     groups: dict[str, list[str]] = {}
@@ -388,6 +453,7 @@ def check_site(paths: list[Path]) -> list[str]:
     if f"Sitemap: {SITE}/sitemap.xml" not in robots:
         failures.append("robots.txt: no Sitemap line")
     failures.extend(check_person_graph(paths))
+    failures.extend(check_evidence_page())
     failures.extend(check_robots_policy(robots))
 
     print(f"checked sitemap.xml ({len(listed)} URLs), llms.txt, robots.txt")
