@@ -316,6 +316,50 @@ def check_evidence_page() -> list[str]:
     return failures
 
 
+def check_payday_receipt_boundary(html: str) -> list[str]:
+    """Keep the three missing-receipt branches accurate without freezing prose."""
+    failures: list[str] = []
+    visible_html = re.sub(
+        r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
+    )
+    visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
+    paragraphs = [
+        visible_text(paragraph)
+        for paragraph in re.findall(r"<p\b[^>]*>.*?</p>", visible_html, re.S | re.I)
+    ]
+    text = " ".join(paragraphs)
+
+    categorical_at_risk = (
+        r"\b(?:without|missing|no)\b.{0,80}\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b"
+        r".{0,80}\b(?:can|will)\s+only\b.{0,40}\b(?:at[-_ ]risk|unknown)\b"
+    )
+    if re.search(categorical_at_risk, text, re.S | re.I):
+        failures.append(
+            "tools/payday-super/index.html: must not say a missing receipt can only be "
+            "at-risk or unknown"
+        )
+
+    boundary_patterns = (
+        r"\b(?:without|missing|no)\b.{0,80}\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b"
+        r".{0,100}\b(?:cannot|can't|does\s+not|doesn't)\b.{0,40}\bprov\w*\b"
+        r".{0,30}\bon[-_ ]time\b",
+        r"\bremittance\s+tim\w*\b.{0,80}\bprov\w*\b.{0,30}\blate\b",
+        r"\btimely\s+remittance\b.{0,80}\bwithout\b.{0,50}"
+        r"\b(?:fund[- ]?)?receipt(?:\s+date|\s+evidence)?\b.{0,80}"
+        r"\b(?:remain\w*|stay\w*|is)\b.{0,30}\bat[-_ ]risk\b",
+    )
+    if not any(
+        all(re.search(pattern, paragraph, re.S | re.I) for pattern in boundary_patterns)
+        for paragraph in paragraphs
+    ):
+        failures.append(
+            "tools/payday-super/index.html: no visible paragraph says missing receipt "
+            "cannot prove on-time, remittance timing can prove late, and timely remittance "
+            "without receipt remains at-risk"
+        )
+    return failures
+
+
 def check_worked_examples() -> list[str]:
     """Keep each synthetic example visible and tied to tagged test evidence."""
     failures: list[str] = []
@@ -355,6 +399,8 @@ def check_worked_examples() -> list[str]:
         for label, pattern in expected["labels"].items():
             if not re.search(pattern, example_text, re.I):
                 failures.append(f"{rel}: visible worked example does not label {label}")
+        if rel == "tools/payday-super/index.html":
+            failures.extend(check_payday_receipt_boundary(html))
     return failures
 
 
@@ -556,6 +602,18 @@ def _self_check() -> None:
         "Person",
         "SoftwareSourceCode",
     ]
+    inaccurate_receipt_boundary = (
+        '<p>Without a fund receipt date, a line can only be "at risk".</p>'
+    )
+    assert any(
+        "must not say" in failure
+        for failure in check_payday_receipt_boundary(inaccurate_receipt_boundary)
+    )
+    accurate_receipt_boundary = (
+        "<p>Missing fund receipt evidence does not prove on-time. Remittance timing can "
+        "prove late. A timely remittance without fund receipt evidence remains at-risk.</p>"
+    )
+    assert check_payday_receipt_boundary(accurate_receipt_boundary) == []
 
     global ROOT
     original_root = ROOT
