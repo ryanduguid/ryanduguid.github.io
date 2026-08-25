@@ -91,6 +91,10 @@
         <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
         <div class="desc">A trial balance export that reconciles, ready for Excel or Power BI.</div>
       </div>
+      <div class="tool-card">
+        <a class="tool-name" href="/tools/review-ready-gate/">Is this workpaper pack allowed into manager review</a>
+        <div class="desc">Stop an incomplete BAS, month-end or year-end folder from reaching the manager.</div>
+      </div>
     </div>
 
     <h2 class="section-title">The Stack</h2>
@@ -166,6 +170,11 @@
           <a class="name" href="https://github.com/ryanduguid/xero-ai-review-gateway">xero-ai-review-gateway</a>
           <div class="desc">Zero-network safety boundary for AI-assisted TB review.</div>
         </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/review-ready-gate">review-ready-gate</a>
+          <div class="desc">Readiness gate that keeps incomplete packs off the review desk.</div>
+          <a class="tool-link" href="/tools/review-ready-gate/">Try the tool page</a>
+        </div>
       </div>
     </div>
 
@@ -194,6 +203,7 @@
       <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
       <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
       <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
+      <a href="https://github.com/ryanduguid/review-ready-gate">Review-ready gate</a>
       <a href="https://github.com/ryanduguid/monthly-close-control-plane">Close Controls</a>
       <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
       <a href="/rates/super-guarantee/">SG rate history</a>
@@ -443,6 +453,28 @@
               "name": "How to export a Xero trial balance to CSV that actually balances",
               "description": "Pull the trial balance from the Xero API into a CSV that only writes when it balances.",
               "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "url": "https://ryanduguid.github.io/tools/review-ready-gate/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/review-ready-gate/#software",
+              "name": "Is this workpaper pack allowed into manager review",
+              "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
+              "url": "https://ryanduguid.github.io/tools/review-ready-gate/",
               "applicationCategory": "FinanceApplication",
               "author": {
                 "@id": "https://ryanduguid.github.io/about/#person"
