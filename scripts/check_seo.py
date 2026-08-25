@@ -8,17 +8,18 @@ data that claims content the page does not show.
 
 Checks, per file:
 1. <html lang> is set.
-2. Exactly one <title>, non-empty, at most 65 characters.
+2. Exactly one <title>, non-empty, at most 65 characters, except for the exact
+   canonical Evidence and Assurance title.
 3. A meta description between 50 and 200 characters.
 4. A canonical link matching the file's own path on the live site.
 5. og:title, og:url and og:image, with og:url matching the canonical.
 6. At least one JSON-LD block, every one of which parses and declares
    https://schema.org as its @context.
 7. Exactly one <h1>.
-8. Every FAQPage question and answer in the structured data also appears in the
-   visible HTML. Marking up an answer the reader cannot see is against Google's
-   own structured data policy, and it is the easiest way for a page to end up
-   asserting something the author never wrote.
+8. Every FAQPage question and answer in the structured data matches the
+   corresponding visible FAQ item. Marking up a different answer from the one
+   a reader sees is against Google's own structured data policy, even when the
+   same words happen to appear elsewhere on the page.
 9. Every ItemList count matches its entries, whose positions are sequential.
 
 Then, site-wide:
@@ -40,6 +41,7 @@ import re
 import sys
 import tempfile
 from pathlib import Path
+from urllib.parse import parse_qs
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://ryanduguid.github.io"
@@ -53,6 +55,46 @@ DESC_WARN = 165
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
 EVIDENCE_URL = f"{SITE}/evidence/"
+TITLE_EXCEPTIONS = {
+    EVIDENCE_REL: "Evidence and Assurance for Australian computational accounting tools",
+}
+CONTACT_EMAIL = "ryan@duguid.com.au"
+AUTHORITY_PATHS = {
+    "engage": "Engage",
+    "adopt": "Adopt",
+    "verify": "Verify",
+}
+AUTHORITY_URLS = {
+    "engage": f"{SITE}/#engage",
+    "adopt": f"{SITE}/#adopt",
+    "verify": EVIDENCE_URL,
+}
+PRIMARY_INSTALL_PATTERNS = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
+    r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+)
+RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
+    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
+    r"aus-accounting-mcp\b"
+)
+CA_ANZ_NON_ENDORSEMENT = (
+    "Provisional membership does not represent endorsement by Chartered Accountants ANZ."
+)
+MCP_REL = "tools/australian-tax-ai-agents/index.html"
+MCP_REVIEW_DATE = "2026-08-26"
+MCP_VISIBLE_REVIEW_DATE = "26 August 2026"
+ASSURANCE_ANCHORS = {
+    "identity-and-credentials": "Identity and credentials",
+    "packages-releases-and-repositories": "Packages, releases and repositories",
+    "sources-and-review-dates": "Sources and review dates",
+    "data-and-privacy-boundary": "Data and privacy boundary",
+    "security-tests-and-release-evidence": "Security, tests and release evidence",
+    "human-accountability-and-refusals": "Human accountability and refusals",
+    "independent-evaluation": "Independent evaluation",
+}
+ASSURANCE_HEADINGS = tuple(ASSURANCE_ANCHORS.values())
+AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
@@ -70,6 +112,7 @@ AUTHORED_SOFTWARE = {
             "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
             "https://registry.modelcontextprotocol.io/v0.1/servers/"
             "io.github.ryanduguid%2Faus-accounting/versions/latest",
+            AUS_ACCOUNTING_PYPI,
         ],
     },
 }
@@ -127,6 +170,11 @@ def site_url(rel: str) -> str:
     return f"{SITE}/{rel}"
 
 
+def title_is_too_long(rel: str, title: str) -> bool:
+    """Keep the general limit while allowing an exact page-specific title."""
+    return len(title) > TITLE_MAX and TITLE_EXCEPTIONS.get(rel) != title
+
+
 def meta(html: str, attr: str, value: str) -> str | None:
     m = re.search(
         rf'<meta {attr}="{re.escape(value)}" content="(.*?)"\s*/?>', html, re.S
@@ -135,9 +183,62 @@ def meta(html: str, attr: str, value: str) -> str | None:
 
 
 def visible_html(html: str) -> str:
-    """HTML with non-rendered script, style, template and comment content removed."""
+    """HTML with non-rendered, hidden and comment content removed."""
     html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
-    return re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+    html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
+    tag_pattern = re.compile(
+        r"<(?P<closing>/)?(?P<name>[a-z][\w:-]*)\b(?P<attrs>[^>]*)>", re.I
+    )
+    hidden_attribute = re.compile(
+        r"(?:^|\s)hidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
+        r"|(?:^|\s)aria-hidden\s*=\s*(?:\"true\"|'true'|true)"
+        r"|(?:^|\s)style\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
+        r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
+        r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)",
+        re.I,
+    )
+    void_elements = {
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    }
+    rendered: list[str] = []
+    hidden_stack: list[str] = []
+    position = 0
+    for tag in tag_pattern.finditer(html):
+        if not hidden_stack:
+            rendered.append(html[position : tag.start()])
+        name = tag.group("name").casefold()
+        attrs = tag.group("attrs")
+        closing = bool(tag.group("closing"))
+        self_closing = attrs.rstrip().endswith("/") or name in void_elements
+        if hidden_stack:
+            if closing and name in hidden_stack:
+                start = len(hidden_stack) - 1 - hidden_stack[::-1].index(name)
+                del hidden_stack[start:]
+            elif not closing and not self_closing:
+                hidden_stack.append(name)
+        elif not closing and hidden_attribute.search(attrs):
+            rendered.append(" ")
+            if not self_closing:
+                hidden_stack.append(name)
+        else:
+            rendered.append(tag.group(0))
+        position = tag.end()
+    if not hidden_stack:
+        rendered.append(html[position:])
+    return "".join(rendered)
 
 
 def visible_text(html: str) -> str:
@@ -250,9 +351,18 @@ def check_person_graph(paths: list[Path]) -> list[str]:
         if not node.get("license"):
             failures.append(f"person graph: {name} does not declare a licence")
         same_as = node.get("sameAs")
-        if not isinstance(same_as, list) or any(
-            reference not in same_as for reference in expected["references"]
-        ):
+        if not isinstance(same_as, list):
+            if name == "aus-accounting-mcp":
+                failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
+            failures.append(f"person graph: {name} is missing its distribution references")
+            continue
+        missing_references = [
+            reference for reference in expected["references"] if reference not in same_as
+        ]
+        if name == "aus-accounting-mcp" and AUS_ACCOUNTING_PYPI in missing_references:
+            failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
+            missing_references.remove(AUS_ACCOUNTING_PYPI)
+        if missing_references:
             failures.append(f"person graph: {name} is missing its distribution references")
     return failures
 
@@ -319,6 +429,350 @@ def check_evidence_page() -> list[str]:
     for label, pattern in concepts.items():
         if not re.search(pattern, text, re.S | re.I):
             failures.append(f"{EVIDENCE_REL}: visible text does not name {label}")
+    return failures
+
+
+def section_html(html: str, identifier: str) -> str:
+    """Return one visible section by ID, or an empty string when it is absent."""
+    rendered = visible_html(html)
+    opening = re.search(
+        rf'<section\b(?=[^>]*\bid\s*=\s*["\']{re.escape(identifier)}["\'])[^>]*>',
+        rendered,
+        re.I,
+    )
+    if not opening:
+        return ""
+    closing = re.search(r"</section\s*>", rendered[opening.end() :], re.I)
+    if not closing:
+        return rendered[opening.start() :]
+    return rendered[opening.start() : opening.end() + closing.end()]
+
+
+def anchor_hrefs(html: str) -> list[str]:
+    """Return href values from visible anchors."""
+    return [
+        html_lib.unescape(href)
+        for href in re.findall(
+            r'<a\b[^>]*\bhref\s*=\s*["\']([^"\']+)["\']', html, re.I
+        )
+    ]
+
+
+def heading_texts(html: str) -> set[str]:
+    """Return normalised visible heading text."""
+    return {
+        visible_text(heading).casefold()
+        for heading in re.findall(r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", html, re.S | re.I)
+    }
+
+
+def markdown_section(markdown: str, heading: str) -> str:
+    """Return one level-two Markdown section without later sections."""
+    match = re.search(
+        rf"^##\s+{re.escape(heading)}\s*$\n(?P<body>.*?)(?=^##\s+|\Z)",
+        markdown,
+        re.M | re.S,
+    )
+    return match.group("body") if match else ""
+
+
+def check_llms_authority_surface(llms: str) -> list[str]:
+    """Keep machine-facing routes and enquiry boundaries aligned with the site."""
+    failures: list[str] = []
+    if re.search(
+        r"\b(?:offers?\s+no\s+accounting\s+services?|takes?\s+no\s+engagements?)\b",
+        llms,
+        re.I,
+    ):
+        failures.append("llms.txt: absolute no-engagement claim contradicts scoped enquiries")
+
+    route_section = markdown_section(llms, "Choose a route")
+    routes_are_complete = all(
+        re.search(
+            rf"\*\*{re.escape(label)}\*\*\s*\({re.escape(AUTHORITY_URLS[identifier])}\)",
+            route_section,
+        )
+        for identifier, label in AUTHORITY_PATHS.items()
+    )
+    required_boundaries = (
+        "Do not send taxpayer information or client files",
+        "This is not a tax advice or lodgment channel",
+        "does not create a professional engagement",
+        "scope, responsibilities and data handling must be agreed separately",
+    )
+    if not routes_are_complete or any(
+        boundary not in route_section for boundary in required_boundaries
+    ):
+        failures.append("llms.txt: scoped authority route is incomplete")
+    return failures
+
+
+def check_mcp_review_dates(html: str) -> list[str]:
+    """Keep the AI-agent page's visible and structured review dates aligned."""
+    failures: list[str] = []
+    visible = visible_text(html)
+    expected_visible = (
+        f"Published 25 August 2026. Last reviewed {MCP_VISIBLE_REVIEW_DATE}."
+    )
+    if expected_visible not in visible:
+        failures.append(f"{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}")
+
+    parse_failures: list[str] = []
+    page_nodes = [
+        node
+        for block in json_ld_blocks(html, MCP_REL, parse_failures)
+        for node in nodes(block)
+    ]
+    failures.extend(parse_failures)
+    for schema_type in ("TechArticle", "WebPage", "SoftwareApplication"):
+        matches = [node for node in page_nodes if has_type(node, schema_type)]
+        if len(matches) != 1 or matches[0].get("dateModified") != MCP_REVIEW_DATE:
+            failures.append(
+                f"{MCP_REL}: {schema_type} dateModified must be {MCP_REVIEW_DATE}"
+            )
+    for schema_type in ("TechArticle", "WebPage"):
+        matches = [node for node in page_nodes if has_type(node, schema_type)]
+        if len(matches) != 1 or matches[0].get("datePublished") != "2026-08-25":
+            failures.append(
+                f"{MCP_REL}: {schema_type} datePublished must remain 2026-08-25"
+            )
+    return failures
+
+
+def check_authority_surface() -> list[str]:
+    """Require the public Engage, Adopt and Verify authority surface."""
+    failures: list[str] = []
+    home_path = ROOT / "index.html"
+    home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
+    rendered_home = visible_html(home)
+    home_hrefs = anchor_hrefs(rendered_home)
+    sections = {
+        identifier: section_html(home, identifier) for identifier in AUTHORITY_PATHS
+    }
+    for identifier, label in AUTHORITY_PATHS.items():
+        if f"#{identifier}" not in home_hrefs or not sections[identifier]:
+            failures.append(f"index.html: missing visible authority route #{identifier}")
+        route_card = re.search(
+            rf'<a\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bpath-card\b[^"\']*["\'])'
+            rf'(?=[^>]*\bhref\s*=\s*["\']#{re.escape(identifier)}["\'])[^>]*>'
+            r"(.*?)</a\s*>",
+            rendered_home,
+            re.S | re.I,
+        )
+        card_label = ""
+        if route_card:
+            strong = re.search(
+                r"<strong\b[^>]*>(.*?)</strong\s*>", route_card.group(1), re.S | re.I
+            )
+            card_label = visible_text(strong.group(1)) if strong else ""
+        if card_label != label:
+            failures.append(
+                f"index.html: authority route #{identifier} card label must be {label}"
+            )
+
+        section_heading = re.search(
+            r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", sections[identifier], re.S | re.I
+        )
+        heading_label = visible_text(section_heading.group(1)) if section_heading else ""
+        if heading_label != label:
+            failures.append(
+                f"index.html: authority section #{identifier} heading must be {label}"
+            )
+
+    home_text = visible_text(rendered_home)
+    adopt_text = visible_text(sections["adopt"])
+    if any(
+        len(re.findall(pattern, home_text, re.I)) != 1
+        or len(re.findall(pattern, adopt_text, re.I)) != 1
+        for pattern in PRIMARY_INSTALL_PATTERNS
+    ):
+        failures.append("index.html: install commands must appear only inside #adopt")
+    if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, home_text, re.I):
+        failures.append("index.html: retired GitHub-source install command")
+
+    llms_path = ROOT / "llms.txt"
+    llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
+    failures.extend(check_llms_authority_surface(llms))
+    if any(re.search(pattern, llms, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
+        failures.append("llms.txt: supported install commands must link to /#adopt instead")
+    if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
+        failures.append("llms.txt: retired GitHub-source install command")
+
+    for path in sorted(ROOT.rglob("*.html")):
+        rel = path.relative_to(ROOT).as_posix()
+        if rel == "index.html" or rel in NOT_INDEXED or any(
+            part.startswith(".") for part in path.relative_to(ROOT).parts
+        ):
+            continue
+        page_html = path.read_text(encoding="utf-8")
+        page_text = visible_text(page_html)
+        page_json_ld = " ".join(
+            json.dumps(block, ensure_ascii=False)
+            for block in json_ld_blocks(page_html, rel, failures)
+        )
+        indexable_text = f"{page_text} {page_json_ld}"
+        if any(
+            re.search(pattern, indexable_text, re.I)
+            for pattern in PRIMARY_INSTALL_PATTERNS
+        ):
+            failures.append(f"{rel}: supported install commands must link to /#adopt instead")
+        if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
+            failures.append(f"{rel}: retired GitHub-source install command")
+
+    catalogue_label = "Original firm-focused tools"
+    catalogue = re.search(
+        r'<[a-z][\w:-]*\b(?=[^>]*\sclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'])[^>]*>',
+        rendered_home,
+        re.I,
+    )
+    label_position = visible_text(rendered_home).find(catalogue_label)
+    if label_position < 0:
+        failures.append(f"index.html: missing visible catalogue label {catalogue_label}")
+    if not catalogue:
+        failures.append("index.html: missing visible lower tools catalogue")
+    elif catalogue and rendered_home.find(catalogue_label) > catalogue.start():
+        failures.append(f"index.html: catalogue label {catalogue_label} must precede the tools")
+
+    expected_subjects = {
+        "Firm workflow or controlled pilot",
+        "Tool adoption or integration",
+        "Research, speaking or peer review",
+    }
+    actual_subjects: set[str] = set()
+    for href in anchor_hrefs(sections["engage"]):
+        if not href.casefold().startswith("mailto:"):
+            continue
+        address, separator, query = href[7:].partition("?")
+        if address.casefold() == CONTACT_EMAIL and separator:
+            actual_subjects.update(parse_qs(query).get("subject", []))
+    if not expected_subjects.issubset(actual_subjects):
+        failures.append("index.html: scoped enquiry categories are incomplete")
+
+    about_path = ROOT / "about" / "index.html"
+    about_text = (
+        visible_text(about_path.read_text(encoding="utf-8")) if about_path.is_file() else ""
+    )
+    if re.search(r"\b(?:do\s+not|don't)\s+take\s+client\s+work\b", about_text, re.I):
+        failures.append("about/index.html: short answer contradicts scoped enquiries")
+    has_client_file_boundary = re.search(
+        r"\b(?:do\s+not|don't|never)\b.{0,80}\bclient\s+files?\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_tax_advice_boundary = re.search(
+        r"\b(?:do\s+not|don't|not)\b.{0,80}\btax\s+advice\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_site_content_advice_boundary = re.search(
+        r"\bnothing\s+here\b.{0,80}\b(?:tax|legal|financial)\s+advice\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_review_aid_boundary = re.search(
+        r"\btools?\b.{0,80}\breview\s+aids?\b.{0,80}"
+        r"\bnot\s+compliance\s+determinations?\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_no_engagement_boundary = re.search(
+        r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
+        r"\b(?:professional\s+)?engagement\b",
+        about_text,
+        re.S | re.I,
+    )
+    if (
+        CONTACT_EMAIL not in about_text
+        or not has_client_file_boundary
+        or not has_tax_advice_boundary
+        or not has_site_content_advice_boundary
+        or not has_review_aid_boundary
+        or not has_no_engagement_boundary
+    ):
+        failures.append("about/index.html: enquiry boundary is incomplete")
+
+    evidence_path = ROOT / EVIDENCE_REL
+    evidence_html = evidence_path.read_text(encoding="utf-8") if evidence_path.is_file() else ""
+    rendered_evidence = visible_html(evidence_html)
+    evidence_headings = heading_texts(rendered_evidence)
+    if any(heading.casefold() not in evidence_headings for heading in ASSURANCE_HEADINGS):
+        failures.append("evidence/index.html: missing assurance heading")
+    if CA_ANZ_NON_ENDORSEMENT not in visible_text(rendered_evidence):
+        failures.append("evidence/index.html: missing CA ANZ non-endorsement boundary")
+
+    short_answer = re.search(
+        r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bshort-answer\b[^"\']*["\'])[^>]*>'
+        r".*?</p\s*>",
+        rendered_evidence,
+        re.S | re.I,
+    )
+    contents_nav = re.search(
+        r'<nav\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bcontents-nav\b[^"\']*["\'])[^>]*>'
+        r".*?</nav\s*>",
+        rendered_evidence,
+        re.S | re.I,
+    )
+    first_assurance_heading = re.search(
+        rf'<h[1-6]\b(?=[^>]*\bid\s*=\s*["\']{next(iter(ASSURANCE_ANCHORS))}["\'])[^>]*>',
+        rendered_evidence,
+        re.I,
+    )
+    anchored_headings = {}
+    for identifier in ASSURANCE_ANCHORS:
+        match = re.search(
+            rf'<h[1-6]\b(?=[^>]*\bid\s*=\s*["\']{re.escape(identifier)}["\'])[^>]*>'
+            r"(.*?)</h[1-6]\s*>",
+            rendered_evidence,
+            re.S | re.I,
+        )
+        anchored_headings[identifier] = visible_text(match.group(1)) if match else ""
+    expected_contents_hrefs = [f"#{identifier}" for identifier in ASSURANCE_ANCHORS]
+    contents_hrefs = anchor_hrefs(contents_nav.group(0)) if contents_nav else []
+    contents_labels = (
+        [
+            visible_text(label)
+            for label in re.findall(
+                r"<a\b[^>]*>(.*?)</a\s*>", contents_nav.group(0), re.S | re.I
+            )
+        ]
+        if contents_nav
+        else []
+    )
+    if (
+        not short_answer
+        or not contents_nav
+        or not first_assurance_heading
+        or contents_nav.start() < short_answer.end()
+        or contents_nav.end() > first_assurance_heading.start()
+        or contents_hrefs != expected_contents_hrefs
+        or contents_labels != list(ASSURANCE_ANCHORS.values())
+        or anchored_headings != ASSURANCE_ANCHORS
+    ):
+        failures.append(
+            "evidence/index.html: contents navigator does not match assurance headings"
+        )
+
+    for path in sorted(ROOT.glob("tools/*/index.html")):
+        rel = path.relative_to(ROOT).as_posix()
+        if "/evidence/" not in anchor_hrefs(visible_html(path.read_text(encoding="utf-8"))):
+            failures.append(f"{rel}: no visible link to /evidence/")
+
+    mcp_rel = MCP_REL
+    mcp_path = ROOT / mcp_rel
+    mcp_html = mcp_path.read_text(encoding="utf-8") if mcp_path.is_file() else ""
+    rendered_mcp = visible_html(mcp_html)
+    failures.extend(check_mcp_review_dates(mcp_html))
+    if AUS_ACCOUNTING_PYPI not in anchor_hrefs(rendered_mcp):
+        failures.append(f"{mcp_rel}: no visible PyPI route")
+    uncommented_mcp = re.sub(r"<!--.*?-->", " ", mcp_html, flags=re.S)
+    json_ld_text = " ".join(
+        json.dumps(block, ensure_ascii=False)
+        for block in json_ld_blocks(uncommented_mcp, mcp_rel, failures)
+    )
+    if re.search(r"\bfirst\s+pypi\s+release\b", visible_text(rendered_mcp), re.I) or re.search(
+        r"\bfirst\s+pypi\s+release\b", json_ld_text, re.I
+    ):
+        failures.append(f"{mcp_rel}: stale first-PyPI-release claim")
     return failures
 
 
@@ -464,16 +918,75 @@ def check_robots_policy(robots: str) -> list[str]:
     return failures
 
 
-def check_faq_visible(node: dict, text: str, rel: str, failures: list[str]) -> None:
-    for question in node.get("mainEntity", []):
-        name = question.get("name", "")
-        answer = question.get("acceptedAnswer", {}).get("text", "")
-        for label, claim in (("question", name), ("answer", answer)):
-            needle = re.sub(r"\s+", " ", claim).strip()
-            if needle and needle not in text:
-                failures.append(
-                    f"{rel}: FAQPage {label} is not visible on the page: {needle[:70]}..."
+def normalise_claim(value: object) -> str:
+    """Normalise plain structured-data text for comparison with visible copy."""
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"\s+", " ", html_lib.unescape(value)).strip()
+
+
+def visible_faq_pairs(html: str) -> list[tuple[str, str]]:
+    """Return ordered question and answer pairs from visible FAQ containers."""
+    rendered = visible_html(html)
+    containers = re.findall(
+        r'<div\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bfaq\b[^"\']*["\'])[^>]*>'
+        r"(.*?)</div\s*>",
+        rendered,
+        re.S | re.I,
+    )
+    pairs: list[tuple[str, str]] = []
+    for container in containers:
+        headings = list(
+            re.finditer(r"<h3\b[^>]*>(.*?)</h3\s*>", container, re.S | re.I)
+        )
+        for index, heading in enumerate(headings):
+            end = headings[index + 1].start() if index + 1 < len(headings) else len(container)
+            answer = re.search(
+                r"<p\b[^>]*>(.*?)</p\s*>",
+                container[heading.end() : end],
+                re.S | re.I,
+            )
+            pairs.append(
+                (
+                    visible_text(heading.group(1)),
+                    visible_text(answer.group(1)) if answer else "",
                 )
+            )
+    return pairs
+
+
+def check_faq_visible(node: dict, html: str, rel: str, failures: list[str]) -> None:
+    """Pair each structured FAQ item with the visible item in the same position."""
+    entities = node.get("mainEntity")
+    structured_pairs: list[tuple[str, str]] = []
+    if isinstance(entities, list):
+        for question in entities:
+            if not isinstance(question, dict):
+                structured_pairs.append(("", ""))
+                continue
+            answer = question.get("acceptedAnswer")
+            answer_text = answer.get("text", "") if isinstance(answer, dict) else ""
+            structured_pairs.append(
+                (normalise_claim(question.get("name", "")), normalise_claim(answer_text))
+            )
+
+    visible_pairs = visible_faq_pairs(html)
+    if len(structured_pairs) != len(visible_pairs):
+        failures.append(
+            f"{rel}: FAQPage has {len(structured_pairs)} structured items but "
+            f"{len(visible_pairs)} visible items"
+        )
+    for index, (structured, visible) in enumerate(
+        zip(structured_pairs, visible_pairs), start=1
+    ):
+        if structured[0] != visible[0]:
+            failures.append(
+                f"{rel}: FAQPage item {index} question does not match the visible FAQ"
+            )
+        if structured[1] != visible[1]:
+            failures.append(
+                f"{rel}: FAQPage item {index} answer does not match the visible FAQ"
+            )
 
 
 def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
@@ -523,7 +1036,7 @@ def check_file(path: Path) -> list[str]:
     titles = re.findall(r"<title>(.*?)</title>", html, re.S)
     if len(titles) != 1 or not titles[0].strip():
         failures.append(f"{rel}: expected exactly one non-empty <title>, found {len(titles)}")
-    elif len(titles[0].strip()) > TITLE_MAX:
+    elif title_is_too_long(rel, titles[0].strip()):
         failures.append(
             f"{rel}: title is {len(titles[0].strip())} characters, over the {TITLE_MAX} limit"
         )
@@ -579,7 +1092,7 @@ def check_file(path: Path) -> list[str]:
             check_item_lists(block, rel, failures)
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
-                    check_faq_visible(node, text, rel, failures)
+                    check_faq_visible(node, html, rel, failures)
 
     print(f"checked {rel}")
     return failures
@@ -613,6 +1126,7 @@ def check_site(paths: list[Path]) -> list[str]:
         failures.append("robots.txt: no Sitemap line")
     failures.extend(check_person_graph(paths))
     failures.extend(check_evidence_page())
+    failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_robots_policy(robots))
 
@@ -632,8 +1146,30 @@ def _self_check() -> None:
     global ROOT
 
     assert site_url("index.html") == f"{SITE}/"
+    assert re.search(
+        r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
+        r"\b(?:professional\s+)?engagement\b",
+        "An email does not create a professional engagement.",
+        re.I,
+    )
+    assert re.search(
+        r"\bnothing\s+here\b.{0,80}\b(?:tax|legal|financial)\s+advice\b",
+        "Nothing here is tax, legal or financial advice.",
+        re.I,
+    )
+    assert re.search(
+        r"\btools?\b.{0,80}\breview\s+aids?\b.{0,80}"
+        r"\bnot\s+compliance\s+determinations?\b",
+        "The tools are review aids for a qualified professional, not compliance determinations.",
+        re.I,
+    )
     assert site_url("about/index.html") == f"{SITE}/about/"
     assert site_url("404.html") == f"{SITE}/404.html"
+    evidence_title = TITLE_EXCEPTIONS[EVIDENCE_REL]
+    assert len(evidence_title) > TITLE_MAX
+    assert not title_is_too_long(EVIDENCE_REL, evidence_title)
+    assert title_is_too_long("about/index.html", evidence_title)
+    assert title_is_too_long(EVIDENCE_REL, f"{evidence_title} extra")
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
@@ -656,14 +1192,6 @@ def _self_check() -> None:
         rendered_mcp_page,
         re.I,
     ), "Australian tax AI agents page has no visible PyPI route"
-    assert re.search(
-        r"\buvx\s+--from\s*(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server"
-        r"\s+aus-accounting-mcp\b",
-        visible_text(rendered_mcp_page),
-    ), "Australian tax AI agents page has no visible GitHub install command"
-    assert re.search(
-        r"\buvx\s+aus-accounting-mcp\b", visible_text(rendered_mcp_page)
-    ), "Australian tax AI agents page has no visible direct PyPI install command"
     assert not re.search(
         r"\buntil\s+its\s+own\s+first\s+pypi\s+release\b",
         visible_text(rendered_mcp_page),
@@ -678,6 +1206,68 @@ def _self_check() -> None:
         "Person",
         "SoftwareSourceCode",
     ]
+    valid_llms_route = f"""## Choose a route
+- **Engage** ({AUTHORITY_URLS['engage']}): Do not send taxpayer information or client files. This is not a tax advice or lodgment channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
+- **Adopt** ({AUTHORITY_URLS['adopt']}): supported installation.
+- **Verify** ({AUTHORITY_URLS['verify']}): inspect evidence.
+"""
+    assert check_llms_authority_surface(valid_llms_route) == []
+    invalid_llms_route = (
+        "This site offers no accounting services and takes no engagements.\n"
+        "## Choose a route\n- **Engage**: email Ryan.\n"
+    )
+    invalid_llms_failures = check_llms_authority_surface(invalid_llms_route)
+    assert (
+        "llms.txt: absolute no-engagement claim contradicts scoped enquiries"
+        in invalid_llms_failures
+    )
+    assert "llms.txt: scoped authority route is incomplete" in invalid_llms_failures
+
+    swapped_faq_html = (
+        '<div class="faq">'
+        "<h3>Question one?</h3><p>Answer one.</p>"
+        "<h3>Question two?</h3><p>Answer two.</p>"
+        "</div>"
+    )
+    swapped_faq = {
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "name": "Question one?",
+                "acceptedAnswer": {"text": "Answer two."},
+            },
+            {
+                "name": "Question two?",
+                "acceptedAnswer": {"text": "Answer one."},
+            },
+        ],
+    }
+    swapped_faq_failures: list[str] = []
+    check_faq_visible(swapped_faq, swapped_faq_html, "self-check", swapped_faq_failures)
+    assert "self-check: FAQPage item 1 answer does not match the visible FAQ" in (
+        swapped_faq_failures
+    )
+    assert "self-check: FAQPage item 2 answer does not match the visible FAQ" in (
+        swapped_faq_failures
+    )
+
+    stale_date_page = (
+        "<p>Published 25 August 2026. Last reviewed 25 August 2026.</p>"
+        '<script type="application/ld+json">'
+        '{"@context":"https://schema.org","@graph":['
+        '{"@type":"TechArticle","datePublished":"2026-08-25","dateModified":"2026-08-25"},'
+        '{"@type":"WebPage","datePublished":"2026-08-25","dateModified":"2026-08-25"},'
+        '{"@type":"SoftwareApplication","dateModified":"2026-08-25"}'
+        "]}</script>"
+    )
+    stale_date_failures = check_mcp_review_dates(stale_date_page)
+    assert (
+        f"{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}"
+        in stale_date_failures
+    )
+    assert f"{MCP_REL}: TechArticle dateModified must be {MCP_REVIEW_DATE}" in (
+        stale_date_failures
+    )
     inaccurate_receipt_boundary = (
         '<p>Without a fund receipt date, a line can only be "at risk".</p>'
     )
@@ -747,6 +1337,46 @@ def _self_check() -> None:
     with tempfile.TemporaryDirectory() as temp_dir:
         ROOT = Path(temp_dir)
         try:
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                "<p>I do not take client work through this site.</p>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "about/index.html: short answer contradicts scoped enquiries" in failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text(
+                '<p class="short-answer">Evidence summary.</p>'
+                + "".join(
+                    f'<h2 id="{identifier}">{heading}</h2>'
+                    for identifier, heading in ASSURANCE_ANCHORS.items()
+                ),
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "evidence/index.html: contents navigator does not match assurance headings"
+                in failures
+            )
+            assert (
+                "evidence/index.html: missing CA ANZ non-endorsement boundary" in failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
             (ROOT / "index.html").write_text(
                 "<!-- <a href=\"/evidence/\">Evidence</a> -->"
                 "<script><a href=\"/evidence/\">Evidence</a></script>"
@@ -768,6 +1398,211 @@ def _self_check() -> None:
 
             failures = check_evidence_page()
             assert "index.html: no visible link to /evidence/" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a href="#adopt">Adopt</a><a href="#verify">Verify</a>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
+            assert "index.html: authority route #engage card label must be Engage" in (
+                failures
+            )
+            assert "index.html: authority section #engage heading must be Engage" in (
+                failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a class="path-card" href="#engage"><strong>Adopt</strong></a>'
+                '<a class="path-card" href="#adopt"><strong>Adopt</strong></a>'
+                '<a class="path-card" href="#verify"><strong>Verify</strong></a>'
+                '<section id="engage"><h2>Verify</h2></section>'
+                '<section id="adopt"><h2>Adopt</h2></section>'
+                '<section id="verify"><h2>Verify</h2></section>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: authority route #engage card label must be Engage" in (
+                failures
+            )
+            assert "index.html: authority section #engage heading must be Engage" in (
+                failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<section id=\"adopt\">"
+                "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
+                "</section>"
+                "<pre>claude mcp add aus-accounting -- uvx aus-accounting-mcp</pre>"
+                "<pre>claude mcp add aus-accounting -- uvx --from \\ "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server "
+                "aus-accounting-mcp</pre>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: install commands must appear only inside #adopt" in failures
+            assert "index.html: retired GitHub-source install command" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text("", encoding="utf-8")
+            (ROOT / "llms.txt").write_text(
+                "claude mcp add aus-accounting -- uvx --from "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+                "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
+                encoding="utf-8",
+            )
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
+                "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>"
+                "<p>claude mcp add aus-accounting -- uvx --from "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server "
+                "aus-accounting-mcp</p>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "llms.txt: supported install commands must link to /#adopt instead"
+                in failures
+            )
+            assert "llms.txt: retired GitHub-source install command" in failures
+            assert (
+                f"{MCP_REL}: supported install commands must link to /#adopt instead"
+                in failures
+            )
+            assert f"{MCP_REL}: retired GitHub-source install command" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                "<p>Waiting for its first PyPI release.</p>", encoding="utf-8"
+            )
+            failures = check_authority_surface()
+            assert (
+                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+                in failures
+            )
+            (mcp_page / "index.html").write_text(
+                '<script type="application/ld+json">'
+                '{"@context":"https://schema.org","description":"first PyPI release"}'
+                "</script>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+                in failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a hidden href="#engage">Engage</a>'
+                '<a style="display: none" href="#adopt">Adopt</a>'
+                '<a aria-hidden="true" href="#verify">Verify</a>'
+                '<section id="engage" hidden>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm</a>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Adopt</a>'
+                '<a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Review</a>'
+                "</section>"
+                '<section id="adopt" style="display: none"><pre>'
+                "claude mcp add aus-accounting -- uvx aus-accounting-mcp\n"
+                "npx skills add ryanduguid/australian-accounting-skills"
+                "</pre></section>"
+                '<section id="verify" aria-hidden="true"></section>'
+                '<h2 style="display: none">Original firm-focused tools</h2>'
+                '<div class="tools-list"></div>',
+                encoding="utf-8",
+            )
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                "<p style=\"visibility: hidden\">ryan@duguid.com.au. Do not email client files or tax advice. "
+                "A message does not create a professional engagement.</p>",
+                encoding="utf-8",
+            )
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text(
+                "".join(f"<h2 hidden>{heading}</h2>" for heading in ASSURANCE_HEADINGS),
+                encoding="utf-8",
+            )
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                f'<a aria-hidden="true" href="/evidence/">Evidence</a>'
+                f'<a style="display: none" href="{AUS_ACCOUNTING_PYPI}">PyPI</a>',
+                encoding="utf-8",
+            )
+
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
+            assert "index.html: missing visible authority route #adopt" in failures
+            assert "index.html: missing visible authority route #verify" in failures
+            assert "index.html: install commands must appear only inside #adopt" in failures
+            assert (
+                "index.html: missing visible catalogue label Original firm-focused tools"
+                in failures
+            )
+            assert "about/index.html: enquiry boundary is incomplete" in failures
+            assert "evidence/index.html: missing assurance heading" in failures
+            assert "tools/australian-tax-ai-agents/index.html: no visible link to /evidence/" in failures
+            assert "tools/australian-tax-ai-agents/index.html: no visible PyPI route" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<section hidden><section></section>"
+                '<section id="engage"><a href="#engage">Engage</a></section>'
+                "</section>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<h2>Original firm-focused tools</h2>"
+                '<section class="tools-catalogue"></section>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible lower tools catalogue" in failures
         finally:
             ROOT = original_root
     print("self-check OK")
