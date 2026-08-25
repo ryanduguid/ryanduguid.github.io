@@ -37,6 +37,7 @@ import html as html_lib
 import json
 import re
 import sys
+import tempfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -241,6 +242,8 @@ def check_evidence_page() -> list[str]:
 
     for rel in ("index.html", "about/index.html"):
         page = (ROOT / rel).read_text(encoding="utf-8")
+        page = re.sub(r"<(script|style|template)\b.*?</\1>", " ", page, flags=re.S | re.I)
+        page = re.sub(r"<!--.*?-->", " ", page, flags=re.S)
         if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):
             failures.append(f"{rel}: no visible link to /evidence/")
 
@@ -483,6 +486,35 @@ def _self_check() -> None:
         "Person",
         "SoftwareSourceCode",
     ]
+
+    global ROOT
+    original_root = ROOT
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<!-- <a href=\"/evidence/\">Evidence</a> -->"
+                "<script><a href=\"/evidence/\">Evidence</a></script>"
+                "<template><a href=\"/evidence/\">Evidence</a></template>",
+                encoding="utf-8",
+            )
+            about = ROOT / "about"
+            about.mkdir()
+            (about / "index.html").write_text(
+                '<a href="/evidence/">Evidence</a>', encoding="utf-8"
+            )
+            evidence = ROOT / "evidence"
+            evidence.mkdir()
+            (evidence / "index.html").write_text("", encoding="utf-8")
+            (ROOT / "sitemap.xml").write_text(
+                f"<loc>{EVIDENCE_URL}</loc>", encoding="utf-8"
+            )
+            (ROOT / "llms.txt").write_text(EVIDENCE_URL, encoding="utf-8")
+
+            failures = check_evidence_page()
+            assert "index.html: no visible link to /evidence/" in failures
+        finally:
+            ROOT = original_root
     print("self-check OK")
 
 
