@@ -16,10 +16,10 @@ Checks, per file:
 6. At least one JSON-LD block, every one of which parses and declares
    https://schema.org as its @context.
 7. Exactly one <h1>.
-8. Every FAQPage question and answer in the structured data also appears in the
-   visible HTML. Marking up an answer the reader cannot see is against Google's
-   own structured data policy, and it is the easiest way for a page to end up
-   asserting something the author never wrote.
+8. Every FAQPage question and answer in the structured data matches the
+   corresponding visible FAQ item. Marking up a different answer from the one
+   a reader sees is against Google's own structured data policy, even when the
+   same words happen to appear elsewhere on the page.
 9. Every ItemList count matches its entries, whose positions are sequential.
 
 Then, site-wide:
@@ -64,6 +64,26 @@ AUTHORITY_PATHS = {
     "adopt": "Adopt",
     "verify": "Verify",
 }
+AUTHORITY_URLS = {
+    "engage": f"{SITE}/#engage",
+    "adopt": f"{SITE}/#adopt",
+    "verify": EVIDENCE_URL,
+}
+PRIMARY_INSTALL_PATTERNS = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
+    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
+    r"aus-accounting-mcp\b",
+    r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+)
+RETIRED_PYPI_INSTALL_PATTERN = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b"
+)
+CA_ANZ_NON_ENDORSEMENT = (
+    "Provisional membership does not represent endorsement by Chartered Accountants ANZ."
+)
+MCP_REL = "tools/australian-tax-ai-agents/index.html"
+MCP_REVIEW_DATE = "2026-08-26"
+MCP_VISIBLE_REVIEW_DATE = "26 August 2026"
 ASSURANCE_ANCHORS = {
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases and repositories",
@@ -446,6 +466,79 @@ def heading_texts(html: str) -> set[str]:
     }
 
 
+def markdown_section(markdown: str, heading: str) -> str:
+    """Return one level-two Markdown section without later sections."""
+    match = re.search(
+        rf"^##\s+{re.escape(heading)}\s*$\n(?P<body>.*?)(?=^##\s+|\Z)",
+        markdown,
+        re.M | re.S,
+    )
+    return match.group("body") if match else ""
+
+
+def check_llms_authority_surface(llms: str) -> list[str]:
+    """Keep machine-facing routes and enquiry boundaries aligned with the site."""
+    failures: list[str] = []
+    if re.search(
+        r"\b(?:offers?\s+no\s+accounting\s+services?|takes?\s+no\s+engagements?)\b",
+        llms,
+        re.I,
+    ):
+        failures.append("llms.txt: absolute no-engagement claim contradicts scoped enquiries")
+
+    route_section = markdown_section(llms, "Choose a route")
+    routes_are_complete = all(
+        re.search(
+            rf"\*\*{re.escape(label)}\*\*\s*\({re.escape(AUTHORITY_URLS[identifier])}\)",
+            route_section,
+        )
+        for identifier, label in AUTHORITY_PATHS.items()
+    )
+    required_boundaries = (
+        "Do not send taxpayer information or client files",
+        "This is not a tax advice or lodgment channel",
+        "does not create a professional engagement",
+        "scope, responsibilities and data handling must be agreed separately",
+    )
+    if not routes_are_complete or any(
+        boundary not in route_section for boundary in required_boundaries
+    ):
+        failures.append("llms.txt: scoped authority route is incomplete")
+    return failures
+
+
+def check_mcp_review_dates(html: str) -> list[str]:
+    """Keep the AI-agent page's visible and structured review dates aligned."""
+    failures: list[str] = []
+    visible = visible_text(html)
+    expected_visible = (
+        f"Published 25 August 2026. Last reviewed {MCP_VISIBLE_REVIEW_DATE}."
+    )
+    if expected_visible not in visible:
+        failures.append(f"{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}")
+
+    parse_failures: list[str] = []
+    page_nodes = [
+        node
+        for block in json_ld_blocks(html, MCP_REL, parse_failures)
+        for node in nodes(block)
+    ]
+    failures.extend(parse_failures)
+    for schema_type in ("TechArticle", "WebPage", "SoftwareApplication"):
+        matches = [node for node in page_nodes if has_type(node, schema_type)]
+        if len(matches) != 1 or matches[0].get("dateModified") != MCP_REVIEW_DATE:
+            failures.append(
+                f"{MCP_REL}: {schema_type} dateModified must be {MCP_REVIEW_DATE}"
+            )
+    for schema_type in ("TechArticle", "WebPage"):
+        matches = [node for node in page_nodes if has_type(node, schema_type)]
+        if len(matches) != 1 or matches[0].get("datePublished") != "2026-08-25":
+            failures.append(
+                f"{MCP_REL}: {schema_type} datePublished must remain 2026-08-25"
+            )
+    return failures
+
+
 def check_authority_surface() -> list[str]:
     """Require the public Engage, Adopt and Verify authority surface."""
     failures: list[str] = []
@@ -456,24 +549,73 @@ def check_authority_surface() -> list[str]:
     sections = {
         identifier: section_html(home, identifier) for identifier in AUTHORITY_PATHS
     }
-    for identifier in AUTHORITY_PATHS:
+    for identifier, label in AUTHORITY_PATHS.items():
         if f"#{identifier}" not in home_hrefs or not sections[identifier]:
             failures.append(f"index.html: missing visible authority route #{identifier}")
+        route_card = re.search(
+            rf'<a\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bpath-card\b[^"\']*["\'])'
+            rf'(?=[^>]*\bhref\s*=\s*["\']#{re.escape(identifier)}["\'])[^>]*>'
+            r"(.*?)</a\s*>",
+            rendered_home,
+            re.S | re.I,
+        )
+        card_label = ""
+        if route_card:
+            strong = re.search(
+                r"<strong\b[^>]*>(.*?)</strong\s*>", route_card.group(1), re.S | re.I
+            )
+            card_label = visible_text(strong.group(1)) if strong else ""
+        if card_label != label:
+            failures.append(
+                f"index.html: authority route #{identifier} card label must be {label}"
+            )
 
-    install_patterns = (
-        r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
-        r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
-        r"aus-accounting-mcp\b",
-        r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
-    )
+        section_heading = re.search(
+            r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", sections[identifier], re.S | re.I
+        )
+        heading_label = visible_text(section_heading.group(1)) if section_heading else ""
+        if heading_label != label:
+            failures.append(
+                f"index.html: authority section #{identifier} heading must be {label}"
+            )
+
     home_text = visible_text(rendered_home)
     adopt_text = visible_text(sections["adopt"])
     if any(
         len(re.findall(pattern, home_text, re.I)) != 1
         or len(re.findall(pattern, adopt_text, re.I)) != 1
-        for pattern in install_patterns
+        for pattern in PRIMARY_INSTALL_PATTERNS
     ):
         failures.append("index.html: install commands must appear only inside #adopt")
+
+    llms_path = ROOT / "llms.txt"
+    llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
+    failures.extend(check_llms_authority_surface(llms))
+    if any(re.search(pattern, llms, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
+        failures.append("llms.txt: supported install commands must link to /#adopt instead")
+    if re.search(RETIRED_PYPI_INSTALL_PATTERN, llms, re.I):
+        failures.append("llms.txt: retired direct-PyPI install command")
+
+    for path in sorted(ROOT.rglob("*.html")):
+        rel = path.relative_to(ROOT).as_posix()
+        if rel == "index.html" or rel in NOT_INDEXED or any(
+            part.startswith(".") for part in path.relative_to(ROOT).parts
+        ):
+            continue
+        page_html = path.read_text(encoding="utf-8")
+        page_text = visible_text(page_html)
+        page_json_ld = " ".join(
+            json.dumps(block, ensure_ascii=False)
+            for block in json_ld_blocks(page_html, rel, failures)
+        )
+        indexable_text = f"{page_text} {page_json_ld}"
+        if any(
+            re.search(pattern, indexable_text, re.I)
+            for pattern in PRIMARY_INSTALL_PATTERNS
+        ):
+            failures.append(f"{rel}: supported install commands must link to /#adopt instead")
+        if re.search(RETIRED_PYPI_INSTALL_PATTERN, indexable_text, re.I):
+            failures.append(f"{rel}: retired direct-PyPI install command")
 
     catalogue_label = "Original firm-focused tools"
     catalogue = re.search(
@@ -553,6 +695,8 @@ def check_authority_surface() -> list[str]:
     evidence_headings = heading_texts(rendered_evidence)
     if any(heading.casefold() not in evidence_headings for heading in ASSURANCE_HEADINGS):
         failures.append("evidence/index.html: missing assurance heading")
+    if CA_ANZ_NON_ENDORSEMENT not in visible_text(rendered_evidence):
+        failures.append("evidence/index.html: missing CA ANZ non-endorsement boundary")
 
     short_answer = re.search(
         r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bshort-answer\b[^"\']*["\'])[^>]*>'
@@ -611,10 +755,11 @@ def check_authority_surface() -> list[str]:
         if "/evidence/" not in anchor_hrefs(visible_html(path.read_text(encoding="utf-8"))):
             failures.append(f"{rel}: no visible link to /evidence/")
 
-    mcp_rel = "tools/australian-tax-ai-agents/index.html"
+    mcp_rel = MCP_REL
     mcp_path = ROOT / mcp_rel
     mcp_html = mcp_path.read_text(encoding="utf-8") if mcp_path.is_file() else ""
     rendered_mcp = visible_html(mcp_html)
+    failures.extend(check_mcp_review_dates(mcp_html))
     if AUS_ACCOUNTING_PYPI not in anchor_hrefs(rendered_mcp):
         failures.append(f"{mcp_rel}: no visible PyPI route")
     uncommented_mcp = re.sub(r"<!--.*?-->", " ", mcp_html, flags=re.S)
@@ -771,16 +916,75 @@ def check_robots_policy(robots: str) -> list[str]:
     return failures
 
 
-def check_faq_visible(node: dict, text: str, rel: str, failures: list[str]) -> None:
-    for question in node.get("mainEntity", []):
-        name = question.get("name", "")
-        answer = question.get("acceptedAnswer", {}).get("text", "")
-        for label, claim in (("question", name), ("answer", answer)):
-            needle = re.sub(r"\s+", " ", claim).strip()
-            if needle and needle not in text:
-                failures.append(
-                    f"{rel}: FAQPage {label} is not visible on the page: {needle[:70]}..."
+def normalise_claim(value: object) -> str:
+    """Normalise plain structured-data text for comparison with visible copy."""
+    if not isinstance(value, str):
+        return ""
+    return re.sub(r"\s+", " ", html_lib.unescape(value)).strip()
+
+
+def visible_faq_pairs(html: str) -> list[tuple[str, str]]:
+    """Return ordered question and answer pairs from visible FAQ containers."""
+    rendered = visible_html(html)
+    containers = re.findall(
+        r'<div\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bfaq\b[^"\']*["\'])[^>]*>'
+        r"(.*?)</div\s*>",
+        rendered,
+        re.S | re.I,
+    )
+    pairs: list[tuple[str, str]] = []
+    for container in containers:
+        headings = list(
+            re.finditer(r"<h3\b[^>]*>(.*?)</h3\s*>", container, re.S | re.I)
+        )
+        for index, heading in enumerate(headings):
+            end = headings[index + 1].start() if index + 1 < len(headings) else len(container)
+            answer = re.search(
+                r"<p\b[^>]*>(.*?)</p\s*>",
+                container[heading.end() : end],
+                re.S | re.I,
+            )
+            pairs.append(
+                (
+                    visible_text(heading.group(1)),
+                    visible_text(answer.group(1)) if answer else "",
                 )
+            )
+    return pairs
+
+
+def check_faq_visible(node: dict, html: str, rel: str, failures: list[str]) -> None:
+    """Pair each structured FAQ item with the visible item in the same position."""
+    entities = node.get("mainEntity")
+    structured_pairs: list[tuple[str, str]] = []
+    if isinstance(entities, list):
+        for question in entities:
+            if not isinstance(question, dict):
+                structured_pairs.append(("", ""))
+                continue
+            answer = question.get("acceptedAnswer")
+            answer_text = answer.get("text", "") if isinstance(answer, dict) else ""
+            structured_pairs.append(
+                (normalise_claim(question.get("name", "")), normalise_claim(answer_text))
+            )
+
+    visible_pairs = visible_faq_pairs(html)
+    if len(structured_pairs) != len(visible_pairs):
+        failures.append(
+            f"{rel}: FAQPage has {len(structured_pairs)} structured items but "
+            f"{len(visible_pairs)} visible items"
+        )
+    for index, (structured, visible) in enumerate(
+        zip(structured_pairs, visible_pairs), start=1
+    ):
+        if structured[0] != visible[0]:
+            failures.append(
+                f"{rel}: FAQPage item {index} question does not match the visible FAQ"
+            )
+        if structured[1] != visible[1]:
+            failures.append(
+                f"{rel}: FAQPage item {index} answer does not match the visible FAQ"
+            )
 
 
 def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
@@ -886,7 +1090,7 @@ def check_file(path: Path) -> list[str]:
             check_item_lists(block, rel, failures)
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
-                    check_faq_visible(node, text, rel, failures)
+                    check_faq_visible(node, html, rel, failures)
 
     print(f"checked {rel}")
     return failures
@@ -986,14 +1190,6 @@ def _self_check() -> None:
         rendered_mcp_page,
         re.I,
     ), "Australian tax AI agents page has no visible PyPI route"
-    assert re.search(
-        r"\buvx\s+--from\s*(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server"
-        r"\s+aus-accounting-mcp\b",
-        visible_text(rendered_mcp_page),
-    ), "Australian tax AI agents page has no visible GitHub install command"
-    assert re.search(
-        r"\buvx\s+aus-accounting-mcp\b", visible_text(rendered_mcp_page)
-    ), "Australian tax AI agents page has no visible direct PyPI install command"
     assert not re.search(
         r"\buntil\s+its\s+own\s+first\s+pypi\s+release\b",
         visible_text(rendered_mcp_page),
@@ -1008,6 +1204,68 @@ def _self_check() -> None:
         "Person",
         "SoftwareSourceCode",
     ]
+    valid_llms_route = f"""## Choose a route
+- **Engage** ({AUTHORITY_URLS['engage']}): Do not send taxpayer information or client files. This is not a tax advice or lodgment channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
+- **Adopt** ({AUTHORITY_URLS['adopt']}): supported installation.
+- **Verify** ({AUTHORITY_URLS['verify']}): inspect evidence.
+"""
+    assert check_llms_authority_surface(valid_llms_route) == []
+    invalid_llms_route = (
+        "This site offers no accounting services and takes no engagements.\n"
+        "## Choose a route\n- **Engage**: email Ryan.\n"
+    )
+    invalid_llms_failures = check_llms_authority_surface(invalid_llms_route)
+    assert (
+        "llms.txt: absolute no-engagement claim contradicts scoped enquiries"
+        in invalid_llms_failures
+    )
+    assert "llms.txt: scoped authority route is incomplete" in invalid_llms_failures
+
+    swapped_faq_html = (
+        '<div class="faq">'
+        "<h3>Question one?</h3><p>Answer one.</p>"
+        "<h3>Question two?</h3><p>Answer two.</p>"
+        "</div>"
+    )
+    swapped_faq = {
+        "@type": "FAQPage",
+        "mainEntity": [
+            {
+                "name": "Question one?",
+                "acceptedAnswer": {"text": "Answer two."},
+            },
+            {
+                "name": "Question two?",
+                "acceptedAnswer": {"text": "Answer one."},
+            },
+        ],
+    }
+    swapped_faq_failures: list[str] = []
+    check_faq_visible(swapped_faq, swapped_faq_html, "self-check", swapped_faq_failures)
+    assert "self-check: FAQPage item 1 answer does not match the visible FAQ" in (
+        swapped_faq_failures
+    )
+    assert "self-check: FAQPage item 2 answer does not match the visible FAQ" in (
+        swapped_faq_failures
+    )
+
+    stale_date_page = (
+        "<p>Published 25 August 2026. Last reviewed 25 August 2026.</p>"
+        '<script type="application/ld+json">'
+        '{"@context":"https://schema.org","@graph":['
+        '{"@type":"TechArticle","datePublished":"2026-08-25","dateModified":"2026-08-25"},'
+        '{"@type":"WebPage","datePublished":"2026-08-25","dateModified":"2026-08-25"},'
+        '{"@type":"SoftwareApplication","dateModified":"2026-08-25"}'
+        "]}</script>"
+    )
+    stale_date_failures = check_mcp_review_dates(stale_date_page)
+    assert (
+        f"{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}"
+        in stale_date_failures
+    )
+    assert f"{MCP_REL}: TechArticle dateModified must be {MCP_REVIEW_DATE}" in (
+        stale_date_failures
+    )
     inaccurate_receipt_boundary = (
         '<p>Without a fund receipt date, a line can only be "at risk".</p>'
     )
@@ -1108,6 +1366,9 @@ def _self_check() -> None:
                 "evidence/index.html: contents navigator does not match assurance headings"
                 in failures
             )
+            assert (
+                "evidence/index.html: missing CA ANZ non-endorsement boundary" in failures
+            )
         finally:
             ROOT = original_root
 
@@ -1147,6 +1408,34 @@ def _self_check() -> None:
             )
             failures = check_authority_surface()
             assert "index.html: missing visible authority route #engage" in failures
+            assert "index.html: authority route #engage card label must be Engage" in (
+                failures
+            )
+            assert "index.html: authority section #engage heading must be Engage" in (
+                failures
+            )
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a class="path-card" href="#engage"><strong>Adopt</strong></a>'
+                '<a class="path-card" href="#adopt"><strong>Adopt</strong></a>'
+                '<a class="path-card" href="#verify"><strong>Verify</strong></a>'
+                '<section id="engage"><h2>Verify</h2></section>'
+                '<section id="adopt"><h2>Adopt</h2></section>'
+                '<section id="verify"><h2>Verify</h2></section>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: authority route #engage card label must be Engage" in (
+                failures
+            )
+            assert "index.html: authority section #engage heading must be Engage" in (
+                failures
+            )
         finally:
             ROOT = original_root
 
@@ -1164,6 +1453,37 @@ def _self_check() -> None:
             )
             failures = check_authority_surface()
             assert "index.html: install commands must appear only inside #adopt" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text("", encoding="utf-8")
+            (ROOT / "llms.txt").write_text(
+                "claude mcp add aus-accounting -- uvx --from "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+                "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
+                encoding="utf-8",
+            )
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
+                "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "llms.txt: supported install commands must link to /#adopt instead"
+                in failures
+            )
+            assert "llms.txt: retired direct-PyPI install command" in failures
+            assert (
+                f"{MCP_REL}: supported install commands must link to /#adopt instead"
+                in failures
+            )
+            assert f"{MCP_REL}: retired direct-PyPI install command" in failures
         finally:
             ROOT = original_root
 
