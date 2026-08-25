@@ -19,11 +19,12 @@ Checks, per file:
    visible HTML. Marking up an answer the reader cannot see is against Google's
    own structured data policy, and it is the easiest way for a page to end up
    asserting something the author never wrote.
+9. Every ItemList count matches its entries, whose positions are sequential.
 
 Then, site-wide:
-9. sitemap.xml lists every indexable page, and every URL it lists resolves to a
+10. sitemap.xml lists every indexable page, and every URL it lists resolves to a
    file on disk.
-10. llms.txt links every page the sitemap lists.
+11. llms.txt links every page the sitemap lists.
 
 404.html is exempt from the canonical, sitemap and llms.txt rules: it is served
 under any missing path and carries a noindex.
@@ -470,6 +471,40 @@ def check_faq_visible(node: dict, text: str, rel: str, failures: list[str]) -> N
                 )
 
 
+def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
+    """Keep declared ItemList counts and positions aligned with their entries."""
+    for node in nodes(value):
+        if not has_type(node, "ItemList"):
+            continue
+        items = node.get("itemListElement")
+        if not isinstance(items, list):
+            failures.append(f"{rel}: ItemList itemListElement is not a list")
+            continue
+        declared_count = node.get("numberOfItems")
+        if type(declared_count) is not int:
+            failures.append(
+                f"{rel}: ItemList numberOfItems must be an integer, "
+                f"found {declared_count!r}"
+            )
+        elif declared_count != len(items):
+            failures.append(
+                f"{rel}: ItemList declares {declared_count!r} items, "
+                f"but contains {len(items)}"
+            )
+        positions = [
+            item.get("position") if isinstance(item, dict) else None for item in items
+        ]
+        expected = list(range(1, len(items) + 1))
+        if any(type(position) is not int for position in positions):
+            failures.append(
+                f"{rel}: ItemList positions must be integers, found {positions!r}"
+            )
+        elif positions != expected:
+            failures.append(
+                f"{rel}: ItemList positions are {positions!r}, expected {expected!r}"
+            )
+
+
 def check_file(path: Path) -> list[str]:
     failures: list[str] = []
     rel = path.relative_to(ROOT).as_posix()
@@ -536,6 +571,7 @@ def check_file(path: Path) -> list[str]:
                 contexts = []
             if not contexts or any(context != "https://schema.org" for context in contexts):
                 failures.append(f"{rel}: JSON-LD @context is not https://schema.org")
+            check_item_lists(block, rel, failures)
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
                     check_faq_visible(node, text, rel, failures)
@@ -614,6 +650,58 @@ def _self_check() -> None:
         "prove late. A timely remittance without fund receipt evidence remains at-risk.</p>"
     )
     assert check_payday_receipt_boundary(accurate_receipt_boundary) == []
+    accurate_item_list = {
+        "@type": "ItemList",
+        "numberOfItems": 2,
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1},
+            {"@type": "ListItem", "position": 2},
+        ],
+    }
+    item_list_failures: list[str] = []
+    check_item_lists(accurate_item_list, "self-check", item_list_failures)
+    assert item_list_failures == []
+    inaccurate_item_list = {
+        "@type": "ItemList",
+        "numberOfItems": 1,
+        "itemListElement": [
+            {"@type": "ListItem", "position": 1},
+            {"@type": "ListItem", "position": 1},
+        ],
+    }
+    check_item_lists(inaccurate_item_list, "self-check", item_list_failures)
+    assert any("declares 1 items, but contains 2" in failure for failure in item_list_failures)
+    assert any("positions are [1, 1]" in failure for failure in item_list_failures)
+    boolean_item_list = {
+        "@type": "ItemList",
+        "numberOfItems": True,
+        "itemListElement": [{"@type": "ListItem", "position": True}],
+    }
+    boolean_item_list_failures: list[str] = []
+    check_item_lists(boolean_item_list, "self-check", boolean_item_list_failures)
+    assert any(
+        "numberOfItems must be an integer" in failure
+        for failure in boolean_item_list_failures
+    )
+    assert any(
+        "positions must be integers" in failure
+        for failure in boolean_item_list_failures
+    )
+    float_item_list = {
+        "@type": "ItemList",
+        "numberOfItems": 1.0,
+        "itemListElement": [{"@type": "ListItem", "position": 1.0}],
+    }
+    float_item_list_failures: list[str] = []
+    check_item_lists(float_item_list, "self-check", float_item_list_failures)
+    assert any(
+        "numberOfItems must be an integer" in failure
+        for failure in float_item_list_failures
+    )
+    assert any(
+        "positions must be integers" in failure
+        for failure in float_item_list_failures
+    )
 
     global ROOT
     original_root = ROOT

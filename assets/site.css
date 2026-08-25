@@ -122,6 +122,7 @@
       font-weight: 600;
     }
 
+    .stack-intro { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1rem; }
     .stack {
       display: grid;
       grid-template-columns: 1fr;
@@ -129,7 +130,7 @@
       margin: 1.5rem 0;
     }
     @media (min-width: 640px) {
-      .stack { grid-template-columns: 1fr 1fr 1fr; }
+      .stack { grid-template-columns: 1fr 1fr; }
     }
     .stack-col h3 {
       font-size: 0.85rem;
@@ -143,6 +144,7 @@
     .stack-col.layer-1 h3 { border-color: var(--border); }
     .stack-col.layer-2 h3 { border-color: var(--accent); }
     .stack-col.layer-3 h3 { border-color: var(--accent-light); }
+    .stack-col.layer-4 h3 { border-color: var(--text-muted); }
 
     .repo-card {
       background: var(--surface);
