@@ -1,8 +1,14 @@
 # Ryan Duguid
 
-> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. This site is the index of those tools. It offers no accounting services and takes no engagements.
+> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. This site is the index of those tools and provides a scoped route for enquiries. It does not offer tax or BAS agent services.
 
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic, client data stays local, and lodgement decisions stay with a qualified professional. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution, and should be verified against current guidance before anyone relies on them.
+
+## Choose a route
+
+- **Engage** (https://ryanduguid.github.io/#engage): discuss a firm workflow, controlled evaluation, technical adoption, research, speaking or peer review. Do not send taxpayer information or client files. This is not a tax advice or lodgment channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
+- **Adopt** (https://ryanduguid.github.io/#adopt): use the supported install commands and evaluate tools with fabricated data.
+- **Verify** (https://ryanduguid.github.io/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; human accountability and refusals; and independent evaluation.
 
 ## For AI agents
 
@@ -11,7 +17,6 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Person
 
 - [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
-- [Evidence for the work](https://ryanduguid.github.io/evidence/): public proof links, source hierarchy, local-data boundary and the limits of tests and human review.
 
 ## Reference tables
 
@@ -34,11 +39,9 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
 - [Is this pack allowed into manager review](https://ryanduguid.github.io/tools/review-ready-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
 
-## Install
+## Supported installation
 
-- Australian accounting and tax MCP server (aus-accounting-mcp): `claude mcp add aus-accounting -- uvx --from git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp`
-- Public practice and tax skills, nine of them, covering BAS, FBT, Division 7A and STP: `npx skills add ryanduguid/australian-accounting-skills`
-- Construction and mining subcontractor skills: `npx skills add ryanduguid/hardhat-ledger`
+- [Adopt](https://ryanduguid.github.io/#adopt): the maintained source for the two supported installation commands.
 
 ## Source code
 

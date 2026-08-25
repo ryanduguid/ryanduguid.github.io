@@ -10,7 +10,9 @@ Checks, in order, per file:
    The site is served from main; this branch's own pages are not live yet, so
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
-3. Every other absolute http(s) link resolves (2xx after redirects).
+3. Every other absolute http(s) link resolves (2xx after redirects), except
+   HTTP 403 from exactly https://www.ato.gov.au/ is accepted as an automation
+   denial.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 
@@ -29,6 +31,7 @@ from __future__ import annotations
 
 import re
 import sys
+import urllib.error
 import urllib.request
 from html.parser import HTMLParser
 from pathlib import Path
@@ -74,6 +77,11 @@ def fetch_final_url(url: str) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
     with urllib.request.urlopen(req, timeout=30) as resp:
         return resp.status, resp.geturl()
+
+
+def is_accepted_automation_denial(url: str, status: int) -> bool:
+    """True only for the ATO root denial reproduced on GitHub runners."""
+    return url == "https://www.ato.gov.au/" and status == 403
 
 
 def is_self_origin(href: str) -> bool:
@@ -141,6 +149,15 @@ def check_file(path: Path) -> list[str]:
             continue
         try:
             status, final = fetch_final_url(href)
+        except urllib.error.HTTPError as exc:
+            if is_accepted_automation_denial(href, exc.code):
+                print(
+                    f"accepted automation denial {rel}: {href} -> HTTP {exc.code} "
+                    "(exact ATO root only)"
+                )
+            else:
+                failures.append(f"{rel}: {href} -> HTTP {exc.code}")
+            continue
         except Exception as exc:  # noqa: BLE001 - report every failure mode
             failures.append(f"{rel}: {href} -> {exc}")
             continue
@@ -175,10 +192,20 @@ def _self_check() -> None:
     assert "index.html" in names, f"index.html not discovered, got {sorted(names)}"
     assert "404.html" in names, f"404.html not discovered, got {sorted(names)}"
     assert all(p.suffix == ".html" for p in found), "non-HTML path returned"
+    assert is_accepted_automation_denial(
+        "https://www.ato.gov.au/", 403
+    ), "exact ATO root HTTP 403 must be an accepted automation denial"
+    assert not is_accepted_automation_denial("https://www.ato.gov.au/about-us/", 403), (
+        "an ATO path HTTP 403 must still fail"
+    )
+    assert not is_accepted_automation_denial("https://www.ato.gov.au/", 404), (
+        "ATO root HTTP errors other than 403 must still fail"
+    )
     print(f"self-check OK: {len(found)} HTML files discovered")
 
 
 def main() -> int:
+    _self_check()
     failures: list[str] = []
     for path in html_files():
         failures.extend(check_file(path))
