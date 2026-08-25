@@ -86,6 +86,33 @@ RETRIEVAL_CRAWLERS = {
 }
 TRAINING_CRAWLERS = {"GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"}
 UNCLASSIFIED_CRAWLERS = {"CCBot", "Bytespider", "Amazonbot"}
+WORKED_EXAMPLES = {
+    "tools/payday-super/index.html": {
+        "fixture_urls": [
+            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+            "tests/test_integration.py#L836-L887"
+        ],
+        "labels": {
+            "on-time": r"\bon[-_ ]time\b",
+            "late": r"\blate\b",
+            "at-risk or unknown": r"\b(?:at[-_ ]risk|unknown)\b",
+        },
+    },
+    "tools/xero-trial-balance/index.html": {
+        "fixture_urls": [
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
+            "tests/test_export_tb.py#L189-L208",
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
+            "tests/test_export_tb.py#L419-L431",
+        ],
+        "labels": {
+            "balanced": r"\bbalanced\b",
+            "write": r"\b(?:write|writes|written)\b",
+            "unbalanced": r"\bunbalanced\b",
+            "refused": r"\brefus\w*\b",
+        },
+    },
+}
 
 warnings: list[str] = []
 
@@ -289,6 +316,48 @@ def check_evidence_page() -> list[str]:
     return failures
 
 
+def check_worked_examples() -> list[str]:
+    """Keep each synthetic example visible and tied to tagged test evidence."""
+    failures: list[str] = []
+    for rel, expected in WORKED_EXAMPLES.items():
+        html = (ROOT / rel).read_text(encoding="utf-8")
+        visible_html = re.sub(
+            r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
+        )
+        visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
+        heading = re.search(
+            r"<h([1-6])\b[^>]*>.*?\bsynthetic\s+worked\s+example\b.*?</h\1>",
+            visible_html,
+            re.S | re.I,
+        )
+        if not heading:
+            failures.append(f"{rel}: no visible Synthetic worked example heading")
+            example_html = ""
+        else:
+            remainder = visible_html[heading.end():]
+            next_heading = re.search(r"<h[1-6]\b", remainder, re.I)
+            example_end = (
+                heading.end() + next_heading.start() if next_heading else len(visible_html)
+            )
+            example_html = visible_html[heading.start():example_end]
+        example_text = visible_text(example_html)
+
+        for fixture_url in expected["fixture_urls"]:
+            if not re.search(
+                rf'<a\b[^>]*href="{re.escape(fixture_url)}"[^>]*>',
+                example_html,
+                re.I,
+            ):
+                failures.append(f"{rel}: no visible tagged fixture link to {fixture_url}")
+        if re.search(r'href="[^"]*github\.com/[^"]*/blob/main/', example_html, re.I):
+            failures.append(f"{rel}: worked-example evidence must not use an unpinned main URL")
+
+        for label, pattern in expected["labels"].items():
+            if not re.search(pattern, example_text, re.I):
+                failures.append(f"{rel}: visible worked example does not label {label}")
+    return failures
+
+
 def robots_groups(robots: str) -> dict[str, list[str]]:
     """Parse the simple one-agent robots groups used by this site."""
     groups: dict[str, list[str]] = {}
@@ -457,6 +526,7 @@ def check_site(paths: list[Path]) -> list[str]:
         failures.append("robots.txt: no Sitemap line")
     failures.extend(check_person_graph(paths))
     failures.extend(check_evidence_page())
+    failures.extend(check_worked_examples())
     failures.extend(check_robots_policy(robots))
 
     print(f"checked sitemap.xml ({len(listed)} URLs), llms.txt, robots.txt")
