@@ -624,11 +624,32 @@ def html_files() -> list[Path]:
 
 
 def _self_check() -> None:
+    global ROOT
+
     assert site_url("index.html") == f"{SITE}/"
     assert site_url("about/index.html") == f"{SITE}/about/"
     assert site_url("404.html") == f"{SITE}/404.html"
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
+    mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
+        encoding="utf-8"
+    )
+    rendered_mcp_page = re.sub(
+        r"<(script|style|template)\b.*?</\1>", " ", mcp_page, flags=re.S | re.I
+    )
+    assert re.search(
+        r'<a\b[^>]*href="https://pypi\.org/project/aus-accounting-mcp/"[^>]*>',
+        rendered_mcp_page,
+        re.I,
+    ), "Australian tax AI agents page has no visible PyPI route"
+    assert re.search(
+        r"\buvx\s+--from\s*(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server"
+        r"\s+aus-accounting-mcp\b",
+        visible_text(rendered_mcp_page),
+    ), "Australian tax AI agents page has no visible GitHub install command"
+    assert re.search(
+        r"\buvx\s+aus-accounting-mcp\b", visible_text(rendered_mcp_page)
+    ), "Australian tax AI agents page has no visible direct PyPI install command"
     nested_and_array_nodes = [
         {"@type": "Article", "author": {"@type": "Person"}},
         {"@type": "SoftwareSourceCode"},
@@ -703,7 +724,6 @@ def _self_check() -> None:
         for failure in float_item_list_failures
     )
 
-    global ROOT
     original_root = ROOT
     with tempfile.TemporaryDirectory() as temp_dir:
         ROOT = Path(temp_dir)
