@@ -2,7 +2,7 @@
 
 **Status:** Approved in the visual design review, pending written-spec review  
 **Date:** 26 August 2026  
-**Source baseline:** `a4b235c1d313481494469978251d22a2a236f4d9`
+**Source baseline:** `825b5f601f814cfc30c64e6af796fe681e44852d`
 
 ## Objective
 
@@ -23,11 +23,13 @@ dependency.
 ## Reconciliation with current main
 
 The live audit and early wireframes used commit `aff3d80`. While the design was
-being reviewed, main advanced to `a4b235c`. That commit introduced first-person
-home and About copy, a two-command install panel, a fourth architecture layer
-for review controls and stricter ItemList validation.
+being reviewed, main advanced first to `a4b235c`, then to `825b5f6`. The first
+commit introduced first-person home and About copy, a two-command install
+panel, a fourth architecture layer for review controls and stricter ItemList
+validation. The second published the direct aus-accounting-mcp PyPI route and
+added SEO self-checks that prevent the stale pre-release claim from returning.
 
-This specification treats `a4b235c` as the source baseline and retains that
+This specification treats `825b5f6` as the source baseline and retains that
 newer work. It makes two small reconciliations to the approved wireframe:
 
 1. The layered system map has four layers, not the three shown in the first
@@ -368,6 +370,8 @@ The implementation must preserve:
 - exactly one Person record on About
 - homepage Website, WebPage and ten-entry ItemList relationships
 - evidence-page invariants enforced by `scripts/check_seo.py`
+- the visible aus-accounting-mcp PyPI route, direct install command, version
+  `0.1.5` metadata and stale-release-claim self-checks
 - FAQ visibility, worked-example and source checks
 - sitemap and `llms.txt` coverage
 - the current robots allow and block policy
