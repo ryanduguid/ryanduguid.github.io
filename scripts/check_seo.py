@@ -111,8 +111,8 @@ def visible_text(html: str) -> str:
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
 
 
-def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[dict]:
-    blocks: list[dict] = []
+def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
+    blocks: list[object] = []
     for raw in re.findall(
         r'<script type="application/ld\+json">(.*?)</script>', html, re.S
     ):
@@ -123,9 +123,21 @@ def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[dict]:
     return blocks
 
 
-def nodes(block: dict) -> list[dict]:
-    graph = block.get("@graph")
-    return graph if isinstance(graph, list) else [block]
+def nodes(value: object) -> list[dict]:
+    """Return JSON-LD objects recursively, including objects inside arrays."""
+    found: list[dict] = []
+
+    def visit(candidate: object) -> None:
+        if isinstance(candidate, dict):
+            found.append(candidate)
+            for child in candidate.values():
+                visit(child)
+        elif isinstance(candidate, list):
+            for child in candidate:
+                visit(child)
+
+    visit(value)
+    return found
 
 
 def has_type(node: dict, expected: str) -> bool:
@@ -331,7 +343,15 @@ def check_file(path: Path) -> list[str]:
         if not blocks:
             failures.append(f"{rel}: no JSON-LD structured data")
         for block in blocks:
-            if block.get("@context") != "https://schema.org":
+            if isinstance(block, dict):
+                contexts = [block.get("@context")]
+            elif isinstance(block, list):
+                contexts = [
+                    item.get("@context") for item in block if isinstance(item, dict)
+                ]
+            else:
+                contexts = []
+            if not contexts or any(context != "https://schema.org" for context in contexts):
                 failures.append(f"{rel}: JSON-LD @context is not https://schema.org")
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
@@ -388,6 +408,15 @@ def _self_check() -> None:
     assert site_url("404.html") == f"{SITE}/404.html"
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
+    nested_and_array_nodes = [
+        {"@type": "Article", "author": {"@type": "Person"}},
+        {"@type": "SoftwareSourceCode"},
+    ]
+    assert [node.get("@type") for node in nodes(nested_and_array_nodes)] == [
+        "Article",
+        "Person",
+        "SoftwareSourceCode",
+    ]
     print("self-check OK")
 
 
