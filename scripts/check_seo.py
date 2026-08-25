@@ -147,6 +147,31 @@ def visible_text(html: str) -> str:
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
 
 
+PRIMARY_NAV_LINKS = [
+    ("/about/", "About"),
+    ("/evidence/", "Evidence"),
+    ("/tools/australian-tax-ai-agents/", "AI agents"),
+    ("https://github.com/ryanduguid", "GitHub"),
+    (
+        "https://github.com/ryanduguid/awesome-australian-accounting-tech",
+        "Awesome List",
+    ),
+]
+
+
+def opening_tags(html: str, tag: str) -> list[str]:
+    """Return rendered opening tags without script, style or template content."""
+    return re.findall(rf"<{tag}\b[^>]*>", visible_html(html), re.I)
+
+
+def tag_attr(tag: str, name: str) -> str | None:
+    """Read one quoted HTML attribute from an opening tag."""
+    match = re.search(
+        rf"\b{re.escape(name)}\s*=\s*([\"'])(.*?)\1", tag, re.I | re.S
+    )
+    return html_lib.unescape(match.group(2)).strip() if match else None
+
+
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
     blocks: list[object] = []
     for raw in re.findall(
@@ -620,6 +645,41 @@ def check_site(paths: list[Path]) -> list[str]:
     return failures
 
 
+def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
+    """Require one skip target and the exact global primary navigation."""
+    rendered = visible_html(html)
+    mains = [tag for tag in opening_tags(rendered, "main") if tag_attr(tag, "id") == "main"]
+    if len(mains) != 1:
+        failures.append(f"{rel}: expected exactly one main#main, found {len(mains)}")
+
+    skip_links = []
+    for tag in opening_tags(rendered, "a"):
+        classes = (tag_attr(tag, "class") or "").split()
+        if "skip-link" in classes and tag_attr(tag, "href") == "#main":
+            skip_links.append(tag)
+    if len(skip_links) != 1:
+        failures.append(
+            f"{rel}: expected exactly one .skip-link targeting #main, found {len(skip_links)}"
+        )
+
+    primary_blocks = re.findall(
+        r'<nav\b(?=[^>]*\baria-label\s*=\s*(["\'])Primary\1)[^>]*>(.*?)</nav>',
+        rendered,
+        re.I | re.S,
+    )
+    if len(primary_blocks) != 1:
+        failures.append(
+            f"{rel}: expected exactly one nav labelled Primary, found {len(primary_blocks)}"
+        )
+        return
+
+    links = []
+    for tag, label in re.findall(r"(<a\b[^>]*>)(.*?)</a>", primary_blocks[0][1], re.I | re.S):
+        links.append((tag_attr(tag, "href"), visible_text(label)))
+    if links != PRIMARY_NAV_LINKS:
+        failures.append(f"{rel}: primary navigation is {links!r}, expected {PRIMARY_NAV_LINKS!r}")
+
+
 def html_files() -> list[Path]:
     return sorted(
         p
@@ -636,6 +696,26 @@ def _self_check() -> None:
     assert site_url("404.html") == f"{SITE}/404.html"
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
+    valid_shell = """
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header><nav aria-label="Primary">
+      <a href="/about/">About</a><a href="/evidence/">Evidence</a>
+      <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+      <a href="https://github.com/ryanduguid">GitHub</a>
+      <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+    </nav></header><main id="main"></main>
+    """
+    shell_failures: list[str] = []
+    check_shared_shell(valid_shell, "self-check", shell_failures)
+    assert shell_failures == []
+
+    invalid_shell = valid_shell.replace("Awesome List", "Projects").replace(
+        'id="main"', 'id="content"'
+    )
+    invalid_shell_failures: list[str] = []
+    check_shared_shell(invalid_shell, "self-check", invalid_shell_failures)
+    assert any("main#main" in failure for failure in invalid_shell_failures)
+    assert any("primary navigation" in failure for failure in invalid_shell_failures)
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )
