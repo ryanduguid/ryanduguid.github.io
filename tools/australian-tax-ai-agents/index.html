@@ -97,6 +97,9 @@
 <span class="cmd">claude mcp add aus-accounting -- uvx --from \
   git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp</span>
 
+<span class="comment"># PyPI</span>
+<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
+
 <span class="comment"># Cursor, Claude Desktop, Codex: stdio config</span>
 <span class="cmd">{
   "mcpServers": {
@@ -115,8 +118,9 @@
 <span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
     <p>
       <a href="https://github.com/ryanduguid/au-tax-mcp-server">Source on GitHub</a>.
-      Python 3.10+ and uv. The server installs from GitHub until its own first
-      PyPI release. payday-super-checker is already on
+      Install directly from <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI</a>,
+      or keep using the GitHub route above. Python 3.10+ and uv.
+      payday-super-checker is already on
       <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>.
       The official Model Context Protocol registry lists this server as
       <code>io.github.ryanduguid/aus-accounting</code>
@@ -148,7 +152,7 @@
       <h3>Who maintains these tools?</h3>
       <p>Ryan Duguid, an Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. He is not the US software product executive of the same name.</p>
       <h3>Is aus-accounting-mcp on the official MCP registry?</h3>
-      <p>Yes. The listing name is io.github.ryanduguid/aus-accounting. The server still installs from GitHub until its own first PyPI release.</p>
+      <p>Yes. The listing name is io.github.ryanduguid/aus-accounting. Install it directly from PyPI or from GitHub.</p>
     </div>
 
     <h2 class="section-title">Related</h2>
@@ -228,7 +232,7 @@
           "https://github.com/ryanduguid/au-tax-mcp-server",
           "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest"
         ],
-        "softwareVersion": "0.1.4",
+        "softwareVersion": "0.1.5",
         "license": "https://github.com/ryanduguid/au-tax-mcp-server/blob/main/LICENSE",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
         "author": { "@id": "https://ryanduguid.github.io/about/#person" },
@@ -236,7 +240,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-08-25"
+        "dateModified": "2026-08-26"
       },
       {
         "@type": "FAQPage",
@@ -275,7 +279,7 @@
           {
             "@type": "Question",
             "name": "Is aus-accounting-mcp on the official MCP registry?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The listing name is io.github.ryanduguid/aus-accounting. The server still installs from GitHub until its own first PyPI release." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Yes. The listing name is io.github.ryanduguid/aus-accounting. Install it directly from PyPI or from GitHub." }
           }
         ]
       }
