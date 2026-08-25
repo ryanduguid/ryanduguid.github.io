@@ -49,6 +49,11 @@
     .container > table th,
     .container > table td { text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--border); }
     .container > table th { color: var(--text-muted); font-weight: 600; border-bottom: 2px solid var(--border); }
+    @media (max-width: 639px) {
+      .container > table.comparison-table { table-layout: fixed; }
+      .container > table.comparison-table th,
+      .container > table.comparison-table td { overflow-wrap: anywhere; }
+    }
     .container dl { margin: 1rem 0; }
     .container dt { font-weight: 600; margin-top: 1rem; }
     .container dd { margin: 0.25rem 0 0; }
