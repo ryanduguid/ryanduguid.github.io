@@ -42,6 +42,10 @@
       it in the legislation or the regulator's own published guidance, and
       shows its working so a second person can review the answer.
     </p>
+    <p>
+      The <a href="/evidence/">evidence page</a> sets out the public proof
+      links, source hierarchy and limits on what those records can establish.
+    </p>
 
     <h2 class="section-title">The short facts</h2>
     <table class="facts">
@@ -77,6 +81,12 @@
       <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a>.</li>
       <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that has to balance</a>.</li>
       <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a>: local computational MCP versus document lookup.</li>
+    </ul>
+
+    <h2 class="section-title">Authored software</h2>
+    <ul>
+      <li><a href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>, with its <a href="https://pypi.org/project/payday-super-checker/">PyPI distribution</a>.</li>
+      <li><a href="https://github.com/ryanduguid/au-tax-mcp-server">aus-accounting-mcp</a>, listed on <a href="https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server">Glama</a> and in the <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">official MCP Registry</a>.</li>
     </ul>
 
     <h2 class="section-title">How the work is grounded</h2>
@@ -219,12 +229,31 @@
         ],
         "sameAs": [
           "https://github.com/ryanduguid",
-          "https://github.com/ryanduguid/au-tax-mcp-server",
-          "https://www.linkedin.com/in/ryan-duguid",
-          "https://pypi.org/project/payday-super-checker/",
+          "https://www.linkedin.com/in/ryan-duguid"
+        ]
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://ryanduguid.github.io/about/#payday-super-checker",
+        "name": "payday-super-checker",
+        "url": "https://github.com/ryanduguid/payday-super-checker",
+        "codeRepository": "https://github.com/ryanduguid/payday-super-checker",
+        "sameAs": ["https://pypi.org/project/payday-super-checker/"],
+        "license": "https://github.com/ryanduguid/payday-super-checker/blob/main/LICENSE",
+        "author": { "@id": "https://ryanduguid.github.io/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://ryanduguid.github.io/about/#aus-accounting-mcp",
+        "name": "aus-accounting-mcp",
+        "url": "https://github.com/ryanduguid/au-tax-mcp-server",
+        "codeRepository": "https://github.com/ryanduguid/au-tax-mcp-server",
+        "sameAs": [
           "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
           "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest"
-        ]
+        ],
+        "license": "https://github.com/ryanduguid/au-tax-mcp-server/blob/main/LICENSE",
+        "author": { "@id": "https://ryanduguid.github.io/about/#person" }
       }
     ]
   }

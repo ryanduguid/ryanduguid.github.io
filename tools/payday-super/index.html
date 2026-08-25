@@ -38,9 +38,9 @@
       determination."
     </p>
     <p>
-      Payroll exports usually only show when money left the business, not when
-      the fund received it, and the law tests receipt by the fund. Without a
-      fund receipt date, a line can only come back "at risk", not a real verdict.
+      Without a fund receipt date, the records cannot prove ON_TIME. Remittance
+      timing can still prove LATE when money left after the deadline, while a
+      timely remittance without fund receipt evidence remains AT_RISK.
     </p>
     <h2 class="section-title">What this tool does</h2>
     <ul>
@@ -67,6 +67,50 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
        · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
        · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
     <!-- geo-blocks -->
+    <h2 class="section-title">Synthetic worked example</h2>
+    <p>
+      These three synthetic rows use a payday of 9 July 2026, a $300.00 SG
+      amount, a due date of 20 July 2026 and an as-at date of 10 August 2026.
+      They come from the tests for release v0.1.2.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Outcome</th>
+          <th>Synthetic facts</th>
+          <th>Test-backed result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>ON_TIME</strong></td>
+          <td>Sent 17 July and received by the fund on the 20 July due date.</td>
+          <td>On-time, with no days late or final shortfall.</td>
+        </tr>
+        <tr>
+          <td><strong>LATE</strong></td>
+          <td>Sent 1 August, after the due date, with no fund receipt date recorded.</td>
+          <td>Late as at 10 August, with the final shortfall kept at $300.00.</td>
+        </tr>
+        <tr>
+          <td><strong>AT_RISK</strong></td>
+          <td>Sent on the 20 July due date, with no fund receipt date recorded.</td>
+          <td>At-risk because receipt is not proved. The final shortfall is unset, not zero.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      See the
+      <a href="https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/tests/test_integration.py#L836-L887">tagged v0.1.2 integration tests</a>
+      for the exact fixtures and assertions. A missing fund receipt date does
+      not always produce the same state: the tested remittance timing separates
+      the late and at-risk rows above.
+    </p>
+    <p>
+      This remains an experimental estimate and review aid. It flags records
+      for human review; it does not give advice, make a compliance
+      determination, lodge, approve or pay anything.
+    </p>
     <h2 class="section-title">Common questions</h2>
     <div class="faq">
       <h3>When is super due under payday super?</h3>
@@ -85,7 +129,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
       <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 24 August 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 25 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
@@ -103,7 +147,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-24",
+        "dateModified": "2026-08-25",
         "isPartOf": {
           "@id": "https://ryanduguid.github.io/#website"
         },
@@ -170,7 +214,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-24"
+        "dateModified": "2026-08-25"
       },
       {
         "@type": "FAQPage",
@@ -208,17 +252,6 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
               "text": "The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination."
             }
           }
-        ]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://ryanduguid.github.io/about/#person",
-        "name": "Ryan Duguid",
-        "url": "https://ryanduguid.github.io/about/",
-        "jobTitle": "Accountant",
-        "sameAs": [
-          "https://github.com/ryanduguid",
-          "https://www.linkedin.com/in/ryan-duguid"
         ]
       }
     ]

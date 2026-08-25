@@ -63,6 +63,45 @@
     <pre><code>python -m pip install --require-hashes -r requirements.lock</code></pre>
     <p><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source on GitHub</a></p>
     <!-- geo-blocks -->
+    <h2 class="section-title">Synthetic worked example</h2>
+    <p>
+      These release v0.1.4 tests use mocked Xero API behaviour and synthetic
+      account rows. They do not contain a live organisation's data.
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Outcome</th>
+          <th>Synthetic facts</th>
+          <th>Test-backed result</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Balanced, CSV written</strong></td>
+          <td>Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits.</td>
+          <td>Both pairs balance and the exact expected CSV bytes are written.</td>
+        </tr>
+        <tr>
+          <td><strong>Unbalanced, CSV refused</strong></td>
+          <td>Cash (090) has $100.00 movement and YTD debits. Equity (960) has a $100.00 movement credit but only a $90.00 YTD credit.</td>
+          <td>The movement balances, but the $10.00 YTD difference causes exit code 1 and no CSV file output.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p>
+      The
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/tests/test_export_tb.py#L189-L208">tagged balanced-output test</a>
+      pins the CSV bytes. The
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/tests/test_export_tb.py#L419-L431">tagged unbalanced-YTD test</a>
+      pins the refusal and warning. Refused means no CSV file output; the
+      diagnostic warning is still printed.
+    </p>
+    <p>
+      The tool remains read-only and cannot write to a ledger. Its output is a
+      review aid, not advice or a compliance result. It does not post entries,
+      approve work, lodge returns or lock periods.
+    </p>
     <h2 class="section-title">Common questions</h2>
     <div class="faq">
       <h3>Can it export a trial balance for a date range?</h3>
@@ -78,7 +117,7 @@
       <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 24 August 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 25 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
@@ -96,7 +135,7 @@
         "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-24",
+        "dateModified": "2026-08-25",
         "isPartOf": {
           "@id": "https://ryanduguid.github.io/#website"
         },
@@ -163,7 +202,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-24"
+        "dateModified": "2026-08-25"
       },
       {
         "@type": "FAQPage",
@@ -193,17 +232,6 @@
               "text": "No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year to date figures have to balance for the export to proceed."
             }
           }
-        ]
-      },
-      {
-        "@type": "Person",
-        "@id": "https://ryanduguid.github.io/about/#person",
-        "name": "Ryan Duguid",
-        "url": "https://ryanduguid.github.io/about/",
-        "jobTitle": "Accountant",
-        "sameAs": [
-          "https://github.com/ryanduguid",
-          "https://www.linkedin.com/in/ryan-duguid"
         ]
       }
     ]
