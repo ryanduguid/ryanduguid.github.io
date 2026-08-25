@@ -30,77 +30,114 @@
     </div>
   </header>
   <main id="main" class="site-main">
-  <div class="container">
-    <p><a href="/">Home</a> / Evidence</p>
-    <h1>Evidence for the work</h1>
+    <article class="article">
+      <header class="article-header site-shell">
+        <p class="article-crumb"><a href="/">Home</a> / Evidence</p>
+        <h1>Evidence for the work</h1>
+        <p class="lead-note">
+          Evidence is material that another person can inspect: a primary source,
+          a public release or citation, a reproducible test, or a clearly bounded
+          example. It supports a limited claim about the work. It does not turn a
+          tool output into advice, a compliance decision or a lodgement.
+        </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#evidence-model">What counts as evidence</a>
+          <a href="#public-proof">Public proof</a>
+          <a href="#limits">Limits</a>
+          <a href="#sources">Sources</a>
+        </nav>
+        <div class="article-body">
+          <section id="evidence-model">
+            <h2>What counts as evidence</h2>
+            <table class="facts">
+              <thead>
+                <tr><th scope="col">Evidence</th><th scope="col">What can be checked</th></tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Primary-source hierarchy</th>
+                  <td>Rules are traced to Commonwealth legislation first, then regulator guidance and accounting standards where they apply. Secondary summaries are not the authority for a calculation.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Synthetic public examples</th>
+                  <td>Public fixtures and examples use synthetic data, so a reader can inspect the behaviour without receiving client information.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Versioned releases and citations</th>
+                  <td>Public package pages, registry records, release history and citations identify a version or published contribution that can be revisited later.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Local-data boundary</th>
+                  <td>Client-sensitive data is kept local to the intended workflow. Public repositories are not a channel for client records or outcomes.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Automated tests and human review</th>
+                  <td>Automated tests check specified software behaviour. A human reviewer retains professional judgement, approval and every lodgement decision.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
 
-    <p class="short-answer">
-      Evidence is material that another person can inspect: a primary source,
-      a public release or citation, a reproducible test, or a clearly bounded
-      example. It supports a limited claim about the work. It does not turn a
-      tool output into advice, a compliance decision or a lodgement.
-    </p>
+          <section id="public-proof">
+            <h2>Public proof</h2>
+            <div class="evidence-list">
+              <div class="evidence-row">
+                <p><a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">Official MCP Registry record for aus-accounting-mcp</a>.</p>
+                <p class="evidence-row__meta">Registry record. Checked 25 August 2026.</p>
+              </div>
+              <div class="evidence-row">
+                <p><a href="https://pypi.org/project/aus-accounting-mcp/">PyPI record for aus-accounting-mcp</a> and <a href="https://pypi.org/project/payday-super-checker/">PyPI record for payday-super-checker</a>.</p>
+                <p class="evidence-row__meta">Package records. Checked 25 August 2026.</p>
+              </div>
+              <div class="evidence-row">
+                <p><a href="https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url">SAP S/4HANA Financial Accounting Credly badge</a> and <a href="https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url">SAP S/4HANA Management Accounting Credly badge</a>.</p>
+                <p class="evidence-row__meta">Credential records. Checked 25 August 2026.</p>
+              </div>
+              <div class="evidence-row">
+                <p><a href="https://github.com/meltano/sdk/pull/3727">Meltano SDK pull request 3727</a>, <a href="https://github.com/Matatika/tap-xero/pull/20">tap-xero pull request 20</a>, <a href="https://github.com/openaccountants/openaccountants/pulls?q=is%3Apr+author%3Aryanduguid+is%3Amerged">OpenAccountants merged contributions</a> and <a href="https://github.com/farag2/Sophia-Script-for-Windows/pull/737">Sophia Script for Windows pull request 737</a>.</p>
+                <p class="evidence-row__meta">Contribution records. Checked 25 August 2026.</p>
+              </div>
+            </div>
+          </section>
 
-    <h2 class="section-title">What counts as evidence</h2>
-    <table>
-      <thead>
-        <tr><th scope="col">Evidence</th><th scope="col">What can be checked</th></tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">Primary-source hierarchy</th>
-          <td>Rules are traced to Commonwealth legislation first, then regulator guidance and accounting standards where they apply. Secondary summaries are not the authority for a calculation.</td>
-        </tr>
-        <tr>
-          <th scope="row">Synthetic public examples</th>
-          <td>Public fixtures and examples use synthetic data, so a reader can inspect the behaviour without receiving client information.</td>
-        </tr>
-        <tr>
-          <th scope="row">Versioned releases and citations</th>
-          <td>Public package pages, registry records, release history and citations identify a version or published contribution that can be revisited later.</td>
-        </tr>
-        <tr>
-          <th scope="row">Local-data boundary</th>
-          <td>Client-sensitive data is kept local to the intended workflow. Public repositories are not a channel for client records or outcomes.</td>
-        </tr>
-        <tr>
-          <th scope="row">Automated tests and human review</th>
-          <td>Automated tests check specified software behaviour. A human reviewer retains professional judgement, approval and every lodgement decision.</td>
-        </tr>
-      </tbody>
-    </table>
+          <section id="limits">
+            <h2>What this proves and what it does not</h2>
+            <p>
+              These public records can show that named software, package records,
+              credentials and upstream contributions exist at the linked locations.
+              They can also show the stated source, version and review boundaries for
+              a particular public artefact.
+            </p>
+            <p>
+              They do not prove an employer's endorsement, Chartered Accountants ANZ
+              endorsement, regulatory approval, a client outcome or accounting
+              compliance. Passing automated tests does not establish that a result is
+              correct for a real set of facts. Nothing here is tax, legal or financial
+              advice, and it creates no professional relationship or engagement.
+            </p>
+            <p>
+              A qualified person must review the relevant records and current primary
+              sources before relying on a result. Professional judgement, approval and
+              lodgement remain human-only decisions.
+            </p>
+          </section>
 
-    <h2 class="section-title">Public proof links</h2>
-    <ul>
-      <li><a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">Official MCP Registry record for aus-accounting-mcp</a>.</li>
-      <li><a href="https://pypi.org/project/aus-accounting-mcp/">PyPI record for aus-accounting-mcp</a> and <a href="https://pypi.org/project/payday-super-checker/">PyPI record for payday-super-checker</a>.</li>
-      <li><a href="https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url">SAP S/4HANA Financial Accounting Credly badge</a> and <a href="https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url">SAP S/4HANA Management Accounting Credly badge</a>.</li>
-      <li><a href="https://github.com/meltano/sdk/pull/3727">Meltano SDK pull request 3727</a>, <a href="https://github.com/Matatika/tap-xero/pull/20">tap-xero pull request 20</a>, <a href="https://github.com/openaccountants/openaccountants/pulls?q=is%3Apr+author%3Aryanduguid+is%3Amerged">OpenAccountants merged contributions</a> and <a href="https://github.com/farag2/Sophia-Script-for-Windows/pull/737">Sophia Script for Windows pull request 737</a>.</li>
-    </ul>
+          <section id="sources">
+            <h2>Sources</h2>
+            <div class="provenance-row">
+              <p>These linked public records are sources for the limited claims on this page. The applicable source for a calculation remains the current primary source, not a summary or a public record alone.</p>
+              <p>Reviewed 25 August 2026.</p>
+            </div>
+          </section>
 
-    <h2 class="section-title">What this proves and what it does not</h2>
-    <p>
-      These public records can show that named software, package records,
-      credentials and upstream contributions exist at the linked locations.
-      They can also show the stated source, version and review boundaries for
-      a particular public artefact.
-    </p>
-    <p>
-      They do not prove an employer's endorsement, Chartered Accountants ANZ
-      endorsement, regulatory approval, a client outcome or accounting
-      compliance. Passing automated tests does not establish that a result is
-      correct for a real set of facts. Nothing here is tax, legal or financial
-      advice, and it creates no professional relationship or engagement.
-    </p>
-    <p>
-      A qualified person must review the relevant records and current primary
-      sources before relying on a result. Professional judgement, approval and
-      lodgement remain human-only decisions.
-    </p>
-
-    <p class="page-meta">Last reviewed 25 August 2026.</p>
-    <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
-  </div>
+          <p class="page-meta">Last reviewed 25 August 2026.</p>
+          <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
+        </div>
+      </div>
+    </article>
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">

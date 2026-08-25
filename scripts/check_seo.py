@@ -172,6 +172,7 @@ HOMEPAGE_REQUIRED_HREFS = [
     "/tools/australian-tax-ai-agents/",
     "/tools/coal-lsl-levy/",
 ]
+ARTICLE_PATTERN_PAGES = {"about/index.html", "evidence/index.html"}
 
 
 def opening_tags(html: str, tag: str) -> list[str]:
@@ -198,6 +199,27 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
     for href in HOMEPAGE_REQUIRED_HREFS:
         if href not in hrefs:
             failures.append(f"index.html: missing visible homepage route {href}")
+
+
+def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
+    """Require the reusable article and local-contents pattern."""
+    rendered = visible_html(html)
+    if len(opening_tags(rendered, "article")) != 1:
+        failures.append(f"{rel}: expected exactly one article element")
+    toc_blocks = re.findall(
+        r"<nav\b(?=[^>]*\baria-label\s*=\s*([\"'])On this page\1)[^>]*>(.*?)</nav>",
+        rendered,
+        re.I | re.S,
+    )
+    if len(toc_blocks) != 1:
+        failures.append(f"{rel}: expected exactly one On this page navigation")
+        return
+    ids = set(re.findall(r"\bid\s*=\s*([\"'])(.*?)\1", rendered, re.I | re.S))
+    target_ids = {value for _, value in ids}
+    for tag in opening_tags(toc_blocks[0][1], "a"):
+        href = tag_attr(tag, "href") or ""
+        if not href.startswith("#") or href[1:] not in target_ids:
+            failures.append(f"{rel}: local contents target does not exist: {href}")
 
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
@@ -637,6 +659,8 @@ def check_file(path: Path) -> list[str]:
 
     if rel == "index.html":
         check_homepage_contract(html, failures)
+    if rel in ARTICLE_PATTERN_PAGES:
+        check_article_pattern(html, rel, failures)
 
     print(f"checked {rel}")
     return failures
@@ -774,6 +798,14 @@ def _self_check() -> None:
         and "I build accounting systems" in failure
         for failure in invalid_homepage_failures
     )
+    valid_article = """
+    <article><nav aria-label="On this page">
+      <a href="#first">First</a><a href="#second">Second</a>
+    </nav><h2 id="first">First</h2><h2 id="second">Second</h2></article>
+    """
+    article_failures: list[str] = []
+    check_article_pattern(valid_article, "self-check", article_failures)
+    assert article_failures == []
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )
