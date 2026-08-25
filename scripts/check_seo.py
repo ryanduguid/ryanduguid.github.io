@@ -574,6 +574,7 @@ def check_file(path: Path) -> list[str]:
     if m:
         canonical = m.group(1)
     if indexed:
+        check_shared_shell(html, rel, failures)
         expected = site_url(rel)
         if canonical is None:
             failures.append(f"{rel}: no canonical link")
