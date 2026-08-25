@@ -8,7 +8,8 @@ data that claims content the page does not show.
 
 Checks, per file:
 1. <html lang> is set.
-2. Exactly one <title>, non-empty, at most 65 characters.
+2. Exactly one <title>, non-empty, at most 65 characters, except for the exact
+   canonical Evidence and Assurance title.
 3. A meta description between 50 and 200 characters.
 4. A canonical link matching the file's own path on the live site.
 5. og:title, og:url and og:image, with og:url matching the canonical.
@@ -54,6 +55,9 @@ DESC_WARN = 165
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
 EVIDENCE_URL = f"{SITE}/evidence/"
+TITLE_EXCEPTIONS = {
+    EVIDENCE_REL: "Evidence and Assurance for Australian computational accounting tools",
+}
 CONTACT_EMAIL = "ryan@duguid.com.au"
 AUTHORITY_PATHS = {
     "engage": "Engage",
@@ -143,6 +147,11 @@ def site_url(rel: str) -> str:
     if rel.endswith("/index.html"):
         return f"{SITE}/{rel[: -len('index.html')]}"
     return f"{SITE}/{rel}"
+
+
+def title_is_too_long(rel: str, title: str) -> bool:
+    """Keep the general limit while allowing an exact page-specific title."""
+    return len(title) > TITLE_MAX and TITLE_EXCEPTIONS.get(rel) != title
 
 
 def meta(html: str, attr: str, value: str) -> str | None:
@@ -768,7 +777,7 @@ def check_file(path: Path) -> list[str]:
     titles = re.findall(r"<title>(.*?)</title>", html, re.S)
     if len(titles) != 1 or not titles[0].strip():
         failures.append(f"{rel}: expected exactly one non-empty <title>, found {len(titles)}")
-    elif len(titles[0].strip()) > TITLE_MAX:
+    elif title_is_too_long(rel, titles[0].strip()):
         failures.append(
             f"{rel}: title is {len(titles[0].strip())} characters, over the {TITLE_MAX} limit"
         )
@@ -897,6 +906,11 @@ def _self_check() -> None:
     )
     assert site_url("about/index.html") == f"{SITE}/about/"
     assert site_url("404.html") == f"{SITE}/404.html"
+    evidence_title = TITLE_EXCEPTIONS[EVIDENCE_REL]
+    assert len(evidence_title) > TITLE_MAX
+    assert not title_is_too_long(EVIDENCE_REL, evidence_title)
+    assert title_is_too_long("about/index.html", evidence_title)
+    assert title_is_too_long(EVIDENCE_REL, f"{evidence_title} extra")
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
