@@ -6,7 +6,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## For AI agents
 
-- [Australian tax tools for AI agents](https://ryanduguid.github.io/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library.
+- [Australian tax tools for AI agents](https://ryanduguid.github.io/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
 
 ## Person
 
