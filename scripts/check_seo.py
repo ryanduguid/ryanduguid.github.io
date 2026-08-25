@@ -40,6 +40,7 @@ import re
 import sys
 import tempfile
 from pathlib import Path
+from urllib.parse import parse_qs
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://ryanduguid.github.io"
@@ -53,6 +54,22 @@ DESC_WARN = 165
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
 EVIDENCE_URL = f"{SITE}/evidence/"
+CONTACT_EMAIL = "ryan@duguid.com.au"
+AUTHORITY_PATHS = {
+    "engage": "Engage",
+    "adopt": "Adopt",
+    "verify": "Verify",
+}
+ASSURANCE_HEADINGS = (
+    "Identity and credentials",
+    "Packages, releases and repositories",
+    "Sources and review dates",
+    "Data and privacy boundary",
+    "Security, tests and release evidence",
+    "Human accountability and refusals",
+    "Independent evaluation",
+)
+AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
@@ -70,6 +87,7 @@ AUTHORED_SOFTWARE = {
             "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
             "https://registry.modelcontextprotocol.io/v0.1/servers/"
             "io.github.ryanduguid%2Faus-accounting/versions/latest",
+            AUS_ACCOUNTING_PYPI,
         ],
     },
 }
@@ -250,9 +268,18 @@ def check_person_graph(paths: list[Path]) -> list[str]:
         if not node.get("license"):
             failures.append(f"person graph: {name} does not declare a licence")
         same_as = node.get("sameAs")
-        if not isinstance(same_as, list) or any(
-            reference not in same_as for reference in expected["references"]
-        ):
+        if not isinstance(same_as, list):
+            if name == "aus-accounting-mcp":
+                failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
+            failures.append(f"person graph: {name} is missing its distribution references")
+            continue
+        missing_references = [
+            reference for reference in expected["references"] if reference not in same_as
+        ]
+        if name == "aus-accounting-mcp" and AUS_ACCOUNTING_PYPI in missing_references:
+            failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
+            missing_references.remove(AUS_ACCOUNTING_PYPI)
+        if missing_references:
             failures.append(f"person graph: {name} is missing its distribution references")
     return failures
 
@@ -319,6 +346,156 @@ def check_evidence_page() -> list[str]:
     for label, pattern in concepts.items():
         if not re.search(pattern, text, re.S | re.I):
             failures.append(f"{EVIDENCE_REL}: visible text does not name {label}")
+    return failures
+
+
+def section_html(html: str, identifier: str) -> str:
+    """Return one visible section by ID, or an empty string when it is absent."""
+    rendered = visible_html(html)
+    opening = re.search(
+        rf'<section\b(?=[^>]*\bid\s*=\s*["\']{re.escape(identifier)}["\'])[^>]*>',
+        rendered,
+        re.I,
+    )
+    if not opening:
+        return ""
+    closing = re.search(r"</section\s*>", rendered[opening.end() :], re.I)
+    if not closing:
+        return rendered[opening.start() :]
+    return rendered[opening.start() : opening.end() + closing.end()]
+
+
+def anchor_hrefs(html: str) -> list[str]:
+    """Return href values from visible anchors."""
+    return [
+        html_lib.unescape(href)
+        for href in re.findall(
+            r'<a\b[^>]*\bhref\s*=\s*["\']([^"\']+)["\']', html, re.I
+        )
+    ]
+
+
+def heading_texts(html: str) -> set[str]:
+    """Return normalised visible heading text."""
+    return {
+        visible_text(heading).casefold()
+        for heading in re.findall(r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", html, re.S | re.I)
+    }
+
+
+def check_authority_surface() -> list[str]:
+    """Require the public Engage, Adopt and Verify authority surface."""
+    failures: list[str] = []
+    home_path = ROOT / "index.html"
+    home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
+    rendered_home = visible_html(home)
+    home_hrefs = anchor_hrefs(rendered_home)
+    sections = {
+        identifier: section_html(home, identifier) for identifier in AUTHORITY_PATHS
+    }
+    for identifier in AUTHORITY_PATHS:
+        if f"#{identifier}" not in home_hrefs or not sections[identifier]:
+            failures.append(f"index.html: missing visible authority route #{identifier}")
+
+    install_patterns = (
+        r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
+        r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
+        r"aus-accounting-mcp\b",
+        r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+    )
+    home_text = visible_text(rendered_home)
+    adopt_text = visible_text(sections["adopt"])
+    if any(
+        len(re.findall(pattern, home_text, re.I)) != 1
+        or len(re.findall(pattern, adopt_text, re.I)) != 1
+        for pattern in install_patterns
+    ):
+        failures.append("index.html: install commands must appear only inside #adopt")
+
+    catalogue_label = "Original firm-focused tools"
+    catalogue = re.search(
+        r'<div\b[^>]*\bclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'][^>]*>',
+        rendered_home,
+        re.I,
+    )
+    label_position = visible_text(rendered_home).find(catalogue_label)
+    if label_position < 0:
+        failures.append(f"index.html: missing visible catalogue label {catalogue_label}")
+    elif catalogue and rendered_home.find(catalogue_label) > catalogue.start():
+        failures.append(f"index.html: catalogue label {catalogue_label} must precede the tools")
+
+    expected_subjects = {
+        "Firm workflow or controlled pilot",
+        "Tool adoption or integration",
+        "Research, speaking or peer review",
+    }
+    actual_subjects: set[str] = set()
+    for href in anchor_hrefs(sections["engage"]):
+        if not href.casefold().startswith("mailto:"):
+            continue
+        address, separator, query = href[7:].partition("?")
+        if address.casefold() == CONTACT_EMAIL and separator:
+            actual_subjects.update(parse_qs(query).get("subject", []))
+    if not expected_subjects.issubset(actual_subjects):
+        failures.append("index.html: scoped enquiry categories are incomplete")
+
+    about_path = ROOT / "about" / "index.html"
+    about_text = (
+        visible_text(about_path.read_text(encoding="utf-8")) if about_path.is_file() else ""
+    )
+    has_client_file_boundary = re.search(
+        r"\b(?:do\s+not|don't|never)\b.{0,80}\bclient\s+files?\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_tax_advice_boundary = re.search(
+        r"\b(?:do\s+not|don't|not)\b.{0,80}\btax\s+advice\b",
+        about_text,
+        re.S | re.I,
+    )
+    has_no_engagement_boundary = re.search(
+        r"\bmessage\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
+        r"\b(?:professional\s+)?engagement\b",
+        about_text,
+        re.S | re.I,
+    )
+    if (
+        CONTACT_EMAIL not in about_text
+        or not has_client_file_boundary
+        or not has_tax_advice_boundary
+        or not has_no_engagement_boundary
+    ):
+        failures.append("about/index.html: enquiry boundary is incomplete")
+
+    evidence_path = ROOT / EVIDENCE_REL
+    evidence_headings = (
+        heading_texts(visible_html(evidence_path.read_text(encoding="utf-8")))
+        if evidence_path.is_file()
+        else set()
+    )
+    if any(heading.casefold() not in evidence_headings for heading in ASSURANCE_HEADINGS):
+        failures.append("evidence/index.html: missing assurance heading")
+
+    for path in sorted(ROOT.glob("tools/*/index.html")):
+        rel = path.relative_to(ROOT).as_posix()
+        if "/evidence/" not in anchor_hrefs(visible_html(path.read_text(encoding="utf-8"))):
+            failures.append(f"{rel}: no visible link to /evidence/")
+
+    mcp_rel = "tools/australian-tax-ai-agents/index.html"
+    mcp_path = ROOT / mcp_rel
+    mcp_html = mcp_path.read_text(encoding="utf-8") if mcp_path.is_file() else ""
+    rendered_mcp = visible_html(mcp_html)
+    if AUS_ACCOUNTING_PYPI not in anchor_hrefs(rendered_mcp):
+        failures.append(f"{mcp_rel}: no visible PyPI route")
+    uncommented_mcp = re.sub(r"<!--.*?-->", " ", mcp_html, flags=re.S)
+    json_ld_text = " ".join(
+        json.dumps(block, ensure_ascii=False)
+        for block in json_ld_blocks(uncommented_mcp, mcp_rel, failures)
+    )
+    if re.search(r"\bfirst\s+pypi\s+release\b", visible_text(rendered_mcp), re.I) or re.search(
+        r"\bfirst\s+pypi\s+release\b", json_ld_text, re.I
+    ):
+        failures.append(f"{mcp_rel}: stale first-PyPI-release claim")
     return failures
 
 
@@ -613,6 +790,7 @@ def check_site(paths: list[Path]) -> list[str]:
         failures.append("robots.txt: no Sitemap line")
     failures.extend(check_person_graph(paths))
     failures.extend(check_evidence_page())
+    failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_robots_policy(robots))
 
@@ -768,6 +946,62 @@ def _self_check() -> None:
 
             failures = check_evidence_page()
             assert "index.html: no visible link to /evidence/" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                '<a href="#adopt">Adopt</a><a href="#verify">Verify</a>',
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<section id=\"adopt\">"
+                "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
+                "</section>"
+                "<pre>claude mcp add aus-accounting -- uvx --from \\\\ "
+                "git+https://github.com/ryanduguid/au-tax-mcp-server "
+                "aus-accounting-mcp</pre>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: install commands must appear only inside #adopt" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            mcp_page = ROOT / "tools" / "australian-tax-ai-agents"
+            mcp_page.mkdir(parents=True)
+            (mcp_page / "index.html").write_text(
+                "<p>Waiting for its first PyPI release.</p>", encoding="utf-8"
+            )
+            failures = check_authority_surface()
+            assert (
+                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+                in failures
+            )
+            (mcp_page / "index.html").write_text(
+                '<script type="application/ld+json">'
+                '{"@context":"https://schema.org","description":"first PyPI release"}'
+                "</script>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert (
+                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+                in failures
+            )
         finally:
             ROOT = original_root
     print("self-check OK")
