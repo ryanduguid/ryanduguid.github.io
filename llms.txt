@@ -4,6 +4,10 @@
 
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic, client data stays local, and lodgement decisions stay with a qualified professional. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution, and should be verified against current guidance before anyone relies on them.
 
+## For AI agents
+
+- [Australian tax tools for AI agents](https://ryanduguid.github.io/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library.
+
 ## Person
 
 - [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.

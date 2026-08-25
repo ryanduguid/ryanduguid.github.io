@@ -4,7 +4,7 @@ Source for [ryanduguid.github.io](https://ryanduguid.github.io/), the landing pa
 
 ## Local preview
 
-The site is ten static HTML pages: `index.html`, `404.html`, `about/index.html`, and one per tool under `tools/`. Open `index.html` in a browser, or serve the folder:
+The site is static HTML (`index.html`, `about/`, `rates/`, `tools/`). Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 8000
