@@ -509,7 +509,7 @@ def check_authority_surface() -> list[str]:
         re.S | re.I,
     )
     has_no_engagement_boundary = re.search(
-        r"\bmessage\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
+        r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
         r"\b(?:professional\s+)?engagement\b",
         about_text,
         re.S | re.I,
@@ -865,6 +865,12 @@ def _self_check() -> None:
     global ROOT
 
     assert site_url("index.html") == f"{SITE}/"
+    assert re.search(
+        r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
+        r"\b(?:professional\s+)?engagement\b",
+        "An email does not create a professional engagement.",
+        re.I,
+    )
     assert site_url("about/index.html") == f"{SITE}/about/"
     assert site_url("404.html") == f"{SITE}/404.html"
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
