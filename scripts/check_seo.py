@@ -158,6 +158,21 @@ PRIMARY_NAV_LINKS = [
     ),
 ]
 
+HOMEPAGE_REQUIRED_TEXT = [
+    "I build accounting systems that can show their work.",
+    "Data and Ledgers",
+    "Rules and Engines",
+    "Agent Workflows",
+    "Review Controls",
+    "Install in 2 commands",
+    "Proof belongs beside the claim",
+]
+HOMEPAGE_REQUIRED_HREFS = [
+    "/evidence/",
+    "/tools/australian-tax-ai-agents/",
+    "/tools/coal-lsl-levy/",
+]
+
 
 def opening_tags(html: str, tag: str) -> list[str]:
     """Return rendered opening tags without script, style or template content."""
@@ -170,6 +185,19 @@ def tag_attr(tag: str, name: str) -> str | None:
         rf"\b{re.escape(name)}\s*=\s*([\"'])(.*?)\1", tag, re.I | re.S
     )
     return html_lib.unescape(match.group(2)).strip() if match else None
+
+
+def check_homepage_contract(html: str, failures: list[str]) -> None:
+    """Keep the approved homepage claims and primary proof routes visible."""
+    text = visible_text(html)
+    for required in HOMEPAGE_REQUIRED_TEXT:
+        if required not in text:
+            failures.append(f"index.html: missing approved homepage text {required!r}")
+    rendered = visible_html(html)
+    hrefs = [tag_attr(tag, "href") for tag in opening_tags(rendered, "a")]
+    for href in HOMEPAGE_REQUIRED_HREFS:
+        if href not in hrefs:
+            failures.append(f"index.html: missing visible homepage route {href}")
 
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
@@ -607,6 +635,9 @@ def check_file(path: Path) -> list[str]:
                 if node.get("@type") == "FAQPage":
                     check_faq_visible(node, text, rel, failures)
 
+    if rel == "index.html":
+        check_homepage_contract(html, failures)
+
     print(f"checked {rel}")
     return failures
 
@@ -717,6 +748,32 @@ def _self_check() -> None:
     check_shared_shell(invalid_shell, "self-check", invalid_shell_failures)
     assert any("main#main" in failure for failure in invalid_shell_failures)
     assert any("primary navigation" in failure for failure in invalid_shell_failures)
+    valid_homepage = """
+    <main>
+      <h1>I build accounting systems that can show their work.</h1>
+      <h2>Data and Ledgers</h2><h2>Rules and Engines</h2>
+      <h2>Agent Workflows</h2><h2>Review Controls</h2>
+      <h2>Install in 2 commands</h2>
+      <h2>Proof belongs beside the claim</h2>
+      <a href="/evidence/">Evidence</a>
+      <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+      <a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
+    </main>
+    """
+    homepage_failures: list[str] = []
+    check_homepage_contract(valid_homepage, homepage_failures)
+    assert homepage_failures == []
+
+    invalid_homepage = valid_homepage.replace(
+        "I build accounting systems that can show their work.", ""
+    )
+    invalid_homepage_failures: list[str] = []
+    check_homepage_contract(invalid_homepage, invalid_homepage_failures)
+    assert any(
+        "missing approved homepage text" in failure
+        and "I build accounting systems" in failure
+        for failure in invalid_homepage_failures
+    )
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )
