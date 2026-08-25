@@ -52,7 +52,7 @@
 
     <h2 class="section-title" id="tools">Tools for Accountants and Business Owners</h2>
     <p class="tools-intro">
-      The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install. The other six are open-source tools you install and run yourself.
+      The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install. The other seven are open-source tools you install and run yourself.
     </p>
     <div class="tools-list">
       <div class="tool-card">
@@ -82,6 +82,10 @@
       <div class="tool-card">
         <a class="tool-name" href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a>
         <div class="desc">Practical ledger workflows for construction and mining subcontractors.</div>
+      </div>
+      <div class="tool-card">
+        <a class="tool-name" href="/tools/wip-schedule/">Construction WIP: over-billed or under-billed under AASB 15</a>
+        <div class="desc">Cost-to-cost earned revenue, contract assets and liabilities, and profit-fade flags from a contract CSV.</div>
       </div>
       <div class="tool-card">
         <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
@@ -129,6 +133,11 @@
           <a class="name" href="https://github.com/ryanduguid/ato-benchmark-compare">ato-benchmark-compare</a>
           <div class="desc">Offline variance analysis against ATO small-business benchmarks.</div>
           <a class="tool-link" href="/tools/ato-benchmarks/">Try the tool page</a>
+        </div>
+        <div class="repo-card">
+          <a class="name" href="https://github.com/ryanduguid/TheWIPTally">TheWIPTally</a>
+          <div class="desc">AASB 15 construction WIP: cost-to-cost progress, contract assets and liabilities, profit fade.</div>
+          <a class="tool-link" href="/tools/wip-schedule/">Try the tool page</a>
         </div>
       </div>
 
@@ -253,7 +262,7 @@
         "@id": "https://ryanduguid.github.io/#tools-list",
         "name": "Tools for Australian accountants and business owners",
         "itemListOrder": "https://schema.org/ItemListUnordered",
-        "numberOfItems": 8,
+        "numberOfItems": 9,
         "itemListElement": [
           {
             "@type": "ListItem",
@@ -405,6 +414,28 @@
           {
             "@type": "ListItem",
             "position": 8,
+            "url": "https://ryanduguid.github.io/tools/wip-schedule/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://ryanduguid.github.io/tools/wip-schedule/#software",
+              "name": "Construction WIP: over-billed or under-billed under AASB 15",
+              "description": "Deterministic AASB 15 construction work-in-progress schedule from a contract CSV: cost-to-cost progress, contract assets and liabilities, profit fade.",
+              "url": "https://ryanduguid.github.io/tools/wip-schedule/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://ryanduguid.github.io/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
             "url": "https://ryanduguid.github.io/tools/xero-trial-balance/",
             "item": {
               "@type": "SoftwareApplication",
