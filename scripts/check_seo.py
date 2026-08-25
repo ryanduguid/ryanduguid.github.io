@@ -156,21 +156,59 @@ def visible_html(html: str) -> str:
     """HTML with non-rendered, hidden and comment content removed."""
     html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
     html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
-    hidden_element = re.compile(
-        r"<(?P<tag>[a-z][\w:-]*)\b(?=[^>]*(?:"
-        r"\shidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
-        r"|\saria-hidden\s*=\s*(?:\"true\"|'true'|true)"
-        r"|\sstyle\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
-        r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
-        r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)))"
-        r"[^>]*>.*?</(?P=tag)\s*>",
-        re.S | re.I,
+    tag_pattern = re.compile(
+        r"<(?P<closing>/)?(?P<name>[a-z][\w:-]*)\b(?P<attrs>[^>]*)>", re.I
     )
-    previous = None
-    while html != previous:
-        previous = html
-        html = hidden_element.sub(" ", html)
-    return html
+    hidden_attribute = re.compile(
+        r"(?:^|\s)hidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
+        r"|(?:^|\s)aria-hidden\s*=\s*(?:\"true\"|'true'|true)"
+        r"|(?:^|\s)style\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
+        r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
+        r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)",
+        re.I,
+    )
+    void_elements = {
+        "area",
+        "base",
+        "br",
+        "col",
+        "embed",
+        "hr",
+        "img",
+        "input",
+        "link",
+        "meta",
+        "param",
+        "source",
+        "track",
+        "wbr",
+    }
+    rendered: list[str] = []
+    hidden_stack: list[str] = []
+    position = 0
+    for tag in tag_pattern.finditer(html):
+        if not hidden_stack:
+            rendered.append(html[position : tag.start()])
+        name = tag.group("name").casefold()
+        attrs = tag.group("attrs")
+        closing = bool(tag.group("closing"))
+        self_closing = attrs.rstrip().endswith("/") or name in void_elements
+        if hidden_stack:
+            if closing and name in hidden_stack:
+                start = len(hidden_stack) - 1 - hidden_stack[::-1].index(name)
+                del hidden_stack[start:]
+            elif not closing and not self_closing:
+                hidden_stack.append(name)
+        elif not closing and hidden_attribute.search(attrs):
+            rendered.append(" ")
+            if not self_closing:
+                hidden_stack.append(name)
+        else:
+            rendered.append(tag.group(0))
+        position = tag.end()
+    if not hidden_stack:
+        rendered.append(html[position:])
+    return "".join(rendered)
 
 
 def visible_text(html: str) -> str:
@@ -1078,6 +1116,20 @@ def _self_check() -> None:
             assert "evidence/index.html: missing assurance heading" in failures
             assert "tools/australian-tax-ai-agents/index.html: no visible link to /evidence/" in failures
             assert "tools/australian-tax-ai-agents/index.html: no visible PyPI route" in failures
+        finally:
+            ROOT = original_root
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            (ROOT / "index.html").write_text(
+                "<section hidden><section></section>"
+                '<section id="engage"><a href="#engage">Engage</a></section>'
+                "</section>",
+                encoding="utf-8",
+            )
+            failures = check_authority_surface()
+            assert "index.html: missing visible authority route #engage" in failures
         finally:
             ROOT = original_root
 
