@@ -72,7 +72,7 @@ a:hover { color: var(--text); }
     blockquote {
       background: var(--surface);
       border-left: 3px solid var(--accent);
-      border-radius: 0 4px 4px 0;
+      border-radius: 0;
       padding: 0.75rem 1rem;
       margin: 1.5rem 0;
       color: var(--text-muted);
@@ -98,7 +98,7 @@ a:hover { color: var(--text); }
     pre {
       background: var(--bg);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: var(--control-radius);
       padding: 1rem;
       overflow-x: auto;
       font-size: 0.85rem;
@@ -131,7 +131,7 @@ a:hover { color: var(--text); }
       gap: 0.4rem;
       padding: 0.5rem 1rem;
       border: 1px solid var(--accent);
-      border-radius: 6px;
+      border-radius: var(--control-radius);
       font-size: 0.9rem;
       transition: background 0.2s;
     }
@@ -154,7 +154,7 @@ a:hover { color: var(--text); }
     .page-404 .links a {
       display: inline-block;
       padding: 0.45rem 0.9rem;
-      border-radius: 6px;
+      border-radius: var(--control-radius);
       font-size: 0.9rem;
       font-weight: 600;
       background: var(--surface);
@@ -419,7 +419,7 @@ a:hover { color: var(--text); }
     .short-answer {
       background: var(--surface);
       border-left: 3px solid var(--accent-light);
-      border-radius: 0 6px 6px 0;
+      border-radius: 0;
       padding: 1rem 1.25rem;
       margin: 1.25rem 0 1.5rem;
       font-size: 1.02rem;
