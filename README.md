@@ -34,21 +34,6 @@ python scripts/check_links.py
 python scripts/check_seo.py
 ```
 
-## IndexNow
-
-`.github/workflows/indexnow.yml` posts the sitemap's URLs to IndexNow whenever a
-page or the sitemap changes on `main`, so Bing and the engines that share its
-index see an edit without waiting for a crawl. Google does not participate.
-
-Ownership is proved by the key file at the repository root, which the endpoint
-fetches. The key is public by design and authorises submitting URLs on this host
-only. To submit by hand, or to see what would be sent:
-
-```bash
-python scripts/indexnow.py --dry-run
-python scripts/indexnow.py
-```
-
 ## Licence
 
 MIT, see [LICENSE](LICENSE).
