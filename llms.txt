@@ -32,6 +32,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
 - [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
 - [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
+- [Is this pack allowed into manager review](https://ryanduguid.github.io/tools/review-ready-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
 
 ## Install
 
