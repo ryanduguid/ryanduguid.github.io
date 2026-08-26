@@ -25,5 +25,7 @@ jobs:
         run: node --test scripts/levy.test.mjs
       - name: Link and content checks
         run: python scripts/check_links.py
+      - name: Metadata checker tests
+        run: python scripts/test_check_seo.py
       - name: Metadata and structured data checks
         run: python scripts/check_seo.py

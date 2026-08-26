@@ -291,51 +291,12 @@
 
     <script type="module">
       import {
-        toCents, grossUp, baseRateWages, annualSalaryWages, casualWages,
         levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
       } from '/assets/levy.mjs';
+      import { compute } from '/assets/levy-form.mjs';
 
       const money = (cents) =>
         (cents / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-
-      function readBonuses(root) {
-        return [...root.querySelectorAll('.bonus-row')].map((row) => ({
-          amount: Number(row.querySelector('.bonus-amount').value || 0),
-          frequency: row.querySelector('.bonus-frequency').value,
-        }));
-      }
-
-      function compute(form) {
-        const branch = form.querySelector('input[name="branch"]:checked').value;
-        const bonuses = readBonuses(form);
-        // Fields for the branches that are hidden do not exist in the DOM,
-        // so form.elements[name] is undefined. Optional chaining, not a crash.
-        const num = (name) => Number(form.elements[name]?.value || 0);
-
-        if (branch === 'annual') {
-          return annualSalaryWages({
-            annualSalaryPaidCents: grossUp(toCents(num('annualSalary')), toCents(num('sacrificed'))),
-            bonuses,
-          });
-        }
-        if (branch === 'casual') {
-          return casualWages({
-            reportingMonth: form.elements.reportingMonth.value,
-            instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
-            loadingQuantifiable: form.elements.loadingQuantifiable.checked,
-            baseRatePayCents: grossUp(toCents(num('casualBasePay')), toCents(num('sacrificed'))),
-            casualLoadingCents: toCents(num('casualLoading')),
-            ordinaryRatePayCents: grossUp(toCents(num('ordinaryPay')), toCents(num('sacrificed'))),
-            bonuses,
-          });
-        }
-        return baseRateWages({
-          baseRateCents: grossUp(toCents(num('baseRate')), toCents(num('sacrificed'))),
-          bonuses,
-          overtimeAndPenaltyCents: toCents(num('overtime')),
-          allowancesCents: toCents(num('allowances')),
-        });
-      }
 
       function explain(result) {
         if (result.branch === 'pre-2024') {

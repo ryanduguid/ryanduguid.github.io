@@ -5,6 +5,7 @@ import {
   baseRateWages, annualSalaryWages, casualWages, levyCents,
   CASUAL_METHOD_CHANGE_MONTH,
 } from '../assets/levy.mjs';
+import { compute } from '../assets/levy-form.mjs';
 
 const d = toCents; // dollars to cents, for readability below
 
@@ -119,6 +120,33 @@ test('D11 casual: months before January 2024 use the legacy method', () => {
   assert.equal(r.branch, 'pre-2024');
   assert.equal(r.eligibleWagesCents, 180000, 'loading is excluded before 2024');
   assert.equal(levyCents(r.eligibleWagesCents), 4860);
+});
+
+test('pre-2024 casual controller selects ordinary pay before grossing up sacrifice', () => {
+  const form = {
+    elements: {
+      reportingMonth: { value: '2023-12' },
+      instrumentSpecifiesLoading: { checked: false },
+      loadingQuantifiable: { checked: false },
+      casualBasePay: { value: '' },
+      casualLoading: { value: '' },
+      ordinaryPay: { value: '1000' },
+      sacrificed: { value: '100' },
+    },
+    querySelector(selector) {
+      assert.equal(selector, 'input[name="branch"]:checked');
+      return { value: 'casual' };
+    },
+    querySelectorAll(selector) {
+      assert.equal(selector, '.bonus-row');
+      return [];
+    },
+  };
+
+  const result = compute(form);
+
+  assert.equal(result.branch, 'pre-2024');
+  assert.equal(result.eligibleWagesCents, 110000);
 });
 
 test('D11b casual: January 2024 itself is NOT legacy', () => {
