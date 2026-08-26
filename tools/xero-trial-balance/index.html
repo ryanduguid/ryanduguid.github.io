@@ -14,12 +14,39 @@
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="container">
-    <p><a href="/">Home</a></p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
     <h1>How to export a Xero trial balance to CSV that actually balances</h1>
-    <p class="short-answer">
+    <p class="lead-note">
       This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year to date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#synthetic-worked-example">Synthetic worked example</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
     <p>
       The manual path, Reports, Trial Balance, Export, fix the header rows, fix
       the account codes, takes about ten minutes per entity per month and
@@ -41,13 +68,16 @@
       It is read-only. The scope it asks Xero for is report reading only, so
       it cannot write anything back to your ledger.
     </p>
-    <h2 class="section-title">What this tool does</h2>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
     <ul>
       <li>Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without cleanup.</li>
       <li>Refuses to write a file unless both the month's movement and the year to date figures balance.</li>
       <li>Is read-only: it cannot write to any ledger.</li>
     </ul>
-    <h2 class="section-title">Limits</h2>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
     <blockquote>
       <p>
         Read-only (accounting.reports.trialbalance.read); this tool cannot
@@ -59,16 +89,21 @@
         endorsed by Xero.
       </p>
     </blockquote>
-    <h2 class="section-title">Get it</h2>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
     <pre><code>python -m pip install --require-hashes -r requirements.lock</code></pre>
     <p><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source on GitHub</a></p>
     <!-- geo-blocks -->
-    <h2 class="section-title">Synthetic worked example</h2>
+    </section>
+    <section id="synthetic-worked-example">
+    <h2>Synthetic worked example</h2>
     <p>
       These release v0.1.4 tests use mocked Xero API behaviour and synthetic
       account rows. They do not contain a live organisation's data.
     </p>
-    <table>
+    <div class="table-scroll" role="region" aria-label="Synthetic Xero trial balance export outcomes" tabindex="0">
+    <table class="tool-table--wide">
       <thead>
         <tr>
           <th>Outcome</th>
@@ -89,6 +124,7 @@
         </tr>
       </tbody>
     </table>
+    </div>
     <p>
       The
       <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/tests/test_export_tb.py#L189-L208">tagged balanced-output test</a>
@@ -102,7 +138,9 @@
       review aid, not advice or a compliance result. It does not post entries,
       approve work, lodge returns or lock periods.
     </p>
-    <h2 class="section-title">Common questions</h2>
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
     <div class="faq">
       <h3>Can it export a trial balance for a date range?</h3>
       <p>No. Xero's Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month.</p>
@@ -111,19 +149,34 @@
       <h3>What happens if the trial balance does not balance?</h3>
       <p>No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year to date figures have to balance for the export to proceed.</p>
     </div>
-    <h2 class="section-title">Related</h2>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
     <ul class="related">
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
       <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
+    </section>
     <p class="page-meta">Published 24 August 2026. Last reviewed 25 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
     </p>
-  </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
