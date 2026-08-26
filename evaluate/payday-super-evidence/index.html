@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Payday Super timing evidence evaluation</title>
+  <meta name="description" content="Reproduce Payday Super timing outcomes with four fabricated fixtures, then inspect the evidence limits and required human decision." />
+  <meta property="og:title" content="Payday Super timing evidence evaluation" />
+  <meta property="og:description" content="A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://ryanduguid.github.io/evaluate/payday-super-evidence/" />
+  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://ryanduguid.github.io/evaluate/payday-super-evidence/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <p class="article-crumb"><a href="/">Home</a> / Payday Super timing evidence evaluation</p>
+        <h1>Payday Super timing evidence evaluation</h1>
+        <p class="lead-note">
+          Reproduce four fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
+        </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#accounting-problem">Accounting problem</a>
+          <a href="#intended-reviewer">Intended reviewer</a>
+          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#reproduce">Reproduce</a>
+          <a href="#expected-result">Expected result</a>
+          <a href="#controls-triggered">Controls triggered</a>
+          <a href="#primary-sources">Primary sources</a>
+          <a href="#versions">Versions</a>
+          <a href="#human-decision">Human decision</a>
+          <a href="#limitations">Limitations</a>
+        </nav>
+        <div class="article-body">
+          <section id="accounting-problem">
+            <h2>Accounting problem</h2>
+            <p>
+              For Payday Super, the operational record can show when money was remitted, but the statutory timing question depends on when an eligible fund received and allocated the contribution.
+            </p>
+          </section>
+
+          <section id="intended-reviewer">
+            <h2>Intended reviewer</h2>
+            <p>
+              This pack is for an accountant, payroll reviewer or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
+            </p>
+          </section>
+
+          <section id="fabricated-inputs">
+            <h2>Fabricated inputs</h2>
+            <p>
+              The four CSV fixtures contain fabricated dates and amounts for a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee or live payroll data is included.
+            </p>
+          </section>
+
+          <section id="reproduce" class="install-panel">
+            <h2>Reproduce</h2>
+            <pre><code>uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o timely-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/late_remittance_no_receipt.csv --as-at 2026-08-20 -o late-remittance-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_on_due_date.csv --as-at 2026-08-20 -o on-time-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv --as-at 2026-08-20 -o late-receipt-report.csv
+uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q</code></pre>
+          </section>
+
+          <section id="expected-result">
+            <h2>Expected result</h2>
+            <table class="facts">
+              <thead>
+                <tr>
+                  <th scope="col">Fabricated fixture</th>
+                  <th scope="col">Expected result</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row"><code>timely_remittance_no_receipt.csv</code></th>
+                  <td><code>timely_remittance_no_receipt.csv</code> exits 2 with <code>AT_RISK</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>late_remittance_no_receipt.csv</code></th>
+                  <td><code>late_remittance_no_receipt.csv</code> exits 2 with <code>LATE</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>receipt_on_due_date.csv</code></th>
+                  <td><code>receipt_on_due_date.csv</code> exits 0 with <code>ON_TIME</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row"><code>receipt_after_due_date.csv</code></th>
+                  <td><code>receipt_after_due_date.csv</code> exits 2 with <code>LATE</code>.</td>
+                </tr>
+              </tbody>
+            </table>
+            <p>
+              A missing receipt cannot prove on-time, remittance timing can prove late, and timely remittance without receipt remains at-risk. The outcome identifiers are <code>AT_RISK</code>, <code>ON_TIME</code> and <code>LATE</code>.
+            </p>
+          </section>
+
+          <section id="controls-triggered">
+            <h2>Controls triggered</h2>
+            <p>
+              The production check keeps a missing receipt at <code>AT_RISK</code>, records an on-time receipt as <code>ON_TIME</code>, and classifies a remittance after the deadline or a late receipt as <code>LATE</code>.
+            </p>
+          </section>
+
+          <section id="primary-sources">
+            <h2>Primary sources</h2>
+            <ul class="sources">
+              <li><a href="https://www.legislation.gov.au/C2004A04402/latest/text">Superannuation Guarantee (Administration) Act 1992</a></li>
+              <li><a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Australian Taxation Office, LCR 2026/2</a></li>
+              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/docs/primary-source-review-2026-08-15.md">Primary source review</a></li>
+            </ul>
+          </section>
+
+          <section id="versions">
+            <h2>Versions</h2>
+            <p>Product release v0.1.2; fixture version 1; source reviewed 15 August 2026.</p>
+            <p>
+              v0.1.2 predates the evaluation directory. The evaluation artefacts are fixed to the merge commit, rather than presented as released v0.1.2 evaluation artefacts.
+            </p>
+            <ul class="sources">
+              <li><a href="https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2">Immutable v0.1.2 GitHub Release</a></li>
+              <li><a href="https://github.com/ryanduguid/payday-super-checker/tree/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence">Evaluation pack</a></li>
+              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence/expected_results.json">Expected results contract</a></li>
+              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
+            </ul>
+          </section>
+
+          <section id="human-decision">
+            <h2>Human decision</h2>
+            <blockquote>
+              <p>Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation and the other assessment facts before relying on a statutory conclusion.</p>
+            </blockquote>
+          </section>
+
+          <section id="limitations">
+            <h2>Limitations</h2>
+            <p>
+              Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment. It tests fabricated evidence classifications only. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+            </p>
+          </section>
+
+          <p class="page-meta">Published 26 August 2026. Last reviewed 26 August 2026.</p>
+          <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://ryanduguid.github.io/evaluate/payday-super-evidence/#article",
+        "url": "https://ryanduguid.github.io/evaluate/payday-super-evidence/",
+        "headline": "Payday Super timing evidence evaluation",
+        "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-26",
+        "dateModified": "2026-08-26",
+        "author": { "@id": "https://ryanduguid.github.io/about/#person" },
+        "publisher": { "@id": "https://ryanduguid.github.io/about/#person" },
+        "isPartOf": { "@id": "https://ryanduguid.github.io/#website" },
+        "breadcrumb": { "@id": "https://ryanduguid.github.io/evaluate/payday-super-evidence/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://ryanduguid.github.io/evaluate/payday-super-evidence/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://ryanduguid.github.io/" },
+          { "@type": "ListItem", "position": 2, "name": "Payday Super timing evidence evaluation", "item": "https://ryanduguid.github.io/evaluate/payday-super-evidence/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
