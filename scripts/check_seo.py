@@ -40,6 +40,7 @@ import json
 import re
 import sys
 import tempfile
+from collections import Counter
 from dataclasses import dataclass, field
 from html.parser import HTMLParser
 from pathlib import Path
@@ -178,6 +179,17 @@ EVALUATION_PACKS = {
             "fixture version 1",
             "source reviewed 2026-08-26",
         ),
+        "reproduction_recipe": (
+            "git clone --branch v0.1.1 --depth 1 "
+            "https://github.com/ryanduguid/review-ready-gate.git",
+            "cd review-ready-gate",
+            "uv sync --locked --all-extras",
+            "uv run review-ready gate --profile bas --pack examples/bas-not-ready "
+            "--output outputs/evaluation-not-ready",
+            "uv run review-ready gate --profile bas --pack examples/bas-ready "
+            "--output outputs/evaluation-ready",
+            "uv run pytest tests/test_evaluation_pack.py -q",
+        ),
         "contract_text": (
             "Exit 2 with NOT_READY",
             "MISSING_ARTEFACT for gst_control_gl",
@@ -187,13 +199,15 @@ EVALUATION_PACKS = {
             "READY means no configured gate tripped; it is not approval, advice or "
             "lodgment authority.",
         ),
-        "evidence_urls": (
+        "product_evidence_urls": (
             "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
             "evaluation/manager_review_gate",
             "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
             "evaluation/manager_review_gate/expected_results.json",
             "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
             "tests/test_evaluation_pack.py",
+        ),
+        "primary_source_urls": (
             "https://www.ato.gov.au/businesses-and-organisations/"
             "preparing-lodging-and-paying/business-activity-statements-bas",
             "https://www.ato.gov.au/businesses-and-organisations/"
@@ -237,6 +251,10 @@ def visible_html(html: str) -> str:
     hidden_attribute = re.compile(
         r"(?:^|\s)hidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
         r"|(?:^|\s)aria-hidden\s*=\s*(?:\"true\"|'true'|true)"
+        r"|(?:^|\s)class\s*=\s*(?:"
+        r'"\s*(?:[^"\s]+\s+)*visually-hidden(?:\s+[^"\s]+)*\s*"'
+        r"|'\s*(?:[^'\s]+\s+)*visually-hidden(?:\s+[^'\s]+)*\s*'"
+        r"|visually-hidden(?=\s|$))"
         r"|(?:^|\s)style\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
         r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
         r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)",
@@ -1492,27 +1510,81 @@ def check_evaluation_packs() -> list[str]:
                 failures.append(
                     f"{rel}: missing visible contract text {contract_text!r}"
                 )
-        for evidence_url in expected["evidence_urls"]:
-            if evidence_url not in hrefs:
-                failures.append(f"{rel}: missing visible evidence link {evidence_url}")
+        for section_id, configured_hrefs in (
+            ("versions", expected["product_evidence_urls"]),
+            ("primary-sources", expected["primary_source_urls"]),
+        ):
+            actual_hrefs = anchor_hrefs(section_html(rendered, section_id))
+            missing_hrefs = list(
+                (Counter(configured_hrefs) - Counter(actual_hrefs)).elements()
+            )
+            unexpected_hrefs = list(
+                (Counter(actual_hrefs) - Counter(configured_hrefs)).elements()
+            )
+            if missing_hrefs or unexpected_hrefs:
+                failures.append(
+                    f"{rel}: #{section_id} evidence hrefs must match exactly once; "
+                    f"missing {missing_hrefs!r}; unexpected {unexpected_hrefs!r}"
+                )
+
+        product_hrefs = [
+            href
+            for href in hrefs
+            if "github.com/ryanduguid/review-ready-gate" in href.casefold()
+        ]
+        missing_product_hrefs = list(
+            (
+                Counter(expected["product_evidence_urls"])
+                - Counter(product_hrefs)
+            ).elements()
+        )
+        unexpected_product_hrefs = list(
+            (
+                Counter(product_hrefs)
+                - Counter(expected["product_evidence_urls"])
+            ).elements()
+        )
+        if missing_product_hrefs or unexpected_product_hrefs:
+            failures.append(
+                f"{rel}: global review-ready-gate evidence hrefs must match approved "
+                "v0.1.1 URLs exactly once; missing "
+                f"{missing_product_hrefs!r}; unexpected {unexpected_product_hrefs!r}"
+            )
+
+        reproduce_html = section_html(rendered, "reproduce")
+        code_blocks = re.findall(
+            r"<code\b[^>]*>(.*?)</code\s*>", reproduce_html, re.S | re.I
+        )
+        if len(code_blocks) != 1:
+            failures.append(
+                f"{rel}: #reproduce must contain exactly one visible code block, "
+                f"found {len(code_blocks)}"
+            )
+        else:
+            recipe = html_lib.unescape(code_blocks[0]).replace("\r\n", "\n").replace(
+                "\r", "\n"
+            )
+            recipe_lines = [line.rstrip() for line in recipe.split("\n")]
+            while recipe_lines and not recipe_lines[-1]:
+                recipe_lines.pop()
+            configured_recipe = list(expected["reproduction_recipe"])
+            if len(recipe_lines) != len(configured_recipe):
+                failures.append(
+                    f"{rel}: #reproduce must contain the configured six-line recipe, "
+                    f"found {len(recipe_lines)} lines"
+                )
+            else:
+                for line_number, (actual_line, configured_line) in enumerate(
+                    zip(recipe_lines, configured_recipe), start=1
+                ):
+                    if actual_line != configured_line:
+                        failures.append(
+                            f"{rel}: #reproduce line {line_number} must be "
+                            f"{configured_line!r}, found {actual_line!r}"
+                        )
+                        break
         if "/evidence/" not in hrefs:
             failures.append(f"{rel}: no visible link to /evidence/")
-        if any(
-            "/blob/main/" in href or "/tree/main/" in href
-            for href in hrefs
-        ):
-            failures.append(f"{rel}: evaluator evidence must not use a main URL")
-        if any(
-            href.startswith(
-                "https://github.com/ryanduguid/review-ready-gate/"
-            )
-            and ("/blob/v0.1.0/" in href or "/tree/v0.1.0/" in href)
-            for href in hrefs
-        ):
-            failures.append(
-                f"{rel}: evaluator evidence must not use failed "
-                "review-ready-gate tag v0.1.0"
-            )
         if re.search(r"\bcase[- ]stud(?:y|ies)\b", html, re.I):
             failures.append(f"{rel}: must not use client case-study wording")
 
@@ -1893,6 +1965,14 @@ def _self_check() -> None:
     assert title_is_too_long("about/index.html", evidence_title)
     assert title_is_too_long(EVIDENCE_REL, f"{evidence_title} extra")
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
+    for class_attribute in (
+        'class="visually-hidden"',
+        "class='visually-hidden'",
+        "class=visually-hidden",
+    ):
+        assert visible_text(
+            f"<p>visible</p><p {class_attribute}>hidden</p>"
+        ) == "visible"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
     valid_shell = """
     <a class="skip-link" href="#main">Skip to content</a>
@@ -2123,23 +2203,38 @@ def _self_check() -> None:
         expect_failure(mutation_failures, expected_failure)
 
     valid_evaluation_html = """
-    <h2>Accounting problem</h2><h2>Fabricated inputs</h2>
-    <h2>Expected result</h2><h2>Controls triggered</h2>
-    <h2>Human decision</h2><h2>Reproduce</h2>
-    <h2>Primary sources</h2><h2>Versions</h2><h2>Limitations</h2>
-    <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
-    <p>Exit 2 with NOT_READY.</p>
-    <p>MISSING_ARTEFACT for gst_control_gl</p>
-    <p>SELF_REVIEW_INCOMPLETE</p>
-    <p>OPEN_ITEM_BLOCKING</p>
-    <p>Exit 0 with READY and no configured findings.</p>
-    <p>READY means no configured gate tripped; it is not approval, advice or lodgment authority.</p>
+    <section id="accounting-problem"><h2>Accounting problem</h2></section>
+    <section id="fabricated-inputs"><h2>Fabricated inputs</h2></section>
+    <section id="expected-result"><h2>Expected result</h2>
+      <p>Exit 2 with NOT_READY.</p>
+      <p>Exit 0 with READY and no configured findings.</p>
+    </section>
+    <section id="controls-triggered"><h2>Controls triggered</h2>
+      <p>MISSING_ARTEFACT for gst_control_gl</p>
+      <p>SELF_REVIEW_INCOMPLETE</p>
+      <p>OPEN_ITEM_BLOCKING</p>
+    </section>
+    <section id="human-decision"><h2>Human decision</h2>
+      <p>READY means no configured gate tripped; it is not approval, advice or lodgment authority.</p>
+    </section>
+    <section id="reproduce"><h2>Reproduce</h2><pre><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/review-ready-gate.git
+cd review-ready-gate
+uv sync --locked --all-extras
+uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
+uv run review-ready gate --profile bas --pack examples/bas-ready --output outputs/evaluation-ready
+uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
+    <section id="primary-sources"><h2>Primary sources</h2>
+      <a href="https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas">BAS</a>
+      <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting">GST</a>
+    </section>
+    <section id="versions"><h2>Versions</h2>
+      <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
+      <a href="https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/evaluation/manager_review_gate">Pack</a>
+      <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
+      <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
+    </section>
+    <section id="limitations"><h2>Limitations</h2></section>
     <a href="/evidence/">Evidence</a>
-    <a href="https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/evaluation/manager_review_gate">Pack</a>
-    <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
-    <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
-    <a href="https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas">BAS</a>
-    <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting">GST</a>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
     </script>
@@ -2152,84 +2247,306 @@ def _self_check() -> None:
         try:
             evaluation_path = ROOT / evaluation_rel
             evaluation_path.parent.mkdir(parents=True)
-            (ROOT / "sitemap.xml").write_text(
-                f"<loc>{evaluation_url}</loc>", encoding="utf-8"
-            )
-            (ROOT / "llms.txt").write_text(evaluation_url, encoding="utf-8")
-            evaluation_path.write_text(valid_evaluation_html, encoding="utf-8")
-            assert check_evaluation_packs() == []
 
-            evaluation_path.write_text(
-                valid_evaluation_html.replace(
-                    "<p>SELF_REVIEW_INCOMPLETE</p>", ""
+            def check_evaluation_fixture(
+                html: str = valid_evaluation_html,
+                sitemap: str = f"<loc>{evaluation_url}</loc>",
+                llms: str = evaluation_url,
+            ) -> list[str]:
+                evaluation_path.write_text(html, encoding="utf-8")
+                (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+                (ROOT / "llms.txt").write_text(llms, encoding="utf-8")
+                return check_evaluation_packs()
+
+            def changed(old: str, new: str) -> str:
+                assert old in valid_evaluation_html
+                return valid_evaluation_html.replace(old, new, 1)
+
+            def require_failures(html: str, *expected_failures: str) -> None:
+                actual_failures = check_evaluation_fixture(html)
+                for expected_failure in expected_failures:
+                    expect_failure(actual_failures, expected_failure)
+
+            def section_href_failure(
+                section_id: str, missing: list[str], unexpected: list[str]
+            ) -> str:
+                return (
+                    f"{evaluation_rel}: #{section_id} evidence hrefs must match "
+                    f"exactly once; missing {missing!r}; unexpected {unexpected!r}"
+                )
+
+            def global_product_href_failure(
+                missing: list[str], unexpected: list[str]
+            ) -> str:
+                return (
+                    f"{evaluation_rel}: global review-ready-gate evidence hrefs "
+                    "must match approved v0.1.1 URLs exactly once; missing "
+                    f"{missing!r}; unexpected {unexpected!r}"
+                )
+
+            assert check_evaluation_fixture() == []
+
+            evaluation_labels = (
+                "Accounting problem",
+                "Fabricated inputs",
+                "Expected result",
+                "Controls triggered",
+                "Human decision",
+                "Reproduce",
+                "Primary sources",
+                "Versions",
+                "Limitations",
+            )
+            for label in evaluation_labels:
+                require_failures(
+                    changed(f"<h2>{label}</h2>", "<h2>Removed heading</h2>"),
+                    f"{evaluation_rel}: missing visible evaluation label {label!r}",
+                )
+
+            contract_mutations = (
+                ("Exit 2", "Exit 3", "Exit 2 with NOT_READY"),
+                ("NOT_READY", "INCOMPLETE", "Exit 2 with NOT_READY"),
+                ("Exit 0", "Exit 1", "Exit 0 with READY and no configured findings"),
+                (
+                    "Exit 0 with READY and no configured findings.",
+                    "Exit 0 with REVIEWED and no configured findings.",
+                    "Exit 0 with READY and no configured findings",
                 ),
-                encoding="utf-8",
-            )
-            missing_finding_failures = check_evaluation_packs()
-            assert (
-                f"{evaluation_rel}: missing visible contract text "
-                "'SELF_REVIEW_INCOMPLETE'"
-                in missing_finding_failures
-            )
-
-            evaluation_path.write_text(
-                valid_evaluation_html.replace(
+                (
+                    "no configured findings.",
+                    "no reported findings.",
+                    "Exit 0 with READY and no configured findings",
+                ),
+                (
+                    "MISSING_ARTEFACT",
+                    "MISSING_DOCUMENT",
+                    "MISSING_ARTEFACT for gst_control_gl",
+                ),
+                (
+                    "gst_control_gl",
+                    "gst_control_ledger",
+                    "MISSING_ARTEFACT for gst_control_gl",
+                ),
+                ("SELF_REVIEW_INCOMPLETE", "SELF_REVIEW_CHANGED", "SELF_REVIEW_INCOMPLETE"),
+                ("OPEN_ITEM_BLOCKING", "OPEN_ITEM_CHANGED", "OPEN_ITEM_BLOCKING"),
+                (
                     "READY means no configured gate tripped; it is not approval, "
                     "advice or lodgment authority.",
                     "READY means the pack has been approved for lodgment.",
+                    "READY means no configured gate tripped; it is not approval, "
+                    "advice or lodgment authority.",
                 ),
-                encoding="utf-8",
             )
-            changed_boundary_failures = check_evaluation_packs()
-            assert (
-                f"{evaluation_rel}: missing visible contract text "
-                "'READY means no configured gate tripped; it is not approval, "
-                "advice or lodgment authority.'"
-                in changed_boundary_failures
-            )
+            for old, new, required_text in contract_mutations:
+                require_failures(
+                    changed(old, new),
+                    f"{evaluation_rel}: missing visible contract text {required_text!r}",
+                )
 
-            evaluation_path.write_text(
-                valid_evaluation_html.replace(
-                    "Exit 0 with READY and no configured findings.",
-                    "Exit 0 with READY after review.",
-                ),
-                encoding="utf-8",
+            version_mutations = (
+                ("Product release v0.1.1", "Product release v0.1.2"),
+                ("fixture version 1", "fixture version 2"),
+                ("source reviewed 2026-08-26", "source reviewed 2026-08-25"),
             )
-            changed_ready_failures = check_evaluation_packs()
-            assert (
-                f"{evaluation_rel}: missing visible contract text "
-                "'Exit 0 with READY and no configured findings'"
-                in changed_ready_failures
-            )
+            for required_label, replacement in version_mutations:
+                require_failures(
+                    changed(required_label, replacement),
+                    f"{evaluation_rel}: missing visible version label "
+                    f"{required_label!r}",
+                )
 
-            evaluation_path.write_text(
-                valid_evaluation_html.replace(
+            require_failures(
+                changed(
                     "<h2>Limitations</h2>",
                     "<h2>Limitations</h2><code>v0.1.0</code>",
                 ),
-                encoding="utf-8",
+                f"{evaluation_rel}: visible evaluator text must not name v0.1.0",
             )
-            visible_failed_version_failures = check_evaluation_packs()
-            assert (
-                f"{evaluation_rel}: visible evaluator text must not name v0.1.0"
-                in visible_failed_version_failures
+            require_failures(
+                changed(
+                    "<p>SELF_REVIEW_INCOMPLETE</p>",
+                    "<p>SELF_REVIEW_CHANGED</p>"
+                    "<p class='visually-hidden'>SELF_REVIEW_INCOMPLETE</p>",
+                ),
+                f"{evaluation_rel}: missing visible contract text "
+                "'SELF_REVIEW_INCOMPLETE'",
             )
 
-            evaluation_path.write_text(
-                valid_evaluation_html.replace(
-                    "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
-                    "evaluation/manager_review_gate",
-                    "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.0/"
-                    "evaluation/manager_review_gate",
+            recipe_mutations = (
+                (
+                    "git clone --branch v0.1.1 --depth 1 "
+                    "https://github.com/ryanduguid/review-ready-gate.git",
+                    "git clone --branch v0.1.2 --depth 1 "
+                    "https://github.com/ryanduguid/review-ready-gate.git",
                 ),
-                encoding="utf-8",
+                ("cd review-ready-gate", "cd changed-review-ready-gate"),
+                ("uv sync --locked --all-extras", "uv sync --all-extras"),
+                (
+                    "uv run review-ready gate --profile bas --pack "
+                    "examples/bas-not-ready --output outputs/evaluation-not-ready",
+                    "uv run review-ready gate --profile bas --pack "
+                    "examples/bas-other --output outputs/evaluation-not-ready",
+                ),
+                (
+                    "uv run review-ready gate --profile bas --pack examples/bas-ready "
+                    "--output outputs/evaluation-ready",
+                    "uv run review-ready gate --profile bas --pack examples/bas-other "
+                    "--output outputs/evaluation-ready",
+                ),
+                (
+                    "uv run pytest tests/test_evaluation_pack.py -q",
+                    "uv run pytest tests/test_other_pack.py -q",
+                ),
             )
-            failed_tag_link_failures = check_evaluation_packs()
-            assert (
-                f"{evaluation_rel}: evaluator evidence must not use failed "
-                "review-ready-gate tag v0.1.0"
-                in failed_tag_link_failures
+            for line_number, (configured_line, replacement) in enumerate(
+                recipe_mutations, start=1
+            ):
+                require_failures(
+                    changed(configured_line, replacement),
+                    f"{evaluation_rel}: #reproduce line {line_number} must be "
+                    f"{configured_line!r}, found {replacement!r}",
+                )
+            require_failures(
+                changed(
+                    "</code></pre></section>",
+                    "</code></pre><pre><code>echo duplicate</code></pre></section>",
+                ),
+                f"{evaluation_rel}: #reproduce must contain exactly one visible "
+                "code block, found 2",
             )
+
+            product_urls = (
+                "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+                "evaluation/manager_review_gate",
+                "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+                "evaluation/manager_review_gate/expected_results.json",
+                "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+                "tests/test_evaluation_pack.py",
+            )
+            primary_source_urls = (
+                "https://www.ato.gov.au/businesses-and-organisations/"
+                "preparing-lodging-and-paying/business-activity-statements-bas",
+                "https://www.ato.gov.au/businesses-and-organisations/"
+                "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
+                "options-for-reporting-and-paying-gst/monthly-gst-reporting",
+            )
+            for product_url in product_urls:
+                changed_url = f"{product_url}?changed=1"
+                require_failures(
+                    changed(product_url, changed_url),
+                    section_href_failure("versions", [product_url], [changed_url]),
+                    global_product_href_failure([product_url], [changed_url]),
+                )
+            for source_url in primary_source_urls:
+                changed_url = f"{source_url}?changed=1"
+                require_failures(
+                    changed(source_url, changed_url),
+                    section_href_failure(
+                        "primary-sources", [source_url], [changed_url]
+                    ),
+                )
+
+            duplicate_product_url = product_urls[0]
+            require_failures(
+                changed(
+                    ">Pack</a>",
+                    f">Pack</a><a href=\"{duplicate_product_url}\">Duplicate</a>",
+                ),
+                section_href_failure("versions", [], [duplicate_product_url]),
+                global_product_href_failure([], [duplicate_product_url]),
+            )
+            duplicate_source_url = primary_source_urls[0]
+            require_failures(
+                changed(
+                    ">BAS</a>",
+                    f">BAS</a><a href=\"{duplicate_source_url}\">Duplicate</a>",
+                ),
+                section_href_failure(
+                    "primary-sources", [], [duplicate_source_url]
+                ),
+            )
+
+            product_url_variants = (
+                (product_urls[0].replace("/v0.1.1/", "/v0.1.2/"), "wrong version"),
+                (product_urls[0].replace("/v0.1.1/", "/main/"), "main"),
+                (product_urls[0].replace("https:", ""), "protocol relative"),
+                (product_urls[0].replace("https://", "http://"), "http"),
+                (f"{product_urls[0]}#changed", "fragment"),
+            )
+            for changed_url, _variant_name in product_url_variants:
+                require_failures(
+                    changed(product_urls[0], changed_url),
+                    global_product_href_failure([product_urls[0]], [changed_url]),
+                )
+
+            extra_product_url = (
+                "https://github.com/ryanduguid/review-ready-gate/issues"
+            )
+            require_failures(
+                changed(
+                    '<a href="/evidence/">Evidence</a>',
+                    f'<a href="{extra_product_url}">Extra</a>'
+                    '<a href="/evidence/">Evidence</a>',
+                ),
+                global_product_href_failure([], [extra_product_url]),
+            )
+            failed_tag_url = product_urls[0].replace("/v0.1.1/", "/v0.1.0/")
+            require_failures(
+                changed(product_urls[0], failed_tag_url),
+                global_product_href_failure([product_urls[0]], [failed_tag_url]),
+            )
+
+            require_failures(
+                changed('<a href="/evidence/">Evidence</a>', ""),
+                f"{evaluation_rel}: no visible link to /evidence/",
+            )
+            require_failures(
+                changed(
+                    "<h2>Limitations</h2>",
+                    "<h2>Limitations</h2><p>Client case study</p>",
+                ),
+                f"{evaluation_rel}: must not use client case-study wording",
+            )
+            require_failures(
+                changed(
+                    '"author":{"@id":"https://ryanduguid.github.io/about/#person"}',
+                    '"author":{"@id":"https://example.com/other-person"}',
+                ),
+                f"{evaluation_rel}: TechArticle must be authored by the canonical "
+                "Person",
+            )
+
+            route_mutations = (
+                (
+                    "",
+                    evaluation_url,
+                    f"sitemap.xml: evaluation URL {evaluation_url} must appear "
+                    "once, found 0",
+                ),
+                (
+                    f"<loc>{evaluation_url}</loc><loc>{evaluation_url}</loc>",
+                    evaluation_url,
+                    f"sitemap.xml: evaluation URL {evaluation_url} must appear "
+                    "once, found 2",
+                ),
+                (
+                    f"<loc>{evaluation_url}</loc>",
+                    "",
+                    f"llms.txt: evaluation URL {evaluation_url} must appear once, "
+                    "found 0",
+                ),
+                (
+                    f"<loc>{evaluation_url}</loc>",
+                    f"{evaluation_url}\n{evaluation_url}",
+                    f"llms.txt: evaluation URL {evaluation_url} must appear once, "
+                    "found 2",
+                ),
+            )
+            for sitemap, llms, expected_failure in route_mutations:
+                expect_failure(
+                    check_evaluation_fixture(sitemap=sitemap, llms=llms),
+                    expected_failure,
+                )
         finally:
             ROOT = original_root
 
