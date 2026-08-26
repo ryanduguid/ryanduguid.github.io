@@ -530,696 +530,692 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
     )
     payday_evaluation_rel = "evaluate/payday-super-evidence/index.html"
     payday_evaluation_url = "https://ryanduguid.github.io/evaluate/payday-super-evidence/"
-    original_root = core.ROOT
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            def check_evaluation_fixture(
-                html: str = valid_evaluation_html,
-                sitemap: str = (
-                    f"<loc>{evaluation_url}</loc>"
-                    f"<loc>{xero_evaluation_url}</loc>"
-                    f"<loc>{payday_evaluation_url}</loc><lastmod>2026-08-26</lastmod>"
-                ),
-                llms: str = (
-                    "## Evaluation packs\n"
-                    f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}"
-                ),
-                target_rel: str = evaluation_rel,
-            ) -> list[str]:
-                fixtures = {
-                    evaluation_rel: valid_evaluation_html,
-                    xero_evaluation_rel: valid_xero_evaluation_html,
-                    payday_evaluation_rel: valid_payday_evaluation_html,
-                }
-                assert target_rel in fixtures
-                fixtures[target_rel] = html
-                for rel, fixture_html in fixtures.items():
-                    path = core.ROOT / rel
-                    path.parent.mkdir(parents=True, exist_ok=True)
-                    path.write_text(fixture_html, encoding="utf-8")
-                (core.ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
-                (core.ROOT / "llms.txt").write_text(llms, encoding="utf-8")
-                return contracts.check_evaluation_packs()
-
-            def changed(old: str, new: str) -> str:
-                assert old in valid_evaluation_html
-                return valid_evaluation_html.replace(old, new, 1)
-
-            def require_failures(html: str, *expected_failures: str) -> None:
-                actual_failures = check_evaluation_fixture(html)
-                for expected_failure in expected_failures:
-                    expect_failure(actual_failures, expected_failure)
-
-            def section_href_failure(
-                section_id: str, missing: list[str], unexpected: list[str]
-            ) -> str:
-                return (
-                    f"{evaluation_rel}: #{section_id} evidence hrefs must match "
-                    f"exactly once; missing {missing!r}; unexpected {unexpected!r}"
-                )
-
-            def global_product_href_failure(
-                missing: list[str], unexpected: list[str]
-            ) -> str:
-                return (
-                    f"{evaluation_rel}: global review-ready-gate evidence hrefs "
-                    "must match approved v0.1.1 URLs exactly once; missing "
-                    f"{missing!r}; unexpected {unexpected!r}"
-                )
-
-            assert check_evaluation_fixture() == []
-
-            evaluation_labels = (
-                "Accounting problem",
-                "Fabricated inputs",
-                "Expected result",
-                "Controls triggered",
-                "Human decision",
-                "Reproduce",
-                "Primary sources",
-                "Versions",
-                "Limitations",
-            )
-            for label in evaluation_labels:
-                require_failures(
-                    changed(f"<h2>{label}</h2>", "<h2>Removed heading</h2>"),
-                    f"{evaluation_rel}: missing visible evaluation label {label!r}",
-                )
-
-            contract_mutations = (
-                ("Exit 2", "Exit 3", "Exit 2 with NOT_READY"),
-                ("NOT_READY", "INCOMPLETE", "Exit 2 with NOT_READY"),
-                ("Exit 0", "Exit 1", "Exit 0 with READY and no configured findings"),
-                (
-                    "Exit 0 with READY and no configured findings.",
-                    "Exit 0 with REVIEWED and no configured findings.",
-                    "Exit 0 with READY and no configured findings",
-                ),
-                (
-                    "no configured findings.",
-                    "no reported findings.",
-                    "Exit 0 with READY and no configured findings",
-                ),
-                (
-                    "MISSING_ARTEFACT",
-                    "MISSING_DOCUMENT",
-                    "MISSING_ARTEFACT for gst_control_gl",
-                ),
-                (
-                    "gst_control_gl",
-                    "gst_control_ledger",
-                    "MISSING_ARTEFACT for gst_control_gl",
-                ),
-                ("SELF_REVIEW_INCOMPLETE", "SELF_REVIEW_CHANGED", "SELF_REVIEW_INCOMPLETE"),
-                ("OPEN_ITEM_BLOCKING", "OPEN_ITEM_CHANGED", "OPEN_ITEM_BLOCKING"),
-                (
-                    "READY means no configured gate tripped; it is not approval, "
-                    "advice or lodgment authority.",
-                    "READY means the pack has been approved for lodgment.",
-                    "READY means no configured gate tripped; it is not approval, "
-                    "advice or lodgment authority.",
-                ),
-            )
-            for old, new, required_text in contract_mutations:
-                require_failures(
-                    changed(old, new),
-                    f"{evaluation_rel}: missing visible contract text {required_text!r}",
-                )
-
-            version_mutations = (
-                ("Product release v0.1.1", "Product release v0.1.2"),
-                ("fixture version 1", "fixture version 2"),
-                ("source reviewed 2026-08-26", "source reviewed 2026-08-25"),
-            )
-            for required_label, replacement in version_mutations:
-                require_failures(
-                    changed(required_label, replacement),
-                    f"{evaluation_rel}: missing visible version label "
-                    f"{required_label!r}",
-                )
-
-            require_failures(
-                changed(
-                    "<h2>Limitations</h2>",
-                    "<h2>Limitations</h2><code>v0.1.0</code>",
-                ),
-                f"{evaluation_rel}: visible evaluator text must not name v0.1.0",
-            )
-            require_failures(
-                changed(
-                    "<p>SELF_REVIEW_INCOMPLETE</p>",
-                    "<p>SELF_REVIEW_CHANGED</p>"
-                    "<p class='visually-hidden'>SELF_REVIEW_INCOMPLETE</p>",
-                ),
-                f"{evaluation_rel}: missing visible contract text "
-                "'SELF_REVIEW_INCOMPLETE'",
-            )
-            require_failures(
-                changed(
-                    "<p>SELF_REVIEW_INCOMPLETE</p>",
-                    "<p>SELF_REVIEW_CHANGED</p>"
-                    '<div class="visually&#45;hidden">'
-                    "<span>SELF_REVIEW_INCOMPLETE</span></div>",
-                ),
-                f"{evaluation_rel}: missing visible contract text "
-                "'SELF_REVIEW_INCOMPLETE'",
-            )
-
-            recipe_mutations = (
-                (
-                    "git clone --branch v0.1.1 --depth 1 "
-                    "https://github.com/ryanduguid/review-ready-gate.git",
-                    "git clone --branch v0.1.2 --depth 1 "
-                    "https://github.com/ryanduguid/review-ready-gate.git",
-                ),
-                ("cd review-ready-gate", "cd changed-review-ready-gate"),
-                ("uv sync --locked --all-extras", "uv sync --all-extras"),
-                (
-                    "uv run review-ready gate --profile bas --pack "
-                    "examples/bas-not-ready --output outputs/evaluation-not-ready",
-                    "uv run review-ready gate --profile bas --pack "
-                    "examples/bas-other --output outputs/evaluation-not-ready",
-                ),
-                (
-                    "uv run review-ready gate --profile bas --pack examples/bas-ready "
-                    "--output outputs/evaluation-ready",
-                    "uv run review-ready gate --profile bas --pack examples/bas-other "
-                    "--output outputs/evaluation-ready",
-                ),
-                (
-                    "uv run pytest tests/test_evaluation_pack.py -q",
-                    "uv run pytest tests/test_other_pack.py -q",
-                ),
-            )
-            for line_number, (configured_line, replacement) in enumerate(
-                recipe_mutations, start=1
-            ):
-                require_failures(
-                    changed(configured_line, replacement),
-                    f"{evaluation_rel}: #reproduce line {line_number} must be "
-                    f"{configured_line!r}, found {replacement!r}",
-                )
-            require_failures(
-                changed(
-                    "</code></pre></section>",
-                    "</code></pre><pre><code>echo duplicate</code></pre></section>",
-                ),
-                f"{evaluation_rel}: #reproduce must contain exactly one visible "
-                "code block, found 2",
-            )
-
-            product_urls = (
-                "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
-                "evaluation/manager_review_gate",
-                "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
-                "evaluation/manager_review_gate/expected_results.json",
-                "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
-                "tests/test_evaluation_pack.py",
-            )
-            primary_source_urls = (
-                "https://www.ato.gov.au/businesses-and-organisations/"
-                "preparing-lodging-and-paying/business-activity-statements-bas",
-                "https://www.ato.gov.au/businesses-and-organisations/"
-                "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
-                "options-for-reporting-and-paying-gst/monthly-gst-reporting",
-            )
-            for product_url in product_urls:
-                changed_url = f"{product_url}?changed=1"
-                require_failures(
-                    changed(product_url, changed_url),
-                    section_href_failure("versions", [product_url], [changed_url]),
-                    global_product_href_failure([product_url], [changed_url]),
-                )
-            for source_url in primary_source_urls:
-                changed_url = f"{source_url}?changed=1"
-                require_failures(
-                    changed(source_url, changed_url),
-                    section_href_failure(
-                        "primary-sources", [source_url], [changed_url]
-                    ),
-                )
-
-            duplicate_product_url = product_urls[0]
-            require_failures(
-                changed(
-                    ">Pack</a>",
-                    f">Pack</a><a href=\"{duplicate_product_url}\">Duplicate</a>",
-                ),
-                section_href_failure("versions", [], [duplicate_product_url]),
-                global_product_href_failure([], [duplicate_product_url]),
-            )
-            duplicate_source_url = primary_source_urls[0]
-            require_failures(
-                changed(
-                    ">BAS</a>",
-                    f">BAS</a><a href=\"{duplicate_source_url}\">Duplicate</a>",
-                ),
-                section_href_failure(
-                    "primary-sources", [], [duplicate_source_url]
-                ),
-            )
-
-            product_url_variants = (
-                (product_urls[0].replace("/v0.1.1/", "/v0.1.2/"), "wrong version"),
-                (product_urls[0].replace("/v0.1.1/", "/main/"), "main"),
-                (product_urls[0].replace("https:", ""), "protocol relative"),
-                (product_urls[0].replace("https://", "http://"), "http"),
-                (f"{product_urls[0]}#changed", "fragment"),
-            )
-            for changed_url, _variant_name in product_url_variants:
-                require_failures(
-                    changed(product_urls[0], changed_url),
-                    global_product_href_failure([product_urls[0]], [changed_url]),
-                )
-
-            extra_product_url = (
-                "https://github.com/ryanduguid/review-ready-gate/issues"
-            )
-            require_failures(
-                changed(
-                    '<a href="/evidence/">Evidence and Assurance</a>',
-                    f'<a href="{extra_product_url}">Extra</a>'
-                    '<a href="/evidence/">Evidence and Assurance</a>',
-                ),
-                global_product_href_failure([], [extra_product_url]),
-            )
-            failed_tag_url = product_urls[0].replace("/v0.1.1/", "/v0.1.0/")
-            require_failures(
-                changed(product_urls[0], failed_tag_url),
-                global_product_href_failure([product_urls[0]], [failed_tag_url]),
-            )
-
-            require_failures(
-                changed('<a href="/evidence/">Evidence and Assurance</a>', ""),
-                f"{evaluation_rel}: no visible link to /evidence/",
-            )
-            require_failures(
-                changed(
-                    "<h2>Limitations</h2>",
-                    "<h2>Limitations</h2><p>Client case study</p>",
-                ),
-                f"{evaluation_rel}: must not use client case-study wording",
-            )
-            require_failures(
-                changed(
-                    '"author":{"@id":"https://ryanduguid.github.io/about/#person"}',
-                    '"author":{"@id":"https://example.com/other-person"}',
-                ),
-                f"{evaluation_rel}: TechArticle must be authored by the canonical "
-                "Person",
-            )
-
-            route_mutations = (
-                (
-                    "",
-                    evaluation_url,
-                    f"sitemap.xml: evaluation URL {evaluation_url} must appear "
-                    "once, found 0",
-                ),
-                (
-                    f"<loc>{evaluation_url}</loc><loc>{evaluation_url}</loc>",
-                    evaluation_url,
-                    f"sitemap.xml: evaluation URL {evaluation_url} must appear "
-                    "once, found 2",
-                ),
-                (
-                    f"<loc>{evaluation_url}</loc>",
-                    "",
-                    f"llms.txt: evaluation URL {evaluation_url} must appear once, "
-                    "found 0",
-                ),
-                (
-                    f"<loc>{evaluation_url}</loc>",
-                    f"{evaluation_url}\n{evaluation_url}",
-                    f"llms.txt: evaluation URL {evaluation_url} must appear once, "
-                    "found 2",
-                ),
-            )
-            for sitemap, llms, expected_failure in route_mutations:
-                expect_failure(
-                    check_evaluation_fixture(sitemap=sitemap, llms=llms),
-                    expected_failure,
-                )
-
-            def check_xero_evaluation_fixture(
-                html: str = valid_xero_evaluation_html,
-            ) -> list[str]:
-                return check_evaluation_fixture(
-                    html=html, target_rel=xero_evaluation_rel
-                )
-
-            assert check_xero_evaluation_fixture() == []
-            article_outside_main = (
-                valid_xero_evaluation_html.replace(
-                    '    <main id="main">\n    <article>',
-                    '    <main id="main"></main>\n    <article>',
-                    1,
-                ).replace('    </article>\n    </main>', '    </article>', 1)
-            )
-            expect_failure(
-                check_xero_evaluation_fixture(article_outside_main),
-                f"{xero_evaluation_rel}: main#main must contain exactly one visible "
-                "evaluator article, found 0",
-            )
-            xero_sections = (
-                ("accounting-problem", "Accounting problem"),
-                ("intended-reviewer", "Intended reviewer"),
-                ("fabricated-inputs", "Fabricated inputs"),
-                ("reproduce", "Reproduce"),
-                ("expected-result", "Expected result"),
-                ("controls-triggered", "Controls triggered"),
-                ("primary-sources", "Primary sources"),
-                ("versions", "Versions"),
-                ("human-decision", "Human decision"),
-                ("limitations", "Limitations"),
-            )
-            renamed_body_heading = valid_xero_evaluation_html.replace(
-                "<h2>Accounting problem</h2>",
-                "<h2>Renamed accounting problem</h2>",
-                1,
-            )
-            expect_failure(
-                check_xero_evaluation_fixture(renamed_body_heading),
-                f"{xero_evaluation_rel}: #accounting-problem heading must be "
-                "'Accounting problem', found 'Renamed accounting problem'",
-            )
-            limitations_link = '<a href="/evidence/">Evidence and Assurance</a>'
-            for replacement in ("", '<a href="/evidence/">Evidence record</a>'):
-                expect_failure(
-                    check_xero_evaluation_fixture(
-                        valid_xero_evaluation_html.replace(
-                            limitations_link, replacement, 1
-                        )
-                    ),
-                    f"{xero_evaluation_rel}: #limitations must link /evidence/ "
-                    "with visible label 'Evidence and Assurance' exactly once, "
-                    "found 0",
-                )
-
-            xero_contract_claims = (
-                "The production tool reads trial balance data directly from Xero's "
-                "Accounting API Reports endpoint.",
-                "This pack is for a reviewer who wants to reproduce the offline "
-                "integrity gate without connecting to Xero or handling client data.",
-                "The three CSV files are fabricated output-shape fixtures.",
-                "They are not Xero API responses or client records, and no OAuth "
-                "flow runs in this evaluation.",
-                "No Xero tenant credentials or tenant data are used.",
-                "Dependency installation may download the hash-locked packages.",
-                "Once dependencies are installed, the three evaluation runner "
-                "commands are fully offline, make no network request and write no "
-                "output file.",
-                "passing.csv exits 0 and reports that movement and YTD balance.",
-                "failing_movement.csv exits 1, identifies the movement pair and "
-                "reports Nothing written.",
-                "failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing "
-                "written.",
-                "failing_movement.csv breaks only the current-month Debit/Credit pair.",
-                "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
-                "The evaluation runner calls the production check_balanced gate "
-                "before any CSV write.",
-                "A balanced export passes this integrity control only; a human still "
-                "decides completeness, classification, accounting treatment and "
-                "fitness for review.",
-                "This control does not prove completeness, classification, accounting "
-                "treatment or client approval.",
-                "It does not assess source-data accuracy, reporting-period suitability "
-                "or fitness for a particular client review.",
-            )
-            relocated_claim = xero_contract_claims[1]
-            relocated_claim_html = valid_xero_evaluation_html.replace(
-                f"      <p>{relocated_claim}</p>\n", "", 1
-            ).replace(
-                "    </main>\n",
-                f"    </main>\n    <p>{relocated_claim}</p>\n",
-                1,
-            )
-            expect_failure(
-                check_xero_evaluation_fixture(relocated_claim_html),
-                f"{xero_evaluation_rel}: missing visible contract text "
-                f"{relocated_claim!r}",
-            )
-            for claim in xero_contract_claims:
-                assert claim in valid_xero_evaluation_html
-                expect_failure(
-                    check_xero_evaluation_fixture(
-                        valid_xero_evaluation_html.replace(claim, "", 1)
-                    ),
-                    f"{xero_evaluation_rel}: missing visible contract text {claim!r}",
-                )
-
-            primary_section = core.section_html(
-                valid_xero_evaluation_html, "primary-sources"
-            )
-            versions_section = core.section_html(valid_xero_evaluation_html, "versions")
-            assert primary_section and versions_section
-            swapped_sections_html = (
-                valid_xero_evaluation_html.replace(
-                    primary_section, "XERO_SECTION_SWAP_PLACEHOLDER", 1
-                )
-                .replace(versions_section, primary_section, 1)
-                .replace("XERO_SECTION_SWAP_PLACEHOLDER", versions_section, 1)
-            )
-            expected_section_ids = [identifier for identifier, _label in xero_sections]
-            swapped_section_ids = expected_section_ids.copy()
-            swapped_section_ids[6], swapped_section_ids[7] = (
-                swapped_section_ids[7],
-                swapped_section_ids[6],
-            )
-            expect_failure(
-                check_xero_evaluation_fixture(swapped_sections_html),
-                f"{xero_evaluation_rel}: evaluation section order must be "
-                f"{expected_section_ids!r}, found {swapped_section_ids!r}",
-            )
-            xero_commit = "787f936d373fed47591102d4c24d0c5edf6b1861"
-            xero_blob_url = (
-                "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
-                f"{xero_commit}/tests/test_evaluation_pack.py"
-            )
-            blob_main_url = xero_blob_url.replace(f"/{xero_commit}/", "/main/")
-            expect_failure(
-                check_xero_evaluation_fixture(
-                    valid_xero_evaluation_html.replace(
-                        xero_blob_url, blob_main_url, 1
-                    )
-                ),
-                f"{xero_evaluation_rel}: product evidence URL must not use "
-                f"/blob/main/: {blob_main_url}",
-            )
-            short_commit_url = xero_blob_url.replace(xero_commit, xero_commit[:7])
-            expect_failure(
-                check_xero_evaluation_fixture(
-                    valid_xero_evaluation_html.replace(
-                        xero_blob_url, short_commit_url, 1
-                    )
-                ),
-                f"{xero_evaluation_rel}: product evidence URL must contain a "
-                f"40-character commit: {short_commit_url}",
-            )
-            other_commit = "0123456789abcdef0123456789abcdef01234567"
-            other_commit_url = xero_blob_url.replace(xero_commit, other_commit)
-            expect_failure(
-                check_xero_evaluation_fixture(
-                    valid_xero_evaluation_html.replace(
-                        xero_blob_url, other_commit_url, 1
-                    )
-                ),
-                f"{xero_evaluation_rel}: product evidence URL commit must be "
-                f"{xero_commit}: {other_commit_url}",
-            )
-
-            def check_payday_evaluation_fixture(
-                html: str = valid_payday_evaluation_html,
-                sitemap: str | None = None,
-                llms: str | None = None,
-            ) -> list[str]:
-                args = {"html": html, "target_rel": payday_evaluation_rel}
-                if sitemap is not None:
-                    args["sitemap"] = sitemap
-                if llms is not None:
-                    args["llms"] = llms
-                return check_evaluation_fixture(**args)
-
-            assert check_payday_evaluation_fixture() == []
-            payday_article_pattern_failures: list[str] = []
-            contracts.check_article_pattern(
-                valid_payday_evaluation_html,
-                payday_evaluation_rel,
-                payday_article_pattern_failures,
-            )
-            assert payday_article_pattern_failures == []
-            missing_payday_article_toc = valid_payday_evaluation_html.replace(
-                '<nav aria-label="On this page"><a href="#accounting-problem">Accounting problem</a><a href="#limitations">Limitations</a></nav>',
-                "",
-                1,
-            )
-            missing_payday_article_toc_failures: list[str] = []
-            contracts.check_article_pattern(
-                missing_payday_article_toc,
-                payday_evaluation_rel,
-                missing_payday_article_toc_failures,
-            )
-            expect_failure(
-                missing_payday_article_toc_failures,
-                f"{payday_evaluation_rel}: expected exactly one On this page navigation",
-            )
-            payday_section_contracts = {
-                "fabricated-inputs": (
-                    "supported due date of 17 August 2026 and an as-at date of 20 August 2026"
-                ),
-                "reproduce": (
-                    "Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test."
-                ),
-                "limitations": (
-                    "This evaluation does not provide advice or make an ATO assessment."
-                ),
-            }
-            for section_id, required_text in payday_section_contracts.items():
-                expect_failure(
-                    check_payday_evaluation_fixture(
-                        valid_payday_evaluation_html.replace(required_text, "", 1)
-                    ),
-                    f"{payday_evaluation_rel}: #{section_id} missing visible "
-                    f"contract text {required_text!r}",
-                )
-            reversed_dates = (
-                "supported due date of 20 August 2026 and an as-at date of 17 August 2026"
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_section_contracts["fabricated-inputs"], reversed_dates, 1
-                    )
-                ),
-                f"{payday_evaluation_rel}: #fabricated-inputs missing visible "
-                f"contract text {payday_section_contracts['fabricated-inputs']!r}",
-            )
-            valid_payday_sitemap = (
-                f"<loc>{evaluation_url}</loc><loc>{xero_evaluation_url}</loc>"
+        root = Path(temp_dir)
+        def check_evaluation_fixture(
+            html: str = valid_evaluation_html,
+            sitemap: str = (
+                f"<loc>{evaluation_url}</loc>"
+                f"<loc>{xero_evaluation_url}</loc>"
                 f"<loc>{payday_evaluation_url}</loc><lastmod>2026-08-26</lastmod>"
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    sitemap=valid_payday_sitemap.replace("2026-08-26", "2026-08-25", 1)
-                ),
-                f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
-                "lastmod '2026-08-26' exactly once, found ['2026-08-25']",
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    sitemap=valid_payday_sitemap.replace(
-                        "<lastmod>2026-08-26</lastmod>", "", 1
-                    )
-                ),
-                f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
-                "lastmod '2026-08-26' exactly once, found []",
-            )
-            moved_payday_llms = (
+            ),
+            llms: str = (
                 "## Evaluation packs\n"
-                f"{evaluation_url}\n{xero_evaluation_url}\n"
-                f"## Other\n{payday_evaluation_url}"
+                f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}"
+            ),
+            target_rel: str = evaluation_rel,
+        ) -> list[str]:
+            fixtures = {
+                evaluation_rel: valid_evaluation_html,
+                xero_evaluation_rel: valid_xero_evaluation_html,
+                payday_evaluation_rel: valid_payday_evaluation_html,
+            }
+            assert target_rel in fixtures
+            fixtures[target_rel] = html
+            for rel, fixture_html in fixtures.items():
+                path = root / rel
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text(fixture_html, encoding="utf-8")
+            (root / "sitemap.xml").write_text(sitemap, encoding="utf-8")
+            (root / "llms.txt").write_text(llms, encoding="utf-8")
+            return contracts.check_evaluation_packs(root)
+
+        def changed(old: str, new: str) -> str:
+            assert old in valid_evaluation_html
+            return valid_evaluation_html.replace(old, new, 1)
+
+        def require_failures(html: str, *expected_failures: str) -> None:
+            actual_failures = check_evaluation_fixture(html)
+            for expected_failure in expected_failures:
+                expect_failure(actual_failures, expected_failure)
+
+        def section_href_failure(
+            section_id: str, missing: list[str], unexpected: list[str]
+        ) -> str:
+            return (
+                f"{evaluation_rel}: #{section_id} evidence hrefs must match "
+                f"exactly once; missing {missing!r}; unexpected {unexpected!r}"
             )
+
+        def global_product_href_failure(
+            missing: list[str], unexpected: list[str]
+        ) -> str:
+            return (
+                f"{evaluation_rel}: global review-ready-gate evidence hrefs "
+                "must match approved v0.1.1 URLs exactly once; missing "
+                f"{missing!r}; unexpected {unexpected!r}"
+            )
+
+        assert check_evaluation_fixture() == []
+
+        evaluation_labels = (
+            "Accounting problem",
+            "Fabricated inputs",
+            "Expected result",
+            "Controls triggered",
+            "Human decision",
+            "Reproduce",
+            "Primary sources",
+            "Versions",
+            "Limitations",
+        )
+        for label in evaluation_labels:
+            require_failures(
+                changed(f"<h2>{label}</h2>", "<h2>Removed heading</h2>"),
+                f"{evaluation_rel}: missing visible evaluation label {label!r}",
+            )
+
+        contract_mutations = (
+            ("Exit 2", "Exit 3", "Exit 2 with NOT_READY"),
+            ("NOT_READY", "INCOMPLETE", "Exit 2 with NOT_READY"),
+            ("Exit 0", "Exit 1", "Exit 0 with READY and no configured findings"),
+            (
+                "Exit 0 with READY and no configured findings.",
+                "Exit 0 with REVIEWED and no configured findings.",
+                "Exit 0 with READY and no configured findings",
+            ),
+            (
+                "no configured findings.",
+                "no reported findings.",
+                "Exit 0 with READY and no configured findings",
+            ),
+            (
+                "MISSING_ARTEFACT",
+                "MISSING_DOCUMENT",
+                "MISSING_ARTEFACT for gst_control_gl",
+            ),
+            (
+                "gst_control_gl",
+                "gst_control_ledger",
+                "MISSING_ARTEFACT for gst_control_gl",
+            ),
+            ("SELF_REVIEW_INCOMPLETE", "SELF_REVIEW_CHANGED", "SELF_REVIEW_INCOMPLETE"),
+            ("OPEN_ITEM_BLOCKING", "OPEN_ITEM_CHANGED", "OPEN_ITEM_BLOCKING"),
+            (
+                "READY means no configured gate tripped; it is not approval, "
+                "advice or lodgment authority.",
+                "READY means the pack has been approved for lodgment.",
+                "READY means no configured gate tripped; it is not approval, "
+                "advice or lodgment authority.",
+            ),
+        )
+        for old, new, required_text in contract_mutations:
+            require_failures(
+                changed(old, new),
+                f"{evaluation_rel}: missing visible contract text {required_text!r}",
+            )
+
+        version_mutations = (
+            ("Product release v0.1.1", "Product release v0.1.2"),
+            ("fixture version 1", "fixture version 2"),
+            ("source reviewed 2026-08-26", "source reviewed 2026-08-25"),
+        )
+        for required_label, replacement in version_mutations:
+            require_failures(
+                changed(required_label, replacement),
+                f"{evaluation_rel}: missing visible version label "
+                f"{required_label!r}",
+            )
+
+        require_failures(
+            changed(
+                "<h2>Limitations</h2>",
+                "<h2>Limitations</h2><code>v0.1.0</code>",
+            ),
+            f"{evaluation_rel}: visible evaluator text must not name v0.1.0",
+        )
+        require_failures(
+            changed(
+                "<p>SELF_REVIEW_INCOMPLETE</p>",
+                "<p>SELF_REVIEW_CHANGED</p>"
+                "<p class='visually-hidden'>SELF_REVIEW_INCOMPLETE</p>",
+            ),
+            f"{evaluation_rel}: missing visible contract text "
+            "'SELF_REVIEW_INCOMPLETE'",
+        )
+        require_failures(
+            changed(
+                "<p>SELF_REVIEW_INCOMPLETE</p>",
+                "<p>SELF_REVIEW_CHANGED</p>"
+                '<div class="visually&#45;hidden">'
+                "<span>SELF_REVIEW_INCOMPLETE</span></div>",
+            ),
+            f"{evaluation_rel}: missing visible contract text "
+            "'SELF_REVIEW_INCOMPLETE'",
+        )
+
+        recipe_mutations = (
+            (
+                "git clone --branch v0.1.1 --depth 1 "
+                "https://github.com/ryanduguid/review-ready-gate.git",
+                "git clone --branch v0.1.2 --depth 1 "
+                "https://github.com/ryanduguid/review-ready-gate.git",
+            ),
+            ("cd review-ready-gate", "cd changed-review-ready-gate"),
+            ("uv sync --locked --all-extras", "uv sync --all-extras"),
+            (
+                "uv run review-ready gate --profile bas --pack "
+                "examples/bas-not-ready --output outputs/evaluation-not-ready",
+                "uv run review-ready gate --profile bas --pack "
+                "examples/bas-other --output outputs/evaluation-not-ready",
+            ),
+            (
+                "uv run review-ready gate --profile bas --pack examples/bas-ready "
+                "--output outputs/evaluation-ready",
+                "uv run review-ready gate --profile bas --pack examples/bas-other "
+                "--output outputs/evaluation-ready",
+            ),
+            (
+                "uv run pytest tests/test_evaluation_pack.py -q",
+                "uv run pytest tests/test_other_pack.py -q",
+            ),
+        )
+        for line_number, (configured_line, replacement) in enumerate(
+            recipe_mutations, start=1
+        ):
+            require_failures(
+                changed(configured_line, replacement),
+                f"{evaluation_rel}: #reproduce line {line_number} must be "
+                f"{configured_line!r}, found {replacement!r}",
+            )
+        require_failures(
+            changed(
+                "</code></pre></section>",
+                "</code></pre><pre><code>echo duplicate</code></pre></section>",
+            ),
+            f"{evaluation_rel}: #reproduce must contain exactly one visible "
+            "code block, found 2",
+        )
+
+        product_urls = (
+            "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+            "evaluation/manager_review_gate",
+            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "evaluation/manager_review_gate/expected_results.json",
+            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "tests/test_evaluation_pack.py",
+        )
+        primary_source_urls = (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "preparing-lodging-and-paying/business-activity-statements-bas",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
+            "options-for-reporting-and-paying-gst/monthly-gst-reporting",
+        )
+        for product_url in product_urls:
+            changed_url = f"{product_url}?changed=1"
+            require_failures(
+                changed(product_url, changed_url),
+                section_href_failure("versions", [product_url], [changed_url]),
+                global_product_href_failure([product_url], [changed_url]),
+            )
+        for source_url in primary_source_urls:
+            changed_url = f"{source_url}?changed=1"
+            require_failures(
+                changed(source_url, changed_url),
+                section_href_failure(
+                    "primary-sources", [source_url], [changed_url]
+                ),
+            )
+
+        duplicate_product_url = product_urls[0]
+        require_failures(
+            changed(
+                ">Pack</a>",
+                f">Pack</a><a href=\"{duplicate_product_url}\">Duplicate</a>",
+            ),
+            section_href_failure("versions", [], [duplicate_product_url]),
+            global_product_href_failure([], [duplicate_product_url]),
+        )
+        duplicate_source_url = primary_source_urls[0]
+        require_failures(
+            changed(
+                ">BAS</a>",
+                f">BAS</a><a href=\"{duplicate_source_url}\">Duplicate</a>",
+            ),
+            section_href_failure(
+                "primary-sources", [], [duplicate_source_url]
+            ),
+        )
+
+        product_url_variants = (
+            (product_urls[0].replace("/v0.1.1/", "/v0.1.2/"), "wrong version"),
+            (product_urls[0].replace("/v0.1.1/", "/main/"), "main"),
+            (product_urls[0].replace("https:", ""), "protocol relative"),
+            (product_urls[0].replace("https://", "http://"), "http"),
+            (f"{product_urls[0]}#changed", "fragment"),
+        )
+        for changed_url, _variant_name in product_url_variants:
+            require_failures(
+                changed(product_urls[0], changed_url),
+                global_product_href_failure([product_urls[0]], [changed_url]),
+            )
+
+        extra_product_url = (
+            "https://github.com/ryanduguid/review-ready-gate/issues"
+        )
+        require_failures(
+            changed(
+                '<a href="/evidence/">Evidence and Assurance</a>',
+                f'<a href="{extra_product_url}">Extra</a>'
+                '<a href="/evidence/">Evidence and Assurance</a>',
+            ),
+            global_product_href_failure([], [extra_product_url]),
+        )
+        failed_tag_url = product_urls[0].replace("/v0.1.1/", "/v0.1.0/")
+        require_failures(
+            changed(product_urls[0], failed_tag_url),
+            global_product_href_failure([product_urls[0]], [failed_tag_url]),
+        )
+
+        require_failures(
+            changed('<a href="/evidence/">Evidence and Assurance</a>', ""),
+            f"{evaluation_rel}: no visible link to /evidence/",
+        )
+        require_failures(
+            changed(
+                "<h2>Limitations</h2>",
+                "<h2>Limitations</h2><p>Client case study</p>",
+            ),
+            f"{evaluation_rel}: must not use client case-study wording",
+        )
+        require_failures(
+            changed(
+                '"author":{"@id":"https://ryanduguid.github.io/about/#person"}',
+                '"author":{"@id":"https://example.com/other-person"}',
+            ),
+            f"{evaluation_rel}: TechArticle must be authored by the canonical "
+            "Person",
+        )
+
+        route_mutations = (
+            (
+                "",
+                evaluation_url,
+                f"sitemap.xml: evaluation URL {evaluation_url} must appear "
+                "once, found 0",
+            ),
+            (
+                f"<loc>{evaluation_url}</loc><loc>{evaluation_url}</loc>",
+                evaluation_url,
+                f"sitemap.xml: evaluation URL {evaluation_url} must appear "
+                "once, found 2",
+            ),
+            (
+                f"<loc>{evaluation_url}</loc>",
+                "",
+                f"llms.txt: evaluation URL {evaluation_url} must appear once, "
+                "found 0",
+            ),
+            (
+                f"<loc>{evaluation_url}</loc>",
+                f"{evaluation_url}\n{evaluation_url}",
+                f"llms.txt: evaluation URL {evaluation_url} must appear once, "
+                "found 2",
+            ),
+        )
+        for sitemap, llms, expected_failure in route_mutations:
             expect_failure(
-                check_payday_evaluation_fixture(llms=moved_payday_llms),
-                f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
-                "once in ## Evaluation packs, found 0",
+                check_evaluation_fixture(sitemap=sitemap, llms=llms),
+                expected_failure,
             )
-            duplicate_payday_llms = (
-                "## Evaluation packs\n"
-                f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}\n"
-                f"## Other\n{payday_evaluation_url}"
+
+        def check_xero_evaluation_fixture(
+            html: str = valid_xero_evaluation_html,
+        ) -> list[str]:
+            return check_evaluation_fixture(
+                html=html, target_rel=xero_evaluation_rel
             )
+
+        assert check_xero_evaluation_fixture() == []
+        article_outside_main = (
+            valid_xero_evaluation_html.replace(
+                '    <main id="main">\n    <article>',
+                '    <main id="main"></main>\n    <article>',
+                1,
+            ).replace('    </article>\n    </main>', '    </article>', 1)
+        )
+        expect_failure(
+            check_xero_evaluation_fixture(article_outside_main),
+            f"{xero_evaluation_rel}: main#main must contain exactly one visible "
+            "evaluator article, found 0",
+        )
+        xero_sections = (
+            ("accounting-problem", "Accounting problem"),
+            ("intended-reviewer", "Intended reviewer"),
+            ("fabricated-inputs", "Fabricated inputs"),
+            ("reproduce", "Reproduce"),
+            ("expected-result", "Expected result"),
+            ("controls-triggered", "Controls triggered"),
+            ("primary-sources", "Primary sources"),
+            ("versions", "Versions"),
+            ("human-decision", "Human decision"),
+            ("limitations", "Limitations"),
+        )
+        renamed_body_heading = valid_xero_evaluation_html.replace(
+            "<h2>Accounting problem</h2>",
+            "<h2>Renamed accounting problem</h2>",
+            1,
+        )
+        expect_failure(
+            check_xero_evaluation_fixture(renamed_body_heading),
+            f"{xero_evaluation_rel}: #accounting-problem heading must be "
+            "'Accounting problem', found 'Renamed accounting problem'",
+        )
+        limitations_link = '<a href="/evidence/">Evidence and Assurance</a>'
+        for replacement in ("", '<a href="/evidence/">Evidence record</a>'):
             expect_failure(
-                check_payday_evaluation_fixture(llms=duplicate_payday_llms),
-                f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
-                "once globally, found 2",
-            )
-            payday_source_url = (
-                "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
-                "docs/primary-source-review-2026-08-15.md"
-            )
-            payday_source_main_url = payday_source_url.replace("/v0.1.2/", "/main/")
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_source_url, payday_source_main_url, 1
+                check_xero_evaluation_fixture(
+                    valid_xero_evaluation_html.replace(
+                        limitations_link, replacement, 1
                     )
                 ),
-                f"{payday_evaluation_rel}: #primary-sources evidence hrefs must match "
-                f"exactly once; missing {[payday_source_url]!r}; unexpected "
-                f"{[payday_source_main_url]!r}",
+                f"{xero_evaluation_rel}: #limitations must link /evidence/ "
+                "with visible label 'Evidence and Assurance' exactly once, "
+                "found 0",
             )
-            payday_commit = "139f4e5603f5a383b5d2f23874a4d4c345a1fb71"
-            payday_test_url = (
-                "https://github.com/ryanduguid/payday-super-checker/blob/"
-                f"{payday_commit}/tests/test_evaluation_pack.py"
+
+        xero_contract_claims = (
+            "The production tool reads trial balance data directly from Xero's "
+            "Accounting API Reports endpoint.",
+            "This pack is for a reviewer who wants to reproduce the offline "
+            "integrity gate without connecting to Xero or handling client data.",
+            "The three CSV files are fabricated output-shape fixtures.",
+            "They are not Xero API responses or client records, and no OAuth "
+            "flow runs in this evaluation.",
+            "No Xero tenant credentials or tenant data are used.",
+            "Dependency installation may download the hash-locked packages.",
+            "Once dependencies are installed, the three evaluation runner "
+            "commands are fully offline, make no network request and write no "
+            "output file.",
+            "passing.csv exits 0 and reports that movement and YTD balance.",
+            "failing_movement.csv exits 1, identifies the movement pair and "
+            "reports Nothing written.",
+            "failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing "
+            "written.",
+            "failing_movement.csv breaks only the current-month Debit/Credit pair.",
+            "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
+            "The evaluation runner calls the production check_balanced gate "
+            "before any CSV write.",
+            "A balanced export passes this integrity control only; a human still "
+            "decides completeness, classification, accounting treatment and "
+            "fitness for review.",
+            "This control does not prove completeness, classification, accounting "
+            "treatment or client approval.",
+            "It does not assess source-data accuracy, reporting-period suitability "
+            "or fitness for a particular client review.",
+        )
+        relocated_claim = xero_contract_claims[1]
+        relocated_claim_html = valid_xero_evaluation_html.replace(
+            f"      <p>{relocated_claim}</p>\n", "", 1
+        ).replace(
+            "    </main>\n",
+            f"    </main>\n    <p>{relocated_claim}</p>\n",
+            1,
+        )
+        expect_failure(
+            check_xero_evaluation_fixture(relocated_claim_html),
+            f"{xero_evaluation_rel}: missing visible contract text "
+            f"{relocated_claim!r}",
+        )
+        for claim in xero_contract_claims:
+            assert claim in valid_xero_evaluation_html
+            expect_failure(
+                check_xero_evaluation_fixture(
+                    valid_xero_evaluation_html.replace(claim, "", 1)
+                ),
+                f"{xero_evaluation_rel}: missing visible contract text {claim!r}",
             )
-            payday_main_url = payday_test_url.replace(f"/{payday_commit}/", "/main/")
+
+        primary_section = core.section_html(
+            valid_xero_evaluation_html, "primary-sources"
+        )
+        versions_section = core.section_html(valid_xero_evaluation_html, "versions")
+        assert primary_section and versions_section
+        swapped_sections_html = (
+            valid_xero_evaluation_html.replace(
+                primary_section, "XERO_SECTION_SWAP_PLACEHOLDER", 1
+            )
+            .replace(versions_section, primary_section, 1)
+            .replace("XERO_SECTION_SWAP_PLACEHOLDER", versions_section, 1)
+        )
+        expected_section_ids = [identifier for identifier, _label in xero_sections]
+        swapped_section_ids = expected_section_ids.copy()
+        swapped_section_ids[6], swapped_section_ids[7] = (
+            swapped_section_ids[7],
+            swapped_section_ids[6],
+        )
+        expect_failure(
+            check_xero_evaluation_fixture(swapped_sections_html),
+            f"{xero_evaluation_rel}: evaluation section order must be "
+            f"{expected_section_ids!r}, found {swapped_section_ids!r}",
+        )
+        xero_commit = "787f936d373fed47591102d4c24d0c5edf6b1861"
+        xero_blob_url = (
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
+            f"{xero_commit}/tests/test_evaluation_pack.py"
+        )
+        blob_main_url = xero_blob_url.replace(f"/{xero_commit}/", "/main/")
+        expect_failure(
+            check_xero_evaluation_fixture(
+                valid_xero_evaluation_html.replace(
+                    xero_blob_url, blob_main_url, 1
+                )
+            ),
+            f"{xero_evaluation_rel}: product evidence URL must not use "
+            f"/blob/main/: {blob_main_url}",
+        )
+        short_commit_url = xero_blob_url.replace(xero_commit, xero_commit[:7])
+        expect_failure(
+            check_xero_evaluation_fixture(
+                valid_xero_evaluation_html.replace(
+                    xero_blob_url, short_commit_url, 1
+                )
+            ),
+            f"{xero_evaluation_rel}: product evidence URL must contain a "
+            f"40-character commit: {short_commit_url}",
+        )
+        other_commit = "0123456789abcdef0123456789abcdef01234567"
+        other_commit_url = xero_blob_url.replace(xero_commit, other_commit)
+        expect_failure(
+            check_xero_evaluation_fixture(
+                valid_xero_evaluation_html.replace(
+                    xero_blob_url, other_commit_url, 1
+                )
+            ),
+            f"{xero_evaluation_rel}: product evidence URL commit must be "
+            f"{xero_commit}: {other_commit_url}",
+        )
+
+        def check_payday_evaluation_fixture(
+            html: str = valid_payday_evaluation_html,
+            sitemap: str | None = None,
+            llms: str | None = None,
+        ) -> list[str]:
+            args = {"html": html, "target_rel": payday_evaluation_rel}
+            if sitemap is not None:
+                args["sitemap"] = sitemap
+            if llms is not None:
+                args["llms"] = llms
+            return check_evaluation_fixture(**args)
+
+        assert check_payday_evaluation_fixture() == []
+        payday_article_pattern_failures: list[str] = []
+        contracts.check_article_pattern(
+            valid_payday_evaluation_html,
+            payday_evaluation_rel,
+            payday_article_pattern_failures,
+        )
+        assert payday_article_pattern_failures == []
+        missing_payday_article_toc = valid_payday_evaluation_html.replace(
+            '<nav aria-label="On this page"><a href="#accounting-problem">Accounting problem</a><a href="#limitations">Limitations</a></nav>',
+            "",
+            1,
+        )
+        missing_payday_article_toc_failures: list[str] = []
+        contracts.check_article_pattern(
+            missing_payday_article_toc,
+            payday_evaluation_rel,
+            missing_payday_article_toc_failures,
+        )
+        expect_failure(
+            missing_payday_article_toc_failures,
+            f"{payday_evaluation_rel}: expected exactly one On this page navigation",
+        )
+        payday_section_contracts = {
+            "fabricated-inputs": (
+                "supported due date of 17 August 2026 and an as-at date of 20 August 2026"
+            ),
+            "reproduce": (
+                "Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test."
+            ),
+            "limitations": (
+                "This evaluation does not provide advice or make an ATO assessment."
+            ),
+        }
+        for section_id, required_text in payday_section_contracts.items():
             expect_failure(
                 check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_test_url, payday_main_url, 1
-                    )
+                    valid_payday_evaluation_html.replace(required_text, "", 1)
                 ),
-                f"{payday_evaluation_rel}: product evidence URL must not use "
-                f"/blob/main/: {payday_main_url}",
+                f"{payday_evaluation_rel}: #{section_id} missing visible "
+                f"contract text {required_text!r}",
             )
-            payday_tree_url = (
-                "https://github.com/ryanduguid/payday-super-checker/tree/"
-                f"{payday_commit}/evaluation/payday_super_evidence"
-            )
-            other_payday_commit = "0123456789abcdef0123456789abcdef01234567"
-            tampered_tree_url = payday_tree_url.replace(
-                payday_commit, other_payday_commit
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_tree_url, tampered_tree_url, 1
-                    )
-                ),
-                f"{payday_evaluation_rel}: product evidence URL commit must be "
-                f"{payday_commit}: {tampered_tree_url}",
-            )
-            short_payday_test_url = payday_test_url.replace(
-                payday_commit, payday_commit[:7]
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_test_url, short_payday_test_url, 1
-                    )
-                ),
-                f"{payday_evaluation_rel}: product evidence URL must contain a "
-                f"40-character commit: {short_payday_test_url}",
-            )
-            wrong_payday_test_url = payday_test_url.replace(
-                payday_commit, other_payday_commit
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(
-                        payday_test_url, wrong_payday_test_url, 1
-                    )
-                ),
-                f"{payday_evaluation_rel}: product evidence URL commit must be "
-                f"{payday_commit}: {wrong_payday_test_url}",
-            )
-            payday_human_decision = (
-                "Remittance evidence can show operational timing but cannot prove on-time; "
-                "a human must establish eligible fund receipt, allocation and the other "
-                "assessment facts before relying on a statutory conclusion."
-            )
-            expect_failure(
-                check_payday_evaluation_fixture(
-                    valid_payday_evaluation_html.replace(payday_human_decision, "", 1)
-                ),
-                f"{payday_evaluation_rel}: missing visible contract text "
-                f"{payday_human_decision!r}",
-            )
-        finally:
-            core.ROOT = original_root
+        reversed_dates = (
+            "supported due date of 20 August 2026 and an as-at date of 17 August 2026"
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_section_contracts["fabricated-inputs"], reversed_dates, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: #fabricated-inputs missing visible "
+            f"contract text {payday_section_contracts['fabricated-inputs']!r}",
+        )
+        valid_payday_sitemap = (
+            f"<loc>{evaluation_url}</loc><loc>{xero_evaluation_url}</loc>"
+            f"<loc>{payday_evaluation_url}</loc><lastmod>2026-08-26</lastmod>"
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                sitemap=valid_payday_sitemap.replace("2026-08-26", "2026-08-25", 1)
+            ),
+            f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
+            "lastmod '2026-08-26' exactly once, found ['2026-08-25']",
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                sitemap=valid_payday_sitemap.replace(
+                    "<lastmod>2026-08-26</lastmod>", "", 1
+                )
+            ),
+            f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
+            "lastmod '2026-08-26' exactly once, found []",
+        )
+        moved_payday_llms = (
+            "## Evaluation packs\n"
+            f"{evaluation_url}\n{xero_evaluation_url}\n"
+            f"## Other\n{payday_evaluation_url}"
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(llms=moved_payday_llms),
+            f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
+            "once in ## Evaluation packs, found 0",
+        )
+        duplicate_payday_llms = (
+            "## Evaluation packs\n"
+            f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}\n"
+            f"## Other\n{payday_evaluation_url}"
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(llms=duplicate_payday_llms),
+            f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
+            "once globally, found 2",
+        )
+        payday_source_url = (
+            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+            "docs/primary-source-review-2026-08-15.md"
+        )
+        payday_source_main_url = payday_source_url.replace("/v0.1.2/", "/main/")
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_source_url, payday_source_main_url, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: #primary-sources evidence hrefs must match "
+            f"exactly once; missing {[payday_source_url]!r}; unexpected "
+            f"{[payday_source_main_url]!r}",
+        )
+        payday_commit = "139f4e5603f5a383b5d2f23874a4d4c345a1fb71"
+        payday_test_url = (
+            "https://github.com/ryanduguid/payday-super-checker/blob/"
+            f"{payday_commit}/tests/test_evaluation_pack.py"
+        )
+        payday_main_url = payday_test_url.replace(f"/{payday_commit}/", "/main/")
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_test_url, payday_main_url, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: product evidence URL must not use "
+            f"/blob/main/: {payday_main_url}",
+        )
+        payday_tree_url = (
+            "https://github.com/ryanduguid/payday-super-checker/tree/"
+            f"{payday_commit}/evaluation/payday_super_evidence"
+        )
+        other_payday_commit = "0123456789abcdef0123456789abcdef01234567"
+        tampered_tree_url = payday_tree_url.replace(
+            payday_commit, other_payday_commit
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_tree_url, tampered_tree_url, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: product evidence URL commit must be "
+            f"{payday_commit}: {tampered_tree_url}",
+        )
+        short_payday_test_url = payday_test_url.replace(
+            payday_commit, payday_commit[:7]
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_test_url, short_payday_test_url, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: product evidence URL must contain a "
+            f"40-character commit: {short_payday_test_url}",
+        )
+        wrong_payday_test_url = payday_test_url.replace(
+            payday_commit, other_payday_commit
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(
+                    payday_test_url, wrong_payday_test_url, 1
+                )
+            ),
+            f"{payday_evaluation_rel}: product evidence URL commit must be "
+            f"{payday_commit}: {wrong_payday_test_url}",
+        )
+        payday_human_decision = (
+            "Remittance evidence can show operational timing but cannot prove on-time; "
+            "a human must establish eligible fund receipt, allocation and the other "
+            "assessment facts before relying on a statutory conclusion."
+        )
+        expect_failure(
+            check_payday_evaluation_fixture(
+                valid_payday_evaluation_html.replace(payday_human_decision, "", 1)
+            ),
+            f"{payday_evaluation_rel}: missing visible contract text "
+            f"{payday_human_decision!r}",
+        )
 
     assert not missing_negative_failures, (
         "negative self-check fixtures did not emit their required messages:\n  "
@@ -1386,281 +1382,247 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         for failure in float_item_list_failures
     )
 
-    original_root = core.ROOT
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            about = core.ROOT / "about"
-            about.mkdir()
-            (about / "index.html").write_text(
-                "<p>I do not take client work through this site.</p>",
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert (
-                "about/index.html: short answer contradicts scoped enquiries" in failures
-            )
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        about = root / "about"
+        about.mkdir()
+        (about / "index.html").write_text(
+            "<p>I do not take client work through this site.</p>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert (
+            "about/index.html: short answer contradicts scoped enquiries" in failures
+        )
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            evidence = core.ROOT / "evidence"
-            evidence.mkdir()
-            (evidence / "index.html").write_text(
-                '<p class="short-answer">Evidence summary.</p>'
-                + "".join(
-                    f'<h2 id="{identifier}">{heading}</h2>'
-                    for identifier, heading in contracts.ASSURANCE_ANCHORS.items()
-                ),
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert (
-                "evidence/index.html: contents navigator does not match assurance headings"
-                in failures
-            )
-            assert (
-                "evidence/index.html: missing CA ANZ non-endorsement boundary" in failures
-            )
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        evidence = root / "evidence"
+        evidence.mkdir()
+        (evidence / "index.html").write_text(
+            '<p class="short-answer">Evidence summary.</p>'
+            + "".join(
+                f'<h2 id="{identifier}">{heading}</h2>'
+                for identifier, heading in contracts.ASSURANCE_ANCHORS.items()
+            ),
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert (
+            "evidence/index.html: contents navigator does not match assurance headings"
+            in failures
+        )
+        assert (
+            "evidence/index.html: missing CA ANZ non-endorsement boundary" in failures
+        )
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                "<!-- <a href=\"/evidence/\">Evidence</a> -->"
-                "<script><a href=\"/evidence/\">Evidence</a></script>"
-                "<template><a href=\"/evidence/\">Evidence</a></template>",
-                encoding="utf-8",
-            )
-            about = core.ROOT / "about"
-            about.mkdir()
-            (about / "index.html").write_text(
-                '<a href="/evidence/">Evidence</a>', encoding="utf-8"
-            )
-            evidence = core.ROOT / "evidence"
-            evidence.mkdir()
-            (evidence / "index.html").write_text("", encoding="utf-8")
-            (core.ROOT / "sitemap.xml").write_text(
-                f"<loc>{contracts.EVIDENCE_URL}</loc>", encoding="utf-8"
-            )
-            (core.ROOT / "llms.txt").write_text(contracts.EVIDENCE_URL, encoding="utf-8")
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            "<!-- <a href=\"/evidence/\">Evidence</a> -->"
+            "<script><a href=\"/evidence/\">Evidence</a></script>"
+            "<template><a href=\"/evidence/\">Evidence</a></template>",
+            encoding="utf-8",
+        )
+        about = root / "about"
+        about.mkdir()
+        (about / "index.html").write_text(
+            '<a href="/evidence/">Evidence</a>', encoding="utf-8"
+        )
+        evidence = root / "evidence"
+        evidence.mkdir()
+        (evidence / "index.html").write_text("", encoding="utf-8")
+        (root / "sitemap.xml").write_text(
+            f"<loc>{contracts.EVIDENCE_URL}</loc>", encoding="utf-8"
+        )
+        (root / "llms.txt").write_text(contracts.EVIDENCE_URL, encoding="utf-8")
 
-            failures = contracts.check_evidence_page()
-            assert "index.html: no visible link to /evidence/" in failures
-        finally:
-            core.ROOT = original_root
+        failures = contracts.check_evidence_page(root)
+        assert "index.html: no visible link to /evidence/" in failures
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                '<a href="#adopt">Adopt</a><a href="#verify">Verify</a>',
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert "index.html: missing visible authority route #engage" in failures
-            assert "index.html: authority route #engage card label must be Engage" in (
-                failures
-            )
-            assert "index.html: authority section #engage heading must be Engage" in (
-                failures
-            )
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            '<a href="#adopt">Adopt</a><a href="#verify">Verify</a>',
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: missing visible authority route #engage" in failures
+        assert "index.html: authority route #engage card label must be Engage" in (
+            failures
+        )
+        assert "index.html: authority section #engage heading must be Engage" in (
+            failures
+        )
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                '<a class="path-card" href="#engage"><strong>Adopt</strong></a>'
-                '<a class="path-card" href="#adopt"><strong>Adopt</strong></a>'
-                '<a class="path-card" href="#verify"><strong>Verify</strong></a>'
-                '<section id="engage"><h2>Verify</h2></section>'
-                '<section id="adopt"><h2>Adopt</h2></section>'
-                '<section id="verify"><h2>Verify</h2></section>',
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert "index.html: authority route #engage card label must be Engage" in (
-                failures
-            )
-            assert "index.html: authority section #engage heading must be Engage" in (
-                failures
-            )
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            '<a class="path-card" href="#engage"><strong>Adopt</strong></a>'
+            '<a class="path-card" href="#adopt"><strong>Adopt</strong></a>'
+            '<a class="path-card" href="#verify"><strong>Verify</strong></a>'
+            '<section id="engage"><h2>Verify</h2></section>'
+            '<section id="adopt"><h2>Adopt</h2></section>'
+            '<section id="verify"><h2>Verify</h2></section>',
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: authority route #engage card label must be Engage" in (
+            failures
+        )
+        assert "index.html: authority section #engage heading must be Engage" in (
+            failures
+        )
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                "<section id=\"adopt\">"
-                "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
-                "</section>"
-                "<pre>claude mcp add aus-accounting -- uvx aus-accounting-mcp</pre>"
-                "<pre>claude mcp add aus-accounting -- uvx --from \\ "
-                "git+https://github.com/ryanduguid/au-tax-mcp-server "
-                "aus-accounting-mcp</pre>",
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert "index.html: install commands must appear only inside #adopt" in failures
-            assert "index.html: retired GitHub-source install command" in failures
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            "<section id=\"adopt\">"
+            "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
+            "</section>"
+            "<pre>claude mcp add aus-accounting -- uvx aus-accounting-mcp</pre>"
+            "<pre>claude mcp add aus-accounting -- uvx --from \\ "
+            "git+https://github.com/ryanduguid/au-tax-mcp-server "
+            "aus-accounting-mcp</pre>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: install commands must appear only inside #adopt" in failures
+        assert "index.html: retired GitHub-source install command" in failures
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text("", encoding="utf-8")
-            (core.ROOT / "llms.txt").write_text(
-                "claude mcp add aus-accounting -- uvx --from "
-                "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
-                "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
-                encoding="utf-8",
-            )
-            mcp_page = core.ROOT / "tools" / "australian-tax-ai-agents"
-            mcp_page.mkdir(parents=True)
-            (mcp_page / "index.html").write_text(
-                "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
-                "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>"
-                "<p>claude mcp add aus-accounting -- uvx --from "
-                "git+https://github.com/ryanduguid/au-tax-mcp-server "
-                "aus-accounting-mcp</p>",
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert (
-                "llms.txt: supported install commands must link to /#adopt instead"
-                in failures
-            )
-            assert "llms.txt: retired GitHub-source install command" in failures
-            assert (
-                f"{contracts.MCP_REL}: supported install commands must link to /#adopt instead"
-                in failures
-            )
-            assert f"{contracts.MCP_REL}: retired GitHub-source install command" in failures
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text("", encoding="utf-8")
+        (root / "llms.txt").write_text(
+            "claude mcp add aus-accounting -- uvx --from "
+            "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+            "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
+            encoding="utf-8",
+        )
+        mcp_page = root / "tools" / "australian-tax-ai-agents"
+        mcp_page.mkdir(parents=True)
+        (mcp_page / "index.html").write_text(
+            "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
+            "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>"
+            "<p>claude mcp add aus-accounting -- uvx --from "
+            "git+https://github.com/ryanduguid/au-tax-mcp-server "
+            "aus-accounting-mcp</p>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert (
+            "llms.txt: supported install commands must link to /#adopt instead"
+            in failures
+        )
+        assert "llms.txt: retired GitHub-source install command" in failures
+        assert (
+            f"{contracts.MCP_REL}: supported install commands must link to /#adopt instead"
+            in failures
+        )
+        assert f"{contracts.MCP_REL}: retired GitHub-source install command" in failures
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            mcp_page = core.ROOT / "tools" / "australian-tax-ai-agents"
-            mcp_page.mkdir(parents=True)
-            (mcp_page / "index.html").write_text(
-                "<p>Waiting for its first PyPI release.</p>", encoding="utf-8"
-            )
-            failures = contracts.check_authority_surface()
-            assert (
-                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
-                in failures
-            )
-            (mcp_page / "index.html").write_text(
-                '<script type="application/ld+json">'
-                '{"@context":"https://schema.org","description":"first PyPI release"}'
-                "</script>",
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert (
-                "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
-                in failures
-            )
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        mcp_page = root / "tools" / "australian-tax-ai-agents"
+        mcp_page.mkdir(parents=True)
+        (mcp_page / "index.html").write_text(
+            "<p>Waiting for its first PyPI release.</p>", encoding="utf-8"
+        )
+        failures = contracts.check_authority_surface(root)
+        assert (
+            "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+            in failures
+        )
+        (mcp_page / "index.html").write_text(
+            '<script type="application/ld+json">'
+            '{"@context":"https://schema.org","description":"first PyPI release"}'
+            "</script>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert (
+            "tools/australian-tax-ai-agents/index.html: stale first-PyPI-release claim"
+            in failures
+        )
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                '<a hidden href="#engage">Engage</a>'
-                '<a style="display: none" href="#adopt">Adopt</a>'
-                '<a aria-hidden="true" href="#verify">Verify</a>'
-                '<section id="engage" hidden>'
-                '<a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm</a>'
-                '<a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Adopt</a>'
-                '<a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Review</a>'
-                "</section>"
-                '<section id="adopt" style="display: none"><pre>'
-                "claude mcp add aus-accounting -- uvx aus-accounting-mcp\n"
-                "npx skills add ryanduguid/australian-accounting-skills"
-                "</pre></section>"
-                '<section id="verify" aria-hidden="true"></section>'
-                '<h2 style="display: none">Original firm-focused tools</h2>'
-                '<div class="tools-list"></div>',
-                encoding="utf-8",
-            )
-            about = core.ROOT / "about"
-            about.mkdir()
-            (about / "index.html").write_text(
-                "<p style=\"visibility: hidden\">ryan@duguid.com.au. Do not email client files or tax advice. "
-                "A message does not create a professional engagement.</p>",
-                encoding="utf-8",
-            )
-            evidence = core.ROOT / "evidence"
-            evidence.mkdir()
-            (evidence / "index.html").write_text(
-                "".join(
-                    f"<h2 hidden>{heading}</h2>"
-                    for heading in contracts.ASSURANCE_HEADINGS
-                ),
-                encoding="utf-8",
-            )
-            mcp_page = core.ROOT / "tools" / "australian-tax-ai-agents"
-            mcp_page.mkdir(parents=True)
-            (mcp_page / "index.html").write_text(
-                f'<a aria-hidden="true" href="/evidence/">Evidence</a>'
-                f'<a style="display: none" href="{contracts.AUS_ACCOUNTING_PYPI}">PyPI</a>',
-                encoding="utf-8",
-            )
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            '<a hidden href="#engage">Engage</a>'
+            '<a style="display: none" href="#adopt">Adopt</a>'
+            '<a aria-hidden="true" href="#verify">Verify</a>'
+            '<section id="engage" hidden>'
+            '<a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm</a>'
+            '<a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Adopt</a>'
+            '<a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Review</a>'
+            "</section>"
+            '<section id="adopt" style="display: none"><pre>'
+            "claude mcp add aus-accounting -- uvx aus-accounting-mcp\n"
+            "npx skills add ryanduguid/australian-accounting-skills"
+            "</pre></section>"
+            '<section id="verify" aria-hidden="true"></section>'
+            '<h2 style="display: none">Original firm-focused tools</h2>'
+            '<div class="tools-list"></div>',
+            encoding="utf-8",
+        )
+        about = root / "about"
+        about.mkdir()
+        (about / "index.html").write_text(
+            "<p style=\"visibility: hidden\">ryan@duguid.com.au. Do not email client files or tax advice. "
+            "A message does not create a professional engagement.</p>",
+            encoding="utf-8",
+        )
+        evidence = root / "evidence"
+        evidence.mkdir()
+        (evidence / "index.html").write_text(
+            "".join(
+                f"<h2 hidden>{heading}</h2>"
+                for heading in contracts.ASSURANCE_HEADINGS
+            ),
+            encoding="utf-8",
+        )
+        mcp_page = root / "tools" / "australian-tax-ai-agents"
+        mcp_page.mkdir(parents=True)
+        (mcp_page / "index.html").write_text(
+            f'<a aria-hidden="true" href="/evidence/">Evidence</a>'
+            f'<a style="display: none" href="{contracts.AUS_ACCOUNTING_PYPI}">PyPI</a>',
+            encoding="utf-8",
+        )
 
-            failures = contracts.check_authority_surface()
-            assert "index.html: missing visible authority route #engage" in failures
-            assert "index.html: missing visible authority route #adopt" in failures
-            assert "index.html: missing visible authority route #verify" in failures
-            assert "index.html: install commands must appear only inside #adopt" in failures
-            assert (
-                "index.html: missing visible catalogue label Original firm-focused tools"
-                in failures
-            )
-            assert "about/index.html: enquiry boundary is incomplete" in failures
-            assert "evidence/index.html: missing assurance heading" in failures
-            assert "tools/australian-tax-ai-agents/index.html: no visible link to /evidence/" in failures
-            assert "tools/australian-tax-ai-agents/index.html: no visible PyPI route" in failures
-        finally:
-            core.ROOT = original_root
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: missing visible authority route #engage" in failures
+        assert "index.html: missing visible authority route #adopt" in failures
+        assert "index.html: missing visible authority route #verify" in failures
+        assert "index.html: install commands must appear only inside #adopt" in failures
+        assert (
+            "index.html: missing visible catalogue label Original firm-focused tools"
+            in failures
+        )
+        assert "about/index.html: enquiry boundary is incomplete" in failures
+        assert "evidence/index.html: missing assurance heading" in failures
+        assert "tools/australian-tax-ai-agents/index.html: no visible link to /evidence/" in failures
+        assert "tools/australian-tax-ai-agents/index.html: no visible PyPI route" in failures
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                "<section hidden><section></section>"
-                '<section id="engage"><a href="#engage">Engage</a></section>'
-                "</section>",
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert "index.html: missing visible authority route #engage" in failures
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            "<section hidden><section></section>"
+            '<section id="engage"><a href="#engage">Engage</a></section>'
+            "</section>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: missing visible authority route #engage" in failures
 
     with tempfile.TemporaryDirectory() as temp_dir:
-        core.ROOT = Path(temp_dir)
-        try:
-            (core.ROOT / "index.html").write_text(
-                "<h2>Original firm-focused tools</h2>"
-                '<section class="tools-catalogue"></section>',
-                encoding="utf-8",
-            )
-            failures = contracts.check_authority_surface()
-            assert "index.html: missing visible lower tools catalogue" in failures
-        finally:
-            core.ROOT = original_root
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
+            "<h2>Original firm-focused tools</h2>"
+            '<section class="tools-catalogue"></section>',
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: missing visible lower tools catalogue" in failures
     print("self-check OK")
 
 

@@ -936,24 +936,24 @@ def check_person_graph(paths: list[Path]) -> list[str]:
     return failures
 
 
-def check_evidence_page() -> list[str]:
+def check_evidence_page(root: Path = core.ROOT) -> list[str]:
     """Keep the public evidence page linked, bounded and person-referential."""
     failures: list[str] = []
-    evidence_path = core.ROOT / EVIDENCE_REL
+    evidence_path = root / EVIDENCE_REL
     if not evidence_path.is_file():
         failures.append(f"{EVIDENCE_REL}: evidence page does not exist")
 
-    sitemap_count = core.sitemap_urls().count(EVIDENCE_URL)
+    sitemap_count = core.sitemap_urls(root).count(EVIDENCE_URL)
     if sitemap_count != 1:
         failures.append(
             f"sitemap.xml: evidence URL must appear once, found {sitemap_count}"
         )
-    llms_count = (core.ROOT / "llms.txt").read_text(encoding="utf-8").count(EVIDENCE_URL)
+    llms_count = (root / "llms.txt").read_text(encoding="utf-8").count(EVIDENCE_URL)
     if llms_count != 1:
         failures.append(f"llms.txt: evidence URL must appear once, found {llms_count}")
 
     for rel in ("index.html", "about/index.html"):
-        page = (core.ROOT / rel).read_text(encoding="utf-8")
+        page = (root / rel).read_text(encoding="utf-8")
         page = re.sub(r"<(script|style|template)\b.*?</\1>", " ", page, flags=re.S | re.I)
         page = re.sub(r"<!--.*?-->", " ", page, flags=re.S)
         if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):
@@ -1064,10 +1064,10 @@ def check_mcp_review_dates(html: str) -> list[str]:
     return failures
 
 
-def check_authority_surface() -> list[str]:
+def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     """Require the public Engage, Adopt and Verify authority surface."""
     failures: list[str] = []
-    home_path = core.ROOT / "index.html"
+    home_path = root / "index.html"
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
     rendered_home = core.visible_html(home)
     home_hrefs = core.anchor_hrefs(rendered_home)
@@ -1115,7 +1115,7 @@ def check_authority_surface() -> list[str]:
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, home_text, re.I):
         failures.append("index.html: retired GitHub-source install command")
 
-    llms_path = core.ROOT / "llms.txt"
+    llms_path = root / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
     failures.extend(check_llms_authority_surface(llms))
     if any(re.search(pattern, llms, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
@@ -1123,10 +1123,10 @@ def check_authority_surface() -> list[str]:
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
         failures.append("llms.txt: retired GitHub-source install command")
 
-    for path in sorted(core.ROOT.rglob("*.html")):
-        rel = path.relative_to(core.ROOT).as_posix()
+    for path in sorted(root.rglob("*.html")):
+        rel = path.relative_to(root).as_posix()
         if rel == "index.html" or rel in NOT_INDEXED or any(
-            part.startswith(".") for part in path.relative_to(core.ROOT).parts
+            part.startswith(".") for part in path.relative_to(root).parts
         ):
             continue
         page_html = path.read_text(encoding="utf-8")
@@ -1173,7 +1173,7 @@ def check_authority_surface() -> list[str]:
     if not expected_subjects.issubset(actual_subjects):
         failures.append("index.html: scoped enquiry categories are incomplete")
 
-    about_path = core.ROOT / "about" / "index.html"
+    about_path = root / "about" / "index.html"
     about_text = (
         core.visible_text(about_path.read_text(encoding="utf-8")) if about_path.is_file() else ""
     )
@@ -1216,7 +1216,7 @@ def check_authority_surface() -> list[str]:
     ):
         failures.append("about/index.html: enquiry boundary is incomplete")
 
-    evidence_path = core.ROOT / EVIDENCE_REL
+    evidence_path = root / EVIDENCE_REL
     evidence_html = evidence_path.read_text(encoding="utf-8") if evidence_path.is_file() else ""
     rendered_evidence = core.visible_html(evidence_html)
     evidence_headings = core.heading_texts(rendered_evidence)
@@ -1277,13 +1277,13 @@ def check_authority_surface() -> list[str]:
             "evidence/index.html: contents navigator does not match assurance headings"
         )
 
-    for path in sorted(core.ROOT.glob("tools/*/index.html")):
-        rel = path.relative_to(core.ROOT).as_posix()
+    for path in sorted(root.glob("tools/*/index.html")):
+        rel = path.relative_to(root).as_posix()
         if "/evidence/" not in core.anchor_hrefs(core.visible_html(path.read_text(encoding="utf-8"))):
             failures.append(f"{rel}: no visible link to /evidence/")
 
     mcp_rel = MCP_REL
-    mcp_path = core.ROOT / mcp_rel
+    mcp_path = root / mcp_rel
     mcp_html = mcp_path.read_text(encoding="utf-8") if mcp_path.is_file() else ""
     rendered_mcp = core.visible_html(mcp_html)
     failures.extend(check_mcp_review_dates(mcp_html))
@@ -1488,11 +1488,11 @@ def check_evaluation_structure(
         )
 
 
-def check_evaluation_packs() -> list[str]:
+def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
     """Keep evaluator pages tied to immutable fabricated evidence."""
     failures: list[str] = []
-    listed = core.sitemap_urls()
-    llms = (core.ROOT / "llms.txt").read_text(encoding="utf-8")
+    listed = core.sitemap_urls(root)
+    llms = (root / "llms.txt").read_text(encoding="utf-8")
     for rel, expected in EVALUATION_PACKS.items():
         url = expected["url"]
         sitemap_count = listed.count(url)
@@ -1503,7 +1503,7 @@ def check_evaluation_packs() -> list[str]:
             )
         sitemap_lastmod = expected.get("sitemap_lastmod")
         if sitemap_lastmod:
-            actual_lastmods = core.sitemap_lastmods(url)
+            actual_lastmods = core.sitemap_lastmods(url, root)
             if actual_lastmods != [sitemap_lastmod]:
                 failures.append(
                     f"sitemap.xml: evaluation URL {url} must have lastmod "
@@ -1525,7 +1525,7 @@ def check_evaluation_packs() -> list[str]:
                     f"{llms_section}, found {section_count}"
                 )
 
-        path = core.ROOT / rel
+        path = root / rel
         if not path.is_file():
             failures.append(f"{rel}: evaluation page does not exist")
             continue

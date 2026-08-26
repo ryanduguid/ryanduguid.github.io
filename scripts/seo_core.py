@@ -623,14 +623,14 @@ def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
             )
 
 
-def sitemap_urls() -> list[str]:
-    xml = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+def sitemap_urls(root: Path = ROOT) -> list[str]:
+    xml = (root / "sitemap.xml").read_text(encoding="utf-8")
     return re.findall(r"<loc>(.*?)</loc>", xml)
 
 
-def sitemap_lastmods(url: str) -> list[str]:
+def sitemap_lastmods(url: str, root: Path = ROOT) -> list[str]:
     """Return lastmod values immediately associated with one sitemap URL."""
-    xml = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    xml = (root / "sitemap.xml").read_text(encoding="utf-8")
     return re.findall(
         rf"<loc>{re.escape(url)}</loc>\s*<lastmod>(.*?)</lastmod>", xml, re.S
     )
