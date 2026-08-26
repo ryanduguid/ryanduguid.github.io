@@ -11,7 +11,7 @@ Checks, in order, per file:
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects), except
-   HTTP 403 from three exact ATO source URLs is accepted as an automation
+   HTTP 403 from four exact ATO source URLs is accepted as an automation
    denial.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
@@ -69,6 +69,10 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "gst-excise-and-indirect-taxes/gst/"
             "lodging-your-bas-or-annual-gst-return/"
             "options-for-reporting-and-paying-gst/monthly-gst-reporting"
+        ),
+        (
+            "https://www.ato.gov.au/law/view/document?"
+            "DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001"
         ),
     }
 )
@@ -222,6 +226,11 @@ def _self_check() -> None:
         "options-for-reporting-and-paying-gst/monthly-gst-reporting",
         403,
     ), "exact ATO monthly GST HTTP 403 must be an accepted automation denial"
+    assert is_accepted_automation_denial(
+        "https://www.ato.gov.au/law/view/document?"
+        "DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+        403,
+    ), "exact ATO LCR 2026/2 HTTP 403 must be an accepted automation denial"
     assert not is_accepted_automation_denial("https://www.ato.gov.au/about-us/", 403), (
         "an ATO path HTTP 403 must still fail"
     )
