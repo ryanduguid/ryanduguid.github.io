@@ -341,7 +341,11 @@ def site_url(rel: str) -> str:
 
 def title_is_too_long(rel: str, title: str) -> bool:
     """Keep the general limit while allowing an exact page-specific title."""
-    return len(title) > TITLE_MAX and TITLE_EXCEPTIONS.get(rel) != title
+    rendered_title = html_lib.unescape(title)
+    return (
+        len(rendered_title) > TITLE_MAX
+        and TITLE_EXCEPTIONS.get(rel) != rendered_title
+    )
 
 
 def meta(html: str, attr: str, value: str) -> str | None:
@@ -445,6 +449,8 @@ PRIMARY_NAV_LINKS = [
 
 HOMEPAGE_REQUIRED_TEXT = [
     "I build accounting systems that can show their work.",
+    "Newcastle",
+    "Hunter Valley",
     "Data and Ledgers",
     "Rules and Engines",
     "Agent Workflows",
@@ -452,6 +458,11 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Install in 2 commands",
     "Proof belongs beside the claim",
 ]
+HOMEPAGE_TITLE = "Accounting automation in Newcastle & Hunter Valley | Ryan Duguid"
+HOMEPAGE_DESCRIPTION = (
+    "Review-first Xero, payroll, workpaper and AI workflow tools for accounting "
+    "firms in Newcastle and the Hunter Valley, NSW."
+)
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
     "/tools/australian-tax-ai-agents/",
@@ -687,6 +698,27 @@ def is_descendant(element: HtmlElement, ancestor: HtmlElement) -> bool:
 
 def check_homepage_contract(html: str, failures: list[str]) -> None:
     """Keep the approved homepage claims and primary proof routes visible."""
+    titles = re.findall(r"<title>(.*?)</title>", html, re.S)
+    title = html_lib.unescape(titles[0].strip()) if len(titles) == 1 else None
+    if title != HOMEPAGE_TITLE:
+        failures.append(
+            f"index.html: homepage title is {title!r}, expected {HOMEPAGE_TITLE!r}"
+        )
+    description = meta(html, "name", "description")
+    if description != HOMEPAGE_DESCRIPTION:
+        failures.append(
+            "index.html: homepage description is "
+            f"{description!r}, expected {HOMEPAGE_DESCRIPTION!r}"
+        )
+    for property_name, expected in (
+        ("og:title", HOMEPAGE_TITLE),
+        ("og:description", HOMEPAGE_DESCRIPTION),
+    ):
+        actual = meta(html, "property", property_name)
+        if actual != expected:
+            failures.append(
+                f"index.html: {property_name} is {actual!r}, expected {expected!r}"
+            )
     text = visible_text(html)
     for required in HOMEPAGE_REQUIRED_TEXT:
         if required not in text:
@@ -2019,8 +2051,9 @@ def check_file(path: Path) -> list[str]:
     if len(titles) != 1 or not titles[0].strip():
         failures.append(f"{rel}: expected exactly one non-empty <title>, found {len(titles)}")
     elif title_is_too_long(rel, titles[0].strip()):
+        rendered_title = html_lib.unescape(titles[0].strip())
         failures.append(
-            f"{rel}: title is {len(titles[0].strip())} characters, over the {TITLE_MAX} limit"
+            f"{rel}: title is {len(rendered_title)} characters, over the {TITLE_MAX} limit"
         )
 
     desc = meta(html, "name", "description")
@@ -2209,6 +2242,7 @@ def _self_check() -> None:
     assert not title_is_too_long(EVIDENCE_REL, evidence_title)
     assert title_is_too_long("about/index.html", evidence_title)
     assert title_is_too_long(EVIDENCE_REL, f"{evidence_title} extra")
+    assert not title_is_too_long("index.html", f"{'x' * 64}&amp;")
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     for class_attribute in (
         'class="visually-hidden"',
@@ -2249,8 +2283,13 @@ def _self_check() -> None:
         duplicate_main_failures,
         "self-check: expected exactly one rendered main#main, found 2 main elements",
     )
-    valid_homepage = """
+    valid_homepage = f"""
+    <title>{HOMEPAGE_TITLE}</title>
+    <meta name="description" content="{HOMEPAGE_DESCRIPTION}">
+    <meta property="og:title" content="{HOMEPAGE_TITLE}">
+    <meta property="og:description" content="{HOMEPAGE_DESCRIPTION}">
     <main>
+      <p>Newcastle and the Hunter Valley</p>
       <h1>I build accounting systems that can show their work.</h1>
       <h2>Data and Ledgers</h2><h2>Rules and Engines</h2>
       <h2>Agent Workflows</h2><h2>Review Controls</h2>
