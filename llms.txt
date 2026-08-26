@@ -22,6 +22,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
 - [Xero trial balance integrity evaluation](https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
+- [Payday Super timing evidence evaluation](https://ryanduguid.github.io/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
 
 ## Reference tables
 

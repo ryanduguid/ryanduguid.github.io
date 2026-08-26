@@ -325,6 +325,114 @@ EVALUATION_PACKS = {
             "https://developer.xero.com/documentation/guides/oauth2/scopes/",
         ),
     },
+    "evaluate/payday-super-evidence/index.html": {
+        "url": f"{SITE}/evaluate/payday-super-evidence/",
+        "product_repository": "https://github.com/ryanduguid/payday-super-checker",
+        "product_evidence_contract": (
+            "global payday-super-checker evidence hrefs must match approved "
+            "release, permanent evaluation and source-review URLs exactly once"
+        ),
+        "permanent_commit": "139f4e5603f5a383b5d2f23874a4d4c345a1fb71",
+        "sections": (
+            ("accounting-problem", "Accounting problem"),
+            ("intended-reviewer", "Intended reviewer"),
+            ("fabricated-inputs", "Fabricated inputs"),
+            ("reproduce", "Reproduce"),
+            ("expected-result", "Expected result"),
+            ("controls-triggered", "Controls triggered"),
+            ("primary-sources", "Primary sources"),
+            ("versions", "Versions"),
+            ("human-decision", "Human decision"),
+            ("limitations", "Limitations"),
+        ),
+        "labels": (
+            "Accounting problem",
+            "Intended reviewer",
+            "Fabricated inputs",
+            "Reproduce",
+            "Expected result",
+            "Controls triggered",
+            "Primary sources",
+            "Versions",
+            "Human decision",
+            "Limitations",
+        ),
+        "version_labels": (
+            "Product release v0.1.2",
+            "fixture version 1",
+            "source reviewed 15 August 2026",
+        ),
+        "reproduction_recipe": (
+            "uv run --locked --extra dev --python 3.12 payday-super-check "
+            "evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv "
+            "--as-at 2026-08-20 -o timely-report.csv",
+            "uv run --locked --extra dev --python 3.12 payday-super-check "
+            "evaluation/payday_super_evidence/fixtures/late_remittance_no_receipt.csv "
+            "--as-at 2026-08-20 -o late-remittance-report.csv",
+            "uv run --locked --extra dev --python 3.12 payday-super-check "
+            "evaluation/payday_super_evidence/fixtures/receipt_on_due_date.csv "
+            "--as-at 2026-08-20 -o on-time-report.csv",
+            "uv run --locked --extra dev --python 3.12 payday-super-check "
+            "evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv "
+            "--as-at 2026-08-20 -o late-receipt-report.csv",
+            "uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q",
+        ),
+        "contract_text": (
+            "No client, employee or live payroll data is included.",
+            "17 August 2026",
+            "20 August 2026",
+            "timely_remittance_no_receipt.csv exits 2 with AT_RISK",
+            "late_remittance_no_receipt.csv exits 2 with LATE",
+            "receipt_on_due_date.csv exits 0 with ON_TIME",
+            "receipt_after_due_date.csv exits 2 with LATE",
+            "A missing receipt cannot prove on-time, remittance timing can prove late, "
+            "and timely remittance without receipt remains at-risk.",
+            "Remittance evidence can show operational timing but cannot prove on-time; "
+            "a human must establish eligible fund receipt, allocation and the other "
+            "assessment facts before relying on a statutory conclusion.",
+            "Experimental review aid. Not a compliance determination.",
+            "v0.1.2 predates the evaluation directory",
+            "evaluation artefacts are fixed to the merge commit",
+        ),
+        "product_evidence_urls": (
+            "https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2",
+            "https://github.com/ryanduguid/payday-super-checker/tree/"
+            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "evaluation/payday_super_evidence",
+            "https://github.com/ryanduguid/payday-super-checker/blob/"
+            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "evaluation/payday_super_evidence/expected_results.json",
+            "https://github.com/ryanduguid/payday-super-checker/blob/"
+            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "tests/test_evaluation_pack.py",
+        ),
+        "primary_source_urls": (
+            "https://www.legislation.gov.au/C2004A04402/latest/text",
+            "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+            "docs/primary-source-review-2026-08-15.md",
+        ),
+        "section_contract_text": {
+            "fabricated-inputs": (
+                "supported due date of 17 August 2026 and an as-at date of 20 August 2026",
+            ),
+            "reproduce": (
+                "Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test.",
+            ),
+            "limitations": (
+                "This evaluation does not provide advice or make an ATO assessment.",
+            ),
+        },
+        "sitemap_lastmod": "2026-08-26",
+        "llms_section": "Evaluation packs",
+    },
+}
+ARTICLE_TOC_EXTERNAL_LINKS = {
+    "tools/payday-super/index.html": (
+        "/evaluate/payday-super-evidence/",
+        "Evidence evaluation",
+        "Synthetic worked example",
+    ),
 }
 
 warnings: list[str] = []
@@ -467,6 +575,7 @@ HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
     "/tools/australian-tax-ai-agents/",
     "/tools/coal-lsl-levy/",
+    "/evaluate/payday-super-evidence/",
 ]
 HOMEPAGE_PROOF_HREFS = [
     "/tools/coal-lsl-levy/",
@@ -477,6 +586,7 @@ HOMEPAGE_PROOF_HREFS = [
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
+    "evaluate/payday-super-evidence/index.html",
     "evaluate/xero-trial-balance-integrity/index.html",
     "evidence/index.html",
     "tools/ato-benchmarks/index.html",
@@ -781,8 +891,47 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
         if element.attr("id")
     }
     valid_links = 0
+    external_contract = ARTICLE_TOC_EXTERNAL_LINKS.get(rel)
+    external_href = external_label = preceding_label = None
+    if external_contract:
+        external_href, external_label, preceding_label = external_contract
+        rendered_evaluator_links = [
+            link
+            for link in descendants(root, "a", rendered_only=True)
+            if link.attr("href") == external_href
+        ]
+        if len(rendered_evaluator_links) != 1:
+            failures.append(
+                f"{rel}: evaluator link {external_href!r} must appear once "
+                f"across the rendered page, found {len(rendered_evaluator_links)}"
+            )
+        matching_external_links = [
+            link for link in links if link.attr("href") == external_href
+        ]
+        if len(matching_external_links) != 1:
+            failures.append(
+                f"{rel}: external On this page link {external_href!r} must appear "
+                f"once with label {external_label!r}, found {len(matching_external_links)}"
+            )
+        elif element_text(matching_external_links[0]) != external_label:
+            failures.append(
+                f"{rel}: external On this page link {external_href!r} must have "
+                f"label {external_label!r}, found {element_text(matching_external_links[0])!r}"
+            )
+        else:
+            external_index = links.index(matching_external_links[0])
+            previous_label = (
+                element_text(links[external_index - 1]) if external_index else ""
+            )
+            if previous_label != preceding_label:
+                failures.append(
+                    f"{rel}: external On this page link {external_href!r} must "
+                    f"immediately follow {preceding_label!r}"
+                )
     for link in links:
         href = link.attr("href") or ""
+        if href == external_href:
+            continue
         if not href.startswith("#") or href[1:] not in target_ids:
             failures.append(f"{rel}: local contents target does not exist: {href}")
         else:
@@ -1733,11 +1882,29 @@ def check_evaluation_packs() -> list[str]:
                 f"sitemap.xml: evaluation URL {url} must appear once, "
                 f"found {sitemap_count}"
             )
+        sitemap_lastmod = expected.get("sitemap_lastmod")
+        if sitemap_lastmod:
+            actual_lastmods = sitemap_lastmods(url)
+            if actual_lastmods != [sitemap_lastmod]:
+                failures.append(
+                    f"sitemap.xml: evaluation URL {url} must have lastmod "
+                    f"{sitemap_lastmod!r} exactly once, found {actual_lastmods!r}"
+                )
+        llms_section = expected.get("llms_section")
         llms_count = llms.count(url)
         if llms_count != 1:
+            global_suffix = " globally" if llms_section else ""
             failures.append(
-                f"llms.txt: evaluation URL {url} must appear once, found {llms_count}"
+                f"llms.txt: evaluation URL {url} must appear once{global_suffix}, "
+                f"found {llms_count}"
             )
+        if llms_section:
+            section_count = markdown_section(llms, llms_section).count(url)
+            if section_count != 1:
+                failures.append(
+                    f"llms.txt: evaluation URL {url} must appear once in ## "
+                    f"{llms_section}, found {section_count}"
+                )
 
         path = ROOT / rel
         if not path.is_file():
@@ -1779,6 +1946,14 @@ def check_evaluation_packs() -> list[str]:
                 failures.append(
                     f"{rel}: missing visible contract text {contract_text!r}"
                 )
+        for section_id, required_texts in expected.get("section_contract_text", {}).items():
+            section_text = visible_text(section_html(rendered, section_id))
+            for required_text in required_texts:
+                if required_text not in section_text:
+                    failures.append(
+                        f"{rel}: #{section_id} missing visible contract text "
+                        f"{required_text!r}"
+                    )
         for section_id, configured_hrefs in (
             ("versions", expected["product_evidence_urls"]),
             ("primary-sources", expected["primary_source_urls"]),
@@ -1801,9 +1976,22 @@ def check_evaluation_packs() -> list[str]:
         )
         product_hrefs = [href for href in hrefs if product_repository in href.casefold()]
 
+        product_evidence_urls = expected["product_evidence_urls"]
+        same_repository_primary_sources = [
+            href
+            for href in expected["primary_source_urls"]
+            if product_repository in href.casefold()
+        ]
+        global_product_evidence_urls = (
+            *product_evidence_urls,
+            *same_repository_primary_sources,
+        )
         permanent_commit = expected.get("permanent_commit")
         if permanent_commit:
+            version_hrefs = anchor_hrefs(section_html(rendered, "versions"))
             for href in product_hrefs:
+                if href not in version_hrefs:
+                    continue
                 if "/blob/main/" in href.casefold():
                     failures.append(
                         f"{rel}: product evidence URL must not use /blob/main/: {href}"
@@ -1823,14 +2011,14 @@ def check_evaluation_packs() -> list[str]:
                     )
         missing_product_hrefs = list(
             (
-                Counter(expected["product_evidence_urls"])
+                Counter(global_product_evidence_urls)
                 - Counter(product_hrefs)
             ).elements()
         )
         unexpected_product_hrefs = list(
             (
                 Counter(product_hrefs)
-                - Counter(expected["product_evidence_urls"])
+                - Counter(global_product_evidence_urls)
             ).elements()
         )
         if missing_product_hrefs or unexpected_product_hrefs:
@@ -1858,7 +2046,8 @@ def check_evaluation_packs() -> list[str]:
             configured_recipe = list(expected["reproduction_recipe"])
             if len(recipe_lines) != len(configured_recipe):
                 failures.append(
-                    f"{rel}: #reproduce must contain the configured six-line recipe, "
+                    f"{rel}: #reproduce must contain the configured "
+                    f"{len(configured_recipe)}-line recipe, "
                     f"found {len(recipe_lines)} lines"
                 )
             else:
@@ -2041,7 +2230,6 @@ def check_file(path: Path) -> list[str]:
     failures: list[str] = []
     rel = path.relative_to(ROOT).as_posix()
     html = path.read_text(encoding="utf-8")
-    text = visible_text(html)
     indexed = rel not in NOT_INDEXED
 
     if not re.search(r'<html lang="[a-zA-Z-]+"', html):
@@ -2128,6 +2316,14 @@ def sitemap_urls() -> list[str]:
     return re.findall(r"<loc>(.*?)</loc>", xml)
 
 
+def sitemap_lastmods(url: str) -> list[str]:
+    """Return lastmod values immediately associated with one sitemap URL."""
+    xml = (ROOT / "sitemap.xml").read_text(encoding="utf-8")
+    return re.findall(
+        rf"<loc>{re.escape(url)}</loc>\s*<lastmod>(.*?)</lastmod>", xml, re.S
+    )
+
+
 def check_site(paths: list[Path]) -> list[str]:
     failures: list[str] = []
     listed = sitemap_urls()
@@ -2203,6 +2399,7 @@ def html_files() -> list[Path]:
         p
         for p in ROOT.rglob("*.html")
         if not any(part.startswith(".") for part in p.relative_to(ROOT).parts)
+        and not (p.name.startswith("google") and p.name.endswith(".html"))
     )
 
 
@@ -2296,6 +2493,7 @@ def _self_check() -> None:
       <h2>Install in 2 commands</h2>
       <h2>Proof belongs beside the claim</h2>
       <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+      <a href="/evaluate/payday-super-evidence/">Payday Super evaluation</a>
       <section class="proof-feature">
         <a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
         <a href="/evidence/">Evidence</a>
@@ -2307,6 +2505,16 @@ def _self_check() -> None:
     homepage_failures: list[str] = []
     check_homepage_contract(valid_homepage, homepage_failures)
     assert homepage_failures == []
+    for href in HOMEPAGE_REQUIRED_HREFS:
+        missing_route_failures: list[str] = []
+        check_homepage_contract(
+            valid_homepage.replace(f'href="{href}"', 'href="/missing/"', 1),
+            missing_route_failures,
+        )
+        expect_failure(
+            missing_route_failures,
+            f"index.html: missing visible homepage route {href}",
+        )
 
     invalid_homepage = valid_homepage.replace(
         "I build accounting systems that can show their work.", ""
@@ -2357,6 +2565,86 @@ def _self_check() -> None:
     expect_failure(
         broken_contents_failures,
         "self-check: local contents target does not exist: #missing",
+    )
+    payday_toc_rel = "tools/payday-super/index.html"
+    valid_payday_toc = """
+    <article><nav aria-label="On this page">
+      <a href="#first">First</a>
+      <a href="#synthetic-worked-example">Synthetic worked example</a>
+      <a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>
+      <a href="#last">Last</a>
+    </nav><h2 id="first">First</h2><h2 id="synthetic-worked-example">Example</h2>
+    <h2 id="last">Last</h2></article>
+    """
+    payday_toc_failures: list[str] = []
+    check_article_pattern(valid_payday_toc, payday_toc_rel, payday_toc_failures)
+    assert payday_toc_failures == []
+    duplicate_payday_toc_failures: list[str] = []
+    check_article_pattern(
+        valid_payday_toc.replace(
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>',
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>'
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>',
+            1,
+        ),
+        payday_toc_rel,
+        duplicate_payday_toc_failures,
+    )
+    expect_failure(
+        duplicate_payday_toc_failures,
+        f"{payday_toc_rel}: external On this page link "
+        "'/evaluate/payday-super-evidence/' must appear once with label "
+        "'Evidence evaluation', found 2",
+    )
+    duplicate_payday_page_link_failures: list[str] = []
+    check_article_pattern(
+        valid_payday_toc.replace(
+            "</article>",
+            '<a href="/evaluate/payday-super-evidence/">Duplicate</a></article>',
+            1,
+        ),
+        payday_toc_rel,
+        duplicate_payday_page_link_failures,
+    )
+    expect_failure(
+        duplicate_payday_page_link_failures,
+        f"{payday_toc_rel}: evaluator link '/evaluate/payday-super-evidence/' "
+        "must appear once across the rendered page, found 2",
+    )
+    missing_payday_toc_failures: list[str] = []
+    check_article_pattern(
+        valid_payday_toc.replace(
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>', "", 1
+        ),
+        payday_toc_rel,
+        missing_payday_toc_failures,
+    )
+    expect_failure(
+        missing_payday_toc_failures,
+        f"{payday_toc_rel}: external On this page link "
+        "'/evaluate/payday-super-evidence/' must appear once with label "
+        "'Evidence evaluation', found 0",
+    )
+    misplaced_payday_toc_failures: list[str] = []
+    check_article_pattern(
+        valid_payday_toc.replace(
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>',
+            "",
+            1,
+        ).replace(
+            '<a href="#synthetic-worked-example">Synthetic worked example</a>',
+            '<a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>'
+            '<a href="#synthetic-worked-example">Synthetic worked example</a>',
+            1,
+        ),
+        payday_toc_rel,
+        misplaced_payday_toc_failures,
+    )
+    expect_failure(
+        misplaced_payday_toc_failures,
+        f"{payday_toc_rel}: external On this page link "
+        "'/evaluate/payday-super-evidence/' must immediately follow "
+        "'Synthetic worked example'",
     )
     valid_rate_region = (
         '<div role="region" aria-label="Reference rates" tabindex="0">'
@@ -2600,12 +2888,34 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
       {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
     </script>
     """
+    valid_payday_evaluation_html = """
+    <main id="main"><article>
+    <nav aria-label="On this page"><a href="#accounting-problem">Accounting problem</a><a href="#limitations">Limitations</a></nav>
+    <section id="accounting-problem"><h2>Accounting problem</h2><p>Contribution timing needs evidence.</p></section>
+    <section id="intended-reviewer"><h2>Intended reviewer</h2><p>A reviewer can reproduce this fabricated evaluation.</p></section>
+    <section id="fabricated-inputs"><h2>Fabricated inputs</h2><p>The fabricated inputs use a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee or live payroll data is included.</p></section>
+    <section id="reproduce"><h2>Reproduce</h2><p>Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test.</p><pre><code>uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o timely-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/late_remittance_no_receipt.csv --as-at 2026-08-20 -o late-remittance-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_on_due_date.csv --as-at 2026-08-20 -o on-time-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv --as-at 2026-08-20 -o late-receipt-report.csv
+uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q</code></pre></section>
+    <section id="expected-result"><h2>Expected result</h2><p>17 August 2026 and 20 August 2026.</p><p>timely_remittance_no_receipt.csv exits 2 with AT_RISK.</p><p>late_remittance_no_receipt.csv exits 2 with LATE.</p><p>receipt_on_due_date.csv exits 0 with ON_TIME.</p><p>receipt_after_due_date.csv exits 2 with LATE.</p><p>A missing receipt cannot prove on-time, remittance timing can prove late, and timely remittance without receipt remains at-risk.</p></section>
+    <section id="controls-triggered"><h2>Controls triggered</h2><p>AT_RISK, ON_TIME and LATE.</p></section>
+    <section id="primary-sources"><h2>Primary sources</h2><a href="https://www.legislation.gov.au/C2004A04402/latest/text">Legislation</a><a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Ruling</a><a href="https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/docs/primary-source-review-2026-08-15.md">Review</a></section>
+    <section id="versions"><h2>Versions</h2><p>Product release v0.1.2; fixture version 1; source reviewed 15 August 2026. v0.1.2 predates the evaluation directory and the evaluation artefacts are fixed to the merge commit.</p><a href="https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2">Release</a><a href="https://github.com/ryanduguid/payday-super-checker/tree/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence">Pack</a><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence/expected_results.json">Results</a><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/tests/test_evaluation_pack.py">Test</a></section>
+    <section id="human-decision"><h2>Human decision</h2><p>Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation and the other assessment facts before relying on a statutory conclusion.</p></section>
+    <section id="limitations"><h2>Limitations</h2><p>Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment.</p><a href="/evidence/">Evidence and Assurance</a></section>
+    </article></main>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}</script>
+    """
     evaluation_rel = "evaluate/manager-review-gate/index.html"
     evaluation_url = "https://ryanduguid.github.io/evaluate/manager-review-gate/"
     xero_evaluation_rel = "evaluate/xero-trial-balance-integrity/index.html"
     xero_evaluation_url = (
         "https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/"
     )
+    payday_evaluation_rel = "evaluate/payday-super-evidence/index.html"
+    payday_evaluation_url = "https://ryanduguid.github.io/evaluate/payday-super-evidence/"
     original_root = ROOT
     with tempfile.TemporaryDirectory() as temp_dir:
         ROOT = Path(temp_dir)
@@ -2615,13 +2925,18 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
                 sitemap: str = (
                     f"<loc>{evaluation_url}</loc>"
                     f"<loc>{xero_evaluation_url}</loc>"
+                    f"<loc>{payday_evaluation_url}</loc><lastmod>2026-08-26</lastmod>"
                 ),
-                llms: str = f"{evaluation_url}\n{xero_evaluation_url}",
+                llms: str = (
+                    "## Evaluation packs\n"
+                    f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}"
+                ),
                 target_rel: str = evaluation_rel,
             ) -> list[str]:
                 fixtures = {
                     evaluation_rel: valid_evaluation_html,
                     xero_evaluation_rel: valid_xero_evaluation_html,
+                    payday_evaluation_rel: valid_payday_evaluation_html,
                 }
                 assert target_rel in fixtures
                 fixtures[target_rel] = html
@@ -3098,6 +3413,196 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
                 ),
                 f"{xero_evaluation_rel}: product evidence URL commit must be "
                 f"{xero_commit}: {other_commit_url}",
+            )
+
+            def check_payday_evaluation_fixture(
+                html: str = valid_payday_evaluation_html,
+                sitemap: str | None = None,
+                llms: str | None = None,
+            ) -> list[str]:
+                args = {"html": html, "target_rel": payday_evaluation_rel}
+                if sitemap is not None:
+                    args["sitemap"] = sitemap
+                if llms is not None:
+                    args["llms"] = llms
+                return check_evaluation_fixture(**args)
+
+            assert check_payday_evaluation_fixture() == []
+            payday_article_pattern_failures: list[str] = []
+            check_article_pattern(
+                valid_payday_evaluation_html,
+                payday_evaluation_rel,
+                payday_article_pattern_failures,
+            )
+            assert payday_article_pattern_failures == []
+            missing_payday_article_toc = valid_payday_evaluation_html.replace(
+                '<nav aria-label="On this page"><a href="#accounting-problem">Accounting problem</a><a href="#limitations">Limitations</a></nav>',
+                "",
+                1,
+            )
+            missing_payday_article_toc_failures: list[str] = []
+            check_article_pattern(
+                missing_payday_article_toc,
+                payday_evaluation_rel,
+                missing_payday_article_toc_failures,
+            )
+            expect_failure(
+                missing_payday_article_toc_failures,
+                f"{payday_evaluation_rel}: expected exactly one On this page navigation",
+            )
+            payday_section_contracts = {
+                "fabricated-inputs": (
+                    "supported due date of 17 August 2026 and an as-at date of 20 August 2026"
+                ),
+                "reproduce": (
+                    "Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test."
+                ),
+                "limitations": (
+                    "This evaluation does not provide advice or make an ATO assessment."
+                ),
+            }
+            for section_id, required_text in payday_section_contracts.items():
+                expect_failure(
+                    check_payday_evaluation_fixture(
+                        valid_payday_evaluation_html.replace(required_text, "", 1)
+                    ),
+                    f"{payday_evaluation_rel}: #{section_id} missing visible "
+                    f"contract text {required_text!r}",
+                )
+            reversed_dates = (
+                "supported due date of 20 August 2026 and an as-at date of 17 August 2026"
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_section_contracts["fabricated-inputs"], reversed_dates, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: #fabricated-inputs missing visible "
+                f"contract text {payday_section_contracts['fabricated-inputs']!r}",
+            )
+            valid_payday_sitemap = (
+                f"<loc>{evaluation_url}</loc><loc>{xero_evaluation_url}</loc>"
+                f"<loc>{payday_evaluation_url}</loc><lastmod>2026-08-26</lastmod>"
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    sitemap=valid_payday_sitemap.replace("2026-08-26", "2026-08-25", 1)
+                ),
+                f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
+                "lastmod '2026-08-26' exactly once, found ['2026-08-25']",
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    sitemap=valid_payday_sitemap.replace(
+                        "<lastmod>2026-08-26</lastmod>", "", 1
+                    )
+                ),
+                f"sitemap.xml: evaluation URL {payday_evaluation_url} must have "
+                "lastmod '2026-08-26' exactly once, found []",
+            )
+            moved_payday_llms = (
+                "## Evaluation packs\n"
+                f"{evaluation_url}\n{xero_evaluation_url}\n"
+                f"## Other\n{payday_evaluation_url}"
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(llms=moved_payday_llms),
+                f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
+                "once in ## Evaluation packs, found 0",
+            )
+            duplicate_payday_llms = (
+                "## Evaluation packs\n"
+                f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}\n"
+                f"## Other\n{payday_evaluation_url}"
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(llms=duplicate_payday_llms),
+                f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
+                "once globally, found 2",
+            )
+            payday_source_url = (
+                "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+                "docs/primary-source-review-2026-08-15.md"
+            )
+            payday_source_main_url = payday_source_url.replace("/v0.1.2/", "/main/")
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_source_url, payday_source_main_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: #primary-sources evidence hrefs must match "
+                f"exactly once; missing {[payday_source_url]!r}; unexpected "
+                f"{[payday_source_main_url]!r}",
+            )
+            payday_commit = "139f4e5603f5a383b5d2f23874a4d4c345a1fb71"
+            payday_test_url = (
+                "https://github.com/ryanduguid/payday-super-checker/blob/"
+                f"{payday_commit}/tests/test_evaluation_pack.py"
+            )
+            payday_main_url = payday_test_url.replace(f"/{payday_commit}/", "/main/")
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_test_url, payday_main_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL must not use "
+                f"/blob/main/: {payday_main_url}",
+            )
+            payday_tree_url = (
+                "https://github.com/ryanduguid/payday-super-checker/tree/"
+                f"{payday_commit}/evaluation/payday_super_evidence"
+            )
+            other_payday_commit = "0123456789abcdef0123456789abcdef01234567"
+            tampered_tree_url = payday_tree_url.replace(
+                payday_commit, other_payday_commit
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_tree_url, tampered_tree_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL commit must be "
+                f"{payday_commit}: {tampered_tree_url}",
+            )
+            short_payday_test_url = payday_test_url.replace(
+                payday_commit, payday_commit[:7]
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_test_url, short_payday_test_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL must contain a "
+                f"40-character commit: {short_payday_test_url}",
+            )
+            wrong_payday_test_url = payday_test_url.replace(
+                payday_commit, other_payday_commit
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_test_url, wrong_payday_test_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL commit must be "
+                f"{payday_commit}: {wrong_payday_test_url}",
+            )
+            payday_human_decision = (
+                "Remittance evidence can show operational timing but cannot prove on-time; "
+                "a human must establish eligible fund receipt, allocation and the other "
+                "assessment facts before relying on a statutory conclusion."
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(payday_human_decision, "", 1)
+                ),
+                f"{payday_evaluation_rel}: missing visible contract text "
+                f"{payday_human_decision!r}",
             )
         finally:
             ROOT = original_root
