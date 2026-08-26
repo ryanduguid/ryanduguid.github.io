@@ -251,15 +251,24 @@ def visible_html(html: str) -> str:
     hidden_attribute = re.compile(
         r"(?:^|\s)hidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
         r"|(?:^|\s)aria-hidden\s*=\s*(?:\"true\"|'true'|true)"
-        r"|(?:^|\s)class\s*=\s*(?:"
-        r'"\s*(?:[^"\s]+\s+)*visually-hidden(?:\s+[^"\s]+)*\s*"'
-        r"|'\s*(?:[^'\s]+\s+)*visually-hidden(?:\s+[^'\s]+)*\s*'"
-        r"|visually-hidden(?=\s|$))"
         r"|(?:^|\s)style\s*=\s*(?:\"[^\"]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\"]*\""
         r"|'[^']*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^']*'"
         r"|[^\s>]*(?:display\s*:\s*none\b|visibility\s*:\s*hidden\b)[^\s>]*)",
         re.I,
     )
+    class_attribute = re.compile(
+        r'(?:^|\s)class\s*=\s*(?:"(?P<double>[^"]*)"'
+        r"|'(?P<single>[^']*)'|(?P<unquoted>[^\s>]+))",
+        re.I,
+    )
+
+    def has_visually_hidden_class(attrs: str) -> bool:
+        match = class_attribute.search(attrs)
+        if not match:
+            return False
+        value = next(group for group in match.groups() if group is not None)
+        return "visually-hidden" in html_lib.unescape(value).split()
+
     void_elements = {
         "area",
         "base",
@@ -292,7 +301,9 @@ def visible_html(html: str) -> str:
                 del hidden_stack[start:]
             elif not closing and not self_closing:
                 hidden_stack.append(name)
-        elif not closing and hidden_attribute.search(attrs):
+        elif not closing and (
+            hidden_attribute.search(attrs) or has_visually_hidden_class(attrs)
+        ):
             rendered.append(" ")
             if not self_closing:
                 hidden_stack.append(name)
@@ -2367,6 +2378,16 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
                     "<p>SELF_REVIEW_INCOMPLETE</p>",
                     "<p>SELF_REVIEW_CHANGED</p>"
                     "<p class='visually-hidden'>SELF_REVIEW_INCOMPLETE</p>",
+                ),
+                f"{evaluation_rel}: missing visible contract text "
+                "'SELF_REVIEW_INCOMPLETE'",
+            )
+            require_failures(
+                changed(
+                    "<p>SELF_REVIEW_INCOMPLETE</p>",
+                    "<p>SELF_REVIEW_CHANGED</p>"
+                    '<div class="visually&#45;hidden">'
+                    "<span>SELF_REVIEW_INCOMPLETE</span></div>",
                 ),
                 f"{evaluation_rel}: missing visible contract text "
                 "'SELF_REVIEW_INCOMPLETE'",
