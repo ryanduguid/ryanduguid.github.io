@@ -11,7 +11,7 @@ Checks, in order, per file:
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects), except
-   HTTP 403 from exactly https://www.ato.gov.au/ is accepted as an automation
+   HTTP 403 from three exact ATO source URLs is accepted as an automation
    denial.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
@@ -57,6 +57,22 @@ USER_AGENT = "ryanduguid.github.io-link-check"
 
 SELF_ORIGIN = "https://ryanduguid.github.io"
 
+ATO_AUTOMATION_DENIAL_URLS = frozenset(
+    {
+        "https://www.ato.gov.au/",
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "preparing-lodging-and-paying/business-activity-statements-bas"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "gst-excise-and-indirect-taxes/gst/"
+            "lodging-your-bas-or-annual-gst-return/"
+            "options-for-reporting-and-paying-gst/monthly-gst-reporting"
+        ),
+    }
+)
+
 
 class LinkCollector(HTMLParser):
     def __init__(self) -> None:
@@ -80,8 +96,8 @@ def fetch_final_url(url: str) -> tuple[int, str]:
 
 
 def is_accepted_automation_denial(url: str, status: int) -> bool:
-    """True only for the ATO root denial reproduced on GitHub runners."""
-    return url == "https://www.ato.gov.au/" and status == 403
+    """True only for exact ATO source denials reproduced on GitHub runners."""
+    return url in ATO_AUTOMATION_DENIAL_URLS and status == 403
 
 
 def is_self_origin(href: str) -> bool:
@@ -153,7 +169,7 @@ def check_file(path: Path) -> list[str]:
             if is_accepted_automation_denial(href, exc.code):
                 print(
                     f"accepted automation denial {rel}: {href} -> HTTP {exc.code} "
-                    "(exact ATO root only)"
+                    "(exact allow-listed ATO URL)"
                 )
             else:
                 failures.append(f"{rel}: {href} -> HTTP {exc.code}")
@@ -195,6 +211,17 @@ def _self_check() -> None:
     assert is_accepted_automation_denial(
         "https://www.ato.gov.au/", 403
     ), "exact ATO root HTTP 403 must be an accepted automation denial"
+    assert is_accepted_automation_denial(
+        "https://www.ato.gov.au/businesses-and-organisations/"
+        "preparing-lodging-and-paying/business-activity-statements-bas",
+        403,
+    ), "exact ATO BAS HTTP 403 must be an accepted automation denial"
+    assert is_accepted_automation_denial(
+        "https://www.ato.gov.au/businesses-and-organisations/"
+        "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
+        "options-for-reporting-and-paying-gst/monthly-gst-reporting",
+        403,
+    ), "exact ATO monthly GST HTTP 403 must be an accepted automation denial"
     assert not is_accepted_automation_denial("https://www.ato.gov.au/about-us/", 403), (
         "an ATO path HTTP 403 must still fail"
     )
