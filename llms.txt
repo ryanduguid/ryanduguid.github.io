@@ -1,6 +1,6 @@
 # Ryan Duguid
 
-> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. This site is the index of those tools and provides a scoped route for enquiries. It does not offer tax or BAS agent services.
+> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. Distinct from the US software product executive of the same name. This site is the index of those tools and provides a scoped route for enquiries. It does not offer tax or BAS agent services.
 
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic, client data stays local, and lodgement decisions stay with a qualified professional. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution, and should be verified against current guidance before anyone relies on them.
 
@@ -16,7 +16,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Person
 
-- [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
+- [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Distinct from the US software product executive of the same name. Machine-readable Person data is in the JSON-LD on that page.
 
 ## Evaluation packs
 
