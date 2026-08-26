@@ -159,6 +159,40 @@ WORKED_EXAMPLES = {
         },
     },
 }
+EVALUATION_PACKS = {
+    "evaluate/manager-review-gate/index.html": {
+        "url": f"{SITE}/evaluate/manager-review-gate/",
+        "labels": (
+            "Accounting problem",
+            "Fabricated inputs",
+            "Expected result",
+            "Controls triggered",
+            "Human decision",
+            "Reproduce",
+            "Primary sources",
+            "Versions",
+            "Limitations",
+        ),
+        "version_labels": (
+            "Product release v0.1.1",
+            "fixture version 1",
+            "source reviewed 2026-08-26",
+        ),
+        "evidence_urls": (
+            "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+            "evaluation/manager_review_gate",
+            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "evaluation/manager_review_gate/expected_results.json",
+            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "tests/test_evaluation_pack.py",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "preparing-lodging-and-paying/business-activity-statements-bas",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
+            "options-for-reporting-and-paying-gst/monthly-gst-reporting",
+        ),
+    },
+}
 
 warnings: list[str] = []
 
@@ -283,6 +317,7 @@ HOMEPAGE_PROOF_HREFS = [
 ]
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
+    "evaluate/manager-review-gate/index.html",
     "evidence/index.html",
     "tools/ato-benchmarks/index.html",
     "tools/australian-tax-ai-agents/index.html",
@@ -1405,6 +1440,66 @@ def check_worked_examples() -> list[str]:
     return failures
 
 
+def check_evaluation_packs() -> list[str]:
+    """Keep evaluator pages tied to immutable fabricated evidence."""
+    failures: list[str] = []
+    listed = sitemap_urls()
+    llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
+    for rel, expected in EVALUATION_PACKS.items():
+        url = expected["url"]
+        sitemap_count = listed.count(url)
+        if sitemap_count != 1:
+            failures.append(
+                f"sitemap.xml: evaluation URL {url} must appear once, "
+                f"found {sitemap_count}"
+            )
+        llms_count = llms.count(url)
+        if llms_count != 1:
+            failures.append(
+                f"llms.txt: evaluation URL {url} must appear once, found {llms_count}"
+            )
+
+        path = ROOT / rel
+        if not path.is_file():
+            failures.append(f"{rel}: evaluation page does not exist")
+            continue
+
+        html = path.read_text(encoding="utf-8")
+        rendered = visible_html(html)
+        text = visible_text(rendered)
+        hrefs = anchor_hrefs(rendered)
+        for label in expected["labels"]:
+            if label not in text:
+                failures.append(f"{rel}: missing visible evaluation label {label!r}")
+        for label in expected["version_labels"]:
+            if label not in text:
+                failures.append(f"{rel}: missing visible version label {label!r}")
+        for evidence_url in expected["evidence_urls"]:
+            if evidence_url not in hrefs:
+                failures.append(f"{rel}: missing visible evidence link {evidence_url}")
+        if "/evidence/" not in hrefs:
+            failures.append(f"{rel}: no visible link to /evidence/")
+        if any(
+            "/blob/main/" in href or "/tree/main/" in href
+            for href in hrefs
+        ):
+            failures.append(f"{rel}: evaluator evidence must not use a main URL")
+        if re.search(r"\bcase[- ]stud(?:y|ies)\b", html, re.I):
+            failures.append(f"{rel}: must not use client case-study wording")
+
+        page_nodes = [
+            node
+            for block in json_ld_blocks(html, rel, failures)
+            for node in nodes(block)
+        ]
+        articles = [node for node in page_nodes if has_type(node, "TechArticle")]
+        if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
+            failures.append(
+                f"{rel}: TechArticle must be authored by the canonical Person"
+            )
+    return failures
+
+
 def robots_groups(robots: str) -> dict[str, list[str]]:
     """Parse the simple one-agent robots groups used by this site."""
     groups: dict[str, list[str]] = {}
@@ -1679,6 +1774,7 @@ def check_site(paths: list[Path]) -> list[str]:
     failures.extend(check_evidence_page())
     failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
+    failures.extend(check_evaluation_packs())
     failures.extend(check_robots_policy(robots))
 
     print(f"checked sitemap.xml ({len(listed)} URLs), llms.txt, robots.txt")
