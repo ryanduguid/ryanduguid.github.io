@@ -24,6 +24,7 @@ then visit `http://localhost:8000/`.
 - retired repository names and em or en dashes must not appear
 - every page carries a title, a meta description in the length band, a canonical matching its own path, Open Graph tags and parseable JSON-LD; ItemList counts and positions must match their entries
 - every question marked up as an FAQ is visible on the page that claims it
+- every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 
 Run locally:
