@@ -178,6 +178,15 @@ EVALUATION_PACKS = {
             "fixture version 1",
             "source reviewed 2026-08-26",
         ),
+        "contract_text": (
+            "Exit 2 with NOT_READY",
+            "MISSING_ARTEFACT for gst_control_gl",
+            "SELF_REVIEW_INCOMPLETE",
+            "OPEN_ITEM_BLOCKING",
+            "Exit 0 with READY and no configured findings",
+            "READY means no configured gate tripped; it is not approval, advice or "
+            "lodgment authority.",
+        ),
         "evidence_urls": (
             "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
             "evaluation/manager_review_gate",
@@ -1474,6 +1483,39 @@ def check_evaluation_packs() -> list[str]:
         for label in expected["version_labels"]:
             if label not in text:
                 failures.append(f"{rel}: missing visible version label {label!r}")
+        release_label_tags = {
+            "p",
+            "li",
+            "dt",
+            "dd",
+            "th",
+            "td",
+            "span",
+            "strong",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "h5",
+            "h6",
+        }
+        release_labels = [
+            element_text(element)
+            for element in descendants(
+                parse_structure(rendered), rendered_only=True
+            )
+            if element.tag in release_label_tags
+            and "product release" in element_text(element).casefold()
+        ]
+        if any("v0.1.0" in label.casefold() for label in release_labels):
+            failures.append(
+                f"{rel}: visible product release must not name v0.1.0"
+            )
+        for contract_text in expected["contract_text"]:
+            if contract_text not in text:
+                failures.append(
+                    f"{rel}: missing visible contract text {contract_text!r}"
+                )
         for evidence_url in expected["evidence_urls"]:
             if evidence_url not in hrefs:
                 failures.append(f"{rel}: missing visible evidence link {evidence_url}")
@@ -1484,6 +1526,17 @@ def check_evaluation_packs() -> list[str]:
             for href in hrefs
         ):
             failures.append(f"{rel}: evaluator evidence must not use a main URL")
+        if any(
+            href.startswith(
+                "https://github.com/ryanduguid/review-ready-gate/"
+            )
+            and ("/blob/v0.1.0/" in href or "/tree/v0.1.0/" in href)
+            for href in hrefs
+        ):
+            failures.append(
+                f"{rel}: evaluator evidence must not use failed "
+                "review-ready-gate tag v0.1.0"
+            )
         if re.search(r"\bcase[- ]stud(?:y|ies)\b", html, re.I):
             failures.append(f"{rel}: must not use client case-study wording")
 
@@ -2092,6 +2145,116 @@ def _self_check() -> None:
         mutation_failures: list[str] = []
         check_calculator_contract(mutated_calculator, mutation_failures)
         expect_failure(mutation_failures, expected_failure)
+
+    valid_evaluation_html = """
+    <h2>Accounting problem</h2><h2>Fabricated inputs</h2>
+    <h2>Expected result</h2><h2>Controls triggered</h2>
+    <h2>Human decision</h2><h2>Reproduce</h2>
+    <h2>Primary sources</h2><h2>Versions</h2><h2>Limitations</h2>
+    <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
+    <p>Exit 2 with NOT_READY.</p>
+    <p>MISSING_ARTEFACT for gst_control_gl</p>
+    <p>SELF_REVIEW_INCOMPLETE</p>
+    <p>OPEN_ITEM_BLOCKING</p>
+    <p>Exit 0 with READY and no configured findings.</p>
+    <p>READY means no configured gate tripped; it is not approval, advice or lodgment authority.</p>
+    <a href="/evidence/">Evidence</a>
+    <a href="https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/evaluation/manager_review_gate">Pack</a>
+    <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
+    <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
+    <a href="https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas">BAS</a>
+    <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting">GST</a>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
+    </script>
+    """
+    evaluation_rel = "evaluate/manager-review-gate/index.html"
+    evaluation_url = "https://ryanduguid.github.io/evaluate/manager-review-gate/"
+    original_root = ROOT
+    with tempfile.TemporaryDirectory() as temp_dir:
+        ROOT = Path(temp_dir)
+        try:
+            evaluation_path = ROOT / evaluation_rel
+            evaluation_path.parent.mkdir(parents=True)
+            (ROOT / "sitemap.xml").write_text(
+                f"<loc>{evaluation_url}</loc>", encoding="utf-8"
+            )
+            (ROOT / "llms.txt").write_text(evaluation_url, encoding="utf-8")
+            evaluation_path.write_text(valid_evaluation_html, encoding="utf-8")
+            assert check_evaluation_packs() == []
+
+            evaluation_path.write_text(
+                valid_evaluation_html.replace(
+                    "<p>SELF_REVIEW_INCOMPLETE</p>", ""
+                ),
+                encoding="utf-8",
+            )
+            missing_finding_failures = check_evaluation_packs()
+            assert (
+                f"{evaluation_rel}: missing visible contract text "
+                "'SELF_REVIEW_INCOMPLETE'"
+                in missing_finding_failures
+            )
+
+            evaluation_path.write_text(
+                valid_evaluation_html.replace(
+                    "READY means no configured gate tripped; it is not approval, "
+                    "advice or lodgment authority.",
+                    "READY means the pack has been approved for lodgment.",
+                ),
+                encoding="utf-8",
+            )
+            changed_boundary_failures = check_evaluation_packs()
+            assert (
+                f"{evaluation_rel}: missing visible contract text "
+                "'READY means no configured gate tripped; it is not approval, "
+                "advice or lodgment authority.'"
+                in changed_boundary_failures
+            )
+
+            evaluation_path.write_text(
+                valid_evaluation_html.replace(
+                    "Exit 0 with READY and no configured findings.",
+                    "Exit 0 with READY after review.",
+                ),
+                encoding="utf-8",
+            )
+            changed_ready_failures = check_evaluation_packs()
+            assert (
+                f"{evaluation_rel}: missing visible contract text "
+                "'Exit 0 with READY and no configured findings'"
+                in changed_ready_failures
+            )
+
+            evaluation_path.write_text(
+                valid_evaluation_html.replace(
+                    "Product release v0.1.1", "Product release v0.1.0"
+                ),
+                encoding="utf-8",
+            )
+            failed_release_label_failures = check_evaluation_packs()
+            assert (
+                f"{evaluation_rel}: visible product release must not name v0.1.0"
+                in failed_release_label_failures
+            )
+
+            evaluation_path.write_text(
+                valid_evaluation_html.replace(
+                    "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+                    "evaluation/manager_review_gate",
+                    "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.0/"
+                    "evaluation/manager_review_gate",
+                ),
+                encoding="utf-8",
+            )
+            failed_tag_link_failures = check_evaluation_packs()
+            assert (
+                f"{evaluation_rel}: evaluator evidence must not use failed "
+                "review-ready-gate tag v0.1.0"
+                in failed_tag_link_failures
+            )
+        finally:
+            ROOT = original_root
 
     assert not missing_negative_failures, (
         "negative self-check fixtures did not emit their required messages:\n  "
