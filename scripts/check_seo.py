@@ -895,6 +895,16 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
     external_href = external_label = preceding_label = None
     if external_contract:
         external_href, external_label, preceding_label = external_contract
+        rendered_evaluator_links = [
+            link
+            for link in descendants(root, "a", rendered_only=True)
+            if link.attr("href") == external_href
+        ]
+        if len(rendered_evaluator_links) != 1:
+            failures.append(
+                f"{rel}: evaluator link {external_href!r} must appear once "
+                f"across the rendered page, found {len(rendered_evaluator_links)}"
+            )
         matching_external_links = [
             link for link in links if link.attr("href") == external_href
         ]
@@ -1881,14 +1891,20 @@ def check_evaluation_packs() -> list[str]:
                     f"{sitemap_lastmod!r} exactly once, found {actual_lastmods!r}"
                 )
         llms_section = expected.get("llms_section")
-        llms_scope = markdown_section(llms, llms_section) if llms_section else llms
-        llms_count = llms_scope.count(url)
+        llms_count = llms.count(url)
         if llms_count != 1:
-            section_suffix = f" in ## {llms_section}" if llms_section else ""
+            global_suffix = " globally" if llms_section else ""
             failures.append(
-                f"llms.txt: evaluation URL {url} must appear once{section_suffix}, "
+                f"llms.txt: evaluation URL {url} must appear once{global_suffix}, "
                 f"found {llms_count}"
             )
+        if llms_section:
+            section_count = markdown_section(llms, llms_section).count(url)
+            if section_count != 1:
+                failures.append(
+                    f"llms.txt: evaluation URL {url} must appear once in ## "
+                    f"{llms_section}, found {section_count}"
+                )
 
         path = ROOT / rel
         if not path.is_file():
@@ -2579,6 +2595,21 @@ def _self_check() -> None:
         f"{payday_toc_rel}: external On this page link "
         "'/evaluate/payday-super-evidence/' must appear once with label "
         "'Evidence evaluation', found 2",
+    )
+    duplicate_payday_page_link_failures: list[str] = []
+    check_article_pattern(
+        valid_payday_toc.replace(
+            "</article>",
+            '<a href="/evaluate/payday-super-evidence/">Duplicate</a></article>',
+            1,
+        ),
+        payday_toc_rel,
+        duplicate_payday_page_link_failures,
+    )
+    expect_failure(
+        duplicate_payday_page_link_failures,
+        f"{payday_toc_rel}: evaluator link '/evaluate/payday-super-evidence/' "
+        "must appear once across the rendered page, found 2",
     )
     missing_payday_toc_failures: list[str] = []
     check_article_pattern(
@@ -3479,6 +3510,16 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
                 check_payday_evaluation_fixture(llms=moved_payday_llms),
                 f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
                 "once in ## Evaluation packs, found 0",
+            )
+            duplicate_payday_llms = (
+                "## Evaluation packs\n"
+                f"{evaluation_url}\n{xero_evaluation_url}\n{payday_evaluation_url}\n"
+                f"## Other\n{payday_evaluation_url}"
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(llms=duplicate_payday_llms),
+                f"llms.txt: evaluation URL {payday_evaluation_url} must appear "
+                "once globally, found 2",
             )
             payday_source_url = (
                 "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
