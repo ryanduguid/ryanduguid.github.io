@@ -2041,7 +2041,6 @@ def check_file(path: Path) -> list[str]:
     failures: list[str] = []
     rel = path.relative_to(ROOT).as_posix()
     html = path.read_text(encoding="utf-8")
-    text = visible_text(html)
     indexed = rel not in NOT_INDEXED
 
     if not re.search(r'<html lang="[a-zA-Z-]+"', html):
