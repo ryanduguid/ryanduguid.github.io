@@ -203,6 +203,7 @@ def html_files() -> list[Path]:
         p
         for p in ROOT.rglob("*.html")
         if not any(part.startswith(".") for part in p.relative_to(ROOT).parts)
+        and not (p.name.startswith("google") and p.name.endswith(".html"))
     )
 
 
