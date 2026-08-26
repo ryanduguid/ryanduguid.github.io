@@ -18,6 +18,12 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
 
+## Evaluation packs
+
+- [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
+- [Xero trial balance integrity evaluation](https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
+- [Payday Super timing evidence evaluation](https://ryanduguid.github.io/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
+
 ## Reference tables
 
 - [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
@@ -28,22 +34,16 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
 
-## Evaluation packs
-
-- [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
-- [Xero trial balance integrity evaluation](https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
-- [Payday Super timing evidence evaluation](https://ryanduguid.github.io/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
-
 ## Tool guides, open source, install and run locally
 
 - [Payday super due dates and SG charge](https://ryanduguid.github.io/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
+- [Is this pack allowed into manager review](https://ryanduguid.github.io/tools/review-ready-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
+- [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
 - [ATO small business benchmark comparison](https://ryanduguid.github.io/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
+- [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
+- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
 - [Section 100A and Division 6 trust distributions](https://ryanduguid.github.io/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
 - [Company tax rate and franking account](https://ryanduguid.github.io/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
-- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
-- [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
-- [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
-- [Is this pack allowed into manager review](https://ryanduguid.github.io/tools/review-ready-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
 
 ## Supported installation
 
