@@ -1483,33 +1483,9 @@ def check_evaluation_packs() -> list[str]:
         for label in expected["version_labels"]:
             if label not in text:
                 failures.append(f"{rel}: missing visible version label {label!r}")
-        release_label_tags = {
-            "p",
-            "li",
-            "dt",
-            "dd",
-            "th",
-            "td",
-            "span",
-            "strong",
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "h5",
-            "h6",
-        }
-        release_labels = [
-            element_text(element)
-            for element in descendants(
-                parse_structure(rendered), rendered_only=True
-            )
-            if element.tag in release_label_tags
-            and "product release" in element_text(element).casefold()
-        ]
-        if any("v0.1.0" in label.casefold() for label in release_labels):
+        if "v0.1.0" in text:
             failures.append(
-                f"{rel}: visible product release must not name v0.1.0"
+                f"{rel}: visible evaluator text must not name v0.1.0"
             )
         for contract_text in expected["contract_text"]:
             if contract_text not in text:
@@ -2228,14 +2204,15 @@ def _self_check() -> None:
 
             evaluation_path.write_text(
                 valid_evaluation_html.replace(
-                    "Product release v0.1.1", "Product release v0.1.0"
+                    "<h2>Limitations</h2>",
+                    "<h2>Limitations</h2><code>v0.1.0</code>",
                 ),
                 encoding="utf-8",
             )
-            failed_release_label_failures = check_evaluation_packs()
+            visible_failed_version_failures = check_evaluation_packs()
             assert (
-                f"{evaluation_rel}: visible product release must not name v0.1.0"
-                in failed_release_label_failures
+                f"{evaluation_rel}: visible evaluator text must not name v0.1.0"
+                in visible_failed_version_failures
             )
 
             evaluation_path.write_text(
