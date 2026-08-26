@@ -163,6 +163,22 @@ WORKED_EXAMPLES = {
 EVALUATION_PACKS = {
     "evaluate/manager-review-gate/index.html": {
         "url": f"{SITE}/evaluate/manager-review-gate/",
+        "product_repository": "https://github.com/ryanduguid/review-ready-gate",
+        "product_evidence_contract": (
+            "global review-ready-gate evidence hrefs must match approved v0.1.1 "
+            "URLs exactly once"
+        ),
+        "sections": (
+            ("accounting-problem", "Accounting problem"),
+            ("fabricated-inputs", "Fabricated inputs"),
+            ("expected-result", "Expected result"),
+            ("controls-triggered", "Controls triggered"),
+            ("human-decision", "Human decision"),
+            ("reproduce", "Reproduce"),
+            ("primary-sources", "Primary sources"),
+            ("versions", "Versions"),
+            ("limitations", "Limitations"),
+        ),
         "labels": (
             "Accounting problem",
             "Fabricated inputs",
@@ -213,6 +229,100 @@ EVALUATION_PACKS = {
             "https://www.ato.gov.au/businesses-and-organisations/"
             "gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/"
             "options-for-reporting-and-paying-gst/monthly-gst-reporting",
+        ),
+    },
+    "evaluate/xero-trial-balance-integrity/index.html": {
+        "url": f"{SITE}/evaluate/xero-trial-balance-integrity/",
+        "product_repository": (
+            "https://github.com/ryanduguid/xero-trial-balance-export"
+        ),
+        "product_evidence_contract": (
+            "global xero-trial-balance-export evidence hrefs must match approved "
+            "permanent URLs exactly once"
+        ),
+        "permanent_commit": "787f936d373fed47591102d4c24d0c5edf6b1861",
+        "sections": (
+            ("accounting-problem", "Accounting problem"),
+            ("intended-reviewer", "Intended reviewer"),
+            ("fabricated-inputs", "Fabricated inputs"),
+            ("reproduce", "Reproduce"),
+            ("expected-result", "Expected result"),
+            ("controls-triggered", "Controls triggered"),
+            ("primary-sources", "Primary sources"),
+            ("versions", "Versions"),
+            ("human-decision", "Human decision"),
+            ("limitations", "Limitations"),
+        ),
+        "labels": (
+            "Accounting problem",
+            "Fabricated inputs",
+            "Expected result",
+            "Controls triggered",
+            "Human decision",
+            "Reproduce",
+            "Primary sources",
+            "Versions",
+            "Limitations",
+        ),
+        "version_labels": (
+            "Product release v0.1.4",
+            "fixture version 1",
+            "source reviewed 2026-08-26",
+        ),
+        "reproduction_recipe": (
+            "python -m pip install --require-hashes -r requirements.lock",
+            "python -B -m unittest tests.test_evaluation_pack -v",
+            "python -B -m unittest discover -s tests -v",
+            "python evaluation/xero_tb_integrity/run.py "
+            "evaluation/xero_tb_integrity/fixtures/passing.csv",
+            "python evaluation/xero_tb_integrity/run.py "
+            "evaluation/xero_tb_integrity/fixtures/failing_movement.csv",
+            "python evaluation/xero_tb_integrity/run.py "
+            "evaluation/xero_tb_integrity/fixtures/failing_ytd.csv",
+        ),
+        "contract_text": (
+            "The production tool reads trial balance data directly from Xero's "
+            "Accounting API Reports endpoint.",
+            "This pack is for a reviewer who wants to reproduce the offline integrity "
+            "gate without connecting to Xero or handling client data.",
+            "The three CSV files are fabricated output-shape fixtures.",
+            "They are not Xero API responses or client records, and no OAuth flow runs "
+            "in this evaluation.",
+            "No Xero tenant credentials or tenant data are used.",
+            "Dependency installation may download the hash-locked packages.",
+            "Once dependencies are installed, the three evaluation runner commands "
+            "are fully offline, make no network request and write no output file.",
+            "passing.csv exits 0 and reports that movement and YTD balance.",
+            "failing_movement.csv exits 1, identifies the movement pair and reports "
+            "Nothing written.",
+            "failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing "
+            "written.",
+            "failing_movement.csv breaks only the current-month Debit/Credit pair.",
+            "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
+            "The evaluation runner calls the production check_balanced gate before "
+            "any CSV write.",
+            "A balanced export passes this integrity control only; a human still "
+            "decides completeness, classification, accounting treatment and fitness "
+            "for review.",
+            "This control does not prove completeness, classification, accounting "
+            "treatment or client approval.",
+            "It does not assess source-data accuracy, reporting-period suitability or "
+            "fitness for a particular client review.",
+        ),
+        "product_evidence_urls": (
+            "https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/"
+            "v0.1.4",
+            "https://github.com/ryanduguid/xero-trial-balance-export/tree/"
+            "787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity",
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
+            "787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/"
+            "xero_tb_integrity/expected_results.json",
+            "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
+            "787f936d373fed47591102d4c24d0c5edf6b1861/tests/test_evaluation_pack.py",
+        ),
+        "primary_source_urls": (
+            "https://developer.xero.com/documentation/api/accounting/reports",
+            "https://developer.xero.com/documentation/guides/oauth2/scopes/",
         ),
     },
 }
@@ -356,6 +466,7 @@ HOMEPAGE_PROOF_HREFS = [
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
+    "evaluate/xero-trial-balance-integrity/index.html",
     "evidence/index.html",
     "tools/ato-benchmarks/index.html",
     "tools/australian-tax-ai-agents/index.html",
@@ -1478,6 +1589,105 @@ def check_worked_examples() -> list[str]:
     return failures
 
 
+def evaluation_article_html(
+    rendered: str, rel: str, failures: list[str]
+) -> str | None:
+    """Return the sole visible evaluator article within the sole main#main."""
+    root = parse_structure(rendered)
+    mains = descendants(root, "main", rendered_only=True)
+    if len(mains) != 1:
+        failures.append(
+            f"{rel}: expected exactly one visible main, found {len(mains)}"
+        )
+        return None
+    if mains[0].attr("id") != "main":
+        failures.append(
+            f"{rel}: visible main id must be 'main', found {mains[0].attr('id')!r}"
+        )
+        return None
+
+    articles = descendants(root, "article", rendered_only=True)
+    contained_articles = [
+        article for article in articles if is_descendant(article, mains[0])
+    ]
+    if len(contained_articles) != 1:
+        failures.append(
+            f"{rel}: main#main must contain exactly one visible evaluator article, "
+            f"found {len(contained_articles)}"
+        )
+        return None
+    if len(articles) != 1:
+        failures.append(
+            f"{rel}: expected exactly one visible evaluator article, "
+            f"found {len(articles)}"
+        )
+        return None
+
+    article_match = re.search(
+        r"<article\b[^>]*>.*?</article\s*>", rendered, re.S | re.I
+    )
+    if article_match is None:
+        failures.append(f"{rel}: could not isolate the visible evaluator article")
+        return None
+    return article_match.group(0)
+
+
+def check_evaluation_structure(
+    rendered: str, rel: str, expected: dict, failures: list[str]
+) -> None:
+    """Require the evaluator's body sections, headings, order and assurance link."""
+    root = parse_structure(rendered)
+    configured_sections = expected["sections"]
+    configured_ids = [identifier for identifier, _heading in configured_sections]
+    actual_ids = [
+        section.attr("id") or ""
+        for section in descendants(root, "section", rendered_only=True)
+    ]
+    if actual_ids != configured_ids:
+        failures.append(
+            f"{rel}: evaluation section order must be {configured_ids!r}, "
+            f"found {actual_ids!r}"
+        )
+
+    sections_by_id = {
+        identifier: [
+            section
+            for section in descendants(root, "section", rendered_only=True)
+            if section.attr("id") == identifier
+        ]
+        for identifier in configured_ids
+    }
+    for identifier, configured_heading in configured_sections:
+        sections = sections_by_id[identifier]
+        if len(sections) != 1:
+            failures.append(
+                f"{rel}: section #{identifier} must appear exactly once, "
+                f"found {len(sections)}"
+            )
+            continue
+        headings = descendants(sections[0], "h2", rendered_only=True)
+        actual_heading = element_text(headings[0]) if len(headings) == 1 else ""
+        if actual_heading != configured_heading:
+            failures.append(
+                f"{rel}: #{identifier} heading must be {configured_heading!r}, "
+                f"found {actual_heading!r}"
+            )
+
+    limitations = sections_by_id.get("limitations", [])
+    assurance_count = 0
+    if len(limitations) == 1:
+        assurance_count = sum(
+            anchor.attr("href") == "/evidence/"
+            and element_text(anchor) == "Evidence and Assurance"
+            for anchor in descendants(limitations[0], "a", rendered_only=True)
+        )
+    if assurance_count != 1:
+        failures.append(
+            f"{rel}: #limitations must link /evidence/ with visible label "
+            f"'Evidence and Assurance' exactly once, found {assurance_count}"
+        )
+
+
 def check_evaluation_packs() -> list[str]:
     """Keep evaluator pages tied to immutable fabricated evidence."""
     failures: list[str] = []
@@ -1503,9 +1713,25 @@ def check_evaluation_packs() -> list[str]:
             continue
 
         html = path.read_text(encoding="utf-8")
+        page_nodes = [
+            node
+            for block in json_ld_blocks(html, rel, failures)
+            for node in nodes(block)
+        ]
+        articles = [node for node in page_nodes if has_type(node, "TechArticle")]
+        if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
+            failures.append(
+                f"{rel}: TechArticle must be authored by the canonical Person"
+            )
+
         rendered = visible_html(html)
+        article_html = evaluation_article_html(rendered, rel, failures)
+        if article_html is None:
+            continue
+        rendered = article_html
         text = visible_text(rendered)
         hrefs = anchor_hrefs(rendered)
+        check_evaluation_structure(rendered, rel, expected, failures)
         for label in expected["labels"]:
             if label not in text:
                 failures.append(f"{rel}: missing visible evaluation label {label!r}")
@@ -1538,11 +1764,31 @@ def check_evaluation_packs() -> list[str]:
                     f"missing {missing_hrefs!r}; unexpected {unexpected_hrefs!r}"
                 )
 
-        product_hrefs = [
-            href
-            for href in hrefs
-            if "github.com/ryanduguid/review-ready-gate" in href.casefold()
-        ]
+        product_repository = expected["product_repository"].casefold().removeprefix(
+            "https://"
+        )
+        product_hrefs = [href for href in hrefs if product_repository in href.casefold()]
+
+        permanent_commit = expected.get("permanent_commit")
+        if permanent_commit:
+            for href in product_hrefs:
+                if "/blob/main/" in href.casefold():
+                    failures.append(
+                        f"{rel}: product evidence URL must not use /blob/main/: {href}"
+                    )
+                revision_match = re.search(r"/(?:blob|tree)/([^/]+)/", href, re.I)
+                if revision_match and not re.fullmatch(
+                    r"[0-9a-f]{40}", revision_match.group(1), re.I
+                ):
+                    failures.append(
+                        f"{rel}: product evidence URL must contain a 40-character "
+                        f"commit: {href}"
+                    )
+                elif revision_match and revision_match.group(1) != permanent_commit:
+                    failures.append(
+                        f"{rel}: product evidence URL commit must be "
+                        f"{permanent_commit}: {href}"
+                    )
         missing_product_hrefs = list(
             (
                 Counter(expected["product_evidence_urls"])
@@ -1557,8 +1803,7 @@ def check_evaluation_packs() -> list[str]:
         )
         if missing_product_hrefs or unexpected_product_hrefs:
             failures.append(
-                f"{rel}: global review-ready-gate evidence hrefs must match approved "
-                "v0.1.1 URLs exactly once; missing "
+                f"{rel}: {expected['product_evidence_contract']}; missing "
                 f"{missing_product_hrefs!r}; unexpected {unexpected_product_hrefs!r}"
             )
 
@@ -1596,19 +1841,8 @@ def check_evaluation_packs() -> list[str]:
                         break
         if "/evidence/" not in hrefs:
             failures.append(f"{rel}: no visible link to /evidence/")
-        if re.search(r"\bcase[- ]stud(?:y|ies)\b", html, re.I):
+        if re.search(r"\bcase[- ]stud(?:y|ies)\b", rendered, re.I):
             failures.append(f"{rel}: must not use client case-study wording")
-
-        page_nodes = [
-            node
-            for block in json_ld_blocks(html, rel, failures)
-            for node in nodes(block)
-        ]
-        articles = [node for node in page_nodes if has_type(node, "TechArticle")]
-        if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
-            failures.append(
-                f"{rel}: TechArticle must be authored by the canonical Person"
-            )
     return failures
 
 
@@ -2214,6 +2448,8 @@ def _self_check() -> None:
         expect_failure(mutation_failures, expected_failure)
 
     valid_evaluation_html = """
+    <main id="main">
+    <article>
     <section id="accounting-problem"><h2>Accounting problem</h2></section>
     <section id="fabricated-inputs"><h2>Fabricated inputs</h2></section>
     <section id="expected-result"><h2>Expected result</h2>
@@ -2244,27 +2480,116 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
       <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
       <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
     </section>
-    <section id="limitations"><h2>Limitations</h2></section>
-    <a href="/evidence/">Evidence</a>
+    <section id="limitations"><h2>Limitations</h2>
+      <a href="/evidence/">Evidence and Assurance</a>
+    </section>
+    </article>
+    </main>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
+    </script>
+    """
+    valid_xero_evaluation_html = """
+    <header><a href="/evidence/">Evidence</a></header>
+    <main id="main">
+    <article>
+    <nav aria-label="On this page">
+      <a href="#accounting-problem">Accounting problem</a>
+      <a href="#intended-reviewer">Intended reviewer</a>
+      <a href="#fabricated-inputs">Fabricated inputs</a>
+      <a href="#reproduce">Reproduce</a>
+      <a href="#expected-result">Expected result</a>
+      <a href="#controls-triggered">Controls triggered</a>
+      <a href="#primary-sources">Primary sources</a>
+      <a href="#versions">Versions</a>
+      <a href="#human-decision">Human decision</a>
+      <a href="#limitations">Limitations</a>
+    </nav>
+    <section id="accounting-problem"><h2>Accounting problem</h2>
+      <p>The production tool reads trial balance data directly from Xero's Accounting API Reports endpoint.</p>
+    </section>
+    <section id="intended-reviewer"><h2>Intended reviewer</h2>
+      <p>This pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.</p>
+    </section>
+    <section id="fabricated-inputs"><h2>Fabricated inputs</h2>
+      <p>The three CSV files are fabricated output-shape fixtures.</p>
+      <p>They are not Xero API responses or client records, and no OAuth flow runs in this evaluation.</p>
+      <p>No Xero tenant credentials or tenant data are used.</p>
+    </section>
+    <section id="reproduce"><h2>Reproduce</h2>
+      <p>Dependency installation may download the hash-locked packages.</p>
+      <p>Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request and write no output file.</p>
+      <pre><code>python -m pip install --require-hashes -r requirements.lock
+python -B -m unittest tests.test_evaluation_pack -v
+python -B -m unittest discover -s tests -v
+python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/passing.csv
+python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/failing_movement.csv
+python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/failing_ytd.csv</code></pre>
+    </section>
+    <section id="expected-result"><h2>Expected result</h2>
+      <p>passing.csv exits 0 and reports that movement and YTD balance.</p>
+      <p>failing_movement.csv exits 1, identifies the movement pair and reports Nothing written.</p>
+      <p>failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing written.</p>
+    </section>
+    <section id="controls-triggered"><h2>Controls triggered</h2>
+      <p>failing_movement.csv breaks only the current-month Debit/Credit pair.</p>
+      <p>failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.</p>
+      <p>The evaluation runner calls the production check_balanced gate before any CSV write.</p>
+    </section>
+    <section id="primary-sources"><h2>Primary sources</h2>
+      <a href="https://developer.xero.com/documentation/api/accounting/reports">Reports</a>
+      <a href="https://developer.xero.com/documentation/guides/oauth2/scopes/">Scopes</a>
+    </section>
+    <section id="versions"><h2>Versions</h2>
+      <p>Product release v0.1.4; fixture version 1; source reviewed 2026-08-26.</p>
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/v0.1.4">Release</a>
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/tree/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity">Pack</a>
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity/expected_results.json">Results</a>
+      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/787f936d373fed47591102d4c24d0c5edf6b1861/tests/test_evaluation_pack.py">Test</a>
+    </section>
+    <section id="human-decision"><h2>Human decision</h2>
+      <p>A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment and fitness for review.</p>
+    </section>
+    <section id="limitations"><h2>Limitations</h2>
+      <p>This control does not prove completeness, classification, accounting treatment or client approval.</p>
+      <p>It does not assess source-data accuracy, reporting-period suitability or fitness for a particular client review.</p>
+      <a href="/evidence/">Evidence and Assurance</a>
+    </section>
+    </article>
+    </main>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
     </script>
     """
     evaluation_rel = "evaluate/manager-review-gate/index.html"
     evaluation_url = "https://ryanduguid.github.io/evaluate/manager-review-gate/"
+    xero_evaluation_rel = "evaluate/xero-trial-balance-integrity/index.html"
+    xero_evaluation_url = (
+        "https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/"
+    )
     original_root = ROOT
     with tempfile.TemporaryDirectory() as temp_dir:
         ROOT = Path(temp_dir)
         try:
-            evaluation_path = ROOT / evaluation_rel
-            evaluation_path.parent.mkdir(parents=True)
-
             def check_evaluation_fixture(
                 html: str = valid_evaluation_html,
-                sitemap: str = f"<loc>{evaluation_url}</loc>",
-                llms: str = evaluation_url,
+                sitemap: str = (
+                    f"<loc>{evaluation_url}</loc>"
+                    f"<loc>{xero_evaluation_url}</loc>"
+                ),
+                llms: str = f"{evaluation_url}\n{xero_evaluation_url}",
+                target_rel: str = evaluation_rel,
             ) -> list[str]:
-                evaluation_path.write_text(html, encoding="utf-8")
+                fixtures = {
+                    evaluation_rel: valid_evaluation_html,
+                    xero_evaluation_rel: valid_xero_evaluation_html,
+                }
+                assert target_rel in fixtures
+                fixtures[target_rel] = html
+                for rel, fixture_html in fixtures.items():
+                    path = ROOT / rel
+                    path.parent.mkdir(parents=True, exist_ok=True)
+                    path.write_text(fixture_html, encoding="utf-8")
                 (ROOT / "sitemap.xml").write_text(sitemap, encoding="utf-8")
                 (ROOT / "llms.txt").write_text(llms, encoding="utf-8")
                 return check_evaluation_packs()
@@ -2505,9 +2830,9 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
             )
             require_failures(
                 changed(
-                    '<a href="/evidence/">Evidence</a>',
+                    '<a href="/evidence/">Evidence and Assurance</a>',
                     f'<a href="{extra_product_url}">Extra</a>'
-                    '<a href="/evidence/">Evidence</a>',
+                    '<a href="/evidence/">Evidence and Assurance</a>',
                 ),
                 global_product_href_failure([], [extra_product_url]),
             )
@@ -2518,7 +2843,7 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
             )
 
             require_failures(
-                changed('<a href="/evidence/">Evidence</a>', ""),
+                changed('<a href="/evidence/">Evidence and Assurance</a>', ""),
                 f"{evaluation_rel}: no visible link to /evidence/",
             )
             require_failures(
@@ -2568,6 +2893,173 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
                     check_evaluation_fixture(sitemap=sitemap, llms=llms),
                     expected_failure,
                 )
+
+            def check_xero_evaluation_fixture(
+                html: str = valid_xero_evaluation_html,
+            ) -> list[str]:
+                return check_evaluation_fixture(
+                    html=html, target_rel=xero_evaluation_rel
+                )
+
+            assert check_xero_evaluation_fixture() == []
+            article_outside_main = (
+                valid_xero_evaluation_html.replace(
+                    '    <main id="main">\n    <article>',
+                    '    <main id="main"></main>\n    <article>',
+                    1,
+                ).replace('    </article>\n    </main>', '    </article>', 1)
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(article_outside_main),
+                f"{xero_evaluation_rel}: main#main must contain exactly one visible "
+                "evaluator article, found 0",
+            )
+            xero_sections = (
+                ("accounting-problem", "Accounting problem"),
+                ("intended-reviewer", "Intended reviewer"),
+                ("fabricated-inputs", "Fabricated inputs"),
+                ("reproduce", "Reproduce"),
+                ("expected-result", "Expected result"),
+                ("controls-triggered", "Controls triggered"),
+                ("primary-sources", "Primary sources"),
+                ("versions", "Versions"),
+                ("human-decision", "Human decision"),
+                ("limitations", "Limitations"),
+            )
+            renamed_body_heading = valid_xero_evaluation_html.replace(
+                "<h2>Accounting problem</h2>",
+                "<h2>Renamed accounting problem</h2>",
+                1,
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(renamed_body_heading),
+                f"{xero_evaluation_rel}: #accounting-problem heading must be "
+                "'Accounting problem', found 'Renamed accounting problem'",
+            )
+            limitations_link = '<a href="/evidence/">Evidence and Assurance</a>'
+            for replacement in ("", '<a href="/evidence/">Evidence record</a>'):
+                expect_failure(
+                    check_xero_evaluation_fixture(
+                        valid_xero_evaluation_html.replace(
+                            limitations_link, replacement, 1
+                        )
+                    ),
+                    f"{xero_evaluation_rel}: #limitations must link /evidence/ "
+                    "with visible label 'Evidence and Assurance' exactly once, "
+                    "found 0",
+                )
+
+            xero_contract_claims = (
+                "The production tool reads trial balance data directly from Xero's "
+                "Accounting API Reports endpoint.",
+                "This pack is for a reviewer who wants to reproduce the offline "
+                "integrity gate without connecting to Xero or handling client data.",
+                "The three CSV files are fabricated output-shape fixtures.",
+                "They are not Xero API responses or client records, and no OAuth "
+                "flow runs in this evaluation.",
+                "No Xero tenant credentials or tenant data are used.",
+                "Dependency installation may download the hash-locked packages.",
+                "Once dependencies are installed, the three evaluation runner "
+                "commands are fully offline, make no network request and write no "
+                "output file.",
+                "passing.csv exits 0 and reports that movement and YTD balance.",
+                "failing_movement.csv exits 1, identifies the movement pair and "
+                "reports Nothing written.",
+                "failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing "
+                "written.",
+                "failing_movement.csv breaks only the current-month Debit/Credit pair.",
+                "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
+                "The evaluation runner calls the production check_balanced gate "
+                "before any CSV write.",
+                "A balanced export passes this integrity control only; a human still "
+                "decides completeness, classification, accounting treatment and "
+                "fitness for review.",
+                "This control does not prove completeness, classification, accounting "
+                "treatment or client approval.",
+                "It does not assess source-data accuracy, reporting-period suitability "
+                "or fitness for a particular client review.",
+            )
+            relocated_claim = xero_contract_claims[1]
+            relocated_claim_html = valid_xero_evaluation_html.replace(
+                f"      <p>{relocated_claim}</p>\n", "", 1
+            ).replace(
+                "    </main>\n",
+                f"    </main>\n    <p>{relocated_claim}</p>\n",
+                1,
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(relocated_claim_html),
+                f"{xero_evaluation_rel}: missing visible contract text "
+                f"{relocated_claim!r}",
+            )
+            for claim in xero_contract_claims:
+                assert claim in valid_xero_evaluation_html
+                expect_failure(
+                    check_xero_evaluation_fixture(
+                        valid_xero_evaluation_html.replace(claim, "", 1)
+                    ),
+                    f"{xero_evaluation_rel}: missing visible contract text {claim!r}",
+                )
+
+            primary_section = section_html(
+                valid_xero_evaluation_html, "primary-sources"
+            )
+            versions_section = section_html(valid_xero_evaluation_html, "versions")
+            assert primary_section and versions_section
+            swapped_sections_html = (
+                valid_xero_evaluation_html.replace(
+                    primary_section, "XERO_SECTION_SWAP_PLACEHOLDER", 1
+                )
+                .replace(versions_section, primary_section, 1)
+                .replace("XERO_SECTION_SWAP_PLACEHOLDER", versions_section, 1)
+            )
+            expected_section_ids = [identifier for identifier, _label in xero_sections]
+            swapped_section_ids = expected_section_ids.copy()
+            swapped_section_ids[6], swapped_section_ids[7] = (
+                swapped_section_ids[7],
+                swapped_section_ids[6],
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(swapped_sections_html),
+                f"{xero_evaluation_rel}: evaluation section order must be "
+                f"{expected_section_ids!r}, found {swapped_section_ids!r}",
+            )
+            xero_commit = "787f936d373fed47591102d4c24d0c5edf6b1861"
+            xero_blob_url = (
+                "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
+                f"{xero_commit}/tests/test_evaluation_pack.py"
+            )
+            blob_main_url = xero_blob_url.replace(f"/{xero_commit}/", "/main/")
+            expect_failure(
+                check_xero_evaluation_fixture(
+                    valid_xero_evaluation_html.replace(
+                        xero_blob_url, blob_main_url, 1
+                    )
+                ),
+                f"{xero_evaluation_rel}: product evidence URL must not use "
+                f"/blob/main/: {blob_main_url}",
+            )
+            short_commit_url = xero_blob_url.replace(xero_commit, xero_commit[:7])
+            expect_failure(
+                check_xero_evaluation_fixture(
+                    valid_xero_evaluation_html.replace(
+                        xero_blob_url, short_commit_url, 1
+                    )
+                ),
+                f"{xero_evaluation_rel}: product evidence URL must contain a "
+                f"40-character commit: {short_commit_url}",
+            )
+            other_commit = "0123456789abcdef0123456789abcdef01234567"
+            other_commit_url = xero_blob_url.replace(xero_commit, other_commit)
+            expect_failure(
+                check_xero_evaluation_fixture(
+                    valid_xero_evaluation_html.replace(
+                        xero_blob_url, other_commit_url, 1
+                    )
+                ),
+                f"{xero_evaluation_rel}: product evidence URL commit must be "
+                f"{xero_commit}: {other_commit_url}",
+            )
         finally:
             ROOT = original_root
 
