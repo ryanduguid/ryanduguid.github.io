@@ -31,6 +31,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Evaluation packs
 
 - [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
+- [Xero trial balance integrity evaluation](https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
 
 ## Tool guides, open source, install and run locally
 
