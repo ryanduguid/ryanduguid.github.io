@@ -28,6 +28,10 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
 
+## Evaluation packs
+
+- [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
+
 ## Tool guides, open source, install and run locally
 
 - [Payday super due dates and SG charge](https://ryanduguid.github.io/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
