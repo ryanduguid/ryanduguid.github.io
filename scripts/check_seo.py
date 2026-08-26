@@ -1589,6 +1589,49 @@ def check_worked_examples() -> list[str]:
     return failures
 
 
+def evaluation_article_html(
+    rendered: str, rel: str, failures: list[str]
+) -> str | None:
+    """Return the sole visible evaluator article within the sole main#main."""
+    root = parse_structure(rendered)
+    mains = descendants(root, "main", rendered_only=True)
+    if len(mains) != 1:
+        failures.append(
+            f"{rel}: expected exactly one visible main, found {len(mains)}"
+        )
+        return None
+    if mains[0].attr("id") != "main":
+        failures.append(
+            f"{rel}: visible main id must be 'main', found {mains[0].attr('id')!r}"
+        )
+        return None
+
+    articles = descendants(root, "article", rendered_only=True)
+    contained_articles = [
+        article for article in articles if is_descendant(article, mains[0])
+    ]
+    if len(contained_articles) != 1:
+        failures.append(
+            f"{rel}: main#main must contain exactly one visible evaluator article, "
+            f"found {len(contained_articles)}"
+        )
+        return None
+    if len(articles) != 1:
+        failures.append(
+            f"{rel}: expected exactly one visible evaluator article, "
+            f"found {len(articles)}"
+        )
+        return None
+
+    article_match = re.search(
+        r"<article\b[^>]*>.*?</article\s*>", rendered, re.S | re.I
+    )
+    if article_match is None:
+        failures.append(f"{rel}: could not isolate the visible evaluator article")
+        return None
+    return article_match.group(0)
+
+
 def check_evaluation_structure(
     rendered: str, rel: str, expected: dict, failures: list[str]
 ) -> None:
@@ -1670,7 +1713,22 @@ def check_evaluation_packs() -> list[str]:
             continue
 
         html = path.read_text(encoding="utf-8")
+        page_nodes = [
+            node
+            for block in json_ld_blocks(html, rel, failures)
+            for node in nodes(block)
+        ]
+        articles = [node for node in page_nodes if has_type(node, "TechArticle")]
+        if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
+            failures.append(
+                f"{rel}: TechArticle must be authored by the canonical Person"
+            )
+
         rendered = visible_html(html)
+        article_html = evaluation_article_html(rendered, rel, failures)
+        if article_html is None:
+            continue
+        rendered = article_html
         text = visible_text(rendered)
         hrefs = anchor_hrefs(rendered)
         check_evaluation_structure(rendered, rel, expected, failures)
@@ -1783,19 +1841,8 @@ def check_evaluation_packs() -> list[str]:
                         break
         if "/evidence/" not in hrefs:
             failures.append(f"{rel}: no visible link to /evidence/")
-        if re.search(r"\bcase[- ]stud(?:y|ies)\b", html, re.I):
+        if re.search(r"\bcase[- ]stud(?:y|ies)\b", rendered, re.I):
             failures.append(f"{rel}: must not use client case-study wording")
-
-        page_nodes = [
-            node
-            for block in json_ld_blocks(html, rel, failures)
-            for node in nodes(block)
-        ]
-        articles = [node for node in page_nodes if has_type(node, "TechArticle")]
-        if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
-            failures.append(
-                f"{rel}: TechArticle must be authored by the canonical Person"
-            )
     return failures
 
 
@@ -2401,6 +2448,8 @@ def _self_check() -> None:
         expect_failure(mutation_failures, expected_failure)
 
     valid_evaluation_html = """
+    <main id="main">
+    <article>
     <section id="accounting-problem"><h2>Accounting problem</h2></section>
     <section id="fabricated-inputs"><h2>Fabricated inputs</h2></section>
     <section id="expected-result"><h2>Expected result</h2>
@@ -2434,12 +2483,15 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
     <section id="limitations"><h2>Limitations</h2>
       <a href="/evidence/">Evidence and Assurance</a>
     </section>
+    </article>
+    </main>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
     </script>
     """
     valid_xero_evaluation_html = """
     <header><a href="/evidence/">Evidence</a></header>
+    <main id="main">
     <article>
     <nav aria-label="On this page">
       <a href="#accounting-problem">Accounting problem</a>
@@ -2504,6 +2556,7 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
       <a href="/evidence/">Evidence and Assurance</a>
     </section>
     </article>
+    </main>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
     </script>
@@ -2849,6 +2902,18 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
                 )
 
             assert check_xero_evaluation_fixture() == []
+            article_outside_main = (
+                valid_xero_evaluation_html.replace(
+                    '    <main id="main">\n    <article>',
+                    '    <main id="main"></main>\n    <article>',
+                    1,
+                ).replace('    </article>\n    </main>', '    </article>', 1)
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(article_outside_main),
+                f"{xero_evaluation_rel}: main#main must contain exactly one visible "
+                "evaluator article, found 0",
+            )
             xero_sections = (
                 ("accounting-problem", "Accounting problem"),
                 ("intended-reviewer", "Intended reviewer"),
@@ -2913,6 +2978,19 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
                 "treatment or client approval.",
                 "It does not assess source-data accuracy, reporting-period suitability "
                 "or fitness for a particular client review.",
+            )
+            relocated_claim = xero_contract_claims[1]
+            relocated_claim_html = valid_xero_evaluation_html.replace(
+                f"      <p>{relocated_claim}</p>\n", "", 1
+            ).replace(
+                "    </main>\n",
+                f"    </main>\n    <p>{relocated_claim}</p>\n",
+                1,
+            )
+            expect_failure(
+                check_xero_evaluation_fixture(relocated_claim_html),
+                f"{xero_evaluation_rel}: missing visible contract text "
+                f"{relocated_claim!r}",
             )
             for claim in xero_contract_claims:
                 assert claim in valid_xero_evaluation_html
