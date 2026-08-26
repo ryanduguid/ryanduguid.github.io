@@ -414,6 +414,9 @@ EVALUATION_PACKS = {
         ),
     },
 }
+ARTICLE_TOC_EXTERNAL_LINKS = {
+    "tools/payday-super/index.html": {"/evaluate/payday-super-evidence/"},
+}
 
 warnings: list[str] = []
 
@@ -869,8 +872,11 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
         if element.attr("id")
     }
     valid_links = 0
+    allowed_external_links = ARTICLE_TOC_EXTERNAL_LINKS.get(rel, set())
     for link in links:
         href = link.attr("href") or ""
+        if href in allowed_external_links:
+            continue
         if not href.startswith("#") or href[1:] not in target_ids:
             failures.append(f"{rel}: local contents target does not exist: {href}")
         else:
@@ -3263,6 +3269,47 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
                 ),
                 f"{payday_evaluation_rel}: product evidence URL must not use "
                 f"/blob/main/: {payday_main_url}",
+            )
+            payday_tree_url = (
+                "https://github.com/ryanduguid/payday-super-checker/tree/"
+                f"{payday_commit}/evaluation/payday_super_evidence"
+            )
+            other_payday_commit = "0123456789abcdef0123456789abcdef01234567"
+            tampered_tree_url = payday_tree_url.replace(
+                payday_commit, other_payday_commit
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_tree_url, tampered_tree_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL commit must be "
+                f"{payday_commit}: {tampered_tree_url}",
+            )
+            short_payday_test_url = payday_test_url.replace(
+                payday_commit, payday_commit[:7]
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_test_url, short_payday_test_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL must contain a "
+                f"40-character commit: {short_payday_test_url}",
+            )
+            wrong_payday_test_url = payday_test_url.replace(
+                payday_commit, other_payday_commit
+            )
+            expect_failure(
+                check_payday_evaluation_fixture(
+                    valid_payday_evaluation_html.replace(
+                        payday_test_url, wrong_payday_test_url, 1
+                    )
+                ),
+                f"{payday_evaluation_rel}: product evidence URL commit must be "
+                f"{payday_commit}: {wrong_payday_test_url}",
             )
             payday_human_decision = (
                 "Remittance evidence can show operational timing but cannot prove on-time; "
