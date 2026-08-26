@@ -17,257 +17,322 @@
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>Accounting controls you can inspect before you trust them</h1>
-      <p class="short-answer">
-        I build open-source review aids for Australian accounting work. Choose the
-        path that matches what you need to decide.
-      </p>
-      <nav class="path-grid" aria-label="Choose a path">
-        <a class="path-card" href="#engage">
-          <strong>Engage</strong>
-          <span>Discuss a firm workflow or controlled evaluation.</span>
-        </a>
-        <a class="path-card" href="#adopt">
-          <strong>Adopt</strong>
-          <span>Test or install a tool with fabricated data.</span>
-        </a>
-        <a class="path-card" href="#verify">
-          <strong>Verify</strong>
-          <span>Inspect credentials, sources, releases and boundaries.</span>
-        </a>
-      </nav>
-      <p class="subtitle">
-        I am an Australian accountant based in Newcastle, NSW. I build open-source computational accounting engines, MCP servers, Excel LAMBDAs, and deterministic AI workflows for Australian taxation and payroll.
-      </p>
-      <div class="badges">
-        <span class="badge">Provisional Member CA ANZ</span>
-        <span class="badge">SAP S/4HANA FI &amp; CO</span>
-        <span class="badge">Xero L3 Specialist</span>
-      </div>
-      <div class="links" style="margin-top: 1.5rem;">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
         <a href="/about/">About</a>
         <a href="/evidence/">Evidence</a>
         <a href="/tools/australian-tax-ai-agents/">AI agents</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main home">
+    <section class="home-hero site-shell" aria-labelledby="home-title">
+      <div class="home-hero__copy">
+        <p class="technical-label">Australian computational accounting</p>
+        <h1 id="home-title">I build accounting systems that can show their work.</h1>
+        <p class="home-hero__summary short-answer">I build open-source review aids grounded in Australian rules, exact currency arithmetic and human review. Choose the path that matches what you need to decide.</p>
+        <div class="home-actions">
+          <a class="button" href="/evidence/">Evidence</a>
+          <a class="button button--secondary" href="/tools/australian-tax-ai-agents/">AI agents</a>
+        </div>
       </div>
-    </header>
-
-    <section id="engage" class="route-section">
-      <h2 class="section-title">Engage</h2>
-      <p>
-        I am available to discuss a firm workflow, a controlled evaluation of
-        these tools, technical adoption, research, speaking or peer review.
-      </p>
-      <ul>
-        <li><a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm workflow or controlled pilot</a></li>
-        <li><a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Tool adoption or integration</a></li>
-        <li><a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Research, speaking or peer review</a></li>
-      </ul>
-      <p class="boundary">
-        Do not email taxpayer information, client files, tax advice requests or
-        lodgment instructions. A message does not create a professional engagement.
-      </p>
+      <aside class="home-proof-rail" aria-label="Proof standards">
+        <p>Primary sources</p>
+        <p>Exact currency arithmetic</p>
+        <p>Human review</p>
+      </aside>
     </section>
 
-    <section id="adopt" class="route-section">
-      <h2 class="section-title">Adopt</h2>
-      <p>Test or install a tool with fabricated data before using it in a firm workflow.</p>
-      <div class="install-section">
-        <h3>Install in 2 commands</h3>
-        <pre><code><span class="comment"># Add Australian Accounting &amp; Tax MCP server to Claude Code</span>
+    <nav class="path-grid site-shell" aria-label="Choose a path">
+      <a class="path-card" href="#engage">
+        <strong>Engage</strong>
+        <span>Discuss a firm workflow or controlled evaluation.</span>
+      </a>
+      <a class="path-card" href="#adopt">
+        <strong>Adopt</strong>
+        <span>Test or install a tool with fabricated data.</span>
+      </a>
+      <a class="path-card" href="#verify">
+        <strong>Verify</strong>
+        <span>Inspect credentials, sources, releases and boundaries.</span>
+      </a>
+    </nav>
+
+    <section class="credential-band" aria-label="Credentials">
+      <div class="credential-band__inner site-shell">
+        <p>Provisional Member CA ANZ</p>
+        <p>SAP S/4HANA FI &amp; CO</p>
+        <p>Xero L3 Specialist</p>
+      </div>
+    </section>
+
+    <div class="authority-routes site-shell">
+      <section id="engage" class="route-section" aria-labelledby="engage-title">
+        <h2 id="engage-title">Engage</h2>
+        <p>I am available to discuss a firm workflow, a controlled evaluation of these tools, technical adoption, research, speaking or peer review.</p>
+        <ul>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm workflow or controlled pilot</a></li>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Tool adoption or integration</a></li>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Research, speaking or peer review</a></li>
+        </ul>
+        <p class="boundary">Do not email taxpayer information, client files, tax advice requests or lodgment instructions. A message does not create a professional engagement.</p>
+      </section>
+
+      <section id="adopt" class="route-section" aria-labelledby="adopt-title">
+        <h2 id="adopt-title">Adopt</h2>
+        <p>Test or install a tool with fabricated data before using it in a firm workflow.</p>
+        <div class="install-band">
+          <h3>Install in 2 commands</h3>
+          <pre><code><span class="comment"># Add Australian Accounting &amp; Tax MCP server to Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
 
 <span class="comment"># Add Public Practice &amp; Tax skills</span>
 <span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
+        </div>
+      </section>
+
+      <section id="verify" class="route-section" aria-labelledby="verify-title">
+        <h2 id="verify-title">Verify</h2>
+        <p>Inspect the credentials, sources, releases and boundaries behind this work before relying on it.</p>
+        <p><a href="/evidence/">Review the evidence</a></p>
+      </section>
+    </div>
+
+    <section class="system-section site-shell" aria-labelledby="system-title">
+      <div class="section-heading">
+        <h2 id="system-title">Four layers from ledger to review</h2>
+        <p>Source data moves through explicit rules, bounded agent workflows and controls that keep judgement with a person.</p>
+      </div>
+      <div class="system-map">
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Input layer</p>
+            <h3>Data and Ledgers</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/xero-trial-balance-export">xero-trial-balance-export</a>
+              <p>Validated Xero trial balance export to CSV for Power BI, Excel and pandas.</p>
+              <a class="system-project__link" href="/tools/xero-trial-balance/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/accounting-excel-toolkit">accounting-excel-toolkit</a>
+              <p>Power Query (M) and VBA utilities for Australian ledger work.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Balanced exports and reusable ledger transforms.</p>
+        </article>
+
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Computation layer</p>
+            <h3>Rules and Engines</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/Ozzit">Ozzit</a>
+              <p>134 native Excel LAMBDA functions for dynamic-array financial modelling.</p>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/TheExchequerTally">TheExchequerTally</a>
+              <p>Company tax rate (BRE), franking account balance, Division 203 checks.</p>
+              <a class="system-project__link" href="/tools/company-tax-franking/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/SolomonsSword">SolomonsSword</a>
+              <p>Trust Div 6 allocation, s100A risk flags, s99B foreign trust receipts.</p>
+              <a class="system-project__link" href="/tools/trust-distributions/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>
+              <p>Payday Super 2026 contribution timing and SG-charge estimates.</p>
+              <a class="system-project__link" href="/tools/payday-super/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/ato-benchmark-compare">ato-benchmark-compare</a>
+              <p>Offline variance analysis against ATO small-business benchmarks.</p>
+              <a class="system-project__link" href="/tools/ato-benchmarks/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/TheWIPTally">TheWIPTally</a>
+              <p>AASB 15 construction WIP: cost-to-cost progress, contract assets and liabilities, profit fade.</p>
+              <a class="system-project__link" href="/tools/wip-schedule/">Try the tool page</a>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Named statutes, rates and accounting methods stay visible.</p>
+        </article>
+
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Workflow layer</p>
+            <h3>Agent Workflows</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/au-tax-mcp-server">au-tax-mcp-server</a>
+              <p class="system-project__alias">aus-accounting-mcp</p>
+              <p>Unified MCP server for Claude, Cursor, and Antigravity.</p>
+              <a class="system-project__link" href="/tools/australian-tax-ai-agents/">How this differs from a document MCP</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a>
+              <p>9 Claude Code skills for public practice (BAS, FBT, Div 7A, STP).</p>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/hardhat-ledger">hardhat-ledger</a>
+              <p>Construction and mining subcontractor skills.</p>
+              <a class="system-project__link" href="/tools/subcontractor-ledgers/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/DrDebits">DrDebits</a>
+              <p>APES 110 and TPB Code ethics guardrails for LLM tax work.</p>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/xero-ai-review-gateway">xero-ai-review-gateway</a>
+              <p>Zero-network safety boundary for AI-assisted TB review.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Agents call bounded local tools and ethics checks.</p>
+        </article>
+
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Control layer</p>
+            <h3>Review Controls</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/review-ready-gate">review-ready-gate</a>
+              <p>Readiness gate that keeps incomplete packs off the review desk.</p>
+              <a class="system-project__link" href="/tools/review-ready-gate/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/monthly-close-control-plane">monthly-close-control-plane</a>
+              <p>Deterministic financial close controls for trial-balance exports.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Incomplete packs stop before manager review.</p>
+        </article>
       </div>
     </section>
 
-    <section id="verify" class="route-section">
-      <h2 class="section-title">Verify</h2>
-      <p>Inspect the credentials, sources, releases and boundaries behind this work before relying on it.</p>
-      <p><a href="/evidence/">Review the evidence</a></p>
+    <section class="proof-feature" aria-labelledby="proof-title">
+      <div class="proof-feature__inner site-shell">
+        <div class="proof-feature__copy">
+          <h2 id="proof-title">Proof belongs beside the claim</h2>
+          <p>The Coal LSL calculator exposes the branch, formula and rounding behind a synthetic monthly result.</p>
+          <nav class="proof-feature__links" aria-label="Inspect the Coal LSL proof">
+            <a class="button button--secondary" href="/tools/coal-lsl-levy/">Open the calculator</a>
+            <a href="/evidence/">Review the evidence</a>
+            <a href="https://coallsl.com.au/guidance-notes/eligible-wages">Read eligible wages guidance</a>
+            <a href="https://coallsl.com.au/about-us/governing-legislation/legislation">Read governing legislation</a>
+          </nav>
+        </div>
+        <figure>
+          <img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" alt="Coal LSL levy calculator showing synthetic monthly inputs and an explained levy result" />
+          <figcaption>Synthetic example. The calculator shows the applied branch and formula before professional review.</figcaption>
+        </figure>
+      </div>
     </section>
 
-    <h2 class="section-title" id="tools">Original firm-focused tools</h2>
-    <p class="tools-intro">
-      The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install. The remaining tools are open-source projects you can install or run locally.
-    </p>
-    <div class="tools-list">
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/australian-tax-ai-agents/">Which Australian tax MCP should an AI agent use</a>
-        <div class="desc">Local computational engines versus a hosted ATO document library. What aus-accounting-mcp does, and what it refuses.</div>
+    <section class="tools-catalogue site-shell" aria-labelledby="tools">
+      <h2 id="tools">Original firm-focused tools</h2>
+      <p class="tools-intro">The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install. The remaining tools are open-source projects you can install or run locally.</p>
+      <div id="tools-list" class="tools-list">
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/australian-tax-ai-agents/">Which Australian tax MCP should an AI agent use</a>
+          <div class="desc">Local computational engines versus a hosted ATO document library. What aus-accounting-mcp does, and what it refuses.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
+          <div class="desc">Work out eligible wages and the levy owed under section 3B.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/payday-super/">When is payday super actually due, and what happens if it is late</a>
+          <div class="desc">Check contribution timing and the SG-charge exposure if a payment slips.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/ato-benchmarks/">How does this business compare to the ATO small business benchmarks</a>
+          <div class="desc">See where a business sits against the published benchmark ranges.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/trust-distributions/">Is this trust distribution inside the section 100A green zone</a>
+          <div class="desc">Check a distribution against the green zone guidance.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/company-tax-franking/">What company tax rate applies, and is the franking account in order</a>
+          <div class="desc">Work out the applicable rate and check the franking account balance.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a>
+          <div class="desc">Practical ledger workflows for construction and mining subcontractors.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/wip-schedule/">Construction WIP: over-billed or under-billed under AASB 15</a>
+          <div class="desc">Cost-to-cost earned revenue, contract assets and liabilities, and profit-fade flags from a contract CSV.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
+          <div class="desc">A trial balance export that reconciles, ready for Excel or Power BI.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/review-ready-gate/">Is this workpaper pack allowed into manager review</a>
+          <div class="desc">Stop an incomplete BAS, month-end or year-end folder from reaching the manager.</div>
+        </div>
       </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
-        <div class="desc">Work out eligible wages and the levy owed under section 3B.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/payday-super/">When is payday super actually due, and what happens if it is late</a>
-        <div class="desc">Check contribution timing and the SG-charge exposure if a payment slips.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/ato-benchmarks/">How does this business compare to the ATO small business benchmarks</a>
-        <div class="desc">See where a business sits against the published benchmark ranges.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/trust-distributions/">Is this trust distribution inside the section 100A green zone</a>
-        <div class="desc">Check a distribution against the green zone guidance.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/company-tax-franking/">What company tax rate applies, and is the franking account in order</a>
-        <div class="desc">Work out the applicable rate and check the franking account balance.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a>
-        <div class="desc">Practical ledger workflows for construction and mining subcontractors.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/wip-schedule/">Construction WIP: over-billed or under-billed under AASB 15</a>
-        <div class="desc">Cost-to-cost earned revenue, contract assets and liabilities, and profit-fade flags from a contract CSV.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
-        <div class="desc">A trial balance export that reconciles, ready for Excel or Power BI.</div>
-      </div>
-      <div class="tool-card">
-        <a class="tool-name" href="/tools/review-ready-gate/">Is this workpaper pack allowed into manager review</a>
-        <div class="desc">Stop an incomplete BAS, month-end or year-end folder from reaching the manager.</div>
-      </div>
-    </div>
+    </section>
 
-    <h2 class="section-title">How the tools fit together</h2>
-    <p class="stack-intro">My tools move source data through deterministic rules and agent workflows. Review controls sit alongside that path, stopping incomplete packs and surfacing exceptions for a person to assess.</p>
-    <div class="stack">
-      <div class="stack-col layer-1">
-        <h3>1. Data &amp; Ledgers</h3>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/xero-trial-balance-export">xero-trial-balance-export</a>
-          <div class="desc">Validated Xero trial balance export to CSV for Power BI, Excel and pandas.</div>
-          <a class="tool-link" href="/tools/xero-trial-balance/">Try the tool page</a>
+    <section class="principles-section site-shell" aria-labelledby="principles-title">
+      <h2 id="principles-title">Engineering Principles</h2>
+      <div class="principles-list">
+        <div>
+          <strong>Primary Source Grounding</strong>
+          <span>Computations cite Commonwealth legislation, ATO rulings, and AASB/APESB standards.</span>
         </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/accounting-excel-toolkit">accounting-excel-toolkit</a>
-          <div class="desc">Power Query (M) and VBA utilities for Australian ledger work.</div>
+        <div>
+          <strong>Exact Currency Arithmetic</strong>
+          <span>Statutory currency engines use decimal quantisation to prevent binary floating-point drift.</span>
+        </div>
+        <div>
+          <strong>Local Privacy Boundaries</strong>
+          <span>Client data stays in local memory or zero-network sandboxes. Public fixtures use synthetic data only.</span>
+        </div>
+        <div>
+          <strong>Human-in-the-Loop Signoff</strong>
+          <span>Pipelines automate calculation and validation. Professional judgement and lodgement remain human-controlled.</span>
         </div>
       </div>
+    </section>
 
-      <div class="stack-col layer-2">
-        <h3>2. Rules &amp; Engines</h3>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/Ozzit">Ozzit</a>
-          <div class="desc">134 native Excel LAMBDA functions for dynamic-array financial modelling.</div>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/TheExchequerTally">TheExchequerTally</a>
-          <div class="desc">Company tax rate (BRE), franking account balance, Division 203 checks.</div>
-          <a class="tool-link" href="/tools/company-tax-franking/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/SolomonsSword">SolomonsSword</a>
-          <div class="desc">Trust Div 6 allocation, s100A risk flags, s99B foreign trust receipts.</div>
-          <a class="tool-link" href="/tools/trust-distributions/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>
-          <div class="desc">Payday Super 2026 contribution timing and SG-charge estimates.</div>
-          <a class="tool-link" href="/tools/payday-super/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/ato-benchmark-compare">ato-benchmark-compare</a>
-          <div class="desc">Offline variance analysis against ATO small-business benchmarks.</div>
-          <a class="tool-link" href="/tools/ato-benchmarks/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/TheWIPTally">TheWIPTally</a>
-          <div class="desc">AASB 15 construction WIP: cost-to-cost progress, contract assets and liabilities, profit fade.</div>
-          <a class="tool-link" href="/tools/wip-schedule/">Try the tool page</a>
-        </div>
+    <nav class="more-index site-shell" aria-labelledby="more-title">
+      <h2 id="more-title">More</h2>
+      <div class="more-index__links">
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
+        <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
+        <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
+        <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
+        <a href="/rates/super-guarantee/">SG rate history</a>
+        <a href="/rates/div7a-benchmark-rate/">Division 7A benchmark rate</a>
+        <a href="/rates/cents-per-kilometre/">Cents per kilometre rate</a>
       </div>
+    </nav>
 
-      <div class="stack-col layer-3">
-        <h3>3. Agent Workflows</h3>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/au-tax-mcp-server">au-tax-mcp-server</a>
-          <div class="alias">aus-accounting-mcp</div>
-          <div class="desc">Unified MCP server for Claude, Cursor, and Antigravity.</div>
-          <a class="tool-link" href="/tools/australian-tax-ai-agents/">How this differs from a document MCP</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a>
-          <div class="desc">9 Claude Code skills for public practice (BAS, FBT, Div 7A, STP).</div>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/hardhat-ledger">hardhat-ledger</a>
-          <div class="desc">Construction and mining subcontractor skills.</div>
-          <a class="tool-link" href="/tools/subcontractor-ledgers/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/DrDebits">DrDebits</a>
-          <div class="desc">APES 110 and TPB Code ethics guardrails for LLM tax work.</div>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/xero-ai-review-gateway">xero-ai-review-gateway</a>
-          <div class="desc">Zero-network safety boundary for AI-assisted TB review.</div>
-        </div>
-      </div>
-
-      <div class="stack-col layer-4">
-        <h3>4. Review Controls</h3>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/review-ready-gate">review-ready-gate</a>
-          <div class="desc">Readiness gate that keeps incomplete packs off the review desk.</div>
-          <a class="tool-link" href="/tools/review-ready-gate/">Try the tool page</a>
-        </div>
-        <div class="repo-card">
-          <a class="name" href="https://github.com/ryanduguid/monthly-close-control-plane">monthly-close-control-plane</a>
-          <div class="desc">Deterministic financial close controls for trial-balance exports.</div>
-        </div>
-      </div>
-    </div>
-
-    <h2 class="section-title">Engineering Principles</h2>
-    <div class="principles">
-      <div class="principle">
-        <strong>Primary Source Grounding</strong>
-        <span>Computations cite Commonwealth legislation, ATO rulings, and AASB/APESB standards.</span>
-      </div>
-      <div class="principle">
-        <strong>Exact Currency Arithmetic</strong>
-        <span>Statutory currency engines use decimal quantisation to prevent binary floating-point drift.</span>
-      </div>
-      <div class="principle">
-        <strong>Local Privacy Boundaries</strong>
-        <span>Client data stays in local memory or zero-network sandboxes. Public fixtures use synthetic data only.</span>
-      </div>
-      <div class="principle">
-        <strong>Human-in-the-Loop Signoff</strong>
-        <span>Pipelines automate calculation and validation. Professional judgement and lodgement remain human-controlled.</span>
-      </div>
-    </div>
-
-    <h2 class="section-title">More</h2>
-    <div class="links">
-      <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
-      <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
-      <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
-      <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
-      <a href="/rates/super-guarantee/">SG rate history</a>
-      <a href="/rates/div7a-benchmark-rate/">Division 7A benchmark rate</a>
-      <a href="/rates/cents-per-kilometre/">Cents per kilometre rate</a>
-    </div>
-
-    <footer>
+    <p class="page-meta site-shell">Last reviewed 26 August 2026.</p>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
-      <p style="margin-top: 0.5rem;">
+      <div class="site-footer__links">
         <a href="/about/">About Ryan Duguid</a>
         <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
-      </p>
-      <p class="page-meta">Last reviewed 26 August 2026.</p>
-    </footer>
-  </div>
+      </div>
+    </div>
+  </footer>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

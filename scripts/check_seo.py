@@ -40,6 +40,8 @@ import json
 import re
 import sys
 import tempfile
+from dataclasses import dataclass, field
+from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import parse_qs
 
@@ -246,6 +248,545 @@ def visible_text(html: str) -> str:
     body = visible_html(html)
     body = re.sub(r"<[^>]+>", " ", body)
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
+
+
+PRIMARY_NAV_LINKS = [
+    ("/about/", "About"),
+    ("/evidence/", "Evidence"),
+    ("/tools/australian-tax-ai-agents/", "AI agents"),
+    ("https://github.com/ryanduguid", "GitHub"),
+    (
+        "https://github.com/ryanduguid/awesome-australian-accounting-tech",
+        "Awesome List",
+    ),
+]
+
+HOMEPAGE_REQUIRED_TEXT = [
+    "I build accounting systems that can show their work.",
+    "Data and Ledgers",
+    "Rules and Engines",
+    "Agent Workflows",
+    "Review Controls",
+    "Install in 2 commands",
+    "Proof belongs beside the claim",
+]
+HOMEPAGE_REQUIRED_HREFS = [
+    "/evidence/",
+    "/tools/australian-tax-ai-agents/",
+    "/tools/coal-lsl-levy/",
+]
+HOMEPAGE_PROOF_HREFS = [
+    "/tools/coal-lsl-levy/",
+    "/evidence/",
+    "https://coallsl.com.au/guidance-notes/eligible-wages",
+    "https://coallsl.com.au/about-us/governing-legislation/legislation",
+]
+ARTICLE_PATTERN_PAGES = {
+    "about/index.html",
+    "evidence/index.html",
+    "tools/ato-benchmarks/index.html",
+    "tools/australian-tax-ai-agents/index.html",
+    "tools/company-tax-franking/index.html",
+    "tools/payday-super/index.html",
+    "tools/review-ready-gate/index.html",
+    "tools/subcontractor-ledgers/index.html",
+    "tools/trust-distributions/index.html",
+    "tools/wip-schedule/index.html",
+    "tools/xero-trial-balance/index.html",
+    "rates/super-guarantee/index.html",
+    "rates/div7a-benchmark-rate/index.html",
+    "rates/cents-per-kilometre/index.html",
+}
+RATE_PAGES = {
+    "rates/super-guarantee/index.html",
+    "rates/div7a-benchmark-rate/index.html",
+    "rates/cents-per-kilometre/index.html",
+}
+CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+CALCULATOR_MARKERS = [
+    'name="branch"',
+    'id="branch-fields"',
+    'id="sacrificed"',
+    'id="bonus-rows"',
+    'type="submit"',
+]
+CALCULATOR_REQUIRED_IDS = {
+    "calc-form",
+    "branch-fields",
+    "sacrificed",
+    "bonus-rows",
+    "add-bonus",
+    "result",
+    "employeeLabel",
+    "add-employee",
+    "employee-table",
+    "employee-rows",
+    "employee-total-wages",
+    "employee-total-levy",
+    "export-csv",
+    "fields-baseRate",
+    "baseRate",
+    "overtime",
+    "allowances",
+    "fields-annual",
+    "annualSalary",
+    "fields-casual",
+    "reportingMonth",
+    "instrumentSpecifiesLoading",
+    "loadingQuantifiable",
+    "casualBasePay",
+    "casualLoading",
+    "ordinaryPay",
+    "bonus-row-template",
+}
+CALCULATOR_NUMBER_INPUT_IDS = (
+    "sacrificed",
+    "baseRate",
+    "overtime",
+    "allowances",
+    "annualSalary",
+    "casualBasePay",
+    "casualLoading",
+    "ordinaryPay",
+)
+BONUS_FREQUENCIES = [
+    "weekly",
+    "fortnightly",
+    "monthly",
+    "quarterly",
+    "halfYearly",
+    "annually",
+]
+
+VOID_ELEMENTS = {
+    "area",
+    "base",
+    "br",
+    "col",
+    "embed",
+    "hr",
+    "img",
+    "input",
+    "link",
+    "meta",
+    "param",
+    "source",
+    "track",
+    "wbr",
+}
+NON_RENDERED_ELEMENTS = {"script", "style", "template"}
+
+
+@dataclass
+class HtmlElement:
+    """One parsed HTML element with enough structure for local contract checks."""
+
+    tag: str
+    attrs: dict[str, str | None]
+    parent: HtmlElement | None = field(default=None, repr=False)
+    children: list[HtmlElement | str] = field(default_factory=list, repr=False)
+
+    def attr(self, name: str) -> str | None:
+        return self.attrs.get(name.casefold())
+
+    def has_class(self, name: str) -> bool:
+        return name in (self.attr("class") or "").split()
+
+
+class StructureParser(HTMLParser):
+    """Build a small element tree while retaining template controls for checks."""
+
+    def __init__(self) -> None:
+        super().__init__(convert_charrefs=True)
+        self.root = HtmlElement("#document", {})
+        self.stack = [self.root]
+
+    def _add_element(
+        self, tag: str, attrs: list[tuple[str, str | None]], push: bool
+    ) -> None:
+        element = HtmlElement(
+            tag.casefold(),
+            {name.casefold(): value for name, value in attrs},
+            self.stack[-1],
+        )
+        self.stack[-1].children.append(element)
+        if push and element.tag not in VOID_ELEMENTS:
+            self.stack.append(element)
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._add_element(tag, attrs, push=True)
+
+    def handle_startendtag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        self._add_element(tag, attrs, push=False)
+
+    def handle_endtag(self, tag: str) -> None:
+        wanted = tag.casefold()
+        for index in range(len(self.stack) - 1, 0, -1):
+            if self.stack[index].tag == wanted:
+                del self.stack[index:]
+                return
+
+    def handle_data(self, data: str) -> None:
+        self.stack[-1].children.append(data)
+
+
+def parse_structure(html: str) -> HtmlElement:
+    parser = StructureParser()
+    parser.feed(html)
+    parser.close()
+    return parser.root
+
+
+def is_rendered(element: HtmlElement) -> bool:
+    current: HtmlElement | None = element
+    while current is not None:
+        if current.tag in NON_RENDERED_ELEMENTS:
+            return False
+        current = current.parent
+    return True
+
+
+def descendants(
+    element: HtmlElement,
+    tag: str | None = None,
+    *,
+    rendered_only: bool = False,
+) -> list[HtmlElement]:
+    """Return descendant elements in source order, optionally excluding templates."""
+    found: list[HtmlElement] = []
+
+    def visit(parent: HtmlElement) -> None:
+        for child in parent.children:
+            if not isinstance(child, HtmlElement):
+                continue
+            if (tag is None or child.tag == tag) and (
+                not rendered_only or is_rendered(child)
+            ):
+                found.append(child)
+            visit(child)
+
+    visit(element)
+    return found
+
+
+def element_text(element: HtmlElement) -> str:
+    """Visible descendant text with whitespace collapsed."""
+    chunks: list[str] = []
+
+    def visit(parent: HtmlElement) -> None:
+        for child in parent.children:
+            if isinstance(child, str):
+                chunks.append(child)
+            elif child.tag not in NON_RENDERED_ELEMENTS:
+                visit(child)
+
+    visit(element)
+    return re.sub(r"\s+", " ", " ".join(chunks)).strip()
+
+
+def element_by_id(root: HtmlElement, identifier: str) -> list[HtmlElement]:
+    return [element for element in descendants(root) if element.attr("id") == identifier]
+
+
+def is_descendant(element: HtmlElement, ancestor: HtmlElement) -> bool:
+    current = element.parent
+    while current is not None:
+        if current is ancestor:
+            return True
+        current = current.parent
+    return False
+
+
+def check_homepage_contract(html: str, failures: list[str]) -> None:
+    """Keep the approved homepage claims and primary proof routes visible."""
+    text = visible_text(html)
+    for required in HOMEPAGE_REQUIRED_TEXT:
+        if required not in text:
+            failures.append(f"index.html: missing approved homepage text {required!r}")
+    root = parse_structure(html)
+    hrefs = [
+        link.attr("href")
+        for link in descendants(root, "a", rendered_only=True)
+    ]
+    for href in HOMEPAGE_REQUIRED_HREFS:
+        if href not in hrefs:
+            failures.append(f"index.html: missing visible homepage route {href}")
+
+    proof_features = [
+        element
+        for element in descendants(root, rendered_only=True)
+        if element.has_class("proof-feature")
+    ]
+    if len(proof_features) != 1:
+        failures.append(
+            f"index.html: expected exactly one proof feature, found {len(proof_features)}"
+        )
+        return
+    proof_hrefs = {
+        link.attr("href")
+        for link in descendants(proof_features[0], "a", rendered_only=True)
+    }
+    for href in HOMEPAGE_PROOF_HREFS:
+        if href not in proof_hrefs:
+            failures.append(f"index.html: proof feature is missing required link {href}")
+
+
+def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
+    """Require the reusable article and local-contents pattern."""
+    root = parse_structure(html)
+    articles = descendants(root, "article", rendered_only=True)
+    if len(articles) != 1:
+        failures.append(f"{rel}: expected exactly one article element")
+    toc_blocks = [
+        nav
+        for nav in descendants(root, "nav", rendered_only=True)
+        if nav.attr("aria-label") == "On this page"
+    ]
+    if len(toc_blocks) != 1:
+        failures.append(f"{rel}: expected exactly one On this page navigation")
+        return
+    toc = toc_blocks[0]
+    if len(articles) == 1 and not is_descendant(toc, articles[0]):
+        failures.append(f"{rel}: On this page navigation must be inside the article")
+
+    links = descendants(toc, "a", rendered_only=True)
+    if not links:
+        failures.append(
+            f"{rel}: On this page navigation must contain at least one local link"
+        )
+        return
+    target_ids = {
+        element.attr("id")
+        for element in descendants(root, rendered_only=True)
+        if element.attr("id")
+    }
+    valid_links = 0
+    for link in links:
+        href = link.attr("href") or ""
+        if not href.startswith("#") or href[1:] not in target_ids:
+            failures.append(f"{rel}: local contents target does not exist: {href}")
+        else:
+            valid_links += 1
+    if valid_links == 0:
+        failures.append(
+            f"{rel}: On this page navigation must contain at least one valid local link"
+        )
+
+
+def check_rate_table_region(html: str, rel: str, failures: list[str]) -> None:
+    root = parse_structure(html)
+    tables = descendants(root, "table", rendered_only=True)
+
+    def has_labelled_region(table: HtmlElement) -> bool:
+        ancestor = table.parent
+        while ancestor is not None:
+            if (
+                ancestor.tag == "div"
+                and ancestor.attr("role") == "region"
+                and bool((ancestor.attr("aria-label") or "").strip())
+                and ancestor.attr("tabindex") == "0"
+            ):
+                return True
+            ancestor = ancestor.parent
+        return False
+
+    if not tables or any(not has_labelled_region(table) for table in tables):
+        failures.append(f"{rel}: reference table is not inside a labelled keyboard-scroll region")
+
+
+def check_id_contract(
+    root: HtmlElement,
+    identifier: str,
+    tag: str,
+    attributes: dict[str, str],
+    failures: list[str],
+    *,
+    present: tuple[str, ...] = (),
+) -> HtmlElement | None:
+    """Require one identified control and the attributes its controller relies on."""
+    matches = element_by_id(root, identifier)
+    if len(matches) != 1:
+        failures.append(
+            f"{CALCULATOR_REL}: expected exactly one #{identifier}, found {len(matches)}"
+        )
+        return None
+    element = matches[0]
+    if element.tag != tag:
+        failures.append(
+            f"{CALCULATOR_REL}: #{identifier} must be {tag}, found {element.tag}"
+        )
+        return element
+    for name, expected in attributes.items():
+        actual = element.attr(name)
+        if actual != expected:
+            failures.append(
+                f"{CALCULATOR_REL}: #{identifier} {name} must be {expected!r}, "
+                f"found {actual!r}"
+            )
+    for name in present:
+        if name not in element.attrs:
+            failures.append(f"{CALCULATOR_REL}: #{identifier} must have {name}")
+    return element
+
+
+def check_calculator_contract(html: str, failures: list[str]) -> None:
+    positions = [html.find(marker) for marker in CALCULATOR_MARKERS]
+    if any(position < 0 for position in positions) or positions != sorted(positions):
+        failures.append(
+            f"{CALCULATOR_REL}: calculator markers missing or out of order: {positions}"
+        )
+
+    root = parse_structure(html)
+    ids = {
+        element.attr("id")
+        for element in descendants(root)
+        if element.attr("id")
+    }
+    missing_ids = sorted(CALCULATOR_REQUIRED_IDS - ids)
+    if missing_ids:
+        failures.append(f"{CALCULATOR_REL}: missing protected field IDs: {missing_ids}")
+
+    branch_radios = [
+        element
+        for element in descendants(root, "input")
+        if element.attr("name") == "branch"
+    ]
+    branch_contract = [
+        (radio.attr("type"), radio.attr("value"), "checked" in radio.attrs)
+        for radio in branch_radios
+    ]
+    expected_branch_contract = [
+        ("radio", "baseRate", True),
+        ("radio", "annual", False),
+        ("radio", "casual", False),
+    ]
+    if branch_contract != expected_branch_contract:
+        failures.append(f"{CALCULATOR_REL}: branch radio contract changed")
+
+    number_attributes = {
+        "type": "number",
+        "min": "0",
+        "step": "0.01",
+        "inputmode": "decimal",
+    }
+    for identifier in CALCULATOR_NUMBER_INPUT_IDS:
+        check_id_contract(
+            root,
+            identifier,
+            "input",
+            {"name": identifier, **number_attributes},
+            failures,
+        )
+    check_id_contract(
+        root,
+        "reportingMonth",
+        "input",
+        {"type": "month", "name": "reportingMonth"},
+        failures,
+        present=("required",),
+    )
+    for identifier in ("instrumentSpecifiesLoading", "loadingQuantifiable"):
+        check_id_contract(
+            root,
+            identifier,
+            "input",
+            {"type": "checkbox", "name": identifier},
+            failures,
+        )
+    check_id_contract(
+        root, "employeeLabel", "input", {"type": "text"}, failures
+    )
+    for identifier in ("add-bonus", "add-employee", "export-csv"):
+        check_id_contract(
+            root, identifier, "button", {"type": "button"}, failures
+        )
+
+    forms = element_by_id(root, "calc-form")
+    if len(forms) == 1:
+        submit_buttons = [
+            button
+            for button in descendants(forms[0], "button")
+            if button.attr("type") == "submit"
+        ]
+        if len(submit_buttons) != 1:
+            failures.append(
+                f"{CALCULATOR_REL}: #calc-form must contain exactly one submit button"
+            )
+
+    bonus_templates = element_by_id(root, "bonus-row-template")
+    if len(bonus_templates) == 1:
+        bonus_template = bonus_templates[0]
+        bonus_amounts = [
+            element
+            for element in descendants(bonus_template, "input")
+            if element.has_class("bonus-amount")
+        ]
+        if len(bonus_amounts) != 1:
+            failures.append(
+                f"{CALCULATOR_REL}: expected exactly one .bonus-amount input"
+            )
+        else:
+            for name, expected in number_attributes.items():
+                actual = bonus_amounts[0].attr(name)
+                if actual != expected:
+                    failures.append(
+                        f"{CALCULATOR_REL}: .bonus-amount {name} must be "
+                        f"{expected!r}, found {actual!r}"
+                    )
+
+        frequency_selects = [
+            element
+            for element in descendants(bonus_template, "select")
+            if element.has_class("bonus-frequency")
+        ]
+        found_frequencies: list[str | None] = []
+        if len(frequency_selects) == 1:
+            found_frequencies = [
+                option.attr("value")
+                for option in descendants(frequency_selects[0], "option")
+            ]
+        if found_frequencies != BONUS_FREQUENCIES:
+            failures.append(
+                f"{CALCULATOR_REL}: bonus frequency values must be "
+                f"{BONUS_FREQUENCIES!r}, found {found_frequencies!r}"
+            )
+
+        remove_buttons = [
+            element
+            for element in descendants(bonus_template, "button")
+            if element.has_class("bonus-remove")
+        ]
+        if len(remove_buttons) != 1 or remove_buttons[0].attr("type") != "button":
+            failures.append(
+                f"{CALCULATOR_REL}: .bonus-remove must be a button with type 'button'"
+            )
+
+    result_tags = element_by_id(root, "result")
+    if len(result_tags) != 1:
+        failures.append(f"{CALCULATOR_REL}: expected one #result region")
+    else:
+        result_tag = result_tags[0]
+        if (
+            result_tag.tag != "div"
+            or result_tag.attr("role") != "status"
+            or result_tag.attr("aria-live") != "polite"
+        ):
+            failures.append(f"{CALCULATOR_REL}: #result must be a polite status region")
+
+    result_position = html.find('id="result"')
+    employee_position = html.find('id="employeeLabel"')
+    disclaimer_position = html.find('id="disclaimer"')
+    if not 0 <= result_position < employee_position < disclaimer_position:
+        failures.append(
+            f"{CALCULATOR_REL}: result, employee workflow and disclaimer are out of order"
+        )
+
+    if "from '/assets/levy.mjs'" not in html:
+        failures.append(f"{CALCULATOR_REL}: protected levy engine import changed")
 
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
@@ -1062,6 +1603,7 @@ def check_file(path: Path) -> list[str]:
     if m:
         canonical = m.group(1)
     if indexed:
+        check_shared_shell(html, rel, failures)
         expected = site_url(rel)
         if canonical is None:
             failures.append(f"{rel}: no canonical link")
@@ -1093,6 +1635,15 @@ def check_file(path: Path) -> list[str]:
             for node in nodes(block):
                 if node.get("@type") == "FAQPage":
                     check_faq_visible(node, html, rel, failures)
+
+    if rel == "index.html":
+        check_homepage_contract(html, failures)
+    if rel in ARTICLE_PATTERN_PAGES:
+        check_article_pattern(html, rel, failures)
+    if rel in RATE_PAGES:
+        check_rate_table_region(html, rel, failures)
+    if rel == CALCULATOR_REL:
+        check_calculator_contract(html, failures)
 
     print(f"checked {rel}")
     return failures
@@ -1134,6 +1685,44 @@ def check_site(paths: list[Path]) -> list[str]:
     return failures
 
 
+def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
+    """Require one skip target and the exact global primary navigation."""
+    root = parse_structure(html)
+    mains = descendants(root, "main", rendered_only=True)
+    if len(mains) != 1 or mains[0].attr("id") != "main":
+        failures.append(
+            f"{rel}: expected exactly one rendered main#main, found "
+            f"{len(mains)} main elements"
+        )
+
+    skip_links = []
+    for link in descendants(root, "a", rendered_only=True):
+        if link.has_class("skip-link") and link.attr("href") == "#main":
+            skip_links.append(link)
+    if len(skip_links) != 1:
+        failures.append(
+            f"{rel}: expected exactly one .skip-link targeting #main, found {len(skip_links)}"
+        )
+
+    primary_blocks = [
+        nav
+        for nav in descendants(root, "nav", rendered_only=True)
+        if nav.attr("aria-label") == "Primary"
+    ]
+    if len(primary_blocks) != 1:
+        failures.append(
+            f"{rel}: expected exactly one nav labelled Primary, found {len(primary_blocks)}"
+        )
+        return
+
+    links = [
+        (link.attr("href"), element_text(link))
+        for link in descendants(primary_blocks[0], "a", rendered_only=True)
+    ]
+    if links != PRIMARY_NAV_LINKS:
+        failures.append(f"{rel}: primary navigation is {links!r}, expected {PRIMARY_NAV_LINKS!r}")
+
+
 def html_files() -> list[Path]:
     return sorted(
         p
@@ -1144,6 +1733,14 @@ def html_files() -> list[Path]:
 
 def _self_check() -> None:
     global ROOT
+
+    missing_negative_failures: list[str] = []
+
+    def expect_failure(actual: list[str], expected: str) -> None:
+        if expected not in actual:
+            missing_negative_failures.append(
+                f"expected {expected!r}, found {actual!r}"
+            )
 
     assert site_url("index.html") == f"{SITE}/"
     assert re.search(
@@ -1172,6 +1769,238 @@ def _self_check() -> None:
     assert title_is_too_long(EVIDENCE_REL, f"{evidence_title} extra")
     assert visible_text("<p>a <b>b</b></p><script>var x = 'hidden';</script>") == "a b"
     assert meta('<meta name="description" content="x &amp; y" />', "name", "description") == "x & y"
+    valid_shell = """
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header><nav aria-label="Primary">
+      <a href="/about/">About</a><a href="/evidence/">Evidence</a>
+      <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+      <a href="https://github.com/ryanduguid">GitHub</a>
+      <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+    </nav></header><main id="main"></main>
+    """
+    shell_failures: list[str] = []
+    check_shared_shell(valid_shell, "self-check", shell_failures)
+    assert shell_failures == []
+
+    invalid_shell = valid_shell.replace("Awesome List", "Projects").replace(
+        'id="main"', 'id="content"'
+    )
+    invalid_shell_failures: list[str] = []
+    check_shared_shell(invalid_shell, "self-check", invalid_shell_failures)
+    assert any("main#main" in failure for failure in invalid_shell_failures)
+    assert any("primary navigation" in failure for failure in invalid_shell_failures)
+    duplicate_main_failures: list[str] = []
+    check_shared_shell(
+        valid_shell.replace("</main>", "</main><main></main>"),
+        "self-check",
+        duplicate_main_failures,
+    )
+    expect_failure(
+        duplicate_main_failures,
+        "self-check: expected exactly one rendered main#main, found 2 main elements",
+    )
+    valid_homepage = """
+    <main>
+      <h1>I build accounting systems that can show their work.</h1>
+      <h2>Data and Ledgers</h2><h2>Rules and Engines</h2>
+      <h2>Agent Workflows</h2><h2>Review Controls</h2>
+      <h2>Install in 2 commands</h2>
+      <h2>Proof belongs beside the claim</h2>
+      <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+      <section class="proof-feature">
+        <a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="https://coallsl.com.au/guidance-notes/eligible-wages">Eligible wages</a>
+        <a href="https://coallsl.com.au/about-us/governing-legislation/legislation">Legislation</a>
+      </section>
+    </main>
+    """
+    homepage_failures: list[str] = []
+    check_homepage_contract(valid_homepage, homepage_failures)
+    assert homepage_failures == []
+
+    invalid_homepage = valid_homepage.replace(
+        "I build accounting systems that can show their work.", ""
+    )
+    invalid_homepage_failures: list[str] = []
+    check_homepage_contract(invalid_homepage, invalid_homepage_failures)
+    assert any(
+        "missing approved homepage text" in failure
+        and "I build accounting systems" in failure
+        for failure in invalid_homepage_failures
+    )
+    misplaced_proof_link = valid_homepage.replace(
+        '<a href="/evidence/">Evidence</a>', "", 1
+    ).replace(
+        "</main>", '<a href="/evidence/">Evidence elsewhere</a></main>', 1
+    )
+    misplaced_proof_failures: list[str] = []
+    check_homepage_contract(misplaced_proof_link, misplaced_proof_failures)
+    expect_failure(
+        misplaced_proof_failures,
+        "index.html: proof feature is missing required link /evidence/",
+    )
+    valid_article = """
+    <article><nav aria-label="On this page">
+      <a href="#first">First</a><a href="#second">Second</a>
+    </nav><h2 id="first">First</h2><h2 id="second">Second</h2></article>
+    """
+    article_failures: list[str] = []
+    check_article_pattern(valid_article, "self-check", article_failures)
+    assert article_failures == []
+    empty_contents_failures: list[str] = []
+    check_article_pattern(
+        '<article><nav aria-label="On this page"></nav><h2 id="first">First</h2></article>',
+        "self-check",
+        empty_contents_failures,
+    )
+    expect_failure(
+        empty_contents_failures,
+        "self-check: On this page navigation must contain at least one local link",
+    )
+    broken_contents_failures: list[str] = []
+    check_article_pattern(
+        '<article><nav aria-label="On this page"><a href="#missing">Missing</a></nav>'
+        '<h2 id="first">First</h2></article>',
+        "self-check",
+        broken_contents_failures,
+    )
+    expect_failure(
+        broken_contents_failures,
+        "self-check: local contents target does not exist: #missing",
+    )
+    valid_rate_region = (
+        '<div role="region" aria-label="Reference rates" tabindex="0">'
+        "<table><tr><td>12</td></tr></table></div>"
+    )
+    rate_region_failures: list[str] = []
+    check_rate_table_region(valid_rate_region, "self-check", rate_region_failures)
+    assert rate_region_failures == []
+    sibling_rate_table_failures: list[str] = []
+    check_rate_table_region(
+        '<div role="region" aria-label="Reference rates" tabindex="0"></div>'
+        "<table><tr><td>12</td></tr></table>",
+        "self-check",
+        sibling_rate_table_failures,
+    )
+    expect_failure(
+        sibling_rate_table_failures,
+        "self-check: reference table is not inside a labelled keyboard-scroll region",
+    )
+    valid_calculator = """
+    <form id="calc-form">
+      <input type="radio" name="branch" value="baseRate" checked>
+      <input type="radio" name="branch" value="annual">
+      <input type="radio" name="branch" value="casual">
+      <div id="branch-fields"></div>
+      <input type="number" name="sacrificed" min="0" step="0.01"
+        inputmode="decimal" id="sacrificed">
+      <div id="bonus-rows"></div><button id="add-bonus" type="button"></button>
+      <button type="submit"></button>
+    </form>
+    <div id="result" role="status" aria-live="polite"></div>
+    <input type="text" id="employeeLabel">
+    <button id="add-employee" type="button"></button>
+    <table id="employee-table"><tbody id="employee-rows"></tbody>
+      <tfoot><tr><td id="employee-total-wages"></td>
+      <td id="employee-total-levy"></td></tr></tfoot></table>
+    <button id="export-csv" type="button"></button><div id="disclaimer"></div>
+    <template id="fields-baseRate">
+      <input type="number" name="baseRate" min="0" step="0.01"
+        inputmode="decimal" id="baseRate">
+      <input type="number" name="overtime" min="0" step="0.01"
+        inputmode="decimal" id="overtime">
+      <input type="number" name="allowances" min="0" step="0.01"
+        inputmode="decimal" id="allowances">
+    </template>
+    <template id="fields-annual">
+      <input type="number" name="annualSalary" min="0" step="0.01"
+        inputmode="decimal" id="annualSalary">
+    </template>
+    <template id="fields-casual">
+      <input type="month" name="reportingMonth" id="reportingMonth" required>
+      <input type="checkbox" name="instrumentSpecifiesLoading"
+        id="instrumentSpecifiesLoading">
+      <input type="checkbox" name="loadingQuantifiable" id="loadingQuantifiable">
+      <input type="number" name="casualBasePay" min="0" step="0.01"
+        inputmode="decimal" id="casualBasePay">
+      <input type="number" name="casualLoading" min="0" step="0.01"
+        inputmode="decimal" id="casualLoading">
+      <input type="number" name="ordinaryPay" min="0" step="0.01"
+        inputmode="decimal" id="ordinaryPay">
+    </template>
+    <template id="bonus-row-template">
+      <input type="number" min="0" step="0.01" inputmode="decimal"
+        class="bonus-amount">
+      <select class="bonus-frequency">
+        <option value="weekly">Weekly</option>
+        <option value="fortnightly">Fortnightly</option>
+        <option value="monthly">Monthly</option>
+        <option value="quarterly">Quarterly</option>
+        <option value="halfYearly">Half-yearly</option>
+        <option value="annually">Annually</option>
+      </select>
+      <button type="button" class="bonus-remove"></button>
+    </template>
+    <script type="module">import {} from '/assets/levy.mjs';</script>
+    """
+    calculator_failures: list[str] = []
+    check_calculator_contract(valid_calculator, calculator_failures)
+    assert calculator_failures == []
+    calculator_mutations = [
+        (
+            valid_calculator.replace('name="sacrificed"', 'name="changedSacrificed"'),
+            f"{CALCULATOR_REL}: #sacrificed name must be 'sacrificed', found "
+            "'changedSacrificed'",
+        ),
+        (
+            valid_calculator.replace('name="baseRate" min="0"', 'name="baseRate" min="-1"'),
+            f"{CALCULATOR_REL}: #baseRate min must be '0', found '-1'",
+        ),
+        (
+            valid_calculator.replace('name="overtime" min="0" step="0.01"',
+                                     'name="overtime" min="0" step="1"'),
+            f"{CALCULATOR_REL}: #overtime step must be '0.01', found '1'",
+        ),
+        (
+            valid_calculator.replace('id="reportingMonth" required', 'id="reportingMonth"'),
+            f"{CALCULATOR_REL}: #reportingMonth must have required",
+        ),
+        (
+            valid_calculator.replace('id="add-employee" type="button"',
+                                     'id="add-employee" type="submit"'),
+            f"{CALCULATOR_REL}: #add-employee type must be 'button', found 'submit'",
+        ),
+        (
+            valid_calculator.replace('<option value="monthly">',
+                                     '<option value="yearly">'),
+            f"{CALCULATOR_REL}: bonus frequency values must be "
+            "['weekly', 'fortnightly', 'monthly', 'quarterly', 'halfYearly', "
+            "'annually'], found ['weekly', 'fortnightly', 'yearly', 'quarterly', "
+            "'halfYearly', 'annually']",
+        ),
+        (
+            valid_calculator.replace('type="radio" name="branch" value="annual"',
+                                     'type="checkbox" name="branch" value="annual"'),
+            f"{CALCULATOR_REL}: branch radio contract changed",
+        ),
+        (
+            valid_calculator.replace(
+                '<div id="result" role="status" aria-live="polite"></div>',
+                '<span id="result" role="status" aria-live="polite"></span>',
+            ),
+            f"{CALCULATOR_REL}: #result must be a polite status region",
+        ),
+    ]
+    for mutated_calculator, expected_failure in calculator_mutations:
+        mutation_failures: list[str] = []
+        check_calculator_contract(mutated_calculator, mutation_failures)
+        expect_failure(mutation_failures, expected_failure)
+
+    assert not missing_negative_failures, (
+        "negative self-check fixtures did not emit their required messages:\n  "
+        + "\n  ".join(missing_negative_failures)
+    )
     mcp_page = (ROOT / "tools/australian-tax-ai-agents/index.html").read_text(
         encoding="utf-8"
     )

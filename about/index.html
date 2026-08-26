@@ -16,121 +16,173 @@
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="container">
-    <p><a href="/">Home</a></p>
-    <h1>About Ryan Duguid</h1>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/" aria-current="page">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <p class="article-crumb"><a href="/">Home</a></p>
+        <h1>About Ryan Duguid</h1>
+        <p class="lead-note">
+          I am an Australian accountant based in Newcastle, New South Wales, and a
+          provisional member of Chartered Accountants Australia and New Zealand. I
+          build open-source computational accounting tools for Australian tax,
+          payroll and statutory compliance, and publish them at
+          github.com/ryanduguid. The site provides public tools and evidence; it
+          does not provide tax or BAS agent services.
+        </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#facts">The short facts</a>
+          <a href="#what-i-build">What I build</a>
+          <a href="#authored-software">Authored software</a>
+          <a href="#grounding">How the work is grounded</a>
+          <a href="#advice-boundary">Advice and review boundary</a>
+          <a href="#contact">Scoped enquiries</a>
+          <a href="#citing">Citing this work</a>
+        </nav>
+        <div class="article-body">
+          <p>
+            I am not the US software product executive of the same name. My public
+            work includes aus-accounting-mcp and payday-super-checker.
+          </p>
+          <p>
+            My work sits where accounting practice meets code. Australian statutory
+            rules are detailed and change on fixed dates. I build tools that cite the
+            legislation or regulator's published guidance, show their working, and
+            make the result easier for a second person to review.
+          </p>
+          <p>
+            My <a href="/evidence/">evidence page</a> sets out the public proof
+            links, source hierarchy and limits on what those records can establish.
+          </p>
 
-    <p class="short-answer">
-      I am an Australian accountant based in Newcastle, New South Wales, and a
-      provisional member of Chartered Accountants Australia and New Zealand. I
-      build open-source computational accounting tools for Australian tax,
-      payroll and statutory compliance, and publish them at
-      github.com/ryanduguid. The site provides public tools and evidence; it
-      does not provide tax or BAS agent services.
-    </p>
-    <p>
-      I am not the US software product executive of the same name. My public
-      work includes aus-accounting-mcp and payday-super-checker.
-    </p>
+          <section id="facts">
+            <h2>The short facts</h2>
+            <table class="facts">
+              <tbody>
+                <tr><th scope="row">Name</th><td>Ryan Duguid, accountant in Newcastle NSW</td></tr>
+                <tr><th scope="row">Based in</th><td>Newcastle, New South Wales, Australia</td></tr>
+                <tr><th scope="row">Not the same person</th><td>Distinct from the US software product executive of the same name.</td></tr>
+                <tr><th scope="row">Field</th><td>Accounting, Australian taxation, payroll and statutory compliance</td></tr>
+                <tr><th scope="row">Professional body</th><td>Provisional member, Chartered Accountants Australia and New Zealand, since May 2026</td></tr>
+                <tr><th scope="row">Certifications</th><td>SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO). Xero specialist certification, level 3.</td></tr>
+                <tr><th scope="row">Education</th><td>Bachelor of Commerce (Accounting), University of Newcastle</td></tr>
+                <tr><th scope="row">Writes about</th><td>Payday super, the superannuation guarantee charge, Division 7A, trust distributions and section 100A, fringe benefits tax, ATO small business benchmarks, construction work in progress under AASB 15, the Coal LSL payroll levy, Xero data extraction, and running AI agents safely over accounting work</td></tr>
+                <tr><th scope="row">Code</th><td><a href="https://github.com/ryanduguid">github.com/ryanduguid</a></td></tr>
+              </tbody>
+            </table>
+          </section>
 
-    <p>
-      My work sits where accounting practice meets code. Australian statutory
-      rules are detailed and change on fixed dates. I build tools that cite the
-      legislation or regulator's published guidance, show their working, and
-      make the result easier for a second person to review.
-    </p>
-    <p>
-      My <a href="/evidence/">evidence page</a> sets out the public proof
-      links, source hierarchy and limits on what those records can establish.
-    </p>
+          <section id="what-i-build">
+            <h2>What I build</h2>
+            <p>
+              I organise the work into four layers. Data and ledger tools pull figures
+              out of accounting systems without breaking them. Rules and engine tools
+              package deterministic calculations and statutory tests. Agent workflows
+              let an AI coding assistant run those engines
+              inside a fixed boundary, so the calculation stays deterministic even when
+              the assistant is not. Review controls keep incomplete packs and close
+              exceptions in view for a person to assess.
+            </p>
+            <ul>
+              <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>, the eligible wages test under section 3B, running in the browser.</li>
+              <li><a href="/tools/payday-super/">Payday super timing and SG charge exposure</a>, checked against a payroll export.</li>
+              <li><a href="/tools/ato-benchmarks/">ATO small business benchmark comparison</a>, run on your own machine.</li>
+              <li><a href="/tools/trust-distributions/">Section 100A risk zones and Division 6 allocation</a>.</li>
+              <li><a href="/tools/company-tax-franking/">Base rate entity test and franking account checks</a>.</li>
+              <li><a href="/tools/subcontractor-ledgers/">Construction and mining subcontract ledger skills</a>.</li>
+              <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a>.</li>
+              <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that has to balance</a>.</li>
+              <li><a href="/tools/review-ready-gate/">A readiness gate that keeps incomplete packs off the review desk</a>.</li>
+              <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a>: local computational MCP versus document lookup.</li>
+            </ul>
+          </section>
 
-    <h2 class="section-title">The short facts</h2>
-    <table class="facts">
-      <tbody>
-        <tr><th scope="row">Name</th><td>Ryan Duguid, accountant in Newcastle NSW</td></tr>
-        <tr><th scope="row">Based in</th><td>Newcastle, New South Wales, Australia</td></tr>
-        <tr><th scope="row">Not the same person</th><td>Distinct from the US software product executive of the same name.</td></tr>
-        <tr><th scope="row">Field</th><td>Accounting, Australian taxation, payroll and statutory compliance</td></tr>
-        <tr><th scope="row">Professional body</th><td>Provisional member, Chartered Accountants Australia and New Zealand, since May 2026</td></tr>
-        <tr><th scope="row">Certifications</th><td>SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO). Xero specialist certification, level 3.</td></tr>
-        <tr><th scope="row">Education</th><td>Bachelor of Commerce (Accounting), University of Newcastle</td></tr>
-        <tr><th scope="row">Writes about</th><td>Payday super, the superannuation guarantee charge, Division 7A, trust distributions and section 100A, fringe benefits tax, ATO small business benchmarks, construction work in progress under AASB 15, the Coal LSL payroll levy, Xero data extraction, and running AI agents safely over accounting work</td></tr>
-        <tr><th scope="row">Code</th><td><a href="https://github.com/ryanduguid">github.com/ryanduguid</a></td></tr>
-      </tbody>
-    </table>
+          <section id="authored-software">
+            <h2>Authored software</h2>
+            <ul>
+              <li><a href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>, with its <a href="https://pypi.org/project/payday-super-checker/">PyPI distribution</a>.</li>
+              <li><a href="https://github.com/ryanduguid/au-tax-mcp-server">aus-accounting-mcp</a>, listed on <a href="https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server">Glama</a> and in the <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">official MCP Registry</a>.</li>
+            </ul>
+          </section>
 
-    <h2 class="section-title">What I build</h2>
-    <p>
-      I organise the work into four layers. Data and ledger tools pull figures
-      out of accounting systems without breaking them. Rules and engine tools
-      package deterministic calculations and statutory tests. Agent workflows
-      let an AI coding assistant run those engines
-      inside a fixed boundary, so the calculation stays deterministic even when
-      the assistant is not. Review controls keep incomplete packs and close
-      exceptions in view for a person to assess.
-    </p>
-    <ul>
-      <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>, the eligible wages test under section 3B, running in the browser.</li>
-      <li><a href="/tools/payday-super/">Payday super timing and SG charge exposure</a>, checked against a payroll export.</li>
-      <li><a href="/tools/ato-benchmarks/">ATO small business benchmark comparison</a>, run on your own machine.</li>
-      <li><a href="/tools/trust-distributions/">Section 100A risk zones and Division 6 allocation</a>.</li>
-      <li><a href="/tools/company-tax-franking/">Base rate entity test and franking account checks</a>.</li>
-      <li><a href="/tools/subcontractor-ledgers/">Construction and mining subcontract ledger skills</a>.</li>
-      <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a>.</li>
-      <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that has to balance</a>.</li>
-      <li><a href="/tools/review-ready-gate/">A readiness gate that keeps incomplete packs off the review desk</a>.</li>
-      <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a>: local computational MCP versus document lookup.</li>
-    </ul>
+          <section id="grounding">
+            <h2>How the work is grounded</h2>
+            <ul>
+              <li><strong>Primary sources only.</strong> Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.</li>
+              <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating point drift never reaches a figure someone might lodge.</li>
+              <li><strong>Refusal over guessing.</strong> Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.</li>
+              <li><strong>Synthetic data in public.</strong> Every public fixture, test and example uses fabricated data. Client information stays out of public repositories entirely.</li>
+              <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
+            </ul>
+          </section>
 
-    <h2 class="section-title">Authored software</h2>
-    <ul>
-      <li><a href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>, with its <a href="https://pypi.org/project/payday-super-checker/">PyPI distribution</a>.</li>
-      <li><a href="https://github.com/ryanduguid/au-tax-mcp-server">aus-accounting-mcp</a>, listed on <a href="https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server">Glama</a> and in the <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">official MCP Registry</a>.</li>
-    </ul>
+          <section id="advice-boundary">
+            <h2>Advice and review boundary</h2>
+            <p>
+              Nothing here is tax, legal or financial advice. The tools are review aids
+              for a qualified professional, not compliance determinations.
+            </p>
+          </section>
 
-    <h2 class="section-title">How the work is grounded</h2>
-    <ul>
-      <li><strong>Primary sources only.</strong> Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.</li>
-      <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating point drift never reaches a figure someone might lodge.</li>
-      <li><strong>Refusal over guessing.</strong> Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.</li>
-      <li><strong>Synthetic data in public.</strong> Every public fixture, test and example uses fabricated data. Client information stays out of public repositories entirely.</li>
-      <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
-    </ul>
+          <section id="contact">
+            <h2>Scoped enquiries</h2>
+            <p>
+              I am available to discuss accounting workflow problems, controlled tool
+              evaluations, technical adoption, research, speaking and peer review.
+              This site does not offer tax or BAS agent services and does not accept tax
+              advice or lodgment requests.
+            </p>
+            <p>
+              Email <a href="mailto:ryan@duguid.com.au">ryan@duguid.com.au</a>. Do not send
+              taxpayer information or client files. An email does not create a professional
+              engagement; scope, responsibilities and data handling would need to be agreed
+              separately.
+            </p>
+          </section>
 
-    <h2 class="section-title">Advice and review boundary</h2>
-    <p>
-      Nothing here is tax, legal or financial advice. The tools are review aids
-      for a qualified professional, not compliance determinations.
-    </p>
+          <section id="citing">
+            <h2>Citing this work</h2>
+            <p>
+              Duguid, R. (2026). <em>Australian computational accounting tools</em>.
+              https://ryanduguid.github.io/. Each tool page names the source it is
+              grounded in, and each linked repository carries its own licence and
+              disclaimer.
+            </p>
+          </section>
 
-    <h2 id="contact" class="section-title">Scoped enquiries</h2>
-    <p>
-      I am available to discuss accounting workflow problems, controlled tool
-      evaluations, technical adoption, research, speaking and peer review.
-      This site does not offer tax or BAS agent services and does not accept tax
-      advice or lodgment requests.
-    </p>
-    <p>
-      Email <a href="mailto:ryan@duguid.com.au">ryan@duguid.com.au</a>. Do not send
-      taxpayer information or client files. An email does not create a professional
-      engagement; scope, responsibilities and data handling would need to be agreed
-      separately.
-    </p>
-
-    <h2 class="section-title">Citing this work</h2>
-    <p>
-      Duguid, R. (2026). <em>Australian computational accounting tools</em>.
-      https://ryanduguid.github.io/. Each tool page names the source it is
-      grounded in, and each linked repository carries its own licence and
-      disclaimer.
-    </p>
-
-    <p class="page-meta">Last reviewed 26 August 2026.</p>
-    <p class="byline">
-      I write and maintain this site independently, in my own time and on my own
-      equipment.
-    </p>
-  </div>
+          <p class="page-meta">Last reviewed 26 August 2026.</p>
+          <p class="byline">
+            I write and maintain this site independently, in my own time and on my own
+            equipment.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

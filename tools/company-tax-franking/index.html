@@ -14,12 +14,38 @@
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="container">
-    <p><a href="/">Home</a></p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
     <h1>What company tax rate applies, and is the franking account in order</h1>
-    <p class="short-answer">
+    <p class="lead-note">
       A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
     </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
     <p>
       A company's tax rate turns on whether it is a base rate entity: aggregated
       turnover under the year's threshold, and no more than 80 per cent of
@@ -40,13 +66,16 @@
       too. That is a review helper for the statement, not a lodgement or a
       compliance certificate.
     </p>
-    <h2 class="section-title">What this tool does</h2>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
     <ul>
       <li>Tests whether a company is a base rate entity for a given financial year, against the aggregated turnover threshold and the 80 per cent passive income test.</li>
       <li>Tracks a franking account ledger and works out franking deficit tax and the 30 per cent offset reduction penalty where the deficit exceeds 10 per cent of annual credits.</li>
       <li>Checks distributions in a franking period against the Division 203 benchmark rule, for over-franking tax and franking debit shortfalls.</li>
     </ul>
-    <h2 class="section-title">Limits</h2>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
     <blockquote>
       <p>
         Nothing this engine produces is tax, legal or financial advice, an
@@ -56,12 +85,16 @@
         registered practitioner.
       </p>
     </blockquote>
-    <h2 class="section-title">Get it</h2>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
     <pre><code>git clone https://github.com/ryanduguid/TheExchequerTally.git
 cd TheExchequerTally &amp;&amp; pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/TheExchequerTally">Source on GitHub</a></p>
     <!-- geo-blocks -->
-    <h2 class="section-title">Common questions</h2>
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
     <div class="faq">
       <h3>What makes a company a base rate entity?</h3>
       <p>Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income.</p>
@@ -70,19 +103,34 @@ cd TheExchequerTally &amp;&amp; pip install .</code></pre>
       <h3>What is the benchmark rule?</h3>
       <p>Under Division 203 a company must frank all distributions in a franking period to the same extent. Departing from the benchmark franking percentage produces over-franking tax or a franking debit shortfall.</p>
     </div>
-    <h2 class="section-title">Related</h2>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
     <ul class="related">
       <li><a href="/tools/trust-distributions/">Is this trust distribution in the section 100A green zone</a></li>
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
+    </section>
     <p class="page-meta">Published 24 August 2026. Last reviewed 24 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
     </p>
-  </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

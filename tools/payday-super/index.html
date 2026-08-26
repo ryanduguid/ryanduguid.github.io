@@ -14,12 +14,39 @@
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
 <body>
-  <div class="container">
-    <p><a href="/">Home</a></p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
     <h1>When is payday super actually due, and what happens if it is late</h1>
-    <p class="short-answer">
+    <p class="lead-note">
       Since 1 July 2026 a super contribution is on time only when the fund receives it within seven business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock. A late line attracts the shortfall, notional earnings and an administrative uplift of up to 60 per cent.
     </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#synthetic-worked-example">Synthetic worked example</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
     <p>
       Since 1 July 2026, super guarantee contributions are generally due within
       seven business days of each payday, not once a quarter. Business days are
@@ -42,13 +69,16 @@
       timing can still prove LATE when money left after the deadline, while a
       timely remittance without fund receipt evidence remains AT_RISK.
     </p>
-    <h2 class="section-title">What this tool does</h2>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
     <ul>
       <li>Checks a payroll export against the payday super deadline, seven business days after payday or twenty for the first contribution to a new fund, using a national public holiday calendar.</li>
       <li>Produces an experimental SG charge estimate for lines that the supplied facts show are late, combining the shortfall, notional earnings and administrative uplift.</li>
       <li>Refuses to guess: a line is marked unknown, rather than given a verdict, wherever the records supplied do not establish the facts the law actually tests.</li>
     </ul>
-    <h2 class="section-title">Limits</h2>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
     <blockquote>
       <p>
         This is an educational tool, not tax, legal or financial advice, and
@@ -58,7 +88,9 @@
         calculators, and get advice for your circumstances.
       </p>
     </blockquote>
-    <h2 class="section-title">Get it</h2>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
     <pre><code>pip install payday-super-checker
 # or
 git clone https://github.com/ryanduguid/payday-super-checker.git
@@ -67,13 +99,16 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
        · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
        · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
     <!-- geo-blocks -->
-    <h2 class="section-title">Synthetic worked example</h2>
+    </section>
+    <section id="synthetic-worked-example">
+    <h2>Synthetic worked example</h2>
     <p>
       These three synthetic rows use a payday of 9 July 2026, a $300.00 SG
       amount, a due date of 20 July 2026 and an as-at date of 10 August 2026.
       They come from the tests for release v0.1.2.
     </p>
-    <table>
+    <div class="table-scroll" role="region" aria-label="Synthetic Payday Super worked example outcomes" tabindex="0">
+    <table class="tool-table--wide">
       <thead>
         <tr>
           <th>Outcome</th>
@@ -99,6 +134,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         </tr>
       </tbody>
     </table>
+    </div>
     <p>
       See the
       <a href="https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/tests/test_integration.py#L836-L887">tagged v0.1.2 integration tests</a>
@@ -111,7 +147,9 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
       for human review; it does not give advice, make a compliance
       determination, lodge, approve or pay anything.
     </p>
-    <h2 class="section-title">Common questions</h2>
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
     <div class="faq">
       <h3>When is super due under payday super?</h3>
       <p>The fund must receive the contribution within seven business days of the payday, or twenty business days for a first contribution to a new fund. The test is receipt by the fund, not the day the employer sent the money.</p>
@@ -122,7 +160,9 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
       <h3>What happens if a contribution is late?</h3>
       <p>The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination.</p>
     </div>
-    <h2 class="section-title">Related</h2>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
     <ul class="related">
       <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
@@ -130,12 +170,25 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
+    </section>
     <p class="page-meta">Published 24 August 2026. Last reviewed 25 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid, a provisional member of
       Chartered Accountants ANZ, in his own time and on his own equipment.
     </p>
-  </div>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
