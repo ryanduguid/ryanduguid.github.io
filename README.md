@@ -20,7 +20,7 @@ Then open `http://localhost:8000/`.
 python scripts/check_site.py
 ```
 
-The check covers the portfolio structure, entity and social metadata, project anchors, discovery files, retired routes, local links and asset budgets.
+The check covers the portfolio structure, identity and social metadata, project anchors, crawler policy, retired routes and local assets.
 
 ## Licence
 
