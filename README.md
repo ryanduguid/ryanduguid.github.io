@@ -2,6 +2,8 @@
 
 Source for [ryanduguid.github.io](https://ryanduguid.github.io/), a single-page portfolio of Ryan Duguid's open-source accounting work.
 
+The published page is static HTML and CSS with no client-side JavaScript.
+
 ## Local preview
 
 Serve the repository with Python:
