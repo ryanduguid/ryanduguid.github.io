@@ -1,43 +1,25 @@
 # ryanduguid.github.io
 
-Source for [ryanduguid.github.io](https://ryanduguid.github.io/), the landing page for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [ryanduguid.github.io](https://ryanduguid.github.io/), a single-page portfolio of Ryan Duguid's open-source accounting work.
 
 ## Local preview
 
-The site is static HTML (`index.html`, `about/`, `evidence/`, `rates/`, `tools/`). Open `index.html` in a browser, or serve the folder:
+Serve the repository with Python:
 
 ```bash
 python -m http.server 8000
 ```
 
-then visit `http://localhost:8000/`.
+Then open `http://localhost:8000/`.
 
-## Checks
-
-`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule:
-
-- the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
-- every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect
-- every same-origin link, absolute or root-relative, must resolve to a file on disk
-- external links must resolve
-- the HTML must parse cleanly
-- retired repository names and em or en dashes must not appear
-- every page carries a title, a meta description in the length band, a canonical matching its own path, Open Graph tags and parseable JSON-LD; ItemList counts and positions must match their entries
-- every question marked up as an FAQ is visible on the page that claims it
-- every indexable page has one `main#main`, one skip link and the exact shared primary navigation
-- `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
-
-Run locally:
+## Check
 
 ```bash
-node --test scripts/levy.test.mjs
-python scripts/check_links.py
-python scripts/test_check_seo.py
-python scripts/check_seo.py
+python scripts/check_site.py
 ```
+
+The check covers the portfolio structure, retired routes, local links and asset budgets.
 
 ## Licence
 
 MIT, see [LICENSE](LICENSE).
-
-Nothing on the site is tax, legal or financial advice. Outputs of the tools it links are review aids for a qualified professional, not compliance determinations.
