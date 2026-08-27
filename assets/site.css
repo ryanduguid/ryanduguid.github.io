@@ -135,6 +135,10 @@ h2 {
   line-height: 1.25;
 }
 
+.project {
+  scroll-margin-top: 2rem;
+}
+
 .project h3 a {
   color: var(--text);
   text-decoration-color: var(--accent);
@@ -148,6 +152,24 @@ h2 {
   margin-bottom: 0;
   max-width: 33rem;
   color: var(--muted);
+}
+
+.project-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.7rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  list-style: none;
+}
+
+.project-meta li + li::before {
+  margin-right: 0.7rem;
+  color: var(--line);
+  content: "/";
 }
 
 footer {
