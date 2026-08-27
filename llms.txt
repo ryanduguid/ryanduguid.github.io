@@ -1,20 +1,20 @@
 # Ryan Duguid
 
-Open-source tools for Australian tax, payroll and financial reporting.
+Ryan Duguid builds open-source tools for Australian tax, payroll, financial reporting and accounting review.
 
 ## Selected work
 
-- payday-super-checker: https://github.com/ryanduguid/payday-super-checker
-- xero-trial-balance-export: https://github.com/ryanduguid/xero-trial-balance-export
-- Ozzit: https://github.com/ryanduguid/Ozzit
-- accounting-excel-toolkit: https://github.com/ryanduguid/accounting-excel-toolkit
-- aus-accounting-mcp: https://github.com/ryanduguid/aus-accounting-mcp
-- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
-- workpaper-review-gate: https://github.com/ryanduguid/workpaper-review-gate
-- australian-accounting-power-bi: https://github.com/ryanduguid/australian-accounting-power-bi
-- monthly-close-controls: https://github.com/ryanduguid/monthly-close-controls
-- au-tax-legislation-corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
+- [payday-super-checker](https://github.com/ryanduguid/payday-super-checker): Checks contribution timing and prepares Payday Super exceptions for review.
+- [xero-trial-balance-export](https://github.com/ryanduguid/xero-trial-balance-export): Exports reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.
+- [Ozzit](https://github.com/ryanduguid/Ozzit): Provides 134 native Excel LAMBDA functions for financial modelling and GST arithmetic.
+- [accounting-excel-toolkit](https://github.com/ryanduguid/accounting-excel-toolkit): Power Query and VBA utilities for Australian ledger exports.
+- [aus-accounting-mcp](https://github.com/ryanduguid/aus-accounting-mcp): A local MCP server for Australian accounting review, including ATO benchmarks, Payday Super and synthetic SBR fixtures.
+- [australian-accounting-skills](https://github.com/ryanduguid/australian-accounting-skills): Agent skills for Australian public-practice workflows, with human review and primary-source checks built in.
+- [workpaper-review-gate](https://github.com/ryanduguid/workpaper-review-gate): Stops incomplete Australian public-practice workpaper packs before manager review.
+- [australian-accounting-power-bi](https://github.com/ryanduguid/australian-accounting-power-bi): A source-controlled Power BI project for Australian accounting analytics, consolidation and review.
+- [monthly-close-controls](https://github.com/ryanduguid/monthly-close-controls): Builds deterministic close checks and exception packs from Xero-shaped trial balances.
+- [au-tax-legislation-corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Builds a provenance-rich corpus of in-force Commonwealth tax legislation.
 
 Portfolio: https://ryanduguid.github.io/
 GitHub: https://github.com/ryanduguid
-LinkedIn: https://www.linkedin.com/in/ryan-duguid
+LinkedIn (hibernated): https://www.linkedin.com/in/ryan-duguid
