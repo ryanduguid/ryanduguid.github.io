@@ -11,6 +11,49 @@ from urllib.parse import urlparse
 ROOT = Path(__file__).resolve().parents[1]
 HOME = ROOT / "index.html"
 
+PROJECTS = {
+    "payday-super-checker": (
+        "https://github.com/ryanduguid/payday-super-checker",
+        ("Python CLI", "Payroll controls", "MIT"),
+    ),
+    "xero-trial-balance-export": (
+        "https://github.com/ryanduguid/xero-trial-balance-export",
+        ("Python CLI", "Xero reporting", "MIT"),
+    ),
+    "ozzit": (
+        "https://github.com/ryanduguid/Ozzit",
+        ("Excel LAMBDA", "Financial modelling", "MIT"),
+    ),
+    "accounting-excel-toolkit": (
+        "https://github.com/ryanduguid/accounting-excel-toolkit",
+        ("Power Query and VBA", "Ledger workflows", "MIT"),
+    ),
+    "aus-accounting-mcp": (
+        "https://github.com/ryanduguid/aus-accounting-mcp",
+        ("Python MCP server", "Review workflows", "MIT"),
+    ),
+    "australian-accounting-skills": (
+        "https://github.com/ryanduguid/australian-accounting-skills",
+        ("Agent skills", "Public practice", "MIT"),
+    ),
+    "workpaper-review-gate": (
+        "https://github.com/ryanduguid/workpaper-review-gate",
+        ("Python CLI", "Workpaper review", "MIT"),
+    ),
+    "australian-accounting-power-bi": (
+        "https://github.com/ryanduguid/australian-accounting-power-bi",
+        ("Power BI", "Financial analytics", "MIT"),
+    ),
+    "monthly-close-controls": (
+        "https://github.com/ryanduguid/monthly-close-controls",
+        ("Python CLI", "Month-end close", "MIT"),
+    ),
+    "au-tax-legislation-corpus": (
+        "https://github.com/ryanduguid/au-tax-legislation-corpus",
+        ("Python corpus pipeline", "Tax legislation", "MIT"),
+    ),
+}
+
 
 class SiteDocument(HTMLParser):
     def __init__(self) -> None:
@@ -19,21 +62,41 @@ class SiteDocument(HTMLParser):
         self.heading_stack: list[tuple[str, list[str]]] = []
         self.headings: list[tuple[str, str]] = []
         self.links: list[tuple[str, str]] = []
+        self.link_attributes: list[dict[str, str | None]] = []
         self.assets: list[str] = []
+        self.metadata: dict[str, str] = {}
+        self.elements: list[tuple[str, dict[str, str | None]]] = []
+        self.projects: list[tuple[str | None, tuple[str, ...]]] = []
         self.visible_text: list[str] = []
         self._anchor: tuple[str, list[str]] | None = None
+        self._project: tuple[str | None, list[str]] | None = None
+        self._in_project_metadata = False
+        self._metadata_parts: list[str] | None = None
         self._ignored_depth = 0
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         values = dict(attrs)
+        self.elements.append((tag, values))
         if tag in {"script", "style"}:
             self._ignored_depth += 1
+        if tag == "meta":
+            key = values.get("property") or values.get("name")
+            content = values.get("content")
+            if key and content:
+                self.metadata[key] = content
         if tag == "main":
             self.main_ids.append(values.get("id"))
+        if tag == "article" and "project" in (values.get("class") or "").split():
+            self._project = (values.get("id"), [])
+        if tag == "ul" and "project-meta" in (values.get("class") or "").split():
+            self._in_project_metadata = True
+        if tag == "li" and self._in_project_metadata:
+            self._metadata_parts = []
         if tag in {"h1", "h2", "h3"}:
             self.heading_stack.append((tag, []))
         if tag == "a" and values.get("href"):
             self._anchor = (values["href"] or "", [])
+            self.link_attributes.append(values)
         if tag in {"img", "link", "script"}:
             asset = values.get("src") or values.get("href")
             if asset:
@@ -45,6 +108,15 @@ class SiteDocument(HTMLParser):
         if tag in {"h1", "h2", "h3"} and self.heading_stack:
             heading_tag, parts = self.heading_stack.pop()
             self.headings.append((heading_tag, " ".join(parts).strip()))
+        if tag == "li" and self._metadata_parts is not None and self._project:
+            self._project[1].append(" ".join(self._metadata_parts).strip())
+            self._metadata_parts = None
+        if tag == "ul" and self._in_project_metadata:
+            self._in_project_metadata = False
+        if tag == "article" and self._project:
+            project_id, metadata = self._project
+            self.projects.append((project_id, tuple(metadata)))
+            self._project = None
         if tag == "a" and self._anchor:
             href, parts = self._anchor
             self.links.append((href, " ".join(parts).strip()))
@@ -59,6 +131,8 @@ class SiteDocument(HTMLParser):
             self.heading_stack[-1][1].append(text)
         if self._anchor:
             self._anchor[1].append(text)
+        if self._metadata_parts is not None:
+            self._metadata_parts.append(text)
 
 
 def parse(path: Path) -> SiteDocument:
@@ -112,6 +186,74 @@ class PortfolioSiteChecks(unittest.TestCase):
         self.assertIn(
             ("https://www.linkedin.com/in/ryan-duguid", "LinkedIn (hibernated)"),
             self.document.links,
+        )
+
+    def test_profile_has_explicit_person_identity(self) -> None:
+        self.assertIn(
+            "Ryan Duguid builds open-source tools for Australian tax, payroll, "
+            "financial reporting and accounting review.",
+            self.page_text,
+        )
+
+        body = next(attrs for tag, attrs in self.document.elements if tag == "body")
+        main = next(
+            attrs
+            for tag, attrs in self.document.elements
+            if tag == "main" and attrs.get("id") == "main"
+        )
+        self.assertIn("itemscope", body)
+        self.assertEqual(body.get("itemtype"), "https://schema.org/ProfilePage")
+        self.assertIn("itemscope", main)
+        self.assertEqual(main.get("itemprop"), "mainEntity")
+        self.assertEqual(main.get("itemtype"), "https://schema.org/Person")
+
+        identity_links = {
+            attrs["href"]: attrs
+            for attrs in self.document.link_attributes
+            if attrs.get("href")
+            in {
+                "https://github.com/ryanduguid",
+                "https://www.linkedin.com/in/ryan-duguid",
+            }
+        }
+        self.assertEqual(len(identity_links), 2)
+        for attrs in identity_links.values():
+            self.assertIn("me", (attrs.get("rel") or "").split())
+            self.assertEqual(attrs.get("itemprop"), "sameAs")
+
+    def test_projects_have_stable_deep_links_and_compact_metadata(self) -> None:
+        self.assertEqual(
+            self.document.projects,
+            [(project_id, details) for project_id, (_, details) in PROJECTS.items()],
+        )
+
+    def test_discovery_file_matches_the_page_identity_and_projects(self) -> None:
+        discovery = (ROOT / "llms.txt").read_text(encoding="utf-8")
+        self.assertIn(
+            "Ryan Duguid builds open-source tools for Australian tax, payroll, "
+            "financial reporting and accounting review.",
+            discovery,
+        )
+        self.assertIn(
+            "LinkedIn (hibernated): https://www.linkedin.com/in/ryan-duguid",
+            discovery,
+        )
+        for project_id, (url, _) in PROJECTS.items():
+            label = "Ozzit" if project_id == "ozzit" else project_id
+            self.assertRegex(discovery, rf"(?m)^- \[{re.escape(label)}\]\({re.escape(url)}\): .+$")
+
+    def test_social_card_metadata_is_complete(self) -> None:
+        expected = {
+            "og:image": "https://ryanduguid.github.io/assets/og-card.png",
+            "og:image:alt": "Ryan Duguid, open-source accounting tools",
+            "og:image:width": "1200",
+            "og:image:height": "630",
+            "twitter:card": "summary_large_image",
+            "twitter:image": "https://ryanduguid.github.io/assets/og-card.png",
+            "twitter:image:alt": "Ryan Duguid, open-source accounting tools",
+        }
+        self.assertEqual(
+            {key: self.document.metadata.get(key) for key in expected}, expected
         )
 
     def test_protected_branch_check_name_is_preserved(self) -> None:
