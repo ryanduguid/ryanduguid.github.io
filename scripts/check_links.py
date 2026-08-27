@@ -4,7 +4,7 @@ Checks, in order, per file:
 1. Every github.com/ryanduguid/<repo> link resolves to that exact repository.
    A rename redirect (301 to a different repo path) is a FAILURE even though
    the request ends in a 200, because redirects break if the old name is reused.
-2. Every same-origin link, whether an absolute https://ryanduguid.github.io/...
+2. Every same-origin link, whether an absolute https://duguid.com.au/...
    href or a root-relative one like "/tools/payday-super/" or
    "/assets/site.css", resolves to a file on disk instead of being fetched.
    The site is served from main; this branch's own pages are not live yet, so
@@ -55,7 +55,7 @@ RETIRED_NAMES = [
 
 USER_AGENT = "ryanduguid.github.io-link-check"
 
-SELF_ORIGIN = "https://ryanduguid.github.io"
+SELF_ORIGIN = "https://duguid.com.au"
 
 ATO_AUTOMATION_DENIAL_URLS = frozenset(
     {

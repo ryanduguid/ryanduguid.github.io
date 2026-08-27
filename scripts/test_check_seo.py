@@ -29,7 +29,7 @@ def self_check() -> None:
             )
 
     redirect_rel = "tools/review-ready-gate/index.html"
-    redirect_target = "https://ryanduguid.github.io/tools/workpaper-review-gate/"
+    redirect_target = "https://duguid.com.au/tools/workpaper-review-gate/"
     valid_redirect = f"""
     <meta name="robots" content="noindex, follow" />
     <meta http-equiv="refresh" content="0; url={redirect_target}" />
@@ -454,7 +454,7 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
     </article>
     </main>
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
+      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://duguid.com.au/about/#person"}}
     </script>
     """
     valid_xero_evaluation_html = """
@@ -526,7 +526,7 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
     </article>
     </main>
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}
+      {"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://duguid.com.au/about/#person"}}
     </script>
     """
     valid_payday_evaluation_html = """
@@ -547,16 +547,16 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
     <section id="human-decision"><h2>Human decision</h2><p>Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation and the other assessment facts before relying on a statutory conclusion.</p></section>
     <section id="limitations"><h2>Limitations</h2><p>Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment.</p><a href="/evidence/">Evidence and Assurance</a></section>
     </article></main>
-    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://ryanduguid.github.io/about/#person"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","author":{"@id":"https://duguid.com.au/about/#person"}}</script>
     """
     evaluation_rel = "evaluate/manager-review-gate/index.html"
-    evaluation_url = "https://ryanduguid.github.io/evaluate/manager-review-gate/"
+    evaluation_url = "https://duguid.com.au/evaluate/manager-review-gate/"
     xero_evaluation_rel = "evaluate/xero-trial-balance-integrity/index.html"
     xero_evaluation_url = (
-        "https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/"
+        "https://duguid.com.au/evaluate/xero-trial-balance-integrity/"
     )
     payday_evaluation_rel = "evaluate/payday-super-evidence/index.html"
-    payday_evaluation_url = "https://ryanduguid.github.io/evaluate/payday-super-evidence/"
+    payday_evaluation_url = "https://duguid.com.au/evaluate/payday-super-evidence/"
     with tempfile.TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         def check_evaluation_fixture(
@@ -848,7 +848,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         )
         require_failures(
             changed(
-                '"author":{"@id":"https://ryanduguid.github.io/about/#person"}',
+                '"author":{"@id":"https://duguid.com.au/about/#person"}',
                 '"author":{"@id":"https://example.com/other-person"}',
             ),
             f"{evaluation_rel}: TechArticle must be authored by the canonical "

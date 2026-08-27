@@ -11,10 +11,10 @@ from urllib.parse import parse_qs
 
 import seo_core as core
 
-SITE = "https://ryanduguid.github.io"
+SITE = "https://duguid.com.au"
 STATIC_REDIRECTS = {
     "tools/review-ready-gate/index.html": (
-        "https://ryanduguid.github.io/tools/workpaper-review-gate/"
+        "https://duguid.com.au/tools/workpaper-review-gate/"
     ),
 }
 NOT_INDEXED = {"404.html"} | set(STATIC_REDIRECTS)

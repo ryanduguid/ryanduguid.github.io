@@ -6,48 +6,48 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Choose a route
 
-- **Engage** (https://ryanduguid.github.io/#engage): discuss a firm workflow, controlled evaluation, technical adoption, research, speaking or peer review. Do not send taxpayer information or client files. This is not a tax advice or lodgment channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
-- **Adopt** (https://ryanduguid.github.io/#adopt): use the supported install commands and evaluate tools with fabricated data.
-- **Verify** (https://ryanduguid.github.io/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; human accountability and refusals; and independent evaluation.
+- **Engage** (https://duguid.com.au/#engage): discuss a firm workflow, controlled evaluation, technical adoption, research, speaking or peer review. Do not send taxpayer information or client files. This is not a tax advice or lodgment channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
+- **Adopt** (https://duguid.com.au/#adopt): use the supported install commands and evaluate tools with fabricated data.
+- **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; human accountability and refusals; and independent evaluation.
 
 ## For AI agents
 
-- [Australian tax tools for AI agents](https://ryanduguid.github.io/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
+- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
 
 ## Person
 
-- [About Ryan Duguid](https://ryanduguid.github.io/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
+- [About Ryan Duguid](https://duguid.com.au/about/): who he is, where he is, credentials, what the tools are grounded in, and how to cite the work. Machine-readable Person data is in the JSON-LD on that page.
 
 ## Evaluation packs
 
-- [Manager review gate evaluation](https://ryanduguid.github.io/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
-- [Xero trial balance integrity evaluation](https://ryanduguid.github.io/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
-- [Payday Super timing evidence evaluation](https://ryanduguid.github.io/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
+- [Manager review gate evaluation](https://duguid.com.au/evaluate/manager-review-gate/): reproduces the released v0.1.1 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
+- [Xero trial balance integrity evaluation](https://duguid.com.au/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
+- [Payday Super timing evidence evaluation](https://duguid.com.au/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
 
 ## Reference tables
 
-- [Super guarantee rate history](https://ryanduguid.github.io/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
-- [Division 7A benchmark interest rate](https://ryanduguid.github.io/rates/div7a-benchmark-rate/): 8.77 per cent for 2026-27, 8.37 per cent for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
-- [Cents per kilometre rate for car expenses](https://ryanduguid.github.io/rates/cents-per-kilometre/): 91 cents for 2026-27, 88 cents for 2024-25 and 2025-26, capped at the first 5,000 business kilometres per car. One rate for every car, whatever the engine size. The 2026 determination sets 91 cents for that income year alone, so it does not carry into 2027-28 the way the 2024 determination's 88 cents carried into 2025-26.
+- [Super guarantee rate history](https://duguid.com.au/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
+- [Division 7A benchmark interest rate](https://duguid.com.au/rates/div7a-benchmark-rate/): 8.77 per cent for 2026-27, 8.37 per cent for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
+- [Cents per kilometre rate for car expenses](https://duguid.com.au/rates/cents-per-kilometre/): 91 cents for 2026-27, 88 cents for 2024-25 and 2025-26, capped at the first 5,000 business kilometres per car. One rate for every car, whatever the engine size. The 2026 determination sets 91 cents for that income year alone, so it does not carry into 2027-28 the way the 2024 determination's 88 cents carried into 2025-26.
 
 ## Browser tools, nothing to install
 
-- [Coal LSL levy calculator](https://ryanduguid.github.io/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
+- [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
 
 ## Tool guides, open source, install and run locally
 
-- [Payday super due dates and SG charge](https://ryanduguid.github.io/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
-- [Workpaper Review Gate](https://ryanduguid.github.io/tools/workpaper-review-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
-- [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
-- [ATO small business benchmark comparison](https://ryanduguid.github.io/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
-- [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
-- [Subcontract ledger skills for construction and mining](https://ryanduguid.github.io/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
-- [Section 100A and Division 6 trust distributions](https://ryanduguid.github.io/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
-- [Company tax rate and franking account](https://ryanduguid.github.io/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
+- [Payday super due dates and SG charge](https://duguid.com.au/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
+- [Workpaper Review Gate](https://duguid.com.au/tools/workpaper-review-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
+- [Xero trial balance CSV export](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
+- [ATO small business benchmark comparison](https://duguid.com.au/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
+- [Construction WIP schedule](https://duguid.com.au/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
+- [Subcontract ledger skills for construction and mining](https://duguid.com.au/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
+- [Section 100A and Division 6 trust distributions](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
+- [Company tax rate and franking account](https://duguid.com.au/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
 
 ## Supported installation
 
-- [Adopt](https://ryanduguid.github.io/#adopt): the maintained source for the two supported installation commands.
+- [Adopt](https://duguid.com.au/#adopt): the maintained source for the two supported installation commands.
 
 ## Source code
 

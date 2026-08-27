@@ -33,4 +33,4 @@ Disallow: /
 User-agent: Applebot-Extended
 Disallow: /
 
-Sitemap: https://ryanduguid.github.io/sitemap.xml
+Sitemap: https://duguid.com.au/sitemap.xml

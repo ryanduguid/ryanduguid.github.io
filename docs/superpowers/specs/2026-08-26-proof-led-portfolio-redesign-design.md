@@ -366,7 +366,7 @@ is changed or inferred.
 The implementation must preserve:
 
 - every current public route and canonical
-- `https://ryanduguid.github.io/about/#person` as the canonical Person ID
+- `https://duguid.com.au/about/#person` as the canonical Person ID
 - exactly one Person record on About
 - homepage Website, WebPage and ten-entry ItemList relationships
 - evidence-page invariants enforced by `scripts/check_seo.py`
