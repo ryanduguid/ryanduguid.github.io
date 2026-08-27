@@ -1,36 +1,12 @@
-User-agent: *
-Allow: /
-
-# Permit AI search and user-requested retrieval.
-User-agent: OAI-SearchBot
-Allow: /
-User-agent: ChatGPT-User
-Allow: /
-User-agent: Claude-SearchBot
-Allow: /
-User-agent: Claude-User
-Allow: /
-User-agent: PerplexityBot
-Allow: /
-User-agent: Perplexity-User
-Allow: /
-User-agent: Applebot
-Allow: /
-User-agent: DuckAssistBot
-Allow: /
-User-agent: MistralAI-User
-Allow: /
-User-agent: YouBot
-Allow: /
-
-# Do not permit training crawlers.
+# Block named training crawlers.
 User-agent: GPTBot
-Disallow: /
 User-agent: ClaudeBot
-Disallow: /
 User-agent: Google-Extended
-Disallow: /
 User-agent: Applebot-Extended
 Disallow: /
+
+# Allow search and user-requested retrieval, including AI search.
+User-agent: *
+Allow: /
 
 Sitemap: https://ryanduguid.github.io/sitemap.xml
