@@ -28,6 +28,33 @@ def self_check() -> None:
                 f"expected {expected!r}, found {actual!r}"
             )
 
+    redirect_rel = "tools/review-ready-gate/index.html"
+    redirect_target = "https://ryanduguid.github.io/tools/workpaper-review-gate/"
+    valid_redirect = f"""
+    <meta name="robots" content="noindex, follow" />
+    <meta http-equiv="refresh" content="0; url={redirect_target}" />
+    <link rel="canonical" href="{redirect_target}" />
+    <a href="{redirect_target}">Continue to Workpaper Review Gate</a>
+    """
+    assert contracts.check_static_redirect(
+        valid_redirect,
+        redirect_rel,
+        redirect_target,
+    ) == []
+    missing_robots = valid_redirect.replace(
+        '<meta name="robots" content="noindex, follow" />',
+        "",
+    )
+    expect_failure(
+        contracts.check_static_redirect(
+            missing_robots,
+            redirect_rel,
+            redirect_target,
+        ),
+        f'{redirect_rel}: missing redirect marker '
+        '<meta name="robots" content="noindex, follow" />',
+    )
+
     assert site_url("index.html") == f"{contracts.SITE}/"
     assert re.search(
         r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
@@ -405,8 +432,8 @@ def self_check() -> None:
     <section id="human-decision"><h2>Human decision</h2>
       <p>READY means no configured gate tripped; it is not approval, advice or lodgment authority.</p>
     </section>
-    <section id="reproduce"><h2>Reproduce</h2><pre><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/review-ready-gate.git
-cd review-ready-gate
+    <section id="reproduce"><h2>Reproduce</h2><pre><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/workpaper-review-gate.git
+cd workpaper-review-gate
 uv sync --locked --all-extras
 uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
 uv run review-ready gate --profile bas --pack examples/bas-ready --output outputs/evaluation-ready
@@ -417,9 +444,9 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre></section>
     </section>
     <section id="versions"><h2>Versions</h2>
       <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
-      <a href="https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/evaluation/manager_review_gate">Pack</a>
-      <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
-      <a href="https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
+      <a href="https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/evaluation/manager_review_gate">Pack</a>
+      <a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Results</a>
+      <a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Test</a>
     </section>
     <section id="limitations"><h2>Limitations</h2>
       <a href="/evidence/">Evidence and Assurance</a>
@@ -687,11 +714,11 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         recipe_mutations = (
             (
                 "git clone --branch v0.1.1 --depth 1 "
-                "https://github.com/ryanduguid/review-ready-gate.git",
+                "https://github.com/ryanduguid/workpaper-review-gate.git",
                 "git clone --branch v0.1.2 --depth 1 "
-                "https://github.com/ryanduguid/review-ready-gate.git",
+                "https://github.com/ryanduguid/workpaper-review-gate.git",
             ),
-            ("cd review-ready-gate", "cd changed-review-ready-gate"),
+            ("cd workpaper-review-gate", "cd changed-workpaper-review-gate"),
             ("uv sync --locked --all-extras", "uv sync --all-extras"),
             (
                 "uv run review-ready gate --profile bas --pack "
@@ -728,11 +755,11 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         )
 
         product_urls = (
-            "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/"
             "evaluation/manager_review_gate",
-            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
             "evaluation/manager_review_gate/expected_results.json",
-            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
             "tests/test_evaluation_pack.py",
         )
         primary_source_urls = (
@@ -792,7 +819,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             )
 
         extra_product_url = (
-            "https://github.com/ryanduguid/review-ready-gate/issues"
+            "https://github.com/ryanduguid/workpaper-review-gate/issues"
         )
         require_failures(
             changed(
@@ -1482,7 +1509,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             "</section>"
             "<pre>claude mcp add aus-accounting -- uvx aus-accounting-mcp</pre>"
             "<pre>claude mcp add aus-accounting -- uvx --from \\ "
-            "git+https://github.com/ryanduguid/au-tax-mcp-server "
+            "git+https://github.com/ryanduguid/aus-accounting-mcp "
             "aus-accounting-mcp</pre>",
             encoding="utf-8",
         )
@@ -1495,7 +1522,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         (root / "index.html").write_text("", encoding="utf-8")
         (root / "llms.txt").write_text(
             "claude mcp add aus-accounting -- uvx --from "
-            "git+https://github.com/ryanduguid/au-tax-mcp-server aus-accounting-mcp\n"
+            "git+https://github.com/ryanduguid/aus-accounting-mcp aus-accounting-mcp\n"
             "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
             encoding="utf-8",
         )
@@ -1505,7 +1532,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             "<p>npx skills add ryanduguid/australian-accounting-skills</p>"
             "<p>claude mcp add aus-accounting -- uvx aus-accounting-mcp</p>"
             "<p>claude mcp add aus-accounting -- uvx --from "
-            "git+https://github.com/ryanduguid/au-tax-mcp-server "
+            "git+https://github.com/ryanduguid/aus-accounting-mcp "
             "aus-accounting-mcp</p>",
             encoding="utf-8",
         )

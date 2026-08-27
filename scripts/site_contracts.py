@@ -12,7 +12,12 @@ from urllib.parse import parse_qs
 import seo_core as core
 
 SITE = "https://ryanduguid.github.io"
-NOT_INDEXED = {"404.html"}
+STATIC_REDIRECTS = {
+    "tools/review-ready-gate/index.html": (
+        "https://ryanduguid.github.io/tools/workpaper-review-gate/"
+    ),
+}
+NOT_INDEXED = {"404.html"} | set(STATIC_REDIRECTS)
 
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
@@ -37,7 +42,7 @@ PRIMARY_INSTALL_PATTERNS = (
 )
 RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
-    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/au-tax-mcp-server\s+"
+    r"(?:\\\s*)?git\+https://github\.com/ryanduguid/aus-accounting-mcp\s+"
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
@@ -69,7 +74,7 @@ AUTHORED_SOFTWARE = {
     },
     "aus-accounting-mcp": {
         "id": f"{SITE}/about/#aus-accounting-mcp",
-        "repository": "https://github.com/ryanduguid/au-tax-mcp-server",
+        "repository": "https://github.com/ryanduguid/aus-accounting-mcp",
         "references": [
             "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
             "https://registry.modelcontextprotocol.io/v0.1/servers/"
@@ -92,6 +97,22 @@ RETRIEVAL_CRAWLERS = {
 }
 TRAINING_CRAWLERS = {"GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"}
 UNCLASSIFIED_CRAWLERS = {"CCBot", "Bytespider", "Amazonbot"}
+
+
+def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
+    markers = (
+        '<meta name="robots" content="noindex, follow" />',
+        f'<meta http-equiv="refresh" content="0; url={target}" />',
+        f'<link rel="canonical" href="{target}" />',
+        f'<a href="{target}">Continue to Workpaper Review Gate</a>',
+    )
+    return [
+        f"{rel}: missing redirect marker {marker}"
+        for marker in markers
+        if marker not in html
+    ]
+
+
 WORKED_EXAMPLES = {
     "tools/payday-super/index.html": {
         "fixture_urls": [
@@ -122,7 +143,7 @@ WORKED_EXAMPLES = {
 EVALUATION_PACKS = {
     "evaluate/manager-review-gate/index.html": {
         "url": f"{SITE}/evaluate/manager-review-gate/",
-        "product_repository": "https://github.com/ryanduguid/review-ready-gate",
+        "product_repository": "https://github.com/ryanduguid/workpaper-review-gate",
         "product_evidence_contract": (
             "global review-ready-gate evidence hrefs must match approved v0.1.1 "
             "URLs exactly once"
@@ -156,8 +177,8 @@ EVALUATION_PACKS = {
         ),
         "reproduction_recipe": (
             "git clone --branch v0.1.1 --depth 1 "
-            "https://github.com/ryanduguid/review-ready-gate.git",
-            "cd review-ready-gate",
+            "https://github.com/ryanduguid/workpaper-review-gate.git",
+            "cd workpaper-review-gate",
             "uv sync --locked --all-extras",
             "uv run review-ready gate --profile bas --pack examples/bas-not-ready "
             "--output outputs/evaluation-not-ready",
@@ -175,11 +196,11 @@ EVALUATION_PACKS = {
             "lodgment authority.",
         ),
         "product_evidence_urls": (
-            "https://github.com/ryanduguid/review-ready-gate/tree/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/"
             "evaluation/manager_review_gate",
-            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
             "evaluation/manager_review_gate/expected_results.json",
-            "https://github.com/ryanduguid/review-ready-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
             "tests/test_evaluation_pack.py",
         ),
         "primary_source_urls": (
@@ -445,7 +466,7 @@ ARTICLE_PATTERN_PAGES = {
     "tools/australian-tax-ai-agents/index.html",
     "tools/company-tax-franking/index.html",
     "tools/payday-super/index.html",
-    "tools/review-ready-gate/index.html",
+    "tools/workpaper-review-gate/index.html",
     "tools/subcontractor-ledgers/index.html",
     "tools/trust-distributions/index.html",
     "tools/wip-schedule/index.html",
@@ -1279,6 +1300,8 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
 
     for path in sorted(root.glob("tools/*/index.html")):
         rel = path.relative_to(root).as_posix()
+        if rel in NOT_INDEXED:
+            continue
         if "/evidence/" not in core.anchor_hrefs(core.visible_html(path.read_text(encoding="utf-8"))):
             failures.append(f"{rel}: no visible link to /evidence/")
 
@@ -1779,4 +1802,12 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
     failures.extend(check_robots_policy(robots))
+    for rel, target in STATIC_REDIRECTS.items():
+        path = core.ROOT / rel
+        if not path.is_file():
+            failures.append(f"{rel}: missing static redirect page")
+            continue
+        failures.extend(
+            check_static_redirect(path.read_text(encoding="utf-8"), rel, target)
+        )
     return failures
