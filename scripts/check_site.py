@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import hashlib
 import re
+import struct
 import xml.etree.ElementTree as ET
 from html.parser import HTMLParser
 from pathlib import Path
@@ -158,6 +160,18 @@ def main() -> None:
         {key: document.metadata.get(key) for key in social} == social,
         "social card metadata is incomplete",
     )
+
+    social_card = ROOT / "assets" / "og-card.png"
+    social_card_bytes = social_card.read_bytes()
+    require(social_card_bytes.startswith(b"\x89PNG\r\n\x1a\n"), "social card is not PNG")
+    width, height = struct.unpack(">II", social_card_bytes[16:24])
+    require((width, height) == (1200, 630), "social card dimensions changed")
+    require(len(social_card_bytes) <= 350_000, "social card is larger than 350 KB")
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    digest = hashlib.sha256(social_card_bytes).hexdigest()
+    require(digest in readme, "README social-card checksum is missing or stale")
+    for value in ("assets/og-card.png", "MIT", "Pillow 12.3.0"):
+        require(value in readme, f"README social-card provenance omits {value}")
 
     require(not (ROOT / "llms.txt").exists() and "llms.txt" not in html, "remove llms.txt")
 
