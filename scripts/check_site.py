@@ -158,6 +158,20 @@ class PortfolioSiteChecks(unittest.TestCase):
                 missing.append(url)
         self.assertEqual(missing, [])
 
+    def test_site_has_no_client_side_javascript(self) -> None:
+        scripts = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in ROOT.rglob("*")
+            if path.is_file() and path.suffix in {".js", ".mjs"}
+        )
+        script_tags = sorted(
+            path.relative_to(ROOT).as_posix()
+            for path in ROOT.rglob("*.html")
+            if "<script" in path.read_text(encoding="utf-8").lower()
+        )
+        self.assertEqual(scripts, [])
+        self.assertEqual(script_tags, [])
+
     def test_homepage_and_stylesheet_stay_small(self) -> None:
         self.assertLess(HOME.stat().st_size, 16_000)
         self.assertLess((ROOT / "assets" / "site.css").stat().st_size, 12_000)
