@@ -37,7 +37,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Tool guides, open source, install and run locally
 
 - [Payday super due dates and SG charge](https://ryanduguid.github.io/tools/payday-super/): since 1 July 2026 a contribution is on time only when the fund receives it within seven business days of payday, twenty for a first contribution to a new fund. Checks a payroll export against that and estimates the charge on late lines.
-- [Is this pack allowed into manager review](https://ryanduguid.github.io/tools/review-ready-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
+- [Workpaper Review Gate](https://ryanduguid.github.io/tools/workpaper-review-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
 - [Xero trial balance CSV export](https://ryanduguid.github.io/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
 - [ATO small business benchmark comparison](https://ryanduguid.github.io/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
 - [Construction WIP schedule](https://ryanduguid.github.io/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
