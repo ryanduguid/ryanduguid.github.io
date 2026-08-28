@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>What company tax rate applies, and is franking OK?</title>
+  <meta name="description" content="Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule." />
+  <meta property="og:title" content="What company tax rate applies, and is franking OK?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://duguid.com.au/tools/company-tax-franking/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <link rel="canonical" href="https://duguid.com.au/tools/company-tax-franking/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
+    <h1>What company tax rate applies, and is the franking account in order</h1>
+    <p class="lead-note">
+      A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
+    </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
+    <p>
+      A company's tax rate turns on whether it is a base rate entity: aggregated
+      turnover under the year's threshold, and no more than 80 per cent of
+      assessable income being base rate entity passive income. Get that test
+      wrong and the error carries straight through to the rate used to frank a
+      dividend.
+    </p>
+    <p>
+      This tool runs the base rate entity test, then tracks a franking account
+      ledger, PAYG instalments, company tax paid, dividends paid and received,
+      and refunds, and works out franking deficit tax and the 30 per cent offset
+      reduction penalty where a deficit exceeds 10 per cent of annual credits.
+      It also checks distributions in a franking period against the Division
+      203 benchmark rule, for over-franking tax and franking debit shortfalls.
+    </p>
+    <p>
+      It builds the statement fields a dividend distribution statement needs,
+      too. That is a review helper for the statement, not a lodgement or a
+      compliance certificate.
+    </p>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
+    <ul>
+      <li>Tests whether a company is a base rate entity for a given financial year, against the aggregated turnover threshold and the 80 per cent passive income test.</li>
+      <li>Tracks a franking account ledger and works out franking deficit tax and the 30 per cent offset reduction penalty where the deficit exceeds 10 per cent of annual credits.</li>
+      <li>Checks distributions in a franking period against the Division 203 benchmark rule, for over-franking tax and franking debit shortfalls.</li>
+    </ul>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
+    <blockquote>
+      <p>
+        Nothing this engine produces is tax, legal or financial advice, an
+        assessment or a determination. Outputs are review aids: confirm every
+        rate, threshold and consequence against the current law and the
+        entity's facts before acting, and leave lodgement decisions with a
+        registered practitioner.
+      </p>
+    </blockquote>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/TheExchequerTally.git
+cd TheExchequerTally &amp;&amp; pip install .</code></pre>
+    <p><a href="https://github.com/ryanduguid/TheExchequerTally">Source on GitHub</a> · Primary sources: <a href="https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates">ATO company tax rates</a> and <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Division 203 of the Income Tax Assessment Act 1997</a>.</p>
+    <!-- geo-blocks -->
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
+    <div class="faq">
+      <h3>What makes a company a base rate entity?</h3>
+      <p>Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income.</p>
+      <h3>What is franking deficit tax?</h3>
+      <p>Tax payable where a franking account ends the year in deficit. Where the deficit exceeds 10 per cent of the credits arising in the year, the offset for that franking deficit tax is reduced by 30 per cent.</p>
+      <h3>What is the benchmark rule?</h3>
+      <p>Under Division 203 a company must frank all distributions in a franking period to the same extent. Departing from the benchmark franking percentage produces over-franking tax or a franking debit shortfall.</p>
+    </div>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
+    <ul class="related">
+      <li><a href="/tools/trust-distributions/">Is this trust distribution in the section 100A green zone</a></li>
+      <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
+      <li><a href="/evidence/">Evidence and Assurance</a></li>
+      <li><a href="/about/">About Ryan Duguid</a></li>
+    </ul>
+    </section>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="byline">
+      Written independently by Ryan Duguid in his own time and on his own equipment.
+      His provisional membership of Chartered Accountants ANZ is asserted by the
+      site owner and is not an endorsement by Chartered Accountants ANZ.
+    </p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/company-tax-franking/#webpage",
+        "url": "https://duguid.com.au/tools/company-tax-franking/",
+        "name": "What company tax rate applies, and is franking OK?",
+        "description": "Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-28",
+        "isPartOf": {
+          "@id": "https://duguid.com.au/#website"
+        },
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "publisher": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://duguid.com.au/tools/company-tax-franking/#software"
+        },
+        "breadcrumb": {
+          "@id": "https://duguid.com.au/tools/company-tax-franking/#breadcrumb"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "Base rate entity and franking account checker"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/company-tax-franking/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/#tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Base rate entity and franking account checker",
+            "item": "https://duguid.com.au/tools/company-tax-franking/"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Company tax rate and franking account checker",
+        "description": "Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.",
+        "applicationCategory": "FinanceApplication",
+        "url": "https://duguid.com.au/tools/company-tax-franking/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "AUD"
+        },
+        "@id": "https://duguid.com.au/tools/company-tax-franking/#software",
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "creator": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-28"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://duguid.com.au/tools/company-tax-franking/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What makes a company a base rate entity?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is franking deficit tax?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Tax payable where a franking account ends the year in deficit. Where the deficit exceeds 10 per cent of the credits arising in the year, the offset for that franking deficit tax is reduced by 30 per cent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What is the benchmark rule?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Under Division 203 a company must frank all distributions in a franking period to the same extent. Departing from the benchmark franking percentage produces over-franking tax or a franking debit shortfall."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

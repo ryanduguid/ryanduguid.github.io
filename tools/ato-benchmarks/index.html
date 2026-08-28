@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How does this business compare to ATO benchmarks?</title>
+  <meta name="description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta property="og:title" content="How does this business compare to ATO benchmarks?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://duguid.com.au/tools/ato-benchmarks/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
+    <h1>How does this business compare to the ATO small business benchmarks</h1>
+    <p class="lead-note">
+      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to look at more closely. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+    </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
+    <p>
+      The ATO publishes benchmark ranges for around 100 industries and uses them
+      to decide which small businesses to look at more closely. Checking a
+      a business against them before lodgement is a useful review step, and it is
+      usually done by hand: find the industry page, work out which turnover band
+      applies, add up the right accounts, and divide.
+    </p>
+    <p>
+      This tool does that on your own machine, with no network call in the
+      runtime, and it records which account went into which figure so the
+      answer can be checked by someone else later. It applies the ATO's own
+      narrow definitions rather than a rough "expenses over income": wages
+      sitting inside cost of sales are excluded from that ratio, and payments to
+      associated persons come out of total expenses before the division.
+    </p>
+    <p>
+      The workflow is two steps on purpose. First the tool drafts a mapping from
+      the profit and loss, suggesting a bucket for each account from its name
+      alone. Then a person reviews and corrects that mapping, because no account
+      name on its own tells you whether wages went to an associate.
+    </p>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
+    <ul>
+      <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
+      <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
+      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range, so the comparison can be checked by someone else.</li>
+    </ul>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
+    <blockquote>
+      <p>
+        It is not tax advice, and sitting outside a range is not a finding that
+        anything is wrong. The ATO publishes ranges precisely because
+        businesses differ.
+      </p>
+    </blockquote>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/ato-benchmark-compare.git ato-benchmark-compare
+cd ato-benchmark-compare
+pip install .</code></pre>
+    <p><a href="https://github.com/ryanduguid/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
+    <!-- geo-blocks -->
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
+    <div class="faq">
+      <h3>What are the ATO small business benchmarks?</h3>
+      <p>Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely.</p>
+      <h3>Does being outside a benchmark range mean something is wrong?</h3>
+      <p>No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error.</p>
+      <h3>Does this tool send my client data anywhere?</h3>
+      <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later.</p>
+      <h3>Why does a person have to review the account mapping?</h3>
+      <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
+    </div>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
+    <ul class="related">
+      <li><a href="/tools/company-tax-franking/">Company tax rate and franking account checks</a></li>
+      <li><a href="/tools/xero-trial-balance/">A Xero trial balance export that balances</a></li>
+      <li><a href="/evidence/">Evidence and Assurance</a></li>
+      <li><a href="/about/">About Ryan Duguid</a></li>
+    </ul>
+    </section>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="byline">
+      Written independently by Ryan Duguid in his own time and on his own equipment.
+      His provisional membership of Chartered Accountants ANZ is asserted by the
+      site owner and is not an endorsement by Chartered Accountants ANZ.
+    </p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#webpage",
+        "url": "https://duguid.com.au/tools/ato-benchmarks/",
+        "name": "How does this business compare to ATO benchmarks?",
+        "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-28",
+        "isPartOf": {
+          "@id": "https://duguid.com.au/#website"
+        },
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "publisher": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://duguid.com.au/tools/ato-benchmarks/#software"
+        },
+        "breadcrumb": {
+          "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "ATO small business benchmark comparison"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/#tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "ATO small business benchmark comparison",
+            "item": "https://duguid.com.au/tools/ato-benchmarks/"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "ATO small business benchmark comparison tool",
+        "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
+        "applicationCategory": "FinanceApplication",
+        "url": "https://duguid.com.au/tools/ato-benchmarks/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "AUD"
+        },
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#software",
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "creator": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-24",
+        "dateModified": "2026-08-28"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the ATO small business benchmarks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does being outside a benchmark range mean something is wrong?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool send my client data anywhere?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does a person have to review the account mapping?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

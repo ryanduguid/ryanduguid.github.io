@@ -1,98 +1,686 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-AU">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ryan Duguid | Open-source accounting tools</title>
-  <meta name="description" content="Ryan Duguid builds open-source tools for Australian tax, payroll, financial reporting and accounting review." />
-  <meta property="og:title" content="Ryan Duguid | Open-source accounting tools" />
-  <meta property="og:description" content="Open-source tools for Australian tax, payroll, financial reporting and accounting review." />
+  <title>Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid</title>
+  <meta name="description" content="Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW." />
+  <meta property="og:title" content="Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid" />
+  <meta property="og:description" content="Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW." />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://ryanduguid.github.io/" />
-  <meta property="og:image" content="https://ryanduguid.github.io/assets/og-card.png" />
-  <meta property="og:image:alt" content="Ryan Duguid, open-source accounting tools" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="https://duguid.com.au/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ryan Duguid | Open-source accounting tools" />
-  <meta name="twitter:description" content="Open-source tools for Australian tax, payroll, financial reporting and accounting review." />
-  <meta name="twitter:image" content="https://ryanduguid.github.io/assets/og-card.png" />
-  <meta name="twitter:image:alt" content="Ryan Duguid, open-source accounting tools" />
-  <link rel="canonical" href="https://ryanduguid.github.io/" />
-  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="canonical" href="https://duguid.com.au/" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
-<body itemscope itemtype="https://schema.org/ProfilePage">
-  <a class="skip-link" href="#main">Skip to work</a>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main home">
+    <section class="home-hero site-shell" aria-labelledby="home-title">
+      <div class="home-hero__copy">
+        <p class="technical-label">Australian computational accounting | Newcastle &amp; Hunter Valley</p>
+        <h1 id="home-title">I build accounting systems that can show their work.</h1>
+        <p class="home-hero__summary short-answer">Based in Newcastle, I build open-source review aids for accounting firms across the Hunter Valley and Australia, grounded in Australian rules, exact currency arithmetic and human review.</p>
+        <div class="home-actions">
+          <a class="button" href="/tools/payday-super/">Payday Super</a>
+          <a class="button button--secondary" href="/evaluate/manager-review-gate/">Reproduce a review</a>
+        </div>
+      </div>
+      <aside class="home-proof-rail" aria-label="Proof standards">
+        <p>Primary sources</p>
+        <p>Exact currency arithmetic</p>
+        <p>Human review</p>
+      </aside>
+    </section>
 
-  <main id="main" class="shell" itemprop="mainEntity" itemscope itemtype="https://schema.org/Person" itemref="identity-links">
-    <header class="intro">
-      <h1 itemprop="name">Ryan Duguid</h1>
-      <p itemprop="description">Ryan Duguid builds open-source tools for Australian tax, payroll, financial reporting and accounting review.</p>
-    </header>
+    <nav class="path-grid site-shell" aria-label="Choose a path">
+      <a class="path-card" href="#engage">
+        <strong>Engage</strong>
+        <span>Discuss a firm workflow or controlled evaluation.</span>
+      </a>
+      <a class="path-card" href="#adopt">
+        <strong>Adopt</strong>
+        <span>Test or install a tool with fabricated data.</span>
+      </a>
+      <a class="path-card" href="#verify">
+        <strong>Verify</strong>
+        <span>Inspect credentials, sources, releases and boundaries.</span>
+      </a>
+    </nav>
 
-    <section class="work" aria-labelledby="work-title">
-      <h2 id="work-title">Selected work</h2>
+    <section class="credential-band" aria-label="Credentials">
+      <div class="credential-band__inner site-shell">
+        <p>Provisional CA ANZ membership; owner assertion, not an endorsement</p>
+        <p>SAP S/4HANA FI &amp; CO</p>
+        <p>Xero L3 Specialist</p>
+      </div>
+    </section>
 
-      <div class="project-list">
-        <article class="project" id="payday-super-checker">
-          <h3><a href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a></h3>
-          <p>Python CLI that checks contribution timing and prepares Payday Super exceptions for review.</p>
+    <div class="authority-routes site-shell">
+      <section id="engage" class="route-section" aria-labelledby="engage-title">
+        <h2 id="engage-title">Engage</h2>
+        <p>I am available to discuss a firm workflow, a controlled evaluation of these tools, technical adoption, research, speaking or peer review.</p>
+        <ul>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm workflow or controlled pilot</a></li>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Tool adoption or integration</a></li>
+          <li><a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Research, speaking or peer review</a></li>
+        </ul>
+        <p class="boundary">Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.</p>
+      </section>
+
+      <section id="adopt" class="route-section" aria-labelledby="adopt-title">
+        <h2 id="adopt-title">Adopt</h2>
+        <p>Test or install a tool with fabricated data before using it in a firm workflow.</p>
+        <div class="install-band">
+          <h3>Install in 2 commands</h3>
+          <pre><code><span class="comment"># Add Australian Accounting &amp; Tax MCP server to Claude Code</span>
+<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
+
+<span class="comment"># Add Public Practice &amp; Tax skills</span>
+<span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
+        </div>
+        <p><a href="/evaluate/manager-review-gate/">Reproduce the manager review gate evaluation</a></p>
+        <p><a href="/evaluate/xero-trial-balance-integrity/">Reproduce the Xero trial balance integrity evaluation</a></p>
+        <p><a href="/evaluate/payday-super-evidence/">Reproduce the Payday Super timing evidence evaluation</a></p>
+      </section>
+
+      <section id="verify" class="route-section" aria-labelledby="verify-title">
+        <h2 id="verify-title">Verify</h2>
+        <p>Inspect the credentials, sources, releases and boundaries behind this work before relying on it.</p>
+        <p><a href="/evidence/">Review the evidence</a></p>
+      </section>
+    </div>
+
+    <section class="system-section site-shell" aria-labelledby="system-title">
+      <div class="section-heading">
+        <h2 id="system-title">Four layers from ledger to review</h2>
+        <p>Source data moves through explicit rules, bounded agent workflows and controls that keep judgement with a person.</p>
+      </div>
+      <div class="system-map">
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Input layer</p>
+            <h3>Data and Ledgers</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/xero-trial-balance-export">xero-trial-balance-export</a>
+              <p>Export reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.</p>
+              <a class="system-project__link" href="/tools/xero-trial-balance/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/accounting-excel-toolkit">accounting-excel-toolkit</a>
+              <p>Power Query and VBA utilities for Australian ledger work.</p>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/australian-accounting-power-bi">australian-accounting-power-bi</a>
+              <p>Source-controlled Power BI project for Australian accounting analytics, consolidation, ATO benchmarks and Payday Super review.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Balanced exports and reusable ledger transforms.</p>
         </article>
 
-        <article class="project" id="xero-trial-balance-export">
-          <h3><a href="https://github.com/ryanduguid/xero-trial-balance-export">xero-trial-balance-export</a></h3>
-          <p>Python CLI that exports reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.</p>
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Computation layer</p>
+            <h3>Rules and Engines</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>
+              <p>Experimental tool for checking Payday Super timing and preparing exceptions for review.</p>
+              <a class="system-project__link" href="/tools/payday-super/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/Ozzit">Ozzit</a>
+              <p>134 native Excel LAMBDA functions for AU modelling and GST arithmetic.</p>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/au-tax-legislation-corpus">au-tax-legislation-corpus</a>
+              <p>Provenance-rich corpus of in-force Commonwealth tax legislation.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Named statutes, rates and accounting methods stay visible.</p>
         </article>
 
-        <article class="project" id="ozzit">
-          <h3><a href="https://github.com/ryanduguid/Ozzit">Ozzit</a></h3>
-          <p>Provides 134 native Excel LAMBDA functions for financial modelling and GST arithmetic.</p>
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Workflow layer</p>
+            <h3>Agent Workflows</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/aus-accounting-mcp">aus-accounting-mcp</a>
+              <p>Local MCP server for Australian accounting review: ATO small-business benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR fixtures. Not advice.</p>
+              <a class="system-project__link" href="/tools/australian-tax-ai-agents/">How this differs from a document MCP</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a>
+              <p>Claude Code and Codex skills for Australian public-practice workflows. Not lodgement.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Agents call bounded local tools and ethics checks.</p>
         </article>
 
-        <article class="project" id="accounting-excel-toolkit">
-          <h3><a href="https://github.com/ryanduguid/accounting-excel-toolkit">accounting-excel-toolkit</a></h3>
-          <p>Power Query and VBA utilities for Australian ledger exports.</p>
-        </article>
-
-        <article class="project" id="aus-accounting-mcp">
-          <h3><a href="https://github.com/ryanduguid/aus-accounting-mcp">aus-accounting-mcp</a></h3>
-          <p>A local Python MCP server for Australian accounting review, including ATO benchmarks, Payday Super and synthetic SBR fixtures.</p>
-        </article>
-
-        <article class="project" id="australian-accounting-skills">
-          <h3><a href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a></h3>
-          <p>Agent skills for Australian public-practice workflows, with human review and primary-source checks built in.</p>
-        </article>
-
-        <article class="project" id="workpaper-review-gate">
-          <h3><a href="https://github.com/ryanduguid/workpaper-review-gate">workpaper-review-gate</a></h3>
-          <p>Python CLI that stops incomplete Australian public-practice workpaper packs before manager review.</p>
-        </article>
-
-        <article class="project" id="australian-accounting-power-bi">
-          <h3><a href="https://github.com/ryanduguid/australian-accounting-power-bi">australian-accounting-power-bi</a></h3>
-          <p>A source-controlled Power BI project for Australian accounting analytics, consolidation and review.</p>
-        </article>
-
-        <article class="project" id="monthly-close-controls">
-          <h3><a href="https://github.com/ryanduguid/monthly-close-controls">monthly-close-controls</a></h3>
-          <p>Python CLI that builds deterministic close checks and exception packs from Xero-shaped trial balances.</p>
-        </article>
-
-        <article class="project" id="au-tax-legislation-corpus">
-          <h3><a href="https://github.com/ryanduguid/au-tax-legislation-corpus">au-tax-legislation-corpus</a></h3>
-          <p>Python pipeline that builds a provenance-rich corpus of in-force Commonwealth tax legislation.</p>
+        <article class="system-layer">
+          <div class="system-layer__heading">
+            <p class="system-layer__label">Control layer</p>
+            <h3>Review Controls</h3>
+          </div>
+          <ul class="system-layer__projects">
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/workpaper-review-gate">workpaper-review-gate</a>
+              <p>Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public-practice packs. Not advice.</p>
+              <a class="system-project__link" href="/tools/workpaper-review-gate/">Try the tool page</a>
+            </li>
+            <li>
+              <a class="system-project__name" href="https://github.com/ryanduguid/monthly-close-controls">monthly-close-controls</a>
+              <p>Deterministic monthly-close controls for Xero-shaped trial-balance exports, exception packs and human review.</p>
+            </li>
+          </ul>
+          <p class="system-layer__proof"><strong>Proof</strong> Incomplete packs stop before manager review.</p>
         </article>
       </div>
     </section>
-  </main>
 
-  <footer class="shell">
-    <nav id="identity-links" aria-label="Elsewhere">
-      <a href="https://github.com/ryanduguid" rel="me" itemprop="sameAs">GitHub</a>
-      <a href="https://www.linkedin.com/in/ryan-duguid" rel="me" itemprop="sameAs">LinkedIn (hibernated)</a>
+    <section class="proof-feature" aria-labelledby="proof-title">
+      <div class="proof-feature__inner site-shell">
+        <div class="proof-feature__copy">
+          <h2 id="proof-title">Proof belongs beside the claim</h2>
+          <p>The Coal LSL calculator exposes the branch, formula and rounding behind a synthetic monthly result.</p>
+          <nav class="proof-feature__links" aria-label="Inspect the Coal LSL proof">
+            <a class="button button--secondary" href="/tools/coal-lsl-levy/">Open the calculator</a>
+            <a href="/evidence/">Review the evidence</a>
+            <a href="https://coallsl.com.au/guidance-notes/eligible-wages">Read eligible wages guidance</a>
+            <a href="https://coallsl.com.au/about-us/governing-legislation/legislation">Read governing legislation</a>
+          </nav>
+        </div>
+        <figure>
+          <img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" alt="Coal LSL levy calculator showing synthetic monthly inputs and an explained levy result" />
+          <figcaption>Synthetic example. The calculator shows the applied branch and formula before professional review.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="tools-catalogue site-shell" aria-labelledby="tools">
+      <h2 id="tools">Original firm-focused tools</h2>
+      <p class="tools-intro">Start with Payday Super timing, the manager-review gate, or a Xero trial balance that has to balance. The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install.</p>
+      <div id="tools-list" class="tools-list">
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/payday-super/">When is payday super actually due, and what happens if it is late</a>
+          <div class="desc">Check contribution timing and the SG-charge exposure if a payment slips.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/workpaper-review-gate/">Workpaper Review Gate for manager review packs</a>
+          <div class="desc">Stop an incomplete BAS, month-end or year-end folder from reaching the manager.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
+          <div class="desc">A trial balance export that reconciles, ready for Excel or Power BI.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/ato-benchmarks/">How does this business compare to the ATO small business benchmarks</a>
+          <div class="desc">See where a business sits against the published benchmark ranges.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
+          <div class="desc">Work out eligible wages and the levy owed under section 3B.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/wip-schedule/">Construction WIP: over-billed or under-billed under AASB 15</a>
+          <div class="desc">Cost-to-cost earned revenue, contract assets and liabilities, and profit-fade flags from a contract CSV.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a>
+          <div class="desc">Practical ledger workflows for construction and mining subcontractors.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/trust-distributions/">Is this trust distribution inside the section 100A green zone</a>
+          <div class="desc">Check a distribution against the green zone guidance.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/company-tax-franking/">What company tax rate applies, and is the franking account in order</a>
+          <div class="desc">Work out the applicable rate and check the franking account balance.</div>
+        </div>
+        <div class="tool-card">
+          <a class="tool-name" href="/tools/australian-tax-ai-agents/">Which Australian tax MCP should an AI agent use</a>
+          <div class="desc">Local computational engines versus a hosted ATO document library. What aus-accounting-mcp does, and what it refuses.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="principles-section site-shell" aria-labelledby="principles-title">
+      <h2 id="principles-title">Engineering Principles</h2>
+      <div class="principles-list">
+        <div>
+          <strong>Primary Source Grounding</strong>
+          <span>Computations cite Commonwealth legislation, ATO rulings, and AASB/APESB standards.</span>
+        </div>
+        <div>
+          <strong>Exact Currency Arithmetic</strong>
+          <span>Statutory currency engines use decimal quantisation to prevent binary floating-point drift.</span>
+        </div>
+        <div>
+          <strong>Local Privacy Boundaries</strong>
+          <span>Client data stays in local memory or zero-network sandboxes. Public fixtures use synthetic data only.</span>
+        </div>
+        <div>
+          <strong>Human-in-the-Loop Signoff</strong>
+          <span>Pipelines automate calculation and validation. Professional judgement and lodgement remain human-controlled.</span>
+        </div>
+      </div>
+    </section>
+
+    <nav class="more-index site-shell" aria-labelledby="more-title">
+      <h2 id="more-title">More</h2>
+      <div class="more-index__links">
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
+        <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
+        <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
+        <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
+        <a href="/rates/super-guarantee/">SG rate history</a>
+        <a href="/rates/div7a-benchmark-rate/">Division 7A benchmark rate</a>
+        <a href="/rates/cents-per-kilometre/">Cents per kilometre rate</a>
+      </div>
     </nav>
+
+    <p class="page-meta site-shell">Last reviewed 28 August 2026.</p>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
   </footer>
+  <script type="application/ld+json">
+    {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://duguid.com.au/#website",
+        "url": "https://duguid.com.au/",
+        "name": "Ryan Duguid",
+        "alternateName": "Ryan Duguid, Australian computational accounting",
+        "description": "Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW.",
+        "inLanguage": "en-AU",
+        "publisher": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "copyrightHolder": {
+          "@id": "https://duguid.com.au/about/#person"
+        }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/#webpage",
+        "url": "https://duguid.com.au/",
+        "name": "Accounting automation in Newcastle & Hunter Valley | Ryan Duguid",
+        "description": "Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-22",
+        "dateModified": "2026-08-28",
+        "isPartOf": {
+          "@id": "https://duguid.com.au/#website"
+        },
+        "about": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "publisher": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://duguid.com.au/#tools-list"
+        }
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://duguid.com.au/#tools-list",
+        "name": "Tools for Australian accountants and business owners",
+        "itemListOrder": "https://schema.org/ItemListUnordered",
+        "numberOfItems": 10,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://duguid.com.au/tools/payday-super/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/payday-super/#software",
+              "name": "When is payday super actually due, and what happens if it is late",
+              "description": "Check contribution timing against the seven business day rule and estimate the SG charge exposure on a late line.",
+              "url": "https://duguid.com.au/tools/payday-super/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://duguid.com.au/tools/workpaper-review-gate/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/workpaper-review-gate/#software",
+              "name": "Workpaper Review Gate for manager review packs",
+              "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
+              "url": "https://duguid.com.au/tools/workpaper-review-gate/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://duguid.com.au/tools/xero-trial-balance/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/xero-trial-balance/#software",
+              "name": "How to export a Xero trial balance to CSV that actually balances",
+              "description": "Pull the trial balance from the Xero API into a CSV that only writes when it balances.",
+              "url": "https://duguid.com.au/tools/xero-trial-balance/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://duguid.com.au/tools/ato-benchmarks/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/ato-benchmarks/#software",
+              "name": "How does this business compare to the ATO small business benchmarks",
+              "description": "Compare a profit and loss against the published ATO benchmark ranges on your own machine.",
+              "url": "https://duguid.com.au/tools/ato-benchmarks/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://duguid.com.au/tools/coal-lsl-levy/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/coal-lsl-levy/#software",
+              "name": "Coal LSL levy calculator",
+              "description": "Work out eligible wages and the payroll levy owed under section 3B.",
+              "url": "https://duguid.com.au/tools/coal-lsl-levy/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://duguid.com.au/tools/wip-schedule/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/wip-schedule/#software",
+              "name": "Construction WIP: over-billed or under-billed under AASB 15",
+              "description": "Deterministic AASB 15 construction work-in-progress schedule from a contract CSV: cost-to-cost progress, contract assets and liabilities, profit fade.",
+              "url": "https://duguid.com.au/tools/wip-schedule/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#software",
+              "name": "Subcontract ledger workflows for construction and mining",
+              "description": "Agent skills for progress claims, retentions, work in progress, fuel tax credits and the Coal LSL levy.",
+              "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "url": "https://duguid.com.au/tools/trust-distributions/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/trust-distributions/#software",
+              "name": "Is this trust distribution inside the section 100A green zone",
+              "description": "Classify a distribution against the PCG 2022/2 risk zones and work out Division 6 shares.",
+              "url": "https://duguid.com.au/tools/trust-distributions/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "url": "https://duguid.com.au/tools/company-tax-franking/",
+            "item": {
+              "@type": "SoftwareApplication",
+              "@id": "https://duguid.com.au/tools/company-tax-franking/#software",
+              "name": "What company tax rate applies, and is the franking account in order",
+              "description": "Run the base rate entity test, track the franking account and check the Division 203 benchmark rule.",
+              "url": "https://duguid.com.au/tools/company-tax-franking/",
+              "applicationCategory": "FinanceApplication",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              },
+              "isAccessibleForFree": true,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "AUD"
+              }
+            }
+          },
+          {
+            "@type": "ListItem",
+            "position": 10,
+            "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
+            "item": {
+              "@type": "TechArticle",
+              "@id": "https://duguid.com.au/tools/australian-tax-ai-agents/#article",
+              "name": "Australian tax tools for AI agents",
+              "description": "Local computational MCP for Payday Super and ATO benchmarks, not a hosted ATO document store.",
+              "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
+              "author": {
+                "@id": "https://duguid.com.au/about/#person"
+              }
+            }
+          }
+        ]
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-payday-super-checker",
+        "name": "payday-super-checker",
+        "description": "Experimental tool for checking Payday Super timing and preparing exceptions for review.",
+        "url": "https://github.com/ryanduguid/payday-super-checker",
+        "codeRepository": "https://github.com/ryanduguid/payday-super-checker",
+        "license": "https://github.com/ryanduguid/payday-super-checker/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-xero-trial-balance-export",
+        "name": "xero-trial-balance-export",
+        "description": "Export reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.",
+        "url": "https://github.com/ryanduguid/xero-trial-balance-export",
+        "codeRepository": "https://github.com/ryanduguid/xero-trial-balance-export",
+        "license": "https://github.com/ryanduguid/xero-trial-balance-export/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-ozzit",
+        "name": "Ozzit",
+        "description": "134 native Excel LAMBDA functions for AU modelling and GST arithmetic.",
+        "url": "https://github.com/ryanduguid/Ozzit",
+        "codeRepository": "https://github.com/ryanduguid/Ozzit",
+        "license": "https://github.com/ryanduguid/Ozzit/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-accounting-excel-toolkit",
+        "name": "accounting-excel-toolkit",
+        "description": "Power Query and VBA utilities for Australian ledger work.",
+        "url": "https://github.com/ryanduguid/accounting-excel-toolkit",
+        "codeRepository": "https://github.com/ryanduguid/accounting-excel-toolkit",
+        "license": "https://github.com/ryanduguid/accounting-excel-toolkit/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-aus-accounting-mcp",
+        "name": "aus-accounting-mcp",
+        "description": "Local MCP server for Australian accounting review: ATO small-business benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR fixtures. Not advice.",
+        "url": "https://github.com/ryanduguid/aus-accounting-mcp",
+        "codeRepository": "https://github.com/ryanduguid/aus-accounting-mcp",
+        "license": "https://github.com/ryanduguid/aus-accounting-mcp/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-australian-accounting-skills",
+        "name": "australian-accounting-skills",
+        "description": "Claude Code and Codex skills for Australian public-practice workflows. Not lodgment.",
+        "url": "https://github.com/ryanduguid/australian-accounting-skills",
+        "codeRepository": "https://github.com/ryanduguid/australian-accounting-skills",
+        "license": "https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-workpaper-review-gate",
+        "name": "workpaper-review-gate",
+        "description": "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public-practice packs. Not advice.",
+        "url": "https://github.com/ryanduguid/workpaper-review-gate",
+        "codeRepository": "https://github.com/ryanduguid/workpaper-review-gate",
+        "license": "https://github.com/ryanduguid/workpaper-review-gate/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-australian-accounting-power-bi",
+        "name": "australian-accounting-power-bi",
+        "description": "Source-controlled Power BI project for Australian accounting analytics, consolidation, ATO benchmarks and Payday Super review.",
+        "url": "https://github.com/ryanduguid/australian-accounting-power-bi",
+        "codeRepository": "https://github.com/ryanduguid/australian-accounting-power-bi",
+        "license": "https://github.com/ryanduguid/australian-accounting-power-bi/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-monthly-close-controls",
+        "name": "monthly-close-controls",
+        "description": "Deterministic monthly-close controls for Xero-shaped trial-balance exports, exception packs and human review.",
+        "url": "https://github.com/ryanduguid/monthly-close-controls",
+        "codeRepository": "https://github.com/ryanduguid/monthly-close-controls",
+        "license": "https://github.com/ryanduguid/monthly-close-controls/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://duguid.com.au/#software-au-tax-legislation-corpus",
+        "name": "au-tax-legislation-corpus",
+        "description": "Provenance-rich corpus of in-force Commonwealth tax legislation.",
+        "url": "https://github.com/ryanduguid/au-tax-legislation-corpus",
+        "codeRepository": "https://github.com/ryanduguid/au-tax-legislation-corpus",
+        "license": "https://github.com/ryanduguid/au-tax-legislation-corpus/blob/main/LICENSE",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      }
+    ]
+  }
+  </script>
 </body>
 </html>
