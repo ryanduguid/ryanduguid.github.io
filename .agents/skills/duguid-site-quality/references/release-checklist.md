@@ -21,7 +21,7 @@ Run from the repository root:
 python scripts/check_site.py
 npm run test:browser
 npm run test:lighthouse
-uv run --script .agents/tools/search-console/server.py self-test
+uv run --locked --script .agents/tools/search-console/server.py self-test
 git diff --check
 git diff --check origin/main...HEAD
 git ls-files -ci --exclude-standard

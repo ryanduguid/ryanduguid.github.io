@@ -25,18 +25,22 @@ read-only tools. They use fabricated scenario inputs and the same protected levy
 engine as the visible form. On browsers without WebMCP, registration is a safe
 no-op and the page continues to work normally.
 
-## Search Console MCP
+## Search Console MCP and CLI
 
 The local Search Console reader is documented in
 `.agents/tools/search-console/README.md`. It is locked to
-`sc-domain:duguid.com.au`, exposes only three read methods and validates request
-bounds before loading a credential or contacting Google. Authentication and
-logout are explicit CLI actions, never MCP tools.
+`sc-domain:duguid.com.au`, exposes only three read methods through shared MCP
+and CLI handlers, and validates request bounds before loading a credential or
+contacting Google. A committed uv script lock fixes direct and transitive
+dependency versions and hashes. Authentication and logout are explicit CLI
+actions, never MCP tools.
 
-Do not inspect, print, commit or upload OAuth material, stored credentials or
-Search Console responses. A live comparison, URL inspection or sitemap read is
-a manual gate requiring the operator's OAuth consent. The tool reports evidence
-only; it neither decides nor publishes an SEO change.
+Do not inspect, display, commit or upload OAuth material or stored credentials.
+Search Console read results may appear only in the current MCP conversation or
+the operator's terminal; never redirect, copy, persist, commit or upload them.
+A live comparison, URL inspection or sitemap read is a manual gate requiring
+the operator's OAuth consent. The tool reports evidence only; it neither decides
+nor publishes an SEO change.
 
 ## External actions
 
@@ -52,7 +56,8 @@ Search Console investigations and release preparation to the commands and
 permission boundaries proven in this repository. Its detailed release gates
 live in the linked checklist rather than being duplicated in the entry point.
 
-Validate the package and its four routing scenarios with:
+Validate the package, static routing contract and recorded fresh-context
+pressure-test evidence with:
 
 ```powershell
 python scripts/test_duguid_site_quality_skill.py
