@@ -181,6 +181,35 @@ test('home proof image loads only when requested and decodes before capture', as
   health.assertHealthy();
 });
 
+test('home proof uses practical inspection width without page overflow', async ({ page }, testInfo) => {
+  const health = observePageHealth(page);
+  await page.goto('/');
+  const proof = await decodedHomeProof(page);
+  const geometry = await proof.evaluate((image) => {
+    const rect = image.getBoundingClientRect();
+    return {
+      left: rect.left,
+      right: rect.right,
+      width: rect.width,
+      viewportWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    };
+  });
+  const minimumProofWidth = testInfo.project.name === 'mobile-chromium'
+    ? 380
+    : 680;
+
+  expect(geometry.width, `${testInfo.project.name} proof width`)
+    .toBeGreaterThanOrEqual(minimumProofWidth);
+  expect(geometry.left, `${testInfo.project.name} proof left edge`)
+    .toBeGreaterThanOrEqual(0);
+  expect(geometry.right, `${testInfo.project.name} proof right edge`)
+    .toBeLessThanOrEqual(geometry.viewportWidth);
+  expect(geometry.scrollWidth, `${testInfo.project.name} document overflow`)
+    .toBeLessThanOrEqual(geometry.viewportWidth);
+  health.assertHealthy();
+});
+
 test('home matches its viewport visual baseline', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
