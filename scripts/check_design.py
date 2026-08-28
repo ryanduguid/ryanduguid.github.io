@@ -57,6 +57,13 @@ def normalised_text_digest(path: Path) -> str:
     return sha256_bytes(normalised.encode("utf-8"))
 
 
+def protected_asset_digest(path: Path) -> str:
+    """Keep text assets portable while hashing binary font files byte-for-byte."""
+    if path.suffix.lower() == ".txt":
+        return normalised_text_digest(path)
+    return sha256_bytes(path.read_bytes())
+
+
 def semantic_json_digest(value: object) -> str:
     canonical = json.dumps(
         value,
@@ -219,7 +226,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
         path = root / rel
         if not path.is_file():
             failures.append(f"protected font missing: {rel}")
-        elif sha256_bytes(path.read_bytes()) != expected:
+        elif protected_asset_digest(path) != expected:
             failures.append(f"protected font changed: {rel}")
 
     failures.extend(check_stylesheets(root, baseline))

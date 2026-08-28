@@ -26,7 +26,7 @@ def write_fixture(root: Path) -> None:
     llms = b"# Example\n\nCurrent rate: 12%\n"
     rate = b"<html><body><main>12%</main></body></html>\n"
     font = b"font-fixture"
-    licence = b"SIL OPEN FONT LICENSE Version 1.1"
+    licence = b"SIL OPEN FONT LICENSE Version 1.1\nPermission notice\n"
     page = (
         '<!doctype html><html><body><main><h1>Example</h1></main>'
         f'<footer><p>{DISCLAIMER}</p></footer>'
@@ -115,7 +115,11 @@ def self_check() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         write_fixture(root)
-        for rel in ("llms.txt", "rates/example/index.html"):
+        for rel in (
+            "llms.txt",
+            "rates/example/index.html",
+            "assets/fonts/OFL.txt",
+        ):
             path = root / rel
             path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
         assert check_design.check_repository(root) == []
@@ -167,6 +171,13 @@ def self_check() -> None:
             "licence removal",
             lambda root: (root / "assets/fonts/OFL.txt").unlink(),
             "protected font missing: assets/fonts/OFL.txt",
+        ),
+        (
+            "licence drift",
+            lambda root: (root / "assets/fonts/OFL.txt").write_text(
+                "changed", encoding="utf-8"
+            ),
+            "protected font changed: assets/fonts/OFL.txt",
         ),
         (
             "gradient regression",
