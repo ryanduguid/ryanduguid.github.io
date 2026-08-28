@@ -1298,11 +1298,9 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
         failures.append("llms.txt: retired GitHub-source install command")
 
-    for path in sorted(root.rglob("*.html")):
+    for path in core.html_files(root):
         rel = path.relative_to(root).as_posix()
-        if rel == "index.html" or rel in NOT_INDEXED or any(
-            part.startswith(".") for part in path.relative_to(root).parts
-        ):
+        if rel == "index.html" or rel in NOT_INDEXED:
             continue
         page_html = path.read_text(encoding="utf-8")
         page_text = core.visible_text(page_html)
