@@ -7,15 +7,13 @@ import html as html_module
 import json
 import re
 import sys
+from html.parser import HTMLParser
 from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
-)
-SCRIPT_CONTENT_PATTERN = re.compile(
-    r"<script\b[^>]*>(.*?)</script\s*>", re.S | re.I
 )
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
 HEAD_PATTERN = re.compile(r"<head\b[^>]*>(.*?)</head>", re.S | re.I)
@@ -121,6 +119,36 @@ def visible_text(raw_html: str) -> str:
     )
     without_tags = re.sub(r"<[^>]+>", " ", without_non_content)
     return " ".join(html_module.unescape(without_tags).split())
+
+
+class ScriptContentParser(HTMLParser):
+    """Collect raw-text script bodies with the standard HTML tokenizer."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.contents: list[str] = []
+        self.inside_script = False
+
+    def handle_starttag(
+        self, tag: str, attrs: list[tuple[str, str | None]]
+    ) -> None:
+        if tag.casefold() == "script":
+            self.inside_script = True
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag.casefold() == "script":
+            self.inside_script = False
+
+    def handle_data(self, data: str) -> None:
+        if self.inside_script:
+            self.contents.append(data)
+
+
+def script_contents(raw_html: str) -> list[str]:
+    parser = ScriptContentParser()
+    parser.feed(raw_html)
+    parser.close()
+    return parser.contents
 
 
 def active_markup(raw_html: str) -> str:
@@ -241,7 +269,7 @@ def check_font_delivery(
             continue
         raw = path.read_text(encoding="utf-8")
         rendered_text.append(visible_text(raw))
-        rendered_text.extend(SCRIPT_CONTENT_PATTERN.findall(raw))
+        rendered_text.extend(script_contents(raw))
     rendered_text.extend(
         path.read_text(encoding="utf-8")
         for path in sorted((root / "assets").rglob("*.mjs"))

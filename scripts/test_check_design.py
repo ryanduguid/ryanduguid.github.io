@@ -141,9 +141,10 @@ def fixture_failures(mutate) -> list[str]:
 
 def self_check() -> None:
     script_body = 'document.querySelector("h1").textContent = "Ready ✅";'
-    assert check_design.SCRIPT_CONTENT_PATTERN.findall(
-        f"<script>{script_body}</script >"
-    ) == [script_body]
+    for closing_tag in ("</script >", "</script\t\n bar>"):
+        assert check_design.script_contents(
+            f"<script>{script_body}{closing_tag}"
+        ) == [script_body]
 
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
