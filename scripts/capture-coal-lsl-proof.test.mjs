@@ -1,8 +1,11 @@
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
+import { createHash, randomUUID } from 'node:crypto';
 import {
-  lstat,
+  cp,
+  copyFile,
   mkdtemp,
+  mkdir,
   readFile,
   readdir,
   rm,
@@ -13,6 +16,7 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import test from 'node:test';
+import { pathToFileURL } from 'node:url';
 import { promisify } from 'node:util';
 
 import { COAL_LSL_PROOF } from './coal-lsl-proof-fixture.mjs';
@@ -28,27 +32,105 @@ const CALCULATOR_PATH = path.join(ROOT, 'tools', 'coal-lsl-levy', 'index.html');
 const TEMP_PREFIX = `.${path.basename(PROOF_PATH)}.`;
 const execFileAsync = promisify(execFile);
 
+async function sha256(file) {
+  return createHash('sha256').update(await readFile(file)).digest('hex');
+}
+
+const trackedHashesBefore = {
+  calculator: await sha256(CALCULATOR_PATH),
+  proof: await sha256(PROOF_PATH),
+};
+const trackedInodesBefore = {
+  calculator: (await stat(CALCULATOR_PATH, { bigint: true })).ino,
+  proof: (await stat(PROOF_PATH, { bigint: true })).ino,
+};
+
+test.after(async () => {
+  assert.deepEqual({
+    calculator: await sha256(CALCULATOR_PATH),
+    proof: await sha256(PROOF_PATH),
+  }, trackedHashesBefore);
+  assert.deepEqual({
+    calculator: (await stat(CALCULATOR_PATH, { bigint: true })).ino,
+    proof: (await stat(PROOF_PATH, { bigint: true })).ino,
+  }, trackedInodesBefore);
+  assert.deepEqual(await proofTemporarySiblings(), []);
+});
+
+test('security tests contain no tracked-path mutation or restoration', async () => {
+  const source = await readFile(import.meta.filename, 'utf8');
+  const forbidden = [
+    ['restore', 'Proof'].join(''),
+    ['withCalculator', 'Mutation'].join(''),
+    ['writeFile(', 'PROOF_PATH'].join(''),
+    ['rm(', 'PROOF_PATH'].join(''),
+    ['symlink(target, ', 'PROOF_PATH'].join(''),
+    ['writeFile(', 'CALCULATOR_PATH'].join(''),
+  ];
+  for (const mutation of forbidden) {
+    assert.equal(source.includes(mutation), false, `tracked mutation remains: ${mutation}`);
+  }
+});
+
 async function proofTemporarySiblings() {
   return (await readdir(path.dirname(PROOF_PATH)))
     .filter((name) => name.startsWith(TEMP_PREFIX) && name.endsWith('.tmp'));
 }
 
-async function restoreProof(original) {
-  const current = await lstat(PROOF_PATH).catch((error) => {
-    if (error.code === 'ENOENT') return null;
-    throw error;
-  });
-  if (current) await rm(PROOF_PATH, { force: true });
-  await writeFile(PROOF_PATH, original);
-}
-
-async function withCalculatorMutation(mutate, action) {
-  const original = await readFile(CALCULATOR_PATH, 'utf8');
-  await writeFile(CALCULATOR_PATH, mutate(original), 'utf8');
+async function createIsolatedHarness() {
+  const harnessRoot = await mkdtemp(path.join(os.tmpdir(), 'coal-lsl-harness-'));
   try {
-    return await action();
-  } finally {
-    await writeFile(CALCULATOR_PATH, original, 'utf8');
+    await cp(path.join(ROOT, 'assets'), path.join(harnessRoot, 'assets'), {
+      recursive: true,
+    });
+    for (const relative of [
+      ['scripts', 'capture-coal-lsl-proof.mjs'],
+      ['scripts', 'coal-lsl-proof-fixture.mjs'],
+      ['tests', 'browser', 'visual.mjs'],
+      ['tools', 'coal-lsl-levy', 'index.html'],
+      ['package.json'],
+    ]) {
+      const target = path.join(harnessRoot, ...relative);
+      await mkdir(path.dirname(target), { recursive: true });
+      await copyFile(path.join(ROOT, ...relative), target);
+    }
+    await symlink(
+      path.join(ROOT, 'node_modules'),
+      path.join(harnessRoot, 'node_modules'),
+      process.platform === 'win32' ? 'junction' : 'dir',
+    );
+    const modulePath = path.join(
+      harnessRoot,
+      'scripts',
+      'capture-coal-lsl-proof.mjs',
+    );
+    const proofPath = path.join(
+      harnessRoot,
+      'assets',
+      'coal-lsl-calculator.webp',
+    );
+    const calculatorPath = path.join(
+      harnessRoot,
+      'tools',
+      'coal-lsl-levy',
+      'index.html',
+    );
+    return {
+      root: harnessRoot,
+      proofPath,
+      calculatorPath,
+      capture: await import(
+        `${pathToFileURL(modulePath).href}?harness=${randomUUID()}`
+      ),
+      temporarySiblings: async () => (
+        (await readdir(path.dirname(proofPath)))
+          .filter((name) => name.startsWith(TEMP_PREFIX) && name.endsWith('.tmp'))
+      ),
+      cleanup: () => rm(harnessRoot, { recursive: true, force: true }),
+    };
+  } catch (error) {
+    await rm(harnessRoot, { recursive: true, force: true });
+    throw error;
   }
 }
 
@@ -121,70 +203,78 @@ test('request and browser-health failures reject capture and release resources',
       console.error('proof-health-sentinel');
     </script>
   `;
-  await withCalculatorMutation(
-    (html) => html.replace('</body>', `${healthProbe}</body>`),
-    async () => {
-      await assert.rejects(
-        renderCoalLslProof(),
-        (error) => {
-          assert.match(error.message, /Proof capture browser health failed/);
-          assert.match(error.message, /calculator HTTP 400: .*\/%ZZ/);
-          assert.match(error.message, /calculator HTTP 403: .*\/\.\.%2fpackage\.json/i);
-          assert.match(error.message, /calculator HTTP 405: .*\/$/m);
-          assert.match(error.message, /calculator HTTP 415: .*\/package\.json/);
-          assert.match(
-            error.message,
-            /calculator requestfailed: https:\/\/example\.invalid\/proof-boundary/,
-          );
-          assert.match(error.message, /calculator console: proof-health-sentinel/);
-          return true;
-        },
-      );
-    },
-  );
+  const failingHarness = await createIsolatedHarness();
+  try {
+    const calculator = await readFile(failingHarness.calculatorPath, 'utf8');
+    await writeFile(
+      failingHarness.calculatorPath,
+      calculator.replace('</body>', `${healthProbe}</body>`),
+      'utf8',
+    );
+    await assert.rejects(
+      failingHarness.capture.renderCoalLslProof(),
+      (error) => {
+        assert.match(error.message, /Proof capture browser health failed/);
+        assert.match(error.message, /calculator HTTP 400: .*\/%ZZ/);
+        assert.match(error.message, /calculator HTTP 403: .*\/\.\.%2fpackage\.json/i);
+        assert.match(error.message, /calculator HTTP 405: .*\/$/m);
+        assert.match(error.message, /calculator HTTP 415: .*\/package\.json/);
+        assert.match(
+          error.message,
+          /calculator requestfailed: https:\/\/example\.invalid\/proof-boundary/,
+        );
+        assert.match(error.message, /calculator console: proof-health-sentinel/);
+        return true;
+      },
+    );
+  } finally {
+    await failingHarness.cleanup();
+  }
 
-  const recovered = await renderCoalLslProof();
-  assert.equal(recovered.width, COAL_LSL_PROOF.capture.width);
-  assert.equal(recovered.height, COAL_LSL_PROOF.capture.height);
+  const recoveryHarness = await createIsolatedHarness();
+  try {
+    const recovered = await recoveryHarness.capture.renderCoalLslProof();
+    assert.equal(recovered.width, COAL_LSL_PROOF.capture.width);
+    assert.equal(recovered.height, COAL_LSL_PROOF.capture.height);
+  } finally {
+    await recoveryHarness.cleanup();
+  }
 });
 
 test('fixed capture atomically replaces the proof and removes temporary siblings', async () => {
-  const before = await readFile(PROOF_PATH);
-  const beforeStat = await stat(PROOF_PATH, { bigint: true });
+  const harness = await createIsolatedHarness();
   try {
-    const result = await captureCoalLslProof();
-    const after = await readFile(PROOF_PATH);
-    const afterStat = await stat(PROOF_PATH, { bigint: true });
+    const beforeStat = await stat(harness.proofPath, { bigint: true });
+    const result = await harness.capture.captureCoalLslProof();
+    const after = await readFile(harness.proofPath);
+    const afterStat = await stat(harness.proofPath, { bigint: true });
     assert.equal(result.width, COAL_LSL_PROOF.capture.width);
     assert.equal(result.height, COAL_LSL_PROOF.capture.height);
     assert.equal(result.bytes, after.byteLength);
     assert.notEqual(afterStat.ino, beforeStat.ino);
-    assert.deepEqual(await proofTemporarySiblings(), []);
+    assert.deepEqual(await harness.temporarySiblings(), []);
   } finally {
-    await restoreProof(before);
+    await harness.cleanup();
   }
 });
 
 test('fixed capture refuses a destination swapped to a symbolic link during render', async () => {
-  const before = await readFile(PROOF_PATH);
-  const work = await mkdtemp(path.join(os.tmpdir(), 'coal-lsl-symlink-'));
-  const target = path.join(work, 'target.webp');
+  const harness = await createIsolatedHarness();
+  const target = path.join(harness.root, 'outside-target.webp');
   const sentinel = Buffer.from('outside-target-sentinel');
   let capturePromise;
   try {
     await writeFile(target, sentinel);
-    capturePromise = captureCoalLslProof();
+    capturePromise = harness.capture.captureCoalLslProof();
     const rejection = assert.rejects(capturePromise, /symbolic-link proof output/);
     await new Promise((resolve) => setTimeout(resolve, 250));
-    await rm(PROOF_PATH);
-    await symlink(target, PROOF_PATH, 'file');
+    await rm(harness.proofPath);
+    await symlink(target, harness.proofPath, 'file');
     await rejection;
     assert.deepEqual(await readFile(target), sentinel);
-    assert.deepEqual(await proofTemporarySiblings(), []);
+    assert.deepEqual(await harness.temporarySiblings(), []);
   } finally {
     await capturePromise?.catch(() => {});
-    await restoreProof(before);
-    await rm(work, { recursive: true, force: true });
+    await harness.cleanup();
   }
-  assert.deepEqual(await readFile(PROOF_PATH), before);
 });
