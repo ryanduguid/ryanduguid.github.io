@@ -1562,6 +1562,19 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
     with tempfile.TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         (root / "index.html").write_text(
+            '<section id="adopt"><pre>'
+            "claude mcp add aus-accounting -- uvx aus-accounting-mcp\n"
+            "npx skills add ryanduguid/australian-accounting-skills"
+            "</pre></section>"
+            "<pre>codex mcp add aus-accounting -- uvx aus-accounting-mcp</pre>",
+            encoding="utf-8",
+        )
+        failures = contracts.check_authority_surface(root)
+        assert "index.html: install commands must appear only inside #adopt" in failures
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        (root / "index.html").write_text(
             "<section id=\"adopt\">"
             "<pre>npx skills add ryanduguid/australian-accounting-skills</pre>"
             "</section>"
