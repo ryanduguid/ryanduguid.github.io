@@ -461,6 +461,19 @@ def self_check() -> None:
             "index.html: expected exactly one #engage route link",
         ),
         (
+            "homepage route moved outside register",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('<a href="#engage">Engage</a>', "")
+                .replace(
+                    "</main>", '<a href="#engage">Engage</a></main>'
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected exactly one #engage route link in hero-routes",
+        ),
+        (
             "missing homepage route register",
             lambda root: (root / "index.html").write_text(
                 (root / "index.html").read_text(encoding="utf-8").replace(
@@ -490,6 +503,16 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "index.html: trust-band must immediately follow home hero",
+        ),
+        (
+            "malformed homepage trust band region",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "</aside>", "</section>"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one complete trust-band region",
         ),
         (
             "homepage legal boundary changed",

@@ -78,7 +78,7 @@ test('home exposes one route register with deliberate heading lines', async ({ p
   const routeRegister = page.getByRole('navigation', { name: 'Choose a path' });
   await expect(routeRegister).toBeVisible();
   for (const target of ['#engage', '#adopt', '#verify']) {
-    await expect(page.locator('main a[href="' + target + '"]')).toHaveCount(1);
+    await expect(routeRegister.locator('a[href="' + target + '"]')).toHaveCount(1);
   }
   if (testInfo.project.name === 'desktop-chromium') {
     expect(await textLineCount(page.getByRole('heading', { level: 1 }))).toBe(2);
