@@ -83,6 +83,20 @@ def write_fixture(root: Path) -> None:
         ".proof-feature figure { min-width: 0; margin-inline: 0; }\n",
         encoding="utf-8",
     )
+    (root / "assets/favicon.svg").write_text(
+        '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">\n'
+        '  <rect width="64" height="64" fill="#000000" />\n'
+        '  <rect x="8" y="8" width="48" height="4" fill="#eef4f0" />\n'
+        '  <rect x="8" y="52" width="48" height="4" fill="#eef4f0" />\n'
+        '  <rect x="8" y="8" width="4" height="48" fill="#eef4f0" />\n'
+        '  <rect x="52" y="8" width="4" height="48" fill="#eef4f0" />\n'
+        '  <rect x="16" y="16" width="4" height="32" fill="#4dff88" />\n'
+        '  <rect x="24" y="16" width="24" height="4" fill="#eef4f0" />\n'
+        '  <rect x="24" y="28" width="20" height="4" fill="#eef4f0" />\n'
+        '  <rect x="24" y="40" width="16" height="4" fill="#eef4f0" />\n'
+        '</svg>\n',
+        encoding="utf-8",
+    )
     (root / "index.html").write_bytes(page)
     (root / "404.html").write_text(
         '<!doctype html><html><head>'
@@ -629,6 +643,47 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "font face target missing: assets/fonts/Missing.woff2",
+        ),
+        (
+            "font-dependent favicon",
+            lambda root: (root / "assets/favicon.svg").write_text(
+                '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">'
+                '<rect width="64" height="64" fill="#000000" />'
+                '<text x="32" y="40" font-family="Georgia">RD</text>'
+                '</svg>',
+                encoding="utf-8",
+            ),
+            "favicon must use geometric shapes, not text",
+        ),
+        (
+            "legacy purple favicon",
+            lambda root: (root / "assets/favicon.svg").write_text(
+                (root / "assets/favicon.svg")
+                .read_text(encoding="utf-8")
+                .replace("#4dff88", "#5c2d91"),
+                encoding="utf-8",
+            ),
+            "favicon colour outside OLED palette: #5c2d91",
+        ),
+        (
+            "fractional favicon geometry",
+            lambda root: (root / "assets/favicon.svg").write_text(
+                (root / "assets/favicon.svg")
+                .read_text(encoding="utf-8")
+                .replace('x="24"', 'x="24.5"', 1),
+                encoding="utf-8",
+            ),
+            "favicon geometry must use whole pixels: x=24.5",
+        ),
+        (
+            "non-square favicon canvas",
+            lambda root: (root / "assets/favicon.svg").write_text(
+                (root / "assets/favicon.svg")
+                .read_text(encoding="utf-8")
+                .replace('viewBox="0 0 64 64"', 'viewBox="0 0 96 64"'),
+                encoding="utf-8",
+            ),
+            "favicon viewBox must be 0 0 64 64",
         ),
     )
     for label, mutate, expected in mutations:
