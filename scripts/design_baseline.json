@@ -75,12 +75,12 @@
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgment requests.": 1
   },
   "fonts": {
-    "assets/fonts/IBMPlexSerif-Regular.woff2": "8e1906e5bd1c981f7fb837540a95a754e86524f317ab4523976406b6a4128b6b",
-    "assets/fonts/IBMPlexSerif-SemiBold.woff2": "45495ba3e86aede56963e08d20feaa30c789a87c774a6c1c8313d25ebd63be69",
-    "assets/fonts/IBMPlexSans-Regular.woff2": "ba711a3085ff9f27440b6b9c4550cfc47c97bf36591d5da958b975bb3add8c1a",
-    "assets/fonts/IBMPlexSans-Italic.woff2": "13284fab1821ba6e3652c1580fcf2bbfd8c9309520c69b3d1224dab40b37c597",
-    "assets/fonts/IBMPlexSans-SemiBold.woff2": "f78048030eab62e860efa39a0df79e2e5581bf122eb95b9bc42c0b8a4988d205",
-    "assets/fonts/IBMPlexMono-Regular.woff2": "49ce58b41a0e1cb921c0f58d9a5b8b96a2cc21437c7066f3ba4f24873076d131",
+    "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",
+    "assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2": "1d34d4612be8d2f06a25858a8bc3c3c3b5c4ec0ee1285501c3a4df2ddace7afa",
+    "assets/fonts/IBMPlexSans-Regular-Latin1.woff2": "b5ad7bd39f996144915f0ad9849a90183b27d8c28ad97ed98af5b1bebc51f6b1",
+    "assets/fonts/IBMPlexSans-Italic-Latin1.woff2": "0a06b98143f3453b81f3c396241a01c6c4cff84c1a77bf0c75b18bd603018506",
+    "assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2": "fff0ab3a88b0b4aa0b693e4f0201359a15183b08e3fa5696d1918d8f0ade8ad5",
+    "assets/fonts/IBMPlexMono-Regular-Latin1.woff2": "10d3c7fa7eaf48e78db24f317b64f008a75e00f63a68bb3c2afc6ef51e58674f",
     "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
   }
 }

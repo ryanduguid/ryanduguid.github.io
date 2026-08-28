@@ -31,6 +31,11 @@ PROOF_IMAGE_PATTERN = re.compile(
 )
 ROOT_BLOCK_PATTERN = re.compile(r":root\s*\{(.*?)\}", re.S | re.I)
 PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
+UNICODE_RANGE_PATTERN = re.compile(
+    r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I
+)
+MAX_FONT_BYTES = 25_000
+MAX_TOTAL_FONT_BYTES = 135_000
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
     "radial-gradient",
@@ -170,6 +175,65 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
+    return failures
+
+
+def unicode_ranges(font_face: str) -> list[tuple[int, int]]:
+    declaration = re.search(
+        r"\bunicode-range\s*:\s*([^;]+);", font_face, re.I
+    )
+    if declaration is None:
+        return []
+    ranges: list[tuple[int, int]] = []
+    for start, end in UNICODE_RANGE_PATTERN.findall(declaration.group(1)):
+        first = int(start, 16)
+        ranges.append((first, int(end, 16) if end else first))
+    return ranges
+
+
+def range_covers(ranges: list[tuple[int, int]], codepoint: int) -> bool:
+    return any(start <= codepoint <= end for start, end in ranges)
+
+
+def check_font_delivery(
+    root: Path, tokens_css: str, baseline: dict[str, object]
+) -> list[str]:
+    failures: list[str] = []
+    faces = FONT_FACE_PATTERN.findall(tokens_css)
+    visible = " ".join(
+        visible_text(path.read_text(encoding="utf-8"))
+        for path in sorted(root.rglob("*.html"))
+        if not (path.name.startswith("google") and path.name.endswith(".html"))
+    )
+    required = sorted({ord(character) for character in visible if ord(character) > 31})
+    for index, face in enumerate(faces, start=1):
+        ranges = unicode_ranges(face)
+        if not ranges:
+            failures.append(f"font face {index} must declare unicode-range")
+            continue
+        for codepoint in required:
+            if not range_covers(ranges, codepoint):
+                failures.append(
+                    f"font face {index} does not cover visible U+{codepoint:04X}"
+                )
+                break
+
+    declared = sorted(
+        {url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)}
+    )
+    total = 0
+    for rel in declared:
+        path = root / rel
+        if not path.is_file():
+            continue
+        size = path.stat().st_size
+        total += size
+        if size > MAX_FONT_BYTES:
+            failures.append(f"font exceeds {MAX_FONT_BYTES}-byte delivery budget: {rel}")
+    if total > MAX_TOTAL_FONT_BYTES:
+        failures.append(
+            f"declared fonts total {total} bytes, over {MAX_TOTAL_FONT_BYTES}-byte budget"
+        )
     return failures
 
 
@@ -374,6 +438,15 @@ def check_repository(root: Path = ROOT) -> list[str]:
 
     failures.extend(check_document_delivery(root, baseline))
     failures.extend(check_stylesheets(root, baseline))
+    tokens_path = root / "assets/tokens.css"
+    if tokens_path.is_file():
+        failures.extend(
+            check_font_delivery(
+                root,
+                tokens_path.read_text(encoding="utf-8"),
+                baseline,
+            )
+        )
     failures.extend(check_copy(root))
 
     return failures

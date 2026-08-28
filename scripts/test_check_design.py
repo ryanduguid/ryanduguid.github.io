@@ -36,7 +36,7 @@ def write_fixture(root: Path) -> None:
         'href="https://duguid.com.au/llms.txt" />'
         '<link rel="stylesheet" href="/assets/tokens.css" />'
         '<link rel="stylesheet" href="/assets/site.css" />'
-        '</head><body><main><h1>Example</h1>'
+        '</head><body><main><h1>Example · register</h1>'
         '<img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" '
         'loading="lazy" decoding="async" fetchpriority="low" alt="Example" />'
         '</main>'
@@ -54,7 +54,8 @@ def write_fixture(root: Path) -> None:
     (root / "assets/tokens.css").write_text(
         '@font-face { font-family: "Test"; '
         'src: url("/assets/fonts/Test.woff2") format("woff2"); '
-        'font-display: optional; }\n'
+        'font-display: optional; '
+        'unicode-range: U+0020-007E, U+00A0-00FF; }\n'
         ':root { color-scheme: dark; '
         '--colour-canvas: #000000; --colour-paper: #050806; '
         '--colour-paper-raised: #09100d; --colour-ink: #eef4f0; '
@@ -276,6 +277,23 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "font face 1 must use font-display: optional",
+        ),
+        (
+            "missing visible glyph",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace("U+0020-007E, U+00A0-00FF", "U+0020-007E"),
+                encoding="utf-8",
+            ),
+            "font face 1 does not cover visible U+00B7",
+        ),
+        (
+            "oversized webfont",
+            lambda root: (root / "assets/fonts/Test.woff2").write_bytes(
+                b"x" * 25001
+            ),
+            "font exceeds 25000-byte delivery budget: assets/fonts/Test.woff2",
         ),
         (
             "non-black canvas",

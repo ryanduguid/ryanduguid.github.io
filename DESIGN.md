@@ -123,6 +123,15 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 
 IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 
+The six files are IBM's unmodified Latin1 subsets from tag `v6.4.2`, peeled
+commit `242c4cccd37e87985a5337815c99b960ef13c65c`. Exact upstream paths, byte
+counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`. The
+declared set is 129,872 bytes, down from 384,756 bytes. The four faces used by
+the homepage total 84,268 source bytes before HTTP overhead, down from about
+250 KB transferred. Four faces remain deliberate: Serif, Sans and Mono each
+carry a distinct information role, while regular and semi-bold Sans preserve
+the practical control and reading hierarchy without synthesised weight.
+
 Font rules:
 
 - no Inter, Roboto, Arial or generic system stack as the primary face
