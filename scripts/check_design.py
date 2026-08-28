@@ -9,6 +9,7 @@ import re
 import sys
 from html.parser import HTMLParser
 from pathlib import Path
+from xml.etree import ElementTree
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -43,6 +44,8 @@ UNICODE_RANGE_PATTERN = re.compile(
 )
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
+FAVICON_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88"})
+FAVICON_GEOMETRY_ATTRIBUTES = ("x", "y", "width", "height", "rx", "ry")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
     "radial-gradient",
@@ -159,6 +162,34 @@ def active_markup(raw_html: str) -> str:
         without_comments,
         flags=re.I | re.S,
     )
+
+
+def check_favicon(root: Path) -> list[str]:
+    path = root / "assets/favicon.svg"
+    if not path.is_file():
+        return ["favicon missing: assets/favicon.svg"]
+    try:
+        svg = ElementTree.fromstring(path.read_text(encoding="utf-8"))
+    except ElementTree.ParseError as exc:
+        return [f"favicon is not valid SVG: {exc}"]
+    if (
+        svg.tag.rsplit("}", 1)[-1] != "svg"
+        or svg.get("viewBox") != "0 0 64 64"
+    ):
+        return ["favicon viewBox must be 0 0 64 64"]
+    if any(element.tag.rsplit("}", 1)[-1] == "text" for element in svg.iter()):
+        return ["favicon must use geometric shapes, not text"]
+    for element in svg.iter():
+        fill = element.get("fill")
+        if fill is not None and fill.casefold() not in FAVICON_COLOURS:
+            return [f"favicon colour outside OLED palette: {fill.casefold()}"]
+        for attribute in FAVICON_GEOMETRY_ATTRIBUTES:
+            value = element.get(attribute)
+            if value is not None and re.fullmatch(r"-?\d+", value.strip()) is None:
+                return [
+                    f"favicon geometry must use whole pixels: {attribute}={value}"
+                ]
+    return []
 
 
 def main_visible_digest(path: Path) -> str | None:
@@ -573,6 +604,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected font changed: {rel}")
 
     failures.extend(check_document_delivery(root, baseline))
+    failures.extend(check_favicon(root))
     failures.extend(check_stylesheets(root, baseline))
     tokens_path = root / "assets/tokens.css"
     if tokens_path.is_file():
