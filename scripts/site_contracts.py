@@ -41,8 +41,12 @@ AUTHORITY_URLS = {
     "adopt": f"{SITE}/#adopt",
     "verify": EVIDENCE_URL,
 }
+CODEX_MCP_INSTALL_PATTERN = (
+    r"\bcodex\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b"
+)
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
+    CODEX_MCP_INSTALL_PATTERN,
     r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
 )
 RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
