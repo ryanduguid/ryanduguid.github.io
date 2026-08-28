@@ -21,8 +21,8 @@ import { waitForVisualFonts } from '../tests/browser/visual.mjs';
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PROOF_OUTPUT = path.join(ROOT, 'assets', 'coal-lsl-calculator.webp');
 const PROOF_TEMP_PREFIX = `.${path.basename(PROOF_OUTPUT)}.`;
-let proofRasterWarmup;
-let renderedProof;
+const MAX_RENDER_ATTEMPTS = 5;
+let activeProofRender;
 const MIME_TYPES = new Map([
   ['.html', 'text/html; charset=utf-8'],
   ['.css', 'text/css; charset=utf-8'],
@@ -367,21 +367,32 @@ async function renderCoalLslProofOnce() {
   }
 }
 
+function proofsMatch(left, right) {
+  return left.width === right.width
+    && left.height === right.height
+    && left.bytes === right.bytes
+    && left.image.equals(right.image);
+}
+
+async function renderConvergedCoalLslProof() {
+  let previous;
+  for (let attempt = 1; attempt <= MAX_RENDER_ATTEMPTS; attempt += 1) {
+    const current = await renderCoalLslProofOnce();
+    if (previous && proofsMatch(previous, current)) return current;
+    previous = current;
+  }
+  throw new Error(
+    `Proof render did not converge after ${MAX_RENDER_ATTEMPTS} fresh captures`,
+  );
+}
+
 export async function renderCoalLslProof() {
-  if (!proofRasterWarmup) {
-    proofRasterWarmup = renderCoalLslProofOnce().catch((error) => {
-      proofRasterWarmup = undefined;
-      throw error;
+  if (!activeProofRender) {
+    activeProofRender = renderConvergedCoalLslProof().finally(() => {
+      activeProofRender = undefined;
     });
   }
-  await proofRasterWarmup;
-  if (!renderedProof) {
-    renderedProof = renderCoalLslProofOnce().catch((error) => {
-      renderedProof = undefined;
-      throw error;
-    });
-  }
-  const result = await renderedProof;
+  const result = await activeProofRender;
   return { ...result, image: Buffer.from(result.image) };
 }
 
