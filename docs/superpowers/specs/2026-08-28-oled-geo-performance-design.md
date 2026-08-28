@@ -312,7 +312,7 @@ behaviour. Required contracts include:
 
 - the default canvas token is `#000000` and `color-scheme` is dark
 - no stylesheet contains the old `@import` chain
-- every HTML document links tokens before site CSS
+- every styled site page links tokens before site CSS
 - the proof image carries the approved loading, decoding, priority and sizing
   attributes
 - declared local fonts exist, retain the OFL and match recorded digests
@@ -418,7 +418,9 @@ Expected edits are:
 - `assets/tokens.css`
 - `assets/site.css`
 - `assets/fonts/*` and font provenance or digest records
-- all 21 HTML documents for stylesheet and machine-index discovery
+- the 20 styled site pages for stylesheet discovery and the 19 indexable pages
+  for machine-index discovery; leave the no-index redirect and Google
+  verification file untouched
 - `index.html` for proof-image delivery attributes and any approved homepage
   composition refinements
 - focused files under `scripts/` for delivery and factual contracts
