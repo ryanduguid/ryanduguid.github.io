@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Manager review gate evaluation with fabricated BAS packs</title>
+  <meta name="description" content="Reproduce the review-ready-gate v0.1.1 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
+  <meta property="og:title" content="Manager review gate evaluation with fabricated BAS packs" />
+  <meta property="og:description" content="A reproducible evaluation of the released review-ready-gate contract against fabricated BAS inputs." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://duguid.com.au/evaluate/manager-review-gate/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://duguid.com.au/evaluate/manager-review-gate/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <p class="article-crumb"><a href="/">Home</a> / Manager review gate evaluation</p>
+        <h1>Manager review gate evaluation</h1>
+        <p class="lead-note">
+          Reproduce the released review-ready gate against two fabricated BAS packs, then inspect the exact expected result and human boundary.
+        </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#accounting-problem">Accounting problem</a>
+          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#expected-result">Expected result</a>
+          <a href="#controls-triggered">Controls triggered</a>
+          <a href="#human-decision">Human decision</a>
+          <a href="#reproduce">Reproduce</a>
+          <a href="#primary-sources">Primary sources</a>
+          <a href="#versions">Versions</a>
+          <a href="#limitations">Limitations</a>
+        </nav>
+        <div class="article-body">
+          <section id="accounting-problem">
+            <h2>Accounting problem</h2>
+            <p>
+              Before a BAS pack reaches a manager, a preparer needs a repeatable check that the configured completeness and blocking-item gates have not tripped.
+            </p>
+          </section>
+
+          <section id="fabricated-inputs">
+            <h2>Fabricated inputs</h2>
+            <p>
+              The evaluation uses the repository fixtures <code>examples/bas-not-ready</code> and <code>examples/bas-ready</code>. They contain no client data.
+            </p>
+          </section>
+
+          <section id="expected-result">
+            <h2>Expected result</h2>
+            <table class="facts">
+              <thead>
+                <tr>
+                  <th scope="col">Pack</th>
+                  <th scope="col">Released expectation</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Incomplete BAS</th>
+                  <td>Exit 2 with <code>NOT_READY</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Corrected BAS</th>
+                  <td>Exit 0 with <code>READY</code> and no configured findings.</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section id="controls-triggered">
+            <h2>Controls triggered</h2>
+            <ul>
+              <li><code>MISSING_ARTEFACT</code> for <code>gst_control_gl</code></li>
+              <li><code>SELF_REVIEW_INCOMPLETE</code></li>
+              <li><code>OPEN_ITEM_BLOCKING</code></li>
+            </ul>
+          </section>
+
+          <section id="human-decision">
+            <h2>Human decision</h2>
+            <blockquote>
+              <p>READY means no configured gate tripped; it is not approval, advice or lodgment authority.</p>
+            </blockquote>
+            <p>A manager still judges correctness, risk, materiality, client impact and whether the pack may progress.</p>
+          </section>
+
+          <section id="reproduce" class="install-panel">
+            <h2>Reproduce</h2>
+            <pre><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/workpaper-review-gate.git
+cd workpaper-review-gate
+uv sync --locked --all-extras
+uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
+uv run review-ready gate --profile bas --pack examples/bas-ready --output outputs/evaluation-ready
+uv run pytest tests/test_evaluation_pack.py -q</code></pre>
+          </section>
+
+          <section id="primary-sources">
+            <h2>Primary sources</h2>
+            <ul class="sources">
+              <li><a href="https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas">Australian Taxation Office, Business activity statements</a></li>
+              <li><a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting">Australian Taxation Office, Monthly GST reporting</a></li>
+            </ul>
+          </section>
+
+          <section id="versions">
+            <h2>Versions</h2>
+            <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
+            <ul class="sources">
+              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/evaluation/manager_review_gate">Evaluation pack</a></li>
+              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Expected results contract</a></li>
+              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
+            </ul>
+          </section>
+
+          <section id="limitations">
+            <h2>Limitations</h2>
+            <p>
+              This evaluates configured gates against fabricated inputs. It does not establish that a pack is correct, approve work, provide advice or authorise lodgment. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+            </p>
+          </section>
+
+          <p class="page-meta">Published 26 August 2026. Last reviewed 26 August 2026.</p>
+          <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/evaluate/manager-review-gate/#article",
+        "url": "https://duguid.com.au/evaluate/manager-review-gate/",
+        "headline": "Manager review gate evaluation with fabricated BAS packs",
+        "description": "A reproducible evaluation of the review-ready-gate v0.1.1 contract against two fabricated BAS packs.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-26",
+        "dateModified": "2026-08-26",
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "breadcrumb": { "@id": "https://duguid.com.au/evaluate/manager-review-gate/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/evaluate/manager-review-gate/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Manager review gate evaluation", "item": "https://duguid.com.au/evaluate/manager-review-gate/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

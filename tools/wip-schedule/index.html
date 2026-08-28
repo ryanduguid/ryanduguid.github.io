@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Construction WIP: over-billed or under-billed under AASB 15?</title>
+  <meta name="description" content="AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, profit fade. Review aid, not a determination." />
+  <meta property="og:title" content="Construction WIP: over-billed or under-billed under AASB 15?" />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://duguid.com.au/tools/wip-schedule/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <link rel="canonical" href="https://duguid.com.au/tools/wip-schedule/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/about/">About</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+    <p class="article-crumb"><a href="/">Home</a></p>
+    <h1>Construction WIP: over-billed or under-billed under AASB 15</h1>
+    <p class="lead-note">
+      TheWIPTally reads one row per unit of account and produces a cost-to-cost
+      work-in-progress schedule: earned revenue after AASB 15 para B19
+      exclusions, constrained unapproved variations, and a contract asset or
+      contract liability per job. Assets and liabilities are never netted.
+      Review aid, not a determination.
+    </p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#limits">Limits</a>
+          <a href="#get-it">Get it</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
+    <p>
+      Construction month-end still lives or dies on the WIP schedule. The hard
+      part is not the formula. It is applying the same formula every month:
+      strip waste from percent complete without dropping it from margin, book
+      uninstalled materials at cost, constrain unapproved claims, and present
+      each contract as an asset or a liability, never a portfolio net.
+    </p>
+    <p>
+      This tool is the arithmetic. It is not a second JavaScript calculator.
+      Install the Python engine, point it at a contract CSV, and keep the
+      schedule beside the review pack. Over-time versus point in time, contract
+      combination, claim enforceability, and any onerous-contract provision stay
+      with a person.
+      <a href="/tools/subcontractor-ledgers/">hardhat-ledger</a>
+      still owns that workflow: it assembles the file and names this engine
+      rather than inventing the numbers.
+    </p>
+    <section id="what-this-tool-does">
+    <h2>What this tool does</h2>
+    <ul>
+      <li>Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percent complete; uninstalled materials are recognised at cost with zero margin.</li>
+      <li>Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.</li>
+      <li>Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.</li>
+    </ul>
+    </section>
+    <section id="limits">
+    <h2>Limits</h2>
+    <blockquote>
+      <p>
+        This is an educational tool, not tax, legal or financial advice, and
+        using it creates no professional relationship. Outputs are not an
+        accounting opinion, an audit conclusion, or an AASB 15 determination.
+        Confirm the operative compilation at standards.aasb.gov.au before
+        citing a paragraph number, and leave sign-off with a registered
+        practitioner.
+      </p>
+    </blockquote>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
+    <pre><code>git clone https://github.com/ryanduguid/TheWIPTally.git
+cd TheWIPTally &amp;&amp; pip install .
+wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
+    <p>
+      The sample is designed to raise review flags. Exit code 2 means a person
+      needs to look; it is not a crash. Then:
+    </p>
+    <pre><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md</code></pre>
+    <p><a href="https://github.com/ryanduguid/TheWIPTally">Source on GitHub</a>
+       · <a href="/tools/subcontractor-ledgers/">Use it from hardhat-ledger</a></p>
+    <!-- geo-blocks -->
+    </section>
+    <section id="common-questions" class="faq-section">
+    <h2>Common questions</h2>
+    <div class="faq">
+      <h3>What is a contract asset versus a contract liability?</h3>
+      <p>Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another.</p>
+      <h3>Does wasted cost accelerate percent complete?</h3>
+      <p>No. Para B19(a) amounts are stripped from the progress measure and kept in estimated cost at completion, so they hit margin instead of pulling revenue forward.</p>
+      <h3>Are unapproved variations booked in full?</h3>
+      <p>No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%.</p>
+      <h3>Is this an accounting determination?</h3>
+      <p>No. It is a review aid. Over-time versus point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead.</p>
+    </div>
+    </section>
+    <section id="related">
+    <h2>Related</h2>
+    <ul class="related">
+      <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
+      <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></li>
+      <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
+      <li><a href="/evidence/">Evidence and Assurance</a></li>
+      <li><a href="/about/">About Ryan Duguid</a></li>
+    </ul>
+    </section>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="byline">
+      Written independently by Ryan Duguid in his own time and on his own equipment.
+      His provisional membership of Chartered Accountants ANZ is asserted by the
+      site owner and is not an endorsement by Chartered Accountants ANZ.
+    </p>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/about/">About Ryan Duguid</a>
+        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/wip-schedule/#webpage",
+        "url": "https://duguid.com.au/tools/wip-schedule/",
+        "name": "Construction WIP: over-billed or under-billed under AASB 15?",
+        "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, profit fade. Review aid, not a determination.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-25",
+        "dateModified": "2026-08-28",
+        "isPartOf": {
+          "@id": "https://duguid.com.au/#website"
+        },
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "publisher": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "mainEntity": {
+          "@id": "https://duguid.com.au/tools/wip-schedule/#software"
+        },
+        "breadcrumb": {
+          "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb"
+        },
+        "about": {
+          "@type": "Thing",
+          "name": "AASB 15 construction work-in-progress schedule"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/#tools"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "AASB 15 construction work-in-progress schedule",
+            "item": "https://duguid.com.au/tools/wip-schedule/"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "TheWIPTally construction WIP schedule",
+        "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, profit fade. Review aid, not a determination.",
+        "applicationCategory": "FinanceApplication",
+        "url": "https://duguid.com.au/tools/wip-schedule/",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "AUD"
+        },
+        "@id": "https://duguid.com.au/tools/wip-schedule/#software",
+        "author": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "creator": {
+          "@id": "https://duguid.com.au/about/#person"
+        },
+        "isAccessibleForFree": true,
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-25",
+        "dateModified": "2026-08-28"
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://duguid.com.au/tools/wip-schedule/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What is a contract asset versus a contract liability?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does wasted cost accelerate percent complete?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Para B19(a) amounts are stripped from the progress measure and kept in estimated cost at completion, so they hit margin instead of pulling revenue forward."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are unapproved variations booked in full?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is this an accounting determination?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It is a review aid. Over-time versus point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
