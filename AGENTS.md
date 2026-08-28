@@ -26,6 +26,7 @@ Run the current checks:
 ```text
 python scripts/check_site.py
 npm run test:browser
+npm run test:lighthouse
 git diff --check
 ```
 
@@ -47,7 +48,9 @@ git diff --check
   responses of 400 or higher. Allow exceptions only in the test that proves a
   known response is intentional.
 - Keep traces, screenshots and reports under ignored `work/` paths. Never save
-  or upload a browser profile, storage state, cookies or credentials.
+  or upload a browser profile, storage state, cookies or credentials. The
+  Lighthouse browser shim is intentional: it avoids an upstream Windows
+  temporary-profile cleanup race while preserving isolated browser state.
 
 ## Definition of done
 
