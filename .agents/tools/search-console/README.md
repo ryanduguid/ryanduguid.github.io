@@ -13,10 +13,11 @@ It exposes three tools:
   `www.duguid.com.au`.
 - `list_sitemaps` reads the property's current sitemap report.
 
-Search Console can return top rows rather than exhaustive query data. Treat
-these results as evidence for a decision, not as an instruction to change or
-publish the site. Responses remain in the MCP conversation and must not be
-saved in the repository.
+Each period can return only top rows. A row absent from one returned set is
+normalised to zero, so deltas are indicative rather than exhaustive. Treat the
+results as evidence for a decision, not as an instruction to change or publish
+the site. Responses remain in the MCP conversation and must not be saved in the
+repository.
 
 ## Local registration
 

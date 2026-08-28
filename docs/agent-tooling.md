@@ -44,3 +44,16 @@ Local implementation and verification do not authorise a push, pull request,
 merge, deployment, OAuth consent or other publication. Ask for explicit
 permission at that boundary and report any live or external check that remains
 unverified.
+
+## Repository skill
+
+`.agents/skills/duguid-site-quality/SKILL.md` routes site edits, browser work,
+Search Console investigations and release preparation to the commands and
+permission boundaries proven in this repository. Its detailed release gates
+live in the linked checklist rather than being duplicated in the entry point.
+
+Validate the package and its four routing scenarios with:
+
+```powershell
+python scripts/test_duguid_site_quality_skill.py
+```

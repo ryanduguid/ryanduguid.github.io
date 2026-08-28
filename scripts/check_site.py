@@ -13,6 +13,7 @@ CHECKS = (
     (sys.executable, "scripts/test_check_seo.py"),
     (sys.executable, "scripts/test_check_links.py"),
     (sys.executable, "scripts/test_search_console.py"),
+    (sys.executable, "scripts/test_duguid_site_quality_skill.py"),
     (sys.executable, "scripts/check_seo.py"),
     (sys.executable, "scripts/check_links.py"),
     ("node", "--test", "scripts/levy.test.mjs"),
