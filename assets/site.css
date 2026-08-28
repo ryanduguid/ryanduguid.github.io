@@ -565,6 +565,16 @@ tbody tr:hover td {
   margin-top: var(--space-2);
 }
 
+.hero-boundary {
+  width: fit-content;
+  padding-top: var(--space-3);
+  border-top: var(--rule-strong) solid var(--colour-alert);
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+}
+
 .home-proof-rail {
   padding-top: var(--space-4);
   border-top: var(--rule-strong) solid var(--colour-stamp);
@@ -577,6 +587,12 @@ tbody tr:hover td {
 
 .home-proof-rail p + p {
   margin-top: var(--space-3);
+}
+
+.home-proof-rail strong {
+  display: block;
+  margin-bottom: var(--space-1);
+  color: var(--colour-stamp-strong);
 }
 
 .path-grid {
@@ -663,6 +679,113 @@ tbody tr:hover td {
 
 .route-section > h2 + * {
   align-self: end;
+}
+
+.route-content {
+  display: grid;
+  gap: var(--space-5);
+  align-self: center;
+}
+
+.route-statement {
+  max-width: 15ch;
+  font-size: var(--text-heading);
+  line-height: 1.02;
+}
+
+.route-content > p:not(.technical-label):not(.route-note) {
+  max-width: 58ch;
+  color: var(--colour-ink-soft);
+}
+
+.route-actions {
+  display: grid;
+  gap: 0;
+  border-top: var(--rule-strong) solid var(--colour-ink);
+}
+
+.route-actions > a,
+.adoption-links > a {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr);
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+  color: var(--colour-ink);
+  text-decoration: none;
+}
+
+.route-actions > a:hover,
+.adoption-links > a:hover {
+  color: var(--colour-stamp-strong);
+  background: var(--colour-stamp-wash);
+}
+
+.route-actions > a span,
+.adoption-links > a span {
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
+.route-note {
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  border-left: var(--rule-strong) solid var(--colour-alert);
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
+.install-band {
+  border-top: 0;
+}
+
+.install-band h4,
+.proof-feature h4 {
+  font-family: var(--font-display);
+  font-size: var(--text-heading-small);
+  line-height: var(--leading-heading);
+}
+
+.adoption-links {
+  display: grid;
+}
+
+.credential-register {
+  margin: 0;
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.credential-register > div {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.65fr) minmax(0, 1.35fr);
+  gap: var(--space-5);
+  padding-block: var(--space-3);
+  border-top: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.credential-register dt {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.credential-register dd {
+  margin: 0;
+}
+
+.route-section .proof-feature {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(13rem, 0.7fr);
+  gap: var(--space-6);
+  padding-block: var(--space-5);
+  border-top: var(--rule-strong) solid var(--colour-ink);
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+  background: transparent;
+}
+
+.route-section .proof-feature figure {
+  align-self: start;
 }
 
 .route-section ul {
@@ -819,9 +942,30 @@ tbody tr:hover td {
 
 .tools-list {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   margin-top: var(--space-7);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.catalogue-group {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.55fr) minmax(0, 1.45fr);
+  gap: var(--space-7);
+  padding-block: var(--space-6);
+  border-bottom: var(--rule-strong) solid var(--colour-ink);
+}
+
+.catalogue-group > header {
+  align-self: start;
+}
+
+.catalogue-group > header h3 {
+  margin-top: var(--space-3);
+}
+
+.tool-register {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .tool-card {
@@ -833,6 +977,15 @@ tbody tr:hover td {
   padding-right: 0;
   padding-left: var(--space-5);
   border-left: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.catalogue-group .tool-card {
+  padding: var(--space-4) var(--space-5) var(--space-4) 0;
+}
+
+.catalogue-group .tool-card:nth-child(even) {
+  padding-right: 0;
+  padding-left: var(--space-5);
 }
 
 .tool-name {
@@ -851,7 +1004,7 @@ tbody tr:hover td {
 
 .principles-list {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 
 .principles-list > div {
@@ -1116,6 +1269,7 @@ input[type="checkbox"] {
 
   .home-hero,
   .proof-feature__inner,
+  .route-section .proof-feature,
   .calculator-workspace {
     grid-template-columns: 1fr;
   }
@@ -1136,6 +1290,7 @@ input[type="checkbox"] {
   }
 
   .section-heading,
+  .catalogue-group,
   .system-layer {
     grid-template-columns: 1fr;
   }
@@ -1177,6 +1332,13 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  .route-actions > a,
+  .adoption-links > a,
+  .credential-register > div,
+  .tool-register {
+    grid-template-columns: 1fr;
+  }
+
   .path-card + .path-card,
   .credential-band p + p,
   .principles-list > div + div,
@@ -1194,8 +1356,14 @@ input[type="checkbox"] {
   }
 
   .tool-card,
-  .tool-card:nth-child(even) {
+  .tool-card:nth-child(even),
+  .catalogue-group .tool-card,
+  .catalogue-group .tool-card:nth-child(even) {
     padding-inline: 0;
+  }
+
+  .catalogue-group .tool-card:nth-child(even) {
+    border-left: 0;
   }
 
   .site-footer__links {
