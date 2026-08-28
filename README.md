@@ -26,6 +26,8 @@ then visit `http://localhost:8000/`.
 - every question marked up as an FAQ is visible on the page that claims it
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
+- every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
+- official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
 
 Run locally:
 
