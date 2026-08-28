@@ -26,7 +26,8 @@ def write_fixture(root: Path) -> None:
     llms = b"# Example\n\nCurrent rate: 12%\n"
     rate = (
         b"<html><head><title>Rate</title></head><body>"
-        b"<main>12%</main><footer>Source</footer></body></html>\n"
+        b'<main>12% <a href="https://source.example/original">Source</a></main>'
+        b"<footer>Source</footer></body></html>\n"
     )
     font = b"font-fixture"
     licence = b"SIL OPEN FONT LICENSE Version 1.1\nPermission notice\n"
@@ -38,7 +39,8 @@ def write_fixture(root: Path) -> None:
         '<link rel="stylesheet" href="/assets/site.css" />'
         '</head><body><main><h1>Example · register</h1>'
         '<img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" '
-        'loading="lazy" decoding="async" fetchpriority="low" alt="Example" />'
+        'loading="lazy" decoding="async" fetchpriority="low" '
+        'alt="Example calculation" />'
         '</main>'
         f'<footer><p>{DISCLAIMER}</p>'
         '<a href="/llms.txt">Machine-readable index</a></footer>'
@@ -70,11 +72,15 @@ def write_fixture(root: Path) -> None:
         encoding="utf-8",
     )
     (root / "assets/site.css").write_text(
-        "body { background: var(--colour-canvas); }\n"
+        "body { overflow-wrap: anywhere; background: var(--colour-canvas); }\n"
+        "a { transition: color var(--motion-standard); }\n"
+        "button { transition: color var(--motion-standard); }\n"
+        "button:active { translate: 0 1px; }\n"
         ".route-section > h2 { position: sticky; }\n"
         ".route-content { min-width: 0; }\n"
         ".route-actions { min-width: 0; }\n"
-        ".install-band { min-width: 0; }\n",
+        ".install-band { min-width: 0; }\n"
+        ".proof-feature figure { min-width: 0; margin-inline: 0; }\n",
         encoding="utf-8",
     )
     (root / "index.html").write_bytes(page)
@@ -97,8 +103,11 @@ def write_fixture(root: Path) -> None:
         },
         "protected_main_text": {
             "rates/example/index.html": (
-                "234d0e73855ae7bf477734cbd4c1e50d56d5d00af3edb4bc8ddbdf44e8d5c8de"
+                "9a3a3917b326f2c2e06e008365e2659508e660d6b0491f9813e5b90df1782693"
             )
+        },
+        "protected_main_links": {
+            "rates/example/index.html": ["https://source.example/original"]
         },
         "json_ld": {
             "index.html": [
@@ -176,13 +185,29 @@ def self_check() -> None:
         lambda root: (root / "rates/example/index.html").write_text(
             (root / "rates/example/index.html")
             .read_text(encoding="utf-8")
-            .replace("<main>12%</main>", "<main>13%</main>"),
+            .replace("<main>12% ", "<main>13% "),
             encoding="utf-8",
         )
     )
     assert any(
         "protected main text changed: rates/example/index.html" in failure
         for failure in rate_failures
+    )
+
+    rate_source_failures = fixture_failures(
+        lambda root: (root / "rates/example/index.html").write_text(
+            (root / "rates/example/index.html")
+            .read_text(encoding="utf-8")
+            .replace(
+                "https://source.example/original",
+                "https://source.example/changed",
+            ),
+            encoding="utf-8",
+        )
+    )
+    assert any(
+        "protected main links changed: rates/example/index.html" in failure
+        for failure in rate_source_failures
     )
 
     mutations = (
@@ -291,11 +316,47 @@ def self_check() -> None:
             "font face 1 does not cover visible U+00B7",
         ),
         (
+            "missing JavaScript-rendered glyph",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8")
+                + '<script>document.querySelector("h1").textContent = "Ready ✅";</script>',
+                encoding="utf-8",
+            ),
+            "font face 1 does not cover visible U+2705",
+        ),
+        (
             "oversized webfont",
             lambda root: (root / "assets/fonts/Test.woff2").write_bytes(
                 b"x" * 25001
             ),
             "font exceeds 25000-byte delivery budget: assets/fonts/Test.woff2",
+        ),
+        (
+            "unprotected local font face",
+            lambda root: (
+                (root / "assets/fonts/Extra.woff2").write_bytes(b"extra-font"),
+                (root / "assets/tokens.css").write_text(
+                    (root / "assets/tokens.css").read_text(encoding="utf-8")
+                    + '\n@font-face { font-family: "Extra"; '
+                    'src: url("/assets/fonts/Extra.woff2") format("woff2"); '
+                    'font-display: optional; '
+                    'unicode-range: U+0020-007E, U+00A0-00FF; }\n',
+                    encoding="utf-8",
+                ),
+            ),
+            "unprotected font declared: assets/fonts/Extra.woff2",
+        ),
+        (
+            "remote font face",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css").read_text(encoding="utf-8")
+                + '\n@font-face { font-family: "Remote"; '
+                'src: url("https://fonts.example/remote.woff2") format("woff2"); '
+                'font-display: optional; '
+                'unicode-range: U+0020-007E, U+00A0-00FF; }\n',
+                encoding="utf-8",
+            ),
+            "font face 2 must use one protected local WOFF2 source",
         ),
         (
             "non-black canvas",
@@ -384,6 +445,49 @@ def self_check() -> None:
             "route action groups must contain intrinsic-width content",
         ),
         (
+            "unbroken identifier wrapping removed",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace("overflow-wrap: anywhere;", ""),
+                encoding="utf-8",
+            ),
+            "body must wrap unbroken identifiers at the 320px boundary",
+        ),
+        (
+            "fallback proof containment removed",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace(
+                    ".proof-feature figure { min-width: 0; margin-inline: 0; }",
+                    ".proof-feature figure { }",
+                ),
+                encoding="utf-8",
+            ),
+            "proof media must not widen the fallback viewport",
+        ),
+        (
+            "fast interactive motion",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace("var(--motion-standard)", "var(--motion-fast)"),
+                encoding="utf-8",
+            ),
+            "links and controls must use the standard motion duration",
+        ),
+        (
+            "button press feedback removed",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace("button:active { translate: 0 1px; }", ""),
+                encoding="utf-8",
+            ),
+            "buttons must move by one pixel on press",
+        ),
+        (
             "banned marketing copy",
             lambda root: (root / "index.html").write_text(
                 (root / "index.html")
@@ -422,6 +526,20 @@ def self_check() -> None:
             "index.html: expected one tokens stylesheet before site stylesheet",
         ),
         (
+            "token stylesheet outside head",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('<link rel="stylesheet" href="/assets/tokens.css" />', "")
+                .replace(
+                    "</main>",
+                    '</main><link rel="stylesheet" href="/assets/tokens.css" />',
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one tokens stylesheet before site stylesheet",
+        ),
+        (
             "missing machine alternate",
             lambda root: (root / "index.html").write_text(
                 (root / "index.html")
@@ -430,6 +548,25 @@ def self_check() -> None:
                     '<link rel="alternate" type="text/plain" '
                     'href="https://duguid.com.au/llms.txt" />',
                     "",
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one llms.txt alternate link",
+        ),
+        (
+            "machine alternate outside head",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace(
+                    '<link rel="alternate" type="text/plain" '
+                    'href="https://duguid.com.au/llms.txt" />',
+                    "",
+                )
+                .replace(
+                    "</main>",
+                    '</main><link rel="alternate" type="text/plain" '
+                    'href="https://duguid.com.au/llms.txt" />',
                 ),
                 encoding="utf-8",
             ),
@@ -446,6 +583,20 @@ def self_check() -> None:
             "index.html: expected one visible machine-readable index link",
         ),
         (
+            "machine index outside footer",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('<a href="/llms.txt">Machine-readable index</a>', "")
+                .replace(
+                    "</main>",
+                    '<a href="/llms.txt">Machine-readable index</a></main>',
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one visible machine-readable index link",
+        ),
+        (
             "eager proof image",
             lambda root: (root / "index.html").write_text(
                 (root / "index.html")
@@ -454,6 +605,16 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "index.html: Coal LSL proof image must load lazily",
+        ),
+        (
+            "missing proof image alternative",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace(' alt="Example calculation"', ""),
+                encoding="utf-8",
+            ),
+            "index.html: Coal LSL proof image must have descriptive alt text",
         ),
         (
             "broken font URL",

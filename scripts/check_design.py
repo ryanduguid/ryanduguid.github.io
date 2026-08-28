@@ -14,8 +14,15 @@ ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
+SCRIPT_CONTENT_PATTERN = re.compile(r"<script\b[^>]*>(.*?)</script>", re.S | re.I)
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
+HEAD_PATTERN = re.compile(r"<head\b[^>]*>(.*?)</head>", re.S | re.I)
+FOOTER_PATTERN = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
+MAIN_LINK_PATTERN = re.compile(
+    r'<a\b[^>]*\bhref\s*=\s*(["\'])(.*?)\1', re.S | re.I
+)
 FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
+SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css" />'
@@ -114,11 +121,31 @@ def visible_text(raw_html: str) -> str:
     return " ".join(html_module.unescape(without_tags).split())
 
 
+def active_markup(raw_html: str) -> str:
+    without_comments = re.sub(r"<!--.*?-->", " ", raw_html, flags=re.S)
+    return re.sub(
+        r"<(script|style|template)\b[^>]*>.*?</\1>",
+        " ",
+        without_comments,
+        flags=re.I | re.S,
+    )
+
+
 def main_visible_digest(path: Path) -> str | None:
     matches = MAIN_PATTERN.findall(path.read_text(encoding="utf-8"))
     if len(matches) != 1:
         return None
     return sha256_bytes(visible_text(matches[0]).encode("utf-8"))
+
+
+def main_link_targets(path: Path) -> list[str] | None:
+    matches = MAIN_PATTERN.findall(path.read_text(encoding="utf-8"))
+    if len(matches) != 1:
+        return None
+    return [
+        html_module.unescape(target)
+        for _, target in MAIN_LINK_PATTERN.findall(matches[0])
+    ]
 
 
 def css_root_properties(tokens_css: str) -> dict[str, str]:
@@ -206,11 +233,18 @@ def check_font_delivery(
 ) -> list[str]:
     failures: list[str] = []
     faces = FONT_FACE_PATTERN.findall(tokens_css)
-    visible = " ".join(
-        visible_text(path.read_text(encoding="utf-8"))
-        for path in sorted(root.rglob("*.html"))
-        if not (path.name.startswith("google") and path.name.endswith(".html"))
+    rendered_text: list[str] = []
+    for path in sorted(root.rglob("*.html")):
+        if path.name.startswith("google") and path.name.endswith(".html"):
+            continue
+        raw = path.read_text(encoding="utf-8")
+        rendered_text.append(visible_text(raw))
+        rendered_text.extend(SCRIPT_CONTENT_PATTERN.findall(raw))
+    rendered_text.extend(
+        path.read_text(encoding="utf-8")
+        for path in sorted((root / "assets").rglob("*.mjs"))
     )
+    visible = " ".join(rendered_text)
     required = sorted({ord(character) for character in visible if ord(character) > 31})
     for index, face in enumerate(faces, start=1):
         ranges = unicode_ranges(face)
@@ -265,9 +299,39 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     for colour in sorted(set(RAW_COLOUR_PATTERN.findall(site_css.lower()))):
         failures.append(f"raw colour outside assets/tokens.css: {colour}")
 
-    for index, font_face in enumerate(FONT_FACE_PATTERN.findall(tokens_css), start=1):
+    if not re.search(
+        r"\bbody\s*\{[^}]*\boverflow-wrap\s*:\s*anywhere\s*;",
+        site_css,
+        re.S | re.I,
+    ):
+        failures.append("body must wrap unbroken identifiers at the 320px boundary")
+
+    transitions = re.findall(r"\btransition\s*:\s*(.*?);", site_css, re.S | re.I)
+    if not transitions or any(
+        "var(--motion-standard)" not in transition for transition in transitions
+    ):
+        failures.append("links and controls must use the standard motion duration")
+    if not re.search(
+        r"button:active\s*\{[^}]*\btranslate\s*:\s*0\s+1px\s*;",
+        site_css,
+        re.S | re.I,
+    ):
+        failures.append("buttons must move by one pixel on press")
+
+    font_faces = FONT_FACE_PATTERN.findall(tokens_css)
+    for index, font_face in enumerate(font_faces, start=1):
         if not re.search(r"\bfont-display\s*:\s*optional\s*;", font_face, re.I):
             failures.append(f"font face {index} must use font-display: optional")
+        sources = SOURCE_URL_PATTERN.findall(font_face)
+        if (
+            len(sources) != 1
+            or not sources[0].startswith("/assets/fonts/")
+            or not sources[0].endswith(".woff2")
+            or re.search(r"\blocal\s*\(", font_face, re.I)
+        ):
+            failures.append(
+                f"font face {index} must use one protected local WOFF2 source"
+            )
 
     route_label_rule = re.search(
         r"\.route-section\s*>\s*h2\s*\{(.*?)\}", site_css, re.S | re.I
@@ -298,6 +362,16 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
             failures.append("route action groups must contain intrinsic-width content")
             break
 
+    proof_figure_rules = re.findall(
+        r"\.proof-feature\s+figure\s*\{(.*?)\}", site_css, re.S | re.I
+    )
+    if not any(
+        re.search(r"\bmin-width\s*:\s*0\s*;", rule, re.I)
+        and re.search(r"\bmargin-inline\s*:\s*0\s*;", rule, re.I)
+        for rule in proof_figure_rules
+    ):
+        failures.append("proof media must not widen the fallback viewport")
+
     declared_fonts = {
         url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)
     }
@@ -312,6 +386,8 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     }
     for rel in sorted(expected_fonts - declared_fonts):
         failures.append(f"protected font not declared in tokens: {rel}")
+    for rel in sorted(declared_fonts - expected_fonts):
+        failures.append(f"unprotected font declared: {rel}")
     failures.extend(check_oled_tokens(tokens_css))
     return failures
 
@@ -346,21 +422,29 @@ def check_document_delivery(
             failures.append(f"styled page missing: {rel}")
             continue
         raw = path.read_text(encoding="utf-8")
-        token_at = raw.find(TOKENS_LINK)
-        site_at = raw.find(SITE_LINK)
+        head_regions = HEAD_PATTERN.findall(raw)
+        footer_regions = FOOTER_PATTERN.findall(raw)
+        head = active_markup(head_regions[0]) if len(head_regions) == 1 else ""
+        footer = active_markup(footer_regions[0]) if len(footer_regions) == 1 else ""
+        token_at = head.find(TOKENS_LINK)
+        site_at = head.find(SITE_LINK)
         if (
             raw.count(TOKENS_LINK) != 1
             or raw.count(SITE_LINK) != 1
+            or head.count(TOKENS_LINK) != 1
+            or head.count(SITE_LINK) != 1
             or token_at > site_at
         ):
             failures.append(
                 f"{rel}: expected one tokens stylesheet before site stylesheet"
             )
-        if raw.count(LLMS_VISIBLE) != 1:
+        if raw.count(LLMS_VISIBLE) != 1 or footer.count(LLMS_VISIBLE) != 1:
             failures.append(
                 f"{rel}: expected one visible machine-readable index link"
             )
-        if rel in indexable and raw.count(LLMS_ALTERNATE) != 1:
+        if rel in indexable and (
+            raw.count(LLMS_ALTERNATE) != 1 or head.count(LLMS_ALTERNATE) != 1
+        ):
             failures.append(f"{rel}: expected one llms.txt alternate link")
 
     homepage_path = root / "index.html"
@@ -384,6 +468,11 @@ def check_document_delivery(
                 failures.append(
                     f"index.html: Coal LSL proof image must {message}"
                 )
+        alt = re.search(r'\balt\s*=\s*(["\'])(.*?)\1', image, re.I | re.S)
+        if alt is None or len(visible_text(alt.group(2))) < 12:
+            failures.append(
+                "index.html: Coal LSL proof image must have descriptive alt text"
+            )
     return failures
 
 
@@ -412,6 +501,17 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected main missing or duplicated: {rel}")
         elif actual != expected:
             failures.append(f"protected main text changed: {rel}")
+
+    for rel, expected in baseline.get("protected_main_links", {}).items():
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"protected main page missing: {rel}")
+            continue
+        actual = main_link_targets(path)
+        if actual is None:
+            failures.append(f"protected main missing or duplicated: {rel}")
+        elif actual != expected:
+            failures.append(f"protected main links changed: {rel}")
 
     for rel, expected in baseline.get("json_ld", {}).items():
         path = root / rel

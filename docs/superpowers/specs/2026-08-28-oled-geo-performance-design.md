@@ -1,8 +1,11 @@
 # OLED, GEO and performance refinement
 
-**Status:** Approved by Ryan Duguid on 28 August 2026  
-**Date:** 28 August 2026  
-**Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`  
+**Status:** Approved by Ryan Duguid on 28 August 2026
+
+**Date:** 28 August 2026
+
+**Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
+
 **Approved approach:** Evidence-led surgical rebuild
 
 ## Objective

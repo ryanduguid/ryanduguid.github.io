@@ -9,6 +9,57 @@
     "rates/div7a-benchmark-rate/index.html": "14abcf17bfbdaa2bd2aa8f8bbfba5eee9e3f85613aee946288839d0886326b02",
     "rates/cents-per-kilometre/index.html": "9b07dce55bbb4328e25d69db5663cabe9d4c8d6deb107e609515f6ab0eefca2b"
   },
+  "protected_main_links": {
+    "rates/cents-per-kilometre/index.html": [
+      "/",
+      "https://www.legislation.gov.au/F2026L00785/asmade",
+      "https://www.legislation.gov.au/F2024L00697/asmade",
+      "#rate-by-income-year",
+      "#why-the-rate-changed",
+      "#how-the-method-works",
+      "#common-questions",
+      "#related",
+      "/rates/cents-per-kilometre/cents-per-kilometre-rates.csv",
+      "/rates/super-guarantee/",
+      "/rates/div7a-benchmark-rate/",
+      "/tools/australian-tax-ai-agents/",
+      "/about/"
+    ],
+    "rates/div7a-benchmark-rate/index.html": [
+      "/",
+      "https://www.legislation.gov.au/C1936A00027/latest/text",
+      "https://www.rba.gov.au/statistics/tables/",
+      "#rate-by-income-year",
+      "#how-to-work-it-out",
+      "#what-the-rate-is-for",
+      "#common-questions",
+      "#related",
+      "/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv",
+      "https://www.rba.gov.au/statistics/tables/",
+      "/rates/cents-per-kilometre/",
+      "/rates/super-guarantee/",
+      "/tools/trust-distributions/",
+      "/tools/australian-tax-ai-agents/",
+      "/about/"
+    ],
+    "rates/super-guarantee/index.html": [
+      "/",
+      "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+      "https://www.legislation.gov.au/C2025A00057/asmade",
+      "https://www.legislation.gov.au/C2004A04402/latest/text",
+      "#current-rate",
+      "#common-questions",
+      "#related",
+      "/rates/super-guarantee/super-guarantee-rates.csv",
+      "https://github.com/ryanduguid",
+      "/tools/payday-super/",
+      "/tools/australian-tax-ai-agents/",
+      "/rates/div7a-benchmark-rate/",
+      "/rates/cents-per-kilometre/",
+      "/tools/coal-lsl-levy/",
+      "/about/"
+    ]
+  },
   "json_ld": {
     "about/index.html": [
       "b83e7af3e79a72e869952129a7d992a4523b9ef0a071c315292d411e1db68eb9"

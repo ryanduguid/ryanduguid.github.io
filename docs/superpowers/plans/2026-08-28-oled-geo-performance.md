@@ -1212,8 +1212,8 @@ for width, height in ((320, 720), (390, 844), (768, 1024), (1440, 1000)):
       const h1 = getComputedStyle(document.querySelector('h1'));
       const label = getComputedStyle(document.querySelector('.technical-label'));
       return {
-        viewport: [innerWidth, innerHeight],
-        overflow: document.documentElement.scrollWidth - innerWidth,
+        viewport: [document.documentElement.clientWidth, document.documentElement.clientHeight],
+        overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
         canvas: body.backgroundColor,
         bodyFont: body.fontFamily,
         headingFont: h1.fontFamily,
@@ -1241,7 +1241,7 @@ for route, path in (
         metrics = js("""(() => {
           const heading = document.querySelector('h1');
           return {
-            overflow: document.documentElement.scrollWidth - innerWidth,
+            overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
             canvas: getComputedStyle(document.body).backgroundColor,
             main: Boolean(document.querySelector('main')),
             heading: heading?.textContent.trim() ?? null,
@@ -1282,14 +1282,14 @@ goto_url("http://127.0.0.1:8000/?mode=reduced")
 wait_for_load()
 print(js("""(() => ({
   motion: getComputedStyle(document.documentElement).getPropertyValue('--motion-fast').trim(),
-  overflow: document.documentElement.scrollWidth - innerWidth
+  overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
 }))()"""))
 cdp("Network.setCacheDisabled", cacheDisabled=True)
 cdp("Network.setBlockedURLs", urls=["*assets/fonts/*", "*coal-lsl-calculator.webp*"])
 goto_url("http://127.0.0.1:8000/?mode=fallback")
 wait_for_load()
 print(js("""(() => ({
-  overflow: document.documentElement.scrollWidth - innerWidth,
+  overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth,
   bodyText: document.body.innerText.length,
   proofAlt: document.querySelector('img[src*="coal-lsl-calculator"]')?.alt,
   footerLink: document.querySelector('a[href="/llms.txt"]')?.textContent.trim()
@@ -1385,7 +1385,7 @@ for site, base in (
             lcp: window.__lcp.at(-1)?.startTime ?? null,
             cls: window.__cls,
             proofLoadedInitially: resources.some(r => r.name.includes('coal-lsl-calculator.webp')),
-            overflow: document.documentElement.scrollWidth - innerWidth
+            overflow: document.documentElement.scrollWidth - document.documentElement.clientWidth
           };
         })()""")
         results.append({"site": site, "run": run, **metrics})
@@ -1423,6 +1423,10 @@ if (@($results | Where-Object { $_.site -eq 'candidate' -and $_.proofLoadedIniti
 }
 $baselineTransfer = Get-Median @($results | Where-Object site -eq 'baseline' | ForEach-Object transfer)
 $candidateTransfer = Get-Median @($results | Where-Object site -eq 'candidate' | ForEach-Object transfer)
+$baselineRequests = Get-Median @($results | Where-Object site -eq 'baseline' | ForEach-Object requestCount)
+$candidateRequests = Get-Median @($results | Where-Object site -eq 'candidate' | ForEach-Object requestCount)
+$baselineFcp = Get-Median @($results | Where-Object site -eq 'baseline' | ForEach-Object fcp)
+$candidateFcp = Get-Median @($results | Where-Object site -eq 'candidate' | ForEach-Object fcp)
 $baselineLcp = Get-Median @($results | Where-Object site -eq 'baseline' | ForEach-Object lcp)
 $candidateLcp = Get-Median @($results | Where-Object site -eq 'candidate' | ForEach-Object lcp)
 $transferReduction = 1 - ($candidateTransfer / $baselineTransfer)
@@ -1436,6 +1440,10 @@ if ($candidateLcp -gt ($baselineLcp * 1.1)) {
   BaselineTransfer = $baselineTransfer
   CandidateTransfer = $candidateTransfer
   TransferReduction = $transferReduction
+  BaselineRequests = $baselineRequests
+  CandidateRequests = $candidateRequests
+  BaselineFcp = $baselineFcp
+  CandidateFcp = $candidateFcp
   BaselineLcp = $baselineLcp
   CandidateLcp = $candidateLcp
 }
@@ -1445,6 +1453,7 @@ Passing evidence requires:
 
 - candidate median initial transfer at least 40 per cent below the matched
   local baseline median
+- matched request-count and FCP medians reported alongside transfer and LCP
 - proof image absent from every candidate initial resource set
 - CLS exactly 0 in every run
 - overflow exactly 0 in every run
