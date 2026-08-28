@@ -62,6 +62,14 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
    - Borrow: sticky local contents, direct code presentation, narrow reading measure and compact index density.
    - Do not borrow: its monochrome component-library appearance or default card styling.
 
+### Supplementary reference requested during implementation
+
+[Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the three gold-standard references.
+
+- Borrow: the centred ceremonial masthead, near-black green field, cold luminous title colour, compact mono index labels and fine ruled geometry.
+- Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
+- Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its three-column project-card grid.
+
 The resulting system is unique to duguid.com.au: a cold ledger surface, harbour-green review stamp, IBM Plex type family, tabular evidence chrome and route viewports built around Engage, Adopt and Verify.
 
 ## Visual premise
@@ -95,8 +103,10 @@ All colour values live in `assets/tokens.css`. Component CSS consumes semantic t
 | Stamp strong | `#005246` | Hover and filled controls |
 | Stamp wash | `#D7E9E3` | Rare evidence emphasis |
 | Alert | `#833E36` | Refusal and warning semantics only |
+| Masthead | `#006671` | Homepage identity statement only |
 | Code | `#101B18` | Code and install background |
 | Code ink | `#EFF7F3` | Code text |
+| Code comment | `#A9B8B3` | Secondary annotation inside code blocks |
 
 ### Dark system mode
 
@@ -112,7 +122,7 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 - IBM Plex Sans Regular, Italic and SemiBold: navigation, body copy, controls and explanatory text.
 - IBM Plex Mono Regular: rates, commands, versions, dates, evidence labels and tabular figures.
 
-IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository will self-host WOFF2 files and include `assets/fonts/ibm-plex/OFL.txt`.
+IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 
 Font rules:
 
@@ -122,7 +132,7 @@ Font rules:
 - rates and numerical table columns use tabular numbers
 - body measure is at most 68 characters
 - body text is at least 16 CSS pixels
-- font files use `font-display: swap` and are preloaded only when above the fold
+- font files use `font-display: optional` to prevent a late typeface swap
 
 ## Type scale
 
@@ -139,7 +149,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Display | 48 to 96px | Homepage hero |
 | Route | 64 to 132px | Engage, Adopt and Verify route word |
 
-Display tracking is modestly negative. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
+Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
 
 ## Spacing, shape and layers
 
@@ -226,7 +236,7 @@ The homepage uses stacked one-thought viewports and does not use scroll snapping
 
 ### Hero viewport: who and what
 
-The first viewport answers three questions within five seconds:
+The first viewport centres one ceremonial masthead above a ruled three-part register and answers three questions within five seconds:
 
 - Ryan Duguid is a Newcastle accountant.
 - He builds open-source accounting review tools.
@@ -259,7 +269,7 @@ The catalogue is not a second homepage essay. Each blurb names the pain or obser
 
 ### Reference and principles
 
-Rates and further references become one compact index. The four engineering principles remain but read as working rules, not a four-column marketing feature row.
+Rates and further references become one compact index. The five engineering principles read as working rules, not a marketing feature row.
 
 ## Inner-page system
 
@@ -290,12 +300,12 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 ## Protected contracts
 
-The following source baseline values are frozen:
+The following source baseline values are frozen after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `00055BF4B8BFBC661007390F2C0EA199EFF2E4C57FB040E63846F9B1CBA5FB43`
-- `rates/super-guarantee/index.html`: SHA-256 `1FB1B5AEB2B54A4A0091029B0CF55BCF0BA4A88CC5A4C45F8C89DC28E9FDFD32`
-- `rates/div7a-benchmark-rate/index.html`: SHA-256 `609A7308A30A22508B6DBEEF1054A4C9C47D70DDF32895EDB77B91D96F312554`
-- `rates/cents-per-kilometre/index.html`: SHA-256 `2C42EBE9589CC56DF65DC90ED29E6878848A747577C2D13234DC0C6AD6DAB027`
+- `llms.txt`: SHA-256 `4133A06AEEF0CDF1D014D49C61051A80365A1F2680DBBB874A1C5C658376C3A5`
+- `rates/super-guarantee/index.html`: SHA-256 `599D554FB2BC1A1B1D171297AFA62C5AD743BA056C90DFE7DB9B383EC26D0C5C`
+- `rates/div7a-benchmark-rate/index.html`: SHA-256 `E89020E290F4CF374F41B40092BEB53B93F551C00FF9365264B0B9DF83C9E162`
+- `rates/cents-per-kilometre/index.html`: SHA-256 `FEDF9165A492C614A447D1F7FA55809B8917BB1DDB4802BCECA01039299552D7`
 
 Every JSON-LD block across all 21 HTML pages remains semantically unchanged. Existing footer disclaimers, owner-assertion language, engagement boundary, calculator disclaimer, human review statements and Division 7A refusal remain exact.
 
@@ -320,5 +330,4 @@ Automated checks cover the design system, font assets, homepage structure, copy 
 
 Browser review covers homepage, About, Evidence, a tool guide and a rate table at desktop and mobile sizes. It also checks 200 per cent zoom, keyboard focus, overflow, computed fonts, console errors, reduced motion and both colour schemes.
 
-The pull request must name the three selected references, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple gradient, no generic CTA and no altered rates or advice boundaries.
-
+The pull request must name the three selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.

@@ -1,9 +1,9 @@
 {
   "protected_files": {
-    "llms.txt": "00055bf4b8bfbc661007390f2c0ea199eff2e4c57fb040e63846f9b1cba5fb43",
-    "rates/super-guarantee/index.html": "1fb1b5aeb2b54a4a0091029b0cf55bcf0ba4a88cc5a4c45f8c89dc28e9fdfd32",
-    "rates/div7a-benchmark-rate/index.html": "609a7308a30a22508b6dbeef1054a4c9c47d70ddf32895edb77b91d96f312554",
-    "rates/cents-per-kilometre/index.html": "2c42ebe9589cc56df65dc90ed29e6878848a747577c2d13234dc0c6ad6dab027"
+    "llms.txt": "4133a06aeef0cdf1d014d49c61051a80365a1f2680dbbb874a1c5c658376c3a5",
+    "rates/super-guarantee/index.html": "599d554fb2bc1a1b1d171297afa62c5ad743ba056c90dfe7db9b383ec26d0c5c",
+    "rates/div7a-benchmark-rate/index.html": "e89020e290f4cf374f41b40092beb53b93f551c00ff9365264b0b9df83c9e162",
+    "rates/cents-per-kilometre/index.html": "fedf9165a492c614a447d1f7fa55809b8917bb1ddb4802bceca01039299552d7"
   },
   "json_ld": {
     "about/index.html": [
@@ -77,6 +77,6 @@
     "assets/fonts/IBMPlexSans-Italic.woff2": "13284fab1821ba6e3652c1580fcf2bbfd8c9309520c69b3d1224dab40b37c597",
     "assets/fonts/IBMPlexSans-SemiBold.woff2": "f78048030eab62e860efa39a0df79e2e5581bf122eb95b9bc42c0b8a4988d205",
     "assets/fonts/IBMPlexMono-Regular.woff2": "49ce58b41a0e1cb921c0f58d9a5b8b96a2cc21437c7066f3ba4f24873076d131",
-    "assets/fonts/OFL.txt": "7e6b2818edbd8f6a01ae80641cc8f16a51080d08fb4e532be3a0b6f74adb07da"
+    "assets/fonts/OFL.txt": "d7f63cdccf0c57f3ea47c7e1d45b002b85044dbe4935989f0522e780f6fc8511"
   }
 }

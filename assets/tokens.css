@@ -5,7 +5,7 @@
   src: url("/assets/fonts/IBMPlexSerif-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -13,7 +13,7 @@
   src: url("/assets/fonts/IBMPlexSerif-SemiBold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -21,7 +21,7 @@
   src: url("/assets/fonts/IBMPlexSans-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -29,7 +29,7 @@
   src: url("/assets/fonts/IBMPlexSans-Italic.woff2") format("woff2");
   font-style: italic;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -37,7 +37,7 @@
   src: url("/assets/fonts/IBMPlexSans-SemiBold.woff2") format("woff2");
   font-style: normal;
   font-weight: 600;
-  font-display: swap;
+  font-display: optional;
 }
 
 @font-face {
@@ -45,7 +45,7 @@
   src: url("/assets/fonts/IBMPlexMono-Regular.woff2") format("woff2");
   font-style: normal;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
 }
 
 :root {
@@ -62,8 +62,10 @@
   --colour-stamp-strong: #005246;
   --colour-stamp-wash: #d7e9e3;
   --colour-alert: #833e36;
+  --colour-masthead: #006671;
   --colour-code: #101b18;
   --colour-code-ink: #eff7f3;
+  --colour-code-comment: #a9b8b3;
 
   --font-display: "IBM Plex Serif", Georgia, serif;
   --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
@@ -133,8 +135,10 @@
     --colour-stamp-strong: #a6e2d0;
     --colour-stamp-wash: #203b34;
     --colour-alert: #e3a19b;
+    --colour-masthead: #80d8dc;
     --colour-code: #0a100e;
     --colour-code-ink: #eff7f3;
+    --colour-code-comment: #a9b8b3;
   }
 }
 

@@ -15,6 +15,8 @@ JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
 FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
+FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
+RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
     "radial-gradient",
@@ -25,10 +27,34 @@ BANNED_CSS_PATTERNS = (
     "#5c2d91",
     "#9f6fd8",
 )
+BANNED_VISIBLE_PATTERNS = (
+    ("revolutionise", r"\brevolutionise\b"),
+    ("seamless", r"\bseamless\b"),
+    ("cutting-edge", r"\bcutting-edge\b"),
+    ("leverage", r"\bleverage\b"),
+    ("unlock", r"\bunlock\b"),
+    ("AI-powered", r"\bai-powered\b"),
+    ("delves", r"\bdelves\b"),
+    ("landscape", r"\blandscape\b"),
+    ("tapestry", r"\btapestry\b"),
+    ("in today's fast-paced", r"\bin today's fast-paced\b"),
+    ("Get started", r"\bget started\b"),
+)
+COPY_PATHS = ("index.html", "about/index.html")
+EMOJI_PATTERN = re.compile(
+    "[\u2600-\u26ff\u2700-\u27bf\U0001f300-\U0001faff]"
+)
 
 
 def sha256_bytes(payload: bytes) -> str:
     return hashlib.sha256(payload).hexdigest()
+
+
+def normalised_text_digest(path: Path) -> str:
+    """Hash UTF-8 text after normalising only platform line endings."""
+    text = path.read_bytes().decode("utf-8")
+    normalised = text.replace("\r\n", "\n").replace("\r", "\n")
+    return sha256_bytes(normalised.encode("utf-8"))
 
 
 def semantic_json_digest(value: object) -> str:
@@ -82,6 +108,42 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
         if pattern in combined:
             failures.append(f"banned CSS pattern {pattern}")
 
+    for colour in sorted(set(RAW_COLOUR_PATTERN.findall(site_css.lower()))):
+        failures.append(f"raw colour outside assets/tokens.css: {colour}")
+
+    for index, font_face in enumerate(FONT_FACE_PATTERN.findall(tokens_css), start=1):
+        if not re.search(r"\bfont-display\s*:\s*optional\s*;", font_face, re.I):
+            failures.append(f"font face {index} must use font-display: optional")
+
+    route_label_rule = re.search(
+        r"\.route-section\s*>\s*h2\s*\{(.*?)\}", site_css, re.S | re.I
+    )
+    if not route_label_rule or not re.search(
+        r"\bposition\s*:\s*sticky\s*;", route_label_rule.group(1), re.I
+    ):
+        failures.append("route labels must be sticky on wide layouts")
+
+    route_content_rule = re.search(
+        r"\.route-content\s*\{(.*?)\}", site_css, re.S | re.I
+    )
+    if not route_content_rule or not re.search(
+        r"\bmin-width\s*:\s*0\s*;", route_content_rule.group(1), re.I
+    ):
+        failures.append(
+            "route content must allow internal overflow without widening the page"
+        )
+
+    for selector in ("route-actions", "install-band"):
+        rules = re.findall(
+            rf"\.{selector}\s*\{{(.*?)\}}", site_css, re.S | re.I
+        )
+        if not any(
+            re.search(r"\bmin-width\s*:\s*0\s*;", rule, re.I)
+            for rule in rules
+        ):
+            failures.append("route action groups must contain intrinsic-width content")
+            break
+
     declared_fonts = {
         url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)
     }
@@ -99,6 +161,23 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     return failures
 
 
+def check_copy(root: Path) -> list[str]:
+    """Reject the brief's marketing-copy slop on the two rewritten pages."""
+    failures: list[str] = []
+    for rel in COPY_PATHS:
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"copy page missing: {rel}")
+            continue
+        text = visible_text(path.read_text(encoding="utf-8"))
+        for label, pattern in BANNED_VISIBLE_PATTERNS:
+            if re.search(pattern, text, re.I):
+                failures.append(f"{rel}: banned visible phrase {label!r}")
+        if EMOJI_PATTERN.search(text):
+            failures.append(f"{rel}: decorative emoji is not permitted")
+    return failures
+
+
 def check_repository(root: Path = ROOT) -> list[str]:
     baseline_path = root / "scripts/design_baseline.json"
     if not baseline_path.is_file():
@@ -111,7 +190,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
         path = root / rel
         if not path.is_file():
             failures.append(f"protected file missing: {rel}")
-        elif sha256_bytes(path.read_bytes()) != expected:
+        elif normalised_text_digest(path) != expected:
             failures.append(f"protected file changed: {rel}")
 
     for rel, expected in baseline.get("json_ld", {}).items():
@@ -144,6 +223,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected font changed: {rel}")
 
     failures.extend(check_stylesheets(root, baseline))
+    failures.extend(check_copy(root))
 
     return failures
 

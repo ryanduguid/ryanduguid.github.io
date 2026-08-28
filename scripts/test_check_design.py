@@ -21,6 +21,7 @@ def write_fixture(root: Path) -> None:
     (root / "scripts").mkdir()
     (root / "rates/example").mkdir(parents=True)
     (root / "assets/fonts").mkdir(parents=True)
+    (root / "about").mkdir()
 
     llms = b"# Example\n\nCurrent rate: 12%\n"
     rate = b"<html><body><main>12%</main></body></html>\n"
@@ -40,16 +41,25 @@ def write_fixture(root: Path) -> None:
     (root / "assets/fonts/OFL.txt").write_bytes(licence)
     (root / "assets/tokens.css").write_text(
         '@font-face { font-family: "Test"; '
-        'src: url("/assets/fonts/Test.woff2") format("woff2"); }\n'
+        'src: url("/assets/fonts/Test.woff2") format("woff2"); '
+        'font-display: optional; }\n'
         ':root { --colour-canvas: #f8faf8; --radius-control: 0.125rem; }\n',
         encoding="utf-8",
     )
     (root / "assets/site.css").write_text(
         '@import url("/assets/tokens.css");\n'
-        "body { background: var(--colour-canvas); }\n",
+        "body { background: var(--colour-canvas); }\n"
+        ".route-section > h2 { position: sticky; }\n"
+        ".route-content { min-width: 0; }\n"
+        ".route-actions { min-width: 0; }\n"
+        ".install-band { min-width: 0; }\n",
         encoding="utf-8",
     )
     (root / "index.html").write_bytes(page)
+    (root / "about/index.html").write_text(
+        "<!doctype html><html><body><main>About</main></body></html>",
+        encoding="utf-8",
+    )
     baseline = {
         "protected_files": {
             "llms.txt": digest(llms),
@@ -100,6 +110,14 @@ def self_check() -> None:
             ),
             encoding="utf-8",
         )
+        assert check_design.check_repository(root) == []
+
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        write_fixture(root)
+        for rel in ("llms.txt", "rates/example/index.html"):
+            path = root / rel
+            path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
         assert check_design.check_repository(root) == []
 
     mutations = (
@@ -178,6 +196,76 @@ def self_check() -> None:
                 'body { color: #5c2d91; }', encoding="utf-8"
             ),
             "banned CSS pattern #5c2d91",
+        ),
+        (
+            "raw component colour",
+            lambda root: (root / "assets/site.css").write_text(
+                '@import url("/assets/tokens.css");\nbody { color: #123456; }',
+                encoding="utf-8",
+            ),
+            "raw colour outside assets/tokens.css: #123456",
+        ),
+        (
+            "layout-shifting font display",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace("font-display: optional", "font-display: swap"),
+                encoding="utf-8",
+            ),
+            "font face 1 must use font-display: optional",
+        ),
+        (
+            "non-sticky route rail",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace("position: sticky", "position: static"),
+                encoding="utf-8",
+            ),
+            "route labels must be sticky on wide layouts",
+        ),
+        (
+            "expanding route content",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace("min-width: 0", "min-width: auto"),
+                encoding="utf-8",
+            ),
+            "route content must allow internal overflow without widening the page",
+        ),
+        (
+            "expanding nested route grid",
+            lambda root: (root / "assets/site.css").write_text(
+                (root / "assets/site.css")
+                .read_text(encoding="utf-8")
+                .replace(
+                    ".route-actions { min-width: 0; }",
+                    ".route-actions { min-width: auto; }",
+                ),
+                encoding="utf-8",
+            ),
+            "route action groups must contain intrinsic-width content",
+        ),
+        (
+            "banned marketing copy",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace("Example", "Unlock your potential", 1),
+                encoding="utf-8",
+            ),
+            "index.html: banned visible phrase 'unlock'",
+        ),
+        (
+            "decorative emoji copy",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8")
+                + "<p>Review faster 📈</p>",
+                encoding="utf-8",
+            ),
+            "index.html: decorative emoji is not permitted",
         ),
         (
             "missing token import",
