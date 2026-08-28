@@ -29,8 +29,10 @@ Google Auth OAuthlib 1.4.1 and keyring 25.7.0.
 - Preserve `llms.txt`, `robots.txt`, `sitemap.xml`, the Google verification
   file, rate facts, JSON-LD facts, disclaimers and `assets/levy.mjs` formula
   behaviour.
-- Use fabricated inputs only. Never inspect, print, commit or upload browser
-  credentials, OAuth material, client records or Search Console responses.
+- Use fabricated inputs only. Never inspect, display, commit or upload browser
+  credentials, OAuth material or client records. Search Console read results
+  may appear only in the current MCP conversation or operator terminal; never
+  redirect, copy, persist, commit or upload them.
 - Use user-facing Playwright locators, web-first assertions and isolated tests.
 - Do not push, open a pull request, merge or deploy.
 - Use Australian English in original prose and preserve exact product names,
@@ -507,7 +509,7 @@ git commit -m "feat: expose read-only Coal LSL WebMCP tools"
   read APIs plus a credential retrieved from Windows Credential Manager.
 - Produces: `comparison_windows(end_date, days=28)`,
   `build_search_request(...)`, `validate_site_url(url)`,
-  `compare_search_rows(current, previous, dimensions)`, and MCP tools
+  `compare_search_rows(current, previous, dimensions)`, and shared CLI/MCP tools
   `compare_search_performance`, `inspect_url`, `list_sitemaps`.
 
 - [ ] **Step 1: Write failing dependency-free core tests**
@@ -557,7 +559,7 @@ three names and read-only annotations without loading a credential or calling
 Google. Run:
 
 ```text
-uv run --script .agents/tools/search-console/server.py self-test
+uv run --locked --script .agents/tools/search-console/server.py self-test
 ```
 
 Expected: `search console transport self-test passed`.
@@ -567,7 +569,7 @@ Expected: `search console transport self-test passed`.
 Resolve the absolute script path and run:
 
 ```text
-codex mcp add duguid-search-console -- uv run --script C:\Users\-\Documents\Codex\2026-08-28\wha-5\work\duguid-site-agent-tooling\.agents\tools\search-console\server.py
+codex mcp add duguid-search-console -- uv run --locked --script C:\Users\-\Documents\Codex\2026-08-28\wha-5\work\duguid-site-agent-tooling\.agents\tools\search-console\server.py
 codex mcp get duguid-search-console
 ```
 
@@ -654,7 +656,7 @@ npm ci
 npx playwright install chromium
 npm run test:browser
 npm run test:lighthouse
-uv run --script .agents/tools/search-console/server.py self-test
+uv run --locked --script .agents/tools/search-console/server.py self-test
 git diff --check
 git status --short
 ```

@@ -35,16 +35,17 @@ node --test scripts/levy-webmcp.test.mjs
 ## Search Console boundary
 
 For an explicit search task, read `.agents/tools/search-console/README.md` and
-use only its local read-only MCP for `sc-domain:duguid.com.au`. Require an
+use only its local read-only MCP or CLI for `sc-domain:duguid.com.au`. Require an
 operator-confirmed finalised end date; do not guess it. Requests are limited to
 90 days, 1,000 rows, allowlisted dimensions and same-site HTTPS inspection.
 Treat ranked deltas as indicative; the operator decides materiality.
 
 Explicit OAuth consent is required and must request exactly
-`https://www.googleapis.com/auth/webmasters.readonly`. Never inspect or print
-OAuth material or stored credentials. Keep Search Console responses in the MCP
-conversation; never save, commit or upload them. Report evidence; do not infer
-permission to alter or publish SEO.
+`https://www.googleapis.com/auth/webmasters.readonly`. Never inspect or display
+OAuth material or stored credentials. Keep Search Console responses in the
+current MCP conversation or operator terminal; never redirect, copy, persist,
+commit or upload them. Report evidence; do not infer permission to alter or
+publish SEO.
 
 ## Completion contract
 

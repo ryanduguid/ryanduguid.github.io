@@ -24,6 +24,10 @@ described below, not a claim of WCAG conformance.
   route and status.
 - Homepage mobile and desktop baselines and the mobile Formula B calculator
   baseline passed with a maximum one per cent pixel-difference allowance.
+- The calculator journey explicitly selected the base-rate branch, submitted
+  fabricated Formula B figures, verified branch, eligible wages, levy and the
+  explanatory comparison, and rechecked document overflow after rendering the
+  result in both viewports.
 - Three-run Lighthouse medians passed every configured assertion. Performance
   was 0.99 for the homepage, 0.98 for Evidence and 0.98 for the calculator;
   Accessibility, Best Practices and SEO were 1.00 for all three. Median LCP
