@@ -46,11 +46,13 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
-    "Provisional membership does not represent endorsement by Chartered Accountants ANZ."
+    "Ryan Duguid is a provisional member of Chartered Accountants Australia and "
+    "New Zealand, as asserted by the site owner; this is not an endorsement by "
+    "Chartered Accountants ANZ."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-08-26"
-MCP_VISIBLE_REVIEW_DATE = "26 August 2026"
+MCP_REVIEW_DATE = "2026-08-28"
+MCP_VISIBLE_REVIEW_DATE = "28 August 2026"
 ASSURANCE_ANCHORS = {
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases and repositories",
@@ -66,37 +68,109 @@ PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
 ]
+PERSON_REQUIRED_FIELDS = {
+    "name": "Ryan Duguid",
+    "jobTitle": "Accountant",
+    "email": CONTACT_EMAIL,
+    "url": f"{SITE}/about/",
+}
+PERSON_ADDRESS = {
+    "@type": "PostalAddress",
+    "addressLocality": "Newcastle",
+    "addressRegion": "NSW",
+    "addressCountry": "AU",
+}
+CURRENT_SOFTWARE_REPOSITORIES = {
+    "payday-super-checker": (
+        "payday-super-checker",
+        "https://github.com/ryanduguid/payday-super-checker",
+        "Experimental tool for checking Payday Super timing and preparing exceptions for review.",
+    ),
+    "xero-trial-balance-export": (
+        "xero-trial-balance-export",
+        "https://github.com/ryanduguid/xero-trial-balance-export",
+        "Export reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.",
+    ),
+    "Ozzit": (
+        "ozzit",
+        "https://github.com/ryanduguid/Ozzit",
+        "134 native Excel LAMBDA functions for AU modelling and GST arithmetic.",
+    ),
+    "accounting-excel-toolkit": (
+        "accounting-excel-toolkit",
+        "https://github.com/ryanduguid/accounting-excel-toolkit",
+        "Power Query and VBA utilities for Australian ledger work.",
+    ),
+    "aus-accounting-mcp": (
+        "aus-accounting-mcp",
+        "https://github.com/ryanduguid/aus-accounting-mcp",
+        "Local MCP server for Australian accounting review: ATO small-business "
+        "benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR "
+        "fixtures. Not advice.",
+    ),
+    "australian-accounting-skills": (
+        "australian-accounting-skills",
+        "https://github.com/ryanduguid/australian-accounting-skills",
+        "Claude Code and Codex skills for Australian public-practice workflows. "
+        "Not lodgment.",
+    ),
+    "workpaper-review-gate": (
+        "workpaper-review-gate",
+        "https://github.com/ryanduguid/workpaper-review-gate",
+        "Stop incomplete workpapers reaching manager review. Deterministic readiness "
+        "gate for Australian public-practice packs. Not advice.",
+    ),
+    "australian-accounting-power-bi": (
+        "australian-accounting-power-bi",
+        "https://github.com/ryanduguid/australian-accounting-power-bi",
+        "Source-controlled Power BI project for Australian accounting analytics, "
+        "consolidation, ATO benchmarks and Payday Super review.",
+    ),
+    "monthly-close-controls": (
+        "monthly-close-controls",
+        "https://github.com/ryanduguid/monthly-close-controls",
+        "Deterministic monthly-close controls for Xero-shaped trial-balance exports, "
+        "exception packs and human review.",
+    ),
+    "au-tax-legislation-corpus": (
+        "au-tax-legislation-corpus",
+        "https://github.com/ryanduguid/au-tax-legislation-corpus",
+        "Provenance-rich corpus of in-force Commonwealth tax legislation.",
+    ),
+}
 AUTHORED_SOFTWARE = {
-    "payday-super-checker": {
-        "id": f"{SITE}/about/#payday-super-checker",
-        "repository": "https://github.com/ryanduguid/payday-super-checker",
-        "references": ["https://pypi.org/project/payday-super-checker/"],
-    },
-    "aus-accounting-mcp": {
-        "id": f"{SITE}/about/#aus-accounting-mcp",
-        "repository": "https://github.com/ryanduguid/aus-accounting-mcp",
-        "references": [
-            "https://glama.ai/mcp/servers/ryanduguid/au-tax-mcp-server",
-            "https://registry.modelcontextprotocol.io/v0.1/servers/"
-            "io.github.ryanduguid%2Faus-accounting/versions/latest",
-            AUS_ACCOUNTING_PYPI,
-        ],
-    },
+    name: {
+        "id": f"{SITE}/#software-{slug}",
+        "repository": repository,
+        "license": f"{repository}/blob/main/LICENSE",
+        "description": description,
+    }
+    for name, (slug, repository, description) in CURRENT_SOFTWARE_REPOSITORIES.items()
 }
 RETRIEVAL_CRAWLERS = {
+    "Googlebot",
+    "Bingbot",
     "OAI-SearchBot",
     "ChatGPT-User",
     "Claude-SearchBot",
+    "Claude-Search",
     "Claude-User",
     "PerplexityBot",
-    "Perplexity-User",
     "Applebot",
-    "DuckAssistBot",
-    "MistralAI-User",
-    "YouBot",
 }
-TRAINING_CRAWLERS = {"GPTBot", "ClaudeBot", "Google-Extended", "Applebot-Extended"}
-UNCLASSIFIED_CRAWLERS = {"CCBot", "Bytespider", "Amazonbot"}
+TRAINING_CRAWLERS = {
+    "GPTBot",
+    "ClaudeBot",
+    "Google-Extended",
+    "Applebot-Extended",
+    "CCBot",
+    "Bytespider",
+}
+UNCLASSIFIED_CRAWLERS = {"Amazonbot"}
+CRAWLER_POLICY_COMMENT = (
+    "Search indexing and user-requested citation fetches are allowed. "
+    "Named training crawlers remain blocked."
+)
 
 
 def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
@@ -885,6 +959,31 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
         failures.append(f"{CALCULATOR_REL}: protected levy engine import changed")
 
 
+def check_canonical_person(person: dict[str, object]) -> list[str]:
+    """Check the identity fields that make the canonical Person unambiguous."""
+    failures: list[str] = []
+    if person.get("@id") != PERSON_ID:
+        failures.append(
+            f"person graph: Person @id is {person.get('@id')!r}, expected {PERSON_ID!r}"
+        )
+    if person.get("sameAs") != PERSON_SAME_AS:
+        failures.append(
+            "person graph: Person sameAs must contain only the GitHub user and LinkedIn "
+            "URLs in the required order"
+        )
+    for field, expected in PERSON_REQUIRED_FIELDS.items():
+        if person.get(field) != expected:
+            failures.append(
+                f"person graph: Person {field} is {person.get(field)!r}, "
+                f"expected {expected!r}"
+            )
+    if person.get("address") != PERSON_ADDRESS:
+        failures.append("person graph: Person address must identify Newcastle, NSW, AU")
+    if person.get("nationality") != {"@type": "Country", "name": "Australia"}:
+        failures.append("person graph: Person nationality must identify Australia")
+    return failures
+
+
 def check_person_graph(paths: list[Path]) -> list[str]:
     """Check that About owns the one canonical Person and authored works."""
     failures: list[str] = []
@@ -903,15 +1002,7 @@ def check_person_graph(paths: list[Path]) -> list[str]:
         person_rel, person = canonical_people[0]
         if person_rel != "about/index.html":
             failures.append(f"person graph: Person node is in {person_rel}, not about/index.html")
-        if person.get("@id") != PERSON_ID:
-            failures.append(
-                f"person graph: Person @id is {person.get('@id')!r}, expected {PERSON_ID!r}"
-            )
-        if person.get("sameAs") != PERSON_SAME_AS:
-            failures.append(
-                "person graph: Person sameAs must contain only the GitHub user and LinkedIn "
-                "URLs in the required order"
-            )
+        failures.extend(check_canonical_person(person))
 
     software = [
         (rel, node) for rel, node in graph_nodes if core.has_type(node, "SoftwareSourceCode")
@@ -930,30 +1021,20 @@ def check_person_graph(paths: list[Path]) -> list[str]:
             )
             continue
         rel, node = matches[0]
-        if rel != "about/index.html":
-            failures.append(f"person graph: {name} is in {rel}, not about/index.html")
+        if rel != "index.html":
+            failures.append(f"person graph: {name} is in {rel}, not index.html")
         if node.get("@id") != expected["id"]:
-            failures.append(f"person graph: {name} does not have its stable About @id")
+            failures.append(f"person graph: {name} does not have its stable homepage @id")
         if node.get("author") != {"@id": PERSON_ID}:
             failures.append(f"person graph: {name} is not authored by the canonical Person")
+        if node.get("url") != expected["repository"]:
+            failures.append(f"person graph: {name} does not use its GitHub URL")
         if node.get("codeRepository") != expected["repository"]:
             failures.append(f"person graph: {name} does not name its GitHub repository")
-        if not node.get("license"):
-            failures.append(f"person graph: {name} does not declare a licence")
-        same_as = node.get("sameAs")
-        if not isinstance(same_as, list):
-            if name == "aus-accounting-mcp":
-                failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
-            failures.append(f"person graph: {name} is missing its distribution references")
-            continue
-        missing_references = [
-            reference for reference in expected["references"] if reference not in same_as
-        ]
-        if name == "aus-accounting-mcp" and AUS_ACCOUNTING_PYPI in missing_references:
-            failures.append("person graph: aus-accounting-mcp is missing its PyPI reference")
-            missing_references.remove(AUS_ACCOUNTING_PYPI)
-        if missing_references:
-            failures.append(f"person graph: {name} is missing its distribution references")
+        if node.get("license") != expected["license"]:
+            failures.append(f"person graph: {name} does not declare its MIT licence URL")
+        if node.get("description") != expected["description"]:
+            failures.append(f"person graph: {name} does not use its current description")
     return failures
 
 
@@ -1712,6 +1793,8 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
 def check_robots_policy(robots: str) -> list[str]:
     """Keep search and user retrieval open while blocking training crawlers."""
     failures: list[str] = []
+    if CRAWLER_POLICY_COMMENT not in robots:
+        failures.append("robots.txt: missing written search-versus-training policy")
     groups = core.robots_groups(robots)
     expected = {"*": ["Allow: /"]}
     expected.update({agent: ["Allow: /"] for agent in RETRIEVAL_CRAWLERS})
@@ -1792,6 +1875,28 @@ def check_file_contracts(path: Path) -> list[str]:
     return failures
 
 
+def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
+    """Reject the retired site host and the US namesake's LinkedIn URL."""
+    failures: list[str] = []
+    checked = [
+        *paths,
+        core.ROOT / "README.md",
+        core.ROOT / "llms.txt",
+        core.ROOT / "robots.txt",
+        core.ROOT / "sitemap.xml",
+    ]
+    for path in checked:
+        if not path.is_file():
+            continue
+        rel = path.relative_to(core.ROOT).as_posix()
+        text = path.read_text(encoding="utf-8")
+        if "https://ryanduguid.github.io/" in text:
+            failures.append(f"{rel}: contains the retired github.io canonical URL")
+        if "https://www.linkedin.com/in/ryanduguid" in text:
+            failures.append(f"{rel}: contains the unhyphenated US namesake URL")
+    return failures
+
+
 def check_site_contracts(paths: list[Path]) -> list[str]:
     """Check the cross-page contracts specific to this site."""
     failures: list[str] = []
@@ -1802,6 +1907,7 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
     failures.extend(check_robots_policy(robots))
+    failures.extend(check_canonical_identity_urls(paths))
     for rel, target in STATIC_REDIRECTS.items():
         path = core.ROOT / rel
         if not path.is_file():

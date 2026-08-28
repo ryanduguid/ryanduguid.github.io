@@ -162,6 +162,7 @@ def check_sitemap(
         for path in paths
         if path.relative_to(ROOT).as_posix() not in not_indexed
     }
+    expected.add(f"{site}/llms.txt")
 
     for url in sorted(expected - set(listed)):
         failures.append(f"sitemap.xml: does not list {url}")

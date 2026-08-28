@@ -1,29 +1,26 @@
+# Search indexing and user-requested citation fetches are allowed. Named training crawlers remain blocked.
 User-agent: *
 Allow: /
 
-# Permit AI search and user-requested retrieval.
+User-agent: Googlebot
+Allow: /
+User-agent: Bingbot
+Allow: /
 User-agent: OAI-SearchBot
 Allow: /
 User-agent: ChatGPT-User
 Allow: /
-User-agent: Claude-SearchBot
-Allow: /
 User-agent: Claude-User
+Allow: /
+User-agent: Claude-Search
+Allow: /
+User-agent: Claude-SearchBot
 Allow: /
 User-agent: PerplexityBot
 Allow: /
-User-agent: Perplexity-User
-Allow: /
 User-agent: Applebot
 Allow: /
-User-agent: DuckAssistBot
-Allow: /
-User-agent: MistralAI-User
-Allow: /
-User-agent: YouBot
-Allow: /
 
-# Do not permit training crawlers.
 User-agent: GPTBot
 Disallow: /
 User-agent: ClaudeBot
@@ -31,6 +28,10 @@ Disallow: /
 User-agent: Google-Extended
 Disallow: /
 User-agent: Applebot-Extended
+Disallow: /
+User-agent: CCBot
+Disallow: /
+User-agent: Bytespider
 Disallow: /
 
 Sitemap: https://duguid.com.au/sitemap.xml

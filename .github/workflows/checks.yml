@@ -21,11 +21,5 @@ jobs:
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: "22"
-      - name: Levy engine tests
-        run: node --test scripts/levy.test.mjs
-      - name: Link and content checks
-        run: python scripts/check_links.py
-      - name: Metadata checker tests
-        run: python scripts/test_check_seo.py
-      - name: Metadata and structured data checks
-        run: python scripts/check_seo.py
+      - name: Site checks
+        run: python scripts/check_site.py

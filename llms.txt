@@ -1,8 +1,12 @@
 # Ryan Duguid
 
-> Australian accountant based in Newcastle, New South Wales, and a provisional member of Chartered Accountants Australia and New Zealand. Builds open-source computational accounting tools for Australian tax, payroll and statutory compliance, and publishes them at github.com/ryanduguid. This site is the index of those tools and provides a scoped route for enquiries. It does not offer tax or BAS agent services.
+Canonical machine index: https://duguid.com.au/llms.txt
 
-Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic, client data stays local, and lodgement decisions stay with a qualified professional. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution, and should be verified against current guidance before anyone relies on them.
+> Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a provisional member of Chartered Accountants Australia and New Zealand, as asserted by the site owner; this is not an endorsement by Chartered Accountants ANZ.
+
+He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site indexes open-source accounting tools. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
+
+Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgment, approval or period lock. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
 
@@ -61,4 +65,4 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## About
 
-Written independently by Ryan Duguid, a provisional member of Chartered Accountants ANZ, in his own time and on his own equipment. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+Written independently by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a provisional member of Chartered Accountants Australia and New Zealand, as asserted by the site owner; this is not an endorsement by Chartered Accountants ANZ. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).

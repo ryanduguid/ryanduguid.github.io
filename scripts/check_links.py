@@ -10,9 +10,9 @@ Checks, in order, per file:
    The site is served from main; this branch's own pages are not live yet, so
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
-3. Every other absolute http(s) link resolves (2xx after redirects), except
-   HTTP 403 from four exact ATO source URLs is accepted as an automation
-   denial.
+3. Every other absolute http(s) link resolves (2xx after redirects). Transient
+   transport failures are retried up to three times; HTTP failures are not.
+   HTTP 403 from four exact ATO source URLs is accepted as an automation denial.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 
@@ -29,6 +29,7 @@ Exit 0 clean, 1 on any failure. Stdlib only.
 
 from __future__ import annotations
 
+import functools
 import re
 import sys
 import urllib.error
@@ -54,6 +55,7 @@ RETIRED_NAMES = [
 ]
 
 USER_AGENT = "ryanduguid.github.io-link-check"
+MAX_TRANSPORT_ATTEMPTS = 5
 
 SELF_ORIGIN = "https://duguid.com.au"
 
@@ -93,10 +95,22 @@ class LinkCollector(HTMLParser):
                     self.hrefs.append(value)
 
 
-def fetch_final_url(url: str) -> tuple[int, str]:
+@functools.lru_cache(maxsize=None)
+def fetch_final_url(
+    url: str, *, opener: object = urllib.request.urlopen
+) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.status, resp.geturl()
+    for attempt in range(1, MAX_TRANSPORT_ATTEMPTS + 1):
+        try:
+            with opener(req, timeout=30) as resp:  # type: ignore[operator]
+                return resp.status, resp.geturl()
+        except urllib.error.HTTPError:
+            raise
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if attempt == MAX_TRANSPORT_ATTEMPTS:
+                raise
+            print(f"retry {attempt}/{MAX_TRANSPORT_ATTEMPTS - 1} {url}: {exc}")
+    raise AssertionError("unreachable")
 
 
 def is_accepted_automation_denial(url: str, status: int) -> bool:

@@ -1650,6 +1650,102 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         )
         failures = contracts.check_authority_surface(root)
         assert "index.html: missing visible lower tools catalogue" in failures
+
+    required_retrieval_crawlers = {
+        "Googlebot",
+        "Bingbot",
+        "OAI-SearchBot",
+        "ChatGPT-User",
+        "Claude-User",
+        "Claude-Search",
+        "Claude-SearchBot",
+        "PerplexityBot",
+        "Applebot",
+    }
+    required_training_crawlers = {
+        "GPTBot",
+        "ClaudeBot",
+        "Google-Extended",
+        "Applebot-Extended",
+        "CCBot",
+        "Bytespider",
+    }
+    assert required_retrieval_crawlers <= contracts.RETRIEVAL_CRAWLERS
+    assert required_training_crawlers <= contracts.TRAINING_CRAWLERS
+    assert f"{contracts.SITE}/llms.txt" in core.sitemap_urls()
+
+    about_html = (core.ROOT / "about" / "index.html").read_text(encoding="utf-8")
+    json_failures: list[str] = []
+    about_blocks = core.json_ld_blocks(
+        about_html,
+        "about/index.html",
+        json_failures,
+    )
+    assert json_failures == []
+    about_nodes = [node for block in about_blocks for node in core.nodes(block)]
+    people = [node for node in about_nodes if core.has_type(node, "Person")]
+    assert len(people) == 1
+    person = people[0]
+    assert person["name"] == "Ryan Duguid"
+    assert person["jobTitle"] == "Accountant"
+    assert person["email"] == "ryan@duguid.com.au"
+    assert person["url"] == f"{contracts.SITE}/about/"
+    assert person["address"] == {
+        "@type": "PostalAddress",
+        "addressLocality": "Newcastle",
+        "addressRegion": "NSW",
+        "addressCountry": "AU",
+    }
+    assert person["sameAs"] == contracts.PERSON_SAME_AS
+
+    missing_email = json.loads(json.dumps(person))
+    missing_email.pop("email")
+    expect_failure(
+        contracts.check_canonical_person(missing_email),
+        "person graph: Person email is None, expected 'ryan@duguid.com.au'",
+    )
+    wrong_region = json.loads(json.dumps(person))
+    wrong_region["address"]["addressRegion"] = "WA"
+    expect_failure(
+        contracts.check_canonical_person(wrong_region),
+        "person graph: Person address must identify Newcastle, NSW, AU",
+    )
+    wrong_linkedin = json.loads(json.dumps(person))
+    wrong_linkedin["sameAs"][1] = "https://www.linkedin.com/in/ryanduguid"
+    expect_failure(
+        contracts.check_canonical_person(wrong_linkedin),
+        "person graph: Person sameAs must contain only the GitHub user and "
+        "LinkedIn URLs in the required order",
+    )
+
+    graph_failures: list[str] = []
+    graph_nodes = core.indexed_nodes(
+        core.html_files(),
+        graph_failures,
+        contracts.NOT_INDEXED,
+    )
+    assert graph_failures == []
+    software_names = {
+        node["name"]
+        for _, node in graph_nodes
+        if core.has_type(node, "SoftwareSourceCode")
+    }
+    assert software_names == {
+        "payday-super-checker",
+        "xero-trial-balance-export",
+        "Ozzit",
+        "accounting-excel-toolkit",
+        "aus-accounting-mcp",
+        "australian-accounting-skills",
+        "workpaper-review-gate",
+        "australian-accounting-power-bi",
+        "monthly-close-controls",
+        "au-tax-legislation-corpus",
+    }
+    assert not missing_negative_failures, (
+        "late negative self-check fixtures did not emit their required messages:\n  "
+        + "\n  ".join(missing_negative_failures)
+    )
     print("self-check OK")
 
 

@@ -30,10 +30,7 @@ then visit `http://localhost:8000/`.
 Run locally:
 
 ```bash
-node --test scripts/levy.test.mjs
-python scripts/check_links.py
-python scripts/test_check_seo.py
-python scripts/check_seo.py
+python scripts/check_site.py
 ```
 
 ## Licence
