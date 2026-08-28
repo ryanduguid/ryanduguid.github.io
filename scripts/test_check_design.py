@@ -37,7 +37,21 @@ def write_fixture(root: Path) -> None:
         'href="https://duguid.com.au/llms.txt" />'
         '<link rel="stylesheet" href="/assets/tokens.css" />'
         '<link rel="stylesheet" href="/assets/site.css" />'
-        '</head><body><main><h1>Example · register</h1>'
+        '</head><body><main>'
+        '<section class="home-hero"><p class="technical-label">Public register</p>'
+        '<h1>Example · register</h1>'
+        '<nav class="hero-routes" aria-label="Choose a path">'
+        '<a href="#engage">Engage</a><a href="#adopt">Adopt</a>'
+        '<a href="#verify">Verify</a></nav></section>'
+        '<aside class="trust-band">'
+        '<p>Review aids only. No client files. No lodgement. Human sign-off.</p>'
+        '<p><strong>Scope 01</strong> Accounting workflow controls</p>'
+        '<p><strong>Method 02</strong> Primary sources and exact arithmetic</p>'
+        '<p><strong>Boundary 03</strong> Calculation is not judgement</p>'
+        '</aside>'
+        '<p class="technical-label">Worked proof</p>'
+        '<nav class="catalogue-index" aria-label="Tool categories"></nav>'
+        '<p class="technical-label">Tool register scope</p>'
         '<img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" '
         'loading="lazy" decoding="async" fetchpriority="low" '
         'alt="Example calculation" />'
@@ -67,7 +81,7 @@ def write_fixture(root: Path) -> None:
         '--colour-alert: #ff9c91; --colour-masthead: #eef4f0; '
         '--colour-code: #020403; --colour-code-ink: #eef4f0; '
         '--colour-code-comment: #9aa89f; '
-        '--text-display: clamp(2.5rem, 1.45rem + 5.6vw, 6rem); '
+        '--text-display: clamp(2.25rem, 1.45rem + 5.2vw, 5.5rem); '
         '--radius-control: 0.125rem; }\n',
         encoding="utf-8",
     )
@@ -429,12 +443,145 @@ def self_check() -> None:
                 (root / "assets/tokens.css")
                 .read_text(encoding="utf-8")
                 .replace(
-                    "--text-display: clamp(2.5rem, 1.45rem + 5.6vw, 6rem)",
-                    "--text-display: clamp(3rem, 1.45rem + 5.6vw, 6rem)",
+                    "--text-display: clamp(2.25rem, 1.45rem + 5.2vw, 5.5rem)",
+                    "--text-display: clamp(3rem, 1.45rem + 5.2vw, 5.5rem)",
                 ),
                 encoding="utf-8",
             ),
             "display type minimum must fit the 320px viewport",
+        ),
+        (
+            "duplicate homepage route",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "</main>", '<a href="#engage">Duplicate</a></main>'
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected exactly one #engage route link",
+        ),
+        (
+            "missing homepage route register",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "hero-routes", "removed-hero-routes"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one hero-routes",
+        ),
+        (
+            "missing homepage trust band",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "trust-band", "removed-trust-band"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one trust-band",
+        ),
+        (
+            "trust band separated from home hero",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    '<aside class="trust-band"',
+                    '<p>Separated content</p><aside class="trust-band"',
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band must immediately follow home hero",
+        ),
+        (
+            "homepage legal boundary changed",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "Review aids only. No client files. No lodgement. Human sign-off.",
+                    "Changed boundary",
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "homepage scope record changed",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "Accounting workflow controls", "Changed scope"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "homepage method record changed",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "Primary sources and exact arithmetic", "Changed method"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "homepage calculation boundary record changed",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "Calculation is not judgement", "Changed calculation boundary"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "homepage trust record has appended wording",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "Human sign-off.", "Human sign-off. Appended wording."
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "homepage trust band has an extra record",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "</aside>", "<p>Extra record</p></aside>"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "missing homepage catalogue index",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "catalogue-index", "removed-catalogue-index"
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one catalogue-index",
+        ),
+        (
+            "decorative homepage ordinal",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "</main>", '<p class="technical-label">01 / decorative</p></main>'
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: decorative ordinal technical label",
+        ),
+        (
+            "extra homepage technical label",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html").read_text(encoding="utf-8").replace(
+                    "</main>",
+                    '<p class="technical-label">Extra context</p></main>',
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected exactly three evidence-bearing technical labels",
         ),
         (
             "non-sticky route rail",
