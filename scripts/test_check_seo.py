@@ -140,11 +140,16 @@ def self_check() -> None:
     <meta property="og:description" content="{contracts.HOMEPAGE_DESCRIPTION}">
     <main>
       <p>Newcastle and the Hunter Valley</p>
-      <h1>I build accounting systems that can show their work.</h1>
-      <h2>Data and Ledgers</h2><h2>Rules and Engines</h2>
-      <h2>Agent Workflows</h2><h2>Review Controls</h2>
-      <h2>Install in 2 commands</h2>
-      <h2>Proof belongs beside the claim</h2>
+      <h1>Accounting tools that show their working.</h1>
+      <h2>Fix the workflow before another review round.</h2>
+      <h2>Test it with fabricated data first.</h2>
+      <h2>Check the source before the result.</h2>
+      <h2>Tools for work that still needs checking</h2>
+      <h2>Useful before impressive</h2>
+      <h2>Sources beside claims</h2>
+      <h2>Working stays visible</h2>
+      <h2>Unknown means unknown</h2>
+      <h2>A person signs off</h2>
       <a href="/tools/australian-tax-ai-agents/">AI agents</a>
       <a href="/evaluate/payday-super-evidence/">Payday Super evaluation</a>
       <section class="proof-feature">
@@ -170,13 +175,13 @@ def self_check() -> None:
         )
 
     invalid_homepage = valid_homepage.replace(
-        "I build accounting systems that can show their work.", ""
+        "Accounting tools that show their working.", ""
     )
     invalid_homepage_failures: list[str] = []
     contracts.check_homepage_contract(invalid_homepage, invalid_homepage_failures)
     assert any(
         "missing approved homepage text" in failure
-        and "I build accounting systems" in failure
+        and "Accounting tools" in failure
         for failure in invalid_homepage_failures
     )
     misplaced_proof_link = valid_homepage.replace(
@@ -190,6 +195,47 @@ def self_check() -> None:
         misplaced_proof_failures,
         "index.html: proof feature is missing required link /evidence/",
     )
+    authority_sections = {
+        "engage": ("Engage", "Fix the workflow before another review round."),
+        "adopt": ("Adopt", "Test it with fabricated data first."),
+        "verify": ("Verify", "Check the source before the result."),
+    }
+    for identifier, (label, statement) in authority_sections.items():
+        valid_section = (
+            f'<section id="{identifier}"><h2>{label}</h2>'
+            f'<h3 class="route-statement">{statement}</h3>'
+            '<div class="route-actions"><a href="/">Action</a></div>'
+            '<p class="route-note">Boundary or verification note.</p></section>'
+        )
+        assert contracts.check_authority_section(
+            valid_section, identifier, label, statement
+        ) == []
+        missing_statement = valid_section.replace(statement, "Generic platform copy")
+        expect_failure(
+            contracts.check_authority_section(
+                missing_statement, identifier, label, statement
+            ),
+            f"index.html: authority section #{identifier} statement must be {statement}",
+        )
+        duplicate_label = valid_section.replace(
+            f"<h2>{label}</h2>", f"<h2>{label}</h2><h2>Extra heading</h2>"
+        )
+        expect_failure(
+            contracts.check_authority_section(
+                duplicate_label, identifier, label, statement
+            ),
+            f"index.html: authority section #{identifier} must have exactly one h2",
+        )
+        no_actions = valid_section.replace('class="route-actions"', 'class="elsewhere"')
+        expect_failure(
+            contracts.check_authority_section(no_actions, identifier, label, statement),
+            f"index.html: authority section #{identifier} needs one action group",
+        )
+        no_note = valid_section.replace('class="route-note"', 'class="elsewhere"')
+        expect_failure(
+            contracts.check_authority_section(no_note, identifier, label, statement),
+            f"index.html: authority section #{identifier} needs one boundary or verification note",
+        )
     valid_article = """
     <article><nav aria-label="On this page">
       <a href="#first">First</a><a href="#second">Second</a>
@@ -1600,7 +1646,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             "npx skills add ryanduguid/australian-accounting-skills"
             "</pre></section>"
             '<section id="verify" aria-hidden="true"></section>'
-            '<h2 style="display: none">Original firm-focused tools</h2>'
+            '<h2 style="display: none">Tools for work that still needs checking</h2>'
             '<div class="tools-list"></div>',
             encoding="utf-8",
         )
@@ -1634,7 +1680,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         assert "index.html: missing visible authority route #verify" in failures
         assert "index.html: install commands must appear only inside #adopt" in failures
         assert (
-            "index.html: missing visible catalogue label Original firm-focused tools"
+            "index.html: missing visible catalogue label Tools for work that still needs checking"
             in failures
         )
         assert "about/index.html: enquiry boundary is incomplete" in failures
@@ -1656,7 +1702,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
     with tempfile.TemporaryDirectory() as temp_dir:
         root = Path(temp_dir)
         (root / "index.html").write_text(
-            "<h2>Original firm-focused tools</h2>"
+            "<h2>Tools for work that still needs checking</h2>"
             '<section class="tools-catalogue"></section>',
             encoding="utf-8",
         )

@@ -33,261 +33,251 @@
   <main id="main" class="site-main home">
     <section class="home-hero site-shell" aria-labelledby="home-title">
       <div class="home-hero__copy">
-        <p class="technical-label">Australian computational accounting | Newcastle &amp; Hunter Valley</p>
-        <h1 id="home-title">I build accounting systems that can show their work.</h1>
-        <p class="home-hero__summary short-answer">Based in Newcastle, I build open-source review aids for accounting firms across the Hunter Valley and Australia, grounded in Australian rules, exact currency arithmetic and human review.</p>
-        <div class="home-actions">
-          <a class="button" href="/tools/payday-super/">Payday Super</a>
-          <a class="button button--secondary" href="/evaluate/manager-review-gate/">Reproduce a review</a>
+        <p class="technical-label">Public register / Newcastle and the Hunter Valley / Australia</p>
+        <h1 id="home-title">Accounting tools that show their working.</h1>
+        <p class="home-hero__summary short-answer">I am a Newcastle accountant building open-source controls for workpapers, payroll, ledgers and AI outputs.</p>
+        <p class="hero-boundary">Review aids only. No client files. No lodgement. Human sign-off.</p>
+        <div class="home-actions" aria-label="Choose what you need">
+          <a class="button" href="#engage">Bring a workflow problem</a>
+          <a class="button button--secondary" href="#adopt">Test a tool</a>
+          <a class="button button--secondary" href="#verify">Check the evidence</a>
         </div>
       </div>
-      <aside class="home-proof-rail" aria-label="Proof standards">
-        <p>Primary sources</p>
-        <p>Exact currency arithmetic</p>
-        <p>Human review</p>
+      <aside class="home-proof-rail" aria-label="Register scope">
+        <p><strong>Scope 01</strong> Accounting workflow controls</p>
+        <p><strong>Method 02</strong> Primary sources and exact arithmetic</p>
+        <p><strong>Boundary 03</strong> Calculation is not judgement</p>
       </aside>
     </section>
 
     <nav class="path-grid site-shell" aria-label="Choose a path">
       <a class="path-card" href="#engage">
         <strong>Engage</strong>
-        <span>Discuss a firm workflow or controlled evaluation.</span>
+        <span>Start with the review bottleneck.</span>
       </a>
       <a class="path-card" href="#adopt">
         <strong>Adopt</strong>
-        <span>Test or install a tool with fabricated data.</span>
+        <span>Run fabricated records through a tool.</span>
       </a>
       <a class="path-card" href="#verify">
         <strong>Verify</strong>
-        <span>Inspect credentials, sources, releases and boundaries.</span>
+        <span>Inspect the source, release and boundary.</span>
       </a>
     </nav>
-
-    <section class="credential-band" aria-label="Credentials">
-      <div class="credential-band__inner site-shell">
-        <p>Provisional CA ANZ membership; owner assertion, not an endorsement</p>
-        <p>SAP S/4HANA FI &amp; CO</p>
-        <p>Xero L3 Specialist</p>
-      </div>
-    </section>
 
     <div class="authority-routes site-shell">
       <section id="engage" class="route-section" aria-labelledby="engage-title">
         <h2 id="engage-title">Engage</h2>
-        <p>I am available to discuss a firm workflow, a controlled evaluation of these tools, technical adoption, research, speaking or peer review.</p>
-        <ul>
-          <li><a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Firm workflow or controlled pilot</a></li>
-          <li><a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">Tool adoption or integration</a></li>
-          <li><a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">Research, speaking or peer review</a></li>
-        </ul>
-        <p class="boundary">Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.</p>
+        <div class="route-content">
+          <p class="technical-label">01 / scoped enquiry</p>
+          <h3 class="route-statement">Fix the workflow before another review round.</h3>
+          <p>Bring the point where a workpaper, payroll check, ledger export or AI-assisted task stops being easy to review. The useful first step is a bounded problem, not a platform pitch.</p>
+          <nav class="route-actions" aria-label="Scoped enquiry types">
+            <a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">
+              <strong>Firm workflow or controlled pilot</strong>
+              <span>Map the evidence, hand-off and review gate.</span>
+            </a>
+            <a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">
+              <strong>Tool adoption or integration</strong>
+              <span>Test a narrow use case inside a controlled boundary.</span>
+            </a>
+            <a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">
+              <strong>Research, speaking or peer review</strong>
+              <span>Interrogate a method, claim or implementation.</span>
+            </a>
+          </nav>
+          <p class="boundary route-note">Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.</p>
+        </div>
       </section>
 
       <section id="adopt" class="route-section" aria-labelledby="adopt-title">
         <h2 id="adopt-title">Adopt</h2>
-        <p>Test or install a tool with fabricated data before using it in a firm workflow.</p>
-        <div class="install-band">
-          <h3>Install in 2 commands</h3>
-          <pre><code><span class="comment"># Add Australian Accounting &amp; Tax MCP server to Claude Code</span>
+        <div class="route-content">
+          <p class="technical-label">02 / controlled evaluation</p>
+          <h3 class="route-statement">Test it with fabricated data first.</h3>
+          <p>Use the public fixtures to see what the tool accepts, refuses and explains. Keep the calculation reproducible before it enters a firm workflow.</p>
+          <div class="route-actions">
+            <div class="install-band">
+              <h4>Two supported commands</h4>
+              <pre><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
 
-<span class="comment"># Add Public Practice &amp; Tax skills</span>
+<span class="comment"># Public Practice &amp; Tax skills</span>
 <span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
+            </div>
+            <nav class="adoption-links" aria-label="Reproducible evaluations">
+              <a href="/evaluate/manager-review-gate/">
+                <strong>Manager review gate</strong>
+                <span>Reproduce the incomplete-pack checks.</span>
+              </a>
+              <a href="/evaluate/xero-trial-balance-integrity/">
+                <strong>Xero trial balance integrity</strong>
+                <span>Reproduce the balanced-export checks.</span>
+              </a>
+              <a href="/evaluate/payday-super-evidence/">
+                <strong>Payday Super timing</strong>
+                <span>Reproduce the receipt-date evidence states.</span>
+              </a>
+            </nav>
+          </div>
+          <p class="route-note">Run fabricated records or public fixtures. Check the output against current primary sources. Keep professional judgement and lodgement with a person.</p>
         </div>
-        <p><a href="/evaluate/manager-review-gate/">Reproduce the manager review gate evaluation</a></p>
-        <p><a href="/evaluate/xero-trial-balance-integrity/">Reproduce the Xero trial balance integrity evaluation</a></p>
-        <p><a href="/evaluate/payday-super-evidence/">Reproduce the Payday Super timing evidence evaluation</a></p>
       </section>
 
       <section id="verify" class="route-section" aria-labelledby="verify-title">
         <h2 id="verify-title">Verify</h2>
-        <p>Inspect the credentials, sources, releases and boundaries behind this work before relying on it.</p>
-        <p><a href="/evidence/">Review the evidence</a></p>
+        <div class="route-content">
+          <p class="technical-label">03 / inspectable evidence</p>
+          <h3 class="route-statement">Check the source before the result.</h3>
+          <p>Credentials establish a limited identity claim. Releases establish what shipped. A worked example shows whether the branch, formula and rounding can be checked.</p>
+          <dl class="credential-register" aria-label="Public credentials and boundaries">
+            <div>
+              <dt>Professional body</dt>
+              <dd>Provisional CA ANZ membership; owner assertion, not an endorsement</dd>
+            </div>
+            <div>
+              <dt>Product systems</dt>
+              <dd>SAP S/4HANA Financial Accounting and Management Accounting</dd>
+            </div>
+            <div>
+              <dt>Practice software</dt>
+              <dd>Xero specialist certification, level 3</dd>
+            </div>
+          </dl>
+          <div class="route-actions proof-feature">
+            <div class="proof-feature__copy">
+              <p class="technical-label">Worked proof / Coal LSL</p>
+              <h4>One synthetic result, with the branch left visible.</h4>
+              <p>The browser calculator applies section 3B, names the winning formula and rounds only at the final step.</p>
+              <nav class="proof-feature__links" aria-label="Inspect the Coal LSL proof">
+                <a class="button button--secondary" href="/tools/coal-lsl-levy/">Open the calculator</a>
+                <a href="/evidence/">Review the evidence register</a>
+                <a href="https://coallsl.com.au/guidance-notes/eligible-wages">Read eligible wages guidance</a>
+                <a href="https://coallsl.com.au/about-us/governing-legislation/legislation">Read governing legislation</a>
+              </nav>
+            </div>
+            <figure>
+              <img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" alt="Coal LSL levy calculator showing synthetic monthly inputs and an explained levy result" />
+              <figcaption>Synthetic example. The applied branch and formula remain visible for review.</figcaption>
+            </figure>
+          </div>
+          <p class="route-note">The evidence supports limited claims about the software. It does not turn an output into advice, approval, a compliance decision or a lodgement.</p>
+        </div>
       </section>
     </div>
 
-    <section class="system-section site-shell" aria-labelledby="system-title">
-      <div class="section-heading">
-        <h2 id="system-title">Four layers from ledger to review</h2>
-        <p>Source data moves through explicit rules, bounded agent workflows and controls that keep judgement with a person.</p>
-      </div>
-      <div class="system-map">
-        <article class="system-layer">
-          <div class="system-layer__heading">
-            <p class="system-layer__label">Input layer</p>
-            <h3>Data and Ledgers</h3>
-          </div>
-          <ul class="system-layer__projects">
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/xero-trial-balance-export">xero-trial-balance-export</a>
-              <p>Export reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.</p>
-              <a class="system-project__link" href="/tools/xero-trial-balance/">Try the tool page</a>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/accounting-excel-toolkit">accounting-excel-toolkit</a>
-              <p>Power Query and VBA utilities for Australian ledger work.</p>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/australian-accounting-power-bi">australian-accounting-power-bi</a>
-              <p>Source-controlled Power BI project for Australian accounting analytics, consolidation, ATO benchmarks and Payday Super review.</p>
-            </li>
-          </ul>
-          <p class="system-layer__proof"><strong>Proof</strong> Balanced exports and reusable ledger transforms.</p>
-        </article>
-
-        <article class="system-layer">
-          <div class="system-layer__heading">
-            <p class="system-layer__label">Computation layer</p>
-            <h3>Rules and Engines</h3>
-          </div>
-          <ul class="system-layer__projects">
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/payday-super-checker">payday-super-checker</a>
-              <p>Experimental tool for checking Payday Super timing and preparing exceptions for review.</p>
-              <a class="system-project__link" href="/tools/payday-super/">Try the tool page</a>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/Ozzit">Ozzit</a>
-              <p>134 native Excel LAMBDA functions for AU modelling and GST arithmetic.</p>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/au-tax-legislation-corpus">au-tax-legislation-corpus</a>
-              <p>Provenance-rich corpus of in-force Commonwealth tax legislation.</p>
-            </li>
-          </ul>
-          <p class="system-layer__proof"><strong>Proof</strong> Named statutes, rates and accounting methods stay visible.</p>
-        </article>
-
-        <article class="system-layer">
-          <div class="system-layer__heading">
-            <p class="system-layer__label">Workflow layer</p>
-            <h3>Agent Workflows</h3>
-          </div>
-          <ul class="system-layer__projects">
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/aus-accounting-mcp">aus-accounting-mcp</a>
-              <p>Local MCP server for Australian accounting review: ATO small-business benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR fixtures. Not advice.</p>
-              <a class="system-project__link" href="/tools/australian-tax-ai-agents/">How this differs from a document MCP</a>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a>
-              <p>Claude Code and Codex skills for Australian public-practice workflows. Not lodgement.</p>
-            </li>
-          </ul>
-          <p class="system-layer__proof"><strong>Proof</strong> Agents call bounded local tools and ethics checks.</p>
-        </article>
-
-        <article class="system-layer">
-          <div class="system-layer__heading">
-            <p class="system-layer__label">Control layer</p>
-            <h3>Review Controls</h3>
-          </div>
-          <ul class="system-layer__projects">
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/workpaper-review-gate">workpaper-review-gate</a>
-              <p>Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public-practice packs. Not advice.</p>
-              <a class="system-project__link" href="/tools/workpaper-review-gate/">Try the tool page</a>
-            </li>
-            <li>
-              <a class="system-project__name" href="https://github.com/ryanduguid/monthly-close-controls">monthly-close-controls</a>
-              <p>Deterministic monthly-close controls for Xero-shaped trial-balance exports, exception packs and human review.</p>
-            </li>
-          </ul>
-          <p class="system-layer__proof"><strong>Proof</strong> Incomplete packs stop before manager review.</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="proof-feature" aria-labelledby="proof-title">
-      <div class="proof-feature__inner site-shell">
-        <div class="proof-feature__copy">
-          <h2 id="proof-title">Proof belongs beside the claim</h2>
-          <p>The Coal LSL calculator exposes the branch, formula and rounding behind a synthetic monthly result.</p>
-          <nav class="proof-feature__links" aria-label="Inspect the Coal LSL proof">
-            <a class="button button--secondary" href="/tools/coal-lsl-levy/">Open the calculator</a>
-            <a href="/evidence/">Review the evidence</a>
-            <a href="https://coallsl.com.au/guidance-notes/eligible-wages">Read eligible wages guidance</a>
-            <a href="https://coallsl.com.au/about-us/governing-legislation/legislation">Read governing legislation</a>
-          </nav>
-        </div>
-        <figure>
-          <img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" alt="Coal LSL levy calculator showing synthetic monthly inputs and an explained levy result" />
-          <figcaption>Synthetic example. The calculator shows the applied branch and formula before professional review.</figcaption>
-        </figure>
-      </div>
-    </section>
-
     <section class="tools-catalogue site-shell" aria-labelledby="tools">
-      <h2 id="tools">Original firm-focused tools</h2>
-      <p class="tools-intro">Start with Payday Super timing, the manager-review gate, or a Xero trial balance that has to balance. The Coal LSL calculator runs in the browser: no installation, no code, just answer a few questions. The comparison page tells an AI agent which local tax MCP to install.</p>
+      <p class="technical-label">Public tool register / 10 entries</p>
+      <h2 id="tools">Tools for work that still needs checking</h2>
+      <p class="tools-intro">Choose the work that is hard to reconcile, easy to misread or expensive to send back. Each route names its sources and its limits.</p>
       <div id="tools-list" class="tools-list">
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/payday-super/">When is payday super actually due, and what happens if it is late</a>
-          <div class="desc">Check contribution timing and the SG-charge exposure if a payment slips.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/workpaper-review-gate/">Workpaper Review Gate for manager review packs</a>
-          <div class="desc">Stop an incomplete BAS, month-end or year-end folder from reaching the manager.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a>
-          <div class="desc">A trial balance export that reconciles, ready for Excel or Power BI.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/ato-benchmarks/">How does this business compare to the ATO small business benchmarks</a>
-          <div class="desc">See where a business sits against the published benchmark ranges.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
-          <div class="desc">Work out eligible wages and the levy owed under section 3B.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/wip-schedule/">Construction WIP: over-billed or under-billed under AASB 15</a>
-          <div class="desc">Cost-to-cost earned revenue, contract assets and liabilities, and profit-fade flags from a contract CSV.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a>
-          <div class="desc">Practical ledger workflows for construction and mining subcontractors.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/trust-distributions/">Is this trust distribution inside the section 100A green zone</a>
-          <div class="desc">Check a distribution against the green zone guidance.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/company-tax-franking/">What company tax rate applies, and is the franking account in order</a>
-          <div class="desc">Work out the applicable rate and check the franking account balance.</div>
-        </div>
-        <div class="tool-card">
-          <a class="tool-name" href="/tools/australian-tax-ai-agents/">Which Australian tax MCP should an AI agent use</a>
-          <div class="desc">Local computational engines versus a hosted ATO document library. What aus-accounting-mcp does, and what it refuses.</div>
-        </div>
+        <section class="catalogue-group" aria-labelledby="extract-tools">
+          <header>
+            <p class="technical-label">A / extract</p>
+            <h3 id="extract-tools">Get the records into reviewable shape.</h3>
+          </header>
+          <div class="tool-register">
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/xero-trial-balance/">Export a Xero trial balance that actually balances</a>
+              <div class="desc">Write the CSV only after debits and credits reconcile.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/subcontractor-ledgers/">Build subcontract ledgers for construction and mining</a>
+              <div class="desc">Keep claims, retentions, WIP, fuel credits and levy inputs inspectable.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/wip-schedule/">Show whether construction WIP is over-billed or under-billed</a>
+              <div class="desc">Calculate cost-to-cost revenue, contract balances and profit-fade flags.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="catalogue-group" aria-labelledby="calculate-tools">
+          <header>
+            <p class="technical-label">B / calculate</p>
+            <h3 id="calculate-tools">Apply the rule without hiding the working.</h3>
+          </header>
+          <div class="tool-register">
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/payday-super/">Check when Payday Super is due and what happens if it is late</a>
+              <div class="desc">Separate on-time, late and at-risk lines from the supplied receipt evidence.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/ato-benchmarks/">Compare a business with ATO small business benchmarks</a>
+              <div class="desc">Run the published ranges locally and keep the comparison separate from a finding.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/coal-lsl-levy/">Calculate the Coal LSL levy under section 3B</a>
+              <div class="desc">Show the employee branch, eligible wages formula and final levy rounding.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/trust-distributions/">Check a trust distribution against the section 100A green zone</a>
+              <div class="desc">Classify the risk zone and calculate Division 6 shares without inventing facts.</div>
+            </div>
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/company-tax-franking/">Check the company tax rate and franking account</a>
+              <div class="desc">Apply the base-rate-entity test and show the account movements.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="catalogue-group" aria-labelledby="control-tools">
+          <header>
+            <p class="technical-label">C / control</p>
+            <h3 id="control-tools">Stop incomplete work before manager review.</h3>
+          </header>
+          <div class="tool-register">
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/workpaper-review-gate/">Gate a BAS, month-end or year-end workpaper pack</a>
+              <div class="desc">Return incomplete, untied or unbalanced files to the preparer.</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="catalogue-group" aria-labelledby="inspect-tools">
+          <header>
+            <p class="technical-label">D / inspect</p>
+            <h3 id="inspect-tools">Give an AI agent a bounded tool, not a guess.</h3>
+          </header>
+          <div class="tool-register">
+            <div class="tool-card">
+              <a class="tool-name" href="/tools/australian-tax-ai-agents/">Choose an Australian tax MCP for an AI agent</a>
+              <div class="desc">Compare local deterministic engines with hosted document retrieval and see what each route refuses.</div>
+            </div>
+          </div>
+        </section>
       </div>
     </section>
 
     <section class="principles-section site-shell" aria-labelledby="principles-title">
-      <h2 id="principles-title">Engineering Principles</h2>
+      <p class="technical-label">Copy and product principles / 05</p>
+      <h2 id="principles-title">Five checks before a claim leaves the page</h2>
       <div class="principles-list">
         <div>
-          <strong>Primary Source Grounding</strong>
-          <span>Computations cite Commonwealth legislation, ATO rulings, and AASB/APESB standards.</span>
+          <strong>Useful before impressive</strong>
+          <span>Start with the review problem and the next useful action.</span>
         </div>
         <div>
-          <strong>Exact Currency Arithmetic</strong>
-          <span>Statutory currency engines use decimal quantisation to prevent binary floating-point drift.</span>
+          <strong>Sources beside claims</strong>
+          <span>Put the legislation, regulator guidance or standard within reach.</span>
         </div>
         <div>
-          <strong>Local Privacy Boundaries</strong>
-          <span>Client data stays in local memory or zero-network sandboxes. Public fixtures use synthetic data only.</span>
+          <strong>Working stays visible</strong>
+          <span>Show the branch, formula, evidence state and rounding.</span>
         </div>
         <div>
-          <strong>Human-in-the-Loop Signoff</strong>
-          <span>Pipelines automate calculation and validation. Professional judgement and lodgement remain human-controlled.</span>
+          <strong>Unknown means unknown</strong>
+          <span>Refuse a result when the supplied facts do not settle the test.</span>
+        </div>
+        <div>
+          <strong>A person signs off</strong>
+          <span>Automate calculation and validation, not judgement or lodgement.</span>
         </div>
       </div>
     </section>
 
     <nav class="more-index site-shell" aria-labelledby="more-title">
-      <h2 id="more-title">More</h2>
+      <h2 id="more-title">Rates, source work and release policy</h2>
       <div class="more-index__links">
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
         <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
