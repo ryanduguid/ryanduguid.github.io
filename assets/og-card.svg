@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">Ryan Duguid</title>
+  <desc id="description">Accounting systems that can show their work. duguid.com.au</desc>
+  <rect width="1200" height="630" fill="#f8f8fa" />
+  <text x="90" y="236" fill="#11121b" font-family="Arial, Helvetica, sans-serif" font-size="96" font-weight="700">Ryan Duguid</text>
+  <rect x="90" y="270" width="576" height="6" fill="#64259a" />
+  <text x="90" y="364" fill="#4d4f59" font-family="Arial, Helvetica, sans-serif" font-size="42">Accounting systems that can show their work.</text>
+  <text x="90" y="554" fill="#64259a" font-family="Arial, Helvetica, sans-serif" font-size="27">duguid.com.au</text>
+</svg>

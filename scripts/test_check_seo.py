@@ -32,13 +32,57 @@ def self_check() -> None:
         root = Path(temp_dir)
         (root / "assets").mkdir()
         card = bytes.fromhex("89504e470d0a1a0a") + bytes(8) + bytes.fromhex("000004b000000276")
+        card_source = """\
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <desc>Ryan Duguid. Accounting systems that can show their work. duguid.com.au</desc>
+  <text>Ryan Duguid</text>
+  <text>Accounting systems that can show their work.</text>
+  <text>duguid.com.au</text>
+</svg>
+"""
         (root / "assets" / "og-card.png").write_bytes(card)
+        (root / "assets" / "og-card.svg").write_text(card_source, encoding="utf-8")
         (root / "README.md").write_text(
-            "assets/og-card.png MIT Pillow 12.3.0 "
+            "assets/og-card.png assets/og-card.svg MIT Pillow 12.3.0 "
             "ede73d7fc5f1757af2fc805bbc713324b93249e91c45fc3a078bc6534fb06551",
             encoding="utf-8",
         )
         assert contracts.check_social_card_provenance(root) == []
+        for changed_source, expected in (
+            (
+                card_source.replace("duguid.com.au", "ryanduguid.github.io"),
+                "assets/og-card.svg: social-card copy is stale or incomplete",
+            ),
+            (
+                card_source.replace(
+                    "<text>Accounting systems that can show their work.</text>",
+                    "<text>Open-source accounting tools.</text>",
+                ),
+                "assets/og-card.svg: social-card copy is stale or incomplete",
+            ),
+            (
+                card_source.replace('width="1200"', 'width="600"'),
+                "assets/og-card.svg: editable social-card dimensions changed",
+            ),
+            (
+                card_source.replace("<svg ", "<not-svg ").replace(
+                    "</svg>", "</not-svg>"
+                ),
+                "assets/og-card.svg: editable social-card source is invalid SVG",
+            ),
+        ):
+            (root / "assets" / "og-card.svg").write_text(
+                changed_source,
+                encoding="utf-8",
+            )
+            expect_failure(contracts.check_social_card_provenance(root), expected)
+        (root / "assets" / "og-card.svg").write_text(card_source, encoding="utf-8")
+        (root / "assets" / "og-card.svg").unlink()
+        expect_failure(
+            contracts.check_social_card_provenance(root),
+            "assets/og-card.svg: missing editable social-card source",
+        )
+        (root / "assets" / "og-card.svg").write_text(card_source, encoding="utf-8")
         (root / "assets" / "og-card.png").write_bytes(card + b"stale")
         expect_failure(
             contracts.check_social_card_provenance(root),

@@ -37,7 +37,7 @@ python scripts/check_site.py
 
 | Asset | Purpose | Source | Licence | Creation | SHA-256 | Refresh trigger |
 |---|---|---|---|---|---|---|
-| `assets/og-card.png` | Open Graph and Twitter summary card | The portfolio identity and description in `index.html` | MIT | The original generator was not retained. The checked copy was flattened onto white and quantised to 256 colours without dithering using Pillow 12.3.0, then saved as an optimised PNG | `382e2f348b5d56a14455e8be4922091f46bc876b14121007bd3b10c6d3ef3e2f` | Recreate when the portfolio name, positioning or social metadata changes |
+| `assets/og-card.png` | Open Graph and Twitter summary card | Editable source: `assets/og-card.svg` | MIT | Rendered at 1200×630 with Google Chrome 152.0.7977.65, flattened to RGB and quantised to 256 colours without dithering using Pillow 12.3.0, then saved as an optimised PNG | `16e25d2679ceadca328118503dd17483eed68438f715c0d68204a9205092c2c8` | Recreate when the portfolio name, positioning or social metadata changes |
 
 ## Licence
 
