@@ -5,6 +5,13 @@ import { waitForVisualFonts } from './visual.mjs';
 
 async function calculateFormulaB(page) {
   await page.goto('/tools/coal-lsl-levy/');
+  await waitForVisualFonts(page);
+  const baseRateBranch = page.getByRole('radio', {
+    name: 'A base rate of pay (section 3B(1))',
+    exact: true,
+  });
+  await baseRateBranch.check();
+  await expect(baseRateBranch).toBeChecked();
   await page
     .getByRole('spinbutton', { name: 'Base rate of pay', exact: true })
     .fill('6000');
@@ -22,6 +29,12 @@ test('calculates a Formula B levy without browser errors', async ({ page }) => {
   await expect(result).toContainText('Formula B wins this month');
   await expect(result).toContainText('$7,125.00');
   await expect(result).toContainText('$192.38');
+  await expect(result).toContainText(
+    '75 per cent of the aggregate ($7,125.00) exceeded base pay plus at-least-monthly bonuses ($6,000.00).',
+  );
+  await expect.poll(() => page.evaluate(() => (
+    document.documentElement.scrollWidth - document.documentElement.clientWidth
+  ))).toBeLessThanOrEqual(0);
   health.assertHealthy();
 });
 

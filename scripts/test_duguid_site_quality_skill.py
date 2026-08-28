@@ -1,4 +1,4 @@
-"""Deterministic routing evaluations for the repository site-quality skill."""
+"""Static contracts for the site-quality skill and recorded agent evaluation."""
 
 from __future__ import annotations
 
@@ -11,6 +11,7 @@ SKILL_DIR = ROOT / ".agents" / "skills" / "duguid-site-quality"
 SKILL_PATH = SKILL_DIR / "SKILL.md"
 CHECKLIST_PATH = SKILL_DIR / "references" / "release-checklist.md"
 EVALS_PATH = SKILL_DIR / "evals" / "evals.json"
+PRESSURE_RESULTS_PATH = SKILL_DIR / "evals" / "pressure-test-results.json"
 
 
 def frontmatter(text: str) -> dict[str, str]:
@@ -27,6 +28,9 @@ def frontmatter(text: str) -> dict[str, str]:
 def self_check() -> None:
     assert SKILL_PATH.is_file(), f"skill file missing: {SKILL_PATH}"
     assert CHECKLIST_PATH.is_file(), f"checklist missing: {CHECKLIST_PATH}"
+    assert PRESSURE_RESULTS_PATH.is_file(), (
+        f"recorded pressure-test results missing: {PRESSURE_RESULTS_PATH}"
+    )
 
     skill = SKILL_PATH.read_text(encoding="utf-8")
     checklist = CHECKLIST_PATH.read_text(encoding="utf-8")
@@ -85,6 +89,20 @@ def self_check() -> None:
         assert not missing_lines, (
             f"{case['id']} exact command gaps: {missing_lines}"
         )
+
+    recorded = json.loads(PRESSURE_RESULTS_PATH.read_text(encoding="utf-8"))
+    assert recorded.get("skill") == fields["name"]
+    assert recorded.get("method") == "fresh-context-agent"
+    assert recorded.get("limitations")
+    recorded_cases = recorded.get("cases")
+    assert isinstance(recorded_cases, list) and len(recorded_cases) == len(cases)
+    expected_by_id = {case["id"]: case for case in cases}
+    for result in recorded_cases:
+        expected = expected_by_id[result.get("id")]
+        assert result.get("prompt") == expected["prompt"]
+        assert result.get("verdict") == "PASS"
+        assert isinstance(result.get("observed_response"), str)
+        assert result["observed_response"].strip()
 
     print("duguid site quality skill tests passed")
 
