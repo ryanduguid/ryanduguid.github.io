@@ -22,6 +22,31 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_accepts_only_runner_confirmed_ato_403_denials(self) -> None:
+        confirmed = (
+            "https://www.ato.gov.au/tax-rates-and-codes/"
+            "key-superannuation-rates-and-thresholds/super-guarantee",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "income-deductions-and-concessions/small-business-benchmarks",
+            "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
+            "https://www.ato.gov.au/law/view/view.htm?"
+            "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
+        )
+
+        for url in confirmed:
+            with self.subTest(url=url):
+                self.assertTrue(check_links.is_accepted_automation_denial(url, 403))
+
+        self.assertFalse(
+            check_links.is_accepted_automation_denial(
+                "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates/other",
+                403,
+            )
+        )
+        self.assertFalse(
+            check_links.is_accepted_automation_denial(confirmed[0], 404)
+        )
+
     def test_reuses_a_successful_result_for_a_duplicate_url(self) -> None:
         attempts = 0
 

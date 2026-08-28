@@ -75,6 +75,18 @@ def self_check() -> None:
     )
     assert site_url("about/index.html") == f"{contracts.SITE}/about/"
     assert site_url("404.html") == f"{contracts.SITE}/404.html"
+    assert contracts.forbidden_identity_url_labels(
+        '<a href="https://ryanduguid.github.io/about/">old host</a>'
+    ) == {"retired github.io canonical URL"}
+    assert contracts.forbidden_identity_url_labels(
+        "https://www.linkedin.com/in/ryanduguid"
+    ) == {"unhyphenated US namesake URL"}
+    assert contracts.forbidden_identity_url_labels(
+        "https://www.linkedin.com/in/ryan-duguid/"
+    ) == set()
+    assert contracts.forbidden_identity_url_labels(
+        "https://example.com/https://ryanduguid.github.io/"
+    ) == set()
     evidence_title = contracts.TITLE_EXCEPTIONS[contracts.EVIDENCE_REL]
     assert len(evidence_title) > core.TITLE_MAX
     assert not title_is_too_long(contracts.EVIDENCE_REL, evidence_title)

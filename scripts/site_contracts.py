@@ -7,7 +7,7 @@ import json
 import re
 from collections import Counter
 from pathlib import Path
-from urllib.parse import parse_qs
+from urllib.parse import parse_qs, urlsplit
 
 import seo_core as core
 
@@ -1875,6 +1875,23 @@ def check_file_contracts(path: Path) -> list[str]:
     return failures
 
 
+def forbidden_identity_url_labels(text: str) -> set[str]:
+    """Return exact identity URL policy violations found in public text."""
+    labels: set[str] = set()
+    for match in re.finditer(r"https://[^\s\"'<>]+", text):
+        candidate = match.group(0).rstrip("),.;:`]}")
+        parts = urlsplit(candidate)
+        host = (parts.hostname or "").lower()
+        if host == "ryanduguid.github.io":
+            labels.add("retired github.io canonical URL")
+        if (
+            host in {"linkedin.com", "www.linkedin.com"}
+            and parts.path.rstrip("/") == "/in/ryanduguid"
+        ):
+            labels.add("unhyphenated US namesake URL")
+    return labels
+
+
 def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
     """Reject the retired site host and the US namesake's LinkedIn URL."""
     failures: list[str] = []
@@ -1890,10 +1907,8 @@ def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
             continue
         rel = path.relative_to(core.ROOT).as_posix()
         text = path.read_text(encoding="utf-8")
-        if "https://ryanduguid.github.io/" in text:
-            failures.append(f"{rel}: contains the retired github.io canonical URL")
-        if "https://www.linkedin.com/in/ryanduguid" in text:
-            failures.append(f"{rel}: contains the unhyphenated US namesake URL")
+        for label in sorted(forbidden_identity_url_labels(text)):
+            failures.append(f"{rel}: contains the {label}")
     return failures
 
 

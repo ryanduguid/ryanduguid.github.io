@@ -12,7 +12,8 @@ Checks, in order, per file:
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects). Transient
    transport failures are retried up to three times; HTTP failures are not.
-   HTTP 403 from four exact ATO source URLs is accepted as an automation denial.
+   HTTP 403 from exact allow-listed ATO source URLs is accepted as an
+   automation denial.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 
@@ -75,6 +76,19 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
         (
             "https://www.ato.gov.au/law/view/document?"
             "DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001"
+        ),
+        (
+            "https://www.ato.gov.au/tax-rates-and-codes/"
+            "key-superannuation-rates-and-thresholds/super-guarantee"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "income-deductions-and-concessions/small-business-benchmarks"
+        ),
+        "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
+        (
+            "https://www.ato.gov.au/law/view/view.htm?"
+            "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001"
         ),
     }
 )
