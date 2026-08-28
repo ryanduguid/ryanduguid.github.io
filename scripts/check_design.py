@@ -54,6 +54,11 @@ HERO_TRUST_ADJACENCY_PATTERN = re.compile(
     r'[^"\']*["\'])',
     re.I | re.S,
 )
+HERO_ROUTES_PATTERN = re.compile(
+    r'<nav\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhero-routes\b'
+    r'[^"\']*["\'])[^>]*>(.*?)</nav>',
+    re.I | re.S,
+)
 TRUST_BAND_PATTERN = re.compile(
     r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
     r'[^"\']*["\'])[^>]*>(.*?)</aside>',
@@ -512,11 +517,26 @@ def check_homepage_refinement(root: Path) -> list[str]:
         html_module.unescape(target)
         for _, target in MAIN_LINK_PATTERN.findall(main)
     ]
+    route_regions = HERO_ROUTES_PATTERN.findall(main)
+    route_links = (
+        [
+            html_module.unescape(target)
+            for _, target in MAIN_LINK_PATTERN.findall(route_regions[0])
+        ]
+        if len(route_regions) == 1
+        else []
+    )
     failures = []
     for target in HOMEPAGE_ROUTE_TARGETS:
         if links.count(target) != 1:
             failures.append(
                 "index.html: expected exactly one " + target + " route link"
+            )
+        if route_links.count(target) != 1:
+            failures.append(
+                "index.html: expected exactly one "
+                + target
+                + " route link in hero-routes"
             )
     for class_name in HOMEPAGE_REQUIRED_CLASSES:
         if class_count(main, class_name) != 1:
@@ -524,7 +544,9 @@ def check_homepage_refinement(root: Path) -> list[str]:
     if not HERO_TRUST_ADJACENCY_PATTERN.search(main):
         failures.append("index.html: trust-band must immediately follow home hero")
     trust_regions = TRUST_BAND_PATTERN.findall(main)
-    if len(trust_regions) == 1:
+    if len(trust_regions) != 1:
+        failures.append("index.html: expected one complete trust-band region")
+    else:
         trust_records = tuple(
             visible_text(record)
             for record in TRUST_RECORD_PATTERN.findall(trust_regions[0])
