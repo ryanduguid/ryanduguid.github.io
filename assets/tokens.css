@@ -101,7 +101,7 @@
   --text-lead: clamp(1.1875rem, 1.05rem + 0.48vw, 1.4375rem);
   --text-heading-small: clamp(1.5rem, 1.24rem + 0.95vw, 2rem);
   --text-heading: clamp(2.25rem, 1.72rem + 2vw, 3.5rem);
-  --text-display: clamp(2.5rem, 1.45rem + 5.6vw, 6rem);
+  --text-display: clamp(2.25rem, 1.45rem + 5.2vw, 5.5rem);
   --text-route: clamp(4rem, 1.7rem + 8.4vw, 8.25rem);
 
   --leading-tight: 0.98;

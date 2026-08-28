@@ -14,6 +14,20 @@ const routes = [
   ['not-found page', '/404.html'],
 ];
 
+async function textLineCount(locator) {
+  return locator.evaluate((element) => {
+    const range = document.createRange();
+    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+    const tops = [];
+    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+      if (!node.textContent.trim()) continue;
+      range.selectNodeContents(node);
+      tops.push(...[...range.getClientRects()].map(({ top }) => Math.round(top)));
+    }
+    return new Set(tops).size;
+  });
+}
+
 for (const [label, route] of routes) {
   test(`${label} has a healthy, accessible page shell`, async ({ page }) => {
     const health = observePageHealth(page);
@@ -57,15 +71,85 @@ test('known missing-route response is explicitly allowed', async ({ page }) => {
   health.assertHealthy();
 });
 
-test('home does not overflow at 320 CSS pixels', async ({ page }) => {
-  await page.setViewportSize({ width: 320, height: 844 });
+test('home exposes one route register with deliberate heading lines', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
-  const viewport = await page.evaluate(() => ({
-    clientWidth: document.documentElement.clientWidth,
-    scrollWidth: document.documentElement.scrollWidth,
-  }));
-  expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.clientWidth);
+  await waitForVisualFonts(page);
+  const routeRegister = page.getByRole('navigation', { name: 'Choose a path' });
+  await expect(routeRegister).toBeVisible();
+  for (const target of ['#engage', '#adopt', '#verify']) {
+    await expect(page.locator('main a[href="' + target + '"]')).toHaveCount(1);
+  }
+  if (testInfo.project.name === 'desktop-chromium') {
+    expect(await textLineCount(page.getByRole('heading', { level: 1 }))).toBe(2);
+    for (const name of ['Engage', 'Adopt', 'Verify']) {
+      expect(await textLineCount(page.getByRole('heading', { name, exact: true })))
+        .toBe(1);
+    }
+  } else {
+    expect(await textLineCount(page.getByRole('heading', { level: 1 })))
+      .toBeLessThanOrEqual(3);
+  }
+  health.assertHealthy();
+});
+
+test('route words remain intact at the narrowest wide layout', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium', 'wide-layout seam only');
+  const health = observePageHealth(page);
+  await page.setViewportSize({ width: 900, height: 900 });
+  await page.goto('/');
+  await waitForVisualFonts(page);
+  for (const name of ['Engage', 'Adopt', 'Verify']) {
+    const heading = page.getByRole('heading', { name, exact: true });
+    expect(await textLineCount(heading)).toBe(1);
+    expect(await heading.evaluate((element) => element.scrollWidth))
+      .toBeLessThanOrEqual(await heading.evaluate((element) => element.clientWidth));
+  }
+  health.assertHealthy();
+});
+
+test('mobile primary navigation and catalogue index remain keyboard reachable', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
+  const health = observePageHealth(page);
+  await page.goto('/');
+  const primary = page.getByRole('navigation', { name: 'Primary' });
+  expect(await primary.evaluate((element) =>
+    getComputedStyle(element).flexWrap
+  )).toBe('nowrap');
+  const firstPrimaryLink = primary.getByRole('link', { name: 'About' });
+  const lastPrimaryLink = primary.getByRole('link', { name: 'Awesome List' });
+  await firstPrimaryLink.focus();
+  for (let index = 0; index < 4; index += 1) {
+    await page.keyboard.press('Tab');
+  }
+  await expect(lastPrimaryLink).toBeFocused();
+  expect(await primary.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+
+  const catalogue = page.getByRole('navigation', { name: 'Tool categories' });
+  const extract = catalogue.getByRole('link', { name: 'Extract' });
+  const inspect = catalogue.getByRole('link', { name: 'Inspect' });
+  await extract.focus();
+  for (let index = 0; index < 3; index += 1) {
+    await page.keyboard.press('Tab');
+  }
+  await expect(inspect).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page).toHaveURL(/#inspect-tools$/);
+  health.assertHealthy();
+});
+
+test('home does not overflow at refinement acceptance widths', async ({ page }) => {
+  const health = observePageHealth(page);
+  for (const width of [320, 768]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/');
+    const viewport = await page.evaluate(() => ({
+      clientWidth: document.documentElement.clientWidth,
+      scrollWidth: document.documentElement.scrollWidth,
+    }));
+    expect(viewport.scrollWidth, `homepage overflow at ${width}px`)
+      .toBeLessThanOrEqual(viewport.clientWidth);
+  }
   health.assertHealthy();
 });
 

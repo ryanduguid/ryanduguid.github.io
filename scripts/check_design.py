@@ -39,6 +39,27 @@ PROOF_IMAGE_PATTERN = re.compile(
     r'<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>',
     re.I,
 )
+HOMEPAGE_ROUTE_TARGETS = ("#engage", "#adopt", "#verify")
+HOMEPAGE_REQUIRED_CLASSES = ("hero-routes", "trust-band", "catalogue-index")
+TRUST_BAND_TEXT = (
+    "Review aids only. No client files. No lodgement. Human sign-off.",
+    "Scope 01 Accounting workflow controls",
+    "Method 02 Primary sources and exact arithmetic",
+    "Boundary 03 Calculation is not judgement",
+)
+HERO_TRUST_ADJACENCY_PATTERN = re.compile(
+    r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-hero\b'
+    r'[^"\']*["\'])[^>]*>.*?</section>\s*'
+    r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
+    r'[^"\']*["\'])',
+    re.I | re.S,
+)
+TRUST_BAND_PATTERN = re.compile(
+    r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
+    r'[^"\']*["\'])[^>]*>(.*?)</aside>',
+    re.I | re.S,
+)
+TRUST_RECORD_PATTERN = re.compile(r"<p\b[^>]*>(.*?)</p>", re.I | re.S)
 ROOT_BLOCK_PATTERN = re.compile(r":root\s*\{(.*?)\}", re.S | re.I)
 PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
 UNICODE_RANGE_PATTERN = re.compile(
@@ -470,6 +491,69 @@ def check_copy(root: Path) -> list[str]:
     return failures
 
 
+def class_count(raw_html: str, class_name: str) -> int:
+    pattern = re.compile(r'class\s*=\s*(["\'])(.*?)\1', re.I | re.S)
+    return sum(
+        class_name.casefold() in value.casefold().split()
+        for _, value in pattern.findall(raw_html)
+    )
+
+
+def check_homepage_refinement(root: Path) -> list[str]:
+    path = root / "index.html"
+    if not path.is_file():
+        return ["index.html: homepage missing"]
+    raw = path.read_text(encoding="utf-8")
+    main_regions = MAIN_PATTERN.findall(raw)
+    if len(main_regions) != 1:
+        return ["index.html: expected one main region"]
+    main = active_markup(main_regions[0])
+    links = [
+        html_module.unescape(target)
+        for _, target in MAIN_LINK_PATTERN.findall(main)
+    ]
+    failures = []
+    for target in HOMEPAGE_ROUTE_TARGETS:
+        if links.count(target) != 1:
+            failures.append(
+                "index.html: expected exactly one " + target + " route link"
+            )
+    for class_name in HOMEPAGE_REQUIRED_CLASSES:
+        if class_count(main, class_name) != 1:
+            failures.append("index.html: expected one " + class_name)
+    if not HERO_TRUST_ADJACENCY_PATTERN.search(main):
+        failures.append("index.html: trust-band must immediately follow home hero")
+    trust_regions = TRUST_BAND_PATTERN.findall(main)
+    if len(trust_regions) == 1:
+        trust_records = tuple(
+            visible_text(record)
+            for record in TRUST_RECORD_PATTERN.findall(trust_regions[0])
+        )
+        if trust_records != TRUST_BAND_TEXT:
+            failures.append(
+                "index.html: trust-band records must match "
+                "the approved four-item tuple"
+            )
+    if class_count(main, "technical-label") != 3:
+        failures.append(
+            "index.html: expected exactly three evidence-bearing technical labels"
+        )
+    label_pattern = re.compile(
+        r'<p\b(?=[^>]*class\s*=\s*(["\'])[^"\']*\btechnical-label\b'
+        r'[^"\']*\1)[^>]*>(.*?)</p>',
+        re.I | re.S,
+    )
+    for _, body in label_pattern.findall(main):
+        label = visible_text(body)
+        if re.match(r"^(?:0[1-3]|[A-D])\s*/", label) or re.search(
+            r"/\s*0?5$", label
+        ):
+            failures.append(
+                "index.html: decorative ordinal technical label: " + label
+            )
+    return failures
+
+
 def check_document_delivery(
     root: Path, baseline: dict[str, object]
 ) -> list[str]:
@@ -615,6 +699,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
                 baseline,
             )
         )
+    failures.extend(check_homepage_refinement(root))
     failures.extend(check_copy(root))
 
     return failures
