@@ -35,42 +35,41 @@
     <section class="home-hero site-shell" aria-labelledby="home-title">
       <div class="home-hero__copy">
         <p class="technical-label">Public register / Newcastle and the Hunter Valley / Australia</p>
-        <h1 id="home-title">Accounting tools that show their working.</h1>
+        <h1 id="home-title"><span>Accounting tools</span>
+          <span>that show their working.</span></h1>
         <p class="home-hero__summary short-answer">I am a Newcastle accountant building open-source controls for workpapers, payroll, ledgers and AI outputs.</p>
-        <p class="hero-boundary">Review aids only. No client files. No lodgement. Human sign-off.</p>
-        <div class="home-actions" aria-label="Choose what you need">
-          <a class="button" href="#engage">Bring a workflow problem</a>
-          <a class="button button--secondary" href="#adopt">Test a tool</a>
-          <a class="button button--secondary" href="#verify">Check the evidence</a>
-        </div>
+        <nav class="hero-routes" aria-label="Choose a path">
+          <a class="path-card" href="#engage">
+            <strong>Engage</strong>
+            <span>Bring a workflow problem.</span>
+          </a>
+          <a class="path-card" href="#adopt">
+            <strong>Adopt</strong>
+            <span>Test with fabricated data.</span>
+          </a>
+          <a class="path-card" href="#verify">
+            <strong>Verify</strong>
+            <span>Inspect source, release and boundary.</span>
+          </a>
+        </nav>
       </div>
-      <aside class="home-proof-rail" aria-label="Register scope">
-        <p><strong>Scope 01</strong> Accounting workflow controls</p>
-        <p><strong>Method 02</strong> Primary sources and exact arithmetic</p>
-        <p><strong>Boundary 03</strong> Calculation is not judgement</p>
-      </aside>
     </section>
 
-    <nav class="path-grid site-shell" aria-label="Choose a path">
-      <a class="path-card" href="#engage">
-        <strong>Engage</strong>
-        <span>Start with the review bottleneck.</span>
-      </a>
-      <a class="path-card" href="#adopt">
-        <strong>Adopt</strong>
-        <span>Run fabricated records through a tool.</span>
-      </a>
-      <a class="path-card" href="#verify">
-        <strong>Verify</strong>
-        <span>Inspect the source, release and boundary.</span>
-      </a>
-    </nav>
+    <aside class="trust-band" aria-label="Register boundary and scope">
+      <div class="site-shell trust-band__inner">
+        <p class="hero-boundary">Review aids only. No client files. No lodgement. Human sign-off.</p>
+        <div class="home-proof-rail" aria-label="Register scope">
+          <p><strong>Scope 01</strong> Accounting workflow controls</p>
+          <p><strong>Method 02</strong> Primary sources and exact arithmetic</p>
+          <p><strong>Boundary 03</strong> Calculation is not judgement</p>
+        </div>
+      </div>
+    </aside>
 
     <div class="authority-routes site-shell">
       <section id="engage" class="route-section" aria-labelledby="engage-title">
         <h2 id="engage-title">Engage</h2>
         <div class="route-content">
-          <p class="technical-label">01 / scoped enquiry</p>
           <h3 class="route-statement">Fix the workflow before another review round.</h3>
           <p>Bring the point where a workpaper, payroll check, ledger export or AI-assisted task stops being easy to review. The useful first step is a bounded problem, not a platform pitch.</p>
           <nav class="route-actions" aria-label="Scoped enquiry types">
@@ -94,7 +93,6 @@
       <section id="adopt" class="route-section" aria-labelledby="adopt-title">
         <h2 id="adopt-title">Adopt</h2>
         <div class="route-content">
-          <p class="technical-label">02 / controlled evaluation</p>
           <h3 class="route-statement">Test it with fabricated data first.</h3>
           <p>Use the public fixtures to see what the tool accepts, refuses and explains. Keep the calculation reproducible before it enters a firm workflow.</p>
           <div class="route-actions">
@@ -131,7 +129,6 @@
       <section id="verify" class="route-section" aria-labelledby="verify-title">
         <h2 id="verify-title">Verify</h2>
         <div class="route-content">
-          <p class="technical-label">03 / inspectable evidence</p>
           <h3 class="route-statement">Check the source before the result.</h3>
           <p>Credentials establish a limited identity claim. Releases establish what shipped. A worked example shows whether the branch, formula and rounding can be checked.</p>
           <dl class="credential-register" aria-label="Public credentials and boundaries">
@@ -174,10 +171,15 @@
       <p class="technical-label">Public tool register / 10 entries</p>
       <h2 id="tools">Tools for work that still needs checking</h2>
       <p class="tools-intro">Choose the work that is hard to reconcile, easy to misread or expensive to send back. Each route names its sources and its limits.</p>
+      <nav class="catalogue-index" aria-label="Tool categories">
+        <a href="#extract-tools">Extract</a>
+        <a href="#calculate-tools">Calculate</a>
+        <a href="#control-tools">Control</a>
+        <a href="#inspect-tools">Inspect</a>
+      </nav>
       <div id="tools-list" class="tools-list">
         <section class="catalogue-group" aria-labelledby="extract-tools">
           <header>
-            <p class="technical-label">A / extract</p>
             <h3 id="extract-tools">Get the records into reviewable shape.</h3>
           </header>
           <div class="tool-register">
@@ -198,7 +200,6 @@
 
         <section class="catalogue-group" aria-labelledby="calculate-tools">
           <header>
-            <p class="technical-label">B / calculate</p>
             <h3 id="calculate-tools">Apply the rule without hiding the working.</h3>
           </header>
           <div class="tool-register">
@@ -227,7 +228,6 @@
 
         <section class="catalogue-group" aria-labelledby="control-tools">
           <header>
-            <p class="technical-label">C / control</p>
             <h3 id="control-tools">Stop incomplete work before manager review.</h3>
           </header>
           <div class="tool-register">
@@ -240,7 +240,6 @@
 
         <section class="catalogue-group" aria-labelledby="inspect-tools">
           <header>
-            <p class="technical-label">D / inspect</p>
             <h3 id="inspect-tools">Give an AI agent a bounded tool, not a guess.</h3>
           </header>
           <div class="tool-register">
@@ -254,7 +253,6 @@
     </section>
 
     <section class="principles-section site-shell" aria-labelledby="principles-title">
-      <p class="technical-label">Copy and product principles / 05</p>
       <h2 id="principles-title">Five checks before a claim leaves the page</h2>
       <div class="principles-list">
         <div>
