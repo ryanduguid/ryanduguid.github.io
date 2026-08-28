@@ -22,6 +22,7 @@ const ROOT = path.resolve(import.meta.dirname, '..');
 const PROOF_OUTPUT = path.join(ROOT, 'assets', 'coal-lsl-calculator.webp');
 const PROOF_TEMP_PREFIX = `.${path.basename(PROOF_OUTPUT)}.`;
 let proofRasterWarmup;
+let renderedProof;
 const MIME_TYPES = new Map([
   ['.html', 'text/html; charset=utf-8'],
   ['.css', 'text/css; charset=utf-8'],
@@ -374,7 +375,14 @@ export async function renderCoalLslProof() {
     });
   }
   await proofRasterWarmup;
-  return renderCoalLslProofOnce();
+  if (!renderedProof) {
+    renderedProof = renderCoalLslProofOnce().catch((error) => {
+      renderedProof = undefined;
+      throw error;
+    });
+  }
+  const result = await renderedProof;
+  return { ...result, image: Buffer.from(result.image) };
 }
 
 export async function captureCoalLslProof(options) {
