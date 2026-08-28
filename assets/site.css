@@ -1187,6 +1187,75 @@ input[type="checkbox"] {
   margin-bottom: var(--space-4);
 }
 
+.calculator-method {
+  display: grid;
+  margin: 0;
+  border-top: var(--rule-strong) solid var(--colour-ink);
+  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.calculator-method > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.45fr) minmax(0, 1.55fr);
+  gap: var(--space-4);
+  padding-block: var(--space-3);
+  border-top: var(--rule-thin) solid var(--colour-rule);
+}
+
+.calculator-method > div:first-child {
+  border-top: 0;
+}
+
+.calculator-method dt {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.calculator-method dd {
+  margin: 0;
+}
+
+.result-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: baseline;
+  padding-block: var(--space-3);
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
+}
+
+.result-row strong {
+  color: var(--colour-ink);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.result-row[data-result-kind="eligible-wages"],
+.result-row[data-result-kind="levy"] {
+  font-size: var(--text-lead);
+}
+
+.result-row[data-result-kind="levy"] {
+  padding-top: var(--space-4);
+  border-top: var(--rule-strong) solid var(--colour-stamp);
+}
+
+.result-row[data-result-kind="levy"] strong {
+  color: var(--colour-stamp-strong);
+}
+
+.result-why {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: var(--rule-strong) solid var(--colour-ink);
+  color: var(--colour-ink-soft);
+}
+
 .calculator-empty {
   color: var(--colour-ink-soft);
 }
@@ -1435,6 +1504,17 @@ input[type="checkbox"] {
 
   .facts td {
     padding-top: 0;
+  }
+}
+
+@media (max-width: 22rem) {
+  .result-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+
+  .result-row strong {
+    text-align: left;
   }
 }
 
