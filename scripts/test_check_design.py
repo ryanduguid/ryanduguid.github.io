@@ -165,6 +165,11 @@ def self_check() -> None:
         write_fixture(root)
         assert check_design.check_repository(root) == []
 
+        report = root / "work/playwright-report/index.html"
+        report.parent.mkdir(parents=True)
+        report.write_text("<html><body>generated ƒ</body></html>", encoding="utf-8")
+        assert check_design.check_repository(root) == []
+
         page = root / "index.html"
         html = page.read_text(encoding="utf-8")
         page.write_text(

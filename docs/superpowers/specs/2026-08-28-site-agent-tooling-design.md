@@ -109,13 +109,14 @@ the HTML report, trace and screenshots on CI failure.
 
 Register Google's official `chrome-devtools-mcp` in local Codex configuration.
 Resolve the official package version, test it, then pin that version with
-`--autoConnect`. Enable Chrome's remote-debugging permission at
+`--autoConnect`, usage statistics disabled and CrUX lookups disabled. Enable
+Chrome's remote-debugging permission at
 `chrome://inspect/#remote-debugging` while retaining its per-session prompt and
 controlled-browser banner.
 
-Do not expose a network debugging port or inspect cookies, passwords, history,
-tokens, storage or unrelated tabs. Acceptance is a local calculator run with
-console, network and one performance trace inspected through the MCP.
+Keep the debugging server on loopback only. Do not inspect cookies, passwords,
+history, tokens, storage or unrelated tabs. Acceptance is a local calculator
+run with console, network and one performance trace inspected through the MCP.
 
 **Done when:** the calculator journey passes at both viewports, failure traces
 are configured, response-status checks are proven with a positive control, and

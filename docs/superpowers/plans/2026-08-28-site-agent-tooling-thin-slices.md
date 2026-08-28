@@ -292,7 +292,7 @@ state.
 Run:
 
 ```text
-codex mcp add chrome-devtools -- npx -y chrome-devtools-mcp@1.8.0 --autoConnect
+codex mcp add --env CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS=1 chrome-devtools -- npx -y chrome-devtools-mcp@1.8.0 --autoConnect --no-performance-crux
 codex mcp get chrome-devtools
 ```
 
