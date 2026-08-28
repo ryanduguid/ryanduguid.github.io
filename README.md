@@ -51,6 +51,17 @@ npm run test:browser
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
+Run three-pass Lighthouse medians for the homepage, Evidence and Coal LSL
+calculator:
+
+```bash
+npm run test:lighthouse
+```
+
+The Lighthouse reports stay under ignored `work/lighthouse/`. The tested
+browser and hands-on accessibility observations are recorded in
+[`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md).
+
 ## Licence
 
 MIT, see [LICENSE](LICENSE).

@@ -4,9 +4,13 @@
   "type": "module",
   "scripts": {
     "test:browser": "playwright test",
-    "test:browser:update": "playwright test --update-snapshots"
+    "test:browser:update": "playwright test --update-snapshots",
+    "pretest:lighthouse": "node scripts/clean-lighthouse-output.mjs",
+    "test:lighthouse": "lhci autorun"
   },
   "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@lhci/cli": "0.15.1",
     "@playwright/test": "1.62.1"
   }
 }
