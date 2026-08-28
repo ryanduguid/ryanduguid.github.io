@@ -36,7 +36,8 @@ KEYRING_ACCOUNT = PROPERTY
 SEARCH_API = "https://www.googleapis.com/webmasters/v3"
 INSPECTION_API = "https://searchconsole.googleapis.com/v1"
 TOP_ROWS_NOTICE = (
-    "Search Console can return top rows rather than exhaustive query data."
+    "Each period can return only top rows. A row absent from one returned set "
+    "is normalised to zero, so deltas are indicative rather than exhaustive."
 )
 READ_ONLY = ToolAnnotations(readOnlyHint=True, idempotentHint=True)
 
