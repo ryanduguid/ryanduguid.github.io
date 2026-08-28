@@ -1,9 +1,12 @@
-@import url("/assets/tokens.css");
-
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+::selection {
+  color: var(--colour-canvas);
+  background: var(--colour-stamp);
 }
 
 html {
@@ -17,6 +20,7 @@ body {
   margin: 0;
   color: var(--colour-ink);
   background: var(--colour-canvas);
+  overflow-wrap: anywhere;
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: var(--leading-body);
@@ -47,6 +51,9 @@ a {
   color: var(--colour-stamp-strong);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
+  transition:
+    color var(--motion-standard) var(--ease-standard),
+    text-decoration-color var(--motion-standard) var(--ease-standard);
 }
 
 a:hover {
@@ -267,9 +274,9 @@ button {
   text-decoration: none;
   cursor: pointer;
   transition:
-    color var(--motion-fast) var(--ease-standard),
-    background-color var(--motion-fast) var(--ease-standard),
-    border-color var(--motion-fast) var(--ease-standard);
+    color var(--motion-standard) var(--ease-standard),
+    background-color var(--motion-standard) var(--ease-standard),
+    border-color var(--motion-standard) var(--ease-standard);
 }
 
 .button:hover,
@@ -277,6 +284,12 @@ button {
 button:hover {
   color: var(--colour-paper);
   background: var(--colour-stamp);
+}
+
+.button:active,
+.link-button:active,
+button:active {
+  translate: 0 1px;
 }
 
 .button--secondary {
@@ -940,6 +953,8 @@ tbody tr:hover td {
 }
 
 .proof-feature figure {
+  min-width: 0;
+  margin-inline: 0;
   border: var(--rule-thin) solid var(--colour-rule-strong);
   background: var(--colour-paper-raised);
 }
