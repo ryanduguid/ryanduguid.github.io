@@ -1,117 +1,129 @@
 # Site agent tooling and browser quality
 
-**Status:** Proposed for Ryan Duguid's review
-
-**Date:** 28 August 2026
+**Status:** Approved by Ryan Duguid on 28 August 2026; revised after the
+web-development meta review
 
 **Source baseline:** `a2b4ab715044c3656edc1619379c37ea66a969a4`
 
-**Approved direction:** Implement the recommended MCP, browser quality, local
-skill, Search Console, WebMCP and Codex adoption improvements
+## Outcome
 
-## Objective
+Make `duguid.com.au` agent-legible and observable, then add only the local and
+public tools that close a named feedback loop. Delivery is a sequence of thin,
+independently testable slices, not one six-part batch.
 
-Make `duguid.com.au` easier for Ryan and AI coding agents to inspect, test and
-improve without changing its factual boundaries, static hosting model or
-privacy posture.
+The completed system will provide:
 
-The work adds six connected capabilities:
+- a concise shared repository contract for Codex and Claude Code
+- the Codex installation command for `aus-accounting-mcp`
+- one reliable edit to browser to evidence loop, then broader browser quality
+  gates
+- calculator-scoped, read-only WebMCP tools
+- a narrow, read-only Search Console reader for one defined search decision
+- a repository skill derived from the commands that have been proven to work
 
-1. an official Chrome DevTools MCP connected to the dedicated AI Chrome profile
-2. browser, accessibility, visual-regression and Lighthouse checks in CI
-3. a repository-local `duguid-site-quality` Codex skill
-4. a narrow, read-only Google Search Console CLI and MCP
-5. read-only WebMCP tools on the Coal LSL calculator
-6. the official Codex install command for `aus-accounting-mcp`
+The site remains static GitHub Pages HTML and CSS with JavaScript only on the
+existing calculator. No analytics, tracking, application framework, remote
+font, service worker or production package runtime is added.
 
-This is tooling and assurance work, not a visual redesign or a search-ranking
-campaign. The homepage remains script-free. The site remains static GitHub
-Pages HTML, CSS and the existing calculator JavaScript. No analytics, tracker,
-remote font, application framework or production package runtime is added.
+## Baseline
 
-## Source state and baseline evidence
+The worktree starts from current `origin/main`. Before design work,
+`python scripts/check_site.py` passed the design, SEO, link and 21 levy engine
+tests. The live site's Google Search Console verification and sitemap setup are
+already complete and must not be repeated.
 
-The isolated implementation worktree was created from the current
-`origin/main` commit shown above. The repository had no uncommitted changes and
-passed its complete documented check before this specification was written:
+Chrome 152 on this PC is reserved for AI use. Codex, Node.js, npm, Python and
+`uv` are installed. Google Cloud CLI is not installed and will not be added
+solely for this work.
+
+## Project-wide constraints
+
+- Keep the homepage script-free.
+- Preserve `llms.txt`, `robots.txt`, `sitemap.xml`, the Google verification
+  file, rate facts, JSON-LD facts, disclaimers and levy formula behaviour.
+- Use fabricated data for automated and browser tests.
+- Never read, print, persist in the repository or upload browser credentials,
+  OAuth tokens, client records or Search Console responses.
+- Keep npm packages development-only and exactly pinned in the lockfile.
+- Use user-facing Playwright locators, isolated tests and web-first assertions.
+- Retain Playwright traces on failure and inspect both transport failures and
+  unexpected non-success HTTP responses.
+- Require explicit permission for push, pull request, merge or deployment.
+
+## Slice 0: Fast public adoption fix
+
+Add this official Codex command to the homepage Adopt block:
 
 ```text
-python scripts/check_site.py
+codex mcp add aus-accounting -- uvx aus-accounting-mcp
 ```
 
-That check passed the design contract tests, design contracts, SEO self-tests,
-SEO checks, link self-tests, all live link checks and 21 levy engine tests.
-The live site already has Google Search Console verification and sitemap setup;
-this work must not repeat or disturb either setup.
+Keep the existing Claude Code and skills commands. Change the heading from two
+to three supported commands and label each client. `/#adopt` remains the only
+canonical command surface.
 
-The local machine has Codex, Node.js, npm, Python and `uv`. It has Chrome
-152.0.7977.65, which supports Chrome DevTools MCP automatic connection. Google
-Cloud CLI is not installed. No `chrome-devtools` MCP is currently registered in
-Codex.
+Update the authority contract and negative self-tests so the command is
+required exactly once inside `#adopt` and rejected elsewhere. Do not change
+`llms.txt` or the Australian tax AI agents article.
 
-## Architecture
+**Done when:** the focused red-green contract passes and the aggregate source
+check stays green.
 
-The design separates three trust planes.
+## Slice 1: Agent-legible observable loop
 
-| Plane | Components | Data boundary |
-| --- | --- | --- |
-| Local operator | Chrome DevTools MCP, Search Console MCP/CLI, repository skill | Ryan's machine and authorised accounts |
-| Repository assurance | source tests, Playwright, axe, visual snapshots, Lighthouse CI | fabricated inputs and public site content only |
-| Public runtime | existing static pages plus calculator-scoped WebMCP | browser memory only; no transmission or storage added |
+### Shared repository contract
 
-Local credentials and browser state never enter the repository or CI. Browser
-test dependencies never enter the public site's runtime. WebMCP tools never
-receive employee names, taxpayer identifiers, client records, files or
-lodgement instructions.
+Add a concise root `AGENTS.md` containing only operational facts. Extend it as
+later commands are proven:
 
-## 1. Chrome DevTools MCP
+- product and static-site boundary
+- protected files and data rules
+- exact preview, source-check and current browser-check commands; add the
+  Lighthouse command in Slice 2
+- responsive, keyboard, console, network and accessibility expectations
+- definition of done and external-action boundary
 
-Use Google's official `chrome-devtools-mcp` package and Codex's native MCP
-configuration. Because Chrome on this PC is reserved for AI use, connect to the
-existing Chrome profile with `--autoConnect` rather than maintaining a second
-automation profile.
+Add a tiny `CLAUDE.md` that imports `@AGENTS.md` and contains no duplicated
+repository guidance. Keep intermittent release procedure in linked docs and a
+later skill rather than the always-loaded contract.
 
-Implementation rules:
+### First browser journey
 
-- resolve the current official package version during implementation, test it,
-  then pin that exact version in the local Codex MCP command
-- enable Chrome's remote-debugging permission at
-  `chrome://inspect/#remote-debugging`
-- retain Chrome's per-session permission prompt and controlled-browser banner
-- do not expose a fixed remote-debugging port to the network
-- do not read cookies, saved passwords, history, account tokens, local storage
-  or unrelated tabs unless Ryan asks for a task that requires it
-- use the browser only for the named site, its public dependencies and an
-  explicitly requested signed-in service such as Search Console
+Add a pinned Playwright development dependency, a Python HTTP-server
+configuration and one complete calculator journey at 390 by 844 and 1440 by
+1000 CSS pixels. The journey uses labels and roles to:
 
-The local configuration is machine state and is not committed. A repository
-guide records the reproducible command, permission boundary, verification
-steps and removal command without recording profile data.
+1. choose the base-rate branch
+2. enter fabricated figures that make Formula B win
+3. submit the calculator
+4. verify branch, eligible wages, levy and explanation
+5. verify no horizontal overflow, uncaught exception or unexpected console
+   error
+6. fail on any unexpected response with status 400 or greater
 
-Acceptance requires Codex to discover the MCP, connect after Ryan accepts
-Chrome's prompt, open a locally served page, inspect its console and network,
-and collect a performance trace without accessing unrelated browser state.
+The expected missing-route response is tested separately and explicitly
+allowlisted. Configure Playwright to retain a trace on first retry and upload
+the HTML report, trace and screenshots on CI failure.
 
-## 2. Browser quality and Lighthouse CI
+### Chrome DevTools MCP
 
-### Dependency boundary
+Register Google's official `chrome-devtools-mcp` in local Codex configuration.
+Resolve the official package version, test it, then pin that version with
+`--autoConnect`. Enable Chrome's remote-debugging permission at
+`chrome://inspect/#remote-debugging` while retaining its per-session prompt and
+controlled-browser banner.
 
-Add a root `package.json` and lockfile containing development-only, exactly
-pinned versions of:
+Do not expose a network debugging port or inspect cookies, passwords, history,
+tokens, storage or unrelated tabs. Acceptance is a local calculator run with
+console, network and one performance trace inspected through the MCP.
 
-- `@playwright/test`
-- `@axe-core/playwright`
-- `@lhci/cli`
+**Done when:** the calculator journey passes at both viewports, failure traces
+are configured, response-status checks are proven with a positive control, and
+Chrome DevTools MCP closes the same local browser loop.
 
-These packages are CI and local-development tools only. No generated bundle,
-`node_modules`, third-party script or package runtime is referenced by a public
-HTML page. The existing source check remains available without installing npm
-packages.
+## Slice 2: Broader browser quality gates
 
-### Playwright matrix
-
-Playwright serves the repository with Python's standard HTTP server and tests
-the following representative routes:
+Expand Playwright coverage to:
 
 - `/`
 - `/about/`
@@ -119,48 +131,30 @@ the following representative routes:
 - `/rates/super-guarantee/`
 - `/tools/australian-tax-ai-agents/`
 - `/tools/coal-lsl-levy/`
-- a missing route rendered through the site's 404 surface
+- the site's missing-route surface
 
-Run the matrix at 390 by 844 and 1440 by 1000 CSS pixels. Add a focused 320 CSS
-pixel overflow check because 320 pixels is an existing design contract.
+At 390 by 844 and 1440 by 1000, each representative page must have one visible
+level-one heading, a main landmark, usable navigation, no horizontal overflow,
+no uncaught exception, no unexpected console error, no unexpected response of
+400 or greater, and no axe `serious` or `critical` violation. Add a 320 CSS
+pixel overflow check.
 
-Each representative page must:
+Commit three stable visual baselines using the pinned Playwright Chromium on
+the same Windows CI platform:
 
-- load with no uncaught page error or unexpected console error
-- have no horizontal page overflow
-- expose a main landmark, one visible level-one heading and usable navigation
-- have no axe `serious` or `critical` violation
-- keep keyboard focus visible on the tested primary navigation path
+- homepage mobile
+- homepage desktop
+- calculator Formula B result mobile
 
-The calculator test must select each payment branch, submit representative
-fabricated figures, verify the branch, eligible wages and levy output, exercise
-invalid casual-month validation, and confirm that employee aggregation rounds
-once on total eligible wages.
+Wait for local fonts, disable animation and use only a small documented text
+rasterisation tolerance.
 
-### Visual regression
+Run Lighthouse CI three times for the homepage, Evidence and calculator. The
+median gates are:
 
-Commit three deliberately small visual baselines:
-
-- homepage at 390 by 844
-- homepage at 1440 by 1000
-- calculator with a Formula B result at 390 by 844
-
-Use the pinned Playwright Chromium, wait for `document.fonts.ready`, disable
-animation, mask no substantive content and allow only a small documented pixel
-tolerance for operating-system text rasterisation. Run this job on
-`windows-latest` so its platform matches the development machine. A visual
-change updates a baseline only when the related site change is intentional and
-reviewed.
-
-### Lighthouse CI
-
-Run Lighthouse CI for the homepage, Evidence and the calculator over three
-runs per URL. Use the median result and fail when any of these minimums is not
-met:
-
-| Category or metric | Required result |
+| Measure | Minimum or maximum |
 | --- | ---: |
-| Performance | 0.95 |
+| Performance | at least 0.95 |
 | Accessibility | 1.00 |
 | Best practices | 1.00 |
 | SEO | 1.00 |
@@ -168,227 +162,112 @@ met:
 | Largest contentful paint | at most 2.5 seconds |
 | Total blocking time | at most 200 milliseconds |
 
-Measure the implementation baseline before freezing thresholds. If the clean
-source baseline cannot meet one of these values under pinned CI conditions,
-record the evidence and revise this specification with Ryan rather than
-silently weakening the gate.
+Measure the clean implementation baseline before freezing these values. If a
+threshold is not achievable in pinned CI, bring evidence back to Ryan rather
+than weakening it silently.
 
-### Workflow and artefacts
+Complete a manual accessibility pass of the calculator and homepage covering
+keyboard-only use, focus visibility, 200 per cent zoom and forced colours.
+Automation is evidence, not a claim of accessibility conformance.
 
-Keep the existing source-contract job. Add separate browser and Lighthouse
-jobs that install from the lockfile. Upload the Playwright report, failed
-screenshots and Lighthouse reports when a job fails. Do not upload browser
-profiles, storage state, environment variables or Search Console data.
+**Done when:** the route matrix, visual baselines, Lighthouse medians and manual
+accessibility record all pass without changing public facts.
 
-The documented local commands will be:
+## Slice 3: Calculator WebMCP
 
-```text
-python scripts/check_site.py
-npm ci
-npx playwright install chromium
-npm run test:browser
-npm run test:lighthouse
-```
+Add WebMCP only to `/tools/coal-lsl-levy/`. Registration runs from the top-level
+page module and becomes a no-op when
+`document.modelContext.registerTool` is unavailable. No polyfill, remote
+script, network call or persistent storage is added.
 
-The repository-local skill may orchestrate these commands, but the source
-check remains independently usable.
+Expose four read-only tools:
 
-## 3. Repository-local site quality skill
-
-Add `.agents/skills/duguid-site-quality/SKILL.md` with a compact release and
-review workflow specific to this repository. It activates for work that asks
-Codex to audit, change, verify, release or diagnose `duguid.com.au`.
-
-The skill must require the agent to:
-
-1. read `README.md`, `DESIGN.md`, `SECURITY.md` and applicable repository
-   instructions before editing
-2. preserve the static-site, factual, human-review and client-data boundaries
-3. run focused tests red then green for behaviour changes
-4. run the source contract, Playwright and Lighthouse checks appropriate to
-   the change
-5. inspect the relevant routes with Chrome DevTools MCP when it is available
-6. use Search Console only for an explicitly requested search-performance or
-   indexing task
-7. distinguish fabricated test data from client data
-8. report unverified checks and require explicit permission before push,
-   pull-request, merge, deployment or other external publication
-
-A short reference file records the representative route matrix and release
-evidence checklist. It does not duplicate the whole `DESIGN.md` contract.
-
-## 4. Read-only Google Search Console MCP and CLI
-
-### Scope
-
-Implement a small local tool owned by this repository, defaulted and locked to
-the verified property `sc-domain:duguid.com.au`. It exposes only:
-
-- `search_performance`: clicks, impressions, click-through rate and average
-  position for a bounded date range, grouped by an allowlisted set of
-  dimensions
-- `inspect_url`: Google's indexed status for an HTTPS URL under
-  `duguid.com.au`
-- `list_sitemaps`: the existing sitemap records for the property
-
-There is no add-site, submit-sitemap, delete-sitemap, indexing request,
-analytics, advertising or Search Console mutation tool.
-
-Search performance requests are limited to 90 days, at most 1,000 returned
-rows and the dimensions `date`, `page`, `query`, `device` and `country`.
-Inspection rejects non-HTTPS URLs and any host other than `duguid.com.au` or
-`www.duguid.com.au`. Responses label Search Console's known limitation that
-query results can be top rows rather than an exhaustive dataset.
-
-### Authentication and secret handling
-
-Use Google's installed-desktop OAuth flow with the single scope:
-
-```text
-https://www.googleapis.com/auth/webmasters.readonly
-```
-
-Do not install Google Cloud CLI solely for this integration. Use pinned Python
-libraries under a `uv` script and open the system browser for Google consent.
-Ryan supplies a Desktop OAuth client file at authorisation time. Codex does not
-open, print or copy that file.
-
-After consent, serialise the Google credential object directly into Windows
-Credential Manager through `keyring`. Do not create a plaintext token file,
-put a token in an environment variable, print bearer headers, pass a token in
-MCP arguments or commit credential material. The client file is not retained
-or copied by the tool after the initial exchange.
-
-Authentication and logout remain explicit CLI actions, not MCP tools. The MCP
-may report `authentication required`, but it must never launch consent or
-delete a credential in response to an agent tool call.
-
-### Implementation shape
-
-Keep a pure standard-library core for input validation, endpoint construction
-and response normalisation. Load Google OAuth, keyring and MCP libraries only
-at the local transport boundary. This allows deterministic repository tests to
-run without credentials, network access or an authenticated Google account.
-
-The MCP runs over local stdio and marks every exposed tool read-only. The CLI
-uses the same service functions and supports JSON output for reproducible
-inspection. It writes no query results to the repository.
-
-Register the server in local Codex configuration only after its unauthenticated
-tests pass. The registration points to the checked-out script's absolute path;
-the setup guide states that moving the repository requires re-running the
-registration command.
-
-Live acceptance requires Ryan's explicit browser consent. After that consent,
-verify the property identity, run one bounded recent performance query, inspect
-the homepage URL and list the existing sitemap. Do not change Search Console
-state.
-
-## 5. Calculator-scoped WebMCP
-
-### Runtime boundary
-
-Add WebMCP only to `/tools/coal-lsl-levy/`, the one page that already requires
-JavaScript. The homepage and all ordinary article, rate and evaluation pages
-remain script-free. Registration uses the main document's top-level module and
-does nothing when `document.modelContext.registerTool` is unavailable.
-
-Do not add a polyfill, remote script, network call, analytics event, service
-worker or persistent storage. Tool execution stays in the browser and calls
-the existing deterministic `assets/levy.mjs` engine.
-
-### Public tools
-
-Register these four read-only tools:
-
-| Tool | Behaviour |
+| Tool | Outcome |
 | --- | --- |
-| `calculate_coal_lsl_levy` | Calculate one fabricated monthly employee scenario from structured branch inputs |
-| `run_coal_lsl_fixture` | Run one allowlisted synthetic D-series fixture already represented by engine tests |
-| `explain_coal_lsl_method` | Explain a named section 3B branch, formula choice and rounding boundary |
-| `get_coal_lsl_evidence` | Return the page's primary sources, rate review date, disclaimer and unresolved-question boundary |
+| `calculate_coal_lsl_levy` | Calculates one fabricated monthly scenario |
+| `run_coal_lsl_fixture` | Runs an allowlisted synthetic D-series fixture |
+| `explain_coal_lsl_method` | Explains a named branch and rounding boundary |
+| `get_coal_lsl_evidence` | Returns visible sources, review date and limitations |
 
-Every tool uses `additionalProperties: false`, bounded non-negative dollar
-amounts, an allowlisted bonus frequency and a `readOnlyHint`. Descriptions tell
-agents not to supply names, identifiers or client records. No tool reads the
-employee-name field, employee table, CSV export, cookies, storage or unrelated
-DOM content.
+Schemas use `additionalProperties: false`, bounded non-negative amounts and
+allowlisted bonus frequencies. Tool descriptions refuse names, identifiers,
+files and client records. Tools do not read the employee-name field, employee
+table, CSV export, cookies, storage or unrelated DOM content.
 
-The calculation tool returns structured numeric fields and plain-language
-explanation from one shared adapter. It must expose:
+A pure adapter reuses `assets/levy.mjs`; it does not copy formulas or rounding.
+The UI and WebMCP adapter share one explanation function. Returned data includes
+the branch, eligible wages, rounded levy, relevant Formula A/B values, rate,
+review date, estimate-only boundary and visible sources.
 
-- the statutory branch applied
-- eligible wages
-- rounded levy and, where relevant, the unrounded amount
-- Formula A, Formula B and the winner for section 3B(1)
-- the fixed 2.7 per cent rate and review date already stated on the page
-- the estimate-only and human-review boundary
-- source URLs already visible on the page
+Node tests capture registrations in a stub host and verify tool names, strict
+schemas, read-only annotations, deterministic fixtures, invalid-input
+refusals, engine parity and unsupported-browser behaviour. Playwright verifies
+top-level registration with an init-script stub. Native Chrome discovery is a
+manual acceptance check where supported.
 
-The adapter reuses `levy.mjs` and its final-step rounding. It does not copy the
-formula into the WebMCP layer. The current UI explanation should use the same
-pure explanation function so browser output and agent output cannot drift.
-`assets/levy.mjs` formula behaviour remains protected.
+**Done when:** one synthetic scenario travels from WebMCP input through the
+protected engine to a structured result, with unit and browser evidence.
 
-### Tests
+## Slice 4: Search Console decision loop
 
-Add Node tests that stub `document.modelContext`, capture registrations and
-assert tool names, strict schemas, read-only annotations, deterministic fixture
-results, invalid-input refusals and parity with the levy engine.
+The concrete outcome is: given the latest finalised 28-day period and the
+preceding 28 days, identify which `duguid.com.au` pages and queries changed
+materially in impressions or clicks, then inspect a selected same-domain URL
+and confirm current sitemap status. The tool reports data; it does not make or
+publish an SEO decision.
 
-Add a Playwright test that installs the stub before page load and confirms the
-top-level page registers the tools. Where the installed Chrome exposes native
-WebMCP discovery, verify the same tool names through Chrome DevTools MCP. Lack
-of native WebMCP in a CI Chromium build is not a reason to add a polyfill.
+Implement a local stdio MCP and CLI locked to
+`sc-domain:duguid.com.au` with only:
 
-## 6. Codex installation command
+- `compare_search_performance`
+- `inspect_url`
+- `list_sitemaps`
 
-Extend the homepage Adopt block from two supported commands to three. Keep the
-existing Claude Code and skills commands and add:
+Search dimensions are allowlisted to `date`, `page`, `query`, `device` and
+`country`. Requests are limited to 90 days and 1,000 rows. URL inspection
+accepts HTTPS URLs only under `duguid.com.au` or `www.duguid.com.au`. Responses
+state that Search Console can return top rows rather than exhaustive query
+data. There are no property, sitemap, indexing or other mutation methods.
 
-```text
-codex mcp add aus-accounting -- uvx aus-accounting-mcp
-```
+Use Google's installed-desktop OAuth flow with only
+`https://www.googleapis.com/auth/webmasters.readonly`. Ryan supplies a Desktop
+OAuth client file at consent time; Codex does not open or print it. Store the
+serialised credential directly in Windows Credential Manager through
+`keyring`. Never create a plaintext token file or pass a token through MCP
+arguments. Authentication and logout are explicit CLI actions, never MCP
+tools.
 
-Label the two MCP commands by client so a reader does not paste the wrong
-syntax. Keep `/#adopt` as the one canonical installation surface; do not copy
-the commands into `llms.txt` or the Australian tax AI agents article.
+Keep validation, date-window comparison and response normalisation in a pure
+standard-library core. Load OAuth, keyring and MCP dependencies only at the
+transport boundary. Unit tests use controlled complete API fixtures and prove
+rejection before any HTTP request. Live acceptance requires Ryan's OAuth
+consent and one bounded read per method; it never changes Search Console state
+or writes response data to the repository.
 
-Update the authority-surface contract and its negative self-tests so the
-Codex command is required inside `#adopt`, prohibited elsewhere and covered by
-the existing retired-source-install guard.
+**Done when:** the CLI and MCP answer the named 28-day comparison and URL/sitemap
+questions with read-only, same-property evidence.
 
-This change intentionally supersedes `DESIGN.md` references to two supported
-commands. It does not change the MCP package, its claims, registry identity or
-public source link.
+## Slice 5: Repository site-quality skill
 
-## Test-first implementation contract
+After all commands are proven, add
+`.agents/skills/duguid-site-quality/SKILL.md` and a short linked release
+checklist. The skill activates for audits, changes, diagnosis, verification and
+release work on this site.
 
-Before each production or local-tool behaviour change, add a focused failing
-test and observe the expected failure. Required new contracts include:
+It must tell an agent to read `AGENTS.md`, preserve factual and client-data
+boundaries, select checks proportional to the change, close user-visible work
+in a browser, retain failure evidence, use Search Console only for an explicit
+search task, report unverified items and request permission before external
+publication.
 
-- the Codex install command is present exactly once and only inside `#adopt`
-- the four WebMCP tools have exact names, strict schemas and read-only
-  annotations
-- WebMCP calculations and explanations remain in parity with the protected
-  levy engine
-- unsupported WebMCP browsers retain the current calculator behaviour
-- Search Console rejects other properties, hosts, schemes, dimensions, date
-  spans and excessive row limits before any HTTP request
-- Search Console uses only the read-only scope and exposes no mutation method
-- credential values are never emitted by logging or structured output
-- browser routes have no serious or critical axe violation, console error or
-  horizontal overflow
-- critical visual snapshots remain within the reviewed tolerance
-- Lighthouse gates the three selected routes at the agreed thresholds
+Pressure-test the skill with representative prompts and verify it routes a
+copy-only edit, calculator change, search investigation and release request to
+the correct commands and permission boundary.
 
-Add the new dependency-free Node and Python unit tests to
-`scripts/check_site.py`. Keep Playwright and Lighthouse as separate npm checks
-because they require installed development packages and a browser.
+**Done when:** the skill describes only commands and workflows demonstrated by
+the preceding slices and passes its pressure tests.
 
-## Verification
-
-### Repository verification
+## Final verification and independent review
 
 Run:
 
@@ -401,108 +280,44 @@ npm run test:lighthouse
 git diff --check
 ```
 
-Confirm no generated report, browser profile, storage state, OAuth material or
-`node_modules` path is tracked.
+Confirm no report, browser profile, storage state, OAuth material,
+`node_modules` path or Search Console response is tracked.
 
-### Local MCP verification
+Review the final `origin/main...HEAD` diff from fresh context against this
+specification, `AGENTS.md`, the web-development meta and the command/browser
+evidence. Findings must be limited to material correctness, regression,
+security, accessibility or unmet requirements. Resolve accepted findings and
+rerun the affected checks.
 
-For Chrome DevTools MCP:
-
-1. confirm the configured package name and pinned version
-2. accept Chrome's connection prompt
-3. inspect the local homepage and calculator console and network
-4. capture one local performance trace
-5. disconnect and confirm Chrome no longer shows an active control banner
-
-For Search Console MCP:
-
-1. run unauthenticated input and transport tests
-2. obtain Ryan's explicit OAuth consent through Chrome
-3. confirm the server reports `sc-domain:duguid.com.au`
-4. run one bounded read for each exposed method
-5. confirm no Search Console state changed and no token or response file was
-   created in the repository
-
-### Browser and public-runtime verification
-
-Inspect the complete Playwright route matrix at both primary viewports and the
-320 pixel overflow case. Confirm calculator behaviour both with and without a
-stubbed WebMCP host. Use Chrome DevTools MCP to verify native tool discovery
-when Chrome supports it.
-
-Compare the implementation against the source baseline and confirm:
-
-- homepage JavaScript remains absent
-- no public page loads npm or Python dependencies
-- current facts, rates, JSON-LD, disclaimers and source links remain unchanged
-  except the approved Adopt command copy
-- `llms.txt`, `robots.txt`, `sitemap.xml` and Google verification remain
-  unchanged
-- no tracking, telemetry or credential material was added
+No implementation is declared complete while any required check is failing or
+unverified. Push, pull request, merge and deployment remain outside this task
+without separate explicit permission.
 
 ## Planned file boundary
 
-Expected repository additions or edits are:
+Expected repository work is limited to:
 
-- `docs/superpowers/specs/2026-08-28-site-agent-tooling-design.md`
-- `docs/agent-tooling.md`
-- `README.md`
-- `DESIGN.md`
-- `index.html`
-- `assets/levy-webmcp.mjs` and, if needed, one small shared levy explanation
-  module
-- `tools/coal-lsl-levy/index.html`
-- `.agents/skills/duguid-site-quality/SKILL.md`
-- `.agents/skills/duguid-site-quality/references/release-checklist.md`
-- `.agents/tools/search-console/` for the local read-only CLI/MCP
-- focused tests under `scripts/`
-- `scripts/check_site.py`
-- `scripts/site_contracts.py`
-- `.github/workflows/checks.yml`
-- `package.json`, its lockfile, Playwright configuration and Lighthouse
-  configuration
-- Playwright specifications and three visual baselines under `tests/`
-- `.gitignore` for generated browser and Lighthouse artefacts
+- `AGENTS.md` and `CLAUDE.md`
+- `README.md`, `DESIGN.md` and `docs/agent-tooling.md`
+- `index.html` and focused authority-contract tests
+- calculator WebMCP modules and tests
+- `.agents/tools/search-console/` and dependency-free core tests
+- `.agents/skills/duguid-site-quality/`
+- Playwright, Lighthouse and npm configuration, tests and three snapshots
+- `.github/workflows/checks.yml`, `.gitignore` and `scripts/check_site.py`
 
-Expected local machine changes are:
-
-- Chrome remote debugging enabled with its normal permission prompts retained
-- the pinned official Chrome DevTools MCP registered in Codex
-- the repository-owned Search Console MCP registered in Codex
-- one credential stored in Windows Credential Manager only after Ryan grants
-  OAuth consent
-
-Protected from change:
-
-- `llms.txt`
-- `robots.txt`
-- `sitemap.xml`
-- the Google verification file
-- rate values and rate-page explanatory copy
-- current JSON-LD facts
-- advice, registration, privacy and human-review disclaimers
-- calculator formula behaviour in `assets/levy.mjs`
-- hosting and custom-domain configuration
-
-If implementation evidence shows that a protected file must change, revise
-this design with Ryan before editing it.
+Local machine changes are limited to Chrome's remote-debugging permission, the
+pinned Chrome DevTools MCP registration, the local Search Console MCP
+registration and a Windows Credential Manager item created only after Ryan's
+OAuth consent.
 
 ## Out of scope
 
-- installing Cloudflare, Figma or another unrelated recommended plugin
-- changing DNS, hosting, Google verification or sitemap submission
-- Google Analytics, advertising, tracking or visitor profiling
+- unrelated plugins, DNS, hosting or Google verification changes
+- analytics, advertising, tracking, rank promises or indexing requests
 - write-capable Search Console tools
-- automatic indexing requests or rank promises
-- sending client, employee or taxpayer data to an MCP or browser tool
-- adding WebMCP to script-free pages
-- a framework, bundler, service worker or production package runtime
-- changing levy law, rates, formulae, rounding or advice boundaries
-- push, pull request, merge or deployment without a separate explicit request
-
-## Review checkpoint
-
-Implementation starts after Ryan reviews this written specification. The two
-expected action-time prompts are Chrome's remote-debugging permission and
-Google's read-only OAuth consent. Neither prompt may be bypassed or converted
-to a broader permission.
+- client, employee or taxpayer data in tests or agent tools
+- WebMCP on script-free pages
+- a framework, bundler, service worker or production dependency
+- changed rates, levy formulae, legal interpretation or advice boundaries
+- publication without separate permission
