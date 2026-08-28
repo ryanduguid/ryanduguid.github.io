@@ -438,7 +438,11 @@ def self_check() -> None:
       </select>
       <button type="button" class="bonus-remove"></button>
     </template>
-    <script type="module">import {} from '/assets/levy.mjs';</script>
+    <script type="module">
+      import {} from '/assets/levy.mjs';
+      import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';
+      registerCoalLslTools(document.modelContext);
+    </script>
     """
     calculator_failures: list[str] = []
     contracts.check_calculator_contract(valid_calculator, calculator_failures)
@@ -487,11 +491,45 @@ def self_check() -> None:
             ),
             f"{contracts.CALCULATOR_REL}: #result must be a polite status region",
         ),
+        (
+            valid_calculator.replace(
+                "import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';",
+                "",
+            ),
+            f"{contracts.CALCULATOR_REL}: WebMCP adapter import missing",
+        ),
+        (
+            valid_calculator.replace(
+                "registerCoalLslTools(document.modelContext);",
+                "",
+            ),
+            f"{contracts.CALCULATOR_REL}: top-level WebMCP registration missing",
+        ),
     ]
     for mutated_calculator, expected_failure in calculator_mutations:
         mutation_failures: list[str] = []
         contracts.check_calculator_contract(mutated_calculator, mutation_failures)
         expect_failure(mutation_failures, expected_failure)
+
+    with tempfile.TemporaryDirectory() as temp_dir:
+        root = Path(temp_dir)
+        calculator = root / contracts.CALCULATOR_REL
+        calculator.parent.mkdir(parents=True)
+        calculator.write_text(
+            "import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';",
+            encoding="utf-8",
+        )
+        about = root / "about" / "index.html"
+        about.parent.mkdir(parents=True)
+        about.write_text(
+            "import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';",
+            encoding="utf-8",
+        )
+        webmcp_scope_failures = contracts.check_webmcp_scope([calculator, about], root)
+        expect_failure(
+            webmcp_scope_failures,
+            "about/index.html: Coal LSL WebMCP import is calculator-only",
+        )
 
     valid_evaluation_html = """
     <main id="main">

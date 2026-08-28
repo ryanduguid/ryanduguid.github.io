@@ -24,10 +24,21 @@ below, not a claim of WCAG conformance.
 - Homepage mobile and desktop baselines and the mobile Formula B calculator
   baseline passed with a maximum one per cent pixel-difference allowance.
 - Three-run Lighthouse medians passed every configured assertion. Performance
-  was 0.99 for the homepage, 0.98 for Evidence and 0.99 for the calculator;
+  was 0.99 for the homepage, 0.98 for Evidence and 0.98 for the calculator;
   Accessibility, Best Practices and SEO were 1.00 for all three. Median LCP
-  was 1,803 ms, 1,953 ms and 1,803 ms respectively. CLS and total blocking
+  was 1,802 ms, 1,953 ms and 1,952 ms respectively. CLS and total blocking
   time were zero in every run.
+
+## WebMCP progressive enhancement
+
+- A pre-navigation test host captured exactly four calculator registrations on
+  mobile and desktop, including strict schemas and read-only annotations. It
+  executed the Formula B scenario through the registered tool and verified
+  that an employee-label sentinel was neither read nor returned.
+- The local Chrome 152 secure context did not expose `document.modelContext`.
+  The calculator therefore followed its intended no-op path and loaded without
+  a console, page or request error. Native discovery remains conditional on a
+  browser build that exposes the evolving WebMCP API.
 
 ## Keyboard and focus review
 

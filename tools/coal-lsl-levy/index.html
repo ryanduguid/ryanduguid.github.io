@@ -296,30 +296,11 @@
       import {
         levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
       } from '/assets/levy.mjs';
+      import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
       import { compute } from '/assets/levy-form.mjs';
+      import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';
 
-      const money = (cents) =>
-        (cents / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-
-      function explain(result) {
-        if (result.branch === 'pre-2024') {
-          return `The pre-January-2024 casual method applied this month, before the
-                  separate casual loading component existed. There is no greater-of
-                  test and no 75 per cent factor.`;
-        }
-        if (result.branch !== 's 3B(1)') {
-          return `Section ${result.branch} applies. There is no greater-of test and no
-                  75 per cent factor on this branch.`;
-        }
-        return result.winner === 'B'
-          ? `Formula B wins this month. Overtime, penalty rates and allowances reached
-             the levy base only because 75 per cent of the aggregate (${money(result.formulaB)})
-             exceeded base pay plus at-least-monthly bonuses (${money(result.formulaA)}).`
-          : `Formula A wins this month. Overtime, penalty rates and allowances did not
-             affect the levy at all, because 75 per cent of the aggregate
-             (${money(result.formulaB)}) did not exceed base pay plus at-least-monthly
-             bonuses (${money(result.formulaA)}).`;
-      }
+      registerCoalLslTools(document.modelContext);
 
       function render(result, into) {
         const cents = result.eligibleWagesCents;
@@ -347,7 +328,7 @@
         }
         const why = document.createElement('p');
         why.className = 'result-why';
-        why.textContent = explain(result);
+        why.textContent = explainLevyResult(result);
         into.append(why);
       }
 
