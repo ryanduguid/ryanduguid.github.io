@@ -1,7 +1,7 @@
 # duguid.com.au design system
 
-**Status:** implementation baseline
-**Date:** 28 August 2026
+**Status:** current refinement
+**Date:** 29 August 2026
 **Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
 
 ## Design read
@@ -13,6 +13,28 @@ This is a redesign-overhaul of an Australian computational accounting index for 
 - `VISUAL_DENSITY`: 5. Spacious route viewports followed by compact evidence, rate and catalogue surfaces.
 - Redesign mode: overhaul the visual language while preserving routes, facts, legal boundaries and structured data.
 - Theme: OLED dark only.
+
+## Current refinement record
+
+The 29 August 2026 refinement keeps the design read at
+`DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
+
+- The homepage hero contains one Engage, Adopt and Verify route register. A
+  separate trust band follows it, and the route words do not wrap on wide
+  screens.
+- The current Coal LSL proof is a deterministic, fabricated Formula B
+  result-only screenshot. `npm run capture:coal-lsl-proof` captures it at 868
+  by 580 pixels and caps the WebP output at 80 KB.
+- Calculator orientation uses one concise task sentence followed by a compact
+  rate, method and boundary register. Its output is a label and value result
+  ledger.
+- The catalogue has a category index. The principles use an asymmetric
+  five-cell composition with one lead cell, and mobile primary navigation is
+  one horizontal scroll row.
+
+The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
+Plex Serif as the display face; stamp green as the only accent; square register
+surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
 
