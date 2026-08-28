@@ -7,10 +7,10 @@ Source for [duguid.com.au](https://duguid.com.au/), the landing page for Ryan Du
 The site is static HTML (`index.html`, `about/`, `evidence/`, `rates/`, `tools/`). Open `index.html` in a browser, or serve the folder:
 
 ```bash
-python -m http.server 8000
+python -m http.server 4173 --bind 127.0.0.1
 ```
 
-then visit `http://localhost:8000/`.
+then visit `http://127.0.0.1:4173/`.
 
 ## Checks
 
@@ -34,6 +34,22 @@ Run locally:
 ```bash
 python scripts/check_site.py
 ```
+
+Install the browser-test dependencies and Chromium once:
+
+```bash
+npm ci
+npx playwright install chromium
+```
+
+Run the calculator journey in the mobile and desktop browser projects:
+
+```bash
+npm run test:browser
+```
+
+Failure screenshots, traces and the HTML report stay in the ignored `work/`
+directory.
 
 ## Licence
 

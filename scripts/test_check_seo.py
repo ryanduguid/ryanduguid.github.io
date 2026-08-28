@@ -22,6 +22,26 @@ def title_is_too_long(rel: str, title: str) -> bool:
 def self_check() -> None:
     missing_negative_failures: list[str] = []
 
+    with tempfile.TemporaryDirectory() as directory:
+        discovery_root = Path(directory)
+        (discovery_root / "index.html").write_text(
+            "<main>site</main>", encoding="utf-8"
+        )
+        for rel in (
+            "work/playwright-report/index.html",
+            "node_modules/example/index.html",
+            ".cache/index.html",
+            "google-verification.html",
+        ):
+            path = discovery_root / rel
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_text("<main>generated</main>", encoding="utf-8")
+        discovered = [
+            path.relative_to(discovery_root).as_posix()
+            for path in core.html_files(discovery_root)
+        ]
+        assert discovered == ["index.html"], discovered
+
     def expect_failure(actual: list[str], expected: str) -> None:
         if expected not in actual:
             missing_negative_failures.append(
