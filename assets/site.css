@@ -186,7 +186,7 @@ nav a:not(.button):focus-visible { border-bottom-color: currentColor; }
       transition: background 0.2s;
     }
     .links a:hover { background: var(--surface); text-decoration: none; }
-  
+
     /* 404.html-only rules, scoped so they cannot affect index.html */
     .page-404 .site-main { display: flex; align-items: center; justify-content: center; }
     .page-404 .container { max-width: 640px; padding: 2rem 1.5rem; text-align: center; margin: 0; }
