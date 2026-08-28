@@ -258,7 +258,7 @@ Pain first: incomplete workpapers, review loops and unclear ownership. The actio
 
 ### Adopt viewport
 
-Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The two supported install commands and three evaluation packs are the proof. There is no trial funnel or signup language.
+Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The three supported install commands and three evaluation packs are the proof. There is no trial funnel or signup language.
 
 ### Verify viewport
 
