@@ -14,7 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
-SCRIPT_CONTENT_PATTERN = re.compile(r"<script\b[^>]*>(.*?)</script>", re.S | re.I)
+SCRIPT_CONTENT_PATTERN = re.compile(
+    r"<script\b[^>]*>(.*?)</script\s*>", re.S | re.I
+)
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
 HEAD_PATTERN = re.compile(r"<head\b[^>]*>(.*?)</head>", re.S | re.I)
 FOOTER_PATTERN = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
