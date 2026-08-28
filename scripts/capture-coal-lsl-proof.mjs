@@ -1,5 +1,5 @@
 import { once } from 'node:events';
-import { randomUUID } from 'node:crypto';
+import { createHash, randomUUID } from 'node:crypto';
 import {
   lstat,
   open,
@@ -199,10 +199,10 @@ async function removeTemporaryProof(temporaryOutput, expectedParent) {
   await unlink(temporaryOutput);
 }
 
-async function renderCoalLslProofOnce() {
+async function renderCoalLslProofOnce(browser) {
   const rootReal = await realpath(ROOT);
   const server = createProofServer(rootReal);
-  let browser;
+  let context;
   try {
     server.listen(0, '127.0.0.1');
     await once(server, 'listening');
@@ -212,8 +212,7 @@ async function renderCoalLslProofOnce() {
     }
     const origin = `http://127.0.0.1:${address.port}`;
 
-    browser = await chromium.launch();
-    const context = await browser.newContext({
+    context = await browser.newContext({
       viewport: COAL_LSL_PROOF.viewport,
       deviceScaleFactor: 1,
     });
@@ -318,6 +317,7 @@ async function renderCoalLslProofOnce() {
       animations: 'disabled',
       caret: 'hide',
     });
+    const pngSha256 = createHash('sha256').update(png).digest('hex');
 
     const encoder = await context.newPage();
     observeBrowserHealth(encoder, 'encoder', failures);
@@ -357,10 +357,11 @@ async function renderCoalLslProofOnce() {
       width: COAL_LSL_PROOF.capture.width,
       height: COAL_LSL_PROOF.capture.height,
       bytes: image.byteLength,
+      pngSha256,
     };
   } finally {
     try {
-      await browser?.close();
+      await context?.close();
     } finally {
       await closeServer(server);
     }
@@ -374,16 +375,28 @@ function proofsMatch(left, right) {
     && left.image.equals(right.image);
 }
 
-async function renderConvergedCoalLslProof() {
-  let previous;
-  for (let attempt = 1; attempt <= MAX_RENDER_ATTEMPTS; attempt += 1) {
-    const current = await renderCoalLslProofOnce();
-    if (previous && proofsMatch(previous, current)) return current;
-    previous = current;
+export async function renderConvergedCoalLslProof({
+  launchBrowser = () => chromium.launch(),
+  renderAttempt = renderCoalLslProofOnce,
+} = {}) {
+  const browser = await launchBrowser();
+  try {
+    let previous;
+    const attemptDiagnostics = [];
+    for (let attempt = 1; attempt <= MAX_RENDER_ATTEMPTS; attempt += 1) {
+      const current = await renderAttempt(browser);
+      attemptDiagnostics.push(
+        `attempt ${attempt}: ${current.width}x${current.height}, ${current.bytes} bytes, png sha256 ${current.pngSha256}, webp sha256 ${createHash('sha256').update(current.image).digest('hex')}`,
+      );
+      if (previous && proofsMatch(previous, current)) return current;
+      previous = current;
+    }
+    throw new Error(
+      `Proof render did not converge after ${MAX_RENDER_ATTEMPTS} fresh captures:\n${attemptDiagnostics.join('\n')}`,
+    );
+  } finally {
+    await browser.close();
   }
-  throw new Error(
-    `Proof render did not converge after ${MAX_RENDER_ATTEMPTS} fresh captures`,
-  );
 }
 
 export async function renderCoalLslProof() {
