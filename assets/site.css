@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+::selection {
+  color: var(--colour-canvas);
+  background: var(--colour-stamp);
+}
+
 html {
   min-width: 20rem;
   scroll-behavior: smooth;

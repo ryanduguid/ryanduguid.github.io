@@ -55,7 +55,15 @@ def write_fixture(root: Path) -> None:
         '@font-face { font-family: "Test"; '
         'src: url("/assets/fonts/Test.woff2") format("woff2"); '
         'font-display: optional; }\n'
-        ':root { --colour-canvas: #f8faf8; --radius-control: 0.125rem; }\n',
+        ':root { color-scheme: dark; '
+        '--colour-canvas: #000000; --colour-paper: #050806; '
+        '--colour-paper-raised: #09100d; --colour-ink: #eef4f0; '
+        '--colour-ink-soft: #9aa89f; --colour-rule: #26332d; '
+        '--colour-rule-strong: #5c7166; --colour-stamp: #4dff88; '
+        '--colour-stamp-strong: #78ffa3; --colour-stamp-wash: #082619; '
+        '--colour-alert: #ff9c91; --colour-masthead: #eef4f0; '
+        '--colour-code: #020403; --colour-code-ink: #eef4f0; '
+        '--colour-code-comment: #9aa89f; --radius-control: 0.125rem; }\n',
         encoding="utf-8",
     )
     (root / "assets/site.css").write_text(
@@ -268,6 +276,46 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "font face 1 must use font-display: optional",
+        ),
+        (
+            "non-black canvas",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace("--colour-canvas: #000000", "--colour-canvas: #010101"),
+                encoding="utf-8",
+            ),
+            "OLED canvas must be #000000",
+        ),
+        (
+            "mixed colour scheme",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace("color-scheme: dark", "color-scheme: light dark"),
+                encoding="utf-8",
+            ),
+            "native colour scheme must be dark only",
+        ),
+        (
+            "low contrast supporting ink",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace("--colour-ink-soft: #9aa89f", "--colour-ink-soft: #555555"),
+                encoding="utf-8",
+            ),
+            "--colour-ink-soft contrast on canvas must be at least 4.5:1",
+        ),
+        (
+            "system light override",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css").read_text(encoding="utf-8")
+                + "\n@media (prefers-color-scheme: light) { "
+                ":root { --colour-canvas: #fff; } }",
+                encoding="utf-8",
+            ),
+            "OLED theme must not contain a prefers-color-scheme override",
         ),
         (
             "non-sticky route rail",

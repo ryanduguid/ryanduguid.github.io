@@ -2,17 +2,17 @@
 
 **Status:** implementation baseline
 **Date:** 28 August 2026
-**Source baseline:** `2ae414da852dd9d3e3c022282845e5838138c5c7`
+**Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
 
 ## Design read
 
 This is a redesign-overhaul of an Australian computational accounting index for accounting managers, technical adopters and reviewers. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
 
 - `DESIGN_VARIANCE`: 6. Asymmetric document layouts and large changes of scale, with strict mobile collapse.
-- `MOTION_INTENSITY`: 3. Sticky positioning and short interaction feedback only.
+- `MOTION_INTENSITY`: 2. Sticky positioning and brief colour, underline and control feedback only.
 - `VISUAL_DENSITY`: 5. Spacious route viewports followed by compact evidence, rate and catalogue surfaces.
 - Redesign mode: overhaul the visual language while preserving routes, facts, legal boundaries and structured data.
-- Theme: one coherent ledger palette in light and dark system modes.
+- Theme: OLED dark only.
 
 ## Current-state audit
 
@@ -88,31 +88,30 @@ The page behaves like a public workpaper register.
 
 All colour values live in `assets/tokens.css`. Component CSS consumes semantic tokens only.
 
-### Light system mode
+The palette is deliberately dark-only. Native controls use `color-scheme: dark`
+and no system preference creates a second branded state.
 
-| Token role | Value | Use |
-| --- | --- | --- |
-| Canvas | `#E9EEEB` | Browser edge and quiet section ground |
-| Paper | `#F8FAF8` | Main reading surface |
-| Paper raised | `#FFFFFF` | Tables and artefacts that need separation |
-| Ink | `#14211E` | Main text and solid controls |
-| Ink soft | `#45534F` | Supporting copy |
-| Rule | `#BCC7C2` | Hairlines and table rows |
-| Rule strong | `#74857F` | Structural boundaries |
-| Stamp | `#006B59` | Links, focus, route state and evidence mark |
-| Stamp strong | `#005246` | Hover and filled controls |
-| Stamp wash | `#D7E9E3` | Rare evidence emphasis |
-| Alert | `#833E36` | Refusal and warning semantics only |
-| Masthead | `#006671` | Homepage identity statement only |
-| Code | `#101B18` | Code and install background |
-| Code ink | `#EFF7F3` | Code text |
-| Code comment | `#A9B8B3` | Secondary annotation inside code blocks |
+| Token role | Value | Use | Contrast on canvas |
+| --- | --- | --- | ---: |
+| Canvas | `#000000` | Browser edge and dominant page ground | n/a |
+| Paper | `#050806` | Quiet grouped surfaces | n/a |
+| Paper raised | `#09100D` | Rare stronger hierarchy | n/a |
+| Ink | `#EEF4F0` | Main reading text | 18.83:1 |
+| Ink soft | `#9AA89F` | Supporting copy and metadata | 8.48:1 |
+| Rule | `#26332D` | Hairlines and table rows | n/a |
+| Rule strong | `#5C7166` | Structural boundaries | n/a |
+| Stamp | `#4DFF88` | Links, focus, route state and live evidence | 15.98:1 |
+| Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
+| Stamp wash | `#082619` | Rare evidence emphasis | n/a |
+| Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
+| Masthead | `#EEF4F0` | Homepage identity statement only | n/a |
+| Code | `#020403` | Code and install background | n/a |
+| Code ink | `#EEF4F0` | Code text | n/a |
+| Code comment | `#9AA89F` | Secondary annotation inside code blocks | n/a |
 
-### Dark system mode
-
-The dark mode uses the same hierarchy and never introduces another section theme. Paper becomes deep green-charcoal, the stamp becomes pale harbour green and all text meets WCAG AA.
-
-No gradient, glow, indigo, violet or pure black is permitted.
+True black is intentional: large canvas areas let OLED pixels switch off. This
+overrides the earlier pure-black prohibition. No gradient, glow, indigo,
+violet, texture or alternate theme is permitted.
 
 ## Typography and licence
 
@@ -184,7 +183,7 @@ The header is sticky, one line and at most 72px tall. Ryan Duguid appears as a t
 
 ### Footer
 
-The existing advice disclaimer remains exact. It sits above About and GitHub links with a strong top rule. Footer type remains readable at 200 per cent zoom.
+The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200 per cent zoom.
 
 ### Buttons and links
 
@@ -206,7 +205,7 @@ The existing advice disclaimer remains exact. It sits above About and GitHub lin
 
 ### Code and install blocks
 
-- code uses one dark ink slab in both system modes
+- code uses one near-black ink slab in the OLED theme
 - a mono caption names the tool or command purpose
 - there is no fake terminal title bar, traffic-light decoration or version footer
 - commands remain selectable and horizontally scrollable
@@ -282,7 +281,7 @@ About, Evidence, tool guides, evaluation packs and rate pages share one article 
 - full-width table or code artefact where the content needs it
 - footer boundary in the same position on every page
 
-On mobile, the contents rail becomes a compact in-flow index. No body copy falls below 16px. Lines do not exceed the viewport. Inner-page HTML changes are limited to homepage and About copy plus any shared class needed for semantics; rate and evidence facts remain untouched.
+On mobile, the contents rail becomes a compact in-flow index. No body copy falls below 16px. Lines do not exceed the viewport. Shared head and footer delivery chrome may evolve across styled pages; rate main text, evidence facts and structured data remain untouched.
 
 ## Copy standard
 
@@ -300,16 +299,37 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 ## Protected contracts
 
-The following source baseline values are frozen after normalising only platform line endings:
+The following whole-file values are frozen after normalising only platform line endings:
 
 - `llms.txt`: SHA-256 `4133A06AEEF0CDF1D014D49C61051A80365A1F2680DBBB874A1C5C658376C3A5`
-- `rates/super-guarantee/index.html`: SHA-256 `599D554FB2BC1A1B1D171297AFA62C5AD743BA056C90DFE7DB9B383EC26D0C5C`
-- `rates/div7a-benchmark-rate/index.html`: SHA-256 `E89020E290F4CF374F41B40092BEB53B93F551C00FF9365264B0B9DF83C9E162`
-- `rates/cents-per-kilometre/index.html`: SHA-256 `FEDF9165A492C614A447D1F7FA55809B8917BB1DDB4802BCECA01039299552D7`
+- `robots.txt`: SHA-256 `55445C95D41B8C8B1B386BFB1B1279B879954D66715747CDC0B10BFF3B5DD7EA`
+- `sitemap.xml`: SHA-256 `2DD5D7F737A88E28136117706923FC070BC659FA2D34239820E6FD2AF633A51B`
 
-Every JSON-LD block across all 21 HTML pages remains semantically unchanged. Existing footer disclaimers, owner-assertion language, engagement boundary, calculator disclaimer, human review statements and Division 7A refusal remain exact.
+Rate main text is protected by a semantic visible-text digest so shared head and
+footer delivery chrome can improve without changing a rate, date, source or
+explanation. Every JSON-LD block across the 19 indexable pages remains
+semantically unchanged. Existing footer disclaimers, owner-assertion language,
+engagement boundary, calculator disclaimer, human review statements and
+Division 7A refusal remain exact.
 
 Routes, canonical URLs, `#engage`, `#adopt`, `/evidence/`, sitemap coverage, robots policy, calculator arithmetic, evaluation fixtures and supported install commands remain unchanged.
+
+## GEO and crawler policy
+
+GEO here means truthful answerability, explicit entity context and nearby
+evidence. It does not mean keyword stuffing or a Google ranking campaign.
+
+- every indexable page exposes the unchanged `llms.txt` through a text/plain
+  alternate link and every styled page exposes one visible Machine-readable
+  index link
+- no Google-specific ranking work or `noindex` is added to an indexable page
+- ordinary crawlability remains available to people, search systems and answer
+  systems
+- search and user-retrieval crawlers remain allowed while GPTBot, ClaudeBot,
+  Google-Extended, Applebot-Extended, CCBot and Bytespider remain blocked from
+  training use
+- `llms.txt`, JSON-LD, rates, disclaimers and refusal boundaries remain the
+  factual source of truth
 
 ## Accessibility and performance
 
@@ -321,13 +341,26 @@ Routes, canonical URLs, `#engage`, `#adopt`, `/evidence/`, sitemap coverage, rob
 - no horizontal page overflow at 390, 768 or 1440 CSS pixels
 - no layout jump from unsized media or late decorative content
 - WOFF2 only, no remote font request and no new JavaScript dependency
-- system dark mode and light mode are both inspected
+- the continuous true-black OLED theme and forced-colours behaviour are inspected
 - reduced-motion mode is inspected
+
+The measured production baseline before this refinement is about 303 KB of
+initial transfer: about 250 KB of fonts and about 46 KB from the below-fold
+proof image. Under the recorded 390 by 844, four-times CPU and emulated 4G
+profile, LCP is about 1.40 seconds and CLS is 0. The implementation must reduce
+initial transfer materially without regressing the matched median LCP or CLS.
 
 ## Verification
 
-Automated checks cover the design system, font assets, homepage structure, copy ban list, protected hashes, JSON-LD parity, disclaimer parity, routes and all existing repository contracts.
+Automated checks cover the OLED token contract, contrast, font assets, delivery
+order, homepage image priority, machine-index discovery, copy ban list,
+protected hashes, rate-main snapshots, JSON-LD parity, disclaimer parity,
+routes and all existing repository contracts.
 
-Browser review covers homepage, About, Evidence, a tool guide and a rate table at desktop and mobile sizes. It also checks 200 per cent zoom, keyboard focus, overflow, computed fonts, console errors, reduced motion and both colour schemes.
+Browser review covers the homepage at 320, 390, 768 and 1440 CSS pixels plus
+About, Evidence, a tool guide, calculator, rate table and 404 page at desktop
+and mobile sizes. It also checks keyboard focus, overflow, computed fonts,
+console errors, reduced motion, forced colours, font/image failure and the one
+OLED colour scheme.
 
 The pull request must name the three selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.

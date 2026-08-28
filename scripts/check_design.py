@@ -29,6 +29,8 @@ PROOF_IMAGE_PATTERN = re.compile(
     r'<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>',
     re.I,
 )
+ROOT_BLOCK_PATTERN = re.compile(r":root\s*\{(.*?)\}", re.S | re.I)
+PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
     "radial-gradient",
@@ -114,6 +116,63 @@ def main_visible_digest(path: Path) -> str | None:
     return sha256_bytes(visible_text(matches[0]).encode("utf-8"))
 
 
+def css_root_properties(tokens_css: str) -> dict[str, str]:
+    match = ROOT_BLOCK_PATTERN.search(tokens_css)
+    if match is None:
+        return {}
+    return {
+        name.lower(): value.strip().lower()
+        for name, value in PROPERTY_PATTERN.findall(match.group(1))
+    }
+
+
+def relative_luminance(colour: str) -> float:
+    value = colour.removeprefix("#")
+    channels = [int(value[index : index + 2], 16) / 255 for index in (0, 2, 4)]
+    linear = [
+        channel / 12.92
+        if channel <= 0.04045
+        else ((channel + 0.055) / 1.055) ** 2.4
+        for channel in channels
+    ]
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def contrast_ratio(first: str, second: str) -> float:
+    first_luminance = relative_luminance(first)
+    second_luminance = relative_luminance(second)
+    lighter = max(first_luminance, second_luminance)
+    darker = min(first_luminance, second_luminance)
+    return (lighter + 0.05) / (darker + 0.05)
+
+
+def check_oled_tokens(tokens_css: str) -> list[str]:
+    failures: list[str] = []
+    root_match = ROOT_BLOCK_PATTERN.search(tokens_css)
+    root_block = root_match.group(1) if root_match is not None else ""
+    properties = css_root_properties(tokens_css)
+    if not re.search(r"\bcolor-scheme\s*:\s*dark\s*;", root_block, re.I):
+        failures.append("native colour scheme must be dark only")
+    if "prefers-color-scheme" in tokens_css.lower():
+        failures.append("OLED theme must not contain a prefers-color-scheme override")
+    canvas = properties.get("--colour-canvas")
+    if canvas != "#000000":
+        failures.append("OLED canvas must be #000000")
+        return failures
+    for token in (
+        "--colour-ink",
+        "--colour-ink-soft",
+        "--colour-stamp",
+        "--colour-alert",
+    ):
+        value = properties.get(token)
+        if value is None or not re.fullmatch(r"#[0-9a-f]{6}", value):
+            failures.append(f"{token} must be a six-digit colour")
+        elif contrast_ratio(value, canvas) < 4.5:
+            failures.append(f"{token} contrast on canvas must be at least 4.5:1")
+    return failures
+
+
 def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     failures: list[str] = []
     site_path = root / "assets/site.css"
@@ -183,6 +242,7 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     }
     for rel in sorted(expected_fonts - declared_fonts):
         failures.append(f"protected font not declared in tokens: {rel}")
+    failures.extend(check_oled_tokens(tokens_css))
     return failures
 
 
