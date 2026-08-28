@@ -7,6 +7,7 @@ import html as html_lib
 import json
 import re
 import struct
+import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -1930,13 +1931,58 @@ def check_social_card_provenance(root: Path) -> list[str]:
     if len(card) > 350_000:
         failures.append("assets/og-card.png: social card is larger than 350 KB")
 
+    source_path = root / "assets" / "og-card.svg"
+    if not source_path.is_file():
+        failures.append("assets/og-card.svg: missing editable social-card source")
+    else:
+        try:
+            source = ET.parse(source_path).getroot()
+        except ET.ParseError:
+            failures.append("assets/og-card.svg: editable social-card source is invalid SVG")
+        else:
+            if source.tag.rsplit("}", 1)[-1] != "svg":
+                failures.append(
+                    "assets/og-card.svg: editable social-card source is invalid SVG"
+                )
+            elif (
+                source.get("width") != "1200"
+                or source.get("height") != "630"
+                or source.get("viewBox") != "0 0 1200 630"
+            ):
+                failures.append(
+                    "assets/og-card.svg: editable social-card dimensions changed"
+                )
+            else:
+                visible_copy = {
+                    " ".join(" ".join(node.itertext()).split())
+                    for node in source.iter()
+                    if node.tag.rsplit("}", 1)[-1] == "text"
+                }
+                required_copy = {
+                    "Ryan Duguid",
+                    "Accounting systems that can show their work.",
+                    "duguid.com.au",
+                }
+                if (
+                    not required_copy.issubset(visible_copy)
+                    or any("ryanduguid.github.io" in value for value in visible_copy)
+                ):
+                    failures.append(
+                        "assets/og-card.svg: social-card copy is stale or incomplete"
+                    )
+
     readme_path = root / "README.md"
     if not readme_path.is_file():
         return [*failures, "README.md: missing social-card provenance"]
     readme = readme_path.read_text(encoding="utf-8")
     if hashlib.sha256(card).hexdigest() not in readme:
         failures.append("README.md: social-card checksum is missing or stale")
-    for value in ("assets/og-card.png", "MIT", "Pillow 12.3.0"):
+    for value in (
+        "assets/og-card.png",
+        "assets/og-card.svg",
+        "MIT",
+        "Pillow 12.3.0",
+    ):
         if value not in readme:
             failures.append(f"README.md: social-card provenance omits {value}")
     return failures
