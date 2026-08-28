@@ -11,7 +11,7 @@ Checks, in order, per file:
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects). Transient
-   transport failures are retried up to three times; HTTP failures are not.
+   transport failures are retried up to five times; HTTP failures are not.
    HTTP 403 from exact allow-listed ATO source URLs is accepted as an
    automation denial.
 4. The HTML parses cleanly and links carry no empty href.
