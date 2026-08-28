@@ -28,12 +28,19 @@ then visit `http://localhost:8000/`.
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
+- the social card is a 1200 by 630 PNG under 350 KB whose checksum, editable SVG source, OLED palette and register copy are recorded below
 
 Run locally:
 
 ```bash
 python scripts/check_site.py
 ```
+
+## Asset provenance
+
+| Asset | Purpose | Source | Licence | Creation | SHA-256 | Refresh trigger |
+|---|---|---|---|---|---|---|
+| `assets/og-card.png` | Open Graph and Twitter summary card | Editable source: `assets/og-card.svg` | MIT | Rendered at 1200×630 with Google Chrome 148.0.7778.96, flattened to RGB and quantised to 256 colours without dithering using Pillow 12.3.0, then saved as an optimised PNG | `02d647239a442240ddea5fa497fa2fe41cf2fe9d07fb06307c35074e5487333d` | Recreate when the register name, homepage heading, host or OLED palette changes |
 
 ## Licence
 
