@@ -52,7 +52,7 @@ def write_fixture(root: Path) -> None:
         '<p class="technical-label">Worked proof</p>'
         '<nav class="catalogue-index" aria-label="Tool categories"></nav>'
         '<p class="technical-label">Tool register scope</p>'
-        '<img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" '
+        '<img src="/assets/coal-lsl-calculator.webp" width="868" height="580" '
         'loading="lazy" decoding="async" fetchpriority="low" '
         'alt="Example calculation" />'
         '</main>'
@@ -67,6 +67,9 @@ def write_fixture(root: Path) -> None:
     (root / "rates/example/index.html").write_bytes(rate)
     (root / "assets/fonts/Test.woff2").write_bytes(font)
     (root / "assets/fonts/OFL.txt").write_bytes(licence)
+    (root / "assets/coal-lsl-calculator.webp").write_bytes(
+        b"RIFF" + b"\0" * 4 + b"WEBP"
+    )
     (root / "assets/tokens.css").write_text(
         '@font-face { font-family: "Test"; '
         'src: url("/assets/fonts/Test.woff2") format("woff2"); '
@@ -800,6 +803,30 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "index.html: Coal LSL proof image must load lazily",
+        ),
+        (
+            "stale proof image height",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('height="580"', 'height="1106"'),
+                encoding="utf-8",
+            ),
+            "index.html: Coal LSL proof image must keep its height",
+        ),
+        (
+            "invalid proof image container",
+            lambda root: (root / "assets/coal-lsl-calculator.webp").write_bytes(
+                b"not-a-webp"
+            ),
+            "assets/coal-lsl-calculator.webp: proof image is not a WebP container",
+        ),
+        (
+            "oversized proof image",
+            lambda root: (root / "assets/coal-lsl-calculator.webp").write_bytes(
+                b"RIFF" + b"\0" * 4 + b"WEBP" + b"\0" * (80_001 - 12)
+            ),
+            "assets/coal-lsl-calculator.webp: proof image exceeds 80000 bytes",
         ),
         (
             "missing proof image alternative",
