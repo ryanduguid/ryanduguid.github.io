@@ -115,10 +115,12 @@ async function createIsolatedHarness() {
       'coal-lsl-levy',
       'index.html',
     );
+    const siteCssPath = path.join(harnessRoot, 'assets', 'site.css');
     return {
       root: harnessRoot,
       proofPath,
       calculatorPath,
+      siteCssPath,
       capture: await import(
         `${pathToFileURL(modulePath).href}?harness=${randomUUID()}`
       ),
@@ -152,6 +154,31 @@ test('renders the deterministic Coal LSL result without writing', async () => {
   assert.equal(second.bytes, first.bytes);
   assert.deepEqual(second.image, first.image);
   assert.deepEqual(await readFile(PROOF_PATH), before);
+});
+
+test('render reads current visual source and reconverges deterministically', async () => {
+  const harness = await createIsolatedHarness();
+  try {
+    const original = await harness.capture.renderCoalLslProof();
+    const siteCss = await readFile(harness.siteCssPath, 'utf8');
+    await writeFile(
+      harness.siteCssPath,
+      `${siteCss}\n.calculator-result { box-shadow: inset 0 0 0 12px var(--colour-stamp); }\n`,
+      'utf8',
+    );
+    const changed = await harness.capture.renderCoalLslProof();
+    assert.equal(changed.width, original.width);
+    assert.equal(changed.height, original.height);
+    assert.notDeepEqual(changed.image, original.image);
+
+    const stable = await harness.capture.renderCoalLslProof();
+    assert.equal(stable.width, changed.width);
+    assert.equal(stable.height, changed.height);
+    assert.equal(stable.bytes, changed.bytes);
+    assert.deepEqual(stable.image, changed.image);
+  } finally {
+    await harness.cleanup();
+  }
 });
 
 test('fixed-destination capture rejects every caller-supplied option', async () => {
