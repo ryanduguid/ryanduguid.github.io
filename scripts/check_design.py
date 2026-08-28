@@ -14,6 +14,17 @@ ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
+FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
+BANNED_CSS_PATTERNS = (
+    "linear-gradient",
+    "radial-gradient",
+    "conic-gradient",
+    "backdrop-filter",
+    "box-shadow",
+    "#04001f",
+    "#5c2d91",
+    "#9f6fd8",
+)
 
 
 def sha256_bytes(payload: bytes) -> str:
@@ -49,6 +60,43 @@ def visible_text(raw_html: str) -> str:
     )
     without_tags = re.sub(r"<[^>]+>", " ", without_non_content)
     return " ".join(html_module.unescape(without_tags).split())
+
+
+def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
+    failures: list[str] = []
+    site_path = root / "assets/site.css"
+    tokens_path = root / "assets/tokens.css"
+    if not site_path.is_file():
+        return ["stylesheet missing: assets/site.css"]
+    if not tokens_path.is_file():
+        return ["stylesheet missing: assets/tokens.css"]
+
+    site_css = site_path.read_text(encoding="utf-8")
+    tokens_css = tokens_path.read_text(encoding="utf-8")
+    first_rule = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S).lstrip()
+    if not first_rule.startswith('@import url("/assets/tokens.css");'):
+        failures.append("assets/site.css: tokens.css must be the first rule")
+
+    combined = f"{site_css}\n{tokens_css}".lower()
+    for pattern in BANNED_CSS_PATTERNS:
+        if pattern in combined:
+            failures.append(f"banned CSS pattern {pattern}")
+
+    declared_fonts = {
+        url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)
+    }
+    for rel in sorted(declared_fonts):
+        if not (root / rel).is_file():
+            failures.append(f"font face target missing: {rel}")
+
+    expected_fonts = {
+        rel
+        for rel in baseline.get("fonts", {})
+        if isinstance(rel, str) and rel.endswith(".woff2")
+    }
+    for rel in sorted(expected_fonts - declared_fonts):
+        failures.append(f"protected font not declared in tokens: {rel}")
+    return failures
 
 
 def check_repository(root: Path = ROOT) -> list[str]:
@@ -94,6 +142,8 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected font missing: {rel}")
         elif sha256_bytes(path.read_bytes()) != expected:
             failures.append(f"protected font changed: {rel}")
+
+    failures.extend(check_stylesheets(root, baseline))
 
     return failures
 

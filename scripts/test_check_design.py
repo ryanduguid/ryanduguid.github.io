@@ -38,6 +38,17 @@ def write_fixture(root: Path) -> None:
     (root / "rates/example/index.html").write_bytes(rate)
     (root / "assets/fonts/Test.woff2").write_bytes(font)
     (root / "assets/fonts/OFL.txt").write_bytes(licence)
+    (root / "assets/tokens.css").write_text(
+        '@font-face { font-family: "Test"; '
+        'src: url("/assets/fonts/Test.woff2") format("woff2"); }\n'
+        ':root { --colour-canvas: #f8faf8; --radius-control: 0.125rem; }\n',
+        encoding="utf-8",
+    )
+    (root / "assets/site.css").write_text(
+        '@import url("/assets/tokens.css");\n'
+        "body { background: var(--colour-canvas); }\n",
+        encoding="utf-8",
+    )
     (root / "index.html").write_bytes(page)
     baseline = {
         "protected_files": {
@@ -138,6 +149,50 @@ def self_check() -> None:
             "licence removal",
             lambda root: (root / "assets/fonts/OFL.txt").unlink(),
             "protected font missing: assets/fonts/OFL.txt",
+        ),
+        (
+            "gradient regression",
+            lambda root: (root / "assets/site.css").write_text(
+                'body { background: linear-gradient(#fff, #000); }',
+                encoding="utf-8",
+            ),
+            "banned CSS pattern linear-gradient",
+        ),
+        (
+            "glass regression",
+            lambda root: (root / "assets/site.css").write_text(
+                'header { backdrop-filter: blur(2rem); }', encoding="utf-8"
+            ),
+            "banned CSS pattern backdrop-filter",
+        ),
+        (
+            "shadow regression",
+            lambda root: (root / "assets/site.css").write_text(
+                'main { box-shadow: 0 1rem 3rem #000; }', encoding="utf-8"
+            ),
+            "banned CSS pattern box-shadow",
+        ),
+        (
+            "purple palette regression",
+            lambda root: (root / "assets/site.css").write_text(
+                'body { color: #5c2d91; }', encoding="utf-8"
+            ),
+            "banned CSS pattern #5c2d91",
+        ),
+        (
+            "missing token import",
+            lambda root: (root / "assets/site.css").write_text(
+                "body { color: black; }", encoding="utf-8"
+            ),
+            "assets/site.css: tokens.css must be the first rule",
+        ),
+        (
+            "broken font URL",
+            lambda root: (root / "assets/tokens.css").write_text(
+                '@font-face { src: url("/assets/fonts/Missing.woff2"); }',
+                encoding="utf-8",
+            ),
+            "font face target missing: assets/fonts/Missing.woff2",
         ),
     )
     for label, mutate, expected in mutations:
