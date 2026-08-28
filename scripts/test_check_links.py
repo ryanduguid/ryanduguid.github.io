@@ -21,6 +21,11 @@ class FakeResponse:
         return "https://example.com/final"
 
 
+class RetiredRepositoryNameTests(unittest.TestCase):
+    def test_archived_tax_radar_cannot_return_to_html(self) -> None:
+        self.assertIn("tax-radar-au", check_links.RETIRED_NAMES)
+
+
 class FetchFinalUrlTests(unittest.TestCase):
     def test_accepts_only_runner_confirmed_ato_403_denials(self) -> None:
         confirmed = (

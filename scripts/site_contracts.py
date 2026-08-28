@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import html as html_lib
 import json
 import re
+import struct
+import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -507,8 +510,9 @@ PRIMARY_NAV_LINKS = [
     ),
 ]
 
+HOMEPAGE_HEADING = "Accounting tools that show their working."
 HOMEPAGE_REQUIRED_TEXT = [
-    "Accounting tools that show their working.",
+    HOMEPAGE_HEADING,
     "Newcastle",
     "Hunter Valley",
     "Fix the workflow before another review round.",
@@ -539,6 +543,13 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 HOMEPAGE_CATALOGUE_LABEL = "Tools for work that still needs checking"
+SOCIAL_CARD_REQUIRED_COPY = {
+    "Ryan Duguid",
+    HOMEPAGE_HEADING,
+    "duguid.com.au",
+}
+SOCIAL_CARD_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88", "#9aa89f"})
+SOCIAL_CARD_MAX_BYTES = 350_000
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -1961,6 +1972,85 @@ def forbidden_identity_url_labels(text: str) -> set[str]:
     return labels
 
 
+def check_social_card_provenance(root: Path) -> list[str]:
+    """Check the social card's format, size, palette and recorded provenance."""
+    failures: list[str] = []
+    card_path = root / "assets" / "og-card.png"
+    if not card_path.is_file():
+        return ["assets/og-card.png: missing social card"]
+
+    card = card_path.read_bytes()
+    if len(card) < 24 or not card.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ["assets/og-card.png: social card is not PNG"]
+    width, height = struct.unpack(">II", card[16:24])
+    if (width, height) != (1200, 630):
+        failures.append("assets/og-card.png: social card dimensions changed")
+    if len(card) > SOCIAL_CARD_MAX_BYTES:
+        failures.append("assets/og-card.png: social card is larger than 350 KB")
+
+    source_path = root / "assets" / "og-card.svg"
+    if not source_path.is_file():
+        failures.append("assets/og-card.svg: missing editable social-card source")
+    else:
+        try:
+            source = ET.parse(source_path).getroot()
+        except ET.ParseError:
+            failures.append(
+                "assets/og-card.svg: editable social-card source is invalid SVG"
+            )
+        else:
+            if source.tag.rsplit("}", 1)[-1] != "svg":
+                failures.append(
+                    "assets/og-card.svg: editable social-card source is invalid SVG"
+                )
+            elif (
+                source.get("width") != "1200"
+                or source.get("height") != "630"
+                or source.get("viewBox") != "0 0 1200 630"
+            ):
+                failures.append(
+                    "assets/og-card.svg: editable social-card dimensions changed"
+                )
+            else:
+                visible_copy = {
+                    " ".join(" ".join(node.itertext()).split())
+                    for node in source.iter()
+                    if node.tag.rsplit("}", 1)[-1] == "text"
+                }
+                if (
+                    not SOCIAL_CARD_REQUIRED_COPY.issubset(visible_copy)
+                    or any(value == "ryanduguid.github.io" for value in visible_copy)
+                ):
+                    failures.append(
+                        "assets/og-card.svg: social-card copy is stale or incomplete"
+                    )
+                if any(
+                    (fill := element.get("fill")) is not None
+                    and fill.casefold() not in SOCIAL_CARD_COLOURS
+                    for element in source.iter()
+                ):
+                    failures.append(
+                        "assets/og-card.svg: social-card colour is outside the OLED palette"
+                    )
+
+    readme_path = root / "README.md"
+    if not readme_path.is_file():
+        return [*failures, "README.md: missing social-card provenance"]
+    readme = readme_path.read_text(encoding="utf-8")
+    if hashlib.sha256(card).hexdigest() not in readme:
+        failures.append("README.md: social-card checksum is missing or stale")
+    for value in (
+        "assets/og-card.png",
+        "assets/og-card.svg",
+        "MIT",
+        "Pillow",
+        "Google Chrome",
+    ):
+        if value not in readme:
+            failures.append(f"README.md: social-card provenance omits {value}")
+    return failures
+
+
 def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
     """Reject the retired site host and the US namesake's LinkedIn URL."""
     failures: list[str] = []
@@ -1992,6 +2082,7 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_evaluation_packs())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
+    failures.extend(check_social_card_provenance(core.ROOT))
     for rel, target in STATIC_REDIRECTS.items():
         path = core.ROOT / rel
         if not path.is_file():

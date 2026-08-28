@@ -42,6 +42,7 @@ from urllib.parse import urlsplit
 ROOT = Path(__file__).resolve().parent.parent
 
 RETIRED_NAMES = [
+    "tax-radar-au",
     "CharlesHenryWickens",
     "JohnSpenceOgilvy",
     "MaryAddisonHamilton",
