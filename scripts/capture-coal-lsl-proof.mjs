@@ -1,5 +1,14 @@
 import { once } from 'node:events';
-import { lstat, readFile, realpath, stat, writeFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
+import {
+  lstat,
+  open,
+  readFile,
+  realpath,
+  rename,
+  stat,
+  unlink,
+} from 'node:fs/promises';
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
@@ -11,6 +20,8 @@ import { waitForVisualFonts } from '../tests/browser/visual.mjs';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const PROOF_OUTPUT = path.join(ROOT, 'assets', 'coal-lsl-calculator.webp');
+const PROOF_TEMP_PREFIX = `.${path.basename(PROOF_OUTPUT)}.`;
+let proofRasterWarmup;
 const MIME_TYPES = new Map([
   ['.html', 'text/html; charset=utf-8'],
   ['.css', 'text/css; charset=utf-8'],
@@ -148,7 +159,46 @@ async function closeServer(server) {
   });
 }
 
-export async function renderCoalLslProof() {
+async function validateProofOutputBoundary(rootReal) {
+  const expectedParent = path.join(rootReal, 'assets');
+  const outputParent = await realpath(path.dirname(PROOF_OUTPUT));
+  if (path.relative(expectedParent, outputParent) !== '') {
+    throw new Error('Refusing unexpected proof output directory');
+  }
+  const existing = await lstat(PROOF_OUTPUT).catch((error) => {
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  });
+  if (existing?.isSymbolicLink()) {
+    throw new Error('Refusing symbolic-link proof output');
+  }
+  if (existing && !existing.isFile()) {
+    throw new Error('Refusing non-file proof output');
+  }
+  return outputParent;
+}
+
+async function removeTemporaryProof(temporaryOutput, expectedParent) {
+  const outputParent = await realpath(path.dirname(temporaryOutput));
+  if (path.relative(expectedParent, outputParent) !== '') {
+    throw new Error('Refusing unsafe proof temporary cleanup');
+  }
+  const metadata = await lstat(temporaryOutput).catch((error) => {
+    if (error.code === 'ENOENT') return null;
+    throw error;
+  });
+  if (!metadata) return;
+  if (metadata.isSymbolicLink() || !metadata.isFile()) {
+    throw new Error('Refusing unexpected proof temporary output');
+  }
+  const temporaryReal = await realpath(temporaryOutput);
+  if (path.relative(expectedParent, path.dirname(temporaryReal)) !== '') {
+    throw new Error('Refusing escaped proof temporary output');
+  }
+  await unlink(temporaryOutput);
+}
+
+async function renderCoalLslProofOnce() {
   const rootReal = await realpath(ROOT);
   const server = createProofServer(rootReal);
   let browser;
@@ -316,29 +366,62 @@ export async function renderCoalLslProof() {
   }
 }
 
+export async function renderCoalLslProof() {
+  if (!proofRasterWarmup) {
+    proofRasterWarmup = renderCoalLslProofOnce().catch((error) => {
+      proofRasterWarmup = undefined;
+      throw error;
+    });
+  }
+  await proofRasterWarmup;
+  return renderCoalLslProofOnce();
+}
+
 export async function captureCoalLslProof(options) {
   if (options !== undefined) {
     throw new TypeError('captureCoalLslProof does not accept options');
   }
   const rootReal = await realpath(ROOT);
-  const outputParent = await realpath(path.dirname(PROOF_OUTPUT));
-  if (path.relative(path.join(rootReal, 'assets'), outputParent) !== '') {
-    throw new Error('Refusing unexpected proof output directory');
-  }
-  const existing = await lstat(PROOF_OUTPUT).catch((error) => {
-    if (error.code === 'ENOENT') return null;
-    throw error;
-  });
-  if (existing?.isSymbolicLink()) {
-    throw new Error('Refusing symbolic-link proof output');
-  }
+  await validateProofOutputBoundary(rootReal);
   const { image, width, height, bytes } = await renderCoalLslProof();
-  await writeFile(PROOF_OUTPUT, image);
+  const outputParent = await validateProofOutputBoundary(rootReal);
+  const temporaryOutput = path.join(
+    outputParent,
+    `${PROOF_TEMP_PREFIX}${process.pid}.${randomUUID()}.tmp`,
+  );
+  let temporaryHandle;
+  let replaced = false;
+  try {
+    temporaryHandle = await open(temporaryOutput, 'wx', 0o600);
+    await temporaryHandle.writeFile(image);
+    await temporaryHandle.sync();
+    await temporaryHandle.close();
+    temporaryHandle = undefined;
+
+    const replacementParent = await validateProofOutputBoundary(rootReal);
+    if (path.relative(outputParent, replacementParent) !== '') {
+      throw new Error('Refusing changed proof output directory');
+    }
+    const temporaryReal = await realpath(temporaryOutput);
+    if (path.relative(outputParent, path.dirname(temporaryReal)) !== '') {
+      throw new Error('Refusing escaped proof temporary output');
+    }
+    await rename(temporaryOutput, PROOF_OUTPUT);
+    replaced = true;
+  } finally {
+    await temporaryHandle?.close();
+    if (!replaced) {
+      await removeTemporaryProof(temporaryOutput, outputParent);
+    }
+  }
   return { width, height, bytes };
 }
 
 if (process.argv[1]
   && pathToFileURL(path.resolve(process.argv[1])).href === import.meta.url) {
+  if (process.argv.length > 2) {
+    throw new TypeError('Coal LSL proof capture does not accept CLI arguments');
+  }
   const result = await captureCoalLslProof();
   console.log(`${result.width}x${result.height} WebP, ${result.bytes} bytes`);
 }
