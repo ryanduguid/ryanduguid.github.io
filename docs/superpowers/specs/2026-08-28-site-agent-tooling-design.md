@@ -42,8 +42,10 @@ solely for this work.
 - Preserve `llms.txt`, `robots.txt`, `sitemap.xml`, the Google verification
   file, rate facts, JSON-LD facts, disclaimers and levy formula behaviour.
 - Use fabricated data for automated and browser tests.
-- Never read, print, persist in the repository or upload browser credentials,
-  OAuth tokens, client records or Search Console responses.
+- Never read, display, persist in the repository or upload browser credentials,
+  OAuth tokens or client records. Search Console read results may appear only
+  in the current MCP conversation or operator terminal; never redirect, copy,
+  persist, commit or upload them.
 - Keep npm packages development-only and exactly pinned in the lockfile.
 - Use user-facing Playwright locators, isolated tests and web-first assertions.
 - Retain Playwright traces on failure and inspect both transport failures and

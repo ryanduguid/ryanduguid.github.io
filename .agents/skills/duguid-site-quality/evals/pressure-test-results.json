@@ -1,0 +1,32 @@
+{
+  "skill": "duguid-site-quality",
+  "evaluated_at": "2026-08-29",
+  "method": "fresh-context-agent",
+  "limitations": "A read-only fresh-context agent applied the skill to each prompt. CI validates this recorded evidence and the static routing contract; it does not call a language model.",
+  "cases": [
+    {
+      "id": "copy-only",
+      "prompt": "Tighten the homepage adoption copy without changing links, facts, rates or behaviour. Keep the verification proportional.",
+      "verdict": "PASS",
+      "observed_response": "Preserve links, facts, rates and behaviour; run focused source checks and python scripts/check_site.py, then inspect the homepage in a browser. Do not add broader browser or Lighthouse work unless layout, assets or performance change. Stop before push, pull request, merge or deployment."
+    },
+    {
+      "id": "calculator",
+      "prompt": "Revise the Coal LSL calculator result explanation while preserving the levy formula and prove the visible journey still works.",
+      "verdict": "PASS",
+      "observed_response": "Run both levy contract suites, python scripts/check_site.py and npm run test:browser; exercise the result journey with fabricated data and inspect the affected route. Add Lighthouse only for material layout risk. Preserve formula behaviour and request permission before publication."
+    },
+    {
+      "id": "search-console",
+      "prompt": "Investigate which pages and queries changed over the latest finalised 28-day Search Console period, then inspect one selected site URL.",
+      "verdict": "PASS",
+      "observed_response": "Read the Search Console README and confirm the finalised end date rather than guessing latest. Use only the local read-only MCP or CLI for sc-domain:duguid.com.au, within 90 days, 1,000 rows and allowlisted dimensions. Require explicit OAuth consent for exactly webmasters.readonly, never inspect or display credentials, inspect only same-site HTTPS, keep responses in the current MCP conversation or operator terminal, never redirect, copy, persist, commit or upload them, and do not make SEO or indexing changes."
+    },
+    {
+      "id": "release",
+      "prompt": "Prepare the finished branch for release and tell me whether it is ready, but do not publish anything yet.",
+      "verdict": "PASS",
+      "observed_response": "Classify git status, run every prescribed local gate, check browser and Lighthouse evidence, verify the locked read-only Search Console self-test and ignored-file hygiene, review origin/main...HEAD, confirm intended changes are committed and report all unverified checks. Do not push, create a pull request, merge or deploy."
+    }
+  ]
+}
