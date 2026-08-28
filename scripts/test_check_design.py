@@ -64,7 +64,9 @@ def write_fixture(root: Path) -> None:
         '--colour-stamp-strong: #78ffa3; --colour-stamp-wash: #082619; '
         '--colour-alert: #ff9c91; --colour-masthead: #eef4f0; '
         '--colour-code: #020403; --colour-code-ink: #eef4f0; '
-        '--colour-code-comment: #9aa89f; --radius-control: 0.125rem; }\n',
+        '--colour-code-comment: #9aa89f; '
+        '--text-display: clamp(2.5rem, 1.45rem + 5.6vw, 6rem); '
+        '--radius-control: 0.125rem; }\n',
         encoding="utf-8",
     )
     (root / "assets/site.css").write_text(
@@ -334,6 +336,19 @@ def self_check() -> None:
                 encoding="utf-8",
             ),
             "OLED theme must not contain a prefers-color-scheme override",
+        ),
+        (
+            "oversized mobile display",
+            lambda root: (root / "assets/tokens.css").write_text(
+                (root / "assets/tokens.css")
+                .read_text(encoding="utf-8")
+                .replace(
+                    "--text-display: clamp(2.5rem, 1.45rem + 5.6vw, 6rem)",
+                    "--text-display: clamp(3rem, 1.45rem + 5.6vw, 6rem)",
+                ),
+                encoding="utf-8",
+            ),
+            "display type minimum must fit the 320px viewport",
         ),
         (
             "non-sticky route rail",

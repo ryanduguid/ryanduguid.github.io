@@ -175,6 +175,12 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
+    display = properties.get("--text-display", "")
+    display_minimum = re.match(
+        r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", display
+    )
+    if display_minimum is None or float(display_minimum.group(1)) > 2.5:
+        failures.append("display type minimum must fit the 320px viewport")
     return failures
 
 

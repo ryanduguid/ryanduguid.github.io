@@ -154,7 +154,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Lead | 19 to 23px | One-sentence explanation |
 | Heading small | 24 to 32px | Article subsections |
 | Heading | 36 to 56px | Section statement |
-| Display | 48 to 96px | Homepage hero |
+| Display | 40 to 96px | Homepage hero; the minimum keeps `ACCOUNTING` inside a 320px viewport |
 | Route | 64 to 132px | Engage, Adopt and Verify route word |
 
 Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
