@@ -5,6 +5,7 @@
   "scripts": {
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
+    "capture:coal-lsl-proof": "node scripts/capture-coal-lsl-proof.mjs",
     "pretest:lighthouse": "node scripts/clean-lighthouse-output.mjs",
     "test:lighthouse": "lhci autorun"
   },

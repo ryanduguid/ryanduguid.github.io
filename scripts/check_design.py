@@ -39,6 +39,10 @@ PROOF_IMAGE_PATTERN = re.compile(
     r'<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>',
     re.I,
 )
+PROOF_WIDTH = "868"
+PROOF_HEIGHT = "580"
+MAX_PROOF_BYTES = 80_000
+PROOF_ASSET = "assets/coal-lsl-calculator.webp"
 HOMEPAGE_ROUTE_TARGETS = ("#engage", "#adopt", "#verify")
 HOMEPAGE_REQUIRED_CLASSES = ("hero-routes", "trust-band", "catalogue-index")
 TRUST_BAND_TEXT = (
@@ -627,8 +631,8 @@ def check_document_delivery(
             'loading="lazy"': "load lazily",
             'decoding="async"': "decode asynchronously",
             'fetchpriority="low"': "use low fetch priority",
-            'width="868"': "keep its width",
-            'height="1106"': "keep its height",
+            f'width="{PROOF_WIDTH}"': "keep its width",
+            f'height="{PROOF_HEIGHT}"': "keep its height",
         }
         for marker, message in required.items():
             if marker not in image:
@@ -639,6 +643,18 @@ def check_document_delivery(
         if alt is None or len(visible_text(alt.group(2))) < 12:
             failures.append(
                 "index.html: Coal LSL proof image must have descriptive alt text"
+            )
+
+    proof_path = root / PROOF_ASSET
+    if not proof_path.is_file():
+        failures.append(f"{PROOF_ASSET}: proof image is missing")
+    else:
+        proof = proof_path.read_bytes()
+        if proof[:4] != b"RIFF" or proof[8:12] != b"WEBP":
+            failures.append(f"{PROOF_ASSET}: proof image is not a WebP container")
+        if len(proof) > MAX_PROOF_BYTES:
+            failures.append(
+                f"{PROOF_ASSET}: proof image exceeds {MAX_PROOF_BYTES} bytes"
             )
     return failures
 

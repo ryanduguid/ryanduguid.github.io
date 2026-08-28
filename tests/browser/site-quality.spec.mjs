@@ -28,6 +28,18 @@ async function textLineCount(locator) {
   });
 }
 
+async function decodedHomeProof(page) {
+  const proof = page.getByRole('img', {
+    name: /Coal LSL calculator result showing Formula B/,
+  });
+  await proof.scrollIntoViewIfNeeded();
+  await expect.poll(() => proof.evaluate((image) => (
+    image.complete && image.naturalWidth > 0
+  ))).toBe(true);
+  await proof.evaluate((image) => image.decode());
+  return proof;
+}
+
 for (const [label, route] of routes) {
   test(`${label} has a healthy, accessible page shell`, async ({ page }) => {
     const health = observePageHealth(page);
@@ -153,10 +165,28 @@ test('home does not overflow at refinement acceptance widths', async ({ page }) 
   health.assertHealthy();
 });
 
+test('home proof image loads only when requested and decodes before capture', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/');
+  const proof = page.getByRole('img', {
+    name: /Coal LSL calculator result showing Formula B/,
+  });
+  await expect(proof).toHaveAttribute('loading', 'lazy');
+  await expect(proof).toHaveAttribute('fetchpriority', 'low');
+  await decodedHomeProof(page);
+  expect(await proof.evaluate((image) => ({
+    width: image.naturalWidth,
+    height: image.naturalHeight,
+  }))).toEqual({ width: 868, height: 580 });
+  health.assertHealthy();
+});
+
 test('home matches its viewport visual baseline', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
   await waitForVisualFonts(page);
+  await decodedHomeProof(page);
+  await page.evaluate(() => scrollTo(0, 0));
 
   const viewport = testInfo.project.name === 'mobile-chromium'
     ? 'mobile'
