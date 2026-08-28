@@ -22,6 +22,7 @@ import { promisify } from 'node:util';
 import { COAL_LSL_PROOF } from './coal-lsl-proof-fixture.mjs';
 import {
   captureCoalLslProof,
+  renderConvergedCoalLslProof,
   renderCoalLslProof,
 } from './capture-coal-lsl-proof.mjs';
 
@@ -34,6 +35,10 @@ const execFileAsync = promisify(execFile);
 
 async function sha256(file) {
   return createHash('sha256').update(await readFile(file)).digest('hex');
+}
+
+function renderDiagnostic(result) {
+  return `${result.width}x${result.height}, ${result.bytes} bytes, png sha256 ${result.pngSha256}, webp sha256 ${createHash('sha256').update(result.image).digest('hex')}`;
 }
 
 const trackedHashesBefore = {
@@ -151,7 +156,11 @@ test('renders the deterministic Coal LSL result without writing', async () => {
   }
   assert.equal(second.width, first.width);
   assert.equal(second.height, first.height);
-  assert.equal(second.bytes, first.bytes);
+  assert.equal(
+    second.bytes,
+    first.bytes,
+    `render mismatch: first ${renderDiagnostic(first)}; second ${renderDiagnostic(second)}`,
+  );
   assert.deepEqual(second.image, first.image);
   assert.deepEqual(await readFile(PROOF_PATH), before);
 });
@@ -176,6 +185,91 @@ test('render reads current visual source and reconverges deterministically', asy
     assert.equal(stable.height, changed.height);
     assert.equal(stable.bytes, changed.bytes);
     assert.deepEqual(stable.image, changed.image);
+  } finally {
+    await harness.cleanup();
+  }
+});
+
+test('convergence reuses one browser while keeping attempts isolated', async () => {
+  let browserLaunches = 0;
+  let browserCloses = 0;
+  const browser = {
+    close: async () => {
+      browserCloses += 1;
+    },
+  };
+  const attemptTokens = [];
+  const first = {
+    image: Buffer.from('first'),
+    width: COAL_LSL_PROOF.capture.width,
+    height: COAL_LSL_PROOF.capture.height,
+    bytes: 5,
+    pngSha256: '1'.repeat(64),
+  };
+  const stable = {
+    image: Buffer.from('stable'),
+    width: COAL_LSL_PROOF.capture.width,
+    height: COAL_LSL_PROOF.capture.height,
+    bytes: 6,
+    pngSha256: '2'.repeat(64),
+  };
+
+  const result = await renderConvergedCoalLslProof({
+    launchBrowser: async () => {
+      browserLaunches += 1;
+      return browser;
+    },
+    renderAttempt: async (activeBrowser) => {
+      assert.equal(activeBrowser, browser);
+      attemptTokens.push({});
+      return attemptTokens.length === 1
+        ? { ...first, image: Buffer.from(first.image) }
+        : { ...stable, image: Buffer.from(stable.image) };
+    },
+  });
+
+  assert.equal(browserLaunches, 1);
+  assert.equal(browserCloses, 1);
+  assert.equal(attemptTokens.length, 3);
+  assert.equal(new Set(attemptTokens).size, 3);
+  assert.deepEqual(result.image, stable.image);
+});
+
+test('non-convergent renders report attempt dimensions and hashes', async () => {
+  const harness = await createIsolatedHarness();
+  try {
+    const calculator = await readFile(harness.calculatorPath, 'utf8');
+    const shiftingVisual = String.raw`
+      <script>
+        const colourSeed = new Uint32Array(1);
+        crypto.getRandomValues(colourSeed);
+        const colour = (colourSeed[0] & 0xffffff).toString(16).padStart(6, '0');
+        document.querySelector('.calculator-result').style.boxShadow =
+          'inset 0 0 0 12px #' + colour;
+      </script>
+    `;
+    await writeFile(
+      harness.calculatorPath,
+      calculator.replace('</body>', `${shiftingVisual}</body>`),
+      'utf8',
+    );
+
+    await assert.rejects(
+      harness.capture.renderCoalLslProof(),
+      (error) => {
+        const attempts = [...error.message.matchAll(
+          /attempt (\d+): (\d+)x(\d+), (\d+) bytes, png sha256 ([a-f0-9]{64}), webp sha256 ([a-f0-9]{64})/gu,
+        )];
+        assert.equal(attempts.length, 5);
+        for (const [index, match] of attempts.entries()) {
+          assert.equal(Number(match[1]), index + 1);
+          assert.equal(Number(match[2]), COAL_LSL_PROOF.capture.width);
+          assert.equal(Number(match[3]), COAL_LSL_PROOF.capture.height);
+          assert.ok(Number(match[4]) > 0);
+        }
+        return true;
+      },
+    );
   } finally {
     await harness.cleanup();
   }
