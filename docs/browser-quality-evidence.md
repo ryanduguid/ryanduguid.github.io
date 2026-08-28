@@ -1,8 +1,9 @@
 # Browser quality evidence
 
-Reviewed locally on 28 August 2026. This record supplements the repeatable
-Playwright and Lighthouse checks. It is evidence of the checks described
-below, not a claim of WCAG conformance.
+Hands-on review completed on 28 August 2026; the automated gates were rerun
+from a clean npm dependency state on 29 August 2026. This record supplements
+the repeatable Playwright and Lighthouse checks. It is evidence of the checks
+described below, not a claim of WCAG conformance.
 
 ## Test environment
 
@@ -26,7 +27,7 @@ below, not a claim of WCAG conformance.
 - Three-run Lighthouse medians passed every configured assertion. Performance
   was 0.99 for the homepage, 0.98 for Evidence and 0.98 for the calculator;
   Accessibility, Best Practices and SEO were 1.00 for all three. Median LCP
-  was 1,802 ms, 1,953 ms and 1,952 ms respectively. CLS and total blocking
+  was 1,803 ms, 1,952 ms and 1,952 ms respectively. CLS and total blocking
   time were zero in every run.
 
 ## WebMCP progressive enhancement
