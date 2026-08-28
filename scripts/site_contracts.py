@@ -1965,7 +1965,7 @@ def check_social_card_provenance(root: Path) -> list[str]:
                 }
                 if (
                     not required_copy.issubset(visible_copy)
-                    or any("ryanduguid.github.io" in value for value in visible_copy)
+                    or "ryanduguid.github.io" in visible_copy
                 ):
                     failures.append(
                         "assets/og-card.svg: social-card copy is stale or incomplete"
