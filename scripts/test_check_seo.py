@@ -55,6 +55,13 @@ def self_check() -> None:
             ),
             (
                 card_source.replace(
+                    "</svg>",
+                    "  <text>ryanduguid.github.io</text>\n</svg>",
+                ),
+                "assets/og-card.svg: social-card copy is stale or incomplete",
+            ),
+            (
+                card_source.replace(
                     "<text>Accounting systems that can show their work.</text>",
                     "<text>Open-source accounting tools.</text>",
                 ),
