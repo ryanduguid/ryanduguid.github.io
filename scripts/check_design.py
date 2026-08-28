@@ -14,9 +14,21 @@ ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
+MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
 FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
+TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css" />'
+SITE_LINK = '<link rel="stylesheet" href="/assets/site.css" />'
+LLMS_ALTERNATE = (
+    '<link rel="alternate" type="text/plain" '
+    'href="https://duguid.com.au/llms.txt" />'
+)
+LLMS_VISIBLE = '<a href="/llms.txt">Machine-readable index</a>'
+PROOF_IMAGE_PATTERN = re.compile(
+    r'<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>',
+    re.I,
+)
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
     "radial-gradient",
@@ -95,6 +107,13 @@ def visible_text(raw_html: str) -> str:
     return " ".join(html_module.unescape(without_tags).split())
 
 
+def main_visible_digest(path: Path) -> str | None:
+    matches = MAIN_PATTERN.findall(path.read_text(encoding="utf-8"))
+    if len(matches) != 1:
+        return None
+    return sha256_bytes(visible_text(matches[0]).encode("utf-8"))
+
+
 def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     failures: list[str] = []
     site_path = root / "assets/site.css"
@@ -106,9 +125,8 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
 
     site_css = site_path.read_text(encoding="utf-8")
     tokens_css = tokens_path.read_text(encoding="utf-8")
-    first_rule = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S).lstrip()
-    if not first_rule.startswith('@import url("/assets/tokens.css");'):
-        failures.append("assets/site.css: tokens.css must be the first rule")
+    if re.search(r"@import\b", site_css, re.I):
+        failures.append("assets/site.css: token import creates a serial request chain")
 
     combined = f"{site_css}\n{tokens_css}".lower()
     for pattern in BANNED_CSS_PATTERNS:
@@ -185,6 +203,60 @@ def check_copy(root: Path) -> list[str]:
     return failures
 
 
+def check_document_delivery(
+    root: Path, baseline: dict[str, object]
+) -> list[str]:
+    failures: list[str] = []
+    indexable = set(baseline.get("json_ld", {}))
+    styled = indexable | {"404.html"}
+
+    for rel in sorted(styled):
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"styled page missing: {rel}")
+            continue
+        raw = path.read_text(encoding="utf-8")
+        token_at = raw.find(TOKENS_LINK)
+        site_at = raw.find(SITE_LINK)
+        if (
+            raw.count(TOKENS_LINK) != 1
+            or raw.count(SITE_LINK) != 1
+            or token_at > site_at
+        ):
+            failures.append(
+                f"{rel}: expected one tokens stylesheet before site stylesheet"
+            )
+        if raw.count(LLMS_VISIBLE) != 1:
+            failures.append(
+                f"{rel}: expected one visible machine-readable index link"
+            )
+        if rel in indexable and raw.count(LLMS_ALTERNATE) != 1:
+            failures.append(f"{rel}: expected one llms.txt alternate link")
+
+    homepage_path = root / "index.html"
+    if not homepage_path.is_file():
+        return failures
+    homepage = homepage_path.read_text(encoding="utf-8")
+    image_match = PROOF_IMAGE_PATTERN.search(homepage)
+    if image_match is None:
+        failures.append("index.html: Coal LSL proof image is missing")
+    else:
+        image = image_match.group(0)
+        required = {
+            'loading="lazy"': "load lazily",
+            'decoding="async"': "decode asynchronously",
+            'fetchpriority="low"': "use low fetch priority",
+            'width="868"': "keep its width",
+            'height="1106"': "keep its height",
+        }
+        for marker, message in required.items():
+            if marker not in image:
+                failures.append(
+                    f"index.html: Coal LSL proof image must {message}"
+                )
+    return failures
+
+
 def check_repository(root: Path = ROOT) -> list[str]:
     baseline_path = root / "scripts/design_baseline.json"
     if not baseline_path.is_file():
@@ -199,6 +271,17 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected file missing: {rel}")
         elif normalised_text_digest(path) != expected:
             failures.append(f"protected file changed: {rel}")
+
+    for rel, expected in baseline.get("protected_main_text", {}).items():
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"protected main page missing: {rel}")
+            continue
+        actual = main_visible_digest(path)
+        if actual is None:
+            failures.append(f"protected main missing or duplicated: {rel}")
+        elif actual != expected:
+            failures.append(f"protected main text changed: {rel}")
 
     for rel, expected in baseline.get("json_ld", {}).items():
         path = root / rel
@@ -229,6 +312,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
         elif protected_asset_digest(path) != expected:
             failures.append(f"protected font changed: {rel}")
 
+    failures.extend(check_document_delivery(root, baseline))
     failures.extend(check_stylesheets(root, baseline))
     failures.extend(check_copy(root))
 

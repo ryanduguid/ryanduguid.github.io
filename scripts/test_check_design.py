@@ -24,12 +24,24 @@ def write_fixture(root: Path) -> None:
     (root / "about").mkdir()
 
     llms = b"# Example\n\nCurrent rate: 12%\n"
-    rate = b"<html><body><main>12%</main></body></html>\n"
+    rate = (
+        b"<html><head><title>Rate</title></head><body>"
+        b"<main>12%</main><footer>Source</footer></body></html>\n"
+    )
     font = b"font-fixture"
     licence = b"SIL OPEN FONT LICENSE Version 1.1\nPermission notice\n"
     page = (
-        '<!doctype html><html><body><main><h1>Example</h1></main>'
-        f'<footer><p>{DISCLAIMER}</p></footer>'
+        '<!doctype html><html><head>'
+        '<link rel="alternate" type="text/plain" '
+        'href="https://duguid.com.au/llms.txt" />'
+        '<link rel="stylesheet" href="/assets/tokens.css" />'
+        '<link rel="stylesheet" href="/assets/site.css" />'
+        '</head><body><main><h1>Example</h1>'
+        '<img src="/assets/coal-lsl-calculator.webp" width="868" height="1106" '
+        'loading="lazy" decoding="async" fetchpriority="low" alt="Example" />'
+        '</main>'
+        f'<footer><p>{DISCLAIMER}</p>'
+        '<a href="/llms.txt">Machine-readable index</a></footer>'
         '<script type="application/ld+json">'
         '{"@context":"https://schema.org","@type":"WebPage","name":"Example"}'
         "</script></body></html>"
@@ -47,7 +59,6 @@ def write_fixture(root: Path) -> None:
         encoding="utf-8",
     )
     (root / "assets/site.css").write_text(
-        '@import url("/assets/tokens.css");\n'
         "body { background: var(--colour-canvas); }\n"
         ".route-section > h2 { position: sticky; }\n"
         ".route-content { min-width: 0; }\n"
@@ -56,6 +67,15 @@ def write_fixture(root: Path) -> None:
         encoding="utf-8",
     )
     (root / "index.html").write_bytes(page)
+    (root / "404.html").write_text(
+        '<!doctype html><html><head>'
+        '<link rel="stylesheet" href="/assets/tokens.css" />'
+        '<link rel="stylesheet" href="/assets/site.css" />'
+        '</head><body><main><h1>Not found</h1></main>'
+        '<footer><a href="/llms.txt">Machine-readable index</a></footer>'
+        '</body></html>',
+        encoding="utf-8",
+    )
     (root / "about/index.html").write_text(
         "<!doctype html><html><body><main>About</main></body></html>",
         encoding="utf-8",
@@ -63,7 +83,11 @@ def write_fixture(root: Path) -> None:
     baseline = {
         "protected_files": {
             "llms.txt": digest(llms),
-            "rates/example/index.html": digest(rate),
+        },
+        "protected_main_text": {
+            "rates/example/index.html": (
+                "234d0e73855ae7bf477734cbd4c1e50d56d5d00af3edb4bc8ddbdf44e8d5c8de"
+            )
         },
         "json_ld": {
             "index.html": [
@@ -124,18 +148,37 @@ def self_check() -> None:
             path.write_bytes(path.read_bytes().replace(b"\n", b"\r\n"))
         assert check_design.check_repository(root) == []
 
+    head_only_failures = fixture_failures(
+        lambda root: (root / "rates/example/index.html").write_text(
+            (root / "rates/example/index.html")
+            .read_text(encoding="utf-8")
+            .replace(
+                "</head>",
+                '<meta name="x-test" content="shared chrome" /></head>',
+            ),
+            encoding="utf-8",
+        )
+    )
+    assert not any("protected main" in failure for failure in head_only_failures)
+
+    rate_failures = fixture_failures(
+        lambda root: (root / "rates/example/index.html").write_text(
+            (root / "rates/example/index.html")
+            .read_text(encoding="utf-8")
+            .replace("<main>12%</main>", "<main>13%</main>"),
+            encoding="utf-8",
+        )
+    )
+    assert any(
+        "protected main text changed: rates/example/index.html" in failure
+        for failure in rate_failures
+    )
+
     mutations = (
         (
             "llms.txt drift",
             lambda root: (root / "llms.txt").write_text("changed", encoding="utf-8"),
             "protected file changed: llms.txt",
-        ),
-        (
-            "rate table drift",
-            lambda root: (root / "rates/example/index.html").write_text(
-                "<html>13%</html>", encoding="utf-8"
-            ),
-            "protected file changed: rates/example/index.html",
         ),
         (
             "JSON-LD fact drift",
@@ -279,11 +322,57 @@ def self_check() -> None:
             "index.html: decorative emoji is not permitted",
         ),
         (
-            "missing token import",
+            "serial stylesheet import",
             lambda root: (root / "assets/site.css").write_text(
-                "body { color: black; }", encoding="utf-8"
+                '@import url("/assets/tokens.css");\n'
+                "body { background: var(--colour-canvas); }",
+                encoding="utf-8",
             ),
-            "assets/site.css: tokens.css must be the first rule",
+            "assets/site.css: token import creates a serial request chain",
+        ),
+        (
+            "missing token stylesheet",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('<link rel="stylesheet" href="/assets/tokens.css" />', ""),
+                encoding="utf-8",
+            ),
+            "index.html: expected one tokens stylesheet before site stylesheet",
+        ),
+        (
+            "missing machine alternate",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace(
+                    '<link rel="alternate" type="text/plain" '
+                    'href="https://duguid.com.au/llms.txt" />',
+                    "",
+                ),
+                encoding="utf-8",
+            ),
+            "index.html: expected one llms.txt alternate link",
+        ),
+        (
+            "missing visible machine index",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace('<a href="/llms.txt">Machine-readable index</a>', ""),
+                encoding="utf-8",
+            ),
+            "index.html: expected one visible machine-readable index link",
+        ),
+        (
+            "eager proof image",
+            lambda root: (root / "index.html").write_text(
+                (root / "index.html")
+                .read_text(encoding="utf-8")
+                .replace(' loading="lazy"', ""),
+                encoding="utf-8",
+            ),
+            "index.html: Coal LSL proof image must load lazily",
         ),
         (
             "broken font URL",
