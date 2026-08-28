@@ -11,6 +11,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree
 
+import seo_core as core
+
 
 ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(
@@ -295,9 +297,7 @@ def check_font_delivery(
     failures: list[str] = []
     faces = FONT_FACE_PATTERN.findall(tokens_css)
     rendered_text: list[str] = []
-    for path in sorted(root.rglob("*.html")):
-        if path.name.startswith("google") and path.name.endswith(".html"):
-            continue
+    for path in core.html_files(root):
         raw = path.read_text(encoding="utf-8")
         rendered_text.append(visible_text(raw))
         rendered_text.extend(script_contents(raw))
@@ -586,7 +586,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
 
     html_text = "\n".join(
         visible_text(path.read_text(encoding="utf-8"))
-        for path in sorted(root.rglob("*.html"))
+        for path in core.html_files(root)
     )
     for protected, expected_count in baseline.get("protected_text", {}).items():
         actual_count = html_text.count(protected)
