@@ -35,13 +35,13 @@
         <p class="article-crumb"><a href="/">Home</a></p>
         <h1>About Ryan Duguid</h1>
         <p class="lead-note">
-          I am an Australian accountant based in Newcastle, New South Wales. I am a
-          provisional member of Chartered Accountants Australia and New Zealand, as
-          asserted by me as the site owner; this is not an endorsement by Chartered
-          Accountants ANZ. I build open-source computational accounting tools for Australian tax,
-          payroll and statutory compliance, and publish them at
-          github.com/ryanduguid. The site provides public tools and evidence; it
-          does not provide tax or BAS agent services.
+          I am a Newcastle accountant who builds open-source review controls for
+          Australian tax, payroll, ledgers and workpapers. The public tools name
+          their sources, show their working and keep judgement with a person. I am
+          a provisional member of Chartered Accountants Australia and New Zealand,
+          as asserted by me as the site owner; this is not an endorsement by
+          Chartered Accountants ANZ. The site provides public tools and evidence;
+          it does not provide tax or BAS agent services.
         </p>
       </header>
       <div class="article-layout site-shell">
@@ -56,18 +56,16 @@
           <a href="#citing">Citing this work</a>
         </nav>
         <div class="article-body">
+          <p>Most of this work answers one question: can a second person trace the record, rule and result?</p>
           <p>
-            My public work includes aus-accounting-mcp and payday-super-checker.
+            The tools cite legislation, regulator guidance or an accounting standard,
+            expose the calculation and refuse a result when the supplied facts do not
+            settle the test. Public examples use fabricated data.
           </p>
           <p>
-            My work sits where accounting practice meets code. Australian statutory
-            rules are detailed and change on fixed dates. I build tools that cite the
-            legislation or regulator's published guidance, show their working, and
-            make the result easier for a second person to review.
-          </p>
-          <p>
-            My <a href="/evidence/">evidence page</a> sets out the public proof
-            links, source hierarchy and limits on what those records can establish.
+            The <a href="/evidence/">evidence register</a> links identity,
+            releases, source reviews, repository controls and reproducible tests. It
+            also states what those records cannot establish.
           </p>
 
           <section id="facts">
@@ -90,13 +88,10 @@
           <section id="what-i-build">
             <h2>What I build</h2>
             <p>
-              I organise the work into four layers. Data and ledger tools pull figures
-              out of accounting systems without breaking them. Rules and engine tools
-              package deterministic calculations and statutory tests. Agent workflows
-              let an AI coding assistant run those engines
-              inside a fixed boundary, so the calculation stays deterministic even when
-              the assistant is not. Review controls keep incomplete packs and close
-              exceptions in view for a person to assess.
+              The tools extract records into a reviewable shape, apply deterministic
+              calculations, or stop incomplete work before it reaches a reviewer. AI
+              workflows call those bounded tools; they do not replace the calculation,
+              invent missing facts or approve the result.
             </p>
             <ul>
               <li><a href="/tools/payday-super/">Payday super timing and SG charge exposure</a>, checked against a payroll export.</li>

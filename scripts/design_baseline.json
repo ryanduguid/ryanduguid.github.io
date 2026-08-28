@@ -1,0 +1,82 @@
+{
+  "protected_files": {
+    "llms.txt": "4133a06aeef0cdf1d014d49c61051a80365a1f2680dbbb874a1c5c658376c3a5",
+    "rates/super-guarantee/index.html": "599d554fb2bc1a1b1d171297afa62c5ad743ba056c90dfe7db9b383ec26d0c5c",
+    "rates/div7a-benchmark-rate/index.html": "e89020e290f4cf374f41b40092beb53b93f551c00ff9365264b0b9df83c9e162",
+    "rates/cents-per-kilometre/index.html": "fedf9165a492c614a447d1f7fa55809b8917bb1ddb4802bceca01039299552d7"
+  },
+  "json_ld": {
+    "about/index.html": [
+      "b83e7af3e79a72e869952129a7d992a4523b9ef0a071c315292d411e1db68eb9"
+    ],
+    "evaluate/manager-review-gate/index.html": [
+      "99f24013333fb68032d9c77c7542d3d6f11adaf4aea201f5d3c38c7e17e30787"
+    ],
+    "evaluate/payday-super-evidence/index.html": [
+      "036d56685ccee4eef315bc7631cd8b3da5f1cc04fde972877f07b1a58e416a0e"
+    ],
+    "evaluate/xero-trial-balance-integrity/index.html": [
+      "de094439db2c76a5526b94df5bf488095a2fd7c739fc0d5a75066a119fe09ad3"
+    ],
+    "evidence/index.html": [
+      "cb3e480bbad7a90bdc11acc9bef797f72f44f23239846f295a5d80693c94afad"
+    ],
+    "index.html": [
+      "e9f45dc6fbe1bf5a9a9f47d8e6cbef0ac14ae869274b93f12641d2953189a8a5"
+    ],
+    "rates/cents-per-kilometre/index.html": [
+      "eb08a77d52e58ecfcb0f242c5d22fdccde75c6da03a808ea9ef46fc5a7f804ba"
+    ],
+    "rates/div7a-benchmark-rate/index.html": [
+      "8aa654a04552e3a726d65357fa199fe4d914acc6b41169d7881bdc1b71c486aa"
+    ],
+    "rates/super-guarantee/index.html": [
+      "7f19d3a473295af869f57331015c7b50eb9d28b22ed6b16041cc09bfbeba4dbd"
+    ],
+    "tools/ato-benchmarks/index.html": [
+      "5fc8c1ebc170365482a04b661d6af92d2fc5362c8c5dbeebbdecd6ab69a2ad08"
+    ],
+    "tools/australian-tax-ai-agents/index.html": [
+      "868083ad0caf8deb758cf38bff34dc02e7c08650290ad62f9d6c949ec5bde0b5"
+    ],
+    "tools/coal-lsl-levy/index.html": [
+      "35f502185b4d3c9e32bc3c2fa7d6f62502d575461fa21bcd8aecadea0025dcc8"
+    ],
+    "tools/company-tax-franking/index.html": [
+      "8340114f54e82aef5a80124234fd815fdf9c8bfc4b9454b2260bb7016a151e37"
+    ],
+    "tools/payday-super/index.html": [
+      "c5bfa2fe090aca85f7103422e7545cf140333a92bbdc835d0f03378faaff6bd3"
+    ],
+    "tools/subcontractor-ledgers/index.html": [
+      "6e00088d44201404b5505e423da31c081561c8a708fca3d77ddf7cd03d1707d6"
+    ],
+    "tools/trust-distributions/index.html": [
+      "d2a485f45ee1c3d9174fbfee02fc9803a886ca6ac50d9288c3d388712d18325e"
+    ],
+    "tools/wip-schedule/index.html": [
+      "64746f2ed679e255443ac13f19e0bb152c3ad523622f48e5d2033203266727e9"
+    ],
+    "tools/workpaper-review-gate/index.html": [
+      "19d1da4d7ac98d68d3726fa418e39b87bc98de2577f4befc8edc1c4029623a8d"
+    ],
+    "tools/xero-trial-balance/index.html": [
+      "87c0ee4e738f205ee16ab2a3cee574c2f32d903b0d1f0260d829182e54135056"
+    ]
+  },
+  "protected_text": {
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 20,
+    "Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.": 1,
+    "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
+    "This site does not offer tax or BAS agent services and does not accept tax advice or lodgment requests.": 1
+  },
+  "fonts": {
+    "assets/fonts/IBMPlexSerif-Regular.woff2": "8e1906e5bd1c981f7fb837540a95a754e86524f317ab4523976406b6a4128b6b",
+    "assets/fonts/IBMPlexSerif-SemiBold.woff2": "45495ba3e86aede56963e08d20feaa30c789a87c774a6c1c8313d25ebd63be69",
+    "assets/fonts/IBMPlexSans-Regular.woff2": "ba711a3085ff9f27440b6b9c4550cfc47c97bf36591d5da958b975bb3add8c1a",
+    "assets/fonts/IBMPlexSans-Italic.woff2": "13284fab1821ba6e3652c1580fcf2bbfd8c9309520c69b3d1224dab40b37c597",
+    "assets/fonts/IBMPlexSans-SemiBold.woff2": "f78048030eab62e860efa39a0df79e2e5581bf122eb95b9bc42c0b8a4988d205",
+    "assets/fonts/IBMPlexMono-Regular.woff2": "49ce58b41a0e1cb921c0f58d9a5b8b96a2cc21437c7066f3ba4f24873076d131",
+    "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
+  }
+}
