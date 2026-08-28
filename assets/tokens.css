@@ -1,0 +1,150 @@
+/* duguid.com.au design tokens. Component CSS must consume these variables. */
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  src: url("/assets/fonts/IBMPlexSerif-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "IBM Plex Serif";
+  src: url("/assets/fonts/IBMPlexSerif-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "IBM Plex Sans";
+  src: url("/assets/fonts/IBMPlexSans-SemiBold.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 600;
+  font-display: optional;
+}
+
+@font-face {
+  font-family: "IBM Plex Mono";
+  src: url("/assets/fonts/IBMPlexMono-Regular.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: optional;
+}
+
+:root {
+  color-scheme: light dark;
+
+  --colour-canvas: #e9eeeb;
+  --colour-paper: #f8faf8;
+  --colour-paper-raised: #ffffff;
+  --colour-ink: #14211e;
+  --colour-ink-soft: #45534f;
+  --colour-rule: #bcc7c2;
+  --colour-rule-strong: #74857f;
+  --colour-stamp: #006b59;
+  --colour-stamp-strong: #005246;
+  --colour-stamp-wash: #d7e9e3;
+  --colour-alert: #833e36;
+  --colour-masthead: #006671;
+  --colour-code: #101b18;
+  --colour-code-ink: #eff7f3;
+  --colour-code-comment: #a9b8b3;
+
+  --font-display: "IBM Plex Serif", Georgia, serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
+
+  --text-caption: 0.75rem;
+  --text-small: clamp(0.875rem, 0.84rem + 0.12vw, 0.9375rem);
+  --text-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
+  --text-lead: clamp(1.1875rem, 1.05rem + 0.48vw, 1.4375rem);
+  --text-heading-small: clamp(1.5rem, 1.24rem + 0.95vw, 2rem);
+  --text-heading: clamp(2.25rem, 1.72rem + 2vw, 3.5rem);
+  --text-display: clamp(3rem, 1.45rem + 5.6vw, 6rem);
+  --text-route: clamp(4rem, 1.7rem + 8.4vw, 8.25rem);
+
+  --leading-tight: 0.98;
+  --leading-heading: 1.08;
+  --leading-body: 1.62;
+  --tracking-display: -0.035em;
+  --tracking-heading: -0.018em;
+  --tracking-label: 0.055em;
+
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  --site-width: 85rem;
+  --reading-width: 68ch;
+  --gutter: clamp(1rem, 3.4vw, 4rem);
+  --header-height: 4.5rem;
+  --route-min-height: calc(100svh - var(--header-height));
+
+  --radius-none: 0;
+  --radius-control: 0.125rem;
+  --radius-media: 0.25rem;
+
+  --rule-thin: 0.0625rem;
+  --rule-strong: 0.1875rem;
+
+  --motion-fast: 160ms;
+  --motion-standard: 240ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  --layer-base: 0;
+  --layer-header: 20;
+  --layer-route: 10;
+  --layer-skip: 30;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --colour-canvas: #0e1513;
+    --colour-paper: #151f1c;
+    --colour-paper-raised: #1b2824;
+    --colour-ink: #edf3f0;
+    --colour-ink-soft: #b9c6c1;
+    --colour-rule: #3a4a45;
+    --colour-rule-strong: #71847d;
+    --colour-stamp: #83d2bb;
+    --colour-stamp-strong: #a6e2d0;
+    --colour-stamp-wash: #203b34;
+    --colour-alert: #e3a19b;
+    --colour-masthead: #80d8dc;
+    --colour-code: #0a100e;
+    --colour-code-ink: #eff7f3;
+    --colour-code-comment: #a9b8b3;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0.01ms;
+    --motion-standard: 0.01ms;
+  }
+}

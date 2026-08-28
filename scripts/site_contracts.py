@@ -31,6 +31,11 @@ AUTHORITY_PATHS = {
     "adopt": "Adopt",
     "verify": "Verify",
 }
+AUTHORITY_STATEMENTS = {
+    "engage": "Fix the workflow before another review round.",
+    "adopt": "Test it with fabricated data first.",
+    "verify": "Check the source before the result.",
+}
 AUTHORITY_URLS = {
     "engage": f"{SITE}/#engage",
     "adopt": f"{SITE}/#adopt",
@@ -503,15 +508,18 @@ PRIMARY_NAV_LINKS = [
 ]
 
 HOMEPAGE_REQUIRED_TEXT = [
-    "I build accounting systems that can show their work.",
+    "Accounting tools that show their working.",
     "Newcastle",
     "Hunter Valley",
-    "Data and Ledgers",
-    "Rules and Engines",
-    "Agent Workflows",
-    "Review Controls",
-    "Install in 2 commands",
-    "Proof belongs beside the claim",
+    "Fix the workflow before another review round.",
+    "Test it with fabricated data first.",
+    "Check the source before the result.",
+    "Tools for work that still needs checking",
+    "Useful before impressive",
+    "Sources beside claims",
+    "Working stays visible",
+    "Unknown means unknown",
+    "A person signs off",
 ]
 HOMEPAGE_TITLE = "Accounting automation in Newcastle & Hunter Valley | Ryan Duguid"
 HOMEPAGE_DESCRIPTION = (
@@ -530,6 +538,7 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/guidance-notes/eligible-wages",
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
+HOMEPAGE_CATALOGUE_LABEL = "Tools for work that still needs checking"
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -1166,6 +1175,58 @@ def check_mcp_review_dates(html: str) -> list[str]:
     return failures
 
 
+def check_authority_section(
+    section_html: str,
+    identifier: str,
+    label: str,
+    statement: str,
+) -> list[str]:
+    """Require one route thought, one action group and one visible boundary."""
+    failures: list[str] = []
+    rendered = core.visible_html(section_html)
+    h2s = re.findall(r"<h2\b[^>]*>(.*?)</h2\s*>", rendered, re.S | re.I)
+    if len(h2s) != 1:
+        failures.append(
+            f"index.html: authority section #{identifier} must have exactly one h2"
+        )
+    elif core.visible_text(h2s[0]) != label:
+        failures.append(
+            f"index.html: authority section #{identifier} heading must be {label}"
+        )
+
+    statement_matches = re.findall(
+        r'<h3\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])'
+        r"[^>]*>(.*?)</h3\s*>",
+        rendered,
+        re.S | re.I,
+    )
+    if len(statement_matches) != 1 or core.visible_text(statement_matches[0]) != statement:
+        failures.append(
+            f"index.html: authority section #{identifier} statement must be {statement}"
+        )
+
+    action_groups = re.findall(
+        r'<[a-z][\w:-]*\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-actions\b[^"\']*["\'])[^>]*>',
+        rendered,
+        re.I,
+    )
+    if len(action_groups) != 1:
+        failures.append(
+            f"index.html: authority section #{identifier} needs one action group"
+        )
+
+    notes = re.findall(
+        r'<[a-z][\w:-]*\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-note\b[^"\']*["\'])[^>]*>',
+        rendered,
+        re.I,
+    )
+    if len(notes) != 1:
+        failures.append(
+            f"index.html: authority section #{identifier} needs one boundary or verification note"
+        )
+    return failures
+
+
 def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     """Require the public Engage, Adopt and Verify authority surface."""
     failures: list[str] = []
@@ -1205,6 +1266,14 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             failures.append(
                 f"index.html: authority section #{identifier} heading must be {label}"
             )
+        failures.extend(
+            check_authority_section(
+                sections[identifier],
+                identifier,
+                label,
+                AUTHORITY_STATEMENTS[identifier],
+            )
+        )
 
     home_text = core.visible_text(rendered_home)
     adopt_text = core.visible_text(sections["adopt"])
@@ -1246,7 +1315,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
 
-    catalogue_label = "Original firm-focused tools"
+    catalogue_label = HOMEPAGE_CATALOGUE_LABEL
     catalogue = re.search(
         r'<[a-z][\w:-]*\b(?=[^>]*\sclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'])[^>]*>',
         rendered_home,
