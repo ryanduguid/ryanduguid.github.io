@@ -431,6 +431,48 @@ def test_public_contracts() -> int:
 
     calculator_mutations = (
         (
+            "calculator blank policy",
+            contracts.CALCULATOR_COMMON_HELP,
+            "Blank monetary amounts are accepted.",
+            "form must contain one exact blank-as-zero note",
+        ),
+        (
+            "calculator monetary help",
+            'aria-describedby="money-blank-help baseRate-help"',
+            'aria-describedby="baseRate-help"',
+            "#baseRate aria-describedby must retain common and field-specific help",
+        ),
+        (
+            "calculator reporting month required",
+            'id="reportingMonth" name="reportingMonth" required',
+            'id="reportingMonth" name="reportingMonth"',
+            "#reportingMonth must have required",
+        ),
+        (
+            "calculator print action",
+            '>Print working</button>',
+            '>Print result</button>',
+            "result actions are",
+        ),
+        (
+            "calculator privacy warning",
+            contracts.CALCULATOR_PRIVACY_WARNING,
+            "Enter an employee name or identifier.",
+            "missing visible direct-identifier warning",
+        ),
+        (
+            "calculator CSV action",
+            '>Download CSV</button>',
+            '>Export CSV</button>',
+            "missing visible CSV action",
+        ),
+        (
+            "calculator zero explanation",
+            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
+            "Blank values were zero.",
+            "zero result needs the blank-as-zero explanation",
+        ),
+        (
             "calculator field name",
             'id="sacrificed" name="sacrificed"',
             'id="sacrificed" name="sacrificed-broken"',

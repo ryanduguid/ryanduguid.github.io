@@ -90,6 +90,8 @@
   --colour-code: #020403;
   --colour-code-ink: #eef4f0;
   --colour-code-comment: #9aa89f;
+  --colour-print-paper: #ffffff;
+  --colour-print-ink: #000000;
 
   --font-display: "IBM Plex Serif", Georgia, serif;
   --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
