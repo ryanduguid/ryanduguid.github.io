@@ -23,18 +23,25 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/about/">About</a>
+        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
-        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
-        <a href="https://github.com/ryanduguid">GitHub</a>
-        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+        <a href="/about/">About</a>
+        <a href="/#engage">Contact</a>
       </nav>
     </div>
   </header>
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
-        <p class="article-crumb"><a href="/">Home</a> / Payday Super timing evidence evaluation</p>
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/evaluate/">Evaluations</a></li>
+            <li aria-current="page">Payday Super timing evidence evaluation</li>
+          </ol>
+        </nav>
         <h1>Payday Super timing evidence evaluation</h1>
         <p class="lead-note">
           Reproduce four fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
@@ -175,8 +182,9 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
     <div class="site-shell site-footer__inner">
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/about/">About Ryan Duguid</a>
-        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
       </div>
     </div>
@@ -203,8 +211,30 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         "@type": "BreadcrumbList",
         "@id": "https://duguid.com.au/evaluate/payday-super-evidence/#breadcrumb",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
-          { "@type": "ListItem", "position": 2, "name": "Payday Super timing evidence evaluation", "item": "https://duguid.com.au/evaluate/payday-super-evidence/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Evaluations",
+            "item": "https://duguid.com.au/evaluate/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Payday Super timing evidence evaluation",
+            "item": "https://duguid.com.au/evaluate/payday-super-evidence/"
+          }
         ]
       }
     ]
