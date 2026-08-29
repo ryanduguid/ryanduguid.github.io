@@ -68,12 +68,14 @@
         <label><input type="radio" name="branch" value="casual" /> As a casual (section 3B(3))</label>
       </fieldset>
 
+      <p id="money-blank-help" class="field-note">Leave a monetary amount blank to treat it as $0.00.</p>
+
       <div id="branch-fields"></div>
 
       <div class="field">
         <label for="sacrificed">Salary sacrificed amount</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="sacrificed" name="sacrificed" />
-        <p class="field-note">
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="sacrificed" name="sacrificed" aria-describedby="money-blank-help sacrificed-help" />
+        <p id="sacrificed-help" class="field-note">
           Applies to base rate of pay, ordinary rate of pay and annual salary.
           It does not apply to casual loading, bonuses, overtime or allowances.
         </p>
@@ -104,11 +106,15 @@
     </div>
 
     <section class="employee-section site-shell" aria-labelledby="employees-title">
-      <h2 id="employees-title" class="section-title">Employees this month</h2>
-      <div class="field">
-        <label for="employeeLabel">Employee name or ID</label>
-        <input type="text" id="employeeLabel" placeholder="e.g. J Smith" />
-        <button type="button" id="add-employee">Add to table</button>
+      <h2 id="employees-title" class="section-title">Employee reference table</h2>
+      <p id="employee-reference-help" class="field-note">Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.</p>
+      <div id="result-actions" class="result-actions" hidden>
+        <button type="button" id="print-working">Print working</button>
+        <div class="field">
+          <label for="employeeLabel">Employee reference</label>
+          <input type="text" id="employeeLabel" placeholder="EMP-001" aria-describedby="employee-reference-help" />
+          <button type="button" id="add-employee">Add to monthly table</button>
+        </div>
       </div>
       <div id="employee-table-wrap" hidden>
         <div class="employee-table-scroll" role="region" aria-label="Employee levy table" tabindex="0">
@@ -128,7 +134,7 @@
             </tfoot>
           </table>
         </div>
-        <button type="button" id="export-csv">Export CSV</button>
+        <button type="button" id="export-csv">Download CSV</button>
       </div>
     </section>
 
@@ -233,16 +239,18 @@
     <template id="fields-baseRate">
       <div class="field">
         <label for="baseRate">Base rate of pay</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="baseRate" name="baseRate" />
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="baseRate" name="baseRate" aria-describedby="money-blank-help baseRate-help" />
+        <p id="baseRate-help" class="field-note">Enter the base-rate pay for this reporting month.</p>
       </div>
       <div class="field">
         <label for="overtime">Overtime and penalty rates</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="overtime" name="overtime" />
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="overtime" name="overtime" aria-describedby="money-blank-help overtime-help" />
+        <p id="overtime-help" class="field-note">Enter overtime and penalty rates paid this reporting month.</p>
       </div>
       <div class="field">
         <label for="allowances">Allowances, excluding expense reimbursements</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="allowances" name="allowances" />
-        <p class="field-note">
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="allowances" name="allowances" aria-describedby="money-blank-help allowances-help" />
+        <p id="allowances-help" class="field-note">
           Expense reimbursements are excluded under section 3B(1)(b)(iii).
           Including them here is a common error.
         </p>
@@ -252,14 +260,16 @@
     <template id="fields-annual">
       <div class="field">
         <label for="annualSalary">Annual salary paid this month</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="annualSalary" name="annualSalary" />
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="annualSalary" name="annualSalary" aria-describedby="money-blank-help annualSalary-help" />
+        <p id="annualSalary-help" class="field-note">Enter the annual-salary amount paid for this reporting month.</p>
       </div>
     </template>
 
     <template id="fields-casual">
       <div class="field">
         <label for="reportingMonth">Reporting month</label>
-        <input type="month" id="reportingMonth" name="reportingMonth" required />
+        <input type="month" id="reportingMonth" name="reportingMonth" required aria-describedby="reportingMonth-help" />
+        <p id="reportingMonth-help" class="field-note">Required for the casual branch because eligible bonus periods depend on the reporting month.</p>
       </div>
       <div class="field field-checkbox">
         <label><input type="checkbox" id="instrumentSpecifiesLoading" name="instrumentSpecifiesLoading" /> An industrial instrument specifies a casual loading</label>
@@ -269,20 +279,21 @@
       </div>
       <div class="field">
         <label for="casualBasePay">Base rate pay</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualBasePay" name="casualBasePay" />
-        <p class="field-note">
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualBasePay" name="casualBasePay" aria-describedby="money-blank-help casualBasePay-help" />
+        <p id="casualBasePay-help" class="field-note">
           Used with the casual loading below, when the instrument specifies a
           loading that can be quantified separately.
         </p>
       </div>
       <div class="field">
         <label for="casualLoading">Casual loading</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualLoading" name="casualLoading" />
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="casualLoading" name="casualLoading" aria-describedby="money-blank-help casualLoading-help" />
+        <p id="casualLoading-help" class="field-note">Enter a casual loading only when it can be quantified separately.</p>
       </div>
       <div class="field">
         <label for="ordinaryPay">All-in ordinary rate pay</label>
-        <input type="number" step="0.01" min="0" inputmode="decimal" id="ordinaryPay" name="ordinaryPay" />
-        <p class="field-note">
+        <input type="number" step="0.01" min="0" inputmode="decimal" id="ordinaryPay" name="ordinaryPay" aria-describedby="money-blank-help ordinaryPay-help" />
+        <p id="ordinaryPay-help" class="field-note">
           Used instead of base rate pay and loading, when the loading is
           already inside the ordinary rate or cannot be quantified separately.
         </p>
@@ -291,7 +302,7 @@
 
     <template id="bonus-row-template">
       <div class="bonus-row">
-        <input type="number" step="0.01" min="0" inputmode="decimal" class="bonus-amount" placeholder="Amount" aria-label="Bonus amount" />
+        <input type="number" step="0.01" min="0" inputmode="decimal" class="bonus-amount" placeholder="Amount" aria-label="Bonus amount" aria-describedby="money-blank-help" data-help-template="bonus-amount" />
         <select class="bonus-frequency" aria-label="Bonus frequency">
           <option value="weekly">Weekly</option>
           <option value="fortnightly">Fortnightly</option>
@@ -301,6 +312,7 @@
           <option value="annually">Annually</option>
         </select>
         <button type="button" class="bonus-remove">Remove</button>
+        <p class="field-note" data-help-template="bonus-amount-note">Enter the bonus amount paid at the selected frequency.</p>
       </div>
     </template>
 
@@ -311,7 +323,7 @@
       import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
       import { compute } from '/assets/levy-form.mjs';
 
-      function render(result, into) {
+      function render(result, into, allMonetaryAmountsBlank = false) {
         const cents = result.eligibleWagesCents;
         // Deviation from the brief's literal snippet: the brief hardcodes
         // (cents * 27) / 1000 here, which duplicates the rate levy.mjs already
@@ -360,6 +372,12 @@
         why.className = 'result-why';
         why.textContent = explainLevyResult(result);
         into.append(why);
+        if (cents === 0 && allMonetaryAmountsBlank) {
+          const blankPolicy = document.createElement('p');
+          blankPolicy.className = 'result-blank-policy';
+          blankPolicy.textContent = 'All monetary amounts were blank, so the calculator treated each as $0.00.';
+          into.append(blankPolicy);
+        }
       }
 
       // Wiring beyond the engine call: branch switching, bonus rows, the
@@ -372,6 +390,7 @@
       const resultEl = document.getElementById('result');
       const employeeRows = document.getElementById('employee-rows');
       const employeeTableWrap = document.getElementById('employee-table-wrap');
+      const resultActions = document.getElementById('result-actions');
 
       let generatedFieldId = 0;
 
@@ -439,7 +458,15 @@
       showBranch(calcForm.elements.branch.value);
 
       document.getElementById('add-bonus').addEventListener('click', () => {
-        bonusRows.append(document.getElementById('bonus-row-template').content.cloneNode(true));
+        const bonusRow = document.getElementById('bonus-row-template').content.cloneNode(true);
+        const amount = bonusRow.querySelector('[data-help-template="bonus-amount"]');
+        const help = bonusRow.querySelector('[data-help-template="bonus-amount-note"]');
+        const helpId = `${ensureControlId(amount)}-help`;
+        help.id = helpId;
+        const tokens = describedByTokens(amount);
+        tokens.add(helpId);
+        amount.setAttribute('aria-describedby', [...tokens].join(' '));
+        bonusRows.append(bonusRow);
       });
       bonusRows.addEventListener('click', (e) => {
         if (e.target.classList.contains('bonus-remove')) e.target.closest('.bonus-row').remove();
@@ -448,8 +475,13 @@
       calcForm.addEventListener('submit', (event) => {
         event.preventDefault();
         if (!validateForm()) return;
-        render(compute(calcForm), resultEl);
+        const allMonetaryAmountsBlank = [...calcForm.querySelectorAll('input[type="number"]')]
+          .every((input) => input.value.trim() === '');
+        render(compute(calcForm), resultEl, allMonetaryAmountsBlank);
+        resultActions.hidden = false;
       });
+
+      document.getElementById('print-working').addEventListener('click', () => window.print());
 
       let employees = [];
 
@@ -480,7 +512,7 @@
         if (!validateForm()) return;
         const result = compute(calcForm);
         const labelInput = document.getElementById('employeeLabel');
-        const label = labelInput.value.trim() || `Employee ${employees.length + 1}`;
+        const label = labelInput.value.trim() || `Reference ${employees.length + 1}`;
         employees.push({
           label,
           branch: result.branch,
