@@ -151,13 +151,6 @@ def test_design_contracts() -> int:
             "links and controls must use the standard motion duration",
         ),
         (
-            "route rail no longer sticky",
-            "assets/site.css",
-            ".route-section > h2 {\n  position: sticky;",
-            ".route-section > h2 {\n  position: static;",
-            "route labels must be sticky on wide layouts",
-        ),
-        (
             "token stylesheet removed",
             "index.html",
             '<link rel="stylesheet" href="/assets/tokens.css" />',
@@ -172,11 +165,11 @@ def test_design_contracts() -> int:
             "index.html: expected one visible machine-readable index link",
         ),
         (
-            "hero route drift",
+            "hero action drift",
             "index.html",
-            'href="#engage"',
-            'href="#missing"',
-            "index.html: expected exactly one #engage route link",
+            'class="button button--secondary" href="/#engage"',
+            'class="button button--secondary" href="/#missing"',
+            "index.html: expected exactly one /#engage homepage action",
         ),
         (
             "trust record drift",
@@ -186,11 +179,11 @@ def test_design_contracts() -> int:
             "index.html: trust-band records must match the approved four-item tuple",
         ),
         (
-            "catalogue navigator removed",
+            "category preview removed",
             "index.html",
-            "catalogue-index",
-            "removed-catalogue-index",
-            "index.html: expected one catalogue-index",
+            "home-tool-preview",
+            "removed-tool-preview",
+            "index.html: expected one home-tool-preview",
         ),
         (
             "extra technical label",
@@ -269,7 +262,19 @@ def test_design_contracts() -> int:
             "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
         )
 
-    return len(text_mutations) + 4
+    with copied_site() as root:
+        append_file(
+            root,
+            "assets/site.css",
+            "\n.route-section > h2 { position: sticky; }\n",
+        )
+        expect_failure(
+            "sticky route rail restored",
+            check_design.check_repository(root),
+            "route labels must not be sticky",
+        )
+
+    return len(text_mutations) + 5
 
 
 def contract_mutation(
@@ -291,6 +296,7 @@ def test_public_contracts() -> int:
     calculator = read_text(ROOT, contracts.CALCULATOR_REL)
     evidence = read_text(ROOT, contracts.EVIDENCE_REL)
     payday = read_text(ROOT, "tools/payday-super/index.html")
+    xero = read_text(ROOT, "tools/xero-trial-balance/index.html")
     robots = read_text(ROOT, "robots.txt")
 
     failures: list[str] = []
@@ -342,6 +348,26 @@ def test_public_contracts() -> int:
         contracts.check_canonical_person(changed_person),
         "Person sameAs must contain only",
     )
+    contract_mutation(
+        "About opening",
+        about,
+        contracts.ABOUT_OPENING,
+        "I build software.",
+        lambda html, found: contracts.check_approved_page_opening(
+            html, "about/index.html", found
+        ),
+        "about/index.html: page opening must be",
+    )
+    contract_mutation(
+        "Evidence opening",
+        evidence,
+        contracts.EVIDENCE_OPENING,
+        "This register links claims.",
+        lambda html, found: contracts.check_approved_page_opening(
+            html, contracts.EVIDENCE_REL, found
+        ),
+        "evidence/index.html: page opening must be",
+    )
 
     homepage_mutations = (
         (
@@ -355,6 +381,30 @@ def test_public_contracts() -> int:
             contracts.HOMEPAGE_DESCRIPTION,
             "Wrong homepage description",
             "index.html: homepage description is",
+        ),
+        (
+            "homepage heading",
+            contracts.HOMEPAGE_HEADING,
+            "Controls for accounting work.",
+            "index.html: homepage H1 must be",
+        ),
+        (
+            "homepage primary action",
+            "Browse the tools",
+            "Browse every tool",
+            "index.html: homepage actions are",
+        ),
+        (
+            "homepage category anchor",
+            'href="/tools/#control-tools"',
+            'href="/tools/#missing-control-tools"',
+            "index.html: category preview is",
+        ),
+        (
+            "homepage Engage anchor",
+            'id="engage"',
+            'id="engage-copy"',
+            "index.html: expected exactly one valid #engage anchor",
         ),
         (
             "homepage evaluation route",
@@ -432,6 +482,16 @@ def test_public_contracts() -> int:
         'class="skip-link" href="#content"',
         lambda html, found: contracts.check_shared_shell(html, "index.html", found),
         "expected exactly one .skip-link targeting #main",
+    )
+    contract_mutation(
+        "tool review date outside header",
+        xero,
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
+        lambda html, found: contracts.check_header_review_date(
+            html, "tools/xero-trial-balance/index.html", found
+        ),
+        "Published/Last reviewed line must be in the page header",
     )
 
     def xero_breadcrumb_failures(root: Path) -> list[str]:
@@ -525,10 +585,10 @@ def test_public_contracts() -> int:
         (
             "authority route",
             "index.html",
-            'href="#engage"',
-            'href="#missing"',
+            'id="engage"',
+            'id="missing-engage"',
             contracts.check_authority_surface,
-            "index.html: missing visible authority route #engage",
+            "index.html: missing visible authority section #engage",
         ),
         (
             "evaluation section order",
@@ -544,7 +604,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 12
+    return len(homepage_mutations) + len(calculator_mutations) + 15
 
 
 def main() -> None:
