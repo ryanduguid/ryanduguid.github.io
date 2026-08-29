@@ -29,6 +29,138 @@ async function calculateFormulaB(page, { visualSnapshot = false } = {}) {
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
 }
 
+async function unresolvedVisibleMoneyHelp(page) {
+  return page.locator('#calc-form input[type="number"]:visible').evaluateAll((inputs) =>
+    inputs.flatMap((input) => {
+      const tokens = (input.getAttribute('aria-describedby') || '')
+        .split(/\s+/)
+        .filter(Boolean);
+      const unresolved = tokens.filter((token) => !document.getElementById(token));
+      return tokens.length < 2 || unresolved.length
+        ? [{ id: input.id, tokens, unresolved }]
+        : [];
+    })
+  );
+}
+
+test('blank monetary inputs produce an explained zero result', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const result = page.getByRole('status');
+  await expect(result.locator('[data-result-kind="eligible-wages"]'))
+    .toContainText('$0.00');
+  await expect(result.locator('[data-result-kind="levy"]')).toContainText('$0.00');
+  await expect(result.locator('.result-blank-policy')).toHaveText(
+    'All monetary amounts were blank, so the calculator treated each as $0.00.',
+  );
+  await expect(page.locator('#money-blank-help')).toHaveText(
+    'Leave a monetary amount blank to treat it as $0.00.',
+  );
+  health.assertHealthy();
+});
+
+test('visible monetary controls resolve common and field-specific help', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('button', { name: 'Add a bonus', exact: true }).click();
+
+  for (const branch of [
+    'A base rate of pay (section 3B(1))',
+    'An annual salary (section 3B(2))',
+    'As a casual (section 3B(3))',
+  ]) {
+    await page.getByRole('radio', { name: branch, exact: true }).check();
+    expect(await unresolvedVisibleMoneyHelp(page), branch).toEqual([]);
+  }
+
+  const specificHelpIds = await page
+    .locator('#calc-form input[type="number"]:visible')
+    .evaluateAll((inputs) => inputs.map((input) =>
+      input.getAttribute('aria-describedby').split(/\s+/).find((id) => id !== 'money-blank-help')
+    ));
+  expect(new Set(specificHelpIds).size).toBe(specificHelpIds.length);
+  health.assertHealthy();
+});
+
+test('casual branch requires and describes the reporting month', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', {
+    name: 'As a casual (section 3B(3))',
+    exact: true,
+  }).check();
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const month = page.getByLabel('Reporting month', { exact: true });
+  await expect(month).toBeFocused();
+  await expect(month).toHaveAttribute('aria-invalid', 'true');
+  const describedBy = (await month.getAttribute('aria-describedby')).split(/\s+/);
+  const errorId = describedBy.find((id) => id.endsWith('-error'));
+  expect(errorId).toBeTruthy();
+  await expect(page.locator(`#${errorId}`)).toHaveAttribute('role', 'alert');
+  await expect(page.locator(`#${errorId}`)).toBeVisible();
+  health.assertHealthy();
+});
+
+test('Print working calls the browser print command', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.addInitScript(() => {
+    window.__printCalls = 0;
+    window.print = () => { window.__printCalls += 1; };
+  });
+  await calculateFormulaB(page);
+  await page.getByRole('button', { name: 'Print working', exact: true }).click();
+  expect(await page.evaluate(() => window.__printCalls)).toBe(1);
+  health.assertHealthy();
+});
+
+test('print media keeps the working and hides interactive records', async ({ page }) => {
+  const health = observePageHealth(page);
+  await calculateFormulaB(page);
+  await page.emulateMedia({ media: 'print' });
+
+  await expect(page.getByText('A base rate of pay (section 3B(1))', { exact: true }))
+    .toBeVisible();
+  await expect(page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true }))
+    .toBeVisible();
+  await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
+  await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
+  await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 28 August 2026.'))
+    .toBeVisible();
+  await expect(page.locator('.calculator-method')).toContainText('Boundary');
+  await expect(page.locator('.site-header')).toBeHidden();
+  await expect(page.locator('.article-crumb')).toBeHidden();
+  await expect(page.locator('button:visible')).toHaveCount(0);
+  await expect(page.getByLabel('Employee reference', { exact: true })).toBeHidden();
+  await expect(page.locator('#employee-table')).toBeHidden();
+  health.assertHealthy();
+});
+
+test('monthly table uses a reference and downloads the hardened CSV', async ({ page }) => {
+  const health = observePageHealth(page);
+  await calculateFormulaB(page);
+  await page.getByLabel('Employee reference', { exact: true }).fill('EMP-001');
+  await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  await expect(page.locator('#employee-rows tr')).toContainText('EMP-001');
+
+  const downloadPromise = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
+  const download = await downloadPromise;
+  const stream = await download.createReadStream();
+  let csv = '';
+  for await (const chunk of stream) csv += chunk.toString('utf8');
+  expect(download.suggestedFilename()).toBe('coal-lsl-levy.csv');
+  expect(csv).toContain('Estimate only, not advice.');
+  expect(csv).toContain('Label,Branch,Eligible wages,Levy');
+  expect(csv).toContain('EMP-001');
+  expect(csv).toContain('Total,,');
+  health.assertHealthy();
+});
+
 test('calculates a Formula B levy without browser errors', async ({ page }) => {
   const health = observePageHealth(page);
 

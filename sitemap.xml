@@ -5,16 +5,16 @@
     <lastmod>2026-08-28</lastmod>
   </url>
   <url>
-    <loc>https://duguid.com.au/llms.txt</loc>
-    <lastmod>2026-08-28</lastmod>
-  </url>
-  <url>
     <loc>https://duguid.com.au/about/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/evidence/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/evaluate/</loc>
+    <lastmod>2026-08-29</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/evaluate/manager-review-gate/</loc>
@@ -29,8 +29,12 @@
     <lastmod>2026-08-26</lastmod>
   </url>
   <url>
+    <loc>https://duguid.com.au/rates/</loc>
+    <lastmod>2026-08-29</lastmod>
+  </url>
+  <url>
     <loc>https://duguid.com.au/rates/super-guarantee/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-08-29</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/div7a-benchmark-rate/</loc>
@@ -39,6 +43,10 @@
   <url>
     <loc>https://duguid.com.au/rates/cents-per-kilometre/</loc>
     <lastmod>2026-08-28</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/</loc>
+    <lastmod>2026-08-29</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/coal-lsl-levy/</loc>

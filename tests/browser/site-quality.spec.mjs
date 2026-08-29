@@ -8,25 +8,43 @@ const routes = [
   ['home', '/'],
   ['about', '/about/'],
   ['evidence', '/evidence/'],
+  ['tools', '/tools/'],
+  ['evaluations', '/evaluate/'],
+  ['rates', '/rates/'],
   ['super guarantee rate', '/rates/super-guarantee/'],
   ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],
   ['Coal LSL calculator', '/tools/coal-lsl-levy/'],
   ['not-found page', '/404.html'],
 ];
 
-async function textLineCount(locator) {
-  return locator.evaluate((element) => {
-    const range = document.createRange();
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-    const tops = [];
-    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-      if (!node.textContent.trim()) continue;
-      range.selectNodeContents(node);
-      tops.push(...[...range.getClientRects()].map(({ top }) => Math.round(top)));
-    }
-    return new Set(tops).size;
-  });
-}
+const primaryNavigation = [
+  ['/tools/', 'Tools'],
+  ['/rates/', 'Rates'],
+  ['/evidence/', 'Evidence'],
+  ['/about/', 'About'],
+  ['/#engage', 'Contact'],
+];
+
+const currentNavigationCases = [
+  ['/tools/', 'Tools', 'page'],
+  ['/tools/coal-lsl-levy/', 'Tools', 'location'],
+  ['/evaluate/', 'Tools', 'location'],
+  ['/evaluate/manager-review-gate/', 'Tools', 'location'],
+  ['/rates/', 'Rates', 'page'],
+  ['/rates/super-guarantee/', 'Rates', 'location'],
+];
+
+const homepagePreviewRoutes = [
+  ['Extract', '/tools/#extract-tools', 'extract-tools'],
+  ['Calculate', '/tools/#calculate-tools', 'calculate-tools'],
+  ['Control', '/tools/#control-tools', 'control-tools'],
+  ['Inspect', '/tools/#inspect-tools', 'inspect-tools'],
+];
+
+const homeHeightBaseline = {
+  'mobile-chromium': 9512,
+  'desktop-chromium': 7611,
+};
 
 async function decodedHomeProof(page) {
   const proof = page.getByRole('img', {
@@ -83,84 +101,135 @@ test('known missing-route response is explicitly allowed', async ({ page }) => {
   health.assertHealthy();
 });
 
-test('home exposes one route register with deliberate heading lines', async ({ page }, testInfo) => {
+test('home leads with adoption actions and a shorter tool preview', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
   await waitForVisualFonts(page);
-  const routeRegister = page.getByRole('navigation', { name: 'Choose a path' });
-  await expect(routeRegister).toBeVisible();
-  for (const target of ['#engage', '#adopt', '#verify']) {
-    await expect(routeRegister.locator('a[href="' + target + '"]')).toHaveCount(1);
+  await expect(page.getByRole('heading', {
+    level: 1,
+    name: 'Review-ready controls for Australian accounting work.',
+    exact: true,
+  })).toBeVisible();
+
+  const actions = page.getByRole('navigation', { name: 'Homepage actions' });
+  await expect(actions.getByRole('link')).toHaveText([
+    'Browse the tools',
+    'Discuss a workflow',
+  ]);
+  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/tools/');
+  await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/#engage');
+
+  const categories = page.getByRole('navigation', { name: 'Tool categories' });
+  await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
+    'Extract',
+    'Calculate',
+    'Control',
+    'Inspect',
+  ]);
+  expect(await page.evaluate(() => {
+    const preview = document.querySelector('.home-tool-preview');
+    const proof = document.querySelector('.proof-feature');
+    return Boolean(preview && proof
+      && (preview.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING));
+  })).toBe(true);
+  for (const identifier of ['adopt', 'verify', 'engage']) {
+    await expect(page.locator(`#${identifier}`)).toHaveCount(1);
   }
-  if (testInfo.project.name === 'desktop-chromium') {
-    expect(await textLineCount(page.getByRole('heading', { level: 1 }))).toBe(2);
-    for (const name of ['Engage', 'Adopt', 'Verify']) {
-      expect(await textLineCount(page.getByRole('heading', { name, exact: true })))
-        .toBe(1);
-    }
-  } else {
-    expect(await textLineCount(page.getByRole('heading', { level: 1 })))
-      .toBeLessThanOrEqual(3);
+  expect(await page.locator('.route-section').evaluateAll((sections) =>
+    sections.map((section) => getComputedStyle(section).minHeight)
+  )).toEqual(['0px', '0px', '0px', '0px']);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight))
+    .toBeLessThan(homeHeightBaseline[testInfo.project.name]);
+  health.assertHealthy();
+});
+
+test('primary navigation order and current states match the collection hierarchy', async ({ page }) => {
+  const health = observePageHealth(page);
+  for (const [route, currentLabel, currentValue] of currentNavigationCases) {
+    await page.goto(route);
+    const primary = page.getByRole('navigation', { name: 'Primary' });
+    const links = primary.getByRole('link');
+    await expect(links).toHaveText(primaryNavigation.map(([, label]) => label));
+    expect(await links.evaluateAll((elements) =>
+      elements.map((element) => element.getAttribute('href'))
+    )).toEqual(primaryNavigation.map(([href]) => href));
+    const current = primary.locator('[aria-current]');
+    await expect(current).toHaveCount(1);
+    await expect(current).toHaveText(currentLabel);
+    await expect(current).toHaveAttribute('aria-current', currentValue);
   }
   health.assertHealthy();
 });
 
-test('route words remain intact at the narrowest wide layout', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'wide-layout seam only');
-  const health = observePageHealth(page);
-  await page.setViewportSize({ width: 900, height: 900 });
-  await page.goto('/');
-  await waitForVisualFonts(page);
-  for (const name of ['Engage', 'Adopt', 'Verify']) {
-    const heading = page.getByRole('heading', { name, exact: true });
-    expect(await textLineCount(heading)).toBe(1);
-    expect(await heading.evaluate((element) => element.scrollWidth))
-      .toBeLessThanOrEqual(await heading.evaluate((element) => element.clientWidth));
-  }
-  health.assertHealthy();
-});
-
-test('mobile primary navigation and catalogue index remain keyboard reachable', async ({ page }, testInfo) => {
+test('focused mobile primary navigation links scroll fully into view', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   const health = observePageHealth(page);
+  await page.setViewportSize({ width: 320, height: 844 });
   await page.goto('/');
   const primary = page.getByRole('navigation', { name: 'Primary' });
   expect(await primary.evaluate((element) =>
     getComputedStyle(element).flexWrap
   )).toBe('nowrap');
-  const firstPrimaryLink = primary.getByRole('link', { name: 'About' });
-  const lastPrimaryLink = primary.getByRole('link', { name: 'Awesome List' });
+  const firstPrimaryLink = primary.getByRole('link', { name: 'Tools' });
+  const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
   await firstPrimaryLink.focus();
   for (let index = 0; index < 4; index += 1) {
     await page.keyboard.press('Tab');
   }
   await expect(lastPrimaryLink).toBeFocused();
-  expect(await primary.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
-
-  const catalogue = page.getByRole('navigation', { name: 'Tool categories' });
-  const extract = catalogue.getByRole('link', { name: 'Extract' });
-  const inspect = catalogue.getByRole('link', { name: 'Inspect' });
-  await extract.focus();
-  for (let index = 0; index < 3; index += 1) {
-    await page.keyboard.press('Tab');
-  }
-  await expect(inspect).toBeFocused();
-  await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/#inspect-tools$/);
+  const geometry = await lastPrimaryLink.evaluate((link) => {
+    const navigation = link.closest('nav');
+    const linkBounds = link.getBoundingClientRect();
+    const navigationBounds = navigation.getBoundingClientRect();
+    return {
+      clientWidth: navigation.clientWidth,
+      scrollWidth: navigation.scrollWidth,
+      scrollLeft: navigation.scrollLeft,
+      linkLeft: linkBounds.left,
+      linkRight: linkBounds.right,
+      navigationLeft: navigationBounds.left,
+      navigationRight: navigationBounds.right,
+      fullyVisible: linkBounds.left >= navigationBounds.left - 1
+        && linkBounds.right <= navigationBounds.right + 1,
+    };
+  });
+  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
+  expect(geometry.scrollLeft).toBeGreaterThan(0);
+  expect(geometry.fullyVisible, JSON.stringify(geometry)).toBe(true);
   health.assertHealthy();
 });
 
-test('home does not overflow at refinement acceptance widths', async ({ page }) => {
+test('all homepage preview routes land on valid Tools anchors', async ({ page }) => {
   const health = observePageHealth(page);
-  for (const width of [320, 768]) {
-    await page.setViewportSize({ width, height: 844 });
+  for (const [label, href, target] of homepagePreviewRoutes) {
     await page.goto('/');
-    const viewport = await page.evaluate(() => ({
-      clientWidth: document.documentElement.clientWidth,
-      scrollWidth: document.documentElement.scrollWidth,
-    }));
-    expect(viewport.scrollWidth, `homepage overflow at ${width}px`)
-      .toBeLessThanOrEqual(viewport.clientWidth);
+    const catalogue = page.getByRole('navigation', { name: 'Tool categories' });
+    const link = catalogue.getByRole('link', { name: label, exact: true });
+    await expect(link).toHaveAttribute('href', href);
+    await link.click();
+    await expect.poll(() => {
+      const current = new URL(page.url());
+      return `${current.pathname}${current.hash}`;
+    }).toBe(href);
+    await expect(page.locator(`#${target}`)).toBeVisible();
+  }
+  health.assertHealthy();
+});
+
+test('public pages do not overflow at refinement acceptance widths', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium', 'width matrix runs once');
+  const health = observePageHealth(page);
+  for (const width of [320, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const [, route] of routes) {
+      await page.goto(route);
+      const viewport = await page.evaluate(() => ({
+        clientWidth: document.documentElement.clientWidth,
+        scrollWidth: document.documentElement.scrollWidth,
+      }));
+      expect(viewport.scrollWidth, `${route} overflow at ${width}px`)
+        .toBeLessThanOrEqual(viewport.clientWidth);
+    }
   }
   health.assertHealthy();
 });

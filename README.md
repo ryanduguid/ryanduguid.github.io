@@ -1,10 +1,18 @@
 # ryanduguid.github.io
 
-Source for [duguid.com.au](https://duguid.com.au/), the landing page for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+
+## Site structure
+
+- `/tools/` groups ten controls by Extract, Calculate, Control and Inspect.
+- `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates.
+
+The homepage is a short adoption path into those registers. Enquiries remain available, but secondary to browsing, reproducing and verifying the tools.
 
 ## Local preview
 
-The site is static HTML (`index.html`, `about/`, `evidence/`, `rates/`, `tools/`). Open `index.html` in a browser, or serve the folder:
+The site is static HTML (`index.html`, `about/`, `evidence/`, `tools/`, `evaluate/`, `rates/`). Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 4173 --bind 127.0.0.1
@@ -28,6 +36,7 @@ then visit `http://127.0.0.1:4173/`.
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
+- contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
 
 Run locally:
 
@@ -42,13 +51,13 @@ npm ci
 npx playwright install chromium
 ```
 
-Run the calculator journey in the mobile and desktop browser projects:
+Run the adoption path, collection hubs, navigation, overflow, accessibility and calculator journeys in the mobile and desktop browser projects:
 
 ```bash
 npm run test:browser
 ```
 
-Check the Coal LSL proof renderer without changing the tracked image:
+Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 
 ```bash
 npm run test:capture
@@ -57,8 +66,8 @@ npm run test:capture
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
-Run three-pass Lighthouse medians for the homepage, Evidence and Coal LSL
-calculator:
+Run three-pass Lighthouse medians for the homepage, Tools, Evidence and Coal
+LSL calculator:
 
 ```bash
 npm run test:lighthouse
@@ -67,6 +76,18 @@ npm run test:lighthouse
 The Lighthouse reports stay under ignored `work/lighthouse/`. The tested
 browser and hands-on accessibility observations are recorded in
 [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md).
+
+## Social-card provenance
+
+The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
+
+| Asset | Reproducible provenance |
+| --- | --- |
+| `assets/social-card-site.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `7b6ac06a26aceca7c59d4cd4c32eb16f54365672dca7b13fa7d20942f303b3e3`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-tools.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-evaluations.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-rates.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-evidence.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
 
 ## Licence
 
