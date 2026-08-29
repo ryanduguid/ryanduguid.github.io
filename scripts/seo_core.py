@@ -154,30 +154,31 @@ def check_sitemap(
     *,
     site: str,
     not_indexed: set[str],
+    root: Path = ROOT,
 ) -> tuple[list[str], int]:
     """Check the sitemap, llms.txt coverage and robots sitemap declaration."""
     failures: list[str] = []
-    listed = sitemap_urls()
-    expected = {
-        site_url(path.relative_to(ROOT).as_posix(), site)
+    listed = sitemap_urls(root)
+    expected_html = {
+        site_url(path.relative_to(root).as_posix(), site)
         for path in paths
-        if path.relative_to(ROOT).as_posix() not in not_indexed
+        if path.relative_to(root).as_posix() not in not_indexed
     }
-    expected.add(f"{site}/llms.txt")
+    expected_llms = expected_html | {f"{site}/llms.txt"}
 
-    for url in sorted(expected - set(listed)):
+    for url in sorted(expected_html - set(listed)):
         failures.append(f"sitemap.xml: does not list {url}")
-    for url in sorted(set(listed) - expected):
+    for url in sorted(set(listed) - expected_html):
         failures.append(f"sitemap.xml: lists {url}, which is not an indexable page")
     if len(listed) != len(set(listed)):
         failures.append("sitemap.xml: duplicate <loc> entries")
 
-    llms = (ROOT / "llms.txt").read_text(encoding="utf-8")
-    for url in sorted(expected):
+    llms = (root / "llms.txt").read_text(encoding="utf-8")
+    for url in sorted(expected_llms):
         if url not in llms:
             failures.append(f"llms.txt: does not link {url}")
 
-    robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
+    robots = (root / "robots.txt").read_text(encoding="utf-8")
     if f"Sitemap: {site}/sitemap.xml" not in robots:
         failures.append("robots.txt: no Sitemap line")
 
