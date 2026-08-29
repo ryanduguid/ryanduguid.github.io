@@ -1,0 +1,54 @@
+{
+  "site": {
+    "label": "Public register / Australian accounting controls",
+    "heading": [
+      "Review-ready controls",
+      "for Australian",
+      "accounting work."
+    ],
+    "host": "duguid.com.au",
+    "output": "social-card-site.png",
+    "alt": "OLED register card: Review-ready controls for Australian accounting work."
+  },
+  "tools": {
+    "label": "Open-source tools",
+    "heading": [
+      "Accounting checks that",
+      "show their working."
+    ],
+    "host": "duguid.com.au/tools/",
+    "output": "social-card-tools.png",
+    "alt": "OLED register card: Accounting checks that show their working."
+  },
+  "evaluations": {
+    "label": "Reproducible evaluations",
+    "heading": [
+      "Fabricated inputs.",
+      "Expected results.",
+      "Visible limits."
+    ],
+    "host": "duguid.com.au/evaluate/",
+    "output": "social-card-evaluations.png",
+    "alt": "OLED register card: Fabricated inputs. Expected results. Visible limits."
+  },
+  "rates": {
+    "label": "Maintained reference tables",
+    "heading": [
+      "Australian rates,",
+      "sources and review dates."
+    ],
+    "host": "duguid.com.au/rates/",
+    "output": "social-card-rates.png",
+    "alt": "OLED register card: Australian rates, sources and review dates."
+  },
+  "evidence": {
+    "label": "Evidence register",
+    "heading": [
+      "Claims linked to sources,",
+      "releases and tests."
+    ],
+    "host": "duguid.com.au/evidence/",
+    "output": "social-card-evidence.png",
+    "alt": "OLED register card: Claims linked to sources, releases and tests."
+  }
+}
