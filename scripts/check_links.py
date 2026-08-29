@@ -11,7 +11,8 @@ Checks, in order, per file:
    fetching them would fail even when the link is correct. Checking the file
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects). Transient
-   transport failures are retried up to five times; HTTP failures are not.
+   transport failures and HTTP 5xx responses are retried up to five times;
+   HTTP 4xx responses are not.
    HTTP 403 from exact allow-listed ATO source URLs is accepted as an
    automation denial.
 4. The HTML parses cleanly and links carry no empty href.
@@ -58,7 +59,7 @@ RETIRED_NAMES = [
 ]
 
 USER_AGENT = "ryanduguid.github.io-link-check"
-MAX_TRANSPORT_ATTEMPTS = 5
+MAX_FETCH_ATTEMPTS = 5
 
 SELF_ORIGIN = "https://duguid.com.au"
 
@@ -116,16 +117,18 @@ def fetch_final_url(
     url: str, *, opener: object = urllib.request.urlopen
 ) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
-    for attempt in range(1, MAX_TRANSPORT_ATTEMPTS + 1):
+    for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
         try:
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
                 return resp.status, resp.geturl()
-        except urllib.error.HTTPError:
-            raise
-        except (urllib.error.URLError, TimeoutError) as exc:
-            if attempt == MAX_TRANSPORT_ATTEMPTS:
+        except urllib.error.HTTPError as exc:
+            if not 500 <= exc.code < 600 or attempt == MAX_FETCH_ATTEMPTS:
                 raise
-            print(f"retry {attempt}/{MAX_TRANSPORT_ATTEMPTS - 1} {url}: {exc}")
+            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: HTTP {exc.code}")
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if attempt == MAX_FETCH_ATTEMPTS:
+                raise
+            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: {exc}")
     raise AssertionError("unreachable")
 
 
