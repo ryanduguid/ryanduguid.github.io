@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = (
     (sys.executable, "scripts/test_contracts.py"),
+    (sys.executable, "scripts/test_site_server.py"),
     (sys.executable, "scripts/check_design.py"),
     (sys.executable, "scripts/test_check_links.py"),
     (sys.executable, "scripts/test_search_console.py"),
