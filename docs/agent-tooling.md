@@ -10,20 +10,16 @@ Run the repository-defined checks from the repository root:
 
 ```powershell
 python scripts/check_site.py
+npm run test:capture
 npm run test:browser
 npm run test:lighthouse
 ```
 
-Playwright covers routes, interaction, accessibility and visual snapshots.
-Lighthouse records repeat-run medians for the selected public journeys. Failure
-artifacts stay under ignored local output paths; do not commit them.
-
-## Calculator WebMCP
-
-On supporting browsers, the Coal LSL levy page registers four calculator-only,
-read-only tools. They use fabricated scenario inputs and the same protected levy
-engine as the visible form. On browsers without WebMCP, registration is a safe
-no-op and the page continues to work normally.
+The focused capture check renders fabricated proof without changing the tracked
+image. Playwright covers routes, interaction, accessibility and visual
+snapshots. Lighthouse records repeat-run medians for the selected public
+journeys. Failure artifacts stay under ignored local output paths; do not
+commit them.
 
 ## Search Console MCP and CLI
 
@@ -55,10 +51,3 @@ unverified.
 Search Console investigations and release preparation to the commands and
 permission boundaries proven in this repository. Its detailed release gates
 live in the linked checklist rather than being duplicated in the entry point.
-
-Validate the package, static routing contract and recorded fresh-context
-pressure-test evidence with:
-
-```powershell
-python scripts/test_duguid_site_quality_skill.py
-```

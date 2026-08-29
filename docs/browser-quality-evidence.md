@@ -70,20 +70,9 @@ each route. The configured median assertions all passed.
 
 | Route | Performance | Accessibility | Best Practices | SEO | LCP | CLS | Total blocking time |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Homepage | 0.98 | 1.00 | 1.00 | 1.00 | 1,802.484 ms | 0 | 0 ms |
-| Evidence | 0.98 | 1.00 | 1.00 | 1.00 | 1,952.433 ms | 0 | 0 ms |
-| Coal LSL calculator | 0.98 | 1.00 | 1.00 | 1.00 | 1,951.593 ms | 0 | 0 ms |
-
-## WebMCP progressive enhancement
-
-- A pre-navigation test host captured exactly four calculator registrations on
-  mobile and desktop, including strict schemas and read-only annotations. It
-  executed the Formula B scenario through the registered tool and verified
-  that an employee-label sentinel was neither read nor returned.
-- The local Chrome 152 secure context did not expose `document.modelContext`.
-  The calculator therefore followed its intended no-op path and loaded without
-  a console, page or request error. Native discovery remains conditional on a
-  browser build that exposes the evolving WebMCP API.
+| Homepage | 0.99 | 1.00 | 1.00 | 1.00 | 1,806.484 ms | 0 | 0 ms |
+| Evidence | 0.98 | 1.00 | 1.00 | 1.00 | 1,806.623 ms | 0 | 0 ms |
+| Coal LSL calculator | 1.00 | 1.00 | 1.00 | 1.00 | 1,511.038 ms | 0 | 0 ms |
 
 ## Keyboard and focus review
 
@@ -173,19 +162,16 @@ route rail and mobile spacing also replace the plan's literal estimates because
 they are what satisfy the binding line-count, no-wrap, keyboard and overflow
 outcomes with the protected fonts.
 
-The proof writer deliberately uses a verified temporary sibling and atomic
-replacement rather than a direct final-path write. This accepted safety ruling
-prevents the fixed destination from following a swapped link while retaining a
-single allowlisted output. The current WebP is 30,050 bytes, 868 by 580 and
-decodes in both homepage projects.
+The proof writer uses a fixed temporary sibling and atomic replacement rather
+than a direct final-path write. The current WebP is 30,050 bytes, 868 by 580
+and decodes in both homepage projects.
 
 ## Limits
 
 The automated Axe scan covers detectable rules and this hands-on pass covers
 the recorded keyboard, focus, reflow and forced-colours scenarios. It does not
 replace assistive-technology testing, a complete WCAG audit or testing with
-real client data. Native WebMCP discovery also remains dependent on a browser
-that exposes the evolving API.
+real client data.
 
 The source checker validates the committed proof's RIFF/WEBP container marker
 and 80 KB limit, but does not independently parse its intrinsic dimensions or
@@ -193,9 +179,7 @@ fully decode it. The browser checks provide the current decode and 868 by 580
 intrinsic-dimension evidence; source-level image parsing remains an explicit
 deferred limitation.
 
-The final capture-suite sequence had one transient convergence failure after
-five fresh Chromium captures. The exact isolated test then passed, and the
-unchanged complete suite passed all eight tests on its immediate diagnostic
-rerun without touching tracked calculator or proof paths. The non-reproduced
-Windows/Chromium raster convergence event remains recorded as a test-stability
-concern rather than hidden by the successful rerun.
+The focused capture check renders one fabricated Formula B result through the
+same Playwright-served page used by the browser suite. It validates the fixed
+dimensions, visible result values, WebP container and 80 KB limit without
+writing the tracked proof unless snapshot-update mode is explicit.

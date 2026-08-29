@@ -1,6 +1,6 @@
 ---
 name: duguid-site-quality
-description: Use when changing, reviewing, diagnosing, or preparing a release for the duguid.com.au repository, including static content, the Coal LSL calculator, browser quality, WebMCP, Search Console evidence, or publication readiness.
+description: Use when changing, reviewing, diagnosing, or preparing a release for the duguid.com.au repository, including static content, the Coal LSL calculator, browser quality, Search Console evidence, or publication readiness.
 ---
 
 # Duguid Site Quality
@@ -20,16 +20,15 @@ boundaries. Use fabricated data in tests and browser work.
 | Change | Evidence required |
 | --- | --- |
 | Copy, metadata, links or static HTML | Run the focused source checker(s), then `python scripts/check_site.py`; inspect the affected route in a browser. |
-| Levy calculator, explanation or WebMCP | Run both levy test commands, `python scripts/check_site.py` and `npm run test:browser`; add Lighthouse when layout, assets or performance can change. |
+| Levy calculator or explanation | Run the levy test, `python scripts/check_site.py`, `npm run test:capture` and `npm run test:browser`; add Lighthouse when layout, assets or performance can change. |
 | Browser presentation or interaction | Run `npm run test:browser`; run `npm run test:lighthouse` for layout, asset or performance risk. Retain ignored failure evidence. |
 | Search performance or indexing investigation | Use Search Console only for an explicit search task and within the limits below. |
 | Release readiness | Read and apply [the release checklist](references/release-checklist.md). |
 
-The levy commands are:
+The levy command is:
 
 ```text
 node --test scripts/levy.test.mjs
-node --test scripts/levy-webmcp.test.mjs
 ```
 
 ## Search Console boundary

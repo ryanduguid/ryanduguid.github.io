@@ -8,9 +8,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = (
-    (sys.executable, "scripts/test_check_design.py"),
+    (sys.executable, "scripts/test_contracts.py"),
     (sys.executable, "scripts/check_design.py"),
-    (sys.executable, "scripts/test_check_seo.py"),
     (sys.executable, "scripts/test_check_links.py"),
     (sys.executable, "scripts/test_search_console.py"),
     (
@@ -21,11 +20,9 @@ CHECKS = (
         ".agents/tools/search-console/server.py",
         "self-test",
     ),
-    (sys.executable, "scripts/test_duguid_site_quality_skill.py"),
     (sys.executable, "scripts/check_seo.py"),
     (sys.executable, "scripts/check_links.py"),
     ("node", "--test", "scripts/levy.test.mjs"),
-    ("node", "--test", "scripts/levy-webmcp.test.mjs"),
 )
 
 

@@ -48,10 +48,10 @@ Run the calculator journey in the mobile and desktop browser projects:
 npm run test:browser
 ```
 
-Run the Coal LSL proof capture and filesystem-security tests:
+Check the Coal LSL proof renderer without changing the tracked image:
 
 ```bash
-node --test scripts/capture-coal-lsl-proof.test.mjs
+npm run test:capture
 ```
 
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
