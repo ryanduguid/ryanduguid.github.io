@@ -65,7 +65,7 @@
         <dd>Estimate only. Check the current prescribed percentage before relying on a figure.</dd>
       </div>
     </dl>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
     </header>
 
     <div class="calculator-workspace site-shell">
@@ -277,7 +277,7 @@
     <template id="fields-casual">
       <div class="field">
         <label for="reportingMonth">Reporting month</label>
-        <input type="month" id="reportingMonth" name="reportingMonth" required aria-describedby="reportingMonth-help" />
+        <input type="month" id="reportingMonth" name="reportingMonth" required pattern="[0-9]{4}-(0[1-9]|1[0-2])" title="Enter the month as YYYY-MM, like 2026-08" placeholder="2026-08" aria-describedby="reportingMonth-help" />
         <p id="reportingMonth-help" class="field-note">Required for the casual branch because eligible bonus periods depend on the reporting month.</p>
       </div>
       <div class="field field-checkbox">
@@ -481,16 +481,25 @@
         if (e.target.classList.contains('bonus-remove')) e.target.closest('.bonus-row').remove();
       });
 
-      calcForm.addEventListener('submit', (event) => {
-        event.preventDefault();
-        if (!validateForm()) return;
+      function calculate() {
+        if (!validateForm()) return false;
         const allMonetaryAmountsBlank = [...calcForm.querySelectorAll('input[type="number"]')]
           .every((input) => input.value.trim() === '');
         render(compute(calcForm), resultEl, allMonetaryAmountsBlank);
         resultActions.hidden = false;
+        return true;
+      }
+
+      calcForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        calculate();
       });
 
-      document.getElementById('print-working').addEventListener('click', () => window.print());
+      // Recalculate from the current inputs before printing, so the printed
+      // working can never pair edited figures with a stale result.
+      document.getElementById('print-working').addEventListener('click', () => {
+        if (calculate()) window.print();
+      });
 
       let employees = [];
 
@@ -518,7 +527,9 @@
       }
 
       document.getElementById('add-employee').addEventListener('click', () => {
-        if (!validateForm()) return;
+        // calculate() re-renders the result so the row added below always
+        // matches the figures shown beside it.
+        if (!calculate()) return;
         const result = compute(calcForm);
         const labelInput = document.getElementById('employeeLabel');
         const label = labelInput.value.trim() || `Reference ${employees.length + 1}`;
@@ -595,7 +606,7 @@
         "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -662,7 +673,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",
