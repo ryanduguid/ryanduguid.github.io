@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import hashlib
 import shutil
+import struct
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
@@ -314,6 +316,7 @@ def test_public_contracts() -> int:
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
+    assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
     assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
     assert_clean(
@@ -579,6 +582,57 @@ def test_public_contracts() -> int:
                 replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
+    site_card_rel = "assets/social-card-site.png"
+    with copied_site() as root:
+        card_path = root / site_card_rel
+        card = bytearray(card_path.read_bytes())
+        struct.pack_into(">I", card, 16, 1199)
+        card_path.write_bytes(card)
+        expect_failure(
+            "social card dimensions",
+            contracts.check_social_cards(root),
+            f"{site_card_rel}: social card dimensions changed",
+        )
+
+    with copied_site() as root:
+        card_path = root / site_card_rel
+        card = card_path.read_bytes()
+        card_path.write_bytes(
+            card + b"\0" * (contracts.SOCIAL_CARD_MAX_BYTES - len(card))
+        )
+        expect_failure(
+            "social card byte budget",
+            contracts.check_social_cards(root),
+            f"{site_card_rel}: social card must be under 50,000 bytes",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "assets/social-cards.json",
+            "Review-ready controls",
+            "Review controls",
+        )
+        expect_failure(
+            "social card context copy",
+            contracts.check_social_cards(root),
+            "social-card context copy or mapping is stale",
+        )
+
+    with copied_site() as root:
+        card = (root / site_card_rel).read_bytes()
+        replace_file(
+            root,
+            "README.md",
+            hashlib.sha256(card).hexdigest(),
+            "0" * 64,
+        )
+        expect_failure(
+            "social card checksum",
+            contracts.check_social_cards(root),
+            f"README.md: stale checksum for {site_card_rel}",
+        )
+
     with copied_site() as root:
         replace_file(
             root,
@@ -646,7 +700,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 15
+    return len(homepage_mutations) + len(calculator_mutations) + 19
 
 
 def main() -> None:

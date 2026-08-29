@@ -28,6 +28,7 @@ then visit `http://127.0.0.1:4173/`.
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
+- contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
 
 Run locally:
 
@@ -48,7 +49,7 @@ Run the calculator journey in the mobile and desktop browser projects:
 npm run test:browser
 ```
 
-Check the Coal LSL proof renderer without changing the tracked image:
+Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 
 ```bash
 npm run test:capture
@@ -67,6 +68,18 @@ npm run test:lighthouse
 The Lighthouse reports stay under ignored `work/lighthouse/`. The tested
 browser and hands-on accessibility observations are recorded in
 [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md).
+
+## Social-card provenance
+
+The five cards are rendered from one editable source and one context file. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
+
+| Asset | Reproducible provenance |
+| --- | --- |
+| `assets/social-card-site.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `7b6ac06a26aceca7c59d4cd4c32eb16f54365672dca7b13fa7d20942f303b3e3`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-tools.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-evaluations.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-rates.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-evidence.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
 
 ## Licence
 

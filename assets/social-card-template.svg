@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title description">
+  <title id="title">{{TITLE}}</title>
+  <desc id="description">{{DESCRIPTION}}</desc>
+  <defs>
+    <style>
+      @font-face {
+        font-family: "IBM Plex Serif";
+        src: url("data:font/woff2;base64,{{FONT_SERIF}}") format("woff2");
+        font-weight: 600;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "IBM Plex Sans";
+        src: url("data:font/woff2;base64,{{FONT_SANS}}") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      @font-face {
+        font-family: "IBM Plex Mono";
+        src: url("data:font/woff2;base64,{{FONT_MONO}}") format("woff2");
+        font-weight: 400;
+        font-style: normal;
+      }
+      .label {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 18px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .register {
+        font-family: "IBM Plex Sans", sans-serif;
+        font-size: 28px;
+      }
+      .heading {
+        font-family: "IBM Plex Serif", serif;
+        font-size: 64px;
+        font-weight: 600;
+        letter-spacing: 0.01em;
+      }
+      .host {
+        font-family: "IBM Plex Mono", monospace;
+        font-size: 24px;
+      }
+    </style>
+  </defs>
+  <rect width="1200" height="630" fill="#000000" />
+  <rect x="72" y="72" width="1056" height="6" fill="#eef4f0" />
+  <rect x="72" y="552" width="1056" height="6" fill="#eef4f0" />
+  <rect x="96" y="140" width="8" height="368" fill="#4dff88" />
+  <g transform="translate(984,214)">
+    <rect x="16" y="16" width="96" height="8" fill="#eef4f0" />
+    <rect x="16" y="104" width="96" height="8" fill="#eef4f0" />
+    <rect x="16" y="16" width="8" height="96" fill="#eef4f0" />
+    <rect x="104" y="16" width="8" height="96" fill="#eef4f0" />
+    <rect x="32" y="32" width="8" height="64" fill="#4dff88" />
+    <rect x="48" y="32" width="48" height="8" fill="#9aa89f" />
+    <rect x="48" y="56" width="40" height="8" fill="#9aa89f" />
+    <rect x="48" y="80" width="32" height="8" fill="#9aa89f" />
+  </g>
+  <text class="label" x="128" y="166" fill="#9aa89f">{{LABEL}}</text>
+  <text class="register" x="128" y="218" fill="#eef4f0">Tool adoption register</text>
+  <text class="heading" fill="#eef4f0">{{HEADING_LINES}}</text>
+  <text class="host" x="128" y="524" fill="#4dff88">{{HOST}}</text>
+</svg>
