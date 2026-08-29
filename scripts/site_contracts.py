@@ -664,6 +664,10 @@ CALCULATOR_REQUIRED_IDS = {
     "employee-total-wages",
     "employee-total-levy",
     "export-csv",
+    "money-blank-help",
+    "result-actions",
+    "print-working",
+    "employee-reference-help",
     "fields-baseRate",
     "baseRate",
     "overtime",
@@ -679,6 +683,16 @@ CALCULATOR_REQUIRED_IDS = {
     "ordinaryPay",
     "bonus-row-template",
 }
+CALCULATOR_COMMON_HELP = (
+    "Leave a monetary amount blank to treat it as $0.00."
+)
+CALCULATOR_BLANK_RESULT_EXPLANATION = (
+    "All monetary amounts were blank, so the calculator treated each as $0.00."
+)
+CALCULATOR_PRIVACY_WARNING = (
+    "Use an internal payroll reference such as EMP-001. Do not enter an employee "
+    "name, TFN or other direct identifier."
+)
 CALCULATOR_NUMBER_INPUT_IDS = (
     "sacrificed",
     "baseRate",
@@ -689,6 +703,9 @@ CALCULATOR_NUMBER_INPUT_IDS = (
     "casualLoading",
     "ordinaryPay",
 )
+CALCULATOR_FIELD_HELP_IDS = {
+    identifier: f"{identifier}-help" for identifier in CALCULATOR_NUMBER_INPUT_IDS
+}
 BONUS_FREQUENCIES = [
     "weekly",
     "fortnightly",
@@ -1024,14 +1041,31 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
         )
 
     root = core.parse_structure(html)
-    ids = {
+    all_ids = [
         element.attr("id")
         for element in core.descendants(root)
         if element.attr("id")
-    }
+    ]
+    ids = set(all_ids)
+    duplicate_ids = sorted(
+        identifier for identifier, count in Counter(all_ids).items() if count > 1
+    )
+    if duplicate_ids:
+        failures.append(
+            f"{CALCULATOR_REL}: duplicate help or control IDs: {duplicate_ids}"
+        )
     missing_ids = sorted(CALCULATOR_REQUIRED_IDS - ids)
     if missing_ids:
         failures.append(f"{CALCULATOR_REL}: missing protected field IDs: {missing_ids}")
+
+    common_help = core.element_by_id(root, "money-blank-help")
+    if (
+        len(common_help) != 1
+        or core.element_text(common_help[0]) != CALCULATOR_COMMON_HELP
+    ):
+        failures.append(
+            f"{CALCULATOR_REL}: form must contain one exact blank-as-zero note"
+        )
 
     branch_radios = [
         element
@@ -1057,21 +1091,45 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
         "inputmode": "decimal",
     }
     for identifier in CALCULATOR_NUMBER_INPUT_IDS:
-        check_id_contract(
+        control = check_id_contract(
             root,
             identifier,
             "input",
             {"name": identifier, **number_attributes},
             failures,
         )
+        if control is not None:
+            described_by = set(
+                (control.attr("aria-describedby") or "").split()
+            )
+            expected_help = {
+                "money-blank-help",
+                CALCULATOR_FIELD_HELP_IDS[identifier],
+            }
+            if described_by != expected_help:
+                failures.append(
+                    f"{CALCULATOR_REL}: #{identifier} aria-describedby must retain "
+                    "common and field-specific help"
+                )
+        help_nodes = core.element_by_id(root, CALCULATOR_FIELD_HELP_IDS[identifier])
+        if len(help_nodes) != 1:
+            failures.append(
+                f"{CALCULATOR_REL}: #{identifier} needs one unique field help ID"
+            )
     check_id_contract(
         root,
         "reportingMonth",
         "input",
-        {"type": "month", "name": "reportingMonth"},
+        {
+            "type": "month",
+            "name": "reportingMonth",
+            "aria-describedby": "reportingMonth-help",
+        },
         failures,
         present=("required",),
     )
+    if len(core.element_by_id(root, "reportingMonth-help")) != 1:
+        failures.append(f"{CALCULATOR_REL}: reporting month needs associated help")
     for identifier in ("instrumentSpecifiesLoading", "loadingQuantifiable"):
         check_id_contract(
             root,
@@ -1081,12 +1139,28 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
             failures,
         )
     check_id_contract(
-        root, "employeeLabel", "input", {"type": "text"}, failures
+        root,
+        "employeeLabel",
+        "input",
+        {
+            "type": "text",
+            "placeholder": "EMP-001",
+            "aria-describedby": "employee-reference-help",
+        },
+        failures,
     )
-    for identifier in ("add-bonus", "add-employee", "export-csv"):
+    for identifier in (
+        "add-bonus",
+        "add-employee",
+        "export-csv",
+        "print-working",
+    ):
         check_id_contract(
             root, identifier, "button", {"type": "button"}, failures
         )
+    export_buttons = core.element_by_id(root, "export-csv")
+    if len(export_buttons) == 1 and core.element_text(export_buttons[0]) != "Download CSV":
+        failures.append(f"{CALCULATOR_REL}: missing visible CSV action")
 
     forms = core.element_by_id(root, "calc-form")
     if len(forms) == 1:
@@ -1120,6 +1194,23 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
                         f"{CALCULATOR_REL}: .bonus-amount {name} must be "
                         f"{expected!r}, found {actual!r}"
                     )
+            if bonus_amounts[0].attr("aria-describedby") != "money-blank-help":
+                failures.append(
+                    f"{CALCULATOR_REL}: bonus amount must retain common help before cloning"
+                )
+            if bonus_amounts[0].attr("data-help-template") != "bonus-amount":
+                failures.append(
+                    f"{CALCULATOR_REL}: bonus amount needs generated field-specific help"
+                )
+        bonus_help = [
+            element
+            for element in core.descendants(bonus_template)
+            if element.attr("data-help-template") == "bonus-amount-note"
+        ]
+        if len(bonus_help) != 1 or bonus_help[0].attr("id") is not None:
+            failures.append(
+                f"{CALCULATOR_REL}: bonus template help must receive a unique cloned ID"
+            )
 
         frequency_selects = [
             element
@@ -1166,6 +1257,35 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
     if not 0 <= result_position < employee_position < disclaimer_position:
         failures.append(
             f"{CALCULATOR_REL}: result, employee workflow and disclaimer are out of order"
+        )
+
+    result_actions = core.element_by_id(root, "result-actions")
+    if len(result_actions) == 1:
+        buttons = core.descendants(result_actions[0], "button")
+        actual_actions = [
+            (button.attr("id"), core.element_text(button)) for button in buttons
+        ]
+        expected_actions = [
+            ("print-working", "Print working"),
+            ("add-employee", "Add to monthly table"),
+        ]
+        if actual_actions != expected_actions:
+            failures.append(
+                f"{CALCULATOR_REL}: result actions are {actual_actions!r}, "
+                f"expected {expected_actions!r}"
+            )
+    visible_text = core.visible_text(html)
+    for required, label in (
+        (CALCULATOR_PRIVACY_WARNING, "direct-identifier warning"),
+        ("Employee reference", "employee reference label"),
+        ("EMP-001", "employee reference example"),
+        ("Download CSV", "CSV action"),
+    ):
+        if required not in visible_text:
+            failures.append(f"{CALCULATOR_REL}: missing visible {label}")
+    if CALCULATOR_BLANK_RESULT_EXPLANATION not in html:
+        failures.append(
+            f"{CALCULATOR_REL}: zero result needs the blank-as-zero explanation"
         )
 
     if "from '/assets/levy.mjs'" not in html:

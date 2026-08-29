@@ -1155,6 +1155,10 @@ input[type="checkbox"] {
   margin-top: 0;
 }
 
+.bonus-row .field-note {
+  grid-column: 1 / -1;
+}
+
 .bonus-remove {
   color: var(--colour-alert);
   background: transparent;
@@ -1241,6 +1245,12 @@ input[type="checkbox"] {
   color: var(--colour-ink-soft);
 }
 
+.result-blank-policy {
+  margin-top: var(--space-3);
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
 .calculator-empty {
   color: var(--colour-ink-soft);
 }
@@ -1260,6 +1270,26 @@ input[type="checkbox"] {
   margin-bottom: var(--space-5);
 }
 
+.employee-section > .field-note {
+  max-width: 58ch;
+  margin-bottom: var(--space-4);
+}
+
+.result-actions {
+  display: grid;
+  gap: var(--space-4);
+  max-width: 48rem;
+  margin-bottom: var(--space-5);
+}
+
+.result-actions[hidden] {
+  display: none;
+}
+
+.result-actions > #print-working {
+  justify-self: start;
+}
+
 .employee-section .field {
   grid-template-columns: minmax(0, 1fr) auto;
   max-width: 48rem;
@@ -1269,6 +1299,10 @@ input[type="checkbox"] {
 
 .employee-section .field label {
   grid-column: 1 / -1;
+}
+
+.result-actions .field {
+  margin-bottom: 0;
 }
 
 .legal-content {
@@ -1543,6 +1577,66 @@ input[type="checkbox"] {
 
   .result-row strong {
     text-align: left;
+  }
+}
+
+@media print {
+  @page {
+    margin: 12mm;
+  }
+
+  :root {
+    color-scheme: light;
+    --colour-canvas: var(--colour-print-paper);
+    --colour-paper: var(--colour-print-paper);
+    --colour-paper-raised: var(--colour-print-paper);
+    --colour-ink: var(--colour-print-ink);
+    --colour-ink-soft: var(--colour-print-ink);
+    --colour-rule: var(--colour-print-ink);
+    --colour-rule-strong: var(--colour-print-ink);
+    --colour-stamp: var(--colour-print-ink);
+    --colour-stamp-strong: var(--colour-print-ink);
+    --colour-stamp-wash: var(--colour-print-paper);
+  }
+
+  body {
+    color: var(--colour-print-ink);
+    background: var(--colour-print-paper);
+  }
+
+  .skip-link,
+  .site-header,
+  .site-footer,
+  .article-crumb,
+  .employee-section,
+  .legal-content,
+  button {
+    display: none !important;
+  }
+
+  .calculator-header,
+  .calculator-workspace {
+    width: 100%;
+    max-width: none;
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+
+  .calculator-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--space-6);
+  }
+
+  .calculator-result {
+    position: static;
+  }
+
+  .calculator-method,
+  .calculator-form fieldset,
+  .calculator-form .field,
+  .result-row,
+  .result-why {
+    break-inside: avoid;
   }
 }
 
