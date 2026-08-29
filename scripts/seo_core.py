@@ -14,6 +14,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+GENERATED_HTML_DIRECTORIES = {"node_modules", "work"}
 
 TITLE_MAX = 65
 DESC_MIN = 50
@@ -637,10 +638,15 @@ def sitemap_lastmods(url: str, root: Path = ROOT) -> list[str]:
     )
 
 
-def html_files() -> list[Path]:
+def html_files(root: Path = ROOT) -> list[Path]:
+    """Return public site HTML, excluding hidden and generated directories."""
     return sorted(
         p
-        for p in ROOT.rglob("*.html")
-        if not any(part.startswith(".") for part in p.relative_to(ROOT).parts)
+        for p in root.rglob("*.html")
+        if not any(part.startswith(".") for part in p.relative_to(root).parts)
+        and not any(
+            part in GENERATED_HTML_DIRECTORIES
+            for part in p.relative_to(root).parts[:-1]
+        )
         and not (p.name.startswith("google") and p.name.endswith(".html"))
     )

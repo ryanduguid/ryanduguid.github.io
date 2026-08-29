@@ -35,15 +35,21 @@
     <header class="calculator-header site-shell">
     <p><a href="/">Home</a></p>
     <h1>Coal LSL levy calculator</h1>
-    <p class="short-answer">
-      The Coal LSL payroll levy is 2.7 per cent of eligible wages, paid monthly, and the eligible wages figure depends on which of the three branches of section 3B the employee sits in: a base rate of pay, an annual salary, or casual. This calculator applies the branch test and shows which formula it used and why. Estimate only, and check the current prescribed percentage before relying on a figure.
-    </p>
-    <p class="lead">
-      Work out eligible wages and the payroll levy under section 3B of the Coal
-      Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992.
-      Pick how the employee is paid, enter this month's figures, and see which
-      formula applies and why.
-    </p>
+    <p class="short-answer">Apply the section 3B branch test to monthly pay and keep the formula, eligible wages and levy visible.</p>
+    <dl class="calculator-method" aria-label="Calculation method and boundary">
+      <div>
+        <dt>Rate</dt>
+        <dd>2.7 per cent of eligible wages, paid monthly, checked 28 August 2026</dd>
+      </div>
+      <div>
+        <dt>Method</dt>
+        <dd>Section 3B branch test</dd>
+      </div>
+      <div>
+        <dt>Boundary</dt>
+        <dd>Estimate only. Check the current prescribed percentage before relying on a figure.</dd>
+      </div>
+    </dl>
     </header>
 
     <div class="calculator-workspace site-shell">
@@ -296,30 +302,8 @@
       import {
         levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
       } from '/assets/levy.mjs';
+      import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
       import { compute } from '/assets/levy-form.mjs';
-
-      const money = (cents) =>
-        (cents / 100).toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
-
-      function explain(result) {
-        if (result.branch === 'pre-2024') {
-          return `The pre-January-2024 casual method applied this month, before the
-                  separate casual loading component existed. There is no greater-of
-                  test and no 75 per cent factor.`;
-        }
-        if (result.branch !== 's 3B(1)') {
-          return `Section ${result.branch} applies. There is no greater-of test and no
-                  75 per cent factor on this branch.`;
-        }
-        return result.winner === 'B'
-          ? `Formula B wins this month. Overtime, penalty rates and allowances reached
-             the levy base only because 75 per cent of the aggregate (${money(result.formulaB)})
-             exceeded base pay plus at-least-monthly bonuses (${money(result.formulaA)}).`
-          : `Formula A wins this month. Overtime, penalty rates and allowances did not
-             affect the levy at all, because 75 per cent of the aggregate
-             (${money(result.formulaB)}) did not exceed base pay plus at-least-monthly
-             bonuses (${money(result.formulaA)}).`;
-      }
 
       function render(result, into) {
         const cents = result.eligibleWagesCents;
@@ -330,24 +314,45 @@
         const exact = (cents * LEVY_RATE_NUMERATOR) / LEVY_RATE_DENOMINATOR;
         const rounded = levyCents(cents);
         into.innerHTML = '';
+        const branchLabel = result.branch.startsWith('s ')
+          ? 'section ' + result.branch.slice(2)
+          : result.branch;
         const rows = [
-          ['Eligible wages', money(cents)],
-          [`Levy at 2.7 per cent, as at ${LEVY_RATE_AS_AT}`, money(rounded)],
-          ...(exact !== rounded ? [['Before rounding', `${(exact / 100).toFixed(4)} dollars`]] : []),
-          ['Branch applied', `section ${result.branch}`],
+          { kind: 'eligible-wages', label: 'Eligible wages', value: money(cents) },
+          {
+            kind: 'levy',
+            label: 'Levy at 2.7 per cent, as at ' + LEVY_RATE_AS_AT,
+            value: money(rounded),
+          },
+          ...(exact !== rounded
+            ? [{
+                kind: 'before-rounding',
+                label: 'Before rounding',
+                value: (exact / 100).toFixed(4) + ' dollars',
+              }]
+            : []),
+          { kind: 'branch', label: 'Branch applied', value: branchLabel },
           ...(result.branch === 's 3B(1)'
-            ? [['Formula A', money(result.formulaA)], ['Formula B', money(result.formulaB)]]
+            ? [
+                { kind: 'formula-a', label: 'Formula A', value: money(result.formulaA) },
+                { kind: 'formula-b', label: 'Formula B', value: money(result.formulaB) },
+              ]
             : []),
         ];
-        for (const [label, value] of rows) {
+        for (const { kind, label, value } of rows) {
           const row = document.createElement('div');
           row.className = 'result-row';
-          row.innerHTML = `<span>${label}</span><strong>${value}</strong>`;
+          row.dataset.resultKind = kind;
+          const labelElement = document.createElement('span');
+          const valueElement = document.createElement('strong');
+          labelElement.textContent = label;
+          valueElement.textContent = value;
+          row.append(labelElement, valueElement);
           into.append(row);
         }
         const why = document.createElement('p');
         why.className = 'result-why';
-        why.textContent = explain(result);
+        why.textContent = explainLevyResult(result);
         into.append(why);
       }
 
