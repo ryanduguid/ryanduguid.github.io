@@ -15,3 +15,11 @@ export async function waitForVisualFonts(page) {
     await document.fonts.ready;
   }, visualFonts);
 }
+
+export async function gotoForVisualSnapshot(page, url) {
+  await page.goto(url);
+  await waitForVisualFonts(page);
+  // font-display: optional uses the bundled faces reliably on a warm navigation.
+  await page.reload();
+  await waitForVisualFonts(page);
+}
