@@ -501,15 +501,58 @@ ARTICLE_TOC_EXTERNAL_LINKS = {
 warnings: list[str] = []
 
 PRIMARY_NAV_LINKS = [
-    ("/about/", "About"),
+    ("/tools/", "Tools"),
+    ("/rates/", "Rates"),
     ("/evidence/", "Evidence"),
-    ("/tools/australian-tax-ai-agents/", "AI agents"),
-    ("https://github.com/ryanduguid", "GitHub"),
-    (
-        "https://github.com/ryanduguid/awesome-australian-accounting-tech",
-        "Awesome List",
-    ),
+    ("/about/", "About"),
+    ("/#engage", "Contact"),
 ]
+
+COLLECTION_HUBS: dict[str, dict[str, object]] = {
+    "tools/index.html": {
+        "h1": "Tools",
+        "entries": [
+            ("/tools/xero-trial-balance/", "Xero trial balance CSV export"),
+            ("/tools/subcontractor-ledgers/", "Subcontract ledger skills"),
+            ("/tools/wip-schedule/", "Construction WIP schedule"),
+            ("/tools/payday-super/", "Payday Super due dates and SG charge"),
+            ("/tools/ato-benchmarks/", "ATO small business benchmark comparison"),
+            ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
+            ("/tools/trust-distributions/", "Trust distribution checks"),
+            ("/tools/company-tax-franking/", "Company tax and franking checks"),
+            ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
+            ("/tools/australian-tax-ai-agents/", "Australian tax tools for AI agents"),
+        ],
+    },
+    "evaluate/index.html": {
+        "h1": "Evaluations",
+        "entries": [
+            ("/evaluate/manager-review-gate/", "Manager review gate evaluation"),
+            (
+                "/evaluate/xero-trial-balance-integrity/",
+                "Xero trial balance integrity evaluation",
+            ),
+            (
+                "/evaluate/payday-super-evidence/",
+                "Payday Super timing evidence evaluation",
+            ),
+        ],
+    },
+    "rates/index.html": {
+        "h1": "Rates",
+        "entries": [
+            ("/rates/super-guarantee/", "Super guarantee rate history"),
+            (
+                "/rates/div7a-benchmark-rate/",
+                "Division 7A benchmark interest rate",
+            ),
+            (
+                "/rates/cents-per-kilometre/",
+                "Cents per kilometre car-expense rate",
+            ),
+        ],
+    },
+}
 
 HOMEPAGE_REQUIRED_TEXT = [
     "Accounting tools that show their working.",
@@ -1925,6 +1968,215 @@ def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
     if links != PRIMARY_NAV_LINKS:
         failures.append(f"{rel}: primary navigation is {links!r}, expected {PRIMARY_NAV_LINKS!r}")
 
+    expected_current: dict[str, str] = {}
+    if rel == "tools/index.html":
+        expected_current["/tools/"] = "page"
+    elif rel.startswith("tools/") or rel.startswith("evaluate/"):
+        expected_current["/tools/"] = "location"
+    elif rel == "rates/index.html":
+        expected_current["/rates/"] = "page"
+    elif rel.startswith("rates/"):
+        expected_current["/rates/"] = "location"
+    elif rel == EVIDENCE_REL:
+        expected_current["/evidence/"] = "page"
+    elif rel == "about/index.html":
+        expected_current["/about/"] = "page"
+
+    actual_current = {
+        link.attr("href"): link.attr("aria-current")
+        for link in core.descendants(primary_blocks[0], "a", rendered_only=True)
+        if link.attr("aria-current") is not None
+    }
+    if actual_current != expected_current:
+        failures.append(
+            f"{rel}: primary navigation current states are {actual_current!r}, "
+            f"expected {expected_current!r}"
+        )
+
+
+def collection_breadcrumb_shape(
+    rel: str,
+    current_name: str,
+) -> list[tuple[str, str | None, str]] | None:
+    """Return visible href and canonical URL for a collection breadcrumb."""
+    current_url = core.site_url(rel, SITE)
+    if rel == "tools/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
+        parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
+    elif rel == "evaluate/index.html":
+        parents = [
+            ("Home", "/", f"{SITE}/"),
+            ("Tools", "/tools/", f"{SITE}/tools/"),
+        ]
+    elif rel.startswith("evaluate/"):
+        parents = [
+            ("Home", "/", f"{SITE}/"),
+            ("Tools", "/tools/", f"{SITE}/tools/"),
+            ("Evaluations", "/evaluate/", f"{SITE}/evaluate/"),
+        ]
+    elif rel == "rates/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("rates/"):
+        parents = [("Home", "/", f"{SITE}/"), ("Rates", "/rates/", f"{SITE}/rates/")]
+    else:
+        return None
+    return [*parents, (current_name, None, current_url)]
+
+
+def check_collection_breadcrumb(html: str, rel: str, failures: list[str]) -> None:
+    """Keep visible and structured collection breadcrumbs in the same hierarchy."""
+    root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    if len(h1s) != 1:
+        failures.append(f"{rel}: collection breadcrumb needs exactly one H1")
+        return
+    expected = collection_breadcrumb_shape(rel, core.element_text(h1s[0]))
+    if expected is None:
+        return
+
+    breadcrumbs = [
+        nav
+        for nav in core.descendants(root, "nav", rendered_only=True)
+        if nav.attr("aria-label") == "Breadcrumb"
+    ]
+    if len(breadcrumbs) != 1:
+        failures.append(
+            f"{rel}: expected exactly one nav labelled Breadcrumb, found {len(breadcrumbs)}"
+        )
+    else:
+        items = core.descendants(breadcrumbs[0], "li", rendered_only=True)
+        actual_names = [core.element_text(item) for item in items]
+        expected_names = [name for name, _, _ in expected]
+        if actual_names != expected_names:
+            failures.append(
+                f"{rel}: visible breadcrumb is {actual_names!r}, expected {expected_names!r}"
+            )
+        for index, (name, href, _) in enumerate(expected):
+            if index >= len(items):
+                break
+            links = core.descendants(items[index], "a", rendered_only=True)
+            actual_href = links[0].attr("href") if len(links) == 1 else None
+            if href is not None and actual_href != href:
+                failures.append(
+                    f"{rel}: breadcrumb {name!r} points to {actual_href!r}, expected {href!r}"
+                )
+            if href is None and (
+                links or items[index].attr("aria-current") != "page"
+            ):
+                failures.append(
+                    f"{rel}: current breadcrumb {name!r} must be unlinked and aria-current=page"
+                )
+
+    parse_failures: list[str] = []
+    structured = [
+        node
+        for block in core.json_ld_blocks(html, rel, parse_failures)
+        for node in core.nodes(block)
+        if core.has_type(node, "BreadcrumbList")
+    ]
+    failures.extend(parse_failures)
+    if len(structured) != 1:
+        failures.append(
+            f"{rel}: expected exactly one BreadcrumbList, found {len(structured)}"
+        )
+        return
+    elements = structured[0].get("itemListElement")
+    expected_structured = [
+        {
+            "@type": "ListItem",
+            "position": index,
+            "name": name,
+            "item": canonical,
+        }
+        for index, (name, _, canonical) in enumerate(expected, start=1)
+    ]
+    if elements != expected_structured:
+        failures.append(f"{rel}: BreadcrumbList does not match the visible hierarchy")
+
+
+def check_collection_hubs(root: Path = core.ROOT) -> list[str]:
+    """Require each collection hub's visible register and ItemList to agree."""
+    failures: list[str] = []
+    for rel, contract in COLLECTION_HUBS.items():
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"{rel}: missing collection hub")
+            continue
+        html = path.read_text(encoding="utf-8")
+        parsed = core.parse_structure(html)
+        h1s = core.descendants(parsed, "h1", rendered_only=True)
+        expected_h1 = contract["h1"]
+        if len(h1s) != 1 or core.element_text(h1s[0]) != expected_h1:
+            failures.append(f"{rel}: collection H1 must be {expected_h1!r}")
+
+        registers = [
+            element
+            for element in core.descendants(parsed, rendered_only=True)
+            if element.has_class("collection-register")
+        ]
+        expected_entries = contract["entries"]
+        if len(registers) != 1:
+            failures.append(
+                f"{rel}: expected one collection register, found {len(registers)}"
+            )
+        else:
+            rows = [
+                element
+                for element in core.descendants(registers[0], rendered_only=True)
+                if element.has_class("collection-entry")
+            ]
+            actual_entries: list[tuple[str | None, str]] = []
+            for row in rows:
+                title_links = [
+                    link
+                    for link in core.descendants(row, "a", rendered_only=True)
+                    if link.has_class("collection-entry__title")
+                ]
+                if len(title_links) == 1:
+                    actual_entries.append(
+                        (title_links[0].attr("href"), core.element_text(title_links[0]))
+                    )
+            if actual_entries != expected_entries:
+                failures.append(
+                    f"{rel}: collection entries are {actual_entries!r}, "
+                    f"expected {expected_entries!r}"
+                )
+
+        parse_failures: list[str] = []
+        nodes = [
+            node
+            for block in core.json_ld_blocks(html, rel, parse_failures)
+            for node in core.nodes(block)
+        ]
+        failures.extend(parse_failures)
+        webpages = [node for node in nodes if core.has_type(node, "WebPage")]
+        item_lists = [node for node in nodes if core.has_type(node, "ItemList")]
+        if len(webpages) != 1:
+            failures.append(f"{rel}: expected exactly one WebPage in JSON-LD")
+        else:
+            for field in ("author", "publisher"):
+                if webpages[0].get(field) != {"@id": PERSON_ID}:
+                    failures.append(f"{rel}: WebPage {field} must reference the canonical Person")
+        if len(item_lists) != 1:
+            failures.append(f"{rel}: expected exactly one ItemList in JSON-LD")
+            continue
+        items = item_lists[0].get("itemListElement")
+        expected_structured = [
+            {
+                "@type": "ListItem",
+                "position": position,
+                "name": name,
+                "url": f"{SITE}{href}",
+            }
+            for position, (href, name) in enumerate(expected_entries, start=1)
+        ]
+        if item_lists[0].get("numberOfItems") != len(expected_entries):
+            failures.append(f"{rel}: ItemList count does not match visible entries")
+        if items != expected_structured:
+            failures.append(f"{rel}: ItemList entries do not match the visible register")
+    return failures
+
 
 def check_file_contracts(path: Path) -> list[str]:
     """Check contracts specific to this site's shell and content."""
@@ -1932,7 +2184,7 @@ def check_file_contracts(path: Path) -> list[str]:
     rel = path.relative_to(core.ROOT).as_posix()
     html = path.read_text(encoding="utf-8")
 
-    if rel not in NOT_INDEXED:
+    if rel not in STATIC_REDIRECTS:
         check_shared_shell(html, rel, failures)
     if rel == "index.html":
         check_homepage_contract(html, failures)
@@ -1942,6 +2194,7 @@ def check_file_contracts(path: Path) -> list[str]:
         check_rate_table_region(html, rel, failures)
     if rel == CALCULATOR_REL:
         check_calculator_contract(html, failures)
+    check_collection_breadcrumb(html, rel, failures)
 
     return failures
 
@@ -1992,6 +2245,7 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
+    failures.extend(check_collection_hubs())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
     for rel, target in STATIC_REDIRECTS.items():

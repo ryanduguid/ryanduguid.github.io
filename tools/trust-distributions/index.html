@@ -21,18 +21,24 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/about/">About</a>
+        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
-        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
-        <a href="https://github.com/ryanduguid">GitHub</a>
-        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+        <a href="/about/">About</a>
+        <a href="/#engage">Contact</a>
       </nav>
     </div>
   </header>
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
-    <p class="article-crumb"><a href="/">Home</a></p>
+    <nav class="article-crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li aria-current="page">Is this trust distribution inside the section 100A green zone</li>
+      </ol>
+    </nav>
     <h1>Is this trust distribution inside the section 100A green zone</h1>
     <p class="lead-note">
       PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. This tool classifies the facts you supply against the green and red zones, works out Division 6 shares, and calculates a section 99B amount on a foreign trust distribution.
@@ -128,8 +134,9 @@
     <div class="site-shell site-footer__inner">
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/about/">About Ryan Duguid</a>
-        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
       </div>
     </div>
@@ -181,12 +188,12 @@
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": "https://duguid.com.au/#tools"
+            "item": "https://duguid.com.au/tools/"
           },
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Section 100A and Division 6 trust distribution checker",
+            "name": "Is this trust distribution inside the section 100A green zone",
             "item": "https://duguid.com.au/tools/trust-distributions/"
           }
         ]

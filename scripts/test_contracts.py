@@ -74,6 +74,18 @@ def test_design_contracts() -> int:
     """Exercise the main design boundaries against copies of the real site."""
     assert_clean("current design", check_design.check_repository(ROOT))
 
+    with copied_site() as root:
+        replace_file(
+            root,
+            "rates/super-guarantee/index.html",
+            '<li><a href="/rates/">Rates</a></li>',
+            '<li><a href="/rates-copy/">Rates</a></li>',
+        )
+        assert_clean(
+            "rate breadcrumb is outside the protected content digest",
+            check_design.check_repository(root),
+        )
+
     text_mutations = (
         (
             "protected rate copy",
@@ -257,7 +269,7 @@ def test_design_contracts() -> int:
             "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
         )
 
-    return len(text_mutations) + 3
+    return len(text_mutations) + 4
 
 
 def contract_mutation(
@@ -295,6 +307,7 @@ def test_public_contracts() -> int:
     assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
+    assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
     assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
     assert_clean(
@@ -303,6 +316,13 @@ def test_public_contracts() -> int:
             read_text(ROOT, contracts.MCP_REL)
         ),
     )
+    sitemap_failures, _ = core.check_sitemap(
+        core.html_files(ROOT),
+        site=contracts.SITE,
+        not_indexed=contracts.NOT_INDEXED,
+        root=ROOT,
+    )
+    assert_clean("sitemap and machine-index coverage", sitemap_failures)
 
     parse_failures: list[str] = []
     about = read_text(ROOT, "about/index.html")
@@ -414,6 +434,68 @@ def test_public_contracts() -> int:
         "expected exactly one .skip-link targeting #main",
     )
 
+    def xero_breadcrumb_failures(root: Path) -> list[str]:
+        found: list[str] = []
+        contracts.check_collection_breadcrumb(
+            read_text(root, "tools/xero-trial-balance/index.html"),
+            "tools/xero-trial-balance/index.html",
+            found,
+        )
+        return found
+
+    collection_mutations = (
+        (
+            "missing Tools hub",
+            "tools/index.html",
+            None,
+            None,
+            contracts.check_collection_hubs,
+            "tools/index.html: missing collection hub",
+        ),
+        (
+            "tool breadcrumb parent",
+            "tools/xero-trial-balance/index.html",
+            '<li><a href="/tools/">Tools</a></li>',
+            '<li><a href="/">Tools</a></li>',
+            xero_breadcrumb_failures,
+            "breadcrumb 'Tools' points to '/', expected '/tools/'",
+        ),
+        (
+            "hub ItemList count",
+            "tools/index.html",
+            '"numberOfItems": 10',
+            '"numberOfItems": 9',
+            contracts.check_collection_hubs,
+            "tools/index.html: ItemList count does not match visible entries",
+        ),
+    )
+    for label, rel, old, new, checker, expected in collection_mutations:
+        with copied_site() as root:
+            if old is None:
+                (root / rel).unlink()
+            else:
+                replace_file(root, rel, old, new)
+            expect_failure(label, checker(root), expected)
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "sitemap.xml",
+            "</urlset>",
+            "  <url><loc>https://duguid.com.au/llms.txt</loc></url>\n</urlset>",
+        )
+        failures, _ = core.check_sitemap(
+            core.html_files(root),
+            site=contracts.SITE,
+            not_indexed=contracts.NOT_INDEXED,
+            root=root,
+        )
+        expect_failure(
+            "machine index in XML sitemap",
+            failures,
+            "sitemap.xml: lists https://duguid.com.au/llms.txt",
+        )
+
     invalid_receipt = '<p>Without a fund receipt date, a line can only be "at risk".</p>'
     expect_failure(
         "categorical missing-receipt claim",
@@ -431,7 +513,7 @@ def test_public_contracts() -> int:
         "robots.txt: GPTBot must have exactly",
     )
 
-    root_mutations = (
+    authority_mutations = (
         (
             "evidence canonical",
             "evidence/index.html",
@@ -457,12 +539,12 @@ def test_public_contracts() -> int:
             "evaluation section order must be",
         ),
     )
-    for label, rel, old, new, checker, expected in root_mutations:
+    for label, rel, old, new, checker, expected in authority_mutations:
         with copied_site() as root:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 8
+    return len(homepage_mutations) + len(calculator_mutations) + 12
 
 
 def main() -> None:

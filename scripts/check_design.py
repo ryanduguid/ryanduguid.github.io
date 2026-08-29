@@ -19,6 +19,11 @@ JSON_LD_PATTERN = re.compile(
     r'<script type="application/ld\+json">(.*?)</script>', re.S
 )
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
+ARTICLE_CRUMB_PATTERN = re.compile(
+    r'<(?P<tag>p|nav)\b(?=[^>]*\bclass="[^"]*\barticle-crumb\b[^"]*")[^>]*>'
+    r".*?</(?P=tag)>",
+    re.S | re.I,
+)
 HEAD_PATTERN = re.compile(r"<head\b[^>]*>(.*?)</head>", re.S | re.I)
 FOOTER_PATTERN = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
 MAIN_LINK_PATTERN = re.compile(
@@ -228,16 +233,18 @@ def main_visible_digest(path: Path) -> str | None:
     matches = MAIN_PATTERN.findall(path.read_text(encoding="utf-8"))
     if len(matches) != 1:
         return None
-    return sha256_bytes(visible_text(matches[0]).encode("utf-8"))
+    protected = ARTICLE_CRUMB_PATTERN.sub("", matches[0])
+    return sha256_bytes(visible_text(protected).encode("utf-8"))
 
 
 def main_link_targets(path: Path) -> list[str] | None:
     matches = MAIN_PATTERN.findall(path.read_text(encoding="utf-8"))
     if len(matches) != 1:
         return None
+    protected = ARTICLE_CRUMB_PATTERN.sub("", matches[0])
     return [
         html_module.unescape(target)
-        for _, target in MAIN_LINK_PATTERN.findall(matches[0])
+        for _, target in MAIN_LINK_PATTERN.findall(protected)
     ]
 
 

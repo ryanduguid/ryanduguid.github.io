@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Reproducible accounting tool evaluations | Ryan Duguid</title>
+  <meta name="description" content="Reproduce three fixed accounting-tool evaluations with fabricated inputs, expected results, versioned releases and explicit limits." />
+  <meta property="og:title" content="Reproducible accounting tool evaluations" />
+  <meta property="og:description" content="Reproduce three fixed accounting-tool evaluations with fabricated inputs, expected results, versioned releases and explicit limits." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://duguid.com.au/evaluate/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://duguid.com.au/evaluate/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/#engage">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class="site-main">
+    <article class="article collection-page">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Evaluations</li>
+          </ol>
+        </nav>
+        <h1>Evaluations</h1>
+        <p class="short-answer">Fixed, reproducible checks of released tools using fabricated inputs and hand-recorded expected results.</p>
+        <p class="byline">An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability or a professional conclusion.</p>
+      </header>
+      <div class="site-shell collection-layout">
+        <div class="collection-register">
+          <section class="collection-entry">
+            <a class="collection-entry__title" href="/evaluate/manager-review-gate/">Manager review gate evaluation</a>
+            <p>Runs two fabricated BAS packs through Workpaper Review Gate, corrects the stated failures and reproduces READY.</p>
+            <dl>
+              <div><dt>Fabricated input</dt><dd>Two BAS workpaper packs.</dd></div>
+              <div><dt>Expected result</dt><dd>Exact NOT_READY findings, then READY after correction.</dd></div>
+              <div><dt>Fixed release</dt><dd>Workpaper Review Gate v0.1.1.</dd></div>
+              <div><dt>Limitation</dt><dd>READY is readiness for a manager, not sign-off.</dd></div>
+            </dl>
+            <p class="collection-entry__links"><a href="https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/evaluation/manager_review_gate">Evaluation source</a></p>
+          </section>
+          <section class="collection-entry">
+            <a class="collection-entry__title" href="/evaluate/xero-trial-balance-integrity/">Xero trial balance integrity evaluation</a>
+            <p>Runs three fabricated CSV fixtures through the movement and year-to-date balance gate without a Xero tenant.</p>
+            <dl>
+              <div><dt>Fabricated input</dt><dd>Balanced and deliberately unbalanced trial-balance CSVs.</dd></div>
+              <div><dt>Expected result</dt><dd>One accepted export and two explicit refusals.</dd></div>
+              <div><dt>Fixed release</dt><dd>Xero trial balance export v0.1.4 source fixture.</dd></div>
+              <div><dt>Limitation</dt><dd>No tenant credentials, live tenant data or API availability test.</dd></div>
+            </dl>
+            <p class="collection-entry__links"><a href="https://github.com/ryanduguid/xero-trial-balance-export/tree/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_trial_balance_integrity">Evaluation source</a></p>
+          </section>
+          <section class="collection-entry">
+            <a class="collection-entry__title" href="/evaluate/payday-super-evidence/">Payday Super timing evidence evaluation</a>
+            <p>Reproduces four evidence-timing outcomes, including at-risk, on-time and late classifications.</p>
+            <dl>
+              <div><dt>Fabricated input</dt><dd>Four contribution and receipt-evidence fixtures.</dd></div>
+              <div><dt>Expected result</dt><dd>Exact status and due-date output for each line.</dd></div>
+              <div><dt>Fixed release</dt><dd>Payday Super Checker v0.1.2.</dd></div>
+              <div><dt>Limitation</dt><dd>Supplied evidence is classified; missing facts are not inferred.</dd></div>
+            </dl>
+            <p class="collection-entry__links"><a href="https://github.com/ryanduguid/payday-super-checker/tree/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence">Evaluation source</a></p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+  <footer class="site-footer">
+    <div class="site-shell site-footer__inner">
+      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
+      <div class="site-footer__links">
+        <a href="/evaluate/">Evaluations</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+        <a href="/llms.txt">Machine-readable index</a>
+      </div>
+    </div>
+  </footer>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/evaluate/#webpage",
+        "url": "https://duguid.com.au/evaluate/",
+        "name": "Reproducible accounting tool evaluations",
+        "description": "Reproduce three fixed accounting-tool evaluations with fabricated inputs, expected results, versioned releases and explicit limits.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-08-29",
+        "dateModified": "2026-08-29",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/evaluate/#breadcrumb" },
+        "mainEntity": { "@id": "https://duguid.com.au/evaluate/#list" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/evaluate/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Evaluations", "item": "https://duguid.com.au/evaluate/" }
+        ]
+      },
+      {
+        "@type": "ItemList",
+        "@id": "https://duguid.com.au/evaluate/#list",
+        "name": "Reproducible accounting tool evaluations",
+        "numberOfItems": 3,
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Manager review gate evaluation", "url": "https://duguid.com.au/evaluate/manager-review-gate/" },
+          { "@type": "ListItem", "position": 2, "name": "Xero trial balance integrity evaluation", "url": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/" },
+          { "@type": "ListItem", "position": 3, "name": "Payday Super timing evidence evaluation", "url": "https://duguid.com.au/evaluate/payday-super-evidence/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>
