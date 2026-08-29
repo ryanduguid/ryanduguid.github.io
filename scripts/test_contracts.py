@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import shutil
 import struct
 import tempfile
@@ -70,6 +71,45 @@ def expect_failure(label: str, failures: list[str], expected: str) -> None:
 
 def assert_clean(label: str, failures: list[str]) -> None:
     assert not failures, f"{label}: unexpected failures: {failures!r}"
+
+
+def page_metadata_failures(root: Path, rel: str) -> list[str]:
+    """Run the configured metadata checks for one page under an arbitrary root."""
+    social_image, social_alt = contracts.social_metadata_for_page(rel)
+    return core.check_file_metadata(
+        root / rel,
+        site=contracts.SITE,
+        not_indexed=contracts.NOT_INDEXED,
+        title_exceptions=contracts.TITLE_EXCEPTIONS,
+        warnings=[],
+        expected_social_image=social_image,
+        expected_social_alt=social_alt,
+        description_limits=(
+            contracts.TIGHT_META_DESCRIPTION_LIMITS
+            if rel in contracts.TIGHT_META_DESCRIPTION_PAGES
+            else None
+        ),
+        root=root,
+    )
+
+
+def check_metadata_text(html: str, rel: str, failures: list[str]) -> None:
+    """Run the share and referrer contracts directly against mutated HTML."""
+    canonical_match = re.search(r'<link rel="canonical" href="(.*?)"', html)
+    canonical = canonical_match.group(1) if canonical_match else None
+    social_image, social_alt = contracts.social_metadata_for_page(rel)
+    assert social_image is not None and social_alt is not None
+    core.check_social_metadata(
+        html,
+        rel,
+        description=core.meta(html, "name", "description"),
+        canonical=canonical,
+        expected_image=social_image,
+        expected_alt=social_alt,
+        failures=failures,
+    )
+    if re.search(r'<link\s+rel="stylesheet"(?:\s|/?>)', html):
+        core.check_referrer_policy(html, rel, failures)
 
 
 def test_design_contracts() -> int:
@@ -301,6 +341,24 @@ def test_public_contracts() -> int:
     xero = read_text(ROOT, "tools/xero-trial-balance/index.html")
     robots = read_text(ROOT, "robots.txt")
 
+    html_paths = core.html_files(ROOT)
+    indexed_rels = [
+        path.relative_to(ROOT).as_posix()
+        for path in html_paths
+        if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
+    ]
+    assert len(indexed_rels) == 22, (
+        f"expected 22 canonical HTML pages, found {len(indexed_rels)}"
+    )
+    metadata_failures = [
+        failure
+        for path in html_paths
+        for failure in page_metadata_failures(
+            ROOT, path.relative_to(ROOT).as_posix()
+        )
+    ]
+    assert_clean("complete page metadata", metadata_failures)
+
     failures: list[str] = []
     contracts.check_homepage_contract(home, failures)
     contracts.check_shared_shell(home, "index.html", failures)
@@ -387,8 +445,8 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage heading",
-            contracts.HOMEPAGE_HEADING,
-            "Controls for accounting work.",
+            f'<h1 id="home-title">{contracts.HOMEPAGE_HEADING}</h1>',
+            '<h1 id="home-title">Controls for accounting work.</h1>',
             "index.html: homepage H1 must be",
         ),
         (
@@ -430,6 +488,86 @@ def test_public_contracts() -> int:
             new,
             contracts.check_homepage_contract,
             expected,
+        )
+
+    metadata_mutations = (
+        (
+            "Open Graph field",
+            '  <meta property="og:image:height" content="630" />\n',
+            "",
+            "expected exactly one non-empty og:image:height",
+        ),
+        (
+            "Twitter field",
+            '  <meta name="twitter:image:alt" content="OLED register card: Review-ready controls for Australian accounting work." />\n',
+            "",
+            "expected exactly one non-empty twitter:image:alt",
+        ),
+        (
+            "canonical and Open Graph URL",
+            '<meta property="og:url" content="https://duguid.com.au/" />',
+            '<meta property="og:url" content="https://duguid.com.au/copy/" />',
+            "og:url is 'https://duguid.com.au/copy/'",
+        ),
+        (
+            "social-card context",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools.png'",
+        ),
+        (
+            "referrer policy",
+            '  <meta name="referrer" content="strict-origin-when-cross-origin" />\n',
+            "",
+            "referrer policy is []",
+        ),
+        (
+            "Open Graph description mirror",
+            f'<meta property="og:description" content="{contracts.HOMEPAGE_DESCRIPTION}" />',
+            '<meta property="og:description" content="Different share description." />',
+            "og:description is 'Different share description.'",
+        ),
+        (
+            "Twitter title mirror",
+            '<meta name="twitter:title" content="Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Different share title" />',
+            "twitter:title is 'Different share title'",
+        ),
+    )
+    for label, old, new, expected in metadata_mutations:
+        contract_mutation(
+            label,
+            home,
+            old,
+            new,
+            lambda html, found: check_metadata_text(html, "index.html", found),
+            expected,
+        )
+
+    payday_description = (
+        "Check whether super reaches the fund within seven business days of payday "
+        "from 1 July 2026, and estimate the SG charge for review."
+    )
+    short_payday_description = (
+        "Check Payday Super timing from payroll exports and estimate the SG charge "
+        "for review, with fund receipt status visible."
+    )
+    assert payday.count(payday_description) == 3, (
+        "Payday Super metadata must reuse its canonical description three times"
+    )
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        rel = "tools/payday-super/index.html"
+        path = root / rel
+        path.parent.mkdir(parents=True)
+        path.write_text(
+            payday.replace(payday_description, short_payday_description),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "tight description range",
+            page_metadata_failures(root, rel),
+            "outside required 120 to 155",
         )
 
     calculator_mutations = (
@@ -700,7 +838,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 19
+    return len(homepage_mutations) + len(calculator_mutations) + 27
 
 
 def main() -> None:

@@ -14,6 +14,8 @@ def main() -> int:
     failures: list[str] = []
 
     for path in paths:
+        rel = path.relative_to(core.ROOT).as_posix()
+        social_image, social_alt = contracts.social_metadata_for_page(rel)
         failures.extend(
             core.check_file_metadata(
                 path,
@@ -21,6 +23,13 @@ def main() -> int:
                 not_indexed=contracts.NOT_INDEXED,
                 title_exceptions=contracts.TITLE_EXCEPTIONS,
                 warnings=warnings,
+                expected_social_image=social_image,
+                expected_social_alt=social_alt,
+                description_limits=(
+                    contracts.TIGHT_META_DESCRIPTION_LIMITS
+                    if rel in contracts.TIGHT_META_DESCRIPTION_PAGES
+                    else None
+                ),
             )
         )
         failures.extend(contracts.check_file_contracts(path))

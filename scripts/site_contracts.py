@@ -764,6 +764,12 @@ SOCIAL_CARD_TEMPLATE_PLACEHOLDERS = frozenset(
         "{{HOST}}",
     }
 )
+TIGHT_META_DESCRIPTION_PAGES = {
+    "tools/payday-super/index.html",
+    "tools/australian-tax-ai-agents/index.html",
+    "tools/coal-lsl-levy/index.html",
+}
+TIGHT_META_DESCRIPTION_LIMITS = (120, 155)
 BONUS_FREQUENCIES = [
     "weekly",
     "fortnightly",
@@ -772,6 +778,27 @@ BONUS_FREQUENCIES = [
     "halfYearly",
     "annually",
 ]
+
+
+def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
+    """Return the approved social-card image and alt for one canonical page."""
+    if rel in {"index.html", "about/index.html"}:
+        context = "site"
+    elif rel == EVIDENCE_REL:
+        context = "evidence"
+    elif rel.startswith("tools/"):
+        context = "tools"
+    elif rel.startswith("evaluate/"):
+        context = "evaluations"
+    elif rel.startswith("rates/"):
+        context = "rates"
+    else:
+        return None, None
+
+    card = SOCIAL_CARD_CONTEXTS[context]
+    image = f"{SITE}/assets/{card['output']}"
+    alt = "OLED register card: " + " ".join(card["heading"])
+    return image, alt
 
 
 def check_homepage_contract(html: str, failures: list[str]) -> None:
