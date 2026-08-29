@@ -7,7 +7,7 @@
     "test:browser:update": "playwright test --update-snapshots",
     "test:capture": "playwright test --config=playwright.capture.config.mjs",
     "capture:coal-lsl-proof": "playwright test --config=playwright.capture.config.mjs --update-snapshots=all",
-    "pretest:lighthouse": "node scripts/clean-lighthouse-output.mjs",
+    "pretest:lighthouse": "node --test scripts/lighthouse-config.test.cjs && node scripts/clean-lighthouse-output.mjs",
     "test:lighthouse": "lhci autorun"
   },
   "devDependencies": {
