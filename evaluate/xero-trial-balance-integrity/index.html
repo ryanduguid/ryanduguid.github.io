@@ -5,12 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Xero trial balance integrity evaluation</title>
   <meta name="description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Xero trial balance integrity evaluation" />
-  <meta property="og:description" content="A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate." />
+  <meta property="og:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://duguid.com.au/evaluate/xero-trial-balance-integrity/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-evaluations.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Xero trial balance integrity evaluation" />
+  <meta name="twitter:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/xero-trial-balance-integrity/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
@@ -23,22 +32,30 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/about/">About</a>
+        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
-        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
-        <a href="https://github.com/ryanduguid">GitHub</a>
-        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+        <a href="/about/">About</a>
+        <a href="/#engage">Contact</a>
       </nav>
     </div>
   </header>
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
-        <p class="article-crumb"><a href="/">Home</a> / Xero trial balance integrity evaluation</p>
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/evaluate/">Evaluations</a></li>
+            <li aria-current="page">Xero trial balance integrity evaluation</li>
+          </ol>
+        </nav>
         <h1>Xero trial balance integrity evaluation</h1>
         <p class="lead-note">
           Reproduce the offline movement and year-to-date integrity gate with three fabricated CSV fixtures, then inspect the exact results and human review boundary.
         </p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 26 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -162,7 +179,6 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
             </p>
           </section>
 
-          <p class="page-meta">Published 26 August 2026. Last reviewed 26 August 2026.</p>
           <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
         </div>
       </div>
@@ -172,8 +188,9 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
     <div class="site-shell site-footer__inner">
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/about/">About Ryan Duguid</a>
-        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
       </div>
     </div>
@@ -200,8 +217,30 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
         "@type": "BreadcrumbList",
         "@id": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/#breadcrumb",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
-          { "@type": "ListItem", "position": 2, "name": "Xero trial balance integrity evaluation", "item": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Evaluations",
+            "item": "https://duguid.com.au/evaluate/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Xero trial balance integrity evaluation",
+            "item": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/"
+          }
         ]
       }
     ]
