@@ -40,6 +40,18 @@ test('ordinary Lighthouse runs keep Chromium sandboxing enabled', () => {
   assert.deepEqual(config.ci.collect.puppeteerLaunchOptions?.args, []);
 });
 
+test('Lighthouse audits the exact adoption surfaces over three median runs', () => {
+  const config = loadConfig({});
+  assert.deepEqual(config.ci.collect.url, [
+    'http://127.0.0.1:4173/',
+    'http://127.0.0.1:4173/tools/',
+    'http://127.0.0.1:4173/evidence/',
+    'http://127.0.0.1:4173/tools/coal-lsl-levy/',
+  ]);
+  assert.equal(config.ci.collect.numberOfRuns, 3);
+  assert.equal(config.ci.assert.aggregationMethod, 'median');
+});
+
 for (const [label, environment] of [
   ['GitHub Actions on a non-Linux runner', { GITHUB_ACTIONS: 'true' }],
   ['Linux outside GitHub Actions', { RUNNER_OS: 'Linux' }],
