@@ -104,6 +104,38 @@ test('casual branch requires and describes the reporting month', async ({ page }
   health.assertHealthy();
 });
 
+test('casual month typed into the text fallback fails visibly, not silently', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', {
+    name: 'As a casual (section 3B(3))',
+    exact: true,
+  }).check();
+  // Firefox and Safari on desktop have no native month input, so the control
+  // takes the text state and required alone cannot catch a bad format.
+  const month = page.getByLabel('Reporting month', { exact: true });
+  await month.evaluate((input) => { input.type = 'text'; });
+  await month.fill('January 2024');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  await expect(month).toBeFocused();
+  await expect(month).toHaveAttribute('aria-invalid', 'true');
+  const describedBy = (await month.getAttribute('aria-describedby')).split(/\s+/);
+  const errorId = describedBy.find((id) => id.endsWith('-error'));
+  expect(errorId).toBeTruthy();
+  await expect(page.locator(`#${errorId}`)).toBeVisible();
+
+  await month.fill('2026-08');
+  await page
+    .getByRole('spinbutton', { name: 'All-in ordinary rate pay', exact: true })
+    .fill('5000');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.getByRole('status').locator('[data-result-kind="eligible-wages"]'))
+    .toContainText('$5,000.00');
+  await expect(page.locator('.result-why')).toContainText('Section 3B(3)(b) applies');
+  health.assertHealthy();
+});
+
 test('Print working calls the browser print command', async ({ page }) => {
   const health = observePageHealth(page);
   await page.addInitScript(() => {
@@ -113,6 +145,28 @@ test('Print working calls the browser print command', async ({ page }) => {
   await calculateFormulaB(page);
   await page.getByRole('button', { name: 'Print working', exact: true }).click();
   expect(await page.evaluate(() => window.__printCalls)).toBe(1);
+  health.assertHealthy();
+});
+
+test('printing and the monthly table recalculate from edited inputs', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.addInitScript(() => {
+    window.print = () => {};
+  });
+  await page.goto('/tools/coal-lsl-levy/');
+  const baseRate = page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true });
+  await baseRate.fill('5000');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('[data-result-kind="eligible-wages"]')).toContainText('$5,000.00');
+
+  await baseRate.fill('7000');
+  await page.getByRole('button', { name: 'Print working', exact: true }).click();
+  await expect(page.locator('[data-result-kind="eligible-wages"]')).toContainText('$7,000.00');
+
+  await baseRate.fill('9000');
+  await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  await expect(page.locator('#employee-rows tr td').nth(2)).toHaveText('$9,000.00');
+  await expect(page.locator('[data-result-kind="eligible-wages"]')).toContainText('$9,000.00');
   health.assertHealthy();
 });
 
@@ -128,7 +182,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 28 August 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 30 August 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();
