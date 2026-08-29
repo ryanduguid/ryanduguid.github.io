@@ -19,6 +19,7 @@ Run from the repository root:
 
 ```powershell
 python scripts/check_site.py
+npm run test:capture
 npm run test:browser
 npm run test:lighthouse
 uv run --locked --script .agents/tools/search-console/server.py self-test
@@ -27,10 +28,11 @@ git diff --check origin/main...HEAD
 git ls-files -ci --exclude-standard
 ```
 
-The browser gate must finish with the expected route, interaction,
-accessibility and snapshot coverage. Lighthouse must pass all configured
-category and metric assertions. The Search Console self-test must expose only
-the three read-only tools without authentication.
+The capture gate must render its fixed fabricated scenario without changing the
+tracked proof. The browser gate must finish with the expected route,
+interaction, accessibility and snapshot coverage. Lighthouse must pass all
+configured category and metric assertions. The Search Console self-test must
+expose only the three read-only tools without authentication.
 The final filename-only command must return no tracked files that match ignore
 rules. Never inspect a suspected credential or private artefact to classify it.
 

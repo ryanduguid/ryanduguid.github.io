@@ -684,29 +684,6 @@ tbody tr:hover td {
   border: 0;
 }
 
-.credential-band {
-  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-  background: var(--colour-paper);
-}
-
-.credential-band__inner {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.credential-band p {
-  padding: var(--space-3) var(--space-4);
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  line-height: 1.45;
-}
-
-.credential-band p + p {
-  margin-top: 0;
-  border-left: var(--rule-thin) solid var(--colour-rule);
-}
-
 .authority-routes {
   border-bottom: var(--rule-strong) solid var(--colour-ink);
 }
@@ -874,101 +851,20 @@ tbody tr:hover td {
   text-decoration: none;
 }
 
-.system-section,
 .tools-catalogue,
 .principles-section,
 .more-index {
   padding-block: var(--space-9);
 }
 
-.section-heading {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(16rem, 0.8fr);
-  gap: var(--space-8);
-  padding-bottom: var(--space-6);
-  border-bottom: var(--rule-strong) solid var(--colour-ink);
-}
-
-.section-heading p,
 .tools-intro {
   max-width: var(--reading-width);
   color: var(--colour-ink-soft);
 }
 
-.system-map {
-  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.system-layer {
-  display: grid;
-  grid-template-columns: minmax(11rem, 0.6fr) minmax(0, 1.4fr) minmax(10rem, 0.55fr);
-  gap: var(--space-6);
-  padding-block: var(--space-6);
-  border-top: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.system-layer__label {
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.system-layer__heading h3 {
-  margin-top: var(--space-2);
-}
-
-.system-layer__projects {
-  display: grid;
-  gap: var(--space-5);
-  padding: 0;
-  list-style: none;
-}
-
-.system-layer__projects li + li {
-  margin-top: 0;
-}
-
-.system-project__name {
-  font-family: var(--font-mono);
-  font-size: var(--text-small);
-  font-weight: 600;
-}
-
-.system-layer__projects p,
-.system-project__link,
-.system-layer__proof {
-  color: var(--colour-ink-soft);
-  font-size: var(--text-small);
-}
-
-.system-layer__projects p {
-  margin-top: var(--space-1);
-}
-
-.system-project__link {
-  display: inline-block;
-  margin-top: var(--space-2);
-}
-
-.system-layer__proof {
-  align-self: end;
-  padding-top: var(--space-3);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
-}
-
 .proof-feature {
   border-block: var(--rule-strong) solid var(--colour-ink);
   background: var(--colour-paper);
-}
-
-.proof-feature__inner {
-  display: grid;
-  grid-template-columns: minmax(0, 1.1fr) minmax(16rem, 0.9fr);
-  gap: var(--space-8);
-  align-items: center;
-  padding-block: var(--space-8);
 }
 
 .proof-feature__copy {
@@ -1394,13 +1290,6 @@ input[type="checkbox"] {
     border-left: 0;
   }
 
-  .system-layer {
-    grid-template-columns: minmax(10rem, 0.6fr) minmax(0, 1.4fr);
-  }
-
-  .system-layer__proof {
-    grid-column: 2;
-  }
 }
 
 @media (max-width: 56rem) {
@@ -1439,7 +1328,6 @@ input[type="checkbox"] {
   }
 
   .home-hero,
-  .proof-feature__inner,
   .route-section .proof-feature,
   .calculator-workspace {
     grid-template-columns: 1fr;
@@ -1474,14 +1362,8 @@ input[type="checkbox"] {
     white-space: normal;
   }
 
-  .section-heading,
-  .catalogue-group,
-  .system-layer {
+  .catalogue-group {
     grid-template-columns: 1fr;
-  }
-
-  .system-layer__proof {
-    grid-column: 1;
   }
 
   .more-index__links {
@@ -1529,7 +1411,6 @@ input[type="checkbox"] {
   }
 
   .article-toc,
-  .credential-band__inner,
   .tools-list,
   .more-index__links,
   .site-footer__inner {
@@ -1549,7 +1430,6 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
-  .credential-band p + p,
   .tool-card:nth-child(even) {
     border-left: 0;
   }
@@ -1559,10 +1439,6 @@ input[type="checkbox"] {
   .principles-list > div + div {
     border-left: 0;
     border-top: var(--rule-thin) solid var(--colour-rule-strong);
-  }
-
-  .credential-band p + p {
-    border-top: var(--rule-thin) solid var(--colour-rule);
   }
 
   .tool-card,
