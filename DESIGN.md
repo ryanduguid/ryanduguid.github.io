@@ -1,18 +1,40 @@
 # duguid.com.au design system
 
-**Status:** implementation baseline
-**Date:** 28 August 2026
+**Status:** current refinement
+**Date:** 29 August 2026
 **Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
 
 ## Design read
 
-This is a redesign-overhaul of an Australian computational accounting index for accounting managers, technical adopters and reviewers. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
+This is a targeted, preservation-led evolution of an Australian computational accounting index for accounting managers, technical adopters and reviewers. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
 
 - `DESIGN_VARIANCE`: 6. Asymmetric document layouts and large changes of scale, with strict mobile collapse.
 - `MOTION_INTENSITY`: 2. Sticky positioning and brief colour, underline and control feedback only.
 - `VISUAL_DENSITY`: 5. Spacious route viewports followed by compact evidence, rate and catalogue surfaces.
-- Redesign mode: overhaul the visual language while preserving routes, facts, legal boundaries and structured data.
+- Redesign mode: preserve the established visual language and refine only the surfaces that need clearer hierarchy or evidence.
 - Theme: OLED dark only.
+
+## Current refinement record
+
+The 29 August 2026 refinement keeps the design read at
+`DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
+
+- The homepage hero contains one Engage, Adopt and Verify route register. A
+  separate trust band follows it, and the route words do not wrap on wide
+  screens.
+- The current Coal LSL proof is a deterministic, fabricated Formula B
+  result-only screenshot. `npm run capture:coal-lsl-proof` captures it at 868
+  by 580 pixels and caps the WebP output at 80 KB.
+- Calculator orientation uses one concise task sentence followed by a compact
+  rate, method and boundary register. Its output is a label and value result
+  ledger.
+- The catalogue has a category index. The principles use an asymmetric
+  five-cell composition with one lead cell, and mobile primary navigation is
+  one horizontal scroll row.
+
+The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
+Plex Serif as the display face; stamp green as the only accent; square register
+surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
 
@@ -154,7 +176,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Lead | 19 to 23px | One-sentence explanation |
 | Heading small | 24 to 32px | Article subsections |
 | Heading | 36 to 56px | Section statement |
-| Display | 40 to 96px | Homepage hero; the minimum keeps `ACCOUNTING` inside a 320px viewport |
+| Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
 | Route | 64 to 132px | Engage, Adopt and Verify route word |
 
 Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
@@ -258,7 +280,7 @@ Pain first: incomplete workpapers, review loops and unclear ownership. The actio
 
 ### Adopt viewport
 
-Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The two supported install commands and three evaluation packs are the proof. There is no trial funnel or signup language.
+Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The three supported install commands and three evaluation packs are the proof. There is no trial funnel or signup language.
 
 ### Verify viewport
 

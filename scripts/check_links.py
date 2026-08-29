@@ -39,6 +39,8 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
 
+import seo_core as core
+
 ROOT = Path(__file__).resolve().parent.parent
 
 RETIRED_NAMES = [
@@ -226,13 +228,8 @@ def check_file(path: Path) -> list[str]:
 
 
 def html_files() -> list[Path]:
-    """Every HTML file in the repository, sorted, excluding dot directories."""
-    return sorted(
-        p
-        for p in ROOT.rglob("*.html")
-        if not any(part.startswith(".") for part in p.relative_to(ROOT).parts)
-        and not (p.name.startswith("google") and p.name.endswith(".html"))
-    )
+    """Every public site HTML file, excluding generated and hidden paths."""
+    return core.html_files(ROOT)
 
 
 def _self_check() -> None:
