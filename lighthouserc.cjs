@@ -7,7 +7,13 @@ module.exports = {
     collect: {
       chromePath,
       puppeteerScript: 'scripts/lighthouse-browser.cjs',
-      startServerCommand: 'python -u -m http.server 4173 --bind 127.0.0.1',
+      puppeteerLaunchOptions: {
+        args:
+          process.env.GITHUB_ACTIONS === 'true' && process.env.RUNNER_OS === 'Linux'
+            ? ['--no-sandbox']
+            : [],
+      },
+      startServerCommand: 'python -u scripts/serve_site.py',
       startServerReadyPattern: 'Serving HTTP on',
       startServerReadyTimeout: 10_000,
       url: [
