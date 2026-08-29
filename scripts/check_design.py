@@ -48,8 +48,13 @@ PROOF_WIDTH = "868"
 PROOF_HEIGHT = "580"
 MAX_PROOF_BYTES = 80_000
 PROOF_ASSET = "assets/coal-lsl-calculator.webp"
-HOMEPAGE_ROUTE_TARGETS = ("#engage", "#adopt", "#verify")
-HOMEPAGE_REQUIRED_CLASSES = ("hero-routes", "trust-band", "catalogue-index")
+HOMEPAGE_ANCHOR_IDS = ("engage", "adopt", "verify")
+HOMEPAGE_ACTION_TARGETS = ("/tools/", "/#engage")
+HOMEPAGE_REQUIRED_CLASSES = (
+    "home-hero__actions",
+    "trust-band",
+    "home-tool-preview",
+)
 TRUST_BAND_TEXT = (
     "Review aids only. No client files. No lodgement. Human sign-off.",
     "Scope 01 Accounting workflow controls",
@@ -63,8 +68,8 @@ HERO_TRUST_ADJACENCY_PATTERN = re.compile(
     r'[^"\']*["\'])',
     re.I | re.S,
 )
-HERO_ROUTES_PATTERN = re.compile(
-    r'<nav\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhero-routes\b'
+HERO_ACTIONS_PATTERN = re.compile(
+    r'<nav\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-hero__actions\b'
     r'[^"\']*["\'])[^>]*>(.*?)</nav>',
     re.I | re.S,
 )
@@ -431,13 +436,25 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
                 f"font face {index} must use one protected local WOFF2 source"
             )
 
-    route_label_rule = re.search(
+    route_rules = re.findall(r"\.route-section\s*\{(.*?)\}", site_css, re.S | re.I)
+    if any(
+        re.search(
+            r"\bmin-height\s*:\s*[^;]*(?:var\(--route-min-height\)|[sd]?vh)",
+            rule,
+            re.I,
+        )
+        for rule in route_rules
+    ):
+        failures.append("route sections must not use viewport-based minimum heights")
+
+    route_label_rules = re.findall(
         r"\.route-section\s*>\s*h2\s*\{(.*?)\}", site_css, re.S | re.I
     )
-    if not route_label_rule or not re.search(
-        r"\bposition\s*:\s*sticky\s*;", route_label_rule.group(1), re.I
+    if any(
+        re.search(r"\bposition\s*:\s*sticky\s*;", rule, re.I)
+        for rule in route_label_rules
     ):
-        failures.append("route labels must be sticky on wide layouts")
+        failures.append("route labels must not be sticky")
 
     route_content_rule = re.search(
         r"\.route-content\s*\{(.*?)\}", site_css, re.S | re.I
@@ -528,26 +545,38 @@ def check_homepage_refinement(root: Path) -> list[str]:
         html_module.unescape(target)
         for _, target in MAIN_LINK_PATTERN.findall(main)
     ]
-    route_regions = HERO_ROUTES_PATTERN.findall(main)
-    route_links = (
+    action_regions = HERO_ACTIONS_PATTERN.findall(main)
+    action_links = (
         [
             html_module.unescape(target)
-            for _, target in MAIN_LINK_PATTERN.findall(route_regions[0])
+            for _, target in MAIN_LINK_PATTERN.findall(action_regions[0])
         ]
-        if len(route_regions) == 1
+        if len(action_regions) == 1
         else []
     )
     failures = []
-    for target in HOMEPAGE_ROUTE_TARGETS:
+    for target in HOMEPAGE_ACTION_TARGETS:
         if links.count(target) != 1:
             failures.append(
-                "index.html: expected exactly one " + target + " route link"
+                "index.html: expected exactly one " + target + " homepage action"
             )
-        if route_links.count(target) != 1:
+        if action_links.count(target) != 1:
             failures.append(
                 "index.html: expected exactly one "
                 + target
-                + " route link in hero-routes"
+                + " action in home-hero__actions"
+            )
+    for identifier in HOMEPAGE_ANCHOR_IDS:
+        count = len(
+            re.findall(
+                rf'\bid\s*=\s*(["\']){re.escape(identifier)}\1',
+                main,
+                re.I,
+            )
+        )
+        if count != 1:
+            failures.append(
+                f"index.html: expected exactly one valid #{identifier} anchor"
             )
     for class_name in HOMEPAGE_REQUIRED_CLASSES:
         if class_count(main, class_name) != 1:
