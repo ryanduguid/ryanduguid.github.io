@@ -554,14 +554,40 @@ COLLECTION_HUBS: dict[str, dict[str, object]] = {
     },
 }
 
+HOMEPAGE_HEADING = "Review-ready controls for Australian accounting work."
+HOMEPAGE_SUPPORT = (
+    "Open-source checks for payroll, Xero, workpapers and AI workflows, with "
+    "every source and calculation kept visible."
+)
+HOMEPAGE_ACTIONS = (
+    ("/tools/", "Browse the tools"),
+    ("/#engage", "Discuss a workflow"),
+)
+HOMEPAGE_PREVIEW_ENTRIES = (
+    ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),
+    ("Calculate", "/tools/#calculate-tools", "/tools/coal-lsl-levy/"),
+    ("Control", "/tools/#control-tools", "/tools/workpaper-review-gate/"),
+    ("Inspect", "/tools/#inspect-tools", "/tools/australian-tax-ai-agents/"),
+)
+HOMEPAGE_ANCHORS = ("adopt", "verify", "engage")
+ABOUT_OPENING = (
+    "I build open-source controls for Australian tax, payroll, ledgers and "
+    "workpapers. They show sources and working, use fabricated examples, and "
+    "leave judgement and lodgement with a person."
+)
+EVIDENCE_HEADING = "Evidence behind the tools"
+EVIDENCE_OPENING = (
+    "This register links public claims to identity records, releases, primary "
+    "source reviews, repository controls and reproducible tests. It supports "
+    "limited claims about the software. It does not turn an output into advice, "
+    "approval, a compliance decision or a lodgment."
+)
 HOMEPAGE_REQUIRED_TEXT = [
-    "Accounting tools that show their working.",
-    "Newcastle",
-    "Hunter Valley",
+    HOMEPAGE_HEADING,
+    HOMEPAGE_SUPPORT,
     "Fix the workflow before another review round.",
     "Test it with fabricated data first.",
     "Check the source before the result.",
-    "Tools for work that still needs checking",
     "Useful before impressive",
     "Sources beside claims",
     "Working stays visible",
@@ -575,8 +601,10 @@ HOMEPAGE_DESCRIPTION = (
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
+    "/tools/xero-trial-balance/",
     "/tools/australian-tax-ai-agents/",
     "/tools/coal-lsl-levy/",
+    "/tools/workpaper-review-gate/",
     "/evaluate/payday-super-evidence/",
 ]
 HOMEPAGE_PROOF_HREFS = [
@@ -585,7 +613,6 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/guidance-notes/eligible-wages",
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
-HOMEPAGE_CATALOGUE_LABEL = "Tools for work that still needs checking"
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -611,6 +638,11 @@ RATE_PAGES = {
     "rates/cents-per-kilometre/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+HEADER_DATED_PAGES = {
+    rel
+    for rel in ARTICLE_PATTERN_PAGES
+    if rel.startswith(("tools/", "evaluate/"))
+} | {CALCULATOR_REL}
 CALCULATOR_MARKERS = [
     'name="branch"',
     'id="branch-fields"',
@@ -695,6 +727,86 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         if required not in text:
             failures.append(f"index.html: missing approved homepage text {required!r}")
     root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    if len(h1s) != 1 or core.element_text(h1s[0]) != HOMEPAGE_HEADING:
+        failures.append(f"index.html: homepage H1 must be {HOMEPAGE_HEADING!r}")
+
+    summaries = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("home-hero__summary")
+    ]
+    if len(summaries) != 1 or core.element_text(summaries[0]) != HOMEPAGE_SUPPORT:
+        failures.append(
+            f"index.html: homepage support text must be {HOMEPAGE_SUPPORT!r}"
+        )
+
+    action_groups = [
+        element
+        for element in core.descendants(root, "nav", rendered_only=True)
+        if element.has_class("home-hero__actions")
+    ]
+    actual_actions: list[tuple[str | None, str]] = []
+    if len(action_groups) == 1:
+        actual_actions = [
+            (link.attr("href"), core.element_text(link))
+            for link in core.descendants(action_groups[0], "a", rendered_only=True)
+        ]
+    if actual_actions != list(HOMEPAGE_ACTIONS):
+        failures.append(
+            f"index.html: homepage actions are {actual_actions!r}, "
+            f"expected {list(HOMEPAGE_ACTIONS)!r}"
+        )
+
+    previews = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("home-tool-preview")
+    ]
+    actual_preview: list[tuple[str, str | None, str | None]] = []
+    if len(previews) == 1:
+        entries = [
+            element
+            for element in core.descendants(previews[0], rendered_only=True)
+            if element.has_class("home-tool-preview__entry")
+        ]
+        for entry in entries:
+            headings = core.descendants(entry, "h3", rendered_only=True)
+            links = core.descendants(entry, "a", rendered_only=True)
+            actual_preview.append(
+                (
+                    core.element_text(headings[0]) if len(headings) == 1 else "",
+                    links[0].attr("href") if len(links) >= 1 else None,
+                    links[1].attr("href") if len(links) >= 2 else None,
+                )
+            )
+    if actual_preview != list(HOMEPAGE_PREVIEW_ENTRIES):
+        failures.append(
+            f"index.html: category preview is {actual_preview!r}, "
+            f"expected {list(HOMEPAGE_PREVIEW_ENTRIES)!r}"
+        )
+
+    all_elements = core.descendants(root, rendered_only=True)
+    for identifier in HOMEPAGE_ANCHORS:
+        count = sum(element.attr("id") == identifier for element in all_elements)
+        if count != 1:
+            failures.append(
+                f"index.html: expected exactly one valid #{identifier} anchor, found {count}"
+            )
+
+    rendered = core.visible_html(html)
+    sequence = (
+        rendered.find('class="home-tool-preview'),
+        rendered.find('class="route-section proof-feature'),
+        rendered.find('id="adopt"'),
+        rendered.find('id="verify"'),
+        rendered.find('id="engage"'),
+    )
+    if any(position < 0 for position in sequence) or tuple(sorted(sequence)) != sequence:
+        failures.append(
+            "index.html: content order must be preview, proof, Adopt, Verify, Engage"
+        )
+
     hrefs = [
         link.attr("href")
         for link in core.descendants(root, "a", rendered_only=True)
@@ -801,6 +913,51 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
         failures.append(
             f"{rel}: On this page navigation must contain at least one valid local link"
         )
+
+
+def check_approved_page_opening(html: str, rel: str, failures: list[str]) -> None:
+    """Protect the concise, tool-led About and Evidence openings."""
+    expected = {
+        "about/index.html": ("About Ryan Duguid", ABOUT_OPENING),
+        EVIDENCE_REL: (EVIDENCE_HEADING, EVIDENCE_OPENING),
+    }.get(rel)
+    if expected is None:
+        return
+    root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    leads = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("lead-note")
+    ]
+    if len(h1s) != 1 or core.element_text(h1s[0]) != expected[0]:
+        failures.append(f"{rel}: page H1 must be {expected[0]!r}")
+    if len(leads) != 1 or core.element_text(leads[0]) != expected[1]:
+        failures.append(f"{rel}: page opening must be {expected[1]!r}")
+
+
+def check_header_review_date(html: str, rel: str, failures: list[str]) -> None:
+    """Keep each tool or evaluation review date visible in its page header."""
+    if rel not in HEADER_DATED_PAGES:
+        return
+    root = core.parse_structure(html)
+    headers = [
+        element
+        for element in core.descendants(root, "header", rendered_only=True)
+        if element.has_class("article-header")
+        or element.has_class("calculator-header")
+    ]
+    dates = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("page-meta")
+    ]
+    if (
+        len(headers) != 1
+        or len(dates) != 1
+        or not core.is_descendant(dates[0], headers[0])
+    ):
+        failures.append(f"{rel}: Published/Last reviewed line must be in the page header")
 
 
 def check_rate_table_region(html: str, rel: str, failures: list[str]) -> None:
@@ -1280,30 +1437,12 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     home_path = root / "index.html"
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
     rendered_home = core.visible_html(home)
-    home_hrefs = core.anchor_hrefs(rendered_home)
     sections = {
         identifier: core.section_html(home, identifier) for identifier in AUTHORITY_PATHS
     }
     for identifier, label in AUTHORITY_PATHS.items():
-        if f"#{identifier}" not in home_hrefs or not sections[identifier]:
-            failures.append(f"index.html: missing visible authority route #{identifier}")
-        route_card = re.search(
-            rf'<a\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bpath-card\b[^"\']*["\'])'
-            rf'(?=[^>]*\bhref\s*=\s*["\']#{re.escape(identifier)}["\'])[^>]*>'
-            r"(.*?)</a\s*>",
-            rendered_home,
-            re.S | re.I,
-        )
-        card_label = ""
-        if route_card:
-            strong = re.search(
-                r"<strong\b[^>]*>(.*?)</strong\s*>", route_card.group(1), re.S | re.I
-            )
-            card_label = core.visible_text(strong.group(1)) if strong else ""
-        if card_label != label:
-            failures.append(
-                f"index.html: authority route #{identifier} card label must be {label}"
-            )
+        if not sections[identifier]:
+            failures.append(f"index.html: missing visible authority section #{identifier}")
 
         section_heading = re.search(
             r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", sections[identifier], re.S | re.I
@@ -1359,20 +1498,6 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             failures.append(f"{rel}: supported install commands must link to /#adopt instead")
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
-
-    catalogue_label = HOMEPAGE_CATALOGUE_LABEL
-    catalogue = re.search(
-        r'<[a-z][\w:-]*\b(?=[^>]*\sclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'])[^>]*>',
-        rendered_home,
-        re.I,
-    )
-    label_position = core.visible_text(rendered_home).find(catalogue_label)
-    if label_position < 0:
-        failures.append(f"index.html: missing visible catalogue label {catalogue_label}")
-    if not catalogue:
-        failures.append("index.html: missing visible lower tools catalogue")
-    elif catalogue and rendered_home.find(catalogue_label) > catalogue.start():
-        failures.append(f"index.html: catalogue label {catalogue_label} must precede the tools")
 
     expected_subjects = {
         "Firm workflow or controlled pilot",
@@ -2194,6 +2319,8 @@ def check_file_contracts(path: Path) -> list[str]:
         check_rate_table_region(html, rel, failures)
     if rel == CALCULATOR_REL:
         check_calculator_contract(html, failures)
+    check_approved_page_opening(html, rel, failures)
+    check_header_review_date(html, rel, failures)
     check_collection_breadcrumb(html, rel, failures)
 
     return failures

@@ -102,7 +102,6 @@
   --text-heading-small: clamp(1.5rem, 1.24rem + 0.95vw, 2rem);
   --text-heading: clamp(2.25rem, 1.72rem + 2vw, 3.5rem);
   --text-display: clamp(2.25rem, 1.45rem + 5.2vw, 5.5rem);
-  --text-route: clamp(4rem, 1.7rem + 8.4vw, 8.25rem);
 
   --leading-tight: 0.98;
   --leading-heading: 1.08;
@@ -126,7 +125,6 @@
   --reading-width: 68ch;
   --gutter: clamp(1rem, 3.4vw, 4rem);
   --header-height: 4.5rem;
-  --route-min-height: calc(100svh - var(--header-height));
 
   --radius-control: 0.125rem;
 
@@ -138,7 +136,6 @@
   --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   --layer-header: 20;
-  --layer-route: 10;
   --layer-skip: 30;
 }
 
