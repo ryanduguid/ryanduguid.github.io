@@ -20,6 +20,25 @@ TITLE_MAX = 65
 DESC_MIN = 50
 DESC_MAX = 200
 DESC_WARN = 165
+REFERRER_POLICY = "strict-origin-when-cross-origin"
+OPEN_GRAPH_FIELDS = (
+    "og:title",
+    "og:description",
+    "og:type",
+    "og:url",
+    "og:image",
+    "og:image:type",
+    "og:image:alt",
+    "og:image:width",
+    "og:image:height",
+)
+TWITTER_FIELDS = (
+    "twitter:card",
+    "twitter:title",
+    "twitter:description",
+    "twitter:image",
+    "twitter:image:alt",
+)
 
 VOID_ELEMENTS = {
     "area",
@@ -70,10 +89,14 @@ def check_file_metadata(
     not_indexed: set[str],
     title_exceptions: dict[str, str],
     warnings: list[str],
+    expected_social_image: str | None = None,
+    expected_social_alt: str | None = None,
+    description_limits: tuple[int, int] | None = None,
+    root: Path = ROOT,
 ) -> list[str]:
     """Check generic metadata and structured-data contracts for one HTML file."""
     failures: list[str] = []
-    rel = path.relative_to(ROOT).as_posix()
+    rel = path.relative_to(root).as_posix()
     html = path.read_text(encoding="utf-8")
     indexed = rel not in not_indexed
 
@@ -100,6 +123,13 @@ def check_file_metadata(
         warnings.append(
             f"{rel}: meta description is {len(desc)} characters, likely truncated in results"
         )
+    if desc is not None and description_limits is not None:
+        minimum, maximum = description_limits
+        if not minimum <= len(desc) <= maximum:
+            failures.append(
+                f"{rel}: meta description is {len(desc)} characters, outside required "
+                f"{minimum} to {maximum}"
+            )
 
     h1s = re.findall(r"<h1[^>]*>", html)
     if len(h1s) != 1:
@@ -109,6 +139,8 @@ def check_file_metadata(
     match = re.search(r'<link rel="canonical" href="(.*?)"', html)
     if match:
         canonical = match.group(1)
+    if re.search(r'<link\s+rel="stylesheet"(?:\s|/?>)', html):
+        check_referrer_policy(html, rel, failures)
     if not indexed:
         return failures
 
@@ -118,12 +150,18 @@ def check_file_metadata(
     elif canonical != expected:
         failures.append(f"{rel}: canonical is {canonical}, expected {expected}")
 
-    for prop in ("og:title", "og:url", "og:image"):
-        if meta(html, "property", prop) is None:
-            failures.append(f"{rel}: no {prop}")
-    og_url = meta(html, "property", "og:url")
-    if og_url and canonical and og_url != canonical:
-        failures.append(f"{rel}: og:url is {og_url}, canonical is {canonical}")
+    if expected_social_image is None or expected_social_alt is None:
+        failures.append(f"{rel}: no configured social-card context")
+    else:
+        check_social_metadata(
+            html,
+            rel,
+            description=desc,
+            canonical=canonical,
+            expected_image=expected_social_image,
+            expected_alt=expected_social_alt,
+            failures=failures,
+        )
 
     blocks = json_ld_blocks(html, rel, failures)
     if not blocks:
@@ -190,6 +228,91 @@ def meta(html: str, attr: str, value: str) -> str | None:
         rf'<meta {attr}="{re.escape(value)}" content="(.*?)"\s*/?>', html, re.S
     )
     return html_lib.unescape(m.group(1)).strip() if m else None
+
+
+def meta_values(html: str, attr: str, value: str) -> list[str]:
+    """Return every matching meta value in source order, including blanks."""
+    return [
+        html_lib.unescape(match).strip()
+        for match in re.findall(
+            rf'<meta {attr}="{re.escape(value)}" content="(.*?)"\s*/?>',
+            html,
+            re.S,
+        )
+    ]
+
+
+def required_meta_fields(
+    html: str,
+    rel: str,
+    attr: str,
+    fields: tuple[str, ...],
+    failures: list[str],
+) -> dict[str, str]:
+    """Require one non-empty value for each named metadata field."""
+    found: dict[str, str] = {}
+    for field in fields:
+        values = meta_values(html, attr, field)
+        if len(values) != 1 or not values[0]:
+            failures.append(
+                f"{rel}: expected exactly one non-empty {field}, found {len(values)}"
+            )
+        else:
+            found[field] = values[0]
+    return found
+
+
+def check_social_metadata(
+    html: str,
+    rel: str,
+    *,
+    description: str | None,
+    canonical: str | None,
+    expected_image: str,
+    expected_alt: str,
+    failures: list[str],
+) -> None:
+    """Check complete Open Graph and Twitter metadata against one card context."""
+    open_graph = required_meta_fields(
+        html, rel, "property", OPEN_GRAPH_FIELDS, failures
+    )
+    twitter = required_meta_fields(html, rel, "name", TWITTER_FIELDS, failures)
+
+    expected_open_graph = {
+        "og:description": description,
+        "og:url": canonical,
+        "og:image": expected_image,
+        "og:image:type": "image/png",
+        "og:image:alt": expected_alt,
+        "og:image:width": "1200",
+        "og:image:height": "630",
+    }
+    for field, expected in expected_open_graph.items():
+        value = open_graph.get(field)
+        if value is not None and expected is not None and value != expected:
+            failures.append(f"{rel}: {field} is {value!r}, expected {expected!r}")
+
+    expected_twitter = {
+        "twitter:card": "summary_large_image",
+        "twitter:title": open_graph.get("og:title"),
+        "twitter:description": open_graph.get("og:description"),
+        "twitter:image": expected_image,
+        "twitter:image:alt": expected_alt,
+    }
+    for field, expected in expected_twitter.items():
+        value = twitter.get(field)
+        if value is not None and expected is not None and value != expected:
+            failures.append(f"{rel}: {field} is {value!r}, expected {expected!r}")
+
+
+def check_referrer_policy(html: str, rel: str, failures: list[str]) -> None:
+    """Require one explicit privacy-preserving referrer policy on styled pages."""
+    values = meta_values(html, "name", "referrer")
+    if values != [REFERRER_POLICY]:
+        failures.append(
+            f"{rel}: referrer policy is {values!r}, expected exactly "
+            f"[{REFERRER_POLICY!r}]"
+        )
 
 
 def visible_html(html: str) -> str:
