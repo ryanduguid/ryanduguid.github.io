@@ -99,7 +99,7 @@
             <p>
               Run these commands from the repository root. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request and write no output file.
             </p>
-            <pre><code>python -m pip install --require-hashes -r requirements.lock
+            <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>python -m pip install --require-hashes -r requirements.lock
 python -B -m unittest tests.test_evaluation_pack -v
 python -B -m unittest discover -s tests -v
 python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/passing.csv
