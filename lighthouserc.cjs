@@ -18,6 +18,7 @@ module.exports = {
       startServerReadyTimeout: 10_000,
       url: [
         'http://127.0.0.1:4173/',
+        'http://127.0.0.1:4173/tools/',
         'http://127.0.0.1:4173/evidence/',
         'http://127.0.0.1:4173/tools/coal-lsl-levy/',
       ],

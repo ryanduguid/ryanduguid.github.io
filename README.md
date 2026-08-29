@@ -1,10 +1,18 @@
 # ryanduguid.github.io
 
-Source for [duguid.com.au](https://duguid.com.au/), the landing page for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+
+## Site structure
+
+- `/tools/` groups ten controls by Extract, Calculate, Control and Inspect.
+- `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates.
+
+The homepage is a short adoption path into those registers. Enquiries remain available, but secondary to browsing, reproducing and verifying the tools.
 
 ## Local preview
 
-The site is static HTML (`index.html`, `about/`, `evidence/`, `rates/`, `tools/`). Open `index.html` in a browser, or serve the folder:
+The site is static HTML (`index.html`, `about/`, `evidence/`, `tools/`, `evaluate/`, `rates/`). Open `index.html` in a browser, or serve the folder:
 
 ```bash
 python -m http.server 4173 --bind 127.0.0.1
@@ -43,7 +51,7 @@ npm ci
 npx playwright install chromium
 ```
 
-Run the calculator journey in the mobile and desktop browser projects:
+Run the adoption path, collection hubs, navigation, overflow, accessibility and calculator journeys in the mobile and desktop browser projects:
 
 ```bash
 npm run test:browser
@@ -58,8 +66,8 @@ npm run test:capture
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
-Run three-pass Lighthouse medians for the homepage, Evidence and Coal LSL
-calculator:
+Run three-pass Lighthouse medians for the homepage, Tools, Evidence and Coal
+LSL calculator:
 
 ```bash
 npm run test:lighthouse
@@ -71,7 +79,7 @@ browser and hands-on accessibility observations are recorded in
 
 ## Social-card provenance
 
-The five cards are rendered from one editable source and one context file. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
+The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 | Asset | Reproducible provenance |
 | --- | --- |
