@@ -82,7 +82,30 @@ class FetchFinalUrlTests(unittest.TestCase):
         self.assertEqual(result, (200, "https://example.com/final"))
         self.assertEqual(attempts, 3)
 
-    def test_does_not_retry_http_errors(self) -> None:
+    def test_retries_transient_server_errors(self) -> None:
+        attempts = 0
+
+        def flaky_opener(request: object, timeout: int) -> FakeResponse:
+            nonlocal attempts
+            attempts += 1
+            if attempts < 3:
+                raise urllib.error.HTTPError(
+                    "https://example.com/unavailable",
+                    500,
+                    "Internal Server Error",
+                    {},
+                    None,
+                )
+            return FakeResponse()
+
+        result = check_links.fetch_final_url(
+            "https://example.com/server-error", opener=flaky_opener
+        )
+
+        self.assertEqual(result, (200, "https://example.com/final"))
+        self.assertEqual(attempts, 3)
+
+    def test_does_not_retry_client_errors(self) -> None:
         attempts = 0
 
         def not_found(request: object, timeout: int) -> FakeResponse:
