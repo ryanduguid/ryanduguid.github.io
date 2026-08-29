@@ -54,7 +54,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Supported installation
 
-- [Adopt](https://duguid.com.au/#adopt): the maintained source for the two supported installation commands.
+- [Adopt](https://duguid.com.au/#adopt): the maintained source for the three supported installation commands.
 
 ## Source code
 
