@@ -5,10 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>How does this business compare to ATO benchmarks?</title>
   <meta name="description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="How does this business compare to ATO benchmarks?" />
+  <meta property="og:description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
   <meta property="og:type" content="article" />
   <meta property="og:url" content="https://duguid.com.au/tools/ato-benchmarks/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/og-card.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
+  <meta name="twitter:description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
@@ -21,22 +32,29 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/about/">About</a>
+        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
-        <a href="/tools/australian-tax-ai-agents/">AI agents</a>
-        <a href="https://github.com/ryanduguid">GitHub</a>
-        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
+        <a href="/about/">About</a>
+        <a href="/#engage">Contact</a>
       </nav>
     </div>
   </header>
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
-    <p class="article-crumb"><a href="/">Home</a></p>
+    <nav class="article-crumb" aria-label="Breadcrumb">
+      <ol>
+        <li><a href="/">Home</a></li>
+        <li><a href="/tools/">Tools</a></li>
+        <li aria-current="page">How does this business compare to the ATO small business benchmarks</li>
+      </ol>
+    </nav>
     <h1>How does this business compare to the ATO small business benchmarks</h1>
     <p class="lead-note">
       The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to look at more closely. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -117,7 +135,6 @@ pip install .</code></pre>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
     </section>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
     <p class="byline">
       Written independently by Ryan Duguid in his own time and on his own equipment.
       His provisional membership of Chartered Accountants ANZ is asserted by the
@@ -131,8 +148,9 @@ pip install .</code></pre>
     <div class="site-shell site-footer__inner">
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/about/">About Ryan Duguid</a>
-        <a href="https://github.com/ryanduguid">github.com/ryanduguid</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="https://github.com/ryanduguid">GitHub</a>
+        <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
       </div>
     </div>
@@ -184,12 +202,12 @@ pip install .</code></pre>
             "@type": "ListItem",
             "position": 2,
             "name": "Tools",
-            "item": "https://duguid.com.au/#tools"
+            "item": "https://duguid.com.au/tools/"
           },
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "ATO small business benchmark comparison",
+            "name": "How does this business compare to the ATO small business benchmarks",
             "item": "https://duguid.com.au/tools/ato-benchmarks/"
           }
         ]

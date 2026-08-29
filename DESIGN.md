@@ -19,18 +19,23 @@ This is a targeted, preservation-led evolution of an Australian computational ac
 The 29 August 2026 refinement keeps the design read at
 `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
 
-- The homepage hero contains one Engage, Adopt and Verify route register. A
-  separate trust band follows it, and the route words do not wrap on wide
-  screens.
+- The homepage leads with browsing the tools and a secondary workflow enquiry,
+  then a four-task preview, worked proof and the Adopt, Verify and Engage
+  sections.
 - The current Coal LSL proof is a deterministic, fabricated Formula B
   result-only screenshot. `npm run capture:coal-lsl-proof` captures it at 868
   by 580 pixels and caps the WebP output at 80 KB.
 - Calculator orientation uses one concise task sentence followed by a compact
   rate, method and boundary register. Its output is a label and value result
   ledger.
-- The catalogue has a category index. The principles use an asymmetric
-  five-cell composition with one lead cell, and mobile primary navigation is
-  one horizontal scroll row.
+- The Tools catalogue has a four-category index. Evaluations and Rates have
+  separate collection registers. The principles use an asymmetric five-cell
+  composition with one lead cell, and mobile primary navigation is one
+  horizontal scroll row.
+- Five tool-led social contexts use one editable OLED register template for the
+  site, tools, evaluations, rates and evidence. The development-only Playwright
+  renderer emits static PNGs; the public pages have no renderer dependency and
+  the design contains no portrait.
 
 The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
 Plex Serif as the display face; stamp green as the only accent; square register
@@ -264,15 +269,15 @@ Mono labels and rules bind those parts without turning them into rounded cards. 
 
 The homepage uses stacked one-thought viewports and does not use scroll snapping.
 
-### Hero viewport: who and what
+### Hero viewport: what to adopt
 
-The first viewport centres one ceremonial masthead above a ruled three-part register and answers three questions within five seconds:
+The first viewport centres one tool-led proposition above a ruled three-part boundary register and answers three questions within five seconds:
 
-- Ryan Duguid is a Newcastle accountant.
-- He builds open-source accounting review tools.
-- The site is not a lodgment or tax-agent service.
+- The site provides open-source accounting review controls.
+- Sources and calculation working stay visible.
+- The tools are review aids, not judgement or lodgement.
 
-The only route choices are Engage, Adopt and Verify. The real Coal LSL artefact may appear as a cropped proof fragment, never as a fake dashboard.
+The primary action opens Tools and the secondary action starts a bounded workflow discussion. A four-task preview and the real Coal LSL artefact follow; there is no portrait, fake dashboard or sales funnel.
 
 ### Engage viewport
 
@@ -286,16 +291,16 @@ Pain first: a tool that has not been tested on fabricated data does not belong i
 
 Pain first: a rate or AI answer without a source and review boundary cannot be relied on. Evidence and Assurance is the main destination. The viewport previews source, exact arithmetic, released artefact and human decision boundary.
 
-### Catalogue
+### Collection registers
 
-The tools remain visible but become a compact catalogue grouped by the work they stop or check:
+The homepage previews four review tasks. The full `/tools/` register groups the ten controls by the work they stop or check:
 
-- stop incomplete review packs
-- catch late payment and rate errors
-- reconcile ledgers and schedules
-- ground and constrain AI workflows
+- Extract records into reviewable shape.
+- Calculate without hiding the branch, formula or rounding.
+- Control incomplete work before manager review.
+- Inspect sources, evidence and AI boundaries.
 
-The catalogue is not a second homepage essay. Each blurb names the pain or observable control in one sentence.
+`/evaluate/` groups the three reproducible evaluation packs and `/rates/` groups the three maintained reference tables. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
 
 ### Reference and principles
 
@@ -332,13 +337,13 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 The following whole-file values are frozen after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `4133A06AEEF0CDF1D014D49C61051A80365A1F2680DBBB874A1C5C658376C3A5`
+- `llms.txt`: SHA-256 `BED2FBD534495D20104B600AF9AC82CF77023CC31758684ABA6F44B2F8815A3A`
 - `robots.txt`: SHA-256 `55445C95D41B8C8B1B386BFB1B1279B879954D66715747CDC0B10BFF3B5DD7EA`
-- `sitemap.xml`: SHA-256 `2DD5D7F737A88E28136117706923FC070BC659FA2D34239820E6FD2AF633A51B`
+- `sitemap.xml`: SHA-256 `DE46D10ED364F9A5FE32F9BC901B4732D49CEA8F8A9794A9ED12D30BACD7BFBB`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
-explanation. Every JSON-LD block across the 19 indexable pages remains
+explanation. Every JSON-LD block across the 22 indexable pages remains
 semantically unchanged. Existing footer disclaimers, owner-assertion language,
 engagement boundary, calculator disclaimer, human review statements and
 Division 7A refusal remain exact.
@@ -369,7 +374,7 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 - visible focus with at least 3:1 contrast against adjacent colours
 - body text and controls meet WCAG AA contrast
 - touch targets are at least 44px where they are standalone actions
-- no horizontal page overflow at 390, 768 or 1440 CSS pixels
+- no horizontal page overflow at 320, 390, 768 or 1440 CSS pixels
 - no layout jump from unsized media or late decorative content
 - WOFF2 only, no remote font request and no new JavaScript dependency
 - the continuous true-black OLED theme and forced-colours behaviour are inspected
@@ -389,9 +394,15 @@ protected hashes, rate-main snapshots, JSON-LD parity, disclaimer parity,
 routes and all existing repository contracts.
 
 Browser review covers the homepage at 320, 390, 768 and 1440 CSS pixels plus
-About, Evidence, a tool guide, calculator, rate table and 404 page at desktop
-and mobile sizes. It also checks keyboard focus, overflow, computed fonts,
-console errors, reduced motion, forced colours, font/image failure and the one
-OLED colour scheme.
+Tools, Evaluations, Rates, About, Evidence, a tool guide, calculator, rate table
+and 404 page at desktop and mobile sizes. It checks exact primary-navigation
+order and current state, keyboard focus scrolling, all four homepage-to-Tools
+anchors, overflow, computed fonts, console errors, reduced motion, forced
+colours, font/image failure and the one OLED colour scheme.
+
+Lighthouse uses three-run medians for the homepage, Tools, Evidence and Coal
+LSL calculator. Performance stays at or above 0.95; accessibility, best
+practices and SEO stay at 1; CLS stays at or below 0.01; LCP stays at or below
+2,500 ms; and total blocking time stays at or below 200 ms.
 
 The pull request must name the three selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.

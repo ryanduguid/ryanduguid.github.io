@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import html as html_lib
 import json
 import re
+import struct
+import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -501,24 +504,93 @@ ARTICLE_TOC_EXTERNAL_LINKS = {
 warnings: list[str] = []
 
 PRIMARY_NAV_LINKS = [
-    ("/about/", "About"),
+    ("/tools/", "Tools"),
+    ("/rates/", "Rates"),
     ("/evidence/", "Evidence"),
-    ("/tools/australian-tax-ai-agents/", "AI agents"),
-    ("https://github.com/ryanduguid", "GitHub"),
-    (
-        "https://github.com/ryanduguid/awesome-australian-accounting-tech",
-        "Awesome List",
-    ),
+    ("/about/", "About"),
+    ("/#engage", "Contact"),
 ]
 
+COLLECTION_HUBS: dict[str, dict[str, object]] = {
+    "tools/index.html": {
+        "h1": "Tools",
+        "entries": [
+            ("/tools/xero-trial-balance/", "Xero trial balance CSV export"),
+            ("/tools/subcontractor-ledgers/", "Subcontract ledger skills"),
+            ("/tools/wip-schedule/", "Construction WIP schedule"),
+            ("/tools/payday-super/", "Payday Super due dates and SG charge"),
+            ("/tools/ato-benchmarks/", "ATO small business benchmark comparison"),
+            ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
+            ("/tools/trust-distributions/", "Trust distribution checks"),
+            ("/tools/company-tax-franking/", "Company tax and franking checks"),
+            ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
+            ("/tools/australian-tax-ai-agents/", "Australian tax tools for AI agents"),
+        ],
+    },
+    "evaluate/index.html": {
+        "h1": "Evaluations",
+        "entries": [
+            ("/evaluate/manager-review-gate/", "Manager review gate evaluation"),
+            (
+                "/evaluate/xero-trial-balance-integrity/",
+                "Xero trial balance integrity evaluation",
+            ),
+            (
+                "/evaluate/payday-super-evidence/",
+                "Payday Super timing evidence evaluation",
+            ),
+        ],
+    },
+    "rates/index.html": {
+        "h1": "Rates",
+        "entries": [
+            ("/rates/super-guarantee/", "Super guarantee rate history"),
+            (
+                "/rates/div7a-benchmark-rate/",
+                "Division 7A benchmark interest rate",
+            ),
+            (
+                "/rates/cents-per-kilometre/",
+                "Cents per kilometre car-expense rate",
+            ),
+        ],
+    },
+}
+
+HOMEPAGE_HEADING = "Review-ready controls for Australian accounting work."
+HOMEPAGE_SUPPORT = (
+    "Open-source checks for payroll, Xero, workpapers and AI workflows, with "
+    "every source and calculation kept visible."
+)
+HOMEPAGE_ACTIONS = (
+    ("/tools/", "Browse the tools"),
+    ("/#engage", "Discuss a workflow"),
+)
+HOMEPAGE_PREVIEW_ENTRIES = (
+    ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),
+    ("Calculate", "/tools/#calculate-tools", "/tools/coal-lsl-levy/"),
+    ("Control", "/tools/#control-tools", "/tools/workpaper-review-gate/"),
+    ("Inspect", "/tools/#inspect-tools", "/tools/australian-tax-ai-agents/"),
+)
+HOMEPAGE_ANCHORS = ("adopt", "verify", "engage")
+ABOUT_OPENING = (
+    "I build open-source controls for Australian tax, payroll, ledgers and "
+    "workpapers. They show sources and working, use fabricated examples, and "
+    "leave judgement and lodgement with a person."
+)
+EVIDENCE_HEADING = "Evidence behind the tools"
+EVIDENCE_OPENING = (
+    "This register links public claims to identity records, releases, primary "
+    "source reviews, repository controls and reproducible tests. It supports "
+    "limited claims about the software. It does not turn an output into advice, "
+    "approval, a compliance decision or a lodgment."
+)
 HOMEPAGE_REQUIRED_TEXT = [
-    "Accounting tools that show their working.",
-    "Newcastle",
-    "Hunter Valley",
+    HOMEPAGE_HEADING,
+    HOMEPAGE_SUPPORT,
     "Fix the workflow before another review round.",
     "Test it with fabricated data first.",
     "Check the source before the result.",
-    "Tools for work that still needs checking",
     "Useful before impressive",
     "Sources beside claims",
     "Working stays visible",
@@ -532,8 +604,10 @@ HOMEPAGE_DESCRIPTION = (
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
+    "/tools/xero-trial-balance/",
     "/tools/australian-tax-ai-agents/",
     "/tools/coal-lsl-levy/",
+    "/tools/workpaper-review-gate/",
     "/evaluate/payday-super-evidence/",
 ]
 HOMEPAGE_PROOF_HREFS = [
@@ -542,7 +616,6 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/guidance-notes/eligible-wages",
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
-HOMEPAGE_CATALOGUE_LABEL = "Tools for work that still needs checking"
 ARTICLE_PATTERN_PAGES = {
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -568,6 +641,11 @@ RATE_PAGES = {
     "rates/cents-per-kilometre/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+HEADER_DATED_PAGES = {
+    rel
+    for rel in ARTICLE_PATTERN_PAGES
+    if rel.startswith(("tools/", "evaluate/"))
+} | {CALCULATOR_REL}
 CALCULATOR_MARKERS = [
     'name="branch"',
     'id="branch-fields"',
@@ -589,6 +667,10 @@ CALCULATOR_REQUIRED_IDS = {
     "employee-total-wages",
     "employee-total-levy",
     "export-csv",
+    "money-blank-help",
+    "result-actions",
+    "print-working",
+    "employee-reference-help",
     "fields-baseRate",
     "baseRate",
     "overtime",
@@ -604,6 +686,16 @@ CALCULATOR_REQUIRED_IDS = {
     "ordinaryPay",
     "bonus-row-template",
 }
+CALCULATOR_COMMON_HELP = (
+    "Leave a monetary amount blank to treat it as $0.00."
+)
+CALCULATOR_BLANK_RESULT_EXPLANATION = (
+    "All monetary amounts were blank, so the calculator treated each as $0.00."
+)
+CALCULATOR_PRIVACY_WARNING = (
+    "Use an internal payroll reference such as EMP-001. Do not enter an employee "
+    "name, TFN or other direct identifier."
+)
 CALCULATOR_NUMBER_INPUT_IDS = (
     "sacrificed",
     "baseRate",
@@ -614,6 +706,70 @@ CALCULATOR_NUMBER_INPUT_IDS = (
     "casualLoading",
     "ordinaryPay",
 )
+CALCULATOR_FIELD_HELP_IDS = {
+    identifier: f"{identifier}-help" for identifier in CALCULATOR_NUMBER_INPUT_IDS
+}
+SOCIAL_CARD_CONTEXTS = {
+    "site": {
+        "label": "Public register / Australian accounting controls",
+        "heading": [
+            "Review-ready controls",
+            "for Australian",
+            "accounting work.",
+        ],
+        "host": "duguid.com.au",
+        "output": "social-card-site.png",
+    },
+    "tools": {
+        "label": "Open-source tools",
+        "heading": ["Accounting checks that", "show their working."],
+        "host": "duguid.com.au/tools/",
+        "output": "social-card-tools.png",
+    },
+    "evaluations": {
+        "label": "Reproducible evaluations",
+        "heading": [
+            "Fabricated inputs.",
+            "Expected results.",
+            "Visible limits.",
+        ],
+        "host": "duguid.com.au/evaluate/",
+        "output": "social-card-evaluations.png",
+    },
+    "rates": {
+        "label": "Maintained reference tables",
+        "heading": ["Australian rates,", "sources and review dates."],
+        "host": "duguid.com.au/rates/",
+        "output": "social-card-rates.png",
+    },
+    "evidence": {
+        "label": "Evidence register",
+        "heading": ["Claims linked to sources,", "releases and tests."],
+        "host": "duguid.com.au/evidence/",
+        "output": "social-card-evidence.png",
+    },
+}
+SOCIAL_CARD_DIMENSIONS = (1200, 630)
+SOCIAL_CARD_MAX_BYTES = 50_000
+SOCIAL_CARD_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88", "#9aa89f"})
+SOCIAL_CARD_TEMPLATE_PLACEHOLDERS = frozenset(
+    {
+        "{{FONT_SERIF}}",
+        "{{FONT_SANS}}",
+        "{{FONT_MONO}}",
+        "{{TITLE}}",
+        "{{DESCRIPTION}}",
+        "{{LABEL}}",
+        "{{HEADING_LINES}}",
+        "{{HOST}}",
+    }
+)
+TIGHT_META_DESCRIPTION_PAGES = {
+    "tools/payday-super/index.html",
+    "tools/australian-tax-ai-agents/index.html",
+    "tools/coal-lsl-levy/index.html",
+}
+TIGHT_META_DESCRIPTION_LIMITS = (120, 155)
 BONUS_FREQUENCIES = [
     "weekly",
     "fortnightly",
@@ -622,6 +778,27 @@ BONUS_FREQUENCIES = [
     "halfYearly",
     "annually",
 ]
+
+
+def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
+    """Return the approved social-card image and alt for one canonical page."""
+    if rel in {"index.html", "about/index.html"}:
+        context = "site"
+    elif rel == EVIDENCE_REL:
+        context = "evidence"
+    elif rel.startswith("tools/"):
+        context = "tools"
+    elif rel.startswith("evaluate/"):
+        context = "evaluations"
+    elif rel.startswith("rates/"):
+        context = "rates"
+    else:
+        return None, None
+
+    card = SOCIAL_CARD_CONTEXTS[context]
+    image = f"{SITE}/assets/{card['output']}"
+    alt = "OLED register card: " + " ".join(card["heading"])
+    return image, alt
 
 
 def check_homepage_contract(html: str, failures: list[str]) -> None:
@@ -652,6 +829,86 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         if required not in text:
             failures.append(f"index.html: missing approved homepage text {required!r}")
     root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    if len(h1s) != 1 or core.element_text(h1s[0]) != HOMEPAGE_HEADING:
+        failures.append(f"index.html: homepage H1 must be {HOMEPAGE_HEADING!r}")
+
+    summaries = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("home-hero__summary")
+    ]
+    if len(summaries) != 1 or core.element_text(summaries[0]) != HOMEPAGE_SUPPORT:
+        failures.append(
+            f"index.html: homepage support text must be {HOMEPAGE_SUPPORT!r}"
+        )
+
+    action_groups = [
+        element
+        for element in core.descendants(root, "nav", rendered_only=True)
+        if element.has_class("home-hero__actions")
+    ]
+    actual_actions: list[tuple[str | None, str]] = []
+    if len(action_groups) == 1:
+        actual_actions = [
+            (link.attr("href"), core.element_text(link))
+            for link in core.descendants(action_groups[0], "a", rendered_only=True)
+        ]
+    if actual_actions != list(HOMEPAGE_ACTIONS):
+        failures.append(
+            f"index.html: homepage actions are {actual_actions!r}, "
+            f"expected {list(HOMEPAGE_ACTIONS)!r}"
+        )
+
+    previews = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("home-tool-preview")
+    ]
+    actual_preview: list[tuple[str, str | None, str | None]] = []
+    if len(previews) == 1:
+        entries = [
+            element
+            for element in core.descendants(previews[0], rendered_only=True)
+            if element.has_class("home-tool-preview__entry")
+        ]
+        for entry in entries:
+            headings = core.descendants(entry, "h3", rendered_only=True)
+            links = core.descendants(entry, "a", rendered_only=True)
+            actual_preview.append(
+                (
+                    core.element_text(headings[0]) if len(headings) == 1 else "",
+                    links[0].attr("href") if len(links) >= 1 else None,
+                    links[1].attr("href") if len(links) >= 2 else None,
+                )
+            )
+    if actual_preview != list(HOMEPAGE_PREVIEW_ENTRIES):
+        failures.append(
+            f"index.html: category preview is {actual_preview!r}, "
+            f"expected {list(HOMEPAGE_PREVIEW_ENTRIES)!r}"
+        )
+
+    all_elements = core.descendants(root, rendered_only=True)
+    for identifier in HOMEPAGE_ANCHORS:
+        count = sum(element.attr("id") == identifier for element in all_elements)
+        if count != 1:
+            failures.append(
+                f"index.html: expected exactly one valid #{identifier} anchor, found {count}"
+            )
+
+    rendered = core.visible_html(html)
+    sequence = (
+        rendered.find('class="home-tool-preview'),
+        rendered.find('class="route-section proof-feature'),
+        rendered.find('id="adopt"'),
+        rendered.find('id="verify"'),
+        rendered.find('id="engage"'),
+    )
+    if any(position < 0 for position in sequence) or tuple(sorted(sequence)) != sequence:
+        failures.append(
+            "index.html: content order must be preview, proof, Adopt, Verify, Engage"
+        )
+
     hrefs = [
         link.attr("href")
         for link in core.descendants(root, "a", rendered_only=True)
@@ -760,6 +1017,51 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
         )
 
 
+def check_approved_page_opening(html: str, rel: str, failures: list[str]) -> None:
+    """Protect the concise, tool-led About and Evidence openings."""
+    expected = {
+        "about/index.html": ("About Ryan Duguid", ABOUT_OPENING),
+        EVIDENCE_REL: (EVIDENCE_HEADING, EVIDENCE_OPENING),
+    }.get(rel)
+    if expected is None:
+        return
+    root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    leads = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("lead-note")
+    ]
+    if len(h1s) != 1 or core.element_text(h1s[0]) != expected[0]:
+        failures.append(f"{rel}: page H1 must be {expected[0]!r}")
+    if len(leads) != 1 or core.element_text(leads[0]) != expected[1]:
+        failures.append(f"{rel}: page opening must be {expected[1]!r}")
+
+
+def check_header_review_date(html: str, rel: str, failures: list[str]) -> None:
+    """Keep each tool or evaluation review date visible in its page header."""
+    if rel not in HEADER_DATED_PAGES:
+        return
+    root = core.parse_structure(html)
+    headers = [
+        element
+        for element in core.descendants(root, "header", rendered_only=True)
+        if element.has_class("article-header")
+        or element.has_class("calculator-header")
+    ]
+    dates = [
+        element
+        for element in core.descendants(root, rendered_only=True)
+        if element.has_class("page-meta")
+    ]
+    if (
+        len(headers) != 1
+        or len(dates) != 1
+        or not core.is_descendant(dates[0], headers[0])
+    ):
+        failures.append(f"{rel}: Published/Last reviewed line must be in the page header")
+
+
 def check_rate_table_region(html: str, rel: str, failures: list[str]) -> None:
     root = core.parse_structure(html)
     tables = core.descendants(root, "table", rendered_only=True)
@@ -824,14 +1126,31 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
         )
 
     root = core.parse_structure(html)
-    ids = {
+    all_ids = [
         element.attr("id")
         for element in core.descendants(root)
         if element.attr("id")
-    }
+    ]
+    ids = set(all_ids)
+    duplicate_ids = sorted(
+        identifier for identifier, count in Counter(all_ids).items() if count > 1
+    )
+    if duplicate_ids:
+        failures.append(
+            f"{CALCULATOR_REL}: duplicate help or control IDs: {duplicate_ids}"
+        )
     missing_ids = sorted(CALCULATOR_REQUIRED_IDS - ids)
     if missing_ids:
         failures.append(f"{CALCULATOR_REL}: missing protected field IDs: {missing_ids}")
+
+    common_help = core.element_by_id(root, "money-blank-help")
+    if (
+        len(common_help) != 1
+        or core.element_text(common_help[0]) != CALCULATOR_COMMON_HELP
+    ):
+        failures.append(
+            f"{CALCULATOR_REL}: form must contain one exact blank-as-zero note"
+        )
 
     branch_radios = [
         element
@@ -857,21 +1176,45 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
         "inputmode": "decimal",
     }
     for identifier in CALCULATOR_NUMBER_INPUT_IDS:
-        check_id_contract(
+        control = check_id_contract(
             root,
             identifier,
             "input",
             {"name": identifier, **number_attributes},
             failures,
         )
+        if control is not None:
+            described_by = set(
+                (control.attr("aria-describedby") or "").split()
+            )
+            expected_help = {
+                "money-blank-help",
+                CALCULATOR_FIELD_HELP_IDS[identifier],
+            }
+            if described_by != expected_help:
+                failures.append(
+                    f"{CALCULATOR_REL}: #{identifier} aria-describedby must retain "
+                    "common and field-specific help"
+                )
+        help_nodes = core.element_by_id(root, CALCULATOR_FIELD_HELP_IDS[identifier])
+        if len(help_nodes) != 1:
+            failures.append(
+                f"{CALCULATOR_REL}: #{identifier} needs one unique field help ID"
+            )
     check_id_contract(
         root,
         "reportingMonth",
         "input",
-        {"type": "month", "name": "reportingMonth"},
+        {
+            "type": "month",
+            "name": "reportingMonth",
+            "aria-describedby": "reportingMonth-help",
+        },
         failures,
         present=("required",),
     )
+    if len(core.element_by_id(root, "reportingMonth-help")) != 1:
+        failures.append(f"{CALCULATOR_REL}: reporting month needs associated help")
     for identifier in ("instrumentSpecifiesLoading", "loadingQuantifiable"):
         check_id_contract(
             root,
@@ -881,12 +1224,28 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
             failures,
         )
     check_id_contract(
-        root, "employeeLabel", "input", {"type": "text"}, failures
+        root,
+        "employeeLabel",
+        "input",
+        {
+            "type": "text",
+            "placeholder": "EMP-001",
+            "aria-describedby": "employee-reference-help",
+        },
+        failures,
     )
-    for identifier in ("add-bonus", "add-employee", "export-csv"):
+    for identifier in (
+        "add-bonus",
+        "add-employee",
+        "export-csv",
+        "print-working",
+    ):
         check_id_contract(
             root, identifier, "button", {"type": "button"}, failures
         )
+    export_buttons = core.element_by_id(root, "export-csv")
+    if len(export_buttons) == 1 and core.element_text(export_buttons[0]) != "Download CSV":
+        failures.append(f"{CALCULATOR_REL}: missing visible CSV action")
 
     forms = core.element_by_id(root, "calc-form")
     if len(forms) == 1:
@@ -920,6 +1279,23 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
                         f"{CALCULATOR_REL}: .bonus-amount {name} must be "
                         f"{expected!r}, found {actual!r}"
                     )
+            if bonus_amounts[0].attr("aria-describedby") != "money-blank-help":
+                failures.append(
+                    f"{CALCULATOR_REL}: bonus amount must retain common help before cloning"
+                )
+            if bonus_amounts[0].attr("data-help-template") != "bonus-amount":
+                failures.append(
+                    f"{CALCULATOR_REL}: bonus amount needs generated field-specific help"
+                )
+        bonus_help = [
+            element
+            for element in core.descendants(bonus_template)
+            if element.attr("data-help-template") == "bonus-amount-note"
+        ]
+        if len(bonus_help) != 1 or bonus_help[0].attr("id") is not None:
+            failures.append(
+                f"{CALCULATOR_REL}: bonus template help must receive a unique cloned ID"
+            )
 
         frequency_selects = [
             element
@@ -966,6 +1342,35 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
     if not 0 <= result_position < employee_position < disclaimer_position:
         failures.append(
             f"{CALCULATOR_REL}: result, employee workflow and disclaimer are out of order"
+        )
+
+    result_actions = core.element_by_id(root, "result-actions")
+    if len(result_actions) == 1:
+        buttons = core.descendants(result_actions[0], "button")
+        actual_actions = [
+            (button.attr("id"), core.element_text(button)) for button in buttons
+        ]
+        expected_actions = [
+            ("print-working", "Print working"),
+            ("add-employee", "Add to monthly table"),
+        ]
+        if actual_actions != expected_actions:
+            failures.append(
+                f"{CALCULATOR_REL}: result actions are {actual_actions!r}, "
+                f"expected {expected_actions!r}"
+            )
+    visible_text = core.visible_text(html)
+    for required, label in (
+        (CALCULATOR_PRIVACY_WARNING, "direct-identifier warning"),
+        ("Employee reference", "employee reference label"),
+        ("EMP-001", "employee reference example"),
+        ("Download CSV", "CSV action"),
+    ):
+        if required not in visible_text:
+            failures.append(f"{CALCULATOR_REL}: missing visible {label}")
+    if CALCULATOR_BLANK_RESULT_EXPLANATION not in html:
+        failures.append(
+            f"{CALCULATOR_REL}: zero result needs the blank-as-zero explanation"
         )
 
     if "from '/assets/levy.mjs'" not in html:
@@ -1237,30 +1642,12 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     home_path = root / "index.html"
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
     rendered_home = core.visible_html(home)
-    home_hrefs = core.anchor_hrefs(rendered_home)
     sections = {
         identifier: core.section_html(home, identifier) for identifier in AUTHORITY_PATHS
     }
     for identifier, label in AUTHORITY_PATHS.items():
-        if f"#{identifier}" not in home_hrefs or not sections[identifier]:
-            failures.append(f"index.html: missing visible authority route #{identifier}")
-        route_card = re.search(
-            rf'<a\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bpath-card\b[^"\']*["\'])'
-            rf'(?=[^>]*\bhref\s*=\s*["\']#{re.escape(identifier)}["\'])[^>]*>'
-            r"(.*?)</a\s*>",
-            rendered_home,
-            re.S | re.I,
-        )
-        card_label = ""
-        if route_card:
-            strong = re.search(
-                r"<strong\b[^>]*>(.*?)</strong\s*>", route_card.group(1), re.S | re.I
-            )
-            card_label = core.visible_text(strong.group(1)) if strong else ""
-        if card_label != label:
-            failures.append(
-                f"index.html: authority route #{identifier} card label must be {label}"
-            )
+        if not sections[identifier]:
+            failures.append(f"index.html: missing visible authority section #{identifier}")
 
         section_heading = re.search(
             r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", sections[identifier], re.S | re.I
@@ -1316,20 +1703,6 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             failures.append(f"{rel}: supported install commands must link to /#adopt instead")
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
-
-    catalogue_label = HOMEPAGE_CATALOGUE_LABEL
-    catalogue = re.search(
-        r'<[a-z][\w:-]*\b(?=[^>]*\sclass\s*=\s*["\'][^"\']*\btools-list\b[^"\']*["\'])[^>]*>',
-        rendered_home,
-        re.I,
-    )
-    label_position = core.visible_text(rendered_home).find(catalogue_label)
-    if label_position < 0:
-        failures.append(f"index.html: missing visible catalogue label {catalogue_label}")
-    if not catalogue:
-        failures.append("index.html: missing visible lower tools catalogue")
-    elif catalogue and rendered_home.find(catalogue_label) > catalogue.start():
-        failures.append(f"index.html: catalogue label {catalogue_label} must precede the tools")
 
     expected_subjects = {
         "Firm workflow or controlled pilot",
@@ -1925,6 +2298,215 @@ def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
     if links != PRIMARY_NAV_LINKS:
         failures.append(f"{rel}: primary navigation is {links!r}, expected {PRIMARY_NAV_LINKS!r}")
 
+    expected_current: dict[str, str] = {}
+    if rel == "tools/index.html":
+        expected_current["/tools/"] = "page"
+    elif rel.startswith("tools/") or rel.startswith("evaluate/"):
+        expected_current["/tools/"] = "location"
+    elif rel == "rates/index.html":
+        expected_current["/rates/"] = "page"
+    elif rel.startswith("rates/"):
+        expected_current["/rates/"] = "location"
+    elif rel == EVIDENCE_REL:
+        expected_current["/evidence/"] = "page"
+    elif rel == "about/index.html":
+        expected_current["/about/"] = "page"
+
+    actual_current = {
+        link.attr("href"): link.attr("aria-current")
+        for link in core.descendants(primary_blocks[0], "a", rendered_only=True)
+        if link.attr("aria-current") is not None
+    }
+    if actual_current != expected_current:
+        failures.append(
+            f"{rel}: primary navigation current states are {actual_current!r}, "
+            f"expected {expected_current!r}"
+        )
+
+
+def collection_breadcrumb_shape(
+    rel: str,
+    current_name: str,
+) -> list[tuple[str, str | None, str]] | None:
+    """Return visible href and canonical URL for a collection breadcrumb."""
+    current_url = core.site_url(rel, SITE)
+    if rel == "tools/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
+        parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
+    elif rel == "evaluate/index.html":
+        parents = [
+            ("Home", "/", f"{SITE}/"),
+            ("Tools", "/tools/", f"{SITE}/tools/"),
+        ]
+    elif rel.startswith("evaluate/"):
+        parents = [
+            ("Home", "/", f"{SITE}/"),
+            ("Tools", "/tools/", f"{SITE}/tools/"),
+            ("Evaluations", "/evaluate/", f"{SITE}/evaluate/"),
+        ]
+    elif rel == "rates/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("rates/"):
+        parents = [("Home", "/", f"{SITE}/"), ("Rates", "/rates/", f"{SITE}/rates/")]
+    else:
+        return None
+    return [*parents, (current_name, None, current_url)]
+
+
+def check_collection_breadcrumb(html: str, rel: str, failures: list[str]) -> None:
+    """Keep visible and structured collection breadcrumbs in the same hierarchy."""
+    root = core.parse_structure(html)
+    h1s = core.descendants(root, "h1", rendered_only=True)
+    if len(h1s) != 1:
+        failures.append(f"{rel}: collection breadcrumb needs exactly one H1")
+        return
+    expected = collection_breadcrumb_shape(rel, core.element_text(h1s[0]))
+    if expected is None:
+        return
+
+    breadcrumbs = [
+        nav
+        for nav in core.descendants(root, "nav", rendered_only=True)
+        if nav.attr("aria-label") == "Breadcrumb"
+    ]
+    if len(breadcrumbs) != 1:
+        failures.append(
+            f"{rel}: expected exactly one nav labelled Breadcrumb, found {len(breadcrumbs)}"
+        )
+    else:
+        items = core.descendants(breadcrumbs[0], "li", rendered_only=True)
+        actual_names = [core.element_text(item) for item in items]
+        expected_names = [name for name, _, _ in expected]
+        if actual_names != expected_names:
+            failures.append(
+                f"{rel}: visible breadcrumb is {actual_names!r}, expected {expected_names!r}"
+            )
+        for index, (name, href, _) in enumerate(expected):
+            if index >= len(items):
+                break
+            links = core.descendants(items[index], "a", rendered_only=True)
+            actual_href = links[0].attr("href") if len(links) == 1 else None
+            if href is not None and actual_href != href:
+                failures.append(
+                    f"{rel}: breadcrumb {name!r} points to {actual_href!r}, expected {href!r}"
+                )
+            if href is None and (
+                links or items[index].attr("aria-current") != "page"
+            ):
+                failures.append(
+                    f"{rel}: current breadcrumb {name!r} must be unlinked and aria-current=page"
+                )
+
+    parse_failures: list[str] = []
+    structured = [
+        node
+        for block in core.json_ld_blocks(html, rel, parse_failures)
+        for node in core.nodes(block)
+        if core.has_type(node, "BreadcrumbList")
+    ]
+    failures.extend(parse_failures)
+    if len(structured) != 1:
+        failures.append(
+            f"{rel}: expected exactly one BreadcrumbList, found {len(structured)}"
+        )
+        return
+    elements = structured[0].get("itemListElement")
+    expected_structured = [
+        {
+            "@type": "ListItem",
+            "position": index,
+            "name": name,
+            "item": canonical,
+        }
+        for index, (name, _, canonical) in enumerate(expected, start=1)
+    ]
+    if elements != expected_structured:
+        failures.append(f"{rel}: BreadcrumbList does not match the visible hierarchy")
+
+
+def check_collection_hubs(root: Path = core.ROOT) -> list[str]:
+    """Require each collection hub's visible register and ItemList to agree."""
+    failures: list[str] = []
+    for rel, contract in COLLECTION_HUBS.items():
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"{rel}: missing collection hub")
+            continue
+        html = path.read_text(encoding="utf-8")
+        parsed = core.parse_structure(html)
+        h1s = core.descendants(parsed, "h1", rendered_only=True)
+        expected_h1 = contract["h1"]
+        if len(h1s) != 1 or core.element_text(h1s[0]) != expected_h1:
+            failures.append(f"{rel}: collection H1 must be {expected_h1!r}")
+
+        registers = [
+            element
+            for element in core.descendants(parsed, rendered_only=True)
+            if element.has_class("collection-register")
+        ]
+        expected_entries = contract["entries"]
+        if len(registers) != 1:
+            failures.append(
+                f"{rel}: expected one collection register, found {len(registers)}"
+            )
+        else:
+            rows = [
+                element
+                for element in core.descendants(registers[0], rendered_only=True)
+                if element.has_class("collection-entry")
+            ]
+            actual_entries: list[tuple[str | None, str]] = []
+            for row in rows:
+                title_links = [
+                    link
+                    for link in core.descendants(row, "a", rendered_only=True)
+                    if link.has_class("collection-entry__title")
+                ]
+                if len(title_links) == 1:
+                    actual_entries.append(
+                        (title_links[0].attr("href"), core.element_text(title_links[0]))
+                    )
+            if actual_entries != expected_entries:
+                failures.append(
+                    f"{rel}: collection entries are {actual_entries!r}, "
+                    f"expected {expected_entries!r}"
+                )
+
+        parse_failures: list[str] = []
+        nodes = [
+            node
+            for block in core.json_ld_blocks(html, rel, parse_failures)
+            for node in core.nodes(block)
+        ]
+        failures.extend(parse_failures)
+        webpages = [node for node in nodes if core.has_type(node, "WebPage")]
+        item_lists = [node for node in nodes if core.has_type(node, "ItemList")]
+        if len(webpages) != 1:
+            failures.append(f"{rel}: expected exactly one WebPage in JSON-LD")
+        else:
+            for field in ("author", "publisher"):
+                if webpages[0].get(field) != {"@id": PERSON_ID}:
+                    failures.append(f"{rel}: WebPage {field} must reference the canonical Person")
+        if len(item_lists) != 1:
+            failures.append(f"{rel}: expected exactly one ItemList in JSON-LD")
+            continue
+        items = item_lists[0].get("itemListElement")
+        expected_structured = [
+            {
+                "@type": "ListItem",
+                "position": position,
+                "name": name,
+                "url": f"{SITE}{href}",
+            }
+            for position, (href, name) in enumerate(expected_entries, start=1)
+        ]
+        if item_lists[0].get("numberOfItems") != len(expected_entries):
+            failures.append(f"{rel}: ItemList count does not match visible entries")
+        if items != expected_structured:
+            failures.append(f"{rel}: ItemList entries do not match the visible register")
+    return failures
+
 
 def check_file_contracts(path: Path) -> list[str]:
     """Check contracts specific to this site's shell and content."""
@@ -1932,7 +2514,7 @@ def check_file_contracts(path: Path) -> list[str]:
     rel = path.relative_to(core.ROOT).as_posix()
     html = path.read_text(encoding="utf-8")
 
-    if rel not in NOT_INDEXED:
+    if rel not in STATIC_REDIRECTS:
         check_shared_shell(html, rel, failures)
     if rel == "index.html":
         check_homepage_contract(html, failures)
@@ -1942,6 +2524,9 @@ def check_file_contracts(path: Path) -> list[str]:
         check_rate_table_region(html, rel, failures)
     if rel == CALCULATOR_REL:
         check_calculator_contract(html, failures)
+    check_approved_page_opening(html, rel, failures)
+    check_header_review_date(html, rel, failures)
+    check_collection_breadcrumb(html, rel, failures)
 
     return failures
 
@@ -1961,6 +2546,130 @@ def forbidden_identity_url_labels(text: str) -> set[str]:
         ):
             labels.add("unhyphenated US namesake URL")
     return labels
+
+
+def check_social_cards(root: Path = core.ROOT) -> list[str]:
+    """Require five reproducible OLED register cards and their provenance."""
+    failures: list[str] = []
+    template_path = root / "assets" / "social-card-template.svg"
+    if not template_path.is_file():
+        failures.append("assets/social-card-template.svg: missing editable card template")
+    else:
+        template_text = template_path.read_text(encoding="utf-8")
+        try:
+            template = ET.fromstring(template_text)
+        except ET.ParseError:
+            failures.append(
+                "assets/social-card-template.svg: editable card template is invalid SVG"
+            )
+        else:
+            expected_width, expected_height = SOCIAL_CARD_DIMENSIONS
+            if (
+                template.tag.rsplit("}", 1)[-1] != "svg"
+                or template.get("width") != str(expected_width)
+                or template.get("height") != str(expected_height)
+                or template.get("viewBox")
+                != f"0 0 {expected_width} {expected_height}"
+            ):
+                failures.append(
+                    "assets/social-card-template.svg: template dimensions changed"
+                )
+            fills = {
+                fill.casefold()
+                for element in template.iter()
+                if (fill := element.get("fill")) is not None
+            }
+            if fills != SOCIAL_CARD_COLOURS:
+                failures.append(
+                    "assets/social-card-template.svg: OLED palette is incomplete or changed"
+                )
+            if any(
+                element.tag.rsplit("}", 1)[-1] == "image"
+                for element in template.iter()
+            ):
+                failures.append(
+                    "assets/social-card-template.svg: template must not contain portrait imagery"
+                )
+        missing_placeholders = sorted(
+            placeholder
+            for placeholder in SOCIAL_CARD_TEMPLATE_PLACEHOLDERS
+            if placeholder not in template_text
+        )
+        if missing_placeholders:
+            failures.append(
+                "assets/social-card-template.svg: missing renderer placeholders "
+                f"{missing_placeholders!r}"
+            )
+
+    data_path = root / "assets" / "social-cards.json"
+    configured: object = {}
+    if not data_path.is_file():
+        failures.append("assets/social-cards.json: missing social-card data")
+    else:
+        try:
+            configured = json.loads(data_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            failures.append("assets/social-cards.json: social-card data is invalid JSON")
+    expected_data = {
+        card_id: {
+            **record,
+            "alt": "OLED register card: " + " ".join(record["heading"]),
+        }
+        for card_id, record in SOCIAL_CARD_CONTEXTS.items()
+    }
+    if configured != expected_data:
+        failures.append(
+            "assets/social-cards.json: social-card context copy or mapping is stale"
+        )
+
+    readme_path = root / "README.md"
+    readme_lines = (
+        readme_path.read_text(encoding="utf-8").splitlines()
+        if readme_path.is_file()
+        else []
+    )
+    for card_id, record in SOCIAL_CARD_CONTEXTS.items():
+        output = record["output"]
+        asset_rel = f"assets/{output}"
+        card_path = root / asset_rel
+        card: bytes | None = None
+        if not card_path.is_file():
+            failures.append(f"{asset_rel}: missing social card")
+        else:
+            card = card_path.read_bytes()
+            if len(card) < 24 or not card.startswith(b"\x89PNG\r\n\x1a\n"):
+                failures.append(f"{asset_rel}: social card is not PNG")
+            else:
+                width, height = struct.unpack(">II", card[16:24])
+                if (width, height) != SOCIAL_CARD_DIMENSIONS:
+                    failures.append(f"{asset_rel}: social card dimensions changed")
+            if len(card) >= SOCIAL_CARD_MAX_BYTES:
+                failures.append(
+                    f"{asset_rel}: social card must be under 50,000 bytes"
+                )
+
+        provenance_row = next(
+            (line for line in readme_lines if f"`{asset_rel}`" in line), ""
+        )
+        if not provenance_row:
+            failures.append(f"README.md: missing provenance for {asset_rel}")
+            continue
+        if card is not None and hashlib.sha256(card).hexdigest() not in provenance_row:
+            failures.append(f"README.md: stale checksum for {asset_rel}")
+        for required in (
+            "assets/social-card-template.svg",
+            "assets/social-cards.json",
+            "MIT",
+            "Playwright 1.62.1",
+            "Chromium",
+            "device scale 1",
+            "Refresh when",
+        ):
+            if required not in provenance_row:
+                failures.append(
+                    f"README.md: {asset_rel} provenance omits {required}"
+                )
+    return failures
 
 
 def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
@@ -1992,6 +2701,8 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
+    failures.extend(check_collection_hubs())
+    failures.extend(check_social_cards())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
     for rel, target in STATIC_REDIRECTS.items():

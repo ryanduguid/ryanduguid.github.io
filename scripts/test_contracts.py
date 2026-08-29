@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+import hashlib
+import re
 import shutil
+import struct
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
@@ -70,9 +73,60 @@ def assert_clean(label: str, failures: list[str]) -> None:
     assert not failures, f"{label}: unexpected failures: {failures!r}"
 
 
+def page_metadata_failures(root: Path, rel: str) -> list[str]:
+    """Run the configured metadata checks for one page under an arbitrary root."""
+    social_image, social_alt = contracts.social_metadata_for_page(rel)
+    return core.check_file_metadata(
+        root / rel,
+        site=contracts.SITE,
+        not_indexed=contracts.NOT_INDEXED,
+        title_exceptions=contracts.TITLE_EXCEPTIONS,
+        warnings=[],
+        expected_social_image=social_image,
+        expected_social_alt=social_alt,
+        description_limits=(
+            contracts.TIGHT_META_DESCRIPTION_LIMITS
+            if rel in contracts.TIGHT_META_DESCRIPTION_PAGES
+            else None
+        ),
+        root=root,
+    )
+
+
+def check_metadata_text(html: str, rel: str, failures: list[str]) -> None:
+    """Run the share and referrer contracts directly against mutated HTML."""
+    canonical_match = re.search(r'<link rel="canonical" href="(.*?)"', html)
+    canonical = canonical_match.group(1) if canonical_match else None
+    social_image, social_alt = contracts.social_metadata_for_page(rel)
+    assert social_image is not None and social_alt is not None
+    core.check_social_metadata(
+        html,
+        rel,
+        description=core.meta(html, "name", "description"),
+        canonical=canonical,
+        expected_image=social_image,
+        expected_alt=social_alt,
+        failures=failures,
+    )
+    if re.search(r'<link\s+rel="stylesheet"(?:\s|/?>)', html):
+        core.check_referrer_policy(html, rel, failures)
+
+
 def test_design_contracts() -> int:
     """Exercise the main design boundaries against copies of the real site."""
     assert_clean("current design", check_design.check_repository(ROOT))
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "rates/super-guarantee/index.html",
+            '<li><a href="/rates/">Rates</a></li>',
+            '<li><a href="/rates-copy/">Rates</a></li>',
+        )
+        assert_clean(
+            "rate breadcrumb is outside the protected content digest",
+            check_design.check_repository(root),
+        )
 
     text_mutations = (
         (
@@ -139,13 +193,6 @@ def test_design_contracts() -> int:
             "links and controls must use the standard motion duration",
         ),
         (
-            "route rail no longer sticky",
-            "assets/site.css",
-            ".route-section > h2 {\n  position: sticky;",
-            ".route-section > h2 {\n  position: static;",
-            "route labels must be sticky on wide layouts",
-        ),
-        (
             "token stylesheet removed",
             "index.html",
             '<link rel="stylesheet" href="/assets/tokens.css" />',
@@ -160,11 +207,11 @@ def test_design_contracts() -> int:
             "index.html: expected one visible machine-readable index link",
         ),
         (
-            "hero route drift",
+            "hero action drift",
             "index.html",
-            'href="#engage"',
-            'href="#missing"',
-            "index.html: expected exactly one #engage route link",
+            'class="button button--secondary" href="/#engage"',
+            'class="button button--secondary" href="/#missing"',
+            "index.html: expected exactly one /#engage homepage action",
         ),
         (
             "trust record drift",
@@ -174,11 +221,11 @@ def test_design_contracts() -> int:
             "index.html: trust-band records must match the approved four-item tuple",
         ),
         (
-            "catalogue navigator removed",
+            "category preview removed",
             "index.html",
-            "catalogue-index",
-            "removed-catalogue-index",
-            "index.html: expected one catalogue-index",
+            "home-tool-preview",
+            "removed-tool-preview",
+            "index.html: expected one home-tool-preview",
         ),
         (
             "extra technical label",
@@ -257,7 +304,19 @@ def test_design_contracts() -> int:
             "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
         )
 
-    return len(text_mutations) + 3
+    with copied_site() as root:
+        append_file(
+            root,
+            "assets/site.css",
+            "\n.route-section > h2 { position: sticky; }\n",
+        )
+        expect_failure(
+            "sticky route rail restored",
+            check_design.check_repository(root),
+            "route labels must not be sticky",
+        )
+
+    return len(text_mutations) + 5
 
 
 def contract_mutation(
@@ -279,7 +338,26 @@ def test_public_contracts() -> int:
     calculator = read_text(ROOT, contracts.CALCULATOR_REL)
     evidence = read_text(ROOT, contracts.EVIDENCE_REL)
     payday = read_text(ROOT, "tools/payday-super/index.html")
+    xero = read_text(ROOT, "tools/xero-trial-balance/index.html")
     robots = read_text(ROOT, "robots.txt")
+
+    html_paths = core.html_files(ROOT)
+    indexed_rels = [
+        path.relative_to(ROOT).as_posix()
+        for path in html_paths
+        if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
+    ]
+    assert len(indexed_rels) == 22, (
+        f"expected 22 canonical HTML pages, found {len(indexed_rels)}"
+    )
+    metadata_failures = [
+        failure
+        for path in html_paths
+        for failure in page_metadata_failures(
+            ROOT, path.relative_to(ROOT).as_posix()
+        )
+    ]
+    assert_clean("complete page metadata", metadata_failures)
 
     failures: list[str] = []
     contracts.check_homepage_contract(home, failures)
@@ -295,6 +373,8 @@ def test_public_contracts() -> int:
     assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
+    assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
+    assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
     assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
     assert_clean(
@@ -303,6 +383,13 @@ def test_public_contracts() -> int:
             read_text(ROOT, contracts.MCP_REL)
         ),
     )
+    sitemap_failures, _ = core.check_sitemap(
+        core.html_files(ROOT),
+        site=contracts.SITE,
+        not_indexed=contracts.NOT_INDEXED,
+        root=ROOT,
+    )
+    assert_clean("sitemap and machine-index coverage", sitemap_failures)
 
     parse_failures: list[str] = []
     about = read_text(ROOT, "about/index.html")
@@ -322,6 +409,26 @@ def test_public_contracts() -> int:
         contracts.check_canonical_person(changed_person),
         "Person sameAs must contain only",
     )
+    contract_mutation(
+        "About opening",
+        about,
+        contracts.ABOUT_OPENING,
+        "I build software.",
+        lambda html, found: contracts.check_approved_page_opening(
+            html, "about/index.html", found
+        ),
+        "about/index.html: page opening must be",
+    )
+    contract_mutation(
+        "Evidence opening",
+        evidence,
+        contracts.EVIDENCE_OPENING,
+        "This register links claims.",
+        lambda html, found: contracts.check_approved_page_opening(
+            html, contracts.EVIDENCE_REL, found
+        ),
+        "evidence/index.html: page opening must be",
+    )
 
     homepage_mutations = (
         (
@@ -335,6 +442,30 @@ def test_public_contracts() -> int:
             contracts.HOMEPAGE_DESCRIPTION,
             "Wrong homepage description",
             "index.html: homepage description is",
+        ),
+        (
+            "homepage heading",
+            f'<h1 id="home-title">{contracts.HOMEPAGE_HEADING}</h1>',
+            '<h1 id="home-title">Controls for accounting work.</h1>',
+            "index.html: homepage H1 must be",
+        ),
+        (
+            "homepage primary action",
+            "Browse the tools",
+            "Browse every tool",
+            "index.html: homepage actions are",
+        ),
+        (
+            "homepage category anchor",
+            'href="/tools/#control-tools"',
+            'href="/tools/#missing-control-tools"',
+            "index.html: category preview is",
+        ),
+        (
+            "homepage Engage anchor",
+            'id="engage"',
+            'id="engage-copy"',
+            "index.html: expected exactly one valid #engage anchor",
         ),
         (
             "homepage evaluation route",
@@ -359,7 +490,129 @@ def test_public_contracts() -> int:
             expected,
         )
 
+    metadata_mutations = (
+        (
+            "Open Graph field",
+            '  <meta property="og:image:height" content="630" />\n',
+            "",
+            "expected exactly one non-empty og:image:height",
+        ),
+        (
+            "Twitter field",
+            '  <meta name="twitter:image:alt" content="OLED register card: Review-ready controls for Australian accounting work." />\n',
+            "",
+            "expected exactly one non-empty twitter:image:alt",
+        ),
+        (
+            "canonical and Open Graph URL",
+            '<meta property="og:url" content="https://duguid.com.au/" />',
+            '<meta property="og:url" content="https://duguid.com.au/copy/" />',
+            "og:url is 'https://duguid.com.au/copy/'",
+        ),
+        (
+            "social-card context",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools.png'",
+        ),
+        (
+            "referrer policy",
+            '  <meta name="referrer" content="strict-origin-when-cross-origin" />\n',
+            "",
+            "referrer policy is []",
+        ),
+        (
+            "Open Graph description mirror",
+            f'<meta property="og:description" content="{contracts.HOMEPAGE_DESCRIPTION}" />',
+            '<meta property="og:description" content="Different share description." />',
+            "og:description is 'Different share description.'",
+        ),
+        (
+            "Twitter title mirror",
+            '<meta name="twitter:title" content="Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Different share title" />',
+            "twitter:title is 'Different share title'",
+        ),
+    )
+    for label, old, new, expected in metadata_mutations:
+        contract_mutation(
+            label,
+            home,
+            old,
+            new,
+            lambda html, found: check_metadata_text(html, "index.html", found),
+            expected,
+        )
+
+    payday_description = (
+        "Check whether super reaches the fund within seven business days of payday "
+        "from 1 July 2026, and estimate the SG charge for review."
+    )
+    short_payday_description = (
+        "Check Payday Super timing from payroll exports and estimate the SG charge "
+        "for review, with fund receipt status visible."
+    )
+    assert payday.count(payday_description) == 3, (
+        "Payday Super metadata must reuse its canonical description three times"
+    )
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        rel = "tools/payday-super/index.html"
+        path = root / rel
+        path.parent.mkdir(parents=True)
+        path.write_text(
+            payday.replace(payday_description, short_payday_description),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "tight description range",
+            page_metadata_failures(root, rel),
+            "outside required 120 to 155",
+        )
+
     calculator_mutations = (
+        (
+            "calculator blank policy",
+            contracts.CALCULATOR_COMMON_HELP,
+            "Blank monetary amounts are accepted.",
+            "form must contain one exact blank-as-zero note",
+        ),
+        (
+            "calculator monetary help",
+            'aria-describedby="money-blank-help baseRate-help"',
+            'aria-describedby="baseRate-help"',
+            "#baseRate aria-describedby must retain common and field-specific help",
+        ),
+        (
+            "calculator reporting month required",
+            'id="reportingMonth" name="reportingMonth" required',
+            'id="reportingMonth" name="reportingMonth"',
+            "#reportingMonth must have required",
+        ),
+        (
+            "calculator print action",
+            '>Print working</button>',
+            '>Print result</button>',
+            "result actions are",
+        ),
+        (
+            "calculator privacy warning",
+            contracts.CALCULATOR_PRIVACY_WARNING,
+            "Enter an employee name or identifier.",
+            "missing visible direct-identifier warning",
+        ),
+        (
+            "calculator CSV action",
+            '>Download CSV</button>',
+            '>Export CSV</button>',
+            "missing visible CSV action",
+        ),
+        (
+            "calculator zero explanation",
+            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
+            "Blank values were zero.",
+            "zero result needs the blank-as-zero explanation",
+        ),
         (
             "calculator field name",
             'id="sacrificed" name="sacrificed"',
@@ -413,6 +666,129 @@ def test_public_contracts() -> int:
         lambda html, found: contracts.check_shared_shell(html, "index.html", found),
         "expected exactly one .skip-link targeting #main",
     )
+    contract_mutation(
+        "tool review date outside header",
+        xero,
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
+        lambda html, found: contracts.check_header_review_date(
+            html, "tools/xero-trial-balance/index.html", found
+        ),
+        "Published/Last reviewed line must be in the page header",
+    )
+
+    def xero_breadcrumb_failures(root: Path) -> list[str]:
+        found: list[str] = []
+        contracts.check_collection_breadcrumb(
+            read_text(root, "tools/xero-trial-balance/index.html"),
+            "tools/xero-trial-balance/index.html",
+            found,
+        )
+        return found
+
+    collection_mutations = (
+        (
+            "missing Tools hub",
+            "tools/index.html",
+            None,
+            None,
+            contracts.check_collection_hubs,
+            "tools/index.html: missing collection hub",
+        ),
+        (
+            "tool breadcrumb parent",
+            "tools/xero-trial-balance/index.html",
+            '<li><a href="/tools/">Tools</a></li>',
+            '<li><a href="/">Tools</a></li>',
+            xero_breadcrumb_failures,
+            "breadcrumb 'Tools' points to '/', expected '/tools/'",
+        ),
+        (
+            "hub ItemList count",
+            "tools/index.html",
+            '"numberOfItems": 10',
+            '"numberOfItems": 9',
+            contracts.check_collection_hubs,
+            "tools/index.html: ItemList count does not match visible entries",
+        ),
+    )
+    for label, rel, old, new, checker, expected in collection_mutations:
+        with copied_site() as root:
+            if old is None:
+                (root / rel).unlink()
+            else:
+                replace_file(root, rel, old, new)
+            expect_failure(label, checker(root), expected)
+
+    site_card_rel = "assets/social-card-site.png"
+    with copied_site() as root:
+        card_path = root / site_card_rel
+        card = bytearray(card_path.read_bytes())
+        struct.pack_into(">I", card, 16, 1199)
+        card_path.write_bytes(card)
+        expect_failure(
+            "social card dimensions",
+            contracts.check_social_cards(root),
+            f"{site_card_rel}: social card dimensions changed",
+        )
+
+    with copied_site() as root:
+        card_path = root / site_card_rel
+        card = card_path.read_bytes()
+        card_path.write_bytes(
+            card + b"\0" * (contracts.SOCIAL_CARD_MAX_BYTES - len(card))
+        )
+        expect_failure(
+            "social card byte budget",
+            contracts.check_social_cards(root),
+            f"{site_card_rel}: social card must be under 50,000 bytes",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "assets/social-cards.json",
+            "Review-ready controls",
+            "Review controls",
+        )
+        expect_failure(
+            "social card context copy",
+            contracts.check_social_cards(root),
+            "social-card context copy or mapping is stale",
+        )
+
+    with copied_site() as root:
+        card = (root / site_card_rel).read_bytes()
+        replace_file(
+            root,
+            "README.md",
+            hashlib.sha256(card).hexdigest(),
+            "0" * 64,
+        )
+        expect_failure(
+            "social card checksum",
+            contracts.check_social_cards(root),
+            f"README.md: stale checksum for {site_card_rel}",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "sitemap.xml",
+            "</urlset>",
+            "  <url><loc>https://duguid.com.au/llms.txt</loc></url>\n</urlset>",
+        )
+        failures, _ = core.check_sitemap(
+            core.html_files(root),
+            site=contracts.SITE,
+            not_indexed=contracts.NOT_INDEXED,
+            root=root,
+        )
+        expect_failure(
+            "machine index in XML sitemap",
+            failures,
+            "sitemap.xml: lists https://duguid.com.au/llms.txt",
+        )
 
     invalid_receipt = '<p>Without a fund receipt date, a line can only be "at risk".</p>'
     expect_failure(
@@ -431,7 +807,7 @@ def test_public_contracts() -> int:
         "robots.txt: GPTBot must have exactly",
     )
 
-    root_mutations = (
+    authority_mutations = (
         (
             "evidence canonical",
             "evidence/index.html",
@@ -443,10 +819,10 @@ def test_public_contracts() -> int:
         (
             "authority route",
             "index.html",
-            'href="#engage"',
-            'href="#missing"',
+            'id="engage"',
+            'id="missing-engage"',
             contracts.check_authority_surface,
-            "index.html: missing visible authority route #engage",
+            "index.html: missing visible authority section #engage",
         ),
         (
             "evaluation section order",
@@ -457,12 +833,12 @@ def test_public_contracts() -> int:
             "evaluation section order must be",
         ),
     )
-    for label, rel, old, new, checker, expected in root_mutations:
+    for label, rel, old, new, checker, expected in authority_mutations:
         with copied_site() as root:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 8
+    return len(homepage_mutations) + len(calculator_mutations) + 27
 
 
 def main() -> None:

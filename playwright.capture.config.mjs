@@ -3,7 +3,10 @@ import baseConfig from './playwright.config.mjs';
 export default {
   ...baseConfig,
   testDir: './scripts',
-  testMatch: 'capture-coal-lsl-proof.spec.mjs',
+  testMatch: [
+    'capture-coal-lsl-proof.spec.mjs',
+    'capture-social-cards.spec.mjs',
+  ],
   fullyParallel: false,
   retries: 0,
   workers: 1,
