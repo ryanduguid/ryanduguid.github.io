@@ -41,8 +41,8 @@ jobs:
         run: npm ci
       - name: Install Chromium
         run: npx playwright install chromium
-      - name: Capture security checks
-        run: node --test scripts/capture-coal-lsl-proof.test.mjs
+      - name: Proof capture check
+        run: npm run test:capture
       - name: Browser checks
         run: npm run test:browser
       - name: Upload browser failure evidence
