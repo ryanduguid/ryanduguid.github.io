@@ -1,0 +1,478 @@
+"""Focused mutation tests for the site's design and public contracts."""
+
+from __future__ import annotations
+
+import shutil
+import tempfile
+from contextlib import contextmanager
+from pathlib import Path
+
+import check_design
+import seo_core as core
+import site_contracts as contracts
+
+
+ROOT = Path(__file__).resolve().parents[1]
+COPY_IGNORE = shutil.ignore_patterns(
+    ".git", "node_modules", "work", "__pycache__", "GATES.md"
+)
+
+
+@contextmanager
+def copied_site():
+    """Copy committed site inputs without generated or local-only directories."""
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory) / "site"
+        shutil.copytree(ROOT, root, ignore=COPY_IGNORE)
+        yield root
+
+
+def read_text(root: Path, rel: str) -> str:
+    return (root / rel).read_text(encoding="utf-8")
+
+
+def changed_text(
+    source: str,
+    old: str,
+    new: str,
+) -> str:
+    assert old in source, f"mutation source is stale: {old!r}"
+    changed = source.replace(old, new, 1)
+    assert changed != source, f"mutation made no change: {old!r}"
+    return changed
+
+
+def replace_file(
+    root: Path,
+    rel: str,
+    old: str,
+    new: str,
+) -> None:
+    path = root / rel
+    path.write_text(
+        changed_text(path.read_text(encoding="utf-8"), old, new),
+        encoding="utf-8",
+    )
+
+
+def append_file(root: Path, rel: str, addition: str) -> None:
+    path = root / rel
+    path.write_text(path.read_text(encoding="utf-8") + addition, encoding="utf-8")
+
+
+def expect_failure(label: str, failures: list[str], expected: str) -> None:
+    assert any(expected in failure for failure in failures), (
+        f"{label}: expected {expected!r}, found {failures!r}"
+    )
+
+
+def assert_clean(label: str, failures: list[str]) -> None:
+    assert not failures, f"{label}: unexpected failures: {failures!r}"
+
+
+def test_design_contracts() -> int:
+    """Exercise the main design boundaries against copies of the real site."""
+    assert_clean("current design", check_design.check_repository(ROOT))
+
+    text_mutations = (
+        (
+            "protected rate copy",
+            "rates/super-guarantee/index.html",
+            "<strong>12%</strong>",
+            "<strong>13%</strong>",
+            "protected main text changed: rates/super-guarantee/index.html",
+        ),
+        (
+            "protected source link",
+            "rates/super-guarantee/index.html",
+            "https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee",
+            "https://example.invalid/rate",
+            "protected main links changed: rates/super-guarantee/index.html",
+        ),
+        (
+            "structured data drift",
+            "index.html",
+            '"@type": "WebPage",\n        "@id": "https://duguid.com.au/#webpage"',
+            '"@type": "Article",\n        "@id": "https://duguid.com.au/#webpage"',
+            "JSON-LD changed: index.html",
+        ),
+        (
+            "legal boundary drift",
+            "index.html",
+            "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.",
+            "Nothing here is tax, legal or financial advice. Outputs need review.",
+            "protected text count changed",
+        ),
+        (
+            "font loading regression",
+            "assets/tokens.css",
+            "font-display: optional;",
+            "font-display: swap;",
+            "font face 1 must use font-display: optional",
+        ),
+        (
+            "font coverage removed",
+            "assets/tokens.css",
+            "unicode-range:",
+            "unicode-ranges:",
+            "font face 1 must declare unicode-range",
+        ),
+        (
+            "OLED canvas drift",
+            "assets/tokens.css",
+            "--colour-canvas: #000000;",
+            "--colour-canvas: #010101;",
+            "OLED canvas must be #000000",
+        ),
+        (
+            "mobile wrapping removed",
+            "assets/site.css",
+            "overflow-wrap: anywhere;",
+            "overflow-wrap: normal;",
+            "body must wrap unbroken identifiers at the 320px boundary",
+        ),
+        (
+            "interaction timing drift",
+            "assets/site.css",
+            "transition:\n    color var(--motion-standard) var(--ease-standard),\n    text-decoration-color var(--motion-standard) var(--ease-standard);",
+            "transition:\n    color var(--motion-fast) var(--ease-standard),\n    text-decoration-color var(--motion-fast) var(--ease-standard);",
+            "links and controls must use the standard motion duration",
+        ),
+        (
+            "route rail no longer sticky",
+            "assets/site.css",
+            ".route-section > h2 {\n  position: sticky;",
+            ".route-section > h2 {\n  position: static;",
+            "route labels must be sticky on wide layouts",
+        ),
+        (
+            "token stylesheet removed",
+            "index.html",
+            '<link rel="stylesheet" href="/assets/tokens.css" />',
+            "",
+            "index.html: expected one tokens stylesheet before site stylesheet",
+        ),
+        (
+            "machine index removed",
+            "index.html",
+            '<a href="/llms.txt">Machine-readable index</a>',
+            "",
+            "index.html: expected one visible machine-readable index link",
+        ),
+        (
+            "hero route drift",
+            "index.html",
+            'href="#engage"',
+            'href="#missing"',
+            "index.html: expected exactly one #engage route link",
+        ),
+        (
+            "trust record drift",
+            "index.html",
+            "Human sign-off.",
+            "Human sign-off changed.",
+            "index.html: trust-band records must match the approved four-item tuple",
+        ),
+        (
+            "catalogue navigator removed",
+            "index.html",
+            "catalogue-index",
+            "removed-catalogue-index",
+            "index.html: expected one catalogue-index",
+        ),
+        (
+            "extra technical label",
+            "index.html",
+            "</main>",
+            '<p class="technical-label">Extra context</p></main>',
+            "index.html: expected exactly three evidence-bearing technical labels",
+        ),
+        (
+            "proof loaded eagerly",
+            "index.html",
+            'loading="lazy"',
+            'loading="eager"',
+            "index.html: Coal LSL proof image must load lazily",
+        ),
+        (
+            "proof dimensions drift",
+            "index.html",
+            'height="580"',
+            'height="581"',
+            "index.html: Coal LSL proof image must keep its height",
+        ),
+        (
+            "proof alternative removed",
+            "index.html",
+            'alt="Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example"',
+            'alt=""',
+            "index.html: Coal LSL proof image must have descriptive alt text",
+        ),
+        (
+            "font URL broken",
+            "assets/tokens.css",
+            "/assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+            "/assets/fonts/Missing.woff2",
+            "font face target missing: assets/fonts/Missing.woff2",
+        ),
+        (
+            "favicon palette drift",
+            "assets/favicon.svg",
+            "#4dff88",
+            "#5c2d91",
+            "favicon colour outside OLED palette: #5c2d91",
+        ),
+    )
+
+    for label, rel, old, new, expected in text_mutations:
+        with copied_site() as root:
+            replace_file(root, rel, old, new)
+            expect_failure(label, check_design.check_repository(root), expected)
+
+    with copied_site() as root:
+        append_file(
+            root,
+            "assets/site.css",
+            "\n.mutation-gradient { background: linear-gradient(#000, #fff); }\n",
+        )
+        expect_failure(
+            "banned gradient",
+            check_design.check_repository(root),
+            "banned CSS pattern linear-gradient",
+        )
+
+    with copied_site() as root:
+        (root / "assets/coal-lsl-calculator.webp").write_bytes(b"not-a-webp")
+        expect_failure(
+            "invalid proof image",
+            check_design.check_repository(root),
+            "assets/coal-lsl-calculator.webp: proof image is not a WebP container",
+        )
+
+    with copied_site() as root:
+        (root / "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2").unlink()
+        expect_failure(
+            "protected font removed",
+            check_design.check_repository(root),
+            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+        )
+
+    return len(text_mutations) + 3
+
+
+def contract_mutation(
+    label: str,
+    source: str,
+    old: str,
+    new: str,
+    checker,
+    expected: str,
+) -> None:
+    failures: list[str] = []
+    checker(changed_text(source, old, new), failures)
+    expect_failure(label, failures, expected)
+
+
+def test_public_contracts() -> int:
+    """Characterise high-value SEO, accessibility and authority contracts."""
+    home = read_text(ROOT, "index.html")
+    calculator = read_text(ROOT, contracts.CALCULATOR_REL)
+    evidence = read_text(ROOT, contracts.EVIDENCE_REL)
+    payday = read_text(ROOT, "tools/payday-super/index.html")
+    robots = read_text(ROOT, "robots.txt")
+
+    failures: list[str] = []
+    contracts.check_homepage_contract(home, failures)
+    contracts.check_shared_shell(home, "index.html", failures)
+    contracts.check_calculator_contract(calculator, failures)
+    contracts.check_article_pattern(evidence, contracts.EVIDENCE_REL, failures)
+    contracts.check_rate_table_region(
+        read_text(ROOT, "rates/super-guarantee/index.html"),
+        "rates/super-guarantee/index.html",
+        failures,
+    )
+    assert_clean("page contracts", failures)
+    assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
+    assert_clean("authority surface", contracts.check_authority_surface(ROOT))
+    assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
+    assert_clean("robots policy", contracts.check_robots_policy(robots))
+    assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
+    assert_clean(
+        "AI-agent review date",
+        contracts.check_mcp_review_dates(
+            read_text(ROOT, contracts.MCP_REL)
+        ),
+    )
+
+    parse_failures: list[str] = []
+    about = read_text(ROOT, "about/index.html")
+    people = [
+        node
+        for block in core.json_ld_blocks(about, "about/index.html", parse_failures)
+        for node in core.nodes(block)
+        if core.has_type(node, "Person")
+    ]
+    assert_clean("About JSON-LD", parse_failures)
+    assert len(people) == 1, f"expected one canonical Person, found {len(people)}"
+    assert_clean("canonical Person", contracts.check_canonical_person(people[0]))
+    changed_person = dict(people[0])
+    changed_person["sameAs"] = list(reversed(changed_person["sameAs"]))
+    expect_failure(
+        "canonical identity order",
+        contracts.check_canonical_person(changed_person),
+        "Person sameAs must contain only",
+    )
+
+    homepage_mutations = (
+        (
+            "homepage title",
+            "<title>Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid</title>",
+            "<title>Wrong homepage title</title>",
+            "index.html: homepage title is",
+        ),
+        (
+            "homepage description",
+            contracts.HOMEPAGE_DESCRIPTION,
+            "Wrong homepage description",
+            "index.html: homepage description is",
+        ),
+        (
+            "homepage evaluation route",
+            'href="/evaluate/payday-super-evidence/"',
+            'href="/missing-evaluation/"',
+            "missing visible homepage route /evaluate/payday-super-evidence/",
+        ),
+        (
+            "proof evidence route",
+            '<a href="/evidence/">Review the evidence register</a>',
+            '<a href="/missing-evidence/">Review the evidence register</a>',
+            "proof feature is missing required link /evidence/",
+        ),
+    )
+    for label, old, new, expected in homepage_mutations:
+        contract_mutation(
+            label,
+            home,
+            old,
+            new,
+            contracts.check_homepage_contract,
+            expected,
+        )
+
+    calculator_mutations = (
+        (
+            "calculator field name",
+            'id="sacrificed" name="sacrificed"',
+            'id="sacrificed" name="sacrificed-broken"',
+            "#sacrificed name must be 'sacrificed'",
+        ),
+        (
+            "calculator branch values",
+            'name="branch" value="baseRate"',
+            'name="branch" value="wrong"',
+            "branch radio contract changed",
+        ),
+        (
+            "calculator result status",
+            'id="result" role="status"',
+            'id="result" role="region"',
+            "#result must be a polite status region",
+        ),
+        (
+            "calculator engine import",
+            "from '/assets/levy.mjs'",
+            "from '/assets/levy-copy.mjs'",
+            "protected levy engine import changed",
+        ),
+    )
+    for label, old, new, expected in calculator_mutations:
+        contract_mutation(
+            label,
+            calculator,
+            old,
+            new,
+            contracts.check_calculator_contract,
+            expected,
+        )
+
+    contract_mutation(
+        "article contents navigator",
+        evidence,
+        'aria-label="On this page"',
+        'aria-label="Contents"',
+        lambda html, found: contracts.check_article_pattern(
+            html, contracts.EVIDENCE_REL, found
+        ),
+        "expected exactly one On this page navigation",
+    )
+    contract_mutation(
+        "shared skip link",
+        home,
+        'class="skip-link" href="#main"',
+        'class="skip-link" href="#content"',
+        lambda html, found: contracts.check_shared_shell(html, "index.html", found),
+        "expected exactly one .skip-link targeting #main",
+    )
+
+    invalid_receipt = '<p>Without a fund receipt date, a line can only be "at risk".</p>'
+    expect_failure(
+        "categorical missing-receipt claim",
+        contracts.check_payday_receipt_boundary(invalid_receipt),
+        "must not say a missing receipt can only be at-risk or unknown",
+    )
+    changed_robots = changed_text(
+        robots,
+        "User-agent: GPTBot\nDisallow: /",
+        "User-agent: GPTBot\nAllow: /",
+    )
+    expect_failure(
+        "training crawler opened",
+        contracts.check_robots_policy(changed_robots),
+        "robots.txt: GPTBot must have exactly",
+    )
+
+    root_mutations = (
+        (
+            "evidence canonical",
+            "evidence/index.html",
+            '<link rel="canonical" href="https://duguid.com.au/evidence/" />',
+            '<link rel="canonical" href="https://duguid.com.au/evidence-copy/" />',
+            contracts.check_evidence_page,
+            "evidence/index.html: canonical is",
+        ),
+        (
+            "authority route",
+            "index.html",
+            'href="#engage"',
+            'href="#missing"',
+            contracts.check_authority_surface,
+            "index.html: missing visible authority route #engage",
+        ),
+        (
+            "evaluation section order",
+            "evaluate/manager-review-gate/index.html",
+            'id="versions"',
+            'id="releases"',
+            contracts.check_evaluation_packs,
+            "evaluation section order must be",
+        ),
+    )
+    for label, rel, old, new, checker, expected in root_mutations:
+        with copied_site() as root:
+            replace_file(root, rel, old, new)
+            expect_failure(label, checker(root), expected)
+
+    return len(homepage_mutations) + len(calculator_mutations) + 8
+
+
+def main() -> None:
+    design_count = test_design_contracts()
+    public_count = test_public_contracts()
+    print(
+        f"contract tests passed ({design_count} design mutations, "
+        f"{public_count} public-contract mutations)"
+    )
+
+
+if __name__ == "__main__":
+    main()
