@@ -8,7 +8,9 @@ export function explainLevyResult(result) {
             test and no 75 per cent factor.`;
   }
   if (result.branch !== 's 3B(1)') {
-    return `Section ${result.branch} applies. There is no greater-of test and no
+    // Branches arrive as 's 3B(2)' or 's 3B(3)(a)'/'(b)'; strip the 's ' so the
+    // prose reads 'Section 3B(2)', matching the branch row rendered beside it.
+    return `Section ${result.branch.slice(2)} applies. There is no greater-of test and no
             75 per cent factor on this branch.`;
   }
   return result.winner === 'B'
