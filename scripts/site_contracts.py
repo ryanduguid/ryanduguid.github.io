@@ -2,9 +2,12 @@
 
 from __future__ import annotations
 
+import hashlib
 import html as html_lib
 import json
 import re
+import struct
+import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
 from urllib.parse import parse_qs, urlsplit
@@ -706,6 +709,61 @@ CALCULATOR_NUMBER_INPUT_IDS = (
 CALCULATOR_FIELD_HELP_IDS = {
     identifier: f"{identifier}-help" for identifier in CALCULATOR_NUMBER_INPUT_IDS
 }
+SOCIAL_CARD_CONTEXTS = {
+    "site": {
+        "label": "Public register / Australian accounting controls",
+        "heading": [
+            "Review-ready controls",
+            "for Australian",
+            "accounting work.",
+        ],
+        "host": "duguid.com.au",
+        "output": "social-card-site.png",
+    },
+    "tools": {
+        "label": "Open-source tools",
+        "heading": ["Accounting checks that", "show their working."],
+        "host": "duguid.com.au/tools/",
+        "output": "social-card-tools.png",
+    },
+    "evaluations": {
+        "label": "Reproducible evaluations",
+        "heading": [
+            "Fabricated inputs.",
+            "Expected results.",
+            "Visible limits.",
+        ],
+        "host": "duguid.com.au/evaluate/",
+        "output": "social-card-evaluations.png",
+    },
+    "rates": {
+        "label": "Maintained reference tables",
+        "heading": ["Australian rates,", "sources and review dates."],
+        "host": "duguid.com.au/rates/",
+        "output": "social-card-rates.png",
+    },
+    "evidence": {
+        "label": "Evidence register",
+        "heading": ["Claims linked to sources,", "releases and tests."],
+        "host": "duguid.com.au/evidence/",
+        "output": "social-card-evidence.png",
+    },
+}
+SOCIAL_CARD_DIMENSIONS = (1200, 630)
+SOCIAL_CARD_MAX_BYTES = 50_000
+SOCIAL_CARD_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88", "#9aa89f"})
+SOCIAL_CARD_TEMPLATE_PLACEHOLDERS = frozenset(
+    {
+        "{{FONT_SERIF}}",
+        "{{FONT_SANS}}",
+        "{{FONT_MONO}}",
+        "{{TITLE}}",
+        "{{DESCRIPTION}}",
+        "{{LABEL}}",
+        "{{HEADING_LINES}}",
+        "{{HOST}}",
+    }
+)
 BONUS_FREQUENCIES = [
     "weekly",
     "fortnightly",
@@ -2463,6 +2521,130 @@ def forbidden_identity_url_labels(text: str) -> set[str]:
     return labels
 
 
+def check_social_cards(root: Path = core.ROOT) -> list[str]:
+    """Require five reproducible OLED register cards and their provenance."""
+    failures: list[str] = []
+    template_path = root / "assets" / "social-card-template.svg"
+    if not template_path.is_file():
+        failures.append("assets/social-card-template.svg: missing editable card template")
+    else:
+        template_text = template_path.read_text(encoding="utf-8")
+        try:
+            template = ET.fromstring(template_text)
+        except ET.ParseError:
+            failures.append(
+                "assets/social-card-template.svg: editable card template is invalid SVG"
+            )
+        else:
+            expected_width, expected_height = SOCIAL_CARD_DIMENSIONS
+            if (
+                template.tag.rsplit("}", 1)[-1] != "svg"
+                or template.get("width") != str(expected_width)
+                or template.get("height") != str(expected_height)
+                or template.get("viewBox")
+                != f"0 0 {expected_width} {expected_height}"
+            ):
+                failures.append(
+                    "assets/social-card-template.svg: template dimensions changed"
+                )
+            fills = {
+                fill.casefold()
+                for element in template.iter()
+                if (fill := element.get("fill")) is not None
+            }
+            if fills != SOCIAL_CARD_COLOURS:
+                failures.append(
+                    "assets/social-card-template.svg: OLED palette is incomplete or changed"
+                )
+            if any(
+                element.tag.rsplit("}", 1)[-1] == "image"
+                for element in template.iter()
+            ):
+                failures.append(
+                    "assets/social-card-template.svg: template must not contain portrait imagery"
+                )
+        missing_placeholders = sorted(
+            placeholder
+            for placeholder in SOCIAL_CARD_TEMPLATE_PLACEHOLDERS
+            if placeholder not in template_text
+        )
+        if missing_placeholders:
+            failures.append(
+                "assets/social-card-template.svg: missing renderer placeholders "
+                f"{missing_placeholders!r}"
+            )
+
+    data_path = root / "assets" / "social-cards.json"
+    configured: object = {}
+    if not data_path.is_file():
+        failures.append("assets/social-cards.json: missing social-card data")
+    else:
+        try:
+            configured = json.loads(data_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, UnicodeDecodeError):
+            failures.append("assets/social-cards.json: social-card data is invalid JSON")
+    expected_data = {
+        card_id: {
+            **record,
+            "alt": "OLED register card: " + " ".join(record["heading"]),
+        }
+        for card_id, record in SOCIAL_CARD_CONTEXTS.items()
+    }
+    if configured != expected_data:
+        failures.append(
+            "assets/social-cards.json: social-card context copy or mapping is stale"
+        )
+
+    readme_path = root / "README.md"
+    readme_lines = (
+        readme_path.read_text(encoding="utf-8").splitlines()
+        if readme_path.is_file()
+        else []
+    )
+    for card_id, record in SOCIAL_CARD_CONTEXTS.items():
+        output = record["output"]
+        asset_rel = f"assets/{output}"
+        card_path = root / asset_rel
+        card: bytes | None = None
+        if not card_path.is_file():
+            failures.append(f"{asset_rel}: missing social card")
+        else:
+            card = card_path.read_bytes()
+            if len(card) < 24 or not card.startswith(b"\x89PNG\r\n\x1a\n"):
+                failures.append(f"{asset_rel}: social card is not PNG")
+            else:
+                width, height = struct.unpack(">II", card[16:24])
+                if (width, height) != SOCIAL_CARD_DIMENSIONS:
+                    failures.append(f"{asset_rel}: social card dimensions changed")
+            if len(card) >= SOCIAL_CARD_MAX_BYTES:
+                failures.append(
+                    f"{asset_rel}: social card must be under 50,000 bytes"
+                )
+
+        provenance_row = next(
+            (line for line in readme_lines if f"`{asset_rel}`" in line), ""
+        )
+        if not provenance_row:
+            failures.append(f"README.md: missing provenance for {asset_rel}")
+            continue
+        if card is not None and hashlib.sha256(card).hexdigest() not in provenance_row:
+            failures.append(f"README.md: stale checksum for {asset_rel}")
+        for required in (
+            "assets/social-card-template.svg",
+            "assets/social-cards.json",
+            "MIT",
+            "Playwright 1.62.1",
+            "Chromium",
+            "device scale 1",
+            "Refresh when",
+        ):
+            if required not in provenance_row:
+                failures.append(
+                    f"README.md: {asset_rel} provenance omits {required}"
+                )
+    return failures
+
+
 def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
     """Reject the retired site host and the US namesake's LinkedIn URL."""
     failures: list[str] = []
@@ -2493,6 +2675,7 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
     failures.extend(check_collection_hubs())
+    failures.extend(check_social_cards())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
     for rel, target in STATIC_REDIRECTS.items():
