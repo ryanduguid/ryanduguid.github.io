@@ -14,19 +14,10 @@ const routes = [
   ['not-found page', '/404.html'],
 ];
 
-async function textLineCount(locator) {
-  return locator.evaluate((element) => {
-    const range = document.createRange();
-    const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
-    const tops = [];
-    for (let node = walker.nextNode(); node; node = walker.nextNode()) {
-      if (!node.textContent.trim()) continue;
-      range.selectNodeContents(node);
-      tops.push(...[...range.getClientRects()].map(({ top }) => Math.round(top)));
-    }
-    return new Set(tops).size;
-  });
-}
+const homeHeightBaseline = {
+  'mobile-chromium': 9512,
+  'desktop-chromium': 7611,
+};
 
 async function decodedHomeProof(page) {
   const proof = page.getByRole('img', {
@@ -83,40 +74,45 @@ test('known missing-route response is explicitly allowed', async ({ page }) => {
   health.assertHealthy();
 });
 
-test('home exposes one route register with deliberate heading lines', async ({ page }, testInfo) => {
+test('home leads with adoption actions and a shorter tool preview', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
   await waitForVisualFonts(page);
-  const routeRegister = page.getByRole('navigation', { name: 'Choose a path' });
-  await expect(routeRegister).toBeVisible();
-  for (const target of ['#engage', '#adopt', '#verify']) {
-    await expect(routeRegister.locator('a[href="' + target + '"]')).toHaveCount(1);
-  }
-  if (testInfo.project.name === 'desktop-chromium') {
-    expect(await textLineCount(page.getByRole('heading', { level: 1 }))).toBe(2);
-    for (const name of ['Engage', 'Adopt', 'Verify']) {
-      expect(await textLineCount(page.getByRole('heading', { name, exact: true })))
-        .toBe(1);
-    }
-  } else {
-    expect(await textLineCount(page.getByRole('heading', { level: 1 })))
-      .toBeLessThanOrEqual(3);
-  }
-  health.assertHealthy();
-});
+  await expect(page.getByRole('heading', {
+    level: 1,
+    name: 'Review-ready controls for Australian accounting work.',
+    exact: true,
+  })).toBeVisible();
 
-test('route words remain intact at the narrowest wide layout', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'wide-layout seam only');
-  const health = observePageHealth(page);
-  await page.setViewportSize({ width: 900, height: 900 });
-  await page.goto('/');
-  await waitForVisualFonts(page);
-  for (const name of ['Engage', 'Adopt', 'Verify']) {
-    const heading = page.getByRole('heading', { name, exact: true });
-    expect(await textLineCount(heading)).toBe(1);
-    expect(await heading.evaluate((element) => element.scrollWidth))
-      .toBeLessThanOrEqual(await heading.evaluate((element) => element.clientWidth));
+  const actions = page.getByRole('navigation', { name: 'Homepage actions' });
+  await expect(actions.getByRole('link')).toHaveText([
+    'Browse the tools',
+    'Discuss a workflow',
+  ]);
+  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/tools/');
+  await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/#engage');
+
+  const categories = page.getByRole('navigation', { name: 'Tool categories' });
+  await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
+    'Extract',
+    'Calculate',
+    'Control',
+    'Inspect',
+  ]);
+  expect(await page.evaluate(() => {
+    const preview = document.querySelector('.home-tool-preview');
+    const proof = document.querySelector('.proof-feature');
+    return Boolean(preview && proof
+      && (preview.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING));
+  })).toBe(true);
+  for (const identifier of ['adopt', 'verify', 'engage']) {
+    await expect(page.locator(`#${identifier}`)).toHaveCount(1);
   }
+  expect(await page.locator('.route-section').evaluateAll((sections) =>
+    sections.map((section) => getComputedStyle(section).minHeight)
+  )).toEqual(['0px', '0px', '0px', '0px']);
+  expect(await page.evaluate(() => document.documentElement.scrollHeight))
+    .toBeLessThan(homeHeightBaseline[testInfo.project.name]);
   health.assertHealthy();
 });
 
@@ -128,8 +124,8 @@ test('mobile primary navigation and catalogue index remain keyboard reachable', 
   expect(await primary.evaluate((element) =>
     getComputedStyle(element).flexWrap
   )).toBe('nowrap');
-  const firstPrimaryLink = primary.getByRole('link', { name: 'About' });
-  const lastPrimaryLink = primary.getByRole('link', { name: 'Awesome List' });
+  const firstPrimaryLink = primary.getByRole('link', { name: 'Tools' });
+  const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
   await firstPrimaryLink.focus();
   for (let index = 0; index < 4; index += 1) {
     await page.keyboard.press('Tab');
@@ -146,13 +142,13 @@ test('mobile primary navigation and catalogue index remain keyboard reachable', 
   }
   await expect(inspect).toBeFocused();
   await page.keyboard.press('Enter');
-  await expect(page).toHaveURL(/#inspect-tools$/);
+  await expect(page).toHaveURL(/\/tools\/#inspect-tools$/);
   health.assertHealthy();
 });
 
 test('home does not overflow at refinement acceptance widths', async ({ page }) => {
   const health = observePageHealth(page);
-  for (const width of [320, 768]) {
+  for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/');
     const viewport = await page.evaluate(() => ({
