@@ -2,11 +2,15 @@ import { expect, test } from '@playwright/test';
 
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
 import { observePageHealth } from './health.mjs';
-import { waitForVisualFonts } from './visual.mjs';
+import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 
-async function calculateFormulaB(page) {
-  await page.goto('/tools/coal-lsl-levy/');
-  await waitForVisualFonts(page);
+async function calculateFormulaB(page, { visualSnapshot = false } = {}) {
+  if (visualSnapshot) {
+    await gotoForVisualSnapshot(page, '/tools/coal-lsl-levy/');
+  } else {
+    await page.goto('/tools/coal-lsl-levy/');
+    await waitForVisualFonts(page);
+  }
   const baseRateBranch = page.getByRole('radio', {
     name: 'A base rate of pay (section 3B(1))',
     exact: true,
@@ -115,7 +119,7 @@ test('Formula B result matches the mobile visual baseline', async ({ page }, tes
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile baseline only');
   const health = observePageHealth(page);
 
-  await calculateFormulaB(page);
+  await calculateFormulaB(page, { visualSnapshot: true });
   const result = page.getByRole('status');
   await expect(result).toContainText('Formula B wins this month');
   await waitForVisualFonts(page);

@@ -48,15 +48,19 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Inspected visual baselines
 
-- Desktop homepage, 1440 by 7163: the masthead occupies exactly two lines; one
+Each snapshot first loads the bundled IBM Plex faces, then reloads from the
+warm browser cache. This makes the production `font-display: optional` choice
+deterministic on local and hosted Windows runners without changing that choice.
+
+- Desktop homepage, 1440 by 7705: the masthead occupies exactly two lines; one
   ruled Engage, Adopt and Verify register appears before the separate trust
   band; each route word stays on one line; the current result proof is visible;
   and the principles resolve as one lead cell beside four supporting cells.
-- Mobile homepage, 390 by 9491: the masthead occupies three lines; primary
+- Mobile homepage, 390 by 9540: the masthead occupies three lines; primary
   navigation remains one horizontal row; no page edge is clipped; the decoded
   Formula B proof is visible with its values and caption; and the principles
   collapse to five legible cells.
-- Mobile calculator result, 358 by 534: each label and value has separate
+- Mobile calculator result, 358 by 528: each label and value has separate
   alignment, numeric values remain unbroken, the green levy is dominant and the
   complete Formula B explanation is readable.
 

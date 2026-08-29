@@ -2,7 +2,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 import { observePageHealth } from './health.mjs';
-import { waitForVisualFonts } from './visual.mjs';
+import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 
 const routes = [
   ['home', '/'],
@@ -212,8 +212,7 @@ test('home proof uses practical inspection width without page overflow', async (
 
 test('home matches its viewport visual baseline', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
-  await page.goto('/');
-  await waitForVisualFonts(page);
+  await gotoForVisualSnapshot(page, '/');
   await decodedHomeProof(page);
   await page.evaluate(() => scrollTo(0, 0));
 
