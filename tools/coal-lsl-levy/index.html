@@ -304,9 +304,6 @@
       } from '/assets/levy.mjs';
       import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
       import { compute } from '/assets/levy-form.mjs';
-      import { registerCoalLslTools } from '/assets/levy-webmcp.mjs';
-
-      registerCoalLslTools(document.modelContext);
 
       function render(result, into) {
         const cents = result.eligibleWagesCents;

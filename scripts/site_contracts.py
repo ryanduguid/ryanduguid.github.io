@@ -568,8 +568,6 @@ RATE_PAGES = {
     "rates/cents-per-kilometre/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
-WEBMCP_IMPORT = "from '/assets/levy-webmcp.mjs'"
-WEBMCP_REGISTRATION = "registerCoalLslTools(document.modelContext);"
 CALCULATOR_MARKERS = [
     'name="branch"',
     'id="branch-fields"',
@@ -972,26 +970,6 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
 
     if "from '/assets/levy.mjs'" not in html:
         failures.append(f"{CALCULATOR_REL}: protected levy engine import changed")
-    if WEBMCP_IMPORT not in html:
-        failures.append(f"{CALCULATOR_REL}: WebMCP adapter import missing")
-    if WEBMCP_REGISTRATION not in html:
-        failures.append(f"{CALCULATOR_REL}: top-level WebMCP registration missing")
-
-
-def check_webmcp_scope(
-    paths: list[Path], root: Path = core.ROOT
-) -> list[str]:
-    """Keep the Coal LSL WebMCP adapter scoped to its calculator page."""
-    failures: list[str] = []
-    for path in paths:
-        if not path.is_file():
-            continue
-        rel = path.relative_to(root).as_posix()
-        if rel == CALCULATOR_REL:
-            continue
-        if WEBMCP_IMPORT in path.read_text(encoding="utf-8"):
-            failures.append(f"{rel}: Coal LSL WebMCP import is calculator-only")
-    return failures
 
 
 def check_canonical_person(person: dict[str, object]) -> list[str]:
@@ -2016,7 +1994,6 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_evaluation_packs())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
-    failures.extend(check_webmcp_scope(paths))
     for rel, target in STATIC_REDIRECTS.items():
         path = core.ROOT / rel
         if not path.is_file():
