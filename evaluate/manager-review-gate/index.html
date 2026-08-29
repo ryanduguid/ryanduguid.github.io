@@ -126,7 +126,7 @@
 
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
-            <pre><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/workpaper-review-gate.git
+            <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/workpaper-review-gate.git
 cd workpaper-review-gate
 uv sync --locked --all-extras
 uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
