@@ -9,6 +9,33 @@ import { compute } from '../assets/levy-form.mjs';
 
 const d = toCents; // dollars to cents, for readability below
 
+// A stand-in for the casual form, holding exactly the strings a user typed.
+// compute() reads it through form.elements and form.querySelector, so the fake
+// only has to answer those. Anything omitted is left blank, which is what an
+// untouched field gives.
+function casualForm(typed) {
+  const field = (name) => ({ value: typed[name] ?? '' });
+  return {
+    elements: {
+      reportingMonth: field('reportingMonth'),
+      instrumentSpecifiesLoading: { checked: Boolean(typed.instrumentSpecifiesLoading) },
+      loadingQuantifiable: { checked: Boolean(typed.loadingQuantifiable) },
+      casualBasePay: field('casualBasePay'),
+      casualLoading: field('casualLoading'),
+      ordinaryPay: field('ordinaryPay'),
+      sacrificed: field('sacrificed'),
+    },
+    querySelector(selector) {
+      assert.equal(selector, 'input[name="branch"]:checked');
+      return { value: 'casual' };
+    },
+    querySelectorAll(selector) {
+      assert.equal(selector, '.bonus-row');
+      return [];
+    },
+  };
+}
+
 test('D1 base rate: Formula A wins when there is nothing else', () => {
   const r = baseRateWages({ baseRateCents: d(6000) });
   assert.equal(r.formulaA, 600000);
@@ -140,6 +167,76 @@ test('D10b casual: pay the selected branch drops is reported, not silently zeroe
   );
 });
 
+test('D10c casual: a salary sacrifice never makes a blank field look discarded', () => {
+  // The sacrifice reaches the total on whichever component the branch reads,
+  // so no component may be named as not counted. The failure this guards is a
+  // controller that grosses the sacrifice into every pay argument: the blank
+  // field then arrives non-zero, and the page tells the user money it did in
+  // fact count was dropped.
+  const a = compute(casualForm({
+    reportingMonth: '2026-08',
+    instrumentSpecifiesLoading: true,
+    loadingQuantifiable: true,
+    casualBasePay: '1800',
+    casualLoading: '450',
+    sacrificed: '100',
+  }));
+  assert.equal(a.branch, 's 3B(3)(a)');
+  assert.equal(a.eligibleWagesCents, 235000, 'base pay, loading and sacrifice all count');
+  assert.deepEqual(a.ignored, [], 'the all-in ordinary rate field was left blank');
+
+  const b = compute(casualForm({
+    reportingMonth: '2026-08',
+    ordinaryPay: '2250',
+    sacrificed: '100',
+  }));
+  assert.equal(b.branch, 's 3B(3)(b)');
+  assert.equal(b.eligibleWagesCents, 235000, 'ordinary rate pay and sacrifice both count');
+  assert.deepEqual(b.ignored, [], 'the base rate pay field was left blank');
+
+  // The report still names pay the branch did drop, sacrifice or not.
+  const dropped = compute(casualForm({
+    reportingMonth: '2026-08',
+    casualBasePay: '1800',
+    casualLoading: '450',
+    ordinaryPay: '2250',
+    sacrificed: '100',
+  }));
+  assert.equal(dropped.eligibleWagesCents, 235000);
+  assert.deepEqual(dropped.ignored, ['baseRatePay', 'casualLoading']);
+});
+
+test('D10d casual: the pre-2024 branch names the all-in rate it discards', () => {
+  // Before 2024 there is one pay figure, so a user who fills both fields has
+  // one of them thrown away. The audited defect survived here while the
+  // controller collapsed the two fields into one argument: the engine could
+  // not see the discarded figure, so the page said nothing about it.
+  const result = compute(casualForm({
+    reportingMonth: '2023-12',
+    casualBasePay: '1800',
+    ordinaryPay: '2250',
+  }));
+  assert.equal(result.branch, 'pre-2024');
+  assert.equal(result.eligibleWagesCents, 180000, 'the base rate figure is the one read');
+  assert.deepEqual(result.ignored, ['ordinaryRatePay']);
+
+  // The casual loading has no place in the pre-2024 method, so an entered
+  // loading is discarded there too and must be named.
+  const withLoading = compute(casualForm({
+    reportingMonth: '2023-12',
+    casualBasePay: '1800',
+    casualLoading: '450',
+    ordinaryPay: '2250',
+  }));
+  assert.equal(withLoading.eligibleWagesCents, 180000);
+  assert.deepEqual(withLoading.ignored, ['casualLoading', 'ordinaryRatePay']);
+
+  // Only the all-in rate filled: it is read, so nothing is reported ignored.
+  const allIn = compute(casualForm({ reportingMonth: '2023-12', ordinaryPay: '2250' }));
+  assert.equal(allIn.eligibleWagesCents, 225000);
+  assert.deepEqual(allIn.ignored, []);
+});
+
 test('D11 casual: months before January 2024 use the legacy method', () => {
   const r = casualWages({
     reportingMonth: '2023-12',
@@ -154,27 +251,11 @@ test('D11 casual: months before January 2024 use the legacy method', () => {
 });
 
 test('pre-2024 casual controller selects ordinary pay before grossing up sacrifice', () => {
-  const form = {
-    elements: {
-      reportingMonth: { value: '2023-12' },
-      instrumentSpecifiesLoading: { checked: false },
-      loadingQuantifiable: { checked: false },
-      casualBasePay: { value: '' },
-      casualLoading: { value: '' },
-      ordinaryPay: { value: '1000' },
-      sacrificed: { value: '100' },
-    },
-    querySelector(selector) {
-      assert.equal(selector, 'input[name="branch"]:checked');
-      return { value: 'casual' };
-    },
-    querySelectorAll(selector) {
-      assert.equal(selector, '.bonus-row');
-      return [];
-    },
-  };
-
-  const result = compute(form);
+  const result = compute(casualForm({
+    reportingMonth: '2023-12',
+    ordinaryPay: '1000',
+    sacrificed: '100',
+  }));
 
   assert.equal(result.branch, 'pre-2024');
   assert.equal(result.eligibleWagesCents, 110000);

@@ -82,6 +82,16 @@ export function annualSalaryWages({ annualSalaryPaidCents, bonuses }) {
 // every entered component the selected branch does not read is named in
 // `ignored`. Without that, pay entered against the wrong branch was discarded
 // with nothing but a confident $0.00 to show for it.
+//
+// The three pay arguments are the figures the user actually entered, never a
+// derived total. The salary sacrifice arrives as its own `sacrificedCents` and
+// this function grosses it onto whichever component the selected branch reads.
+// A caller that grosses up first cannot be trusted here: an entered-zero field
+// carrying only the sacrifice looks like an entered amount, so `ignored` would
+// name a component the total in fact counted, and the pre-2024 selection below
+// would pick the wrong figure. Keeping the gross-up inside this function is
+// what makes `ignored` a statement about user input rather than about
+// arithmetic that already happened.
 export function casualWages({
   reportingMonth,
   instrumentSpecifiesLoading = false,
@@ -89,6 +99,7 @@ export function casualWages({
   baseRatePayCents = 0,
   casualLoadingCents = 0,
   ordinaryRatePayCents = 0,
+  sacrificedCents = 0,
   bonuses,
 }) {
   if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
@@ -107,25 +118,30 @@ export function casualWages({
     // base-rate/ordinary-rate split is a post-2024 UI distinction; before
     // then there was just one figure, so fall back to the ordinary rate
     // field when only that one was filled in. Without this, a user who
-    // enters the all-in rate for a pre-2024 month got a silent $0.00.
-    const payCents = baseRatePayCents || ordinaryRatePayCents;
+    // enters the all-in rate for a pre-2024 month got a silent $0.00. The
+    // figure not selected is still reported: it was entered and discarded.
+    const usesBaseRate = entered.baseRatePay > 0;
+    const payCents = usesBaseRate ? baseRatePayCents : ordinaryRatePayCents;
     return {
       branch: 'pre-2024',
-      eligibleWagesCents: payCents + bonus,
-      ignored: ignoring(baseRatePayCents ? 'baseRatePay' : 'ordinaryRatePay'),
+      eligibleWagesCents: grossUp(payCents, sacrificedCents) + bonus,
+      ignored: ignoring(usesBaseRate ? 'baseRatePay' : 'ordinaryRatePay'),
     };
   }
   if (instrumentSpecifiesLoading && loadingQuantifiable) {
+    // s 3B(4)(a): the sacrifice grosses up the base rate of pay, not the
+    // loading, which s 3B(4) does not list.
     return {
       branch: 's 3B(3)(a)',
-      eligibleWagesCents: baseRatePayCents + bonus + casualLoadingCents,
+      eligibleWagesCents: grossUp(baseRatePayCents, sacrificedCents) + bonus + casualLoadingCents,
       ignored: ignoring('baseRatePay', 'casualLoading'),
     };
   }
   // The loading is already inside the ordinary rate. Do not add it again.
+  // s 3B(4)(aa): here the sacrifice grosses up the ordinary rate of pay.
   return {
     branch: 's 3B(3)(b)',
-    eligibleWagesCents: ordinaryRatePayCents + bonus,
+    eligibleWagesCents: grossUp(ordinaryRatePayCents, sacrificedCents) + bonus,
     ignored: ignoring('ordinaryRatePay'),
   };
 }
