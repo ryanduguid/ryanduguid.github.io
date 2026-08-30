@@ -797,6 +797,10 @@ tbody tr:hover td {
   position: relative;
 }
 
+.copy-wrap pre {
+  padding-right: calc(var(--space-5) + 4.5rem);
+}
+
 .copy-button {
   position: absolute;
   top: var(--space-2);
