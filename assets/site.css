@@ -695,6 +695,56 @@ tbody tr:hover td {
   margin: 0;
 }
 
+.collection-entry__note {
+  color: var(--colour-stamp-strong);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.work-chooser {
+  padding-top: var(--space-6);
+}
+
+.work-chooser h2 {
+  padding-bottom: var(--space-3);
+  border-bottom: var(--rule-strong) solid var(--colour-ink);
+}
+
+.work-chooser ul {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.work-chooser li {
+  display: grid;
+  grid-template-columns: minmax(11rem, 0.35fr) minmax(0, 1fr);
+  gap: var(--space-4);
+  margin: 0;
+  padding-block: var(--space-3);
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
+}
+
+.work-chooser li + li {
+  margin-top: 0;
+}
+
+.work-chooser__job {
+  font-weight: 600;
+}
+
+.work-chooser__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-5);
+  align-content: start;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+}
+
 .collection-entry__links {
   display: flex;
   grid-column: 2 / -1;
@@ -1684,7 +1734,8 @@ input[type="checkbox"] {
   }
 
   .collection-group > header,
-  .collection-entry {
+  .collection-entry,
+  .work-chooser li {
     grid-template-columns: 1fr;
   }
 
