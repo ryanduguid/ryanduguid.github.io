@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid</title>
   <meta name="description" content="Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -23,6 +24,8 @@
   <link rel="canonical" href="https://duguid.com.au/" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -46,10 +49,12 @@
         <p class="technical-label">Public register / Australian accounting controls</p>
         <h1 id="home-title">Review-ready controls for Australian accounting work.</h1>
         <p class="home-hero__summary short-answer">Open-source checks for payroll, Xero, workpapers and AI workflows, with every source and calculation kept visible.</p>
+        <p class="home-hero__note">Free to use and inspect. Built for Australian public-practice accountants and the firms that review their work.</p>
         <nav class="home-hero__actions" aria-label="Homepage actions">
           <a class="button" href="/tools/">Browse the tools</a>
           <a class="button button--secondary" href="/#engage">Discuss a workflow</a>
         </nav>
+        <p class="home-hero__source"><a href="https://github.com/ryanduguid">Source on GitHub</a></p>
       </div>
     </section>
 
@@ -109,7 +114,10 @@
           </nav>
         </div>
         <figure>
-          <img src="/assets/coal-lsl-calculator.webp" width="868" height="580" loading="lazy" decoding="async" fetchpriority="low" alt="Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example" />
+          <picture>
+            <source media="(max-width: 40rem)" srcset="/assets/coal-lsl-calculator-mobile.webp" width="780" height="1192" />
+            <img src="/assets/coal-lsl-calculator.webp" width="868" height="580" loading="lazy" decoding="async" alt="Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example" />
+          </picture>
           <figcaption>Synthetic example. The applied branch and formula remain visible for review.</figcaption>
         </figure>
       </div>
@@ -124,6 +132,8 @@
           <div class="route-actions">
             <div class="install-band">
               <h4>Three supported commands</h4>
+              <p>An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. These commands are for firms already running Claude Code or Codex; if yours is not, start with the <a href="/tools/coal-lsl-levy/">browser calculator</a> or send the evaluation links below to whoever manages your systems.</p>
+              <p class="install-needs">Needs: the two MCP commands need uv installed; the skills command needs Node.</p>
               <pre tabindex="0" role="region" aria-label="Supported installation commands"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
 
@@ -184,19 +194,27 @@
         <div class="route-content">
           <h3 class="route-statement">Fix the workflow before another review round.</h3>
           <p>Bring the point where a workpaper, payroll check, ledger export or AI-assisted task stops being easy to review. The useful first step is a bounded problem, not a platform pitch.</p>
-          <nav class="route-actions" aria-label="Scoped enquiry types">
+          <p>A useful first email is two or three sentences about the step that is hard to review, with no client data. That is enough to work out whether one of these tools fits and what a controlled trial with fabricated records would look like.</p>
+          <nav class="route-actions route-actions--mail" aria-label="Scoped enquiry types">
             <a href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">
               <strong>Firm workflow or controlled pilot</strong>
               <span>Map the evidence, hand-off and review gate.</span>
+              <span class="route-action-type">Email</span>
             </a>
             <a href="mailto:ryan@duguid.com.au?subject=Tool%20adoption%20or%20integration">
               <strong>Tool adoption or integration</strong>
               <span>Test a narrow use case inside a controlled boundary.</span>
+              <span class="route-action-type">Email</span>
             </a>
             <a href="mailto:ryan@duguid.com.au?subject=Research%2C%20speaking%20or%20peer%20review">
               <strong>Research, speaking or peer review</strong>
               <span>Interrogate a method, claim or implementation.</span>
+              <span class="route-action-type">Email</span>
             </a>
+          </nav>
+          <nav class="route-terminus" aria-label="Next steps">
+            <a class="button" href="/tools/">Browse the tools</a>
+            <a class="button button--secondary" href="mailto:ryan@duguid.com.au?subject=Firm%20workflow%20or%20controlled%20pilot">Email about a workflow</a>
           </nav>
           <p class="boundary route-note">Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.</p>
         </div>
@@ -240,13 +258,21 @@
       </div>
     </nav>
 
-    <p class="page-meta site-shell">Last reviewed 29 August 2026.</p>
+    <p class="page-meta site-shell">Last reviewed 30 August 2026.</p>
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -277,7 +303,7 @@
         "description": "Review-first Xero, payroll, workpaper and AI workflow tools for accounting firms in Newcastle and the Hunter Valley, NSW.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-08-29",
+        "dateModified": "2026-08-30",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "about": { "@id": "https://duguid.com.au/about/#person" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
@@ -399,5 +425,6 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>
