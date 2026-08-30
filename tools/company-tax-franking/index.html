@@ -50,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">What company tax rate applies, and is the franking account in order</li>
+        <li aria-current="page">Company tax and franking checks</li>
       </ol>
     </nav>
     <h1>What company tax rate applies, and is the franking account in order</h1>
     <p class="lead-note">
       A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
     </p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/TheExchequerTally/releases/tag/v0.1.2">v0.1.2</a>, tagged source on GitHub.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -111,9 +112,11 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
+    <p class="install-needs">Needs Python 3.10 or later. This is a command-line tool for whoever runs Python at the firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/TheExchequerTally.git
 cd TheExchequerTally &amp;&amp; pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/TheExchequerTally">Source on GitHub</a> · Primary sources: <a href="https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates">ATO company tax rates</a> and <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Division 203 of the Income Tax Assessment Act 1997</a>.</p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/TheExchequerTally/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Company%20tax%20and%20franking%20checks">email with the tool named in the subject</a>.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
@@ -130,6 +133,7 @@ cd TheExchequerTally &amp;&amp; pip install .</code></pre>
     <section id="related">
     <h2>Related</h2>
     <ul class="related">
+      <li><a href="/rates/div7a-benchmark-rate/">Division 7A benchmark interest rate</a></li>
       <li><a href="/tools/trust-distributions/">Is this trust distribution in the section 100A green zone</a></li>
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
@@ -176,7 +180,7 @@ cd TheExchequerTally &amp;&amp; pip install .</code></pre>
         "description": "Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -216,7 +220,7 @@ cd TheExchequerTally &amp;&amp; pip install .</code></pre>
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "What company tax rate applies, and is the franking account in order",
+            "name": "Company tax and franking checks",
             "item": "https://duguid.com.au/tools/company-tax-franking/"
           }
         ]
@@ -243,7 +247,7 @@ cd TheExchequerTally &amp;&amp; pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",

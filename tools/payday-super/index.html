@@ -50,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">When is payday super actually due, and what happens if it is late</li>
+        <li aria-current="page">Payday Super timing</li>
       </ol>
     </nav>
     <h1>When is payday super actually due, and what happens if it is late</h1>
     <p class="lead-note">
       Since 1 July 2026 a super contribution is on time only when the fund receives it within seven business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock. A late line attracts the shortfall, notional earnings and an administrative uplift of up to 60 per cent.
     </p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2">v0.1.2</a>, evaluated against tagged fixtures.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -66,7 +67,7 @@
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
           <a href="#synthetic-worked-example">Synthetic worked example</a>
-          <a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>
+          <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
         </nav>
@@ -115,13 +116,18 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
+    <p class="install-needs">Needs Python 3.10 or later; no other runtime dependencies. This is a command-line tool for whoever runs Python at the firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>pip install payday-super-checker
 # or
 git clone https://github.com/ryanduguid/payday-super-checker.git
 cd payday-super-checker &amp;&amp; pip install .</code></pre>
+    <p>First success takes one command. From the cloned repository, run the bundled fabricated sample and compare the summary line:</p>
+    <pre tabindex="0" role="region" aria-label="First run command"><code>payday-super-check examples/sample_payrun_no_transition.csv --as-at 2026-09-10
+# prints: ON_TIME: 3  AT_RISK: 1  LATE: 1  UNPAID: 1  UNKNOWN: 0  SKIPPED: 1</code></pre>
     <p><a href="https://github.com/ryanduguid/payday-super-checker">Source on GitHub</a>
        · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
        · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/payday-super-checker/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Payday%20Super%20timing">email with the tool named in the subject</a>.</p>
     <p>Primary sources: the <a href="https://www.legislation.gov.au/C2025A00057/asmade"><em>Treasury Laws Amendment (Payday Superannuation) Act 2025</em></a> and the current <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a>.</p>
     <!-- geo-blocks -->
     </section>
@@ -189,6 +195,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
     <section id="related">
     <h2>Related</h2>
     <ul class="related">
+      <li><a href="/rates/super-guarantee/">Super guarantee rate history</a></li>
       <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
       <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a></li>
@@ -236,7 +243,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -276,7 +283,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "When is payday super actually due, and what happens if it is late",
+            "name": "Payday Super timing",
             "item": "https://duguid.com.au/tools/payday-super/"
           }
         ]
@@ -303,7 +310,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",

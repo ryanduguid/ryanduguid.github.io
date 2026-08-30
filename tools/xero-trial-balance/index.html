@@ -50,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">How to export a Xero trial balance to CSV that actually balances</li>
+        <li aria-current="page">Xero trial balance CSV export</li>
       </ol>
     </nav>
     <h1>How to export a Xero trial balance to CSV that actually balances</h1>
     <p class="lead-note">
       This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year to date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/v0.1.4">v0.1.4</a>, evaluated against tagged fixtures.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -115,8 +116,16 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><code>python -m pip install --require-hashes -r requirements.lock</code></pre>
+    <p class="install-needs">Needs Python 3.10 or later and a free Xero developer app, about five minutes of one-off setup. It works with Xero's free Demo Company, so nothing has to touch a live ledger. This is a command-line tool for whoever runs Python at the firm.</p>
+    <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/xero-trial-balance-export.git
+cd xero-trial-balance-export
+python -m pip install --require-hashes -r requirements.lock
+python auth.py</code></pre>
+    <p>First success takes one command. After the one-off consent step above, export a dated trial balance:</p>
+    <pre tabindex="0" role="region" aria-label="First run command"><code>python export_tb.py --date 2026-06-30
+# writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass</code></pre>
     <p><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source on GitHub</a></p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/xero-trial-balance-export/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Xero%20trial%20balance%20CSV%20export">email with the tool named in the subject</a>.</p>
     <!-- geo-blocks -->
     </section>
     <section id="synthetic-worked-example">
@@ -223,7 +232,7 @@
         "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -263,7 +272,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "How to export a Xero trial balance to CSV that actually balances",
+            "name": "Xero trial balance CSV export",
             "item": "https://duguid.com.au/tools/xero-trial-balance/"
           }
         ]
@@ -290,7 +299,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",

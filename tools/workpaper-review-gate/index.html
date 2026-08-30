@@ -50,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Workpaper Review Gate for manager review packs</li>
+        <li aria-current="page">Workpaper Review Gate</li>
       </ol>
     </nav>
     <h1>Workpaper Review Gate for manager review packs</h1>
     <p class="lead-note">
       This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
     </p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/workpaper-review-gate/releases/tag/v0.1.1">v0.1.1</a>, evaluated against tagged fixtures.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -96,9 +97,13 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><code>python -m pip install -e ".[dev]"
+    <p class="install-needs">Needs Python 3.10 or later. This is a command-line tool for whoever runs Python at the firm.</p>
+    <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/workpaper-review-gate.git
+cd workpaper-review-gate
+python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-ready</code></pre>
     <p><a href="https://github.com/ryanduguid/workpaper-review-gate">Source on GitHub</a></p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/workpaper-review-gate/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Workpaper%20Review%20Gate">email with the tool named in the subject</a>.</p>
     </section>
     <section id="common-questions" class="faq-section">
     <h2>Common questions</h2>
@@ -161,7 +166,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
         "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -197,7 +202,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Workpaper Review Gate for manager review packs",
+            "name": "Workpaper Review Gate",
             "item": "https://duguid.com.au/tools/workpaper-review-gate/"
           }
         ]
@@ -224,7 +229,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",
