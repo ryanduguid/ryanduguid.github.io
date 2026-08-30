@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Payday Super timing evidence evaluation</title>
   <meta name="description" content="Reproduce Payday Super timing outcomes with four fabricated fixtures, then inspect the evidence limits and required human decision." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/payday-super-evidence/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -32,11 +35,11 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/tools/">Tools</a>
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -46,7 +49,6 @@
         <nav class="article-crumb" aria-label="Breadcrumb">
           <ol>
             <li><a href="/">Home</a></li>
-            <li><a href="/tools/">Tools</a></li>
             <li><a href="/evaluate/">Evaluations</a></li>
             <li aria-current="page">Payday Super timing evidence evaluation</li>
           </ol>
@@ -107,6 +109,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
 
           <section id="expected-result">
             <h2>Expected result</h2>
+            <div class="table-scroll" role="region" aria-label="Payday Super evidence expected results" tabindex="0">
             <table class="facts">
               <thead>
                 <tr>
@@ -133,6 +136,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
                 </tr>
               </tbody>
             </table>
+            </div>
             <p>
               A missing receipt cannot prove on-time, remittance timing can prove late, and timely remittance without receipt remains at-risk. The outcome identifiers are <code>AT_RISK</code>, <code>ON_TIME</code> and <code>LATE</code>.
             </p>
@@ -182,6 +186,15 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             </p>
           </section>
 
+          <nav class="related-nav" aria-label="Related">
+            <h2>Related</h2>
+            <ul class="related">
+              <li><a href="/tools/payday-super/">Payday Super timing</a></li>
+              <li><a href="/rates/super-guarantee/">Super guarantee rate history</a></li>
+              <li><a href="/evaluate/">All evaluations</a></li>
+            </ul>
+          </nav>
+
           <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
         </div>
       </div>
@@ -189,9 +202,17 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -210,7 +231,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-08-26",
+        "dateModified": "2026-08-30",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
@@ -229,18 +250,12 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
             "name": "Evaluations",
             "item": "https://duguid.com.au/evaluate/"
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 3,
             "name": "Payday Super timing evidence evaluation",
             "item": "https://duguid.com.au/evaluate/payday-super-evidence/"
           }

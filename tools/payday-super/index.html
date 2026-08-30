@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>When is payday super actually due?</title>
   <meta name="description" content="Check whether super reaches the fund within seven business days of payday from 1 July 2026, and estimate the SG charge for review." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/payday-super/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -47,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">When is payday super actually due, and what happens if it is late</li>
+        <li aria-current="page">Payday Super timing</li>
       </ol>
     </nav>
     <h1>When is payday super actually due, and what happens if it is late</h1>
     <p class="lead-note">
       Since 1 July 2026 a super contribution is on time only when the fund receives it within seven business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock. A late line attracts the shortfall, notional earnings and an administrative uplift of up to 60 per cent.
     </p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2">v0.1.2</a>, evaluated against tagged fixtures.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -63,7 +67,7 @@
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
           <a href="#synthetic-worked-example">Synthetic worked example</a>
-          <a href="/evaluate/payday-super-evidence/">Evidence evaluation</a>
+          <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
         </nav>
@@ -112,13 +116,17 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><code>pip install payday-super-checker
-# or
-git clone https://github.com/ryanduguid/payday-super-checker.git
-cd payday-super-checker &amp;&amp; pip install .</code></pre>
+    <p class="install-needs">Needs Python 3.10 or later; no other runtime dependencies. This is a command-line tool for whoever runs Python at the firm.</p>
+    <pre tabindex="0" role="region" aria-label="Install from PyPI"><code><span class="cmd">pip install payday-super-checker</span></code></pre>
+    <pre tabindex="0" role="region" aria-label="Install from source"><code><span class="cmd">git clone https://github.com/ryanduguid/payday-super-checker.git</span>
+<span class="cmd">cd payday-super-checker &amp;&amp; pip install .</span></code></pre>
+    <p>First success takes one command. From the cloned repository, run the bundled fabricated sample and compare the summary line:</p>
+    <pre tabindex="0" role="region" aria-label="First run command"><code><span class="cmd">payday-super-check examples/sample_payrun_no_transition.csv --as-at 2026-09-10</span>
+<span class="comment"># prints: ON_TIME: 3  AT_RISK: 1  LATE: 1  UNPAID: 1  UNKNOWN: 0  SKIPPED: 1</span></code></pre>
     <p><a href="https://github.com/ryanduguid/payday-super-checker">Source on GitHub</a>
        · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
        · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/payday-super-checker/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Payday%20Super%20timing">email with the tool named in the subject</a>.</p>
     <p>Primary sources: the <a href="https://www.legislation.gov.au/C2025A00057/asmade"><em>Treasury Laws Amendment (Payday Superannuation) Act 2025</em></a> and the current <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a>.</p>
     <!-- geo-blocks -->
     </section>
@@ -186,6 +194,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
     <section id="related">
     <h2>Related</h2>
     <ul class="related">
+      <li><a href="/rates/super-guarantee/">Super guarantee rate history</a></li>
       <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
       <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
       <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a></li>
@@ -204,9 +213,17 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -225,7 +242,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -265,7 +282,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "When is payday super actually due, and what happens if it is late",
+            "name": "Payday Super timing",
             "item": "https://duguid.com.au/tools/payday-super/"
           }
         ]
@@ -292,7 +309,7 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",
@@ -335,5 +352,6 @@ cd payday-super-checker &amp;&amp; pip install .</code></pre>
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

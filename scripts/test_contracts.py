@@ -249,6 +249,13 @@ def test_design_contracts() -> int:
             "index.html: Coal LSL proof image must keep its height",
         ),
         (
+            "proof mobile source removed",
+            "index.html",
+            '<source media="(max-width: 40rem)" srcset="/assets/coal-lsl-calculator-mobile.webp"',
+            '<source media="(max-width: 40rem)" srcset="/assets/missing-mobile.webp"',
+            "index.html: Coal LSL proof picture must offer the mobile source",
+        ),
+        (
             "proof alternative removed",
             "index.html",
             'alt="Coal LSL calculator result showing Formula B, eligible wages, levy and the applied section 3B branch for a synthetic example"',
@@ -347,8 +354,8 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 22, (
-        f"expected 22 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 24, (
+        f"expected 24 canonical HTML pages, found {len(indexed_rels)}"
     )
     metadata_failures = [
         failure
@@ -667,10 +674,18 @@ def test_public_contracts() -> int:
         "expected exactly one .skip-link targeting #main",
     )
     contract_mutation(
+        "contact dropped from primary navigation",
+        home,
+        '<a href="/contact/">Contact</a>',
+        '<a href="/contact-us/">Contact</a>',
+        lambda html, found: contracts.check_shared_shell(html, "index.html", found),
+        "index.html: primary navigation is",
+    )
+    contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
@@ -838,7 +853,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 27
+    return len(homepage_mutations) + len(calculator_mutations) + 28
 
 
 def main() -> None:

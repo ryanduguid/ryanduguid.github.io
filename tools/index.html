@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Open-source Australian accounting tools | Ryan Duguid</title>
   <meta name="description" content="Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and bounded AI workflows." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -51,8 +54,34 @@
         </nav>
         <h1>Tools</h1>
         <p class="short-answer">Open-source controls for work that still needs a source, a visible calculation and a person willing to sign off.</p>
-        <p class="byline">Delivery ranges from browser tools to Python packages, an MCP server and agent skills. Start with fabricated data and keep the stated boundary in view.</p>
+        <p class="byline">Delivery ranges from browser tools to Python packages, an MCP server and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. Start with fabricated data and keep the stated boundary in view.</p>
+        <p>Three of the tools carry <a href="/evaluate/">reproducible evaluations</a> against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything.</p>
       </header>
+      <section class="work-chooser site-shell" aria-labelledby="chooser-title">
+        <h2 id="chooser-title">Start from your work</h2>
+        <ul>
+          <li>
+            <span class="work-chooser__job">Payroll and super</span>
+            <span class="work-chooser__links"><a href="/tools/payday-super/">Payday Super timing</a><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></span>
+          </li>
+          <li>
+            <span class="work-chooser__job">Month-end and BAS packs</span>
+            <span class="work-chooser__links"><a href="/tools/workpaper-review-gate/">Workpaper Review Gate</a><a href="/tools/xero-trial-balance/">Xero trial balance CSV export</a></span>
+          </li>
+          <li>
+            <span class="work-chooser__job">Construction and mining clients</span>
+            <span class="work-chooser__links"><a href="/tools/wip-schedule/">Construction WIP schedule</a><a href="/tools/subcontractor-ledgers/">Subcontract ledger skills</a></span>
+          </li>
+          <li>
+            <span class="work-chooser__job">Tax positions</span>
+            <span class="work-chooser__links"><a href="/tools/trust-distributions/">Trust distribution checks</a><a href="/tools/company-tax-franking/">Company tax and franking checks</a><a href="/tools/ato-benchmarks/">ATO benchmark comparison</a></span>
+          </li>
+          <li>
+            <span class="work-chooser__job">AI agents in the workflow</span>
+            <span class="work-chooser__links"><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a></span>
+          </li>
+        </ul>
+      </section>
       <div class="site-shell collection-layout">
         <nav class="collection-index" aria-label="Tool categories">
           <a href="#extract-tools">Extract</a>
@@ -73,7 +102,7 @@
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>Read-only Xero scope; no ledger writes.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source repository</a><a href="/evaluate/xero-trial-balance-integrity/">Reproduce the evaluation</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/xero-trial-balance-export">Source repository<span class="visually-hidden">, Xero trial balance CSV export</span></a><a href="/evaluate/xero-trial-balance-integrity/">Reproduce the evaluation<span class="visually-hidden">, Xero trial balance CSV export</span></a></p>
             </div>
             <div class="collection-entry">
               <a class="collection-entry__title" href="/tools/subcontractor-ledgers/">Subcontract ledger skills</a>
@@ -82,7 +111,7 @@
                 <div><dt>Delivery</dt><dd>Agent skills</dd></div>
                 <div><dt>Boundary</dt><dd>Requires human review of contracts, classifications and source records.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/hardhat-ledger">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/hardhat-ledger">Source repository<span class="visually-hidden">, Subcontract ledger skills</span></a></p>
             </div>
             <div class="collection-entry">
               <a class="collection-entry__title" href="/tools/wip-schedule/">Construction WIP schedule</a>
@@ -91,7 +120,7 @@
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>Review aid under AASB 15, not an accounting determination.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/TheWIPTally">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/TheWIPTally">Source repository<span class="visually-hidden">, Construction WIP schedule</span></a></p>
             </div>
           </section>
 
@@ -101,31 +130,32 @@
               <h2 id="calculate-title">Apply a rule without hiding the working</h2>
             </header>
             <div class="collection-entry">
-              <a class="collection-entry__title" href="/tools/payday-super/">Payday Super due dates and SG charge</a>
+              <a class="collection-entry__title" href="/tools/payday-super/">Payday Super timing</a>
               <p>Classifies supplied receipt evidence against the seven-business-day rule and estimates late-line exposure.</p>
               <dl>
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>Missing receipt evidence stays at risk; the tool does not infer payment.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/payday-super-checker">Source repository</a><a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/payday-super-checker">Source repository<span class="visually-hidden">, Payday Super timing</span></a><a href="/evaluate/payday-super-evidence/">Reproduce the evaluation<span class="visually-hidden">, Payday Super timing</span></a></p>
             </div>
             <div class="collection-entry">
-              <a class="collection-entry__title" href="/tools/ato-benchmarks/">ATO small business benchmark comparison</a>
+              <a class="collection-entry__title" href="/tools/ato-benchmarks/">ATO benchmark comparison</a>
               <p>Maps a profit and loss to published ATO categories and shows each ratio beside the published range.</p>
               <dl>
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>A comparison is not an audit finding or compliance conclusion.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/ato-benchmark-compare">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/ato-benchmark-compare">Source repository<span class="visually-hidden">, ATO benchmark comparison</span></a></p>
             </div>
             <div class="collection-entry">
               <a class="collection-entry__title" href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
               <p>Shows the section 3B employee branch, eligible-wages formula and 2.7 per cent monthly levy.</p>
+              <p class="collection-entry__note">Runs on this site now. Nothing to install.</p>
               <dl>
                 <div><dt>Delivery</dt><dd>Browser</dd></div>
                 <div><dt>Boundary</dt><dd>No lodgement, storage or network transmission; verify the monthly return.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/ryanduguid.github.io">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/ryanduguid.github.io">Source repository<span class="visually-hidden">, Coal LSL levy calculator</span></a></p>
             </div>
             <div class="collection-entry">
               <a class="collection-entry__title" href="/tools/trust-distributions/">Trust distribution checks</a>
@@ -134,7 +164,7 @@
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>Does not invent arrangements, intentions or beneficiary facts.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/SolomonsSword">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/SolomonsSword">Source repository<span class="visually-hidden">, Trust distribution checks</span></a></p>
             </div>
             <div class="collection-entry">
               <a class="collection-entry__title" href="/tools/company-tax-franking/">Company tax and franking checks</a>
@@ -143,7 +173,7 @@
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>Requires verified income composition, distributions and ledger inputs.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/TheExchequerTally">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/TheExchequerTally">Source repository<span class="visually-hidden">, Company tax and franking checks</span></a></p>
             </div>
           </section>
 
@@ -159,7 +189,7 @@
                 <div><dt>Delivery</dt><dd>Python</dd></div>
                 <div><dt>Boundary</dt><dd>READY means ready for human review, not approved or signed off.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/workpaper-review-gate">Source repository</a><a href="/evaluate/manager-review-gate/">Reproduce the evaluation</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/workpaper-review-gate">Source repository<span class="visually-hidden">, Workpaper Review Gate</span></a><a href="/evaluate/manager-review-gate/">Reproduce the evaluation<span class="visually-hidden">, Workpaper Review Gate</span></a></p>
             </div>
           </section>
 
@@ -175,7 +205,7 @@
                 <div><dt>Delivery</dt><dd>MCP</dd></div>
                 <div><dt>Boundary</dt><dd>No client files, tax advice, Division 7A calculation or autonomous action.</dd></div>
               </dl>
-              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/aus-accounting-mcp">Source repository</a></p>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/aus-accounting-mcp">Source repository<span class="visually-hidden">, Australian tax tools for AI agents</span></a></p>
             </div>
           </section>
         </div>
@@ -184,9 +214,17 @@
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -205,7 +243,7 @@
         "description": "Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations and bounded AI workflows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-29",
-        "dateModified": "2026-08-29",
+        "dateModified": "2026-08-30",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -229,8 +267,8 @@
           { "@type": "ListItem", "position": 1, "name": "Xero trial balance CSV export", "url": "https://duguid.com.au/tools/xero-trial-balance/" },
           { "@type": "ListItem", "position": 2, "name": "Subcontract ledger skills", "url": "https://duguid.com.au/tools/subcontractor-ledgers/" },
           { "@type": "ListItem", "position": 3, "name": "Construction WIP schedule", "url": "https://duguid.com.au/tools/wip-schedule/" },
-          { "@type": "ListItem", "position": 4, "name": "Payday Super due dates and SG charge", "url": "https://duguid.com.au/tools/payday-super/" },
-          { "@type": "ListItem", "position": 5, "name": "ATO small business benchmark comparison", "url": "https://duguid.com.au/tools/ato-benchmarks/" },
+          { "@type": "ListItem", "position": 4, "name": "Payday Super timing", "url": "https://duguid.com.au/tools/payday-super/" },
+          { "@type": "ListItem", "position": 5, "name": "ATO benchmark comparison", "url": "https://duguid.com.au/tools/ato-benchmarks/" },
           { "@type": "ListItem", "position": 6, "name": "Coal LSL levy calculator", "url": "https://duguid.com.au/tools/coal-lsl-levy/" },
           { "@type": "ListItem", "position": 7, "name": "Trust distribution checks", "url": "https://duguid.com.au/tools/trust-distributions/" },
           { "@type": "ListItem", "position": 8, "name": "Company tax and franking checks", "url": "https://duguid.com.au/tools/company-tax-franking/" },

@@ -48,7 +48,7 @@ test('blank monetary inputs produce an explained zero result', async ({ page }) 
   await page.goto('/tools/coal-lsl-levy/');
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
 
-  const result = page.getByRole('status');
+  const result = page.locator('#result');
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
     .toContainText('$0.00');
   await expect(result.locator('[data-result-kind="levy"]')).toContainText('$0.00');
@@ -130,7 +130,7 @@ test('casual month typed into the text fallback fails visibly, not silently', as
     .getByRole('spinbutton', { name: 'All-in ordinary rate pay', exact: true })
     .fill('5000');
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(page.getByRole('status').locator('[data-result-kind="eligible-wages"]'))
+  await expect(page.locator('#result').locator('[data-result-kind="eligible-wages"]'))
     .toContainText('$5,000.00');
   await expect(page.locator('.result-why')).toContainText('Section 3B(3)(b) applies');
   health.assertHealthy();
@@ -220,7 +220,7 @@ test('calculates a Formula B levy without browser errors', async ({ page }) => {
 
   await calculateFormulaB(page);
 
-  const result = page.getByRole('status');
+  const result = page.locator('#result');
   await expect(result.locator('[data-result-kind="formula-b"]'))
     .toContainText(COAL_LSL_PROOF.expected.formulaB);
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
@@ -247,7 +247,7 @@ test('calculator orientation and result render as an inspectable ledger', async 
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');
 
-  const result = page.getByRole('status');
+  const result = page.locator('#result');
   const rows = result.locator('.result-row');
   await expect(rows).toHaveCount(6);
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
@@ -306,7 +306,7 @@ test('Formula B result matches the mobile visual baseline', async ({ page }, tes
   const health = observePageHealth(page);
 
   await calculateFormulaB(page, { visualSnapshot: true });
-  const result = page.getByRole('status');
+  const result = page.locator('#result');
   await expect(result).toContainText('Formula B wins this month');
   await waitForVisualFonts(page);
 
