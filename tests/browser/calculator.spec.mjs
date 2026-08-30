@@ -61,6 +61,96 @@ test('blank monetary inputs produce an explained zero result', async ({ page }) 
   health.assertHealthy();
 });
 
+test('casual pay the selected branch cannot use is named, not silently dropped', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', {
+    name: 'As a casual (section 3B(3))',
+    exact: true,
+  }).check();
+  // Both loading checkboxes keep their unchecked default, which selects
+  // s 3B(3)(b). That branch reads neither field filled in below.
+  await page.getByLabel('Reporting month', { exact: true }).fill('2026-08');
+  await page.getByRole('spinbutton', { name: 'Base rate pay', exact: true }).fill('1800');
+  await page.getByRole('spinbutton', { name: 'Casual loading', exact: true }).fill('450');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const result = page.locator('#result');
+  await expect(result.locator('[data-result-kind="eligible-wages"]')).toContainText('$0.00');
+  await expect(result.locator('[data-result-kind="levy"]')).toContainText('$0.00');
+  await expect(result.locator('.result-blank-policy')).toHaveText(
+    'Not counted on the section 3B(3)(b) branch: Base rate pay, Casual loading. '
+    + 'The reporting month and the two casual loading answers select which pay fields apply.',
+  );
+  health.assertHealthy();
+});
+
+test('a casual salary sacrifice does not make a counted figure read as dropped', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', { name: 'As a casual (section 3B(3))', exact: true }).check();
+  // Both boxes ticked selects s 3B(3)(a), which reads base rate pay and the
+  // loading. The sacrifice field sits outside the branch fields and applies to
+  // the base rate of pay, so every figure below reaches the total and the page
+  // must name nothing as not counted.
+  await page.getByRole('checkbox', {
+    name: 'An industrial instrument specifies a casual loading',
+    exact: true,
+  }).check();
+  await page.getByRole('checkbox', {
+    name: 'That loading can be quantified separately from the ordinary rate',
+    exact: true,
+  }).check();
+  await page.getByLabel('Reporting month', { exact: true }).fill('2026-08');
+  await page.getByRole('spinbutton', { name: 'Base rate pay', exact: true }).fill('1800');
+  await page.getByRole('spinbutton', { name: 'Casual loading', exact: true }).fill('450');
+  await page.getByLabel('Salary sacrificed amount').fill('100');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const result = page.locator('#result');
+  await expect(result.locator('[data-result-kind="eligible-wages"]')).toContainText('$2,350.00');
+  await expect(result.locator('.result-blank-policy')).toHaveCount(0);
+
+  // The mirror case on s 3B(3)(b), where the sacrifice grosses up the all-in
+  // ordinary rate instead and base rate pay is the field left blank.
+  await page.getByRole('checkbox', {
+    name: 'An industrial instrument specifies a casual loading',
+    exact: true,
+  }).uncheck();
+  await page.getByRole('checkbox', {
+    name: 'That loading can be quantified separately from the ordinary rate',
+    exact: true,
+  }).uncheck();
+  await page.getByRole('spinbutton', { name: 'Base rate pay', exact: true }).fill('');
+  await page.getByRole('spinbutton', { name: 'Casual loading', exact: true }).fill('');
+  await page.getByRole('spinbutton', { name: 'All-in ordinary rate pay', exact: true }).fill('2250');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  await expect(result.locator('[data-result-kind="eligible-wages"]')).toContainText('$2,350.00');
+  await expect(result.locator('.result-blank-policy')).toHaveCount(0);
+  health.assertHealthy();
+});
+
+test('a pre-2024 casual month names the all-in rate it discards', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', { name: 'As a casual (section 3B(3))', exact: true }).check();
+  // Before 2024 there is one pay figure, so the all-in rate typed alongside the
+  // base rate is thrown away and has to be named.
+  await page.getByLabel('Reporting month', { exact: true }).fill('2023-12');
+  await page.getByRole('spinbutton', { name: 'Base rate pay', exact: true }).fill('1800');
+  await page.getByRole('spinbutton', { name: 'All-in ordinary rate pay', exact: true }).fill('2250');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const result = page.locator('#result');
+  await expect(result.locator('[data-result-kind="eligible-wages"]')).toContainText('$1,800.00');
+  await expect(result.locator('.result-blank-policy')).toHaveText(
+    'Not counted on the pre-2024 branch: All-in ordinary rate pay. '
+    + 'The reporting month and the two casual loading answers select which pay fields apply.',
+  );
+  health.assertHealthy();
+});
+
 test('visible monetary controls resolve common and field-specific help', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');

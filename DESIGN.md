@@ -182,7 +182,6 @@ The token scale uses fluid clamps rather than one-off page values.
 | Heading small | 24 to 32px | Article subsections |
 | Heading | 36 to 56px | Section statement |
 | Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
-| Route | 64 to 132px | Engage, Adopt and Verify route word |
 
 Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
 
@@ -193,7 +192,6 @@ Display tracking is modestly negative except for the uppercase homepage masthead
 - Wide shell: at most 1360px with fluid gutters.
 - Reading shell: at most 68ch.
 - Header: at most 72px on desktop.
-- Route section: at least the visible viewport minus the sticky header.
 - Default radius: 0.
 - Controls: 2px.
 - Media and code: 4px.
@@ -337,13 +335,13 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 The following whole-file values are frozen after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `BED2FBD534495D20104B600AF9AC82CF77023CC31758684ABA6F44B2F8815A3A`
+- `llms.txt`: SHA-256 `38729B723CBA25D70D4D14F5E8B61E2D795B56E650189FEEF1A83AB1BA3E493D`
 - `robots.txt`: SHA-256 `55445C95D41B8C8B1B386BFB1B1279B879954D66715747CDC0B10BFF3B5DD7EA`
-- `sitemap.xml`: SHA-256 `DE46D10ED364F9A5FE32F9BC901B4732D49CEA8F8A9794A9ED12D30BACD7BFBB`
+- `sitemap.xml`: SHA-256 `0417E321BE7FCF246A3339EFCD057FFACB123F83761CC5C7B4C899711CBD476C`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
-explanation. Every JSON-LD block across the 22 indexable pages remains
+explanation. Every JSON-LD block across the 24 indexable pages remains
 semantically unchanged. Existing footer disclaimers, owner-assertion language,
 engagement boundary, calculator disclaimer, human review statements and
 Division 7A refusal remain exact.

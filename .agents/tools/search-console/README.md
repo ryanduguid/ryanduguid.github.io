@@ -24,7 +24,7 @@ in the operator's terminal. Never redirect, persist, commit or upload them.
 From this checkout, run:
 
 ```powershell
-codex mcp add duguid-search-console -- uv run --locked --script C:\Users\-\Documents\Codex\2026-08-28\wha-5\work\duguid-site-agent-tooling\.agents\tools\search-console\server.py
+codex mcp add duguid-search-console -- uv run --locked --script C:\path\to\this-checkout\.agents\tools\search-console\server.py
 codex mcp get duguid-search-console
 ```
 
