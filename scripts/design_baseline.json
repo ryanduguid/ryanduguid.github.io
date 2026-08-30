@@ -1,6 +1,6 @@
 {
   "protected_files": {
-    "llms.txt": "38729b723cba25d70d4d14f5e8b61e2d795b56e650189feef1a83ab1ba3e493d",
+    "llms.txt": "839e5b9b3286915d18d7f8d87610e77ffe72b9930f78be18a794d89be0b2f477",
     "robots.txt": "55445c95d41b8c8b1b386bfb1b1279b879954d66715747cdc0b10bff3b5dd7ea",
     "sitemap.xml": "0417e321be7fcf246a3339efcd057ffacb123f83761cc5c7b4c899711cbd476c"
   },
@@ -59,7 +59,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "aac15fd61ea08b89a9f08b45c21e6c0436a378c0a1456c2bc2d73797c31ea970"
+      "d02c3b1dd425c69580a2ddf4e8551bfd0348a971e7f70f900e410406bc7e7be7"
     ],
     "changelog/index.html": [
       "5dd0a53bb4a3cb75651da4fb8b0ad7ddef4b2c100651b25fa4727234b921a165"
@@ -83,7 +83,7 @@
       "505dfccbcb25f6decbed12c4b9530326fa39543370073ba9d387a0033849ddd7"
     ],
     "index.html": [
-      "9e16a58dbef52f81d1c816ad2f1d42ec134807a0f2f0d8b628cece89fe37214c"
+      "bea938c5f91d5395a58425b5999ab09ce12d916e329a2097f1f16ebd769f3562"
     ],
     "rates/cents-per-kilometre/index.html": [
       "90e404f02422ae8f8c0107c6f7b5f2c0d01f39ce67c992c5d7dadadd464ffcf7"
@@ -135,7 +135,7 @@
     "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 25,
     "Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.": 2,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
-    "This site does not offer tax or BAS agent services and does not accept tax advice or lodgment requests.": 1
+    "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
   "fonts": {
     "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",

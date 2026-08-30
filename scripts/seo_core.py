@@ -21,10 +21,14 @@ DESC_MIN = 50
 DESC_MAX = 200
 DESC_WARN = 165
 REFERRER_POLICY = "strict-origin-when-cross-origin"
+SITE_NAME = "Ryan Duguid"
+OG_LOCALE = "en_AU"
 OPEN_GRAPH_FIELDS = (
     "og:title",
     "og:description",
     "og:type",
+    "og:site_name",
+    "og:locale",
     "og:url",
     "og:image",
     "og:image:type",
@@ -280,6 +284,8 @@ def check_social_metadata(
 
     expected_open_graph = {
         "og:description": description,
+        "og:site_name": SITE_NAME,
+        "og:locale": OG_LOCALE,
         "og:url": canonical,
         "og:image": expected_image,
         "og:image:type": "image/png",
