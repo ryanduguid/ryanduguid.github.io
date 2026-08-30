@@ -298,7 +298,7 @@
       <div class="field">
         <label for="reportingMonth">Reporting month</label>
         <input type="month" id="reportingMonth" name="reportingMonth" required pattern="[0-9]{4}-(0[1-9]|1[0-2])" title="Enter the month as YYYY-MM, like 2026-08" placeholder="2026-08" aria-describedby="reportingMonth-help" />
-        <p id="reportingMonth-help" class="field-note">Required for the casual branch because eligible bonus periods depend on the reporting month.</p>
+        <p id="reportingMonth-help" class="field-note">Required for the casual branch because the eligible wages method changed for reporting months from January 2024.</p>
       </div>
       <div class="field field-checkbox">
         <label><input type="checkbox" id="instrumentSpecifiesLoading" name="instrumentSpecifiesLoading" /> An industrial instrument specifies a casual loading</label>
@@ -351,6 +351,14 @@
       } from '/assets/levy.mjs';
       import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
       import { compute } from '/assets/levy-form.mjs';
+
+      // Visible label of each casual pay component casualWages() can report as
+      // ignored, so a discarded figure is named rather than silently dropped.
+      const CASUAL_FIELD_LABELS = {
+        baseRatePay: 'Base rate pay',
+        casualLoading: 'Casual loading',
+        ordinaryRatePay: 'All-in ordinary rate pay',
+      };
 
       function render(result, into, allMonetaryAmountsBlank = false) {
         const cents = result.eligibleWagesCents;
@@ -406,6 +414,14 @@
           blankPolicy.className = 'result-blank-policy';
           blankPolicy.textContent = 'All monetary amounts were blank, so the calculator treated each as $0.00.';
           into.append(blankPolicy);
+        }
+        if (result.ignored && result.ignored.length) {
+          const ignoredPolicy = document.createElement('p');
+          ignoredPolicy.className = 'result-blank-policy';
+          ignoredPolicy.textContent = 'Not counted on the ' + branchLabel + ' branch: '
+            + result.ignored.map((name) => CASUAL_FIELD_LABELS[name]).join(', ')
+            + '. The reporting month and the two casual loading answers select which pay fields apply.';
+          into.append(ignoredPolicy);
         }
       }
 

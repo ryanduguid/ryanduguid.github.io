@@ -1,7 +1,6 @@
 import {
   annualSalaryWages,
   baseRateWages,
-  CASUAL_METHOD_CHANGE_MONTH,
   casualWages,
   grossUp,
   toCents,
@@ -28,24 +27,22 @@ export function compute(form) {
     });
   }
   if (branch === 'casual') {
-    const reportingMonth = form.elements.reportingMonth.value;
-    const sacrificedCents = toCents(num('sacrificed'));
-    const baseRatePayCents = toCents(num('casualBasePay'));
-    const ordinaryRatePayCents = toCents(num('ordinaryPay'));
-    const legacyPayCents = baseRatePayCents || ordinaryRatePayCents;
-    const legacy = reportingMonth < CASUAL_METHOD_CHANGE_MONTH;
+    // Every casual figure is handed over exactly as the user typed it, with
+    // the sacrifice kept separate. casualWages() decides which components its
+    // branch reads, grosses the sacrifice onto that one and reports the rest
+    // as ignored. Collapsing or pre-grossing anything here would make that
+    // report describe this function's arithmetic instead of the user's input:
+    // a blank field carrying only a grossed-up sacrifice was named as "not
+    // counted" while its money sat in the total, and a pre-2024 all-in rate
+    // folded into the base-rate argument was discarded without being named.
     return casualWages({
-      reportingMonth,
+      reportingMonth: form.elements.reportingMonth.value,
       instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
       loadingQuantifiable: form.elements.loadingQuantifiable.checked,
-      baseRatePayCents: grossUp(
-        legacy ? legacyPayCents : baseRatePayCents,
-        sacrificedCents,
-      ),
+      baseRatePayCents: toCents(num('casualBasePay')),
       casualLoadingCents: toCents(num('casualLoading')),
-      ordinaryRatePayCents: legacy
-        ? 0
-        : grossUp(ordinaryRatePayCents, sacrificedCents),
+      ordinaryRatePayCents: toCents(num('ordinaryPay')),
+      sacrificedCents: toCents(num('sacrificed')),
       bonuses,
     });
   }
