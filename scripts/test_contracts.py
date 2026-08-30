@@ -389,6 +389,10 @@ def test_public_contracts() -> int:
         "Claude Code while preserving fabricated-data and human-review boundaries.",
     )
     home_text = core.visible_text(home)
+    assert "Four supported adoption routes" in home_text, (
+        "index.html: github-agent-skills adoption band must name four supported "
+        "adoption routes"
+    )
     for required in github_agent_skills_route:
         assert required in home_text, (
             "index.html: missing github-agent-skills adoption route "

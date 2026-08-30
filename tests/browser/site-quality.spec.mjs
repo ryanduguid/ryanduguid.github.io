@@ -46,7 +46,7 @@ const homepagePreviewRoutes = [
 ];
 
 const homeHeightBaseline = {
-  'mobile-chromium': 9512,
+  'mobile-chromium': 9538,
   'desktop-chromium': 7611,
 };
 
