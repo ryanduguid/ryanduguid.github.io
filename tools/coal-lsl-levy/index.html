@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Coal LSL levy calculator - eligible wages under section 3B</title>
   <meta name="description" content="Estimate the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/coal-lsl-levy/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -72,9 +75,10 @@
     <form id="calc-form" class="calculator-form" novalidate>
       <fieldset>
         <legend>How is this employee paid?</legend>
-        <label><input type="radio" name="branch" value="baseRate" checked /> A base rate of pay (section 3B(1))</label>
-        <label><input type="radio" name="branch" value="annual" /> An annual salary (section 3B(2))</label>
-        <label><input type="radio" name="branch" value="casual" /> As a casual (section 3B(3))</label>
+        <p class="field-note" id="branch-note">Your choice replaces the pay fields that follow.</p>
+        <label><input type="radio" name="branch" value="baseRate" aria-describedby="branch-note" checked /> A base rate of pay (section 3B(1))</label>
+        <label><input type="radio" name="branch" value="annual" aria-describedby="branch-note" /> An annual salary (section 3B(2))</label>
+        <label><input type="radio" name="branch" value="casual" aria-describedby="branch-note" /> As a casual (section 3B(3))</label>
       </fieldset>
 
       <p id="money-blank-help" class="field-note">Leave a monetary amount blank to treat it as $0.00.</p>
@@ -93,7 +97,7 @@
       <div class="field">
         <h2 class="section-title">Bonuses</h2>
         <div id="bonus-rows"></div>
-        <button type="button" id="add-bonus">Add a bonus</button>
+        <button type="button" id="add-bonus" class="button--secondary">Add a bonus</button>
         <p class="field-note">
           Only bonuses paid weekly, fortnightly or monthly count. Quarterly,
           half-yearly and annual amounts are excluded, not spread across the year.
@@ -101,16 +105,19 @@
       </div>
 
       <button type="submit">Calculate</button>
+      <button type="button" id="load-example" class="button--secondary">Load the synthetic example</button>
+      <p class="field-note">The example uses the same fabricated figures as the worked proof on the home page. No client data.</p>
     </form>
 
     <section class="calculator-result" aria-labelledby="result-title">
       <h2 id="result-title">Result</h2>
-      <div id="result" role="status" aria-live="polite" aria-atomic="false">
+      <div id="result" role="status" aria-live="polite" aria-atomic="true">
         <div class="calculator-empty">
           <strong>Ready to calculate</strong>
           <p>Enter this month's figures. The applied branch, formula and explanation will appear here.</p>
         </div>
       </div>
+      <p class="print-note">Estimate only. Check the current prescribed percentage before relying on a figure. duguid.com.au/tools/coal-lsl-levy/</p>
     </section>
     </div>
 
@@ -125,11 +132,13 @@
           <button type="button" id="add-employee">Add to monthly table</button>
         </div>
       </div>
+      <p id="table-status" role="status" class="visually-hidden"></p>
       <div id="employee-table-wrap" hidden>
         <div class="employee-table-scroll" role="region" aria-label="Employee levy table" tabindex="0">
           <table id="employee-table">
+            <caption class="visually-hidden">Employee levy table with monthly totals</caption>
             <thead>
-              <tr><th>Label</th><th>Branch</th><th>Eligible wages</th><th>Levy</th><th></th></tr>
+              <tr><th scope="col">Label</th><th scope="col">Branch</th><th scope="col">Eligible wages</th><th scope="col">Levy</th><th scope="col"><span class="visually-hidden">Remove row</span></th></tr>
             </thead>
             <tbody id="employee-rows"></tbody>
             <tfoot>
@@ -215,17 +224,28 @@
       <!-- geo-blocks -->
       <h2 class="section-title">Common questions</h2>
       <div class="faq">
-        <h3>What levy rate does this calculator use?</h3>
-        <p>The levy rate applied is 2.7 per cent, checked on 28 August 2026. Check the current prescribed percentage in section 6 of the Payroll Levy Regulations 2018 on the Federal Register of Legislation before relying on any figure.</p>
-        <h3>Which bonuses count toward eligible wages?</h3>
-        <p>Only bonuses paid weekly, fortnightly or monthly count. Quarterly, half-yearly and annual amounts are excluded, not spread across the year.</p>
-        <h3>Does the levy apply to employer superannuation?</h3>
-        <p>Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it.</p>
-        <h3>How does this tool round the levy?</h3>
-        <p>No rounding rule is published in the Act, the Regulations or the guidance note. This tool rounds the levy half up to the nearest cent at the final step only, and shows the unrounded figure whenever it differs from the rounded one.</p>
-        <h3>Can I lodge my monthly Coal LSL return with this tool?</h3>
-        <p>No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.</p>
+        <details>
+          <summary><h3>What levy rate does this calculator use?</h3></summary>
+          <p>The levy rate applied is 2.7 per cent, checked on 28 August 2026. Check the current prescribed percentage in section 6 of the Payroll Levy Regulations 2018 on the Federal Register of Legislation before relying on any figure.</p>
+        </details>
+        <details>
+          <summary><h3>Which bonuses count toward eligible wages?</h3></summary>
+          <p>Only bonuses paid weekly, fortnightly or monthly count. Quarterly, half-yearly and annual amounts are excluded, not spread across the year.</p>
+        </details>
+        <details>
+          <summary><h3>Does the levy apply to employer superannuation?</h3></summary>
+          <p>Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it.</p>
+        </details>
+        <details>
+          <summary><h3>How does this tool round the levy?</h3></summary>
+          <p>No rounding rule is published in the Act, the Regulations or the guidance note. This tool rounds the levy half up to the nearest cent at the final step only, and shows the unrounded figure whenever it differs from the rounded one.</p>
+        </details>
+        <details>
+          <summary><h3>Can I lodge my monthly Coal LSL return with this tool?</h3></summary>
+          <p>No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.</p>
+        </details>
       </div>
+      <p>Unexpected result or question? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Coal%20LSL%20levy%20calculator">email with the tool named in the subject</a>.</p>
       <h2 class="section-title" id="sources">Sources</h2>
       <ul class="sources">
         <li><a href="https://coallsl.com.au/guidance-notes/eligible-wages">Coal LSL, Determining eligible wages guidance note</a></li>
@@ -466,6 +486,22 @@
       );
       showBranch(calcForm.elements.branch.value);
 
+      // Fills the form with the same fabricated figures as the home-page
+      // worked proof, so a visitor sees a full result before typing anything.
+      document.getElementById('load-example').addEventListener('click', () => {
+        calcForm.elements.branch.value = 'baseRate';
+        showBranch('baseRate');
+        bonusRows.innerHTML = '';
+        document.getElementById('baseRate').value = '6000';
+        document.getElementById('overtime').value = '3000';
+        document.getElementById('allowances').value = '500';
+        document.getElementById('sacrificed').value = '0';
+        // Programmatic assignment fires no input event, so clear any stale
+        // validation marks before recalculating.
+        [...calcForm.querySelectorAll('input, select')].forEach(clearFieldError);
+        calculate();
+      });
+
       document.getElementById('add-bonus').addEventListener('click', () => {
         const bonusRow = document.getElementById('bonus-row-template').content.cloneNode(true);
         const amount = bonusRow.querySelector('[data-help-template="bonus-amount"]');
@@ -476,9 +512,18 @@
         tokens.add(helpId);
         amount.setAttribute('aria-describedby', [...tokens].join(' '));
         bonusRows.append(bonusRow);
+        relabelBonuses();
       });
+      function relabelBonuses() {
+        bonusRows.querySelectorAll('.bonus-remove').forEach((button, index) => {
+          button.setAttribute('aria-label', `Remove bonus ${index + 1}`);
+        });
+      }
       bonusRows.addEventListener('click', (e) => {
-        if (e.target.classList.contains('bonus-remove')) e.target.closest('.bonus-row').remove();
+        if (e.target.classList.contains('bonus-remove')) {
+          e.target.closest('.bonus-row').remove();
+          relabelBonuses();
+        }
       });
 
       function calculate() {
@@ -492,7 +537,11 @@
 
       calcForm.addEventListener('submit', (event) => {
         event.preventDefault();
-        calculate();
+        // Below 56rem the result stacks under the form, so hand the scroll
+        // position to it; CSS scroll-behavior already respects reduced motion.
+        if (calculate() && matchMedia('(max-width: 56rem)').matches) {
+          document.getElementById('result-title').scrollIntoView({ block: 'start' });
+        }
       });
 
       // Recalculate from the current inputs before printing, so the printed
@@ -502,6 +551,11 @@
       });
 
       let employees = [];
+      const tableStatus = document.getElementById('table-status');
+
+      function rowCount() {
+        return `${employees.length} ${employees.length === 1 ? 'row' : 'rows'}`;
+      }
 
       function escapeHtml(s) {
         return s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -515,7 +569,7 @@
           const tr = document.createElement('tr');
           tr.innerHTML = `<td>${escapeHtml(emp.label)}</td><td>${emp.branch}</td>` +
             `<td>${money(emp.eligibleWagesCents)}</td><td>${money(emp.levyCents)}</td>` +
-            `<td><button type="button" class="link-button" data-remove="${i}">Remove</button></td>`;
+            `<td><button type="button" class="link-button" data-remove="${i}" aria-label="Remove ${escapeHtml(emp.label)}">Remove</button></td>`;
           employeeRows.append(tr);
         });
         document.getElementById('employee-total-wages').textContent = money(totalWages);
@@ -541,13 +595,15 @@
         });
         labelInput.value = '';
         renderEmployees();
+        tableStatus.textContent = `${label} added to the monthly table, ${rowCount()}.`;
       });
 
       employeeRows.addEventListener('click', (e) => {
         const idx = e.target.dataset.remove;
         if (idx !== undefined) {
-          employees.splice(Number(idx), 1);
+          const [removed] = employees.splice(Number(idx), 1);
           renderEmployees();
+          tableStatus.textContent = `${removed.label} removed from the monthly table, ${rowCount()}.`;
         }
       });
 
@@ -585,9 +641,17 @@
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>

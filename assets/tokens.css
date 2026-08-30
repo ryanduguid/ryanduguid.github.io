@@ -79,6 +79,7 @@
   --colour-paper: #050806;
   --colour-paper-raised: #09100d;
   --colour-ink: #eef4f0;
+  --colour-ink-mid: #c9d2cc;
   --colour-ink-soft: #9aa89f;
   --colour-rule: #26332d;
   --colour-rule-strong: #5c7166;
@@ -145,5 +146,14 @@
   :root {
     --motion-fast: 0.01ms;
     --motion-standard: 0.01ms;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --colour-ink-mid: #eef4f0;
+    --colour-ink-soft: #eef4f0;
+    --colour-rule: #5c7166;
+    --rule-thin: 0.125rem;
   }
 }

@@ -56,6 +56,11 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Adopt](https://duguid.com.au/#adopt): the maintained source for the three supported installation commands.
 
+## Contact and history
+
+- [Contact](https://duguid.com.au/contact/): scoped email routes for firm workflows, tool adoption and research enquiries. No taxpayer information or client files.
+- [Changelog](https://duguid.com.au/changelog/): dated register of site changes and tagged tool releases.
+
 ## Source code
 
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.

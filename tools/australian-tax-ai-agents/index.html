@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Australian tax tools for AI agents</title>
   <meta name="description" content="Run local Payday Super and ATO benchmark checks for AI agents, with clear refusals, installation steps and no hosted ATO ruling library." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/australian-tax-ai-agents/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -47,7 +50,7 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Australian tax tools for AI agents: computational engines vs document lookup</li>
+        <li aria-current="page">Australian tax tools for AI agents</li>
       </ol>
     </nav>
     <h1>Australian tax tools for AI agents: computational engines vs document lookup</h1>
@@ -58,7 +61,8 @@
       it refuses Division 7A. It is not a hosted library of ATO rulings, and it
       does not lodge.
     </p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/aus-accounting-mcp/releases/tag/v0.1.5">v0.1.5</a>, tagged source on GitHub.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -146,9 +150,15 @@
     </section>
     <section id="install" class="install-panel">
     <h2>Adopt</h2>
+    <p class="install-needs">Needs Python 3.10 or later and uv.</p>
+    <pre tabindex="0" role="region" aria-label="MCP install commands"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
+<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
+
+<span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
+<span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
     <p>
-      Use <a href="/#adopt">the supported Adopt route</a> for the maintained
-      install commands. It keeps the source repository and executable explicit.
+      <a href="/#adopt">The supported Adopt route</a> remains the maintained
+      source for these commands and the skills variant.
     </p>
     <p>
       aus-accounting-mcp has a published PyPI record and remains available from
@@ -156,12 +166,12 @@
       <a href="https://github.com/ryanduguid/aus-accounting-mcp">Source on GitHub</a>,
       <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI</a>, and
       <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">registry record</a>.
-      Python 3.10+ and uv.
       payday-super-checker is already on
       <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>.
       The official Model Context Protocol registry lists this server as
       <code>io.github.ryanduguid/aus-accounting</code>.
     </p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/aus-accounting-mcp/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Australian%20tax%20tools%20for%20AI%20agents">email with the tool named in the subject</a>.</p>
 
     </section>
     <section id="limits">
@@ -219,9 +229,17 @@
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -241,7 +259,7 @@
         "description": "aus-accounting-mcp runs Payday Super and ATO benchmark checks locally. It is not a hosted ATO ruling library. How it differs, what it refuses, and how to install it.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -259,7 +277,7 @@
         "description": "aus-accounting-mcp runs Payday Super and ATO benchmark checks locally. It is not a hosted ATO ruling library. How it differs, what it refuses, and how to install it.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -285,7 +303,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Australian tax tools for AI agents: computational engines vs document lookup",
+            "name": "Australian tax tools for AI agents",
             "item": "https://duguid.com.au/tools/australian-tax-ai-agents/"
           }
         ]
@@ -315,7 +333,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",
@@ -366,5 +384,6 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

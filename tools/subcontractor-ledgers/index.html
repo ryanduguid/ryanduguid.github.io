@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
   <title>Subcontract ledger skills for construction, mining</title>
   <meta name="description" content="Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -22,6 +23,8 @@
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/subcontractor-ledgers/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
@@ -36,7 +39,7 @@
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
-        <a href="/#engage">Contact</a>
+        <a href="/contact/">Contact</a>
       </nav>
     </div>
   </header>
@@ -47,14 +50,15 @@
       <ol>
         <li><a href="/">Home</a></li>
         <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Subcontract ledger workflows for construction and mining</li>
+        <li aria-current="page">Subcontract ledger skills</li>
       </ol>
     </nav>
     <h1>Subcontract ledger workflows for construction and mining</h1>
     <p class="lead-note">
       These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and over and under billing under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
     </p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 28 August 2026.</p>
+    <p class="release-meta">Release <a href="https://github.com/ryanduguid/hardhat-ledger/releases/tag/v0.1.5">v0.1.5</a>, tagged source on GitHub.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -116,8 +120,10 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
+    <p class="install-needs">Needs an AI coding agent such as Claude Code or Codex, and Node.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>npx skills add ryanduguid/hardhat-ledger</code></pre>
     <p><a href="https://github.com/ryanduguid/hardhat-ledger">Source on GitHub</a></p>
+    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/hardhat-ledger/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Subcontract%20ledger%20skills">email with the tool named in the subject</a>.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
@@ -152,9 +158,17 @@
   </main>
   <footer class="site-footer">
     <div class="site-shell site-footer__inner">
+      <nav class="site-footer__nav" aria-label="Sections">
+        <a href="/tools/">Tools</a>
+        <a href="/rates/">Rates</a>
+        <a href="/evaluate/">Evaluations</a>
+        <a href="/evidence/">Evidence</a>
+        <a href="/about/">About</a>
+        <a href="/contact/">Contact</a>
+      </nav>
       <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
       <div class="site-footer__links">
-        <a href="/evaluate/">Evaluations</a>
+        <a href="/changelog/">Changelog</a>
         <a href="https://github.com/ryanduguid">GitHub</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome List</a>
         <a href="/llms.txt">Machine-readable index</a>
@@ -173,7 +187,7 @@
         "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28",
+        "dateModified": "2026-08-30",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -213,7 +227,7 @@
           {
             "@type": "ListItem",
             "position": 3,
-            "name": "Subcontract ledger workflows for construction and mining",
+            "name": "Subcontract ledger skills",
             "item": "https://duguid.com.au/tools/subcontractor-ledgers/"
           }
         ]
@@ -240,7 +254,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-28"
+        "dateModified": "2026-08-30"
       },
       {
         "@type": "FAQPage",
@@ -275,5 +289,6 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

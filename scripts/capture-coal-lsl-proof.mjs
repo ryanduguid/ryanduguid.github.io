@@ -42,7 +42,7 @@ export async function renderCoalLslProofPage(page) {
     .fill(COAL_LSL_PROOF.inputs.salarySacrifice);
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
 
-  const result = page.getByRole('status');
+  const result = page.locator('#result');
   for (const [kind, expected] of Object.entries({
     'formula-a': COAL_LSL_PROOF.expected.formulaA,
     'formula-b': COAL_LSL_PROOF.expected.formulaB,

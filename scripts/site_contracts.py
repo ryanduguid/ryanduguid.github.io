@@ -63,8 +63,12 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Chartered Accountants ANZ."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-08-28"
-MCP_VISIBLE_REVIEW_DATE = "28 August 2026"
+MCP_REVIEW_DATE = "2026-08-30"
+MCP_VISIBLE_REVIEW_DATE = "30 August 2026"
+MCP_PAGE_INSTALL_PATTERNS = (
+    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
+    CODEX_MCP_INSTALL_PATTERN,
+)
 ASSURANCE_ANCHORS = {
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases and repositories",
@@ -489,14 +493,14 @@ EVALUATION_PACKS = {
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-08-26",
+        "sitemap_lastmod": "2026-08-30",
         "llms_section": "Evaluation packs",
     },
 }
 ARTICLE_TOC_EXTERNAL_LINKS = {
     "tools/payday-super/index.html": (
         "/evaluate/payday-super-evidence/",
-        "Evidence evaluation",
+        "Reproduce the evaluation",
         "Synthetic worked example",
     ),
 }
@@ -508,8 +512,21 @@ PRIMARY_NAV_LINKS = [
     ("/rates/", "Rates"),
     ("/evidence/", "Evidence"),
     ("/about/", "About"),
-    ("/#engage", "Contact"),
+    ("/contact/", "Contact"),
 ]
+
+BREADCRUMB_LEAF_NAMES = {
+    "tools/ato-benchmarks/index.html": "ATO benchmark comparison",
+    "tools/australian-tax-ai-agents/index.html": "Australian tax tools for AI agents",
+    "tools/coal-lsl-levy/index.html": "Coal LSL levy calculator",
+    "tools/company-tax-franking/index.html": "Company tax and franking checks",
+    "tools/payday-super/index.html": "Payday Super timing",
+    "tools/subcontractor-ledgers/index.html": "Subcontract ledger skills",
+    "tools/trust-distributions/index.html": "Trust distribution checks",
+    "tools/wip-schedule/index.html": "Construction WIP schedule",
+    "tools/workpaper-review-gate/index.html": "Workpaper Review Gate",
+    "tools/xero-trial-balance/index.html": "Xero trial balance CSV export",
+}
 
 COLLECTION_HUBS: dict[str, dict[str, object]] = {
     "tools/index.html": {
@@ -518,8 +535,8 @@ COLLECTION_HUBS: dict[str, dict[str, object]] = {
             ("/tools/xero-trial-balance/", "Xero trial balance CSV export"),
             ("/tools/subcontractor-ledgers/", "Subcontract ledger skills"),
             ("/tools/wip-schedule/", "Construction WIP schedule"),
-            ("/tools/payday-super/", "Payday Super due dates and SG charge"),
-            ("/tools/ato-benchmarks/", "ATO small business benchmark comparison"),
+            ("/tools/payday-super/", "Payday Super timing"),
+            ("/tools/ato-benchmarks/", "ATO benchmark comparison"),
             ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
             ("/tools/trust-distributions/", "Trust distribution checks"),
             ("/tools/company-tax-franking/", "Company tax and franking checks"),
@@ -782,7 +799,12 @@ BONUS_FREQUENCIES = [
 
 def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
     """Return the approved social-card image and alt for one canonical page."""
-    if rel in {"index.html", "about/index.html"}:
+    if rel in {
+        "index.html",
+        "about/index.html",
+        "contact/index.html",
+        "changelog/index.html",
+    }:
         context = "site"
     elif rel == EVIDENCE_REL:
         context = "evidence"
@@ -1696,9 +1718,27 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             for block in core.json_ld_blocks(page_html, rel, failures)
         )
         indexable_text = f"{page_text} {page_json_ld}"
+        if rel == MCP_REL:
+            # The AI-agent page carries its own two MCP commands, mirroring the
+            # canonical #adopt block, so its highest-intent readers do not have
+            # to navigate back to the homepage.
+            if any(
+                len(re.findall(pattern, page_text, re.I)) != 1
+                for pattern in MCP_PAGE_INSTALL_PATTERNS
+            ):
+                failures.append(
+                    f"{rel}: MCP install commands must appear exactly once each"
+                )
+            banned_patterns = tuple(
+                pattern
+                for pattern in PRIMARY_INSTALL_PATTERNS
+                if pattern not in MCP_PAGE_INSTALL_PATTERNS
+            )
+        else:
+            banned_patterns = PRIMARY_INSTALL_PATTERNS
         if any(
             re.search(pattern, indexable_text, re.I)
-            for pattern in PRIMARY_INSTALL_PATTERNS
+            for pattern in banned_patterns
         ):
             failures.append(f"{rel}: supported install commands must link to /#adopt instead")
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
@@ -2301,8 +2341,10 @@ def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
     expected_current: dict[str, str] = {}
     if rel == "tools/index.html":
         expected_current["/tools/"] = "page"
-    elif rel.startswith("tools/") or rel.startswith("evaluate/"):
+    elif rel.startswith("tools/"):
         expected_current["/tools/"] = "location"
+    elif rel == "contact/index.html":
+        expected_current["/contact/"] = "page"
     elif rel == "rates/index.html":
         expected_current["/rates/"] = "page"
     elif rel.startswith("rates/"):
@@ -2335,14 +2377,10 @@ def collection_breadcrumb_shape(
     elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
         parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
     elif rel == "evaluate/index.html":
-        parents = [
-            ("Home", "/", f"{SITE}/"),
-            ("Tools", "/tools/", f"{SITE}/tools/"),
-        ]
+        parents = [("Home", "/", f"{SITE}/")]
     elif rel.startswith("evaluate/"):
         parents = [
             ("Home", "/", f"{SITE}/"),
-            ("Tools", "/tools/", f"{SITE}/tools/"),
             ("Evaluations", "/evaluate/", f"{SITE}/evaluate/"),
         ]
     elif rel == "rates/index.html":
@@ -2361,7 +2399,8 @@ def check_collection_breadcrumb(html: str, rel: str, failures: list[str]) -> Non
     if len(h1s) != 1:
         failures.append(f"{rel}: collection breadcrumb needs exactly one H1")
         return
-    expected = collection_breadcrumb_shape(rel, core.element_text(h1s[0]))
+    leaf_name = BREADCRUMB_LEAF_NAMES.get(rel, core.element_text(h1s[0]))
+    expected = collection_breadcrumb_shape(rel, leaf_name)
     if expected is None:
         return
 

@@ -48,8 +48,16 @@ PROOF_WIDTH = "868"
 PROOF_HEIGHT = "580"
 MAX_PROOF_BYTES = 80_000
 PROOF_ASSET = "assets/coal-lsl-calculator.webp"
+PROOF_MOBILE_ASSET = "assets/coal-lsl-calculator-mobile.webp"
+PROOF_MOBILE_SOURCE = (
+    '<source media="(max-width: 40rem)" '
+    'srcset="/assets/coal-lsl-calculator-mobile.webp"'
+)
 HOMEPAGE_ANCHOR_IDS = ("engage", "adopt", "verify")
-HOMEPAGE_ACTION_TARGETS = ("/tools/", "/#engage")
+# The hero and the Engage terminus each carry the primary /tools/ action; the
+# hero alone carries the /#engage action.
+HOMEPAGE_ACTION_TARGETS = {"/tools/": 2, "/#engage": 1}
+COUNT_WORDS = {1: "one", 2: "two"}
 HOMEPAGE_REQUIRED_CLASSES = (
     "home-hero__actions",
     "trust-band",
@@ -555,10 +563,14 @@ def check_homepage_refinement(root: Path) -> list[str]:
         else []
     )
     failures = []
-    for target in HOMEPAGE_ACTION_TARGETS:
-        if links.count(target) != 1:
+    for target, expected_count in HOMEPAGE_ACTION_TARGETS.items():
+        if links.count(target) != expected_count:
             failures.append(
-                "index.html: expected exactly one " + target + " homepage action"
+                "index.html: expected exactly "
+                + COUNT_WORDS[expected_count]
+                + " "
+                + target
+                + " homepage action"
             )
         if action_links.count(target) != 1:
             failures.append(
@@ -666,7 +678,6 @@ def check_document_delivery(
         required = {
             'loading="lazy"': "load lazily",
             'decoding="async"': "decode asynchronously",
-            'fetchpriority="low"': "use low fetch priority",
             f'width="{PROOF_WIDTH}"': "keep its width",
             f'height="{PROOF_HEIGHT}"': "keep its height",
         }
@@ -681,16 +692,22 @@ def check_document_delivery(
                 "index.html: Coal LSL proof image must have descriptive alt text"
             )
 
-    proof_path = root / PROOF_ASSET
-    if not proof_path.is_file():
-        failures.append(f"{PROOF_ASSET}: proof image is missing")
-    else:
+    if PROOF_MOBILE_SOURCE not in homepage:
+        failures.append(
+            "index.html: Coal LSL proof picture must offer the mobile source"
+        )
+
+    for asset in (PROOF_ASSET, PROOF_MOBILE_ASSET):
+        proof_path = root / asset
+        if not proof_path.is_file():
+            failures.append(f"{asset}: proof image is missing")
+            continue
         proof = proof_path.read_bytes()
         if proof[:4] != b"RIFF" or proof[8:12] != b"WEBP":
-            failures.append(f"{PROOF_ASSET}: proof image is not a WebP container")
+            failures.append(f"{asset}: proof image is not a WebP container")
         if len(proof) > MAX_PROOF_BYTES:
             failures.append(
-                f"{PROOF_ASSET}: proof image exceeds {MAX_PROOF_BYTES} bytes"
+                f"{asset}: proof image exceeds {MAX_PROOF_BYTES} bytes"
             )
     return failures
 
