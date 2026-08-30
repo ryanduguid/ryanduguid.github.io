@@ -491,6 +491,7 @@
       document.getElementById('load-example').addEventListener('click', () => {
         calcForm.elements.branch.value = 'baseRate';
         showBranch('baseRate');
+        bonusRows.innerHTML = '';
         document.getElementById('baseRate').value = '6000';
         document.getElementById('overtime').value = '3000';
         document.getElementById('allowances').value = '500';
@@ -507,13 +508,19 @@
         const tokens = describedByTokens(amount);
         tokens.add(helpId);
         amount.setAttribute('aria-describedby', [...tokens].join(' '));
-        bonusRow.querySelector('.bonus-remove').setAttribute(
-          'aria-label', `Remove bonus ${bonusRows.children.length + 1}`
-        );
         bonusRows.append(bonusRow);
+        relabelBonuses();
       });
+      function relabelBonuses() {
+        bonusRows.querySelectorAll('.bonus-remove').forEach((button, index) => {
+          button.setAttribute('aria-label', `Remove bonus ${index + 1}`);
+        });
+      }
       bonusRows.addEventListener('click', (e) => {
-        if (e.target.classList.contains('bonus-remove')) e.target.closest('.bonus-row').remove();
+        if (e.target.classList.contains('bonus-remove')) {
+          e.target.closest('.bonus-row').remove();
+          relabelBonuses();
+        }
       });
 
       function calculate() {

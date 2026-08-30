@@ -13,6 +13,10 @@ if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') 
     button.type = 'button';
     button.className = 'copy-button';
     button.textContent = 'Copy';
+    const blockLabel = pre.getAttribute('aria-label');
+    if (blockLabel) {
+      button.setAttribute('aria-label', 'Copy: ' + blockLabel.toLowerCase());
+    }
     let resetTimer = 0;
     button.addEventListener('click', async () => {
       const commands = [...pre.querySelectorAll('.cmd')];

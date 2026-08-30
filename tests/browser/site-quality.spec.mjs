@@ -10,6 +10,7 @@ const routes = [
   ['evidence', '/evidence/'],
   ['tools', '/tools/'],
   ['evaluations', '/evaluate/'],
+  ['payday evidence evaluation', '/evaluate/payday-super-evidence/'],
   ['rates', '/rates/'],
   ['super guarantee rate', '/rates/super-guarantee/'],
   ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],

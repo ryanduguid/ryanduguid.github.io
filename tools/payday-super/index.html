@@ -117,13 +117,12 @@
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.10 or later; no other runtime dependencies. This is a command-line tool for whoever runs Python at the firm.</p>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><code>pip install payday-super-checker
-# or
-git clone https://github.com/ryanduguid/payday-super-checker.git
-cd payday-super-checker &amp;&amp; pip install .</code></pre>
+    <pre tabindex="0" role="region" aria-label="Install from PyPI"><code><span class="cmd">pip install payday-super-checker</span></code></pre>
+    <pre tabindex="0" role="region" aria-label="Install from source"><code><span class="cmd">git clone https://github.com/ryanduguid/payday-super-checker.git</span>
+<span class="cmd">cd payday-super-checker &amp;&amp; pip install .</span></code></pre>
     <p>First success takes one command. From the cloned repository, run the bundled fabricated sample and compare the summary line:</p>
-    <pre tabindex="0" role="region" aria-label="First run command"><code>payday-super-check examples/sample_payrun_no_transition.csv --as-at 2026-09-10
-# prints: ON_TIME: 3  AT_RISK: 1  LATE: 1  UNPAID: 1  UNKNOWN: 0  SKIPPED: 1</code></pre>
+    <pre tabindex="0" role="region" aria-label="First run command"><code><span class="cmd">payday-super-check examples/sample_payrun_no_transition.csv --as-at 2026-09-10</span>
+<span class="comment"># prints: ON_TIME: 3  AT_RISK: 1  LATE: 1  UNPAID: 1  UNKNOWN: 0  SKIPPED: 1</span></code></pre>
     <p><a href="https://github.com/ryanduguid/payday-super-checker">Source on GitHub</a>
        · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
        · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
