@@ -77,6 +77,26 @@ The Lighthouse reports stay under ignored `work/lighthouse/`. The tested
 browser and hands-on accessibility observations are recorded in
 [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md).
 
+## Response headers
+
+The site is served by GitHub Pages, which does not let a repository set response
+headers. There is no `_headers`, `netlify.toml` or CDN configuration here, and
+adding one would have no effect on the published origin.
+
+The consequence is that `Strict-Transport-Security`, `Content-Security-Policy`,
+`X-Content-Type-Options`, `X-Frame-Options` / `frame-ancestors` and
+`Permissions-Policy` are absent, and `Access-Control-Allow-Origin: *` is set by
+the platform. GitHub Pages does enforce HTTPS with a permanent redirect, and
+`Referrer-Policy` is carried in the document as
+`<meta name="referrer" content="strict-origin-when-cross-origin">` because that
+directive is honoured in markup.
+
+The rest are response-header-only controls: a `<meta http-equiv>` copy either
+does nothing or is ignored by browsers, so none is emitted rather than shipping
+a header that looks present and is not. Closing the gap means moving the origin
+behind a proxy that can set headers, which is a hosting decision, not a
+repository one.
+
 ## Social-card provenance
 
 The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
