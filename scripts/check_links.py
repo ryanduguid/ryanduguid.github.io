@@ -96,6 +96,14 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
     }
 )
 
+# LinkedIn answers every non-browser client with HTTP 999 rather than serving
+# the profile. The page is reachable in a browser; only automation is refused.
+LINKEDIN_AUTOMATION_DENIAL_URLS = frozenset(
+    {
+        "https://www.linkedin.com/in/ryan-duguid",
+    }
+)
+
 
 class LinkCollector(HTMLParser):
     def __init__(self) -> None:
@@ -133,8 +141,10 @@ def fetch_final_url(
 
 
 def is_accepted_automation_denial(url: str, status: int) -> bool:
-    """True only for exact ATO source denials reproduced on GitHub runners."""
-    return url in ATO_AUTOMATION_DENIAL_URLS and status == 403
+    """True only for exact allow-listed denials reproduced on GitHub runners."""
+    if url in ATO_AUTOMATION_DENIAL_URLS and status == 403:
+        return True
+    return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status == 999
 
 
 def is_self_origin(href: str) -> bool:
@@ -206,7 +216,7 @@ def check_file(path: Path) -> list[str]:
             if is_accepted_automation_denial(href, exc.code):
                 print(
                     f"accepted automation denial {rel}: {href} -> HTTP {exc.code} "
-                    "(exact allow-listed ATO URL)"
+                    "(exact allow-listed URL)"
                 )
             else:
                 failures.append(f"{rel}: {href} -> HTTP {exc.code}")
@@ -266,6 +276,15 @@ def _self_check() -> None:
     assert not is_accepted_automation_denial("https://www.ato.gov.au/", 404), (
         "ATO root HTTP errors other than 403 must still fail"
     )
+    assert is_accepted_automation_denial(
+        "https://www.linkedin.com/in/ryan-duguid", 999
+    ), "the exact LinkedIn profile HTTP 999 must be an accepted automation denial"
+    assert not is_accepted_automation_denial(
+        "https://www.linkedin.com/in/ryan-duguid", 404
+    ), "LinkedIn profile HTTP errors other than 999 must still fail"
+    assert not is_accepted_automation_denial(
+        "https://www.linkedin.com/company/example", 999
+    ), "a LinkedIn URL outside the allow-list must still fail"
     print(f"self-check OK: {len(found)} HTML files discovered")
 
 
