@@ -47,10 +47,20 @@ AUTHORITY_URLS = {
 CODEX_MCP_INSTALL_PATTERN = (
     r"\bcodex\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b"
 )
+GITHUB_AGENT_SKILLS_URL = "https://github.com/ryanduguid/github-agent-skills"
+GITHUB_AGENT_SKILLS_BOUNDARY = (
+    "github-agent-skills supplies GitHub maintenance workflows for Codex and Claude "
+    "Code while preserving fabricated-data and human-review boundaries."
+)
+GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
+    r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
+    r"cd\s+github-agent-skills\s+pwsh\s+-File\s+scripts/sync-skills\.ps1\b"
+)
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
     r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+    GITHUB_AGENT_SKILLS_INSTALL_PATTERN,
 )
 RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+--from\s*"
@@ -1698,6 +1708,11 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         failures.append("index.html: install commands must appear only inside #adopt")
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, home_text, re.I):
         failures.append("index.html: retired GitHub-source install command")
+    if GITHUB_AGENT_SKILLS_BOUNDARY not in adopt_text:
+        failures.append(
+            "index.html: github-agent-skills boundary must be "
+            f"{GITHUB_AGENT_SKILLS_BOUNDARY!r}"
+        )
 
     llms_path = root / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
@@ -1706,6 +1721,31 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         failures.append("llms.txt: supported install commands must link to /#adopt instead")
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
         failures.append("llms.txt: retired GitHub-source install command")
+    if (
+        GITHUB_AGENT_SKILLS_URL not in llms
+        or GITHUB_AGENT_SKILLS_BOUNDARY not in llms
+    ):
+        failures.append("llms.txt: github-agent-skills adoption entry is incomplete")
+
+    agent_tooling_path = root / "docs" / "agent-tooling.md"
+    agent_tooling = (
+        agent_tooling_path.read_text(encoding="utf-8")
+        if agent_tooling_path.is_file()
+        else ""
+    )
+    if (
+        GITHUB_AGENT_SKILLS_URL not in agent_tooling
+        or GITHUB_AGENT_SKILLS_BOUNDARY not in agent_tooling
+        or any(
+            command not in agent_tooling
+            for command in (
+                "git clone https://github.com/ryanduguid/github-agent-skills.git",
+                "cd github-agent-skills",
+                "pwsh -File scripts/sync-skills.ps1",
+            )
+        )
+    ):
+        failures.append("docs/agent-tooling.md: github-agent-skills setup is incomplete")
 
     for path in core.html_files(root):
         rel = path.relative_to(root).as_posix()
