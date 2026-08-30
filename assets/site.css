@@ -764,14 +764,14 @@ tbody tr:hover td {
   font-size: var(--text-caption);
 }
 
-.route-actions--mail > a > strong {
+.route-actions.route-actions--mail > a > strong {
   color: var(--colour-stamp-strong);
   text-decoration: underline;
   text-decoration-thickness: var(--rule-thin);
   text-underline-offset: var(--space-1);
 }
 
-.route-actions--mail > a {
+.route-actions.route-actions--mail > a {
   grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr) auto;
 }
 
@@ -1768,6 +1768,7 @@ input[type="checkbox"] {
   }
 
   .route-actions > a,
+  .route-actions.route-actions--mail > a,
   .adoption-links > a,
   .credential-register > div {
     grid-template-columns: 1fr;

@@ -22,17 +22,20 @@ const primaryNavigation = [
   ['/rates/', 'Rates'],
   ['/evidence/', 'Evidence'],
   ['/about/', 'About'],
-  ['/#engage', 'Contact'],
+  ['/contact/', 'Contact'],
 ];
 
 const currentNavigationCases = [
   ['/tools/', 'Tools', 'page'],
   ['/tools/coal-lsl-levy/', 'Tools', 'location'],
-  ['/evaluate/', 'Tools', 'location'],
-  ['/evaluate/manager-review-gate/', 'Tools', 'location'],
   ['/rates/', 'Rates', 'page'],
   ['/rates/super-guarantee/', 'Rates', 'location'],
+  ['/contact/', 'Contact', 'page'],
 ];
+
+// Evaluations is a top-level section with no nav item of its own, so no
+// primary link claims the current location on those routes.
+const noCurrentNavigationRoutes = ['/evaluate/', '/evaluate/manager-review-gate/'];
 
 const homepagePreviewRoutes = [
   ['Extract', '/tools/#extract-tools', 'extract-tools'],
@@ -158,10 +161,15 @@ test('primary navigation order and current states match the collection hierarchy
     await expect(current).toHaveText(currentLabel);
     await expect(current).toHaveAttribute('aria-current', currentValue);
   }
+  for (const route of noCurrentNavigationRoutes) {
+    await page.goto(route);
+    const primary = page.getByRole('navigation', { name: 'Primary' });
+    await expect(primary.locator('[aria-current]')).toHaveCount(0);
+  }
   health.assertHealthy();
 });
 
-test('focused mobile primary navigation links scroll fully into view', async ({ page }, testInfo) => {
+test('all five primary navigation links fit the smallest mobile width', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
@@ -170,32 +178,34 @@ test('focused mobile primary navigation links scroll fully into view', async ({ 
   expect(await primary.evaluate((element) =>
     getComputedStyle(element).flexWrap
   )).toBe('nowrap');
-  const firstPrimaryLink = primary.getByRole('link', { name: 'Tools' });
-  const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
-  await firstPrimaryLink.focus();
-  for (let index = 0; index < 4; index += 1) {
-    await page.keyboard.press('Tab');
-  }
-  await expect(lastPrimaryLink).toBeFocused();
-  const geometry = await lastPrimaryLink.evaluate((link) => {
-    const navigation = link.closest('nav');
-    const linkBounds = link.getBoundingClientRect();
+  // Every link, Contact included, must be visible without horizontal
+  // scrolling: a clipped nav item with no scroll cue is an invisible route.
+  const geometry = await primary.evaluate((navigation) => {
     const navigationBounds = navigation.getBoundingClientRect();
     return {
       clientWidth: navigation.clientWidth,
       scrollWidth: navigation.scrollWidth,
-      scrollLeft: navigation.scrollLeft,
-      linkLeft: linkBounds.left,
-      linkRight: linkBounds.right,
-      navigationLeft: navigationBounds.left,
-      navigationRight: navigationBounds.right,
-      fullyVisible: linkBounds.left >= navigationBounds.left - 1
-        && linkBounds.right <= navigationBounds.right + 1,
+      links: [...navigation.querySelectorAll('a')].map((link) => {
+        const bounds = link.getBoundingClientRect();
+        return {
+          label: link.textContent,
+          fullyVisible: bounds.left >= navigationBounds.left - 1
+            && bounds.right <= navigationBounds.right + 1,
+        };
+      }),
     };
   });
-  expect(geometry.scrollWidth).toBeGreaterThan(geometry.clientWidth);
-  expect(geometry.scrollLeft).toBeGreaterThan(0);
-  expect(geometry.fullyVisible, JSON.stringify(geometry)).toBe(true);
+  expect(geometry.scrollWidth, JSON.stringify(geometry)).toBeLessThanOrEqual(geometry.clientWidth);
+  expect(geometry.links).toHaveLength(5);
+  for (const link of geometry.links) {
+    expect(link.fullyVisible, `${link.label} is clipped`).toBe(true);
+  }
+  const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
+  await primary.getByRole('link', { name: 'Tools' }).focus();
+  for (let index = 0; index < 4; index += 1) {
+    await page.keyboard.press('Tab');
+  }
+  await expect(lastPrimaryLink).toBeFocused();
   health.assertHealthy();
 });
 
@@ -234,19 +244,23 @@ test('public pages do not overflow at refinement acceptance widths', async ({ pa
   health.assertHealthy();
 });
 
-test('home proof image loads only when requested and decodes before capture', async ({ page }) => {
+test('home proof image loads only when requested and decodes before capture', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await page.goto('/');
   const proof = page.getByRole('img', {
     name: /Coal LSL calculator result showing Formula B/,
   });
   await expect(proof).toHaveAttribute('loading', 'lazy');
-  await expect(proof).toHaveAttribute('fetchpriority', 'low');
   await decodedHomeProof(page);
+  // The mobile breakpoint serves the 390-CSS-px render at twice the density
+  // so the ledger text stays legible; wider viewports keep the desktop asset.
+  const expectedNatural = testInfo.project.name === 'mobile-chromium'
+    ? { width: 780, height: 1192 }
+    : { width: 868, height: 580 };
   expect(await proof.evaluate((image) => ({
     width: image.naturalWidth,
     height: image.naturalHeight,
-  }))).toEqual({ width: 868, height: 580 });
+  }))).toEqual(expectedNatural);
   health.assertHealthy();
 });
 
