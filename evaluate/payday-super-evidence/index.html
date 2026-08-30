@@ -35,7 +35,7 @@
     <div class="site-shell site-header__inner">
       <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
       <nav class="site-nav" aria-label="Primary">
-        <a href="/tools/" aria-current="location">Tools</a>
+        <a href="/tools/">Tools</a>
         <a href="/rates/">Rates</a>
         <a href="/evidence/">Evidence</a>
         <a href="/about/">About</a>
@@ -49,7 +49,6 @@
         <nav class="article-crumb" aria-label="Breadcrumb">
           <ol>
             <li><a href="/">Home</a></li>
-            <li><a href="/tools/">Tools</a></li>
             <li><a href="/evaluate/">Evaluations</a></li>
             <li aria-current="page">Payday Super timing evidence evaluation</li>
           </ol>
@@ -185,6 +184,15 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             </p>
           </section>
 
+          <nav class="related-nav" aria-label="Related">
+            <h2>Related</h2>
+            <ul class="related">
+              <li><a href="/tools/payday-super/">Payday Super timing</a></li>
+              <li><a href="/rates/super-guarantee/">Super guarantee rate history</a></li>
+              <li><a href="/evaluate/">All evaluations</a></li>
+            </ul>
+          </nav>
+
           <p class="byline">Written independently by Ryan Duguid, in his own time and on his own equipment.</p>
         </div>
       </div>
@@ -221,7 +229,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-08-26",
+        "dateModified": "2026-08-30",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
@@ -240,18 +248,12 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
           {
             "@type": "ListItem",
             "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
             "name": "Evaluations",
             "item": "https://duguid.com.au/evaluate/"
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 3,
             "name": "Payday Super timing evidence evaluation",
             "item": "https://duguid.com.au/evaluate/payday-super-evidence/"
           }
