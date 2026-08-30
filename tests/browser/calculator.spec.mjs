@@ -61,6 +61,30 @@ test('blank monetary inputs produce an explained zero result', async ({ page }) 
   health.assertHealthy();
 });
 
+test('casual pay the selected branch cannot use is named, not silently dropped', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.getByRole('radio', {
+    name: 'As a casual (section 3B(3))',
+    exact: true,
+  }).check();
+  // Both loading checkboxes keep their unchecked default, which selects
+  // s 3B(3)(b). That branch reads neither field filled in below.
+  await page.getByLabel('Reporting month', { exact: true }).fill('2026-08');
+  await page.getByRole('spinbutton', { name: 'Base rate pay', exact: true }).fill('1800');
+  await page.getByRole('spinbutton', { name: 'Casual loading', exact: true }).fill('450');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+
+  const result = page.locator('#result');
+  await expect(result.locator('[data-result-kind="eligible-wages"]')).toContainText('$0.00');
+  await expect(result.locator('[data-result-kind="levy"]')).toContainText('$0.00');
+  await expect(result.locator('.result-blank-policy')).toHaveText(
+    'Not counted on the section 3B(3)(b) branch: Base rate pay, Casual loading. '
+    + 'The reporting month and the two casual loading answers select which pay fields apply.',
+  );
+  health.assertHealthy();
+});
+
 test('visible monetary controls resolve common and field-specific help', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');

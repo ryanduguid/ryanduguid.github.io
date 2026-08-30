@@ -78,6 +78,10 @@ export function annualSalaryWages({ annualSalaryPaidCents, bonuses }) {
 }
 
 // s 3B(3): no greater-of test and no 75 per cent factor. The branch is selected.
+// Each branch reads only some of the three pay components the form offers, so
+// every entered component the selected branch does not read is named in
+// `ignored`. Without that, pay entered against the wrong branch was discarded
+// with nothing but a confident $0.00 to show for it.
 export function casualWages({
   reportingMonth,
   instrumentSpecifiesLoading = false,
@@ -90,6 +94,13 @@ export function casualWages({
   if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
     throw new TypeError('reportingMonth must be a YYYY-MM string');
   }
+  const entered = {
+    baseRatePay: baseRatePayCents,
+    casualLoading: casualLoadingCents,
+    ordinaryRatePay: ordinaryRatePayCents,
+  };
+  const ignoring = (...used) =>
+    Object.keys(entered).filter((name) => entered[name] > 0 && !used.includes(name));
   const bonus = bonusCents(bonuses);
   if (reportingMonth < CASUAL_METHOD_CHANGE_MONTH) {
     // Mirrors the s 3B(1)(a) shape, with no casual loading component. The
@@ -98,16 +109,25 @@ export function casualWages({
     // field when only that one was filled in. Without this, a user who
     // enters the all-in rate for a pre-2024 month got a silent $0.00.
     const payCents = baseRatePayCents || ordinaryRatePayCents;
-    return { branch: 'pre-2024', eligibleWagesCents: payCents + bonus };
+    return {
+      branch: 'pre-2024',
+      eligibleWagesCents: payCents + bonus,
+      ignored: ignoring(baseRatePayCents ? 'baseRatePay' : 'ordinaryRatePay'),
+    };
   }
   if (instrumentSpecifiesLoading && loadingQuantifiable) {
     return {
       branch: 's 3B(3)(a)',
       eligibleWagesCents: baseRatePayCents + bonus + casualLoadingCents,
+      ignored: ignoring('baseRatePay', 'casualLoading'),
     };
   }
   // The loading is already inside the ordinary rate. Do not add it again.
-  return { branch: 's 3B(3)(b)', eligibleWagesCents: ordinaryRatePayCents + bonus };
+  return {
+    branch: 's 3B(3)(b)',
+    eligibleWagesCents: ordinaryRatePayCents + bonus,
+    ignored: ignoring('ordinaryRatePay'),
+  };
 }
 
 // Rounding is a CHOICE, not a rule. Neither the Act, the Regulations nor the

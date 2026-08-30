@@ -20,6 +20,6 @@ test('renders the fixed Coal LSL proof within its published image contract', asy
   if (testInfo.config.updateSnapshots === 'all') {
     await writeCoalLslProof(image);
   } else {
-    expect(await readFile(proofPath)).toEqual(publishedProof);
+    expect(image).toEqual(publishedProof);
   }
 });

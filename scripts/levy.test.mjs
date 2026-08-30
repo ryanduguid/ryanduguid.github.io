@@ -109,6 +109,37 @@ test('D10 casual: unquantifiable loading uses the ordinary rate and is not added
   assert.equal(r.eligibleWagesCents, 225000);
 });
 
+test('D10b casual: pay the selected branch drops is reported, not silently zeroed', () => {
+  // Both checkboxes default to unchecked, so a user who fills the base rate
+  // and loading fields lands on s 3B(3)(b), which reads neither. The result
+  // must name what it dropped instead of presenting a confident $0.00.
+  const b = casualWages({
+    reportingMonth: '2026-08',
+    baseRatePayCents: d(1800),
+    casualLoadingCents: d(450),
+  });
+  assert.equal(b.branch, 's 3B(3)(b)');
+  assert.equal(b.eligibleWagesCents, 0);
+  assert.deepEqual(b.ignored, ['baseRatePay', 'casualLoading']);
+
+  // The mirror case: both boxes ticked, only the all-in ordinary rate filled.
+  const a = casualWages({
+    reportingMonth: '2026-08',
+    instrumentSpecifiesLoading: true,
+    loadingQuantifiable: true,
+    ordinaryRatePayCents: d(2250),
+  });
+  assert.equal(a.branch, 's 3B(3)(a)');
+  assert.equal(a.eligibleWagesCents, 0);
+  assert.deepEqual(a.ignored, ['ordinaryRatePay']);
+
+  // A branch that reads everything entered reports nothing ignored.
+  assert.deepEqual(
+    casualWages({ reportingMonth: '2026-08', ordinaryRatePayCents: d(2250) }).ignored,
+    [],
+  );
+});
+
 test('D11 casual: months before January 2024 use the legacy method', () => {
   const r = casualWages({
     reportingMonth: '2023-12',

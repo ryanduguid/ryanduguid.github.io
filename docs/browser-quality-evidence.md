@@ -19,11 +19,12 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Automated results
 
-- The 42-test Playwright matrix completed with 38 passes and four intentional
-  project-specific skips. Seven approved routes passed the mobile and desktop
-  page-shell matrix: one visible `h1`, `main#main`, primary navigation, no
-  document-level horizontal overflow, no browser health errors, and no serious
-  or critical Axe findings.
+- `npm run test:browser` collects 70 tests over its two projects, four of which
+  are intentional project-specific skips, leaving 66 that run. The two capture
+  specs run under a different config and project, so neither is in that count.
+  Eleven approved routes passed the mobile and desktop page-shell matrix: one
+  visible `h1`, `main#main`, primary navigation, no document-level horizontal
+  overflow, no browser health errors, and no serious or critical Axe findings.
 - The missing-route positive control proved that an unapproved HTTP 404 fails
   the health collector; the paired allow-list case passed only for its exact
   route and status.
