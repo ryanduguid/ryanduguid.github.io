@@ -19,11 +19,13 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Automated results
 
-- The 42-test Playwright matrix completed with 38 passes and four intentional
-  project-specific skips. Seven approved routes passed the mobile and desktop
-  page-shell matrix: one visible `h1`, `main#main`, primary navigation, no
-  document-level horizontal overflow, no browser health errors, and no serious
-  or critical Axe findings.
+- `npm run test:browser` collects 74 tests over its two projects, four of which
+  are intentional project-specific skips, leaving 70 that run. The two capture
+  specs are not part of that count: they run under a different config and
+  project, and are described under Limits. Eleven approved routes passed the
+  mobile and desktop page-shell matrix: one visible `h1`, `main#main`, primary
+  navigation, no document-level horizontal overflow, no browser health errors,
+  and no serious or critical Axe findings.
 - The missing-route positive control proved that an unapproved HTTP 404 fails
   the health collector; the paired allow-list case passed only for its exact
   route and status.
@@ -184,6 +186,34 @@ intrinsic-dimension evidence; source-level image parsing remains an explicit
 deferred limitation.
 
 The focused capture check renders one fabricated Formula B result through the
-same Playwright-served page used by the browser suite. It validates the fixed
-dimensions, visible result values, WebP container and 80 KB limit without
-writing the tracked proof unless snapshot-update mode is explicit.
+same Playwright-served page used by the browser suite, then holds two images to
+one contract: a RIFF/WEBP container, a canvas of 868 by 580 read from the WebP
+header, and a file inside the 80 KB budget. It applies that contract to the
+fresh render, then applies it again to the committed
+`assets/coal-lsl-calculator.webp`. The second application does not run under
+`--update-snapshots=all`, where the spec writes the tracked proof and returns
+before it reaches that line. `check_design` holds the same published file to
+the RIFF/WEBP container and the 80,000-byte budget in
+`scripts/check_design.py`, so the 868 by 580 canvas is what this spec adds over
+that gate. `renderCoalLslProofPage` pins the figures the picture shows,
+matching Formula A, Formula B, eligible wages, the levy, the branch and the
+explanation against `COAL_LSL_PROOF`, throwing when any has drifted, and
+holding the captured panel to 868 by 580 before the screenshot.
+
+The rendered bytes are never compared with the published bytes. That WebP comes
+from `canvas.toDataURL` in whichever Chromium the runner carries, over a PNG
+whose text the host rasterised, so the same page encodes to a different file on
+a different machine: the committed proof is 30,050 bytes and a Linux render of
+it came back at 28,078. CI runs the capture on `windows-latest` against a proof
+captured elsewhere, where byte equality cannot pass. The check writes the
+tracked proof only when snapshot-update mode is explicit. It runs under
+`playwright.capture.config.mjs` in the `proof-chromium` project, alongside the
+social-card capture spec, so neither is part of the `npm run test:browser`
+count above.
+
+The repository commits three screenshot baselines for `win32` only, two
+full-page homepage captures and one capture of the calculator result panel.
+`win32` is the platform the browser job runs on. A run on another platform has
+no baseline to compare against, so it writes one and reports the test as
+failed. The counts above are therefore the matrix as collected, not a claim
+that every test passes on every platform.
