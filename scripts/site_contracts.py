@@ -128,7 +128,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "australian-accounting-skills",
         "https://github.com/ryanduguid/australian-accounting-skills",
         "Claude Code and Codex skills for Australian public-practice workflows. "
-        "Not lodgment.",
+        "Not lodgement.",
     ),
     "workpaper-review-gate": (
         "workpaper-review-gate",
@@ -283,7 +283,7 @@ EVALUATION_PACKS = {
             "OPEN_ITEM_BLOCKING",
             "Exit 0 with READY and no configured findings",
             "READY means no configured gate tripped; it is not approval, advice or "
-            "lodgment authority.",
+            "lodgement authority.",
         ),
         "product_evidence_urls": (
             "https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/"
@@ -600,7 +600,7 @@ EVIDENCE_OPENING = (
     "This register links public claims to identity records, releases, primary "
     "source reviews, repository controls and reproducible tests. It supports "
     "limited claims about the software. It does not turn an output into advice, "
-    "approval, a compliance decision or a lodgment."
+    "approval, a compliance decision or a lodgement."
 )
 HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_HEADING,
@@ -1563,7 +1563,7 @@ def check_llms_authority_surface(llms: str) -> list[str]:
     )
     required_boundaries = (
         "Do not send taxpayer information or client files",
-        "This is not a tax advice or lodgment channel",
+        "This is not a tax advice or lodgement channel",
         "does not create a professional engagement",
         "scope, responsibilities and data handling must be agreed separately",
     )
