@@ -91,10 +91,17 @@ the platform. GitHub Pages does enforce HTTPS with a permanent redirect, and
 `<meta name="referrer" content="strict-origin-when-cross-origin">` because that
 directive is honoured in markup.
 
-The rest are response-header-only controls: a `<meta http-equiv>` copy either
-does nothing or is ignored by browsers, so none is emitted rather than shipping
-a header that looks present and is not. Closing the gap means moving the origin
-behind a proxy that can set headers, which is a hosting decision, not a
+`Content-Security-Policy` is the exception. Browsers honour a policy delivered
+as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
+`report-uri` / `report-to` and report-only mode, which the specification
+reserves for the response header. This site carries no inline `<style>`, no
+`style` attribute and no executable inline script, so a markup policy is
+available to it and is not shipped. That is an open repository item.
+
+The remainder are response-header-only controls: a `<meta http-equiv>` copy
+either does nothing or is ignored by browsers, so none is emitted rather than
+shipping a header that looks present and is not. Closing those means moving the
+origin behind a proxy that can set headers, which is a hosting decision, not a
 repository one.
 
 ## Social-card provenance
