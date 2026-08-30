@@ -46,7 +46,9 @@ const homepagePreviewRoutes = [
 ];
 
 const homeHeightBaseline = {
-  'mobile-chromium': 9538,
+  // The approved adoption route moved the mobile render from 9,278px to
+  // 9,726px (+448px). Preserve the original 234px (~2.4%) guard margin.
+  'mobile-chromium': 9960,
   'desktop-chromium': 7611,
 };
 
@@ -307,7 +309,9 @@ test('home matches its viewport visual baseline', async ({ page }, testInfo) => 
     animations: 'disabled',
     caret: 'hide',
     fullPage: true,
-    maxDiffPixelRatio: 0.01,
+    // The former ratio allowance grew with page height and hid a stale
+    // adoption heading. Keep a fixed margin for incidental raster noise.
+    maxDiffPixels: 100,
   });
   health.assertHealthy();
 });
