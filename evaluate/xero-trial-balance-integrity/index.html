@@ -76,6 +76,29 @@
           <a href="#limitations">Limitations</a>
         </nav>
         <div class="article-body">
+          <dl class="evaluation-summary" aria-label="Evaluation summary">
+            <div>
+              <dt>Problem</dt>
+              <dd>An automated trial balance export can look tidy while one balance pair is wrong.</dd>
+            </div>
+            <div>
+              <dt>Control</dt>
+              <dd>Check movement and year-to-date debits against credits before any CSV write.</dd>
+            </div>
+            <div>
+              <dt>Evidence</dt>
+              <dd>Three fabricated fixtures isolate a passing file, a movement failure and a YTD failure.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>One run exits 0. Two runs exit 1 and report that nothing was written.</dd>
+            </div>
+            <div>
+              <dt>Limit</dt>
+              <dd>Balance does not prove completeness, classification or approval.</dd>
+            </div>
+          </dl>
+
           <section id="accounting-problem">
             <h2>Accounting problem</h2>
             <p>
