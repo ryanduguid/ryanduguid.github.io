@@ -325,6 +325,43 @@ def test_design_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, check_design.check_repository(root), expected)
 
+    review_date_paths = (
+        "index.html",
+        "tools/index.html",
+        "evidence/index.html",
+    )
+    for rel in review_date_paths:
+        with copied_site() as root:
+            replace_file(
+                root,
+                rel,
+                "Last reviewed 30 August 2026.",
+                "Last reviewed 31 August 2026.",
+            )
+            expect_failure(
+                f"{rel} review date disagrees with structured freshness",
+                check_design.check_opening_review_dates(root),
+                "does not match JSON-LD dateModified",
+            )
+
+        with copied_site() as root:
+            replace_file(
+                root,
+                rel,
+                "Last reviewed 30 August 2026.",
+                "Last reviewed 31 August 2026.",
+            )
+            replace_file(
+                root,
+                rel,
+                '"dateModified": "2026-08-30"',
+                '"dateModified": "2026-08-31"',
+            )
+            assert_clean(
+                f"{rel} accepts a matching future review date",
+                check_design.check_opening_review_dates(root),
+            )
+
     with copied_site() as root:
         append_file(
             root,
@@ -365,7 +402,7 @@ def test_design_contracts() -> int:
             "route labels must not be sticky",
         )
 
-    return len(text_mutations) + 5
+    return len(text_mutations) + 5 + (2 * len(review_date_paths))
 
 
 def contract_mutation(

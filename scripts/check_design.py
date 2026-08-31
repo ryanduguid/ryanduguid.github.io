@@ -7,6 +7,7 @@ import html as html_module
 import json
 import re
 import sys
+from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree
@@ -125,7 +126,9 @@ OPENING_REVIEW_DATE_CONTEXTS = {
     "tools/index.html": "article-header",
     "evidence/index.html": "article-header",
 }
-OPENING_REVIEW_DATE = "Last reviewed 30 August 2026."
+OPENING_REVIEW_DATE_PATTERN = re.compile(
+    r"^Last reviewed (?P<date>\d{1,2} [A-Z][a-z]+ \d{4})\.$"
+)
 EMOJI_PATTERN = re.compile(
     "[\u2600-\u26ff\u2700-\u27bf\U0001f300-\U0001faff]"
 )
@@ -553,14 +556,15 @@ def check_copy(root: Path) -> list[str]:
 
 
 def check_opening_review_dates(root: Path) -> list[str]:
-    """Keep claim-adjacent review dates in the opening page context."""
+    """Keep visible opening review dates aligned with structured freshness."""
     failures: list[str] = []
     for rel, context_class in OPENING_REVIEW_DATE_CONTEXTS.items():
         path = root / rel
         if not path.is_file():
             failures.append(f"{rel}: missing page for opening review-date check")
             continue
-        document = core.parse_structure(path.read_text(encoding="utf-8"))
+        raw_html = path.read_text(encoding="utf-8")
+        document = core.parse_structure(raw_html)
         contexts = [
             element
             for element in core.descendants(document, rendered_only=True)
@@ -571,15 +575,50 @@ def check_opening_review_dates(root: Path) -> list[str]:
             for element in core.descendants(document, rendered_only=True)
             if element.has_class("page-meta")
         ]
-        if (
-            len(contexts) != 1
-            or len(dates) != 1
-            or core.element_text(dates[0]) != OPENING_REVIEW_DATE
-            or not core.is_descendant(dates[0], contexts[0])
+        if len(contexts) != 1 or len(dates) != 1 or not core.is_descendant(
+            dates[0], contexts[0]
         ):
             failures.append(
-                f"{rel}: expected exactly one opening page-meta with "
-                f"{OPENING_REVIEW_DATE!r}"
+                f"{rel}: expected exactly one opening page-meta inside "
+                f".{context_class}"
+            )
+            continue
+
+        visible_label = core.element_text(dates[0])
+        visible_match = OPENING_REVIEW_DATE_PATTERN.fullmatch(visible_label)
+        if visible_match is None:
+            failures.append(
+                f"{rel}: opening page-meta must use "
+                "'Last reviewed D Month YYYY.'"
+            )
+            continue
+        try:
+            visible_date = datetime.strptime(
+                visible_match.group("date"), "%d %B %Y"
+            ).date()
+        except ValueError:
+            failures.append(f"{rel}: opening page-meta contains an invalid date")
+            continue
+
+        structured_blocks = core.json_ld_blocks(raw_html, rel, failures)
+        modified_values = [
+            node.get("dateModified")
+            for block in structured_blocks
+            for node in core.nodes(block)
+            if "dateModified" in node
+        ]
+        if len(modified_values) != 1 or not isinstance(modified_values[0], str):
+            failures.append(f"{rel}: expected exactly one JSON-LD dateModified")
+            continue
+        try:
+            structured_date = date.fromisoformat(modified_values[0])
+        except ValueError:
+            failures.append(f"{rel}: JSON-LD dateModified must be an ISO date")
+            continue
+        if visible_date != structured_date:
+            failures.append(
+                f"{rel}: opening review date {visible_date.isoformat()} does not "
+                f"match JSON-LD dateModified {structured_date.isoformat()}"
             )
     return failures
 
