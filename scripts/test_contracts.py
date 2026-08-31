@@ -458,6 +458,50 @@ def test_public_contracts() -> int:
     assert_clean("page contracts", failures)
     assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
+
+    github_agent_skills_route = (
+        "https://github.com/ryanduguid/github-agent-skills",
+        "git clone https://github.com/ryanduguid/github-agent-skills.git",
+        "cd github-agent-skills",
+        "pwsh -File scripts/sync-skills.ps1",
+        "github-agent-skills supplies GitHub maintenance workflows for Codex and "
+        "Claude Code while preserving fabricated-data and human-review boundaries.",
+    )
+    home_text = core.visible_text(home)
+    assert "Four supported adoption routes" in home_text, (
+        "index.html: github-agent-skills adoption band must name four supported "
+        "adoption routes"
+    )
+    for required in github_agent_skills_route:
+        assert required in home_text, (
+            "index.html: missing github-agent-skills adoption route "
+            f"requirement {required!r}"
+        )
+    with copied_site() as root:
+        replace_file(
+            root,
+            "index.html",
+            "pwsh -File scripts/sync-skills.ps1",
+            "pwsh -File scripts/sync-skills-copy.ps1",
+        )
+        expect_failure(
+            "github-agent-skills bootstrap command",
+            contracts.check_authority_surface(root),
+            "index.html: install commands must appear only inside #adopt",
+        )
+    with copied_site() as root:
+        replace_file(
+            root,
+            "index.html",
+            github_agent_skills_route[-1],
+            "github-agent-skills changes the maintenance workflow.",
+        )
+        expect_failure(
+            "github-agent-skills boundary",
+            contracts.check_authority_surface(root),
+            "index.html: github-agent-skills boundary must be",
+        )
+
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("social cards", contracts.check_social_cards(ROOT))
@@ -932,7 +976,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 28
+    return len(homepage_mutations) + len(calculator_mutations) + 30
 
 
 def main() -> None:

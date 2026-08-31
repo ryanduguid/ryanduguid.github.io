@@ -46,13 +46,19 @@ const homepagePreviewRoutes = [
 ];
 
 const homeHeightBaseline = {
-  'mobile-chromium': 9251,
+  // Ceilings, not targets, re-measured against the merged page: main shortened
+  // these routes with the shared rhythm and the adoption route lengthens the
+  // homepage, so neither side's numbers described the result. Mobile now
+  // renders at 9,489px and keeps the 234px guard the adoption route documented.
+  // Desktop renders at 6,360px, under the ceilings main already had, so those
+  // stay as they are rather than being loosened to fit.
+  'mobile-chromium': 9723,
   'desktop-chromium': 6630,
 };
 
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
-    ['/', 9383],
+    ['/', 9723],
     ['/tools/', 6598],
     ['/evidence/', 6426],
   ]),
@@ -372,7 +378,9 @@ test('home matches its viewport visual baseline', async ({ page }, testInfo) => 
     animations: 'disabled',
     caret: 'hide',
     fullPage: true,
-    maxDiffPixelRatio: 0.01,
+    // The former ratio allowance grew with page height and hid a stale
+    // adoption heading. Keep a fixed margin for incidental raster noise.
+    maxDiffPixels: 100,
   });
   health.assertHealthy();
 });
