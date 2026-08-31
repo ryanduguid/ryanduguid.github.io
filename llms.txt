@@ -4,13 +4,12 @@ Canonical machine index: https://duguid.com.au/llms.txt
 
 > Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a provisional member of Chartered Accountants Australia and New Zealand, as asserted by the site owner; this is not an endorsement by Chartered Accountants ANZ.
 
-He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site indexes open-source accounting tools. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
+He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site is a personal index of open-source accounting tools built independently in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
 
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval or period lock. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
 
-- **Engage** (https://duguid.com.au/#engage): discuss a firm workflow, controlled evaluation, technical adoption, research, speaking or peer review. Do not send taxpayer information or client files. This is not a tax advice or lodgement channel. A message does not create a professional engagement; scope, responsibilities and data handling must be agreed separately.
 - **Adopt** (https://duguid.com.au/#adopt): use the supported install commands and evaluate tools with fabricated data.
 - **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; human accountability and refusals; and independent evaluation.
 
@@ -59,7 +58,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Contact and history
 
-- [Contact](https://duguid.com.au/contact/): scoped email routes for firm workflows, tool adoption and research enquiries. No taxpayer information or client files.
+- [Contact](https://duguid.com.au/contact/): project and identity links. This site is not a practice and does not accept professional engagements.
 - [Changelog](https://duguid.com.au/changelog/): dated register of site changes and tagged tool releases.
 
 ## Source code

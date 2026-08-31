@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "ebb5191a974a2fa2043690feeef0e7deaee89586880bd3f65300fcf32896107d",
+    "llms.txt": "ac12b93f1c527905a7e1f8724fc791b011313f648ff81279bf53c5a8959663a0",
     "robots.txt": "55445c95d41b8c8b1b386bfb1b1279b879954d66715747cdc0b10bff3b5dd7ea",
-    "sitemap.xml": "0417e321be7fcf246a3339efcd057ffacb123f83761cc5c7b4c899711cbd476c"
+    "sitemap.xml": "7a4308ab5de651b8d0b18a2a2f99f542605704a32b26f3af3e8fd625250c23b6"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e43bdc166adf490a1e6e8a6fa4233e60a7f95e18888cca28848ffa2b3672c2b9",
@@ -59,13 +59,13 @@
   },
   "json_ld": {
     "about/index.html": [
-      "d02c3b1dd425c69580a2ddf4e8551bfd0348a971e7f70f900e410406bc7e7be7"
+      "7efd96eb2f6a4c28d825817223460f71eb50c75b4960b8c393d55700e9374b42"
     ],
     "changelog/index.html": [
-      "5dd0a53bb4a3cb75651da4fb8b0ad7ddef4b2c100651b25fa4727234b921a165"
+      "0f3df78bd103357f84777a45ac7736063b8fff2d2b90ed3ad06de03d21010cea"
     ],
     "contact/index.html": [
-      "93abf499e38af6a80fe2af0bd1cbcb80aeab442e9f70dc9f90453352dc188c77"
+      "41150e27e9dffc9a151b7b8a875c4647669ff36f9439c1ab5590a852ef19805e"
     ],
     "evaluate/index.html": [
       "f9a7b2183a1657718d519ebc262aad975750ebf7b3645ecc9f62ed67f7ce6a66"
@@ -83,7 +83,7 @@
       "505dfccbcb25f6decbed12c4b9530326fa39543370073ba9d387a0033849ddd7"
     ],
     "index.html": [
-      "bea938c5f91d5395a58425b5999ab09ce12d916e329a2097f1f16ebd769f3562"
+      "4fa7a0ea58510ec20ebf10ea42aaa5f808552d855ef2ed59c6c52faf353717f9"
     ],
     "rates/cents-per-kilometre/index.html": [
       "90e404f02422ae8f8c0107c6f7b5f2c0d01f39ce67c992c5d7dadadd464ffcf7"
@@ -133,7 +133,6 @@
   },
   "protected_text": {
     "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 25,
-    "Do not email taxpayer information, client files, tax advice requests or lodgement instructions. A message does not create a professional engagement.": 2,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
