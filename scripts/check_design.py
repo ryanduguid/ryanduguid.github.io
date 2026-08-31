@@ -54,10 +54,8 @@ PROOF_MOBILE_SOURCE = (
     '<source media="(max-width: 40rem)" '
     'srcset="/assets/coal-lsl-calculator-mobile.webp"'
 )
-HOMEPAGE_ANCHOR_IDS = ("engage", "adopt", "verify")
-# The hero and the Engage terminus each carry the primary /tools/ action; the
-# hero alone carries the /#engage action.
-HOMEPAGE_ACTION_TARGETS = {"/tools/": 2, "/#engage": 1}
+HOMEPAGE_ANCHOR_IDS = ("adopt", "verify")
+HOMEPAGE_ACTION_TARGETS = {"/tools/": 1}
 COUNT_WORDS = {1: "one", 2: "two"}
 HOMEPAGE_REQUIRED_CLASSES = (
     "home-hero__actions",

@@ -73,6 +73,57 @@ def assert_clean(label: str, failures: list[str]) -> None:
     assert not failures, f"{label}: unexpected failures: {failures!r}"
 
 
+def test_parked_consultancy_surface() -> None:
+    """Keep the public site an open-source index with no engagement route."""
+    homepage = read_text(ROOT, "index.html")
+    homepage_root = core.parse_structure(homepage)
+    homepage_hrefs = core.anchor_hrefs(homepage)
+    homepage_ids = {
+        element.attr("id")
+        for element in core.descendants(homepage_root, rendered_only=True)
+    }
+    assert "engage" not in homepage_ids
+    assert "/#engage" not in homepage_hrefs
+    assert "Discuss a workflow" not in core.visible_text(homepage)
+
+    for rel in ("about/index.html", "contact/index.html"):
+        page = read_text(ROOT, rel)
+        page_text = core.visible_text(page)
+        assert "mailto:" not in page.casefold(), f"{rel}: consultancy email route remains"
+        assert "not a practice" in page_text.casefold(), f"{rel}: practice boundary missing"
+        assert (
+            "not accepting professional engagements through this site"
+            in page_text.casefold()
+        ), f"{rel}: engagement boundary missing"
+
+    llms = read_text(ROOT, "llms.txt")
+    route_section = core.markdown_section(llms, "Choose a route")
+    assert "**Engage**" not in route_section
+    assert "firm workflow" not in llms.casefold()
+    assert "not accepting professional engagements through this site" in llms.casefold()
+
+    for path in core.html_files(ROOT):
+        rel = path.relative_to(ROOT).as_posix()
+        if rel in {"changelog/index.html", "engage/index.html"}:
+            continue
+        public_html = path.read_text(encoding="utf-8")
+        assert "/#engage" not in public_html.casefold(), f"{rel}: Engage URL remains"
+        assert "firm workflow or controlled pilot" not in public_html.casefold(), (
+            f"{rel}: firm-workflow route remains"
+        )
+
+    redirect = ROOT / "engage" / "index.html"
+    assert redirect.is_file(), "engage/index.html: quiet redirect page missing"
+    assert_clean(
+        "retired Engage route",
+        contracts.check_static_redirect(
+            redirect.read_text(encoding="utf-8"),
+            "engage/index.html",
+            "https://duguid.com.au/",
+        ),
+    )
+
+
 def page_metadata_failures(root: Path, rel: str) -> list[str]:
     """Run the configured metadata checks for one page under an arbitrary root."""
     social_image, social_alt = contracts.social_metadata_for_page(rel)
@@ -209,9 +260,9 @@ def test_design_contracts() -> int:
         (
             "hero action drift",
             "index.html",
-            'class="button button--secondary" href="/#engage"',
-            'class="button button--secondary" href="/#missing"',
-            "index.html: expected exactly one /#engage homepage action",
+            'class="button" href="/tools/"',
+            'class="button" href="/missing-tools/"',
+            "index.html: expected exactly one /tools/ homepage action",
         ),
         (
             "trust record drift",
@@ -300,8 +351,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="page-meta">Last reviewed 31 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 31 August 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -326,17 +377,17 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        "index.html",
-        "tools/index.html",
-        "evidence/index.html",
+        ("index.html", "31 August 2026", "2026-08-31"),
+        ("tools/index.html", "30 August 2026", "2026-08-30"),
+        ("evidence/index.html", "30 August 2026", "2026-08-30"),
     )
-    for rel in review_date_paths:
+    for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
             replace_file(
                 root,
                 rel,
-                "Last reviewed 30 August 2026.",
-                "Last reviewed 31 August 2026.",
+                f"Last reviewed {visible_date}.",
+                "Last reviewed 1 September 2026.",
             )
             expect_failure(
                 f"{rel} review date disagrees with structured freshness",
@@ -348,14 +399,14 @@ def test_design_contracts() -> int:
             replace_file(
                 root,
                 rel,
-                "Last reviewed 30 August 2026.",
-                "Last reviewed 31 August 2026.",
+                f"Last reviewed {visible_date}.",
+                "Last reviewed 1 September 2026.",
             )
             replace_file(
                 root,
                 rel,
-                '"dateModified": "2026-08-30"',
-                '"dateModified": "2026-08-31"',
+                f'"dateModified": "{structured_date}"',
+                '"dateModified": "2026-09-01"',
             )
             assert_clean(
                 f"{rel} accepts a matching future review date",
@@ -563,7 +614,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid</title>",
+            "<title>Open-source Australian accounting tools | Ryan Duguid</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -592,10 +643,10 @@ def test_public_contracts() -> int:
             "index.html: category preview is",
         ),
         (
-            "homepage Engage anchor",
-            'id="engage"',
-            'id="engage-copy"',
-            "index.html: expected exactly one valid #engage anchor",
+            "homepage Adopt anchor",
+            'id="adopt"',
+            'id="adopt-copy"',
+            "index.html: expected exactly one valid #adopt anchor",
         ),
         (
             "homepage evaluation route",
@@ -659,7 +710,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Accounting automation in Newcastle &amp; Hunter Valley | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Open-source Australian accounting tools | Ryan Duguid" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
@@ -957,10 +1008,10 @@ def test_public_contracts() -> int:
         (
             "authority route",
             "index.html",
-            'id="engage"',
-            'id="missing-engage"',
+            'id="verify"',
+            'id="missing-verify"',
             contracts.check_authority_surface,
-            "index.html: missing visible authority section #engage",
+            "index.html: missing visible authority section #verify",
         ),
         (
             "evaluation section order",
@@ -980,6 +1031,7 @@ def test_public_contracts() -> int:
 
 
 def main() -> None:
+    test_parked_consultancy_surface()
     design_count = test_design_contracts()
     public_count = test_public_contracts()
     print(

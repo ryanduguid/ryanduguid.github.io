@@ -1,7 +1,7 @@
 # duguid.com.au design system
 
 **Status:** current refinement
-**Date:** 29 August 2026
+**Date:** 31 August 2026
 **Source baseline:** `adb31c63f17e608545197a703d3823c2cb3ca7f3`
 
 ## Design read
@@ -16,12 +16,12 @@ This is a targeted, preservation-led evolution of an Australian computational ac
 
 ## Current refinement record
 
-The 29 August 2026 refinement keeps the design read at
+The 31 August 2026 refinement keeps the design read at
 `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
 
-- The homepage leads with browsing the tools and a secondary workflow enquiry,
-  then a four-task preview, worked proof and the Adopt, Verify and Engage
-  sections.
+- The homepage leads with browsing the tools, then a four-task preview, worked
+  proof and the Adopt and Verify sections. It is explicitly a personal
+  open-source index, not a practice.
 - The current Coal LSL proof is a deterministic, fabricated Formula B
   result-only screenshot. `npm run capture:coal-lsl-proof` captures it at 868
   by 580 pixels and caps the WebP output at 80 KB.
@@ -50,7 +50,7 @@ The existing content is strong. The repeated visual grammar weakens it:
 - the system sans stack is anonymous and gives headings, body copy and navigation the same texture
 - the dark indigo and violet palette resembles an AI product interface
 - the first route choice is three equal rounded cards
-- Engage, Adopt and Verify repeat the same rounded panel
+- the route sections repeat the same rounded panel
 - four system layers repeat the same panel geometry and internal rhythm
 - ten tools repeat the same ruled row without useful grouping
 - the homepage is 6,232 CSS pixels tall on desktop and 9,559 CSS pixels tall on mobile
@@ -97,7 +97,7 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 - Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
 - Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its three-column project-card grid.
 
-The resulting system is unique to duguid.com.au: a cold ledger surface, harbour-green review stamp, IBM Plex type family, tabular evidence chrome and route viewports built around Engage, Adopt and Verify.
+The resulting system is unique to duguid.com.au: a cold ledger surface, harbour-green review stamp, IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
 
 ## Visual premise
 
@@ -275,11 +275,7 @@ The first viewport centres one tool-led proposition above a ruled three-part bou
 - Sources and calculation working stay visible.
 - The tools are review aids, not judgement or lodgement.
 
-The primary action opens Tools and the secondary action starts a bounded workflow discussion. A four-task preview and the real Coal LSL artefact follow; there is no portrait, fake dashboard or sales funnel.
-
-### Engage viewport
-
-Pain first: incomplete workpapers, review loops and unclear ownership. The action is to discuss the workflow without sending taxpayer information or client files. Existing enquiry categories and the exact engagement boundary remain.
+The single action opens Tools. A four-task preview and the real Coal LSL artefact follow; there is no portrait, fake dashboard or sales funnel. The site states that it is a personal open-source index, not a practice, and does not accept professional engagements.
 
 ### Adopt viewport
 
@@ -323,7 +319,7 @@ Every changed visible sentence must pass these five principles:
 
 1. One reading pass. A visitor can finish the claim without rereading it.
 2. Pain first. Name the incomplete pack, late contribution, unbalanced trial balance or unsupported AI answer before the solution.
-3. One ask per screen. Homepage route asks are Engage, Adopt or Verify only.
+3. One ask per screen. The hero opens Tools; the remaining homepage routes are Adopt and Verify.
 4. One viewport, one thought. Hero identifies; each route explains one action; catalogue indexes.
 5. Visualise in the line. Prefer `READY is not sign-off` and `fund receipt within seven business days` to abstract quality claims.
 
@@ -335,25 +331,24 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 The following whole-file values are frozen after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `38729B723CBA25D70D4D14F5E8B61E2D795B56E650189FEEF1A83AB1BA3E493D`
+- `llms.txt`: SHA-256 `2692F1B41B8CD637B6ABDD3BB5B0498392D608FC07D60E9B730F621CB9CEBA5D`
 - `robots.txt`: SHA-256 `55445C95D41B8C8B1B386BFB1B1279B879954D66715747CDC0B10BFF3B5DD7EA`
-- `sitemap.xml`: SHA-256 `0417E321BE7FCF246A3339EFCD057FFACB123F83761CC5C7B4C899711CBD476C`
+- `sitemap.xml`: SHA-256 `7A4308AB5DE651B8D0B18A2A2F99F542605704A32B26F3AF3E8FD625250C23B6`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
-explanation. Every JSON-LD block across the 24 indexable pages remains
-semantically unchanged. Existing footer disclaimers, owner-assertion language,
-engagement boundary, calculator disclaimer, human review statements and
+explanation. Existing footer disclaimers, owner-assertion language,
+non-practice boundary, calculator disclaimer, human review statements and
 Division 7A refusal remain exact.
 
-Routes, canonical URLs, `#engage`, `#adopt`, `/evidence/`, sitemap coverage, robots policy, calculator arithmetic, evaluation fixtures and supported install commands remain unchanged.
+Canonical routes, `#adopt`, `/evidence/`, sitemap coverage, robots policy, calculator arithmetic, evaluation fixtures and supported install commands remain unchanged. The retired `/engage/` path and `#engage` hash resolve quietly to the homepage.
 
 ## GEO and crawler policy
 
 GEO here means truthful answerability, explicit entity context and nearby
 evidence. It does not mean keyword stuffing or a Google ranking campaign.
 
-- every indexable page exposes the unchanged `llms.txt` through a text/plain
+- every indexable page exposes the current `llms.txt` through a text/plain
   alternate link and every styled page exposes one visible Machine-readable
   index link
 - no Google-specific ranking work or `noindex` is added to an indexable page

@@ -1,7 +1,7 @@
 # Browser quality evidence
 
 Hands-on review completed on 28 August 2026. The refined visual baselines and
-automated gates were inspected and rerun on 29 August 2026. This record
+automated gates were inspected and rerun on 31 August 2026. This record
 supplements the repeatable Playwright and Lighthouse checks. It is evidence of
 the checks described below, not a claim of WCAG conformance.
 
@@ -19,8 +19,8 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Automated results
 
-- `npm run test:browser` collects 74 tests over its two projects, four of which
-  are intentional project-specific skips, leaving 70 that run. The two capture
+- `npm run test:browser` collects 82 tests over its two projects, six of which
+  are intentional project-specific skips, leaving 76 that run. The two capture
   specs are not part of that count: they run under a different config and
   project, and are described under Limits. Eleven approved routes passed the
   mobile and desktop page-shell matrix: one visible `h1`, `main#main`, primary
@@ -29,10 +29,10 @@ the checks described below, not a claim of WCAG conformance.
 - The missing-route positive control proved that an unapproved HTTP 404 fails
   the health collector; the paired allow-list case passed only for its exact
   route and status.
-- The homepage exposes exactly one Engage, Adopt and Verify route link inside
-  its route register. Protected fonts settle before line measurement: the
+- The homepage exposes one Tools action and exactly one Adopt and Verify section.
+  The retired hash and path resolve quietly to the homepage. Protected fonts settle before line measurement: the
   desktop masthead has two lines, the mobile masthead has no more than three,
-  and all three route words stay intact at the 900-pixel wide-layout seam.
+  and both route words stay intact at the 900-pixel wide-layout seam.
 - Keyboard traversal reaches the last mobile primary-navigation link after the
   row scrolls, then reaches and activates the final catalogue category. The
   homepage has no document overflow at 320, 390, 768 or 1440 CSS pixels.
@@ -54,11 +54,11 @@ Each snapshot first loads the bundled IBM Plex faces, then reloads from the
 warm browser cache. This makes the production `font-display: optional` choice
 deterministic on local and hosted Windows runners without changing that choice.
 
-- Desktop homepage, 1440 by 7705: the masthead occupies exactly two lines; one
-  ruled Engage, Adopt and Verify register appears before the separate trust
+- Desktop homepage, 1440 by 5388: the masthead occupies exactly two lines; one
+  ruled Adopt and Verify register appears after the separate trust
   band; each route word stays on one line; the current result proof is visible;
   and the principles resolve as one lead cell beside four supporting cells.
-- Mobile homepage, 390 by 9540: the masthead occupies three lines; primary
+- Mobile homepage, 390 by 7734: the masthead occupies three lines; primary
   navigation remains one horizontal row; no page edge is clipped; the decoded
   Formula B proof is visible with its values and caption; and the principles
   collapse to five legible cells.
@@ -71,14 +71,15 @@ the approved refresh.
 
 ## Lighthouse results
 
-Nine new JSON reports were written under `work/lighthouse`, with three runs for
-each route. The configured median assertions all passed.
+Twelve new JSON reports were written under `work/lighthouse`, with three runs
+for each route. The configured median assertions all passed.
 
 | Route | Performance | Accessibility | Best Practices | SEO | LCP | CLS | Total blocking time |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
-| Homepage | 0.99 | 1.00 | 1.00 | 1.00 | 1,806.484 ms | 0 | 0 ms |
-| Evidence | 0.98 | 1.00 | 1.00 | 1.00 | 1,806.623 ms | 0 | 0 ms |
-| Coal LSL calculator | 1.00 | 1.00 | 1.00 | 1.00 | 1,511.038 ms | 0 | 0 ms |
+| Homepage | 0.98 | 1.00 | 1.00 | 1.00 | 1,952.983 ms | 0 | 0 ms |
+| Tools | 0.98 | 1.00 | 1.00 | 1.00 | 1,802.733 ms | 0 | 0 ms |
+| Evidence | 0.98 | 1.00 | 1.00 | 1.00 | 1,955.536 ms | 0 | 0 ms |
+| Coal LSL calculator | 0.98 | 1.00 | 1.00 | 1.00 | 1,953.106 ms | 0 | 0 ms |
 
 ## Keyboard and focus review
 
@@ -127,9 +128,9 @@ register at `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and
   identity. The centred homepage masthead remains justified as the ceremonial
   artefact rather than a generic split hero.
 - The hero has its public-register label, two-line desktop or three-line mobile
-  masthead, concise identity sentence and one ruled route register. The trust
-  band is separate. Engage, Adopt and Verify occur once in the register, have
-  distinct intent and do not wrap on the wide layout.
+  masthead, concise identity sentence and one Tools action. The trust band is
+  separate. Adopt and Verify occur once in the register, have distinct intent
+  and do not wrap on the wide layout.
 - The desktop primary navigation stays on one line. Mobile navigation stays on
   one keyboard-scrollable row. The catalogue index is also keyboard reachable.
 - Exactly three homepage technical labels remain, and each carries evidence or

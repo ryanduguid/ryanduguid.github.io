@@ -1,6 +1,6 @@
 # duguid.com.au refined register design
 
-Status: approved and implemented in the reviewed working tree on 31 August 2026
+Status: approved and implemented in the reviewed working tree on 31 August 2026. The later consultancy-route parking change supersedes the contact portions of this design.
 
 ## Summary
 
@@ -196,9 +196,9 @@ Keep the three supported commands exact. Present the install slab, prerequisites
 
 Present claim, source, release/evaluation state, review date, and human boundary in a compact evidence ledger. Evidence and Assurance remains the main destination.
 
-### Engage
+### Site boundary
 
-Keep the existing enquiry categories, mail routes, client-data boundary, and engagement disclaimer exact. Improve the scan order so the bounded problem and safe first email are read before the enquiry routes.
+Present the site as a personal open-source index built independently in the owner's own time and on the owner's own equipment. It is not a practice and does not accept professional engagements through the site. Keep the client-data, advice, human-review, and lodgement boundaries.
 
 ### Principles and references
 
@@ -345,10 +345,10 @@ OpenAI's current publisher guidance distinguishes `OAI-SearchBot` for ChatGPT se
 The following remain unchanged unless the user explicitly authorises a factual or policy change:
 
 - route paths, canonical URLs, and primary navigation labels
-- `#engage`, `#adopt`, and Tools anchor destinations
+- `#adopt` and Tools anchor destinations
 - rate values, dates, sources, and explanations
 - JSON-LD factual meaning
-- advice and engagement disclaimers
+- advice and non-practice disclaimers
 - human review and lodgement boundaries
 - credentials and owner-assertion qualification
 - calculator arithmetic and evaluation fixtures
