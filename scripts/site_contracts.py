@@ -10,12 +10,13 @@ import struct
 import xml.etree.ElementTree as ET
 from collections import Counter
 from pathlib import Path
-from urllib.parse import parse_qs, urlsplit
+from urllib.parse import urlsplit
 
 import seo_core as core
 
 SITE = "https://duguid.com.au"
 STATIC_REDIRECTS = {
+    "engage/index.html": "https://duguid.com.au/",
     "tools/review-ready-gate/index.html": (
         "https://duguid.com.au/tools/workpaper-review-gate/"
     ),
@@ -28,19 +29,15 @@ EVIDENCE_URL = f"{SITE}/evidence/"
 TITLE_EXCEPTIONS = {
     EVIDENCE_REL: "Evidence and Assurance for Australian computational accounting tools",
 }
-CONTACT_EMAIL = "ryan@duguid.com.au"
 AUTHORITY_PATHS = {
-    "engage": "Engage",
     "adopt": "Adopt",
     "verify": "Verify",
 }
 AUTHORITY_STATEMENTS = {
-    "engage": "Fix the workflow before another review round.",
     "adopt": "Test it with fabricated data first.",
     "verify": "Check the source before the result.",
 }
 AUTHORITY_URLS = {
-    "engage": f"{SITE}/#engage",
     "adopt": f"{SITE}/#adopt",
     "verify": EVIDENCE_URL,
 }
@@ -97,7 +94,6 @@ PERSON_SAME_AS = [
 PERSON_REQUIRED_FIELDS = {
     "name": "Ryan Duguid",
     "jobTitle": "Accountant",
-    "email": CONTACT_EMAIL,
     "url": f"{SITE}/about/",
 }
 PERSON_ADDRESS = {
@@ -200,17 +196,23 @@ CRAWLER_POLICY_COMMENT = (
 
 
 def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
-    markers = (
+    target_path = urlsplit(target).path or "/"
+    failures = []
+    for marker in (
         '<meta name="robots" content="noindex, follow" />',
-        f'<meta http-equiv="refresh" content="0; url={target}" />',
         f'<link rel="canonical" href="{target}" />',
-        f'<a href="{target}">Continue to Workpaper Review Gate</a>',
-    )
-    return [
-        f"{rel}: missing redirect marker {marker}"
-        for marker in markers
-        if marker not in html
-    ]
+    ):
+        if marker not in html:
+            failures.append(f"{rel}: missing redirect marker {marker}")
+    refresh_targets = {target, target_path}
+    if not any(
+        f'<meta http-equiv="refresh" content="0; url={candidate}" />' in html
+        for candidate in refresh_targets
+    ):
+        failures.append(f"{rel}: missing immediate redirect to {target}")
+    if not set(core.anchor_hrefs(html)).intersection(refresh_targets):
+        failures.append(f"{rel}: missing fallback link to {target}")
+    return failures
 
 
 WORKED_EXAMPLES = {
@@ -591,7 +593,6 @@ HOMEPAGE_SUPPORT = (
 )
 HOMEPAGE_ACTIONS = (
     ("/tools/", "Browse the tools"),
-    ("/#engage", "Discuss a workflow"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
     ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),
@@ -599,7 +600,7 @@ HOMEPAGE_PREVIEW_ENTRIES = (
     ("Control", "/tools/#control-tools", "/tools/workpaper-review-gate/"),
     ("Inspect", "/tools/#inspect-tools", "/tools/australian-tax-ai-agents/"),
 )
-HOMEPAGE_ANCHORS = ("adopt", "verify", "engage")
+HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
     "I build open-source controls for Australian tax, payroll, ledgers and "
     "workpapers. They show sources and working, use fabricated examples, and "
@@ -615,7 +616,6 @@ EVIDENCE_OPENING = (
 HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
-    "Fix the workflow before another review round.",
     "Test it with fabricated data first.",
     "Check the source before the result.",
     "Useful before impressive",
@@ -624,10 +624,10 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Unknown means unknown",
     "A person signs off",
 ]
-HOMEPAGE_TITLE = "Accounting automation in Newcastle & Hunter Valley | Ryan Duguid"
+HOMEPAGE_TITLE = "Open-source Australian accounting tools | Ryan Duguid"
 HOMEPAGE_DESCRIPTION = (
-    "Review-first Xero, payroll, workpaper and AI workflow tools for accounting "
-    "firms in Newcastle and the Hunter Valley, NSW."
+    "Personal index of open-source Australian accounting tools for payroll, Xero, "
+    "workpapers and AI workflows, with sources and working kept visible."
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
@@ -934,11 +934,10 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         rendered.find('class="route-section proof-feature'),
         rendered.find('id="adopt"'),
         rendered.find('id="verify"'),
-        rendered.find('id="engage"'),
     )
     if any(position < 0 for position in sequence) or tuple(sorted(sequence)) != sequence:
         failures.append(
-            "index.html: content order must be preview, proof, Adopt, Verify, Engage"
+            "index.html: content order must be preview, proof, Adopt, Verify"
         )
 
     hrefs = [
@@ -1554,15 +1553,8 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
 
 
 def check_llms_authority_surface(llms: str) -> list[str]:
-    """Keep machine-facing routes and enquiry boundaries aligned with the site."""
+    """Keep machine-facing routes and the non-practice boundary aligned."""
     failures: list[str] = []
-    if re.search(
-        r"\b(?:offers?\s+no\s+accounting\s+services?|takes?\s+no\s+engagements?)\b",
-        llms,
-        re.I,
-    ):
-        failures.append("llms.txt: absolute no-engagement claim contradicts scoped enquiries")
-
     route_section = core.markdown_section(llms, "Choose a route")
     routes_are_complete = all(
         re.search(
@@ -1572,15 +1564,17 @@ def check_llms_authority_surface(llms: str) -> list[str]:
         for identifier, label in AUTHORITY_PATHS.items()
     )
     required_boundaries = (
-        "Do not send taxpayer information or client files",
-        "This is not a tax advice or lodgement channel",
-        "does not create a professional engagement",
-        "scope, responsibilities and data handling must be agreed separately",
+        "personal index of open-source accounting tools",
+        "not a practice",
+        "not accepting professional engagements through this site",
     )
-    if not routes_are_complete or any(
-        boundary not in route_section for boundary in required_boundaries
+    has_retired_route = "**Engage**" in route_section or "/#engage" in llms
+    if (
+        not routes_are_complete
+        or has_retired_route
+        or any(boundary not in llms for boundary in required_boundaries)
     ):
-        failures.append("llms.txt: scoped authority route is incomplete")
+        failures.append("llms.txt: open-source route boundary is incomplete")
     return failures
 
 
@@ -1669,7 +1663,7 @@ def check_authority_section(
 
 
 def check_authority_surface(root: Path = core.ROOT) -> list[str]:
-    """Require the public Engage, Adopt and Verify authority surface."""
+    """Require Adopt and Verify while keeping the consultancy route parked."""
     failures: list[str] = []
     home_path = root / "index.html"
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
@@ -1747,6 +1741,9 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     ):
         failures.append("docs/agent-tooling.md: github-agent-skills setup is incomplete")
 
+    if core.section_html(home, "engage") or "/#engage" in home.casefold():
+        failures.append("index.html: retired Engage route must not be visible")
+
     for path in core.html_files(root):
         rel = path.relative_to(root).as_posix()
         if rel == "index.html" or rel in NOT_INDEXED:
@@ -1784,63 +1781,22 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
 
-    expected_subjects = {
-        "Firm workflow or controlled pilot",
-        "Tool adoption or integration",
-        "Research, speaking or peer review",
-    }
-    actual_subjects: set[str] = set()
-    for href in core.anchor_hrefs(sections["engage"]):
-        if not href.casefold().startswith("mailto:"):
-            continue
-        address, separator, query = href[7:].partition("?")
-        if address.casefold() == CONTACT_EMAIL and separator:
-            actual_subjects.update(parse_qs(query).get("subject", []))
-    if not expected_subjects.issubset(actual_subjects):
-        failures.append("index.html: scoped enquiry categories are incomplete")
-
-    about_path = root / "about" / "index.html"
-    about_text = (
-        core.visible_text(about_path.read_text(encoding="utf-8")) if about_path.is_file() else ""
-    )
-    if re.search(r"\b(?:do\s+not|don't)\s+take\s+client\s+work\b", about_text, re.I):
-        failures.append("about/index.html: short answer contradicts scoped enquiries")
-    has_client_file_boundary = re.search(
-        r"\b(?:do\s+not|don't|never)\b.{0,80}\bclient\s+files?\b",
-        about_text,
-        re.S | re.I,
-    )
-    has_tax_advice_boundary = re.search(
-        r"\b(?:do\s+not|don't|not)\b.{0,80}\btax\s+advice\b",
-        about_text,
-        re.S | re.I,
-    )
-    has_site_content_advice_boundary = re.search(
-        r"\bnothing\s+here\b.{0,80}\b(?:tax|legal|financial)\s+advice\b",
-        about_text,
-        re.S | re.I,
-    )
-    has_review_aid_boundary = re.search(
-        r"\btools?\b.{0,80}\breview\s+aids?\b.{0,80}"
-        r"\bnot\s+compliance\s+determinations?\b",
-        about_text,
-        re.S | re.I,
-    )
-    has_no_engagement_boundary = re.search(
-        r"\b(?:email|message)\b.{0,80}\bdoes\s+not\s+create\b.{0,80}"
-        r"\b(?:professional\s+)?engagement\b",
-        about_text,
-        re.S | re.I,
-    )
-    if (
-        CONTACT_EMAIL not in about_text
-        or not has_client_file_boundary
-        or not has_tax_advice_boundary
-        or not has_site_content_advice_boundary
-        or not has_review_aid_boundary
-        or not has_no_engagement_boundary
-    ):
-        failures.append("about/index.html: enquiry boundary is incomplete")
+    for rel in ("about/index.html", "contact/index.html"):
+        path = root / rel
+        page = path.read_text(encoding="utf-8") if path.is_file() else ""
+        page_text = core.visible_text(page)
+        if (
+            "mailto:" in page.casefold()
+            or "not a practice" not in page_text.casefold()
+            or "not accepting professional engagements through this site"
+            not in page_text.casefold()
+            or not re.search(
+                r"\b(?:do\s+not|don't|never)\b.{0,100}\bclient\s+files?\b",
+                page_text,
+                re.S | re.I,
+            )
+        ):
+            failures.append(f"{rel}: non-practice boundary is incomplete")
 
     evidence_path = root / EVIDENCE_REL
     evidence_html = evidence_path.read_text(encoding="utf-8") if evidence_path.is_file() else ""
