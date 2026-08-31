@@ -344,7 +344,7 @@ button:active {
 .calculator-header {
   display: grid;
   gap: var(--space-5);
-  padding-block: var(--space-8) var(--space-7);
+  padding-block: var(--space-7) var(--space-6);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
 }
 
@@ -358,7 +358,7 @@ button:active {
   grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
   gap: clamp(var(--space-7), 6vw, var(--space-10));
   align-items: start;
-  padding-block: var(--space-7) var(--space-9);
+  padding-block: var(--space-6) var(--space-8);
 }
 
 .article-toc {
@@ -410,7 +410,7 @@ button:active {
 }
 
 .article-body section {
-  margin-top: var(--space-8);
+  margin-top: var(--space-7);
   padding-top: var(--space-5);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
@@ -445,14 +445,16 @@ blockquote {
 .boundary,
 .disclaimer,
 .unresolved,
-.rounding-note,
-.byline {
+.rounding-note {
   padding: var(--space-4) 0 var(--space-4) var(--space-5);
   border-left: var(--rule-strong) solid var(--colour-alert);
   color: var(--colour-ink-soft);
 }
 
 .byline {
+  padding: var(--space-4) 0 var(--space-4) var(--space-5);
+  border-left: var(--rule-strong) solid var(--colour-rule-strong);
+  color: var(--colour-ink-soft);
   margin-top: var(--space-5);
   font-size: var(--text-small);
 }
@@ -650,7 +652,7 @@ tbody tr:hover td {
 }
 
 .collection-group + .collection-group {
-  margin-top: var(--space-8);
+  margin-top: var(--space-7);
   border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
@@ -668,7 +670,7 @@ tbody tr:hover td {
   grid-template-columns: minmax(10rem, 0.7fr) minmax(14rem, 1.1fr) minmax(14rem, 0.9fr);
   gap: var(--space-4) var(--space-6);
   align-items: start;
-  padding-block: var(--space-5);
+  padding-block: var(--space-4);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
@@ -890,7 +892,7 @@ tbody tr:hover td {
 .home-hero {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  padding-block: var(--space-9);
+  padding-block: var(--space-8);
 }
 
 .home-hero__copy {
@@ -899,7 +901,7 @@ tbody tr:hover td {
 }
 
 .home-hero h1 {
-  max-width: 18ch;
+  max-width: min(38ch, 100%);
   color: var(--colour-masthead);
   font-size: min(var(--text-display), 5rem);
   line-height: var(--leading-tight);
@@ -939,7 +941,7 @@ tbody tr:hover td {
 .home-tool-preview {
   display: grid;
   gap: var(--space-6);
-  padding-block: var(--space-8);
+  padding-block: var(--space-7);
 }
 
 .home-tool-preview > header {
@@ -1070,7 +1072,7 @@ tbody tr:hover td {
   grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr);
   gap: clamp(var(--space-6), 5vw, var(--space-9));
   align-items: start;
-  padding-block: var(--space-7);
+  padding-block: var(--space-6);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
@@ -1132,9 +1134,13 @@ tbody tr:hover td {
 
 .route-note {
   padding: var(--space-4) 0 var(--space-4) var(--space-5);
-  border-left: var(--rule-strong) solid var(--colour-alert);
+  border-left: var(--rule-strong) solid var(--colour-rule-strong);
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
+}
+
+.route-note.boundary {
+  border-left-color: var(--colour-alert);
 }
 
 .install-band {
@@ -1200,7 +1206,7 @@ tbody tr:hover td {
 
 .principles-section,
 .more-index {
-  padding-block: var(--space-9);
+  padding-block: var(--space-8);
 }
 
 .proof-feature {
@@ -1705,7 +1711,12 @@ input[type="checkbox"] {
 
 @media (max-width: 40rem) {
   :root {
-    --header-height: 6rem;
+    --header-height: 5.5rem;
+  }
+
+  .site-header__inner {
+    min-height: calc(var(--header-height) - 1px);
+    padding-block: 0;
   }
 
   .site-identity::after {

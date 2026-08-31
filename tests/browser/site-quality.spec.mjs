@@ -46,10 +46,27 @@ const homepagePreviewRoutes = [
 ];
 
 const homeHeightBaseline = {
-  // The approved adoption route moved the mobile render from 9,278px to
-  // 9,726px (+448px). Preserve the original 234px (~2.4%) guard margin.
-  'mobile-chromium': 9960,
-  'desktop-chromium': 7611,
+  // Ceilings, not targets, re-measured against the merged page: main shortened
+  // these routes with the shared rhythm and the adoption route lengthens the
+  // homepage, so neither side's numbers described the result. Mobile now
+  // renders at 9,489px and keeps the 234px guard the adoption route documented.
+  // Desktop renders at 6,360px, under the ceilings main already had, so those
+  // stay as they are rather than being loosened to fit.
+  'mobile-chromium': 9723,
+  'desktop-chromium': 6630,
+};
+
+const representativeHeightBaseline = {
+  'mobile-chromium': new Map([
+    ['/', 9723],
+    ['/tools/', 6598],
+    ['/evidence/', 6426],
+  ]),
+  'desktop-chromium': new Map([
+    ['/', 6517],
+    ['/tools/', 4293],
+    ['/evidence/', 4217],
+  ]),
 };
 
 async function decodedHomeProof(page) {
@@ -144,9 +161,50 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   expect(await page.locator('.route-section').evaluateAll((sections) =>
     sections.map((section) => getComputedStyle(section).minHeight)
   )).toEqual(['0px', '0px', '0px', '0px']);
+  await decodedHomeProof(page);
   expect(await page.evaluate(() => document.documentElement.scrollHeight))
     .toBeLessThan(homeHeightBaseline[testInfo.project.name]);
   health.assertHealthy();
+});
+
+test('shared rhythm reduces representative route length', async ({ page }, testInfo) => {
+  for (const [route, baseline] of representativeHeightBaseline[testInfo.project.name]) {
+    await page.goto(route);
+    await waitForVisualFonts(page);
+    if (route === '/') await decodedHomeProof(page);
+    const height = await page.evaluate(() => document.documentElement.scrollHeight);
+    expect(height, `${route} ${testInfo.project.name}`).toBeLessThan(baseline);
+  }
+});
+
+test('home proposition and actions fit the initial desktop viewport', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium', 'desktop viewport matrix runs once');
+
+  for (const viewport of [
+    { width: 1280, height: 720 },
+    { width: 1440, height: 900 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/');
+    await waitForVisualFonts(page);
+
+    const geometry = await page.evaluate(() => {
+      const heading = document.querySelector('.home-hero h1');
+      const actions = document.querySelector('.home-hero__actions');
+      const headingStyle = getComputedStyle(heading);
+      const headingBounds = heading.getBoundingClientRect();
+      const actionBounds = actions.getBoundingClientRect();
+      return {
+        lineCount: Math.round(headingBounds.height / parseFloat(headingStyle.lineHeight)),
+        actionsBottom: actionBounds.bottom,
+        viewportHeight: innerHeight,
+      };
+    });
+
+    expect(geometry.lineCount, `${viewport.width}px heading lines`).toBeLessThanOrEqual(2);
+    expect(geometry.actionsBottom, `${viewport.width}px action position`)
+      .toBeLessThanOrEqual(geometry.viewportHeight);
+  }
 });
 
 test('primary navigation order and current states match the collection hierarchy', async ({ page }) => {
@@ -210,6 +268,17 @@ test('all five primary navigation links fit the smallest mobile width', async ({
   }
   await expect(lastPrimaryLink).toBeFocused();
   health.assertHealthy();
+});
+
+test('mobile sticky header preserves the reading viewport', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto('/');
+
+  const height = await page.locator('.site-header').evaluate((header) => (
+    Math.round(header.getBoundingClientRect().height)
+  ));
+  expect(height).toBeLessThanOrEqual(88);
 });
 
 test('all homepage preview routes land on valid Tools anchors', async ({ page }) => {
