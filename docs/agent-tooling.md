@@ -21,6 +21,16 @@ snapshots. Lighthouse records repeat-run medians for the selected public
 journeys. Failure artifacts stay under ignored local output paths; do not
 commit them.
 
+## Portable GitHub maintenance workflows
+
+github-agent-skills supplies GitHub maintenance workflows for Codex and Claude Code while preserving fabricated-data and human-review boundaries. Bootstrap <https://github.com/ryanduguid/github-agent-skills> locally with:
+
+```powershell
+git clone https://github.com/ryanduguid/github-agent-skills.git
+cd github-agent-skills
+pwsh -File scripts/sync-skills.ps1
+```
+
 ## Search Console MCP and CLI
 
 The local Search Console reader is documented in

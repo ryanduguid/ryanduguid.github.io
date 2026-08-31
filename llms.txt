@@ -54,7 +54,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Supported installation
 
-- [Adopt](https://duguid.com.au/#adopt): the maintained source for the three supported installation commands.
+- [Adopt](https://duguid.com.au/#adopt): the maintained source for the four supported adoption routes.
+- [github-agent-skills](https://github.com/ryanduguid/github-agent-skills): github-agent-skills supplies GitHub maintenance workflows for Codex and Claude Code while preserving fabricated-data and human-review boundaries. Use the maintained setup at Adopt.
 
 ## Contact and history
 
