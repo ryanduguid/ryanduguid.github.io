@@ -276,12 +276,91 @@ def test_design_contracts() -> int:
             "#5c2d91",
             "favicon colour outside OLED palette: #5c2d91",
         ),
+        (
+            "byline warning colour restored",
+            "assets/site.css",
+            ".byline {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-rule-strong);",
+            ".byline {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-alert);",
+            "bylines must use the neutral register rule",
+        ),
+        (
+            "informational route note warning colour restored",
+            "assets/site.css",
+            ".route-note {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-rule-strong);",
+            ".route-note {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-alert);",
+            "informational route notes must use the neutral register rule",
+        ),
+        (
+            "boundary route note neutral colour restored",
+            "assets/site.css",
+            ".route-note.boundary {\n  border-left-color: var(--colour-alert);",
+            ".route-note.boundary {\n  border-left-color: var(--colour-rule-strong);",
+            "boundary route notes must retain the alert rule",
+        ),
+        (
+            "homepage opening review date moved",
+            "index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "index.html: expected exactly one opening page-meta",
+        ),
+        (
+            "Tools opening review date moved",
+            "tools/index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "tools/index.html: expected exactly one opening page-meta",
+        ),
+        (
+            "Evidence opening review date moved",
+            "evidence/index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "evidence/index.html: expected exactly one opening page-meta",
+        ),
     )
 
     for label, rel, old, new, expected in text_mutations:
         with copied_site() as root:
             replace_file(root, rel, old, new)
             expect_failure(label, check_design.check_repository(root), expected)
+
+    review_date_paths = (
+        "index.html",
+        "tools/index.html",
+        "evidence/index.html",
+    )
+    for rel in review_date_paths:
+        with copied_site() as root:
+            replace_file(
+                root,
+                rel,
+                "Last reviewed 30 August 2026.",
+                "Last reviewed 31 August 2026.",
+            )
+            expect_failure(
+                f"{rel} review date disagrees with structured freshness",
+                check_design.check_opening_review_dates(root),
+                "does not match JSON-LD dateModified",
+            )
+
+        with copied_site() as root:
+            replace_file(
+                root,
+                rel,
+                "Last reviewed 30 August 2026.",
+                "Last reviewed 31 August 2026.",
+            )
+            replace_file(
+                root,
+                rel,
+                '"dateModified": "2026-08-30"',
+                '"dateModified": "2026-08-31"',
+            )
+            assert_clean(
+                f"{rel} accepts a matching future review date",
+                check_design.check_opening_review_dates(root),
+            )
 
     with copied_site() as root:
         append_file(
@@ -323,7 +402,7 @@ def test_design_contracts() -> int:
             "route labels must not be sticky",
         )
 
-    return len(text_mutations) + 5
+    return len(text_mutations) + 5 + (2 * len(review_date_paths))
 
 
 def contract_mutation(
