@@ -137,10 +137,8 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   const actions = page.getByRole('navigation', { name: 'Homepage actions' });
   await expect(actions.getByRole('link')).toHaveText([
     'Browse the tools',
-    'Discuss a workflow',
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/tools/');
-  await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/#engage');
 
   const categories = page.getByRole('navigation', { name: 'Tool categories' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
@@ -155,15 +153,32 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
     return Boolean(preview && proof
       && (preview.compareDocumentPosition(proof) & Node.DOCUMENT_POSITION_FOLLOWING));
   })).toBe(true);
-  for (const identifier of ['adopt', 'verify', 'engage']) {
+  for (const identifier of ['adopt', 'verify']) {
     await expect(page.locator(`#${identifier}`)).toHaveCount(1);
   }
+  await expect(page.locator('#engage')).toHaveCount(0);
   expect(await page.locator('.route-section').evaluateAll((sections) =>
     sections.map((section) => getComputedStyle(section).minHeight)
-  )).toEqual(['0px', '0px', '0px', '0px']);
+  )).toEqual(['0px', '0px', '0px']);
   await decodedHomeProof(page);
   expect(await page.evaluate(() => document.documentElement.scrollHeight))
     .toBeLessThan(homeHeightBaseline[testInfo.project.name]);
+  health.assertHealthy();
+});
+
+test('retired Engage routes redirect quietly to the homepage', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/#engage');
+  await expect(page).toHaveURL('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Review-ready controls for Australian accounting work.',
+  );
+
+  await page.goto('/engage/');
+  await expect(page).toHaveURL('/');
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
+    'Review-ready controls for Australian accounting work.',
+  );
   health.assertHealthy();
 });
 

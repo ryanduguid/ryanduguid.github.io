@@ -8,7 +8,7 @@ Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan
 - `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates.
 
-The homepage is a short adoption path into those registers. Enquiries remain available, but secondary to browsing, reproducing and verifying the tools.
+The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
 
 ## Local preview
 
