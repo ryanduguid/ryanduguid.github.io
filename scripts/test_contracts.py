@@ -276,6 +276,48 @@ def test_design_contracts() -> int:
             "#5c2d91",
             "favicon colour outside OLED palette: #5c2d91",
         ),
+        (
+            "byline warning colour restored",
+            "assets/site.css",
+            ".byline {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-rule-strong);",
+            ".byline {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-alert);",
+            "bylines must use the neutral register rule",
+        ),
+        (
+            "informational route note warning colour restored",
+            "assets/site.css",
+            ".route-note {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-rule-strong);",
+            ".route-note {\n  padding: var(--space-4) 0 var(--space-4) var(--space-5);\n  border-left: var(--rule-strong) solid var(--colour-alert);",
+            "informational route notes must use the neutral register rule",
+        ),
+        (
+            "boundary route note neutral colour restored",
+            "assets/site.css",
+            ".route-note.boundary {\n  border-left-color: var(--colour-alert);",
+            ".route-note.boundary {\n  border-left-color: var(--colour-rule-strong);",
+            "boundary route notes must retain the alert rule",
+        ),
+        (
+            "homepage opening review date moved",
+            "index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "index.html: expected exactly one opening page-meta",
+        ),
+        (
+            "Tools opening review date moved",
+            "tools/index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "tools/index.html: expected exactly one opening page-meta",
+        ),
+        (
+            "Evidence opening review date moved",
+            "evidence/index.html",
+            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            "evidence/index.html: expected exactly one opening page-meta",
+        ),
     )
 
     for label, rel, old, new, expected in text_mutations:

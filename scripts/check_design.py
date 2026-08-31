@@ -120,6 +120,12 @@ BANNED_VISIBLE_PATTERNS = (
     ("Get started", r"\bget started\b"),
 )
 COPY_PATHS = ("index.html", "about/index.html")
+OPENING_REVIEW_DATE_CONTEXTS = {
+    "index.html": "home-hero__copy",
+    "tools/index.html": "article-header",
+    "evidence/index.html": "article-header",
+}
+OPENING_REVIEW_DATE = "Last reviewed 30 August 2026."
 EMOJI_PATTERN = re.compile(
     "[\u2600-\u26ff\u2700-\u27bf\U0001f300-\U0001faff]"
 )
@@ -429,6 +435,20 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     ):
         failures.append("buttons must move by one pixel on press")
 
+    byline_rule = re.search(r"\.byline\s*\{(.*?)\}", site_css, re.S | re.I)
+    if not byline_rule or "--colour-rule-strong" not in byline_rule.group(1):
+        failures.append("bylines must use the neutral register rule")
+
+    route_note_rule = re.search(r"\.route-note\s*\{(.*?)\}", site_css, re.S | re.I)
+    if not route_note_rule or "--colour-rule-strong" not in route_note_rule.group(1):
+        failures.append("informational route notes must use the neutral register rule")
+
+    boundary_note_rule = re.search(
+        r"\.route-note\.boundary\s*\{(.*?)\}", site_css, re.S | re.I
+    )
+    if not boundary_note_rule or "--colour-alert" not in boundary_note_rule.group(1):
+        failures.append("boundary route notes must retain the alert rule")
+
     font_faces = FONT_FACE_PATTERN.findall(tokens_css)
     for index, font_face in enumerate(font_faces, start=1):
         if not re.search(r"\bfont-display\s*:\s*optional\s*;", font_face, re.I):
@@ -529,6 +549,38 @@ def check_copy(root: Path) -> list[str]:
                 failures.append(f"{rel}: banned visible phrase {label!r}")
         if EMOJI_PATTERN.search(text):
             failures.append(f"{rel}: decorative emoji is not permitted")
+    return failures
+
+
+def check_opening_review_dates(root: Path) -> list[str]:
+    """Keep claim-adjacent review dates in the opening page context."""
+    failures: list[str] = []
+    for rel, context_class in OPENING_REVIEW_DATE_CONTEXTS.items():
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"{rel}: missing page for opening review-date check")
+            continue
+        document = core.parse_structure(path.read_text(encoding="utf-8"))
+        contexts = [
+            element
+            for element in core.descendants(document, rendered_only=True)
+            if element.has_class(context_class)
+        ]
+        dates = [
+            element
+            for element in core.descendants(document, rendered_only=True)
+            if element.has_class("page-meta")
+        ]
+        if (
+            len(contexts) != 1
+            or len(dates) != 1
+            or core.element_text(dates[0]) != OPENING_REVIEW_DATE
+            or not core.is_descendant(dates[0], contexts[0])
+        ):
+            failures.append(
+                f"{rel}: expected exactly one opening page-meta with "
+                f"{OPENING_REVIEW_DATE!r}"
+            )
     return failures
 
 
@@ -792,6 +844,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
         )
     failures.extend(check_homepage_refinement(root))
     failures.extend(check_copy(root))
+    failures.extend(check_opening_review_dates(root))
 
     return failures
 
