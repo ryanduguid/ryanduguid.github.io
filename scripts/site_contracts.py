@@ -1552,6 +1552,28 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
     return failures
 
 
+def check_public_evaluator_invitation(root: Path = core.ROOT) -> list[str]:
+    """Keep the independent reproduction request specific and public."""
+    rel = EVIDENCE_REL
+    path = root / rel
+    if not path.is_file():
+        return [f"{rel}: independent evaluation invitation is incomplete"]
+
+    rendered = core.visible_html(path.read_text(encoding="utf-8"))
+    text = core.visible_text(rendered)
+    hrefs = core.anchor_hrefs(rendered)
+    issue_url = "https://github.com/ryanduguid/ryanduguid.github.io/issues"
+    required = (
+        "Reproduce it independently",
+        "Run one fixed evaluation and record the command, release, expected result "
+        "and observed result.",
+        "Report any mismatch in the site repository.",
+    )
+    if any(value not in text for value in required) or hrefs.count(issue_url) != 1:
+        return [f"{rel}: independent evaluation invitation is incomplete"]
+    return []
+
+
 def check_llms_authority_surface(llms: str) -> list[str]:
     """Keep machine-facing routes and the non-practice boundary aligned."""
     failures: list[str] = []
@@ -2268,6 +2290,38 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
         if re.search(r"\bcase[- ]stud(?:y|ies)\b", rendered, re.I):
             failures.append(f"{rel}: must not use client case-study wording")
     return failures
+
+
+def check_xero_evaluation_summary(root: Path = core.ROOT) -> list[str]:
+    """Keep the Xero proof summary concise, complete and review bounded."""
+    rel = "evaluate/xero-trial-balance-integrity/index.html"
+    path = root / rel
+    if not path.is_file():
+        return [f"{rel}: evaluation summary is incomplete"]
+
+    rendered = core.visible_html(path.read_text(encoding="utf-8"))
+    summaries = re.findall(
+        r'<dl\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bevaluation-summary\b'
+        r'[^"\']*["\'])[^>]*>.*?</dl\s*>',
+        rendered,
+        re.S | re.I,
+    )
+    required = (
+        "Problem An automated trial balance export can look tidy while one balance "
+        "pair is wrong.",
+        "Control Check movement and year-to-date debits against credits before any "
+        "CSV write.",
+        "Evidence Three fabricated fixtures isolate a passing file, a movement "
+        "failure and a YTD failure.",
+        "Result One run exits 0. Two runs exit 1 and report that nothing was written.",
+        "Limit Balance does not prove completeness, classification or approval.",
+    )
+    if len(summaries) != 1:
+        return [f"{rel}: evaluation summary is incomplete"]
+    text = core.visible_text(summaries[0])
+    if any(value not in text for value in required):
+        return [f"{rel}: evaluation summary is incomplete"]
+    return []
 
 
 def check_robots_policy(robots: str) -> list[str]:
