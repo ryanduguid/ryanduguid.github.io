@@ -59,7 +59,7 @@
         <p class="lead-note">
           Reproduce the offline movement and year-to-date integrity gate with three fabricated CSV fixtures, then inspect the exact results and human review boundary.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 26 August 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 31 August 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -76,6 +76,29 @@
           <a href="#limitations">Limitations</a>
         </nav>
         <div class="article-body">
+          <dl class="evaluation-summary" aria-label="Evaluation summary">
+            <div>
+              <dt>Problem</dt>
+              <dd>An automated trial balance export can look tidy while one balance pair is wrong.</dd>
+            </div>
+            <div>
+              <dt>Control</dt>
+              <dd>Check movement and year-to-date debits against credits before any CSV write.</dd>
+            </div>
+            <div>
+              <dt>Evidence</dt>
+              <dd>Three fabricated fixtures isolate a passing file, a movement failure and a YTD failure.</dd>
+            </div>
+            <div>
+              <dt>Result</dt>
+              <dd>One run exits 0. Two runs exit 1 and report that nothing was written.</dd>
+            </div>
+            <div>
+              <dt>Limit</dt>
+              <dd>Balance does not prove completeness, classification or approval.</dd>
+            </div>
+          </dl>
+
           <section id="accounting-problem">
             <h2>Accounting problem</h2>
             <p>
@@ -229,7 +252,7 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
         "description": "A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate using fabricated CSV fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-08-30",
+        "dateModified": "2026-08-31",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

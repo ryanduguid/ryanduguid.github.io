@@ -508,6 +508,14 @@ def test_public_contracts() -> int:
     )
     assert_clean("page contracts", failures)
     assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
+    assert_clean(
+        "public evaluator invitation",
+        contracts.check_public_evaluator_invitation(ROOT),
+    )
+    assert_clean(
+        "Xero evaluation summary",
+        contracts.check_xero_evaluation_summary(ROOT),
+    )
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
 
     github_agent_skills_route = (
@@ -610,6 +618,32 @@ def test_public_contracts() -> int:
         ),
         "evidence/index.html: page opening must be",
     )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "evidence/index.html",
+            "Run one fixed evaluation and record the command, release, expected result and observed result.",
+            "Run an evaluation and share what happened.",
+        )
+        expect_failure(
+            "public evaluator method",
+            contracts.check_public_evaluator_invitation(root),
+            "evidence/index.html: independent evaluation invitation is incomplete",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "evaluate/xero-trial-balance-integrity/index.html",
+            "Balance does not prove completeness, classification or approval.",
+            "Balance does not prove every accounting conclusion.",
+        )
+        expect_failure(
+            "Xero evaluation limit",
+            contracts.check_xero_evaluation_summary(root),
+            "evaluate/xero-trial-balance-integrity/index.html: evaluation summary is incomplete",
+        )
 
     homepage_mutations = (
         (
