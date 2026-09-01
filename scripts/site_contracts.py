@@ -26,9 +26,7 @@ NOT_INDEXED = {"404.html"} | set(STATIC_REDIRECTS)
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
 EVIDENCE_URL = f"{SITE}/evidence/"
-TITLE_EXCEPTIONS = {
-    EVIDENCE_REL: "Evidence and Assurance for Australian computational accounting tools",
-}
+TITLE_EXCEPTIONS: dict[str, str] = {}
 AUTHORITY_PATHS = {
     "adopt": "Adopt",
     "verify": "Verify",
@@ -634,7 +632,7 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Unknown means unknown",
     "A person signs off",
 ]
-HOMEPAGE_TITLE = "Personal open-source Australian accounting controls | Ryan Duguid"
+HOMEPAGE_TITLE = "Personal open-source Australian accounting controls"
 HOMEPAGE_DESCRIPTION = (
     "Personal index of open-source Australian accounting tools for payroll, Xero, "
     "workpapers and AI workflows, with sources and working kept visible."

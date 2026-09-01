@@ -129,7 +129,7 @@ def test_geo_leftovers_surface() -> None:
     review_date = "2 September 2026"
     modified_date = "2026-09-02"
     homepage_title = (
-        "Personal open-source Australian accounting controls | Ryan Duguid"
+        "Personal open-source Australian accounting controls"
     )
     coal_title = "What wages are eligible for the Coal LSL levy under section 3B?"
     coal_lead = (
@@ -774,7 +774,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Personal open-source Australian accounting controls | Ryan Duguid</title>",
+            "<title>Personal open-source Australian accounting controls</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -870,7 +870,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Personal open-source Australian accounting controls | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Personal open-source Australian accounting controls" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
