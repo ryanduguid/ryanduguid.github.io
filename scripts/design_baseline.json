@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "354f396a3e0f6aaba2217747e0569db7618698da6a18451e8f9db6abf845565b",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
-    "sitemap.xml": "152cd6b04044e51e894af4b9129dc4685fbc25335f12dfc3b0d124cc64e366de"
+    "sitemap.xml": "fdff597e6f5b243eb4a8975f2bfc44632058dba5cddb7b3947ea94a2231cd3bc"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e43bdc166adf490a1e6e8a6fa4233e60a7f95e18888cca28848ffa2b3672c2b9",
@@ -62,7 +62,7 @@
       "7efd96eb2f6a4c28d825817223460f71eb50c75b4960b8c393d55700e9374b42"
     ],
     "changelog/index.html": [
-      "0f3df78bd103357f84777a45ac7736063b8fff2d2b90ed3ad06de03d21010cea"
+      "66d13e3c77cf628dd16136f67a5d15d455c231a5fff3e6ed3ad690fa64225fc1"
     ],
     "contact/index.html": [
       "41150e27e9dffc9a151b7b8a875c4647669ff36f9439c1ab5590a852ef19805e"
