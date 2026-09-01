@@ -1,0 +1,9 @@
+# Security contact for duguid.com.au and the ryanduguid GitHub repositories.
+# Report with fabricated data only. Never include client, taxpayer, employee,
+# payroll or credential data in a report.
+Contact: https://github.com/ryanduguid/ryanduguid.github.io/security/advisories/new
+Contact: mailto:ryan@duguid.com.au
+Expires: 2027-08-31T14:00:00.000Z
+Preferred-Languages: en
+Canonical: https://duguid.com.au/.well-known/security.txt
+Policy: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
