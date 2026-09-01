@@ -949,12 +949,6 @@ def test_public_contracts() -> int:
             "missing visible CSV action",
         ),
         (
-            "calculator zero explanation",
-            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
-            "Blank values were zero.",
-            "zero result needs the blank-as-zero explanation",
-        ),
-        (
             "calculator field name",
             'id="sacrificed" name="sacrificed"',
             'id="sacrificed" name="sacrificed-broken"',
@@ -972,12 +966,6 @@ def test_public_contracts() -> int:
             'id="result" role="region"',
             "#result must be a polite status region",
         ),
-        (
-            "calculator engine import",
-            "from '/assets/levy.mjs'",
-            "from '/assets/levy-copy.mjs'",
-            "protected levy engine import changed",
-        ),
     )
     for label, old, new, expected in calculator_mutations:
         contract_mutation(
@@ -988,6 +976,38 @@ def test_public_contracts() -> int:
             contracts.check_calculator_contract,
             expected,
         )
+
+    calculator_module = read_text(ROOT, contracts.LEVY_PAGE_MODULE)
+    module_mutations = (
+        (
+            "calculator zero explanation",
+            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
+            "Blank values were zero.",
+            "zero result needs the blank-as-zero explanation",
+        ),
+        (
+            "calculator engine import",
+            "from '/assets/levy.mjs'",
+            "from '/assets/levy-copy.mjs'",
+            "protected levy engine import changed",
+        ),
+    )
+    for label, old, new, expected in module_mutations:
+        failures = []
+        contracts.check_calculator_contract(
+            calculator,
+            failures,
+            module_source=changed_text(calculator_module, old, new),
+        )
+        expect_failure(label, failures, expected)
+    contract_mutation(
+        "calculator wiring inlined",
+        calculator,
+        contracts.LEVY_PAGE_SCRIPT,
+        "<script type=\"module\">import '/assets/levy-page.mjs';</script>",
+        contracts.check_calculator_contract,
+        "must load the calculator wiring from",
+    )
 
     contract_mutation(
         "article contents navigator",
@@ -1187,7 +1207,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 30
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
 
 
 def main() -> None:

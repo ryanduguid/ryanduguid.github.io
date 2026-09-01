@@ -678,6 +678,8 @@ RATE_PAGES = {
     "rates/cents-per-kilometre/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+LEVY_PAGE_MODULE = "assets/levy-page.mjs"
+LEVY_PAGE_SCRIPT = '<script type="module" src="/assets/levy-page.mjs"></script>'
 HEADER_DATED_PAGES = {
     rel
     for rel in ARTICLE_PATTERN_PAGES
@@ -1159,7 +1161,15 @@ def check_id_contract(
     return element
 
 
-def check_calculator_contract(html: str, failures: list[str]) -> None:
+def calculator_module_source(root: Path = core.ROOT) -> str:
+    """Return the calculator's external page module, or nothing if it is missing."""
+    path = root / LEVY_PAGE_MODULE
+    return path.read_text(encoding="utf-8") if path.is_file() else ""
+
+
+def check_calculator_contract(
+    html: str, failures: list[str], module_source: str | None = None
+) -> None:
     positions = [html.find(marker) for marker in CALCULATOR_MARKERS]
     if any(position < 0 for position in positions) or positions != sorted(positions):
         failures.append(
@@ -1409,13 +1419,20 @@ def check_calculator_contract(html: str, failures: list[str]) -> None:
     ):
         if required not in visible_text:
             failures.append(f"{CALCULATOR_REL}: missing visible {label}")
-    if CALCULATOR_BLANK_RESULT_EXPLANATION not in html:
+    if module_source is None:
+        module_source = calculator_module_source()
+    if html.count(LEVY_PAGE_SCRIPT) != 1:
         failures.append(
-            f"{CALCULATOR_REL}: zero result needs the blank-as-zero explanation"
+            f"{CALCULATOR_REL}: page must load the calculator wiring from "
+            f"{LEVY_PAGE_MODULE} exactly once"
+        )
+    if CALCULATOR_BLANK_RESULT_EXPLANATION not in module_source:
+        failures.append(
+            f"{LEVY_PAGE_MODULE}: zero result needs the blank-as-zero explanation"
         )
 
-    if "from '/assets/levy.mjs'" not in html:
-        failures.append(f"{CALCULATOR_REL}: protected levy engine import changed")
+    if "from '/assets/levy.mjs'" not in module_source:
+        failures.append(f"{LEVY_PAGE_MODULE}: protected levy engine import changed")
 
 
 def check_canonical_person(person: dict[str, object]) -> list[str]:
