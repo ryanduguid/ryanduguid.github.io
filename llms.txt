@@ -32,13 +32,16 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Rates](https://duguid.com.au/rates/): index of the three maintained Australian tax and payroll references, their verification dates, primary sources and downloadable CSVs where available.
 - [Super guarantee rate history](https://duguid.com.au/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
+- [Super guarantee rate history CSV](https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv): machine-readable copy of the maintained table.
 - [Division 7A benchmark interest rate](https://duguid.com.au/rates/div7a-benchmark-rate/): 8.77 per cent for 2026-27, 8.37 per cent for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
+- [Division 7A benchmark interest rate CSV](https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv): machine-readable copy of the maintained table.
 - [Cents per kilometre rate for car expenses](https://duguid.com.au/rates/cents-per-kilometre/): 91 cents for 2026-27, 88 cents for 2024-25 and 2025-26, capped at the first 5,000 business kilometres per car. One rate for every car, whatever the engine size. The 2026 determination sets 91 cents for that income year alone, so it does not carry into 2027-28 the way the 2024 determination's 88 cents carried into 2025-26.
+- [Cents per kilometre rate CSV](https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv): machine-readable copy of the maintained table.
 
 ## Browser tools, nothing to install
 
 - [Tools](https://duguid.com.au/tools/): index of ten open-source accounting controls grouped by extract, calculate, control and inspect, with delivery types, source repositories and human-review boundaries.
-- [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): works out eligible wages and the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base rate, annual salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
+- [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base-rate, annual-salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
 
 ## Tool guides, open source, install and run locally
 
