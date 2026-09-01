@@ -8,7 +8,7 @@
 
 export const LEVY_RATE_NUMERATOR = 27;
 export const LEVY_RATE_DENOMINATOR = 1000; // 2.7 per cent
-export const LEVY_RATE_AS_AT = '2026-08-24';
+export const LEVY_RATE_AS_AT = '2026-09-02';
 export const LEVY_RATE_SOURCE =
   'https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf';
 
