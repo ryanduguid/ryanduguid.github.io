@@ -307,6 +307,41 @@ def test_design_contracts() -> int:
 
     text_mutations = (
         (
+            "content security policy removed",
+            "about/index.html",
+            check_design.CSP_META + "\n",
+            "",
+            "about/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "content security policy weakened",
+            "tools/index.html",
+            "script-src 'self';",
+            "script-src 'self' 'unsafe-inline';",
+            "tools/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "display serif preload removed",
+            "index.html",
+            check_design.FONT_PRELOADS["IBMPlexSerif-SemiBold"] + "\n",
+            "",
+            "index.html: expected the IBMPlexSerif-SemiBold preload before the tokens stylesheet",
+        ),
+        (
+            "preload discovered after the stylesheets",
+            "rates/index.html",
+            check_design.FONT_PRELOADS["IBMPlexMono-Regular"] + "\n  " + check_design.TOKENS_LINK,
+            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["IBMPlexMono-Regular"],
+            "rates/index.html: expected the IBMPlexMono-Regular preload before the tokens stylesheet",
+        ),
+        (
+            "inline script restored",
+            "tools/coal-lsl-levy/index.html",
+            '<script type="module" src="/assets/levy-page.mjs"></script>',
+            "<script type=\"module\">import '/assets/levy-page.mjs';</script>",
+            "tools/coal-lsl-levy/index.html: must not carry inline script",
+        ),
+        (
             "protected rate copy",
             "rates/super-guarantee/index.html",
             "<strong>12%</strong>",
@@ -579,7 +614,36 @@ def test_design_contracts() -> int:
             "route labels must not be sticky",
         )
 
-    return len(text_mutations) + 5 + (2 * len(review_date_paths))
+    with copied_site() as root:
+        (root / ".well-known/security.txt").unlink()
+        expect_failure(
+            "security contact file removed",
+            check_design.check_repository(root),
+            ".well-known/security.txt: security.txt missing",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            ".well-known/security.txt",
+            "Expires: 2027-08-31T14:00:00.000Z",
+            "Expires: 2020-01-01T00:00:00.000Z",
+        )
+        expect_failure(
+            "security contact file expired",
+            check_design.check_repository(root),
+            ".well-known/security.txt: Expires has passed; refresh the file",
+        )
+
+    with copied_site() as root:
+        replace_file(root, "_config.yml", "  - .well-known\n", "")
+        expect_failure(
+            "security contact file unpublished",
+            check_design.check_repository(root),
+            "_config.yml: must include .well-known so Pages publishes security.txt",
+        )
+
+    return len(text_mutations) + 8 + (2 * len(review_date_paths))
 
 
 def contract_mutation(

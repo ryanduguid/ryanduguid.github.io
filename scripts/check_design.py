@@ -41,6 +41,26 @@ LLMS_ALTERNATE = (
     'href="https://duguid.com.au/llms.txt" />'
 )
 LLMS_VISIBLE = '<a href="/llms.txt">Machine-readable index</a>'
+CSP_META = (
+    '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; '
+    "script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; "
+    "connect-src 'self'; form-action 'self'; base-uri 'none'; "
+    "object-src 'none'\" />"
+)
+FONT_PRELOADS = {
+    face: (
+        f'<link rel="preload" href="/assets/fonts/{face}-Latin1.woff2" '
+        'as="font" type="font/woff2" crossorigin />'
+    )
+    for face in ("IBMPlexSerif-SemiBold", "IBMPlexSans-Regular", "IBMPlexMono-Regular")
+}
+SCRIPT_OPEN_PATTERN = re.compile(r"<script\b([^>]*)>", re.I)
+JSON_LD_TYPE_PATTERN = re.compile(
+    r'\btype\s*=\s*["\']application/ld\+json["\']', re.I
+)
+SECURITY_TXT = ".well-known/security.txt"
+SECURITY_TXT_CANONICAL = "https://duguid.com.au/.well-known/security.txt"
+JEKYLL_CONFIG = "_config.yml"
 PROOF_IMAGE_PATTERN = re.compile(
     r'<img\b(?=[^>]*\bsrc="/assets/coal-lsl-calculator\.webp")[^>]*>',
     re.I,
@@ -754,6 +774,21 @@ def check_document_delivery(
             raw.count(LLMS_ALTERNATE) != 1 or head.count(LLMS_ALTERNATE) != 1
         ):
             failures.append(f"{rel}: expected one llms.txt alternate link")
+        if raw.count(CSP_META) != 1 or head.count(CSP_META) != 1:
+            failures.append(f"{rel}: expected one Content Security Policy meta tag")
+        for face, preload in FONT_PRELOADS.items():
+            preload_at = head.find(preload)
+            if raw.count(preload) != 1 or preload_at < 0 or preload_at > token_at:
+                failures.append(
+                    f"{rel}: expected the {face} preload before the tokens stylesheet"
+                )
+        for attributes in SCRIPT_OPEN_PATTERN.findall(raw):
+            if re.search(r"\bsrc\s*=", attributes, re.I):
+                continue
+            if JSON_LD_TYPE_PATTERN.search(attributes):
+                continue
+            failures.append(f"{rel}: must not carry inline script")
+            break
 
     homepage_path = root / "index.html"
     if not homepage_path.is_file():
@@ -798,6 +833,41 @@ def check_document_delivery(
             failures.append(
                 f"{asset}: proof image exceeds {MAX_PROOF_BYTES} bytes"
             )
+    return failures
+
+
+def check_security_txt(root: Path) -> list[str]:
+    """Keep the RFC 9116 contact file present, current and published."""
+    failures: list[str] = []
+    path = root / SECURITY_TXT
+    if not path.is_file():
+        failures.append(f"{SECURITY_TXT}: security.txt missing")
+    else:
+        text = path.read_text(encoding="utf-8")
+        if not re.search(r"^Contact:\s*\S+", text, re.M):
+            failures.append(f"{SECURITY_TXT}: must name at least one Contact")
+        expires = re.findall(r"^Expires:\s*(\S+)", text, re.M)
+        if len(expires) != 1:
+            failures.append(f"{SECURITY_TXT}: must carry exactly one Expires field")
+        else:
+            try:
+                when = datetime.fromisoformat(expires[0].replace("Z", "+00:00"))
+            except ValueError:
+                failures.append(f"{SECURITY_TXT}: Expires must be an RFC 3339 timestamp")
+            else:
+                if when.tzinfo is None:
+                    failures.append(f"{SECURITY_TXT}: Expires must carry a timezone")
+                elif when <= datetime.now(when.tzinfo):
+                    failures.append(f"{SECURITY_TXT}: Expires has passed; refresh the file")
+        if f"Canonical: {SECURITY_TXT_CANONICAL}" not in text:
+            failures.append(f"{SECURITY_TXT}: must name its canonical URL")
+    config = root / JEKYLL_CONFIG
+    if not config.is_file() or not re.search(
+        r"^\s*-\s*\.well-known\s*$", config.read_text(encoding="utf-8"), re.M
+    ):
+        failures.append(
+            f"{JEKYLL_CONFIG}: must include .well-known so Pages publishes security.txt"
+        )
     return failures
 
 
@@ -868,6 +938,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"protected font changed: {rel}")
 
     failures.extend(check_document_delivery(root, baseline))
+    failures.extend(check_security_txt(root))
     failures.extend(check_favicon(root))
     failures.extend(check_stylesheets(root, baseline))
     tokens_path = root / "assets/tokens.css"
