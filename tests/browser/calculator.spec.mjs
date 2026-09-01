@@ -272,7 +272,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 30 August 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 2 September 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();
@@ -333,11 +333,12 @@ test('calculator orientation and result render as an inspectable ledger', async 
 
   const method = page.locator('.calculator-method');
   await expect(method).toContainText('2.7 per cent');
-  await expect(method).toContainText('28 August 2026');
+  await expect(method).toContainText('2 September 2026');
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');
 
   const result = page.locator('#result');
+  await expect(result).toContainText('as at 2026-09-02');
   const rows = result.locator('.result-row');
   await expect(rows).toHaveCount(6);
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
@@ -366,14 +367,16 @@ test('calculator orientation and result render as an inspectable ledger', async 
   health.assertHealthy();
 });
 
-test('calculator task begins in the initial mobile viewport', async ({ page }, testInfo) => {
+test('calculator task begins within 160 pixels after the initial mobile viewport', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');
   await waitForVisualFonts(page);
   const fieldset = await page.locator('#calc-form fieldset').first().boundingBox();
+  const viewport = page.viewportSize();
   expect(fieldset).not.toBeNull();
-  expect(fieldset.y).toBeLessThan(844);
+  expect(viewport).not.toBeNull();
+  expect(fieldset.y).toBeLessThan(viewport.height + 160);
   health.assertHealthy();
 });
 

@@ -124,6 +124,132 @@ def test_parked_consultancy_surface() -> None:
     )
 
 
+def test_geo_leftovers_surface() -> None:
+    """Keep the approved GEO pass visible to readers and machine consumers."""
+    review_date = "2 September 2026"
+    modified_date = "2026-09-02"
+    homepage_title = (
+        "Personal open-source Australian accounting controls | Ryan Duguid"
+    )
+    coal_title = "What wages are eligible for the Coal LSL levy under section 3B?"
+    coal_lead = (
+        "Checked 2 September 2026: the Coal LSL levy is 2.7 per cent of "
+        "eligible wages for the month. Section 3B determines eligible wages "
+        "under separate base-rate, annual-salary and casual branches; the "
+        "base-rate branch uses the greater of Formula A and Formula B."
+    )
+
+    home = read_text(ROOT, "index.html")
+    tools = read_text(ROOT, "tools/index.html")
+    coal = read_text(ROOT, "tools/coal-lsl-levy/index.html")
+
+    def title(html: str) -> str | None:
+        match = re.search(r"<title>(.*?)</title>", html, re.S)
+        return match.group(1).strip() if match else None
+
+    def web_page(html: str, rel: str) -> dict:
+        failures: list[str] = []
+        pages = [
+            node
+            for block in core.json_ld_blocks(html, rel, failures)
+            for node in core.nodes(block)
+            if node.get("@type") == "WebPage"
+        ]
+        assert not failures, failures
+        assert len(pages) == 1, f"{rel}: expected one WebPage, found {pages!r}"
+        return pages[0]
+
+    assert title(home) == homepage_title
+    assert title(home) != title(tools)
+    assert core.meta(home, "property", "og:title") == homepage_title
+    assert core.meta(home, "name", "twitter:title") == homepage_title
+    assert web_page(home, "index.html").get("name") == homepage_title
+    assert web_page(home, "index.html").get("dateModified") == modified_date
+    assert f"Last reviewed {review_date}." in core.visible_text(home)
+
+    coal_root = core.parse_structure(coal)
+    coal_h1s = core.descendants(coal_root, "h1", rendered_only=True)
+    coal_leads = [
+        element
+        for element in core.descendants(coal_root, rendered_only=True)
+        if element.has_class("short-answer")
+    ]
+    assert title(coal) == coal_title
+    assert len(coal_h1s) == 1 and core.element_text(coal_h1s[0]) == coal_title
+    assert len(coal_leads) == 1 and core.element_text(coal_leads[0]) == coal_lead
+    assert core.meta(coal, "property", "og:title") == coal_title
+    assert core.meta(coal, "name", "twitter:title") == coal_title
+    assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
+    assert (
+        web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
+        == modified_date
+    )
+    assert f"Last reviewed {review_date}." in core.visible_text(coal)
+
+    robots = read_text(ROOT, "robots.txt")
+    assert (
+        "# Unnamed agents must not silently redefine this policy; named rows state "
+        "the intended treatment."
+    ) in robots
+    assert core.robots_groups(robots) == {
+        "*": ["Allow: /"],
+        "Googlebot": ["Allow: /"],
+        "Bingbot": ["Allow: /"],
+        "OAI-SearchBot": ["Allow: /"],
+        "ChatGPT-User": ["Allow: /"],
+        "Claude-User": ["Allow: /"],
+        "Claude-Search": ["Allow: /"],
+        "Claude-SearchBot": ["Allow: /"],
+        "PerplexityBot": ["Allow: /"],
+        "Applebot": ["Allow: /"],
+        "YouBot": ["Allow: /"],
+        "anthropic-ai": ["Allow: /"],
+        "Claude-Web": ["Allow: /"],
+        "GPTBot": ["Disallow: /"],
+        "ClaudeBot": ["Disallow: /"],
+        "Google-Extended": ["Disallow: /"],
+        "Applebot-Extended": ["Disallow: /"],
+        "CCBot": ["Disallow: /"],
+        "Bytespider": ["Disallow: /"],
+        "Amazonbot": ["Disallow: /"],
+        "cohere-ai": ["Disallow: /"],
+        "Diffbot": ["Disallow: /"],
+        "FacebookBot": ["Disallow: /"],
+        "meta-externalagent": ["Disallow: /"],
+    }
+
+    for rel in ("rates/index.html", "evaluate/index.html"):
+        html = read_text(ROOT, rel)
+        page_root = core.parse_structure(html)
+        page_meta = [
+            core.element_text(element)
+            for element in core.descendants(page_root, rendered_only=True)
+            if element.has_class("page-meta")
+        ]
+        assert page_meta == [f"Last reviewed {review_date}."]
+        assert web_page(html, rel).get("dateModified") == modified_date
+
+    reference_tables = core.markdown_section(
+        read_text(ROOT, "llms.txt"), "Reference tables"
+    )
+    csv_urls = (
+        "https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv",
+        "https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv",
+        "https://duguid.com.au/rates/cents-per-kilometre/"
+        "cents-per-kilometre-rates.csv",
+    )
+    for url in csv_urls:
+        assert reference_tables.count(url) == 1
+
+    for url in (
+        "https://duguid.com.au/",
+        "https://duguid.com.au/rates/",
+        "https://duguid.com.au/evaluate/",
+        "https://duguid.com.au/tools/coal-lsl-levy/",
+    ):
+        assert core.sitemap_lastmods(url, ROOT) == [modified_date]
+
+
 def page_metadata_failures(root: Path, rel: str) -> list[str]:
     """Run the configured metadata checks for one page under an arbitrary root."""
     social_image, social_alt = contracts.social_metadata_for_page(rel)
@@ -351,8 +477,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 31 August 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 31 August 2026.</p>',
+            '<p class="page-meta">Last reviewed 2 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -377,7 +503,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "31 August 2026", "2026-08-31"),
+        ("index.html", "2 September 2026", "2026-09-02"),
         ("tools/index.html", "30 August 2026", "2026-08-30"),
         ("evidence/index.html", "30 August 2026", "2026-08-30"),
     )
@@ -648,7 +774,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Open-source Australian accounting tools | Ryan Duguid</title>",
+            "<title>Personal open-source Australian accounting controls | Ryan Duguid</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -744,7 +870,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Open-source Australian accounting tools | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Personal open-source Australian accounting controls | Ryan Duguid" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
@@ -1066,6 +1192,7 @@ def test_public_contracts() -> int:
 
 def main() -> None:
     test_parked_consultancy_surface()
+    test_geo_leftovers_surface()
     design_count = test_design_contracts()
     public_count = test_public_contracts()
     print(
