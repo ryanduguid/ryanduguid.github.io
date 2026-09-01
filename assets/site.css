@@ -720,6 +720,15 @@ tbody tr:hover td {
   text-underline-offset: var(--space-2);
 }
 
+/* Entry titles are headings for structure only; they keep the title link's
+   own measure rather than the heading tracking and balanced wrapping. */
+.collection-entry > h2,
+.collection-entry > h3 {
+  font-size: var(--text-heading-small);
+  letter-spacing: normal;
+  text-wrap: wrap;
+}
+
 .collection-entry dl {
   display: grid;
   gap: var(--space-3);
