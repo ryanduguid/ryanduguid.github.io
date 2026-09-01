@@ -179,6 +179,9 @@ RETRIEVAL_CRAWLERS = {
     "Claude-User",
     "PerplexityBot",
     "Applebot",
+    "YouBot",
+    "anthropic-ai",
+    "Claude-Web",
 }
 TRAINING_CRAWLERS = {
     "GPTBot",
@@ -187,11 +190,18 @@ TRAINING_CRAWLERS = {
     "Applebot-Extended",
     "CCBot",
     "Bytespider",
+    "Amazonbot",
+    "cohere-ai",
+    "Diffbot",
+    "FacebookBot",
+    "meta-externalagent",
 }
-UNCLASSIFIED_CRAWLERS = {"Amazonbot"}
-CRAWLER_POLICY_COMMENT = (
+UNCLASSIFIED_CRAWLERS: set[str] = set()
+CRAWLER_POLICY_COMMENTS = (
     "Search indexing and user-requested citation fetches are allowed. "
-    "Named training crawlers remain blocked."
+    "Named training crawlers remain blocked.",
+    "Unnamed agents must not silently redefine this policy; named rows state "
+    "the intended treatment.",
 )
 
 
@@ -624,7 +634,7 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Unknown means unknown",
     "A person signs off",
 ]
-HOMEPAGE_TITLE = "Open-source Australian accounting tools | Ryan Duguid"
+HOMEPAGE_TITLE = "Personal open-source Australian accounting controls | Ryan Duguid"
 HOMEPAGE_DESCRIPTION = (
     "Personal index of open-source Australian accounting tools for payroll, Xero, "
     "workpapers and AI workflows, with sources and working kept visible."
@@ -672,7 +682,7 @@ HEADER_DATED_PAGES = {
     rel
     for rel in ARTICLE_PATTERN_PAGES
     if rel.startswith(("tools/", "evaluate/"))
-} | {CALCULATOR_REL}
+} | {CALCULATOR_REL, "rates/index.html", "evaluate/index.html"}
 CALCULATOR_MARKERS = [
     'name="branch"',
     'id="branch-fields"',
@@ -2327,7 +2337,7 @@ def check_xero_evaluation_summary(root: Path = core.ROOT) -> list[str]:
 def check_robots_policy(robots: str) -> list[str]:
     """Keep search and user retrieval open while blocking training crawlers."""
     failures: list[str] = []
-    if CRAWLER_POLICY_COMMENT not in robots:
+    if any(comment not in robots for comment in CRAWLER_POLICY_COMMENTS):
         failures.append("robots.txt: missing written search-versus-training policy")
     groups = core.robots_groups(robots)
     expected = {"*": ["Allow: /"]}
