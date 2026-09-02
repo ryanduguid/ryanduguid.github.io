@@ -64,7 +64,7 @@
       This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
     </p>
     <p class="release-meta">Release <a href="https://github.com/ryanduguid/workpaper-review-gate/releases/tag/v0.1.1">v0.1.1</a>, evaluated against tagged fixtures.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 30 August 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 2 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -77,7 +77,7 @@
         </nav>
         <div class="article-body">
     <p>
-      Preparation got cheaper. Review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it. Most of what then happens on the review desk is not judgement: it is finding the missing tie-out, the open item still sitting in email, the same error as last period.
+      Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
     </p>
     <p>
       Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared, that the trial balance balances, and for a BAS that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
@@ -103,7 +103,7 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later. This is a command-line tool for whoever runs Python at the firm.</p>
+    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/workpaper-review-gate.git
 cd workpaper-review-gate
 python -m pip install -e ".[dev]"
@@ -126,16 +126,16 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
     <h2>Related</h2>
     <ul class="related">
       <li><a href="/evaluate/manager-review-gate/">Fabricated BAS evaluation and expected results</a></li>
-      <li><a href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that actually balances</a></li>
+      <li><a href="/tools/xero-trial-balance/">How to export a Xero trial balance to CSV that balances</a></li>
       <li><a href="https://github.com/ryanduguid/monthly-close-controls">Monthly Close Controls</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
     </section>
     <p class="byline">
-      Written independently by Ryan Duguid in his own time and on his own equipment.
-      His provisional membership of Chartered Accountants ANZ is asserted by the
-      site owner and is not an endorsement by Chartered Accountants ANZ.
+      Written by Ryan Duguid in his own time and on his own equipment.
+      He states that he is a provisional member of Chartered Accountants ANZ.
+      CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
       </div>
@@ -172,7 +172,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
         "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-30",
+        "dateModified": "2026-09-02",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -235,7 +235,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-r
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-30"
+        "dateModified": "2026-09-02"
       },
       {
         "@type": "FAQPage",

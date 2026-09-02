@@ -67,7 +67,7 @@
       contract liability per job. Assets and liabilities are never netted.
       Review aid, not a determination.
     </p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 30 August 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 2 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -80,21 +80,20 @@
         </nav>
         <div class="article-body">
     <p>
-      Construction month-end still lives or dies on the WIP schedule. The hard
-      part is not the formula. It is applying the same formula every month:
-      strip waste from percent complete without dropping it from margin, book
-      uninstalled materials at cost, constrain unapproved claims, and present
-      each contract as an asset or a liability, never a portfolio net.
+      Construction month-end turns on the WIP schedule. The formula is easy.
+      Applying it the same way every month is the work: strip waste from
+      percent complete without dropping it from margin, book uninstalled
+      materials at cost, constrain unapproved claims, and present each contract
+      as an asset or a liability, never a portfolio net.
     </p>
     <p>
-      This tool is the arithmetic. It is not a second JavaScript calculator.
-      Install the Python engine, point it at a contract CSV, and keep the
-      schedule beside the review pack. Over-time versus point in time, contract
-      combination, claim enforceability, and any onerous-contract provision stay
-      with a person.
+      This tool does the arithmetic. Install the Python engine, point it at a
+      contract CSV, and keep the schedule beside the review pack. Over-time
+      versus point in time, contract combination, claim enforceability, and any
+      onerous-contract provision stay with a person.
       <a href="/tools/subcontractor-ledgers/">hardhat-ledger</a>
-      still owns that workflow: it assembles the file and names this engine
-      rather than inventing the numbers.
+      owns that workflow: it assembles the file and names this engine rather
+      than inventing the numbers.
     </p>
     <section id="what-this-tool-does">
     <h2>What this tool does</h2>
@@ -119,12 +118,12 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later. This is a command-line tool for whoever runs Python at the firm.</p>
+    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/TheWIPTally.git
 cd TheWIPTally &amp;&amp; pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
     <p>
-      The sample is designed to raise review flags. Exit code 2 means a person
+      The sample raises review flags by design. Exit code 2 means a person
       needs to look; it is not a crash. Then:
     </p>
     <pre tabindex="0" role="region" aria-label="Review pack command"><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md</code></pre>
@@ -151,15 +150,15 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
     <ul class="related">
       <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
       <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></li>
-      <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
+      <li><a href="/tools/payday-super/">When is payday super due</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
     </section>
     <p class="byline">
-      Written independently by Ryan Duguid in his own time and on his own equipment.
-      His provisional membership of Chartered Accountants ANZ is asserted by the
-      site owner and is not an endorsement by Chartered Accountants ANZ.
+      Written by Ryan Duguid in his own time and on his own equipment.
+      He states that he is a provisional member of Chartered Accountants ANZ.
+      CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
       </div>
@@ -196,7 +195,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, profit fade. Review aid, not a determination.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-30",
+        "dateModified": "2026-09-02",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -263,7 +262,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-08-30"
+        "dateModified": "2026-09-02"
       },
       {
         "@type": "FAQPage",
