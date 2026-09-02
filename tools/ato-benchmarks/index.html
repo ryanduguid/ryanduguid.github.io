@@ -61,10 +61,10 @@
     </nav>
     <h1>How does this business compare to the ATO small business benchmarks</h1>
     <p class="lead-note">
-      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to look at more closely. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
     <p class="release-meta">Release <a href="https://github.com/ryanduguid/ato-benchmark-compare/releases/tag/v0.1.4">v0.1.4</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -77,19 +77,17 @@
         </nav>
         <div class="article-body">
     <p>
-      The ATO publishes benchmark ranges for around 100 industries and uses them
-      to decide which small businesses to look at more closely. Checking a
-      business against them before lodgement is a useful review step, and it is
-      usually done by hand: find the industry page, work out which turnover band
-      applies, add up the right accounts, and divide.
+      Checking a business against the benchmarks before lodgement is a useful
+      review step, and most people do it by hand: find the industry page, work
+      out which turnover band applies, add up the right accounts, and divide.
     </p>
     <p>
       This tool does that on your own machine, with no network call in the
-      runtime, and it records which account went into which figure so the
-      answer can be checked by someone else later. It applies the ATO's own
-      narrow definitions rather than a rough "expenses over income": wages
-      sitting inside cost of sales are excluded from that ratio, and payments to
-      associated persons come out of total expenses before the division.
+      runtime, and it records which account went into which figure so a second
+      reviewer can check your working later. It applies the ATO's own narrow
+      definitions rather than a rough "expenses over income": wages sitting
+      inside cost of sales come out of that ratio, and payments to associated
+      persons come out of total expenses before the division.
     </p>
     <p>
       The workflow is two steps on purpose. First the tool drafts a mapping from
@@ -102,7 +100,7 @@
     <ul>
       <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
       <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
-      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range, so the comparison can be checked by someone else.</li>
+      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.</li>
     </ul>
     </section>
     <section id="limits">
@@ -110,14 +108,13 @@
     <blockquote>
       <p>
         It is not tax advice, and sitting outside a range is not a finding that
-        anything is wrong. The ATO publishes ranges precisely because
-        businesses differ.
+        anything is wrong. The ATO publishes ranges because businesses differ.
       </p>
     </blockquote>
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later. This is a command-line tool for whoever runs Python at the firm.</p>
+    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/ato-benchmark-compare.git ato-benchmark-compare
 cd ato-benchmark-compare
 pip install .</code></pre>
@@ -129,11 +126,11 @@ pip install .</code></pre>
     <h2>Common questions</h2>
     <div class="faq">
       <h3>What are the ATO small business benchmarks?</h3>
-      <p>Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely.</p>
+      <p>Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine.</p>
       <h3>Does being outside a benchmark range mean something is wrong?</h3>
-      <p>No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error.</p>
+      <p>No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why.</p>
       <h3>Does this tool send my client data anywhere?</h3>
-      <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later.</p>
+      <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later.</p>
       <h3>Why does a person have to review the account mapping?</h3>
       <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
     </div>
@@ -148,9 +145,9 @@ pip install .</code></pre>
     </ul>
     </section>
     <p class="byline">
-      Written independently by Ryan Duguid in his own time and on his own equipment.
-      His provisional membership of Chartered Accountants ANZ is asserted by the
-      site owner and is not an endorsement by Chartered Accountants ANZ.
+      Written by Ryan Duguid in his own time and on his own equipment.
+      He states that he is a provisional member of Chartered Accountants ANZ.
+      CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
       </div>
@@ -187,7 +184,7 @@ pip install .</code></pre>
         "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-30",
+        "dateModified": "2026-09-02",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -254,7 +251,7 @@ pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-30"
+        "dateModified": "2026-09-02"
       },
       {
         "@type": "FAQPage",
@@ -265,7 +262,7 @@ pip install .</code></pre>
             "name": "What are the ATO small business benchmarks?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely."
+              "text": "Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine."
             }
           },
           {
@@ -273,7 +270,7 @@ pip install .</code></pre>
             "name": "Does being outside a benchmark range mean something is wrong?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error."
+              "text": "No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why."
             }
           },
           {
@@ -281,7 +278,7 @@ pip install .</code></pre>
             "name": "Does this tool send my client data anywhere?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later."
+              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later."
             }
           },
           {

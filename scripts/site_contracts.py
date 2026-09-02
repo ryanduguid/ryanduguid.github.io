@@ -44,8 +44,8 @@ CODEX_MCP_INSTALL_PATTERN = (
 )
 GITHUB_AGENT_SKILLS_URL = "https://github.com/ryanduguid/github-agent-skills"
 GITHUB_AGENT_SKILLS_BOUNDARY = (
-    "github-agent-skills supplies GitHub maintenance workflows for Codex and Claude "
-    "Code while preserving fabricated-data and human-review boundaries."
+    "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows "
+    "this portfolio uses, and keeps the fabricated-data and human-review boundaries."
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
@@ -63,13 +63,12 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
-    "Ryan Duguid is a provisional member of Chartered Accountants Australia and "
-    "New Zealand, as asserted by the site owner; this is not an endorsement by "
-    "Chartered Accountants ANZ."
+    "Ryan Duguid states that he is a provisional member of Chartered Accountants "
+    "Australia and New Zealand. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-08-30"
-MCP_VISIBLE_REVIEW_DATE = "30 August 2026"
+MCP_REVIEW_DATE = "2026-09-02"
+MCP_VISIBLE_REVIEW_DATE = "2 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -513,7 +512,7 @@ EVALUATION_PACKS = {
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-08-30",
+        "sitemap_lastmod": "2026-09-02",
         "llms_section": "Evaluation packs",
     },
 }
@@ -1589,7 +1588,7 @@ def check_public_evaluator_invitation(root: Path = core.ROOT) -> list[str]:
     hrefs = core.anchor_hrefs(rendered)
     issue_url = "https://github.com/ryanduguid/ryanduguid.github.io/issues"
     required = (
-        "Reproduce it independently",
+        "Reproduce it yourself",
         "Run one fixed evaluation and record the command, release, expected result "
         "and observed result.",
         "Report any mismatch in the site repository.",

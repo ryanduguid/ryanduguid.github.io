@@ -125,20 +125,92 @@ BANNED_CSS_PATTERNS = (
     "#5c2d91",
     "#9f6fd8",
 )
+# Marketing and machine-written vocabulary that must not reach a reader or an
+# agent: visible text, meta content and JSON-LD strings on every published page,
+# plus llms.txt. Labels name the offending word in the failure message.
 BANNED_VISIBLE_PATTERNS = (
-    ("revolutionise", r"\brevolutionise\b"),
-    ("seamless", r"\bseamless\b"),
+    ("delve", r"\bdelv(?:e|es|ed|ing)\b"),
+    ("revolutionise", r"\brevolutioni[sz](?:e|es|ed|ing)\b"),
+    ("seamless", r"\bseamless(?:ly)?\b"),
     ("cutting-edge", r"\bcutting-edge\b"),
-    ("leverage", r"\bleverage\b"),
-    ("unlock", r"\bunlock\b"),
-    ("AI-powered", r"\bai-powered\b"),
-    ("delves", r"\bdelves\b"),
+    ("state-of-the-art", r"\bstate-of-the-art\b"),
+    ("next-level", r"\bnext-level\b"),
+    ("world-class", r"\bworld-class\b"),
+    ("best-in-class", r"\bbest-in-class\b"),
+    ("leverage", r"\bleverag(?:e|es|ed|ing)\b"),
+    ("utilise", r"\butili[sz](?:e|es|ed|ing)\b"),
+    ("unlock", r"\bunlock(?:s|ed|ing)?\b"),
+    ("unleash", r"\bunleash(?:es|ed|ing)?\b"),
+    ("harness the", r"\bharness(?:es|ed|ing)? the\b"),
+    ("empower", r"\bempower(?:s|ed|ing|ment)?\b"),
+    ("elevate", r"\belevat(?:e|es|ed|ing)\b"),
+    ("streamline", r"\bstreamlin(?:e|es|ed|ing)\b"),
+    ("supercharge", r"\bsupercharg(?:e|es|ed|ing)\b"),
+    ("effortless", r"\beffortless(?:ly)?\b"),
+    ("robust", r"\brobust(?:ly|ness)?\b"),
+    ("AI-powered", r"\bai-(?:powered|driven)\b"),
     ("landscape", r"\blandscape\b"),
     ("tapestry", r"\btapestry\b"),
-    ("in today's fast-paced", r"\bin today's fast-paced\b"),
+    ("testament", r"\btestament\b"),
+    ("realm", r"\brealms?\b"),
+    ("beacon", r"\bbeacon\b"),
+    ("journey", r"\bjourneys?\b"),
+    ("embark", r"\bembark(?:s|ed|ing)?\b"),
+    ("navigate", r"\bnavigat(?:e|es|ed|ing)\b"),
+    ("pivotal", r"\bpivotal\b"),
+    ("crucial", r"\bcrucial(?:ly)?\b"),
+    ("vital", r"\bvital(?:ly)?\b"),
+    ("paramount", r"\bparamount\b"),
+    ("game-changer", r"\bgame-chang(?:er|ers|ing)\b"),
+    ("transformative", r"\btransformative\b"),
+    ("innovative", r"\binnovative\b"),
+    ("groundbreaking", r"\bgroundbreaking\b"),
+    ("unprecedented", r"\bunprecedented\b"),
+    ("remarkable", r"\bremarkabl[ey]\b"),
+    ("compelling", r"\bcompelling\b"),
+    ("invaluable", r"\binvaluable\b"),
+    ("indispensable", r"\bindispensable\b"),
+    ("holistic", r"\bholistic(?:ally)?\b"),
+    ("synergy", r"\bsynerg(?:y|ies|istic)\b"),
+    ("paradigm", r"\bparadigms?\b"),
+    ("meticulous", r"\bmeticulous(?:ly)?\b"),
+    ("intricate", r"\bintricate(?:ly)?\b"),
+    ("nuanced", r"\bnuanced\b"),
+    ("multifaceted", r"\bmultifaceted\b"),
+    ("myriad", r"\bmyriad\b"),
+    ("plethora", r"\bplethora\b"),
+    ("bustling", r"\bbustling\b"),
+    ("vibrant", r"\bvibrant\b"),
+    ("unwavering", r"\bunwavering\b"),
+    ("ever-evolving", r"\bever-evolving\b"),
+    ("curated", r"\bcurat(?:e|es|ed|ing)\b"),
+    ("bespoke", r"\bbespoke\b"),
+    ("actionable", r"\bactionable\b"),
+    ("insights", r"\binsights?\b"),
+    ("foster", r"\bfoster(?:s|ed|ing)?\b"),
+    ("facilitate", r"\bfacilitat(?:e|es|ed|ing)\b"),
+    ("underscore", r"\bunderscor(?:e|es|ed|ing)\b"),
+    ("showcase", r"\bshowcas(?:e|es|ed|ing)\b"),
+    ("spearhead", r"\bspearhead(?:s|ed|ing)?\b"),
+    ("bolster", r"\bbolster(?:s|ed|ing)?\b"),
+    ("garner", r"\bgarner(?:s|ed|ing)?\b"),
+    ("unpack", r"\bunpack(?:s|ed|ing)?\b"),
+    ("dive into", r"\bdiv(?:e|es|ed|ing) into\b"),
+    ("deep dive", r"\bdeep dives?\b"),
+    ("moreover", r"\bmoreover\b"),
+    ("furthermore", r"\bfurthermore\b"),
+    ("additionally", r"\badditionally\b"),
+    ("ultimately", r"\bultimately\b"),
+    ("notably", r"\bnotably\b"),
+    ("essentially", r"\bessentially\b"),
+    ("arguably", r"\barguably\b"),
+    ("in today's", r"\bin today's\b"),
+    ("it's worth noting", r"\bit(?:'s| is) worth noting\b"),
+    ("at its core", r"\bat its core\b"),
     ("Get started", r"\bget started\b"),
 )
-COPY_PATHS = ("index.html", "about/index.html")
+COPY_TEXT_FILES = ("llms.txt",)
+META_CONTENT_PATTERN = re.compile(r'<meta\b[^>]*\bcontent\s*=\s*"([^"]*)"', re.I)
 OPENING_REVIEW_DATE_CONTEXTS = {
     "index.html": "home-hero__copy",
     "tools/index.html": "article-header",
@@ -556,20 +628,67 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     return failures
 
 
+def json_ld_strings(value: object) -> list[str]:
+    """Every decoded string value in a parsed JSON-LD document, recursively."""
+    found: list[str] = []
+
+    def visit(candidate: object) -> None:
+        if isinstance(candidate, str):
+            found.append(candidate)
+        elif isinstance(candidate, dict):
+            for child in candidate.values():
+                visit(child)
+        elif isinstance(candidate, list):
+            for child in candidate:
+                visit(child)
+
+    visit(value)
+    return found
+
+
+def copy_surfaces(raw_html: str, rel: str) -> list[tuple[str, str]]:
+    """The text a reader or an agent takes from one page, by surface.
+
+    JSON-LD is parsed rather than pattern-matched, so every property and every
+    escaped character is scanned as a consumer would decode it. Parse failures
+    are already reported by the JSON-LD digest check, so they are dropped here.
+    """
+    meta_text = " ".join(
+        html_module.unescape(value) for value in META_CONTENT_PATTERN.findall(raw_html)
+    )
+    parse_failures: list[str] = []
+    json_ld_text = " ".join(
+        string
+        for block in core.json_ld_blocks(raw_html, rel, parse_failures)
+        for string in json_ld_strings(block)
+    )
+    return [
+        ("visible", visible_text(raw_html)),
+        ("meta", meta_text),
+        ("JSON-LD", json_ld_text),
+    ]
+
+
 def check_copy(root: Path) -> list[str]:
-    """Reject the brief's marketing-copy slop on the two rewritten pages."""
+    """Reject marketing and machine-written vocabulary on every published page."""
     failures: list[str] = []
-    for rel in COPY_PATHS:
+    documents = []
+    for path in core.html_files(root):
+        rel = path.relative_to(root).as_posix()
+        documents.append((rel, copy_surfaces(path.read_text(encoding="utf-8"), rel)))
+    for rel in COPY_TEXT_FILES:
         path = root / rel
         if not path.is_file():
             failures.append(f"copy page missing: {rel}")
             continue
-        text = visible_text(path.read_text(encoding="utf-8"))
-        for label, pattern in BANNED_VISIBLE_PATTERNS:
-            if re.search(pattern, text, re.I):
-                failures.append(f"{rel}: banned visible phrase {label!r}")
-        if EMOJI_PATTERN.search(text):
-            failures.append(f"{rel}: decorative emoji is not permitted")
+        documents.append((rel, [("text", path.read_text(encoding="utf-8"))]))
+    for rel, surfaces in documents:
+        for surface, text in surfaces:
+            for label, pattern in BANNED_VISIBLE_PATTERNS:
+                if re.search(pattern, text, re.I):
+                    failures.append(f"{rel}: banned {surface} phrase {label!r}")
+            if surface == "visible" and EMOJI_PATTERN.search(text):
+                failures.append(f"{rel}: decorative emoji is not permitted")
     return failures
 
 

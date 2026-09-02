@@ -344,8 +344,8 @@ def test_design_contracts() -> int:
         (
             "protected rate copy",
             "rates/super-guarantee/index.html",
-            "<strong>12%</strong>",
-            "<strong>13%</strong>",
+            "<strong>12 per cent</strong>",
+            "<strong>13 per cent</strong>",
             "protected main text changed: rates/super-guarantee/index.html",
         ),
         (
@@ -526,9 +526,51 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="page-meta">Last reviewed 2 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
+        ),
+        (
+            "machine-written vocabulary in visible copy",
+            "tools/wip-schedule/index.html",
+            "This tool does the arithmetic.",
+            "This tool delves into the arithmetic.",
+            "tools/wip-schedule/index.html: banned visible phrase 'delve'",
+        ),
+        (
+            "machine-written vocabulary in a meta description",
+            "tools/payday-super/index.html",
+            'content="Check whether super reaches the fund',
+            'content="Leverage this check that super reaches the fund',
+            "tools/payday-super/index.html: banned meta phrase 'leverage'",
+        ),
+        (
+            "machine-written vocabulary in structured data",
+            "tools/ato-benchmarks/index.html",
+            '"text": "No. Businesses differ, which is why the ATO publishes a range',
+            '"text": "No. Businesses differ, which is why the ATO ultimately publishes a range',
+            "tools/ato-benchmarks/index.html: banned JSON-LD phrase 'ultimately'",
+        ),
+        (
+            "machine-written vocabulary in a JSON-LD citation",
+            "rates/super-guarantee/index.html",
+            '"citation": "Australian Taxation Office, Key superannuation rates and thresholds: Super guarantee"',
+            '"citation": "Australian Taxation Office, Key superannuation rates and thresholds: Super guarantee, a robust source"',
+            "rates/super-guarantee/index.html: banned JSON-LD phrase 'robust'",
+        ),
+        (
+            "machine-written vocabulary behind a JSON escape",
+            "rates/super-guarantee/index.html",
+            '"text": "12 per cent. There are no further scheduled increases."',
+            '"text": "12 per cent. There are no further scheduled increases. D\\u0065lve no further."',
+            "rates/super-guarantee/index.html: banned JSON-LD phrase 'delve'",
+        ),
+        (
+            "machine-written vocabulary in llms.txt",
+            "llms.txt",
+            "index of open-source Australian accounting libraries",
+            "curated index of open-source Australian accounting libraries",
+            "llms.txt: banned text phrase 'curated'",
         ),
     )
 
@@ -540,7 +582,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "2 September 2026", "2026-09-02"),
         ("tools/index.html", "30 August 2026", "2026-08-30"),
-        ("evidence/index.html", "30 August 2026", "2026-08-30"),
+        ("evidence/index.html", "2 September 2026", "2026-09-02"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -713,8 +755,9 @@ def test_public_contracts() -> int:
         "git clone https://github.com/ryanduguid/github-agent-skills.git",
         "cd github-agent-skills",
         "pwsh -File scripts/sync-skills.ps1",
-        "github-agent-skills supplies GitHub maintenance workflows for Codex and "
-        "Claude Code while preserving fabricated-data and human-review boundaries.",
+        "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
+        "workflows this portfolio uses, and keeps the fabricated-data and "
+        "human-review boundaries.",
     )
     home_text = core.visible_text(home)
     assert "Four supported adoption routes" in home_text, (
@@ -1102,8 +1145,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
