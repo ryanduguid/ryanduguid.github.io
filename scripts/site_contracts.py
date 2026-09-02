@@ -63,9 +63,8 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
-    "Ryan Duguid is a provisional member of Chartered Accountants Australia and "
-    "New Zealand, as asserted by the site owner; this is not an endorsement by "
-    "Chartered Accountants ANZ."
+    "Ryan Duguid states that he is a provisional member of Chartered Accountants "
+    "Australia and New Zealand. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-08-30"
@@ -1589,7 +1588,7 @@ def check_public_evaluator_invitation(root: Path = core.ROOT) -> list[str]:
     hrefs = core.anchor_hrefs(rendered)
     issue_url = "https://github.com/ryanduguid/ryanduguid.github.io/issues"
     required = (
-        "Reproduce it independently",
+        "Reproduce it yourself",
         "Run one fixed evaluation and record the command, release, expected result "
         "and observed result.",
         "Report any mismatch in the site repository.",

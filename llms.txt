@@ -2,7 +2,7 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-> Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a provisional member of Chartered Accountants Australia and New Zealand, as asserted by the site owner; this is not an endorsement by Chartered Accountants ANZ.
+> Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid states that he is a provisional member of Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools.
 
 He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site is a personal index of open-source accounting tools built in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
 
@@ -76,4 +76,4 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## About
 
-Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a provisional member of Chartered Accountants Australia and New Zealand, as asserted by the site owner; this is not an endorsement by Chartered Accountants ANZ. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid states that he is a provisional member of Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
