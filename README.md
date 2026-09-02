@@ -35,6 +35,8 @@ then visit `http://127.0.0.1:4173/`.
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
+- every styled page carries the Content Security Policy meta tag and the three font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
+- `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
 
@@ -94,15 +96,36 @@ directive is honoured in markup.
 `Content-Security-Policy` is the exception. Browsers honour a policy delivered
 as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
 `report-uri` / `report-to` and report-only mode, which the specification
-reserves for the response header. This site carries no inline `<style>`, no
-`style` attribute and no executable inline script, so a markup policy is
-available to it and is not shipped. That is an open repository item.
+reserves for the response header. Every page ships that markup policy:
+
+```
+default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self';
+font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none';
+object-src 'none'
+```
+
+It holds because the site carries no inline `<style>`, no `style` attribute
+and no inline script other than JSON-LD data blocks. The Coal LSL calculator's
+page wiring lives in `assets/levy-page.mjs` for that reason, and
+`scripts/check_design.py` fails if a page drops the policy or gains an inline
+script.
 
 The remainder are response-header-only controls: a `<meta http-equiv>` copy
 either does nothing or is ignored by browsers, so none is emitted rather than
 shipping a header that looks present and is not. Closing those means moving the
 origin behind a proxy that can set headers, which is a hosting decision, not a
 repository one.
+
+## Published files
+
+GitHub Pages builds the repository with Jekyll. No page uses Jekyll templating;
+`_config.yml` only decides what reaches the published origin. It keeps the
+repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
+npm manifests, the Playwright and Lighthouse configuration, `GATES.md`,
+`DESIGN.md` and this README) and includes `.well-known/` so that
+`security.txt` is served despite Jekyll's default exclusion of dot-directories.
+The Search Console verification file, `LICENSE`, `SECURITY.md` and the font
+licence remain published.
 
 ## Social-card provenance
 

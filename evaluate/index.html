@@ -2,6 +2,7 @@
 <html lang="en-AU">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Reproducible accounting tool evaluations | Ryan Duguid</title>
@@ -28,6 +29,9 @@
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -63,7 +67,7 @@
       <div class="site-shell collection-layout">
         <div class="collection-register">
           <section class="collection-entry">
-            <a class="collection-entry__title" href="/evaluate/manager-review-gate/">Manager review gate evaluation</a>
+            <h2><a class="collection-entry__title" href="/evaluate/manager-review-gate/">Manager review gate evaluation</a></h2>
             <p>Runs two fabricated BAS packs through Workpaper Review Gate, corrects the stated failures and reproduces READY.</p>
             <dl>
               <div><dt>Fabricated input</dt><dd>Two BAS workpaper packs.</dd></div>
@@ -74,7 +78,7 @@
             <p class="collection-entry__links"><a href="https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/evaluation/manager_review_gate">Evaluation source</a></p>
           </section>
           <section class="collection-entry">
-            <a class="collection-entry__title" href="/evaluate/xero-trial-balance-integrity/">Xero trial balance integrity evaluation</a>
+            <h2><a class="collection-entry__title" href="/evaluate/xero-trial-balance-integrity/">Xero trial balance integrity evaluation</a></h2>
             <p>Runs three fabricated CSV fixtures through the movement and year-to-date balance gate without a Xero tenant.</p>
             <dl>
               <div><dt>Fabricated input</dt><dd>Balanced and deliberately unbalanced trial-balance CSVs.</dd></div>
@@ -85,7 +89,7 @@
             <p class="collection-entry__links"><a href="https://github.com/ryanduguid/xero-trial-balance-export/tree/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity">Evaluation source</a></p>
           </section>
           <section class="collection-entry">
-            <a class="collection-entry__title" href="/evaluate/payday-super-evidence/">Payday Super timing evidence evaluation</a>
+            <h2><a class="collection-entry__title" href="/evaluate/payday-super-evidence/">Payday Super timing evidence evaluation</a></h2>
             <p>Reproduces four evidence-timing outcomes, including at-risk, on-time and late classifications.</p>
             <dl>
               <div><dt>Fabricated input</dt><dd>Four contribution and receipt-evidence fixtures.</dd></div>

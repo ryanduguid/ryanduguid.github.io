@@ -1,0 +1,19 @@
+# GitHub Pages builds this repository with Jekyll. No page uses Jekyll
+# templating; this file only decides which files reach the published origin.
+# Dot-directories are excluded by default, so .well-known is included by name.
+include:
+  - .well-known
+exclude:
+  - DESIGN.md
+  - GATES.md
+  - README.md
+  - docs
+  - lighthouserc.cjs
+  - package.json
+  - package-lock.json
+  - playwright.capture.config.mjs
+  - playwright.config.mjs
+  - scripts
+  - tests
+  - assets/social-card-template.svg
+  - assets/social-cards.json

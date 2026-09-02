@@ -2,12 +2,13 @@
 <html lang="en-AU">
 <head>
   <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <title>Personal open-source Australian accounting controls | Ryan Duguid</title>
+  <title>Personal open-source Australian accounting controls</title>
   <meta name="description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Personal open-source Australian accounting controls | Ryan Duguid" />
+  <meta property="og:title" content="Personal open-source Australian accounting controls" />
   <meta property="og:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ryan Duguid" />
@@ -19,7 +20,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Personal open-source Australian accounting controls | Ryan Duguid" />
+  <meta name="twitter:title" content="Personal open-source Australian accounting controls" />
   <meta name="twitter:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site.png" />
   <meta name="twitter:image:alt" content="OLED register card: Review-ready controls for Australian accounting work." />
@@ -28,6 +29,9 @@
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -64,7 +68,7 @@
     <aside class="trust-band" aria-label="Register boundary and scope">
       <div class="site-shell trust-band__inner">
         <p class="hero-boundary">Review aids only. No client files. No lodgement. Human sign-off.</p>
-        <div class="home-proof-rail" aria-label="Register scope">
+        <div class="home-proof-rail" role="group" aria-label="Register scope">
           <p><strong>Scope 01</strong> Accounting workflow controls</p>
           <p><strong>Method 02</strong> Primary sources and exact arithmetic</p>
           <p><strong>Boundary 03</strong> Calculation is not judgement</p>
@@ -231,7 +235,7 @@
         <a href="/rates/">Maintained rates</a>
         <a href="https://github.com/ryanduguid/awesome-australian-accounting-tech">Awesome Australian Accounting Tech</a>
         <a href="https://github.com/ryanduguid/au-tax-legislation-corpus">Legislation Corpus</a>
-        <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU</a>
+        <a href="https://github.com/ryanduguid/tax-radar-au">Tax Radar AU (archived)</a>
         <a href="https://github.com/ryanduguid/release-policy">Release Policy</a>
       </div>
     </nav>
@@ -276,7 +280,7 @@
         "@type": "WebPage",
         "@id": "https://duguid.com.au/#webpage",
         "url": "https://duguid.com.au/",
-        "name": "Personal open-source Australian accounting controls | Ryan Duguid",
+        "name": "Personal open-source Australian accounting controls",
         "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",

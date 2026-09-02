@@ -635,6 +635,16 @@ tbody tr:hover td {
   content: "/";
 }
 
+/* Caption-size standalone links keep their layout but gain a 24px-plus
+   hit area: the padding is cancelled by an equal negative margin. */
+.article-crumb a,
+.home-hero__source a,
+.release-meta a {
+  display: inline-block;
+  padding-block: var(--space-2);
+  margin-block: calc(-1 * var(--space-2));
+}
+
 .collection-layout {
   display: grid;
   grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr);
@@ -708,6 +718,15 @@ tbody tr:hover td {
   line-height: var(--leading-heading);
   text-decoration-thickness: var(--rule-thin);
   text-underline-offset: var(--space-2);
+}
+
+/* Entry titles are headings for structure only; they keep the title link's
+   own measure rather than the heading tracking and balanced wrapping. */
+.collection-entry > h2,
+.collection-entry > h3 {
+  font-size: var(--text-heading-small);
+  letter-spacing: normal;
+  text-wrap: wrap;
 }
 
 .collection-entry dl {
