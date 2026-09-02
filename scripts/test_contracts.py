@@ -129,7 +129,7 @@ def test_geo_leftovers_surface() -> None:
     review_date = "2 September 2026"
     modified_date = "2026-09-02"
     homepage_title = (
-        "Personal open-source Australian accounting controls | Ryan Duguid"
+        "Personal open-source Australian accounting controls"
     )
     coal_title = "What wages are eligible for the Coal LSL levy under section 3B?"
     coal_lead = (
@@ -306,6 +306,41 @@ def test_design_contracts() -> int:
         )
 
     text_mutations = (
+        (
+            "content security policy removed",
+            "about/index.html",
+            check_design.CSP_META + "\n",
+            "",
+            "about/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "content security policy weakened",
+            "tools/index.html",
+            "script-src 'self';",
+            "script-src 'self' 'unsafe-inline';",
+            "tools/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "display serif preload removed",
+            "index.html",
+            check_design.FONT_PRELOADS["IBMPlexSerif-SemiBold"] + "\n",
+            "",
+            "index.html: expected the IBMPlexSerif-SemiBold preload before the tokens stylesheet",
+        ),
+        (
+            "preload discovered after the stylesheets",
+            "rates/index.html",
+            check_design.FONT_PRELOADS["IBMPlexMono-Regular"] + "\n  " + check_design.TOKENS_LINK,
+            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["IBMPlexMono-Regular"],
+            "rates/index.html: expected the IBMPlexMono-Regular preload before the tokens stylesheet",
+        ),
+        (
+            "inline script restored",
+            "tools/coal-lsl-levy/index.html",
+            '<script type="module" src="/assets/levy-page.mjs"></script>',
+            "<script type=\"module\">import '/assets/levy-page.mjs';</script>",
+            "tools/coal-lsl-levy/index.html: must not carry inline script",
+        ),
         (
             "protected rate copy",
             "rates/super-guarantee/index.html",
@@ -579,7 +614,36 @@ def test_design_contracts() -> int:
             "route labels must not be sticky",
         )
 
-    return len(text_mutations) + 5 + (2 * len(review_date_paths))
+    with copied_site() as root:
+        (root / ".well-known/security.txt").unlink()
+        expect_failure(
+            "security contact file removed",
+            check_design.check_repository(root),
+            ".well-known/security.txt: security.txt missing",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            ".well-known/security.txt",
+            "Expires: 2027-08-31T14:00:00.000Z",
+            "Expires: 2020-01-01T00:00:00.000Z",
+        )
+        expect_failure(
+            "security contact file expired",
+            check_design.check_repository(root),
+            ".well-known/security.txt: Expires has passed; refresh the file",
+        )
+
+    with copied_site() as root:
+        replace_file(root, "_config.yml", "  - .well-known\n", "")
+        expect_failure(
+            "security contact file unpublished",
+            check_design.check_repository(root),
+            "_config.yml: must include .well-known so Pages publishes security.txt",
+        )
+
+    return len(text_mutations) + 8 + (2 * len(review_date_paths))
 
 
 def contract_mutation(
@@ -774,7 +838,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Personal open-source Australian accounting controls | Ryan Duguid</title>",
+            "<title>Personal open-source Australian accounting controls</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -870,7 +934,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Personal open-source Australian accounting controls | Ryan Duguid" />',
+            '<meta name="twitter:title" content="Personal open-source Australian accounting controls" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
@@ -949,12 +1013,6 @@ def test_public_contracts() -> int:
             "missing visible CSV action",
         ),
         (
-            "calculator zero explanation",
-            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
-            "Blank values were zero.",
-            "zero result needs the blank-as-zero explanation",
-        ),
-        (
             "calculator field name",
             'id="sacrificed" name="sacrificed"',
             'id="sacrificed" name="sacrificed-broken"',
@@ -972,12 +1030,6 @@ def test_public_contracts() -> int:
             'id="result" role="region"',
             "#result must be a polite status region",
         ),
-        (
-            "calculator engine import",
-            "from '/assets/levy.mjs'",
-            "from '/assets/levy-copy.mjs'",
-            "protected levy engine import changed",
-        ),
     )
     for label, old, new, expected in calculator_mutations:
         contract_mutation(
@@ -988,6 +1040,38 @@ def test_public_contracts() -> int:
             contracts.check_calculator_contract,
             expected,
         )
+
+    calculator_module = read_text(ROOT, contracts.LEVY_PAGE_MODULE)
+    module_mutations = (
+        (
+            "calculator zero explanation",
+            contracts.CALCULATOR_BLANK_RESULT_EXPLANATION,
+            "Blank values were zero.",
+            "zero result needs the blank-as-zero explanation",
+        ),
+        (
+            "calculator engine import",
+            "from '/assets/levy.mjs'",
+            "from '/assets/levy-copy.mjs'",
+            "protected levy engine import changed",
+        ),
+    )
+    for label, old, new, expected in module_mutations:
+        failures = []
+        contracts.check_calculator_contract(
+            calculator,
+            failures,
+            module_source=changed_text(calculator_module, old, new),
+        )
+        expect_failure(label, failures, expected)
+    contract_mutation(
+        "calculator wiring inlined",
+        calculator,
+        contracts.LEVY_PAGE_SCRIPT,
+        "<script type=\"module\">import '/assets/levy-page.mjs';</script>",
+        contracts.check_calculator_contract,
+        "must load the calculator wiring from",
+    )
 
     contract_mutation(
         "article contents navigator",
@@ -1187,7 +1271,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + 30
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
 
 
 def main() -> None:
