@@ -123,7 +123,7 @@
 cd TheWIPTally &amp;&amp; pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
     <p>
-      The sample is designed to raise review flags. Exit code 2 means a person
+      The sample raises review flags by design. Exit code 2 means a person
       needs to look; it is not a crash. Then:
     </p>
     <pre tabindex="0" role="region" aria-label="Review pack command"><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md</code></pre>

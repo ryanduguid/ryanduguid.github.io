@@ -1,12 +1,12 @@
 {
   "protected_files": {
-    "llms.txt": "25d7d218c54c1fb23b400f0c1d904fb54e30d74cadfe037ae336c21a8706289d",
+    "llms.txt": "22e34c0add7cf70a9532cae9f513423c8130b066cb383e29f279c022db9446ea",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
     "sitemap.xml": "d120885dda5095a9d5edbfc52042781bccbbf38607a207eed5a62af21f549321"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "d370243d85be9ef0cc8fe41412398d22a2e94c4a09f3ef3c514b6a13322c4024",
-    "rates/div7a-benchmark-rate/index.html": "475aee2ef3264497864ee51d090fe9cb5ee190871126d2c808248437d91295b8",
+    "rates/div7a-benchmark-rate/index.html": "6d0e4e348eba37ce3dd806981750895110d97c2d74f691ec43e39bd4415b9f3f",
     "rates/cents-per-kilometre/index.html": "155420da0081218be7a75c8d86d3c7c35cd64950d00f93d642d3420c7032404c"
   },
   "protected_main_links": {

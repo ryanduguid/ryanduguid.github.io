@@ -67,7 +67,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Source code
 
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
-- [Awesome Australian Accounting Tech](https://github.com/ryanduguid/awesome-australian-accounting-tech): curated index of open-source Australian accounting libraries, ATO datasets and Commonwealth legislation APIs.
+- [Awesome Australian Accounting Tech](https://github.com/ryanduguid/awesome-australian-accounting-tech): index of open-source Australian accounting libraries, ATO datasets and Commonwealth legislation APIs.
 
 ## Optional
 
