@@ -211,10 +211,6 @@ BANNED_VISIBLE_PATTERNS = (
 )
 COPY_TEXT_FILES = ("llms.txt",)
 META_CONTENT_PATTERN = re.compile(r'<meta\b[^>]*\bcontent\s*=\s*"([^"]*)"', re.I)
-JSON_LD_STRING_PATTERN = re.compile(
-    r'"(?:name|alternateName|headline|description|disambiguatingDescription'
-    r'|abstract|text)"\s*:\s*"((?:[^"\\]|\\.)*)"'
-)
 OPENING_REVIEW_DATE_CONTEXTS = {
     "index.html": "home-hero__copy",
     "tools/index.html": "article-header",
@@ -632,15 +628,39 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
     return failures
 
 
-def copy_surfaces(raw_html: str) -> list[tuple[str, str]]:
-    """The text a reader or an agent takes from one page, by surface."""
+def json_ld_strings(value: object) -> list[str]:
+    """Every decoded string value in a parsed JSON-LD document, recursively."""
+    found: list[str] = []
+
+    def visit(candidate: object) -> None:
+        if isinstance(candidate, str):
+            found.append(candidate)
+        elif isinstance(candidate, dict):
+            for child in candidate.values():
+                visit(child)
+        elif isinstance(candidate, list):
+            for child in candidate:
+                visit(child)
+
+    visit(value)
+    return found
+
+
+def copy_surfaces(raw_html: str, rel: str) -> list[tuple[str, str]]:
+    """The text a reader or an agent takes from one page, by surface.
+
+    JSON-LD is parsed rather than pattern-matched, so every property and every
+    escaped character is scanned as a consumer would decode it. Parse failures
+    are already reported by the JSON-LD digest check, so they are dropped here.
+    """
     meta_text = " ".join(
         html_module.unescape(value) for value in META_CONTENT_PATTERN.findall(raw_html)
     )
+    parse_failures: list[str] = []
     json_ld_text = " ".join(
-        html_module.unescape(value)
-        for block in JSON_LD_PATTERN.findall(raw_html)
-        for value in JSON_LD_STRING_PATTERN.findall(block)
+        string
+        for block in core.json_ld_blocks(raw_html, rel, parse_failures)
+        for string in json_ld_strings(block)
     )
     return [
         ("visible", visible_text(raw_html)),
@@ -652,10 +672,10 @@ def copy_surfaces(raw_html: str) -> list[tuple[str, str]]:
 def check_copy(root: Path) -> list[str]:
     """Reject marketing and machine-written vocabulary on every published page."""
     failures: list[str] = []
-    documents = [
-        (path.relative_to(root).as_posix(), copy_surfaces(path.read_text(encoding="utf-8")))
-        for path in core.html_files(root)
-    ]
+    documents = []
+    for path in core.html_files(root):
+        rel = path.relative_to(root).as_posix()
+        documents.append((rel, copy_surfaces(path.read_text(encoding="utf-8"), rel)))
     for rel in COPY_TEXT_FILES:
         path = root / rel
         if not path.is_file():

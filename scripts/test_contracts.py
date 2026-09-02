@@ -552,6 +552,20 @@ def test_design_contracts() -> int:
             "tools/ato-benchmarks/index.html: banned JSON-LD phrase 'ultimately'",
         ),
         (
+            "machine-written vocabulary in a JSON-LD citation",
+            "rates/super-guarantee/index.html",
+            '"citation": "Australian Taxation Office, Key superannuation rates and thresholds: Super guarantee"',
+            '"citation": "Australian Taxation Office, Key superannuation rates and thresholds: Super guarantee, a robust source"',
+            "rates/super-guarantee/index.html: banned JSON-LD phrase 'robust'",
+        ),
+        (
+            "machine-written vocabulary behind a JSON escape",
+            "rates/super-guarantee/index.html",
+            '"text": "12 per cent. There are no further scheduled increases."',
+            '"text": "12 per cent. There are no further scheduled increases. D\\u0065lve no further."',
+            "rates/super-guarantee/index.html: banned JSON-LD phrase 'delve'",
+        ),
+        (
             "machine-written vocabulary in llms.txt",
             "llms.txt",
             "index of open-source Australian accounting libraries",

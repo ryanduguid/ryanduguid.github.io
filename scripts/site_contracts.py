@@ -512,7 +512,7 @@ EVALUATION_PACKS = {
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-08-30",
+        "sitemap_lastmod": "2026-09-02",
         "llms_section": "Evaluation packs",
     },
 }

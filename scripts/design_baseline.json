@@ -2,12 +2,12 @@
   "protected_files": {
     "llms.txt": "22e34c0add7cf70a9532cae9f513423c8130b066cb383e29f279c022db9446ea",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
-    "sitemap.xml": "d120885dda5095a9d5edbfc52042781bccbbf38607a207eed5a62af21f549321"
+    "sitemap.xml": "9195eb62b2b1fc39ca039676eb83e44d3257fde5c5d2287b68eb274ff3b53d38"
   },
   "protected_main_text": {
-    "rates/super-guarantee/index.html": "d370243d85be9ef0cc8fe41412398d22a2e94c4a09f3ef3c514b6a13322c4024",
-    "rates/div7a-benchmark-rate/index.html": "6d0e4e348eba37ce3dd806981750895110d97c2d74f691ec43e39bd4415b9f3f",
-    "rates/cents-per-kilometre/index.html": "155420da0081218be7a75c8d86d3c7c35cd64950d00f93d642d3420c7032404c"
+    "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
+    "rates/div7a-benchmark-rate/index.html": "03e543670bf179723721ff77061b4f212ac5ae033dc365881a7eaa437b870132",
+    "rates/cents-per-kilometre/index.html": "453ccab4edee776b3de8a822203276dedcb51bc4295285c891246b1b96708544"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -71,13 +71,13 @@
       "10bcd1dfe7525af6993d41801ae28f489b844dbc3032b123cd1ba4b9bc3fe0bd"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "36c08484a7fe46982e19c4703e8b85a546a021665971797812fc14439fb3dd12"
+      "99b541fbcbdbf20dc83a7035d550490c0c6f63679406143834ea0b977e502be9"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "61a594e90def5039cba7630f0f93e73a202b520a90008be269a8223994a60970"
+      "97a62b9f40347ca2ee7df88c9d7d14be428ae2423a85cfae7839db99241e7a66"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
-      "40d24e07528de7f269f431dbfb8e53dc13ba67d4e9f228e98021a3f601b26889"
+      "777d2a146f52c349df5a0936c25c466cf2b73e5b9019777141112a287ddd9327"
     ],
     "evidence/index.html": [
       "e0406237959095526b9bfc35eea7182bb7ae71962fad107637026f4be7e172e3"
@@ -86,16 +86,16 @@
       "551fd2c451bdd57d686cf6edb4f6ef1e04c8f186fc5f0fdad52bd028035f525b"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "90e404f02422ae8f8c0107c6f7b5f2c0d01f39ce67c992c5d7dadadd464ffcf7"
+      "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "6e8ad326c477907b854c56db28b0c8c6c6d0c33d4ae8426b2a76058616c871b8"
+      "06dcd1af8392375a6d7c1e1e5822fa2c41ad1efe8ef1c8995894df8ba1866889"
     ],
     "rates/index.html": [
       "ed53e25b404381cf458c4ae10a6719ea95356f7b0406c4ed1a6cc4d7589cd7bd"
     ],
     "rates/super-guarantee/index.html": [
-      "9616717b7046719f272c1ef2fd1cc51f860bd761b514bb6bfd747fec31bcaf40"
+      "a33c649b8f456737ae80de8ee43766c565429a53b50d1457c4f9c3cb0216b196"
     ],
     "tools/ato-benchmarks/index.html": [
       "0160d41e6b24b53098a5b306c08ce0f9d240cdefde80912236cec3e5424d7382"
