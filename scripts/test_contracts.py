@@ -344,8 +344,8 @@ def test_design_contracts() -> int:
         (
             "protected rate copy",
             "rates/super-guarantee/index.html",
-            "<strong>12%</strong>",
-            "<strong>13%</strong>",
+            "<strong>12 per cent</strong>",
+            "<strong>13 per cent</strong>",
             "protected main text changed: rates/super-guarantee/index.html",
         ),
         (
@@ -713,8 +713,9 @@ def test_public_contracts() -> int:
         "git clone https://github.com/ryanduguid/github-agent-skills.git",
         "cd github-agent-skills",
         "pwsh -File scripts/sync-skills.ps1",
-        "github-agent-skills supplies GitHub maintenance workflows for Codex and "
-        "Claude Code while preserving fabricated-data and human-review boundaries.",
+        "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
+        "workflows this portfolio uses, and keeps the fabricated-data and "
+        "human-review boundaries.",
     )
     home_text = core.visible_text(home)
     assert "Four supported adoption routes" in home_text, (

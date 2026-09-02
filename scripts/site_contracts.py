@@ -44,8 +44,8 @@ CODEX_MCP_INSTALL_PATTERN = (
 )
 GITHUB_AGENT_SKILLS_URL = "https://github.com/ryanduguid/github-agent-skills"
 GITHUB_AGENT_SKILLS_BOUNDARY = (
-    "github-agent-skills supplies GitHub maintenance workflows for Codex and Claude "
-    "Code while preserving fabricated-data and human-review boundaries."
+    "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows "
+    "this portfolio uses, and keeps the fabricated-data and human-review boundaries."
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"

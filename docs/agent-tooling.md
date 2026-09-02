@@ -23,7 +23,7 @@ commit them.
 
 ## Portable GitHub maintenance workflows
 
-github-agent-skills supplies GitHub maintenance workflows for Codex and Claude Code while preserving fabricated-data and human-review boundaries. Bootstrap <https://github.com/ryanduguid/github-agent-skills> locally with:
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries. Bootstrap <https://github.com/ryanduguid/github-agent-skills> locally with:
 
 ```powershell
 git clone https://github.com/ryanduguid/github-agent-skills.git
