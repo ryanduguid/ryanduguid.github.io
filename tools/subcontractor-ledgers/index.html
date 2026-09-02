@@ -64,7 +64,7 @@
       These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and over and under billing under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
     </p>
     <p class="release-meta">Release <a href="https://github.com/ryanduguid/hardhat-ledger/releases/tag/v0.1.5">v0.1.5</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -77,25 +77,12 @@
         </nav>
         <div class="article-body">
     <p>
-      This is not a standalone calculator. It is a set of Claude Code skills,
-      so you need an AI coding agent, such as Claude Code, already set up
-      before any of it does anything. Without one, these skills will not run.
-    </p>
-    <p>
-      With an agent in place, the skills cover the contracting core: progress
-      claim preparation, retention schedules, work in progress and
-      over-and-under billing under AASB 15, and contract cost tracking. For
-      mining services and earthmoving specifically, they cover fuel tax credit
-      claims, the Coal LSL levy, payroll tax on contractors, and plant and
-      equipment costing.
-    </p>
-    <p>
-      Each skill encodes the workflow, the steps, the tie-outs, the exceptions
-      to chase, rather than hard-coding rates and thresholds that go stale and
-      differ by state; it sends the agent back to the primary source instead.
-      Two things it deliberately will not do: decide whether a contract is
-      covered by a security of payment Act, or conclude that a worker is a
-      contractor rather than an employee. Both stay with a person.
+      Each skill encodes the workflow: the steps, the tie-outs and the
+      exceptions to chase. Rates and thresholds go stale and differ by state,
+      so the skill sends the agent to the primary source for them. Two things
+      the skills will not do: decide whether a security of payment Act covers a
+      contract, or conclude that a worker is a contractor rather than an
+      employee. Both stay with a person.
     </p>
     <p>
       For work in progress, the skills assemble the contract CSV. The arithmetic
@@ -138,7 +125,7 @@
       <h3>Do I need Claude Code to use these skills?</h3>
       <p>Yes. They are agent skills, not a standalone program. Without an AI coding agent such as Claude Code already set up, they will not run.</p>
       <h3>Will they tell me whether a contract is covered by a security of payment Act?</h3>
-      <p>No. That conclusion, and whether a worker is a contractor or an employee, stay with a person. The skills deliberately refuse both.</p>
+      <p>No. That conclusion, and whether a worker is a contractor or an employee, stay with a person. The skills refuse both.</p>
       <h3>Do the skills hard-code rates and thresholds?</h3>
       <p>No. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state.</p>
     </div>
@@ -148,15 +135,15 @@
     <ul class="related">
       <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a></li>
       <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></li>
-      <li><a href="/tools/payday-super/">When is payday super actually due</a></li>
+      <li><a href="/tools/payday-super/">When is payday super due</a></li>
       <li><a href="/evidence/">Evidence and Assurance</a></li>
       <li><a href="/about/">About Ryan Duguid</a></li>
     </ul>
     </section>
     <p class="byline">
-      Written independently by Ryan Duguid in his own time and on his own equipment.
-      His provisional membership of Chartered Accountants ANZ is asserted by the
-      site owner and is not an endorsement by Chartered Accountants ANZ.
+      Written by Ryan Duguid in his own time and on his own equipment.
+      He states that he is a provisional member of Chartered Accountants ANZ.
+      CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
       </div>
@@ -193,7 +180,7 @@
         "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-30",
+        "dateModified": "2026-09-02",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -260,7 +247,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-08-30"
+        "dateModified": "2026-09-02"
       },
       {
         "@type": "FAQPage",
@@ -279,7 +266,7 @@
             "name": "Will they tell me whether a contract is covered by a security of payment Act?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. That conclusion, and whether a worker is a contractor or an employee, stay with a person. The skills deliberately refuse both."
+              "text": "No. That conclusion, and whether a worker is a contractor or an employee, stay with a person. The skills refuse both."
             }
           },
           {
