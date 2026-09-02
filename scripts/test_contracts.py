@@ -526,8 +526,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="page-meta">Last reviewed 2 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
     )
@@ -540,7 +540,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "2 September 2026", "2026-09-02"),
         ("tools/index.html", "30 August 2026", "2026-08-30"),
-        ("evidence/index.html", "30 August 2026", "2026-08-30"),
+        ("evidence/index.html", "2 September 2026", "2026-09-02"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -1103,8 +1103,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 30 August 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
