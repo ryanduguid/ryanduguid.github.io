@@ -83,11 +83,11 @@
     </p>
     <p>
       This tool does that on your own machine, with no network call in the
-      runtime, and it records which account went into which figure so the
-      answer can be checked by someone else later. It applies the ATO's own
-      narrow definitions rather than a rough "expenses over income": wages
-      sitting inside cost of sales are excluded from that ratio, and payments to
-      associated persons come out of total expenses before the division.
+      runtime, and it records which account went into which figure so a second
+      reviewer can check your working later. It applies the ATO's own narrow
+      definitions rather than a rough "expenses over income": wages sitting
+      inside cost of sales come out of that ratio, and payments to associated
+      persons come out of total expenses before the division.
     </p>
     <p>
       The workflow is two steps on purpose. First the tool drafts a mapping from
@@ -100,7 +100,7 @@
     <ul>
       <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
       <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
-      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range, so the comparison can be checked by someone else.</li>
+      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.</li>
     </ul>
     </section>
     <section id="limits">
@@ -129,9 +129,9 @@ pip install .</code></pre>
       <h3>What are the ATO small business benchmarks?</h3>
       <p>Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine more closely.</p>
       <h3>Does being outside a benchmark range mean something is wrong?</h3>
-      <p>No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error.</p>
+      <p>No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why.</p>
       <h3>Does this tool send my client data anywhere?</h3>
-      <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later.</p>
+      <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later.</p>
       <h3>Why does a person have to review the account mapping?</h3>
       <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
     </div>
@@ -271,7 +271,7 @@ pip install .</code></pre>
             "name": "Does being outside a benchmark range mean something is wrong?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The ATO publishes ranges precisely because businesses differ. Being outside a range is a prompt to be able to explain why, not a finding of error."
+              "text": "No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why."
             }
           },
           {
@@ -279,7 +279,7 @@ pip install .</code></pre>
             "name": "Does this tool send my client data anywhere?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so someone else can check the comparison later."
+              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later."
             }
           },
           {
