@@ -530,6 +530,34 @@ def test_design_contracts() -> int:
             '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
+        (
+            "machine-written vocabulary in visible copy",
+            "tools/wip-schedule/index.html",
+            "This tool does the arithmetic.",
+            "This tool delves into the arithmetic.",
+            "tools/wip-schedule/index.html: banned visible phrase 'delve'",
+        ),
+        (
+            "machine-written vocabulary in a meta description",
+            "tools/payday-super/index.html",
+            'content="Check whether super reaches the fund',
+            'content="Leverage this check that super reaches the fund',
+            "tools/payday-super/index.html: banned meta phrase 'leverage'",
+        ),
+        (
+            "machine-written vocabulary in structured data",
+            "tools/ato-benchmarks/index.html",
+            '"text": "No. Businesses differ, which is why the ATO publishes a range',
+            '"text": "No. Businesses differ, which is why the ATO ultimately publishes a range',
+            "tools/ato-benchmarks/index.html: banned JSON-LD phrase 'ultimately'",
+        ),
+        (
+            "machine-written vocabulary in llms.txt",
+            "llms.txt",
+            "index of open-source Australian accounting libraries",
+            "curated index of open-source Australian accounting libraries",
+            "llms.txt: banned text phrase 'curated'",
+        ),
     )
 
     for label, rel, old, new, expected in text_mutations:
