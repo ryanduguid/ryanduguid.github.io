@@ -67,8 +67,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Australia and New Zealand. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-02"
-MCP_VISIBLE_REVIEW_DATE = "2 September 2026"
+MCP_REVIEW_DATE = "2026-09-03"
+MCP_VISIBLE_REVIEW_DATE = "3 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
