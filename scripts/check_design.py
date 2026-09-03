@@ -12,6 +12,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from xml.etree import ElementTree
 
+import favicon_render
 import seo_core as core
 
 
@@ -36,6 +37,12 @@ FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css" />'
 SITE_LINK = '<link rel="stylesheet" href="/assets/site.css" />'
+# Google only adopts a favicon whose raster is a multiple of 48px square, so
+# every page must offer it one alongside the SVG and the 32px tab icon.
+GOOGLE_FAVICON_LINKS = (
+    '<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />',
+    '<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />',
+)
 LLMS_ALTERNATE = (
     '<link rel="alternate" type="text/plain" '
     'href="https://duguid.com.au/llms.txt" />'
@@ -339,6 +346,25 @@ def check_favicon(root: Path) -> list[str]:
                     f"favicon geometry must use whole pixels: {attribute}={value}"
                 ]
     return []
+
+
+def check_favicon_assets(root: Path) -> list[str]:
+    """Keep every shipped raster identical to a fresh render of the seal."""
+    try:
+        rasters = favicon_render.rasters(root)
+    except favicon_render.FaviconError as exc:
+        return [f"favicon render failed: {exc}"]
+    failures: list[str] = []
+    for rel, expected in sorted(rasters.items()):
+        path = root / rel
+        if not path.is_file():
+            failures.append(f"favicon raster missing: {rel}")
+        elif path.read_bytes() != expected:
+            failures.append(
+                f"favicon raster out of date: {rel} "
+                "(run python scripts/favicon_render.py)"
+            )
+    return failures
 
 
 def main_visible_digest(path: Path) -> str | None:
@@ -895,6 +921,9 @@ def check_document_delivery(
             failures.append(f"{rel}: expected one llms.txt alternate link")
         if raw.count(CSP_META) != 1 or head.count(CSP_META) != 1:
             failures.append(f"{rel}: expected one Content Security Policy meta tag")
+        for link in GOOGLE_FAVICON_LINKS:
+            if raw.count(link) != 1 or head.count(link) != 1:
+                failures.append(f"{rel}: expected one favicon link: {link}")
         for face, preload in FONT_PRELOADS.items():
             preload_at = head.find(preload)
             if raw.count(preload) != 1 or preload_at < 0 or preload_at > token_at:
@@ -1059,6 +1088,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
     failures.extend(check_document_delivery(root, baseline))
     failures.extend(check_security_txt(root))
     failures.extend(check_favicon(root))
+    failures.extend(check_favicon_assets(root))
     failures.extend(check_stylesheets(root, baseline))
     tokens_path = root / "assets/tokens.css"
     if tokens_path.is_file():

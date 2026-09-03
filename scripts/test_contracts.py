@@ -572,6 +572,49 @@ def test_design_contracts() -> int:
             "curated index of open-source Australian accounting libraries",
             "llms.txt: banned text phrase 'curated'",
         ),
+        (
+            "favicon rasters left behind the seal",
+            "assets/favicon.svg",
+            '<rect x="24" y="40" width="16" height="4" fill="#eef4f0" />',
+            '<rect x="24" y="40" width="12" height="4" fill="#eef4f0" />',
+            "favicon raster out of date: assets/favicon-32.png",
+        ),
+        (
+            "favicon raster off the 48px grid Google accepts",
+            "assets/favicon.svg",
+            '<rect x="16" y="16" width="4" height="32" fill="#4dff88" />',
+            '<rect x="17" y="16" width="4" height="32" fill="#4dff88" />',
+            "does not land on a whole pixel",
+        ),
+        (
+            "favicon viewBox that the rasteriser cannot divide",
+            "assets/favicon.svg",
+            'viewBox="0 0 64 64"',
+            'viewBox="0 0 64.5 64.5"',
+            "favicon viewBox must use whole pixels",
+        ),
+        (
+            "favicon rect starting outside the viewBox",
+            "assets/favicon.svg",
+            '<rect x="16" y="16" width="4" height="32" fill="#4dff88" />',
+            '<rect x="-16" y="16" width="4" height="32" fill="#4dff88" />',
+            "favicon geometry must not be negative",
+        ),
+        (
+            "favicon rect overflowing the viewBox",
+            "assets/favicon.svg",
+            '<rect x="24" y="40" width="16" height="4" fill="#eef4f0" />',
+            '<rect x="24" y="40" width="48" height="4" fill="#eef4f0" />',
+            "favicon rect falls outside the viewBox",
+        ),
+        (
+            "48px favicon link dropped from a page head",
+            "index.html",
+            '  <link rel="icon" type="image/png" sizes="48x48" '
+            'href="/assets/favicon-48.png" />\n',
+            "",
+            "index.html: expected one favicon link",
+        ),
     )
 
     for label, rel, old, new, expected in text_mutations:
