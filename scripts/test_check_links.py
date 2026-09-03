@@ -47,6 +47,22 @@ class FetchFinalUrlTests(unittest.TestCase):
             check_links.is_accepted_automation_denial(confirmed[0], 404)
         )
 
+    def test_accepts_only_hibernated_linkedin_profile_failures(self) -> None:
+        profile = "https://www.linkedin.com/in/ryan-duguid"
+
+        for status in (404, 999):
+            with self.subTest(status=status):
+                self.assertTrue(
+                    check_links.is_accepted_automation_denial(profile, status)
+                )
+
+        self.assertFalse(check_links.is_accepted_automation_denial(profile, 403))
+        self.assertFalse(
+            check_links.is_accepted_automation_denial(
+                "https://www.linkedin.com/company/example", 404
+            )
+        )
+
     def test_reuses_a_successful_result_for_a_duplicate_url(self) -> None:
         attempts = 0
 

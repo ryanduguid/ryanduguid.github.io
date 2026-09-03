@@ -1200,6 +1200,88 @@ tbody tr:hover td {
   line-height: var(--leading-heading);
 }
 
+.adopt-chooser {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  min-width: 0;
+  margin-top: var(--space-4);
+}
+
+.adopt-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+.adopt-tab {
+  display: inline-flex;
+  flex: 1 1 7rem;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  order: 0;
+  padding: var(--space-2) var(--space-4);
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+  color: var(--colour-ink-soft);
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+  text-align: center;
+  cursor: pointer;
+  transition:
+    color var(--motion-standard) var(--ease-standard),
+    background-color var(--motion-standard) var(--ease-standard),
+    border-color var(--motion-standard) var(--ease-standard);
+}
+
+.adopt-tab:hover {
+  color: var(--colour-ink);
+  border-color: var(--colour-stamp-strong);
+}
+
+.adopt-input:checked + .adopt-tab {
+  color: var(--colour-ink);
+  border-color: var(--colour-stamp);
+  background: var(--colour-stamp-wash);
+}
+
+.adopt-input:focus-visible + .adopt-tab {
+  outline: 0.1875rem solid var(--colour-stamp);
+  outline-offset: 0.1875rem;
+}
+
+.adopt-panel {
+  display: none;
+  flex: 1 1 100%;
+  order: 1;
+  min-width: 0;
+}
+
+.adopt-input:checked + .adopt-tab + .adopt-panel {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.adopt-panel > p {
+  max-width: 58ch;
+  color: var(--colour-ink-mid);
+}
+
+.adopt-panel pre {
+  margin-top: 0;
+}
+
 .adoption-links {
   display: grid;
 }
@@ -1922,8 +2004,17 @@ input[type="checkbox"] {
   .article-crumb,
   .employee-section,
   .legal-content,
+  .adopt-tab,
+  .adopt-input,
   button {
     display: none !important;
+  }
+
+  .adopt-panel {
+    display: grid !important;
+    gap: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: var(--rule-thin) solid var(--colour-print-ink);
   }
 
   .calculator-header,
@@ -1975,5 +2066,12 @@ input[type="checkbox"] {
   *::after {
     transition-duration: var(--motion-fast) !important;
     animation-duration: var(--motion-fast) !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .adopt-input:checked + .adopt-tab {
+    outline: 2px solid ButtonText;
+    outline-offset: 2px;
   }
 }
