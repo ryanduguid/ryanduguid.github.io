@@ -122,7 +122,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     ),
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
-        "https://github.com/ryanduguid/aus-accounting-mcp",
+        "https://github.com/ryanduguid/australian-accounting",
         "Local MCP server for Australian accounting review: ATO small-business "
         "benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR "
         "fixtures. Not advice.",
@@ -147,7 +147,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     ),
     "monthly-close-controls": (
         "monthly-close-controls",
-        "https://github.com/ryanduguid/monthly-close-controls",
+        "https://github.com/ryanduguid/accounting-review-pipeline",
         "Deterministic monthly-close controls for Xero-shaped trial-balance exports, "
         "exception packs and human review.",
     ),
@@ -157,11 +157,24 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "Provenance-rich corpus of in-force Commonwealth tax legislation.",
     ),
 }
+# Two components now live inside monorepos, so their LICENSE sits under the
+# component directory rather than the repository root and cannot be derived
+# from the repository URL.
+COMPONENT_LICENCES = {
+    "aus-accounting-mcp": (
+        "https://github.com/ryanduguid/australian-accounting"
+        "/blob/main/apps/aus-accounting-mcp/LICENSE"
+    ),
+    "monthly-close-controls": (
+        "https://github.com/ryanduguid/accounting-review-pipeline"
+        "/blob/main/packages/monthly-close-control-plane/LICENSE"
+    ),
+}
 AUTHORED_SOFTWARE = {
     name: {
         "id": f"{SITE}/#software-{slug}",
         "repository": repository,
-        "license": f"{repository}/blob/main/LICENSE",
+        "license": COMPONENT_LICENCES.get(name, f"{repository}/blob/main/LICENSE"),
         "description": description,
     }
     for name, (slug, repository, description) in CURRENT_SOFTWARE_REPOSITORIES.items()
