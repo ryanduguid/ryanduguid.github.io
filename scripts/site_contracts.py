@@ -102,12 +102,12 @@ PERSON_ADDRESS = {
 CURRENT_SOFTWARE_REPOSITORIES = {
     "payday-super-checker": (
         "payday-super-checker",
-        "https://github.com/ryanduguid/payday-super-checker",
+        "https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker",
         "Experimental tool for checking Payday Super timing and preparing exceptions for review.",
     ),
     "xero-trial-balance-export": (
         "xero-trial-balance-export",
-        "https://github.com/ryanduguid/xero-trial-balance-export",
+        "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export",
         "Export reconciled Xero trial balances to validated CSV for Power BI, Excel and pandas.",
     ),
     "Ozzit": (
@@ -117,12 +117,12 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     ),
     "accounting-excel-toolkit": (
         "accounting-excel-toolkit",
-        "https://github.com/ryanduguid/accounting-excel-toolkit",
+        "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit",
         "Power Query and VBA utilities for Australian ledger work.",
     ),
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
-        "https://github.com/ryanduguid/australian-accounting",
+        "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
         "Local MCP server for Australian accounting review: ATO small-business "
         "benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR "
         "fixtures. Not advice.",
@@ -135,19 +135,19 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     ),
     "workpaper-review-gate": (
         "workpaper-review-gate",
-        "https://github.com/ryanduguid/workpaper-review-gate",
+        "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "Stop incomplete workpapers reaching manager review. Deterministic readiness "
         "gate for Australian public-practice packs. Not advice.",
     ),
     "australian-accounting-power-bi": (
         "australian-accounting-power-bi",
-        "https://github.com/ryanduguid/australian-accounting-power-bi",
+        "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/apps/australian-accounting-power-bi",
         "Source-controlled Power BI project for Australian accounting analytics, "
         "consolidation, ATO benchmarks and Payday Super review.",
     ),
     "monthly-close-controls": (
         "monthly-close-controls",
-        "https://github.com/ryanduguid/accounting-review-pipeline",
+        "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
         "Deterministic monthly-close controls for Xero-shaped trial-balance exports, "
         "exception packs and human review.",
     ),
@@ -157,24 +157,16 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "Provenance-rich corpus of in-force Commonwealth tax legislation.",
     ),
 }
-# Two components now live inside monorepos, so their LICENSE sits under the
-# component directory rather than the repository root and cannot be derived
-# from the repository URL.
-COMPONENT_LICENCES = {
-    "aus-accounting-mcp": (
-        "https://github.com/ryanduguid/australian-accounting"
-        "/blob/main/apps/aus-accounting-mcp/LICENSE"
-    ),
-    "monthly-close-controls": (
-        "https://github.com/ryanduguid/accounting-review-pipeline"
-        "/blob/main/packages/monthly-close-control-plane/LICENSE"
-    ),
-}
+# A component source URL retains its own licence inside the monorepo.
 AUTHORED_SOFTWARE = {
     name: {
         "id": f"{SITE}/#software-{slug}",
         "repository": repository,
-        "license": COMPONENT_LICENCES.get(name, f"{repository}/blob/main/LICENSE"),
+        "license": (
+            f"{repository.replace('/tree/main/', '/blob/main/')}/LICENSE"
+            if "/tree/main/" in repository
+            else f"{repository}/blob/main/LICENSE"
+        ),
         "description": description,
     }
     for name, (slug, repository, description) in CURRENT_SOFTWARE_REPOSITORIES.items()

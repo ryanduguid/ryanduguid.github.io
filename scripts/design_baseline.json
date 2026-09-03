@@ -1,6 +1,6 @@
 {
   "protected_files": {
-    "llms.txt": "22e34c0add7cf70a9532cae9f513423c8130b066cb383e29f279c022db9446ea",
+    "llms.txt": "73d5cb792377f99ec74df280a2be05fc3aa27e6f610fda309480478df6ddb8e8",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
     "sitemap.xml": "9195eb62b2b1fc39ca039676eb83e44d3257fde5c5d2287b68eb274ff3b53d38"
   },
@@ -83,7 +83,7 @@
       "e0406237959095526b9bfc35eea7182bb7ae71962fad107637026f4be7e172e3"
     ],
     "index.html": [
-      "bd49298ba6ffab305682988cd5f60fee84e47e7c319a902cbd03407d38145b9a"
+      "762ecfcb592aafeb1280a8890c230b9b00c467e90e6fa6dbaeb44d64683b5b26"
     ],
     "rates/cents-per-kilometre/index.html": [
       "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
@@ -101,7 +101,7 @@
       "0160d41e6b24b53098a5b306c08ce0f9d240cdefde80912236cec3e5424d7382"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "891975b0693f08fae20dc76b2e33e954d715897700b2f53df9c960aa0190ddd8"
+      "7d42884bf195cded82a2fd92ef4d9a3b6bf4f88ca7c0f6c5a306fa05e95be2dc"
     ],
     "tools/coal-lsl-levy/index.html": [
       "d0ce8c62a4c3b7e98dc3669cf7b7911604bae24389a645ad607a9b33300fdc00"

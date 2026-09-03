@@ -66,6 +66,9 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Source code
 
+- [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
+- [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands and licence.
+- [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): the unified v0.2.0 release contains nineteen workflows: nine public-practice and ten construction and mining subcontractor workflows. Use Adopt for installation; do not install a second Hardhat pack.
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
 - [Awesome Australian Accounting Tech](https://github.com/ryanduguid/awesome-australian-accounting-tech): index of open-source Australian accounting libraries, ATO datasets and Commonwealth legislation APIs.
 

@@ -1360,7 +1360,40 @@ def test_public_contracts() -> int:
     return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
 
 
+def test_current_component_metadata() -> None:
+    """Machine readers must reach each maintained component and its own licence."""
+    failures: list[str] = []
+    software = {
+        node["name"]: node
+        for block in core.json_ld_blocks(read_text(ROOT, "index.html"), "index.html", failures)
+        for node in core.nodes(block)
+        if core.has_type(node, "SoftwareSourceCode")
+    }
+    assert_clean("homepage JSON-LD", failures)
+    components = {
+        "payday-super-checker": ("australian-accounting", "packages/payday-super-checker"),
+        "aus-accounting-mcp": ("australian-accounting", "apps/aus-accounting-mcp"),
+        "xero-trial-balance-export": ("accounting-review-pipeline", "packages/xero-trial-balance-export"),
+        "accounting-excel-toolkit": ("accounting-review-pipeline", "adapters/accounting-excel-toolkit"),
+        "workpaper-review-gate": ("accounting-review-pipeline", "packages/review-ready-gate"),
+        "monthly-close-controls": ("accounting-review-pipeline", "packages/monthly-close-control-plane"),
+        "australian-accounting-power-bi": ("accounting-review-pipeline", "apps/australian-accounting-power-bi"),
+    }
+    for name, (repository, directory) in components.items():
+        node = software[name]
+        root_url = f"https://github.com/ryanduguid/{repository}"
+        for field in ("url", "codeRepository"):
+            assert node.get(field) == f"{root_url}/tree/main/{directory}", (
+                f"{name}: {field} does not reach its maintained component"
+            )
+        assert node.get("license") == f"{root_url}/blob/main/{directory}/LICENSE", (
+            f"{name}: licence does not belong to its maintained component"
+        )
+    print(f"component metadata tests passed ({len(components)} maintained components)")
+
+
 def main() -> None:
+    test_current_component_metadata()
     test_parked_consultancy_surface()
     test_geo_leftovers_surface()
     design_count = test_design_contracts()
