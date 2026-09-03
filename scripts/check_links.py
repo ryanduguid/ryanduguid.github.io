@@ -13,8 +13,8 @@ Checks, in order, per file:
 3. Every other absolute http(s) link resolves (2xx after redirects). Transient
    transport failures and HTTP 5xx responses are retried up to five times;
    HTTP 4xx responses are not.
-   HTTP 403 from exact allow-listed ATO source URLs is accepted as an
-   automation denial.
+   HTTP 403 from exact allow-listed ATO source URLs and HTTP 404 or 999 from
+   the hibernated LinkedIn profile are accepted.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 
@@ -96,8 +96,8 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
     }
 )
 
-# LinkedIn answers every non-browser client with HTTP 999 rather than serving
-# the profile. The page is reachable in a browser; only automation is refused.
+# LinkedIn normally answers non-browser clients with HTTP 999. A hibernated
+# profile returns HTTP 404, so either response is expected for this exact URL.
 LINKEDIN_AUTOMATION_DENIAL_URLS = frozenset(
     {
         "https://www.linkedin.com/in/ryan-duguid",
@@ -141,10 +141,10 @@ def fetch_final_url(
 
 
 def is_accepted_automation_denial(url: str, status: int) -> bool:
-    """True only for exact allow-listed denials reproduced on GitHub runners."""
+    """True only for exact allow-listed failures reproduced on GitHub runners."""
     if url in ATO_AUTOMATION_DENIAL_URLS and status == 403:
         return True
-    return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status == 999
+    return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status in {404, 999}
 
 
 def is_self_origin(href: str) -> bool:
@@ -215,7 +215,7 @@ def check_file(path: Path) -> list[str]:
         except urllib.error.HTTPError as exc:
             if is_accepted_automation_denial(href, exc.code):
                 print(
-                    f"accepted automation denial {rel}: {href} -> HTTP {exc.code} "
+                    f"accepted allow-listed failure {rel}: {href} -> HTTP {exc.code} "
                     "(exact allow-listed URL)"
                 )
             else:
@@ -279,9 +279,9 @@ def _self_check() -> None:
     assert is_accepted_automation_denial(
         "https://www.linkedin.com/in/ryan-duguid", 999
     ), "the exact LinkedIn profile HTTP 999 must be an accepted automation denial"
-    assert not is_accepted_automation_denial(
+    assert is_accepted_automation_denial(
         "https://www.linkedin.com/in/ryan-duguid", 404
-    ), "LinkedIn profile HTTP errors other than 999 must still fail"
+    ), "the hibernated LinkedIn profile HTTP 404 must be accepted"
     assert not is_accepted_automation_denial(
         "https://www.linkedin.com/company/example", 999
     ), "a LinkedIn URL outside the allow-list must still fail"
