@@ -28,6 +28,8 @@ test('current tool routes lead to maintained component source and support', asyn
     .toHaveAttribute('href', '/#adopt');
   await install.getByRole('link', { name: 'Adopt', exact: true }).click();
   await expect(page.locator('#adopt')).toBeVisible();
-  await expect(page.getByRole('region', { name: 'Supported installation commands' }))
+  // Adopt shows one route at a time: open the Skills route before reading it.
+  await page.locator('label[for="adopt-skills"]').click();
+  await expect(page.getByRole('region', { name: 'Skills install command' }))
     .toContainText('npx skills add ryanduguid/australian-accounting-skills');
 });
