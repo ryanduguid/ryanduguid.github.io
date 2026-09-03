@@ -8,6 +8,7 @@ import shutil
 import struct
 import tempfile
 from contextlib import contextmanager
+from datetime import date
 from pathlib import Path
 
 import check_design
@@ -164,8 +165,6 @@ def test_geo_leftovers_surface() -> None:
     assert core.meta(home, "property", "og:title") == homepage_title
     assert core.meta(home, "name", "twitter:title") == homepage_title
     assert web_page(home, "index.html").get("name") == homepage_title
-    assert web_page(home, "index.html").get("dateModified") == modified_date
-    assert f"Last reviewed {review_date}." in core.visible_text(home)
 
     coal_root = core.parse_structure(coal)
     coal_h1s = core.descendants(coal_root, "h1", rendered_only=True)
@@ -242,7 +241,6 @@ def test_geo_leftovers_surface() -> None:
         assert reference_tables.count(url) == 1
 
     for url in (
-        "https://duguid.com.au/",
         "https://duguid.com.au/rates/",
         "https://duguid.com.au/evaluate/",
         "https://duguid.com.au/tools/coal-lsl-levy/",
@@ -512,22 +510,22 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 2 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 3 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 3 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 30 August 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 August 2026.</p>',
+            '<p class="page-meta">Last reviewed 3 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 3 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 2 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 2 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 3 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 3 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -623,9 +621,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "2 September 2026", "2026-09-02"),
-        ("tools/index.html", "30 August 2026", "2026-08-30"),
-        ("evidence/index.html", "2 September 2026", "2026-09-02"),
+        ("index.html", "3 September 2026", "2026-09-03"),
+        ("tools/index.html", "3 September 2026", "2026-09-03"),
+        ("evidence/index.html", "3 September 2026", "2026-09-03"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -1188,8 +1186,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 2 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 3 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 3 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
@@ -1360,7 +1358,78 @@ def test_public_contracts() -> int:
     return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
 
 
+def test_current_component_metadata() -> None:
+    """Machine readers must reach each maintained component and its own licence."""
+    failures: list[str] = []
+    software = {
+        node["name"]: node
+        for block in core.json_ld_blocks(read_text(ROOT, "index.html"), "index.html", failures)
+        for node in core.nodes(block)
+        if core.has_type(node, "SoftwareSourceCode")
+    }
+    assert_clean("homepage JSON-LD", failures)
+    components = {
+        "payday-super-checker": ("australian-accounting", "packages/payday-super-checker"),
+        "aus-accounting-mcp": ("australian-accounting", "apps/aus-accounting-mcp"),
+        "xero-trial-balance-export": ("accounting-review-pipeline", "packages/xero-trial-balance-export"),
+        "accounting-excel-toolkit": ("accounting-review-pipeline", "adapters/accounting-excel-toolkit"),
+        "workpaper-review-gate": ("accounting-review-pipeline", "packages/review-ready-gate"),
+        "monthly-close-controls": ("accounting-review-pipeline", "packages/monthly-close-control-plane"),
+        "australian-accounting-power-bi": ("accounting-review-pipeline", "apps/australian-accounting-power-bi"),
+    }
+    for name, (repository, directory) in components.items():
+        node = software[name]
+        root_url = f"https://github.com/ryanduguid/{repository}"
+        for field in ("url", "codeRepository"):
+            assert node.get(field) == f"{root_url}/tree/main/{directory}", (
+                f"{name}: {field} does not reach its maintained component"
+            )
+        assert node.get("license") == f"{root_url}/blob/main/{directory}/LICENSE", (
+            f"{name}: licence does not belong to its maintained component"
+        )
+    print(f"component metadata tests passed ({len(components)} maintained components)")
+
+
+def test_consolidation_review_dates() -> None:
+    """Changed adoption pages cannot advertise a pre-cutover review date."""
+    pages = (
+        "index.html",
+        "about/index.html",
+        "evidence/index.html",
+        "tools/index.html",
+        "tools/ato-benchmarks/index.html",
+        "tools/australian-tax-ai-agents/index.html",
+        "tools/company-tax-franking/index.html",
+        "tools/payday-super/index.html",
+        "tools/subcontractor-ledgers/index.html",
+        "tools/trust-distributions/index.html",
+        "tools/wip-schedule/index.html",
+        "tools/workpaper-review-gate/index.html",
+        "tools/xero-trial-balance/index.html",
+    )
+    for rel in pages:
+        html = read_text(ROOT, rel)
+        failures: list[str] = []
+        modified = {
+            node["dateModified"]
+            for block in core.json_ld_blocks(html, rel, failures)
+            for node in core.nodes(block)
+            if "dateModified" in node
+        }
+        assert_clean(f"{rel} review metadata", failures)
+        assert len(modified) == 1, f"{rel}: inconsistent structured review dates"
+        modified_date = date.fromisoformat(next(iter(modified)))
+        assert modified_date >= date(2026, 9, 3), f"{rel}: review predates consolidation"
+        visible_date = f"{modified_date.day} {modified_date.strftime('%B %Y')}"
+        assert f"Last reviewed {visible_date}." in core.visible_text(html), rel
+        url = "https://duguid.com.au/" + rel.removesuffix("index.html")
+        assert core.sitemap_lastmods(url, ROOT) == [modified_date.isoformat()], rel
+    print(f"consolidation review dates passed ({len(pages)} pages)")
+
+
 def main() -> None:
+    test_consolidation_review_dates()
+    test_current_component_metadata()
     test_parked_consultancy_surface()
     test_geo_leftovers_surface()
     design_count = test_design_contracts()
