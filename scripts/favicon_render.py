@@ -42,18 +42,25 @@ def _colour(value: str, label: str) -> bytes:
         raise FaviconError(f"favicon fill is not a colour: {value!r}") from exc
 
 
+def _whole(value: str, label: str) -> int:
+    try:
+        return int(value)
+    except ValueError as exc:
+        raise FaviconError(
+            f"favicon {label} must use whole pixels: {value}"
+        ) from exc
+
+
 def _length(element, name: str, default: int | None = None) -> int:
     value = element.get(name)
     if value is None:
         if default is None:
             raise FaviconError(f"favicon rect is missing {name}")
         return default
-    try:
-        return int(value)
-    except ValueError as exc:
-        raise FaviconError(
-            f"favicon geometry must use whole pixels: {name}={value}"
-        ) from exc
+    length = _whole(value, f"geometry {name}")
+    if length < 0:
+        raise FaviconError(f"favicon geometry must not be negative: {name}={value}")
+    return length
 
 
 def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, bytes], ...]]:
@@ -68,7 +75,9 @@ def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, byte
         raise FaviconError("favicon viewBox must start at the origin")
     if view_box[2] != view_box[3]:
         raise FaviconError("favicon viewBox must be square")
-    grid = int(view_box[2])
+    grid = _whole(view_box[2], "viewBox")
+    if grid <= 0:
+        raise FaviconError(f"favicon viewBox must be positive: {grid}")
 
     rects = []
     for element in svg:
@@ -78,15 +87,18 @@ def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, byte
         for corner in ("rx", "ry"):
             if element.get(corner) is not None:
                 raise FaviconError(f"favicon rects must have square corners: {corner}")
-        rects.append(
-            (
-                _length(element, "x", 0),
-                _length(element, "y", 0),
-                _length(element, "width"),
-                _length(element, "height"),
-                _colour(element.get("fill"), tag),
+        x = _length(element, "x", 0)
+        y = _length(element, "y", 0)
+        width = _length(element, "width")
+        height = _length(element, "height")
+        # A browser clips a rect to the viewport; the rasteriser paints into a
+        # flat buffer and would wrap instead, so an unclipped rect is refused.
+        if x + width > grid or y + height > grid:
+            raise FaviconError(
+                "favicon rect falls outside the viewBox: "
+                f"x={x} y={y} width={width} height={height}"
             )
-        )
+        rects.append((x, y, width, height, _colour(element.get("fill"), tag)))
     if not rects:
         raise FaviconError("favicon has no shapes to render")
     return grid, tuple(rects)
@@ -102,7 +114,11 @@ def _scale(value: int, grid: int, size: int, label: str) -> int:
 
 
 def raster(seal, size: int) -> bytes:
-    """Paint the seal into ``size`` square 8-bit RGB pixels, top row first."""
+    """Paint the seal into ``size`` square 8-bit RGB pixels, top row first.
+
+    ``parse_seal`` has already held every rect inside the viewBox, so each run
+    below lands within its own row.
+    """
     grid, rects = seal
     pixels = bytearray(size * size * 3)
     for x, y, width, height, fill in rects:
@@ -110,8 +126,6 @@ def raster(seal, size: int) -> bytes:
         top = _scale(y, grid, size, "y")
         right = left + _scale(width, grid, size, "width")
         bottom = top + _scale(height, grid, size, "height")
-        if right > size or bottom > size:
-            raise FaviconError("favicon rect falls outside the viewBox")
         run = fill * (right - left)
         for row in range(top, bottom):
             start = (row * size + left) * 3
