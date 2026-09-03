@@ -40,6 +40,7 @@ then visit `http://127.0.0.1:4173/`.
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
+- the shipped favicon rasters and `favicon.ico` match a fresh render of `assets/favicon.svg`, and every styled page declares the 48px and 96px icons Google needs
 
 Run locally:
 
@@ -139,6 +140,25 @@ The five contexts cover the site, tools, evaluations, rates and evidence. They a
 | `assets/social-card-evaluations.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
 | `assets/social-card-rates.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
 | `assets/social-card-evidence.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+
+## Favicon provenance
+
+The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rectangles on the OLED palette. Every raster below is rendered from that one drawing by `scripts/favicon_render.py`, which scales the 64-unit grid by whole pixels, so no shipped icon carries resampling or a fourth colour.
+
+| Asset | Role |
+| --- | --- |
+| `assets/favicon-32.png` | browser tabs |
+| `assets/favicon-48.png` | the smallest raster Google accepts |
+| `assets/favicon-96.png` | high-density displays, and Google's pick on most results |
+| `favicon.ico` | 16, 32 and 48 pixel frames for the root file Google falls back to when no link element offers it a usable icon |
+
+Google only adopts a favicon whose raster is a multiple of 48px square, which is why the 48 and 96 pixel files ship alongside the 32px tab icon and are declared in every page head. Rebuild them after any change to the seal:
+
+```bash
+python scripts/favicon_render.py
+```
+
+`scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for; 180 is not a whole-pixel scale of the 64-unit grid, so that file stays outside the render step.
 
 ## Licence
 
