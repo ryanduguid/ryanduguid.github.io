@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "eaedb842719c9b4956a276ec77ec6e0101b4c88dd33db698fa5de5c8dee6f272",
+    "llms.txt": "e3036d73d511630d21b6f2853e5fe6d4244ebf0ddde2c88c6b44858bfd107cd0",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
-    "sitemap.xml": "e283c7245b49cc4017d85ab76bb790946a08809e2bef219b87203bb5b1aa9373"
+    "sitemap.xml": "46bb05ea61eba078f86e6464371091f5a5bfc83faf92214c0b272a5eeab94faa"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -59,7 +59,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "194efc0ca999b828bcce62b8588327443c84697ac04d91091d2fa339291d684c"
+      "b9de0504e8a929dd50ee6a819f41d7ffce658fe3b7962193fd1170f2f2a717f9"
     ],
     "changelog/index.html": [
       "644b69647a7c2092eae12a0f1aa01bf5cecf0be5732a6d1a0d1c96a9c954c3cd"
@@ -110,7 +110,7 @@
       "53815823fa071dc77f475924b83306484f37f7186871b2a2f683ae02cb744285"
     ],
     "tools/index.html": [
-      "53fc6188a08227c0ec0130c7149df812ad9b735aac4526285469a9f2277b1003"
+      "ccc1c3da539b05113ac9f9b6e601a5a68bdf7885b0c27395107341803e62bbe5"
     ],
     "tools/payday-super/index.html": [
       "b21794f25baf6c30e8f28739fcb86b07357274d0bf7ad192fc560b3a89dedd9d"
@@ -129,10 +129,13 @@
     ],
     "tools/xero-trial-balance/index.html": [
       "4674a4a4318d0210aaec11713950ebd94296786b2c5645ae7af509354ce85ba5"
+    ],
+    "tools/refusals/index.html": [
+      "0fe5091a376c8d78da12edac751ca4a426c4b4473bf787e8605f85d8aa3f442f"
     ]
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 25,
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 26,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
