@@ -183,7 +183,9 @@ def self_origin_target(href: str) -> Path:
     return ROOT / path.lstrip("/")
 
 
-OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)")
+# GitHub owner and repository names are case-insensitive; names are
+# lower-cased so the cache, the allowlist and the redirect check agree.
+OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)", re.I)
 
 # Per page, the archived repositories that page may link on purpose as
 # provenance for a release that predates the consolidation. Keyed by page and
@@ -251,7 +253,7 @@ def repository_is_archived(name: str) -> bool:
 def own_repository(href: str) -> str | None:
     """Return the ryanduguid repository name an href points at, if any."""
     match = OWN_REPO.match(href)
-    return match.group(1) if match else None
+    return match.group(1).lower() if match else None
 
 
 def archived_target_failures(
@@ -302,9 +304,16 @@ def check_file(path: Path) -> list[str]:
         if ch in html:
             failures.append(f"{rel}: {label} present")
 
+    failures.extend(check_hrefs(rel, parser.hrefs))
+    return failures
+
+
+def check_hrefs(rel: str, hrefs: list[str]) -> list[str]:
+    """Resolve every link from one file and classify its own-repository targets."""
+    failures: list[str] = []
     seen: set[str] = set()
     resolved_own_hrefs: list[str] = []
-    for href in parser.hrefs:
+    for href in hrefs:
         if href in seen:
             continue
         # Root-relative hrefs ("/", "/tools/foo/", "/assets/site.css") are
@@ -343,7 +352,7 @@ def check_file(path: Path) -> list[str]:
         name = own_repository(href)
         if name is not None:
             final_name = own_repository(final)
-            if final_name is None or final_name.lower() != name.lower():
+            if final_name != name:
                 failures.append(
                     f"{rel}: {href} redirected to {final} (rename redirect, repoint the link)"
                 )
@@ -360,6 +369,14 @@ def check_file(path: Path) -> list[str]:
 def html_files() -> list[Path]:
     """Every public site HTML file, excluding generated and hidden paths."""
     return core.html_files(ROOT)
+
+
+MARKDOWN_LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
+
+
+def llms_hrefs(path: Path = ROOT / "llms.txt") -> list[str]:
+    """Markdown link targets in llms.txt, the published machine-readable index."""
+    return MARKDOWN_LINK.findall(path.read_text(encoding="utf-8"))
 
 
 def _self_check() -> None:
@@ -416,6 +433,7 @@ def main() -> int:
     failures: list[str] = []
     for path in html_files():
         failures.extend(check_file(path))
+    failures.extend(check_hrefs("llms.txt", llms_hrefs()))
 
     if failures:
         print(f"\n{len(failures)} failure(s):")

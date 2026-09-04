@@ -156,6 +156,34 @@ class FetchFinalUrlTests(unittest.TestCase):
         self.assertEqual(len(failures), 1)
         self.assertIn("ryanduguid/payday-super-checker is archived", failures[0])
 
+    def test_case_variants_classify_as_the_same_repository(self) -> None:
+        self.assertEqual(
+            check_links.own_repository("https://GitHub.com/RyanDuguid/Hardhat-Ledger/releases"),
+            "hardhat-ledger",
+        )
+
+    def test_llms_links_are_classified(self) -> None:
+        with (
+            unittest.mock.patch.object(
+                check_links,
+                "fetch_final_url",
+                lambda href: (200, href),
+            ),
+            unittest.mock.patch.object(
+                check_links, "repository_is_archived", lambda name: name == "hardhat-ledger"
+            ),
+        ):
+            failures = check_links.check_hrefs(
+                "llms.txt",
+                check_links.MARKDOWN_LINK.findall(
+                    "- [Skills](https://github.com/ryanduguid/australian-accounting-skills): x\n"
+                    "- [Old](https://github.com/ryanduguid/hardhat-ledger): y\n"
+                ),
+            )
+
+        self.assertEqual(len(failures), 1)
+        self.assertIn("llms.txt: https://github.com/ryanduguid/hardhat-ledger", failures[0])
+
     def test_archived_lookup_failure_is_a_failure(self) -> None:
         def lookup(name: str) -> bool:
             raise urllib.error.HTTPError(
