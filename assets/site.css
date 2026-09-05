@@ -1419,6 +1419,10 @@ th {
   font-size: var(--text-small);
 }
 
+.proof-calc__result[hidden] {
+  display: none;
+}
+
 .proof-calc__result > div {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -1957,6 +1961,28 @@ input[type="checkbox"] {
 
   .home-hero h1 {
     font-size: 2rem;
+  }
+
+  .home-hero {
+    padding-block: var(--space-6);
+  }
+
+  .home-hero__copy {
+    gap: var(--space-4);
+  }
+
+  .home-hero__copy > p {
+    margin-top: 0;
+  }
+
+  .home-tool-preview {
+    padding-block: var(--space-5);
+    gap: var(--space-4);
+  }
+
+  .home-tool-preview__entry {
+    gap: var(--space-3);
+    padding-block: var(--space-4);
   }
 
   .proof-feature figure {

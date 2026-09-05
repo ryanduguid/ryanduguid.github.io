@@ -51,18 +51,15 @@ export function results(dollars) {
   };
 }
 
-// A blank or negative field reads as zero rather than throwing, so a
-// half-finished entry still shows a calculation instead of an error.
-function amount(field) {
-  const value = Number(field.value);
-  return Number.isFinite(value) && value > 0 ? value : 0;
-}
-
 // Guarded so the pure functions above can be imported by the node test, which
 // is what keeps the figures in index.html honest.
 const form = typeof document === 'undefined' ? null : document.getElementById('home-levy');
 
 if (form) {
+  const fields = [...form.querySelectorAll('input')];
+  const result = form.querySelector('.proof-calc__result');
+  const error = document.getElementById('home-levy-error');
+  for (const field of fields) field.disabled = false;
   const output = new Map(
     [...form.querySelectorAll('[data-out]')].map((el) => [el.dataset.out, el]),
   );
@@ -71,10 +68,21 @@ if (form) {
   );
 
   const render = () => {
+    for (const field of fields) {
+      if (field.validity.valid) field.removeAttribute('aria-invalid');
+      else field.setAttribute('aria-invalid', 'true');
+      field.setAttribute('aria-describedby', field.validity.valid
+        ? 'proof-calc-title' : 'proof-calc-title home-levy-error');
+    }
+    const valid = fields.every((field) => field.validity.valid);
+    result.hidden = !valid;
+    error.hidden = valid;
+    if (!valid) return;
+
     const shown = results({
-      base: amount(form.elements.base),
-      overtime: amount(form.elements.overtime),
-      allowances: amount(form.elements.allowances),
+      base: Number(form.elements.base.value),
+      overtime: Number(form.elements.overtime.value),
+      allowances: Number(form.elements.allowances.value),
     });
     for (const [key, element] of output) {
       element.textContent = shown[key];

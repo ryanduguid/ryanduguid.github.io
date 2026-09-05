@@ -22,6 +22,11 @@ The 31 August 2026 refinement keeps the design read at
 - The homepage leads with browsing the tools, then a four-task preview, worked
   proof and the Adopt and Verify sections. It is explicitly a personal
   open-source index, not a practice.
+- The task preview immediately follows the hero; the unchanged scope strip
+  follows the preview. Mobile hero spacing keeps the task heading in the
+  first viewport. The live proof requires explicit non-negative amounts and
+  hides its result while input is invalid. Its defaults match the captured
+  example, which is labelled as a fixed screenshot.
 - The current Coal LSL proof is a deterministic, fabricated Formula B
   result-only screenshot. `npm run capture:coal-lsl-proof` captures it at 868
   by 580 pixels and caps the WebP output at 80 KB.

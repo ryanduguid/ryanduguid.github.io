@@ -140,6 +140,13 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/tools/');
 
+  await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);
+  await expect(page.locator('.home-hero + section')).toHaveClass(/home-tool-preview/);
+  if (testInfo.project.name === 'mobile-chromium') {
+    const previewHeading = await page.locator('#preview-title').boundingBox();
+    expect(previewHeading.y + previewHeading.height).toBeLessThan(page.viewportSize().height);
+  }
+
   const categories = page.getByRole('navigation', { name: 'Tool categories' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
     'Extract',
