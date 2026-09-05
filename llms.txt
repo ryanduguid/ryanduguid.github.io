@@ -54,6 +54,10 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Section 100A and Division 6 trust distributions](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
 - [Company tax rate and franking account](https://duguid.com.au/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
 
+## Refusals
+
+- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fabricated fixtures at the released versions where a command exists, the DrDebits prompt-guide scenarios, and the human step that follows.
+
 ## Supported installation
 
 - [Adopt](https://duguid.com.au/#adopt): the maintained source for the four supported adoption routes.
