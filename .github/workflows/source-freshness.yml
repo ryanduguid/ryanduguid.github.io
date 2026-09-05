@@ -50,6 +50,9 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Rebuild the full-text index from the stamped page
+        run: python scripts/build_llms_full.py --write
+
       - name: Stop early when no date moved
         id: changed
         shell: bash
