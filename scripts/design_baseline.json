@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "73d5cb792377f99ec74df280a2be05fc3aa27e6f610fda309480478df6ddb8e8",
+    "llms.txt": "1333437ba6f76d55f5388436615739aa35bd5ce225d9e8bc78aff3bff890f896",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
-    "sitemap.xml": "86092666f640d7244f1b238e5d73981bf3f2a8a3920db6fc94a384d7f5aa3c9c"
+    "sitemap.xml": "46bb05ea61eba078f86e6464371091f5a5bfc83faf92214c0b272a5eeab94faa"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -59,31 +59,31 @@
   },
   "json_ld": {
     "about/index.html": [
-      "194efc0ca999b828bcce62b8588327443c84697ac04d91091d2fa339291d684c"
+      "b9de0504e8a929dd50ee6a819f41d7ffce658fe3b7962193fd1170f2f2a717f9"
     ],
     "changelog/index.html": [
-      "66d13e3c77cf628dd16136f67a5d15d455c231a5fff3e6ed3ad690fa64225fc1"
+      "644b69647a7c2092eae12a0f1aa01bf5cecf0be5732a6d1a0d1c96a9c954c3cd"
     ],
     "contact/index.html": [
       "521cae5d1342a319ec30ee529505ccc7f4a2b6c63db84f6d62f47b52b9de497c"
     ],
     "evaluate/index.html": [
-      "10bcd1dfe7525af6993d41801ae28f489b844dbc3032b123cd1ba4b9bc3fe0bd"
+      "9ba5be0258da4d155cd7de041ff22618b2f52c651788d1fec6c7ffd01a0fb3c8"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "99b541fbcbdbf20dc83a7035d550490c0c6f63679406143834ea0b977e502be9"
+      "4c74a617a5bbdc3f4653be483f5179944919db37e0721bd0f1376fb6e93ec942"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "97a62b9f40347ca2ee7df88c9d7d14be428ae2423a85cfae7839db99241e7a66"
+      "eb8637c7a8354acb930782c89c6e5f545e0062806df30a54c9d7f778febcf207"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
-      "777d2a146f52c349df5a0936c25c466cf2b73e5b9019777141112a287ddd9327"
+      "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
     ],
     "evidence/index.html": [
       "a7a415f1aa9ec17e63925abb651719ce78b4d74ad132af0d11c7a8697effb5c8"
     ],
     "index.html": [
-      "963f73ec1762f0ec8b6f0c0ca924116f3ee7bd90cb584b8517f5d8ffbbbca7ad"
+      "934e0a249c29cbbb966e1460f8d5e6d7fc70bd10940f29b4a4ac343d443f8c1e"
     ],
     "rates/cents-per-kilometre/index.html": [
       "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
@@ -98,7 +98,7 @@
       "a33c649b8f456737ae80de8ee43766c565429a53b50d1457c4f9c3cb0216b196"
     ],
     "tools/ato-benchmarks/index.html": [
-      "0aa516b1f617154dd25ebb036d85bc5dd56a3a0f4ca1cf0e2434791418e4de84"
+      "c90c20dfc631b22d6585c225d3060dc9d4c16d92fc146fe55d4e9fe13eec8ecb"
     ],
     "tools/australian-tax-ai-agents/index.html": [
       "4241d1e6d8fc6fe84d50abec52366af00f3b0b10d1adec5a6fda5ad493df8275"
@@ -107,32 +107,35 @@
       "d0ce8c62a4c3b7e98dc3669cf7b7911604bae24389a645ad607a9b33300fdc00"
     ],
     "tools/company-tax-franking/index.html": [
-      "eb942640f7f74f9ad00299762d2b9fa1a3e8399cc70fbad684fdf105bd59f974"
+      "53815823fa071dc77f475924b83306484f37f7186871b2a2f683ae02cb744285"
     ],
     "tools/index.html": [
-      "53fc6188a08227c0ec0130c7149df812ad9b735aac4526285469a9f2277b1003"
+      "ccc1c3da539b05113ac9f9b6e601a5a68bdf7885b0c27395107341803e62bbe5"
     ],
     "tools/payday-super/index.html": [
-      "a6e1e2ef7d88ae02d3029d1082729465e89194d481da4e966cfac91b8daaa649"
+      "b21794f25baf6c30e8f28739fcb86b07357274d0bf7ad192fc560b3a89dedd9d"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "16bbc62eb404a3ce1e45cbf5c651d6112b25e9ae131c8f19f7a17e8ab92a8b81"
+      "c8d87a07ba81b7da2638cd2a0b02eb9d3b2bd7449b054bd365704e8d7c1f0919"
     ],
     "tools/trust-distributions/index.html": [
-      "5c2f250b9c8430b63360136af276e252aba9a15b88b9adc6caf93da8aeabad67"
+      "2d1b2caef57dd7a7c38bbb41637354a386192a3d1fb2c46fb67cddd9c659712c"
     ],
     "tools/wip-schedule/index.html": [
       "200b938dcf528ba4baa0fee5b9ae6550ad53bb39aaf6617d286dcfa6dc913151"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "8db651255adfb1e6040fde80b0af619c604c4a8d11e67b284ba9f2865e534cc6"
+      "3bf128b79c1a2e82e27537449f5389c9ce0ae0d0bc28a084abc9ddcb6b41233f"
     ],
     "tools/xero-trial-balance/index.html": [
-      "1bfcf6b046f3a898efa97597b2bfc71c1df0213c555fb50789756d657a3b4b75"
+      "4674a4a4318d0210aaec11713950ebd94296786b2c5645ae7af509354ce85ba5"
+    ],
+    "tools/refusals/index.html": [
+      "499ebc4ee883eff1a55c8af020e1c07469c515fc3a06040f99a31207b942dd56"
     ]
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 25,
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 26,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
