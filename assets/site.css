@@ -88,6 +88,10 @@ h1 {
   font-size: var(--text-heading);
 }
 
+p {
+  text-wrap: pretty;
+}
+
 h2 {
   font-size: var(--text-heading-small);
 }
@@ -247,6 +251,12 @@ pre code {
   line-height: 1.2;
 }
 
+@media (min-width: 40rem) {
+  .site-nav {
+    font-size: 0.8125rem;
+  }
+}
+
 .site-nav a {
   padding-block: var(--space-2);
   color: var(--colour-ink-soft);
@@ -298,11 +308,13 @@ button {
     border-color var(--motion-standard) var(--ease-standard);
 }
 
-.button:hover,
-.link-button:hover,
-button:hover {
-  color: var(--colour-paper);
-  background: var(--colour-stamp);
+@media (hover: hover) {
+  .button:hover,
+  .link-button:hover,
+  button:hover {
+    color: var(--colour-paper);
+    background: var(--colour-stamp);
+  }
 }
 
 .button:active,
@@ -316,9 +328,11 @@ button:active {
   background: transparent;
 }
 
-.button--secondary:hover {
-  color: var(--colour-paper);
-  background: var(--colour-stamp-strong);
+@media (hover: hover) {
+  .button--secondary:hover {
+    color: var(--colour-paper);
+    background: var(--colour-stamp-strong);
+  }
 }
 
 .technical-label,
@@ -541,8 +555,10 @@ th {
   overflow-wrap: normal;
 }
 
-tbody tr:hover td {
-  background: var(--colour-stamp-wash);
+@media (hover: hover) {
+  tbody tr:hover td {
+    background: var(--colour-stamp-wash);
+  }
 }
 
 .rate-table--wide,
@@ -867,9 +883,11 @@ tbody tr:hover td {
   text-transform: uppercase;
 }
 
-.copy-button:hover {
-  color: var(--colour-paper);
-  background: var(--colour-stamp);
+@media (hover: hover) {
+  .copy-button:hover {
+    color: var(--colour-paper);
+    background: var(--colour-stamp);
+  }
 }
 
 .release-meta,
@@ -1170,10 +1188,12 @@ tbody tr:hover td {
   text-decoration: none;
 }
 
-.route-actions > a:hover,
-.adoption-links > a:hover {
-  color: var(--colour-stamp-strong);
-  background: var(--colour-stamp-wash);
+@media (hover: hover) {
+  .route-actions > a:hover,
+  .adoption-links > a:hover {
+    color: var(--colour-stamp-strong);
+    background: var(--colour-stamp-wash);
+  }
 }
 
 .route-actions > a span,
@@ -1247,9 +1267,11 @@ tbody tr:hover td {
     border-color var(--motion-standard) var(--ease-standard);
 }
 
-.adopt-tab:hover {
-  color: var(--colour-ink);
-  border-color: var(--colour-stamp-strong);
+@media (hover: hover) {
+  .adopt-tab:hover {
+    color: var(--colour-ink);
+    border-color: var(--colour-stamp-strong);
+  }
 }
 
 .adopt-input:checked + .adopt-tab {
