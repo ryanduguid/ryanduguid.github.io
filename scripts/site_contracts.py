@@ -679,6 +679,7 @@ ARTICLE_PATTERN_PAGES = {
     "tools/company-tax-franking/index.html",
     "tools/payday-super/index.html",
     "tools/workpaper-review-gate/index.html",
+    "tools/refusals/index.html",
     "tools/subcontractor-ledgers/index.html",
     "tools/trust-distributions/index.html",
     "tools/wip-schedule/index.html",
