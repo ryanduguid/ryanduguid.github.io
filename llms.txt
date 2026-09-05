@@ -80,6 +80,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
 - [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.
+- [Full text of every page](https://duguid.com.au/llms-full.txt): every indexable page as plain text in sitemap order, built from the visible page content for one-fetch reading.
 
 ## About
 
