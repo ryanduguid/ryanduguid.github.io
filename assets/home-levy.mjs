@@ -18,6 +18,16 @@ import {
 } from './levy.mjs';
 
 const money = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
+// Formula B is three quarters of a cents total, so it can carry a quarter cent,
+// and the levy before rounding carries whatever 2.7 per cent of that leaves.
+// Both are shown in full: rounding them for display would perform the very
+// intermediate rounding the section says does not happen.
+const quarterCents = new Intl.NumberFormat('en-AU', {
+  style: 'currency', currency: 'AUD', minimumFractionDigits: 2, maximumFractionDigits: 4,
+});
+const exactDollars = new Intl.NumberFormat('en-AU', {
+  style: 'currency', currency: 'AUD', minimumFractionDigits: 4, maximumFractionDigits: 7,
+});
 
 // The levy before rounding is the one figure that has to show its fractional
 // cents, because the point of the section is that rounding happens once.
@@ -34,9 +44,9 @@ export function results(dollars) {
   return {
     winner: wages.winner,
     formulaA: money.format(wages.formulaA / 100),
-    formulaB: money.format(wages.formulaB / 100),
-    eligible: money.format(wages.eligibleWagesCents / 100),
-    exact: '$' + (exactLevyCents(wages.eligibleWagesCents) / 100).toFixed(4),
+    formulaB: quarterCents.format(wages.formulaB / 100),
+    eligible: quarterCents.format(wages.eligibleWagesCents / 100),
+    exact: exactDollars.format(exactLevyCents(wages.eligibleWagesCents) / 100),
     levy: money.format(levyCents(wages.eligibleWagesCents) / 100),
   };
 }

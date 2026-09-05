@@ -77,6 +77,17 @@ test('Formula A wins when there is little beyond the base rate', () => {
   assert.equal(computed.eligible, '$6,000.00');
 });
 
+test('a quarter cent in Formula B is shown, not rounded away', () => {
+  // 75 per cent of one cent is 0.75 of a cent, and 2.7 per cent of that is
+  // 0.02025 of a cent. Both stay visible so the shown eligible wages reproduce
+  // the shown levy, and only the payable figure is rounded.
+  const computed = results({ base: 0, overtime: 0.01, allowances: 0 });
+  assert.equal(computed.formulaB, '$0.0075');
+  assert.equal(computed.eligible, '$0.0075');
+  assert.equal(computed.exact, '$0.0002025');
+  assert.equal(computed.levy, '$0.00');
+});
+
 test('every amount is formatted as Australian currency', () => {
   const computed = results({ base: 1234.5, overtime: 0, allowances: 0 });
   assert.equal(computed.eligible, '$1,234.50');
