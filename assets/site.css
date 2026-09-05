@@ -968,6 +968,10 @@ th {
   gap: var(--space-5);
 }
 
+.nowrap {
+  white-space: nowrap;
+}
+
 .home-hero h1 {
   max-width: min(38ch, 100%);
   color: var(--colour-masthead);
