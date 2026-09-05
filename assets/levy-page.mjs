@@ -17,6 +17,14 @@ const CASUAL_FIELD_LABELS = {
   ordinaryRatePay: 'All-in ordinary rate pay',
 };
 
+// The rate date and the unrounded levy read in the same formats as every
+// other date and dollar figure on the page and the home page worked proof.
+const longDate = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
+const RATE_AS_AT_LABEL = longDate.format(new Date(LEVY_RATE_AS_AT + 'T00:00:00'));
+const exactMoney = (cents) => (cents / 100).toLocaleString('en-AU', {
+  style: 'currency', currency: 'AUD', minimumFractionDigits: 4, maximumFractionDigits: 7,
+});
+
 function render(result, into, allMonetaryAmountsBlank = false) {
   const cents = result.eligibleWagesCents;
   // Deviation from the brief's literal snippet: the brief hardcodes
@@ -33,14 +41,14 @@ function render(result, into, allMonetaryAmountsBlank = false) {
     { kind: 'eligible-wages', label: 'Eligible wages', value: money(cents) },
     {
       kind: 'levy',
-      label: 'Levy at 2.7 per cent, as at ' + LEVY_RATE_AS_AT,
+      label: 'Levy at 2.7 per cent, as at ' + RATE_AS_AT_LABEL,
       value: money(rounded),
     },
     ...(exact !== rounded
       ? [{
           kind: 'before-rounding',
           label: 'Before rounding',
-          value: (exact / 100).toFixed(4) + ' dollars',
+          value: exactMoney(exact),
         }]
       : []),
     { kind: 'branch', label: 'Branch applied', value: branchLabel },

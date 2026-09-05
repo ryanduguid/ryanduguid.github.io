@@ -342,15 +342,15 @@
 
     <template id="bonus-row-template">
       <div class="bonus-row">
-        <input type="number" step="0.01" min="0" inputmode="decimal" class="bonus-amount" placeholder="Amount" aria-label="Bonus amount" aria-describedby="money-blank-help" data-help-template="bonus-amount" />
-        <select class="bonus-frequency" aria-label="Bonus frequency">
+        <label class="bonus-field"><span>Bonus amount</span><input type="number" step="0.01" min="0" inputmode="decimal" class="bonus-amount" aria-describedby="money-blank-help" data-help-template="bonus-amount" /></label>
+        <label class="bonus-field"><span>Bonus frequency</span><select class="bonus-frequency">
           <option value="weekly">Weekly</option>
           <option value="fortnightly">Fortnightly</option>
           <option value="monthly">Monthly</option>
           <option value="quarterly">Quarterly</option>
           <option value="halfYearly">Half-yearly</option>
           <option value="annually">Annually</option>
-        </select>
+        </select></label>
         <button type="button" class="bonus-remove">Remove</button>
         <p class="field-note" data-help-template="bonus-amount-note">Enter the bonus amount paid at the selected frequency.</p>
       </div>

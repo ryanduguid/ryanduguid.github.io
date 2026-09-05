@@ -697,7 +697,7 @@ def test_design_contracts() -> int:
         append_file(
             root,
             "assets/site.css",
-            "\n.route-section > h2 { position: sticky; }\n",
+            "\n.route-section > .route-label { position: sticky; }\n",
         )
         expect_failure(
             "sticky route rail restored",
