@@ -22,6 +22,7 @@ CHECKS = (
         "self-test",
     ),
     (sys.executable, "scripts/check_seo.py"),
+    (sys.executable, "scripts/build_llms_full.py", "--check"),
     (sys.executable, "scripts/check_links.py"),
     ("node", "--test", "scripts/levy.test.mjs"),
     ("node", "--test", "scripts/home-levy.test.mjs"),
