@@ -903,6 +903,30 @@ def test_public_contracts() -> int:
         contracts.check_person_stub("tools/index.html", homepage_people[0], people[0]),
         "must not define a Person node",
     )
+    expect_failure(
+        "homepage Person stub extra type",
+        contracts.check_person_stub(
+            "index.html", dict(homepage_people[0], **{"@type": ["Person", "Organization"]}), people[0]
+        ),
+        "stub @type differs from the canonical Person",
+    )
+    expect_failure(
+        "homepage Person stub unknown null field",
+        contracts.check_person_stub("index.html", dict(homepage_people[0], bogus=None), people[0]),
+        "stub must carry exactly",
+    )
+    graph = [("about/index.html", people[0]), ("index.html", homepage_people[0])]
+    assert_clean("Person stub cardinality", contracts.check_person_stubs(graph, people[0]))
+    expect_failure(
+        "duplicate homepage Person stubs",
+        contracts.check_person_stubs(graph + [("index.html", homepage_people[0])], people[0]),
+        "exactly one Person stub",
+    )
+    expect_failure(
+        "missing homepage Person stub",
+        contracts.check_person_stubs(graph[:1], people[0]),
+        "exactly one Person stub",
+    )
     contract_mutation(
         "About opening",
         about,
