@@ -230,8 +230,9 @@ def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
 WORKED_EXAMPLES = {
     "tools/payday-super/index.html": {
         "fixture_urls": [
-            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
-            "tests/test_integration.py#L836-L887"
+            "https://github.com/ryanduguid/australian-accounting/blob/"
+            "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
+            "tests/test_integration.py#L849-L901"
         ],
         "labels": {
             "on-time": r"\bon[-_ ]time\b",
@@ -241,10 +242,12 @@ WORKED_EXAMPLES = {
     },
     "tools/xero-trial-balance/index.html": {
         "fixture_urls": [
-            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
-            "tests/test_export_tb.py#L189-L208",
-            "https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/"
-            "tests/test_export_tb.py#L419-L431",
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/"
+            "tests/test_export_tb.py#L191-L210",
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/"
+            "tests/test_export_tb.py#L421-L433",
         ],
         "labels": {
             "balanced": r"\bbalanced\b",
@@ -257,11 +260,12 @@ WORKED_EXAMPLES = {
 EVALUATION_PACKS = {
     "evaluate/manager-review-gate/index.html": {
         "url": f"{SITE}/evaluate/manager-review-gate/",
-        "product_repository": "https://github.com/ryanduguid/workpaper-review-gate",
+        "product_repository": "https://github.com/ryanduguid/accounting-review-pipeline",
         "product_evidence_contract": (
-            "global review-ready-gate evidence hrefs must match approved v0.1.1 "
-            "URLs exactly once"
+            "global review-ready-gate evidence hrefs must match approved "
+            "review-ready-gate/v0.1.3 URLs exactly once"
         ),
+        "permanent_commit": "2de565b3ce3916afe718b2b895d5474930030aee",
         "sections": (
             ("accounting-problem", "Accounting problem"),
             ("fabricated-inputs", "Fabricated inputs"),
@@ -285,14 +289,14 @@ EVALUATION_PACKS = {
             "Limitations",
         ),
         "version_labels": (
-            "Product release v0.1.1",
+            "Product release v0.1.3",
             "fixture version 1",
             "source reviewed 2026-08-26",
         ),
         "reproduction_recipe": (
-            "git clone --branch v0.1.1 --depth 1 "
-            "https://github.com/ryanduguid/workpaper-review-gate.git",
-            "cd workpaper-review-gate",
+            "git clone --branch review-ready-gate/v0.1.3 --depth 1 "
+            "https://github.com/ryanduguid/accounting-review-pipeline.git",
+            "cd accounting-review-pipeline/packages/review-ready-gate",
             "uv sync --locked --all-extras",
             "uv run review-ready gate --profile bas --pack examples/bas-not-ready "
             "--output outputs/evaluation-not-ready",
@@ -310,11 +314,16 @@ EVALUATION_PACKS = {
             "lodgement authority.",
         ),
         "product_evidence_urls": (
-            "https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/"
+            "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/"
+            "review-ready-gate/v0.1.3",
+            "https://github.com/ryanduguid/accounting-review-pipeline/tree/"
+            "2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/"
             "evaluation/manager_review_gate",
-            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/"
             "evaluation/manager_review_gate/expected_results.json",
-            "https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/"
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/"
             "tests/test_evaluation_pack.py",
         ),
         "primary_source_urls": (
@@ -328,13 +337,13 @@ EVALUATION_PACKS = {
     "evaluate/xero-trial-balance-integrity/index.html": {
         "url": f"{SITE}/evaluate/xero-trial-balance-integrity/",
         "product_repository": (
-            "https://github.com/ryanduguid/xero-trial-balance-export"
+            "https://github.com/ryanduguid/accounting-review-pipeline"
         ),
         "product_evidence_contract": (
             "global xero-trial-balance-export evidence hrefs must match approved "
             "permanent URLs exactly once"
         ),
-        "permanent_commit": "787f936d373fed47591102d4c24d0c5edf6b1861",
+        "permanent_commit": "3ae854911bf36f00bd3cc3eeafd1855848896629",
         "sections": (
             ("accounting-problem", "Accounting problem"),
             ("intended-reviewer", "Intended reviewer"),
@@ -359,7 +368,7 @@ EVALUATION_PACKS = {
             "Limitations",
         ),
         "version_labels": (
-            "Product release v0.1.4",
+            "Product release v0.1.6",
             "fixture version 1",
             "source reviewed 2026-08-26",
         ),
@@ -368,11 +377,11 @@ EVALUATION_PACKS = {
             "python -B -m unittest tests.test_evaluation_pack -v",
             "python -B -m unittest discover -s tests -v",
             "python evaluation/xero_tb_integrity/run.py "
-            "evaluation/xero_tb_integrity/fixtures/passing.csv",
+            "../../contracts/xero-trial-balance-v1/fixtures/passing.csv",
             "python evaluation/xero_tb_integrity/run.py "
-            "evaluation/xero_tb_integrity/fixtures/failing_movement.csv",
+            "../../contracts/xero-trial-balance-v1/fixtures/failing_movement.csv",
             "python evaluation/xero_tb_integrity/run.py "
-            "evaluation/xero_tb_integrity/fixtures/failing_ytd.csv",
+            "../../contracts/xero-trial-balance-v1/fixtures/failing_ytd.csv",
         ),
         "contract_text": (
             "The production tool reads trial balance data directly from Xero's "
@@ -404,15 +413,17 @@ EVALUATION_PACKS = {
             "fitness for a particular client review.",
         ),
         "product_evidence_urls": (
-            "https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/"
-            "v0.1.4",
-            "https://github.com/ryanduguid/xero-trial-balance-export/tree/"
-            "787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity",
-            "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
-            "787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/"
-            "xero_tb_integrity/expected_results.json",
-            "https://github.com/ryanduguid/xero-trial-balance-export/blob/"
-            "787f936d373fed47591102d4c24d0c5edf6b1861/tests/test_evaluation_pack.py",
+            "https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/"
+            "xero-trial-balance-export/v0.1.6",
+            "https://github.com/ryanduguid/accounting-review-pipeline/tree/"
+            "3ae854911bf36f00bd3cc3eeafd1855848896629/packages/"
+            "xero-trial-balance-export/evaluation/xero_tb_integrity",
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/"
+            "xero-trial-balance-v1/expected_results.json",
+            "https://github.com/ryanduguid/accounting-review-pipeline/blob/"
+            "3ae854911bf36f00bd3cc3eeafd1855848896629/packages/"
+            "xero-trial-balance-export/tests/test_evaluation_pack.py",
         ),
         "primary_source_urls": (
             "https://developer.xero.com/documentation/api/accounting/reports",
@@ -421,12 +432,12 @@ EVALUATION_PACKS = {
     },
     "evaluate/payday-super-evidence/index.html": {
         "url": f"{SITE}/evaluate/payday-super-evidence/",
-        "product_repository": "https://github.com/ryanduguid/payday-super-checker",
+        "product_repository": "https://github.com/ryanduguid/australian-accounting",
         "product_evidence_contract": (
             "global payday-super-checker evidence hrefs must match approved "
             "release, permanent evaluation and source-review URLs exactly once"
         ),
-        "permanent_commit": "139f4e5603f5a383b5d2f23874a4d4c345a1fb71",
+        "permanent_commit": "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182",
         "sections": (
             ("accounting-problem", "Accounting problem"),
             ("intended-reviewer", "Intended reviewer"),
@@ -452,7 +463,7 @@ EVALUATION_PACKS = {
             "Limitations",
         ),
         "version_labels": (
-            "Product release v0.1.2",
+            "Product release v0.1.3",
             "fixture version 1",
             "source reviewed 15 August 2026",
         ),
@@ -485,25 +496,27 @@ EVALUATION_PACKS = {
             "a human must establish eligible fund receipt, allocation and the other "
             "assessment facts before relying on a statutory conclusion.",
             "Experimental review aid. Not a compliance determination.",
-            "v0.1.2 predates the evaluation directory",
-            "evaluation artefacts are fixed to the merge commit",
+            "the first to contain the evaluation directory",
+            "evaluation artefacts are fixed to that release's commit",
         ),
         "product_evidence_urls": (
-            "https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2",
-            "https://github.com/ryanduguid/payday-super-checker/tree/"
-            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/"
+            "payday-super-checker/v0.1.3",
+            "https://github.com/ryanduguid/australian-accounting/tree/"
+            "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
             "evaluation/payday_super_evidence",
-            "https://github.com/ryanduguid/payday-super-checker/blob/"
-            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "https://github.com/ryanduguid/australian-accounting/blob/"
+            "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
             "evaluation/payday_super_evidence/expected_results.json",
-            "https://github.com/ryanduguid/payday-super-checker/blob/"
-            "139f4e5603f5a383b5d2f23874a4d4c345a1fb71/"
+            "https://github.com/ryanduguid/australian-accounting/blob/"
+            "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
             "tests/test_evaluation_pack.py",
         ),
         "primary_source_urls": (
             "https://www.legislation.gov.au/C2004A04402/latest/text",
             "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
-            "https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/"
+            "https://github.com/ryanduguid/australian-accounting/blob/"
+            "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
             "docs/primary-source-review-2026-08-15.md",
         ),
         "section_contract_text": {
@@ -511,13 +524,13 @@ EVALUATION_PACKS = {
                 "supported due date of 17 August 2026 and an as-at date of 20 August 2026",
             ),
             "reproduce": (
-                "Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test.",
+                "Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first four commands write the four reports; the final command runs the evaluation contract test.",
             ),
             "limitations": (
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-09-02",
+        "sitemap_lastmod": "2026-09-04",
         "llms_section": "Evaluation packs",
     },
 }
