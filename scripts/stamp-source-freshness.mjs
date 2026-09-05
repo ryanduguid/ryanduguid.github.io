@@ -14,17 +14,20 @@ import { dirname, join, resolve } from 'node:path';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const page = join(root, 'tools', 'index.html');
 
-// A tool card is a <dl> of labelled facts followed immediately by its source
-// link, so one pattern pairs the two without needing an HTML parser. Anchoring
-// on collection-entry__links keeps evaluation-summary lists out of the match.
-const CARD =
-  /(<dl>)([\s\S]*?)(<\/dl>)(\s*<p class="collection-entry__links"><a href="https:\/\/github\.com\/([^/"]+)\/([^/"]+)(?:\/tree\/main\/([^"]+))?")/g;
+// The stamp rides the links paragraph each card already has, rather than adding
+// a row. That line is where the source link lives, so the date sits beside the
+// thing it describes, and on desktop it costs the page no extra height. The
+// tool register is held to a page-length budget by
+// tests/browser/site-quality.spec.mjs, which a new row per card would breach.
+const CARD = /<p class="collection-entry__links">([\s\S]*?)<\/p>/g;
 
-const STAMP =
-  /\n[ \t]*<div><dt>Last commit<\/dt><dd><time datetime="[^"]*">[^<]*<\/time><\/dd><\/div>/g;
+const SOURCE =
+  /<a href="https:\/\/github\.com\/([^/"]+)\/([^/"]+)(?:\/tree\/main\/([^"]+))?"/;
+
+const STAMP = /<span class="collection-entry__stamp">[\s\S]*?<\/span>/;
 
 const READ_STAMP =
-  /<dt>Last commit<\/dt><dd><time datetime="(\d{4}-\d{2}-\d{2})">([^<]*)<\/time><\/dd>/;
+  /<span class="collection-entry__stamp">Last commit <time datetime="(\d{4}-\d{2}-\d{2})">([^<]*)<\/time><\/span>/;
 
 const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
@@ -62,25 +65,31 @@ function lastCommitDate(owner, repo, path) {
 }
 
 export function stampHtml(html, lookup = lastCommitDate) {
-  return html.replace(CARD, (match, open, body, close, links, owner, repo, path) => {
+  return html.replace(CARD, (match, body) => {
+    const source = SOURCE.exec(body);
+    if (!source) {
+      return match;
+    }
+    const [, owner, repo, path] = source;
     const iso = lookup(owner, repo, path);
-    const rows = body.replace(STAMP, '');
-    // Take the indentation from the card itself so the diff stays local.
-    const indent = /\n([ \t]*)<div>/.exec(rows)?.[1] ?? '';
-    const tail = /\n[ \t]*$/.exec(rows)?.[0] ?? '\n';
-    const stamped =
-      `${rows.replace(/\n[ \t]*$/, '')}\n${indent}` +
-      `<div><dt>Last commit</dt><dd><time datetime="${iso}">${formatDate(iso)}</time></dd></div>`;
-    return `${open}${stamped}${tail}${close}${links}`;
+    const stamp =
+      '<span class="collection-entry__stamp">Last commit ' +
+      `<time datetime="${iso}">${formatDate(iso)}</time></span>`;
+    return `<p class="collection-entry__links">${body.replace(STAMP, '')}${stamp}</p>`;
   });
 }
 
 export function checkHtml(html, today = new Date().toISOString().slice(0, 10)) {
   const failures = [];
   let cards = 0;
-  for (const [, , body, , , owner, repo, path] of html.matchAll(CARD)) {
+  for (const [, body] of html.matchAll(CARD)) {
     cards += 1;
-    const source = sourceName(owner, repo, path);
+    const found = SOURCE.exec(body);
+    if (!found) {
+      failures.push('a tool card links to no source repository');
+      continue;
+    }
+    const source = sourceName(found[1], found[2], found[3]);
     const stamp = READ_STAMP.exec(body);
     if (!stamp) {
       failures.push(`${source}: no last-commit stamp`);
