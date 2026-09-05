@@ -1043,7 +1043,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter field",
-            '  <meta name="twitter:image:alt" content="OLED register card: Review-ready controls for Australian accounting work." />\n',
+            '  <meta name="twitter:image:alt" content="OLED register card: Ryan Duguid: review-ready Australian accounting controls." />\n',
             "",
             "expected exactly one non-empty twitter:image:alt",
         ),
@@ -1320,8 +1320,8 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "assets/social-cards.json",
-            "Review-ready controls",
-            "Review controls",
+            "review-ready Australian",
+            "review Australian",
         )
         expect_failure(
             "social card context copy",

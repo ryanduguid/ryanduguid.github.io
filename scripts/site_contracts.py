@@ -773,9 +773,9 @@ SOCIAL_CARD_CONTEXTS = {
     "site": {
         "label": "Public register / Australian accounting controls",
         "heading": [
-            "Review-ready controls",
-            "for Australian",
-            "accounting work.",
+            "Ryan Duguid:",
+            "review-ready Australian",
+            "accounting controls.",
         ],
         "host": "duguid.com.au",
         "output": "social-card-site.png",

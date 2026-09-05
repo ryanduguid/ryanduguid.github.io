@@ -288,7 +288,7 @@ This site does not offer tax or BAS agent services and does not accept tax advic
 
 Duguid, R. (2026). Australian computational accounting tools. https://duguid.com.au/. Each tool page names the source it is grounded in, and each linked repository carries its own licence and disclaimer.
 
-Last reviewed 4 September 2026.
+Last reviewed 5 September 2026.
 
 I write and maintain this site in my own time and on my own equipment.
 
@@ -2276,7 +2276,7 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
 
-Published 30 August 2026. Last reviewed 2 September 2026.
+Published 30 August 2026. Last reviewed 5 September 2026.
 
 ---
 
@@ -2318,4 +2318,4 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 4 September 2026.
+Published 30 August 2026. Last reviewed 5 September 2026.
