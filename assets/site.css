@@ -811,6 +811,11 @@ tbody tr:hover td {
   font-size: var(--text-caption);
 }
 
+/* Sits on the links row but is a fact about the source, not an action. */
+.collection-entry__stamp {
+  color: var(--colour-ink-soft);
+}
+
 .route-actions.route-actions--mail > a > strong {
   color: var(--colour-stamp-strong);
   text-decoration: underline;
