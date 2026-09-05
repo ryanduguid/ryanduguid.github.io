@@ -1476,25 +1476,52 @@ def check_canonical_person(person: dict[str, object]) -> list[str]:
     return failures
 
 
+PERSON_STUB_FIELDS = ("@type", "@id", "name", "jobTitle", "url", "sameAs")
+
+
+def check_person_stub(rel: str, stub: dict[str, object], canonical: dict[str, object]) -> list[str]:
+    """Check that a Person outside About is a homepage stub restating the canonical node."""
+    if rel != "index.html":
+        return [f"person graph: {rel} must not define a Person node; only index.html may carry a stub"]
+    failures: list[str] = []
+    if set(stub) != set(PERSON_STUB_FIELDS):
+        failures.append(
+            f"person graph: index.html Person stub must carry exactly {list(PERSON_STUB_FIELDS)}, "
+            f"found {sorted(stub)}"
+        )
+    for field in PERSON_STUB_FIELDS:
+        if field in stub and stub[field] != canonical.get(field):
+            failures.append(
+                f"person graph: index.html Person stub {field} differs from the canonical Person"
+            )
+    return failures
+
+
+def check_person_stubs(
+    people: list[tuple[str, dict[str, object]]], canonical: dict[str, object]
+) -> list[str]:
+    """Check that index.html carries exactly one stub and no other page carries any."""
+    failures: list[str] = []
+    stubs = [(rel, node) for rel, node in people if rel != "about/index.html"]
+    for rel, node in stubs:
+        failures.extend(check_person_stub(rel, node, canonical))
+    if sum(1 for rel, _ in stubs if rel == "index.html") != 1:
+        failures.append("person graph: index.html must carry exactly one Person stub")
+    return failures
+
+
 def check_person_graph(paths: list[Path]) -> list[str]:
-    """Check that About owns the one canonical Person and authored works."""
+    """Check that About owns the canonical Person, index.html may restate it, and authored works."""
     failures: list[str] = []
     graph_nodes = core.indexed_nodes(paths, failures, NOT_INDEXED)
     people = [(rel, node) for rel, node in graph_nodes if core.has_type(node, "Person")]
-    if len(people) != 1:
-        found = ", ".join(rel for rel, _ in people) or "none"
-        failures.append(
-            f"person graph: expected exactly one Person node across indexable HTML, found "
-            f"{len(people)} ({found})"
-        )
     canonical_people = [(rel, node) for rel, node in people if rel == "about/index.html"]
     if len(canonical_people) != 1:
         failures.append("person graph: about/index.html must contain the canonical Person node")
     else:
-        person_rel, person = canonical_people[0]
-        if person_rel != "about/index.html":
-            failures.append(f"person graph: Person node is in {person_rel}, not about/index.html")
-        failures.extend(check_canonical_person(person))
+        canonical = canonical_people[0][1]
+        failures.extend(check_canonical_person(canonical))
+        failures.extend(check_person_stubs(people, canonical))
 
     software = [
         (rel, node) for rel, node in graph_nodes if core.has_type(node, "SoftwareSourceCode")
