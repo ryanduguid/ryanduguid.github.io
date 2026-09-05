@@ -65,8 +65,8 @@
     <p class="lead-note">
       This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year to date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
-    <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/v0.1.4">v0.1.4</a>, evaluated against tagged fixtures.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 3 September 2026.</p>
+    <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">xero-trial-balance-export/v0.1.6</a>, evaluated against tagged fixtures.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -141,7 +141,7 @@
     <h2>Synthetic worked example</h2>
     <p><a href="/evaluate/xero-trial-balance-integrity/">Reproduce the Xero trial balance integrity evaluation</a></p>
     <p>
-      These release v0.1.4 tests use mocked Xero API behaviour and synthetic
+      These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and synthetic
       account rows. They do not contain a live organisation's data.
     </p>
     <div class="table-scroll" role="region" aria-label="Synthetic Xero trial balance export outcomes" tabindex="0">
@@ -169,9 +169,9 @@
     </div>
     <p>
       The
-      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/tests/test_export_tb.py#L189-L208">tagged balanced-output test</a>
+      <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210">tagged balanced-output test</a>
       pins the CSV bytes. The
-      <a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/v0.1.4/tests/test_export_tb.py#L419-L431">tagged unbalanced-YTD test</a>
+      <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433">tagged unbalanced-YTD test</a>
       pins the refusal and warning. Refused means no CSV file output; the
       diagnostic warning is still printed.
     </p>
@@ -241,7 +241,7 @@
         "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-03",
+        "dateModified": "2026-09-04",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -308,7 +308,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-03"
+        "dateModified": "2026-09-04"
       },
       {
         "@type": "FAQPage",

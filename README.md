@@ -25,7 +25,7 @@ then visit `http://127.0.0.1:4173/`.
 `.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
-- every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect
+- every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
 - external links must resolve
 - the HTML must parse cleanly
