@@ -989,7 +989,7 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage heading",
-            f'<h1 id="home-title">{contracts.HOMEPAGE_HEADING}</h1>',
+            contracts.HOMEPAGE_HEADING_MARKUP,
             '<h1 id="home-title">Controls for accounting work.</h1>',
             "index.html: homepage H1 must be",
         ),
