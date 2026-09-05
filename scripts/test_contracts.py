@@ -525,8 +525,8 @@ def test_design_contracts() -> int:
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 3 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 3 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 4 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 4 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -630,7 +630,7 @@ def test_design_contracts() -> int:
 
     review_date_paths = (
         ("index.html", "4 September 2026", "2026-09-04"),
-        ("tools/index.html", "3 September 2026", "2026-09-03"),
+        ("tools/index.html", "4 September 2026", "2026-09-04"),
         ("evidence/index.html", "3 September 2026", "2026-09-03"),
     )
     for rel, visible_date, structured_date in review_date_paths:
@@ -765,8 +765,8 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 24, (
-        f"expected 24 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 25, (
+        f"expected 25 canonical HTML pages, found {len(indexed_rels)}"
     )
     metadata_failures = [
         failure
