@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import unittest
+import unittest.mock
 import urllib.error
 
 import check_links
@@ -137,6 +138,139 @@ class FetchFinalUrlTests(unittest.TestCase):
             )
 
         self.assertEqual(attempts, 1)
+
+    def test_archived_repository_links_fail(self) -> None:
+        archived = {"payday-super-checker": True, "australian-accounting": False}
+
+        failures = check_links.archived_target_failures(
+            "tools/payday-super/index.html",
+            [
+                "https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2",
+                "https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker",
+                "https://github.com/XeroAPI/xero-python",
+                "/tools/",
+            ],
+            lookup=archived.__getitem__,
+        )
+
+        self.assertEqual(len(failures), 1)
+        self.assertIn("ryanduguid/payday-super-checker is archived", failures[0])
+
+    def test_case_variants_classify_as_the_same_repository(self) -> None:
+        self.assertEqual(
+            check_links.own_repository("https://GitHub.com/RyanDuguid/Hardhat-Ledger/releases"),
+            "hardhat-ledger",
+        )
+
+    def test_llms_links_are_classified(self) -> None:
+        with (
+            unittest.mock.patch.object(
+                check_links,
+                "fetch_final_url",
+                lambda href: (200, href),
+            ),
+            unittest.mock.patch.object(
+                check_links, "repository_is_archived", lambda name: name == "hardhat-ledger"
+            ),
+        ):
+            failures = check_links.check_hrefs(
+                "llms.txt",
+                check_links.MARKDOWN_LINK.findall(
+                    "- [Skills](https://github.com/ryanduguid/australian-accounting-skills): x\n"
+                    "- [Old](https://github.com/ryanduguid/hardhat-ledger): y\n"
+                ),
+            )
+
+        self.assertEqual(len(failures), 1)
+        self.assertIn("llms.txt: https://github.com/ryanduguid/hardhat-ledger", failures[0])
+
+    def test_archived_lookup_failure_is_a_failure(self) -> None:
+        def lookup(name: str) -> bool:
+            raise urllib.error.HTTPError(
+                "https://api.github.com/repos/ryanduguid/" + name,
+                403,
+                "rate limited",
+                {},
+                None,
+            )
+
+        failures = check_links.archived_target_failures(
+            "index.html",
+            ["https://github.com/ryanduguid/Ozzit"],
+            lookup=lookup,
+        )
+
+        self.assertEqual(len(failures), 1)
+        self.assertIn("archived lookup failed", failures[0])
+
+    def test_provenance_allowlist_is_scoped_to_page_and_repository(self) -> None:
+        hrefs = [
+            "https://github.com/ryanduguid/hardhat-ledger/releases/tag/v0.1.5",
+            "https://github.com/ryanduguid/workpaper-review-gate/releases/tag/v0.1.1",
+        ]
+        with unittest.mock.patch.object(
+            check_links,
+            "ARCHIVED_TARGET_ALLOWLIST",
+            {"changelog/index.html": frozenset({"hardhat-ledger"})},
+        ):
+            allowed_page = check_links.archived_target_failures(
+                "changelog/index.html", hrefs, lookup=lambda name: True
+            )
+            other_page = check_links.archived_target_failures(
+                "index.html", hrefs, lookup=lambda name: True
+            )
+
+        self.assertEqual(len(allowed_page), 1)
+        self.assertIn("workpaper-review-gate is archived", allowed_page[0])
+        self.assertEqual(len(other_page), 2)
+
+    def test_repository_verdicts_are_cached_including_failures(self) -> None:
+        attempts: list[str] = []
+
+        def fetch(name: str) -> bool:
+            attempts.append(name)
+            if name == "broken":
+                raise urllib.error.URLError("rate limited")
+            return name == "hardhat-ledger"
+
+        with (
+            unittest.mock.patch.object(check_links, "fetch_repository_archived", fetch),
+            unittest.mock.patch.object(check_links, "_ARCHIVED_VERDICTS", {}),
+        ):
+            self.assertTrue(check_links.repository_is_archived("hardhat-ledger"))
+            self.assertTrue(check_links.repository_is_archived("hardhat-ledger"))
+            self.assertFalse(check_links.repository_is_archived("Ozzit"))
+            with self.assertRaises(urllib.error.URLError):
+                check_links.repository_is_archived("broken")
+            with self.assertRaises(urllib.error.URLError):
+                check_links.repository_is_archived("broken")
+
+        self.assertEqual(attempts, ["hardhat-ledger", "Ozzit", "broken"])
+
+    def test_fetch_repository_archived_reads_the_api_flag_after_a_retry(self) -> None:
+        class ApiResponse(FakeResponse):
+            def read(self) -> bytes:
+                return b'{"full_name": "ryanduguid/hardhat-ledger", "archived": true}'
+
+        attempts = 0
+
+        def opener(request: object, timeout: int) -> ApiResponse:
+            nonlocal attempts
+            attempts += 1
+            if attempts == 1:
+                raise urllib.error.HTTPError(
+                    "https://api.github.com/repos/ryanduguid/hardhat-ledger",
+                    502,
+                    "Bad Gateway",
+                    {},
+                    None,
+                )
+            return ApiResponse()
+
+        result = check_links.fetch_repository_archived("hardhat-ledger", opener=opener)
+
+        self.assertTrue(result)
+        self.assertEqual(attempts, 2)
 
     def test_stops_after_five_transient_failures(self) -> None:
         attempts = 0
