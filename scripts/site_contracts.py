@@ -184,11 +184,11 @@ RETRIEVAL_CRAWLERS = {
     "YouBot",
     "anthropic-ai",
     "Claude-Web",
+    "Google-Extended",
 }
 TRAINING_CRAWLERS = {
     "GPTBot",
     "ClaudeBot",
-    "Google-Extended",
     "Applebot-Extended",
     "CCBot",
     "Bytespider",
@@ -204,6 +204,7 @@ CRAWLER_POLICY_COMMENTS = (
     "Named training crawlers remain blocked.",
     "Unnamed agents must not silently redefine this policy; named rows state "
     "the intended treatment.",
+    "Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.",
 )
 
 

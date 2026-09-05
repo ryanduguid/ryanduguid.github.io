@@ -206,7 +206,7 @@ def test_geo_leftovers_surface() -> None:
         "Claude-Web": ["Allow: /"],
         "GPTBot": ["Disallow: /"],
         "ClaudeBot": ["Disallow: /"],
-        "Google-Extended": ["Disallow: /"],
+        "Google-Extended": ["Allow: /"],
         "Applebot-Extended": ["Disallow: /"],
         "CCBot": ["Disallow: /"],
         "Bytespider": ["Disallow: /"],
