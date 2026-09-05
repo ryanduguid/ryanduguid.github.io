@@ -21,10 +21,36 @@ const page = join(root, 'tools', 'index.html');
 // tests/browser/site-quality.spec.mjs, which a new row per card would breach.
 const CARD = /<p class="collection-entry__links">([\s\S]*?)<\/p>/g;
 
+// Counting cards independently of CARD is what stops a card whose links markup
+// drifts from being skipped in silence while the rest still pass.
+const ENTRY = /<div class="collection-entry">/g;
+
 const SOURCE =
   /<a href="https:\/\/github\.com\/([^/"]+)\/([^/"]+)(?:\/tree\/main\/([^"]+))?"/;
 
 const STAMP = /<span class="collection-entry__stamp">[\s\S]*?<\/span>/;
+
+// A card can link to a repository root that holds far more than the tool it
+// describes. The site repository is the case in point: dating the Coal LSL
+// calculator from the root would credit it with every unrelated copy edit, and
+// this workflow's own commits would move that date every week and restamp the
+// card forever. Date those cards from the files that implement the tool
+// instead, newest of them wins.
+const SOURCE_PATHS = new Map([
+  [
+    'ryanduguid/ryanduguid.github.io',
+    [
+      'assets/levy.mjs',
+      'assets/levy-form.mjs',
+      'assets/levy-page.mjs',
+      'assets/levy-explanation.mjs',
+    ],
+  ],
+]);
+
+function pathsFor(owner, repo, path) {
+  return SOURCE_PATHS.get(`${owner}/${repo}`) ?? [path];
+}
 
 const READ_STAMP =
   /<span class="collection-entry__stamp">Last commit <time datetime="(\d{4}-\d{2}-\d{2})">([^<]*)<\/time><\/span>/;
@@ -71,7 +97,10 @@ export function stampHtml(html, lookup = lastCommitDate) {
       return match;
     }
     const [, owner, repo, path] = source;
-    const iso = lookup(owner, repo, path);
+    // ISO dates compare correctly as strings, so the newest is simply the max.
+    const iso = pathsFor(owner, repo, path)
+      .map((each) => lookup(owner, repo, each))
+      .reduce((newest, date) => (date > newest ? date : newest));
     const stamp =
       '<span class="collection-entry__stamp">Last commit ' +
       `<time datetime="${iso}">${formatDate(iso)}</time></span>`;
@@ -103,8 +132,14 @@ export function checkHtml(html, today = new Date().toISOString().slice(0, 10)) {
       failures.push(`${source}: stamp date ${iso} is in the future`);
     }
   }
+  const entries = (html.match(ENTRY) ?? []).length;
   if (cards === 0) {
     failures.push('no tool cards matched; the card markup has changed');
+  } else if (cards !== entries) {
+    failures.push(
+      `${entries} tool cards but ${cards} carry a links row; ` +
+        'a card has drifted out of the stamped set',
+    );
   }
   return failures;
 }

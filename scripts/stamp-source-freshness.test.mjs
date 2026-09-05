@@ -47,6 +47,39 @@ test('each card is looked up by its own repository and path', () => {
   ]);
 });
 
+test('the site repository card is dated from the calculator, not the repo root', () => {
+  // Dating it from the root would credit the calculator with unrelated copy
+  // edits, and this workflow's own commits would restamp it every week.
+  const asked = [];
+  const stamped = stampHtml(
+    card('https://github.com/ryanduguid/ryanduguid.github.io'),
+    (owner, repo, path) => {
+      asked.push(path);
+      return path === 'assets/levy-form.mjs' ? '2026-09-04' : '2026-09-01';
+    },
+  );
+  assert.deepEqual(asked, [
+    'assets/levy.mjs',
+    'assets/levy-form.mjs',
+    'assets/levy-page.mjs',
+    'assets/levy-explanation.mjs',
+  ]);
+  // The newest of the calculator files wins.
+  assert.match(stamped, /<time datetime="2026-09-04">4 September 2026<\/time>/);
+});
+
+test('check fails when a card drifts out of the stamped set', () => {
+  const drifted = [
+    stampHtml(fixture, () => '2026-09-02'),
+    '            <div class="collection-entry">',
+    '              <p class="entry-links"><a href="https://github.com/ryanduguid/x">Source</a></p>',
+    '            </div>',
+  ].join('\n');
+  assert.deepEqual(checkHtml(drifted, '2026-09-05'), [
+    '3 tool cards but 2 carry a links row; a card has drifted out of the stamped set',
+  ]);
+});
+
 test('stamping adds one stamp per card and keeps the links', () => {
   const stamped = stampHtml(fixture, () => '2026-09-02');
   assert.equal(stamped.match(/collection-entry__stamp/g).length, 2);
