@@ -879,6 +879,30 @@ def test_public_contracts() -> int:
         contracts.check_canonical_person(changed_person),
         "Person sameAs must contain only",
     )
+    homepage_people = [
+        node
+        for block in core.json_ld_blocks(
+            read_text(ROOT, "index.html"), "index.html", parse_failures
+        )
+        for node in core.nodes(block)
+        if core.has_type(node, "Person")
+    ]
+    assert len(homepage_people) == 1, f"expected one homepage Person stub, found {len(homepage_people)}"
+    assert_clean(
+        "homepage Person stub",
+        contracts.check_person_stub("index.html", homepage_people[0], people[0]),
+    )
+    drifted_stub = dict(homepage_people[0], name="R. Duguid")
+    expect_failure(
+        "homepage Person stub drift",
+        contracts.check_person_stub("index.html", drifted_stub, people[0]),
+        "stub name differs from the canonical Person",
+    )
+    expect_failure(
+        "Person stub outside the homepage",
+        contracts.check_person_stub("tools/index.html", homepage_people[0], people[0]),
+        "must not define a Person node",
+    )
     contract_mutation(
         "About opening",
         about,
