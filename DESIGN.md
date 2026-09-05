@@ -354,8 +354,9 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 - no Google-specific ranking work or `noindex` is added to an indexable page
 - ordinary crawlability remains available to people, search systems and answer
   systems
-- search and user-retrieval crawlers remain allowed while GPTBot, ClaudeBot,
-  Google-Extended, Applebot-Extended, CCBot and Bytespider remain blocked from
+- search and user-retrieval crawlers remain allowed, Google-Extended is
+  allowed so Gemini and Vertex AI grounding can cite the site, and GPTBot,
+  ClaudeBot, Applebot-Extended, CCBot and Bytespider remain blocked from
   training use
 - `llms.txt`, JSON-LD, rates, disclaimers and refusal boundaries remain the
   factual source of truth

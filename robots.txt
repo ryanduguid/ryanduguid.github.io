@@ -1,5 +1,6 @@
 # Search indexing and user-requested citation fetches are allowed. Named training crawlers remain blocked.
 # Unnamed agents must not silently redefine this policy; named rows state the intended treatment.
+# Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.
 User-agent: *
 Allow: /
 
@@ -27,12 +28,12 @@ User-agent: anthropic-ai
 Allow: /
 User-agent: Claude-Web
 Allow: /
+User-agent: Google-Extended
+Allow: /
 
 User-agent: GPTBot
 Disallow: /
 User-agent: ClaudeBot
-Disallow: /
-User-agent: Google-Extended
 Disallow: /
 User-agent: Applebot-Extended
 Disallow: /
