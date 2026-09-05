@@ -155,6 +155,7 @@ rates/register/
   README.md                  what the register is and is not
   register.json              manifest: schema_version, register_version, series list
   schema/rates-register.schema.json
+  schema/register.schema.json
   series/super-guarantee.json
   series/div7a-benchmark-rate.json
   series/cents-per-kilometre.json
@@ -246,14 +247,17 @@ the boundary with it.
       "additionalProperties": false,
       "properties": {
         "instrument": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "provision": {
-          "type": "string"
+          "type": "string",
+          "minLength": 1
         },
         "url": {
           "type": "string",
-          "format": "uri"
+          "format": "uri",
+          "pattern": "^https://"
         }
       }
     },
@@ -284,14 +288,16 @@ the boundary with it.
           },
           "period_start": {
             "type": "string",
-            "format": "date"
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           },
           "period_end": {
             "type": [
               "string",
               "null"
             ],
-            "format": "date"
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           },
           "income_year": {
             "type": "string",
@@ -319,14 +325,17 @@ the boundary with it.
             "additionalProperties": false,
             "properties": {
               "title": {
-                "type": "string"
+                "type": "string",
+                "minLength": 1
               },
               "url": {
                 "type": "string",
-                "format": "uri"
+                "format": "uri",
+                "pattern": "^https://"
               },
               "publisher": {
-                "type": "string"
+                "type": "string",
+                "minLength": 1
               },
               "register_id": {
                 "type": "string"
@@ -340,7 +349,8 @@ the boundary with it.
             "type": "array",
             "items": {
               "type": "string",
-              "format": "uri"
+              "format": "uri",
+              "pattern": "^https://"
             }
           },
           "verified_at": {
@@ -348,16 +358,19 @@ the boundary with it.
               "string",
               "null"
             ],
-            "format": "date"
+            "format": "date",
+            "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
           },
           "verified_by": {
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "minLength": 1
           },
           "verification_note": {
-            "type": "string"
+            "type": "string",
+            "minLength": 1
           },
           "supersedes": {
             "type": "string",
@@ -410,6 +423,13 @@ the boundary with it.
 
 Field rules the schema cannot express, to be enforced by a check script:
 
+- `format` is an annotation, not an assertion, in draft 2020-12 by default.
+  The `pattern` keywords above hold the shape of every date and URL, and the
+  check script validates with format assertion turned on (the `jsonschema`
+  format checker, or a validator that enables the format-assertion
+  vocabulary) so `2026-02-30` and a malformed URL are rejected rather than
+  annotated.
+- `row_id` must be unique within a series.
 - `primary_source.url` must sit on a primary host: `legislation.gov.au`,
   `ato.gov.au`, `rba.gov.au`, a state or territory legislation site,
   `standards.aasb.gov.au` or `coallsl.com.au` for the levy instruments. A
@@ -487,6 +507,36 @@ The manifest that carries the register version:
 }
 ```
 
+Its schema, `schema/register.schema.json`, is as small as the file:
+
+```json
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://duguid.com.au/rates/register/schema/register.schema.json",
+  "title": "Rates register manifest",
+  "type": "object",
+  "required": ["schema_version", "register_version", "series", "advice_status"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "register_version": {
+      "type": "string",
+      "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[1-9][0-9]*)?$"
+    },
+    "series": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^series/[a-z0-9]+(-[a-z0-9]+)*\\.json$"}
+    },
+    "advice_status": {
+      "type": "string",
+      "const": "Not advice. Verify each figure against its primary source at the time of use."
+    }
+  }
+}
+```
+
 ### 2.5 Integrity: `SHA256SUMS`
 
 `SHA256SUMS` lists the SHA-256 of every file in `rates/register/` except
@@ -500,12 +550,18 @@ proposed here.
 
 ### 2.6 Checks to add with the register
 
-- Schema validation of every `series/*.json` against the schema.
-- The host allowlist, ordering, overlap, `supersedes` and future-date rules
-  from 2.3, and that `register.json` lists every series file.
+- Schema validation, with format assertion on, of every `series/*.json`
+  against the series schema and of `register.json` against the manifest
+  schema.
+- The host allowlist, unique `row_id`, ordering, overlap, `supersedes` and
+  future-date rules from 2.3, and that `register.json` lists every series
+  file exactly once and nothing else.
 - `SHA256SUMS` matches the tree.
-- The site's existing `check_links.py` resolves every `primary_source.url`
-  and `cross_checks` entry, since the register would live under the site.
+- Every `basis.url`, `primary_source.url` and `cross_checks` entry resolves.
+  The site's existing `check_links.py` scans `href` and `src` attributes in
+  HTML only, so it never sees a URL inside a JSON file; the register needs a
+  JSON-aware pass, either an extension to that script or a sibling that reads
+  the series files and reuses its fetch and denial rules.
 - A drift test: for each series the register also holds, the site CSV and the
   engine table must agree with the register row for the same period, or the
   engine must cite the register version it was built from. This is the check
