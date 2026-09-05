@@ -26,14 +26,6 @@ Source on GitHub
 
 Last reviewed 5 September 2026.
 
-Review aids only. No client files. No lodgement. Human sign-off.
-
-Scope 01 Accounting workflow controls
-
-Method 02 Primary sources and exact arithmetic
-
-Boundary 03 Calculation is not judgement
-
 Tool register / four review tasks
 
 ## Start with the work to review
@@ -64,6 +56,14 @@ Give an AI agent a bounded tool and an explicit refusal.
 
 Australian tax tools for AI agents
 
+Review aids only. No client files. No lodgement. Human sign-off.
+
+Scope 01 Accounting workflow controls
+
+Method 02 Primary sources and exact arithmetic
+
+Boundary 03 Calculation is not judgement
+
 ## Worked proof
 
 Coal LSL / synthetic result
@@ -72,7 +72,7 @@ Coal LSL / synthetic result
 
 The browser calculator applies section 3B, names the formula and rounds only at the final step.
 
-One employee, one month. Change any figure to see which formula applies.
+One employee, one month. Enter each amount, including zero, to see which formula applies.
 
 Base rate of pay
 
@@ -86,25 +86,25 @@ $6,000.00
 
 Formula B, 75 per cent of every component
 
-$6,375.00
+$7,125.00
 
 Eligible wages, the greater of the two
 
-$6,375.00
+$7,125.00
 
 Levy at 2.7 per cent, before rounding
 
-$172.1250
+$192.3750
 
 Levy payable, rounded once at the end
 
-$172.13
+$192.38
 
 Fabricated figures, calculated in your browser; nothing is sent or stored. This is the s 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
 Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
 
-Synthetic example. The applied branch and formula remain visible for review.
+Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
 ## Adopt
 

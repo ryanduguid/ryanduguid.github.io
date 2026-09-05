@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import { results, exactLevyCents } from '../assets/home-levy.mjs';
+import { COAL_LSL_PROOF } from './coal-lsl-proof-fixture.mjs';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const homepage = readFileSync(join(root, 'index.html'), 'utf8');
@@ -20,6 +21,14 @@ function shown(key) {
   assert.ok(found, `no ${key} output in index.html`);
   return found[1];
 }
+
+test('homepage defaults match the captured Coal LSL proof', () => {
+  assert.equal(inputValue('base'), Number(COAL_LSL_PROOF.inputs.baseRate));
+  assert.equal(inputValue('overtime'), Number(COAL_LSL_PROOF.inputs.overtimeAndPenalties));
+  assert.equal(inputValue('allowances'), Number(COAL_LSL_PROOF.inputs.allowances));
+  assert.equal(shown('eligible'), COAL_LSL_PROOF.expected.eligibleWages);
+  assert.equal(shown('levy'), COAL_LSL_PROOF.expected.levy);
+});
 
 // The section ships a complete worked example in static markup so it reads
 // correctly with scripting off. That only stays true while the markup agrees
@@ -64,10 +73,10 @@ test('the worked example still lands on a fractional cent', () => {
   // The levy before rounding is shown to four decimals to make the point that
   // rounding happens once, at the end. A default that divided evenly would
   // quietly remove the only evidence of it.
-  const eligible = 637500;
-  assert.equal(exactLevyCents(eligible), 17212.5);
-  assert.equal(shown('exact'), '$172.1250');
-  assert.equal(shown('levy'), '$172.13');
+  const eligible = 712500;
+  assert.equal(exactLevyCents(eligible), 19237.5);
+  assert.equal(shown('exact'), '$192.3750');
+  assert.equal(shown('levy'), '$192.38');
 });
 
 test('Formula A wins when there is little beyond the base rate', () => {

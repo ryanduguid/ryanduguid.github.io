@@ -95,8 +95,10 @@ TRUST_BAND_TEXT = (
     "Method 02 Primary sources and exact arithmetic",
     "Boundary 03 Calculation is not judgement",
 )
-HERO_TRUST_ADJACENCY_PATTERN = re.compile(
+HERO_PREVIEW_TRUST_ADJACENCY_PATTERN = re.compile(
     r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-hero\b'
+    r'[^"\']*["\'])[^>]*>.*?</section>\s*'
+    r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-tool-preview\b'
     r'[^"\']*["\'])[^>]*>.*?</section>\s*'
     r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
     r'[^"\']*["\'])',
@@ -847,8 +849,8 @@ def check_homepage_refinement(root: Path) -> list[str]:
     for class_name in HOMEPAGE_REQUIRED_CLASSES:
         if class_count(main, class_name) != 1:
             failures.append("index.html: expected one " + class_name)
-    if not HERO_TRUST_ADJACENCY_PATTERN.search(main):
-        failures.append("index.html: trust-band must immediately follow home hero")
+    if not HERO_PREVIEW_TRUST_ADJACENCY_PATTERN.search(main):
+        failures.append("index.html: tool preview must follow home hero, then trust-band")
     trust_regions = TRUST_BAND_PATTERN.findall(main)
     if len(trust_regions) != 1:
         failures.append("index.html: expected one complete trust-band region")
