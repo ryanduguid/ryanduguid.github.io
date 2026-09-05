@@ -130,7 +130,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   await waitForVisualFonts(page);
   await expect(page.getByRole('heading', {
     level: 1,
-    name: 'Review-ready controls for Australian accounting work.',
+    name: 'Ryan Duguid: review-ready Australian accounting controls.',
     exact: true,
   })).toBeVisible();
 
@@ -171,13 +171,13 @@ test('retired Engage routes redirect quietly to the homepage', async ({ page }) 
   await page.goto('/#engage');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Review-ready controls for Australian accounting work.',
+    'Ryan Duguid: review-ready Australian accounting controls.',
   );
 
   await page.goto('/engage/');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Review-ready controls for Australian accounting work.',
+    'Ryan Duguid: review-ready Australian accounting controls.',
   );
   health.assertHealthy();
 });

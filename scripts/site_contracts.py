@@ -612,7 +612,11 @@ COLLECTION_HUBS: dict[str, dict[str, object]] = {
     },
 }
 
-HOMEPAGE_HEADING = "Review-ready controls for Australian accounting work."
+HOMEPAGE_HEADING = "Ryan Duguid: review-ready Australian accounting controls."
+HOMEPAGE_HEADING_MARKUP = (
+    '<h1 id="home-title">Ryan Duguid: <span class="nowrap">review-ready</span> '
+    "Australian accounting controls.</h1>"
+)
 HOMEPAGE_SUPPORT = (
     "Open-source checks for payroll, Xero, workpapers and AI workflows, with "
     "every source and calculation kept visible."
