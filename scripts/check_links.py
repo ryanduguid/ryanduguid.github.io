@@ -17,6 +17,19 @@ Checks, in order, per file:
    the hibernated LinkedIn profile are accepted.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
+6. No github.com/ryanduguid/<repo> link may resolve to an archived
+   repository. The consolidation of September 2026 archived thirteen public
+   repositories after their code moved into the monorepos (two more source
+   repositories were renamed into the monorepos, which the redirect check
+   already catches); an archived repository still answers 200, so the
+   redirect check cannot see it. Each repository is looked up once through
+   the GitHub REST API, with the same transient-failure retries as the link
+   fetch, and the verdict or the failure is cached so one repository costs
+   one request however many pages link it. A lookup that cannot be
+   completed is a failure, not a pass. ARCHIVED_TARGET_ALLOWLIST names, per
+   page, the archived repositories that page may cite deliberately as
+   provenance for a pre-consolidation release; it is empty today because the
+   changelog links current releases only.
 
 Known gap: the calculator page loads its engine with an ES module import
 ("import { ... } from '/assets/levy.mjs'" inside a <script type="module">
@@ -32,6 +45,8 @@ Exit 0 clean, 1 on any failure. Stdlib only.
 from __future__ import annotations
 
 import functools
+import json
+import os
 import re
 import sys
 import urllib.error
@@ -168,7 +183,106 @@ def self_origin_target(href: str) -> Path:
     return ROOT / path.lstrip("/")
 
 
-OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)")
+# GitHub owner and repository names are case-insensitive; names are
+# lower-cased so the cache, the allowlist and the redirect check agree.
+OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)", re.I)
+
+# Per page, the archived repositories that page may link on purpose as
+# provenance for a release that predates the consolidation. Keyed by page and
+# repository name so an exemption never widens to the whole page. Keep this
+# empty unless a page has to cite pre-consolidation history by its source.
+ARCHIVED_TARGET_ALLOWLIST: dict[str, frozenset[str]] = {}
+GITHUB_API = "https://api.github.com/repos/ryanduguid/"
+
+# Verdict or failure per repository name, so one repository costs one API
+# request however many pages link it, and a failed lookup is reported per
+# link without being retried into an exhausted rate limit.
+_ARCHIVED_VERDICTS: dict[str, bool | Exception] = {}
+
+
+def fetch_repository_archived(
+    name: str, *, opener: object = urllib.request.urlopen
+) -> bool:
+    """Ask the GitHub REST API whether ryanduguid/<name> is archived.
+
+    Retries transient transport failures and HTTP 5xx like fetch_final_url.
+    GITHUB_TOKEN, when present, lifts the unauthenticated rate limit; CI
+    passes the workflow token. Any remaining transport or parse failure is
+    raised: a link that cannot be classified must not pass as maintained.
+    """
+    headers = {
+        "User-Agent": USER_AGENT,
+        "Accept": "application/vnd.github+json",
+    }
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    req = urllib.request.Request(GITHUB_API + name, headers=headers)
+    for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
+        try:
+            with opener(req, timeout=30) as resp:  # type: ignore[operator]
+                payload = json.loads(resp.read().decode("utf-8"))
+            break
+        except urllib.error.HTTPError as exc:
+            if not 500 <= exc.code < 600 or attempt == MAX_FETCH_ATTEMPTS:
+                raise
+            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: HTTP {exc.code}")
+        except (urllib.error.URLError, TimeoutError) as exc:
+            if attempt == MAX_FETCH_ATTEMPTS:
+                raise
+            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: {exc}")
+    archived = payload.get("archived")
+    if not isinstance(archived, bool):
+        raise ValueError(f"GitHub API returned no archived flag for {name}")
+    return archived
+
+
+def repository_is_archived(name: str) -> bool:
+    """Cached verdict for ryanduguid/<name>; a cached failure re-raises."""
+    if name not in _ARCHIVED_VERDICTS:
+        try:
+            _ARCHIVED_VERDICTS[name] = fetch_repository_archived(name)
+        except Exception as exc:  # noqa: BLE001 - cache every failure mode
+            _ARCHIVED_VERDICTS[name] = exc
+    verdict = _ARCHIVED_VERDICTS[name]
+    if isinstance(verdict, Exception):
+        raise verdict
+    return verdict
+
+
+def own_repository(href: str) -> str | None:
+    """Return the ryanduguid repository name an href points at, if any."""
+    match = OWN_REPO.match(href)
+    return match.group(1).lower() if match else None
+
+
+def archived_target_failures(
+    rel: str, hrefs: list[str], *, lookup=None
+) -> list[str]:
+    """Fail every own-repository link whose target repository is archived.
+
+    ``hrefs`` should hold only links that already resolved and passed the
+    rename-redirect check, so a broken link is reported once, by the fetch.
+    """
+    if lookup is None:
+        lookup = repository_is_archived
+    allowed = ARCHIVED_TARGET_ALLOWLIST.get(rel, frozenset())
+    failures: list[str] = []
+    for href in hrefs:
+        name = own_repository(href)
+        if name is None or name in allowed:
+            continue
+        try:
+            archived = lookup(name)
+        except Exception as exc:  # noqa: BLE001 - report every failure mode
+            failures.append(f"{rel}: {href} -> archived lookup failed: {exc}")
+            continue
+        if archived:
+            failures.append(
+                f"{rel}: {href} -> ryanduguid/{name} is archived "
+                "(repoint the link to the maintained repository)"
+            )
+    return failures
 
 
 def check_file(path: Path) -> list[str]:
@@ -190,8 +304,16 @@ def check_file(path: Path) -> list[str]:
         if ch in html:
             failures.append(f"{rel}: {label} present")
 
+    failures.extend(check_hrefs(rel, parser.hrefs))
+    return failures
+
+
+def check_hrefs(rel: str, hrefs: list[str]) -> list[str]:
+    """Resolve every link from one file and classify its own-repository targets."""
+    failures: list[str] = []
     seen: set[str] = set()
-    for href in parser.hrefs:
+    resolved_own_hrefs: list[str] = []
+    for href in hrefs:
         if href in seen:
             continue
         # Root-relative hrefs ("/", "/tools/foo/", "/assets/site.css") are
@@ -227,14 +349,18 @@ def check_file(path: Path) -> list[str]:
         if status >= 400:
             failures.append(f"{rel}: {href} -> HTTP {status}")
             continue
-        m = OWN_REPO.match(href)
-        if m:
-            fm = OWN_REPO.match(final)
-            if not fm or fm.group(1).lower() != m.group(1).lower():
+        name = own_repository(href)
+        if name is not None:
+            final_name = own_repository(final)
+            if final_name != name:
                 failures.append(
                     f"{rel}: {href} redirected to {final} (rename redirect, repoint the link)"
                 )
+                continue
+            resolved_own_hrefs.append(href)
         print(f"ok {rel}: {href}")
+
+    failures.extend(archived_target_failures(rel, resolved_own_hrefs))
 
     print(f"{rel}: {len(seen)} links checked")
     return failures
@@ -243,6 +369,14 @@ def check_file(path: Path) -> list[str]:
 def html_files() -> list[Path]:
     """Every public site HTML file, excluding generated and hidden paths."""
     return core.html_files(ROOT)
+
+
+MARKDOWN_LINK = re.compile(r"\]\((https?://[^)\s]+)\)")
+
+
+def llms_hrefs(path: Path = ROOT / "llms.txt") -> list[str]:
+    """Markdown link targets in llms.txt, the published machine-readable index."""
+    return MARKDOWN_LINK.findall(path.read_text(encoding="utf-8"))
 
 
 def _self_check() -> None:
@@ -285,6 +419,12 @@ def _self_check() -> None:
     assert not is_accepted_automation_denial(
         "https://www.linkedin.com/company/example", 999
     ), "a LinkedIn URL outside the allow-list must still fail"
+    assert own_repository(
+        "https://github.com/ryanduguid/australian-accounting/tree/main/packages/x"
+    ) == "australian-accounting", "own repository name must be extracted"
+    assert own_repository("https://github.com/XeroAPI/xero-python") is None, (
+        "another owner's repository must not be classified"
+    )
     print(f"self-check OK: {len(found)} HTML files discovered")
 
 
@@ -293,6 +433,7 @@ def main() -> int:
     failures: list[str] = []
     for path in html_files():
         failures.extend(check_file(path))
+    failures.extend(check_hrefs("llms.txt", llms_hrefs()))
 
     if failures:
         print(f"\n{len(failures)} failure(s):")

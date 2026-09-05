@@ -65,7 +65,7 @@
         <p class="lead-note">
           Reproduce the offline movement and year-to-date integrity gate with three fabricated CSV fixtures, then inspect the exact results and human review boundary.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 2 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -130,14 +130,14 @@
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
             <p>
-              Run these commands from the repository root. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request and write no output file.
+              Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request and write no output file.
             </p>
             <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>python -m pip install --require-hashes -r requirements.lock
 python -B -m unittest tests.test_evaluation_pack -v
 python -B -m unittest discover -s tests -v
-python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/passing.csv
-python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/failing_movement.csv
-python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures/failing_ytd.csv</code></pre>
+python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1/fixtures/passing.csv
+python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1/fixtures/failing_movement.csv
+python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1/fixtures/failing_ytd.csv</code></pre>
           </section>
 
           <section id="expected-result">
@@ -187,15 +187,15 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
 
           <section id="versions">
             <h2>Versions</h2>
-            <p>Product release v0.1.4; fixture version 1; source reviewed 2026-08-26.</p>
+            <p>Product release v0.1.6; fixture version 1; source reviewed 2026-08-26.</p>
             <p>
-              Release v0.1.4 predates this evaluation directory. The evaluation artefacts are therefore fixed to the permanent product merge commit below.
+              xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this evaluation and the shared contract it exercises. The export behaviour is unchanged from v0.1.4, and the evaluation artefacts are fixed to that release's commit.
             </p>
             <ul class="sources">
-              <li><a href="https://github.com/ryanduguid/xero-trial-balance-export/releases/tag/v0.1.4">Immutable v0.1.4 GitHub Release</a></li>
-              <li><a href="https://github.com/ryanduguid/xero-trial-balance-export/tree/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity">Evaluation pack</a></li>
-              <li><a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/787f936d373fed47591102d4c24d0c5edf6b1861/evaluation/xero_tb_integrity/expected_results.json">Expected results contract</a></li>
-              <li><a href="https://github.com/ryanduguid/xero-trial-balance-export/blob/787f936d373fed47591102d4c24d0c5edf6b1861/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">Immutable xero-trial-balance-export/v0.1.6 GitHub Release</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/evaluation/xero_tb_integrity">Evaluation pack</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/expected_results.json">Expected results contract</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
             </ul>
           </section>
 
@@ -258,7 +258,7 @@ python evaluation/xero_tb_integrity/run.py evaluation/xero_tb_integrity/fixtures
         "description": "A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate using fabricated CSV fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-02",
+        "dateModified": "2026-09-04",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

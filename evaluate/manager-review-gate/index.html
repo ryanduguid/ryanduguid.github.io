@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Manager review gate evaluation with fabricated BAS packs</title>
-  <meta name="description" content="Reproduce the review-ready-gate v0.1.1 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
+  <meta name="description" content="Reproduce the review-ready-gate v0.1.3 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Manager review gate evaluation with fabricated BAS packs" />
-  <meta property="og:description" content="Reproduce the review-ready-gate v0.1.1 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
+  <meta property="og:description" content="Reproduce the review-ready-gate v0.1.3 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -21,7 +21,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Manager review gate evaluation with fabricated BAS packs" />
-  <meta name="twitter:description" content="Reproduce the review-ready-gate v0.1.1 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
+  <meta name="twitter:description" content="Reproduce the review-ready-gate v0.1.3 result for two fabricated BAS packs, inspect the controls triggered and retain the human decision boundary." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/manager-review-gate/" />
@@ -65,7 +65,7 @@
         <p class="lead-note">
           Reproduce the released review-ready gate against two fabricated BAS packs, then inspect the exact expected result and human boundary.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 2 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -138,8 +138,8 @@
 
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
-            <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>git clone --branch v0.1.1 --depth 1 https://github.com/ryanduguid/workpaper-review-gate.git
-cd workpaper-review-gate
+            <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>git clone --branch review-ready-gate/v0.1.3 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
+cd accounting-review-pipeline/packages/review-ready-gate
 uv sync --locked --all-extras
 uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
 uv run review-ready gate --profile bas --pack examples/bas-ready --output outputs/evaluation-ready
@@ -156,11 +156,15 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
 
           <section id="versions">
             <h2>Versions</h2>
-            <p>Product release v0.1.1; fixture version 1; source reviewed 2026-08-26.</p>
+            <p>Product release v0.1.3; fixture version 1; source reviewed 2026-08-26.</p>
+            <p>
+              review-ready-gate/v0.1.3 is the first release from the Accounting Review Pipeline monorepo. Its runtime behaviour and fabricated fixtures are unchanged from v0.1.1, and the evaluation artefacts are fixed to that release's commit.
+            </p>
             <ul class="sources">
-              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/tree/v0.1.1/evaluation/manager_review_gate">Evaluation pack</a></li>
-              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/evaluation/manager_review_gate/expected_results.json">Expected results contract</a></li>
-              <li><a href="https://github.com/ryanduguid/workpaper-review-gate/blob/v0.1.1/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3">Immutable review-ready-gate/v0.1.3 GitHub Release</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate">Evaluation pack</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate/expected_results.json">Expected results contract</a></li>
+              <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
             </ul>
           </section>
 
@@ -212,10 +216,10 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
         "@id": "https://duguid.com.au/evaluate/manager-review-gate/#article",
         "url": "https://duguid.com.au/evaluate/manager-review-gate/",
         "headline": "Manager review gate evaluation with fabricated BAS packs",
-        "description": "A reproducible evaluation of the review-ready-gate v0.1.1 contract against two fabricated BAS packs.",
+        "description": "A reproducible evaluation of the review-ready-gate v0.1.3 contract against two fabricated BAS packs.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-02",
+        "dateModified": "2026-09-04",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

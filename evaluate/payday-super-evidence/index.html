@@ -65,7 +65,7 @@
         <p class="lead-note">
           Reproduce four fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 2 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -106,7 +106,7 @@
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
             <p>
-              Use a checkout fixed at merge commit 139f4e5603f5a383b5d2f23874a4d4c345a1fb71 and run these commands from the repository root. The first four commands write the four reports; the final command runs the evaluation contract test.
+              Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first four commands write the four reports; the final command runs the evaluation contract test.
             </p>
             <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o timely-report.csv
 uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/late_remittance_no_receipt.csv --as-at 2026-08-20 -o late-remittance-report.csv
@@ -162,21 +162,21 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             <ul class="sources">
               <li><a href="https://www.legislation.gov.au/C2004A04402/latest/text">Superannuation Guarantee (Administration) Act 1992</a></li>
               <li><a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Australian Taxation Office, LCR 2026/2</a></li>
-              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/v0.1.2/docs/primary-source-review-2026-08-15.md">Primary source review</a></li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md">Primary source review</a></li>
             </ul>
           </section>
 
           <section id="versions">
             <h2>Versions</h2>
-            <p>Product release v0.1.2; fixture version 1; source reviewed 15 August 2026.</p>
+            <p>Product release v0.1.3; fixture version 1; source reviewed 15 August 2026.</p>
             <p>
-              v0.1.2 predates the evaluation directory. The evaluation artefacts are fixed to the merge commit, rather than presented as released v0.1.2 evaluation artefacts.
+              payday-super-checker/v0.1.3 is the first release from the australian-accounting monorepo and the first to contain the evaluation directory. Its calculation behaviour is unchanged from v0.1.2, and the evaluation artefacts are fixed to that release's commit.
             </p>
             <ul class="sources">
-              <li><a href="https://github.com/ryanduguid/payday-super-checker/releases/tag/v0.1.2">Immutable v0.1.2 GitHub Release</a></li>
-              <li><a href="https://github.com/ryanduguid/payday-super-checker/tree/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence">Evaluation pack</a></li>
-              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/evaluation/payday_super_evidence/expected_results.json">Expected results contract</a></li>
-              <li><a href="https://github.com/ryanduguid/payday-super-checker/blob/139f4e5603f5a383b5d2f23874a4d4c345a1fb71/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3">Immutable payday-super-checker/v0.1.3 GitHub Release</a></li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting/tree/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence">Evaluation pack</a></li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/expected_results.json">Expected results contract</a></li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/tests/test_evaluation_pack.py">Evaluation contract test</a></li>
             </ul>
           </section>
 
@@ -239,7 +239,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-02",
+        "dateModified": "2026-09-04",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

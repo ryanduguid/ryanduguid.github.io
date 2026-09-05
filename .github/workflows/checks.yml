@@ -27,6 +27,10 @@ jobs:
           version: "0.12.5"
           enable-cache: true
       - name: Site checks
+        env:
+          # Lifts the unauthenticated GitHub API rate limit for the
+          # archived-repository lookups in scripts/check_links.py.
+          GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/check_site.py
 
   browser:
