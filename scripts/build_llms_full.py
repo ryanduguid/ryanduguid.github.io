@@ -20,10 +20,17 @@ ROOT = core.ROOT
 OUTPUT = ROOT / "llms-full.txt"
 SITE = "https://duguid.com.au"
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
-NAV_PATTERN = re.compile(r"<nav\b.*?</nav>", re.S | re.I)
+# Only wayfinding navigation is dropped: breadcrumbs and on-this-page contents.
+# Navigation that carries content (tool categories, related pages, actions,
+# source-only distributions) stays in the text.
+WAYFINDING_NAV_PATTERN = re.compile(
+    r'<nav\b[^>]*\bclass="[^"]*\barticle-(?:crumb|toc)\b[^"]*"[^>]*>.*?</nav>',
+    re.S | re.I,
+)
+PRE_PATTERN = re.compile(r"<pre\b[^>]*>(.*?)</pre>", re.S | re.I)
 HEADING_PATTERN = re.compile(r"<h([1-4])\b[^>]*>(.*?)</h\1>", re.S | re.I)
 BLOCK_TAGS = (
-    "p|div|section|article|header|footer|ul|ol|dl|dt|dd|blockquote|pre|table|"
+    "p|div|section|article|header|footer|ul|ol|dl|dt|dd|blockquote|table|"
     "thead|tbody|tr|figure|figcaption|details|summary|br|hr"
 )
 BLOCK_PATTERN = re.compile(rf"</?(?:{BLOCK_TAGS})\b[^>]*>", re.I)
@@ -53,15 +60,30 @@ def block_kind(block: str) -> str:
     return "text"
 
 
+def preformatted(inner: str) -> str:
+    """A <pre> block as a fenced block with its line breaks and indentation kept."""
+    lines = html_lib.unescape(TAG_PATTERN.sub("", inner)).strip("\n").splitlines()
+    return "```\n" + "\n".join(line.rstrip() for line in lines) + "\n```"
+
+
 def main_text(html: str) -> str:
     matches = MAIN_PATTERN.findall(html)
     if len(matches) != 1:
         raise SystemExit("llms-full: page must have exactly one <main>")
-    body = core.visible_html(NAV_PATTERN.sub(" ", matches[0]))
+    body = core.visible_html(WAYFINDING_NAV_PATTERN.sub(" ", matches[0]))
+    pres: list[str] = []
+
+    def hold_pre(match: re.Match[str]) -> str:
+        pres.append(preformatted(match.group(1)))
+        return f"\n\nPREFORMATTED-{len(pres) - 1}\n\n"
+
+    body = PRE_PATTERN.sub(hold_pre, body)
     body = HEADING_PATTERN.sub(lambda m: f"\n\n{'#' * int(m.group(1))} {m.group(2)}\n\n", body)
     body = LI_PATTERN.sub("\n\n- ", body)
     body = CELL_PATTERN.sub(" | ", body)
     body = BLOCK_PATTERN.sub("\n\n", body)
+    # Adjacent inline elements such as two links keep a space between them.
+    body = body.replace("><", "> <")
     body = html_lib.unescape(TAG_PATTERN.sub("", body))
     blocks = [re.sub(r"\s+", " ", block).strip() for block in re.split(r"\n\s*\n", body)]
     text = ""
@@ -71,6 +93,7 @@ def main_text(html: str) -> str:
         joined = kind != "text" and kind == previous
         text += ("\n" if joined else "\n\n") + block
         previous = kind
+    text = re.sub(r"PREFORMATTED-(\d+)", lambda m: pres[int(m.group(1))], text)
     return text.strip()
 
 

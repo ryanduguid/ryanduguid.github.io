@@ -1482,7 +1482,33 @@ def test_consolidation_review_dates() -> None:
     print(f"consolidation review dates passed ({len(pages)} pages)")
 
 
+def test_llms_full_extraction() -> None:
+    """Keep content-bearing navigation, link boundaries and preformatted lines."""
+    import build_llms_full
+
+    html = """<main id="main">
+    <nav class="article-crumb" aria-label="Breadcrumb"><a href="/">Home</a></nav>
+    <nav class="article-toc" aria-label="On this page"><a href="#a">Section A</a></nav>
+    <h1>Heading</h1>
+    <nav class="collection-index" aria-label="Tool categories">
+      <a href="/tools/#extract">Extract</a><a href="/tools/#calculate">Calculate</a>
+    </nav>
+    <p>Run <a href="/x/">first tool</a><a href="/y/">second tool</a> together.</p>
+    <pre><code><span>pip install thing</span>
+<span>    thing --as-at 2026-09-10</span></code></pre>
+    <ul><li>one</li><li>two</li></ul>
+    </main>"""
+    text = build_llms_full.main_text(html)
+    assert "Home" not in text and "Section A" not in text, text
+    assert "Extract Calculate" in text, text
+    assert "first tool second tool together." in text, text
+    assert "```\npip install thing\n    thing --as-at 2026-09-10\n```" in text, text
+    assert "- one\n- two" in text, text
+    print("llms-full extraction passed")
+
+
 def main() -> None:
+    test_llms_full_extraction()
     test_consolidation_review_dates()
     test_current_component_metadata()
     test_parked_consultancy_surface()
