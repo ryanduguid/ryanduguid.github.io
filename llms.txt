@@ -56,7 +56,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Refusals
 
-- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output from fabricated fixtures at the released versions, the exit code and the human step that follows.
+- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fabricated fixtures at the released versions where a command exists, the DrDebits prompt-guide scenarios, and the human step that follows.
 
 ## Supported installation
 

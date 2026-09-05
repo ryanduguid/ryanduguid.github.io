@@ -1,6 +1,6 @@
 {
   "protected_files": {
-    "llms.txt": "e3036d73d511630d21b6f2853e5fe6d4244ebf0ddde2c88c6b44858bfd107cd0",
+    "llms.txt": "1333437ba6f76d55f5388436615739aa35bd5ce225d9e8bc78aff3bff890f896",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
     "sitemap.xml": "46bb05ea61eba078f86e6464371091f5a5bfc83faf92214c0b272a5eeab94faa"
   },
@@ -131,7 +131,7 @@
       "4674a4a4318d0210aaec11713950ebd94296786b2c5645ae7af509354ce85ba5"
     ],
     "tools/refusals/index.html": [
-      "0fe5091a376c8d78da12edac751ca4a426c4b4473bf787e8605f85d8aa3f442f"
+      "499ebc4ee883eff1a55c8af020e1c07469c515fc3a06040f99a31207b942dd56"
     ]
   },
   "protected_text": {
