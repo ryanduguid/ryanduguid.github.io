@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "73d5cb792377f99ec74df280a2be05fc3aa27e6f610fda309480478df6ddb8e8",
     "robots.txt": "e1d67d331ba503673eab2af7afca0aab1320a6f6abd64691d7eac27d977ad065",
-    "sitemap.xml": "86092666f640d7244f1b238e5d73981bf3f2a8a3920db6fc94a384d7f5aa3c9c"
+    "sitemap.xml": "dbce464b84ea346db9cc8ca59da1ca1078d3ad448b84165eda4d86204fe272cc"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -83,7 +83,7 @@
       "a7a415f1aa9ec17e63925abb651719ce78b4d74ad132af0d11c7a8697effb5c8"
     ],
     "index.html": [
-      "1f5a9615479e80925faba18df529ccc237aeb21b40d31faee1e9e94777fed134"
+      "00d7bfecc941cd598c591d0a99b5eba1eb6bb19f83392115c0f70d6bc0e91d4e"
     ],
     "rates/cents-per-kilometre/index.html": [
       "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
