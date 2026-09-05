@@ -52,21 +52,23 @@ Two properties matter for the register. First, these files record facts and
 where to read them, and deliberately not rates: `fuel-tax-credits` says "the
 rate is deliberately not stored here" and `coal-lsl-levy` says the levy
 percentage "must be read from the in-force compilation each time, not copied
-from this index". Second, the same entry is repeated verbatim across skills
-with independent check dates:
+from this index". Second, the same source URL is carried by more than one skill, each with its
+own copy of the check date and its own fact wording:
 
 | Source URL | Skills carrying it |
 |---|---|
 | `softwaredevelopers.ato.gov.au/PaydaySuper` | `cashflow-forecast-13week`, `month-end-close`, `stp-finalisation` |
-| `www.ato.gov.au/businesses-and-organisations/super-for-employers/paying` | `cashflow-forecast-13week`, `month-end-close`, `stp-finalisation` |
+| `www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday` | `cashflow-forecast-13week`, `month-end-close`, `stp-finalisation` |
 | `www.legislation.gov.au/C2025A00057/asmade/text` | `cashflow-forecast-13week`, `month-end-close`, `stp-finalisation` |
 | `www.legislation.gov.au/F2018L01289/latest/text` | `cashflow-forecast-13week`, `month-end-close`, `stp-finalisation` |
 | `standards.aasb.gov.au/aasb-15-dec-2022` | `contract-cost-tracking`, `wip-over-under-billing` |
 | `legislation.nsw.gov.au/view/whole/html/inforce/current/act-1999-046` | `progress-claim-preparation`, `retention-schedule` |
 
-One entry (`wip-over-under-billing`) still cites the archived
-`github.com/ryanduguid/TheWIPTally`; the file is byte-pinned by
-`tests/test_hardhat_consolidation.py`, which is why Phase 1 left it.
+On `main`, `wip-over-under-billing/sources.json` still cites the archived
+`github.com/ryanduguid/TheWIPTally`. The Phase 1 skills pull request (#76)
+repoints it to the monorepo path with a fresh `checked_at`; that skill's
+`SKILL.md` keeps the old URL because `tests/test_hardhat_consolidation.py`
+byte-pins that file.
 
 ### 1.2 Site: `ryanduguid.github.io/rates/`
 
@@ -74,7 +76,8 @@ Three reference tables, each an HTML page with a `page-meta` review date plus a
 CSV the page links as its machine-readable copy. All three pages read "Last
 reviewed 2 September 2026". Only the super guarantee page carries a
 per-table verification sentence ("Verified 30 August 2026 against the ATO's
-super guarantee rate table"); the other two carry primary-source links but no
+super guarantee rate table", going on to name the Payday Superannuation Act
+and the SGAA compilation); the other two carry primary-source links but no
 separate verification date. The CSVs have no provenance columns beyond the
 notes below.
 
@@ -92,12 +95,12 @@ and a source constant, and repeated in prose on `tools/coal-lsl-levy/`.
 
 | Component | File | What it holds | Provenance fields | Check date recorded |
 |---|---|---|---|---|
-| payday-super-checker | `paydaysuper/data/rates.json` | Per financial year: `charge_percentage`, `concessional_cap`, `max_contributions_base` (2026-27 only) | `source`, `verify_at`, `cross_check`, `seen` | `seen` 2026-08-15 |
+| payday-super-checker | `paydaysuper/data/rates.json` | One financial year, 2026-27: `charge_percentage`, `concessional_cap`, `max_contributions_base` | `source`, `verify_at`, `cross_check`, `seen` | `seen` 2026-08-15 |
 | payday-super-checker | `paydaysuper/data/gic_rates.json` | GIC quarters `from`, `to`, `annual_pct`; covers 2026-04-01 to 2026-09-30 | `source`, `verify_at`, `seen` per quarter | `seen` 2026-08-14 |
-| payday-super-checker | `paydaysuper/data/business_days.json` | 59 non-business days, 11 official sources | `verified_from`, `verified_until`, `generated`, `official_sources` | verified 2026-07-01 to 2027-08-31, generated 2026-08-02 |
+| payday-super-checker | `paydaysuper/data/business_days.json` | 59 non-business days; `official_sources` holds one entry per jurisdiction (eight) plus `checked`, `definition` and `coverage_note` | `verified_from`, `verified_until`, `generated`, `official_sources` | verified 2026-07-01 to 2027-08-31, generated 2026-08-02 |
 | div7a-loan-review | `div7aloan/data/benchmark_rates.csv` | 8 income years 2019-20 to 2026-27, `rate` as a decimal fraction | columns `rba_table`, `rba_series`, `rba_month`, `source`, `verify_at`, `seen`; header comments `reviewed_until: 2026-27`, `reviewed_on: 2026-08-28` | `seen` 2026-08-28 |
-| ato-benchmark-compare | `atobenchmark/data/benchmarks-2022-23.json`, `benchmarks-2023-24.json` | 100 business types per year, `schema_version: 1` | `source` block: `publisher`, `dataset_page`, `resource_url`, `resource_last_modified`, `retrieved`, `sha256`, `bytes`, `licence`, `licence_url` | `retrieved` 2026-08-13 |
-| the-exchequer-tally | `edwinnixon/corporate_tax.py` | `BRE_RATES` 2018 to 2027, `STANDARD_CORPORATE_RATE`, `TURNOVER_THRESHOLDS`, `BREPI_THRESHOLD_PERCENT` as Python constants | Docstring cites ITRA 1986 ss 23AA and 23AB and the Enterprise Tax Plan Act; no URL | none |
+| ato-benchmark-compare | `atobenchmark/data/benchmarks-2022-23.json`, `benchmarks-2023-24.json` | 100 business types per year, `schema_version: 1` | `source` block: `publisher`, `dataset`, `dataset_page`, `resource_name`, `resource_url`, `resource_last_modified`, `retrieved`, `sha256`, `bytes`, `licence`, `licence_url` | `retrieved` 2026-08-13 |
+| the-exchequer-tally | `edwinnixon/corporate_tax.py` | `BRE_RATES` 2018 to 2027, `STANDARD_CORPORATE_RATE`, `TURNOVER_THRESHOLDS`, `BREPI_THRESHOLD_PERCENT` as Python constants | Docstring cites ITRA 1986 ss 23AA and 23AB and Division 328 ITAA 1997; a code comment cites the Enterprise Tax Plan Act 2017 for the turnover threshold; no URL | none |
 | solomons-sword, the-wip-tally, aus-accounting-mcp | none | Logic only; the MCP consumes the engines above | | |
 
 Two provenance details stand out. The Division 7A engine's `verify_at` column
@@ -116,8 +119,8 @@ SHA-256 of the material it was built from.
    Division 7A benchmark rate sits in the site CSV (page reviewed 2 September
    2026) and the engine CSV (`seen` 2026-08-28). The super guarantee percentage
    sits in the site CSV (verified 30 August 2026) and in `rates.json`
-   (`seen` 2026-08-15). The four payday-super source entries are copied into
-   three skills.
+   (`seen` 2026-08-15). The four payday-super source URLs are held by three
+   skills, each with its own copy.
 3. Verification granularity ranges from per row (engines, skills) to per page
    (site) to none (corporate tax constants).
 4. Nothing carries a checksum a consumer could verify, except the upstream
@@ -150,6 +153,7 @@ Layout:
 ```text
 rates/register/
   README.md                  what the register is and is not
+  register.json              manifest: schema_version, register_version, series list
   schema/rates-register.schema.json
   series/super-guarantee.json
   series/div7a-benchmark-rate.json
@@ -159,11 +163,14 @@ rates/register/
   CHANGELOG.md
 ```
 
-Versioning: the schema carries `schema_version` (integer, starts at 1, bumps
-only on an incompatible change). The register as a whole carries
-`register_version` as a date, `YYYY.MM.DD`, set whenever any row changes, and
-a matching entry in `CHANGELOG.md`. A published version is never edited; a
-correction is a new version. If the register is ever released, the tag would
+Versioning: every file carries `schema_version` (integer, starts at 1, bumps
+only on an incompatible change). The register as a whole carries one
+`register_version` in `register.json`, a date `YYYY.MM.DD` with an optional
+`.N` suffix for a second version on the same day, set whenever any row in any
+series changes, with a matching entry in `CHANGELOG.md`. Series files do not
+repeat it, so an unchanged series file keeps its bytes and its `SHA256SUMS`
+line across versions. A published version is never edited; a correction is a
+new version that adds a replacement row and marks the old row `superseded`. If the register is ever released, the tag would
 use a new prefix (for example `rates-register/v2026.09.05`), which touches
 no existing tag prefix. Nothing is tagged by this proposal.
 
@@ -182,23 +189,72 @@ the boundary with it.
   "$id": "https://duguid.com.au/rates/register/schema/rates-register.schema.json",
   "title": "Rates register series",
   "type": "object",
-  "required": ["schema_version", "register_version", "series_id", "name", "jurisdiction",
-               "unit", "basis", "advice_status", "rows"],
+  "required": [
+    "schema_version",
+    "series_id",
+    "name",
+    "jurisdiction",
+    "unit",
+    "basis",
+    "advice_status",
+    "rows"
+  ],
   "additionalProperties": false,
   "properties": {
-    "schema_version": {"type": "integer", "const": 1},
-    "register_version": {"type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}$"},
-    "series_id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
-    "name": {"type": "string", "minLength": 1},
-    "jurisdiction": {"type": "string", "enum": ["AU", "AU-NSW", "AU-QLD", "AU-VIC", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT"]},
-    "unit": {"type": "string", "enum": ["percent", "fraction", "cents", "aud", "days"]},
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "series_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "jurisdiction": {
+      "type": "string",
+      "enum": [
+        "AU",
+        "AU-NSW",
+        "AU-QLD",
+        "AU-VIC",
+        "AU-WA",
+        "AU-SA",
+        "AU-TAS",
+        "AU-ACT",
+        "AU-NT"
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "enum": [
+        "percent",
+        "fraction",
+        "cents",
+        "aud",
+        "days"
+      ]
+    },
     "basis": {
       "type": "object",
-      "required": ["instrument", "provision"],
+      "required": [
+        "instrument",
+        "provision"
+      ],
+      "additionalProperties": false,
       "properties": {
-        "instrument": {"type": "string"},
-        "provision": {"type": "string"},
-        "url": {"type": "string", "format": "uri"}
+        "instrument": {
+          "type": "string"
+        },
+        "provision": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
       }
     },
     "advice_status": {
@@ -210,37 +266,141 @@ the boundary with it.
       "minItems": 1,
       "items": {
         "type": "object",
-        "required": ["period_start", "period_end", "value", "status", "primary_source",
-                     "verified_at", "verified_by"],
+        "required": [
+          "row_id",
+          "period_start",
+          "period_end",
+          "value",
+          "status",
+          "primary_source",
+          "verified_at",
+          "verified_by"
+        ],
         "additionalProperties": false,
         "properties": {
-          "period_start": {"type": "string", "format": "date"},
-          "period_end": {"type": ["string", "null"], "format": "date"},
-          "income_year": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$"},
-          "value": {"type": "string", "pattern": "^-?[0-9]+(\\.[0-9]+)?$"},
-          "status": {"type": "string", "enum": ["verified", "unverified", "superseded"]},
+          "row_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "period_start": {
+            "type": "string",
+            "format": "date"
+          },
+          "period_end": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "income_year": {
+            "type": "string",
+            "pattern": "^[0-9]{4}-[0-9]{2}$"
+          },
+          "value": {
+            "type": "string",
+            "pattern": "^-?[0-9]+(\\.[0-9]+)?$"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "verified",
+              "unverified",
+              "superseded"
+            ]
+          },
           "primary_source": {
             "type": "object",
-            "required": ["title", "url", "publisher"],
+            "required": [
+              "title",
+              "url",
+              "publisher"
+            ],
+            "additionalProperties": false,
             "properties": {
-              "title": {"type": "string"},
-              "url": {"type": "string", "format": "uri"},
-              "publisher": {"type": "string"},
-              "register_id": {"type": "string"},
-              "series_reference": {"type": "string"}
+              "title": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "publisher": {
+                "type": "string"
+              },
+              "register_id": {
+                "type": "string"
+              },
+              "series_reference": {
+                "type": "string"
+              }
             }
           },
-          "cross_checks": {"type": "array", "items": {"type": "string", "format": "uri"}},
-          "verified_at": {"type": ["string", "null"], "format": "date"},
-          "verified_by": {"type": ["string", "null"]},
-          "verification_note": {"type": "string"},
-          "supersedes": {"type": "string"}
+          "cross_checks": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "verified_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date"
+          },
+          "verified_by": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "verification_note": {
+            "type": "string"
+          },
+          "supersedes": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          }
         },
         "allOf": [
-          {"if": {"properties": {"status": {"const": "verified"}}},
-           "then": {"properties": {"verified_at": {"type": "string"}, "verified_by": {"type": "string"}}}},
-          {"if": {"properties": {"status": {"const": "unverified"}}},
-           "then": {"required": ["verification_note"]}}
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "enum": [
+                    "verified",
+                    "superseded"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "verified_at": {
+                  "type": "string"
+                },
+                "verified_by": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "if": {
+              "properties": {
+                "status": {
+                  "const": "unverified"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "verification_note"
+              ]
+            }
+          }
         ]
       }
     }
@@ -255,24 +415,27 @@ Field rules the schema cannot express, to be enforced by a check script:
   `standards.aasb.gov.au` or `coallsl.com.au` for the levy instruments. A
   `duguid.com.au` page, an engine file or a skills index is a `cross_checks`
   entry, never the primary source. This closes the one-hop loop in 1.3.
-- Rows in a series must not overlap and must be ordered by `period_start`.
-  `period_end: null` is allowed only on the last row.
+- Rows whose status is not `superseded` must not overlap and must be ordered
+  by `period_start`; `period_end: null` is allowed on only one of them. A
+  `superseded` row keeps its original period so the correction stays legible.
 - `verified_at` must not be in the future and must not precede
   `period_start` of a row whose instrument was not yet made.
-- A row may be `superseded` only by a later row citing it in `supersedes`.
+- A row may be `superseded` only by a row in the same series naming its
+  `row_id` in `supersedes`, and `supersedes` must name a `row_id` that exists.
 - `value` holds the figure in the series `unit` and nothing derived from it.
   The register never computes; consumers convert.
 
 ### 2.4 Example series file
 
 Populated from the super guarantee CSV as the site records it on
-5 September 2026, with the site's own verification date. This is a worked
-example of the shape, not a fresh verification.
+5 September 2026, with the site's own verification date. The page names no
+verifier in prose; `verified_by` is taken from the page's JSON-LD `author`,
+which points at the site's Person record. This is a worked example of the
+shape, not a fresh verification.
 
 ```json
 {
   "schema_version": 1,
-  "register_version": "2026.09.05",
   "series_id": "super-guarantee",
   "name": "Superannuation guarantee charge percentage",
   "jurisdiction": "AU",
@@ -285,6 +448,7 @@ example of the shape, not a fresh verification.
   "advice_status": "Not advice. Verify each figure against its primary source at the time of use.",
   "rows": [
     {
+      "row_id": "2025-07-01",
       "period_start": "2025-07-01",
       "period_end": null,
       "income_year": "2025-26",
@@ -312,6 +476,17 @@ The site page cites the Act without a section, and the payday engine's
 `rates.json` cites `s 17A(2)`; the verifier records the section when the row
 is verified against the compilation, and this document does not choose one.
 
+The manifest that carries the register version:
+
+```json
+{
+  "schema_version": 1,
+  "register_version": "2026.09.05",
+  "series": ["series/super-guarantee.json"],
+  "advice_status": "Not advice. Verify each figure against its primary source at the time of use."
+}
+```
+
 ### 2.5 Integrity: `SHA256SUMS`
 
 `SHA256SUMS` lists the SHA-256 of every file in `rates/register/` except
@@ -326,7 +501,8 @@ proposed here.
 ### 2.6 Checks to add with the register
 
 - Schema validation of every `series/*.json` against the schema.
-- The host allowlist, ordering, overlap and future-date rules from 2.3.
+- The host allowlist, ordering, overlap, `supersedes` and future-date rules
+  from 2.3, and that `register.json` lists every series file.
 - `SHA256SUMS` matches the tree.
 - The site's existing `check_links.py` resolves every `primary_source.url`
   and `cross_checks` entry, since the register would live under the site.
