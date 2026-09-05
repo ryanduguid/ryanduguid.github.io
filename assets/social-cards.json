@@ -2,13 +2,13 @@
   "site": {
     "label": "Public register / Australian accounting controls",
     "heading": [
-      "Review-ready controls",
-      "for Australian",
-      "accounting work."
+      "Ryan Duguid:",
+      "review-ready Australian",
+      "accounting controls."
     ],
     "host": "duguid.com.au",
     "output": "social-card-site.png",
-    "alt": "OLED register card: Review-ready controls for Australian accounting work."
+    "alt": "OLED register card: Ryan Duguid: review-ready Australian accounting controls."
   },
   "tools": {
     "label": "Open-source tools",

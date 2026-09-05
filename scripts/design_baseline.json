@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "a1edf1237c6844f5b4232e37dca6bf9a92dea984059b3c19d082b8dc19b4ca4d",
     "robots.txt": "72838fddc744e5ec67f0dd76bf21263e670c96109793b11e8cdaab8e0e7d466d",
-    "sitemap.xml": "a4e55c64a18e4aed1c52367399233a8c845673036bd4bbf0cf632965909da998"
+    "sitemap.xml": "9fe526a7e6ebebe08e218ac6f57f760e86c8cef5daeff4b3faf54b561d169520"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -59,13 +59,13 @@
   },
   "json_ld": {
     "about/index.html": [
-      "b9de0504e8a929dd50ee6a819f41d7ffce658fe3b7962193fd1170f2f2a717f9"
+      "ffb5585b0cdfbc3532ce0b7700b5cc96c154ef77e21a714f537eb190b21f341e"
     ],
     "changelog/index.html": [
-      "644b69647a7c2092eae12a0f1aa01bf5cecf0be5732a6d1a0d1c96a9c954c3cd"
+      "5e2e9d5ebfd96eb9aca064023a3ffbf40c4e42c7cb04db77bd84968c4379e6cf"
     ],
     "contact/index.html": [
-      "521cae5d1342a319ec30ee529505ccc7f4a2b6c63db84f6d62f47b52b9de497c"
+      "ea659f0ae063df70cf424845378a053bb2e71fb76eec1125265841b6018e2f01"
     ],
     "evaluate/index.html": [
       "9ba5be0258da4d155cd7de041ff22618b2f52c651788d1fec6c7ffd01a0fb3c8"

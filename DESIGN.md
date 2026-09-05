@@ -333,7 +333,7 @@ The following whole-file values are frozen after normalising only platform line 
 
 - `llms.txt`: SHA-256 `A1EDF1237C6844F5B4232E37DCA6BF9A92DEA984059B3C19D082B8DC19B4CA4D`
 - `robots.txt`: SHA-256 `72838FDDC744E5EC67F0DD76BF21263E670C96109793B11E8CDAAB8E0E7D466D`
-- `sitemap.xml`: SHA-256 `7A4308AB5DE651B8D0B18A2A2F99F542605704A32B26F3AF3E8FD625250C23B6`
+- `sitemap.xml`: SHA-256 `9FE526A7E6EBEBE08E218AC6F57F760E86C8CEF5DAEFF4B3FAF54B561D169520`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
