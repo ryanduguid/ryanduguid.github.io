@@ -114,6 +114,22 @@
           <p class="technical-label">Coal LSL / synthetic result</p>
           <h3>One calculation, with the winning branch left visible.</h3>
           <p>The browser calculator applies section 3B, names the formula and rounds only at the final step.</p>
+          <form class="proof-calc" id="home-levy" aria-labelledby="proof-calc-title">
+            <p class="field-note" id="proof-calc-title">One employee, one month. Change any figure to see which formula applies.</p>
+            <div class="proof-calc__fields">
+              <div class="field"><label for="calc-base">Base rate of pay</label><input id="calc-base" name="base" type="number" min="0" step="0.01" inputmode="decimal" value="6000" /></div>
+              <div class="field"><label for="calc-overtime">Overtime and penalty</label><input id="calc-overtime" name="overtime" type="number" min="0" step="0.01" inputmode="decimal" value="1800" /></div>
+              <div class="field"><label for="calc-allowances">Allowances</label><input id="calc-allowances" name="allowances" type="number" min="0" step="0.01" inputmode="decimal" value="700" /></div>
+            </div>
+            <dl class="proof-calc__result" aria-live="polite">
+              <div data-row="A"><dt>Formula A, base rate plus bonuses</dt><dd data-out="formulaA">$6,000.00</dd></div>
+              <div data-row="B" class="is-applied"><dt>Formula B, 75 per cent of every component</dt><dd data-out="formulaB">$6,375.00</dd></div>
+              <div><dt>Eligible wages, the greater of the two</dt><dd data-out="eligible">$6,375.00</dd></div>
+              <div><dt>Levy at 2.7 per cent, before rounding</dt><dd data-out="exact">$172.1250</dd></div>
+              <div><dt>Levy payable, rounded once at the end</dt><dd data-out="levy">$172.13</dd></div>
+            </dl>
+            <p class="proof-calc__note">Fabricated figures, calculated in your browser; nothing is sent or stored. This is the s 3B(1) base rate branch without bonuses, so use the <a href="/tools/coal-lsl-levy/">full calculator</a> for annual salary, casual and bonus frequency.</p>
+          </form>
           <div class="proof-feature__links">
             <a class="button button--secondary" href="/tools/coal-lsl-levy/">Open the calculator</a>
             <a href="/evidence/">Review the evidence register</a>
@@ -437,5 +453,6 @@
   </script>
   <script type="module" src="/assets/legacy-routes.mjs"></script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
+  <script type="module" src="/assets/home-levy.mjs"></script>
 </body>
 </html>

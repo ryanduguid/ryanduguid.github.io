@@ -1392,6 +1392,63 @@ th {
   background: var(--colour-paper-raised);
 }
 
+.proof-calc {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+  padding: var(--space-5);
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  background: var(--colour-paper-raised);
+}
+
+.proof-calc__fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+  gap: var(--space-3);
+}
+
+.proof-calc__result {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+}
+
+.proof-calc__result > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border-left: var(--rule-strong) solid transparent;
+}
+
+/* Which formula won is the whole point of the section, so the applied row is
+   marked rather than merely listed among the others. */
+.proof-calc__result .is-applied {
+  border-left-color: var(--colour-stamp);
+  background: var(--colour-stamp-wash);
+}
+
+.proof-calc__result dt {
+  color: var(--colour-ink-soft);
+}
+
+.proof-calc__result .is-applied dt,
+.proof-calc__result .is-applied dd {
+  color: var(--colour-stamp-strong);
+}
+
+.proof-calc__result dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.proof-calc__note {
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
 .proof-feature figcaption {
   padding: var(--space-3);
   border-top: var(--rule-thin) solid var(--colour-rule);
