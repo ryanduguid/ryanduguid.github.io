@@ -100,19 +100,19 @@ Levy payable, rounded once at the end
 
 $192.38
 
-Fabricated figures, calculated in your browser; nothing is sent or stored. This is the s 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
+Fabricated figures, calculated in your browser; nothing is sent or stored. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
 Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
 
 Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
-## Adopt
+Adopt
 
-### Test it with fabricated data first.
+## Test it with fabricated data first.
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses and explains before it enters a firm workflow.
 
-#### Five ways to try it
+### Five ways to try it
 
 An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries. These commands are for firms already running Claude Code or Codex; if yours is not, start with the browser calculator or send the evaluation links below to whoever manages your systems.
 
@@ -176,9 +176,9 @@ Payday Super timing Reproduce the on-time, late and at-risk receipt states.
 
 Run fabricated records or the public sample files. Check the output against current primary sources.
 
-## Verify
+Verify
 
-### Check the source before the result.
+## Check the source before the result.
 
 Credentials establish a limited identity claim. Releases establish what shipped. Evaluations show whether declared inputs reproduce the expected refusal or result.
 

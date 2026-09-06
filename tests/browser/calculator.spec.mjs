@@ -374,7 +374,7 @@ test('calculator orientation and result render as an inspectable ledger', async 
   await expect(method).toContainText('Estimate only');
 
   const result = page.locator('#result');
-  await expect(result).toContainText('as at 2026-09-02');
+  await expect(result).toContainText('as at 2 September 2026');
   const rows = result.locator('.result-row');
   await expect(rows).toHaveCount(6);
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
