@@ -306,9 +306,9 @@ Home / Evidence behind the tools
 
 This register links public claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited claims about the software. It does not turn an output into advice, approval, a compliance decision or a lodgement.
 
-Three of these claims can be rerun in full: see Evaluations for the fixed releases and commands.
+Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
 
-Last reviewed 3 September 2026.
+Last reviewed 6 September 2026.
 
 ## Identity and credentials
 
@@ -380,7 +380,15 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
 
-Last reviewed 4 September 2026.
+Last reviewed 6 September 2026.
+
+## Five-minute accounting cases
+
+Start with a review question and inspect the synthetic inputs, command and output. These are maintainer-prepared examples, not independent firm evaluations.
+
+- Payday Super: sent before the deadline, received when? A remittance record and a fund receipt support different conclusions.
+- Division 7A: does the repayment count? Inspect a $10,000 change in the repayment assertion without treating the arithmetic as repayment classification.
+- Month-end close: balanced trial balance, unfinished review. Trace a $250 creditors difference and the June-to-July comparison warning.
 
 ## Manager review gate evaluation
 
