@@ -367,6 +367,10 @@ button:active {
   font-size: var(--text-heading);
 }
 
+.article-header > p {
+  max-width: var(--reading-width);
+}
+
 .article-layout {
   display: grid;
   grid-template-columns: minmax(10rem, 14rem) minmax(0, 1fr);
@@ -475,17 +479,20 @@ button:active {
   margin-top: var(--space-5);
 }
 
-blockquote {
+/* Reference and rounding notes are information, so they take the neutral
+   rule. The alert rule is kept for the blocks that sit under an explicit
+   Disclaimer, Boundary or refusal heading. */
+blockquote,
+.rounding-note {
   max-width: var(--reading-width);
   padding: var(--space-4) 0 var(--space-4) var(--space-5);
-  border-left: var(--rule-strong) solid var(--colour-alert);
+  border-left: var(--rule-strong) solid var(--colour-rule-strong);
   color: var(--colour-ink-soft);
 }
 
 .boundary,
 .disclaimer,
-.unresolved,
-.rounding-note {
+.unresolved {
   padding: var(--space-4) 0 var(--space-4) var(--space-5);
   border-left: var(--rule-strong) solid var(--colour-alert);
   color: var(--colour-ink-soft);
@@ -496,6 +503,7 @@ blockquote {
   border-left: var(--rule-strong) solid var(--colour-rule-strong);
   color: var(--colour-ink-soft);
   margin-top: var(--space-5);
+  max-width: var(--reading-width);
   font-size: var(--text-small);
 }
 
@@ -768,12 +776,21 @@ th {
   margin: 0;
 }
 
+/* The optional note sits under the description so the facts column keeps
+   its place in every entry; the dl is pinned so auto-placement cannot drop
+   it below the note. */
 .collection-entry__note {
+  grid-column: 2;
   color: var(--colour-ink);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
+}
+
+.collection-entry > dl {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .work-chooser {
@@ -902,6 +919,7 @@ th {
 }
 
 :target > h2,
+:target > .route-label,
 :target > .section-title,
 :target > header h2 {
   color: var(--colour-stamp);
@@ -1106,7 +1124,7 @@ th {
 .home-proof-rail strong {
   display: block;
   margin-bottom: var(--space-1);
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 .trust-band {
@@ -1148,12 +1166,18 @@ th {
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
-.route-section > h2 {
+/* The route word is a label for the column, not the section heading; the
+   statement in the content column is the h2 so the outline descends. */
+.route-section > .route-label {
   color: var(--colour-ink);
+  font-family: var(--font-display);
   font-size: var(--text-heading-small);
+  font-weight: 600;
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-heading);
 }
 
-.route-section > :not(h2) {
+.route-section > :not(.route-label) {
   grid-column: 2;
 }
 
@@ -1222,7 +1246,7 @@ th {
   border-top: 0;
 }
 
-.install-band h4,
+.install-band h3,
 .proof-feature h3 {
   font-family: var(--font-display);
   font-size: var(--text-heading-small);
@@ -1618,6 +1642,18 @@ input[type="checkbox"] {
   margin-top: 0;
 }
 
+/* A wrapping label so each row keeps a visible field name without ids;
+   the control inherits the label's font, so the weight is reset here. */
+.bonus-field {
+  display: grid;
+  gap: var(--space-2);
+  font-weight: 400;
+}
+
+.bonus-field > span {
+  font-weight: 600;
+}
+
 .bonus-row .field-note {
   grid-column: 1 / -1;
 }
@@ -1781,14 +1817,13 @@ input[type="checkbox"] {
 }
 
 .comparison-value {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   font-size: var(--text-heading-small);
 }
 
 /* Utility and error pages */
 
-.container,
-.page-404 {
+.container {
   width: min(100% - (2 * var(--gutter)), 56rem);
   margin-inline: auto;
   padding-block: var(--space-9);
@@ -1879,6 +1914,7 @@ input[type="checkbox"] {
   .collection-entry dl,
   .collection-entry__links {
     grid-column: 2;
+    grid-row: auto;
   }
 
   .calculator-workspace {
@@ -1915,11 +1951,11 @@ input[type="checkbox"] {
     gap: var(--space-5);
   }
 
-  .route-section > :not(h2) {
+  .route-section > :not(.route-label) {
     grid-column: 1;
   }
 
-  .route-section > h2 {
+  .route-section > .route-label {
     white-space: normal;
   }
 
@@ -2013,6 +2049,7 @@ input[type="checkbox"] {
   }
 
   .collection-entry dl,
+  .collection-entry__note,
   .collection-entry__links {
     grid-column: 1;
   }
