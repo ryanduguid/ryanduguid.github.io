@@ -1721,14 +1721,23 @@ def check_authority_section(
         failures.append(
             f"index.html: authority section #{identifier} must have exactly one h2"
         )
-    elif core.visible_text(h2s[0]) != label:
+
+    # The route word is a label beside the content column; the statement is
+    # the section's h2 so the heading outline descends in size.
+    label_matches = re.findall(
+        r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-label\b[^"\']*["\'])'
+        r"[^>]*>(.*?)</p\s*>",
+        rendered,
+        re.S | re.I,
+    )
+    if len(label_matches) != 1 or core.visible_text(label_matches[0]) != label:
         failures.append(
-            f"index.html: authority section #{identifier} heading must be {label}"
+            f"index.html: authority section #{identifier} label must be {label}"
         )
 
     statement_matches = re.findall(
-        r'<h3\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])'
-        r"[^>]*>(.*?)</h3\s*>",
+        r'<h2\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])'
+        r"[^>]*>(.*?)</h2\s*>",
         rendered,
         re.S | re.I,
     )
@@ -1772,14 +1781,6 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         if not sections[identifier]:
             failures.append(f"index.html: missing visible authority section #{identifier}")
 
-        section_heading = re.search(
-            r"<h[1-6]\b[^>]*>(.*?)</h[1-6]\s*>", sections[identifier], re.S | re.I
-        )
-        heading_label = core.visible_text(section_heading.group(1)) if section_heading else ""
-        if heading_label != label:
-            failures.append(
-                f"index.html: authority section #{identifier} heading must be {label}"
-            )
         failures.extend(
             check_authority_section(
                 sections[identifier],

@@ -597,7 +597,7 @@ def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
         failures.append("route sections must not use viewport-based minimum heights")
 
     route_label_rules = re.findall(
-        r"\.route-section\s*>\s*h2\s*\{(.*?)\}", site_css, re.S | re.I
+        r"\.route-section\s*>\s*\.route-label\s*\{(.*?)\}", site_css, re.S | re.I
     )
     if any(
         re.search(r"\bposition\s*:\s*sticky\s*;", rule, re.I)
