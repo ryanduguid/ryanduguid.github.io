@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import json
 import shutil
 import struct
 import tempfile
@@ -546,7 +547,7 @@ def test_design_contracts() -> int:
         (
             "machine-written vocabulary in a meta description",
             "tools/payday-super/index.html",
-            'content="Check whether super reaches the fund',
+            'content="See why a synthetic $120 super contribution',
             'content="Leverage this check that super reaches the fund',
             "tools/payday-super/index.html: banned meta phrase 'leverage'",
         ),
@@ -847,6 +848,26 @@ def test_public_contracts() -> int:
     assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
     assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
+    provenance = json.loads(read_text(ROOT, "tools/payday-super/example-provenance.json"))
+    assert_clean("fixed Payday evidence", contracts.check_payday_example(payday, provenance))
+    for label, before, after in (
+        ("wrong verdict", '>AT_RISK</span>', '>ON_TIME</span>'),
+        ("wrong contribution", '>$120.00</span>', '>$121.00</span>'),
+        ("wrong visible deadline", '>17 August 2026</time>', '>18 August 2026</time>'),
+        ("wrong deadline metadata", 'datetime="2026-08-17"', 'datetime="2026-08-18"'),
+        ("wrong fixture fingerprint", provenance["fixture_sha256"], "0" * 64),
+        ("wrong first-contribution pathway", 'data-example="first_contribution">no', 'data-example="first_contribution">yes'),
+        ("wrong out-of-cycle pathway", 'data-example="out_of_cycle">no', 'data-example="out_of_cycle">yes'),
+        ("unpinned fixture", provenance["fixture_url"], provenance["fixture_url"].replace(provenance["commit"], "main")),
+    ):
+        assert before in payday
+        expect_failure(label, contracts.check_payday_example(payday.replace(before, after), provenance), "fixed Payday example")
+    for pathway in ("first_contribution", "out_of_cycle"):
+        changed_record = {**provenance, pathway: True}
+        expect_failure("recorded pathway drift", contracts.check_payday_example(payday, changed_record), "fixed Payday example")
+        changed_page = payday.replace(f'data-example="{pathway}">no', f'data-example="{pathway}">yes')
+        assert_clean("matching true pathway representation", contracts.check_payday_example(changed_page, changed_record))
+        expect_failure("non-boolean pathway", contracts.check_payday_example(payday, {**provenance, pathway: "no"}), "fixed Payday example")
     assert_clean(
         "AI-agent review date",
         contracts.check_mcp_review_dates(
@@ -1089,15 +1110,14 @@ def test_public_contracts() -> int:
         )
 
     payday_description = (
-        "Check whether super reaches the fund within seven business days of payday "
-        "from 1 July 2026, and estimate the SG charge for review."
+        'See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision.'
     )
     short_payday_description = (
         "Check Payday Super timing from payroll exports and estimate the SG charge "
         "for review, with fund receipt status visible."
     )
-    assert payday.count(payday_description) == 3, (
-        "Payday Super metadata must reuse its canonical description three times"
+    assert payday.count(payday_description) == 5, (
+        "Payday Super metadata and structured data must reuse the canonical description"
     )
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)

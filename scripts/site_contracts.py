@@ -9,6 +9,7 @@ import re
 import struct
 import xml.etree.ElementTree as ET
 from collections import Counter
+from datetime import date
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -233,11 +234,9 @@ WORKED_EXAMPLES = {
         "fixture_urls": [
             "https://github.com/ryanduguid/australian-accounting/blob/"
             "8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/"
-            "tests/test_integration.py#L849-L901"
+            "evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv"
         ],
         "labels": {
-            "on-time": r"\bon[-_ ]time\b",
-            "late": r"\blate\b",
             "at-risk or unknown": r"\b(?:at[-_ ]risk|unknown)\b",
         },
     },
@@ -2027,6 +2026,50 @@ def check_payday_receipt_boundary(html: str) -> list[str]:
     return failures
 
 
+def check_payday_example(html: str, record: dict[str, object]) -> list[str]:
+    """Compare the fixed, visible example with its pinned engine-run record."""
+    failures: list[str] = []
+    root = core.parse_structure(html)
+    fields = core.descendants(root, rendered_only=True)
+    for key in (
+        "employee_id", "payment_date", "sg_amount", "remitted_date",
+        "fund_received_date", "first_contribution", "out_of_cycle",
+        "as_at", "expected_due_date", "expected_verdict",
+        "tag", "commit", "fixture_blob_sha", "fixture_sha256", "wheel_sha256",
+    ):
+        matches = [element for element in fields if element.attr("data-example") == key]
+        if len(matches) != 1 or key not in record:
+            failures.append(f"fixed Payday example: missing or repeated {key}")
+            continue
+        actual = core.element_text(matches[0])
+        expected = record[key]
+        if key in {"payment_date", "remitted_date", "as_at", "expected_due_date"}:
+            try:
+                parsed = date.fromisoformat(str(expected))
+                visible = f"{parsed.day} {parsed.strftime('%B %Y')}"
+            except ValueError:
+                visible = "invalid recorded date"
+            if actual != visible or matches[0].attr("datetime") != expected:
+                failures.append(f"fixed Payday example: date drift for {key}")
+        else:
+            if key == "sg_amount":
+                expected = f"${expected}"
+            elif key == "fund_received_date" and expected is None:
+                expected = "no date recorded"
+            elif key in {"first_contribution", "out_of_cycle"}:
+                if not isinstance(expected, bool):
+                    failures.append(f"fixed Payday example: non-boolean pathway {key}")
+                    continue
+                expected = "yes" if expected else "no"
+            if actual != expected:
+                failures.append(f"fixed Payday example: value drift for {key}")
+    links = core.anchor_hrefs(html)
+    for key in ("fixture_url", "release_url"):
+        if record.get(key) not in links:
+            failures.append(f"fixed Payday example: missing pinned {key}")
+    return failures
+
+
 def check_worked_examples() -> list[str]:
     """Keep each synthetic example visible and tied to tagged test evidence."""
     failures: list[str] = []
@@ -2068,6 +2111,15 @@ def check_worked_examples() -> list[str]:
                 failures.append(f"{rel}: visible worked example does not label {label}")
         if rel == "tools/payday-super/index.html":
             failures.extend(check_payday_receipt_boundary(html))
+            record_path = core.ROOT / "tools/payday-super/example-provenance.json"
+            try:
+                record = json.loads(record_path.read_text(encoding="utf-8"))
+                if not isinstance(record, dict):
+                    raise ValueError("expected an object")
+            except (OSError, ValueError) as error:
+                failures.append(f"fixed Payday example: invalid provenance record: {error}")
+            else:
+                failures.extend(check_payday_example(html, record))
     return failures
 
 
