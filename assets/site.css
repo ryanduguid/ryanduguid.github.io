@@ -2226,3 +2226,23 @@ input[type="checkbox"] {
     outline-offset: 2px;
   }
 }
+
+/* The fixed Payday example keeps the facts and reviewer decision ahead of navigation. */
+.payday-example .article-header {
+  gap: var(--space-3);
+  padding-block: var(--space-5);
+}
+
+.payday-example .lead-note {
+  font-size: var(--text-body);
+}
+
+.payday-example #synthetic-worked-example {
+  display: grid;
+  gap: var(--space-3);
+  max-width: var(--reading-width);
+}
+
+.payday-example #synthetic-worked-example h2 {
+  font-size: var(--text-body);
+}
