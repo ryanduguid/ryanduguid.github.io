@@ -108,6 +108,14 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "https://www.ato.gov.au/law/view/view.htm?"
             "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001"
         ),
+        # Both answered 403 on the runner for pull request 89 (run 34021101111)
+        # while answering 200 from a desktop client the same hour.
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "hiring-and-paying-your-workers/single-touch-payroll/in-detail/"
+            "single-touch-payroll-phase-2-employer-reporting-guidelines"
+        ),
+        "https://www.ato.gov.au/law/",
     }
 )
 

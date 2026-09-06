@@ -336,9 +336,9 @@ Australian spelling is mandatory. Do not invent credentials, rates, endorsements
 
 The following whole-file values are frozen after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `A1EDF1237C6844F5B4232E37DCA6BF9A92DEA984059B3C19D082B8DC19B4CA4D`
+- `llms.txt`: SHA-256 `2C40F14B2CD4B7CAAD3D65100AC761031D12482D948482FBB78A9AA3A556C3B0`
 - `robots.txt`: SHA-256 `72838FDDC744E5EC67F0DD76BF21263E670C96109793B11E8CDAAB8E0E7D466D`
-- `sitemap.xml`: SHA-256 `9FE526A7E6EBEBE08E218AC6F57F760E86C8CEF5DAEFF4B3FAF54B561D169520`
+- `sitemap.xml`: SHA-256 `79FA45FA64AD5322D05EFDEE505742B54FD5BD8D9612A418ABB70F5745D2BFA9`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or

@@ -59,12 +59,15 @@ const homeHeightBaseline = {
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
-    ['/tools/', 6598],
+    // Tools carries the Related resources section from 6 September 2026 (a
+    // heading, a paragraph and eight links): 7,221px here, plus the same 234px guard.
+    ['/tools/', 7455],
     ['/evidence/', 6426],
   ]),
   'desktop-chromium': new Map([
     ['/', 6517],
-    ['/tools/', 4293],
+    // Tools with Related resources renders at 4,469px, plus the 234px guard.
+    ['/tools/', 4703],
     ['/evidence/', 4217],
   ]),
 };

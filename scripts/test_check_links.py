@@ -32,6 +32,10 @@ class FetchFinalUrlTests(unittest.TestCase):
             "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
             "https://www.ato.gov.au/law/view/view.htm?"
             "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "hiring-and-paying-your-workers/single-touch-payroll/in-detail/"
+            "single-touch-payroll-phase-2-employer-reporting-guidelines",
+            "https://www.ato.gov.au/law/",
         )
 
         for url in confirmed:
