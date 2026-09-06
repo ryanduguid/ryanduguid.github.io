@@ -1563,7 +1563,7 @@ Synthetic Payday Super example. Review aid, not advice; the reviewer decides whe
 
 ## Synthetic worked example
 
-Employee SYN001. Payday 6 August 2026. Contribution $120.00, supplied by the preparer. Remitted 14 August 2026. Fund received: no date recorded. Review date 20 August 2026. Ordinary timing pathway; no first-contribution or out-of-cycle exception supplied.
+Employee SYN001. Payday 6 August 2026. Contribution $120.00, supplied by the preparer. Remitted 14 August 2026. Fund received: no date recorded. Review date 20 August 2026. Ordinary timing pathway. First contribution: no. Out-of-cycle: no.
 
 Result: AT_RISK. The pinned engine calculates a deadline of 17 August 2026. Remittance predates it, but no fund-receipt date proves timely arrival.
 

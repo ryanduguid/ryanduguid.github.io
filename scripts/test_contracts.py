@@ -856,10 +856,18 @@ def test_public_contracts() -> int:
         ("wrong visible deadline", '>17 August 2026</time>', '>18 August 2026</time>'),
         ("wrong deadline metadata", 'datetime="2026-08-17"', 'datetime="2026-08-18"'),
         ("wrong fixture fingerprint", provenance["fixture_sha256"], "0" * 64),
+        ("wrong first-contribution pathway", 'data-example="first_contribution">no', 'data-example="first_contribution">yes'),
+        ("wrong out-of-cycle pathway", 'data-example="out_of_cycle">no', 'data-example="out_of_cycle">yes'),
         ("unpinned fixture", provenance["fixture_url"], provenance["fixture_url"].replace(provenance["commit"], "main")),
     ):
         assert before in payday
         expect_failure(label, contracts.check_payday_example(payday.replace(before, after), provenance), "fixed Payday example")
+    for pathway in ("first_contribution", "out_of_cycle"):
+        changed_record = {**provenance, pathway: True}
+        expect_failure("recorded pathway drift", contracts.check_payday_example(payday, changed_record), "fixed Payday example")
+        changed_page = payday.replace(f'data-example="{pathway}">no', f'data-example="{pathway}">yes')
+        assert_clean("matching true pathway representation", contracts.check_payday_example(changed_page, changed_record))
+        expect_failure("non-boolean pathway", contracts.check_payday_example(payday, {**provenance, pathway: "no"}), "fixed Payday example")
     assert_clean(
         "AI-agent review date",
         contracts.check_mcp_review_dates(

@@ -2033,7 +2033,8 @@ def check_payday_example(html: str, record: dict[str, object]) -> list[str]:
     fields = core.descendants(root, rendered_only=True)
     for key in (
         "employee_id", "payment_date", "sg_amount", "remitted_date",
-        "fund_received_date", "as_at", "expected_due_date", "expected_verdict",
+        "fund_received_date", "first_contribution", "out_of_cycle",
+        "as_at", "expected_due_date", "expected_verdict",
         "tag", "commit", "fixture_blob_sha", "fixture_sha256", "wheel_sha256",
     ):
         matches = [element for element in fields if element.attr("data-example") == key]
@@ -2055,6 +2056,11 @@ def check_payday_example(html: str, record: dict[str, object]) -> list[str]:
                 expected = f"${expected}"
             elif key == "fund_received_date" and expected is None:
                 expected = "no date recorded"
+            elif key in {"first_contribution", "out_of_cycle"}:
+                if not isinstance(expected, bool):
+                    failures.append(f"fixed Payday example: non-boolean pathway {key}")
+                    continue
+                expected = "yes" if expected else "no"
             if actual != expected:
                 failures.append(f"fixed Payday example: value drift for {key}")
     links = core.anchor_hrefs(html)
