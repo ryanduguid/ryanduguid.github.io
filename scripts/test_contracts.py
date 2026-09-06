@@ -221,7 +221,7 @@ def test_geo_leftovers_surface() -> None:
     # maintained monorepo releases; the rates hub kept the GEO-pass date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("4 September 2026", "2026-09-04"),
+        "evaluate/index.html": ("6 September 2026", "2026-09-06"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -532,8 +532,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 3 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 3 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -631,7 +631,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "5 September 2026", "2026-09-05"),
         ("tools/index.html", "4 September 2026", "2026-09-04"),
-        ("evidence/index.html", "3 September 2026", "2026-09-03"),
+        ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
