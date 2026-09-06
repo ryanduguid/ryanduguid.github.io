@@ -5,11 +5,11 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
-  <title>When is payday super due?</title>
-  <meta name="description" content="Check whether super reaches the fund within seven business days of payday from 1 July 2026, and estimate the SG charge for review." />
+  <title>Payday Super: sent on time, received on time?</title>
+  <meta name="description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="When is payday super due?" />
-  <meta property="og:description" content="Check whether super reaches the fund within seven business days of payday from 1 July 2026, and estimate the SG charge for review." />
+  <meta property="og:title" content="Payday Super: sent on time, received on time?" />
+  <meta property="og:description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -20,8 +20,8 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="When is payday super due?" />
-  <meta name="twitter:description" content="Check whether super reaches the fund within seven business days of payday from 1 July 2026, and estimate the SG charge for review." />
+  <meta name="twitter:title" content="Payday Super: sent on time, received on time?" />
+  <meta name="twitter:description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/payday-super/" />
@@ -52,163 +52,47 @@
     </div>
   </header>
   <main id="main" class="site-main">
-    <article class="article">
+    <article class="article payday-example">
       <header class="article-header site-shell">
-    <nav class="article-crumb" aria-label="Breadcrumb">
-      <ol>
-        <li><a href="/">Home</a></li>
-        <li><a href="/tools/">Tools</a></li>
-        <li aria-current="page">Payday Super timing</li>
-      </ol>
-    </nav>
-    <h1>When is payday super due, and what happens if it is late</h1>
-    <p class="lead-note">
-      Since 1 July 2026 a super contribution is on time only when the fund receives it within seven business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock. A late line attracts the shortfall, notional earnings and an administrative uplift of up to 60 per cent.
-    </p>
-    <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3">payday-super-checker/v0.1.3</a>, evaluated against tagged fixtures.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol>
+          <li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li>
+          <li aria-current="page">Payday Super timing</li>
+        </ol></nav>
+        <h1>Sent on time. Received on time?</h1>
+        <p class="lead-note">Synthetic Payday Super example. Review aid, not advice; the reviewer decides whether the evidence supports closing the exception.</p>
+          <section id="synthetic-worked-example">
+            <h2>Synthetic worked example</h2>
+            <p>Employee <span data-example="employee_id">SYN001</span>. Payday <time data-example="payment_date" datetime="2026-08-06">6 August 2026</time>. Contribution <span data-example="sg_amount">$120.00</span>, supplied by the preparer. Remitted <time data-example="remitted_date" datetime="2026-08-14">14 August 2026</time>. Fund received: <span data-example="fund_received_date">no date recorded</span>. Review date <time data-example="as_at" datetime="2026-08-20">20 August 2026</time>. Ordinary timing pathway. First contribution: <span data-example="first_contribution">no</span>. Out-of-cycle: <span data-example="out_of_cycle">no</span>.</p>
+            <p><strong>Result: <span data-example="expected_verdict">AT_RISK</span>.</strong> The pinned engine calculates a deadline of <time data-example="expected_due_date" datetime="2026-08-17">17 August 2026</time>. Remittance predates it, but no fund-receipt date proves timely arrival.</p>
+            <p><strong>Human decision:</strong> Obtain evidence of eligible fund receipt and check the applicable timing pathway before closing this exception. Sending does not establish receipt.</p>
+            <p>This is a fixed example. Nothing to install or upload; these dates do not recalculate. <a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv">Inspect the exact fixture</a>.</p>
+          </section>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 6 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
-          <a href="#what-this-tool-does">What this tool does</a>
-          <a href="#limits">Limits</a>
-          <a href="#get-it">Get it</a>
           <a href="#synthetic-worked-example">Synthetic worked example</a>
           <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
-          <a href="#common-questions">Common questions</a>
-          <a href="#related">Related</a>
+          <a href="#evidence">Check the evidence</a>
         </nav>
         <div class="article-body">
-    <p>
-      Business days run on one national calendar, so a public holiday in any
-      state or territory stops the clock for every employer.
-    </p>
-    <p>
-      This tool reads a CSV export from payroll, clearing house and fund
-      records, flags each contribution that missed the deadline on the facts
-      supplied, and produces an experimental SG charge estimate for those lines.
-      The repository's own framing is "Experimental review aid. Not a compliance
-      determination."
-    </p>
-    <p>
-      Without a fund receipt date, the records cannot prove ON_TIME. Remittance
-      timing can still prove LATE when money left after the deadline, while a
-      timely remittance without fund receipt evidence remains AT_RISK.
-    </p>
-    <section id="what-this-tool-does">
-    <h2>What this tool does</h2>
-    <ul>
-      <li>Checks a payroll export against the payday super deadline, seven business days after payday or twenty for the first contribution to a new fund, using a national public holiday calendar.</li>
-      <li>Produces an experimental SG charge estimate for lines that the supplied facts show are late, combining the shortfall, notional earnings and administrative uplift.</li>
-      <li>Refuses to guess: a line is marked unknown, rather than given a verdict, wherever the records supplied do not establish the facts the law tests.</li>
-    </ul>
-    </section>
-    <section id="limits">
-    <h2>Limits</h2>
-    <blockquote>
-      <p>
-        This is an educational tool, not tax, legal or financial advice, and
-        using it creates no professional relationship. The ATO assesses the SG
-        charge; figures here are experimental estimates that exclude components
-        listed above. Check anything material against current ATO guidance and
-        calculators, and get advice for your circumstances.
-      </p>
-    </blockquote>
-    </section>
-    <section id="get-it" class="install-panel">
-    <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later; no other runtime dependencies. A command-line tool for whoever runs Python at your firm.</p>
-    <pre tabindex="0" role="region" aria-label="Install from PyPI"><code><span class="cmd">pip install payday-super-checker</span></code></pre>
-    <pre tabindex="0" role="region" aria-label="Install from source"><code><span class="cmd">git clone https://github.com/ryanduguid/australian-accounting.git</span>
-<span class="cmd">cd australian-accounting/packages/payday-super-checker &amp;&amp; pip install .</span></code></pre>
-    <p>First success takes one command. From the cloned repository, run the bundled fabricated sample and compare the summary line:</p>
-    <pre tabindex="0" role="region" aria-label="First run command"><code><span class="cmd">payday-super-check examples/sample_payrun_no_transition.csv --as-at 2026-09-10</span>
-<span class="comment"># prints: ON_TIME: 3  AT_RISK: 1  LATE: 1  UNPAID: 1  UNKNOWN: 0  SKIPPED: 1</span></code></pre>
-    <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">Source on GitHub</a>
-       · <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>
-       · <a href="/tools/australian-tax-ai-agents/">Use it from aus-accounting-mcp</a></p>
-    <p>Unexpected result or question? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Payday%20Super%20timing">email with the tool named in the subject</a>.</p>
-    <p>Primary sources: the <a href="https://www.legislation.gov.au/C2025A00057/asmade"><em>Treasury Laws Amendment (Payday Superannuation) Act 2025</em></a> and the current <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a>.</p>
-    <!-- geo-blocks -->
-    </section>
-    <section id="synthetic-worked-example">
-    <h2>Synthetic worked example</h2>
-    <p>
-      These three synthetic rows use a payday of 9 July 2026, a $300.00 SG
-      amount, a due date of 20 July 2026 and an as-at date of 10 August 2026.
-      They come from the tests for release payday-super-checker/v0.1.3.
-    </p>
-    <div class="table-scroll" role="region" aria-label="Synthetic Payday Super worked example outcomes" tabindex="0">
-    <table class="tool-table--wide">
-      <thead>
-        <tr>
-          <th>Outcome</th>
-          <th>Synthetic facts</th>
-          <th>Test-backed result</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><strong>ON_TIME</strong></td>
-          <td>Sent 17 July and received by the fund on the 20 July due date.</td>
-          <td>On-time, with no days late or final shortfall.</td>
-        </tr>
-        <tr>
-          <td><strong>LATE</strong></td>
-          <td>Sent 1 August, after the due date, with no fund receipt date recorded.</td>
-          <td>Late as at 10 August, with the final shortfall kept at $300.00.</td>
-        </tr>
-        <tr>
-          <td><strong>AT_RISK</strong></td>
-          <td>Sent on the 20 July due date, with no fund receipt date recorded.</td>
-          <td>At-risk because receipt is not proved. The final shortfall is unset, not zero.</td>
-        </tr>
-      </tbody>
-    </table>
-    </div>
-    <p>
-      See the
-      <a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/tests/test_integration.py#L849-L901">tagged v0.1.3 integration tests</a>
-      for the exact fixtures and assertions. A missing fund receipt date does
-      not always produce the same state: the tested remittance timing separates
-      the late and at-risk rows above.
-    </p>
-    <p>
-      This remains an experimental estimate and review aid. It flags records
-      for human review; it does not give advice, make a compliance
-      determination, lodge, approve or pay anything.
-    </p>
-    </section>
-    <section id="common-questions" class="faq-section">
-    <h2>Common questions</h2>
-    <div class="faq">
-      <h3>When is super due under payday super?</h3>
-      <p>The fund must receive the contribution within seven business days of the payday, or twenty business days for a first contribution to a new fund. The test is receipt by the fund, not the day the employer sent the money.</p>
-      <h3>Does a public holiday in another state change my due date?</h3>
-      <p>Yes. A business day excludes any day that is a public holiday for the whole of a state or territory, so one national calendar applies to every employer. A holiday in Western Australia moves a Sydney employer's deadline.</p>
-      <h3>Is paying the clearing house on time enough?</h3>
-      <p>No. The law tests when the fund received the contribution, so transit time through a clearing house is the employer's risk.</p>
-      <h3>What happens if a contribution is late?</h3>
-      <p>The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination.</p>
-    </div>
-    </section>
-    <section id="related">
-    <h2>Related</h2>
-    <ul class="related">
-      <li><a href="/rates/super-guarantee/">Super guarantee rate history</a></li>
-      <li><a href="/tools/subcontractor-ledgers/">Subcontract ledger workflows for construction and mining</a></li>
-      <li><a href="/tools/ato-benchmarks/">How a business compares to the ATO benchmarks</a></li>
-      <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a></li>
-      <li><a href="/evidence/">Evidence and Assurance</a></li>
-      <li><a href="/about/">About Ryan Duguid</a></li>
-    </ul>
-    </section>
-    <p class="byline">
-      Written by Ryan Duguid in his own time and on his own equipment.
-      He states that he is a provisional member of Chartered Accountants ANZ.
-      CA ANZ has not endorsed this site or its tools.
-    </p>
+
+          <section id="evidence">
+            <h2>Check the evidence</h2>
+            <p>Reproduced from <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3">Payday Super Checker 0.1.3</a>. The release's legal review date is 15 August 2026.</p>
+            <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">Source on GitHub</a> · <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a></p>
+            <details>
+              <summary>Version, file fingerprints and timing boundary</summary>
+              <p>Without a fund receipt date, records cannot prove ON_TIME. Remittance timing can still prove LATE, while timely remittance without fund receipt evidence remains AT_RISK.</p>
+              <p>Release tag: <code data-example="tag">payday-super-checker/v0.1.3</code></p>
+              <p>Commit: <code data-example="commit">8e9bd7235030b2c42bc8f2e7d2e8a60dce627182</code></p>
+              <p>Fixture Git blob: <code data-example="fixture_blob_sha">ba0e6d309e1f96c316171cbf3a4a7338d1a09608</code></p>
+              <p>Fixture SHA-256: <code data-example="fixture_sha256">b998ab36b2a472cba309f13f464caf0a0fba9709d0e541dc8d9af0d24d35a888</code></p>
+              <p>Wheel SHA-256: <code data-example="wheel_sha256">0228da4c60681396ab38d10857d7e23dd978585588e8071ce85892f7fba11e78</code></p>
+              <p><a href="example-provenance.json">Reproduction record</a></p>
+            </details>
+          </section>
         </div>
       </div>
     </article>
@@ -233,127 +117,88 @@
     </div>
   </footer>
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/payday-super/#webpage",
-        "url": "https://duguid.com.au/tools/payday-super/",
-        "name": "When is payday super due?",
-        "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/payday-super/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/payday-super/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Payday super due date and SG charge checker"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/payday-super/#webpage",
+      "url": "https://duguid.com.au/tools/payday-super/",
+      "name": "Payday Super: sent on time, received on time?",
+      "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-09-06",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/payday-super/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Payday Super timing",
-            "item": "https://duguid.com.au/tools/payday-super/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Payday super due date checker",
-        "description": "From 1 July 2026 super must reach the fund within seven business days of each payday, and this tool checks a payroll export against that deadline and estimates the SG charge on any late line.",
-        "applicationCategory": "FinanceApplication",
-        "url": "https://duguid.com.au/tools/payday-super/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/payday-super/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/payday-super/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "When is super due under payday super?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The fund must receive the contribution within seven business days of the payday, or twenty business days for a first contribution to a new fund. The test is receipt by the fund, not the day the employer sent the money."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does a public holiday in another state change my due date?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Yes. A business day excludes any day that is a public holiday for the whole of a state or territory, so one national calendar applies to every employer. A holiday in Western Australia moves a Sydney employer's deadline."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is paying the clearing house on time enough?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. The law tests when the fund received the contribution, so transit time through a clearing house is the employer's risk."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What happens if a contribution is late?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "The ATO can raise a superannuation guarantee shortfall, notional earnings and an administrative uplift of up to 60 per cent on top of the amount owed. This tool produces an experimental estimate of that exposure, not a compliance determination."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/payday-super/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/payday-super/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Payday super due date and SG charge checker"
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/payday-super/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Payday Super timing",
+          "item": "https://duguid.com.au/tools/payday-super/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Payday super due date checker",
+      "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision.",
+      "applicationCategory": "FinanceApplication",
+      "url": "https://duguid.com.au/tools/payday-super/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "AUD"
+      },
+      "@id": "https://duguid.com.au/tools/payday-super/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-09-06"
+    }
+  ]
+}
   </script>
-  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>
