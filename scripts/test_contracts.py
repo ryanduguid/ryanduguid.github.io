@@ -519,15 +519,15 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 5 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 5 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 4 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 4 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -575,8 +575,8 @@ def test_design_contracts() -> int:
         (
             "machine-written vocabulary in llms.txt",
             "llms.txt",
-            "index of open-source Australian accounting libraries",
-            "curated index of open-source Australian accounting libraries",
+            "third-party libraries, ATO guidance",
+            "curated third-party libraries, ATO guidance",
             "llms.txt: banned text phrase 'curated'",
         ),
         (
@@ -630,8 +630,8 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "5 September 2026", "2026-09-05"),
-        ("tools/index.html", "4 September 2026", "2026-09-04"),
+        ("index.html", "6 September 2026", "2026-09-06"),
+        ("tools/index.html", "6 September 2026", "2026-09-06"),
         ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
     for rel, visible_date, structured_date in review_date_paths:

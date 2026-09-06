@@ -24,7 +24,7 @@ Browse the tools
 
 Source on GitHub
 
-Last reviewed 5 September 2026.
+Last reviewed 6 September 2026.
 
 Tool register / four review tasks
 
@@ -212,7 +212,7 @@ A person signs off Automate calculation and validation, not judgement or lodgeme
 
 ## Rates, source work and release policy
 
-Maintained rates Awesome Australian Accounting Tech Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
+Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
 
 ---
 
@@ -1024,7 +1024,7 @@ Delivery ranges from browser tools to Python packages, an MCP server and agent s
 
 Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output.
 
-Last reviewed 4 September 2026.
+Last reviewed 6 September 2026.
 
 ## Start from your work
 
@@ -1199,6 +1199,12 @@ Source repository Last commit 5 September 2026
 Published from the same work, with no page in the register above: there is nothing here to run or reproduce, so the repository is the whole artefact.
 
 Excel LAMBDAs (Ozzit) Power Query and VBA ledger toolkit Power BI accounting project
+
+## Related resources
+
+Third-party libraries, official guidance and primary sources this work depends on or sits beside. None is maintained here; each link goes to its own home.
+
+OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database
 
 ---
 
@@ -2247,6 +2253,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+6 September 2026 | The Tools page gained a Related resources section holding the third-party libraries, official guidance and primary sources from the separate index repository, which is now archived; the footer links there instead.
 4 September 2026 | Every link to a repository archived after the September 2026 consolidation now points at its maintained home in the monorepos, the three evaluations were re-run against the namespaced monorepo releases, and the site checks fail on any link that resolves to an archived repository.
 2 September 2026 | Copy edit across the tool, rate and evaluation pages, About, Contact and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site's per cent style.
 2 September 2026 | Font preloads and a Content Security Policy on every page, entry headings on the Rates and Evaluations hubs, a no-script notice on the Coal LSL calculator, a security.txt contact file, and repository tooling removed from the published origin.
@@ -2272,4 +2279,4 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 5 September 2026.
+Published 30 August 2026. Last reviewed 6 September 2026.
