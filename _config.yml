@@ -5,7 +5,6 @@ include:
   - .well-known
 exclude:
   - DESIGN.md
-  - GATES.md
   - README.md
   - docs
   - lighthouserc.cjs

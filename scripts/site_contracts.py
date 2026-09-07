@@ -2874,19 +2874,26 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
             continue
         if card is not None and hashlib.sha256(card).hexdigest() not in provenance_row:
             failures.append(f"README.md: stale checksum for {asset_rel}")
-        for required in (
-            "assets/social-card-template.svg",
-            "assets/social-cards.json",
-            "MIT",
-            "Playwright 1.62.1",
-            "Chromium",
-            "device scale 1",
-            "Refresh when",
-        ):
-            if required not in provenance_row:
-                failures.append(
-                    f"README.md: {asset_rel} provenance omits {required}"
-                )
+
+    shared_provenance = next(
+        (
+            line
+            for line in readme_lines
+            if line.startswith("Every card below shares one provenance record.")
+        ),
+        "",
+    )
+    for required in (
+        "assets/social-card-template.svg",
+        "assets/social-cards.json",
+        "MIT",
+        "Playwright 1.62.1",
+        "Chromium",
+        "device scale 1",
+        "Refresh when",
+    ):
+        if required not in shared_provenance:
+            failures.append(f"README.md: social-card provenance omits {required}")
     return failures
 
 

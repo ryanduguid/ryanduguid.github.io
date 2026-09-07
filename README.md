@@ -124,9 +124,9 @@ repository one.
 GitHub Pages builds the repository with Jekyll. No page uses Jekyll templating;
 `_config.yml` only decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
-npm manifests, the Playwright and Lighthouse configuration, `GATES.md`,
-`DESIGN.md` and this README) and includes `.well-known/` so that
-`security.txt` is served despite Jekyll's default exclusion of dot-directories.
+npm manifests, the Playwright and Lighthouse configuration, `DESIGN.md` and this
+README) and includes `.well-known/` so that `security.txt` is served despite
+Jekyll's default exclusion of dot-directories.
 The Search Console verification file, `LICENSE`, `SECURITY.md` and the font
 licence remain published.
 
@@ -134,13 +134,15 @@ licence remain published.
 
 The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
-| Asset | Reproducible provenance |
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+
+| Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `ebc71c0e7dc09661a49ffbf399e7ef6a17464d60c572b5abd94292f3b63403cb`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
-| `assets/social-card-tools.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
-| `assets/social-card-evaluations.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
-| `assets/social-card-rates.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
-| `assets/social-card-evidence.png` | Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1; SHA-256: `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291`. Refresh when the template, context copy, embedded fonts or pinned browser changes. |
+| `assets/social-card-site.png` | `ebc71c0e7dc09661a49ffbf399e7ef6a17464d60c572b5abd94292f3b63403cb` |
+| `assets/social-card-tools.png` | `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9` |
+| `assets/social-card-evaluations.png` | `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb` |
+| `assets/social-card-rates.png` | `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2` |
+| `assets/social-card-evidence.png` | `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291` |
 
 ## Favicon provenance
 
