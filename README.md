@@ -22,7 +22,7 @@ then visit `http://127.0.0.1:4173/`.
 
 ## Checks
 
-`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule:
+`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job runs `ruff check .` and `mypy` over the check scripts first (pinned to `ruff==0.16.6` and `mypy==2.3.1`, configured in `pyproject.toml`), then the site checks run on Python 3.10, 3.12 and 3.13:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)

@@ -30,7 +30,7 @@ class FaviconError(Exception):
     """The seal drawing is outside what the raster pipeline can reproduce."""
 
 
-def _colour(value: str, label: str) -> bytes:
+def _colour(value: str | None, label: str) -> bytes:
     if value is None:
         raise FaviconError(f"favicon {label} has no fill")
     text = value.strip().lstrip("#")

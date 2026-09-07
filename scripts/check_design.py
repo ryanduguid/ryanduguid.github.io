@@ -10,6 +10,7 @@ import sys
 from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
+from typing import Any
 from xml.etree import ElementTree
 
 import favicon_render
@@ -469,7 +470,7 @@ def range_covers(ranges: list[tuple[int, int]], codepoint: int) -> bool:
 
 
 def check_font_delivery(
-    root: Path, tokens_css: str, baseline: dict[str, object]
+    root: Path, tokens_css: str, baseline: dict[str, Any]
 ) -> list[str]:
     failures: list[str] = []
     faces = FONT_FACE_PATTERN.findall(tokens_css)
@@ -515,7 +516,7 @@ def check_font_delivery(
     return failures
 
 
-def check_stylesheets(root: Path, baseline: dict[str, object]) -> list[str]:
+def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     failures: list[str] = []
     site_path = root / "assets/site.css"
     tokens_path = root / "assets/tokens.css"
@@ -885,7 +886,7 @@ def check_homepage_refinement(root: Path) -> list[str]:
 
 
 def check_document_delivery(
-    root: Path, baseline: dict[str, object]
+    root: Path, baseline: dict[str, Any]
 ) -> list[str]:
     failures: list[str] = []
     indexable = set(baseline.get("json_ld", {}))
@@ -1052,10 +1053,10 @@ def check_repository(root: Path = ROOT) -> list[str]:
         if not path.is_file():
             failures.append(f"protected main page missing: {rel}")
             continue
-        actual = main_link_targets(path)
-        if actual is None:
+        actual_links = main_link_targets(path)
+        if actual_links is None:
             failures.append(f"protected main missing or duplicated: {rel}")
-        elif actual != expected:
+        elif actual_links != expected:
             failures.append(f"protected main links changed: {rel}")
 
     for rel, expected in baseline.get("json_ld", {}).items():
@@ -1063,9 +1064,9 @@ def check_repository(root: Path = ROOT) -> list[str]:
         if not path.is_file():
             failures.append(f"JSON-LD page missing: {rel}")
             continue
-        actual, parse_failures = json_ld_digests(path)
+        actual_digests, parse_failures = json_ld_digests(path)
         failures.extend(parse_failures)
-        if actual != expected:
+        if actual_digests != expected:
             failures.append(f"JSON-LD changed: {rel}")
 
     html_text = "\n".join(

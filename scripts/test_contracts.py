@@ -8,6 +8,7 @@ import json
 import shutil
 import struct
 import tempfile
+from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
@@ -1278,7 +1279,9 @@ def test_public_contracts() -> int:
         )
         return found
 
-    collection_mutations = (
+    collection_mutations: tuple[
+        tuple[str, str, str | None, str | None, Callable[[Path], list[str]], str], ...
+    ] = (
         (
             "missing Tools hub",
             "tools/index.html",
@@ -1304,12 +1307,13 @@ def test_public_contracts() -> int:
             "tools/index.html: ItemList count does not match visible entries",
         ),
     )
-    for label, rel, old, new, checker, expected in collection_mutations:
+    for label, rel, before, after, checker, expected in collection_mutations:
         with copied_site() as root:
-            if old is None:
+            if before is None:
                 (root / rel).unlink()
             else:
-                replace_file(root, rel, old, new)
+                assert after is not None
+                replace_file(root, rel, before, after)
             expect_failure(label, checker(root), expected)
 
     site_card_rel = "assets/social-card-site.png"
