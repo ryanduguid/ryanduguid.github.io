@@ -19,9 +19,7 @@ import site_contracts as contracts
 
 
 ROOT = Path(__file__).resolve().parents[1]
-COPY_IGNORE = shutil.ignore_patterns(
-    ".git", "node_modules", "work", "__pycache__", "GATES.md"
-)
+COPY_IGNORE = shutil.ignore_patterns(".git", "node_modules", "work", "__pycache__")
 
 
 @contextmanager

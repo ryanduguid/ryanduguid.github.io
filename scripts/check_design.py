@@ -275,14 +275,6 @@ def json_ld_digests(path: Path) -> tuple[list[str], list[str]]:
     return digests, failures
 
 
-def visible_text(raw_html: str) -> str:
-    without_non_content = re.sub(
-        r"<(script|style)\b[^>]*>.*?</\1>", " ", raw_html, flags=re.I | re.S
-    )
-    without_tags = re.sub(r"<[^>]+>", " ", without_non_content)
-    return " ".join(html_module.unescape(without_tags).split())
-
-
 class ScriptContentParser(HTMLParser):
     """Collect raw-text script bodies with the standard HTML tokenizer."""
 
@@ -375,7 +367,7 @@ def main_visible_digest(path: Path) -> str | None:
     if len(matches) != 1:
         return None
     protected = ARTICLE_CRUMB_PATTERN.sub("", matches[0])
-    return sha256_bytes(visible_text(protected).encode("utf-8"))
+    return sha256_bytes(core.raw_text(protected).encode("utf-8"))
 
 
 def main_link_targets(path: Path) -> list[str] | None:
@@ -477,7 +469,7 @@ def check_font_delivery(
     rendered_text: list[str] = []
     for path in core.html_files(root):
         raw = path.read_text(encoding="utf-8")
-        rendered_text.append(visible_text(raw))
+        rendered_text.append(core.raw_text(raw))
         rendered_text.extend(script_contents(raw))
     rendered_text.extend(
         path.read_text(encoding="utf-8")
@@ -692,7 +684,7 @@ def copy_surfaces(raw_html: str, rel: str) -> list[tuple[str, str]]:
         for string in json_ld_strings(block)
     )
     return [
-        ("visible", visible_text(raw_html)),
+        ("visible", core.raw_text(raw_html)),
         ("meta", meta_text),
         ("JSON-LD", json_ld_text),
     ]
@@ -857,7 +849,7 @@ def check_homepage_refinement(root: Path) -> list[str]:
         failures.append("index.html: expected one complete trust-band region")
     else:
         trust_records = tuple(
-            visible_text(record)
+            core.raw_text(record)
             for record in TRUST_RECORD_PATTERN.findall(trust_regions[0])
         )
         if trust_records != TRUST_BAND_TEXT:
@@ -875,7 +867,7 @@ def check_homepage_refinement(root: Path) -> list[str]:
         re.I | re.S,
     )
     for _, body in label_pattern.findall(main):
-        label = visible_text(body)
+        label = core.raw_text(body)
         if re.match(r"^(?:0[1-3]|[A-D])\s*/", label) or re.search(
             r"/\s*0?5$", label
         ):
@@ -962,7 +954,7 @@ def check_document_delivery(
                     f"index.html: Coal LSL proof image must {message}"
                 )
         alt = re.search(r'\balt\s*=\s*(["\'])(.*?)\1', image, re.I | re.S)
-        if alt is None or len(visible_text(alt.group(2))) < 12:
+        if alt is None or len(core.raw_text(alt.group(2))) < 12:
             failures.append(
                 "index.html: Coal LSL proof image must have descriptive alt text"
             )
@@ -1070,7 +1062,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"JSON-LD changed: {rel}")
 
     html_text = "\n".join(
-        visible_text(path.read_text(encoding="utf-8"))
+        core.raw_text(path.read_text(encoding="utf-8"))
         for path in core.html_files(root)
     )
     for protected, expected_count in baseline.get("protected_text", {}).items():

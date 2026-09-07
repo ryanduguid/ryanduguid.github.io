@@ -6,7 +6,7 @@
 
 ## Design read
 
-This is a targeted, preservation-led evolution of an Australian computational accounting index for accounting managers, technical adopters and reviewers. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
+The canonical routes, the dark-only token palette and the rate main text are frozen; this refinement changes only the surfaces around them. The readers are accounting managers, technical adopters and reviewers of an Australian computational accounting index. It needs the authority of a public register, the legibility of a statute note and the inspectability of a developer tool. It must not read as a tax-agent practice, a SaaS funnel or an AI product launch.
 
 - `DESIGN_VARIANCE`: 6. Asymmetric document layouts and large changes of scale, with strict mobile collapse.
 - `MOTION_INTENSITY`: 2. Sticky positioning and brief colour, underline and control feedback only.
@@ -102,7 +102,7 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 - Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
 - Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its three-column project-card grid.
 
-The resulting system is unique to duguid.com.au: a cold ledger surface, harbour-green review stamp, IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
+The resulting system combines a cold ledger surface, a harbour-green review stamp, the IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
 
 ## Visual premise
 

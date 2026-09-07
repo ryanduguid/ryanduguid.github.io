@@ -2,31 +2,15 @@
 
 from __future__ import annotations
 
-import importlib.util
 import mimetypes
 import os
 import threading
-from pathlib import Path
-from types import ModuleType
 from urllib.request import urlopen
 
-
-ROOT = Path(__file__).resolve().parents[1]
-SERVER_PATH = ROOT / "scripts" / "serve_site.py"
-
-
-def load_site_server() -> ModuleType:
-    """Load the real server while producing a focused pre-implementation failure."""
-    assert SERVER_PATH.exists(), "site server with an explicit .mjs MIME type is missing"
-    spec = importlib.util.spec_from_file_location("serve_site", SERVER_PATH)
-    assert spec and spec.loader, "site server could not be loaded"
-    module = importlib.util.module_from_spec(spec)
-    spec.loader.exec_module(module)
-    return module
+import serve_site as server_module
 
 
 def main() -> None:
-    server_module = load_site_server()
     original_guess_type = mimetypes.guess_type
 
     def hostile_guess_type(

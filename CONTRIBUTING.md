@@ -2,8 +2,7 @@
 
 The site is static HTML under version control, checked by standard-library
 Python scripts and a small set of Node tests. Read [DESIGN.md](DESIGN.md)
-before changing a page and [GATES.md](GATES.md) for the recorded gate
-evidence.
+before changing a page.
 
 ## Local checks
 
