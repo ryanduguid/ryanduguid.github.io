@@ -11,6 +11,7 @@ import xml.etree.ElementTree as ET
 from collections import Counter
 from datetime import date
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlsplit
 
 import seo_core as core
@@ -229,7 +230,7 @@ def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
     return failures
 
 
-WORKED_EXAMPLES = {
+WORKED_EXAMPLES: dict[str, dict[str, Any]] = {
     "tools/payday-super/index.html": {
         "fixture_urls": [
             "https://github.com/ryanduguid/australian-accounting/blob/"
@@ -257,7 +258,7 @@ WORKED_EXAMPLES = {
         },
     },
 }
-EVALUATION_PACKS = {
+EVALUATION_PACKS: dict[str, dict[str, Any]] = {
     "evaluate/manager-review-gate/index.html": {
         "url": f"{SITE}/evaluate/manager-review-gate/",
         "product_repository": "https://github.com/ryanduguid/accounting-review-pipeline",
@@ -565,7 +566,7 @@ BREADCRUMB_LEAF_NAMES = {
     "tools/xero-trial-balance/index.html": "Xero trial balance CSV export",
 }
 
-COLLECTION_HUBS: dict[str, dict[str, object]] = {
+COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     "tools/index.html": {
         "h1": "Tools",
         "entries": [
@@ -1198,9 +1199,9 @@ def check_calculator_contract(
 
     root = core.parse_structure(html)
     all_ids = [
-        element.attr("id")
+        identifier
         for element in core.descendants(root)
-        if element.attr("id")
+        if (identifier := element.attr("id"))
     ]
     ids = set(all_ids)
     duplicate_ids = sorted(

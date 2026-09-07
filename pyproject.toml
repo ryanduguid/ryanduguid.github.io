@@ -1,0 +1,20 @@
+# Tool configuration only. This repository is a static site whose checks are
+# standard-library Python scripts under scripts/: nothing here is installed or
+# built. The Search Console tool under .agents/ declares its own inline script
+# metadata and runs through uv, so it is not part of this configuration.
+
+[tool.ruff]
+line-length = 100
+src = ["scripts"]
+extend-exclude = [".agents"]
+
+[tool.ruff.lint]
+# First-enablement set: syntax and undefined-name errors only (E9, F82).
+# Existing import layout and string literals stay as they are.
+select = ["E9", "F82"]
+
+[tool.mypy]
+python_version = "3.10"
+files = ["scripts"]
+ignore_missing_imports = true
+pretty = true

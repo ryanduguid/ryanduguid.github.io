@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import mimetypes
+import os
 import threading
 from pathlib import Path
 from types import ModuleType
@@ -28,7 +29,9 @@ def main() -> None:
     server_module = load_site_server()
     original_guess_type = mimetypes.guess_type
 
-    def hostile_guess_type(url: str, strict: bool = True):
+    def hostile_guess_type(
+        url: str | os.PathLike[str], strict: bool = True
+    ) -> tuple[str | None, str | None]:
         if str(url).lower().endswith(".mjs"):
             return "application/octet-stream", None
         return original_guess_type(url, strict=strict)
