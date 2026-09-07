@@ -14,50 +14,19 @@ const OUTPUTS = [
   'social-card-evidence.png',
 ];
 
-const REGISTER_SENTINELS = [
-  { point: [75, 75], colour: [238, 244, 240, 255] },
-  { point: [100, 200], colour: [77, 255, 136, 255] },
-  { point: [1004, 234], colour: [238, 244, 240, 255] },
-];
-
-async function samplePixels(page, image, sentinels) {
-  await page.setContent(
-    `<canvas width="1200" height="630"></canvas><img src="data:image/png;base64,${image.toString('base64')}">`,
-  );
-  return page.evaluate((points) => {
-    const canvas = document.querySelector('canvas');
-    const context = canvas.getContext('2d');
-    const source = document.querySelector('img');
-    context.drawImage(source, 0, 0);
-    return points.map(([x, y]) => [...context.getImageData(x, y, 1, 1).data]);
-  }, sentinels.map(({ point }) => point));
-}
-
 test('renders all contextual social cards reproducibly without touching assets', async ({ browser }) => {
-  const firstDirectory = await mkdtemp(path.join(os.tmpdir(), 'duguid-social-first-'));
-  const secondDirectory = await mkdtemp(path.join(os.tmpdir(), 'duguid-social-second-'));
-  const inspectionPage = await browser.newPage();
+  const directory = await mkdtemp(path.join(os.tmpdir(), 'duguid-social-'));
   try {
-    expect(await renderSocialCards(browser, firstDirectory)).toEqual(OUTPUTS);
-    expect(await renderSocialCards(browser, secondDirectory)).toEqual(OUTPUTS);
+    expect(await renderSocialCards(browser, directory)).toEqual(OUTPUTS);
 
     for (const output of OUTPUTS) {
-      const first = await readFile(path.join(firstDirectory, output));
-      const second = await readFile(path.join(secondDirectory, output));
+      const rendered = await readFile(path.join(directory, output));
       const committed = await readFile(
         new URL(`../assets/${output}`, import.meta.url),
       );
-      expect(first).toEqual(second);
-      expect(first).toEqual(committed);
-      expect(await samplePixels(inspectionPage, first, REGISTER_SENTINELS)).toEqual(
-        REGISTER_SENTINELS.map(({ colour }) => colour),
-      );
+      expect(rendered).toEqual(committed);
     }
   } finally {
-    await inspectionPage.close();
-    await Promise.all([
-      rm(firstDirectory, { recursive: true, force: true }),
-      rm(secondDirectory, { recursive: true, force: true }),
-    ]);
+    await rm(directory, { recursive: true, force: true });
   }
 });

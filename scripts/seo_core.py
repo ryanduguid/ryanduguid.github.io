@@ -395,11 +395,22 @@ def visible_html(html: str) -> str:
     return "".join(rendered)
 
 
-def visible_text(html: str) -> str:
-    """The page with script, style and tags stripped, whitespace collapsed."""
-    body = visible_html(html)
-    body = re.sub(r"<[^>]+>", " ", body)
+def stripped_text(html: str) -> str:
+    """Raw tag strip: tags removed, entities unescaped, whitespace collapsed."""
+    body = re.sub(r"<[^>]+>", " ", html)
     return re.sub(r"\s+", " ", html_lib.unescape(body)).strip()
+
+
+def visible_text(html: str) -> str:
+    """The page with script, style, hidden content and tags stripped."""
+    return stripped_text(visible_html(html))
+
+
+def raw_text(html: str) -> str:
+    """Like visible_text but keeping hidden content, which copy bans must read."""
+    return stripped_text(
+        re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
+    )
 
 
 @dataclass
