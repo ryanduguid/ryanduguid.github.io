@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import email.message
 import unittest
 import unittest.mock
 import urllib.error
@@ -114,7 +115,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                     "https://example.com/unavailable",
                     500,
                     "Internal Server Error",
-                    {},
+                    email.message.Message(),
                     None,
                 )
             return FakeResponse()
@@ -133,7 +134,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             nonlocal attempts
             attempts += 1
             raise urllib.error.HTTPError(
-                "https://example.com/missing", 404, "Not Found", {}, None
+                "https://example.com/missing", 404, "Not Found", email.message.Message(), None
             )
 
         with self.assertRaises(urllib.error.HTTPError):
@@ -194,7 +195,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                 "https://api.github.com/repos/ryanduguid/" + name,
                 403,
                 "rate limited",
-                {},
+                email.message.Message(),
                 None,
             )
 
@@ -266,7 +267,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                     "https://api.github.com/repos/ryanduguid/hardhat-ledger",
                     502,
                     "Bad Gateway",
-                    {},
+                    email.message.Message(),
                     None,
                 )
             return ApiResponse()

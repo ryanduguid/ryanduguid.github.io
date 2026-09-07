@@ -101,7 +101,10 @@ def build() -> str:
     parts = [HEADER]
     for url in core.sitemap_urls(ROOT):
         html = page_path(url).read_text(encoding="utf-8")
-        title = html_lib.unescape(re.search(r"<title>(.*?)</title>", html, re.S).group(1)).strip()
+        title_match = re.search(r"<title>(.*?)</title>", html, re.S)
+        if title_match is None:
+            raise ValueError(f"{url}: page has no <title>")
+        title = html_lib.unescape(title_match.group(1)).strip()
         description = core.meta(html, "name", "description") or ""
         parts.append(f"---\n\n# {title}\n\nSource: {url}\n\n> {description}\n\n{main_text(html)}\n")
     return "\n".join(parts)
