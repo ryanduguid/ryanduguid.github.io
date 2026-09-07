@@ -1052,7 +1052,7 @@ Boundary
 
 Read-only Xero scope; no ledger writes.
 
-Source repository Reproduce the evaluation Last commit 5 September 2026
+Source repository Reproduce the evaluation Last commit 7 September 2026
 
 ### Subcontract ledger skills
 
@@ -1066,7 +1066,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 ### Construction WIP schedule
 
@@ -1080,7 +1080,7 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 Calculate
 
@@ -1098,7 +1098,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Source repository Reproduce the evaluation Last commit 5 September 2026
+Source repository Reproduce the evaluation Last commit 7 September 2026
 
 ### ATO benchmark comparison
 
@@ -1112,7 +1112,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 ### Coal LSL levy calculator
 
@@ -1128,7 +1128,7 @@ Boundary
 
 No lodgement, storage or network transmission; verify the monthly return.
 
-Source repository Last commit 2 September 2026
+Source repository Last commit 6 September 2026
 
 ### Trust distribution checks
 
@@ -1142,7 +1142,7 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 ### Company tax and franking checks
 
@@ -1156,7 +1156,7 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 Control
 
@@ -1174,7 +1174,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Source repository Reproduce the evaluation Last commit 5 September 2026
+Source repository Reproduce the evaluation Last commit 7 September 2026
 
 Inspect
 
@@ -1192,7 +1192,7 @@ Boundary
 
 No client files, tax advice, Division 7A calculation or autonomous action.
 
-Source repository Last commit 5 September 2026
+Source repository Last commit 7 September 2026
 
 ## Source-only distributions
 
