@@ -21,7 +21,7 @@ def main() -> None:
         return original_guess_type(url, strict=strict)
 
     mimetypes.guess_type = hostile_guess_type
-    server = server_module.create_server(port=0)
+    server = server_module.create_server(directory=server_module.ROOT, port=0)
     thread = threading.Thread(target=server.serve_forever, daemon=True)
     thread.start()
     try:

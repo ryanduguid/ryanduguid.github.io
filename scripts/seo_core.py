@@ -14,7 +14,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-GENERATED_HTML_DIRECTORIES = {"node_modules", "work"}
+GENERATED_HTML_DIRECTORIES = {"node_modules", "work", "_site", "_includes", "_layouts", "vendor"}
 
 TITLE_MAX = 65
 DESC_MIN = 50
