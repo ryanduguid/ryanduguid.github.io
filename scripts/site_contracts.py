@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Australia and New Zealand. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-03"
-MCP_VISIBLE_REVIEW_DATE = "3 September 2026"
+MCP_REVIEW_DATE = "2026-09-09"
+MCP_VISIBLE_REVIEW_DATE = "9 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -115,7 +115,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "Ozzit": (
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "134 native Excel LAMBDA functions for AU modelling and GST arithmetic.",
+        "138 native Excel LAMBDA functions for AU modelling and GST arithmetic.",
     ),
     "accounting-excel-toolkit": (
         "accounting-excel-toolkit",
@@ -126,8 +126,8 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
         "Local MCP server for Australian accounting review: ATO small-business "
-        "benchmarks, Payday Super 2026, refused Division 7A and synthetic SBR "
-        "fixtures. Not advice.",
+        "benchmarks, Payday Super timing, limited Division 7A loan review and "
+        "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (
         "australian-accounting-skills",
@@ -167,7 +167,7 @@ AUTHORED_SOFTWARE = {
         "license": (
             f"{repository.replace('/tree/main/', '/blob/main/')}/LICENSE"
             if "/tree/main/" in repository
-            else f"{repository}/blob/main/LICENSE"
+            else f"{repository}/blob/main/{'LICENCE' if name == 'Ozzit' else 'LICENSE'}"
         ),
         "description": description,
     }
