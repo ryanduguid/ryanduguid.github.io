@@ -6,6 +6,8 @@ from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
+from build_site import build
+
 
 ROOT = Path(__file__).resolve().parents[1]
 HOST = "127.0.0.1"
@@ -21,12 +23,13 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
     }
 
 
-def create_server(*, port: int = PORT) -> ThreadingHTTPServer:
-    handler = partial(SiteRequestHandler, directory=str(ROOT))
+def create_server(*, directory: Path = ROOT / "_site", port: int = PORT) -> ThreadingHTTPServer:
+    handler = partial(SiteRequestHandler, directory=str(directory))
     return ThreadingHTTPServer((HOST, port), handler)
 
 
 def main() -> None:
+    build()
     with create_server() as server:
         print(f"Serving HTTP on {HOST} port {server.server_port}", flush=True)
         server.serve_forever()

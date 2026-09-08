@@ -1,0 +1,12 @@
+  <header class="site-header">
+    <div class="site-shell site-header__inner">
+      <a class="site-identity" href="/" aria-label="Ryan Duguid home"{% if page.url == "/" %} aria-current="page"{% endif %}>Ryan Duguid</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/tools/"{% if page.url == "/tools/" %} aria-current="page"{% elsif page.url contains "/tools/" %} aria-current="location"{% endif %}>Tools</a>
+        <a href="/rates/"{% if page.url == "/rates/" %} aria-current="page"{% elsif page.url contains "/rates/" %} aria-current="location"{% endif %}>Rates</a>
+        <a href="/evidence/"{% if page.url == "/evidence/" %} aria-current="page"{% elsif page.url contains "/evidence/" %} aria-current="location"{% endif %}>Evidence</a>
+        <a href="/about/"{% if page.url == "/about/" %} aria-current="page"{% elsif page.url contains "/about/" %} aria-current="location"{% endif %}>About</a>
+        <a href="/contact/"{% if page.url == "/contact/" %} aria-current="page"{% elsif page.url contains "/contact/" %} aria-current="location"{% endif %}>Contact</a>
+      </nav>
+    </div>
+  </header>

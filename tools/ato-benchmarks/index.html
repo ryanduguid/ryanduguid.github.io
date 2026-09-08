@@ -1,3 +1,5 @@
+---
+---
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -39,18 +41,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header">
-    <div class="site-shell site-header__inner">
-      <a class="site-identity" href="/" aria-label="Ryan Duguid home">Ryan Duguid</a>
-      <nav class="site-nav" aria-label="Primary">
-        <a href="/tools/" aria-current="location">Tools</a>
-        <a href="/rates/">Rates</a>
-        <a href="/evidence/">Evidence</a>
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-    </div>
-  </header>
+{% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
@@ -155,25 +146,7 @@ pip install .</code></pre>
       </div>
     </article>
   </main>
-  <footer class="site-footer">
-    <div class="site-shell site-footer__inner">
-      <nav class="site-footer__nav" aria-label="Sections">
-        <a href="/tools/">Tools</a>
-        <a href="/rates/">Rates</a>
-        <a href="/evaluate/">Evaluations</a>
-        <a href="/evidence/">Evidence</a>
-        <a href="/about/">About</a>
-        <a href="/contact/">Contact</a>
-      </nav>
-      <p>Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.</p>
-      <div class="site-footer__links">
-        <a href="/changelog/">Changelog</a>
-        <a href="https://github.com/ryanduguid">GitHub</a>
-        <a href="/tools/#related-resources">Related resources</a>
-        <a href="/llms.txt">Machine-readable index</a>
-      </div>
-    </div>
-  </footer>
+{% include site-footer.html %}
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

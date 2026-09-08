@@ -12,13 +12,21 @@ The homepage is a short adoption path into those registers. The site is a person
 
 ## Local preview
 
-The site is static HTML (`index.html`, `about/`, `evidence/`, `tools/`, `evaluate/`, `rates/`). Open `index.html` in a browser, or serve the folder:
+The pages share a Jekyll header and footer. Install Ruby 3.3 and Bundler,
+then install the locked build dependencies once:
 
 ```bash
-python -m http.server 4173 --bind 127.0.0.1
+bundle install
 ```
 
-then visit `http://127.0.0.1:4173/`.
+Build and serve the generated HTML:
+
+```bash
+python scripts/serve_site.py
+```
+
+Then visit `http://127.0.0.1:4173/`. Restart the preview after editing a page
+or an include. `python scripts/build_site.py` builds `_site/` without serving it.
 
 ## Checks
 
@@ -48,6 +56,10 @@ Run locally:
 ```bash
 python scripts/check_site.py
 ```
+
+This builds with Jekyll, checks the build and preview with a small fixture,
+then runs the existing checks against generated HTML in a temporary copy
+containing the repository's test fixtures. The preview serves only `_site/`.
 
 Install the browser-test dependencies and Chromium once:
 
@@ -121,8 +133,11 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. No page uses Jekyll templating;
-`_config.yml` only decides what reaches the published origin. It keeps the
+GitHub Pages builds the repository with Jekyll. The 26 styled pages include
+`_includes/site-header.html` and `_includes/site-footer.html`; the header
+sets the current page or section from each page's URL. Local builds and CI
+pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
+`_config.yml` decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
 npm manifests, the Playwright and Lighthouse configuration, `DESIGN.md` and this
 README) and includes `.well-known/` so that `security.txt` is served despite

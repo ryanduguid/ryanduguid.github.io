@@ -2,9 +2,13 @@
 
 from __future__ import annotations
 
+import shutil
 import subprocess
 import sys
+import tempfile
 from pathlib import Path
+
+from build_site import build
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = (
@@ -31,11 +35,34 @@ CHECKS = (
 
 
 def main() -> int:
-    for command in CHECKS:
-        print(f"running {' '.join(command)}", flush=True)
-        completed = subprocess.run(command, cwd=ROOT, check=False)
-        if completed.returncode:
-            return completed.returncode
+    rendered = build()
+    subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
+    # Add only the tooling and fixtures the checks need beside the built files.
+    # Copying public source files here would hide omissions from Jekyll's output.
+    with tempfile.TemporaryDirectory() as directory:
+        checked = Path(directory) / "site"
+        shutil.copytree(rendered, checked)
+        for name in (
+            "scripts",
+            ".agents",
+            "docs",
+            "README.md",
+            "_config.yml",
+            "assets/social-card-template.svg",
+            "assets/social-cards.json",
+        ):
+            source = ROOT / name
+            if source.is_dir():
+                shutil.copytree(
+                    source, checked / name, ignore=shutil.ignore_patterns("__pycache__")
+                )
+            else:
+                shutil.copy2(source, checked / name)
+        for command in CHECKS:
+            print(f"running {' '.join(command)}", flush=True)
+            completed = subprocess.run(command, cwd=checked, check=False)
+            if completed.returncode:
+                return completed.returncode
     print("site checks passed")
     return 0
 

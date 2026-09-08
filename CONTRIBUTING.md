@@ -1,12 +1,13 @@
 # Contributing
 
-The site is static HTML under version control, checked by standard-library
+The site is HTML with shared Jekyll includes, checked by standard-library
 Python scripts and a small set of Node tests. Read [DESIGN.md](DESIGN.md)
 before changing a page.
 
 ## Local checks
 
-Python 3.10 or newer and Node 22. `.github/workflows/checks.yml` runs the
+Use Ruby 3.3 with Bundler, Python 3.10 or newer and Node 22. Run `bundle install`
+once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
 pinned linters first, then the site checks on Python 3.10, 3.12 and 3.13:
 
 ```bash
