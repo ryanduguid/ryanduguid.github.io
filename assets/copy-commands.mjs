@@ -17,8 +17,11 @@ if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') 
     if (blockLabel) {
       button.setAttribute('aria-label', 'Copy: ' + blockLabel.toLowerCase());
     }
-    let resetTimer = 0;
+    const status = document.createElement('p');
+    status.className = 'copy-status';
+    status.setAttribute('role', 'status');
     button.addEventListener('click', async () => {
+      status.textContent = '';
       const commands = [...pre.querySelectorAll('.cmd')];
       const text = (commands.length
         ? commands.map((command) => command.textContent).join('\n')
@@ -26,15 +29,11 @@ if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') 
       ).trim();
       try {
         await navigator.clipboard.writeText(text);
-        button.textContent = 'Copied';
+        status.textContent = 'Copied to clipboard.';
       } catch {
-        button.textContent = 'Select and copy';
+        status.textContent = 'Copy unavailable. Select the command and copy it manually.';
       }
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => {
-        button.textContent = 'Copy';
-      }, 2000);
     });
-    wrap.append(button);
+    wrap.append(button, status);
   }
 }
