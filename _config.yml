@@ -1,9 +1,13 @@
-# GitHub Pages builds this repository with Jekyll. No page uses Jekyll
-# templating; this file only decides which files reach the published origin.
+# GitHub Pages and local checks build the shared header and footer with Jekyll.
 # Dot-directories are excluded by default, so .well-known is included by name.
 include:
   - .well-known
 exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - work
   - DESIGN.md
   - README.md
   - docs

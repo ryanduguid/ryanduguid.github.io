@@ -5,3 +5,8 @@ node_modules/
 work/test-results/
 work/playwright-report/
 work/lighthouse/
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+vendor/
