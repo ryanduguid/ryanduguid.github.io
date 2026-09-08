@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "2c40f14b2cd4b7caad3d65100ac761031d12482d948482fbb78a9aa3a556c3b0",
     "robots.txt": "72838fddc744e5ec67f0dd76bf21263e670c96109793b11e8cdaab8e0e7d466d",
-    "sitemap.xml": "79fa45fa64ad5322d05efdee505742b54fd5bd8d9612a418abb70f5745d2bfa9"
+    "sitemap.xml": "fbabe4c46249ff665606ce7818019aefe1fbb9c287ae90b35a30eb032eea3890"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -83,7 +83,7 @@
       "544ca165bb806e51c91ff7aea1dcbdbb11a1b2594aaa9aa2eed40c0c9e7d1b86"
     ],
     "index.html": [
-      "eb25760290df52a1c4152ab8f75a527a40a3bb6391000bc3342ec72c5a5c0069"
+      "28901af64b23abb50edcb7ecd7d046b10f39fff2251c8b45f08c347fa9187f32"
     ],
     "rates/cents-per-kilometre/index.html": [
       "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
@@ -101,7 +101,7 @@
       "c90c20dfc631b22d6585c225d3060dc9d4c16d92fc146fe55d4e9fe13eec8ecb"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "4241d1e6d8fc6fe84d50abec52366af00f3b0b10d1adec5a6fda5ad493df8275"
+      "8b7053cca596815ccc3369e083506e6cbba8b532f30910289ed82e7ee0eeb4bf"
     ],
     "tools/coal-lsl-levy/index.html": [
       "d0ce8c62a4c3b7e98dc3669cf7b7911604bae24389a645ad607a9b33300fdc00"
