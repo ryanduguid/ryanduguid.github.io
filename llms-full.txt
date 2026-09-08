@@ -339,7 +339,7 @@ These records link to maintained owners instead of restating volatile rates, thr
 
 ## Data and privacy boundary
 
-No client, taxpayer or production-ledger data appears in public fixtures or examples. All public fixtures and worked examples are fabricated and synthetic. Client sensitive data belongs in a separately controlled local working directory. It must never be placed in a public issue, public repository or enquiry email.
+No client, taxpayer or production-ledger data appears in public examples. Business fixtures are synthetic; dated official-source snapshots are identified separately and do not establish current law. Client data belongs in a controlled local directory, never a public issue, repository or enquiry email.
 
 - The ATO benchmark client-data control records the zero-network runtime boundary.
 - The Payday Super local file boundary, TheWIPTally local file boundary and Workpaper Review Gate data boundary state how client files are separated from public fixtures.
@@ -1817,7 +1817,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and over and under billing under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current pack: Australian Accounting Skills v0.2.0. The ten workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
+Released pack: Australian Accounting Skills v0.2.1. The ten workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
 Published 24 August 2026. Last reviewed 4 September 2026.
 
@@ -1839,7 +1839,7 @@ These skills prepare and check. They do not serve a payment claim, lodge a retur
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-The ten subcontractor workflows now ship with the nine public-practice workflows in Australian Accounting Skills. Use Adopt to install the unified nineteen-skill pack. Do not install a second Hardhat pack.
+The released pack contains nineteen skills, including these ten subcontractor workflows. The default branch prepares v0.3.0 with fifty skills. Use Adopt for the development install or the installation guide for the tagged release. Do not install a second Hardhat pack.
 
 Source on GitHub
 
