@@ -15,7 +15,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## For AI agents
 
-- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It refuses Division 7A. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
+- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It also supports limited, experimental Division 7A loan-term and repayment review, with human review required. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
 
 ## Person
 
