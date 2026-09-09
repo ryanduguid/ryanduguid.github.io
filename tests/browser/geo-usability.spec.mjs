@@ -2,6 +2,15 @@ import { expect, test } from '@playwright/test';
 
 import { waitForVisualFonts } from './visual.mjs';
 
+test('printing includes the fixed proof without opening its disclosure', async ({ page }) => {
+  await page.goto('/');
+  await page.emulateMedia({ media: 'print' });
+  const disclosure = page.locator('.proof-capture');
+  await expect(disclosure).not.toHaveAttribute('open');
+  await expect(disclosure.locator('figure')).toBeVisible();
+  await expect(disclosure.locator('figcaption')).toBeVisible();
+});
+
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {
   await page.goto('/tools/australian-tax-ai-agents/');
   await waitForVisualFonts(page);

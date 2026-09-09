@@ -2153,6 +2153,14 @@ input[type="checkbox"] {
     margin: 12mm;
   }
 
+  .proof-capture::details-content {
+    content-visibility: visible;
+  }
+
+  .proof-capture > summary {
+    display: none;
+  }
+
   :root {
     color-scheme: light;
     --colour-canvas: var(--colour-print-paper);

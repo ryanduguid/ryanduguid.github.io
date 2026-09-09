@@ -4,13 +4,24 @@ from __future__ import annotations
 
 import mimetypes
 import os
+import socket
 import threading
+from contextlib import ExitStack
 from urllib.request import urlopen
 
 import serve_site as server_module
 
 
 def main() -> None:
+    # Parallel pages can connect their assets before the accept loop catches up.
+    with server_module.create_server(port=0) as queued_server, ExitStack() as connections:
+        for _ in range(8):
+            connections.enter_context(
+                socket.create_connection(
+                    (server_module.HOST, queued_server.server_port), timeout=1
+                )
+            )
+
     original_guess_type = mimetypes.guess_type
 
     def hostile_guess_type(
@@ -40,7 +51,7 @@ def main() -> None:
         thread.join(timeout=5)
         mimetypes.guess_type = original_guess_type
 
-    print("site server MIME test passed")
+    print("site server connection queue and MIME tests passed")
 
 
 if __name__ == "__main__":
