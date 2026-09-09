@@ -12,3 +12,21 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # GitHub Pages builds and deploys this site with its own pinned Jekyll,
+      # and scripts/build_site.py exists to build with that same version. The
+      # Gemfile mirrors GitHub Pages rather than tracking upstream Jekyll, so
+      # a major or minor bump would have CI validate HTML the live site never
+      # produces. Raise the pin when GitHub Pages raises theirs, not when
+      # Dependabot offers a release. Patch updates stay open so a security
+      # release on the pinned line still reaches us.
+      #
+      # update-types does not filter security updates, so an advisory fixed
+      # only above 3.10 can still open a pull request. That is deliberate:
+      # silencing it with a versions ignore would hide the advisory instead of
+      # the bump. The Gemfile records that such a pull request is a decision
+      # about the Pages build rather than a routine upgrade.
+      - dependency-name: jekyll
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
