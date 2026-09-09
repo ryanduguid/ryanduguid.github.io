@@ -60,7 +60,8 @@ jobs:
           # Lifts the unauthenticated GitHub API rate limit for the
           # archived-repository lookups in scripts/check_links.py.
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/check_site.py
+        # Run live external checks once; every version still checks local content.
+        run: python scripts/check_site.py ${{ matrix.python != '3.12' && '--offline' || '' }}
 
   browser:
     timeout-minutes: 30

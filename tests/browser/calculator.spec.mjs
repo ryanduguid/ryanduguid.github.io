@@ -308,7 +308,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 2 September 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 10 September 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();

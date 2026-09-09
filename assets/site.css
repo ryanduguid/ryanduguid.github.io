@@ -1428,6 +1428,16 @@ th {
   background: var(--colour-paper-raised);
 }
 
+.proof-capture > summary {
+  padding-block: var(--space-3);
+  cursor: pointer;
+  color: var(--colour-stamp);
+}
+
+.proof-capture[open] > summary {
+  margin-bottom: var(--space-4);
+}
+
 .proof-calc {
   display: grid;
   gap: var(--space-4);
@@ -1822,11 +1832,16 @@ input[type="checkbox"] {
 
 .comparison-table {
   width: 100%;
+  table-layout: fixed;
 }
 
-.comparison-value {
+.comparison-table td:first-child {
+  white-space: normal;
+}
+
+.comparison-table .comparison-value {
   color: var(--colour-ink);
-  font-size: var(--text-heading-small);
+  font: inherit;
 }
 
 /* Utility and error pages */
@@ -2136,6 +2151,14 @@ input[type="checkbox"] {
 @media print {
   @page {
     margin: 12mm;
+  }
+
+  .proof-capture::details-content {
+    content-visibility: visible;
+  }
+
+  .proof-capture > summary {
+    display: none;
   }
 
   :root {

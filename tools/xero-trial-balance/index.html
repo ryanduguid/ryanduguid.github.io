@@ -57,7 +57,7 @@
       This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year to date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">xero-trial-balance-export/v0.1.6</a>, evaluated against tagged fixtures.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -71,11 +71,9 @@
         </nav>
         <div class="article-body">
     <p>
-      The manual path, Reports, Trial Balance, Export, fix the header rows, fix
-      the account codes, takes about ten minutes per entity per month and
-      produces a slightly different file every time. This tool pulls the same
-      report straight from Xero's own reporting API instead, into the same
-      tidy shape every run.
+      This tool reads the trial balance from Xero's reporting API and writes
+      consistent CSV columns for account codes, names, monthly movements and
+      year-to-date balances.
     </p>
     <p>
       Before anything is written to disk, it runs a balance check: both the
@@ -214,7 +212,7 @@
         "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-10",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -281,7 +279,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04"
+        "dateModified": "2026-09-10"
       },
       {
         "@type": "FAQPage",

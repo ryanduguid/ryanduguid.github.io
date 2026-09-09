@@ -5,6 +5,7 @@ from __future__ import annotations
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
+from socket import SOMAXCONN
 
 from build_site import build
 
@@ -23,9 +24,15 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
     }
 
 
+class SiteHTTPServer(ThreadingHTTPServer):
+    """Queue parallel browser asset connections while the accept loop catches up."""
+
+    request_queue_size = SOMAXCONN
+
+
 def create_server(*, directory: Path = ROOT / "_site", port: int = PORT) -> ThreadingHTTPServer:
     handler = partial(SiteRequestHandler, directory=str(directory))
-    return ThreadingHTTPServer((HOST, port), handler)
+    return SiteHTTPServer((HOST, port), handler)
 
 
 def main() -> None:

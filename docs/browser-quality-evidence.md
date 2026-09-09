@@ -169,9 +169,9 @@ route rail and mobile spacing also replace the plan's literal estimates because
 they are what satisfy the binding line-count, no-wrap, keyboard and overflow
 outcomes with the protected fonts.
 
-The proof writer uses a fixed temporary sibling and atomic replacement rather
-than a direct final-path write. The current WebP is 30,050 bytes, 868 by 580
-and decodes in both homepage projects.
+The proof writer uses a unique temporary sibling and atomic replacement rather
+than a direct final-path write. The original recorded WebP was 30,050 bytes,
+868 by 580, and decoded in both homepage projects.
 
 ## Limits
 
@@ -182,29 +182,29 @@ real client data.
 
 The source checker validates the committed proof's RIFF/WEBP container marker
 and 80 KB limit, but does not independently parse its intrinsic dimensions or
-fully decode it. The browser checks provide the current decode and 868 by 580
-intrinsic-dimension evidence; source-level image parsing remains an explicit
+fully decode it. The browser checks provide decode evidence for the 868 by 580
+desktop and 780 by 1192 mobile images; source-level image parsing remains an explicit
 deferred limitation.
 
-The focused capture check renders one fabricated Formula B result through the
-same Playwright-served page used by the browser suite, then holds two images to
-one contract: a RIFF/WEBP container, a canvas of 868 by 580 read from the WebP
-header, and a file inside the 80 KB budget. It applies that contract to the
-fresh render, then applies it again to the committed
-`assets/coal-lsl-calculator.webp`. The second application does not run under
-`--update-snapshots=all`, where the spec writes the tracked proof and returns
-before it reaches that line. `check_design` holds the same published file to
-the RIFF/WEBP container and the 80,000-byte budget in
-`scripts/check_design.py`, so the 868 by 580 canvas is what this spec adds over
-that gate. `renderCoalLslProofPage` pins the figures the picture shows,
-matching Formula A, Formula B, eligible wages, the levy, the branch and the
-explanation against `COAL_LSL_PROOF`, throwing when any has drifted, and
-holding the captured panel to 868 by 580 before the screenshot.
+From 10 September 2026, the focused capture check renders the same fabricated
+Formula B result at two sizes: desktop at 868 by 580 and mobile at 390 by 596
+CSS pixels with scale two, producing a 780 by 1192 image. Each fresh render and
+its published WebP must have the RIFF/WEBP container, expected canvas dimensions
+and a file size no greater than 80,000 bytes. The published files are
+`assets/coal-lsl-calculator.webp` and `assets/coal-lsl-calculator-mobile.webp`.
+`npm run capture:coal-lsl-proof` selects `--update-snapshots=all`, validates each
+fresh render and writes both tracked files instead of checking the existing
+files. `npm run test:capture` validates both fresh and published outputs without
+writing them. `renderCoalLslProofPage` checks Formula A, Formula B, eligible
+wages, levy, branch and explanation against the shared `COAL_LSL_PROOF` fixture,
+and rejects content that exceeds either capture height. The homepage keeps the
+fixed proof in a native disclosure; print styles expose it without requiring
+the reader to open it first.
 
 The rendered bytes are never compared with the published bytes. That WebP comes
 from `canvas.toDataURL` in whichever Chromium the runner carries, over a PNG
 whose text the host rasterised, so the same page encodes to a different file on
-a different machine: the committed proof is 30,050 bytes and a Linux render of
+a different machine: an earlier proof was 30,050 bytes and a Linux render of
 it came back at 28,078. CI runs the capture on `windows-latest` against a proof
 captured elsewhere, where byte equality cannot pass. The check writes the
 tracked proof only when snapshot-update mode is explicit. It runs under
