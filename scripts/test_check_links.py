@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import email.message
+import email.utils
+import tempfile
+import time
 import unittest
 import unittest.mock
 import urllib.error
+from pathlib import Path
 
 import check_links
+import check_site
 
 
 class FakeResponse:
@@ -33,9 +38,7 @@ class FetchFinalUrlTests(unittest.TestCase):
         for actions in ("true", "false"):
             with (
                 self.subTest(actions=actions),
-                unittest.mock.patch.dict(
-                    check_links.os.environ, {"GITHUB_ACTIONS": actions}
-                ),
+                unittest.mock.patch.dict(check_links.os.environ, {"GITHUB_ACTIONS": actions}),
                 unittest.mock.patch.object(
                     check_links, "fetch_final_url", side_effect=TimeoutError("unavailable")
                 ) as fetch,
@@ -43,14 +46,119 @@ class FetchFinalUrlTests(unittest.TestCase):
             ):
                 failures = check_links.check_hrefs("tools/index.html", manual_urls + other_urls)
                 expected = other_urls if actions == "true" else manual_urls + other_urls
-                self.assertEqual(fetch.call_args_list, [unittest.mock.call(url) for url in expected])
+                self.assertEqual(
+                    fetch.call_args_list, [unittest.mock.call(url) for url in expected]
+                )
                 self.assertEqual(len(failures), len(expected))
                 if actions == "true":
-                    notices = [call.args[0] for call in output.call_args_list
-                               if "manual verification" in call.args[0]]
+                    notices = [
+                        call.args[0]
+                        for call in output.call_args_list
+                        if "manual verification" in call.args[0]
+                    ]
                     self.assertEqual(len(notices), 2)
                     for url in manual_urls:
                         self.assertTrue(any(url in notice for notice in notices))
+
+    def test_rate_limit_retry_headers_and_fallback_for_both_fetchers(self) -> None:
+        class ApiResponse(FakeResponse):
+            def read(self) -> bytes:
+                return b'{"archived": false}'
+
+        now = 1_700_000_000
+        cases = [
+            ("2", 2),
+            (email.utils.formatdate(now + 3, usegmt=True), 3),
+            ("Tue Nov 14 22:13:23 2023", 3),
+            (email.utils.formatdate(now - 3, usegmt=True), 0),
+            (None, 1),
+            ("invalid", 1),
+            ("-1", 1),
+        ]
+        for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
+            for header, delay in cases:
+                with self.subTest(fetch=fetch.__name__, header=header):
+                    headers = email.message.Message()
+                    if header is not None:
+                        headers["Retry-After"] = header
+                    error = urllib.error.HTTPError(
+                        "https://example.com", 429, "limited", headers, None
+                    )
+                    opener = unittest.mock.Mock(side_effect=[error, ApiResponse()])
+                    with (
+                        unittest.mock.patch.object(time, "sleep") as sleep,
+                        unittest.mock.patch.object(time, "time", return_value=now),
+                    ):
+                        fetch("https://example.com", opener=opener)
+                    self.assertEqual(opener.call_count, 2)
+                    sleep.assert_called_once_with(delay)
+
+    def test_rate_limit_exhaustion_remains_a_failure_with_bounded_waits(self) -> None:
+        for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
+            for header, attempts, waits in [
+                (None, 5, [1, 2, 4, 8]),
+                ("20", 2, [20]),
+                ("3600", 1, []),
+            ]:
+                with self.subTest(fetch=fetch.__name__, header=header):
+                    headers = email.message.Message()
+                    if header is not None:
+                        headers["Retry-After"] = header
+                    error = urllib.error.HTTPError(
+                        "https://example.com", 429, "limited", headers, None
+                    )
+                    opener = unittest.mock.Mock(side_effect=error)
+                    with unittest.mock.patch.object(time, "sleep") as sleep:
+                        with self.assertRaises(urllib.error.HTTPError) as raised:
+                            fetch("https://example.com", opener=opener)
+                    self.assertIs(raised.exception, error)
+                    self.assertEqual(opener.call_count, attempts)
+                    self.assertEqual(
+                        sleep.call_args_list, [unittest.mock.call(delay) for delay in waits]
+                    )
+        self.assertFalse(
+            check_links.is_accepted_automation_denial(
+                "https://www.linkedin.com/in/ryan-duguid", 429
+            )
+        )
+
+    def test_offline_mode_still_checks_local_links_without_external_requests(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            page = root / "index.html"
+            page.write_text(
+                '<a href="/missing/">Missing</a><a href="https://github.com/ryanduguid/Ozzit">Repo</a>',
+                encoding="utf-8",
+            )
+            with (
+                unittest.mock.patch.object(check_links, "ROOT", root),
+                unittest.mock.patch.object(check_links, "fetch_final_url") as fetch,
+                unittest.mock.patch.object(check_links, "repository_is_archived") as lookup,
+            ):
+                failures = check_links.check_file(page, offline=True)
+            self.assertEqual(len(failures), 1)
+            self.assertIn("same-origin link does not resolve", failures[0])
+            fetch.assert_not_called()
+            lookup.assert_not_called()
+
+    def test_site_runner_passes_offline_only_to_the_link_checker(self) -> None:
+        for arguments in ([], ["--offline"]):
+            with (
+                self.subTest(arguments=arguments),
+                unittest.mock.patch.object(check_site.sys, "argv", ["check_site.py", *arguments]),
+                unittest.mock.patch.object(check_site, "build", return_value=Path("unused")),
+                unittest.mock.patch.object(check_site.shutil, "copytree"),
+                unittest.mock.patch.object(check_site.shutil, "copy2"),
+                unittest.mock.patch.object(check_site.subprocess, "run") as run,
+            ):
+                run.return_value.returncode = 0
+                self.assertEqual(check_site.main(), 0)
+            commands = [call.args[0] for call in run.call_args_list[1:]]
+            expected = [
+                (*command, *arguments) if "scripts/check_links.py" in command else command
+                for command in check_site.CHECKS
+            ]
+            self.assertEqual(commands, expected)
 
     def test_accepts_only_runner_confirmed_ato_403_denials(self) -> None:
         confirmed = (
@@ -59,8 +167,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             "https://www.ato.gov.au/businesses-and-organisations/"
             "income-deductions-and-concessions/small-business-benchmarks",
             "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
-            "https://www.ato.gov.au/law/view/view.htm?"
-            "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
+            "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
             "https://www.ato.gov.au/businesses-and-organisations/"
             "hiring-and-paying-your-workers/single-touch-payroll/in-detail/"
             "single-touch-payroll-phase-2-employer-reporting-guidelines",
@@ -77,18 +184,14 @@ class FetchFinalUrlTests(unittest.TestCase):
                 403,
             )
         )
-        self.assertFalse(
-            check_links.is_accepted_automation_denial(confirmed[0], 404)
-        )
+        self.assertFalse(check_links.is_accepted_automation_denial(confirmed[0], 404))
 
     def test_accepts_only_hibernated_linkedin_profile_failures(self) -> None:
         profile = "https://www.linkedin.com/in/ryan-duguid"
 
         for status in (404, 999):
             with self.subTest(status=status):
-                self.assertTrue(
-                    check_links.is_accepted_automation_denial(profile, status)
-                )
+                self.assertTrue(check_links.is_accepted_automation_denial(profile, status))
 
         self.assertFalse(check_links.is_accepted_automation_denial(profile, 403))
         self.assertFalse(
@@ -105,12 +208,8 @@ class FetchFinalUrlTests(unittest.TestCase):
             attempts += 1
             return FakeResponse()
 
-        first = check_links.fetch_final_url(
-            "https://example.com/duplicate", opener=opener
-        )
-        second = check_links.fetch_final_url(
-            "https://example.com/duplicate", opener=opener
-        )
+        first = check_links.fetch_final_url("https://example.com/duplicate", opener=opener)
+        second = check_links.fetch_final_url("https://example.com/duplicate", opener=opener)
 
         self.assertEqual(first, second)
         self.assertEqual(attempts, 1)
@@ -125,9 +224,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                 raise urllib.error.URLError("temporary TLS failure")
             return FakeResponse()
 
-        result = check_links.fetch_final_url(
-            "https://example.com/start", opener=flaky_opener
-        )
+        result = check_links.fetch_final_url("https://example.com/start", opener=flaky_opener)
 
         self.assertEqual(result, (200, "https://example.com/final"))
         self.assertEqual(attempts, 3)
@@ -166,9 +263,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             )
 
         with self.assertRaises(urllib.error.HTTPError):
-            check_links.fetch_final_url(
-                "https://example.com/missing", opener=not_found
-            )
+            check_links.fetch_final_url("https://example.com/missing", opener=not_found)
 
         self.assertEqual(attempts, 1)
 
@@ -314,9 +409,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             raise urllib.error.URLError("still unavailable")
 
         with self.assertRaises(urllib.error.URLError):
-            check_links.fetch_final_url(
-                "https://example.com/unavailable", opener=unavailable
-            )
+            check_links.fetch_final_url("https://example.com/unavailable", opener=unavailable)
 
         self.assertEqual(attempts, 5)
 
