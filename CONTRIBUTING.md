@@ -24,6 +24,10 @@ Install the git hooks once with `python -m pip install pre-commit && pre-commit 
 
 ## Pull requests
 
+Suggested resources should support Australian accounting work, have clear
+documentation and current maintenance where applicable, and be open-source
+software, official public resources or free developer interfaces.
+
 Keep every link to a live target, keep marketing vocabulary out of visible
 text, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py
 --write` when a page's main text changes. For a potential security
