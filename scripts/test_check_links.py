@@ -24,6 +24,34 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_manual_resource_checks_are_exact_and_ci_only(self) -> None:
+        manual_urls = [
+            "https://www.sbr.gov.au/",
+            "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
+        ]
+        other_urls = [url + "missing" for url in manual_urls]
+        for actions in ("true", "false"):
+            with (
+                self.subTest(actions=actions),
+                unittest.mock.patch.dict(
+                    check_links.os.environ, {"GITHUB_ACTIONS": actions}
+                ),
+                unittest.mock.patch.object(
+                    check_links, "fetch_final_url", side_effect=TimeoutError("unavailable")
+                ) as fetch,
+                unittest.mock.patch("builtins.print") as output,
+            ):
+                failures = check_links.check_hrefs("tools/index.html", manual_urls + other_urls)
+                expected = other_urls if actions == "true" else manual_urls + other_urls
+                self.assertEqual(fetch.call_args_list, [unittest.mock.call(url) for url in expected])
+                self.assertEqual(len(failures), len(expected))
+                if actions == "true":
+                    notices = [call.args[0] for call in output.call_args_list
+                               if "manual verification" in call.args[0]]
+                    self.assertEqual(len(notices), 2)
+                    for url in manual_urls:
+                        self.assertTrue(any(url in notice for notice in notices))
+
     def test_accepts_only_runner_confirmed_ato_403_denials(self) -> None:
         confirmed = (
             "https://www.ato.gov.au/tax-rates-and-codes/"
