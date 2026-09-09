@@ -73,6 +73,10 @@ const representativeHeightBaseline = {
 };
 
 async function decodedHomeProof(page) {
+  const disclosure = page.locator('.proof-capture');
+  if ((await disclosure.getAttribute('open')) === null) {
+    await disclosure.locator('summary').click();
+  }
   const proof = page.getByRole('img', {
     name: /Coal LSL calculator result showing Formula B/,
   });
@@ -346,6 +350,7 @@ test('home proof image loads only when requested and decodes before capture', as
   await page.goto('/');
   const proof = page.getByRole('img', {
     name: /Coal LSL calculator result showing Formula B/,
+    includeHidden: true,
   });
   await expect(proof).toHaveAttribute('loading', 'lazy');
   await decodedHomeProof(page);
@@ -394,6 +399,7 @@ test('home matches its viewport visual baseline', async ({ page }, testInfo) => 
   const health = observePageHealth(page);
   await gotoForVisualSnapshot(page, '/');
   await decodedHomeProof(page);
+  await page.locator('.proof-capture > summary').click();
   await page.evaluate(() => scrollTo(0, 0));
 
   const viewport = testInfo.project.name === 'mobile-chromium'

@@ -35,14 +35,14 @@ function webpCanvasSize(image) {
   throw new Error(`Unrecognised WebP chunk: ${JSON.stringify(chunk)}`);
 }
 
-function expectProofContract(image, label) {
+function expectProofContract(image, label, capture = COAL_LSL_PROOF.capture) {
   expect(image.subarray(0, 4).toString('ascii'), `${label} RIFF`).toBe('RIFF');
   expect(image.subarray(8, 12).toString('ascii'), `${label} WEBP`).toBe('WEBP');
   expect(image.byteLength, `${label} byte budget`)
     .toBeLessThanOrEqual(COAL_LSL_PROOF.capture.maxBytes);
   expect(webpCanvasSize(image), `${label} canvas size`).toEqual({
-    width: COAL_LSL_PROOF.capture.width,
-    height: COAL_LSL_PROOF.capture.height,
+    width: capture.width * (capture.scale ?? 1),
+    height: capture.height * (capture.scale ?? 1),
   });
 }
 
@@ -69,4 +69,20 @@ test('renders the fixed Coal LSL proof within its published image contract', asy
   // depicts are covered above, because renderCoalLslProofPage matches every
   // one of them against COAL_LSL_PROOF and throws when any has drifted.
   expectProofContract(publishedProof, 'published proof');
+});
+
+test.describe('mobile proof', () => {
+  test.use({ viewport: { width: 390, height: 1106 }, deviceScaleFactor: 2 });
+
+  test('renders the same figures at the published mobile size', async ({ page }, testInfo) => {
+    const capture = { ...COAL_LSL_PROOF.capture, width: 390, height: 596, scale: 2 };
+    const image = await renderCoalLslProofPage(page, capture);
+    expectProofContract(image, 'rendered mobile proof', capture);
+    if (testInfo.config.updateSnapshots === 'all') {
+      await writeCoalLslProof(image, true);
+      return;
+    }
+    const published = await readFile(new URL('../assets/coal-lsl-calculator-mobile.webp', import.meta.url));
+    expectProofContract(published, 'published mobile proof', capture);
+  });
 });

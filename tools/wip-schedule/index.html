@@ -60,12 +60,13 @@
       contract liability per job. Assets and liabilities are never netted.
       Review aid, not a determination.
     </p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 3 September 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 10 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#worked-example">Worked example</a>
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
           <a href="#common-questions">Common questions</a>
@@ -95,6 +96,17 @@
       <li>Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.</li>
       <li>Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.</li>
     </ul>
+    </section>
+    <section id="worked-example">
+    <h2>Worked example: a $50,000 contract asset</h2>
+    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.0</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
+    <ul>
+      <li>Transaction price: $1,000,000.</li>
+      <li>Costs incurred: $400,000. Estimated cost to complete: $400,000.</li>
+      <li>Certified billings: $450,000.</li>
+    </ul>
+    <p>Progress is $400,000 ÷ ($400,000 + $400,000) = <strong>50%</strong>. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a <strong>$50,000 contract asset</strong> and no contract liability.</p>
+    <p>A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
@@ -170,7 +182,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, profit fade. Review aid, not a determination.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-03",
+        "dateModified": "2026-09-10",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -237,7 +249,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-03"
+        "dateModified": "2026-09-10"
       },
       {
         "@type": "FAQPage",

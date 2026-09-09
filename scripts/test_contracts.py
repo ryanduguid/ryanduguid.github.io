@@ -132,7 +132,7 @@ def test_geo_leftovers_surface() -> None:
     homepage_title = (
         "Ryan Duguid: open-source Australian accounting controls"
     )
-    coal_title = "What wages are eligible for the Coal LSL levy under section 3B?"
+    coal_title = "Coal LSL levy calculator and eligible wages under section 3B"
     coal_lead = (
         "Checked 2 September 2026: the Coal LSL levy is 2.7 per cent of "
         "eligible wages for the month. Section 3B determines eligible wages "
@@ -181,9 +181,9 @@ def test_geo_leftovers_surface() -> None:
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
     assert (
         web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == modified_date
+        == "2026-09-10"
     )
-    assert f"Last reviewed {review_date}." in core.visible_text(coal)
+    assert "Last reviewed 10 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (
@@ -246,11 +246,10 @@ def test_geo_leftovers_surface() -> None:
     for url in csv_urls:
         assert reference_tables.count(url) == 1
 
-    for url in (
-        "https://duguid.com.au/rates/",
-        "https://duguid.com.au/tools/coal-lsl-levy/",
-    ):
-        assert core.sitemap_lastmods(url, ROOT) == [modified_date]
+    assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
+    assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
+        "2026-09-10"
+    ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
     ]
@@ -518,8 +517,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 10 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 10 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -629,7 +628,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "6 September 2026", "2026-09-06"),
+        ("index.html", "10 September 2026", "2026-09-10"),
         ("tools/index.html", "6 September 2026", "2026-09-06"),
         ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
@@ -1260,8 +1259,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
