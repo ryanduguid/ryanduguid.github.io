@@ -26,6 +26,12 @@ fetch. An unresolved rate limit still fails the live check.
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 
+The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
+dependency chain otherwise installs vulnerable `extract-zip` 2.0.1
+([GHSA-7pqw-9j4j-h8q3](https://github.com/advisories/GHSA-7pqw-9j4j-h8q3)).
+Keep the browser and Lighthouse checks when changing this override. Remove it
+when Lighthouse CI's dependency chain uses a version without `extract-zip`.
+
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
 The link checker reports these two exact URLs as requiring manual verification
