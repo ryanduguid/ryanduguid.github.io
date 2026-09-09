@@ -2183,8 +2183,10 @@ Needs Python 3.10 or later. A command-line tool for whoever runs Python at your 
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
-review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-ready
+review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
 ```
+
+The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so the tool refuses to write one inside a version-control checkout.
 
 Source on GitHub
 
