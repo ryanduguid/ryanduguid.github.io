@@ -100,7 +100,8 @@
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
-review-ready gate --profile bas --pack examples/bas-ready --output outputs/bas-ready</code></pre>
+review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready</code></pre>
+    <p>The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The tool is gaining a guard that refuses an output inside a checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point <code>--output</code> at a directory outside that one instead.</p>
     <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Source on GitHub</a></p>
     <p>Unexpected result or question? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Workpaper%20Review%20Gate">email with the tool named in the subject</a>.</p>
     </section>
