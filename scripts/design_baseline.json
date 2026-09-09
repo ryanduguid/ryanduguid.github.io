@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "6bcc7fb862a5719cbbeaf3f33211f607791dfdfd0a258fe7cdba73d565a8e9a0",
     "robots.txt": "72838fddc744e5ec67f0dd76bf21263e670c96109793b11e8cdaab8e0e7d466d",
-    "sitemap.xml": "197ba5847b8d17dfa27c62f8fe745fa0307d9fa46232240b33c4c202b2b0c0fc"
+    "sitemap.xml": "8f7646f8fabdaf1b1c7cdf0e296cd42130fda25ac254c2e2400db8c856b14917"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
@@ -83,7 +83,7 @@
       "544ca165bb806e51c91ff7aea1dcbdbb11a1b2594aaa9aa2eed40c0c9e7d1b86"
     ],
     "index.html": [
-      "28901af64b23abb50edcb7ecd7d046b10f39fff2251c8b45f08c347fa9187f32"
+      "e5f75906e37f35faa4a74e7aac105d921662e18e773022d6c1fb695052e45e0e"
     ],
     "rates/cents-per-kilometre/index.html": [
       "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
@@ -98,13 +98,13 @@
       "a33c649b8f456737ae80de8ee43766c565429a53b50d1457c4f9c3cb0216b196"
     ],
     "tools/ato-benchmarks/index.html": [
-      "c90c20dfc631b22d6585c225d3060dc9d4c16d92fc146fe55d4e9fe13eec8ecb"
+      "62a3b8308faabd1babfe5c6387226488740efceededee26b8d351e2e5d8c2035"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "8b7053cca596815ccc3369e083506e6cbba8b532f30910289ed82e7ee0eeb4bf"
+      "b57e297c9696421c921ac6b01ba6109c22b594e4d0459aac32b9de0c6aaa1e4b"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "d0ce8c62a4c3b7e98dc3669cf7b7911604bae24389a645ad607a9b33300fdc00"
+      "8cb987f9a313d09d9960a13c7d180c7eaf262105340ee1e161ac80de17d6bdb2"
     ],
     "tools/company-tax-franking/index.html": [
       "53815823fa071dc77f475924b83306484f37f7186871b2a2f683ae02cb744285"
@@ -122,13 +122,13 @@
       "2d1b2caef57dd7a7c38bbb41637354a386192a3d1fb2c46fb67cddd9c659712c"
     ],
     "tools/wip-schedule/index.html": [
-      "200b938dcf528ba4baa0fee5b9ae6550ad53bb39aaf6617d286dcfa6dc913151"
+      "b693e6431a923db6c004ec339a15742e747e153869aa17c0790ec569fbfea4f8"
     ],
     "tools/workpaper-review-gate/index.html": [
       "3bf128b79c1a2e82e27537449f5389c9ce0ae0d0bc28a084abc9ddcb6b41233f"
     ],
     "tools/xero-trial-balance/index.html": [
-      "4674a4a4318d0210aaec11713950ebd94296786b2c5645ae7af509354ce85ba5"
+      "1e7e424926b23a2592020c322c2381cf8bd090e19ebff77c0616de677d356248"
     ],
     "tools/refusals/index.html": [
       "499ebc4ee883eff1a55c8af020e1c07469c515fc3a06040f99a31207b942dd56"

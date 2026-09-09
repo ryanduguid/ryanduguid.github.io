@@ -21,7 +21,7 @@ async function assertContains(locator, expected, label) {
   }
 }
 
-export async function renderCoalLslProofPage(page) {
+export async function renderCoalLslProofPage(page, capture = COAL_LSL_PROOF.capture) {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/', { waitUntil: 'networkidle' });
   await waitForVisualFonts(page);
@@ -87,18 +87,18 @@ export async function renderCoalLslProofPage(page) {
       overflow: 'hidden',
       background,
     });
-  }, COAL_LSL_PROOF.capture);
+  }, capture);
 
   const bounds = await panel.boundingBox();
   if (
     !bounds
-    || Math.round(bounds.width) !== COAL_LSL_PROOF.capture.width
-    || Math.round(bounds.height) !== COAL_LSL_PROOF.capture.height
+    || Math.round(bounds.width) !== capture.width
+    || Math.round(bounds.height) !== capture.height
   ) {
     throw new Error(`Unexpected proof bounds: ${JSON.stringify(bounds)}`);
   }
   const scrollHeight = await panel.evaluate((element) => element.scrollHeight);
-  if (scrollHeight > COAL_LSL_PROOF.capture.height) {
+  if (scrollHeight > capture.height) {
     throw new Error(`Proof content exceeds capture height: ${scrollHeight}`);
   }
 
@@ -112,25 +112,26 @@ export async function renderCoalLslProofPage(page) {
     source.src = `data:image/png;base64,${pngBase64}`;
     await source.decode();
     const canvas = document.createElement('canvas');
-    canvas.width = capture.width;
-    canvas.height = capture.height;
+    canvas.width = source.naturalWidth;
+    canvas.height = source.naturalHeight;
     const drawing = canvas.getContext('2d');
     if (!drawing) throw new Error('Canvas 2D context unavailable');
-    drawing.drawImage(source, 0, 0, capture.width, capture.height);
+    drawing.drawImage(source, 0, 0);
     return canvas.toDataURL('image/webp', capture.quality);
   }, {
     pngBase64: png.toString('base64'),
-    capture: COAL_LSL_PROOF.capture,
+    capture,
   });
   health.assertHealthy();
   return Buffer.from(webpUrl.slice('data:image/webp;base64,'.length), 'base64');
 }
 
-export async function writeCoalLslProof(image) {
-  const temporary = `${PROOF_OUTPUT}.${process.pid}.${randomUUID()}.tmp`;
+export async function writeCoalLslProof(image, mobile = false) {
+  const output = mobile ? path.join(ROOT, 'assets', 'coal-lsl-calculator-mobile.webp') : PROOF_OUTPUT;
+  const temporary = `${output}.${process.pid}.${randomUUID()}.tmp`;
   try {
     await writeFile(temporary, image, { flag: 'wx', mode: 0o600 });
-    await rename(temporary, PROOF_OUTPUT);
+    await rename(temporary, output);
   } finally {
     await rm(temporary, { force: true });
   }

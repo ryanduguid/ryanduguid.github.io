@@ -57,12 +57,13 @@
       The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#worked-example">Worked example</a>
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
           <a href="#common-questions">Common questions</a>
@@ -95,6 +96,17 @@
       <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
       <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.</li>
     </ul>
+    </section>
+    <section id="worked-example">
+    <h2>Worked example: cost of sales excluding wages</h2>
+    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py">ratio tests in ato-benchmark-compare v0.1.6</a>. It starts with mapped totals:</p>
+    <ul>
+      <li>Turnover: $100,000.</li>
+      <li>Cost of sales excluding wages: $30,000.</li>
+      <li>Wages recorded within cost of sales, mapped separately: $10,000.</li>
+    </ul>
+    <p>The cost-of-sales ratio is $30,000 ÷ $100,000 = <strong>30%</strong>. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.</p>
+    <p>A person must review the mapping and select the relevant industry, year and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
@@ -159,7 +171,7 @@ pip install .</code></pre>
         "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-10",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -226,7 +238,7 @@ pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04"
+        "dateModified": "2026-09-10"
       },
       {
         "@type": "FAQPage",
