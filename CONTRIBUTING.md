@@ -20,9 +20,20 @@ python scripts/check_site.py
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 
+GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
+[SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
+The link checker reports these two exact URLs as requiring manual verification
+in GitHub Actions. Run `python scripts/check_links.py` locally before changing
+either link; local runs still fetch both. Both returned HTTP 200 on
+10 September 2026. Remove the CI exceptions when runner access works again.
+
 Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check and ruff format on staged files.
 
 ## Pull requests
+
+Suggested resources should support Australian accounting work, have clear
+documentation and current maintenance where applicable, and be open-source
+software, official public resources or free developer interfaces.
 
 Keep every link to a live target, keep marketing vocabulary out of visible
 text, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py

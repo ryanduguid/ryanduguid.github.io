@@ -1204,7 +1204,7 @@ Excel LAMBDAs (Ozzit) Power Query and VBA ledger toolkit Power BI accounting pro
 
 Third-party libraries, official guidance and primary sources this work depends on or sits beside. None is maintained here; each link goes to its own home.
 
-OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database
+OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO datasets on data.gov.au Standard Business Reporting developer resources SuperStream technical standards
 
 ---
 
