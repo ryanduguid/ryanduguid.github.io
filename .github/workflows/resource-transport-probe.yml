@@ -29,5 +29,5 @@ jobs:
               for result in pool.map(probe, [(url, agent) for url in urls for agent in agents]):
                   print(result)
           for url in urls:
-              result = subprocess.run(['curl', '-sS', '-L', '--max-time', '8', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True, text=True)
+              result = subprocess.run(['curl', '--http1.1', '-sS', '-L', '--max-time', '8', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True, text=True)
               print('curl', url, result.returncode, result.stdout, result.stderr)
