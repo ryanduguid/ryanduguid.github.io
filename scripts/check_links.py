@@ -73,7 +73,7 @@ RETIRED_NAMES = [
     "LouisGoldberg",
 ]
 
-USER_AGENT = "ryanduguid.github.io-link-check"
+USER_AGENT = "duguid-link-check/1.0"
 MAX_FETCH_ATTEMPTS = 5
 
 SELF_ORIGIN = "https://duguid.com.au"
