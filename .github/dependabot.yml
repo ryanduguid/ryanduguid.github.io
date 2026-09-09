@@ -12,3 +12,15 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    ignore:
+      # GitHub Pages builds and deploys this site with its own pinned Jekyll,
+      # and scripts/build_site.py exists to build with that same version. The
+      # Gemfile mirrors GitHub Pages rather than tracking upstream Jekyll, so
+      # a major or minor bump would have CI validate HTML the live site never
+      # produces. Raise the pin when GitHub Pages raises theirs, not when
+      # Dependabot offers a release. Patch updates stay open so a security
+      # release on the pinned line still reaches us.
+      - dependency-name: jekyll
+        update-types:
+          - version-update:semver-major
+          - version-update:semver-minor
