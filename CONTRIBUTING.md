@@ -17,6 +17,12 @@ python -m mypy
 python scripts/check_site.py
 ```
 
+Use `python scripts/check_site.py --offline` to skip external requests while
+checking the built pages and local links. CI runs live link checks on Python
+3.12 and offline checks on the other versions. HTTP 429 retries honour
+`Retry-After`, with a five-attempt limit and at most 30 seconds of waiting per
+fetch. An unresolved rate limit still fails the live check.
+
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 

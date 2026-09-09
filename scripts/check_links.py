@@ -12,7 +12,8 @@ Checks, in order, per file:
    on disk catches a typo immediately, sooner than a live fetch ever could.
 3. Every other absolute http(s) link resolves (2xx after redirects). Transient
    transport failures and HTTP 5xx responses are retried up to five times;
-   HTTP 4xx responses are not.
+   HTTP 429 also retries with Retry-After or exponential backoff, capped at
+   30 seconds of total waiting per fetch. Other HTTP 4xx responses do not retry.
    HTTP 403 from exact allow-listed ATO source URLs and HTTP 404 or 999 from
    the hibernated LinkedIn profile are accepted.
    Two exact government URLs require manual verification in GitHub Actions
@@ -46,13 +47,17 @@ Exit 0 clean, 1 on any failure. Stdlib only.
 
 from __future__ import annotations
 
+import argparse
 import functools
 import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.request
+from datetime import timezone
+from email.utils import parsedate_to_datetime
 from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit
@@ -77,6 +82,7 @@ RETIRED_NAMES = [
 
 USER_AGENT = "duguid-link-check/1.0"
 MAX_FETCH_ATTEMPTS = 5
+MAX_RETRY_WAIT_SECONDS = 30
 
 SELF_ORIGIN = "https://duguid.com.au"
 
@@ -103,10 +109,7 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "lodging-your-bas-or-annual-gst-return/"
             "options-for-reporting-and-paying-gst/monthly-gst-reporting"
         ),
-        (
-            "https://www.ato.gov.au/law/view/document?"
-            "DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001"
-        ),
+        ("https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001"),
         (
             "https://www.ato.gov.au/tax-rates-and-codes/"
             "key-superannuation-rates-and-thresholds/super-guarantee"
@@ -116,10 +119,7 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "income-deductions-and-concessions/small-business-benchmarks"
         ),
         "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
-        (
-            "https://www.ato.gov.au/law/view/view.htm?"
-            "docid=COG%2FPCG20222%2FNAT%2FATO%2F00001"
-        ),
+        ("https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001"),
         # Both answered 403 on the runner for pull request 89 (run 34021101111)
         # while answering 200 from a desktop client the same hour.
         (
@@ -155,18 +155,43 @@ class LinkCollector(HTMLParser):
                     self.hrefs.append(value)
 
 
+def retry_http_error(exc: urllib.error.HTTPError, attempt: int, waited: float) -> float:
+    """Retry transient HTTP failures without exceeding the wait budget."""
+    if (exc.code != 429 and not 500 <= exc.code < 600) or attempt == MAX_FETCH_ATTEMPTS:
+        raise exc
+    if exc.code == 429:
+        delay = float(2 ** (attempt - 1))
+        retry_after = exc.headers.get("Retry-After", "").strip()
+        if re.fullmatch(r"[0-9]+", retry_after):
+            delay = float(retry_after)
+        elif retry_after:
+            try:
+                retry_at = parsedate_to_datetime(retry_after)
+                if retry_at.tzinfo is None:
+                    retry_at = retry_at.replace(tzinfo=timezone.utc)
+                delay = max(0.0, retry_at.timestamp() - time.time())
+            except (ValueError, TypeError, OverflowError):
+                pass
+        if waited + delay > MAX_RETRY_WAIT_SECONDS:
+            raise exc
+        exc.close()
+        time.sleep(delay)
+        waited += delay
+    else:
+        exc.close()
+    return waited
+
+
 @functools.lru_cache(maxsize=None)
-def fetch_final_url(
-    url: str, *, opener: object = urllib.request.urlopen
-) -> tuple[int, str]:
+def fetch_final_url(url: str, *, opener: object = urllib.request.urlopen) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    waited = 0.0
     for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
         try:
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
                 return resp.status, resp.geturl()
         except urllib.error.HTTPError as exc:
-            if not 500 <= exc.code < 600 or attempt == MAX_FETCH_ATTEMPTS:
-                raise
+            waited = retry_http_error(exc, attempt, waited)
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: HTTP {exc.code}")
         except (urllib.error.URLError, TimeoutError) as exc:
             if attempt == MAX_FETCH_ATTEMPTS:
@@ -220,12 +245,10 @@ GITHUB_API = "https://api.github.com/repos/ryanduguid/"
 _ARCHIVED_VERDICTS: dict[str, bool | Exception] = {}
 
 
-def fetch_repository_archived(
-    name: str, *, opener: object = urllib.request.urlopen
-) -> bool:
+def fetch_repository_archived(name: str, *, opener: object = urllib.request.urlopen) -> bool:
     """Ask the GitHub REST API whether ryanduguid/<name> is archived.
 
-    Retries transient transport failures and HTTP 5xx like fetch_final_url.
+    Retries transient transport failures, HTTP 429 and 5xx like fetch_final_url.
     GITHUB_TOKEN, when present, lifts the unauthenticated rate limit; CI
     passes the workflow token. Any remaining transport or parse failure is
     raised: a link that cannot be classified must not pass as maintained.
@@ -238,14 +261,14 @@ def fetch_repository_archived(
     if token:
         headers["Authorization"] = f"Bearer {token}"
     req = urllib.request.Request(GITHUB_API + name, headers=headers)
+    waited = 0.0
     for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
         try:
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
                 payload = json.loads(resp.read().decode("utf-8"))
             break
         except urllib.error.HTTPError as exc:
-            if not 500 <= exc.code < 600 or attempt == MAX_FETCH_ATTEMPTS:
-                raise
+            waited = retry_http_error(exc, attempt, waited)
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: HTTP {exc.code}")
         except (urllib.error.URLError, TimeoutError) as exc:
             if attempt == MAX_FETCH_ATTEMPTS:
@@ -276,9 +299,7 @@ def own_repository(href: str) -> str | None:
     return match.group(1).lower() if match else None
 
 
-def archived_target_failures(
-    rel: str, hrefs: list[str], *, lookup=None
-) -> list[str]:
+def archived_target_failures(rel: str, hrefs: list[str], *, lookup=None) -> list[str]:
     """Fail every own-repository link whose target repository is archived.
 
     ``hrefs`` should hold only links that already resolved and passed the
@@ -305,7 +326,7 @@ def archived_target_failures(
     return failures
 
 
-def check_file(path: Path) -> list[str]:
+def check_file(path: Path, *, offline: bool = False) -> list[str]:
     """Run every check against a single HTML file, return its failures."""
     failures: list[str] = []
     rel = path.relative_to(ROOT).as_posix()
@@ -324,14 +345,15 @@ def check_file(path: Path) -> list[str]:
         if ch in html:
             failures.append(f"{rel}: {label} present")
 
-    failures.extend(check_hrefs(rel, parser.hrefs))
+    failures.extend(check_hrefs(rel, parser.hrefs, offline=offline))
     return failures
 
 
-def check_hrefs(rel: str, hrefs: list[str]) -> list[str]:
+def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[str]:
     """Resolve every link from one file and classify its own-repository targets."""
     failures: list[str] = []
     seen: set[str] = set()
+    skipped = 0
     resolved_own_hrefs: list[str] = []
     for href in hrefs:
         if href in seen:
@@ -353,7 +375,12 @@ def check_hrefs(rel: str, hrefs: list[str]) -> list[str]:
                     "(same-origin link does not resolve on disk)"
                 )
             else:
-                print(f"ok {rel}: {href} -> {target.relative_to(ROOT).as_posix()} (same-origin, checked on disk)")
+                print(
+                    f"ok {rel}: {href} -> {target.relative_to(ROOT).as_posix()} (same-origin, checked on disk)"
+                )
+            continue
+        if offline:
+            skipped += 1
             continue
         try:
             status, final = fetch_final_url(href)
@@ -385,7 +412,7 @@ def check_hrefs(rel: str, hrefs: list[str]) -> list[str]:
 
     failures.extend(archived_target_failures(rel, resolved_own_hrefs))
 
-    print(f"{rel}: {len(seen)} links scanned")
+    print(f"{rel}: {len(seen)} links scanned, {skipped} external links skipped in offline mode")
     return failures
 
 
@@ -408,9 +435,9 @@ def _self_check() -> None:
     assert "index.html" in names, f"index.html not discovered, got {sorted(names)}"
     assert "404.html" in names, f"404.html not discovered, got {sorted(names)}"
     assert all(p.suffix == ".html" for p in found), "non-HTML path returned"
-    assert is_accepted_automation_denial(
-        "https://www.ato.gov.au/", 403
-    ), "exact ATO root HTTP 403 must be an accepted automation denial"
+    assert is_accepted_automation_denial("https://www.ato.gov.au/", 403), (
+        "exact ATO root HTTP 403 must be an accepted automation denial"
+    )
     assert is_accepted_automation_denial(
         "https://www.ato.gov.au/businesses-and-organisations/"
         "preparing-lodging-and-paying/business-activity-statements-bas",
@@ -423,8 +450,7 @@ def _self_check() -> None:
         403,
     ), "exact ATO monthly GST HTTP 403 must be an accepted automation denial"
     assert is_accepted_automation_denial(
-        "https://www.ato.gov.au/law/view/document?"
-        "DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
+        "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
         403,
     ), "exact ATO LCR 2026/2 HTTP 403 must be an accepted automation denial"
     assert not is_accepted_automation_denial("https://www.ato.gov.au/about-us/", 403), (
@@ -433,18 +459,19 @@ def _self_check() -> None:
     assert not is_accepted_automation_denial("https://www.ato.gov.au/", 404), (
         "ATO root HTTP errors other than 403 must still fail"
     )
-    assert is_accepted_automation_denial(
-        "https://www.linkedin.com/in/ryan-duguid", 999
-    ), "the exact LinkedIn profile HTTP 999 must be an accepted automation denial"
-    assert is_accepted_automation_denial(
-        "https://www.linkedin.com/in/ryan-duguid", 404
-    ), "the hibernated LinkedIn profile HTTP 404 must be accepted"
-    assert not is_accepted_automation_denial(
-        "https://www.linkedin.com/company/example", 999
-    ), "a LinkedIn URL outside the allow-list must still fail"
-    assert own_repository(
-        "https://github.com/ryanduguid/australian-accounting/tree/main/packages/x"
-    ) == "australian-accounting", "own repository name must be extracted"
+    assert is_accepted_automation_denial("https://www.linkedin.com/in/ryan-duguid", 999), (
+        "the exact LinkedIn profile HTTP 999 must be an accepted automation denial"
+    )
+    assert is_accepted_automation_denial("https://www.linkedin.com/in/ryan-duguid", 404), (
+        "the hibernated LinkedIn profile HTTP 404 must be accepted"
+    )
+    assert not is_accepted_automation_denial("https://www.linkedin.com/company/example", 999), (
+        "a LinkedIn URL outside the allow-list must still fail"
+    )
+    assert (
+        own_repository("https://github.com/ryanduguid/australian-accounting/tree/main/packages/x")
+        == "australian-accounting"
+    ), "own repository name must be extracted"
     assert own_repository("https://github.com/XeroAPI/xero-python") is None, (
         "another owner's repository must not be classified"
     )
@@ -452,18 +479,25 @@ def _self_check() -> None:
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--offline",
+        action="store_true",
+        help="skip external requests; check local links and content",
+    )
+    args = parser.parse_args()
     _self_check()
     failures: list[str] = []
     for path in html_files():
-        failures.extend(check_file(path))
-    failures.extend(check_hrefs("llms.txt", llms_hrefs()))
+        failures.extend(check_file(path, offline=args.offline))
+    failures.extend(check_hrefs("llms.txt", llms_hrefs(), offline=args.offline))
 
     if failures:
         print(f"\n{len(failures)} failure(s):")
         for f in failures:
             print(f"  FAIL {f}")
         return 1
-    print("\nall clear")
+    print("\noffline checks passed; external links were skipped" if args.offline else "\nall clear")
     return 0
 
 

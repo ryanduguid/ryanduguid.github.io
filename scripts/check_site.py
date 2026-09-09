@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import shutil
 import subprocess
 import sys
@@ -35,6 +36,9 @@ CHECKS = (
 
 
 def main() -> int:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--offline", action="store_true", help="skip live external-link checks")
+    args = parser.parse_args()
     rendered = build()
     subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
     # Add only the tooling and fixtures the checks need beside the built files.
@@ -59,11 +63,13 @@ def main() -> int:
             else:
                 shutil.copy2(source, checked / name)
         for command in CHECKS:
+            if args.offline and "scripts/check_links.py" in command:
+                command = (*command, "--offline")
             print(f"running {' '.join(command)}", flush=True)
             completed = subprocess.run(command, cwd=checked, check=False)
             if completed.returncode:
                 return completed.returncode
-    print("site checks passed")
+    print("site checks passed (external links skipped)" if args.offline else "site checks passed")
     return 0
 
 
