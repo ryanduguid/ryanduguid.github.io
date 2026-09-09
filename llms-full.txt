@@ -2186,7 +2186,7 @@ python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
 ```
 
-The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so the tool refuses to write one inside a version-control checkout.
+The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The tool is gaining a guard that refuses an output inside a checkout, and this path is correct with or without it.
 
 Source on GitHub
 
