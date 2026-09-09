@@ -1,0 +1,33 @@
+name: Resource transport probe
+on:
+  pull_request:
+    paths:
+      - .github/workflows/resource-transport-probe.yml
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 2
+    steps:
+      - name: Compare public resource requests
+        shell: python
+        run: |
+          import concurrent.futures
+          import subprocess
+          import urllib.request
+          urls = ['https://www.sbr.gov.au/', 'https://softwaredevelopers.ato.gov.au/SuperStreamStandard']
+          agents = ['duguid-link-check/1.0', 'Mozilla/5.0 duguid-link-check/1.0', 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 duguid-link-check/1.0']
+          def probe(pair):
+              url, agent = pair
+              try:
+                  response = urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': agent}), timeout=8)
+                  return (url, agent, response.status)
+              except Exception as error:
+                  return (url, agent, type(error).__name__)
+          with concurrent.futures.ThreadPoolExecutor(max_workers=6) as pool:
+              for result in pool.map(probe, [(url, agent) for url in urls for agent in agents]):
+                  print(result)
+          for url in urls:
+              result = subprocess.run(['curl', '-sS', '-L', '--max-time', '8', '-o', '/dev/null', '-w', '%{http_code}', url], capture_output=True, text=True)
+              print('curl', url, result.returncode, result.stdout, result.stderr)
