@@ -20,6 +20,12 @@ updates:
       # produces. Raise the pin when GitHub Pages raises theirs, not when
       # Dependabot offers a release. Patch updates stay open so a security
       # release on the pinned line still reaches us.
+      #
+      # update-types does not filter security updates, so an advisory fixed
+      # only above 3.10 can still open a pull request. That is deliberate:
+      # silencing it with a versions ignore would hide the advisory instead of
+      # the bump. The Gemfile records that such a pull request is a decision
+      # about the Pages build rather than a routine upgrade.
       - dependency-name: jekyll
         update-types:
           - version-update:semver-major
