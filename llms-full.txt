@@ -1196,11 +1196,11 @@ No client files, tax advice or autonomous action. Division 7A review covers limi
 
 Source repository Last commit 7 September 2026
 
-## Source-only distributions
+## Workbooks and source
 
-Published from the same work, with no page in the register above: there is nothing here to run or reproduce, so the repository is the whole artefact.
+Ozzit runs in Microsoft 365 or Excel 2024 and later. The toolkit and Power BI repositories include setup instructions.
 
-Excel LAMBDAs (Ozzit) Power Query and VBA ledger toolkit Power BI accounting project
+Download Ozzit (Excel workbook) Ozzit examples and source Power Query and VBA ledger toolkit Power BI accounting project
 
 ## Related resources
 
