@@ -22,7 +22,7 @@ SITE = "https://duguid.com.au"
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
 # Only wayfinding navigation is dropped: breadcrumbs and on-this-page contents.
 # Navigation that carries content (tool categories, related pages, actions,
-# source-only distributions) stays in the text.
+# workbook and source-project links) stays in the text.
 WAYFINDING_NAV_PATTERN = re.compile(
     r'<nav\b[^>]*\bclass="[^"]*\barticle-(?:crumb|toc)\b[^"]*"[^>]*>.*?</nav>',
     re.S | re.I,
