@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Export a Xero trial balance to CSV that balances</title>
-  <meta name="description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas." />
+  <meta name="description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Export a Xero trial balance to CSV that balances" />
-  <meta property="og:description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas." />
+  <meta property="og:description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -23,7 +23,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Export a Xero trial balance to CSV that balances" />
-  <meta name="twitter:description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas." />
+  <meta name="twitter:description" content="Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/xero-trial-balance/" />
@@ -54,7 +54,7 @@
     </nav>
     <h1>How to export a Xero trial balance to CSV that balances</h1>
     <p class="lead-note">
-      This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year to date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+      This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">xero-trial-balance-export/v0.1.6</a>, evaluated against tagged fixtures.</p>
     <p class="page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>
@@ -72,12 +72,12 @@
         <div class="article-body">
     <p>
       This tool reads the trial balance from Xero's reporting API and writes
-      consistent CSV columns for account codes, names, monthly movements and
+      consistent CSV columns for account codes, names, monthly movements, and
       year-to-date balances.
     </p>
     <p>
       Before anything is written to disk, it runs a balance check: both the
-      current month's movement and the year to date figures must balance, or
+      current month's movement and the year-to-date figures must balance, or
       no file is written at all. Note the real limit: <code>--date</code> is an
       as-at date, not a range, because Xero's Trial Balance endpoint only
       accepts a date, so Trial Balance by Date Range, a report that exists in
@@ -92,8 +92,8 @@
     <section id="what-this-tool-does">
     <h2>What this tool does</h2>
     <ul>
-      <li>Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without cleanup.</li>
-      <li>Refuses to write a file unless both the month's movement and the year to date figures balance.</li>
+      <li>Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel, or pandas loads without clean-up.</li>
+      <li>Refuses to write a file unless both the month's movement and the year-to-date figures balance.</li>
       <li>Is read-only: it cannot write to any ledger.</li>
     </ul>
     </section>
@@ -167,7 +167,7 @@
     <p>
       The tool remains read-only and cannot write to a ledger. Its output is a
       review aid, not advice or a compliance result. It does not post entries,
-      approve work, lodge returns or lock periods.
+      approve work, lodge returns, or lock periods.
     </p>
     </section>
     <section id="common-questions" class="faq-section">
@@ -178,7 +178,7 @@
       <h3>Can this tool change my Xero data?</h3>
       <p>No. It requests the accounting.reports.trialbalance.read scope, which is read-only, so it cannot write to any ledger.</p>
       <h3>What happens if the trial balance does not balance?</h3>
-      <p>No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year to date figures have to balance for the export to proceed.</p>
+      <p>No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year-to-date figures have to balance for the export to proceed.</p>
     </div>
     </section>
     <section id="related">
@@ -192,7 +192,7 @@
     </section>
     <p class="byline">
       Written by Ryan Duguid in his own time and on his own equipment.
-      He states that he is a provisional member of Chartered Accountants ANZ.
+      He is a Provisional CA ANZ Member.
       CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
@@ -209,7 +209,7 @@
         "@id": "https://duguid.com.au/tools/xero-trial-balance/#webpage",
         "url": "https://duguid.com.au/tools/xero-trial-balance/",
         "name": "Export a Xero trial balance to CSV that balances",
-        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
+        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
         "dateModified": "2026-09-10",
@@ -261,7 +261,7 @@
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Xero trial balance CSV export tool",
-        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
+        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas.",
         "applicationCategory": "BusinessApplication",
         "url": "https://duguid.com.au/tools/xero-trial-balance/",
         "offers": {
@@ -306,7 +306,7 @@
             "name": "What happens if the trial balance does not balance?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year to date figures have to balance for the export to proceed."
+              "text": "No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year-to-date figures have to balance for the export to proceed."
             }
           }
         ]

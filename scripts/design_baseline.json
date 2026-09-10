@@ -1,13 +1,13 @@
 {
   "protected_files": {
-    "llms.txt": "6bcc7fb862a5719cbbeaf3f33211f607791dfdfd0a258fe7cdba73d565a8e9a0",
+    "llms.txt": "8ac69802c7587f085a05d3ccdac1ac28adf855f4ca9ad17cfbc556297eb66190",
     "robots.txt": "72838fddc744e5ec67f0dd76bf21263e670c96109793b11e8cdaab8e0e7d466d",
     "sitemap.xml": "8f7646f8fabdaf1b1c7cdf0e296cd42130fda25ac254c2e2400db8c856b14917"
   },
   "protected_main_text": {
-    "rates/super-guarantee/index.html": "e04eae876261acda29e02721776393ace0eaa385adbccfd3ed4f0ca2be115b5d",
-    "rates/div7a-benchmark-rate/index.html": "03e543670bf179723721ff77061b4f212ac5ae033dc365881a7eaa437b870132",
-    "rates/cents-per-kilometre/index.html": "453ccab4edee776b3de8a822203276dedcb51bc4295285c891246b1b96708544"
+    "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
+    "rates/div7a-benchmark-rate/index.html": "27279ae23c241782628c4bf28b18a5035156281ac193d4cee6cea36bffe2e15b",
+    "rates/cents-per-kilometre/index.html": "b04c5aaff56d7bb2c2a102ba027e9e2a266ba2526391f1da5be324e15c4580c7"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -59,7 +59,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "d177f02e8a85c6a93709dfa64683629fe5a5b18dc180b554b26261ee2e38201e"
+      "ecaeca7d78f73378ccf523e51038c03447b0a711a75e2fc555637eb37a8e7e52"
     ],
     "changelog/index.html": [
       "370ae6c5af1d027d15da79e0aefdd88c92ed1560fa2dcf1339491dd22626999e"
@@ -68,7 +68,7 @@
       "ea659f0ae063df70cf424845378a053bb2e71fb76eec1125265841b6018e2f01"
     ],
     "evaluate/index.html": [
-      "58a98ea4a72096c5afdcc985828a01003e8246dd0121e8b28858696b0bfa9864"
+      "593b8bff5de2cb73e853244bb95d3443b30c436a17dd55aab46d517c6c644c23"
     ],
     "evaluate/manager-review-gate/index.html": [
       "4c74a617a5bbdc3f4653be483f5179944919db37e0721bd0f1376fb6e93ec942"
@@ -80,19 +80,19 @@
       "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
     ],
     "evidence/index.html": [
-      "544ca165bb806e51c91ff7aea1dcbdbb11a1b2594aaa9aa2eed40c0c9e7d1b86"
+      "43fa611aedc151cf134aefa98440141771388d05bf85817002a409e033bfaa55"
     ],
     "index.html": [
-      "4c18087f1db2358340632fcaab2de8180e3f790e32f4125b0be4f15cf4f1e50e"
+      "f4f4ed4b582ff56f1345433aad9337716e6d50415a982077ea3c68bd989481d2"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "e6c0baa6216a106cfbf19df6e52677a04784ec3bbbd0d500258c496faf9743e6"
+      "84da9823fed754240d53c8f4167569ef01aa9d0ab0726cbae311cae9096807e0"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "06dcd1af8392375a6d7c1e1e5822fa2c41ad1efe8ef1c8995894df8ba1866889"
+      "f4d5edba35c9a1da52a979c84f186aa5e7fe56e49c2a3ca4d6325560b2ec849e"
     ],
     "rates/index.html": [
-      "ed53e25b404381cf458c4ae10a6719ea95356f7b0406c4ed1a6cc4d7589cd7bd"
+      "ccf8f3c65de6203b7fcb62ccfb308382c795ead3b305153446477c4679d2d57c"
     ],
     "rates/super-guarantee/index.html": [
       "a33c649b8f456737ae80de8ee43766c565429a53b50d1457c4f9c3cb0216b196"
@@ -101,42 +101,42 @@
       "62a3b8308faabd1babfe5c6387226488740efceededee26b8d351e2e5d8c2035"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "b57e297c9696421c921ac6b01ba6109c22b594e4d0459aac32b9de0c6aaa1e4b"
+      "c62b73c52fb3ddebd8b65641a7139e3647d09773dcc954d4c5c80463511b855f"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "8cb987f9a313d09d9960a13c7d180c7eaf262105340ee1e161ac80de17d6bdb2"
+      "e0e61a1fad71afc982db783f2bf5f3dbcf4c83c8b8c5caa427e0c540c1ce0ff6"
     ],
     "tools/company-tax-franking/index.html": [
-      "53815823fa071dc77f475924b83306484f37f7186871b2a2f683ae02cb744285"
+      "695ca772945eb246146a3c3cf0da24f3806140e5e6f3ba1a74b9af4df95dca4d"
     ],
     "tools/index.html": [
-      "73ce62fd3a90780cc7f7c20e86b4768155c01ff49d941d26075ab0bdc28e381d"
+      "906aabe6cf5c3d1920d149b5c82fb46b841554d88a2de5c7ec0f4acf2a4b52e1"
     ],
     "tools/payday-super/index.html": [
-      "dba377f1942b552aff6472bdc6cb17dfd96a6fef0ed2a049b117843196ceaa8b"
+      "6bae6a7c87a185eb8ca44195d9d61c43ddc4363ff4582f1e8097efe99b3e84d8"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "c8d87a07ba81b7da2638cd2a0b02eb9d3b2bd7449b054bd365704e8d7c1f0919"
+      "cdf689cff3065afa4d95e0126cad4af7210f468085196ebc7b7d7a72a073ab54"
     ],
     "tools/trust-distributions/index.html": [
-      "2d1b2caef57dd7a7c38bbb41637354a386192a3d1fb2c46fb67cddd9c659712c"
+      "c334e27a0ce7b808d5af25acbd0914973e6e978fb2dd55460a7b5b0e9ac84343"
     ],
     "tools/wip-schedule/index.html": [
-      "b693e6431a923db6c004ec339a15742e747e153869aa17c0790ec569fbfea4f8"
+      "93eb5f0946cc850dabc5318164c07cef0a24926858f4dc824a1f69d6a079c8ab"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "3bf128b79c1a2e82e27537449f5389c9ce0ae0d0bc28a084abc9ddcb6b41233f"
+      "b565566827d6d6013088c7ec9539add1cb523e037e4c039548cb2d47dcc77210"
     ],
     "tools/xero-trial-balance/index.html": [
-      "1e7e424926b23a2592020c322c2381cf8bd090e19ebff77c0616de677d356248"
+      "ee1e19d6fa22e6b6b584596a06fb80b889a73dee1e9b7ffca83cbff5a3fc06ea"
     ],
     "tools/refusals/index.html": [
       "499ebc4ee883eff1a55c8af020e1c07469c515fc3a06040f99a31207b942dd56"
     ]
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 26,
-    "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 26,
+    "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
   "fonts": {

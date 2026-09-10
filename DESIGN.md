@@ -331,21 +331,32 @@ Every changed visible sentence must pass these five principles:
 
 Banned visible language includes: revolutionise, seamless, cutting-edge, leverage, unlock, delves, landscape, tapestry, in today's fast-paced, decorative AI-powered language, generic `Get started`, emojis, em dashes and en dashes.
 
-Australian spelling is mandatory. Do not invent credentials, rates, endorsements, customers or outcomes.
+Use Australian English and Oxford commas in original prose. Preserve exact
+quotations, command output, identifiers, and official titles. Keep the About
+page in the first person. Use Ryan's supplied credential labels exactly:
+"Provisional CA ANZ Member" and "Xero L3 Specialist Certified". State them
+directly and retain the CA ANZ non-endorsement statement. Never append bare
+"CA" to Ryan's name or invent credentials, rates, endorsements, customers,
+or outcomes.
+
+The 10 September 2026 copy pass updates grammar and credential wording in
+visible text, metadata, social cards, and machine-readable indexes. The
+corresponding prose baselines record these authorised changes; numerical
+facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
 
-The following whole-file values are frozen after normalising only platform line endings:
+The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `2C40F14B2CD4B7CAAD3D65100AC761031D12482D948482FBB78A9AA3A556C3B0`
+- `llms.txt`: SHA-256 `8AC69802C7587F085A05D3CCDAC1AC28ADF855F4CA9AD17CFBC556297EB66190`
 - `robots.txt`: SHA-256 `72838FDDC744E5EC67F0DD76BF21263E670C96109793B11E8CDAAB8E0E7D466D`
-- `sitemap.xml`: SHA-256 `79FA45FA64AD5322D05EFDEE505742B54FD5BD8D9612A418ABB70F5745D2BFA9`
+- `sitemap.xml`: SHA-256 `8F7646F8FABDAF1B1C7CDF0E296CD42130FDA25AC254C2E2400DB8C856B14917`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
-explanation. Existing footer disclaimers, owner-assertion language,
-non-practice boundary, calculator disclaimer, human review statements and
-Division 7A refusal remain exact.
+explanation. The current baselines preserve footer disclaimers, direct credential wording,
+the non-practice boundary, calculator disclaimer, human review statements, and
+Division 7A refusal. Grammar edits must preserve their meaning.
 
 Canonical routes, `#adopt`, `/evidence/`, sitemap coverage, robots policy, calculator arithmetic, evaluation fixtures and supported install commands remain unchanged. The retired `/engage/` path and `#engage` hash resolve quietly to the homepage.
 

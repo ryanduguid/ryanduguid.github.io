@@ -2,11 +2,11 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-> Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid states that he is a provisional member of Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools.
+> Ryan Duguid is an accountant based in Newcastle, New South Wales, Australia. He builds open-source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site is a personal index of open-source accounting tools built in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
 
-Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval or period lock. Nothing here is tax, legal or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
+Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval, or period lock. Nothing here is tax, legal, or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
 
@@ -15,7 +15,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## For AI agents
 
-- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It also supports limited, experimental Division 7A loan-term and repayment review, with human review required. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
+- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It also supports limited, experimental Division 7A loan-term and repayment review, with human review required. It refuses loan formation, s 109R repayment classification, unpaid present entitlements, and distributable surplus. It is not a hosted ATO document library. Official MCP registry name: io.github.ryanduguid/aus-accounting.
 
 ## Person
 
@@ -23,15 +23,15 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Evaluation packs
 
-- [Evaluations](https://duguid.com.au/evaluate/): index of the three reproducible accounting-tool evaluations, their fabricated inputs, fixed releases, expected results and limits.
-- [Manager review gate evaluation](https://duguid.com.au/evaluate/manager-review-gate/): reproduces the released review-ready-gate/v0.1.3 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
+- [Evaluations](https://duguid.com.au/evaluate/): index of the three reproducible accounting-tool evaluations, their fabricated inputs, fixed releases, expected results, and limits.
+- [Manager review gate evaluation](https://duguid.com.au/evaluate/manager-review-gate/): reproduces the released review-ready-gate/v0.1.3 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result, and human decision boundary.
 - [Xero trial balance integrity evaluation](https://duguid.com.au/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
-- [Payday Super timing evidence evaluation](https://duguid.com.au/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time and late classifications, with an explicit human decision boundary.
+- [Payday Super timing evidence evaluation](https://duguid.com.au/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time, and late classifications, with an explicit human decision boundary.
 
 ## Reference tables
 
-- [Rates](https://duguid.com.au/rates/): index of the three maintained Australian tax and payroll references, their verification dates, primary sources and downloadable CSVs where available.
-- [Super guarantee rate history](https://duguid.com.au/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026 payday super changed when contributions must be paid, not how much.
+- [Rates](https://duguid.com.au/rates/): index of the three maintained Australian tax and payroll references, their verification dates, primary sources, and downloadable CSVs where available.
+- [Super guarantee rate history](https://duguid.com.au/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12 per cent since 1 July 2025 with no further steps scheduled. From 1 July 2026, payday super changed when contributions must be paid, not how much.
 - [Super guarantee rate history CSV](https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv): machine-readable copy of the maintained table.
 - [Division 7A benchmark interest rate](https://duguid.com.au/rates/div7a-benchmark-rate/): 8.77 per cent for 2026-27, 8.37 per cent for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
 - [Division 7A benchmark interest rate CSV](https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv): machine-readable copy of the maintained table.
@@ -40,18 +40,18 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Browser tools, nothing to install
 
-- [Payday Super receipt-evidence example](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads or recalculation; source and full evaluation links are on the page.
-- [Tools](https://duguid.com.au/tools/): index of ten open-source accounting controls grouped by extract, calculate, control and inspect, with delivery types, source repositories and human-review boundaries.
-- [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base-rate, annual-salary and casual branches. Also lists eight questions the Act, the Regulations and the guidance note leave unanswered.
+- [Payday Super receipt-evidence example](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads, or recalculation; source and full evaluation links are on the page.
+- [Tools](https://duguid.com.au/tools/): index of ten open-source accounting controls grouped by extract, calculate, control, and inspect, with delivery types, source repositories, and human-review boundaries.
+- [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base-rate, annual-salary, and casual branches. Also lists eight questions the Act, the Regulations, and the guidance note leave unanswered.
 
 ## Tool guides, open source, install and run locally
 
-- [Workpaper Review Gate](https://duguid.com.au/tools/workpaper-review-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
-- [Xero trial balance CSV export](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year to date figures both balance. Read-only scope.
+- [Workpaper Review Gate](https://duguid.com.au/tools/workpaper-review-gate/): local readiness gate for BAS, month-end, and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
+- [Xero trial balance CSV export](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year-to-date figures both balance. Read-only scope.
 - [ATO small business benchmark comparison](https://duguid.com.au/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
 - [Construction WIP schedule](https://duguid.com.au/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
-- [Subcontract ledger skills for construction and mining](https://duguid.com.au/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
-- [Section 100A and Division 6 trust distributions](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
+- [Subcontract ledger skills for construction and mining](https://duguid.com.au/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy, and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
+- [Section 100A and Division 6 trust distributions](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green, and red only, works out proportionate Division 6 shares following Bamford, and calculates a section 99B amount.
 - [Company tax rate and franking account](https://duguid.com.au/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax, and the Division 203 benchmark rule.
 
 ## Refusals
@@ -71,10 +71,10 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Source code
 
 - [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
-- [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands and licence.
+- [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands, and licence.
 - [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): the unified v0.2.0 release contains nineteen workflows: nine public-practice and ten construction and mining subcontractor workflows. Use Adopt for installation; do not install a second Hardhat pack.
-- [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
-- [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance and Commonwealth legislation sources this work depends on or sits beside.
+- [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library, and the Power Query utilities.
+- [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance, and Commonwealth legislation sources this work depends on or sits beside.
 
 ## Optional
 
@@ -84,4 +84,4 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## About
 
-Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid states that he is a provisional member of Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).

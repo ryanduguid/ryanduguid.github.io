@@ -10,6 +10,6 @@ test('fixed Payday example reaches a reviewer without installation', async ({ pa
   const bounds = await decision.boundingBox();
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(page.viewportSize().height);
   await expect(page.locator('main input, main form')).toHaveCount(0);
-  await page.getByText('Version, file fingerprints and timing boundary', { exact: true }).click();
+  await page.getByText('Version, file fingerprints, and timing boundary', { exact: true }).click();
   await expect(page.locator('[data-example="fixture_blob_sha"]')).toBeVisible();
 });
