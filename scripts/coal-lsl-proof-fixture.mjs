@@ -20,6 +20,6 @@ export const COAL_LSL_PROOF = Object.freeze({
     levy: '$192.38',
     branch: 'section 3B(1)',
     explanation:
-      'Formula B wins this month. Overtime, penalty rates and allowances reached the levy base only because 75 per cent of the aggregate ($7,125.00) exceeded base pay plus at-least-monthly bonuses ($6,000.00).',
+      'Formula B wins this month. Overtime, penalty rates, and allowances reached the levy base only because 75 per cent of the aggregate ($7,125.00) exceeded base pay plus at-least-monthly bonuses ($6,000.00).',
   }),
 });

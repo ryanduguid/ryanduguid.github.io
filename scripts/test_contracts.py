@@ -90,7 +90,8 @@ def test_parked_consultancy_surface() -> None:
     for rel in ("about/index.html", "contact/index.html"):
         page = read_text(ROOT, rel)
         page_text = core.visible_text(page)
-        assert "mailto:" not in page.casefold(), f"{rel}: consultancy email route remains"
+        if rel == "about/index.html":
+            assert "mailto:" not in page.casefold(), f"{rel}: consultancy email route remains"
         assert "not a practice" in page_text.casefold(), f"{rel}: practice boundary missing"
         assert (
             "not accepting professional engagements through this site"
@@ -136,7 +137,7 @@ def test_geo_leftovers_surface() -> None:
     coal_lead = (
         "Checked 2 September 2026: the Coal LSL levy is 2.7 per cent of "
         "eligible wages for the month. Section 3B determines eligible wages "
-        "under separate base-rate, annual-salary and casual branches; the "
+        "under separate base-rate, annual-salary, and casual branches; the "
         "base-rate branch uses the greater of Formula A and Formula B."
     )
 
@@ -370,8 +371,8 @@ def test_design_contracts() -> int:
         (
             "legal boundary drift",
             "index.html",
-            "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.",
-            "Nothing here is tax, legal or financial advice. Outputs need review.",
+            "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.",
+            "Nothing here is tax, legal, or financial advice. Outputs need review.",
             "protected text count changed",
         ),
         (
@@ -971,7 +972,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "evidence/index.html",
-            "Run one fixed evaluation and record the command, release, expected result and observed result.",
+            "Run one fixed evaluation and record the command, release, expected result, and observed result.",
             "Run an evaluation and share what happened.",
         )
         expect_failure(
@@ -984,7 +985,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "evaluate/xero-trial-balance-integrity/index.html",
-            "Balance does not prove completeness, classification or approval.",
+            "Balance does not prove completeness, classification, or approval.",
             "Balance does not prove every accounting conclusion.",
         )
         expect_failure(
@@ -1108,7 +1109,7 @@ def test_public_contracts() -> int:
         )
 
     payday_description = (
-        'See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund-receipt decision.'
+        'See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision.'
     )
     short_payday_description = (
         "Check Payday Super timing from payroll exports and estimate the SG charge "
@@ -1402,6 +1403,14 @@ def test_public_contracts() -> int:
 
     authority_mutations = (
         (
+            "whitespace-prefixed consultancy email",
+            "contact/index.html",
+            "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",
+            "\n mailto:consult@example.com",
+            contracts.check_authority_surface,
+            "contact/index.html: non-practice boundary is incomplete",
+        ),
+        (
             "evidence canonical",
             "evidence/index.html",
             '<link rel="canonical" href="https://duguid.com.au/evidence/" />',
@@ -1431,7 +1440,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 32
 
 
 def test_current_component_metadata() -> None:
