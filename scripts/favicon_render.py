@@ -1,7 +1,6 @@
-"""Render the register seal into the raster favicon sizes Google accepts.
+"""Render the register seal into the site's chosen raster favicon sizes.
 
-Google only adopts a favicon whose raster is a multiple of 48px square, so the
-seal is rendered from ``assets/favicon.svg`` at exact integer scales. Every
+The seal is rendered from ``assets/favicon.svg`` at exact integer scales. Every
 shipped raster therefore comes from one source drawing and stays crisp: no
 resampling, no antialiasing, no hand-edited copies drifting from the SVG.
 """
@@ -16,11 +15,10 @@ from xml.etree import ElementTree
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "assets/favicon.svg"
-# Declared in every page head; both are multiples of 48px for Google, and 32px
-# stays for browser tabs.
+# The 48px and 96px icons are declared in every page head; 96px also exceeds
+# Google's recommended 48px size. The 32px icon stays for browser tabs.
 PNG_SIZES = (32, 48, 96)
-# Frames inside /favicon.ico, the fallback Google fetches when no link element
-# gives it a usable icon.
+# Frames inside /favicon.ico for clients that request the root icon.
 ICO_SIZES = (16, 32, 48)
 ICO_TARGET = "favicon.ico"
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
