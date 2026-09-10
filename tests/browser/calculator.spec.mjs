@@ -319,9 +319,14 @@ test('print media keeps the working and hides interactive records', async ({ pag
   health.assertHealthy();
 });
 
-test('monthly table uses a reference and downloads the hardened CSV', async ({ page }) => {
+test('monthly table explains aggregate rounding and downloads a sourced CSV', async ({ page }) => {
   const health = observePageHealth(page);
   await calculateFormulaB(page);
+  await page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true }).fill('6000.20');
+  await page.getByLabel('Overtime and penalty rates').fill('0');
+  await page.getByLabel('Allowances, excluding expense reimbursements').fill('0');
+  await page.getByLabel('Salary sacrificed amount').fill('0');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await page.getByLabel('Employee reference', { exact: true }).fill('EMP-001');
   await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
   await expect(page.locator('#employee-rows tr')).toHaveCount(1);
@@ -329,6 +334,12 @@ test('monthly table uses a reference and downloads the hardened CSV', async ({ p
   const status = page.locator('#table-status');
   await expect(status).toHaveText('EMP-001 added to the monthly table, 1 row.');
   expect((await status.boundingBox()).height).toBeGreaterThan(1);
+
+  await page.getByLabel('Employee reference', { exact: true }).fill('=SUM("1",2)');
+  await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  await expect(page.locator('#employee-rows tr td:nth-child(4)')).toHaveText(['$162.01', '$162.01']);
+  await expect(page.locator('#employee-total-wages')).toHaveText('$12,000.40');
+  await expect(page.locator('#employee-total-levy')).toHaveText('$324.01');
 
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
@@ -339,8 +350,18 @@ test('monthly table uses a reference and downloads the hardened CSV', async ({ p
   expect(download.suggestedFilename()).toBe('coal-lsl-levy.csv');
   expect(csv).toContain('Estimate only, not advice.');
   expect(csv).toContain('Label,Branch,Eligible wages,Levy');
-  expect(csv).toContain('EMP-001');
-  expect(csv).toContain('Total,,');
+  expect(csv).toContain('Currency,AUD\n');
+  expect(csv).toContain('Levy rate,2.7%\n');
+  expect(csv).toContain('Rate reviewed,2026-09-02\n');
+  expect(csv).toContain('Rate source,https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf\n');
+  expect(csv).toContain('EMP-001,s 3B(1),6000.20,162.01\n');
+  expect(csv).toContain('"\'=SUM(""1"",2)",s 3B(1),6000.20,162.01\n');
+  expect(csv).toContain('Total,,12000.40,324.01');
+  const rounding = page.locator('#employee-rounding-note');
+  await expect(rounding).toBeVisible();
+  await expect(rounding).toContainText('combined eligible wages and rounded once');
+  await expect(rounding).toContainText('may differ from the sum of the displayed row levies');
+  expect(csv).toContain(`Rounding,${await rounding.textContent()}\n`);
   health.assertHealthy();
 });
 
