@@ -35,20 +35,20 @@
     "label": "Maintained reference tables",
     "heading": [
       "Australian rates,",
-      "sources and review dates."
+      "sources, and review dates."
     ],
     "host": "duguid.com.au/rates/",
     "output": "social-card-rates.png",
-    "alt": "OLED register card: Australian rates, sources and review dates."
+    "alt": "OLED register card: Australian rates, sources, and review dates."
   },
   "evidence": {
     "label": "Evidence register",
     "heading": [
       "Claims linked to sources,",
-      "releases and tests."
+      "releases, and tests."
     ],
     "host": "duguid.com.au/evidence/",
     "output": "social-card-evidence.png",
-    "alt": "OLED register card: Claims linked to sources, releases and tests."
+    "alt": "OLED register card: Claims linked to sources, releases, and tests."
   }
 }

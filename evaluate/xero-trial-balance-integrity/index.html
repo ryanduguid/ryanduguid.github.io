@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Xero trial balance integrity evaluation</title>
-  <meta name="description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
+  <meta name="description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Xero trial balance integrity evaluation" />
-  <meta property="og:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
+  <meta property="og:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -23,7 +23,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Xero trial balance integrity evaluation" />
-  <meta name="twitter:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD and human review boundaries." />
+  <meta name="twitter:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/xero-trial-balance-integrity/" />
@@ -84,7 +84,7 @@
             </div>
             <div>
               <dt>Evidence</dt>
-              <dd>Three fabricated fixtures isolate a passing file, a movement failure and a YTD failure.</dd>
+              <dd>Three fabricated fixtures isolate a passing file, a movement failure, and a YTD failure.</dd>
             </div>
             <div>
               <dt>Result</dt>
@@ -92,7 +92,7 @@
             </div>
             <div>
               <dt>Limit</dt>
-              <dd>Balance does not prove completeness, classification or approval.</dd>
+              <dd>Balance does not prove completeness, classification, or approval.</dd>
             </div>
           </dl>
 
@@ -121,7 +121,7 @@
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
             <p>
-              Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request and write no output file.
+              Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request, and write no output file.
             </p>
             <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>python -m pip install --require-hashes -r requirements.lock
 python -B -m unittest tests.test_evaluation_pack -v
@@ -148,11 +148,11 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
                 </tr>
                 <tr>
                   <th scope="row"><code>failing_movement.csv</code></th>
-                  <td>failing_movement.csv exits 1, identifies the movement pair and reports Nothing written.</td>
+                  <td>failing_movement.csv exits 1, identifies the movement pair, and reports Nothing written.</td>
                 </tr>
                 <tr>
                   <th scope="row"><code>failing_ytd.csv</code></th>
-                  <td>failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing written.</td>
+                  <td>failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.</td>
                 </tr>
               </tbody>
             </table>
@@ -193,7 +193,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="human-decision">
             <h2>Human decision</h2>
             <blockquote>
-              <p>A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment and fitness for review.</p>
+              <p>A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment, and fitness for review.</p>
             </blockquote>
             <p>The integrity result does not approve the export or replace professional review.</p>
           </section>
@@ -201,7 +201,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              This control does not prove completeness, classification, accounting treatment or client approval. It does not assess source-data accuracy, reporting-period suitability or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+              This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source-data accuracy, reporting-period suitability, or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
             </p>
           </section>
 

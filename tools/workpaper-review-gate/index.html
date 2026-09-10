@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Workpaper Review Gate for manager review packs</title>
-  <meta name="description" content="Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer." />
+  <meta name="description" content="Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Workpaper Review Gate for manager review packs" />
-  <meta property="og:description" content="Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer." />
+  <meta property="og:description" content="Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -23,7 +23,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Workpaper Review Gate for manager review packs" />
-  <meta name="twitter:description" content="Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer." />
+  <meta name="twitter:description" content="Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/workpaper-review-gate/" />
@@ -54,7 +54,7 @@
     </nav>
     <h1>Workpaper Review Gate for manager review packs</h1>
     <p class="lead-note">
-      This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
+      This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3">review-ready-gate/v0.1.3</a>, evaluated against tagged fixtures.</p>
     <p class="page-meta">Published 25 August 2026. Last reviewed 4 September 2026.</p>
@@ -70,16 +70,16 @@
         </nav>
         <div class="article-body">
     <p>
-      Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
+      Preparation got cheaper and review did not. Offshore teams, juniors, and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email, and the same error as last period.
     </p>
     <p>
-      Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared, that the trial balance balances, and for a BAS that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
+      Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared, and that the trial balance balances. For a BAS pack, it also checks that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
     </p>
     <section id="what-this-tool-does">
     <h2>What this tool does</h2>
     <ul>
-      <li>Gates BAS, month-end and year-end packs before they reach a reviewer.</li>
-      <li>Writes a cover sheet, a findings CSV and a hashed JSON pack a manager can archive.</li>
+      <li>Gates BAS, month-end, and year-end packs before they reach a reviewer.</li>
+      <li>Writes a cover sheet, a findings CSV, and a hashed JSON pack a manager can archive.</li>
       <li>Flags findings that were still OPEN on the prior pack as repeats.</li>
     </ul>
     </section>
@@ -113,7 +113,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
       <h3>Does this replace monthly close review?</h3>
       <p>No. Monthly Close Controls still produces the exception pack once a trial balance is allowed onto the desk. This tool sits upstream of that.</p>
       <h3>Can it change a client's ledger?</h3>
-      <p>No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period.</p>
+      <p>No. It reads local files and writes a readiness pack. It cannot post, pay, lodge, or lock a period.</p>
     </div>
     </section>
     <section id="related">
@@ -128,7 +128,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
     </section>
     <p class="byline">
       Written by Ryan Duguid in his own time and on his own equipment.
-      He states that he is a provisional member of Chartered Accountants ANZ.
+      He is a Provisional CA ANZ Member.
       CA ANZ has not endorsed this site or its tools.
     </p>
         </div>
@@ -145,7 +145,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "@id": "https://duguid.com.au/tools/workpaper-review-gate/#webpage",
         "url": "https://duguid.com.au/tools/workpaper-review-gate/",
         "name": "Workpaper Review Gate for manager review packs",
-        "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
+        "description": "Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
         "dateModified": "2026-09-04",
@@ -193,7 +193,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Workpaper Review Gate",
-        "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
+        "description": "Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer.",
         "applicationCategory": "FinanceApplication",
         "url": "https://duguid.com.au/tools/workpaper-review-gate/",
         "offers": {
@@ -238,7 +238,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
             "name": "Can it change a client's ledger?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period."
+              "text": "No. It reads local files and writes a readiness pack. It cannot post, pay, lodge, or lock a period."
             }
           }
         ]

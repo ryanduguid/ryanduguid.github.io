@@ -149,15 +149,15 @@ licence remain published.
 
 The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.62.1, Chromium 151.0.7922.34, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |
 | `assets/social-card-site.png` | `ebc71c0e7dc09661a49ffbf399e7ef6a17464d60c572b5abd94292f3b63403cb` |
 | `assets/social-card-tools.png` | `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9` |
 | `assets/social-card-evaluations.png` | `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb` |
-| `assets/social-card-rates.png` | `daf8408deabe8bd9a0fae26390b46e475728521ab10006088dc47bc9f01775c2` |
-| `assets/social-card-evidence.png` | `0397b4ec77e5b7fcd8f6c14737482f805f7a59ff3d63627c19b1c0d8429ec291` |
+| `assets/social-card-rates.png` | `fd2ad81551af43597e5bb788b2532f18925fc3547ee29576a695eb3389fad676` |
+| `assets/social-card-evidence.png` | `dc5a32ff91efdb09487f3e2736e003e88e0d7ffd61ff41bd7c2f09392c41d6a1` |
 
 ## Favicon provenance
 

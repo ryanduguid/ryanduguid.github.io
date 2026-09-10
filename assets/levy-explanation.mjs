@@ -14,10 +14,10 @@ export function explainLevyResult(result) {
             75 per cent factor on this branch.`;
   }
   return result.winner === 'B'
-    ? `Formula B wins this month. Overtime, penalty rates and allowances reached
+    ? `Formula B wins this month. Overtime, penalty rates, and allowances reached
        the levy base only because 75 per cent of the aggregate (${money(result.formulaB)})
        exceeded base pay plus at-least-monthly bonuses (${money(result.formulaA)}).`
-    : `Formula A wins this month. Overtime, penalty rates and allowances did not
+    : `Formula A wins this month. Overtime, penalty rates, and allowances did not
        affect the levy at all, because 75 per cent of the aggregate
        (${money(result.formulaB)}) did not exceed base pay plus at-least-monthly
        bonuses (${money(result.formulaA)}).`;

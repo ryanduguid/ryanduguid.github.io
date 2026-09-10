@@ -4,7 +4,7 @@
 // Served as an external module so every page can run under a
 // script-src 'self' Content Security Policy with no inline script.
 import {
-  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
+  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE,
 } from '/assets/levy.mjs';
 import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
 import { compute } from '/assets/levy-form.mjs';
@@ -326,7 +326,15 @@ function csvField(s) {
 }
 
 document.getElementById('export-csv').addEventListener('click', () => {
-  const lines = ['Estimate only, not advice.', 'Label,Branch,Eligible wages,Levy'];
+  const lines = [
+    'Estimate only, not advice.',
+    'Currency,AUD',
+    `Levy rate,${(LEVY_RATE_NUMERATOR * 100) / LEVY_RATE_DENOMINATOR}%`,
+    `Rate reviewed,${LEVY_RATE_AS_AT}`,
+    `Rate source,${csvField(LEVY_RATE_SOURCE)}`,
+    `Rounding,${csvField(document.getElementById('employee-rounding-note').textContent.trim())}`,
+    'Label,Branch,Eligible wages,Levy',
+  ];
   let totalWages = 0;
   for (const emp of employees) {
     totalWages += emp.eligibleWagesCents;
