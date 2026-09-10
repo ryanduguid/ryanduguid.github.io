@@ -3,6 +3,7 @@
 include:
   - .well-known
 exclude:
+  - AGENTS.md
   - Gemfile
   - Gemfile.lock
   - vendor
