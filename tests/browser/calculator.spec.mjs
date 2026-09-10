@@ -326,6 +326,9 @@ test('monthly table uses a reference and downloads the hardened CSV', async ({ p
   await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
   await expect(page.locator('#employee-rows tr')).toHaveCount(1);
   await expect(page.locator('#employee-rows tr')).toContainText('EMP-001');
+  const status = page.locator('#table-status');
+  await expect(status).toHaveText('EMP-001 added to the monthly table, 1 row.');
+  expect((await status.boundingBox()).height).toBeGreaterThan(1);
 
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
@@ -338,6 +341,26 @@ test('monthly table uses a reference and downloads the hardened CSV', async ({ p
   expect(csv).toContain('Label,Branch,Eligible wages,Levy');
   expect(csv).toContain('EMP-001');
   expect(csv).toContain('Total,,');
+  health.assertHealthy();
+});
+
+test('monthly table automatic references avoid existing labels after removal', async ({ page }) => {
+  const health = observePageHealth(page);
+  await calculateFormulaB(page);
+  const add = page.getByRole('button', { name: 'Add to monthly table', exact: true });
+  const labels = page.locator('#employee-rows tr td:first-child');
+  for (let index = 0; index < 3; index += 1) await add.click();
+  await expect(labels).toHaveText(['Reference 1', 'Reference 2', 'Reference 3']);
+  await page.getByRole('button', { name: 'Remove Reference 1', exact: true }).click();
+  await add.click();
+  await expect(labels).toHaveText(['Reference 2', 'Reference 3', 'Reference 4']);
+
+  await page.getByLabel('Employee reference', { exact: true }).fill('Reference 5');
+  await add.click();
+  await add.click();
+  await expect(labels).toHaveText([
+    'Reference 2', 'Reference 3', 'Reference 4', 'Reference 5', 'Reference 6',
+  ]);
   health.assertHealthy();
 });
 
@@ -403,20 +426,109 @@ test('calculator orientation and result render as an inspectable ledger', async 
   health.assertHealthy();
 });
 
-test('calculator task begins within 160 pixels after the initial mobile viewport', async ({ page }, testInfo) => {
+test('calculator example is available within the initial mobile viewport', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');
   await waitForVisualFonts(page);
-  const fieldset = await page.locator('#calc-form fieldset').first().boundingBox();
+  const example = await page.locator('#load-example').boundingBox();
   const viewport = page.viewportSize();
-  expect(fieldset).not.toBeNull();
+  expect(example).not.toBeNull();
   expect(viewport).not.toBeNull();
-  expect(fieldset.y).toBeLessThan(viewport.height + 160);
+  expect(example.y + example.height).toBeLessThanOrEqual(viewport.height);
   health.assertHealthy();
 });
 
-test('calculator result ledger does not overflow at 320 CSS pixels', async ({ page }) => {
+test('edited results stay marked until a valid recalculation', async ({ page }) => {
+  await page.goto('/tools/coal-lsl-levy/');
+  const notice = page.locator('#result-notice');
+  await page.locator('#baseRate').fill('8000');
+  await expect(notice).toBeEmpty();
+  await page.locator('#load-example').click();
+  await expect(notice).toBeEmpty();
+  await page.locator('#baseRate').fill('-1');
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(notice).toBeVisible();
+  await expect(page.locator('#baseRate')).toBeFocused();
+  await page.locator('#baseRate').fill('8000');
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$192.38');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(notice).toBeEmpty();
+  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$232.88');
+  await page.locator('#baseRate').fill('9000');
+  await page.locator('#load-example').click();
+  await expect(notice).toBeEmpty();
+  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$192.38');
+});
+
+test('bonus and branch changes mark the previous result for recalculation', async ({ page }) => {
+  await calculateFormulaB(page);
+  const notice = page.locator('#result-notice');
+  const calculate = page.getByRole('button', { name: 'Calculate', exact: true });
+  await page.locator('#add-bonus').click();
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await page.locator('.bonus-row input').fill('100');
+  await calculate.click();
+  await expect(notice).toBeEmpty();
+  await page.locator('.bonus-row select').selectOption('quarterly');
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await calculate.click();
+  await expect(notice).toBeEmpty();
+  await page.getByRole('button', { name: 'Remove bonus 1', exact: true }).click();
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await calculate.click();
+  await page.locator('input[value="annual"]').check();
+  await expect(notice).toHaveText('Inputs changed. Calculate again.');
+  await calculate.click();
+  await expect(notice).toBeEmpty();
+});
+
+test('bonus controls keep keyboard focus through additions and removals', async ({ page }) => {
+  await page.goto('/tools/coal-lsl-levy/');
+  const add = page.getByRole('button', { name: 'Add a bonus', exact: true });
+  const amounts = page.locator('.bonus-row input[type="number"]');
+  for (let index = 0; index < 3; index += 1) {
+    await add.focus();
+    await add.press('Enter');
+    await expect(amounts.nth(index)).toBeFocused();
+    await amounts.nth(index).fill(String((index + 1) * 100));
+  }
+  await page.getByRole('button', { name: 'Remove bonus 2', exact: true }).press('Enter');
+  await expect(amounts.nth(1)).toBeFocused();
+  await expect(amounts.nth(1)).toHaveValue('300');
+  await page.getByRole('button', { name: 'Remove bonus 2', exact: true }).press('Enter');
+  await expect(amounts.first()).toBeFocused();
+  await page.getByRole('button', { name: 'Remove bonus 1', exact: true }).press('Enter');
+  await expect(add).toBeFocused();
+});
+
+test('monthly table removal keeps focus in the remaining work', async ({ page }) => {
+  await calculateFormulaB(page);
+  const reference = page.getByLabel('Employee reference', { exact: true });
+  for (const label of ['EMP-001', 'EMP-002', 'EMP-003']) {
+    await reference.fill(label);
+    await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  }
+  await page.getByRole('button', { name: 'Remove EMP-002', exact: true }).press('Enter');
+  await expect(page.getByRole('button', { name: 'Remove EMP-003', exact: true })).toBeFocused();
+  await page.getByRole('button', { name: 'Remove EMP-003', exact: true }).press('Enter');
+  await expect(page.getByRole('button', { name: 'Remove EMP-001', exact: true })).toBeFocused();
+  await page.getByRole('button', { name: 'Remove EMP-001', exact: true }).press('Enter');
+  await expect(reference).toBeFocused();
+  await expect(page.locator('#employee-table-wrap')).toBeHidden();
+});
+
+test('mobile calculations move keyboard focus to the result', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium', 'stacked result only');
+  await calculateFormulaB(page);
+  await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
+  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).press('Enter');
+  await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
+});
+
+test('calculator result and employee table do not overflow at 320 CSS pixels', async ({ page }) => {
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
   await calculateFormulaB(page);
@@ -427,6 +539,18 @@ test('calculator result ledger does not overflow at 320 CSS pixels', async ({ pa
   await expect(levy).toContainText(COAL_LSL_PROOF.expected.levy);
   expect(await levy.evaluate((element) => element.scrollWidth))
     .toBeLessThanOrEqual(await levy.evaluate((element) => element.clientWidth));
+  await page.getByLabel('Employee reference', { exact: true }).fill('EMP-001');
+  await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => (
+    document.documentElement.scrollWidth - document.documentElement.clientWidth
+  ))).toBeLessThanOrEqual(0);
+  const tableLevy = page.locator('#employee-rows td').nth(3);
+  const levyLines = await tableLevy.evaluate((element) => {
+    const range = document.createRange();
+    range.selectNodeContents(element);
+    return range.getClientRects().length;
+  });
+  expect(levyLines).toBe(1);
   health.assertHealthy();
 });
 
