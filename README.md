@@ -49,7 +49,7 @@ or an include. `python scripts/build_site.py` builds `_site/` without serving it
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
-- the shipped favicon rasters and `favicon.ico` match a fresh render of `assets/favicon.svg`, and every styled page declares the 48px and 96px icons Google needs
+- the shipped favicon rasters and `favicon.ico` match a fresh render of `assets/favicon.svg`, and every styled page declares the shipped 48px and 96px icons
 
 Run locally:
 
@@ -166,11 +166,11 @@ The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rec
 | Asset | Role |
 | --- | --- |
 | `assets/favicon-32.png` | browser tabs |
-| `assets/favicon-48.png` | the smallest raster Google accepts |
-| `assets/favicon-96.png` | high-density displays, and Google's pick on most results |
-| `favicon.ico` | 16, 32 and 48 pixel frames for the root file Google falls back to when no link element offers it a usable icon |
+| `assets/favicon-48.png` | a square raster option for search results |
+| `assets/favicon-96.png` | high-density displays; exceeds Google's recommended 48px size |
+| `favicon.ico` | 16, 32 and 48 pixel frames for clients that request the root icon |
 
-Google only adopts a favicon whose raster is a multiple of 48px square, which is why the 48 and 96 pixel files ship alongside the 32px tab icon and are declared in every page head. Rebuild them after any change to the seal:
+[Google's favicon guidance](https://developers.google.com/search/docs/appearance/favicon-in-search) requires a square image at least 8 × 8 pixels and recommends one larger than 48 × 48 pixels. The shipped 48px and 96px files meet the minimum; the 96px file also meets that recommendation. Eligibility does not guarantee display in search results. Rebuild them after any change to the seal:
 
 ```bash
 python scripts/favicon_render.py
