@@ -585,7 +585,7 @@ def test_design_contracts() -> int:
             "favicon raster out of date: assets/favicon-32.png",
         ),
         (
-            "favicon raster off the 48px grid Google accepts",
+            "favicon geometry misses whole raster pixels",
             "assets/favicon.svg",
             '<rect x="16" y="16" width="4" height="32" fill="#4dff88" />',
             '<rect x="17" y="16" width="4" height="32" fill="#4dff88" />',

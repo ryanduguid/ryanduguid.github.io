@@ -115,7 +115,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "Ozzit": (
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "138 native Excel LAMBDA functions for AU modelling and GST arithmetic.",
+        "133 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
     ),
     "accounting-excel-toolkit": (
         "accounting-excel-toolkit",

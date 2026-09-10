@@ -38,8 +38,8 @@ FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css" />'
 SITE_LINK = '<link rel="stylesheet" href="/assets/site.css" />'
-# Google only adopts a favicon whose raster is a multiple of 48px square, so
-# every page must offer it one alongside the SVG and the 32px tab icon.
+# Keep the site's chosen 48px and 96px rasters on every page. Google requires
+# a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (
     '<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />',
     '<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />',
