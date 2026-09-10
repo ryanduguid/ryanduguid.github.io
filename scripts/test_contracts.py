@@ -1403,6 +1403,14 @@ def test_public_contracts() -> int:
 
     authority_mutations = (
         (
+            "whitespace-prefixed consultancy email",
+            "contact/index.html",
+            "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",
+            "\n mailto:consult@example.com",
+            contracts.check_authority_surface,
+            "contact/index.html: non-practice boundary is incomplete",
+        ),
+        (
             "evidence canonical",
             "evidence/index.html",
             '<link rel="canonical" href="https://duguid.com.au/evidence/" />',
@@ -1432,7 +1440,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 31
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 32
 
 
 def test_current_component_metadata() -> None:

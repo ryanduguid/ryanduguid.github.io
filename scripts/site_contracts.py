@@ -1885,7 +1885,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         page_text = core.visible_text(page)
         if (
             any(
-                href.casefold().startswith("mailto:")
+                urlsplit(href).scheme.casefold() == "mailto"
                 and (
                     rel != "contact/index.html"
                     or href != "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback"
