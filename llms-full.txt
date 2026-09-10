@@ -222,7 +222,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 Source: https://duguid.com.au/about/
 
-> Ryan Duguid is an accountant in Newcastle, NSW who builds open-source accounting tools. Owner-asserted provisional CA ANZ membership is not an endorsement.
+> I'm Ryan Duguid, an accountant in Newcastle, NSW and a provisional CA. I build open-source accounting tools and hold Xero specialist certification, level 3.
 
 Home
 
@@ -240,10 +240,10 @@ The evidence register links identity, releases, source reviews, repository contr
 
 Name | Ryan Duguid, accountant in Newcastle NSW
 Based in | Newcastle, New South Wales, Australia
-Not the same person | Distinct from the US software product executive of the same name.
+Not the same person | I am not the US software product executive of the same name.
 Field | Accounting, Australian taxation, payroll and statutory compliance
-Professional body | Ryan Duguid states that he is a provisional member of Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools.
-Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. Xero specialist certification, level 3, on his own statement; Xero issues no public badge for it.
+Professional body | I am a provisional CA with Chartered Accountants Australia and New Zealand. CA ANZ has not endorsed this site or its tools.
+Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I hold Xero specialist certification, level 3.
 Education | Bachelor of Commerce (Accounting), University of Newcastle
 Code | github.com/ryanduguid
 LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
