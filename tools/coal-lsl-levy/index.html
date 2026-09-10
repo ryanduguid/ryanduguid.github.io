@@ -72,6 +72,10 @@
 
     <div class="calculator-workspace site-shell">
     <form id="calc-form" class="calculator-form" novalidate>
+      <div class="field calculator-example">
+        <button type="button" id="load-example" class="button--secondary" aria-describedby="example-help">Load the synthetic example</button>
+        <p id="example-help" class="field-note">Uses the home page's fabricated figures and replaces the current inputs. No client data.</p>
+      </div>
       <fieldset>
         <legend>How is this employee paid?</legend>
         <p class="field-note" id="branch-note">Your choice replaces the pay fields that follow.</p>
@@ -104,12 +108,11 @@
       </div>
 
       <button type="submit">Calculate</button>
-      <button type="button" id="load-example" class="button--secondary">Load the synthetic example</button>
-      <p class="field-note">The example uses the same fabricated figures as the worked proof on the home page. No client data.</p>
     </form>
 
     <section class="calculator-result" aria-labelledby="result-title">
-      <h2 id="result-title">Result</h2>
+      <h2 id="result-title" tabindex="-1">Result</h2>
+      <p id="result-notice" class="result-notice" role="status"></p>
       <noscript>
         <p class="field-error">This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and disclaimer on this page still apply.</p>
       </noscript>
@@ -126,15 +129,16 @@
     <section class="employee-section site-shell" aria-labelledby="employees-title">
       <h2 id="employees-title" class="section-title">Employee reference table</h2>
       <p id="employee-reference-help" class="field-note">Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.</p>
+      <p class="field-note">Download CSV before leaving. This table is not saved and clears when you reload or close the page.</p>
       <div id="result-actions" class="result-actions" hidden>
         <button type="button" id="print-working">Print working</button>
         <div class="field">
           <label for="employeeLabel">Employee reference</label>
           <input type="text" id="employeeLabel" placeholder="EMP-001" aria-describedby="employee-reference-help" />
           <button type="button" id="add-employee">Add to monthly table</button>
+          <p id="table-status" role="status" class="field-note"></p>
         </div>
       </div>
-      <p id="table-status" role="status" class="visually-hidden"></p>
       <div id="employee-table-wrap" hidden>
         <div class="employee-table-scroll" role="region" aria-label="Employee levy table" tabindex="0">
           <table id="employee-table">

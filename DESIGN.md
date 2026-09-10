@@ -369,6 +369,40 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 
 ## Accessibility and performance
 
+The Tools page puts task choices before delivery and evaluation background.
+Chooser links have a 44px minimum height and show each tool's delivery format.
+The calculator uses tighter header spacing and a wider desktop title measure
+while retaining the full rate,
+method and boundary text. Its synthetic-example action precedes the inputs
+and fits within the first viewport at 390 by 844 CSS pixels. The adjacent note
+states that loading the example replaces the current inputs.
+
+Adding a bonus focuses its amount. Removing a bonus focuses the next amount,
+then the previous amount, then Add a bonus when none remain. Monthly-table
+removal follows the same order through the remaining Remove buttons and
+returns to Employee reference when the table is empty. On stacked layouts,
+Calculate and Load the synthetic example focus and reveal the Result heading
+without animated scrolling. Invalid submissions keep focus on the first
+invalid input.
+
+Once a result exists, edits to amounts, branches or bonuses show
+"Inputs changed. Calculate again." beside that result. The notice clears
+only after a successful calculation, including the existing recalculation
+before printing or adding an employee. The empty notice remains a live
+region so its first update can be announced.
+
+Tools uses smaller gaps around its introduction and supporting sections to
+keep the task chooser and delivery labels within the existing page-length
+limits. Print mode renders warning text in black.
+
+The employee table chooses an unused automatic reference when a reference is
+left blank, including after row removal. Its addition and removal confirmation
+is visible below the entry controls and remains a live region. A note above
+the controls tells visitors to download the CSV before leaving because the
+table is not saved and clears on reload or when the page closes.
+The populated table keeps cells on one line and horizontal scrolling within
+its own region at 320 CSS pixels, including the hidden column label.
+
 - one skip link, one labelled primary navigation and one `main#main` on every indexable page
 - logical heading order and one `h1` per page
 - visible focus with at least 3:1 contrast against adjacent colours

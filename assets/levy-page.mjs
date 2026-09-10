@@ -98,6 +98,7 @@ const calcForm = document.getElementById('calc-form');
 const branchFields = document.getElementById('branch-fields');
 const bonusRows = document.getElementById('bonus-rows');
 const resultEl = document.getElementById('result');
+const resultNotice = document.getElementById('result-notice');
 const employeeRows = document.getElementById('employee-rows');
 const employeeTableWrap = document.getElementById('employee-table-wrap');
 const resultActions = document.getElementById('result-actions');
@@ -152,11 +153,19 @@ function validateForm() {
   return false;
 }
 
+function markResultStale() {
+  if (!resultActions.hidden && !resultNotice.textContent) {
+    resultNotice.textContent = 'Inputs changed. Calculate again.';
+  }
+}
+
 calcForm.addEventListener('input', (event) => {
   if (event.target instanceof HTMLInputElement || event.target instanceof HTMLSelectElement) {
     clearFieldError(event.target);
+    markResultStale();
   }
 });
+calcForm.addEventListener('change', markResultStale);
 
 function showBranch(branch) {
   branchFields.innerHTML = '';
@@ -180,7 +189,7 @@ document.getElementById('load-example').addEventListener('click', () => {
   // Programmatic assignment fires no input event, so clear any stale
   // validation marks before recalculating.
   [...calcForm.querySelectorAll('input, select')].forEach(clearFieldError);
-  calculate();
+  if (calculate()) revealResult();
 });
 
 document.getElementById('add-bonus').addEventListener('click', () => {
@@ -194,6 +203,8 @@ document.getElementById('add-bonus').addEventListener('click', () => {
   amount.setAttribute('aria-describedby', [...tokens].join(' '));
   bonusRows.append(bonusRow);
   relabelBonuses();
+  markResultStale();
+  amount.focus();
 });
 function relabelBonuses() {
   bonusRows.querySelectorAll('.bonus-remove').forEach((button, index) => {
@@ -202,8 +213,12 @@ function relabelBonuses() {
 }
 bonusRows.addEventListener('click', (e) => {
   if (e.target.classList.contains('bonus-remove')) {
-    e.target.closest('.bonus-row').remove();
+    const row = e.target.closest('.bonus-row');
+    const neighbour = row.nextElementSibling || row.previousElementSibling;
+    row.remove();
     relabelBonuses();
+    markResultStale();
+    (neighbour?.querySelector('input') || document.getElementById('add-bonus')).focus();
   }
 });
 
@@ -212,17 +227,23 @@ function calculate() {
   const allMonetaryAmountsBlank = [...calcForm.querySelectorAll('input[type="number"]')]
     .every((input) => input.value.trim() === '');
   render(compute(calcForm), resultEl, allMonetaryAmountsBlank);
+  resultNotice.textContent = '';
   resultActions.hidden = false;
   return true;
 }
 
+function revealResult() {
+  // The stacked result becomes the next keyboard reading position too.
+  if (matchMedia('(max-width: 56rem)').matches) {
+    const title = document.getElementById('result-title');
+    title.focus({ preventScroll: true });
+    title.scrollIntoView({ block: 'start', behavior: 'instant' });
+  }
+}
+
 calcForm.addEventListener('submit', (event) => {
   event.preventDefault();
-  // Below 56rem the result stacks under the form, so hand the scroll
-  // position to it; CSS scroll-behavior already respects reduced motion.
-  if (calculate() && matchMedia('(max-width: 56rem)').matches) {
-    document.getElementById('result-title').scrollIntoView({ block: 'start' });
-  }
+  if (calculate()) revealResult();
 });
 
 // Recalculate from the current inputs before printing, so the printed
@@ -267,7 +288,12 @@ document.getElementById('add-employee').addEventListener('click', () => {
   if (!calculate()) return;
   const result = compute(calcForm);
   const labelInput = document.getElementById('employeeLabel');
-  const label = labelInput.value.trim() || `Reference ${employees.length + 1}`;
+  let label = labelInput.value.trim();
+  if (!label) {
+    let reference = employees.length + 1;
+    while (employees.some((emp) => emp.label === `Reference ${reference}`)) reference += 1;
+    label = `Reference ${reference}`;
+  }
   employees.push({
     label,
     branch: result.branch,
@@ -285,6 +311,8 @@ employeeRows.addEventListener('click', (e) => {
     const [removed] = employees.splice(Number(idx), 1);
     renderEmployees();
     tableStatus.textContent = `${removed.label} removed from the monthly table, ${rowCount()}.`;
+    const remaining = employeeRows.querySelectorAll('button[data-remove]');
+    (remaining[Math.min(Number(idx), remaining.length - 1)] || document.getElementById('employeeLabel')).focus();
   }
 });
 
