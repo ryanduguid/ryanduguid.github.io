@@ -61,7 +61,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Refusals
 
-- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fabricated fixtures at the released versions where a command exists, the DrDebits prompt-guide scenarios, and the human step that follows.
+- [What these tools refuse](https://duguid.com.au/tools/refusals/): each send-back and refusal the tools give, with the exact command output and exit code from fabricated fixtures at the released versions where a command exists, the llm-tax-guardrails (DrDebits) prompt-guide scenarios, and the human step that follows.
 
 ## Supported installation
 
@@ -77,7 +77,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 - [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
 - [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands, and licence.
-- [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): the unified v0.2.0 release contains nineteen workflows: nine public-practice and ten construction and mining subcontractor workflows. Use Adopt for installation; do not install a second Hardhat pack.
+- [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): release v0.2.1 contains nineteen workflows: nine public-practice and ten construction and mining subcontractor workflows. The default branch prepares v0.3.0 with fifty skills; its 31 additions have no recorded model evaluation. Use Adopt for installation. The contracting workflows are included in this unified pack.
+- [llm-tax-guardrails](https://github.com/ryanduguid/llm-tax-guardrails): home of the DrDebits guide, APES 110 and TPB guardrails, refusal scenarios, and recorded model evaluations. An authorised human remains responsible for professional judgements and actions.
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library, and the Power Query utilities.
 - [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance, and Commonwealth legislation sources this work depends on or sits beside.
 
