@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <title>Open-source Australian accounting tools | Ryan Duguid</title>
-  <meta name="description" content="Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
+  <meta name="description" content="Browse eleven open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Open-source Australian accounting tools" />
-  <meta property="og:description" content="Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
+  <meta property="og:description" content="Browse eleven open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -23,7 +23,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Open-source Australian accounting tools" />
-  <meta name="twitter:description" content="Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
+  <meta name="twitter:description" content="Browse eleven open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/" />
@@ -75,6 +75,7 @@
             <span class="work-chooser__job">Month-end and BAS packs</span>
             <span class="work-chooser__links">
               <a href="/tools/workpaper-review-gate/"><span class="work-chooser__name">Workpaper Review Gate</span> <span class="work-chooser__delivery">Python</span></a>
+              <a href="/tools/monthly-close-controls/"><span class="work-chooser__name">Monthly Close Controls</span> <span class="work-chooser__delivery">Python</span></a>
               <a href="/tools/xero-trial-balance/"><span class="work-chooser__name">Xero trial balance CSV export</span> <span class="work-chooser__delivery">Python</span></a>
             </span>
           </li>
@@ -210,6 +211,15 @@
               </dl>
               <p class="collection-entry__links"><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Source repository<span class="visually-hidden">, Workpaper Review Gate</span></a><a href="/evaluate/manager-review-gate/">Reproduce the evaluation<span class="visually-hidden">, Workpaper Review Gate</span></a><span class="collection-entry__stamp">Last commit <time datetime="2026-09-07">7 September 2026</time></span></p>
             </div>
+            <div class="collection-entry">
+              <h3><a class="collection-entry__title" href="/tools/monthly-close-controls/">Monthly Close Controls</a></h3>
+              <p>Compares trial balance CSVs and returns material movements, missing mappings and subledger differences for review.</p>
+              <dl>
+                <div><dt>Delivery</dt><dd>Python</dd></div>
+                <div><dt>Boundary</dt><dd>PASS applies to the configured checks. A human approves the close.</dd></div>
+              </dl>
+              <p class="collection-entry__links"><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane">Source repository<span class="visually-hidden">, Monthly Close Controls</span></a><a href="/tools/monthly-close-controls/#worked-example">Inspect the worked example<span class="visually-hidden">, Monthly Close Controls</span></a><span class="collection-entry__stamp">Last commit <time datetime="2026-09-10">10 September 2026</time></span></p>
+            </div>
           </section>
 
           <section class="collection-group" id="inspect-tools" aria-labelledby="inspect-title">
@@ -273,7 +283,7 @@
         "@id": "https://duguid.com.au/tools/#webpage",
         "url": "https://duguid.com.au/tools/",
         "name": "Open-source Australian accounting tools",
-        "description": "Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.",
+        "description": "Browse eleven open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-29",
         "dateModified": "2026-09-11",
@@ -295,7 +305,7 @@
         "@type": "ItemList",
         "@id": "https://duguid.com.au/tools/#list",
         "name": "Open-source Australian accounting tools",
-        "numberOfItems": 10,
+        "numberOfItems": 11,
         "itemListElement": [
           { "@type": "ListItem", "position": 1, "name": "Xero trial balance CSV export", "url": "https://duguid.com.au/tools/xero-trial-balance/" },
           { "@type": "ListItem", "position": 2, "name": "Subcontract ledger skills", "url": "https://duguid.com.au/tools/subcontractor-ledgers/" },
@@ -306,7 +316,8 @@
           { "@type": "ListItem", "position": 7, "name": "Trust distribution checks", "url": "https://duguid.com.au/tools/trust-distributions/" },
           { "@type": "ListItem", "position": 8, "name": "Company tax and franking checks", "url": "https://duguid.com.au/tools/company-tax-franking/" },
           { "@type": "ListItem", "position": 9, "name": "Workpaper Review Gate", "url": "https://duguid.com.au/tools/workpaper-review-gate/" },
-          { "@type": "ListItem", "position": 10, "name": "Australian tax tools for AI agents", "url": "https://duguid.com.au/tools/australian-tax-ai-agents/" }
+          { "@type": "ListItem", "position": 10, "name": "Monthly Close Controls", "url": "https://duguid.com.au/tools/monthly-close-controls/" },
+          { "@type": "ListItem", "position": 11, "name": "Australian tax tools for AI agents", "url": "https://duguid.com.au/tools/australian-tax-ai-agents/" }
         ]
       }
     ]

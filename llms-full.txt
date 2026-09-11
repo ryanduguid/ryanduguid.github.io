@@ -607,6 +607,8 @@ Creditors reconciliation | Trial balance less supplied subledger: -$250. | Trace
 Account mapping | Operating Expenses account 6000 has no review-group mapping. | Confirm the mapping and review owner.
 Financial-year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
 
+Monthly Close Controls guide: inputs, exception report and reproducible command.
+
 Inspect the case, files, and reproduction command at the captured source commit. The source records reproduction on 6 September 2026. A person must resolve the evidence before signing off.
 
 - Payday Super: sent before the deadline, received when? A remittance record and a fund receipt support different conclusions.
@@ -689,6 +691,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
 - Give feedback on this example: https://duguid.com.au/contact/#example-feedback
+- Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/manager-case-study.md
@@ -1349,7 +1352,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/
 
-> Browse ten open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+> Browse eleven open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
 
 # Tools
 
@@ -1369,7 +1372,7 @@ Payday Super timing Python Coal LSL levy calculator Browser
 
 - Month-end and BAS packs
 
-Workpaper Review Gate Python Xero trial balance CSV export Python
+Workpaper Review Gate Python Monthly Close Controls Python Xero trial balance CSV export Python
 
 - Construction and mining clients
 
@@ -1525,6 +1528,20 @@ READY means ready for human review, not approved or signed off.
 
 Source repository Reproduce the evaluation Last commit 7 September 2026
 
+### Monthly Close Controls
+
+Compares trial balance CSVs and returns material movements, missing mappings and subledger differences for review.
+
+Delivery
+
+Python
+
+Boundary
+
+PASS applies to the configured checks. A human approves the close.
+
+Source repository Inspect the worked example Last commit 10 September 2026
+
 Inspect
 
 ## Compare Australian tax tools for AI agents
@@ -1567,6 +1584,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
+- Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
 - Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
 - Construction WIP schedule Python: https://duguid.com.au/tools/wip-schedule/
 - Subcontract ledger skills Agent skills: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -1590,6 +1608,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Reproduce the evaluation: https://duguid.com.au/evaluate/manager-review-gate/
+- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Inspect the worked example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
@@ -2632,6 +2652,7 @@ No file is written. The balance check runs before anything reaches disk, and bot
 
 ## Related
 
+- Turn trial balance CSVs into a monthly close exception report
 - How a business compares to the ATO benchmarks
 - When is payday super due
 - Evidence and Assurance
@@ -2647,6 +2668,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
+- Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -2874,7 +2896,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Fabricated BAS evaluation and expected results: https://duguid.com.au/evaluate/manager-review-gate/
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
-- Monthly Close Controls: https://github.com/ryanduguid/accounting-review-pipeline
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
 
@@ -2973,3 +2995,109 @@ Published 30 August 2026. Last reviewed 11 September 2026.
 - the-exchequer-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3
 - evaluations: https://duguid.com.au/evaluate/
 - evidence register: https://duguid.com.au/evidence/
+
+---
+
+# Xero monthly close exception report | Monthly Close Controls
+
+Source: https://duguid.com.au/tools/monthly-close-controls/
+
+> Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source.
+
+# Xero monthly close exception report
+
+Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.
+
+Example reproduced from source commit ae88966. Results apply to this source snapshot.
+
+Published 11 September 2026. Last reviewed 11 September 2026.
+
+## Inputs
+
+Start with the canonical CSV written by the Xero trial balance exporter. Supply one current and one prior trial balance, plus an account mapping CSV. Each trial balance must contain one organisation and one report date; both must name the same organisation, with the prior date earlier than the current date.
+
+You can supply subledger balances for reconciliation and a review note. Set the absolute and percentage materiality thresholds and reconciliation tolerance for the review. The pinned source documentation defines the accepted files and controls.
+
+## Outputs and status
+
+- close-summary.md: overall status, thresholds, source hashes and the exception table.
+- exceptions.csv: account-level differences, reasons and suggested reviewer actions for Excel or Power BI.
+- client-queries.csv: draft questions for exceptions a client can help resolve. A preparer must review them before sending anything.
+- close-review-pack.json: structured results and evidence for the run, including any supplied review acknowledgement.
+
+PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.
+
+## Worked example: balanced trial balance, unfinished review
+
+The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: eight exceptions, none blocked, and six draft client queries.
+
+Exception | Result | Reviewer action
+Creditors reconciliation | Trial balance less supplied subledger: -$250. | Trace the reconciling items and document their cause.
+Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
+Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.
+
+Five threshold movements make up the remaining exceptions. Eight exceptions do not establish eight accounting errors. The review acknowledgement leaves the result at REVIEW.
+
+The captured manager case study explains the selected exceptions. The command below reproduces the four-file output at that same commit. All inputs are fabricated.
+
+## Run the example
+
+Needs Git and Python 3.10 or later. The pinned source command uses Python's standard library. It needs no Xero account, API access or client files.
+
+```
+git clone https://github.com/ryanduguid/accounting-review-pipeline.git
+cd accounting-review-pipeline
+git checkout ae88966fc416f6f2ad618652779c50d0e348949d
+cd packages/monthly-close-control-plane
+```
+
+```
+python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo
+```
+
+Expect exit code 2 and REVIEW; 8 exception(s); 6 client query(ies) drafted. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.
+
+Source on GitHub
+
+Unexpected result or question? Open an issue.
+
+## Limits
+
+A balanced trial balance can still contain omissions, misclassifications or unsupported transactions. These checks use the files, mappings and thresholds you supply. They do not establish that the source records are complete or that an accounting treatment is correct.
+
+The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm's workpaper process.
+
+## Common questions
+
+### Does Monthly Close Controls connect to Xero?
+
+No. It reads local CSV files in the canonical Xero trial balance export format. Use the Xero trial balance exporter separately to obtain those files.
+
+### Can I open the exception report in Excel?
+
+Yes. Import exceptions.csv to filter the account-level findings, differences and reviewer actions. The tool also writes a Markdown summary and a JSON evidence pack.
+
+### Does PASS approve the month-end close?
+
+No. PASS means the configured checks passed on the supplied inputs. A human still reviews completeness, accounting treatment and the evidence before approving a close.
+
+## Related
+
+- Export a Xero trial balance to CSV
+- Check a workpaper pack before manager review
+- Reproducible examples and evaluations
+- Evidence and Assurance
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
+- Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
+- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
+- Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
+- Reproducible examples and evaluations: https://duguid.com.au/evaluate/
+- Evidence and Assurance: https://duguid.com.au/evidence/

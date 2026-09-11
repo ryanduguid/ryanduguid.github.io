@@ -9,6 +9,7 @@ const componentRoutes = [
   ['/tools/australian-tax-ai-agents/', 'australian-accounting', 'apps/aus-accounting-mcp'],
   ['/tools/xero-trial-balance/', 'accounting-review-pipeline', 'packages/xero-trial-balance-export'],
   ['/tools/workpaper-review-gate/', 'accounting-review-pipeline', 'packages/review-ready-gate'],
+  ['/tools/monthly-close-controls/', 'accounting-review-pipeline', 'packages/monthly-close-control-plane'],
   ['/tools/subcontractor-ledgers/', 'australian-accounting-skills', ''],
 ];
 

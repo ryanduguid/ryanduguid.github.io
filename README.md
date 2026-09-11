@@ -4,7 +4,7 @@ Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan
 
 ## Site structure
 
-- `/tools/` groups ten controls by Extract, Calculate, Control and Inspect.
+- `/tools/` groups eleven controls by Extract, Calculate, Control and Inspect.
 - `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates.
 
@@ -133,7 +133,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. The 26 styled pages include
+GitHub Pages builds the repository with Jekyll. The 27 styled pages include
 `_includes/site-header.html` and `_includes/site-footer.html`; the header
 sets the current page or section from each page's URL. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
