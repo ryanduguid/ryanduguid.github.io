@@ -618,8 +618,8 @@ HOMEPAGE_HEADING_MARKUP = (
     "Australian accounting controls.</h1>"
 )
 HOMEPAGE_SUPPORT = (
-    "Open-source checks for payroll, Xero, workpapers, and AI workflows, with "
-    "every source and calculation kept visible."
+    "Cash-flow examples and Australian accounting controls, with the inputs, "
+    "calculations, and decisions explained."
 )
 HOMEPAGE_ACTIONS = (
     ("/tools/", "Browse the tools"),
