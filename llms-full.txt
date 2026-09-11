@@ -16,11 +16,11 @@ Public register / Australian accounting controls
 
 # Ryan Duguid: review-ready Australian accounting controls.
 
-Open-source checks for payroll, Xero, workpapers, and AI workflows, with every source and calculation kept visible.
+Cash-flow examples and Australian accounting controls, with the inputs, calculations, and decisions explained.
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 10 September 2026.
+Last reviewed 11 September 2026.
 
 Browse the tools
 
@@ -61,6 +61,8 @@ Method 02 Primary sources and exact arithmetic
 Boundary 03 Calculation is not judgement
 
 ## Worked proof
+
+A fictional Newcastle business forecasts $35,957.55 profit, yet a late receipt leaves a $25,160 cash shortfall. Read the profit-and-cash case and open the Excel example.
 
 Coal LSL / synthetic result
 
@@ -112,13 +114,13 @@ Use the public sample files, all fabricated data, to see what a tool accepts, re
 
 ### Five ways to try it
 
-An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries. These commands are for firms already running Claude Code or Codex; if yours is not, start with the browser calculator or send the evaluation links below to whoever manages your systems.
+Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
 
 No install
 
 Open the browser calculator with fabricated figures. Nothing to install and nothing leaves the browser.
 
-Send one reproducible evaluation to whoever manages your systems.
+Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
 Claude Code
 
@@ -154,6 +156,8 @@ npx skills add ryanduguid/australian-accounting-skills
 Full setup and limits: Australian tax tools for AI agents.
 
 GitHub workflows
+
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
 
 Needs Git and PowerShell 7.
 
@@ -227,6 +231,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Inspect: https://duguid.com.au/tools/#inspect-tools
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Read the profit-and-cash case and open the Excel example.: https://duguid.com.au/evaluate/#profit-and-cash
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
@@ -519,13 +524,54 @@ Source: https://duguid.com.au/evaluate/
 
 # Evaluations
 
-These three evaluation packs reproduce accounting-tool checks at fixed releases using fabricated inputs and hand-recorded expected results.
+Explore a synthetic profit-and-cash workbook, then reproduce three accounting-tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
 
 Last reviewed 11 September 2026.
+
+## Profit of $35,957.55. A cash shortfall of $25,160.
+
+Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.
+
+The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.
+
+Same work performed, different receipt dates. Scroll sideways on small screens.
+
+Forecast measure | On time | 45 days late
+Quarter revenue | $180,000.00 | $180,000.00
+Profit before income tax | $35,957.55 | $35,957.55
+October closing cash | $32,040.00 | ($11,960.00)
+Lowest daily closing cash | $16,800.00 on 7 October | ($25,160.00) on 6 November
+December closing cash | $67,320.00 | $67,320.00
+
+The late case first runs short on 28 October. December cash catches up after the receipt arrives, but that later recovery cannot fund the earlier payments. Keeping the example's assumed $15,000 cash buffer would require $40,160 above the late-case trough.
+
+### The decision to examine
+
+Confirm the customer receipt date and resolve the earlier cash gap before approving discretionary equipment spending. Then check actual collections against the forecast each week. No overdraft or new funding is assumed.
+
+At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $13,200 supplier invoices payable. Its closing bank balance includes cash needed for those obligations.
+
+### Try the workbook
+
+Download the synthetic Excel forecast or download the workbook, source files, and trial guide. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.
+
+- Open the Model and Cash 13 weeks sheets and find the profit and cash figures.
+- Change Assumptions!B2 from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.
+- Restore 0, save a copy, and reopen it. The workbook supports only whole-day receipt delays from 0 to 120; exported CSVs and briefing text stay fixed.
+
+Varrock and Falador are the fictional service lines, named after Old School RuneScape locations. No game knowledge is needed.
+
+### Evidence and limits
+
+This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
+
+Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.
+
+Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
 
 ## Five-minute accounting cases
 
@@ -605,6 +651,12 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 
 - Evidence register: https://duguid.com.au/evidence/
 - Tools register: https://duguid.com.au/tools/
+- Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
+- download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
+- sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
+- Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
+- Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- Give feedback on this example: https://duguid.com.au/contact/#example-feedback
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/manager-case-study.md
 - Month-end close: balanced trial balance, unfinished review.: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/monthly-close-control-plane/docs/manager-case-study.md
@@ -2802,6 +2854,12 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 It is not a practice, and I am not accepting professional engagements through this site.
 
+## Feedback on the cash-flow example
+
+I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
+
+For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures. Email ryan@duguid.com.au.
+
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
 Do not post taxpayer information or client files to public repositories. Nothing here is tax, legal, or financial advice.
@@ -2812,10 +2870,11 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
 
-Published 30 August 2026. Last reviewed 5 September 2026.
+Published 30 August 2026. Last reviewed 11 September 2026.
 
 ## Links
 
+- fictional Newcastle cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid

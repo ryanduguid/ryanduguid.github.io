@@ -348,9 +348,9 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `EDA2FE404EEB7BE917E920FDBF38F6CEAA830E528187536C4581023AFD438E6C`
+- `llms.txt`: SHA-256 `006377B4EFE7F3466AF4B452AA127F3E5347822BE08749435BABC0A7CB2BEBB9`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `1C3EA8DA8B2D40B01EE5FFFED94AB4892D2D28A738523F3C741A6491F101D6BF`
+- `sitemap.xml`: SHA-256 `174C64EF3460DF1077B23ED23A0FCF2B38F4C36535B34A60B58443028069A939`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -468,3 +468,14 @@ practices and SEO stay at 1; CLS stays at or below 0.01; LCP stays at or below
 2,500 ms; and total blocking time stays at or below 200 ms.
 
 The pull request must name the three selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.
+
+## Synthetic forecasting presentation, 11 September 2026
+
+The competitor-analysis follow-up adds the existing fictional Newcastle forecast
+to Worked proof, Evaluations, and the feedback route. It adds a checked workbook
+and source ZIP so a reader can inspect the case without installing development
+tools. The profile remains a personal index, and professional engagements remain
+closed. The existing site layout, four tool categories, calculator, rates, and
+fixed-release evaluations are retained. Machine indexes and editorial dates
+record these copy changes; they do not assert independent accountant review or
+client outcomes.

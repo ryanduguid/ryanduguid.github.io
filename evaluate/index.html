@@ -52,11 +52,47 @@
           </ol>
         </nav>
         <h1>Evaluations</h1>
-        <p class="short-answer">These three evaluation packs reproduce accounting-tool checks at fixed releases using fabricated inputs and hand-recorded expected results.</p>
+        <p class="short-answer">Explore a synthetic profit-and-cash workbook, then reproduce three accounting-tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.</p>
         <p class="byline">An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.</p>
         <p>For identity, source, and release assurance, see the <a href="/evidence/">Evidence register</a>. Each evaluated tool is listed in the <a href="/tools/">Tools register</a>.</p>
         <p class="page-meta">Last reviewed 11 September 2026.</p>
       </header>
+      <div class="site-shell">
+          <section class="article-body" id="profit-and-cash" aria-labelledby="profit-and-cash-title">
+            <h2 id="profit-and-cash-title">Profit of $35,957.55. A cash shortfall of $25,160.</h2>
+            <p>Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.</p>
+            <p>The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.</p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge on-time and late-receipt forecast comparison">
+              <table class="facts rate-table--wide">
+                <caption>Same work performed, different receipt dates. Scroll sideways on small screens.</caption>
+                <thead><tr><th scope="col">Forecast measure</th><th scope="col">On time</th><th scope="col">45 days late</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Quarter revenue</th><td>$180,000.00</td><td>$180,000.00</td></tr>
+                  <tr><th scope="row">Profit before income tax</th><td>$35,957.55</td><td>$35,957.55</td></tr>
+                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td>($11,960.00)</td></tr>
+                  <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td>($25,160.00) on 6 November</td></tr>
+                  <tr><th scope="row">December closing cash</th><td>$67,320.00</td><td>$67,320.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The late case first runs short on 28 October. December cash catches up after the receipt arrives, but that later recovery cannot fund the earlier payments. Keeping the example's assumed $15,000 cash buffer would require $40,160 above the late-case trough.</p>
+            <h3>The decision to examine</h3>
+            <p>Confirm the customer receipt date and resolve the earlier cash gap before approving discretionary equipment spending. Then check actual collections against the forecast each week. No overdraft or new funding is assumed.</p>
+            <p>At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $13,200 supplier invoices payable. Its closing bank balance includes cash needed for those obligations.</p>
+            <h3>Try the workbook</h3>
+            <p><a href="/assets/examples/lumbridge/lumbridge.xlsx" download>Download the synthetic Excel forecast</a> or <a href="/assets/examples/lumbridge/lumbridge-sample-pack.zip" download>download the workbook, source files, and trial guide</a>. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.</p>
+            <ol>
+              <li>Open the Model and Cash 13 weeks sheets and find the profit and cash figures.</li>
+              <li>Change <code>Assumptions!B2</code> from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.</li>
+              <li>Restore 0, save a copy, and reopen it. The workbook supports only whole-day receipt delays from 0 to 120; exported CSVs and briefing text stay fixed.</li>
+            </ol>
+            <p>Varrock and Falador are the fictional service lines, named after Old School RuneScape locations. No game knowledge is needed.</p>
+            <h3>Evidence and limits</h3>
+            <p>This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.</p>
+            <p>Download provenance and workbook checks are in the <a href="/assets/examples/lumbridge/README.txt">sample record</a>. <a href="https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services">Read the source, assumptions, and trial at the captured commit</a>. The Australian pack extends <a href="https://github.com/JeffBrines/openfpa">Jeff Brines / Guiderail's openfpa</a>.</p>
+            <p><a href="/contact/#example-feedback">Give feedback on this example</a>. Describe the step, observed result, and Excel version using the synthetic files.</p>
+          </section>
+      </div>
       <div class="site-shell collection-layout">
         <div class="collection-register">
           <section class="collection-entry">
