@@ -65,9 +65,19 @@
           <p>On this page</p>
           <a href="#synthetic-worked-example">Synthetic worked example</a>
           <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
+          <a href="#evidence-pack">Evidence-pack workflow</a>
           <a href="#evidence">Check the evidence</a>
         </nav>
         <div class="article-body">
+
+          <section id="evidence-pack">
+            <h2>Evidence-pack workflow (unreleased)</h2>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/147">CLI change under review</a> combines the existing checker and practitioner checklist in one command. It writes <code>report.csv</code>, <code>practitioner-review.md</code>, <code>exceptions.json</code> and a blank <code>decision-log.md</code> into a new directory.</p>
+            <p>The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than <code>ON_TIME</code> enters the queue; the fabricated example above remains <code>AT_RISK</code> and exits 2. A remittance-only acknowledgement does not clear that queue.</p>
+            <p>A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence, and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.</p>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/148">companion MCP tool</a>, <code>build_payday_super_evidence_pack</code>, accepts structured contribution rows and returns the four files in memory. It accepts no input or output paths, writes no files and records no decisions. It requires a checker with evidence-pack support.</p>
+            <p>This workflow is not included in published checker v0.1.3 or <code>uvx aus-accounting-mcp</code>. <a href="/evaluate/payday-super-evidence/#evidence-pack">Reproduce the development workflow with fabricated data</a>. No advice, lodgement or ledger write is performed.</p>
+          </section>
 
           <section id="evidence">
             <h2>Check the evidence</h2>

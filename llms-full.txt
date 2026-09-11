@@ -118,6 +118,8 @@ Adopt
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
 
+The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is under review and available from the development checkout; the published packages do not yet include it.
+
 ### Five ways to try it
 
 Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
@@ -243,6 +245,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
+- Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Manager review gate Reproduce the incomplete-pack checks.: https://duguid.com.au/evaluate/manager-review-gate/
@@ -927,7 +930,7 @@ Source: https://duguid.com.au/evaluate/payday-super-evidence/
 
 Reproduce four fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
 
-Published 26 August 2026. Last reviewed 4 September 2026.
+Published 26 August 2026. Last reviewed 11 September 2026.
 
 ## Accounting problem
 
@@ -952,6 +955,19 @@ uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_s
 uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv --as-at 2026-08-20 -o late-receipt-report.csv
 uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q
 ```
+
+## Development evidence pack (unreleased)
+
+The CLI change under review adds a single evidence-pack command using the same fabricated fixtures and existing engine. The release-pinned evaluation above remains unchanged. For this new workflow, use the linked PR checkout and run from packages/payday-super-checker:
+
+```
+uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
+uv run --locked --extra dev pytest tests/test_evidence_pack.py -q
+```
+
+The first command exits 2 and writes four files into a new directory. exceptions.json must contain AT_RISK; decision-log.md has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the four pinned timing outcomes. They do not establish model performance or renew the legal review date.
+
+The new command follows review-pack exit meanings: 0 only for all ON_TIME, 2 for any exception, and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.
 
 ## Expected result
 
@@ -1002,6 +1018,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- CLI change under review: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - Primary source review: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md
@@ -2018,6 +2035,18 @@ This is a fixed example. Nothing to install or upload; these dates do not recalc
 
 Published 24 August 2026. Last reviewed 11 September 2026.
 
+## Evidence-pack workflow (unreleased)
+
+The CLI change under review combines the existing checker and practitioner checklist in one command. It writes report.csv, practitioner-review.md, exceptions.json and a blank decision-log.md into a new directory.
+
+The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fabricated example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
+
+A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence, and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.
+
+The companion MCP tool, build_payday_super_evidence_pack, accepts structured contribution rows and returns the four files in memory. It accepts no input or output paths, writes no files and records no decisions. It requires a checker with evidence-pack support.
+
+This workflow is not included in published checker v0.1.3 or uvx aus-accounting-mcp. Reproduce the development workflow with fabricated data. No advice, lodgement or ledger write is performed.
+
 ## Check the evidence
 
 Reproduced from Payday Super Checker 0.1.3. The release's legal review date is 15 August 2026.
@@ -2045,6 +2074,9 @@ Reproduction record
 ## Links
 
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
+- CLI change under review: https://github.com/ryanduguid/australian-accounting/pull/147
+- companion MCP tool: https://github.com/ryanduguid/australian-accounting/pull/148
+- Reproduce the development workflow with fabricated data: https://duguid.com.au/evaluate/payday-super-evidence/#evidence-pack
 - Payday Super Checker 0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001

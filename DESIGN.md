@@ -366,6 +366,12 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
 
+The 11 September 2026 B1 update adds the unreleased Payday Super evidence-pack
+workflow to Adopt, the Payday Super tool page, its evaluation page and the machine
+indexes. The evaluation's editorial date and JSON-LD digest, the sitemap digest
+and the llms.txt digest reflect this requested copy change. Existing release and
+fixture pins, legal review dates, rates, layout and disclaimer boundaries remain.
+
 The following whole-file values are protected after normalising only platform line endings:
 
 - `llms.txt`: SHA-256 `84F92E0A48EEEF965487B7B7452141DE448CCCDCDDC9B679DB83F850620C9057`

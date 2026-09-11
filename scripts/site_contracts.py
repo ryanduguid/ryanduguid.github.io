@@ -444,6 +444,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ("intended-reviewer", "Intended reviewer"),
             ("fabricated-inputs", "Fabricated inputs"),
             ("reproduce", "Reproduce"),
+            ("evidence-pack", "Development evidence pack (unreleased)"),
             ("expected-result", "Expected result"),
             ("controls-triggered", "Controls triggered"),
             ("primary-sources", "Primary sources"),
@@ -531,7 +532,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-09-04",
+        "sitemap_lastmod": "2026-09-11",
         "llms_section": "Evaluation packs",
     },
 }
