@@ -57,12 +57,14 @@
       PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. This tool classifies the facts you supply against the green and red zones, works out Division 6 shares, and calculates a section 99B amount on a foreign trust distribution.
     </p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3">solomons-sword/v0.1.3</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 11 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#what-this-tool-does">What this tool does</a>
+          <a href="#get-it">Get it</a>
+          <a href="#worked-example">Worked example</a>
           <a href="#limits">Limits</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
@@ -90,6 +92,25 @@
       <li>Works out each beneficiary's proportionate share of trust income under Division 6, following the Bamford case.</li>
       <li>Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.</li>
     </ul>
+    </section>
+    <section id="get-it" class="install-panel">
+    <h2>Get it</h2>
+    <p class="install-needs">Needs Python 3.10 or later. Install the reference release in your Python environment.</p>
+    <pre tabindex="0" role="region" aria-label="Trust checker installation command"><code>python -m pip install "solomons-sword==0.1.3"</code></pre>
+    <p><a href="https://pypi.org/project/solomons-sword/0.1.3/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart">release instructions</a>.</p>
+    </section>
+    <section id="worked-example">
+    <h2>Fabricated worked example</h2>
+    <p>This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000, and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fabricated.</p>
+    <pre tabindex="0" role="region" aria-label="Fabricated trust checker command"><code>solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000</code></pre>
+    <p>Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.</p>
+    <pre tabindex="0" role="region" aria-label="Expected trust checker output"><code>Gross Receipt:           $150,000.00
+Corpus Exemption:        $50,000.00
+Assessable under s99B:   $100,000.00</code></pre>
+    <h3>Try a refusal</h3>
+    <p>Change <code>--corpus 50000</code> to <code>--corpus 160000</code>. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:</p>
+    <pre tabindex="0" role="region" aria-label="Expected trust checker refusal"><code>error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount</code></pre>
+    <p>This verifies the published command's behaviour on fabricated inputs. Confirm residence, the character of the corpus, and each exclusion before using the tool with real facts.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
@@ -149,7 +170,7 @@
         "description": "Check a trust distribution against the ATO's section 100A risk zones, and work out Division 6 allocations and section 99B foreign trust amounts.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-11",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -216,7 +237,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04"
+        "dateModified": "2026-09-11"
       },
       {
         "@type": "FAQPage",
@@ -259,5 +280,6 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

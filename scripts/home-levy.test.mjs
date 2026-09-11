@@ -102,3 +102,15 @@ test('every amount is formatted as Australian currency', () => {
   assert.equal(computed.eligible, '$1,234.50');
   assert.equal(computed.levy, '$33.33');
 });
+
+test('the static result names the applied formula in its live region', () => {
+  assert.equal(shown('winner'), 'B');
+  assert.match(homepage, /aria-live="polite" aria-atomic="true">[\s\S]*?Formula <span data-out="winner">B<\/span> applies\./);
+});
+
+test('oversized fields and combined wages are rejected before displaying money', () => {
+  for (const field of ['base', 'overtime', 'allowances']) {
+    assert.throws(() => results({ base: 6000, overtime: 3000, allowances: 500, [field]: 1e308 }), RangeError);
+  }
+  assert.throws(() => results({ base: 500_000_000_000, overtime: 500_000_000_000, allowances: 500_000_000_000 }), RangeError);
+});

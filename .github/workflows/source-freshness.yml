@@ -3,6 +3,8 @@ name: source-freshness
 # Re-reads the last commit date of every tool source and opens a pull request
 # when a date has moved. The site itself stays static: the dates are baked into
 # tools/index.html, so no visitor request ever reaches the GitHub API.
+# A separate read-only job flags newer stable releases for editorial review;
+# it never rewrites capability descriptions or evaluation references.
 #
 # A pull request raised with GITHUB_TOKEN does not start the checks workflow, so
 # this job runs the site checks itself and pushes only once they pass. The change
@@ -26,6 +28,19 @@ env:
   BRANCH: automation/source-freshness
 
 jobs:
+  releases:
+    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "22"
+      - name: Check current release references
+        run: node scripts/stamp-source-freshness.mjs --check-releases
+
   stamp:
     timeout-minutes: 30
     runs-on: windows-latest

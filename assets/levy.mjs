@@ -8,6 +8,8 @@
 
 export const LEVY_RATE_NUMERATOR = 27;
 export const LEVY_RATE_DENOMINATOR = 1000; // 2.7 per cent
+// Leave room for quarter cents and the levy numerator in exact integer arithmetic.
+export const MAX_WAGES_CENTS = Math.floor(Number.MAX_SAFE_INTEGER / (4 * LEVY_RATE_NUMERATOR));
 export const LEVY_RATE_AS_AT = '2026-09-02';
 export const LEVY_RATE_SOURCE =
   'https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf';
@@ -26,7 +28,11 @@ export function toCents(dollars) {
   if (typeof dollars !== 'number' || !Number.isFinite(dollars)) {
     throw new TypeError('amount must be a finite number of dollars');
   }
-  return Math.round(dollars * 100);
+  const cents = Math.round(dollars * 100);
+  if (!Number.isSafeInteger(cents) || Math.abs(cents) > MAX_WAGES_CENTS) {
+    throw new RangeError('Amount is too large to calculate accurately. Enter a smaller amount.');
+  }
+  return cents;
 }
 
 export function bonusCents(bonuses) {
@@ -150,5 +156,8 @@ export function casualWages({
 // guidance note states one, and real inputs land on half a cent. Half up at the
 // final step only. The page states this openly.
 export function levyCents(eligibleWagesCents) {
+  if (!Number.isSafeInteger(eligibleWagesCents * 4) || Math.abs(eligibleWagesCents) > MAX_WAGES_CENTS) {
+    throw new RangeError('The total is too large to calculate accurately. Reduce the amounts.');
+  }
   return Math.round((eligibleWagesCents * LEVY_RATE_NUMERATOR) / LEVY_RATE_DENOMINATOR);
 }

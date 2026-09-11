@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {
   toCents, bonusCents, grossUp,
   baseRateWages, annualSalaryWages, casualWages, levyCents,
-  CASUAL_METHOD_CHANGE_MONTH,
+  CASUAL_METHOD_CHANGE_MONTH, MAX_WAGES_CENTS,
 } from '../assets/levy.mjs';
 import { compute } from '../assets/levy-form.mjs';
 
@@ -346,4 +346,30 @@ test('Formula B keeps fractional cents and is never rounded early', () => {
 test('toCents rejects a non-finite amount', () => {
   assert.throws(() => toCents(NaN), TypeError);
   assert.throws(() => toCents(Infinity), TypeError);
+});
+test('oversized dollar amounts are rejected before conversion can lose cents or overflow', () => {
+  for (const dollars of [1e308, 1e20, 1e12]) {
+    assert.throws(() => toCents(dollars), RangeError);
+  }
+});
+
+test('the levy rejects an unsafe combined total but keeps large supported amounts exact', () => {
+  const wages = toCents(500_000_000_000);
+  assert.equal(levyCents(wages), 1_350_000_000_000);
+  assert.throws(() => levyCents(wages + wages), RangeError);
+  for (const cents of [Infinity, NaN, Number.MAX_SAFE_INTEGER]) {
+    assert.throws(() => levyCents(cents), RangeError);
+  }
+});
+
+test('the supported upper boundary preserves cents and rounds quarter cents correctly', () => {
+  assert.equal(toCents(MAX_WAGES_CENTS / 100), MAX_WAGES_CENTS);
+  assert.throws(() => toCents(MAX_WAGES_CENTS / 100 + 0.01), RangeError);
+  const limit = BigInt(MAX_WAGES_CENTS) * 4n;
+  // Compare every fractional rounding position near the limit with exact integers.
+  for (let offset = 0n; offset < 4000n; offset += 1n) {
+    const quarters = limit - offset;
+    const expected = Number((quarters * 27n + 2000n) / 4000n);
+    assert.equal(levyCents(Number(quarters) / 4), expected);
+  }
 });

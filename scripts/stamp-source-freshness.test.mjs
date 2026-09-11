@@ -4,7 +4,8 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-import { checkHtml, formatDate, stampHtml } from './stamp-source-freshness.mjs';
+import * as freshness from './stamp-source-freshness.mjs';
+const { checkHtml, formatDate, stampHtml } = freshness;
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -144,4 +145,67 @@ test('check fails loudly if the card markup stops matching', () => {
 test('the committed tools register is stamped and consistent', () => {
   const html = readFileSync(join(root, 'tools', 'index.html'), 'utf8');
   assert.deepEqual(checkHtml(html), []);
+});
+
+function releaseTable(...tags) {
+  return '<section aria-labelledby="tool-releases">' + tags.map((tag) =>
+    `<a href="https://github.com/ryanduguid/example/releases/tag/${tag}">${tag}</a>`).join('') + '</section>';
+}
+
+function release(tag_name, overrides = {}) {
+  return { tag_name, draft: false, prerelease: false, published_at: '2026-09-10T00:00:00Z', ...overrides };
+}
+
+test('release check flags a newer stable version within each package', async () => {
+  const html = releaseTable('tool/v0.1.9', 'other/v1.0.0');
+  const failures = await freshness.checkReleases(html, async () => [
+    release('tool/v0.1.9'), release('tool/v0.1.10'), release('other/v1.0.0'),
+    release('tool/v0.2.0', { prerelease: true }),
+    release('tool/v0.3.0', { draft: true }),
+    release('tool/v0.4.0', { published_at: null }),
+    release('tool/v0.5.0-rc.1'),
+  ]);
+  assert.deepEqual(failures, [
+    'ryanduguid/example: tool/v0.1.9 is behind tool/v0.1.10; review changelog/index.html and capability descriptions',
+  ]);
+});
+
+test('release check accepts current plain tags and ignores unrelated packages', async () => {
+  const failures = await freshness.checkReleases(releaseTable('v1.2.0'), async () => [
+    release('v1.2.0'), release('v1.1.0', { published_at: '2026-09-11T00:00:00Z' }),
+    release('other/v9.0.0'),
+  ]);
+  assert.deepEqual(failures, []);
+});
+
+test('release check refuses a missing published tag or missing release links', async () => {
+  assert.deepEqual(await freshness.checkReleases(releaseTable('tool/v1.0.0'), async () => []), [
+    'ryanduguid/example: tool/v1.0.0 is not a published stable release',
+  ]);
+  assert.deepEqual(await freshness.checkReleases('<p>No release links</p>'), [
+    'no release links found in changelog/index.html',
+  ]);
+});
+
+test('release lookup follows pagination and refuses an API failure', async () => {
+  const requests = [];
+  const releases = await freshness.fetchReleases('ryanduguid/example', async (url) => {
+    requests.push(url);
+    return new Response(JSON.stringify(requests.length === 1
+      ? Array.from({ length: 100 }, () => release('other/v1.0.0'))
+      : [release('tool/v1.1.0')]), { status: 200 });
+  });
+  assert.equal(releases.at(-1).tag_name, 'tool/v1.1.0');
+  assert.deepEqual(requests, [
+    'https://api.github.com/repos/ryanduguid/example/releases?per_page=100&page=1',
+    'https://api.github.com/repos/ryanduguid/example/releases?per_page=100&page=2',
+  ]);
+  await assert.rejects(freshness.fetchReleases('ryanduguid/example', async () =>
+    new Response('Rate limited', { status: 403 })), /GitHub release lookup failed.*403/);
+});
+
+test('release check leaves historical references outside the current table alone', async () => {
+  const html = releaseTable('v1.2.0') +
+    '<p>Earlier evaluation: <a href="https://github.com/ryanduguid/example/releases/tag/v1.1.0">v1.1.0</a></p>';
+  assert.deepEqual(await freshness.checkReleases(html, async () => [release('v1.2.0'), release('v1.1.0')]), []);
 });
