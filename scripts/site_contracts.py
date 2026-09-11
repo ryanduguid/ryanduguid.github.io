@@ -555,6 +555,7 @@ PRIMARY_NAV_LINKS = [
 ]
 
 BREADCRUMB_LEAF_NAMES = {
+    "tools/monthly-close-controls/index.html": "Monthly Close Controls",
     "tools/ato-benchmarks/index.html": "ATO benchmark comparison",
     "tools/australian-tax-ai-agents/index.html": "Australian tax tools for AI agents",
     "tools/coal-lsl-levy/index.html": "Coal LSL levy calculator",
@@ -580,6 +581,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ("/tools/trust-distributions/", "Trust distribution checks"),
             ("/tools/company-tax-franking/", "Company tax and franking checks"),
             ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
+            ("/tools/monthly-close-controls/", "Monthly Close Controls"),
             ("/tools/australian-tax-ai-agents/", "Australian tax tools for AI agents"),
         ],
     },
@@ -676,6 +678,7 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 ARTICLE_PATTERN_PAGES = {
+    "tools/monthly-close-controls/index.html",
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
     "evaluate/payday-super-evidence/index.html",

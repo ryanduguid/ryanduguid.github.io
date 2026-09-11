@@ -47,10 +47,12 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 ## Browser tools, nothing to install
 
 - [Payday Super receipt-evidence example](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads, or recalculation; source and full evaluation links are on the page.
-- [Tools](https://duguid.com.au/tools/): index of ten open-source accounting controls grouped by extract, calculate, control, and inspect, with delivery types, source repositories, and human-review boundaries.
+- [Tools](https://duguid.com.au/tools/): index of eleven open-source accounting controls grouped by extract, calculate, control, and inspect, with delivery types, source repositories, and human-review boundaries.
 - [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base-rate, annual-salary, and casual branches. Also lists eight questions the Act, the Regulations, and the guidance note leave unanswered.
 
 ## Tool guides, open source, install and run locally
+
+- [Monthly Close Controls](https://duguid.com.au/tools/monthly-close-controls/): compares current and prior Xero-shaped trial balance CSVs and prepares an exception report for human review. The pinned fabricated example returns REVIEW with eight exceptions and six draft client queries. It reads local files and cannot approve a close.
 
 - [Workpaper Review Gate](https://duguid.com.au/tools/workpaper-review-gate/): local readiness gate for BAS, month-end, and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
 - [Xero trial balance CSV export](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year-to-date figures both balance. Read-only scope.

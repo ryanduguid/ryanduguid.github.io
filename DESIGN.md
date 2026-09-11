@@ -313,7 +313,7 @@ Pain first: a rate or AI answer without a source and review boundary cannot be r
 
 ### Collection registers
 
-The homepage previews four review tasks. The full `/tools/` register groups the ten controls by the work they stop or check:
+The homepage previews four review tasks. The full `/tools/` register groups the eleven controls by the work they stop or check:
 
 - Extract records into reviewable shape.
 - Calculate without hiding the branch, formula or rounding.
@@ -374,9 +374,9 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `84F92E0A48EEEF965487B7B7452141DE448CCCDCDDC9B679DB83F850620C9057`
+- `llms.txt`: SHA-256 `1413B1C906151EE794A060010281586C8801B7A60FE957C64C8D66BB77D10124`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `C55AB735E827A68B21D7CE084E20BD2506F1C8175E48F8A1F2AACEEC5F7E1C30`
+- `sitemap.xml`: SHA-256 `2794076E222F9DE68A0328EF7C0241478615A6CBECC79F46780D499E580BB258`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -505,3 +505,13 @@ closed. The existing site layout, four tool categories, calculator, rates, and
 fixed-release evaluations are retained. Machine indexes and editorial dates
 record these copy changes; they do not assert independent accountant review or
 client outcomes.
+
+## Monthly close guide, 11 September 2026
+
+The SEO/GEO audit adds `/tools/monthly-close-controls/` for the monthly close
+exception-report query. It reuses the article, table, command and FAQ patterns,
+with a fabricated example reproduced at source commit `ae88966`. The Tools
+register, nearby guides and evaluation preview link to it. Sitemap and text
+indexes include the new page. Only the affected machine-index and sitemap
+hashes, Tools JSON-LD, new-page JSON-LD and shared-footer count change in the
+protected baseline. No CSS or runtime dependency is added.
