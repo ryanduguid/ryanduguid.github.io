@@ -49,9 +49,9 @@ HEADER = (
 )
 
 
-def page_path(url: str) -> Path:
+def page_path(url: str, content_root: Path = ROOT) -> Path:
     rel = url.removeprefix(SITE).strip("/")
-    return ROOT / (f"{rel}/index.html" if rel else "index.html")
+    return content_root / (f"{rel}/index.html" if rel else "index.html")
 
 
 def block_kind(block: str) -> str:
@@ -112,9 +112,15 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
 
 
 def build() -> str:
+    content_root = ROOT
+    if (ROOT / "Gemfile").is_file():
+        # Render Liquid data and includes before extracting the visible text.
+        from build_site import build as render
+
+        content_root = render()
     parts = [HEADER]
     for url in core.sitemap_urls(ROOT):
-        html = page_path(url).read_text(encoding="utf-8")
+        html = page_path(url, content_root).read_text(encoding="utf-8")
         title_match = re.search(r"<title>(.*?)</title>", html, re.S)
         if title_match is None:
             raise ValueError(f"{url}: page has no <title>")

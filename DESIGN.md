@@ -368,9 +368,9 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `1413B1C906151EE794A060010281586C8801B7A60FE957C64C8D66BB77D10124`
+- `llms.txt`: SHA-256 `C34522915A32D4B65D296A4CA85AE08177A11BDBEA3E6D3ADA825C75D09B755F`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `2794076E222F9DE68A0328EF7C0241478615A6CBECC79F46780D499E580BB258`
+- `sitemap.xml`: SHA-256 `6807981A7208C04FF9F1BCF81A9749FBD1128F58F04D240E85B61D3967FA2D8F`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -509,3 +509,25 @@ register, nearby guides and evaluation preview link to it. Sitemap and text
 indexes include the new page. Only the affected machine-index and sitemap
 hashes, Tools JSON-LD, new-page JSON-LD and shared-footer count change in the
 protected baseline. No CSS or runtime dependency is added.
+
+## Accounting question guides, 11 September 2026
+
+Ryan authorised implementation of the 100-question research register. Two Tools
+subpages add static question guides and nine browser calculators. They reuse
+the shared navigation, tokens and footer. The question data renders through
+Jekyll before machine-text extraction. The sitemap and machine-index hashes
+above now include these routes; the footer count rises from 27 to 29. Existing
+rate text, arithmetic and evaluation pins remain protected. No measured-search
+ranking or professional-service claim is added.
+
+The approved improvement pass fixes rounding in the new planning calculators,
+searches guide content and accounting aliases, and adds dated cash scenarios
+with local input-file save/load. Three fictional worked examples and topic
+review dates support the guides. Both new routes join the existing Lighthouse
+checks. The earlier levy engine, statutory rate pages, and evaluation pins stay
+within their protected contracts.
+
+The question filters occupy their space before JavaScript loads. The shared
+script loads calculator arithmetic only on pages with calculator forms. The
+preview negotiates gzip for text resources to match verified GitHub Pages
+delivery. Lighthouse thresholds remain unchanged.

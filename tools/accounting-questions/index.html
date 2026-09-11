@@ -1,0 +1,155 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>100 Australian accounting questions</title>
+  <meta name="description" content="Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="100 Australian accounting questions" />
+  <meta property="og:description" content="Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/accounting-questions/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="100 Australian accounting questions" />
+  <meta name="twitter:description" content="Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/accounting-questions/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+
+  <link rel="stylesheet" href="/assets/accounting-pages.css" />
+  <script type="module" src="/assets/accounting-pages.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main accounting-page">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">100 Australian accounting questions</li></ol></nav>
+        <h1>100 Australian accounting questions</h1>
+
+        <p class="lead-note">Find the records, calculations and steps for Australian tax and business questions. Select questions to build a checklist.</p>
+        <p><a href="/tools/business-calculators/">Open the business calculators</a> or <a href="/evaluate/#profit-and-cash">try the fictional Newcastle cash-flow workbook</a>.</p>
+        <p class="page-meta">Editorial review: {{ site.data.accounting_questions.reviewed | date: "%e %B %Y" | strip }}. These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.</p>
+      </header>
+      <div class="site-shell accounting-content">
+        <div class="question-controls">
+          <fieldset disabled><legend class="visually-hidden">Question filters and checklist</legend>
+          <div class="form-grid">
+            <label class="field" for="question-search">Search questions<input type="search" id="question-search" placeholder="Try BAS, cash flow or Newcastle" /></label>
+            <div class="field"><label for="question-topic">Topic</label><select id="question-topic"><option value="">All topics</option>{% for topic in site.data.accounting_questions.topics %}<option value="{{ topic.id }}">{{ topic.label | escape }}</option>{% endfor %}</select></div>
+          </div>
+          <div class="accounting-actions">
+            <button type="button" id="clear-filters">Clear filters</button>
+            <button type="button" id="download-checklist" disabled>Download selected checklist</button>
+            <button type="button" id="print-checklist" disabled>Print selected checklist</button>
+            <button type="button" id="clear-selection" disabled>Clear selection</button>
+          </div>
+          <p id="question-count" role="status">100 questions. 0 selected.</p>
+          <p class="field-note">Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.</p>
+          </fieldset>
+        </div>
+        <noscript><p>All 100 answers are available below. JavaScript adds search, selection and checklist downloads.</p></noscript>
+        <nav class="question-topics" aria-label="Question topics"><ul>{% for topic in site.data.accounting_questions.topics %}
+          <li><a href="#{{ topic.id }}">{{ topic.label | escape }}</a></li>{% endfor %}
+        </ul></nav>
+        {% capture question_sections %}{% for topic in site.data.accounting_questions.topics %}
+        <section class="question-group" id="{{ topic.id }}" data-topic="{{ topic.id }}">
+          <h2>{{ topic.label | escape }}</h2>
+          <p class="topic-review field-note">Reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}. {{ topic.period | escape }}</p>
+          {% assign questions = site.data.accounting_questions.questions | where: "topic", topic.id %}
+          {% for question in questions %}
+          {% assign source = site.data.accounting_questions.sources[question.source] %}
+          {% assign tool = site.data.accounting_questions.tools[question.tool] %}
+          <details class="question" id="q{{ question.id }}"{% if question.keywords %} data-search-terms="{{ question.keywords | escape }}"{% endif %}>
+            <summary><span class="question-number">{{ question.id }}.</span> {{ question.question | escape }}</summary>
+            <div class="question-answer">
+              <p>{{ question.answer | escape }}</p>
+              <ol>{% for step in question.steps %}<li>{{ step | escape }}</li>{% endfor %}</ol>
+              {% if question.example %}<div class="question-example"><p><strong>Fictional worked example</strong></p><p>{{ question.example | escape }}</p></div>{% endif %}
+              <p class="question-boundary">{{ question.boundary | escape }}</p>
+              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
+              <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Select question {{ question.id }}" /> Add to my checklist</label></p>
+              <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
+            </div>
+          </details>
+          {% endfor %}
+        </section>
+        {% endfor %}{% endcapture %}{{ question_sections | normalize_whitespace }}
+        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.</p>
+      </div>
+
+    </article>
+  </main>
+{% include site-footer.html %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/accounting-questions/#webpage",
+      "url": "https://duguid.com.au/tools/accounting-questions/",
+      "name": "100 Australian accounting questions",
+      "description": "Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-11",
+      "dateModified": "2026-09-11",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "100 Australian accounting questions",
+          "item": "https://duguid.com.au/tools/accounting-questions/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</body>
+</html>

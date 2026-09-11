@@ -1,0 +1,1587 @@
+{
+  "reviewed": "2026-09-11",
+  "sources": {
+    "returns": {
+      "label": "Your tax return",
+      "url": "https://www.ato.gov.au/individuals-and-families/your-tax-return"
+    },
+    "tfn": {
+      "label": "Tax file number",
+      "url": "https://www.ato.gov.au/individuals-and-families/tax-file-number"
+    },
+    "deductions": {
+      "label": "Deductions you can claim",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim"
+    },
+    "cash": {
+      "label": "Set up a cash flow statement",
+      "url": "https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement"
+    },
+    "finalpay": {
+      "label": "Final pay - Fair Work Ombudsman",
+      "url": "https://www.fairwork.gov.au/ending-employment/final-pay"
+    },
+    "pricing": {
+      "label": "Choose a pricing strategy",
+      "url": "https://business.gov.au/products-and-services/choose-a-pricing-strategy"
+    },
+    "super": {
+      "label": "Payday Super for employers",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/super-for-employers"
+    },
+    "payg": {
+      "label": "PAYG withholding",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding"
+    },
+    "business": {
+      "label": "Starting, registering or closing a business",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business"
+    },
+    "company": {
+      "label": "Corporate tax measures and assurance",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance"
+    },
+    "investments": {
+      "label": "Investments and assets",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets"
+    },
+    "land": {
+      "label": "Land tax",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax"
+    },
+    "pay": {
+      "label": "Paying the ATO",
+      "url": "https://www.ato.gov.au/individuals-and-families/paying-the-ato"
+    },
+    "records": {
+      "label": "Record keeping for business",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business"
+    },
+    "property": {
+      "label": "Property and land",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land"
+    },
+    "cgt": {
+      "label": "Capital gains tax",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax"
+    },
+    "crypto": {
+      "label": "Crypto asset investments",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments"
+    },
+    "stp": {
+      "label": "Single Touch Payroll",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll"
+    },
+    "fbt-source": {
+      "label": "Fringe benefits tax (FBT)",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax"
+    },
+    "trust-source": {
+      "label": "Trusts",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/trusts"
+    },
+    "div7a-source": {
+      "label": "Private company benefits - Division 7A dividends",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends"
+    },
+    "income": {
+      "label": "ATO income, deductions and records",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records"
+    },
+    "abn": {
+      "label": "ABR ABN application and entitlement",
+      "url": "https://www.abr.gov.au/business-super-funds-charities/applying-abn"
+    },
+    "gst": {
+      "label": "ATO GST guidance",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst"
+    },
+    "nsw-payroll": {
+      "label": "Revenue NSW payroll tax",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax"
+    },
+    "tpb": {
+      "label": "TPB register of tax and BAS agents",
+      "url": "https://www.tpb.gov.au/public-register"
+    },
+    "benchmark": {
+      "label": "ATO benchmark comparison method",
+      "url": "/tools/ato-benchmarks/"
+    },
+    "smsf-source": {
+      "label": "ATO self-managed super funds",
+      "url": "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf"
+    },
+    "bas-source": {
+      "label": "ATO business activity statements",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas"
+    }
+  },
+  "tools": {
+    "tax": {
+      "label": "Experimental tax worksheets and supported years",
+      "url": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators"
+    },
+    "use": {
+      "label": "Business-use apportionment calculator",
+      "url": "/tools/business-calculators/#business-use"
+    },
+    "gst": {
+      "label": "GST calculator",
+      "url": "/tools/business-calculators/#gst"
+    },
+    "car": {
+      "label": "Cents-per-kilometre rate table and method",
+      "url": "/rates/cents-per-kilometre/"
+    },
+    "cash": {
+      "label": "13-week cash forecast",
+      "url": "/tools/business-calculators/#cash"
+    },
+    "loan": {
+      "label": "Monthly loan payment calculator",
+      "url": "/tools/business-calculators/#loan"
+    },
+    "staff": {
+      "label": "Staff-cost calculator",
+      "url": "/tools/business-calculators/#staff"
+    },
+    "variance": {
+      "label": "Budget variance calculator",
+      "url": "/tools/business-calculators/#variance"
+    },
+    "break-even": {
+      "label": "Break-even calculator",
+      "url": "/tools/business-calculators/#break-even"
+    },
+    "hourly": {
+      "label": "Hourly pricing calculator",
+      "url": "/tools/business-calculators/#hourly"
+    },
+    "margin": {
+      "label": "Margin and markup calculator",
+      "url": "/tools/business-calculators/#margin"
+    },
+    "payday": {
+      "label": "Payday Super receipt-evidence example",
+      "url": "/tools/payday-super/"
+    },
+    "bas": {
+      "label": "Accounting workflows, including BAS preparation",
+      "url": "/tools/australian-tax-ai-agents/"
+    },
+    "close": {
+      "label": "Monthly-close review pack",
+      "url": "https://github.com/ryanduguid/accounting-review-pipeline"
+    },
+    "example": {
+      "label": "Fictional Newcastle cash-flow workbook",
+      "url": "/evaluate/#profit-and-cash"
+    },
+    "xero": {
+      "label": "Xero trial-balance export",
+      "url": "/tools/xero-trial-balance/"
+    },
+    "div7a": {
+      "label": "Division 7A review case and limitations",
+      "url": "https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md"
+    },
+    "company-tool": {
+      "label": "Company tax and franking example",
+      "url": "/tools/company-tax-franking/"
+    },
+    "trust": {
+      "label": "Trust distributions example",
+      "url": "/tools/trust-distributions/"
+    },
+    "wip": {
+      "label": "Construction WIP schedule",
+      "url": "/tools/wip-schedule/"
+    }
+  },
+  "topics": [
+    {
+      "id": "general-tax",
+      "label": "Tax returns",
+      "reviewed": "2026-09-11",
+      "period": "Use the income year and residency facts for the return being prepared."
+    },
+    {
+      "id": "deductions",
+      "label": "Deductions",
+      "reviewed": "2026-09-11",
+      "period": "Check eligibility and record requirements for the income year of the expense."
+    },
+    {
+      "id": "business-setup",
+      "label": "Starting a business",
+      "reviewed": "2026-09-11",
+      "period": "Use the entity, activity, and income year being assessed."
+    },
+    {
+      "id": "gst-bas",
+      "label": "GST and BAS",
+      "reviewed": "2026-09-11",
+      "period": "Use the BAS period, GST accounting basis, and account due date being reviewed."
+    },
+    {
+      "id": "payroll-super",
+      "label": "Payroll and super",
+      "reviewed": "2026-09-11",
+      "period": "Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026."
+    },
+    {
+      "id": "bookkeeping-close",
+      "label": "Bookkeeping and close",
+      "reviewed": "2026-09-11",
+      "period": "Use the same reporting date and accounting basis for all reconciliations."
+    },
+    {
+      "id": "cash-flow",
+      "label": "Cash flow",
+      "reviewed": "2026-09-11",
+      "period": "Planning method for the dates entered. Include obligations in their expected payment weeks."
+    },
+    {
+      "id": "management-reporting",
+      "label": "Management reporting",
+      "reviewed": "2026-09-11",
+      "period": "Compare the same reporting period and basis; historical benchmarks retain their published years."
+    },
+    {
+      "id": "company-compliance",
+      "label": "Companies and trusts",
+      "reviewed": "2026-09-11",
+      "period": "Use the entity and relevant income or FBT year; linked tools have separate supported periods."
+    },
+    {
+      "id": "investments-local",
+      "label": "Investments and Newcastle",
+      "reviewed": "2026-09-11",
+      "period": "Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified."
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "topic": "general-tax",
+      "question": "What will my income-tax bill be?",
+      "answer": "Start with taxable income for the correct income year, then account for levies, offsets, study loans and tax already withheld. A basic tax-bracket result alone is incomplete.",
+      "steps": [
+        "Gather income statements, investment statements, deductible expenses and PAYG credits.",
+        "Use the ATO return estimate and reconcile each adjustment before treating it as a budget."
+      ],
+      "boundary": "The linked experimental income-tax worksheet excludes levies and offsets; check its supported years.",
+      "source": "returns",
+      "tool": "tax"
+    },
+    {
+      "id": 2,
+      "topic": "general-tax",
+      "question": "Which expenses reduce my taxable income?",
+      "answer": "An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.",
+      "steps": [
+        "List each expense, its purpose, date, amount and reimbursement.",
+        "Record your work-use calculation and check the ATO category before claiming."
+      ],
+      "boundary": "A receipt proves spending, but does not by itself establish deductibility.",
+      "source": "deductions",
+      "tool": "use"
+    },
+    {
+      "id": 3,
+      "topic": "general-tax",
+      "question": "What steps are involved in completing a return?",
+      "answer": "Collect the year's records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.",
+      "steps": [
+        "Check income statements are ready and account for income missing from pre-fill.",
+        "Keep a copy of the reviewed return, declaration and lodgement receipt."
+      ],
+      "boundary": "The checklist prepares your records; lodgement happens with the ATO or your registered agent.",
+      "source": "returns",
+      "tool": ""
+    },
+    {
+      "id": 4,
+      "topic": "general-tax",
+      "question": "Where can I obtain or recover my TFN?",
+      "answer": "Use the ATO's TFN application or lost-TFN route. The right application process depends on residency and circumstances.",
+      "steps": [
+        "If you already have a TFN, use the ATO recovery instructions before applying again.",
+        "Complete any identity checks directly with the official service."
+      ],
+      "boundary": "Do not put a TFN or identity documents into this website or a public issue.",
+      "source": "tfn",
+      "tool": ""
+    },
+    {
+      "id": 5,
+      "topic": "general-tax",
+      "question": "What dates govern the annual tax cycle?",
+      "answer": "Build a calendar from the dates that apply to your return, activity statements, payroll and entity obligations.",
+      "steps": [
+        "Record the period, lodgement date, payment date and responsible person for each obligation.",
+        "Confirm the dates in your ATO account or with your registered agent; record any approved extension."
+      ],
+      "boundary": "An agent's program or a particular account can have different dates from a general calendar.",
+      "source": "returns",
+      "tool": ""
+    },
+    {
+      "id": 6,
+      "topic": "general-tax",
+      "question": "Which methods can I use to settle my tax bill?",
+      "answer": "Use the ATO payment instructions for the relevant account and payment reference.",
+      "steps": [
+        "Check the amount owing and available payment methods in the official service.",
+        "Allow for processing time and keep the receipt; reconcile the payment when it appears."
+      ],
+      "boundary": "This website does not collect payments or supply bank details.",
+      "source": "pay",
+      "tool": ""
+    },
+    {
+      "id": 7,
+      "topic": "general-tax",
+      "question": "Which earnings are taxable?",
+      "answer": "Check each source of income against the ATO's categories. Amounts missing from pre-fill still need review.",
+      "steps": [
+        "Reconcile employment, business, investment, government and foreign income records.",
+        "List unusual receipts separately and record why they are included or excluded."
+      ],
+      "boundary": "A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.",
+      "source": "income",
+      "tool": ""
+    },
+    {
+      "id": 8,
+      "topic": "general-tax",
+      "question": "How long will the tax-return process take?",
+      "answer": "Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.",
+      "steps": [
+        "Complete the record checklist before setting a preparation deadline.",
+        "After lodgement, use the official progress service and respond to any information request."
+      ],
+      "boundary": "No refund date or processing outcome is guaranteed here.",
+      "source": "returns",
+      "tool": ""
+    },
+    {
+      "id": 9,
+      "topic": "general-tax",
+      "question": "Where can I submit a completed return?",
+      "answer": "Individuals can use the lodgement options on the ATO's tax-return page, including myTax where eligible, a registered agent or paper.",
+      "steps": [
+        "Choose the route for your circumstances and confirm the income year.",
+        "Review the declaration and save the lodgement receipt after submission."
+      ],
+      "boundary": "The site supplies preparation guidance and does not submit returns.",
+      "source": "returns",
+      "tool": ""
+    },
+    {
+      "id": 10,
+      "topic": "general-tax",
+      "question": "Which tax rules changed during 2025?",
+      "answer": "A calendar-year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.",
+      "steps": [
+        "Use the ATO 'Before you prepare your tax return' guidance for each year.",
+        "Record each changed rate or rule, effective date, source and affected calculation in a change log."
+      ],
+      "boundary": "An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.",
+      "source": "returns",
+      "tool": ""
+    },
+    {
+      "id": 11,
+      "topic": "deductions",
+      "question": "How do I calculate my working-from-home deduction?",
+      "answer": "Compare the eligible working-from-home methods for the income year using the required evidence for each.",
+      "steps": [
+        "Record actual hours worked at home and the costs or rate that the chosen method covers.",
+        "Keep separately claimed costs out of any category already included in the chosen method."
+      ],
+      "boundary": "Eligibility, rates and record requirements must be checked for the year; this site does not select the method for you.",
+      "source": "deductions",
+      "tool": "use"
+    },
+    {
+      "id": 12,
+      "topic": "deductions",
+      "question": "What records do I need to support my working-from-home claim?",
+      "answer": "Keep evidence of hours and costs that supports the particular working-from-home method you use.",
+      "steps": [
+        "Record dates and hours throughout the required period and retain bills or receipts.",
+        "Keep a note of the method, year, work-use basis and costs excluded to prevent double claims."
+      ],
+      "boundary": "A reconstructed estimate may not meet the ATO's requirements for your method.",
+      "source": "deductions",
+      "tool": ""
+    },
+    {
+      "id": 13,
+      "topic": "deductions",
+      "question": "Should I use the cents-per-kilometre or logbook method for car expenses?",
+      "answer": "Compare the methods you are eligible to use, using the same car and income year.",
+      "steps": [
+        "For cents per kilometre, document eligible kilometres and check the year's rate and cap.",
+        "For the logbook method, gather a valid logbook, odometer readings and actual running costs."
+      ],
+      "boundary": "Vehicle type, ownership and entity structure can change which methods are available.",
+      "source": "deductions",
+      "tool": "car"
+    },
+    {
+      "id": 14,
+      "topic": "deductions",
+      "question": "How do I keep a valid vehicle logbook?",
+      "answer": "A useful logbook records each business trip and lets another person check the business-use percentage.",
+      "steps": [
+        "Record the required trip dates, odometer readings, distance and business purpose.",
+        "Keep opening and closing odometer readings and review whether changed use requires a new logbook."
+      ],
+      "boundary": "Check the ATO's required recording period and validity conditions before relying on the logbook.",
+      "source": "deductions",
+      "tool": "car"
+    },
+    {
+      "id": 15,
+      "topic": "deductions",
+      "question": "How do I calculate the work-related share of phone and internet expenses?",
+      "answer": "Apply a supported work-use percentage to eligible phone and internet costs.",
+      "steps": [
+        "Gather bills and a representative usage record that distinguishes private from work use.",
+        "Use the business-use calculator and retain the usage calculation with the result."
+      ],
+      "boundary": "Do not separately claim costs already covered by your chosen working-from-home method.",
+      "source": "deductions",
+      "tool": "use"
+    },
+    {
+      "id": 16,
+      "topic": "deductions",
+      "question": "Can I deduct a laptop or tools immediately, or must I depreciate them?",
+      "answer": "Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.",
+      "steps": [
+        "Record cost, acquisition date, first use, work-use share and whether the item forms part of a set.",
+        "Check the applicable year's asset rules and retain the calculation in an asset register."
+      ],
+      "boundary": "The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.",
+      "source": "deductions",
+      "tool": "tax"
+    },
+    {
+      "id": 17,
+      "topic": "deductions",
+      "question": "Which work clothing, uniforms and laundry expenses can I claim?",
+      "answer": "Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.",
+      "steps": [
+        "Separate protective clothing, qualifying uniforms, occupation-specific clothing and ordinary items.",
+        "Retain purchases and a supportable laundry calculation, with any reimbursement recorded."
+      ],
+      "boundary": "Check the ATO category and evidence requirements before adding an amount to the return.",
+      "source": "deductions",
+      "tool": ""
+    },
+    {
+      "id": 18,
+      "topic": "deductions",
+      "question": "Can I claim course fees, professional memberships and self-education expenses?",
+      "answer": "Check how the course or membership relates to your current income-earning activities.",
+      "steps": [
+        "Keep invoices, course details, the work connection and any employer reimbursement.",
+        "Split private components and costs of gaining a new occupation from costs relevant to current work for review."
+      ],
+      "boundary": "A professional label or employer recommendation alone does not settle the tax treatment.",
+      "source": "deductions",
+      "tool": ""
+    },
+    {
+      "id": 19,
+      "topic": "deductions",
+      "question": "What can I claim if I have lost the receipt?",
+      "answer": "Try to replace missing evidence before deciding whether a claim can be supported.",
+      "steps": [
+        "Request duplicate invoices or download supplier records and match them to payment evidence.",
+        "Write down the expense, work purpose, missing record and the ATO evidence rule you relied on."
+      ],
+      "boundary": "A bank statement or a general receipt exception does not automatically support every claim.",
+      "source": "income",
+      "tool": ""
+    },
+    {
+      "id": 20,
+      "topic": "deductions",
+      "question": "Does my business qualify for the instant asset write-off this financial year?",
+      "answer": "Test eligibility against the rules enacted for the asset's relevant year and circumstances.",
+      "steps": [
+        "Record aggregated turnover, asset cost, acquisition and first-use dates, and business-use share.",
+        "Check the current ATO small-business depreciation rules, including exclusions and any applicable election."
+      ],
+      "boundary": "The ordinary depreciation worksheet does not determine instant asset write-off eligibility.",
+      "source": "business",
+      "tool": "tax"
+    },
+    {
+      "id": 21,
+      "topic": "business-setup",
+      "question": "Do I need an ABN for freelance or contracting work?",
+      "answer": "ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.",
+      "steps": [
+        "Record the work arrangement, independence, activity and evidence that the enterprise has started.",
+        "Read the ABR entitlement guidance before applying."
+      ],
+      "boundary": "An ABN does not decide whether a worker is an employee for tax, super or workplace law.",
+      "source": "abn",
+      "tool": ""
+    },
+    {
+      "id": 22,
+      "topic": "business-setup",
+      "question": "How do I apply for an ABN, and what information do I need?",
+      "answer": "Apply through the official ABR route after checking entitlement.",
+      "steps": [
+        "Gather the entity structure, business activity, start date and contact information required by the ABR.",
+        "Enter identity information directly into the official application and save its confirmation."
+      ],
+      "boundary": "This site neither applies for an ABN nor handles identity documents.",
+      "source": "abn",
+      "tool": ""
+    },
+    {
+      "id": 23,
+      "topic": "business-setup",
+      "question": "Is my activity a hobby or a business for tax purposes?",
+      "answer": "Assess the pattern of activity, commercial purpose and how the activity is organised.",
+      "steps": [
+        "Document your intention, pricing, repetition, scale, records and plan to make a profit.",
+        "Keep the conclusion and supporting facts, and reassess when the activity changes."
+      ],
+      "boundary": "There is no single revenue figure in this guide that classifies every activity.",
+      "source": "business",
+      "tool": ""
+    },
+    {
+      "id": 24,
+      "topic": "business-setup",
+      "question": "Should I operate as a sole trader or a company?",
+      "answer": "Compare liability, ownership, administration, tax and how profits will reach the owners.",
+      "steps": [
+        "Prepare the same forecast under each structure, including compliance costs and money taken out.",
+        "Discuss asset protection, existing contracts and restructuring costs with the relevant advisers before choosing."
+      ],
+      "boundary": "A lower company tax rate alone does not establish a lower total cost or a suitable structure.",
+      "source": "business",
+      "tool": "cash"
+    },
+    {
+      "id": 25,
+      "topic": "business-setup",
+      "question": "How much should I set aside for income tax as a sole trader?",
+      "answer": "Reserve cash against an estimate of your annual personal tax position and instalments already paid.",
+      "steps": [
+        "Forecast business profit alongside salary and other personal income, deductions and credits.",
+        "Place expected instalments and the remaining tax payment into the cash forecast on their due dates."
+      ],
+      "boundary": "A fixed percentage of sales can miss deductions, other income and tax already paid.",
+      "source": "returns",
+      "tool": "cash"
+    },
+    {
+      "id": 26,
+      "topic": "business-setup",
+      "question": "Do I need a separate business bank account?",
+      "answer": "A separate account makes business transactions easier to trace. The requirements also depend on the entity.",
+      "steps": [
+        "Record which accounts hold business money and reconcile each to its statement.",
+        "For a company or trust, keep entity funds and private funds clearly identified and correctly recorded."
+      ],
+      "boundary": "Check the account requirements for your structure before opening or changing banking arrangements.",
+      "source": "business",
+      "tool": ""
+    },
+    {
+      "id": 27,
+      "topic": "business-setup",
+      "question": "How do I pay myself and record drawings as a sole trader?",
+      "answer": "Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.",
+      "steps": [
+        "Record the transfer against drawings or the owner's equity account in your agreed chart.",
+        "Keep drawings visible in the cash forecast so the business can meet upcoming obligations."
+      ],
+      "boundary": "A sole trader's drawings do not set the amount of taxable business profit.",
+      "source": "business",
+      "tool": "cash"
+    },
+    {
+      "id": 28,
+      "topic": "business-setup",
+      "question": "Do the personal services income rules apply to my contracting income?",
+      "answer": "Review whether the income is mainly a reward for personal effort or skill, then work through the applicable PSI tests.",
+      "steps": [
+        "Keep contracts, invoices, working arrangements and evidence for any test relied on.",
+        "Record the income streams separately and review personal-services-business conditions with your adviser."
+      ],
+      "boundary": "An ABN or company structure does not by itself switch off the PSI rules.",
+      "source": "business",
+      "tool": ""
+    },
+    {
+      "id": 29,
+      "topic": "business-setup",
+      "question": "How do I report income from a side hustle, delivery work or online sales?",
+      "answer": "Reconcile gross platform activity to payouts before deciding how to report it.",
+      "steps": [
+        "Export sales, fees, refunds and activity records for the income year.",
+        "Document whether the activity is business, employment or another income category and check GST separately."
+      ],
+      "boundary": "Net bank deposits can omit fees and gross receipts that need separate reporting.",
+      "source": "business",
+      "tool": ""
+    },
+    {
+      "id": 30,
+      "topic": "business-setup",
+      "question": "Can I offset a business loss against my salary or other income?",
+      "answer": "A business loss needs a separate review before it can reduce other income.",
+      "steps": [
+        "Keep the loss calculation, activity history and records relevant to the non-commercial loss tests.",
+        "Record whether an exception, test or discretion applies, or whether the loss must be deferred."
+      ],
+      "boundary": "A loss in the accounts does not automatically offset salary in the tax return.",
+      "source": "business",
+      "tool": ""
+    },
+    {
+      "id": 31,
+      "topic": "gst-bas",
+      "question": "How do I add GST to a price or extract GST from an inclusive amount?",
+      "answer": "For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.",
+      "steps": [
+        "Choose whether your amount already includes GST, then calculate the components.",
+        "Keep the source invoice and confirm that the whole amount is subject to GST."
+      ],
+      "boundary": "The calculator does not classify GST-free, input-taxed or mixed supplies.",
+      "source": "gst",
+      "tool": "gst"
+    },
+    {
+      "id": 32,
+      "topic": "gst-bas",
+      "question": "When must my business register for GST?",
+      "answer": "Check current and projected GST turnover and any compulsory-registration rule for your activity.",
+      "steps": [
+        "Build a monthly turnover schedule and review what counts towards GST turnover.",
+        "Use the ATO registration guidance to determine the trigger and registration date."
+      ],
+      "boundary": "Taxi and ride-sourcing rules and other exceptions mean a general turnover threshold is not enough.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 33,
+      "topic": "gst-bas",
+      "question": "What is the difference between GST-free and input-taxed sales?",
+      "answer": "GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.",
+      "steps": [
+        "Classify each income stream using the ATO guidance and retain the basis for the classification.",
+        "Review purchase credits and any apportionment separately for input-taxed activities."
+      ],
+      "boundary": "Do not give both categories the same purchase-credit treatment just because no GST appears on the sale.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 34,
+      "topic": "gst-bas",
+      "question": "Do I charge GST when selling to overseas customers?",
+      "answer": "An overseas customer does not automatically make a sale GST-free.",
+      "steps": [
+        "Record what you sold, where it is supplied or used, customer circumstances and any export evidence.",
+        "Check the relevant goods or services rule before choosing the GST code."
+      ],
+      "boundary": "Export conditions and evidence requirements differ between goods and services.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 35,
+      "topic": "gst-bas",
+      "question": "What information must appear on a valid tax invoice?",
+      "answer": "Use an invoice checklist matched to the sale and the ATO's tax-invoice requirements.",
+      "steps": [
+        "Check supplier identity and ABN, date, description, price and how the GST amount is shown.",
+        "Check any buyer-identification requirement and clearly separate taxable and non-taxable items."
+      ],
+      "boundary": "Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 36,
+      "topic": "gst-bas",
+      "question": "How do I prepare a BAS from my accounting records?",
+      "answer": "Reconcile source records to each BAS label before approval.",
+      "steps": [
+        "Check reporting period and GST basis, reconcile tax-coded transactions and investigate exceptions.",
+        "Reconcile PAYG and other labels, retain the workpaper and obtain approval before lodgement."
+      ],
+      "boundary": "The existing BAS workflow prepares a workpaper; the reviewer remains responsible for classification and lodgement.",
+      "source": "bas-source",
+      "tool": "bas",
+      "example": "For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly."
+    },
+    {
+      "id": 37,
+      "topic": "gst-bas",
+      "question": "When is my BAS due, and when must I pay it?",
+      "answer": "Use the period and due date shown for your BAS account.",
+      "steps": [
+        "Record both lodgement and payment deadlines and any approved concession.",
+        "Put the cash payment in the forecast and assign someone to retain the receipt."
+      ],
+      "boundary": "General quarterly dates can differ from the dates that apply to your account.",
+      "source": "gst",
+      "tool": "cash"
+    },
+    {
+      "id": 38,
+      "topic": "gst-bas",
+      "question": "Should I account for GST on a cash or accrual basis?",
+      "answer": "Compare the timing of receipts and payments under the methods your business is allowed to use.",
+      "steps": [
+        "Check eligibility and the method currently recorded with the ATO.",
+        "Model the effect on unpaid invoices and bills before changing method, and document transition adjustments."
+      ],
+      "boundary": "Changing a report setting in Xero does not by itself change the ATO accounting method.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 39,
+      "topic": "gst-bas",
+      "question": "Why does my BAS GST figure differ from the GST balance in Xero?",
+      "answer": "Bridge the BAS calculation to the GST control account at the same date and on the same basis.",
+      "steps": [
+        "Separate opening balances, payments to the ATO, cash-basis timing and journals.",
+        "List each reconciling item and clear unexplained differences before signing off."
+      ],
+      "boundary": "A control-account balance is not automatically the GST payable for one BAS period.",
+      "source": "gst",
+      "tool": "bas"
+    },
+    {
+      "id": 40,
+      "topic": "gst-bas",
+      "question": "How do I correct a mistake in a BAS I have already lodged?",
+      "answer": "Work out whether the error can be corrected on a later BAS or requires a revision.",
+      "steps": [
+        "Record the original period, error type, amount, discovery date and supporting transactions.",
+        "Apply the ATO's correction conditions and retain the approved amendment or later-period adjustment."
+      ],
+      "boundary": "Do not choose a later-period correction without checking time and value limits.",
+      "source": "gst",
+      "tool": ""
+    },
+    {
+      "id": 41,
+      "topic": "payroll-super",
+      "question": "How much super must I pay, and which earnings count towards it?",
+      "answer": "Identify the applicable super regime and eligible earnings for the pay date before calculating a contribution.",
+      "steps": [
+        "From July 2026, use the ATO Payday Super guidance and map each pay component to the relevant earnings definition.",
+        "Check worker eligibility, limits and payroll settings; retain the calculation and contribution evidence."
+      ],
+      "boundary": "The old quarterly SG worksheet does not establish current Payday Super entitlement.",
+      "source": "super",
+      "tool": "",
+      "keywords": "superannuation SG"
+    },
+    {
+      "id": 42,
+      "topic": "payroll-super",
+      "question": "By what date must a super contribution reach the employee's fund?",
+      "answer": "Test receipt at the employee's fund against the applicable deadline.",
+      "steps": [
+        "Record payday, pathway, amount, remittance date and confirmed fund-receipt date.",
+        "Use the existing timing example to distinguish timely remittance from evidence of timely receipt."
+      ],
+      "boundary": "The timing tool needs the contribution amount supplied and the correct pathway selected.",
+      "source": "super",
+      "tool": "payday",
+      "keywords": "superannuation SG"
+    },
+    {
+      "id": 43,
+      "topic": "payroll-super",
+      "question": "What should I do if a super payment is late, rejected or missing?",
+      "answer": "Investigate the payment trail and apply the current late-payment process.",
+      "steps": [
+        "Reconcile payroll, clearing-house status, rejections and fund receipt for each affected employee.",
+        "Resolve the cause, record any replacement payment and review the ATO's reporting and charge requirements."
+      ],
+      "boundary": "Sending a replacement does not automatically remove a late-payment consequence.",
+      "source": "super",
+      "tool": "payday",
+      "keywords": "superannuation SG"
+    },
+    {
+      "id": 44,
+      "topic": "payroll-super",
+      "question": "Do I have to pay super for a contractor who invoices through an ABN?",
+      "answer": "Review the actual contract and working arrangement against the ATO's super eligibility guidance.",
+      "steps": [
+        "Record who performs the work, how they are paid and whether the contract is for their labour.",
+        "Retain the eligibility conclusion separately from the supplier's ABN and invoice."
+      ],
+      "boundary": "An ABN is not proof that super is unnecessary.",
+      "source": "super",
+      "tool": "",
+      "keywords": "superannuation SG"
+    },
+    {
+      "id": 45,
+      "topic": "payroll-super",
+      "question": "How much PAYG tax should I withhold from an employee's pay?",
+      "answer": "Use the ATO withholding calculation for the payment type and pay period.",
+      "steps": [
+        "Check the declaration, residency, tax-free threshold choice, study-loan information and any variation.",
+        "Apply the current schedule or calculator and reconcile payroll totals to the withholding liability."
+      ],
+      "boundary": "A resident annual income-tax worksheet is not a payroll withholding calculator.",
+      "source": "payg",
+      "tool": ""
+    },
+    {
+      "id": 46,
+      "topic": "payroll-super",
+      "question": "How do I finalise Single Touch Payroll at year-end?",
+      "answer": "Reconcile payroll to the ledger and ATO reporting before making the STP finalisation declaration.",
+      "steps": [
+        "Check year-to-date wages, withholding, super and adjustments by employee.",
+        "Resolve discrepancies, confirm the applicable deadline and retain the finalisation evidence."
+      ],
+      "boundary": "An ordinary payroll submission and a finalisation declaration are different steps.",
+      "source": "stp",
+      "tool": "close",
+      "keywords": "STP"
+    },
+    {
+      "id": 47,
+      "topic": "payroll-super",
+      "question": "How do I calculate an employee's final pay, including unused leave?",
+      "answer": "Build final pay from the employee's entitlements and the circumstances of departure.",
+      "steps": [
+        "Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.",
+        "Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment."
+      ],
+      "boundary": "The generic staff-cost calculator cannot determine final-pay entitlements.",
+      "source": "finalpay",
+      "tool": ""
+    },
+    {
+      "id": 48,
+      "topic": "payroll-super",
+      "question": "When does my business become liable for payroll tax in NSW?",
+      "answer": "Review Australian taxable wages, NSW connection, grouping and the applicable threshold.",
+      "steps": [
+        "Prepare a wages reconciliation that includes the categories Revenue NSW requires.",
+        "Check the monthly registration trigger and annual reconciliation requirements for the relevant year."
+      ],
+      "boundary": "Book payroll expense alone can omit taxable benefits, super or grouped wages.",
+      "source": "nsw-payroll",
+      "tool": ""
+    },
+    {
+      "id": 49,
+      "topic": "payroll-super",
+      "question": "Do contractor payments count towards NSW payroll tax?",
+      "answer": "Contractor payments need a separate payroll-tax review under the NSW relevant-contract rules.",
+      "steps": [
+        "Keep the contract, services, days worked and evidence for any exclusion claimed.",
+        "Reconcile reviewed contractor amounts to the payroll-tax workpaper."
+      ],
+      "boundary": "An invoice, ABN or GST registration alone does not establish an exclusion.",
+      "source": "nsw-payroll",
+      "tool": ""
+    },
+    {
+      "id": 50,
+      "topic": "payroll-super",
+      "question": "What does an employee cost after super, leave, insurance and other on-costs?",
+      "answer": "Add annual wages, super and the other costs you expect to pay, then consider productive capacity separately.",
+      "steps": [
+        "Enter the annual super amount and other costs such as insurance, payroll tax, recruitment and equipment.",
+        "Allow for paid leave when estimating productive hours, and add relief staff costs only where expected."
+      ],
+      "boundary": "Do not add ordinary paid leave again if it is already included in the annual salary.",
+      "source": "finalpay",
+      "tool": "staff"
+    },
+    {
+      "id": 51,
+      "topic": "bookkeeping-close",
+      "question": "Why does my Xero bank balance differ from my bank statement?",
+      "answer": "Reconcile the bank statement and Xero at the same date before posting a correction.",
+      "steps": [
+        "Compare statement lines with ledger transactions, outstanding payments and deposits.",
+        "Investigate missing feeds, duplicates, opening balances and items dated outside the period."
+      ],
+      "boundary": "Do not post a balancing journal while the cause remains unknown.",
+      "source": "records",
+      "tool": "close"
+    },
+    {
+      "id": 52,
+      "topic": "bookkeeping-close",
+      "question": "How do I identify and fix duplicate bank transactions in Xero?",
+      "answer": "Identify whether the duplicate is a statement line, an accounting transaction or both.",
+      "steps": [
+        "Match date, amount, bank reference and source document; distinguish repeated genuine payments.",
+        "Use the appropriate Xero correction after review, then re-run the bank reconciliation."
+      ],
+      "boundary": "Removing the wrong item can remove a real transaction; retain the correction trail.",
+      "source": "records",
+      "tool": ""
+    },
+    {
+      "id": 53,
+      "topic": "bookkeeping-close",
+      "question": "How do I correct a customer payment matched to the wrong invoice?",
+      "answer": "Trace the payment and both customer invoices before changing the match.",
+      "steps": [
+        "Save the original allocation details and check whether the invoice or period is locked.",
+        "Correct the allocation through Xero's supported workflow and recheck both customer balances and the bank reconciliation."
+      ],
+      "boundary": "A different bank receipt should not be created merely to fix an allocation.",
+      "source": "records",
+      "tool": ""
+    },
+    {
+      "id": 54,
+      "topic": "bookkeeping-close",
+      "question": "How do I record a personal purchase paid from the business account?",
+      "answer": "Code the private payment according to the entity and the person's relationship to it.",
+      "steps": [
+        "Keep the receipt, purpose and repayment evidence, and separate any business portion.",
+        "For a sole trader, review drawings; for a company, review the director or shareholder account and tax consequences."
+      ],
+      "boundary": "A company payment cannot automatically be treated as sole-trader drawings.",
+      "source": "records",
+      "tool": "div7a"
+    },
+    {
+      "id": 55,
+      "topic": "bookkeeping-close",
+      "question": "Which business records should I keep, and for how long?",
+      "answer": "Keep records that let someone trace transactions, calculations and decisions for the required retention period.",
+      "steps": [
+        "Create a register covering tax, payroll, assets, loans, contracts and entity records.",
+        "Assign retention dates using the relevant ATO and other legal requirements, including longer periods for continuing assets or disputes."
+      ],
+      "boundary": "Do not apply one blanket retention date to every document.",
+      "source": "records",
+      "tool": ""
+    },
+    {
+      "id": 56,
+      "topic": "bookkeeping-close",
+      "question": "How should I organise my chart of accounts?",
+      "answer": "Use a chart of accounts that supports reporting and reconciliations at a manageable level of detail.",
+      "steps": [
+        "Separate assets, liabilities, equity, revenue and expenses; keep control accounts identifiable.",
+        "Use consistent account mappings and tracking categories for the dimensions you need to report."
+      ],
+      "boundary": "Do not create a new account for every customer or supplier when the subledger already tracks them.",
+      "source": "records",
+      "tool": "close"
+    },
+    {
+      "id": 57,
+      "topic": "bookkeeping-close",
+      "question": "How do I split a loan repayment between principal and interest?",
+      "answer": "Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.",
+      "steps": [
+        "Reconcile opening principal, advances, principal repayments and closing principal.",
+        "Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender's statement."
+      ],
+      "boundary": "Fees, daily interest, variable rates and balloons need the actual lender schedule.",
+      "source": "cash",
+      "tool": "loan"
+    },
+    {
+      "id": 58,
+      "topic": "bookkeeping-close",
+      "question": "Should a purchase be recorded as an asset or an expense?",
+      "answer": "Apply your accounting policy to the nature, use and expected benefit of the purchase, then assess tax separately.",
+      "steps": [
+        "Record what was acquired, cost, useful life and when it became available for use.",
+        "If capitalised, update the asset register and depreciation; document any tax difference."
+      ],
+      "boundary": "An accounting asset policy and an immediate tax deduction rule can give different treatments.",
+      "source": "records",
+      "tool": "tax"
+    },
+    {
+      "id": 59,
+      "topic": "bookkeeping-close",
+      "question": "Why do my aged receivables or payables differ from the general ledger?",
+      "answer": "Compare the aged report and ledger on the same date with the same filters.",
+      "steps": [
+        "Trace journals to control accounts, prepayments, credits, foreign-currency adjustments and excluded contacts.",
+        "Prepare a bridge to the ledger and resolve unexplained items before closing."
+      ],
+      "boundary": "A matching total alone does not establish that individual balances are collectible or payable.",
+      "source": "records",
+      "tool": "close",
+      "keywords": "debtors creditors accounts receivable accounts payable"
+    },
+    {
+      "id": 60,
+      "topic": "bookkeeping-close",
+      "question": "What should I reconcile and check before closing the month or financial year?",
+      "answer": "Close from reconciled balances and documented review decisions.",
+      "steps": [
+        "Reconcile bank, receivables, payables, GST, payroll, super, loans, fixed assets and key accruals.",
+        "Review cut-off, unusual journals and variances, then retain the pack and approval before locking the period."
+      ],
+      "boundary": "The existing close pack supports review; it does not automatically approve journals or finalise accounts.",
+      "source": "records",
+      "tool": "close",
+      "example": "At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner, and the evidence needed to resolve it before completing the close."
+    },
+    {
+      "id": 61,
+      "topic": "cash-flow",
+      "question": "How do I build a 13-week cash-flow forecast?",
+      "answer": "Forecast cash by the week it is expected to move through the bank.",
+      "steps": [
+        "Start with the reconciled bank balance and schedule receipts, suppliers, wages, tax, debt and drawings across 13 weeks.",
+        "Use the browser forecast for a short scenario, or the existing workbook for a detailed worked example."
+      ],
+      "boundary": "Weekly closing balances can hide a shortage within the week; review daily timing where cash is tight.",
+      "source": "cash",
+      "tool": "cash",
+      "keywords": "cashflow",
+      "example": "Start a fictional forecast on 28 September 2026 with $200 opening cash and a $100 buffer. Enter $1,000 receipts and $300 payments in week 1, and zero in every later week. Closing cash is $900. Delay the full $1,000 receipt by two weeks: cash closes at minus $100 in weeks 1 and 2, then returns to $900 in week 3. The lowest balance is minus $100, so the funding gap to the buffer is $200. The eventual closing balance is unchanged."
+    },
+    {
+      "id": 62,
+      "topic": "cash-flow",
+      "question": "Why is my business profitable but short of cash?",
+      "answer": "Profit and cash diverge because income and expenses can be recognised at different times from receipts and payments.",
+      "steps": [
+        "Bridge profit to cash using receivables, payables, inventory, tax, capital spending, debt and drawings.",
+        "Use the fictional Newcastle example to inspect a profitable business with a temporary cash shortage."
+      ],
+      "boundary": "Loan proceeds and principal repayments affect cash without being ordinary trading revenue and expense.",
+      "source": "cash",
+      "tool": "example",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 63,
+      "topic": "cash-flow",
+      "question": "How much cash should I reserve for BAS, payroll and super payments?",
+      "answer": "Schedule the actual expected liabilities and payment dates, then choose a buffer.",
+      "steps": [
+        "Reconcile GST, withholding and super liabilities to their supporting workpapers.",
+        "Enter their payment weeks in the cash forecast, including other committed cash costs."
+      ],
+      "boundary": "The forecast reserves supplied amounts; it does not calculate statutory liabilities from sales.",
+      "source": "cash",
+      "tool": "cash",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 64,
+      "topic": "cash-flow",
+      "question": "What happens to my cash balance if a major customer pays 30 or 60 days late?",
+      "answer": "Move the expected receipt to its revised date and compare the lowest cash balance.",
+      "steps": [
+        "Use the weekly forecast's delayed-receipt controls and retain both scenarios.",
+        "For an exact 30- or 60-day delay, use the existing dated workbook and record any receipt outside its horizon."
+      ],
+      "boundary": "The browser scenario accepts whole weeks, so it is not an exact day-based simulation.",
+      "source": "cash",
+      "tool": "cash",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 65,
+      "topic": "cash-flow",
+      "question": "Can my business afford another employee?",
+      "answer": "Compare the extra cash costs of hiring with conservative additional receipts and available cash.",
+      "steps": [
+        "Calculate annual staff cost, then phase wages, super, setup costs and training into the forecast.",
+        "Test slower sales, a delayed start and a minimum cash buffer before committing."
+      ],
+      "boundary": "Annual profitability does not establish that each payroll payment will be affordable.",
+      "source": "cash",
+      "tool": "staff",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 66,
+      "topic": "cash-flow",
+      "question": "What would buying equipment outright versus financing it do to my cash flow?",
+      "answer": "Compare the timing and total payments of outright purchase and finance.",
+      "steps": [
+        "Put the purchase price into the relevant cash week for the outright option.",
+        "For finance, schedule deposit, fees, repayments and any balloon; compare the cash minimum and total cost."
+      ],
+      "boundary": "The loan calculator assumes fixed monthly payments with no fees or balloon. Tax and ownership effects require separate review.",
+      "source": "cash",
+      "tool": "loan",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 67,
+      "topic": "cash-flow",
+      "question": "How much working capital or overdraft capacity will I need next quarter?",
+      "answer": "Find the lowest forecast balance and compare it with the cash buffer you need.",
+      "steps": [
+        "Include current bank cash, committed payments, realistic receipts and stressed collection dates.",
+        "Use the forecast funding-gap result as an initial amount to investigate, then review timing and facility terms."
+      ],
+      "boundary": "A calculated gap is not a credit approval or proof that borrowing is suitable.",
+      "source": "cash",
+      "tool": "cash",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 68,
+      "topic": "cash-flow",
+      "question": "How can I reduce overdue customer balances and get paid sooner?",
+      "answer": "Prioritise overdue balances by amount, age, dispute and likelihood of collection.",
+      "steps": [
+        "Reconcile the aged ledger, assign an owner and record the next action for each overdue account.",
+        "Review invoice accuracy, payment terms and billing timing; update receipt dates using what customers confirm."
+      ],
+      "boundary": "Changing a forecast date does not improve collection evidence.",
+      "source": "cash",
+      "tool": "",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 69,
+      "topic": "cash-flow",
+      "question": "How do I plan for seasonal cash shortages?",
+      "answer": "Plan from the seasonal payment and receipt pattern, including the costs incurred before sales arrive.",
+      "steps": [
+        "Compare prior periods with current orders, staffing and supplier commitments.",
+        "Stress-test the low season and put any agreed funding or cost changes into the forecast."
+      ],
+      "boundary": "A straight average month can conceal the quarter's lowest cash balance.",
+      "source": "cash",
+      "tool": "cash",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 70,
+      "topic": "cash-flow",
+      "question": "How do I update my forecast each month using actual results?",
+      "answer": "Replace completed periods with reconciled actuals and explain the difference before rolling the forecast forward.",
+      "steps": [
+        "Save the previous forecast, match actual receipts and payments, and classify timing versus permanent changes.",
+        "Refresh remaining assumptions and extend the horizon with a dated version and owner."
+      ],
+      "boundary": "Do not overwrite the old forecast if you still need it to explain accuracy and decisions.",
+      "source": "cash",
+      "tool": "variance",
+      "keywords": "cashflow"
+    },
+    {
+      "id": 71,
+      "topic": "management-reporting",
+      "question": "How much must I sell each month to break even?",
+      "answer": "Break-even sales cover fixed costs after variable costs. For one product, divide fixed costs by contribution per unit.",
+      "steps": [
+        "Use the same period for fixed costs and the expected selling price and variable cost per unit.",
+        "Round required units up and compare them with practical sales capacity."
+      ],
+      "boundary": "The calculator assumes one product or a stable representative mix; it excludes tax and financing cash timing.",
+      "source": "pricing",
+      "tool": "break-even"
+    },
+    {
+      "id": 72,
+      "topic": "management-reporting",
+      "question": "What is the difference between gross margin and markup?",
+      "answer": "Gross margin divides gross profit by revenue. Markup divides gross profit by cost.",
+      "steps": [
+        "Use sales and the directly related cost for the same goods or period.",
+        "Compare both percentages with the calculator and keep GST treatment consistent."
+      ],
+      "boundary": "A zero denominator has no meaningful percentage; the calculator leaves that percentage undefined.",
+      "source": "pricing",
+      "tool": "margin"
+    },
+    {
+      "id": 73,
+      "topic": "management-reporting",
+      "question": "What hourly rate should I charge to cover costs and earn a target profit?",
+      "answer": "Divide annual costs plus target profit by realistic billable hours.",
+      "steps": [
+        "Include the owner's pay target in costs if it must be covered before the stated profit.",
+        "Allow for leave, administration, marketing and unpaid time when estimating billable hours."
+      ],
+      "boundary": "The calculated rate is a cost-recovery target before GST; customers' willingness to pay needs separate evidence.",
+      "source": "pricing",
+      "tool": "hourly"
+    },
+    {
+      "id": 74,
+      "topic": "management-reporting",
+      "question": "Which customers, jobs or service lines are making money?",
+      "answer": "Build contribution by customer, job or service line from consistent revenue and direct-cost assignments.",
+      "steps": [
+        "Allocate labour using recorded hours and identify material costs, discounts, rework and write-offs.",
+        "Keep shared overhead allocation visible and compare results before and after that allocation."
+      ],
+      "boundary": "An allocation method can change apparent profitability without changing total business profit.",
+      "source": "pricing",
+      "tool": "margin"
+    },
+    {
+      "id": 75,
+      "topic": "management-reporting",
+      "question": "Why are my actual results different from my budget?",
+      "answer": "Compare actual and budget figures for the same period and accounting basis, then explain the drivers.",
+      "steps": [
+        "Calculate the amount and percentage difference for income or costs.",
+        "Split the difference into price, volume, mix, timing, coding and one-off items, then quantify each supported explanation."
+      ],
+      "boundary": "The variance calculator measures the difference; it cannot infer its cause from two numbers.",
+      "source": "cash",
+      "tool": "variance"
+    },
+    {
+      "id": 76,
+      "topic": "management-reporting",
+      "question": "Which financial reports should a small-business owner review each month?",
+      "answer": "Review profit, financial position and cash together, with the balances that explain them.",
+      "steps": [
+        "Prepare the P&L against budget, balance sheet, cash forecast, aged debtors and creditors, and key obligation reconciliations.",
+        "Record exceptions, decisions, owners and dates for the next review."
+      ],
+      "boundary": "Choose detail that changes a decision; a larger dashboard does not necessarily improve the review.",
+      "source": "cash",
+      "tool": "close"
+    },
+    {
+      "id": 77,
+      "topic": "management-reporting",
+      "question": "How do my business expenses compare with ATO small-business benchmarks?",
+      "answer": "Choose the ATO industry and turnover range that match your business and reporting period.",
+      "steps": [
+        "Map ledger accounts to the benchmark definitions and retain the mapping.",
+        "Compare ratios with the relevant dataset and investigate differences in business model, year or coding."
+      ],
+      "boundary": "The linked benchmark tool uses specified historical datasets; a difference is not proof of an error or non-compliance.",
+      "source": "benchmark",
+      "tool": ""
+    },
+    {
+      "id": 78,
+      "topic": "management-reporting",
+      "question": "How do I value and report work in progress and unbilled work?",
+      "answer": "Separate the accounting basis for recognising revenue from the amount billed.",
+      "steps": [
+        "Reconcile contract value, costs incurred, estimates to complete, billings and unbilled amounts.",
+        "For a suitable construction contract, use the WIP schedule and review estimate changes and profit fade."
+      ],
+      "boundary": "The existing tool covers construction cost-to-cost schedules; it does not classify every service contract.",
+      "source": "records",
+      "tool": "wip",
+      "keywords": "WIP"
+    },
+    {
+      "id": 79,
+      "topic": "management-reporting",
+      "question": "Why has my gross margin fallen even though sales have increased?",
+      "answer": "Higher sales can coincide with a lower margin when prices, product mix or costs change.",
+      "steps": [
+        "Compare revenue and direct costs by job or product; check discounts, labour efficiency, rework and cut-off.",
+        "Use the margin and variance calculators, and review cost-to-complete estimates for construction work."
+      ],
+      "boundary": "A total-sales comparison alone cannot identify which driver reduced margin.",
+      "source": "pricing",
+      "tool": "margin"
+    },
+    {
+      "id": 80,
+      "topic": "management-reporting",
+      "question": "How do I turn Xero data into a useful Excel or Power BI management dashboard?",
+      "answer": "Start with reconciled exports and a small set of decisions the report needs to support.",
+      "steps": [
+        "Define account mappings, periods and measures, then tie totals to Xero before adding charts.",
+        "Use the existing trial-balance export and close pack, and document refresh and review steps."
+      ],
+      "boundary": "The export tool supplies data; this guide does not install a Power BI connector or grant Xero access.",
+      "source": "records",
+      "tool": "xero"
+    },
+    {
+      "id": 81,
+      "topic": "company-compliance",
+      "question": "Does my company qualify for the lower company tax rate?",
+      "answer": "Test the company's income and aggregated-turnover conditions for the relevant year.",
+      "steps": [
+        "Reconcile taxable income, passive-income categories and connected-entity information.",
+        "Use the existing company-tax example only after the inputs and applicable conditions have been established."
+      ],
+      "boundary": "The example does not determine eligibility merely from accounting profit.",
+      "source": "company",
+      "tool": "company-tool"
+    },
+    {
+      "id": 82,
+      "topic": "company-compliance",
+      "question": "How should I record money paid to a director as wages, dividends or a loan?",
+      "answer": "Record a director payment according to its legal basis and supporting documents.",
+      "steps": [
+        "Gather payroll records, dividend documents or loan terms and trace each payment.",
+        "Review withholding, super, franking and Division 7A consequences before posting or reclassifying it."
+      ],
+      "boundary": "Changing the ledger label does not change the underlying transaction.",
+      "source": "company",
+      "tool": "company-tool"
+    },
+    {
+      "id": 83,
+      "topic": "company-compliance",
+      "question": "Does taking money out of my company create a Division 7A problem?",
+      "answer": "Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.",
+      "steps": [
+        "Reconcile the person's account and gather agreements, dates and repayment evidence.",
+        "Use the existing review case to organise the evidence and identify unresolved legal questions."
+      ],
+      "boundary": "The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.",
+      "source": "div7a-source",
+      "tool": "div7a"
+    },
+    {
+      "id": 84,
+      "topic": "company-compliance",
+      "question": "How do I calculate the minimum yearly repayment on a complying Division 7A loan?",
+      "answer": "Use the minimum-yearly-repayment calculation for an established complying loan and the correct year.",
+      "steps": [
+        "Gather the relevant opening balance, benchmark rate, remaining term and qualifying repayments.",
+        "Reproduce the existing Division 7A case, then retain the inputs and compare required with actual qualifying repayments."
+      ],
+      "boundary": "Eligibility, amalgamation and repayment classification must already have been reviewed.",
+      "source": "div7a-source",
+      "tool": "div7a"
+    },
+    {
+      "id": 85,
+      "topic": "company-compliance",
+      "question": "Which payments count as repayments of a Division 7A loan?",
+      "answer": "Review the source, timing and surrounding arrangements for each proposed repayment.",
+      "steps": [
+        "Trace the payment through bank and loan records and identify any reborrowing or circular movement.",
+        "Document the section 109R review and qualifying amount before using the minimum-repayment worksheet."
+      ],
+      "boundary": "A credit to a director loan account is not automatically a qualifying Division 7A repayment.",
+      "source": "div7a-source",
+      "tool": "div7a"
+    },
+    {
+      "id": 86,
+      "topic": "company-compliance",
+      "question": "What must a family trust document before distributing income at year-end?",
+      "answer": "Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.",
+      "steps": [
+        "Check the deed and timing requirements, prepare the relevant income and distribution schedules, and retain resolutions.",
+        "Use the existing trust example to separate arithmetic from missing documents and unresolved entitlement."
+      ],
+      "boundary": "The tool cannot validate a deed or cure a late or ineffective trustee decision.",
+      "source": "trust-source",
+      "tool": "trust"
+    },
+    {
+      "id": 87,
+      "topic": "company-compliance",
+      "question": "How do dividends and franking credits affect my tax return?",
+      "answer": "Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.",
+      "steps": [
+        "Record any foreign, trust or other adjustments and the relevant holding-period evidence.",
+        "Use the ATO investment and imputation guidance to determine what appears in the return."
+      ],
+      "boundary": "A stated franking credit does not automatically establish entitlement to use the offset.",
+      "source": "investments",
+      "tool": ""
+    },
+    {
+      "id": 88,
+      "topic": "company-compliance",
+      "question": "Does providing a company car or paying an employee's private expenses create FBT?",
+      "answer": "Identify the benefit, recipient, private use and FBT year before valuing anything.",
+      "steps": [
+        "Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.",
+        "Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper."
+      ],
+      "boundary": "The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.",
+      "source": "fbt-source",
+      "tool": "tax"
+    },
+    {
+      "id": 89,
+      "topic": "company-compliance",
+      "question": "What information do I need to prepare an ATO payment-plan proposal?",
+      "answer": "Prepare a proposal that shows how the debt and ongoing obligations could be paid.",
+      "steps": [
+        "Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.",
+        "Use the ATO support route to discuss terms and retain any accepted arrangement."
+      ],
+      "boundary": "A forecast does not establish acceptance, interest relief or removal of other obligations.",
+      "source": "pay",
+      "tool": "cash"
+    },
+    {
+      "id": 90,
+      "topic": "company-compliance",
+      "question": "Could my related businesses be grouped together for NSW payroll tax?",
+      "answer": "Assess the relationships between businesses against the NSW grouping rules.",
+      "steps": [
+        "Prepare an ownership and control diagram, shared-employee details and financial relationships.",
+        "Document each grouping test and any exclusion application, then reconcile group wages."
+      ],
+      "boundary": "Separate company names or accounts do not by themselves prevent payroll-tax grouping.",
+      "source": "nsw-payroll",
+      "tool": ""
+    },
+    {
+      "id": 91,
+      "topic": "investments-local",
+      "question": "Which expenses can I claim for a rental property?",
+      "answer": "Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.",
+      "steps": [
+        "Gather agent statements, invoices, loan interest, ownership details and rental-availability records.",
+        "Apportion costs where required and reconcile the deduction schedule to the supporting documents."
+      ],
+      "boundary": "The treatment depends on the expense and property use; a rental label alone does not establish deductibility.",
+      "source": "property",
+      "tool": ""
+    },
+    {
+      "id": 92,
+      "topic": "investments-local",
+      "question": "Is work on my rental property a repair, an improvement or a depreciating asset?",
+      "answer": "Review what the work did to the property and when the relevant damage or condition arose.",
+      "steps": [
+        "Keep invoices, scope of work, purchase condition and dates; split distinct components where supported.",
+        "Assess repair, capital works and depreciating-asset treatment separately and update the relevant schedules."
+      ],
+      "boundary": "Cost alone does not distinguish a repair from an improvement or initial repair.",
+      "source": "property",
+      "tool": ""
+    },
+    {
+      "id": 93,
+      "topic": "investments-local",
+      "question": "How do I work out the capital gain when I sell an investment property?",
+      "answer": "Build the capital-gains calculation from the relevant event, proceeds and adjusted cost base.",
+      "steps": [
+        "Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records.",
+        "Review any exemptions, adjustments, residency and discount conditions before calculating the net result."
+      ],
+      "boundary": "A sale price minus purchase price calculation can omit material tax adjustments.",
+      "source": "cgt",
+      "tool": "tax"
+    },
+    {
+      "id": 94,
+      "topic": "investments-local",
+      "question": "How do capital losses and the CGT discount affect tax on shares I sell?",
+      "answer": "Calculate each gain or loss, apply eligible capital losses, then consider any available discount.",
+      "steps": [
+        "Retain trade records, cost-base adjustments, holding periods and carried-forward loss balances.",
+        "Reconcile the final calculation to the year's CGT schedule and keep the remaining-loss record."
+      ],
+      "boundary": "The bounded worksheet assumes the gains, losses and discount eligibility have already been established.",
+      "source": "cgt",
+      "tool": "tax"
+    },
+    {
+      "id": 95,
+      "topic": "investments-local",
+      "question": "Do I owe tax when I sell, swap or spend cryptocurrency?",
+      "answer": "Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.",
+      "steps": [
+        "Export exchange and wallet activity, fees and Australian-dollar values with dates.",
+        "Reconcile transfers between your own wallets separately from transactions that require tax review."
+      ],
+      "boundary": "The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.",
+      "source": "crypto",
+      "tool": ""
+    },
+    {
+      "id": 96,
+      "topic": "investments-local",
+      "question": "How do I report ETF distributions and their tax adjustments?",
+      "answer": "Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.",
+      "steps": [
+        "Match cash, reinvestments, capital gains, foreign income and credits to the statement.",
+        "Record cost-base increases or decreases and carry them into the investment register."
+      ],
+      "boundary": "Cash received alone can differ from the amount and components that belong in the tax return.",
+      "source": "investments",
+      "tool": ""
+    },
+    {
+      "id": 97,
+      "topic": "investments-local",
+      "question": "What records does my accountant need for an SMSF annual return and audit?",
+      "answer": "Prepare the financial records and trustee evidence needed for both the return and the independent audit.",
+      "steps": [
+        "Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.",
+        "Reconcile opening and closing balances and resolve the auditor's record requests before finalising the return."
+      ],
+      "boundary": "This checklist does not perform an SMSF audit or certify compliance.",
+      "source": "smsf-source",
+      "tool": ""
+    },
+    {
+      "id": 98,
+      "topic": "investments-local",
+      "question": "When does an investment property become liable for land tax in NSW?",
+      "answer": "Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land-tax year.",
+      "steps": [
+        "Reconcile all relevant NSW landholdings, ownership interests and valuation notices.",
+        "Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence."
+      ],
+      "boundary": "Purchase price and one property's value alone do not establish the full land-tax position.",
+      "source": "land",
+      "tool": ""
+    },
+    {
+      "id": 99,
+      "topic": "investments-local",
+      "question": "How much does an accountant or bookkeeper cost for a small business in Newcastle?",
+      "answer": "Compare written quotes for the same Newcastle bookkeeping or accounting scope. The research did not establish a reliable local fee range.",
+      "steps": [
+        "Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.",
+        "Compare inclusions, software, GST, setup fees, review frequency and work charged separately."
+      ],
+      "boundary": "This personal open-source site does not quote for professional engagements.",
+      "source": "tpb",
+      "tool": ""
+    },
+    {
+      "id": 100,
+      "topic": "investments-local",
+      "question": "How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?",
+      "answer": "Shortlist providers against the work you need and verify the relevant registrations.",
+      "steps": [
+        "Check the TPB register for tax or BAS services, and ask who prepares and reviews the work.",
+        "Request a sample reporting pack, Xero experience, cash-forecast process, responsibilities and a written scope."
+      ],
+      "boundary": "Location or software certification alone does not demonstrate the quality of advice or forecasting.",
+      "source": "tpb",
+      "tool": ""
+    }
+  ]
+}
