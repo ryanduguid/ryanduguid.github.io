@@ -5,6 +5,7 @@ from __future__ import annotations
 import gzip
 import tempfile
 import threading
+from http.client import HTTPConnection
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -65,6 +66,17 @@ def main() -> None:
                 ) as response:
                     assert response.headers["Content-Encoding"] is None
                     assert response.read().decode("utf-8") == expected
+            connection = HTTPConnection("127.0.0.1", server.server_port, timeout=5)
+            try:
+                connection.putrequest("GET", "/", skip_accept_encoding=True)
+                connection.putheader("Accept-Encoding", "br")
+                connection.putheader("Accept-Encoding", "gzip")
+                connection.endheaders()
+                response = connection.getresponse()
+                assert response.getheader("Content-Encoding") == "gzip"
+                assert gzip.decompress(response.read()).decode("utf-8") == expected
+            finally:
+                connection.close()
         finally:
             server.shutdown()
             server.server_close()

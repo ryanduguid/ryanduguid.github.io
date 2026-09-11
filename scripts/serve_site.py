@@ -29,7 +29,8 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
 
     def accepts_gzip(self) -> bool:
         wildcard = False
-        for encoding in self.headers.get("Accept-Encoding", "").lower().split(","):
+        encodings = ",".join(self.headers.get_all("Accept-Encoding", []))
+        for encoding in encodings.lower().split(","):
             coding, _, parameter = encoding.strip().partition(";")
             coding = coding.strip()
             if coding in {"gzip", "*"}:

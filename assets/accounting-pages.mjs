@@ -247,4 +247,14 @@ if (forms.length) import('./business-calculators.mjs').then(calculate => {
       output.scrollIntoView({ behavior: 'instant', block: 'nearest' });
     });
   }
+}).catch(() => {
+  for (const form of forms) {
+    form.querySelector('fieldset').disabled = true;
+    const output = form.querySelector('output');
+    const retry = document.createElement('button');
+    retry.type = 'button';
+    retry.textContent = 'Reload this page to retry';
+    retry.addEventListener('click', () => location.reload());
+    output.replaceChildren('Calculators could not load. ', retry);
+  }
 });

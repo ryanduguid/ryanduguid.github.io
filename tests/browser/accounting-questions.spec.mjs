@@ -2,6 +2,22 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
+test('calculator load failure explains recovery and reload retries the module', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.route('**/assets/business-calculators.mjs', route => route.abort());
+  await page.goto('/tools/business-calculators/');
+  await expect(page.locator('#gst output')).toContainText('Calculators could not load.');
+  await expect(page.locator('form[data-calculator] fieldset:disabled')).toHaveCount(9);
+  await page.unroute('**/assets/business-calculators.mjs');
+  await page.getByRole('button', { name: 'Reload this page to retry' }).first().click();
+  await expect(page.locator('#gst fieldset')).toBeEnabled();
+  await page.locator('#gst input[name=amount]').fill('100');
+  await page.locator('#gst').getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('#gst output')).toContainText('GST: $10.00');
+  expect(errors).toEqual([]);
+});
+
 test('question search finds abbreviations and words in the guidance', async ({ page }) => {
   const requests = [];
   page.on('request', request => requests.push(request.url()));
