@@ -111,7 +111,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
             <h2>Development evidence pack (unreleased)</h2>
             <p>The <a href="/tools/payday-super/#evidence-pack">tool page links the CLI and MCP pull requests</a> for this unreleased workflow. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.</p>
             <pre tabindex="0" role="region" aria-label="Commands to build the development evidence pack"><code>git fetch origin pull/147/head
-git switch --detach 14de87cdf16dd45f97aad326825cfbc1d602ceba
+git switch --detach 758ba67cf671e08d466248a0ee4b63d01f30ddf6
 cd packages/payday-super-checker
 uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
 uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
