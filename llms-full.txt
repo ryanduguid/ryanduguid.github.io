@@ -92,7 +92,7 @@ Levy at 2.7 per cent, before rounding
 
 $192.3750
 
-Levy payable, rounded once at the end
+Formula B applies. Levy payable, rounded once at the end
 
 $192.38
 
@@ -1450,7 +1450,7 @@ MCP
 
 Boundary
 
-No client files, tax advice, or autonomous action. Division 7A review covers limited loan terms and repayments.
+Human review required. Optional local-library excerpts enter the assistant's context; Division 7A scope stays limited.
 
 Source repository Last commit 7 September 2026
 
@@ -2073,7 +2073,7 @@ PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. The
 
 Reference release solomons-sword/v0.1.3, tagged source on GitHub.
 
-Published 24 August 2026. Last reviewed 4 September 2026.
+Published 24 August 2026. Last reviewed 11 September 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary's own rate. The ATO's finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -2086,6 +2086,42 @@ Where the tool does not implement a rule, such as streamed capital gains and fra
 - Classifies a trust distribution against the ATO's section 100A green and red risk zones under PCG 2022/2, from facts you supply.
 - Works out each beneficiary's proportionate share of trust income under Division 6, following the Bamford case.
 - Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.
+
+## Get it
+
+Needs Python 3.10 or later. Install the reference release in your Python environment.
+
+```
+python -m pip install "solomons-sword==0.1.3"
+```
+
+Published package and release instructions.
+
+## Fabricated worked example
+
+This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000, and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fabricated.
+
+```
+solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000
+```
+
+Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.
+
+```
+Gross Receipt:           $150,000.00
+Corpus Exemption:        $50,000.00
+Assessable under s99B:   $100,000.00
+```
+
+### Try a refusal
+
+Change --corpus 50000 to --corpus 160000. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:
+
+```
+error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount
+```
+
+This verifies the published command's behaviour on fabricated inputs. Confirm residence, the character of the corpus, and each exclusion before using the tool with real facts.
 
 ## Limits
 
@@ -2127,6 +2163,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - solomons-sword/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
+- Published package: https://pypi.org/project/solomons-sword/0.1.3/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
@@ -2150,7 +2188,7 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub.
 
-Published 24 August 2026. Last reviewed 4 September 2026.
+Published 24 August 2026. Last reviewed 11 September 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and the 30 per cent offset reduction penalty where a deficit exceeds 10 per cent of annual credits. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
@@ -2168,16 +2206,39 @@ Nothing this engine produces is tax, legal, or financial advice, an assessment o
 
 ## Get it
 
-Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.10 or later. Install the reference release in your Python environment.
 
 ```
-git clone https://github.com/ryanduguid/australian-accounting.git
-cd australian-accounting/packages/the-exchequer-tally && pip install .
+python -m pip install "the-exchequer-tally==0.1.3"
 ```
+
+Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Fabricated worked example
+
+For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.
+
+```
+the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+```
+
+Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
+
+```
+Passive Income Ratio:    15.00% (<= 80%: True)
+Base Rate Entity:        True
+Applicable Tax Rate:     25.0%
+```
+
+### Try a refusal
+
+Change --fy 2025 to --fy 2017. Release 0.1.3 has no bundled rate table for that year. It exits 2 and returns no rate.
+
+This verifies the published command's behaviour on fabricated inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.
 
 ## Common questions
 
@@ -2206,6 +2267,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-exchequer-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3
+- Published package: https://pypi.org/project/the-exchequer-tally/0.1.3/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.3/packages/the-exchequer-tally/README.md#quickstart
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
@@ -2505,17 +2568,17 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Run local Payday Super and ATO benchmark checks for AI agents, with clear refusals, installation steps, and no hosted ATO ruling library.
+> Run local ATO benchmark, Payday Super, and limited Division 7A checks, six bounded tax worksheets, and optional Markdown search. Includes scope and setup.
 
 # Australian tax tools for AI agents
 
-aus-accounting-mcp is a local Model Context Protocol server that runs reviewed Australian computational engines on your machine. It checks Payday Super timing, ATO small-business benchmark ratios, and limited Division 7A loan terms and repayments. It is not a hosted library of ATO rulings, and it does not lodge.
+aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and six bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.1.9, tagged source on GitHub.
+Reference release v0.2.0, tagged source on GitHub.
 
 Published 25 August 2026. Last reviewed 11 September 2026.
 
-Two different jobs get conflated when someone asks an AI coding assistant for "an Australian tax MCP". One job is looking up what a ruling says. The other is applying a statutory test to figures you already have. This page is for the second job. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the engines and the MCP facade that runs them.
+Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
@@ -2523,7 +2586,7 @@ Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
 Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
 Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx skills add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
-Individual PAYG, HECS, or CGT arithmetic | A separate calculator such as au-mcp-server | Local MCP | Ryan Duguid does not ship an individual marginal-tax or Medicare-levy engine.
+Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax-return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
@@ -2531,11 +2594,17 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 - Lists and searches the shipped ATO small-business benchmark industries.
 - Compares the profit-and-loss buckets you supply to the published ATO ranges. Omitted buckets stay not_supplied; they are not treated as zero.
-- Reviews one Payday Super contribution against the seven-business-day (or twenty-day first contribution) rule, using payday-super-checker.
+- Reviews one Payday Super contribution or a related group for one employer, using payday-super-checker. Missing fund-receipt evidence remains unresolved.
 - Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.
+- Calculates six experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
+- Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.
 - Emits synthetic SBR fixtures for agent tests, labelled synthetic: true.
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
+
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.2. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+
+Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
 
 ## Primary sources
 
@@ -2563,17 +2632,17 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Limits
 
-Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Client data stays on your machine. Public fixtures use synthetic data only.
+Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
 ## Common questions
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server that runs reviewed Australian computational engines on your machine. It exposes ATO small-business benchmark comparison, Payday Super timing review, and limited Division 7A loan review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review, six bounded tax worksheets, and optional search of a configured Markdown library. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
-No. It does not retrieve ATO rulings, legislation pages, or a document corpus. For that job, use a document-retrieval MCP. aus-accounting-mcp applies statutory tests to figures you supply.
+No. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context.
 
 ### Does it calculate Division 7A repayments?
 
@@ -2611,13 +2680,15 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.1.9
+- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.0
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
-- au-mcp-server: https://github.com/liamfraz/au-mcp-server
+- australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md#supported-periods
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.0/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -2764,6 +2835,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
 6 September 2026 | The Tools page gained a Related resources section holding the third-party libraries, official guidance, and primary sources from the separate index repository, which is now archived; the footer links there instead.
 4 September 2026 | Every link to a repository archived after the September 2026 consolidation now points at its maintained home in the monorepos, the three evaluations were rerun against the namespaced monorepo releases, and the site checks fail on any link that resolves to an archived repository.
 2 September 2026 | Copy edit across the tool, rate, and evaluation pages, About, Contact, and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site's per cent style.
@@ -2779,10 +2851,10 @@ Date | Change
 One row per tool: its current tagged release. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
-8 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.1.9
-3 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.3
-3 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.6
-2 September 2026 | Subcontract ledger skills | v0.2.0
+10 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.0
+8 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.5
+7 September 2026 | Subcontract ledger skills | v0.2.1
+6 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.7
 2 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.6
 2 September 2026 | Payday Super timing | payday-super-checker/v0.1.3
 2 September 2026 | Trust distribution checks | solomons-sword/v0.1.3
@@ -2790,14 +2862,14 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 9 September 2026.
+Published 30 August 2026. Last reviewed 11 September 2026.
 
 ## Links
 
-- aus-accounting-mcp/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.1.9
-- review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
-- xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
-- v0.2.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.0
+- aus-accounting-mcp/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.0
+- review-ready-gate/v0.1.5: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.5
+- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
+- xero-trial-balance-export/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.7
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
 - payday-super-checker/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
 - solomons-sword/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3

@@ -15,6 +15,7 @@ import {
   levyCents,
   LEVY_RATE_NUMERATOR,
   LEVY_RATE_DENOMINATOR,
+  MAX_WAGES_CENTS,
 } from './levy.mjs';
 
 const money = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
@@ -59,7 +60,11 @@ if (form) {
   const fields = [...form.querySelectorAll('input')];
   const result = form.querySelector('.proof-calc__result');
   const error = document.getElementById('home-levy-error');
-  for (const field of fields) field.disabled = false;
+  const inputError = error.textContent;
+  for (const field of fields) {
+    field.max = String(MAX_WAGES_CENTS / 100);
+    field.disabled = false;
+  }
   const output = new Map(
     [...form.querySelectorAll('[data-out]')].map((el) => [el.dataset.out, el]),
   );
@@ -68,6 +73,9 @@ if (form) {
   );
 
   const render = () => {
+    error.textContent = fields.some((field) => field.validity.rangeOverflow)
+      ? `${inputError} Each amount must be at most ${money.format(MAX_WAGES_CENTS / 100)}.`
+      : inputError;
     for (const field of fields) {
       if (field.validity.valid) field.removeAttribute('aria-invalid');
       else field.setAttribute('aria-invalid', 'true');
@@ -79,11 +87,20 @@ if (form) {
     error.hidden = valid;
     if (!valid) return;
 
-    const shown = results({
-      base: Number(form.elements.base.value),
-      overtime: Number(form.elements.overtime.value),
-      allowances: Number(form.elements.allowances.value),
-    });
+    let shown;
+    try {
+      shown = results({
+        base: Number(form.elements.base.value),
+        overtime: Number(form.elements.overtime.value),
+        allowances: Number(form.elements.allowances.value),
+      });
+    } catch (issue) {
+      if (!(issue instanceof RangeError)) throw issue;
+      result.hidden = true;
+      error.hidden = false;
+      error.textContent = issue.message;
+      return;
+    }
     for (const [key, element] of output) {
       element.textContent = shown[key];
     }

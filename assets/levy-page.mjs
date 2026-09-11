@@ -4,7 +4,7 @@
 // Served as an external module so every page can run under a
 // script-src 'self' Content Security Policy with no inline script.
 import {
-  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE,
+  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE, MAX_WAGES_CENTS,
 } from '/assets/levy.mjs';
 import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
 import { compute } from '/assets/levy-form.mjs';
@@ -144,6 +144,9 @@ function showFieldError(control) {
 }
 
 function validateForm() {
+  for (const control of calcForm.querySelectorAll('input[type="number"]')) {
+    control.max = String(MAX_WAGES_CENTS / 100);
+  }
   const invalid = [...calcForm.elements].find(
     (control) => control.willValidate && !control.validity.valid
   );
@@ -226,18 +229,26 @@ function calculate() {
   if (!validateForm()) return false;
   const allMonetaryAmountsBlank = [...calcForm.querySelectorAll('input[type="number"]')]
     .every((input) => input.value.trim() === '');
-  render(compute(calcForm), resultEl, allMonetaryAmountsBlank);
+  try {
+    render(compute(calcForm), resultEl, allMonetaryAmountsBlank);
+  } catch (issue) {
+    if (!(issue instanceof RangeError)) throw issue;
+    resultEl.replaceChildren();
+    resultActions.hidden = true;
+    resultNotice.textContent = issue.message;
+    return false;
+  }
   resultNotice.textContent = '';
   resultActions.hidden = false;
   return true;
 }
 
 function revealResult() {
-  // The stacked result becomes the next keyboard reading position too.
+  // Focus the result and keep Calculate fully below the sticky header.
   if (matchMedia('(max-width: 56rem)').matches) {
     const title = document.getElementById('result-title');
     title.focus({ preventScroll: true });
-    title.scrollIntoView({ block: 'start', behavior: 'instant' });
+    calcForm.querySelector('button[type="submit"]').scrollIntoView({ block: 'start', behavior: 'instant' });
   }
 }
 
@@ -287,6 +298,13 @@ document.getElementById('add-employee').addEventListener('click', () => {
   // matches the figures shown beside it.
   if (!calculate()) return;
   const result = compute(calcForm);
+  try {
+    levyCents(employees.reduce((total, emp) => total + emp.eligibleWagesCents, result.eligibleWagesCents));
+  } catch (issue) {
+    if (!(issue instanceof RangeError)) throw issue;
+    tableStatus.textContent = `${issue.message} No row was added.`;
+    return;
+  }
   const labelInput = document.getElementById('employeeLabel');
   let label = labelInput.value.trim();
   if (!label) {

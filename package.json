@@ -17,6 +17,7 @@
   },
   "overrides": {
     "@puppeteer/browsers": "3.2.2",
+    "qs": "6.16.0",
     "tmp": "0.2.7",
     "uuid": "11.1.1"
   }

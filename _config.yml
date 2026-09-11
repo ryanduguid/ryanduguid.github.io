@@ -4,6 +4,7 @@ include:
   - .well-known
 exclude:
   - AGENTS.md
+  - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
   - vendor

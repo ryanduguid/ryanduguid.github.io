@@ -5,6 +5,7 @@
 //
 // Default mode re-checks the committed stamps offline and is safe for CI.
 // --write refreshes them through gh, which holds its own credentials.
+// --check-releases reads public release records and flags changelog drift.
 
 import { readFileSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -144,7 +145,58 @@ export function checkHtml(html, today = new Date().toISOString().slice(0, 10)) {
   return failures;
 }
 
-function main() {
+export async function fetchReleases(repository, request = fetch) {
+  const releases = [];
+  for (let pageNumber = 1; ; pageNumber += 1) {
+    const url = `https://api.github.com/repos/${repository}/releases?per_page=100&page=${pageNumber}`;
+    const response = await request(url, {
+      headers: { Accept: 'application/vnd.github+json' },
+      signal: AbortSignal.timeout(15_000),
+    });
+    if (!response.ok) {
+      throw new Error(`GitHub release lookup failed for ${repository}: HTTP ${response.status}`);
+    }
+    const page = await response.json();
+    if (!Array.isArray(page)) throw new Error(`Invalid release list for ${repository}`);
+    releases.push(...page);
+    if (page.length < 100) return releases;
+  }
+}
+
+export async function checkReleases(html, lookup = fetchReleases) {
+  const section = /<section aria-labelledby="tool-releases">([\s\S]*?)<\/section>/.exec(html)?.[1] ?? '';
+  const links = [...section.matchAll(/<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/g)];
+  if (!links.length) return ['no release links found in changelog/index.html'];
+  const failures = [];
+  const repositories = new Map();
+  for (const [, repository, tag] of links) {
+    if (!repositories.has(repository)) repositories.set(repository, await lookup(repository));
+    const published = repositories.get(repository).filter((release) =>
+      !release.draft && !release.prerelease && release.published_at);
+    const version = /^(.*?)(\d+\.\d+\.\d+)$/.exec(tag);
+    if (!version || !published.some((release) => release.tag_name === tag)) {
+      failures.push(`${repository}: ${tag} is not a published stable release`);
+      continue;
+    }
+    const prefix = version[1];
+    const tags = published.map((release) => release.tag_name).filter((name) =>
+      name.startsWith(prefix) && /^\d+\.\d+\.\d+$/.test(name.slice(prefix.length)));
+    const latest = tags.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).at(-1);
+    if (latest !== tag) {
+      failures.push(`${repository}: ${tag} is behind ${latest}; review changelog/index.html and capability descriptions`);
+    }
+  }
+  return failures;
+}
+
+async function main() {
+  if (process.argv.includes('--check-releases')) {
+    const failures = await checkReleases(readFileSync(join(root, 'changelog', 'index.html'), 'utf8'));
+    for (const failure of failures) console.error(failure);
+    if (failures.length) return 1;
+    console.log('current release references passed');
+    return 0;
+  }
   const html = readFileSync(page, 'utf8');
   if (process.argv.includes('--write')) {
     const updated = stampHtml(html);
@@ -166,5 +218,8 @@ function main() {
 }
 
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  process.exit(main());
+  main().then((code) => { process.exitCode = code; }, (error) => {
+    console.error(error.message);
+    process.exitCode = 1;
+  });
 }

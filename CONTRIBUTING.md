@@ -26,11 +26,28 @@ fetch. An unresolved rate limit still fails the live check.
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 
+The browser job also runs `npm audit --audit-level=high`, including development
+dependencies, and fails on high or critical advisories. Lighthouse reports are
+retained for seven days after successful and failed runs.
+
+The weekly source-freshness workflow checks the changelog's release links with
+`node scripts/stamp-source-freshness.mjs --check-releases`. This reads public
+GitHub releases without credentials and compares stable version numbers within
+each package's tag prefix. API failures fail the check. A newer release needs
+editorial review of the changelog and capability descriptions; the check does
+not rewrite pages or evaluation pins. Its offline tests run through the site
+check command above.
+
 The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
 dependency chain otherwise installs vulnerable `extract-zip` 2.0.1
 ([GHSA-7pqw-9j4j-h8q3](https://github.com/advisories/GHSA-7pqw-9j4j-h8q3)).
 Keep the browser and Lighthouse checks when changing this override. Remove it
 when Lighthouse CI's dependency chain uses a version without `extract-zip`.
+
+The `qs` override pins Lighthouse CI's query parser to 6.16.0, which fixes
+[query-parser denial-of-service issues](https://github.com/advisories/GHSA-4mjr-xmp4-gh2g).
+Remove it when Express allows a fixed release without the override. Run the browser,
+capture, and Lighthouse checks when changing it.
 
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).

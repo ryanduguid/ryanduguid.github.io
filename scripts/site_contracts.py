@@ -125,8 +125,8 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server for Australian accounting review: ATO small-business "
-        "benchmarks, Payday Super timing, limited Division 7A loan review and "
+        "Local MCP server for ATO benchmarks, Payday Super timing, limited Division 7A "
+        "review, six bounded tax worksheets, optional local Markdown search, and "
         "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (
