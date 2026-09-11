@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-10"
-MCP_VISIBLE_REVIEW_DATE = "10 September 2026"
+MCP_REVIEW_DATE = "2026-09-11"
+MCP_VISIBLE_REVIEW_DATE = "11 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -188,12 +188,11 @@ RETRIEVAL_CRAWLERS = {
     "Claude-Web",
     "Google-Extended",
 }
+OPEN_WEB_CRAWLERS = {"CCBot", "Bytespider"}
 TRAINING_CRAWLERS = {
     "GPTBot",
     "ClaudeBot",
     "Applebot-Extended",
-    "CCBot",
-    "Bytespider",
     "Amazonbot",
     "cohere-ai",
     "Diffbot",
@@ -202,8 +201,9 @@ TRAINING_CRAWLERS = {
 }
 UNCLASSIFIED_CRAWLERS: set[str] = set()
 CRAWLER_POLICY_COMMENTS = (
-    "Search indexing and user-requested citation fetches are allowed. "
-    "Named training crawlers remain blocked.",
+    "Search indexing and user-requested citation fetches are allowed.",
+    "Open-web archival and training crawl by Common Crawl (CCBot) and Bytespider are allowed.",
+    "The named closed-lab and other training crawlers below remain blocked.",
     "Unnamed agents must not silently redefine this policy; named rows state "
     "the intended treatment.",
     "Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.",
@@ -632,6 +632,7 @@ HOMEPAGE_PREVIEW_ENTRIES = (
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
+    "I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. "
     "I build open-source controls for Australian tax, payroll, ledgers, and "
     "workpapers. They show sources and working, use fabricated examples, and "
     "leave judgement and lodgement with a person."
@@ -2461,13 +2462,14 @@ def check_xero_evaluation_summary(root: Path = core.ROOT) -> list[str]:
 
 
 def check_robots_policy(robots: str) -> list[str]:
-    """Keep search and user retrieval open while blocking training crawlers."""
+    """Allow retrieval and open-web crawl while retaining named training blocks."""
     failures: list[str] = []
     if any(comment not in robots for comment in CRAWLER_POLICY_COMMENTS):
         failures.append("robots.txt: missing written search-versus-training policy")
     groups = core.robots_groups(robots)
     expected = {"*": ["Allow: /"]}
     expected.update({agent: ["Allow: /"] for agent in RETRIEVAL_CRAWLERS})
+    expected.update({agent: ["Allow: /"] for agent in OPEN_WEB_CRAWLERS})
     expected.update({agent: ["Disallow: /"] for agent in TRAINING_CRAWLERS})
 
     for agent, directives in expected.items():
