@@ -1,7 +1,7 @@
-"""Build llms-full.txt: every indexable page as plain text, in sitemap order.
+"""Build llms-full.txt and the identical .well-known/llms.txt index copy.
 
-Run with --write to regenerate the file, or --check to fail when the committed
-file no longer matches the pages it was built from. The text is derived from
+Run with --write to regenerate both files, or --check to fail when either
+committed file is stale. The full text is derived from
 the visible <main> content only, so the machine copy can never say more than
 the page does.
 """
@@ -112,15 +112,24 @@ def build() -> str:
 
 def main(argv: list[str]) -> int:
     built = build()
+    index = (ROOT / "llms.txt").read_bytes()
+    alias = ROOT / ".well-known/llms.txt"
     if "--write" in argv:
         OUTPUT.write_text(built, encoding="utf-8", newline="\n")
+        alias.parent.mkdir(parents=True, exist_ok=True)
+        alias.write_bytes(index)
         print(f"llms-full.txt written ({built.count('Source: ')} pages)")
+        print(".well-known/llms.txt copied from llms.txt")
         return 0
     current = OUTPUT.read_text(encoding="utf-8").replace("\r\n", "\n") if OUTPUT.is_file() else ""
     if current != built:
         print("llms-full.txt is stale: run python scripts/build_llms_full.py --write")
         return 1
+    if not alias.is_file() or alias.read_bytes() != index:
+        print(".well-known/llms.txt is stale: run python scripts/build_llms_full.py --write")
+        return 1
     print(f"llms-full.txt matches its pages ({built.count('Source: ')} pages)")
+    print(".well-known/llms.txt matches llms.txt")
     return 0
 
 

@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "8ac69802c7587f085a05d3ccdac1ac28adf855f4ca9ad17cfbc556297eb66190",
-    "robots.txt": "72838fddc744e5ec67f0dd76bf21263e670c96109793b11e8cdaab8e0e7d466d",
-    "sitemap.xml": "8f7646f8fabdaf1b1c7cdf0e296cd42130fda25ac254c2e2400db8c856b14917"
+    "llms.txt": "e92fa02dfeb025e9721ae48e11550c3191c9b3ac19ab35c760aa6630268c2114",
+    "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
+    "sitemap.xml": "7906f768fcfaae19f7ee4ed9d2fff0732bb9c019305736e088d85e56f70c5207"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
@@ -59,7 +59,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "ecaeca7d78f73378ccf523e51038c03447b0a711a75e2fc555637eb37a8e7e52"
+      "d8da32a892fc141286b341d01545196edabf905c3855a90585aa91964144b982"
     ],
     "changelog/index.html": [
       "370ae6c5af1d027d15da79e0aefdd88c92ed1560fa2dcf1339491dd22626999e"
@@ -68,10 +68,10 @@
       "ea659f0ae063df70cf424845378a053bb2e71fb76eec1125265841b6018e2f01"
     ],
     "evaluate/index.html": [
-      "593b8bff5de2cb73e853244bb95d3443b30c436a17dd55aab46d517c6c644c23"
+      "c383a17fa0c33d2d0a07c6bbe843725ffb85c8036a5e3e095e884d089440cfb5"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "4c74a617a5bbdc3f4653be483f5179944919db37e0721bd0f1376fb6e93ec942"
+      "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
     ],
     "evaluate/payday-super-evidence/index.html": [
       "eb8637c7a8354acb930782c89c6e5f545e0062806df30a54c9d7f778febcf207"
@@ -101,7 +101,7 @@
       "62a3b8308faabd1babfe5c6387226488740efceededee26b8d351e2e5d8c2035"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "c62b73c52fb3ddebd8b65641a7139e3647d09773dcc954d4c5c80463511b855f"
+      "2263844a591ac11de820f05cec8df10073d61e8109a7a2715f501e0345ac4f75"
     ],
     "tools/coal-lsl-levy/index.html": [
       "e0e61a1fad71afc982db783f2bf5f3dbcf4c83c8b8c5caa427e0c540c1ce0ff6"
@@ -113,7 +113,7 @@
       "906aabe6cf5c3d1920d149b5c82fb46b841554d88a2de5c7ec0f4acf2a4b52e1"
     ],
     "tools/payday-super/index.html": [
-      "6bae6a7c87a185eb8ca44195d9d61c43ddc4363ff4582f1e8097efe99b3e84d8"
+      "567694153f2f9e1290a35854c7628d8270b09de4278db2b92ebd75081ac5f60d"
     ],
     "tools/subcontractor-ledgers/index.html": [
       "cdf689cff3065afa4d95e0126cad4af7210f468085196ebc7b7d7a72a073ab54"

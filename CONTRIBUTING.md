@@ -49,5 +49,8 @@ software, official public resources or free developer interfaces.
 
 Keep every link to a live target, keep marketing vocabulary out of visible
 text, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py
---write` when a page's main text changes. For a potential security
+--write` when a page's main text or `llms.txt` changes. That command also copies
+the canonical `llms.txt` to `.well-known/llms.txt`; do not edit the copy by hand.
+The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
+For a potential security
 vulnerability follow [SECURITY.md](SECURITY.md).

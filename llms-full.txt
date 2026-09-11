@@ -228,7 +228,9 @@ Home
 
 # About Ryan Duguid
 
-I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
+I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
+
+Last reviewed 11 September 2026.
 
 Most of this work answers one question: can a second person trace the record, rule, and result?
 
@@ -270,6 +272,8 @@ The tools extract records into a reviewable shape, apply deterministic calculati
 
 ## How the work is grounded
 
+I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates, and review boundary.
+
 - Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
 - Refusal over guessing. Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.
@@ -289,8 +293,6 @@ This site does not offer tax or BAS agent services and does not accept tax advic
 ## Citing this work
 
 Duguid, R. (2026). Australian computational accounting tools. https://duguid.com.au/. Each tool page names the source it is grounded in, and each linked repository carries its own licence and disclaimer.
-
-Last reviewed 5 September 2026.
 
 I write and maintain this site in my own time and on my own equipment.
 
@@ -376,13 +378,13 @@ Source: https://duguid.com.au/evaluate/
 
 # Evaluations
 
-Fixed, reproducible checks of released tools using fabricated inputs and hand-recorded expected results.
+These three evaluation packs reproduce accounting-tool checks at fixed releases using fabricated inputs and hand-recorded expected results.
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
 
-Last reviewed 6 September 2026.
+Last reviewed 11 September 2026.
 
 ## Five-minute accounting cases
 
@@ -412,7 +414,7 @@ Limitation
 
 READY is readiness for a manager, not sign-off.
 
-Evaluation source
+Evaluation source · Primary source: Australian Taxation Office, Business activity statements
 
 ## Xero trial balance integrity evaluation
 
@@ -434,7 +436,7 @@ Limitation
 
 No tenant credentials, live tenant data, or API availability test.
 
-Evaluation source
+Evaluation source · Primary source: Xero, Accounting API Reports
 
 ## Payday Super timing evidence evaluation
 
@@ -456,7 +458,7 @@ Limitation
 
 Supplied evidence is classified; missing facts are not inferred.
 
-Evaluation source
+Evaluation source · Primary source: Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2
 
 ---
 
@@ -470,7 +472,7 @@ Source: https://duguid.com.au/evaluate/manager-review-gate/
 
 Reproduce the released review-ready gate against two fabricated BAS packs, then inspect the exact expected result and human boundary.
 
-Published 26 August 2026. Last reviewed 4 September 2026.
+Published 26 August 2026. Last reviewed 11 September 2026.
 
 ## Accounting problem
 
@@ -481,6 +483,8 @@ Before a BAS pack reaches a manager, a preparer needs a repeatable check that th
 The evaluation uses the repository fixtures examples/bas-not-ready and examples/bas-ready. They contain no client data.
 
 ## Expected result
+
+The incomplete BAS pack exits with code 2 and NOT_READY. The corrected pack exits with code 0 and READY, with no configured findings. These results describe readiness for review; a manager still decides whether the work may progress.
 
 Pack | Released expectation
 Incomplete BAS | Exit 2 with NOT_READY.
@@ -1585,9 +1589,9 @@ Source: https://duguid.com.au/tools/payday-super/
 
 > See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision.
 
-# Sent on time. Received on time?
+# Payday Super receipt evidence
 
-Synthetic Payday Super example. Review aid, not advice; the reviewer decides whether the evidence supports closing the exception.
+This fixed, synthetic Payday Super example shows why a remittance record cannot establish timely fund receipt. Review aid, not advice; the reviewer decides whether the evidence supports closing the exception.
 
 ## Synthetic worked example
 
@@ -1599,11 +1603,13 @@ Human decision: Obtain evidence of eligible fund receipt and check the applicabl
 
 This is a fixed example. Nothing to install or upload; these dates do not recalculate. Inspect the exact fixture.
 
-Published 24 August 2026. Last reviewed 6 September 2026.
+Published 24 August 2026. Last reviewed 11 September 2026.
 
 ## Check the evidence
 
 Reproduced from Payday Super Checker 0.1.3. The release's legal review date is 15 August 2026.
+
+The ordinary timing pathway tests fund receipt within seven business days of payday. Check whether a different timing pathway applies before relying on the result. Primary sources are the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2, as recorded in the evaluation pack.
 
 Source on GitHub · Open an issue
 
@@ -2099,7 +2105,7 @@ aus-accounting-mcp is a local Model Context Protocol server that runs reviewed A
 
 Reference release v0.1.9, tagged source on GitHub.
 
-Published 25 August 2026. Last reviewed 10 September 2026.
+Published 25 August 2026. Last reviewed 11 September 2026.
 
 Two different jobs get conflated when someone asks an AI coding assistant for "an Australian tax MCP". One job is looking up what a ruling says. The other is applying a statutory test to figures you already have. This page is for the second job. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the engines and the MCP facade that runs them.
 
@@ -2122,6 +2128,12 @@ Those other projects are named so an agent can tell them apart. This page does n
 - Emits synthetic SBR fixtures for agent tests, labelled synthetic: true.
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
+
+## Primary sources
+
+Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2. Benchmark comparisons use the ATO's small business benchmarks. The limited Division 7A review applies sections 109N and 109E of the Income Tax Assessment Act 1936.
+
+Each engine's source review and release record state what was checked. Verify current sources and the supplied facts before using an output.
 
 ## Adopt
 

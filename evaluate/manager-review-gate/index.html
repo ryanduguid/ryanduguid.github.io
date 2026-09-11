@@ -56,7 +56,7 @@
         <p class="lead-note">
           Reproduce the released review-ready gate against two fabricated BAS packs, then inspect the exact expected result and human boundary.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 11 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -88,6 +88,7 @@
 
           <section id="expected-result">
             <h2>Expected result</h2>
+            <p>The incomplete BAS pack exits with code 2 and NOT_READY. The corrected pack exits with code 0 and READY, with no configured findings. These results describe readiness for review; a manager still decides whether the work may progress.</p>
             <div class="table-scroll" role="region" aria-label="Manager review gate expected results" tabindex="0">
             <table class="facts">
               <thead>
@@ -192,7 +193,7 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
         "description": "A reproducible evaluation of the review-ready-gate v0.1.3 contract against two fabricated BAS packs.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-11",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

@@ -43,7 +43,7 @@ or an include. `python scripts/build_site.py` builds `_site/` without serving it
 - every question marked up as an FAQ is visible on the page that claims it
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
-- `llms-full.txt` matches a fresh build from the visible main text of every indexable page (`python scripts/build_llms_full.py --write` regenerates it)
+- `llms-full.txt` matches a fresh build from the visible main text of every indexable page; `.well-known/llms.txt` is an identical copy of the canonical `llms.txt` (`python scripts/build_llms_full.py --write` regenerates both)
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
 - every styled page carries the Content Security Policy meta tag and the three font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`

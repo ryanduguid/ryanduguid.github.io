@@ -7,6 +7,8 @@ import re
 import json
 import shutil
 import struct
+import subprocess
+import sys
 import tempfile
 from collections.abc import Callable
 from contextlib import contextmanager
@@ -209,8 +211,8 @@ def test_geo_leftovers_surface() -> None:
         "ClaudeBot": ["Disallow: /"],
         "Google-Extended": ["Allow: /"],
         "Applebot-Extended": ["Disallow: /"],
-        "CCBot": ["Disallow: /"],
-        "Bytespider": ["Disallow: /"],
+        "CCBot": ["Allow: /"],
+        "Bytespider": ["Allow: /"],
         "Amazonbot": ["Disallow: /"],
         "cohere-ai": ["Disallow: /"],
         "Diffbot": ["Disallow: /"],
@@ -218,11 +220,11 @@ def test_geo_leftovers_surface() -> None:
         "meta-externalagent": ["Disallow: /"],
     }
 
-    # The evaluations hub was re-reviewed when its evaluations moved to the
-    # maintained monorepo releases; the rates hub kept the GEO-pass date.
+    # The evaluations hub was re-reviewed for source-link clarity;
+    # the rates hub kept the GEO-pass date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("6 September 2026", "2026-09-06"),
+        "evaluate/index.html": ("11 September 2026", "2026-09-11"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -1537,7 +1539,27 @@ def test_llms_full_extraction() -> None:
     print("llms-full extraction passed")
 
 
+def test_machine_index_copy() -> None:
+    """The normal build refreshes the alias and detects missing or stale copies."""
+    with copied_site() as root:
+        command = [sys.executable, str(root / "scripts/build_llms_full.py")]
+        canonical = root / "llms.txt"
+        alias = root / ".well-known/llms.txt"
+        subprocess.run([*command, "--write"], check=True, capture_output=True)
+        assert alias.read_bytes() == canonical.read_bytes()
+        canonical.write_bytes(canonical.read_bytes() + b"\nIndex maintenance note.\n")
+        stale = subprocess.run([*command, "--check"], capture_output=True, text=True)
+        assert stale.returncode == 1 and ".well-known/llms.txt is stale" in stale.stdout
+        subprocess.run([*command, "--write"], check=True, capture_output=True)
+        assert alias.read_bytes() == canonical.read_bytes()
+        alias.unlink()
+        missing = subprocess.run([*command, "--check"], capture_output=True, text=True)
+        assert missing.returncode == 1 and ".well-known/llms.txt is stale" in missing.stdout
+    print("machine index copy and staleness checks passed")
+
+
 def main() -> None:
+    test_machine_index_copy()
     test_llms_full_extraction()
     test_consolidation_review_dates()
     test_current_component_metadata()

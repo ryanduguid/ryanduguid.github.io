@@ -1,6 +1,10 @@
-# Search indexing and user-requested citation fetches are allowed. Named training crawlers remain blocked.
+# Search indexing and user-requested citation fetches are allowed.
+# Open-web archival and training crawl by Common Crawl (CCBot) and Bytespider are allowed.
+# The named closed-lab and other training crawlers below remain blocked.
 # Unnamed agents must not silently redefine this policy; named rows state the intended treatment.
 # Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.
+# Canonical machine index: https://duguid.com.au/llms.txt
+# Full page text: https://duguid.com.au/llms-full.txt
 User-agent: *
 Allow: /
 
@@ -31,15 +35,16 @@ Allow: /
 User-agent: Google-Extended
 Allow: /
 
+User-agent: CCBot
+Allow: /
+User-agent: Bytespider
+Allow: /
+
 User-agent: GPTBot
 Disallow: /
 User-agent: ClaudeBot
 Disallow: /
 User-agent: Applebot-Extended
-Disallow: /
-User-agent: CCBot
-Disallow: /
-User-agent: Bytespider
 Disallow: /
 User-agent: Amazonbot
 Disallow: /

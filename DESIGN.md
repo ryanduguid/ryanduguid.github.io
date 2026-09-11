@@ -348,9 +348,9 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `8AC69802C7587F085A05D3CCDAC1AC28ADF855F4CA9AD17CFBC556297EB66190`
-- `robots.txt`: SHA-256 `72838FDDC744E5EC67F0DD76BF21263E670C96109793B11E8CDAAB8E0E7D466D`
-- `sitemap.xml`: SHA-256 `8F7646F8FABDAF1B1C7CDF0E296CD42130FDA25AC254C2E2400DB8C856B14917`
+- `llms.txt`: SHA-256 `E92FA02DFEB025E9721AE48E11550C3191C9B3AC19AB35C760AA6630268C2114`
+- `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
+- `sitemap.xml`: SHA-256 `7906F768FCFAAE19F7EE4ED9D2FFF0732BB9C019305736E088D85E56F70C5207`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -371,12 +371,20 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 - no Google-specific ranking work or `noindex` is added to an indexable page
 - ordinary crawlability remains available to people, search systems and answer
   systems
-- search and user-retrieval crawlers remain allowed, Google-Extended is
-  allowed so Gemini and Vertex AI grounding can cite the site, and GPTBot,
-  ClaudeBot, Applebot-Extended, CCBot and Bytespider remain blocked from
-  training use
+- search and user-retrieval crawlers remain allowed, including Google-Extended
+- Common Crawl (CCBot) and Bytespider are allowed for open-web archival and
+  training crawl. GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai,
+  Diffbot, FacebookBot, and meta-externalagent remain blocked
+- `llms.txt` is the canonical machine index; `.well-known/llms.txt` is an
+  identical generated copy. The existing build script maintains that copy and
+  `llms-full.txt`. The XML sitemap contains indexable HTML only
 - `llms.txt`, JSON-LD, rates, disclaimers and refusal boundaries remain the
   factual source of truth
+
+The 11 September 2026 crawl-policy change authorises these crawler rules,
+machine-index copies, and static source and definition improvements. It keeps
+rate values, CSVs, engine behaviour, and release source-review dates intact.
+Page review dates record editorial review, not renewed legal certification.
 
 ## Accessibility and performance
 
