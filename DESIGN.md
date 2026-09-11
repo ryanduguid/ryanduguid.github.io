@@ -366,11 +366,17 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
 
+The 11 September 2026 B1 update adds the unreleased Payday Super evidence-pack
+workflow to Adopt, the Payday Super tool page, its evaluation page and the machine
+indexes. The evaluation's editorial date and JSON-LD digest, the sitemap digest
+and the llms.txt digest reflect this requested copy change. Existing release and
+fixture pins, legal review dates, rates, layout and disclaimer boundaries remain.
+
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `C34522915A32D4B65D296A4CA85AE08177A11BDBEA3E6D3ADA825C75D09B755F`
+- `llms.txt`: SHA-256 `3BED4ECAF9667EA6B3D50CFF0CF659917B18841038B240C54A84F99764546D46`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `6807981A7208C04FF9F1BCF81A9749FBD1128F58F04D240E85B61D3967FA2D8F`
+- `sitemap.xml`: SHA-256 `30CCD386898C3B1C3121363AC067E711B619BFF65FF10BD11A89871BC83BDABB`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or

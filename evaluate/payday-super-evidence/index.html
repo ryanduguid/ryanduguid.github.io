@@ -56,7 +56,7 @@
         <p class="lead-note">
           Reproduce four fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 11 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -65,6 +65,7 @@
           <a href="#intended-reviewer">Intended reviewer</a>
           <a href="#fabricated-inputs">Fabricated inputs</a>
           <a href="#reproduce">Reproduce</a>
+          <a href="#evidence-pack">Development evidence pack</a>
           <a href="#expected-result">Expected result</a>
           <a href="#controls-triggered">Controls triggered</a>
           <a href="#primary-sources">Primary sources</a>
@@ -104,6 +105,18 @@ uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_s
 uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_on_due_date.csv --as-at 2026-08-20 -o on-time-report.csv
 uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv --as-at 2026-08-20 -o late-receipt-report.csv
 uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q</code></pre>
+          </section>
+
+          <section id="evidence-pack" class="install-panel">
+            <h2>Development evidence pack (unreleased)</h2>
+            <p>The <a href="/tools/payday-super/#evidence-pack">tool page links the CLI and MCP pull requests</a> for this unreleased workflow. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.</p>
+            <pre tabindex="0" role="region" aria-label="Commands to build the development evidence pack"><code>git fetch origin pull/147/head
+git switch --detach d91bef569e01c8b9e4f15bbe0978f33bf4567a8b
+cd packages/payday-super-checker
+uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
+uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
+            <p>The evidence-pack command exits 2 and writes four files into a new directory. <code>exceptions.json</code> must contain <code>AT_RISK</code>; <code>decision-log.md</code> has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the four pinned timing outcomes. They do not establish model performance or renew the legal review date.</p>
+            <p>The new command follows review-pack exit meanings: 0 only for all <code>ON_TIME</code>, 2 for any exception, and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.</p>
           </section>
 
           <section id="expected-result">
@@ -212,7 +225,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
         "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-11",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

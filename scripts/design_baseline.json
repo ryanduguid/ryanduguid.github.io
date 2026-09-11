@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "c34522915a32d4b65d296a4ca85ae08177a11bdbea3e6d3ada825c75d09b755f",
+    "llms.txt": "3bed4ecaf9667ea6b3d50cff0cf659917b18841038b240c54a84f99764546d46",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "6807981a7208c04ff9f1bcf81a9749fbd1128f58f04d240e85b61d3967fa2d8f"
+    "sitemap.xml": "30ccd386898c3b1c3121363ac067e711b619bff65ff10bd11a89871bc83bdabb"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
@@ -74,7 +74,7 @@
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "eb8637c7a8354acb930782c89c6e5f545e0062806df30a54c9d7f778febcf207"
+      "dc1d2ea0b76a090332747b97dd6648eb89bb16367f32723e302aedf70ae36f80"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
       "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
