@@ -1583,7 +1583,7 @@ Source: https://duguid.com.au/tools/refusals/
 
 A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. The DrDebits guide in llm-tax-guardrails specifies the scenarios it requires a model to refuse.
 
-Published 4 September 2026. Last reviewed 4 September 2026.
+Published 4 September 2026. Last reviewed 11 September 2026.
 
 ## Fabricated inputs
 
@@ -2345,7 +2345,7 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Released pack: Australian Accounting Skills v0.2.1. The ten workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 4 September 2026.
+Published 24 August 2026. Last reviewed 11 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
