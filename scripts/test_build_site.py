@@ -39,18 +39,27 @@ def main() -> None:
             with urlopen(f"http://127.0.0.1:{server.server_port}/", timeout=5) as response:
                 assert response.read().decode("utf-8") == expected
             url = f"http://127.0.0.1:{server.server_port}/"
-            request = Request(url, headers={"Accept-Encoding": "gzip, deflate"})
-            with urlopen(request, timeout=5) as response:
-                compressed = response.read()
-                assert response.headers["Content-Encoding"] == "gzip"
-                assert response.headers["Vary"] == "Accept-Encoding"
-                assert int(response.headers["Content-Length"]) == len(compressed)
-                assert gzip.decompress(compressed).decode("utf-8") == expected
+            for accept in ["gzip, deflate", "*", "*;q=0.5", "*;q=0, gzip"]:
+                request = Request(url, headers={"Accept-Encoding": accept})
+                with urlopen(request, timeout=5) as response:
+                    compressed = response.read()
+                    assert response.headers["Content-Encoding"] == "gzip"
+                    assert response.headers["Vary"] == "Accept-Encoding"
+                    assert int(response.headers["Content-Length"]) == len(compressed)
+                    assert gzip.decompress(compressed).decode("utf-8") == expected
             request = Request(url, method="HEAD", headers={"Accept-Encoding": "gzip"})
             with urlopen(request, timeout=5) as response:
                 assert response.read() == b""
                 assert int(response.headers["Content-Length"]) == len(compressed)
-            for accept in ["gzip;q=0", "gzip;q=0.0, deflate", "br", "gzip;q=invalid"]:
+            for accept in [
+                "gzip;q=0",
+                "gzip;q=0.0, deflate",
+                "br",
+                "gzip;q=invalid",
+                "*;q=0",
+                "*, gzip;q=0",
+                "gzip;q=0, *",
+            ]:
                 with urlopen(
                     Request(url, headers={"Accept-Encoding": accept}), timeout=5
                 ) as response:

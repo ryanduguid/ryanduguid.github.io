@@ -93,7 +93,7 @@ export function cashWeekDates(startDate) {
     start: new Date(date.getTime() + week * 7 * 86400000).toISOString().slice(0, 10),
     end: new Date(date.getTime() + (week * 7 + 6) * 86400000).toISOString().slice(0, 10),
   }));
-  if (dates.at(-1).end.startsWith('+')) throw new Error('All 13 weeks must end before the year 10000.');
+  if (dates[dates.length - 1].end.startsWith('+')) throw new Error('All 13 weeks must end before the year 10000.');
   return dates;
 }
 

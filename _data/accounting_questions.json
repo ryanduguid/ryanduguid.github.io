@@ -168,8 +168,8 @@
       "url": "/tools/payday-super/"
     },
     "bas": {
-      "label": "Accounting workflows, including BAS preparation",
-      "url": "/tools/australian-tax-ai-agents/"
+      "label": "BAS pack readiness checks",
+      "url": "/tools/workpaper-review-gate/"
     },
     "close": {
       "label": "Monthly-close review pack",
@@ -727,7 +727,7 @@
         "Check reporting period and GST basis, reconcile tax-coded transactions and investigate exceptions.",
         "Reconcile PAYG and other labels, retain the workpaper and obtain approval before lodgement."
       ],
-      "boundary": "The existing BAS workflow prepares a workpaper; the reviewer remains responsible for classification and lodgement.",
+      "boundary": "The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.",
       "source": "bas-source",
       "tool": "bas",
       "example": "For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly."
@@ -767,7 +767,7 @@
         "Separate opening balances, payments to the ATO, cash-basis timing and journals.",
         "List each reconciling item and clear unexplained differences before signing off."
       ],
-      "boundary": "A control-account balance is not automatically the GST payable for one BAS period.",
+      "boundary": "A control-account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.",
       "source": "gst",
       "tool": "bas"
     },

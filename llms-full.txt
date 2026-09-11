@@ -3662,9 +3662,9 @@ Fictional worked example
 
 For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly.
 
-The existing BAS workflow prepares a workpaper; the reviewer remains responsible for classification and lodgement.
+The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.
 
-ATO business activity statements · Accounting workflows, including BAS preparation
+ATO business activity statements · BAS pack readiness checks
 
 Link to question 36
 
@@ -3701,9 +3701,9 @@ Bridge the BAS calculation to the GST control account at the same date and on th
 - Separate opening balances, payments to the ATO, cash-basis timing and journals.
 - List each reconciling item and clear unexplained differences before signing off.
 
-A control-account balance is not automatically the GST payable for one BAS period.
+A control-account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
 
-ATO GST guidance · Accounting workflows, including BAS preparation
+ATO GST guidance · BAS pack readiness checks
 
 Link to question 39
 
@@ -4597,7 +4597,7 @@ The linked repositories have different scopes and supported periods. A preparati
 - Link to question 34: https://duguid.com.au/tools/accounting-questions/#q34
 - Link to question 35: https://duguid.com.au/tools/accounting-questions/#q35
 - ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
-- Accounting workflows, including BAS preparation: https://duguid.com.au/tools/australian-tax-ai-agents/
+- BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
 - Link to question 36: https://duguid.com.au/tools/accounting-questions/#q36
 - Link to question 37: https://duguid.com.au/tools/accounting-questions/#q37
 - Link to question 38: https://duguid.com.au/tools/accounting-questions/#q38

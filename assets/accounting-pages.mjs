@@ -104,146 +104,147 @@ if (questions.length) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-const calculate = forms.length ? await import('./business-calculators.mjs') : null;
-for (const form of forms) {
-  form.querySelector('fieldset').disabled = false;
-  const output = form.querySelector('output');
-  let csv = '';
-  const cashDownload = form.querySelector('#download-cash');
-  const value = name => form.elements.namedItem(name).value;
+if (forms.length) import('./business-calculators.mjs').then(calculate => {
+  for (const form of forms) {
+    form.querySelector('fieldset').disabled = false;
+    const output = form.querySelector('output');
+    let csv = '';
+    const cashDownload = form.querySelector('#download-cash');
+    const value = name => form.elements.namedItem(name).value;
 
-  const cashInputs = () => ({ version: 1, currency: 'AUD', startDate: value('start-date'),
-    opening: value('opening'), buffer: value('buffer'), week: value('week'), amount: value('amount'), delay: value('delay'),
-    weeks: Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) })) });
-  if (cashDownload) {
-    const start = form.elements.namedItem('start-date');
-    const today = new Date();
-    start.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
-    const fileStatus = form.querySelector('#cash-file-status');
-    form.querySelector('#save-cash').addEventListener('click', () => {
-      if (!form.reportValidity()) return;
-      try {
-        const data = calculate.parseCashScenario(JSON.stringify(cashInputs()));
-        download(JSON.stringify(data, null, 2), 'cash-forecast-inputs.json', 'application/json');
-        fileStatus.textContent = 'Inputs saved. Load this file to continue the forecast later.';
-      } catch (error) { fileStatus.textContent = error.message; }
-    });
-    form.querySelector('#load-cash').addEventListener('change', async event => {
-      const file = event.target.files[0];
-      if (!file) return;
-      // Prevent edits while the file is read; apply only a fully validated scenario.
-      const fieldset = form.querySelector('fieldset');
-      fieldset.disabled = true;
-      try {
-        if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
-        const data = calculate.parseCashScenario(await file.text());
-        for (const name of ['opening', 'buffer', 'week', 'amount', 'delay']) form.elements.namedItem(name).value = data[name];
-        start.value = data.startDate;
-        data.weeks.forEach((row, i) => {
-          form.elements.namedItem(`receipts-${i + 1}`).value = row.receipts;
-          form.elements.namedItem(`payments-${i + 1}`).value = row.payments;
-        });
-        invalidate();
-        fileStatus.textContent = 'Inputs loaded. Calculate to refresh the results.';
-      } catch (error) { fileStatus.textContent = error.message; }
-      finally { fieldset.disabled = false; event.target.value = ''; }
-    });
-  }
-
-  function invalidate(event) {
-    if (event?.target.type === 'file') return;
-    if (form.dataset.calculated) output.textContent = 'Inputs changed. Calculate again.';
-    csv = '';
-    if (cashDownload) cashDownload.disabled = true;
-    const table = form.querySelector('#cash-results');
-    if (table) table.parentElement.hidden = true;
-  }
-  form.addEventListener('input', invalidate);
-  form.addEventListener('change', invalidate);
-  if (cashDownload) cashDownload.addEventListener('click', () => {
-    if (csv) download(csv, 'cash-forecast.csv', 'text/csv;charset=utf-8');
-  });
-
-  form.addEventListener('submit', event => {
-    event.preventDefault();
-    invalidate();
-    try {
-      let message;
-      switch (form.dataset.calculator) {
-        case 'gst': {
-          const r = calculate.gst(value('amount'), form.elements.namedItem('inclusive').checked);
-          message = `Excluding GST: ${aud(r.net)}. GST: ${aud(r.gst)}. Including GST: ${aud(r.gross)}.`;
-          break;
-        }
-        case 'business-use':
-          message = `Business-use share: ${aud(calculate.businessUse(value('cost'), value('percent')).share)}.`;
-          break;
-        case 'margin': {
-          const r = calculate.margin(value('sales'), value('cost'));
-          message = `Gross profit: ${aud(r.profit)}. Margin: ${percent(r.margin)}. Markup: ${percent(r.markup)}.`;
-          break;
-        }
-        case 'break-even': {
-          const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
-          message = `Contribution per unit: ${aud(r.contribution)}. Break-even: ${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales.`;
-          break;
-        }
-        case 'hourly':
-          message = `Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
-          break;
-        case 'variance': {
-          const r = calculate.variance(value('actual'), value('budget'), value('kind'));
-          message = `Actual minus budget: ${aud(r.difference)}. Difference as a share of absolute budget: ${percent(r.percent)}. ${r.effect}.`;
-          break;
-        }
-        case 'loan': {
-          const r = calculate.loan(value('principal'), value('rate'), value('months'));
-          message = `Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
-          break;
-        }
-        case 'staff': {
-          const r = calculate.staffCost(value('wages'), value('super'), value('other'));
-          message = `Annual staff cost: ${aud(r.annual)}. Monthly average: ${aud(r.monthly)}.`;
-          break;
-        }
-        case 'cash': {
-          const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
-          const dates = calculate.cashWeekDates(value('start-date'));
-          const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
-          message = `Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
-          const body = form.querySelector('#cash-results tbody');
-          body.replaceChildren();
-          for (const row of r.rows) {
-            const tr = document.createElement('tr');
-            for (const key of ['week', 'dates', 'opening', 'receipts', 'payments', 'closing']) {
-              const cell = document.createElement(key === 'week' ? 'th' : 'td');
-              if (key === 'week') cell.scope = 'row';
-              cell.textContent = key === 'week' ? row[key] : key === 'dates'
-                ? `${calendarDate(dates[row.week - 1].start)} to ${calendarDate(dates[row.week - 1].end)}` : aud(row[key]);
-              tr.append(cell);
-            }
-            body.append(tr);
-          }
-          form.querySelector('#cash-results').parentElement.hidden = false;
-          csv = ['Currency,AUD', 'Planning estimate; weekly totals may hide daily shortages',
-            `First day of week 1,${value('start-date')}`,
-            `Opening cash,${value('opening')}`, `Minimum cash buffer,${value('buffer')}`,
-            `Original receipt week,${value('week')}`, `Receipt delayed,${value('amount')}`,
-            `Delay in weeks,${value('delay')}`, `Deferred beyond week 13,${r.deferred.toFixed(2)}`,
-            `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
-            ...r.rows.map(row => [row.week, dates[row.week - 1].start, dates[row.week - 1].end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(','))].join('\r\n');
-          cashDownload.disabled = false;
-          break;
-        }
-        default: throw new Error('Unknown calculator.');
-      }
-      output.textContent = message;
-      form.dataset.calculated = 'true';
-    } catch (error) {
-      output.textContent = error.message;
+    const cashInputs = () => ({ version: 1, currency: 'AUD', startDate: value('start-date'),
+      opening: value('opening'), buffer: value('buffer'), week: value('week'), amount: value('amount'), delay: value('delay'),
+      weeks: Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) })) });
+    if (cashDownload) {
+      const start = form.elements.namedItem('start-date');
+      const today = new Date();
+      start.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+      const fileStatus = form.querySelector('#cash-file-status');
+      form.querySelector('#save-cash').addEventListener('click', () => {
+        if (!form.reportValidity()) return;
+        try {
+          const data = calculate.parseCashScenario(JSON.stringify(cashInputs()));
+          download(JSON.stringify(data, null, 2), 'cash-forecast-inputs.json', 'application/json');
+          fileStatus.textContent = 'Inputs saved. Load this file to continue the forecast later.';
+        } catch (error) { fileStatus.textContent = error.message; }
+      });
+      form.querySelector('#load-cash').addEventListener('change', async event => {
+        const file = event.target.files[0];
+        if (!file) return;
+        // Prevent edits while the file is read; apply only a fully validated scenario.
+        const fieldset = form.querySelector('fieldset');
+        fieldset.disabled = true;
+        try {
+          if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
+          const data = calculate.parseCashScenario(await file.text());
+          for (const name of ['opening', 'buffer', 'week', 'amount', 'delay']) form.elements.namedItem(name).value = data[name];
+          start.value = data.startDate;
+          data.weeks.forEach((row, i) => {
+            form.elements.namedItem(`receipts-${i + 1}`).value = row.receipts;
+            form.elements.namedItem(`payments-${i + 1}`).value = row.payments;
+          });
+          invalidate();
+          fileStatus.textContent = 'Inputs loaded. Calculate to refresh the results.';
+        } catch (error) { fileStatus.textContent = error.message; }
+        finally { fieldset.disabled = false; event.target.value = ''; }
+      });
     }
-    output.tabIndex = -1;
-    output.focus({ preventScroll: true });
-    output.scrollIntoView({ behavior: 'instant', block: 'nearest' });
-  });
-}
+
+    function invalidate(event) {
+      if (event?.target.type === 'file') return;
+      if (form.dataset.calculated) output.textContent = 'Inputs changed. Calculate again.';
+      csv = '';
+      if (cashDownload) cashDownload.disabled = true;
+      const table = form.querySelector('#cash-results');
+      if (table) table.parentElement.hidden = true;
+    }
+    form.addEventListener('input', invalidate);
+    form.addEventListener('change', invalidate);
+    if (cashDownload) cashDownload.addEventListener('click', () => {
+      if (csv) download(csv, 'cash-forecast.csv', 'text/csv;charset=utf-8');
+    });
+
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      invalidate();
+      try {
+        let message;
+        switch (form.dataset.calculator) {
+          case 'gst': {
+            const r = calculate.gst(value('amount'), form.elements.namedItem('inclusive').checked);
+            message = `Excluding GST: ${aud(r.net)}. GST: ${aud(r.gst)}. Including GST: ${aud(r.gross)}.`;
+            break;
+          }
+          case 'business-use':
+            message = `Business-use share: ${aud(calculate.businessUse(value('cost'), value('percent')).share)}.`;
+            break;
+          case 'margin': {
+            const r = calculate.margin(value('sales'), value('cost'));
+            message = `Gross profit: ${aud(r.profit)}. Margin: ${percent(r.margin)}. Markup: ${percent(r.markup)}.`;
+            break;
+          }
+          case 'break-even': {
+            const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
+            message = `Contribution per unit: ${aud(r.contribution)}. Break-even: ${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales.`;
+            break;
+          }
+          case 'hourly':
+            message = `Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
+            break;
+          case 'variance': {
+            const r = calculate.variance(value('actual'), value('budget'), value('kind'));
+            message = `Actual minus budget: ${aud(r.difference)}. Difference as a share of absolute budget: ${percent(r.percent)}. ${r.effect}.`;
+            break;
+          }
+          case 'loan': {
+            const r = calculate.loan(value('principal'), value('rate'), value('months'));
+            message = `Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
+            break;
+          }
+          case 'staff': {
+            const r = calculate.staffCost(value('wages'), value('super'), value('other'));
+            message = `Annual staff cost: ${aud(r.annual)}. Monthly average: ${aud(r.monthly)}.`;
+            break;
+          }
+          case 'cash': {
+            const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
+            const dates = calculate.cashWeekDates(value('start-date'));
+            const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
+            message = `Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
+            const body = form.querySelector('#cash-results tbody');
+            body.replaceChildren();
+            for (const row of r.rows) {
+              const tr = document.createElement('tr');
+              for (const key of ['week', 'dates', 'opening', 'receipts', 'payments', 'closing']) {
+                const cell = document.createElement(key === 'week' ? 'th' : 'td');
+                if (key === 'week') cell.scope = 'row';
+                cell.textContent = key === 'week' ? row[key] : key === 'dates'
+                  ? `${calendarDate(dates[row.week - 1].start)} to ${calendarDate(dates[row.week - 1].end)}` : aud(row[key]);
+                tr.append(cell);
+              }
+              body.append(tr);
+            }
+            form.querySelector('#cash-results').parentElement.hidden = false;
+            csv = ['Currency,AUD', 'Planning estimate; weekly totals may hide daily shortages',
+              `First day of week 1,${value('start-date')}`,
+              `Opening cash,${value('opening')}`, `Minimum cash buffer,${value('buffer')}`,
+              `Original receipt week,${value('week')}`, `Receipt delayed,${value('amount')}`,
+              `Delay in weeks,${value('delay')}`, `Deferred beyond week 13,${r.deferred.toFixed(2)}`,
+              `Funding gap,${r.funding.toFixed(2)}`, '', 'Week,Start date,End date,Opening,Receipts,Payments,Closing',
+              ...r.rows.map(row => [row.week, dates[row.week - 1].start, dates[row.week - 1].end, row.opening.toFixed(2), row.receipts.toFixed(2), row.payments.toFixed(2), row.closing.toFixed(2)].join(','))].join('\r\n');
+            cashDownload.disabled = false;
+            break;
+          }
+          default: throw new Error('Unknown calculator.');
+        }
+        output.textContent = message;
+        form.dataset.calculated = 'true';
+      } catch (error) {
+        output.textContent = error.message;
+      }
+      output.tabIndex = -1;
+      output.focus({ preventScroll: true });
+      output.scrollIntoView({ behavior: 'instant', block: 'nearest' });
+    });
+  }
+});

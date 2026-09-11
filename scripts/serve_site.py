@@ -28,18 +28,25 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
     }
 
     def accepts_gzip(self) -> bool:
+        wildcard = False
         for encoding in self.headers.get("Accept-Encoding", "").lower().split(","):
             coding, _, parameter = encoding.strip().partition(";")
-            if coding.strip() == "gzip":
+            coding = coding.strip()
+            if coding in {"gzip", "*"}:
                 if not parameter:
-                    return True
-                try:
-                    return (
-                        parameter.strip().startswith("q=") and 0 < float(parameter.strip()[2:]) <= 1
-                    )
-                except ValueError:
-                    return False
-        return False
+                    accepted = True
+                else:
+                    try:
+                        accepted = (
+                            parameter.strip().startswith("q=")
+                            and 0 < float(parameter.strip()[2:]) <= 1
+                        )
+                    except ValueError:
+                        accepted = False
+                if coding == "gzip":
+                    return accepted
+                wildcard = accepted
+        return wildcard
 
     def end_headers(self) -> None:
         self.send_header("Vary", "Accept-Encoding")
