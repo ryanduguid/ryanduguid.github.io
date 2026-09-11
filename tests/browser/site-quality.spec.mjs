@@ -9,6 +9,7 @@ const routes = [
   ['about', '/about/'],
   ['evidence', '/evidence/'],
   ['tools', '/tools/'],
+  ['monthly close controls', '/tools/monthly-close-controls/'],
   ['evaluations', '/evaluate/'],
   ['payday evidence evaluation', '/evaluate/payday-super-evidence/'],
   ['rates', '/rates/'],
@@ -59,9 +60,9 @@ const homeHeightBaseline = {
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
-    // Tools carries the Related resources section from 6 September 2026 (a
-    // heading, a paragraph and eight links): 7,221px here, plus the same 234px guard.
-    ['/tools/', 7455],
+    // Monthly Close adds a 348px entry and 54px chooser link on mobile.
+    // Preserve the existing margin while allowing those measured 402px.
+    ['/tools/', 7857],
     ['/evidence/', 6426],
   ]),
   'desktop-chromium': new Map([

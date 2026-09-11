@@ -1,0 +1,263 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <title>Xero monthly close exception report | Monthly Close Controls</title>
+  <meta name="description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Xero monthly close exception report | Monthly Close Controls" />
+  <meta property="og:description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/monthly-close-controls/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Xero monthly close exception report | Monthly Close Controls" />
+  <meta name="twitter:description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/monthly-close-controls/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Monthly Close Controls</li>
+          </ol>
+        </nav>
+        <h1>Xero monthly close exception report</h1>
+        <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.</p>
+        <p class="release-meta">Example reproduced from <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane">source commit ae88966</a>. Results apply to this source snapshot.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 11 September 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#inputs">Inputs</a>
+          <a href="#outputs">Outputs and status</a>
+          <a href="#worked-example">Worked example</a>
+          <a href="#get-it">Run the example</a>
+          <a href="#limits">Limits</a>
+          <a href="#common-questions">Common questions</a>
+          <a href="#related">Related</a>
+        </nav>
+        <div class="article-body">
+          <section id="inputs">
+            <h2>Inputs</h2>
+            <p>Start with the canonical CSV written by the <a href="/tools/xero-trial-balance/">Xero trial balance exporter</a>. Supply one current and one prior trial balance, plus an account mapping CSV. Each trial balance must contain one organisation and one report date; both must name the same organisation, with the prior date earlier than the current date.</p>
+            <p>You can supply subledger balances for reconciliation and a review note. Set the absolute and percentage materiality thresholds and reconciliation tolerance for the review. The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md">pinned source documentation</a> defines the accepted files and controls.</p>
+          </section>
+          <section id="outputs">
+            <h2>Outputs and status</h2>
+            <ul>
+              <li><code>close-summary.md</code>: overall status, thresholds, source hashes and the exception table.</li>
+              <li><code>exceptions.csv</code>: account-level differences, reasons and suggested reviewer actions for Excel or Power BI.</li>
+              <li><code>client-queries.csv</code>: draft questions for exceptions a client can help resolve. A preparer must review them before sending anything.</li>
+              <li><code>close-review-pack.json</code>: structured results and evidence for the run, including any supplied review acknowledgement.</li>
+            </ul>
+            <p><code>PASS</code> means the configured checks passed on the supplied files. <code>REVIEW</code> or <code>BLOCKED</code> requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.</p>
+          </section>
+          <section id="worked-example">
+            <h2>Worked example: balanced trial balance, unfinished review</h2>
+            <p>The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is <code>REVIEW</code>: eight exceptions, none blocked, and six draft client queries.</p>
+            <div class="table-scroll" role="region" aria-label="Selected monthly close exceptions" tabindex="0">
+              <table class="tool-table--wide">
+                <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: -$250.</td><td>Trace the reconciling items and document their cause.</td></tr>
+                  <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account's review group.</td></tr>
+                  <tr><th scope="row">Financial year reset</th><td>The comparison crosses 1 July.</td><td>Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Five threshold movements make up the remaining exceptions. Eight exceptions do not establish eight accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
+            <p>The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md">captured manager case study</a> explains the selected exceptions. The command below reproduces the four-file output at that same commit. All inputs are fabricated.</p>
+          </section>
+          <section id="get-it" class="install-panel">
+            <h2>Run the example</h2>
+            <p class="install-needs">Needs Git and Python 3.10 or later. The pinned source command uses Python's standard library. It needs no Xero account, API access or client files.</p>
+            <pre tabindex="0" role="region" aria-label="Get the pinned monthly close example"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
+<span class="cmd">cd accounting-review-pipeline</span>
+<span class="cmd">git checkout ae88966fc416f6f2ad618652779c50d0e348949d</span>
+<span class="cmd">cd packages/monthly-close-control-plane</span></code></pre>
+            <pre tabindex="0" role="region" aria-label="Run the fabricated monthly close review"><code><span class="cmd">python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo</span></code></pre>
+            <p>Expect exit code 2 and <code>REVIEW; 8 exception(s); 6 client query(ies) drafted</code>. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.</p>
+            <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane">Source on GitHub</a></p>
+            <p>Unexpected result or question? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a>.</p>
+          </section>
+          <section id="limits">
+            <h2>Limits</h2>
+            <p>A balanced trial balance can still contain omissions, misclassifications or unsupported transactions. These checks use the files, mappings and thresholds you supply. They do not establish that the source records are complete or that an accounting treatment is correct.</p>
+            <p>The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm's workpaper process.</p>
+          </section>
+          <section id="common-questions" class="faq-section">
+            <h2>Common questions</h2>
+            <div class="faq">
+              <h3>Does Monthly Close Controls connect to Xero?</h3>
+              <p>No. It reads local CSV files in the canonical Xero trial balance export format. Use the Xero trial balance exporter separately to obtain those files.</p>
+              <h3>Can I open the exception report in Excel?</h3>
+              <p>Yes. Import exceptions.csv to filter the account-level findings, differences and reviewer actions. The tool also writes a Markdown summary and a JSON evidence pack.</p>
+              <h3>Does PASS approve the month-end close?</h3>
+              <p>No. PASS means the configured checks passed on the supplied inputs. A human still reviews completeness, accounting treatment and the evidence before approving a close.</p>
+            </div>
+          </section>
+          <section id="related">
+            <h2>Related</h2>
+            <ul class="related">
+              <li><a href="/tools/xero-trial-balance/">Export a Xero trial balance to CSV</a></li>
+              <li><a href="/tools/workpaper-review-gate/">Check a workpaper pack before manager review</a></li>
+              <li><a href="/evaluate/">Reproducible examples and evaluations</a></li>
+              <li><a href="/evidence/">Evidence and Assurance</a></li>
+            </ul>
+          </section>
+          <p class="byline">Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.</p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/monthly-close-controls/#webpage",
+      "url": "https://duguid.com.au/tools/monthly-close-controls/",
+      "name": "Xero monthly close exception report | Monthly Close Controls",
+      "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-11",
+      "dateModified": "2026-09-11",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/monthly-close-controls/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/monthly-close-controls/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Monthly Close Controls"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/monthly-close-controls/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Monthly Close Controls",
+          "item": "https://duguid.com.au/tools/monthly-close-controls/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Monthly Close Controls",
+      "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source.",
+      "applicationCategory": "BusinessApplication",
+      "url": "https://duguid.com.au/tools/monthly-close-controls/",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "AUD"
+      },
+      "@id": "https://duguid.com.au/tools/monthly-close-controls/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-11",
+      "dateModified": "2026-09-11",
+      "operatingSystem": "Windows, macOS, Linux"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/monthly-close-controls/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Does Monthly Close Controls connect to Xero?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It reads local CSV files in the canonical Xero trial balance export format. Use the Xero trial balance exporter separately to obtain those files."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I open the exception report in Excel?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. Import exceptions.csv to filter the account-level findings, differences and reviewer actions. The tool also writes a Markdown summary and a JSON evidence pack."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does PASS approve the month-end close?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. PASS means the configured checks passed on the supplied inputs. A human still reviews completeness, accounting treatment and the evidence before approving a close."
+          }
+        }
+      ]
+    }
+  ]
+}
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>
