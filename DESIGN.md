@@ -348,9 +348,9 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `E92FA02DFEB025E9721AE48E11550C3191C9B3AC19AB35C760AA6630268C2114`
+- `llms.txt`: SHA-256 `EDA2FE404EEB7BE917E920FDBF38F6CEAA830E528187536C4581023AFD438E6C`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `7906F768FCFAAE19F7EE4ED9D2FFF0732BB9C019305736E088D85E56F70C5207`
+- `sitemap.xml`: SHA-256 `1C3EA8DA8B2D40B01EE5FFFED94AB4892D2D28A738523F3C741A6491F101D6BF`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -385,6 +385,15 @@ The 11 September 2026 crawl-policy change authorises these crawler rules,
 machine-index copies, and static source and definition improvements. It keeps
 rate values, CSVs, engine behaviour, and release source-review dates intact.
 Page review dates record editorial review, not renewed legal certification.
+
+The 11 September 2026 capability pass records MCP 0.2.0's bounded worksheets
+and optional local Markdown retrieval in visible copy and machine indexes.
+It updates current-release references and adds fabricated first-use examples
+verified against trust and company-tax release 0.1.3. The affected JSON-LD
+baselines, machine-index hash, and sitemap review dates record those approved
+edits. Rate content, evaluation version pins, and calculator formulas stay fixed.
+The six refusal tables reuse the wide-table class inside their labelled scroll
+regions so mobile prose keeps a readable measure.
 
 ## Accessibility and performance
 

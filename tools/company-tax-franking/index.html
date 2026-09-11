@@ -57,7 +57,7 @@
       A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80 per cent of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
     </p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3">the-exchequer-tally/v0.1.3</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 4 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 11 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -65,6 +65,7 @@
           <a href="#what-this-tool-does">What this tool does</a>
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
+          <a href="#worked-example">Worked example</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
         </nav>
@@ -104,12 +105,24 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
-cd australian-accounting/packages/the-exchequer-tally &amp;&amp; pip install .</code></pre>
+    <p class="install-needs">Needs Python 3.10 or later. Install the reference release in your Python environment.</p>
+    <pre tabindex="0" role="region" aria-label="Company tax checker installation command"><code>python -m pip install "the-exchequer-tally==0.1.3"</code></pre>
+    <p><a href="https://pypi.org/project/the-exchequer-tally/0.1.3/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.3/packages/the-exchequer-tally/README.md#quickstart">release instructions</a>.</p>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally">Source on GitHub</a> · Primary sources: <a href="https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates">ATO company tax rates</a> and <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Division 203 of the Income Tax Assessment Act 1997</a>.</p>
     <p>Unexpected result or question? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Company%20tax%20and%20franking%20checks">email with the tool named in the subject</a>.</p>
     <!-- geo-blocks -->
+    </section>
+    <section id="worked-example">
+    <h2>Fabricated worked example</h2>
+    <p>For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.</p>
+    <pre tabindex="0" role="region" aria-label="Fabricated company tax checker command"><code>the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000</code></pre>
+    <p>Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.</p>
+    <pre tabindex="0" role="region" aria-label="Expected company tax checker output"><code>Passive Income Ratio:    15.00% (&lt;= 80%: True)
+Base Rate Entity:        True
+Applicable Tax Rate:     25.0%</code></pre>
+    <h3>Try a refusal</h3>
+    <p>Change <code>--fy 2025</code> to <code>--fy 2017</code>. Release 0.1.3 has no bundled rate table for that year. It exits 2 and returns no rate.</p>
+    <p>This verifies the published command's behaviour on fabricated inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.</p>
     </section>
     <section id="common-questions" class="faq-section">
     <h2>Common questions</h2>
@@ -154,7 +167,7 @@ cd australian-accounting/packages/the-exchequer-tally &amp;&amp; pip install .</
         "description": "Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-11",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -221,7 +234,7 @@ cd australian-accounting/packages/the-exchequer-tally &amp;&amp; pip install .</
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-04"
+        "dateModified": "2026-09-11"
       },
       {
         "@type": "FAQPage",

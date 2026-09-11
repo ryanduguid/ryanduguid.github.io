@@ -33,3 +33,26 @@ test('current tool routes lead to maintained component source and support', asyn
   await expect(page.getByRole('region', { name: 'Skills install command' }))
     .toContainText('npx skills add ryanduguid/australian-accounting-skills');
 });
+
+test('adoption routes survive sharing, reload and browser history', async ({ page }) => {
+  for (const route of ['none', 'claude', 'codex', 'skills', 'github']) {
+    await page.goto(`/#adopt-${route}`);
+    await expect(page.locator(`#adopt-${route}`)).toBeChecked();
+    await expect(page.locator(`#adopt-${route} + label + .adopt-panel`)).toBeVisible();
+  }
+  await page.goto('/#adopt');
+  await expect(page.locator('#adopt-none')).toBeChecked();
+  // Position each label before clicking so WebKit cannot scroll it between pointer events.
+  await page.locator('label[for="adopt-codex"]').evaluate((label) => label.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.locator('label[for="adopt-codex"]').click();
+  await expect(page).toHaveURL(/#adopt-codex$/);
+  await page.reload();
+  await expect(page.locator('#adopt-codex')).toBeChecked();
+  await page.locator('label[for="adopt-skills"]').evaluate((label) => label.scrollIntoView({ block: 'center', behavior: 'instant' }));
+  await page.locator('label[for="adopt-skills"]').click();
+  await expect(page).toHaveURL(/#adopt-skills$/);
+  await page.goBack();
+  await expect(page.locator('#adopt-codex')).toBeChecked();
+  await page.goForward();
+  await expect(page.locator('#adopt-skills')).toBeChecked();
+});

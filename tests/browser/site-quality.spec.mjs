@@ -115,6 +115,25 @@ for (const [label, route] of routes) {
   });
 }
 
+test('refusal tables keep prose readable and scroll with the keyboard', async ({ page }) => {
+  await page.goto('/tools/refusals/');
+  await waitForVisualFonts(page);
+  const regions = page.locator('.table-scroll');
+  for (const region of await regions.all()) {
+    const cells = await region.locator('tbody td').evaluateAll((elements) => elements.map((cell) => {
+      const style = getComputedStyle(cell);
+      return cell.getBoundingClientRect().width - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
+    }));
+    for (const width of cells) expect(width).toBeGreaterThanOrEqual(100);
+    if (await region.evaluate((element) => element.scrollWidth > element.clientWidth)) {
+      await region.focus();
+      await page.keyboard.press('ArrowRight');
+      await expect.poll(() => region.evaluate((element) => element.scrollLeft)).toBeGreaterThan(0);
+    }
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+});
+
 test('health collector catches a non-success response', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/definitely-missing-agent-test');

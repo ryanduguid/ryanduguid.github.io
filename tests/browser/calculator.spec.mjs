@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
 import { observePageHealth } from './health.mjs';
@@ -50,7 +51,7 @@ test('home proof rejects invalid amounts and recovers without stale results', as
   for (const name of ['Base rate of pay', 'Overtime and penalty', 'Allowances']) {
     const field = page.getByRole('spinbutton', { name, exact: true });
     const original = await field.inputValue();
-    for (const value of ['-1', '0.001', '']) {
+    for (const value of ['-1', '0.001', '', '1e308']) {
       await field.fill(value);
       await expect(field).toHaveAttribute('aria-invalid', 'true');
       await expect(result).toBeHidden();
@@ -68,6 +69,76 @@ test('home proof rejects invalid amounts and recovers without stale results', as
   await expect(result.locator('[data-out="levy"]')).toHaveText('$0.00');
   await page.locator('#calc-base').fill('10000');
   await expect(result.locator('[data-out="levy"]')).toHaveText('$270.00');
+  health.assertHealthy();
+});
+
+test('home proof announces the applied formula and rejects an oversized combined result', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/');
+  const announcement = page.locator('#home-levy [aria-live="polite"]');
+  await expect(announcement).toContainText('Formula B applies.');
+  await page.locator('#calc-overtime').fill('0');
+  await page.locator('#calc-allowances').fill('0');
+  await expect(announcement).toContainText('Formula A applies.');
+  await page.locator('#calc-base').fill('3');
+  await page.locator('#calc-overtime').fill('1');
+  await expect(announcement).toContainText('Formula A applies.');
+  await page.locator('#calc-overtime').fill('2');
+  await expect(announcement).toContainText('Formula B applies.');
+  for (const input of await page.locator('#home-levy input').all()) await input.fill('500000000000');
+  await expect(page.locator('.proof-calc__result')).toBeHidden();
+  await expect(page.locator('#home-levy-error')).toContainText('The total is too large');
+  for (const input of await page.locator('#home-levy input').all()) await input.fill('0');
+  await expect(announcement).toContainText('Formula A applies.');
+  await expect(announcement).toContainText('$0.00');
+  health.assertHealthy();
+});
+
+test('every calculator branch and added bonus rejects oversized amounts and recovers', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  for (const branch of ['baseRate', 'annual', 'casual']) {
+    await page.locator(`input[name="branch"][value="${branch}"]`).check();
+    if (branch === 'casual') await page.locator('#reportingMonth').fill('2026-09');
+    for (const field of await page.locator('#calc-form input[type="number"]').all()) {
+      await field.fill('1e308');
+      await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+      await expect(field).toHaveAttribute('aria-invalid', 'true');
+      await expect(field).toBeFocused();
+      await field.fill('0');
+      await expect(field).not.toHaveAttribute('aria-invalid', 'true');
+    }
+  }
+  await page.getByRole('button', { name: 'Add a bonus', exact: true }).click();
+  const bonus = page.locator('.bonus-amount');
+  await bonus.fill('1e308');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(bonus).toHaveAttribute('aria-invalid', 'true');
+  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText(COAL_LSL_PROOF.expected.levy);
+  health.assertHealthy();
+});
+
+test('oversized calculations and employee totals recover without changing saved rows', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.locator('#baseRate').fill('500000000000');
+  await page.locator('#sacrificed').fill('500000000000');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('#result-actions')).toBeHidden();
+  await expect(page.locator('#result')).toBeEmpty();
+  await expect(page.locator('#result-notice')).toContainText('The total is too large');
+  await page.locator('#sacrificed').fill('0');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await page.locator('#add-employee').click();
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  await page.locator('#add-employee').click();
+  await expect(page.locator('#table-status')).toContainText('No row was added.');
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  await expect(page.locator('#employee-total-levy')).toHaveText('$13,500,000,000.00');
+  await page.getByRole('button', { name: 'Remove Reference 1', exact: true }).click();
+  await page.locator('#add-employee').click();
+  await expect(page.locator('#table-status')).toContainText('Reference 1 added');
   health.assertHealthy();
 });
 
@@ -547,6 +618,21 @@ test('mobile calculations move keyboard focus to the result', async ({ page }, t
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
   await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).press('Enter');
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
+});
+
+test('mobile result scrolling keeps touch targets clear of the sticky header', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'mobile-chromium', 'stacked result only');
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await calculateFormulaB(page);
+    for (const action of ['calculation', 'example']) {
+      if (action === 'example') await page.locator('#load-example').click();
+      await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
+      await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeInViewport();
+      const audit = await new AxeBuilder({ page }).withRules(['target-size']).analyze();
+      expect(audit.violations, `touch targets after ${action} at ${width}px`).toEqual([]);
+    }
+  }
 });
 
 test('calculator result and employee table do not overflow at 320 CSS pixels', async ({ page }) => {
