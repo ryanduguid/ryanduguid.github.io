@@ -61,6 +61,7 @@
           <section class="article-body" id="profit-and-cash" aria-labelledby="profit-and-cash-title">
             <h2 id="profit-and-cash-title">Profit of $35,957.55. A cash shortfall of $25,160.</h2>
             <p>Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.</p>
+            <p><a href="/assets/examples/lumbridge/lumbridge.xlsx" download>Download the synthetic Excel forecast</a> or <a href="/assets/examples/lumbridge/lumbridge-sample-pack.zip" download>download the workbook, source files, and trial guide</a>. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.</p>
             <p>The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.</p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge on-time and late-receipt forecast comparison">
               <table class="facts rate-table--wide">
@@ -80,7 +81,6 @@
             <p>Confirm the customer receipt date and resolve the earlier cash gap before approving discretionary equipment spending. Then check actual collections against the forecast each week. No overdraft or new funding is assumed.</p>
             <p>At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $13,200 supplier invoices payable. Its closing bank balance includes cash needed for those obligations.</p>
             <h3>Try the workbook</h3>
-            <p><a href="/assets/examples/lumbridge/lumbridge.xlsx" download>Download the synthetic Excel forecast</a> or <a href="/assets/examples/lumbridge/lumbridge-sample-pack.zip" download>download the workbook, source files, and trial guide</a>. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.</p>
             <ol>
               <li>Open the Model and Cash 13 weeks sheets and find the profit and cash figures.</li>
               <li>Change <code>Assumptions!B2</code> from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.</li>
@@ -98,6 +98,22 @@
           <section class="collection-entry">
             <h2>Five-minute accounting cases</h2>
             <p>Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.</p>
+            <div id="month-end-preview">
+              <h3>Balanced trial balance, unfinished review</h3>
+              <p>The synthetic July close returns <code>REVIEW</code>: eight exceptions, none blocked. Three findings explain why the balanced trial balance still needs attention.</p>
+              <div class="table-scroll" tabindex="0" role="region" aria-label="Synthetic month-end exception excerpt">
+                <table class="facts rate-table--wide">
+                  <caption>Three findings from the supplied case. Eight exceptions do not establish eight accounting errors.</caption>
+                  <thead><tr><th scope="col">Finding</th><th scope="col">Evidence</th><th scope="col">Reviewer action</th></tr></thead>
+                  <tbody>
+                    <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: -$250.</td><td>Trace the difference and document its cause.</td></tr>
+                    <tr><th scope="row">Account mapping</th><td>Operating Expenses account 6000 has no review-group mapping.</td><td>Confirm the mapping and review owner.</td></tr>
+                    <tr><th scope="row">Financial-year reset</th><td>The comparison crosses from June to July.</td><td>Use a suitable period comparison for P&amp;L YTD movements.</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md">Inspect the case, files, and reproduction command at the captured source commit</a>. The source records reproduction on 6 September 2026. A person must resolve the evidence before signing off.</p>
+            </div>
             <ul>
               <li><a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/manager-case-study.md">Payday Super: sent before the deadline, received when?</a> A remittance record and a fund receipt support different conclusions.</li>
               <li><a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/manager-case-study.md">Division 7A: does the repayment count?</a> Inspect a $10,000 change in the repayment assertion without treating the arithmetic as repayment classification.</li>

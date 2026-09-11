@@ -156,21 +156,23 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   await waitForVisualFonts(page);
   await expect(page.getByRole('heading', {
     level: 1,
-    name: 'Ryan Duguid: review-ready Australian accounting controls.',
+    name: 'Australian accounting tools, with the working explained.',
     exact: true,
   })).toBeVisible();
 
   const actions = page.getByRole('navigation', { name: 'Homepage actions' });
   await expect(actions.getByRole('link')).toHaveText([
-    'Browse the tools',
+    'Explore the cash-flow example',
+    'Browse all tools',
   ]);
-  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/tools/');
+  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/evaluate/#profit-and-cash');
+  await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/tools/');
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);
   await expect(page.locator('.home-hero + section')).toHaveClass(/home-tool-preview/);
   if (testInfo.project.name === 'mobile-chromium') {
-    const previewHeading = await page.locator('#preview-title').boundingBox();
-    expect(previewHeading.y + previewHeading.height).toBeLessThan(page.viewportSize().height);
+    const primaryAction = await actions.getByRole('link').first().boundingBox();
+    expect(primaryAction.y + primaryAction.height).toBeLessThan(page.viewportSize().height);
   }
 
   const categories = page.getByRole('navigation', { name: 'Tool categories' });
@@ -204,13 +206,13 @@ test('retired Engage routes redirect quietly to the homepage', async ({ page }) 
   await page.goto('/#engage');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Ryan Duguid: review-ready Australian accounting controls.',
+    'Australian accounting tools, with the working explained.',
   );
 
   await page.goto('/engage/');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Ryan Duguid: review-ready Australian accounting controls.',
+    'Australian accounting tools, with the working explained.',
   );
   health.assertHealthy();
 });

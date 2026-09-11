@@ -612,17 +612,17 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     },
 }
 
-HOMEPAGE_HEADING = "Ryan Duguid: review-ready Australian accounting controls."
+HOMEPAGE_HEADING = "Australian accounting tools, with the working explained."
 HOMEPAGE_HEADING_MARKUP = (
-    '<h1 id="home-title">Ryan Duguid: <span class="nowrap">review-ready</span> '
-    "Australian accounting controls.</h1>"
+    '<h1 id="home-title">Australian accounting tools, with the working explained.</h1>'
 )
 HOMEPAGE_SUPPORT = (
-    "Cash-flow examples and Australian accounting controls, with the inputs, "
-    "calculations, and decisions explained."
+    "I'm Ryan Duguid, an accountant in Newcastle. Explore a fictional business's "
+    "cash forecast, inspect month-end exceptions, or try an Australian payroll calculation."
 )
 HOMEPAGE_ACTIONS = (
-    ("/tools/", "Browse the tools"),
+    ("/evaluate/#profit-and-cash", "Explore the cash-flow example"),
+    ("/tools/", "Browse all tools"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
     ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),

@@ -147,6 +147,10 @@ licence remain published.
 
 ## Social-card provenance
 
+The homepage cash-flow chart is a native Excel export of the supplied fictional
+workbook. Its [capture record](assets/examples/lumbridge/preview-record.txt)
+records the scenario, source and image hashes, renderer, and refresh procedure.
+
 The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.

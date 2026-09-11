@@ -14,15 +14,23 @@ Source: https://duguid.com.au/
 
 Public register / Australian accounting controls
 
-# Ryan Duguid: review-ready Australian accounting controls.
+# Australian accounting tools, with the working explained.
 
-Cash-flow examples and Australian accounting controls, with the inputs, calculations, and decisions explained.
+I'm Ryan Duguid, an accountant in Newcastle. Explore a fictional business's cash forecast, inspect month-end exceptions, or try an Australian payroll calculation.
 
 A personal open-source index, not an accounting practice.
 
 Last reviewed 11 September 2026.
 
-Browse the tools
+Explore the cash-flow example Browse all tools
+
+## Profit does not pay the next bill.
+
+Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
+
+Synthetic demonstration. An independent accountant trial is pending.
+
+Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 11 September 2026. Capture record.
 
 Tool register / four review tasks
 
@@ -61,8 +69,6 @@ Method 02 Primary sources and exact arithmetic
 Boundary 03 Calculation is not judgement
 
 ## Worked proof
-
-A fictional Newcastle business forecasts $35,957.55 profit, yet a late receipt leaves a $25,160 cash shortfall. Read the profit-and-cash case and open the Excel example.
 
 Coal LSL / synthetic result
 
@@ -222,7 +228,10 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 ## Links
 
-- Browse the tools: https://duguid.com.au/tools/
+- Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
+- Browse all tools: https://duguid.com.au/tools/
+- View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
+- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Extract: https://duguid.com.au/tools/#extract-tools
 - Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - Calculate: https://duguid.com.au/tools/#calculate-tools
@@ -231,7 +240,6 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Inspect: https://duguid.com.au/tools/#inspect-tools
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
-- Read the profit-and-cash case and open the Excel example.: https://duguid.com.au/evaluate/#profit-and-cash
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
@@ -263,9 +271,17 @@ I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build
 
 Last reviewed 11 September 2026.
 
-Most of this work answers one question: can a second person trace the record, rule, and result?
+## What my public work demonstrates
 
-The tools cite legislation, regulator guidance, or an accounting standard, expose the calculation, and refuse a result when the supplied facts do not settle the test. Public examples use fabricated data.
+I build accounting tools that let a second person trace the inputs, calculation, and review decision. Three examples show the work in different forms:
+
+- Cash-flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates, and available cash through an Excel forecast and management briefing.
+- Month-end review. The accounting review pipeline turns trial-balance files into inspectable exceptions, including a creditors difference and a financial-year comparison warning.
+- Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
+
+These examples use fabricated data. Their evidence covers the supplied cases and stated limits; no client outcome is claimed.
+
+The tools cite legislation, regulator guidance, or an accounting standard and refuse a result when the supplied facts do not settle the test.
 
 The evidence register links identity, releases, source reviews, repository controls, and reproducible tests. It also states what those records cannot establish.
 
@@ -330,6 +346,9 @@ I write and maintain this site in my own time and on my own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
+- Lumbridge case: https://duguid.com.au/evaluate/#profit-and-cash
+- accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
+- Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
@@ -536,6 +555,8 @@ Last reviewed 11 September 2026.
 
 Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.
 
+Download the synthetic Excel forecast or download the workbook, source files, and trial guide. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.
+
 The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.
 
 Same work performed, different receipt dates. Scroll sideways on small screens.
@@ -557,8 +578,6 @@ At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $1
 
 ### Try the workbook
 
-Download the synthetic Excel forecast or download the workbook, source files, and trial guide. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.
-
 - Open the Model and Cash 13 weeks sheets and find the profit and cash figures.
 - Change Assumptions!B2 from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.
 - Restore 0, save a copy, and reopen it. The workbook supports only whole-day receipt delays from 0 to 120; exported CSVs and briefing text stay fixed.
@@ -576,6 +595,19 @@ Give feedback on this example. Describe the step, observed result, and Excel ver
 ## Five-minute accounting cases
 
 Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.
+
+### Balanced trial balance, unfinished review
+
+The synthetic July close returns REVIEW: eight exceptions, none blocked. Three findings explain why the balanced trial balance still needs attention.
+
+Three findings from the supplied case. Eight exceptions do not establish eight accounting errors.
+
+Finding | Evidence | Reviewer action
+Creditors reconciliation | Trial balance less supplied subledger: -$250. | Trace the difference and document its cause.
+Account mapping | Operating Expenses account 6000 has no review-group mapping. | Confirm the mapping and review owner.
+Financial-year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
+
+Inspect the case, files, and reproduction command at the captured source commit. The source records reproduction on 6 September 2026. A person must resolve the evidence before signing off.
 
 - Payday Super: sent before the deadline, received when? A remittance record and a fund receipt support different conclusions.
 - Division 7A: does the repayment count? Inspect a $10,000 change in the repayment assertion without treating the arithmetic as repayment classification.
@@ -657,6 +689,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
 - Give feedback on this example: https://duguid.com.au/contact/#example-feedback
+- Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/main/packages/div7a-loan-review/docs/manager-case-study.md
 - Month-end close: balanced trial balance, unfinished review.: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/monthly-close-control-plane/docs/manager-case-study.md
@@ -1322,9 +1355,13 @@ Source: https://duguid.com.au/tools/
 
 Open-source controls for work that still needs a source, a visible calculation, and a person willing to sign off.
 
-Last reviewed 6 September 2026.
+Last reviewed 11 September 2026.
 
 ## Start from your work
+
+- Cash flow and management reporting
+
+Fictional Newcastle cash-flow case Excel and source files
 
 - Payroll and super
 
@@ -1526,6 +1563,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
+- Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/

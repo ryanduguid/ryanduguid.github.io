@@ -16,6 +16,23 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The approved 11 September 2026 portfolio follow-up leads the homepage with
+"Australian accounting tools, with the working explained." The first action
+opens the fictional cash-flow case and remains visible at 390 by 844 pixels.
+An export from the supplied workbook sits in the hero before the four-category
+preview. Its capture record identifies the Excel version, scenario and hashes.
+Tools adds the same cash-flow entry; About connects three capabilities to public
+samples; Evaluations shows a source-linked month-end exception excerpt.
+The independent accountant trial remains pending. Existing calculator behaviour,
+rates, disclosures and the non-practice boundary remain in force. On mobile,
+chooser rows use smaller gaps while retaining 44px links and the page-height cap.
+This updates the homepage ordering in the earlier refinement record below.
+
+The approved refinement puts the workbook download immediately after the case
+introduction. The chart links to its full-size image and states the cash trough
+and assumed buffer in text. About states traceability and fabricated-data scope
+once near its work samples, with the existing review boundaries retained.
+
 The 31 August 2026 refinement keeps the design read at
 `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
 
@@ -281,7 +298,10 @@ The first viewport centres one tool-led proposition above a ruled three-part bou
 - Sources and calculation working stay visible.
 - The tools are review aids, not judgement or lodgement.
 
-The single action opens Tools. A four-task preview and the real Coal LSL artefact follow; there is no portrait, fake dashboard or sales funnel. The site states that it is a personal open-source index, not a practice, and does not accept professional engagements.
+The primary action opens the cash-flow case; the secondary action opens Tools.
+The workbook chart, four-task preview and real Coal LSL artefact follow. The
+site states that it is a personal open-source index, not a practice, and does
+not accept professional engagements.
 
 ### Adopt viewport
 
@@ -350,7 +370,7 @@ The following whole-file values are protected after normalising only platform li
 
 - `llms.txt`: SHA-256 `84F92E0A48EEEF965487B7B7452141DE448CCCDCDDC9B679DB83F850620C9057`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `DB3D2E183EC6CEC782B6E3BB954C9464B7D2B6D542C72DAA027751DE79E0E265`
+- `sitemap.xml`: SHA-256 `C55AB735E827A68B21D7CE084E20BD2506F1C8175E48F8A1F2AACEEC5F7E1C30`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
