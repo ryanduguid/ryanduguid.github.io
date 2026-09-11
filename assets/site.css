@@ -1055,6 +1055,48 @@ th {
   font-size: var(--text-small);
 }
 
+.home-case {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  align-items: start;
+  gap: var(--space-6);
+  margin-top: var(--space-7);
+  padding-top: var(--space-6);
+  border-top: var(--rule-thin) solid var(--colour-rule);
+}
+
+.home-case h2 {
+  font-size: var(--text-heading-small);
+}
+
+.case-preview {
+  min-width: 0;
+  margin: 0;
+}
+
+.case-preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.case-preview figcaption {
+  margin-top: var(--space-3);
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
+#month-end-preview {
+  min-width: 0;
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 40rem) {
+  .home-case {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .home-hero__note {
   max-width: 58ch;
   color: var(--colour-ink-soft);
@@ -2136,6 +2178,11 @@ input[type="checkbox"] {
   .collection-entry__note,
   .collection-entry__links {
     grid-column: 1;
+  }
+
+  .work-chooser li {
+    gap: var(--space-1);
+    padding-block: var(--space-2);
   }
 
   .home-proof-rail,

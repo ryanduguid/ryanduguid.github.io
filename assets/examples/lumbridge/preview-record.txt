@@ -1,0 +1,27 @@
+Lumbridge cash chart preview
+
+Source: the lumbridge.xlsx distributed in this directory.
+Workbook SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463
+Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
+Licence: MIT, as recorded in the sample pack.
+
+Captured 11 September 2026 with desktop Excel 16.0 on Windows.
+The source workbook was opened read-only with links disabled and macros
+disabled. Assumptions!B2 was set to 45 in memory and CalculateFullRebuild ran.
+The first chart on Cash 13 weeks was exported using Excel Chart.Export as PNG
+at 720 by 360 points, yielding 864 by 432 pixels at this display scale.
+The source workbook was closed without saving; its hash remained unchanged.
+
+Weekly closing cash values in the exported chart, AUD:
+16800, 15600, 25520, -11960, -11960, -25160, 17640, 27560, 49680,
+36480, 79280, 67320, 67320.
+The second series is the assumed 15000 cash buffer.
+
+PNG SHA-256: 3132752648879341070997f84fe5d871aa244c070a4b453ead6b3e16bebc92d8
+
+This is an export of the workbook chart, not a screenshot of the entire
+worksheet. It stays fixed when a reader edits a downloaded workbook.
+Refresh it through the same native Excel export when the source workbook or
+scenario changes, then record the new workbook and image hashes here.
+No generated illustration, stock image, or reconstructed chart is used.
+This capture is not an independent accountant trial.

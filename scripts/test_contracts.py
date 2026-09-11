@@ -429,8 +429,8 @@ def test_design_contracts() -> int:
         (
             "hero action drift",
             "index.html",
-            'class="button" href="/tools/"',
-            'class="button" href="/missing-tools/"',
+            'href="/tools/">Browse all tools',
+            'href="/missing-tools/">Browse all tools',
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
@@ -457,8 +457,8 @@ def test_design_contracts() -> int:
         (
             "proof loaded eagerly",
             "index.html",
-            'loading="lazy"',
-            'loading="eager"',
+            'width="868" height="580" loading="lazy"',
+            'width="868" height="580" loading="eager"',
             "index.html: Coal LSL proof image must load lazily",
         ),
         (
@@ -527,8 +527,8 @@ def test_design_contracts() -> int:
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 11 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 11 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -632,7 +632,7 @@ def test_design_contracts() -> int:
 
     review_date_paths = (
         ("index.html", "11 September 2026", "2026-09-11"),
-        ("tools/index.html", "6 September 2026", "2026-09-06"),
+        ("tools/index.html", "11 September 2026", "2026-09-11"),
         ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
     for rel, visible_date, structured_date in review_date_paths:
@@ -1017,7 +1017,7 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage primary action",
-            "Browse the tools",
+            "Explore the cash-flow example",
             "Browse every tool",
             "index.html: homepage actions are",
         ),
