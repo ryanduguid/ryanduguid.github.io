@@ -1558,7 +1558,31 @@ def test_machine_index_copy() -> None:
     print("machine index copy and staleness checks passed")
 
 
+def test_full_text_references() -> None:
+    """Keep visible citations usable without reopening their source HTML."""
+    import build_llms_full
+
+    html = """<main>
+    <nav class="article-toc"><a href="#details">Navigation only</a></nav>
+    <p>Read <a href="https://www.ato.gov.au/example?a=1&amp;b=2"><em>ATO</em> guidance</a>.</p>
+    <p><a href="https://www.ato.gov.au/example?a=1&amp;b=2">Same source</a></p>
+    <a href="rates.csv">Download CSV</a><a href="../">Rate register</a>
+    <a hidden href="https://example.com/hidden">Hidden source</a>
+    <template><a href="https://example.com/template">Template source</a></template>
+    <a href="mailto:test@example.com">Email</a><a>Placeholder</a>
+    </main>"""
+    text = build_llms_full.main_text(html, "https://duguid.com.au/rates/example/")
+    assert "ATO guidance: https://www.ato.gov.au/example?a=1&b=2" in text
+    assert text.count("https://www.ato.gov.au/example?a=1&b=2") == 1
+    assert "Download CSV: https://duguid.com.au/rates/example/rates.csv" in text
+    assert "Rate register: https://duguid.com.au/rates/" in text
+    assert "https://example.com/" not in text and "mailto:" not in text
+    assert "#details" not in text
+    print("full-text citation destinations passed")
+
+
 def main() -> None:
+    test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()
     test_consolidation_review_dates()
