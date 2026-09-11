@@ -47,6 +47,8 @@ test('Lighthouse audits the exact adoption surfaces over three median runs', () 
     'http://127.0.0.1:4173/tools/',
     'http://127.0.0.1:4173/evidence/',
     'http://127.0.0.1:4173/tools/coal-lsl-levy/',
+    'http://127.0.0.1:4173/tools/accounting-questions/',
+    'http://127.0.0.1:4173/tools/business-calculators/',
   ]);
   assert.equal(config.ci.collect.numberOfRuns, 3);
   assert.equal(config.ci.assert.aggregationMethod, 'median');

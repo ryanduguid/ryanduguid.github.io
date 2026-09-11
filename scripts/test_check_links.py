@@ -33,6 +33,9 @@ class FetchFinalUrlTests(unittest.TestCase):
         manual_urls = [
             "https://www.sbr.gov.au/",
             "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
+            "https://www.abr.gov.au/business-super-funds-charities/applying-abn",
+            "https://www.fairwork.gov.au/ending-employment/final-pay",
+            "https://www.tpb.gov.au/public-register",
         ]
         other_urls = [url + "missing" for url in manual_urls]
         for actions in ("true", "false"):
@@ -56,7 +59,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                         for call in output.call_args_list
                         if "manual verification" in call.args[0]
                     ]
-                    self.assertEqual(len(notices), 2)
+                    self.assertEqual(len(notices), 5)
                     for url in manual_urls:
                         self.assertTrue(any(url in notice for notice in notices))
 
@@ -172,11 +175,16 @@ class FetchFinalUrlTests(unittest.TestCase):
             "hiring-and-paying-your-workers/single-touch-payroll/in-detail/"
             "single-touch-payroll-phase-2-employer-reporting-guidelines",
             "https://www.ato.gov.au/law/",
+            "https://www.ato.gov.au/individuals-and-families/your-tax-return",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "gst-excise-and-indirect-taxes/gst/how-gst-works",
         )
 
         for url in confirmed:
             with self.subTest(url=url):
                 self.assertTrue(check_links.is_accepted_automation_denial(url, 403))
+                self.assertFalse(check_links.is_accepted_automation_denial(url, 404))
+                self.assertFalse(check_links.is_accepted_automation_denial(url + "/missing", 403))
 
         self.assertFalse(
             check_links.is_accepted_automation_denial(

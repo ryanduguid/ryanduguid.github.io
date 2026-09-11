@@ -46,6 +46,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Browser tools, nothing to install
 
+- [100 Australian accounting questions](https://duguid.com.au/tools/accounting-questions/): practical steps, record checklists, official guidance and existing resources for tax, bookkeeping, cash flow, NSW and Newcastle topics. Search and download selected checklists. Question numbers do not represent measured search demand.
+- [Business calculators](https://duguid.com.au/tools/business-calculators/): browser calculations for GST, business use, margins, break-even, hourly pricing, budget variance, fixed monthly loans, supplied staff costs and 13-week cash scenarios with CSV export. Planning estimates with visible assumptions; no account access or lodgement.
 - [Payday Super receipt-evidence example](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads, or recalculation; source and full evaluation links are on the page.
 - [Tools](https://duguid.com.au/tools/): index of eleven open-source accounting controls grouped by extract, calculate, control, and inspect, with delivery types, source repositories, and human-review boundaries.
 - [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7 per cent payroll levy under section 3B of the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, across the base-rate, annual-salary, and casual branches. Also lists eight questions the Act, the Regulations, and the guidance note leave unanswered.

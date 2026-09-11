@@ -51,10 +51,21 @@ capture, and Lighthouse checks when changing it.
 
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
-The link checker reports these two exact URLs as requiring manual verification
-in GitHub Actions. Run `python scripts/check_links.py` locally before changing
-either link; local runs still fetch both. Both returned HTTP 200 on
-10 September 2026. Remove the CI exceptions when runner access works again.
+Both returned HTTP 200 locally on 10 September 2026. In
+[run 34593410260](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/34593410260),
+the runner also timed out on [applying for an ABN](https://www.abr.gov.au/business-super-funds-charities/applying-abn),
+[final pay](https://www.fairwork.gov.au/ending-employment/final-pay) and the
+[TPB register](https://www.tpb.gov.au/public-register). These three URLs returned
+HTTP 200 locally on 11 September 2026. The link checker reports all five exact
+URLs as requiring manual verification in GitHub Actions. Run
+`python scripts/check_links.py` locally before changing any of them; local runs
+still fetch all five. Remove the CI exceptions when runner access works again.
+
+That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
+locally on 11 September 2026. They are listed individually in
+`ATO_AUTOMATION_DENIAL_URLS` in `scripts/check_links.py`. Only HTTP 403 is accepted
+for those exact URLs; other errors and unlisted URLs still fail. Recheck them
+locally before changing a source link and remove exceptions when access permits.
 
 Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check and ruff format on staged files.
 

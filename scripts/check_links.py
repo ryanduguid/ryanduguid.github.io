@@ -16,7 +16,7 @@ Checks, in order, per file:
    30 seconds of total waiting per fetch. Other HTTP 4xx responses do not retry.
    HTTP 403 from exact allow-listed ATO source URLs and HTTP 404 or 999 from
    the hibernated LinkedIn profile are accepted.
-   Two exact government URLs require manual verification in GitHub Actions
+   Five exact government URLs require manual verification in GitHub Actions
    because runner connections time out; local runs still fetch them.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
@@ -93,11 +93,77 @@ CI_MANUAL_URLS = frozenset(
     {
         "https://www.sbr.gov.au/",
         "https://softwaredevelopers.ato.gov.au/SuperStreamStandard",
+        # Timed out in run 34593410260; HTTP 200 locally on 11 September 2026.
+        "https://www.abr.gov.au/business-super-funds-charities/applying-abn",
+        "https://www.fairwork.gov.au/ending-employment/final-pay",
+        "https://www.tpb.gov.au/public-register",
     }
 )
 
 ATO_AUTOMATION_DENIAL_URLS = frozenset(
     {
+        # These sources returned 403 in run 34593410260 and 200 locally
+        # on 11 September 2026. Other statuses and neighbouring URLs still fail.
+        "https://www.ato.gov.au/individuals-and-families/your-tax-return",
+        (
+            "https://www.ato.gov.au/individuals-and-families/"
+            "income-deductions-offsets-and-records/deductions-you-can-claim"
+        ),
+        "https://www.ato.gov.au/individuals-and-families/tax-file-number",
+        "https://www.ato.gov.au/individuals-and-families/paying-the-ato",
+        "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records",
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "starting-registering-or-closing-a-business"
+        ),
+        "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst",
+        "https://www.ato.gov.au/businesses-and-organisations/super-for-employers",
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/"
+            "payg-withholding"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/"
+            "single-touch-payroll"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/"
+            "record-keeping-for-business"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "corporate-tax-measures-and-assurance"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends"
+        ),
+        "https://www.ato.gov.au/businesses-and-organisations/trusts",
+        "https://www.ato.gov.au/individuals-and-families/investments-and-assets",
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/"
+            "fringe-benefits-tax"
+        ),
+        (
+            "https://www.ato.gov.au/individuals-and-families/investments-and-assets/"
+            "property-and-land"
+        ),
+        (
+            "https://www.ato.gov.au/individuals-and-families/investments-and-assets/"
+            "capital-gains-tax"
+        ),
+        (
+            "https://www.ato.gov.au/individuals-and-families/investments-and-assets/"
+            "crypto-asset-investments"
+        ),
+        (
+            "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/"
+            "self-managed-super-funds-smsf"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/"
+            "gst/how-gst-works"
+        ),
         "https://www.ato.gov.au/",
         (
             "https://www.ato.gov.au/businesses-and-organisations/"

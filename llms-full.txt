@@ -1376,7 +1376,7 @@ Source: https://duguid.com.au/tools/
 
 # Tools
 
-Open-source controls for work that still needs a source, a visible calculation, and a person willing to sign off.
+Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
 Last reviewed 11 September 2026.
 
@@ -1600,6 +1600,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
+- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- business calculators: https://duguid.com.au/tools/business-calculators/
 - Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
@@ -3138,3 +3140,1744 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
 - Reproducible examples and evaluations: https://duguid.com.au/evaluate/
 - Evidence and Assurance: https://duguid.com.au/evidence/
+
+---
+
+# 100 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/
+
+> Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics.
+
+# 100 Australian accounting questions
+
+Find the records, calculations and steps for Australian tax and business questions. Select questions to build a checklist.
+
+Open the business calculators or try the fictional Newcastle cash-flow workbook.
+
+Editorial review: 11 September 2026. These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.
+
+Search questions
+
+Topic All topics Tax returns Deductions Starting a business GST and BAS Payroll and super Bookkeeping and close Cash flow Management reporting Companies and trusts Investments and Newcastle
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+100 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 100 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+## Tax returns
+
+Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared.
+
+1. What will my income-tax bill be?
+
+Start with taxable income for the correct income year, then account for levies, offsets, study loans and tax already withheld. A basic tax-bracket result alone is incomplete.
+
+- Gather income statements, investment statements, deductible expenses and PAYG credits.
+- Use the ATO return estimate and reconcile each adjustment before treating it as a budget.
+
+The linked experimental income-tax worksheet excludes levies and offsets; check its supported years.
+
+Your tax return · Experimental tax worksheets and supported years
+
+Link to question 1
+
+2. Which expenses reduce my taxable income?
+
+An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+
+- List each expense, its purpose, date, amount and reimbursement.
+- Record your work-use calculation and check the ATO category before claiming.
+
+A receipt proves spending, but does not by itself establish deductibility.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 2
+
+3. What steps are involved in completing a return?
+
+Collect the year's records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
+
+- Check income statements are ready and account for income missing from pre-fill.
+- Keep a copy of the reviewed return, declaration and lodgement receipt.
+
+The checklist prepares your records; lodgement happens with the ATO or your registered agent.
+
+Your tax return
+
+Link to question 3
+
+4. Where can I obtain or recover my TFN?
+
+Use the ATO's TFN application or lost-TFN route. The right application process depends on residency and circumstances.
+
+- If you already have a TFN, use the ATO recovery instructions before applying again.
+- Complete any identity checks directly with the official service.
+
+Do not put a TFN or identity documents into this website or a public issue.
+
+Tax file number
+
+Link to question 4
+
+5. What dates govern the annual tax cycle?
+
+Build a calendar from the dates that apply to your return, activity statements, payroll and entity obligations.
+
+- Record the period, lodgement date, payment date and responsible person for each obligation.
+- Confirm the dates in your ATO account or with your registered agent; record any approved extension.
+
+An agent's program or a particular account can have different dates from a general calendar.
+
+Your tax return
+
+Link to question 5
+
+6. Which methods can I use to settle my tax bill?
+
+Use the ATO payment instructions for the relevant account and payment reference.
+
+- Check the amount owing and available payment methods in the official service.
+- Allow for processing time and keep the receipt; reconcile the payment when it appears.
+
+This website does not collect payments or supply bank details.
+
+Paying the ATO
+
+Link to question 6
+
+7. Which earnings are taxable?
+
+Check each source of income against the ATO's categories. Amounts missing from pre-fill still need review.
+
+- Reconcile employment, business, investment, government and foreign income records.
+- List unusual receipts separately and record why they are included or excluded.
+
+A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.
+
+ATO income, deductions and records
+
+Link to question 7
+
+8. How long will the tax-return process take?
+
+Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.
+
+- Complete the record checklist before setting a preparation deadline.
+- After lodgement, use the official progress service and respond to any information request.
+
+No refund date or processing outcome is guaranteed here.
+
+Your tax return
+
+Link to question 8
+
+9. Where can I submit a completed return?
+
+Individuals can use the lodgement options on the ATO's tax-return page, including myTax where eligible, a registered agent or paper.
+
+- Choose the route for your circumstances and confirm the income year.
+- Review the declaration and save the lodgement receipt after submission.
+
+The site supplies preparation guidance and does not submit returns.
+
+Your tax return
+
+Link to question 9
+
+10. Which tax rules changed during 2025?
+
+A calendar-year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.
+
+- Use the ATO 'Before you prepare your tax return' guidance for each year.
+- Record each changed rate or rule, effective date, source and affected calculation in a change log.
+
+An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
+
+Your tax return
+
+Link to question 10
+
+## Deductions
+
+Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense.
+
+11. How do I calculate my working-from-home deduction?
+
+Compare the eligible working-from-home methods for the income year using the required evidence for each.
+
+- Record actual hours worked at home and the costs or rate that the chosen method covers.
+- Keep separately claimed costs out of any category already included in the chosen method.
+
+Eligibility, rates and record requirements must be checked for the year; this site does not select the method for you.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 11
+
+12. What records do I need to support my working-from-home claim?
+
+Keep evidence of hours and costs that supports the particular working-from-home method you use.
+
+- Record dates and hours throughout the required period and retain bills or receipts.
+- Keep a note of the method, year, work-use basis and costs excluded to prevent double claims.
+
+A reconstructed estimate may not meet the ATO's requirements for your method.
+
+Deductions you can claim
+
+Link to question 12
+
+13. Should I use the cents-per-kilometre or logbook method for car expenses?
+
+Compare the methods you are eligible to use, using the same car and income year.
+
+- For cents per kilometre, document eligible kilometres and check the year's rate and cap.
+- For the logbook method, gather a valid logbook, odometer readings and actual running costs.
+
+Vehicle type, ownership and entity structure can change which methods are available.
+
+Deductions you can claim · Cents-per-kilometre rate table and method
+
+Link to question 13
+
+14. How do I keep a valid vehicle logbook?
+
+A useful logbook records each business trip and lets another person check the business-use percentage.
+
+- Record the required trip dates, odometer readings, distance and business purpose.
+- Keep opening and closing odometer readings and review whether changed use requires a new logbook.
+
+Check the ATO's required recording period and validity conditions before relying on the logbook.
+
+Deductions you can claim · Cents-per-kilometre rate table and method
+
+Link to question 14
+
+15. How do I calculate the work-related share of phone and internet expenses?
+
+Apply a supported work-use percentage to eligible phone and internet costs.
+
+- Gather bills and a representative usage record that distinguishes private from work use.
+- Use the business-use calculator and retain the usage calculation with the result.
+
+Do not separately claim costs already covered by your chosen working-from-home method.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 15
+
+16. Can I deduct a laptop or tools immediately, or must I depreciate them?
+
+Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
+
+- Record cost, acquisition date, first use, work-use share and whether the item forms part of a set.
+- Check the applicable year's asset rules and retain the calculation in an asset register.
+
+The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
+
+Deductions you can claim · Experimental tax worksheets and supported years
+
+Link to question 16
+
+17. Which work clothing, uniforms and laundry expenses can I claim?
+
+Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
+
+- Separate protective clothing, qualifying uniforms, occupation-specific clothing and ordinary items.
+- Retain purchases and a supportable laundry calculation, with any reimbursement recorded.
+
+Check the ATO category and evidence requirements before adding an amount to the return.
+
+Deductions you can claim
+
+Link to question 17
+
+18. Can I claim course fees, professional memberships and self-education expenses?
+
+Check how the course or membership relates to your current income-earning activities.
+
+- Keep invoices, course details, the work connection and any employer reimbursement.
+- Split private components and costs of gaining a new occupation from costs relevant to current work for review.
+
+A professional label or employer recommendation alone does not settle the tax treatment.
+
+Deductions you can claim
+
+Link to question 18
+
+19. What can I claim if I have lost the receipt?
+
+Try to replace missing evidence before deciding whether a claim can be supported.
+
+- Request duplicate invoices or download supplier records and match them to payment evidence.
+- Write down the expense, work purpose, missing record and the ATO evidence rule you relied on.
+
+A bank statement or a general receipt exception does not automatically support every claim.
+
+ATO income, deductions and records
+
+Link to question 19
+
+20. Does my business qualify for the instant asset write-off this financial year?
+
+Test eligibility against the rules enacted for the asset's relevant year and circumstances.
+
+- Record aggregated turnover, asset cost, acquisition and first-use dates, and business-use share.
+- Check the current ATO small-business depreciation rules, including exclusions and any applicable election.
+
+The ordinary depreciation worksheet does not determine instant asset write-off eligibility.
+
+Starting, registering or closing a business · Experimental tax worksheets and supported years
+
+Link to question 20
+
+## Starting a business
+
+Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
+
+21. Do I need an ABN for freelance or contracting work?
+
+ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.
+
+- Record the work arrangement, independence, activity and evidence that the enterprise has started.
+- Read the ABR entitlement guidance before applying.
+
+An ABN does not decide whether a worker is an employee for tax, super or workplace law.
+
+ABR ABN application and entitlement
+
+Link to question 21
+
+22. How do I apply for an ABN, and what information do I need?
+
+Apply through the official ABR route after checking entitlement.
+
+- Gather the entity structure, business activity, start date and contact information required by the ABR.
+- Enter identity information directly into the official application and save its confirmation.
+
+This site neither applies for an ABN nor handles identity documents.
+
+ABR ABN application and entitlement
+
+Link to question 22
+
+23. Is my activity a hobby or a business for tax purposes?
+
+Assess the pattern of activity, commercial purpose and how the activity is organised.
+
+- Document your intention, pricing, repetition, scale, records and plan to make a profit.
+- Keep the conclusion and supporting facts, and reassess when the activity changes.
+
+There is no single revenue figure in this guide that classifies every activity.
+
+Starting, registering or closing a business
+
+Link to question 23
+
+24. Should I operate as a sole trader or a company?
+
+Compare liability, ownership, administration, tax and how profits will reach the owners.
+
+- Prepare the same forecast under each structure, including compliance costs and money taken out.
+- Discuss asset protection, existing contracts and restructuring costs with the relevant advisers before choosing.
+
+A lower company tax rate alone does not establish a lower total cost or a suitable structure.
+
+Starting, registering or closing a business · 13-week cash forecast
+
+Link to question 24
+
+25. How much should I set aside for income tax as a sole trader?
+
+Reserve cash against an estimate of your annual personal tax position and instalments already paid.
+
+- Forecast business profit alongside salary and other personal income, deductions and credits.
+- Place expected instalments and the remaining tax payment into the cash forecast on their due dates.
+
+A fixed percentage of sales can miss deductions, other income and tax already paid.
+
+Your tax return · 13-week cash forecast
+
+Link to question 25
+
+26. Do I need a separate business bank account?
+
+A separate account makes business transactions easier to trace. The requirements also depend on the entity.
+
+- Record which accounts hold business money and reconcile each to its statement.
+- For a company or trust, keep entity funds and private funds clearly identified and correctly recorded.
+
+Check the account requirements for your structure before opening or changing banking arrangements.
+
+Starting, registering or closing a business
+
+Link to question 26
+
+27. How do I pay myself and record drawings as a sole trader?
+
+Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.
+
+- Record the transfer against drawings or the owner's equity account in your agreed chart.
+- Keep drawings visible in the cash forecast so the business can meet upcoming obligations.
+
+A sole trader's drawings do not set the amount of taxable business profit.
+
+Starting, registering or closing a business · 13-week cash forecast
+
+Link to question 27
+
+28. Do the personal services income rules apply to my contracting income?
+
+Review whether the income is mainly a reward for personal effort or skill, then work through the applicable PSI tests.
+
+- Keep contracts, invoices, working arrangements and evidence for any test relied on.
+- Record the income streams separately and review personal-services-business conditions with your adviser.
+
+An ABN or company structure does not by itself switch off the PSI rules.
+
+Starting, registering or closing a business
+
+Link to question 28
+
+29. How do I report income from a side hustle, delivery work or online sales?
+
+Reconcile gross platform activity to payouts before deciding how to report it.
+
+- Export sales, fees, refunds and activity records for the income year.
+- Document whether the activity is business, employment or another income category and check GST separately.
+
+Net bank deposits can omit fees and gross receipts that need separate reporting.
+
+Starting, registering or closing a business
+
+Link to question 29
+
+30. Can I offset a business loss against my salary or other income?
+
+A business loss needs a separate review before it can reduce other income.
+
+- Keep the loss calculation, activity history and records relevant to the non-commercial loss tests.
+- Record whether an exception, test or discretion applies, or whether the loss must be deferred.
+
+A loss in the accounts does not automatically offset salary in the tax return.
+
+Starting, registering or closing a business
+
+Link to question 30
+
+## GST and BAS
+
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis, and account due date being reviewed.
+
+31. How do I add GST to a price or extract GST from an inclusive amount?
+
+For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.
+
+- Choose whether your amount already includes GST, then calculate the components.
+- Keep the source invoice and confirm that the whole amount is subject to GST.
+
+The calculator does not classify GST-free, input-taxed or mixed supplies.
+
+ATO GST guidance · GST calculator
+
+Link to question 31
+
+32. When must my business register for GST?
+
+Check current and projected GST turnover and any compulsory-registration rule for your activity.
+
+- Build a monthly turnover schedule and review what counts towards GST turnover.
+- Use the ATO registration guidance to determine the trigger and registration date.
+
+Taxi and ride-sourcing rules and other exceptions mean a general turnover threshold is not enough.
+
+ATO GST guidance
+
+Link to question 32
+
+33. What is the difference between GST-free and input-taxed sales?
+
+GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.
+
+- Classify each income stream using the ATO guidance and retain the basis for the classification.
+- Review purchase credits and any apportionment separately for input-taxed activities.
+
+Do not give both categories the same purchase-credit treatment just because no GST appears on the sale.
+
+ATO GST guidance
+
+Link to question 33
+
+34. Do I charge GST when selling to overseas customers?
+
+An overseas customer does not automatically make a sale GST-free.
+
+- Record what you sold, where it is supplied or used, customer circumstances and any export evidence.
+- Check the relevant goods or services rule before choosing the GST code.
+
+Export conditions and evidence requirements differ between goods and services.
+
+ATO GST guidance
+
+Link to question 34
+
+35. What information must appear on a valid tax invoice?
+
+Use an invoice checklist matched to the sale and the ATO's tax-invoice requirements.
+
+- Check supplier identity and ABN, date, description, price and how the GST amount is shown.
+- Check any buyer-identification requirement and clearly separate taxable and non-taxable items.
+
+Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.
+
+ATO GST guidance
+
+Link to question 35
+
+36. How do I prepare a BAS from my accounting records?
+
+Reconcile source records to each BAS label before approval.
+
+- Check reporting period and GST basis, reconcile tax-coded transactions and investigate exceptions.
+- Reconcile PAYG and other labels, retain the workpaper and obtain approval before lodgement.
+
+Fictional worked example
+
+For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly.
+
+The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.
+
+ATO business activity statements · BAS pack readiness checks
+
+Link to question 36
+
+37. When is my BAS due, and when must I pay it?
+
+Use the period and due date shown for your BAS account.
+
+- Record both lodgement and payment deadlines and any approved concession.
+- Put the cash payment in the forecast and assign someone to retain the receipt.
+
+General quarterly dates can differ from the dates that apply to your account.
+
+ATO GST guidance · 13-week cash forecast
+
+Link to question 37
+
+38. Should I account for GST on a cash or accrual basis?
+
+Compare the timing of receipts and payments under the methods your business is allowed to use.
+
+- Check eligibility and the method currently recorded with the ATO.
+- Model the effect on unpaid invoices and bills before changing method, and document transition adjustments.
+
+Changing a report setting in Xero does not by itself change the ATO accounting method.
+
+ATO GST guidance
+
+Link to question 38
+
+39. Why does my BAS GST figure differ from the GST balance in Xero?
+
+Bridge the BAS calculation to the GST control account at the same date and on the same basis.
+
+- Separate opening balances, payments to the ATO, cash-basis timing and journals.
+- List each reconciling item and clear unexplained differences before signing off.
+
+A control-account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
+
+ATO GST guidance · BAS pack readiness checks
+
+Link to question 39
+
+40. How do I correct a mistake in a BAS I have already lodged?
+
+Work out whether the error can be corrected on a later BAS or requires a revision.
+
+- Record the original period, error type, amount, discovery date and supporting transactions.
+- Apply the ATO's correction conditions and retain the approved amendment or later-period adjustment.
+
+Do not choose a later-period correction without checking time and value limits.
+
+ATO GST guidance
+
+Link to question 40
+
+## Payroll and super
+
+Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
+
+41. How much super must I pay, and which earnings count towards it?
+
+Identify the applicable super regime and eligible earnings for the pay date before calculating a contribution.
+
+- From July 2026, use the ATO Payday Super guidance and map each pay component to the relevant earnings definition.
+- Check worker eligibility, limits and payroll settings; retain the calculation and contribution evidence.
+
+The old quarterly SG worksheet does not establish current Payday Super entitlement.
+
+Payday Super for employers
+
+Link to question 41
+
+42. By what date must a super contribution reach the employee's fund?
+
+Test receipt at the employee's fund against the applicable deadline.
+
+- Record payday, pathway, amount, remittance date and confirmed fund-receipt date.
+- Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
+
+The timing tool needs the contribution amount supplied and the correct pathway selected.
+
+Payday Super for employers · Payday Super receipt-evidence example
+
+Link to question 42
+
+43. What should I do if a super payment is late, rejected or missing?
+
+Investigate the payment trail and apply the current late-payment process.
+
+- Reconcile payroll, clearing-house status, rejections and fund receipt for each affected employee.
+- Resolve the cause, record any replacement payment and review the ATO's reporting and charge requirements.
+
+Sending a replacement does not automatically remove a late-payment consequence.
+
+Payday Super for employers · Payday Super receipt-evidence example
+
+Link to question 43
+
+44. Do I have to pay super for a contractor who invoices through an ABN?
+
+Review the actual contract and working arrangement against the ATO's super eligibility guidance.
+
+- Record who performs the work, how they are paid and whether the contract is for their labour.
+- Retain the eligibility conclusion separately from the supplier's ABN and invoice.
+
+An ABN is not proof that super is unnecessary.
+
+Payday Super for employers
+
+Link to question 44
+
+45. How much PAYG tax should I withhold from an employee's pay?
+
+Use the ATO withholding calculation for the payment type and pay period.
+
+- Check the declaration, residency, tax-free threshold choice, study-loan information and any variation.
+- Apply the current schedule or calculator and reconcile payroll totals to the withholding liability.
+
+A resident annual income-tax worksheet is not a payroll withholding calculator.
+
+PAYG withholding
+
+Link to question 45
+
+46. How do I finalise Single Touch Payroll at year-end?
+
+Reconcile payroll to the ledger and ATO reporting before making the STP finalisation declaration.
+
+- Check year-to-date wages, withholding, super and adjustments by employee.
+- Resolve discrepancies, confirm the applicable deadline and retain the finalisation evidence.
+
+An ordinary payroll submission and a finalisation declaration are different steps.
+
+Single Touch Payroll · Monthly-close review pack
+
+Link to question 46
+
+47. How do I calculate an employee's final pay, including unused leave?
+
+Build final pay from the employee's entitlements and the circumstances of departure.
+
+- Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.
+- Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment.
+
+The generic staff-cost calculator cannot determine final-pay entitlements.
+
+Final pay - Fair Work Ombudsman
+
+Link to question 47
+
+48. When does my business become liable for payroll tax in NSW?
+
+Review Australian taxable wages, NSW connection, grouping and the applicable threshold.
+
+- Prepare a wages reconciliation that includes the categories Revenue NSW requires.
+- Check the monthly registration trigger and annual reconciliation requirements for the relevant year.
+
+Book payroll expense alone can omit taxable benefits, super or grouped wages.
+
+Revenue NSW payroll tax
+
+Link to question 48
+
+49. Do contractor payments count towards NSW payroll tax?
+
+Contractor payments need a separate payroll-tax review under the NSW relevant-contract rules.
+
+- Keep the contract, services, days worked and evidence for any exclusion claimed.
+- Reconcile reviewed contractor amounts to the payroll-tax workpaper.
+
+An invoice, ABN or GST registration alone does not establish an exclusion.
+
+Revenue NSW payroll tax
+
+Link to question 49
+
+50. What does an employee cost after super, leave, insurance and other on-costs?
+
+Add annual wages, super and the other costs you expect to pay, then consider productive capacity separately.
+
+- Enter the annual super amount and other costs such as insurance, payroll tax, recruitment and equipment.
+- Allow for paid leave when estimating productive hours, and add relief staff costs only where expected.
+
+Do not add ordinary paid leave again if it is already included in the annual salary.
+
+Final pay - Fair Work Ombudsman · Staff-cost calculator
+
+Link to question 50
+
+## Bookkeeping and close
+
+Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations.
+
+51. Why does my Xero bank balance differ from my bank statement?
+
+Reconcile the bank statement and Xero at the same date before posting a correction.
+
+- Compare statement lines with ledger transactions, outstanding payments and deposits.
+- Investigate missing feeds, duplicates, opening balances and items dated outside the period.
+
+Do not post a balancing journal while the cause remains unknown.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 51
+
+52. How do I identify and fix duplicate bank transactions in Xero?
+
+Identify whether the duplicate is a statement line, an accounting transaction or both.
+
+- Match date, amount, bank reference and source document; distinguish repeated genuine payments.
+- Use the appropriate Xero correction after review, then re-run the bank reconciliation.
+
+Removing the wrong item can remove a real transaction; retain the correction trail.
+
+Record keeping for business
+
+Link to question 52
+
+53. How do I correct a customer payment matched to the wrong invoice?
+
+Trace the payment and both customer invoices before changing the match.
+
+- Save the original allocation details and check whether the invoice or period is locked.
+- Correct the allocation through Xero's supported workflow and recheck both customer balances and the bank reconciliation.
+
+A different bank receipt should not be created merely to fix an allocation.
+
+Record keeping for business
+
+Link to question 53
+
+54. How do I record a personal purchase paid from the business account?
+
+Code the private payment according to the entity and the person's relationship to it.
+
+- Keep the receipt, purpose and repayment evidence, and separate any business portion.
+- For a sole trader, review drawings; for a company, review the director or shareholder account and tax consequences.
+
+A company payment cannot automatically be treated as sole-trader drawings.
+
+Record keeping for business · Division 7A review case and limitations
+
+Link to question 54
+
+55. Which business records should I keep, and for how long?
+
+Keep records that let someone trace transactions, calculations and decisions for the required retention period.
+
+- Create a register covering tax, payroll, assets, loans, contracts and entity records.
+- Assign retention dates using the relevant ATO and other legal requirements, including longer periods for continuing assets or disputes.
+
+Do not apply one blanket retention date to every document.
+
+Record keeping for business
+
+Link to question 55
+
+56. How should I organise my chart of accounts?
+
+Use a chart of accounts that supports reporting and reconciliations at a manageable level of detail.
+
+- Separate assets, liabilities, equity, revenue and expenses; keep control accounts identifiable.
+- Use consistent account mappings and tracking categories for the dimensions you need to report.
+
+Do not create a new account for every customer or supplier when the subledger already tracks them.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 56
+
+57. How do I split a loan repayment between principal and interest?
+
+Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.
+
+- Reconcile opening principal, advances, principal repayments and closing principal.
+- Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender's statement.
+
+Fees, daily interest, variable rates and balloons need the actual lender schedule.
+
+Set up a cash flow statement · Monthly loan payment calculator
+
+Link to question 57
+
+58. Should a purchase be recorded as an asset or an expense?
+
+Apply your accounting policy to the nature, use and expected benefit of the purchase, then assess tax separately.
+
+- Record what was acquired, cost, useful life and when it became available for use.
+- If capitalised, update the asset register and depreciation; document any tax difference.
+
+An accounting asset policy and an immediate tax deduction rule can give different treatments.
+
+Record keeping for business · Experimental tax worksheets and supported years
+
+Link to question 58
+
+59. Why do my aged receivables or payables differ from the general ledger?
+
+Compare the aged report and ledger on the same date with the same filters.
+
+- Trace journals to control accounts, prepayments, credits, foreign-currency adjustments and excluded contacts.
+- Prepare a bridge to the ledger and resolve unexplained items before closing.
+
+A matching total alone does not establish that individual balances are collectible or payable.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 59
+
+60. What should I reconcile and check before closing the month or financial year?
+
+Close from reconciled balances and documented review decisions.
+
+- Reconcile bank, receivables, payables, GST, payroll, super, loans, fixed assets and key accruals.
+- Review cut-off, unusual journals and variances, then retain the pack and approval before locking the period.
+
+Fictional worked example
+
+At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner, and the evidence needed to resolve it before completing the close.
+
+The existing close pack supports review; it does not automatically approve journals or finalise accounts.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 60
+
+## Cash flow
+
+Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
+
+61. How do I build a 13-week cash-flow forecast?
+
+Forecast cash by the week it is expected to move through the bank.
+
+- Start with the reconciled bank balance and schedule receipts, suppliers, wages, tax, debt and drawings across 13 weeks.
+- Use the browser forecast for a short scenario, or the existing workbook for a detailed worked example.
+
+Fictional worked example
+
+Start a fictional forecast on 28 September 2026 with $200 opening cash and a $100 buffer. Enter $1,000 receipts and $300 payments in week 1, and zero in every later week. Closing cash is $900. Delay the full $1,000 receipt by two weeks: cash closes at minus $100 in weeks 1 and 2, then returns to $900 in week 3. The lowest balance is minus $100, so the funding gap to the buffer is $200. The eventual closing balance is unchanged.
+
+Weekly closing balances can hide a shortage within the week; review daily timing where cash is tight.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 61
+
+62. Why is my business profitable but short of cash?
+
+Profit and cash diverge because income and expenses can be recognised at different times from receipts and payments.
+
+- Bridge profit to cash using receivables, payables, inventory, tax, capital spending, debt and drawings.
+- Use the fictional Newcastle example to inspect a profitable business with a temporary cash shortage.
+
+Loan proceeds and principal repayments affect cash without being ordinary trading revenue and expense.
+
+Set up a cash flow statement · Fictional Newcastle cash-flow workbook
+
+Link to question 62
+
+63. How much cash should I reserve for BAS, payroll and super payments?
+
+Schedule the actual expected liabilities and payment dates, then choose a buffer.
+
+- Reconcile GST, withholding and super liabilities to their supporting workpapers.
+- Enter their payment weeks in the cash forecast, including other committed cash costs.
+
+The forecast reserves supplied amounts; it does not calculate statutory liabilities from sales.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 63
+
+64. What happens to my cash balance if a major customer pays 30 or 60 days late?
+
+Move the expected receipt to its revised date and compare the lowest cash balance.
+
+- Use the weekly forecast's delayed-receipt controls and retain both scenarios.
+- For an exact 30- or 60-day delay, use the existing dated workbook and record any receipt outside its horizon.
+
+The browser scenario accepts whole weeks, so it is not an exact day-based simulation.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 64
+
+65. Can my business afford another employee?
+
+Compare the extra cash costs of hiring with conservative additional receipts and available cash.
+
+- Calculate annual staff cost, then phase wages, super, setup costs and training into the forecast.
+- Test slower sales, a delayed start and a minimum cash buffer before committing.
+
+Annual profitability does not establish that each payroll payment will be affordable.
+
+Set up a cash flow statement · Staff-cost calculator
+
+Link to question 65
+
+66. What would buying equipment outright versus financing it do to my cash flow?
+
+Compare the timing and total payments of outright purchase and finance.
+
+- Put the purchase price into the relevant cash week for the outright option.
+- For finance, schedule deposit, fees, repayments and any balloon; compare the cash minimum and total cost.
+
+The loan calculator assumes fixed monthly payments with no fees or balloon. Tax and ownership effects require separate review.
+
+Set up a cash flow statement · Monthly loan payment calculator
+
+Link to question 66
+
+67. How much working capital or overdraft capacity will I need next quarter?
+
+Find the lowest forecast balance and compare it with the cash buffer you need.
+
+- Include current bank cash, committed payments, realistic receipts and stressed collection dates.
+- Use the forecast funding-gap result as an initial amount to investigate, then review timing and facility terms.
+
+A calculated gap is not a credit approval or proof that borrowing is suitable.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 67
+
+68. How can I reduce overdue customer balances and get paid sooner?
+
+Prioritise overdue balances by amount, age, dispute and likelihood of collection.
+
+- Reconcile the aged ledger, assign an owner and record the next action for each overdue account.
+- Review invoice accuracy, payment terms and billing timing; update receipt dates using what customers confirm.
+
+Changing a forecast date does not improve collection evidence.
+
+Set up a cash flow statement
+
+Link to question 68
+
+69. How do I plan for seasonal cash shortages?
+
+Plan from the seasonal payment and receipt pattern, including the costs incurred before sales arrive.
+
+- Compare prior periods with current orders, staffing and supplier commitments.
+- Stress-test the low season and put any agreed funding or cost changes into the forecast.
+
+A straight average month can conceal the quarter's lowest cash balance.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 69
+
+70. How do I update my forecast each month using actual results?
+
+Replace completed periods with reconciled actuals and explain the difference before rolling the forecast forward.
+
+- Save the previous forecast, match actual receipts and payments, and classify timing versus permanent changes.
+- Refresh remaining assumptions and extend the horizon with a dated version and owner.
+
+Do not overwrite the old forecast if you still need it to explain accuracy and decisions.
+
+Set up a cash flow statement · Budget variance calculator
+
+Link to question 70
+
+## Management reporting
+
+Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years.
+
+71. How much must I sell each month to break even?
+
+Break-even sales cover fixed costs after variable costs. For one product, divide fixed costs by contribution per unit.
+
+- Use the same period for fixed costs and the expected selling price and variable cost per unit.
+- Round required units up and compare them with practical sales capacity.
+
+The calculator assumes one product or a stable representative mix; it excludes tax and financing cash timing.
+
+Choose a pricing strategy · Break-even calculator
+
+Link to question 71
+
+72. What is the difference between gross margin and markup?
+
+Gross margin divides gross profit by revenue. Markup divides gross profit by cost.
+
+- Use sales and the directly related cost for the same goods or period.
+- Compare both percentages with the calculator and keep GST treatment consistent.
+
+A zero denominator has no meaningful percentage; the calculator leaves that percentage undefined.
+
+Choose a pricing strategy · Margin and markup calculator
+
+Link to question 72
+
+73. What hourly rate should I charge to cover costs and earn a target profit?
+
+Divide annual costs plus target profit by realistic billable hours.
+
+- Include the owner's pay target in costs if it must be covered before the stated profit.
+- Allow for leave, administration, marketing and unpaid time when estimating billable hours.
+
+The calculated rate is a cost-recovery target before GST; customers' willingness to pay needs separate evidence.
+
+Choose a pricing strategy · Hourly pricing calculator
+
+Link to question 73
+
+74. Which customers, jobs or service lines are making money?
+
+Build contribution by customer, job or service line from consistent revenue and direct-cost assignments.
+
+- Allocate labour using recorded hours and identify material costs, discounts, rework and write-offs.
+- Keep shared overhead allocation visible and compare results before and after that allocation.
+
+An allocation method can change apparent profitability without changing total business profit.
+
+Choose a pricing strategy · Margin and markup calculator
+
+Link to question 74
+
+75. Why are my actual results different from my budget?
+
+Compare actual and budget figures for the same period and accounting basis, then explain the drivers.
+
+- Calculate the amount and percentage difference for income or costs.
+- Split the difference into price, volume, mix, timing, coding and one-off items, then quantify each supported explanation.
+
+The variance calculator measures the difference; it cannot infer its cause from two numbers.
+
+Set up a cash flow statement · Budget variance calculator
+
+Link to question 75
+
+76. Which financial reports should a small-business owner review each month?
+
+Review profit, financial position and cash together, with the balances that explain them.
+
+- Prepare the P&L against budget, balance sheet, cash forecast, aged debtors and creditors, and key obligation reconciliations.
+- Record exceptions, decisions, owners and dates for the next review.
+
+Choose detail that changes a decision; a larger dashboard does not necessarily improve the review.
+
+Set up a cash flow statement · Monthly-close review pack
+
+Link to question 76
+
+77. How do my business expenses compare with ATO small-business benchmarks?
+
+Choose the ATO industry and turnover range that match your business and reporting period.
+
+- Map ledger accounts to the benchmark definitions and retain the mapping.
+- Compare ratios with the relevant dataset and investigate differences in business model, year or coding.
+
+The linked benchmark tool uses specified historical datasets; a difference is not proof of an error or non-compliance.
+
+ATO benchmark comparison method
+
+Link to question 77
+
+78. How do I value and report work in progress and unbilled work?
+
+Separate the accounting basis for recognising revenue from the amount billed.
+
+- Reconcile contract value, costs incurred, estimates to complete, billings and unbilled amounts.
+- For a suitable construction contract, use the WIP schedule and review estimate changes and profit fade.
+
+The existing tool covers construction cost-to-cost schedules; it does not classify every service contract.
+
+Record keeping for business · Construction WIP schedule
+
+Link to question 78
+
+79. Why has my gross margin fallen even though sales have increased?
+
+Higher sales can coincide with a lower margin when prices, product mix or costs change.
+
+- Compare revenue and direct costs by job or product; check discounts, labour efficiency, rework and cut-off.
+- Use the margin and variance calculators, and review cost-to-complete estimates for construction work.
+
+A total-sales comparison alone cannot identify which driver reduced margin.
+
+Choose a pricing strategy · Margin and markup calculator
+
+Link to question 79
+
+80. How do I turn Xero data into a useful Excel or Power BI management dashboard?
+
+Start with reconciled exports and a small set of decisions the report needs to support.
+
+- Define account mappings, periods and measures, then tie totals to Xero before adding charts.
+- Use the existing trial-balance export and close pack, and document refresh and review steps.
+
+The export tool supplies data; this guide does not install a Power BI connector or grant Xero access.
+
+Record keeping for business · Xero trial-balance export
+
+Link to question 80
+
+## Companies and trusts
+
+Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods.
+
+81. Does my company qualify for the lower company tax rate?
+
+Test the company's income and aggregated-turnover conditions for the relevant year.
+
+- Reconcile taxable income, passive-income categories and connected-entity information.
+- Use the existing company-tax example only after the inputs and applicable conditions have been established.
+
+The example does not determine eligibility merely from accounting profit.
+
+Corporate tax measures and assurance · Company tax and franking example
+
+Link to question 81
+
+82. How should I record money paid to a director as wages, dividends or a loan?
+
+Record a director payment according to its legal basis and supporting documents.
+
+- Gather payroll records, dividend documents or loan terms and trace each payment.
+- Review withholding, super, franking and Division 7A consequences before posting or reclassifying it.
+
+Changing the ledger label does not change the underlying transaction.
+
+Corporate tax measures and assurance · Company tax and franking example
+
+Link to question 82
+
+83. Does taking money out of my company create a Division 7A problem?
+
+Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+
+- Reconcile the person's account and gather agreements, dates and repayment evidence.
+- Use the existing review case to organise the evidence and identify unresolved legal questions.
+
+The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 83
+
+84. How do I calculate the minimum yearly repayment on a complying Division 7A loan?
+
+Use the minimum-yearly-repayment calculation for an established complying loan and the correct year.
+
+- Gather the relevant opening balance, benchmark rate, remaining term and qualifying repayments.
+- Reproduce the existing Division 7A case, then retain the inputs and compare required with actual qualifying repayments.
+
+Eligibility, amalgamation and repayment classification must already have been reviewed.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 84
+
+85. Which payments count as repayments of a Division 7A loan?
+
+Review the source, timing and surrounding arrangements for each proposed repayment.
+
+- Trace the payment through bank and loan records and identify any reborrowing or circular movement.
+- Document the section 109R review and qualifying amount before using the minimum-repayment worksheet.
+
+A credit to a director loan account is not automatically a qualifying Division 7A repayment.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 85
+
+86. What must a family trust document before distributing income at year-end?
+
+Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
+
+- Check the deed and timing requirements, prepare the relevant income and distribution schedules, and retain resolutions.
+- Use the existing trust example to separate arithmetic from missing documents and unresolved entitlement.
+
+The tool cannot validate a deed or cure a late or ineffective trustee decision.
+
+Trusts · Trust distributions example
+
+Link to question 86
+
+87. How do dividends and franking credits affect my tax return?
+
+Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
+
+- Record any foreign, trust or other adjustments and the relevant holding-period evidence.
+- Use the ATO investment and imputation guidance to determine what appears in the return.
+
+A stated franking credit does not automatically establish entitlement to use the offset.
+
+Investments and assets
+
+Link to question 87
+
+88. Does providing a company car or paying an employee's private expenses create FBT?
+
+Identify the benefit, recipient, private use and FBT year before valuing anything.
+
+- Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
+- Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
+
+The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.
+
+Fringe benefits tax (FBT) · Experimental tax worksheets and supported years
+
+Link to question 88
+
+89. What information do I need to prepare an ATO payment-plan proposal?
+
+Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+
+- Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
+- Use the ATO support route to discuss terms and retain any accepted arrangement.
+
+A forecast does not establish acceptance, interest relief or removal of other obligations.
+
+Paying the ATO · 13-week cash forecast
+
+Link to question 89
+
+90. Could my related businesses be grouped together for NSW payroll tax?
+
+Assess the relationships between businesses against the NSW grouping rules.
+
+- Prepare an ownership and control diagram, shared-employee details and financial relationships.
+- Document each grouping test and any exclusion application, then reconcile group wages.
+
+Separate company names or accounts do not by themselves prevent payroll-tax grouping.
+
+Revenue NSW payroll tax
+
+Link to question 90
+
+## Investments and Newcastle
+
+Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
+
+91. Which expenses can I claim for a rental property?
+
+Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
+
+- Gather agent statements, invoices, loan interest, ownership details and rental-availability records.
+- Apportion costs where required and reconcile the deduction schedule to the supporting documents.
+
+The treatment depends on the expense and property use; a rental label alone does not establish deductibility.
+
+Property and land
+
+Link to question 91
+
+92. Is work on my rental property a repair, an improvement or a depreciating asset?
+
+Review what the work did to the property and when the relevant damage or condition arose.
+
+- Keep invoices, scope of work, purchase condition and dates; split distinct components where supported.
+- Assess repair, capital works and depreciating-asset treatment separately and update the relevant schedules.
+
+Cost alone does not distinguish a repair from an improvement or initial repair.
+
+Property and land
+
+Link to question 92
+
+93. How do I work out the capital gain when I sell an investment property?
+
+Build the capital-gains calculation from the relevant event, proceeds and adjusted cost base.
+
+- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records.
+- Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
+
+A sale price minus purchase price calculation can omit material tax adjustments.
+
+Capital gains tax · Experimental tax worksheets and supported years
+
+Link to question 93
+
+94. How do capital losses and the CGT discount affect tax on shares I sell?
+
+Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
+
+- Retain trade records, cost-base adjustments, holding periods and carried-forward loss balances.
+- Reconcile the final calculation to the year's CGT schedule and keep the remaining-loss record.
+
+The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
+
+Capital gains tax · Experimental tax worksheets and supported years
+
+Link to question 94
+
+95. Do I owe tax when I sell, swap or spend cryptocurrency?
+
+Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.
+
+- Export exchange and wallet activity, fees and Australian-dollar values with dates.
+- Reconcile transfers between your own wallets separately from transactions that require tax review.
+
+The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.
+
+Crypto asset investments
+
+Link to question 95
+
+96. How do I report ETF distributions and their tax adjustments?
+
+Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.
+
+- Match cash, reinvestments, capital gains, foreign income and credits to the statement.
+- Record cost-base increases or decreases and carry them into the investment register.
+
+Cash received alone can differ from the amount and components that belong in the tax return.
+
+Investments and assets
+
+Link to question 96
+
+97. What records does my accountant need for an SMSF annual return and audit?
+
+Prepare the financial records and trustee evidence needed for both the return and the independent audit.
+
+- Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.
+- Reconcile opening and closing balances and resolve the auditor's record requests before finalising the return.
+
+This checklist does not perform an SMSF audit or certify compliance.
+
+ATO self-managed super funds
+
+Link to question 97
+
+98. When does an investment property become liable for land tax in NSW?
+
+Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land-tax year.
+
+- Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
+- Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence.
+
+Purchase price and one property's value alone do not establish the full land-tax position.
+
+Land tax
+
+Link to question 98
+
+99. How much does an accountant or bookkeeper cost for a small business in Newcastle?
+
+Compare written quotes for the same Newcastle bookkeeping or accounting scope. The research did not establish a reliable local fee range.
+
+- Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.
+- Compare inclusions, software, GST, setup fees, review frequency and work charged separately.
+
+This personal open-source site does not quote for professional engagements.
+
+TPB register of tax and BAS agents
+
+Link to question 99
+
+100. How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?
+
+Shortlist providers against the work you need and verify the relevant registrations.
+
+- Check the TPB register for tax or BAS services, and ask who prepares and reviews the work.
+- Request a sample reporting pack, Xero experience, cash-forecast process, responsibilities and a written scope.
+
+Location or software certification alone does not demonstrate the quality of advice or forecasting.
+
+TPB register of tax and BAS agents
+
+Link to question 100
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+## Links
+
+- Open the business calculators: https://duguid.com.au/tools/business-calculators/
+- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- Tax returns: https://duguid.com.au/tools/accounting-questions/#general-tax
+- Deductions: https://duguid.com.au/tools/accounting-questions/#deductions
+- Starting a business: https://duguid.com.au/tools/accounting-questions/#business-setup
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/#gst-bas
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/#payroll-super
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/#bookkeeping-close
+- Cash flow: https://duguid.com.au/tools/accounting-questions/#cash-flow
+- Management reporting: https://duguid.com.au/tools/accounting-questions/#management-reporting
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/#company-compliance
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/#investments-local
+- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 1: https://duguid.com.au/tools/accounting-questions/#q1
+- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/#business-use
+- Link to question 2: https://duguid.com.au/tools/accounting-questions/#q2
+- Link to question 3: https://duguid.com.au/tools/accounting-questions/#q3
+- Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
+- Link to question 4: https://duguid.com.au/tools/accounting-questions/#q4
+- Link to question 5: https://duguid.com.au/tools/accounting-questions/#q5
+- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- Link to question 6: https://duguid.com.au/tools/accounting-questions/#q6
+- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Link to question 7: https://duguid.com.au/tools/accounting-questions/#q7
+- Link to question 8: https://duguid.com.au/tools/accounting-questions/#q8
+- Link to question 9: https://duguid.com.au/tools/accounting-questions/#q9
+- Link to question 10: https://duguid.com.au/tools/accounting-questions/#q10
+- Link to question 11: https://duguid.com.au/tools/accounting-questions/#q11
+- Link to question 12: https://duguid.com.au/tools/accounting-questions/#q12
+- Cents-per-kilometre rate table and method: https://duguid.com.au/rates/cents-per-kilometre/
+- Link to question 13: https://duguid.com.au/tools/accounting-questions/#q13
+- Link to question 14: https://duguid.com.au/tools/accounting-questions/#q14
+- Link to question 15: https://duguid.com.au/tools/accounting-questions/#q15
+- Link to question 16: https://duguid.com.au/tools/accounting-questions/#q16
+- Link to question 17: https://duguid.com.au/tools/accounting-questions/#q17
+- Link to question 18: https://duguid.com.au/tools/accounting-questions/#q18
+- Link to question 19: https://duguid.com.au/tools/accounting-questions/#q19
+- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Link to question 20: https://duguid.com.au/tools/accounting-questions/#q20
+- ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
+- Link to question 21: https://duguid.com.au/tools/accounting-questions/#q21
+- Link to question 22: https://duguid.com.au/tools/accounting-questions/#q22
+- Link to question 23: https://duguid.com.au/tools/accounting-questions/#q23
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/#cash
+- Link to question 24: https://duguid.com.au/tools/accounting-questions/#q24
+- Link to question 25: https://duguid.com.au/tools/accounting-questions/#q25
+- Link to question 26: https://duguid.com.au/tools/accounting-questions/#q26
+- Link to question 27: https://duguid.com.au/tools/accounting-questions/#q27
+- Link to question 28: https://duguid.com.au/tools/accounting-questions/#q28
+- Link to question 29: https://duguid.com.au/tools/accounting-questions/#q29
+- Link to question 30: https://duguid.com.au/tools/accounting-questions/#q30
+- ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
+- GST calculator: https://duguid.com.au/tools/business-calculators/#gst
+- Link to question 31: https://duguid.com.au/tools/accounting-questions/#q31
+- Link to question 32: https://duguid.com.au/tools/accounting-questions/#q32
+- Link to question 33: https://duguid.com.au/tools/accounting-questions/#q33
+- Link to question 34: https://duguid.com.au/tools/accounting-questions/#q34
+- Link to question 35: https://duguid.com.au/tools/accounting-questions/#q35
+- ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
+- BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
+- Link to question 36: https://duguid.com.au/tools/accounting-questions/#q36
+- Link to question 37: https://duguid.com.au/tools/accounting-questions/#q37
+- Link to question 38: https://duguid.com.au/tools/accounting-questions/#q38
+- Link to question 39: https://duguid.com.au/tools/accounting-questions/#q39
+- Link to question 40: https://duguid.com.au/tools/accounting-questions/#q40
+- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
+- Link to question 41: https://duguid.com.au/tools/accounting-questions/#q41
+- Payday Super receipt-evidence example: https://duguid.com.au/tools/payday-super/
+- Link to question 42: https://duguid.com.au/tools/accounting-questions/#q42
+- Link to question 43: https://duguid.com.au/tools/accounting-questions/#q43
+- Link to question 44: https://duguid.com.au/tools/accounting-questions/#q44
+- PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
+- Link to question 45: https://duguid.com.au/tools/accounting-questions/#q45
+- Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 46: https://duguid.com.au/tools/accounting-questions/#q46
+- Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
+- Link to question 47: https://duguid.com.au/tools/accounting-questions/#q47
+- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Link to question 48: https://duguid.com.au/tools/accounting-questions/#q48
+- Link to question 49: https://duguid.com.au/tools/accounting-questions/#q49
+- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/#staff
+- Link to question 50: https://duguid.com.au/tools/accounting-questions/#q50
+- Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
+- Link to question 51: https://duguid.com.au/tools/accounting-questions/#q51
+- Link to question 52: https://duguid.com.au/tools/accounting-questions/#q52
+- Link to question 53: https://duguid.com.au/tools/accounting-questions/#q53
+- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
+- Link to question 54: https://duguid.com.au/tools/accounting-questions/#q54
+- Link to question 55: https://duguid.com.au/tools/accounting-questions/#q55
+- Link to question 56: https://duguid.com.au/tools/accounting-questions/#q56
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/#loan
+- Link to question 57: https://duguid.com.au/tools/accounting-questions/#q57
+- Link to question 58: https://duguid.com.au/tools/accounting-questions/#q58
+- Link to question 59: https://duguid.com.au/tools/accounting-questions/#q59
+- Link to question 60: https://duguid.com.au/tools/accounting-questions/#q60
+- Link to question 61: https://duguid.com.au/tools/accounting-questions/#q61
+- Link to question 62: https://duguid.com.au/tools/accounting-questions/#q62
+- Link to question 63: https://duguid.com.au/tools/accounting-questions/#q63
+- Link to question 64: https://duguid.com.au/tools/accounting-questions/#q64
+- Link to question 65: https://duguid.com.au/tools/accounting-questions/#q65
+- Link to question 66: https://duguid.com.au/tools/accounting-questions/#q66
+- Link to question 67: https://duguid.com.au/tools/accounting-questions/#q67
+- Link to question 68: https://duguid.com.au/tools/accounting-questions/#q68
+- Link to question 69: https://duguid.com.au/tools/accounting-questions/#q69
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/#variance
+- Link to question 70: https://duguid.com.au/tools/accounting-questions/#q70
+- Choose a pricing strategy: https://business.gov.au/products-and-services/choose-a-pricing-strategy
+- Break-even calculator: https://duguid.com.au/tools/business-calculators/#break-even
+- Link to question 71: https://duguid.com.au/tools/accounting-questions/#q71
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/#margin
+- Link to question 72: https://duguid.com.au/tools/accounting-questions/#q72
+- Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/#hourly
+- Link to question 73: https://duguid.com.au/tools/accounting-questions/#q73
+- Link to question 74: https://duguid.com.au/tools/accounting-questions/#q74
+- Link to question 75: https://duguid.com.au/tools/accounting-questions/#q75
+- Link to question 76: https://duguid.com.au/tools/accounting-questions/#q76
+- ATO benchmark comparison method: https://duguid.com.au/tools/ato-benchmarks/
+- Link to question 77: https://duguid.com.au/tools/accounting-questions/#q77
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- Link to question 78: https://duguid.com.au/tools/accounting-questions/#q78
+- Link to question 79: https://duguid.com.au/tools/accounting-questions/#q79
+- Xero trial-balance export: https://duguid.com.au/tools/xero-trial-balance/
+- Link to question 80: https://duguid.com.au/tools/accounting-questions/#q80
+- Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
+- Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
+- Link to question 81: https://duguid.com.au/tools/accounting-questions/#q81
+- Link to question 82: https://duguid.com.au/tools/accounting-questions/#q82
+- Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
+- Link to question 83: https://duguid.com.au/tools/accounting-questions/#q83
+- Link to question 84: https://duguid.com.au/tools/accounting-questions/#q84
+- Link to question 85: https://duguid.com.au/tools/accounting-questions/#q85
+- Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
+- Trust distributions example: https://duguid.com.au/tools/trust-distributions/
+- Link to question 86: https://duguid.com.au/tools/accounting-questions/#q86
+- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Link to question 87: https://duguid.com.au/tools/accounting-questions/#q87
+- Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
+- Link to question 88: https://duguid.com.au/tools/accounting-questions/#q88
+- Link to question 89: https://duguid.com.au/tools/accounting-questions/#q89
+- Link to question 90: https://duguid.com.au/tools/accounting-questions/#q90
+- Property and land: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land
+- Link to question 91: https://duguid.com.au/tools/accounting-questions/#q91
+- Link to question 92: https://duguid.com.au/tools/accounting-questions/#q92
+- Capital gains tax: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax
+- Link to question 93: https://duguid.com.au/tools/accounting-questions/#q93
+- Link to question 94: https://duguid.com.au/tools/accounting-questions/#q94
+- Crypto asset investments: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments
+- Link to question 95: https://duguid.com.au/tools/accounting-questions/#q95
+- Link to question 96: https://duguid.com.au/tools/accounting-questions/#q96
+- ATO self-managed super funds: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf
+- Link to question 97: https://duguid.com.au/tools/accounting-questions/#q97
+- Land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax
+- Link to question 98: https://duguid.com.au/tools/accounting-questions/#q98
+- TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
+- Link to question 99: https://duguid.com.au/tools/accounting-questions/#q99
+- Link to question 100: https://duguid.com.au/tools/accounting-questions/#q100
+
+---
+
+# Business calculators
+
+Source: https://duguid.com.au/tools/business-calculators/
+
+> Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.
+
+# Business calculators
+
+Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.
+
+Find a question and prepare a checklist.
+
+Published and reviewed 11 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+
+JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
+
+- GST
+- Business-use share
+- Margin and markup
+- Break-even sales
+- Hourly pricing
+- Budget variance
+- Monthly loan payments
+- Staff cost
+- 13-week cash forecast
+
+## GST
+
+For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
+
+ATO: How GST works
+
+GST inputs
+
+Amount (AUD) Amount includes GST
+
+Calculate Enter the inputs and calculate.
+
+## Business-use share
+
+Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
+
+Phone and internet record checklist
+
+Business-use share inputs
+
+Eligible cost (AUD) Business use (%)
+
+Calculate Enter the inputs and calculate.
+
+## Margin and markup
+
+Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
+
+business.gov.au: pricing
+
+Margin and markup inputs
+
+Sales (AUD) Direct cost (AUD)
+
+Calculate Enter the inputs and calculate.
+
+## Break-even sales
+
+Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
+
+business.gov.au: pricing
+
+Break-even sales inputs
+
+Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per unit (AUD)
+
+Calculate Enter the inputs and calculate.
+
+## Hourly pricing
+
+Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
+
+business.gov.au: pricing
+
+Hourly pricing inputs
+
+Annual costs (AUD) Target annual profit (AUD) Annual billable hours
+
+Calculate Enter the inputs and calculate.
+
+## Budget variance
+
+Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
+
+Budget explanation checklist
+
+Budget variance inputs
+
+Actual (AUD) Budget (AUD)
+
+Figure type Income Cost
+
+Calculate Enter the inputs and calculate.
+
+## Monthly loan payments
+
+For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
+
+Loan reconciliation checklist
+
+Monthly loan payments inputs
+
+Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
+
+Calculate Enter the inputs and calculate.
+
+## Staff cost
+
+Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+
+Staff-cost checklist
+
+Staff cost inputs
+
+Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
+
+Calculate Enter the inputs and calculate.
+
+## 13-week cash forecast
+
+Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
+
+business.gov.au: cash flow
+
+13-week cash forecast inputs
+
+First day of week 1 Load inputs (replaces the current forecast)
+
+Save inputs to a file on your device and load it to continue later. File contents are processed in your browser. A valid file replaces all forecast inputs; an invalid file leaves them intact. Each week covers seven days from the start date.
+
+Save inputs
+
+Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
+
+Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.
+
+Week | Receipts (AUD) | Payments (AUD)
+1 | |
+2 | |
+3 | |
+4 | |
+5 | |
+6 | |
+7 | |
+8 | |
+9 | |
+10 | |
+11 | |
+12 | |
+13 | |
+
+Calculate Enter the inputs and calculate.
+
+Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.
+
+Download forecast CSV
+
+## Links
+
+- Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
+- GST: https://duguid.com.au/tools/business-calculators/#gst
+- Business-use share: https://duguid.com.au/tools/business-calculators/#business-use
+- Margin and markup: https://duguid.com.au/tools/business-calculators/#margin
+- Break-even sales: https://duguid.com.au/tools/business-calculators/#break-even
+- Hourly pricing: https://duguid.com.au/tools/business-calculators/#hourly
+- Budget variance: https://duguid.com.au/tools/business-calculators/#variance
+- Monthly loan payments: https://duguid.com.au/tools/business-calculators/#loan
+- Staff cost: https://duguid.com.au/tools/business-calculators/#staff
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/#cash
+- ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/#q15
+- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
+- Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/#q75
+- Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
+- Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
+- business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement

@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "1a2ddb2208a702aedc689e755cf4d6534de5da3abbca0c247cc32ac028418abd",
+    "llms.txt": "3bed4ecaf9667ea6b3d50cff0cf659917b18841038b240c54a84f99764546d46",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "1824aad5fb57daa6ec36a23d3dd3e1cff0b40faf5a8e05b6d0aa27e56a3e140a"
+    "sitemap.xml": "30ccd386898c3b1c3121363ac067e711b619bff65ff10bd11a89871bc83bdabb"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
@@ -135,10 +135,16 @@
     ],
     "tools/monthly-close-controls/index.html": [
       "d10aac68de875dd37ece6bef6f5dc18326e4aa8f396f365fd0ff865e974da774"
+    ],
+    "tools/accounting-questions/index.html": [
+      "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
+    ],
+    "tools/business-calculators/index.html": [
+      "c9d40b0455678eef64a187b8efd9f853ccc22dcc95188c22531a7ed3a1b430f8"
     ]
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 27,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 29,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },

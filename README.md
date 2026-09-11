@@ -7,6 +7,8 @@ Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan
 - `/tools/` groups eleven controls by Extract, Calculate, Control and Inspect.
 - `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates.
+- `/tools/accounting-questions/` has 100 question guides with optional search and checklist downloads.
+- `/tools/business-calculators/` has nine planning calculators, including a 13-week cash scenario and CSV export.
 
 The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
 
@@ -27,12 +29,15 @@ python scripts/serve_site.py
 
 Then visit `http://127.0.0.1:4173/`. Restart the preview after editing a page
 or an include. `python scripts/build_site.py` builds `_site/` without serving it.
+The preview compresses text when the browser accepts gzip, matching the
+compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
 
 `.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job runs `ruff check .` and `mypy` over the check scripts first (pinned to `ruff==0.16.6` and `mypy==2.3.1`, configured in `pyproject.toml`), then the site checks run on Python 3.10, 3.12 and 3.13:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
+- the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
 - external links must resolve
@@ -83,8 +88,8 @@ npm run test:capture
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
-Run three-pass Lighthouse medians for the homepage, Tools, Evidence and Coal
-LSL calculator:
+Run three-pass Lighthouse medians for the homepage, Tools, Evidence, Coal
+LSL calculator, accounting question hub, and business calculators:
 
 ```bash
 npm run test:lighthouse
@@ -133,7 +138,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. The 27 styled pages include
+GitHub Pages builds the repository with Jekyll. The 29 styled pages include
 `_includes/site-header.html` and `_includes/site-footer.html`; the header
 sets the current page or section from each page's URL. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
