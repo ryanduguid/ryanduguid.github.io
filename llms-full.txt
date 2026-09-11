@@ -962,7 +962,7 @@ The tool page links the CLI and MCP pull requests for this unreleased workflow. 
 
 ```
 git fetch origin pull/147/head
-git switch --detach 1e0ce0d72250cefc1a99aa9c2316ad0e344a00a9
+git switch --detach 14de87cdf16dd45f97aad326825cfbc1d602ceba
 cd packages/payday-super-checker
 uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
 uv run --locked --extra dev pytest tests/test_evidence_pack.py -q
