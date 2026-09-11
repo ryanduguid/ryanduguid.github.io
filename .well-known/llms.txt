@@ -32,6 +32,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 - [Manager review gate evaluation](https://duguid.com.au/evaluate/manager-review-gate/): reproduces the released review-ready-gate/v0.1.3 result for two fabricated BAS packs, including the exact NOT_READY findings, corrected READY result, and human decision boundary.
 - [Xero trial balance integrity evaluation](https://duguid.com.au/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with three fabricated CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
 - [Payday Super timing evidence evaluation](https://duguid.com.au/evaluate/payday-super-evidence/): reproduces four fabricated evidence-timing outcomes, including at-risk, on-time, and late classifications, with an explicit human decision boundary.
+- [Payday Super evidence-pack development workflow](https://duguid.com.au/tools/payday-super/#evidence-pack): unreleased CLI and MCP work combines report.csv, a SHA-256-bound practitioner checklist, exceptions.json and a blank decision-log.md. The pack omits employee identifiers and queues every non-ON_TIME result. The CLI writes a new directory; MCP returns file contents in memory and accepts no paths. Requires the reviewed development checkout; published checker v0.1.3 and uvx aus-accounting-mcp do not include it. No advice, lodgement or ledger writes.
 
 ## Reference tables
 
