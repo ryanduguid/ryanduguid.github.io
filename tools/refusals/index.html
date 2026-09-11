@@ -54,9 +54,9 @@
         </nav>
         <h1>What these tools refuse</h1>
         <p class="lead-note">
-          A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. DrDebits is a prompt guide, so its section quotes the scenarios it requires a model to refuse.
+          A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. The DrDebits guide in llm-tax-guardrails specifies the scenarios it requires a model to refuse.
         </p>
-        <p class="page-meta">Published 4 September 2026. Last reviewed 4 September 2026.</p>
+        <p class="page-meta">Published 4 September 2026. Last reviewed 11 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -67,7 +67,7 @@
           <a href="#xero-trial-balance">Xero trial balance CSV export</a>
           <a href="#payday-super">Payday Super timing</a>
           <a href="#aus-accounting-mcp">Aus Accounting MCP</a>
-          <a href="#drdebits">DrDebits</a>
+          <a href="#drdebits">llm-tax-guardrails</a>
           <a href="#evidence-note">Evidence note</a>
           <a href="#limitations">Limitations</a>
         </nav>
@@ -249,9 +249,9 @@ asyncio.run(main())</code></pre>
           </section>
 
           <section id="drdebits">
-            <h2>DrDebits</h2>
+            <h2>llm-tax-guardrails (DrDebits)</h2>
             <p>
-              <a href="https://github.com/ryanduguid/llm-tax-guardrails">DrDebits</a> is a prompt guide for language models doing Australian tax and accounting work, not a program, so there is no command to run and no transcript here. Its release <code>v0.3.2</code> ships a <a href="https://github.com/ryanduguid/llm-tax-guardrails/blob/ac5bc87a07b183c8059d6527a68898785611b6ec/tests/behaviour-tests.md">behaviour-test table</a> whose <code>HARD_STOP</code> rows are the refusals an implementation must reproduce. The thirteen rows below are quoted from that tagged file; whether a given model meets them is checked by a person running the scenarios, which this site has not done.
+              <a href="https://github.com/ryanduguid/llm-tax-guardrails">llm-tax-guardrails</a> contains DrDebits, a prompt guide for language models doing Australian tax and accounting work. This section records its required refusals; there is no command transcript. The pinned release <code>v0.3.2</code> ships a <a href="https://github.com/ryanduguid/llm-tax-guardrails/blob/ac5bc87a07b183c8059d6527a68898785611b6ec/tests/behaviour-tests.md">behaviour-test table</a> whose <code>HARD_STOP</code> rows are the refusals an implementation must reproduce. The thirteen rows below are quoted from that tagged file; whether a given model meets them is checked by a person running the scenarios, which this site has not done.
             </p>
             <div class="table-scroll" role="region" aria-label="DrDebits HARD_STOP scenarios" tabindex="0">
             <table class="facts tool-table--wide">
@@ -453,7 +453,7 @@ exit=0</code></pre>
         "description": "Each refusal the open-source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-04",
-        "dateModified": "2026-09-04",
+        "dateModified": "2026-09-11",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

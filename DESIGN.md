@@ -348,9 +348,9 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `006377B4EFE7F3466AF4B452AA127F3E5347822BE08749435BABC0A7CB2BEBB9`
+- `llms.txt`: SHA-256 `84F92E0A48EEEF965487B7B7452141DE448CCCDCDDC9B679DB83F850620C9057`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `174C64EF3460DF1077B23ED23A0FCF2B38F4C36535B34A60B58443028069A939`
+- `sitemap.xml`: SHA-256 `DB3D2E183EC6CEC782B6E3BB954C9464B7D2B6D542C72DAA027751DE79E0E265`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
