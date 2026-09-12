@@ -57,7 +57,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await page.goto('/');
   await page.getByRole('link', { name: 'View full-size chart', exact: true }).click();
   await expect(page).toHaveURL(/\/assets\/examples\/lumbridge\/cash-preview\.png$/);
-  await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(864);
+  await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
   for (const [route, name] of [['/', 'Explore the cash-flow example'], ['/tools/', 'Fictional Newcastle cash-flow case Excel and source files']]) {
     await page.goto(route);
     await page.getByRole('link', { name, exact: true }).click();
