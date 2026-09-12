@@ -2,6 +2,40 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { observePageHealth } from './health.mjs';
 
+test('page content renders while the view script loads and then restores Machine', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('duguid-view-mode', 'machine'));
+  let release;
+  const pending = new Promise(resolve => { release = resolve; });
+  await page.route('**/assets/view-mode.mjs', async route => {
+    await pending;
+    await route.continue();
+  });
+  await page.goto('/privacy/', { waitUntil: 'commit' });
+  try {
+    await expect(page.getByRole('heading', { name: 'Privacy and site use', exact: true })).toBeVisible();
+  } finally {
+    release();
+  }
+  await expect(page.getByRole('radio', { name: 'Machine', exact: true })).toBeChecked();
+  await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Browser calculations');
+});
+
+test('mobile view switch stays inside the header and clear of its links', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    await page.goto('/privacy/');
+    await page.locator('#browser-data').scrollIntoViewIfNeeded();
+    const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
+    const header = await page.locator('.site-header').boundingBox();
+    const identity = await page.locator('.site-identity').boundingBox();
+    const navigation = await page.getByRole('navigation', { name: 'Primary' }).boundingBox();
+    expect(toggle.y).toBeGreaterThanOrEqual(header.y);
+    expect(toggle.y + toggle.height).toBeLessThanOrEqual(navigation.y);
+    expect(identity.x + identity.width).toBeLessThan(toggle.x);
+    expect(toggle.x + toggle.width).toBeLessThanOrEqual(width);
+  }
+});
+
 test('view mode defaults to Human and preserves the page when switching back', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/');
@@ -127,5 +161,5 @@ test('the floating switch leaves the last footer link unobscured', async ({ page
   await page.evaluate(() => scrollTo({ top: document.documentElement.scrollHeight, behavior: 'instant' }));
   const index = await page.getByRole('link', { name: 'Machine-readable index', exact: true }).boundingBox();
   const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
-  expect(index.y + index.height).toBeLessThan(toggle.y);
+  expect(index.y + index.height < toggle.y || toggle.y + toggle.height < index.y).toBe(true);
 });

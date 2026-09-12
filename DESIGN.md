@@ -16,6 +16,14 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 12 September 2026 loading and mobile placement follow-up defers the
+view-switch script so a slow request cannot hold up page content. A saved
+Machine preference applies when the script loads; Human content remains
+readable while waiting. At widths up to 640px, the pill sits beside the site
+name in the sticky header, with 44px targets and a separate navigation row.
+The header remains 88px tall. Desktop keeps the bottom-centred placement. The
+switch's colours, saved preference and Machine content remain unchanged.
+
 The 12 September 2026 Human/Machine switch follows Ryan's Cloudflare Connect
 reference. Its fixed bottom-centred pill, neutral surface, and blur are explicit
 exceptions to the register shapes below. The selected dot and keyboard focus
