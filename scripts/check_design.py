@@ -524,7 +524,13 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
 
     combined = f"{site_css}\n{tokens_css}".lower()
     for pattern in BANNED_CSS_PATTERNS:
-        if pattern in combined:
+        # Ryan requested these two effects on the Cloudflare-style switch only.
+        checked_css = (
+            re.sub(r"(?m)^\.view-mode\s*\{[^}]*\}", "", combined)
+            if pattern in {"backdrop-filter", "box-shadow"}
+            else combined
+        )
+        if pattern in checked_css:
             failures.append(f"banned CSS pattern {pattern}")
 
     for colour in sorted(set(RAW_COLOUR_PATTERN.findall(site_css.lower()))):

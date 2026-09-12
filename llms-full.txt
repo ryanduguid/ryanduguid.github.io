@@ -4908,6 +4908,8 @@ The accounting-question search also runs in your browser. It does not send searc
 
 This site does not set cookies or load visitor analytics, advertising pixels or third-party tracking scripts. Its fonts, images and scripts are served from this domain.
 
+When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.
+
 ## Hosting
 
 GitHub Pages hosts this website. GitHub may collect technical information about visits, including IP addresses and request details. See the GitHub Privacy Statement for its handling of that information.

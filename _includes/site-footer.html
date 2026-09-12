@@ -18,3 +18,20 @@
       </div>
     </div>
   </footer>
+  <section id="machine-view" class="machine-view" role="main" aria-label="Machine view" tabindex="0" hidden>
+    <div class="machine-view__inner">
+      <p class="machine-view__title">duguid.com.au{{ page.url | remove: 'index.html' }}</p>
+      <pre class="machine-view__text" aria-live="polite">Loading page text...</pre>
+      <p class="machine-view__error" role="status" hidden>Page text could not be loaded. <a href="/llms-full.txt">Open full text</a> or select Human to return.</p>
+    </div>
+  </section>
+  <div class="view-mode" role="radiogroup" aria-label="View mode" hidden>
+    <label class="view-mode__option">
+      <input type="radio" name="view-mode" value="human" checked />
+      Human
+    </label>
+    <label class="view-mode__option" title="Agent-readable view">
+      <input type="radio" name="view-mode" value="machine" aria-controls="machine-view" />
+      Machine
+    </label>
+  </div>

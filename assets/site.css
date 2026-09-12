@@ -2387,3 +2387,170 @@ input[type="checkbox"] {
 .payday-example #synthetic-worked-example h2 {
   font-size: var(--text-body);
 }
+
+/* Human/Machine view switch, matching the requested Cloudflare Connect control. */
+html[data-view-mode] .site-footer__inner {
+  gap: var(--space-2) var(--space-7);
+  padding-block: var(--space-4) calc(64px + env(safe-area-inset-bottom));
+}
+
+.view-mode[hidden],
+.machine-view[hidden],
+.machine-view [hidden] {
+  display: none !important;
+}
+
+.view-mode {
+  position: fixed;
+  left: 50%;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  transform: translateX(-50%);
+  z-index: 60;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid var(--colour-mode-rule);
+  border-radius: 9999px;
+  background: var(--colour-mode-surface);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 16px var(--colour-mode-shadow);
+  font: 12px / 1 var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.view-mode__option {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 26px;
+  margin: 0;
+  padding: 0 12px;
+  border-radius: 9999px;
+  color: var(--colour-mode-muted);
+  font-weight: 400;
+  cursor: pointer;
+  transition: background var(--motion-standard), color var(--motion-standard);
+}
+
+.view-mode__option:hover,
+.view-mode__option:has(:checked) {
+  color: var(--colour-mode-ink);
+}
+
+.view-mode__option:has(:checked) {
+  background: var(--colour-mode-selected);
+}
+
+.view-mode__option:has(:focus-visible) {
+  outline: 2px solid var(--colour-mode-accent);
+  outline-offset: 3px;
+}
+
+.view-mode__option input {
+  appearance: none;
+  flex: 0 0 6px;
+  width: 6px;
+  height: 6px;
+  min-height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--colour-mode-dot);
+  outline: none;
+  cursor: inherit;
+}
+
+.view-mode__option input:checked {
+  background: var(--colour-mode-accent);
+}
+
+.view-mode__option input:focus-visible {
+  outline: none;
+}
+
+html[data-view-mode="machine"],
+html[data-view-mode="machine"] body {
+  overflow: hidden;
+}
+
+[data-view-mode="machine"] :is(.site-header, #main, .site-footer, .skip-link) {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.machine-view {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  overflow: auto;
+  overscroll-behavior: contain;
+  color: var(--colour-machine-ink);
+  background: var(--colour-machine-canvas);
+  font: 13px / 1.7 var(--font-mono);
+}
+
+.machine-view__inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 72px 24px 120px;
+}
+
+.machine-view__title {
+  margin: 0 0 32px;
+  color: var(--colour-ink-soft);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+}
+
+.machine-view__text {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  background: none;
+  font: inherit;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+@media (pointer: coarse) {
+  html[data-view-mode] .site-footer__inner {
+    padding-bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+  .view-mode__option {
+    min-height: 44px;
+  }
+}
+
+@media (forced-colors: active) {
+  .view-mode__option input {
+    forced-color-adjust: none;
+    background: Canvas;
+    border: 1px solid CanvasText;
+  }
+  .view-mode__option input:checked {
+    background: Highlight;
+    border-color: Highlight;
+  }
+  .view-mode__option:has(:checked) {
+    outline: 1px solid Highlight;
+  }
+}
+
+@media print {
+  .view-mode,
+  .machine-view {
+    display: none !important;
+  }
+  html[data-view-mode="machine"],
+  html[data-view-mode="machine"] body {
+    overflow: visible;
+  }
+  [data-view-mode="machine"] :is(.site-header, #main, .site-footer, .skip-link) {
+    visibility: visible;
+  }
+}
