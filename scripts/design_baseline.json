@@ -2,10 +2,10 @@
   "protected_files": {
     "llms.txt": "11784d27ebf1b945ab270b36fac80bf7336f3b5082fb2508b0d4fd1d9c2a5552",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "47b25a4da228c73def72bea490b0cb71682d2b02f656d3017e19ba285423d779"
+    "sitemap.xml": "aab1255582ef87d87b3dfcd8b57ab8dbbcd330eddcdbff6c2ccdbc4a87ac9ab9"
   },
   "protected_main_text": {
-    "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
+    "rates/super-guarantee/index.html": "63f5d5a03181ade6f93bf46ab08ef0e222ab9f49ebda87053ae8a4080bae7d20",
     "rates/div7a-benchmark-rate/index.html": "14d828395b564b2e8713c602c71948e50e6409982ca149840eae59bbc0ebc3fd",
     "rates/cents-per-kilometre/index.html": "b04c5aaff56d7bb2c2a102ba027e9e2a266ba2526391f1da5be324e15c4580c7"
   },
@@ -54,21 +54,22 @@
       "/rates/div7a-benchmark-rate/",
       "/rates/cents-per-kilometre/",
       "/tools/coal-lsl-levy/",
+      "/tools/business-calculators/#staff",
       "/about/"
     ]
   },
   "json_ld": {
     "about/index.html": [
-      "d8da32a892fc141286b341d01545196edabf905c3855a90585aa91964144b982"
+      "3c06935d5469fbfc772e49ea74ed6540c65806b7e657f8f5a9f540dbaeb0d906"
     ],
     "changelog/index.html": [
       "2fbe14a01e804d947988ff1cd18b0e2b56e67818ad652b75bfb7e61c86166ef5"
     ],
     "contact/index.html": [
-      "3a597fdea18230e883a38570650caa1fc00ccd8e97eb0134e35e2d3ec84e3053"
+      "9b90aeea6406e8412f88fcb85af07868e3e315c863034463a7964e76ac8c68a0"
     ],
     "evaluate/index.html": [
-      "c383a17fa0c33d2d0a07c6bbe843725ffb85c8036a5e3e095e884d089440cfb5"
+      "4857ff75ee2533db2b7311c68c5e3586450942ce56dca0cc690e2bf4c1c5c795"
     ],
     "evaluate/manager-review-gate/index.html": [
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
@@ -83,7 +84,7 @@
       "43fa611aedc151cf134aefa98440141771388d05bf85817002a409e033bfaa55"
     ],
     "index.html": [
-      "c2d33fb87130aff87bf54d63a615f754b1372fb1a2e4d16b15d84969fd8798c2"
+      "a0b79674448e632a58a12309dab38b2ff4b6d9b3076f7b74a4b318fce5a70fd1"
     ],
     "rates/cents-per-kilometre/index.html": [
       "84da9823fed754240d53c8f4167569ef01aa9d0ab0726cbae311cae9096807e0"
@@ -92,16 +93,16 @@
       "8617655d08de21389aecb5563220fc323d704b96d606ae88ea7682e338549c04"
     ],
     "rates/index.html": [
-      "ccf8f3c65de6203b7fcb62ccfb308382c795ead3b305153446477c4679d2d57c"
+      "64032304f753fddafa4d67922ed43afc7fea5b3f0666810f5798009d8e22b796"
     ],
     "rates/super-guarantee/index.html": [
-      "a33c649b8f456737ae80de8ee43766c565429a53b50d1457c4f9c3cb0216b196"
+      "323968eee7c3fa497fe3be4b4de8e375a8da5efa28c8e3931d02a520de598ecb"
     ],
     "tools/ato-benchmarks/index.html": [
       "62a3b8308faabd1babfe5c6387226488740efceededee26b8d351e2e5d8c2035"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "1d04d3fe92a92584ef1c94e425a1f9285c71b8ef767c985535526abff2fb8f27"
+      "7632858fb825445657817b3258f2a736bbff0566ae1261b23ca1b49984917a9a"
     ],
     "tools/coal-lsl-levy/index.html": [
       "e0e61a1fad71afc982db783f2bf5f3dbcf4c83c8b8c5caa427e0c540c1ce0ff6"
@@ -125,22 +126,22 @@
       "93eb5f0946cc850dabc5318164c07cef0a24926858f4dc824a1f69d6a079c8ab"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "b565566827d6d6013088c7ec9539add1cb523e037e4c039548cb2d47dcc77210"
+      "21abba40538a0ebd49f51f191043092d3850ac08231b3ff37b5db7a429ae6ac0"
     ],
     "tools/xero-trial-balance/index.html": [
-      "ee1e19d6fa22e6b6b584596a06fb80b889a73dee1e9b7ffca83cbff5a3fc06ea"
+      "6bcf7877e838c7fc831f51f84636a3fd2d8405ee64d8ca7557733bd0e69bf7f1"
     ],
     "tools/refusals/index.html": [
       "7e7a8f362bac4aaa3a46c9703e426ef4638574652a9e6353687145834704a096"
     ],
     "tools/monthly-close-controls/index.html": [
-      "d10aac68de875dd37ece6bef6f5dc18326e4aa8f396f365fd0ff865e974da774"
+      "e46cc8a9f899a8925c9ea433e7b1ba2ecbddc3a921dbe84eedefaef73da75de3"
     ],
     "tools/accounting-questions/index.html": [
       "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
     ],
     "tools/business-calculators/index.html": [
-      "c9d40b0455678eef64a187b8efd9f853ccc22dcc95188c22531a7ed3a1b430f8"
+      "c6e2d78bbcfb2f8e42d08f5c046b47b48a6efd87a15c88de300d1020ffb0c79d"
     ],
     "privacy/index.html": [
       "7d9ee291c11dea32588b95bac3f7f473c5523596fba656a665f39f9e2d526972"

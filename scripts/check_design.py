@@ -92,9 +92,9 @@ HOMEPAGE_REQUIRED_CLASSES = (
 )
 TRUST_BAND_TEXT = (
     "Review aids only. No client files. No lodgement. Human sign-off.",
-    "Scope 01 Accounting workflow controls",
-    "Method 02 Primary sources and exact arithmetic",
-    "Boundary 03 Calculation is not judgement",
+    "Scope Accounting workflow controls",
+    "Method Primary sources and exact arithmetic",
+    "Boundary Calculation is not judgement",
 )
 HERO_PREVIEW_TRUST_ADJACENCY_PATTERN = re.compile(
     r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-hero\b'

@@ -16,6 +16,20 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 12 September 2026 copy trim removes three homepage sentences that
+repeated the page (a credentials triad, a duplicated boundary, a duplicated
+adopt note), drops the decorative digits from the scope strip, and lets the
+hero subhead serve its one button. Contact opens with what email is welcome
+for before its unchanged boundary sentences; About puts the short facts before
+the work samples; the Lumbridge case gains a cite-as line; the Rates index
+explains verified against last reviewed. Cross-links join the super guarantee
+page to the staff cost calculator, the two planning calculators to the
+Lumbridge case and Monthly Close Controls, four tool pages to their own
+refusal sections. Rates, CSVs,
+calculator arithmetic, install commands and every legal boundary are
+unchanged; the affected JSON-LD, super guarantee main-text and sitemap
+baselines record the editorial dates.
+
 The 12 September 2026 loading and mobile placement follow-up defers the
 view-switch script so a slow request cannot hold up page content. A saved
 Machine preference applies when the script loads; Human content remains
@@ -394,7 +408,7 @@ The following whole-file values are protected after normalising only platform li
 
 - `llms.txt`: SHA-256 `11784D27EBF1B945AB270B36FAC80BF7336F3B5082FB2508B0D4FD1D9C2A5552`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `47B25A4DA228C73DEF72BEA490B0CB71682D2B02F656D3017E19BA285423D779`
+- `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
