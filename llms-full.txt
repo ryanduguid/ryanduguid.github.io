@@ -4881,3 +4881,56 @@ Download forecast CSV
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
 - Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+
+---
+
+# Privacy and site use | Ryan Duguid
+
+Source: https://duguid.com.au/privacy/
+
+> How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links.
+
+Home
+
+# Privacy and site use
+
+This notice explains how this website handles browser calculations, hosting and feedback.
+
+Published and last reviewed 12 September 2026.
+
+## Browser calculations
+
+The website's calculators process the figures you enter in your browser. They do not send those figures to a server or save them in browser storage. Download any results you want to keep before leaving the page. Downloaded files stay wherever you save them.
+
+The accounting-question search also runs in your browser. It does not send search text to a search service.
+
+## Cookies and analytics
+
+This site does not set cookies or load visitor analytics, advertising pixels or third-party tracking scripts. Its fonts, images and scripts are served from this domain.
+
+## Hosting
+
+GitHub Pages hosts this website. GitHub may collect technical information about visits, including IP addresses and request details. See the GitHub Privacy Statement for its handling of that information.
+
+## Feedback and external links
+
+If you email me, I receive your email address and the content you send. Use fabricated examples when reporting a problem. Do not include taxpayer information, client files or other confidential records.
+
+GitHub issues are public. Links to GitHub and other websites take you to services with their own privacy policies. Software you download or install has its own documented data handling; this notice covers the website.
+
+For questions about this notice or information you have sent me, email ryan@duguid.com.au. Other project links are on the Contact page.
+
+## Using this site
+
+Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page's assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
+
+The website source is available under its MIT licence, which includes its warranty terms. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+
+## Links
+
+- Home: https://duguid.com.au/
+- GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
+- Contact page: https://duguid.com.au/contact/
+- advice and review boundary: https://duguid.com.au/about/#advice-boundary
+- site boundary: https://duguid.com.au/about/#contact
+- MIT licence: https://duguid.com.au/LICENSE

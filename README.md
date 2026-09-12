@@ -138,7 +138,7 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. The 29 styled pages include
+GitHub Pages builds the repository with Jekyll. The 30 styled pages include
 `_includes/site-header.html` and `_includes/site-footer.html`; the header
 sets the current page or section from each page's URL. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.

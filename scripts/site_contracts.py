@@ -852,6 +852,7 @@ def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
         "about/index.html",
         "contact/index.html",
         "changelog/index.html",
+        "privacy/index.html",
     }:
         context = "site"
     elif rel == EVIDENCE_REL:

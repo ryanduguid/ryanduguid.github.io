@@ -134,6 +134,7 @@ if (forms.length) import('./business-calculators.mjs').then(calculate => {
         // Prevent edits while the file is read; apply only a fully validated scenario.
         const fieldset = form.querySelector('fieldset');
         fieldset.disabled = true;
+        fileStatus.textContent = 'Loading saved inputs...';
         try {
           if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
           const data = calculate.parseCashScenario(await file.text());

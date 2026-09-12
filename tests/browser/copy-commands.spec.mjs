@@ -1,5 +1,32 @@
 import { expect, test } from '@playwright/test';
 
+test('copy reports pending work and prevents overlapping clipboard requests', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { writeText: () => new Promise((resolve, reject) => {
+        window.finishCopy = resolve;
+        window.failCopy = reject;
+      }) },
+    });
+  });
+  await page.goto('/');
+  await page.locator('label[for="adopt-claude"]').click();
+  const copy = page.getByRole('button', { name: 'Copy: claude code install command' });
+  const status = copy.locator('..').getByRole('status');
+  for (const outcome of ['success', 'failure']) {
+    await copy.click();
+    await expect(status).toHaveText('Copying command...');
+    await expect(copy).toBeDisabled();
+    await page.evaluate(result => {
+      if (result === 'success') window.finishCopy();
+      else window.failCopy(new Error('Clipboard denied'));
+    }, outcome);
+    await expect(copy).toBeEnabled();
+    await expect(status).toHaveText(outcome === 'success'
+      ? 'Copied to clipboard.' : 'Copy unavailable. Select the command and copy it manually.');
+  }
+});
+
 test('install commands report copy success and denial without changing the action', async ({ page }) => {
   // Keep the operating-system clipboard untouched and exercise both permission outcomes.
   await page.addInitScript(() => {

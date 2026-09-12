@@ -7,6 +7,7 @@ import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 const routes = [
   ['home', '/'],
   ['about', '/about/'],
+  ['privacy and site use', '/privacy/'],
   ['evidence', '/evidence/'],
   ['tools', '/tools/'],
   ['monthly close controls', '/tools/monthly-close-controls/'],
