@@ -17,6 +17,9 @@ const questions = [...document.querySelectorAll('details.question')];
 if (questions.length) {
   const search = document.querySelector('#question-search');
   const topic = document.querySelector('#question-topic');
+  const params = new URLSearchParams(location.search);
+  search.value = params.get('q') || '';
+  topic.value = params.get('topic') || '';
   const checkbox = new Map(questions.map(q => [q, q.querySelector('input')]));
   const selected = () => questions.filter(q => checkbox.get(q).checked);
   const countNode = document.querySelector('#question-count');
@@ -43,10 +46,17 @@ if (questions.length) {
     for (const id of ['download-checklist', 'print-checklist', 'clear-selection']) {
       document.getElementById(id).disabled = count === 0;
     }
+    // The filters live in the URL so a filtered view can be shared or reloaded.
+    const query = new URLSearchParams();
+    if (search.value) query.set('q', search.value);
+    if (topic.value) query.set('topic', topic.value);
+    const queryText = query.toString();
+    history.replaceState(null, '', `${location.pathname}${queryText ? `?${queryText}` : ''}${location.hash}`);
   }
   search.addEventListener('input', filter);
   topic.addEventListener('change', filter);
   for (const q of questions) checkbox.get(q).addEventListener('change', filter);
+  if (search.value || topic.value) filter();
   document.querySelector('#clear-filters').addEventListener('click', () => {
     search.value = '';
     topic.value = '';
@@ -140,7 +150,7 @@ if (forms.length) import('./business-calculators.mjs').then(calculate => {
         // Prevent edits while the file is read; apply only a fully validated scenario.
         const fieldset = form.querySelector('fieldset');
         fieldset.disabled = true;
-        fileStatus.textContent = 'Loading saved inputs...';
+        fileStatus.textContent = 'Loading saved inputs…';
         try {
           if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
           const data = calculate.parseCashScenario(await file.text());

@@ -28,6 +28,10 @@
   gap: var(--space-4);
 }
 
+.question-topics li + li {
+  margin-top: 0;
+}
+
 .question-topics ul {
   list-style: none;
   padding: 0;
@@ -53,6 +57,10 @@
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
   padding-top: var(--space-5);
   margin-block: var(--space-6);
+}
+
+.business-calculator h2 {
+  margin-bottom: var(--space-3);
 }
 
 .accounting-actions {

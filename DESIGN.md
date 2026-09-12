@@ -16,6 +16,17 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 12 September 2026 alignment pass fixes text that sat off its neighbours:
+the hero link is centred on its button; the four-task header shares the
+entry column template so its heading starts on the description edge; the
+trust band's boundary and rail labels share one top inset on desktop and one
+left edge on mobile; label and value pairs in the collection entries and the
+credential register align on the baseline; the case and calculator headings
+gain a small gap before their paragraphs; the calculator chooser's first
+item no longer sits above its row; and the rates register drops the empty
+band between two strong rules. Loading states end with an ellipsis and the
+question filters live in the URL so a filtered view can be shared.
+
 The 12 September 2026 copy trim removes three homepage sentences that
 repeated the page (a credentials triad, a duplicated boundary, a duplicated
 adopt note), drops the decorative digits from the scope strip, and lets the

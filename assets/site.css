@@ -724,6 +724,12 @@ caption {
   grid-column: 2;
 }
 
+/* Without an index rail the page header's rule already closes the hero, so
+   a second strong rule above an empty band is dropped. */
+.collection-layout > .collection-register:first-child {
+  border-top: 0;
+}
+
 .collection-group {
   scroll-margin-top: calc(var(--header-height) + var(--space-5));
 }
@@ -779,6 +785,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(5rem, 0.45fr) minmax(0, 1fr);
   gap: var(--space-3);
+  align-items: baseline;
 }
 
 .collection-entry dt {
@@ -1061,6 +1068,7 @@ caption {
 .home-hero__actions {
   display: flex;
   flex-wrap: wrap;
+  align-items: center;
   gap: var(--space-3);
   margin-top: var(--space-2);
 }
@@ -1082,6 +1090,7 @@ caption {
 }
 
 .home-case h2 {
+  margin-bottom: var(--space-3);
   font-size: var(--text-heading-small);
 }
 
@@ -1132,16 +1141,22 @@ caption {
   padding-block: var(--space-7);
 }
 
+/* The header shares the entry template so its heading starts on the same
+   column edge as the task descriptions below it. */
 .home-tool-preview > header {
   display: grid;
-  grid-template-columns: minmax(10rem, 0.45fr) minmax(0, 1.55fr);
-  gap: var(--space-3) var(--space-7);
+  grid-template-columns: minmax(9rem, 0.45fr) minmax(14rem, 1fr) minmax(13rem, 0.8fr);
+  gap: var(--space-3) var(--space-5);
   padding-bottom: var(--space-5);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
 }
 
 .home-tool-preview > header .technical-label {
   grid-row: 1 / span 2;
+}
+
+.home-tool-preview > header > :not(.technical-label) {
+  grid-column: 2 / -1;
 }
 
 .home-tool-preview > header p:not(.technical-label) {
@@ -1237,7 +1252,6 @@ caption {
 
 .trust-band .hero-boundary {
   width: auto;
-  align-content: center;
   margin: 0;
   padding: var(--space-4) var(--space-5);
   border-top: 0;
@@ -1249,6 +1263,12 @@ caption {
   margin: 0;
   padding: 0;
   border: 0;
+}
+
+/* Rail cells and the boundary share the same top inset so their first lines
+   align across the band. */
+.trust-band .home-proof-rail p {
+  padding-top: var(--space-4);
 }
 
 .authority-routes {
@@ -1448,6 +1468,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(9rem, 0.65fr) minmax(0, 1.35fr);
   gap: var(--space-5);
+  align-items: baseline;
   padding-block: var(--space-3);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
@@ -2087,12 +2108,22 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  /* Stacked cells share one text edge: the boundary's rule sits inside the
+     same inset as the rail labels. */
+  .trust-band .hero-boundary {
+    padding-left: calc(var(--space-4) - var(--rule-strong));
+  }
+
   .home-tool-preview > header {
     grid-template-columns: 1fr;
   }
 
   .home-tool-preview > header .technical-label {
     grid-row: auto;
+  }
+
+  .home-tool-preview > header > :not(.technical-label) {
+    grid-column: auto;
   }
 
   .home-tool-preview__entry {

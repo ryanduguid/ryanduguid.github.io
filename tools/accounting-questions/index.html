@@ -60,7 +60,7 @@
         <div class="question-controls">
           <fieldset disabled><legend class="visually-hidden">Question filters and checklist</legend>
           <div class="form-grid">
-            <label class="field" for="question-search">Search questions<input type="search" id="question-search" placeholder="Try BAS, cash flow or Newcastle" /></label>
+            <label class="field" for="question-search">Search questions<input type="search" id="question-search" name="q" autocomplete="off" placeholder="Try BAS, cash flow or Newcastle" /></label>
             <div class="field"><label for="question-topic">Topic</label><select id="question-topic"><option value="">All topics</option>{% for topic in site.data.accounting_questions.topics %}<option value="{{ topic.id }}">{{ topic.label | escape }}</option>{% endfor %}</select></div>
           </div>
           <div class="accounting-actions">
