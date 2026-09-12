@@ -17,7 +17,10 @@ const questions = [...document.querySelectorAll('details.question')];
 if (questions.length) {
   const search = document.querySelector('#question-search');
   const topic = document.querySelector('#question-topic');
-  const selected = () => questions.filter(q => q.querySelector('input').checked);
+  const checkbox = new Map(questions.map(q => [q, q.querySelector('input')]));
+  const selected = () => questions.filter(q => checkbox.get(q).checked);
+  const countNode = document.querySelector('#question-count');
+  let countTimer;
   const groups = [...document.querySelectorAll('.question-group')];
   const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
   const text = new Map(questions.map(q => [q, normalise(`${q.textContent} ${q.dataset.searchTerms || ''}`)]));
@@ -29,18 +32,21 @@ if (questions.length) {
     for (const q of questions) {
       q.hidden = (topic.value && q.closest('.question-group').dataset.topic !== topic.value)
         || !words.every(word => text.get(q).includes(word));
-      q.classList.toggle('is-selected', q.querySelector('input').checked);
+      q.classList.toggle('is-selected', checkbox.get(q).checked);
     }
     for (const group of groups) group.hidden = !group.querySelector('details:not([hidden])');
     const count = selected().length;
-    document.querySelector('#question-count').textContent = `${questions.filter(q => !q.hidden).length} questions. ${count} selected.`;
+    clearTimeout(countTimer);
+    countTimer = setTimeout(() => {
+      countNode.textContent = `${questions.filter(q => !q.hidden).length} questions. ${count} selected.`;
+    }, 300);
     for (const id of ['download-checklist', 'print-checklist', 'clear-selection']) {
       document.getElementById(id).disabled = count === 0;
     }
   }
   search.addEventListener('input', filter);
   topic.addEventListener('change', filter);
-  for (const q of questions) q.querySelector('input').addEventListener('change', filter);
+  for (const q of questions) checkbox.get(q).addEventListener('change', filter);
   document.querySelector('#clear-filters').addEventListener('click', () => {
     search.value = '';
     topic.value = '';
@@ -48,7 +54,7 @@ if (questions.length) {
     search.focus();
   });
   document.querySelector('#clear-selection').addEventListener('click', () => {
-    for (const q of selected()) q.querySelector('input').checked = false;
+    for (const q of selected()) checkbox.get(q).checked = false;
     filter();
     search.focus();
   });

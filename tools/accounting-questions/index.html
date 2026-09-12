@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
   <title>100 Australian accounting questions</title>
   <meta name="description" content="Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -92,7 +93,7 @@
               {% if question.example %}<div class="question-example"><p><strong>Fictional worked example</strong></p><p>{{ question.example | escape }}</p></div>{% endif %}
               <p class="question-boundary">{{ question.boundary | escape }}</p>
               <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
-              <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Select question {{ question.id }}" /> Add to my checklist</label></p>
+              <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Add to my checklist, question {{ question.id }}" /> Add to my checklist</label></p>
               <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
             </div>
           </details>

@@ -7,6 +7,7 @@
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
   <title>Coal LSL levy calculator and eligible wages under section 3B</title>
   <meta name="description" content="Estimate the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
@@ -134,7 +135,7 @@
         <button type="button" id="print-working">Print working</button>
         <div class="field">
           <label for="employeeLabel">Employee reference</label>
-          <input type="text" id="employeeLabel" placeholder="EMP-001" aria-describedby="employee-reference-help" />
+          <input type="text" id="employeeLabel" placeholder="EMP-001" autocapitalize="characters" autocorrect="off" spellcheck="false" aria-describedby="employee-reference-help" />
           <button type="button" id="add-employee">Add to monthly table</button>
           <p id="table-status" role="status" class="field-note"></p>
         </div>

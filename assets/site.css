@@ -45,6 +45,7 @@ button,
 input,
 select {
   min-height: 2.75rem;
+  touch-action: manipulation;
 }
 
 a {
@@ -52,6 +53,7 @@ a {
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
   -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
   transition:
     color var(--motion-standard) var(--ease-standard),
     text-decoration-color var(--motion-standard) var(--ease-standard);
@@ -89,7 +91,11 @@ h1 {
   font-size: var(--text-heading);
 }
 
-p {
+p,
+li,
+dd,
+summary,
+figcaption {
   text-wrap: pretty;
 }
 
@@ -528,6 +534,7 @@ blockquote,
 .employee-table-scroll {
   max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-inline: contain;
   border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
@@ -551,6 +558,7 @@ td {
 
 .rate-figures td:nth-child(2),
 .rate-figures th:nth-child(2) {
+  font-family: var(--font-mono);
   text-align: right;
 }
 
@@ -562,6 +570,15 @@ th {
   font-weight: 600;
   letter-spacing: 0.02em;
   overflow-wrap: normal;
+}
+
+caption {
+  padding-block: var(--space-2);
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  text-align: left;
+  caption-side: top;
 }
 
 @media (hover: hover) {
@@ -627,8 +644,7 @@ th {
 }
 
 .related,
-.sources,
-.links {
+.sources {
   padding-left: 1.2em;
 }
 
@@ -973,9 +989,9 @@ th {
 .site-footer__inner {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
-  gap: var(--space-5) var(--space-7);
+  gap: var(--space-2) var(--space-7);
   align-items: start;
-  padding-block: var(--space-6);
+  padding-block: var(--space-4) var(--space-6);
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
 }
@@ -1694,6 +1710,7 @@ fieldset label,
   display: flex;
   gap: var(--space-3);
   align-items: flex-start;
+  min-height: 2.75rem;
   font-weight: 400;
 }
 
@@ -1963,6 +1980,19 @@ input[type="checkbox"] {
 .page-404 p,
 .page-404 .links {
   margin-top: var(--space-5);
+}
+
+.page-404 .code {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+}
+
+.page-404 .links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3) var(--space-5);
 }
 
 @media (max-width: 70rem) {
@@ -2358,6 +2388,16 @@ input[type="checkbox"] {
     font-size: 85%;
     word-break: break-all;
   }
+
+  .table-scroll,
+  .employee-table-scroll {
+    overflow: visible;
+  }
+
+  .rate-table--wide,
+  .tool-table--wide {
+    min-width: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -2402,8 +2442,7 @@ input[type="checkbox"] {
 
 /* Human/Machine view switch, matching the requested Cloudflare Connect control. */
 html[data-view-mode] .site-footer__inner {
-  gap: var(--space-2) var(--space-7);
-  padding-block: var(--space-4) calc(64px + env(safe-area-inset-bottom));
+  padding-bottom: calc(64px + env(safe-area-inset-bottom));
 }
 
 .view-mode[hidden],
@@ -2479,8 +2518,10 @@ html[data-view-mode] .site-footer__inner {
   background: var(--colour-mode-accent);
 }
 
-.view-mode__option input:focus-visible {
-  outline: none;
+@supports selector(:has(*)) {
+  .view-mode__option input:focus-visible {
+    outline: none;
+  }
 }
 
 html[data-view-mode="machine"],
