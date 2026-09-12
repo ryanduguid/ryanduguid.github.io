@@ -18,7 +18,7 @@ npm run test:lighthouse
 The focused capture check renders fabricated proof without changing the tracked
 image. Playwright covers routes, interaction, accessibility and visual
 snapshots. Lighthouse records repeat-run medians for the selected public
-journeys. Failure artifacts stay under ignored local output paths; do not
+journeys. Failure artefacts stay under ignored local output paths; do not
 commit them.
 
 ## Portable GitHub maintenance workflows
