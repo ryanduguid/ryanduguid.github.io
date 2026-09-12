@@ -315,6 +315,27 @@ def test_design_contracts() -> int:
 
     text_mutations = (
         (
+            "view switch shadow exception stays scoped",
+            "assets/site.css",
+            "body {",
+            "body {\n  box-shadow: 0 4px 16px var(--colour-mode-shadow);",
+            "banned CSS pattern box-shadow",
+        ),
+        (
+            "view switch blur exception stays scoped",
+            "assets/site.css",
+            "body {",
+            "body {\n  backdrop-filter: blur(10px);",
+            "banned CSS pattern backdrop-filter",
+        ),
+        (
+            "view switch still rejects gradients",
+            "assets/site.css",
+            ".view-mode {",
+            ".view-mode {\n  background: linear-gradient(var(--colour-paper), var(--colour-canvas));",
+            "banned CSS pattern linear-gradient",
+        ),
+        (
             "content security policy removed",
             "about/index.html",
             check_design.CSP_META + "\n",
