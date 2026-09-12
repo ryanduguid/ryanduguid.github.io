@@ -438,6 +438,8 @@ Field rules the schema cannot express, to be enforced by a check script:
 - Rows whose status is not `superseded` must not overlap and must be ordered
   by `period_start`; `period_end: null` is allowed on only one of them. A
   `superseded` row keeps its original period so the correction stays legible.
+  Every non-null `period_end` on a non-superseded row must be greater than or
+  equal to `period_start`; reject inverted effective periods.
 - `verified_at` must not be in the future and must not precede
   `period_start` of a row whose instrument was not yet made.
 - A row may be `superseded` only by a row in the same series naming its

@@ -115,6 +115,7 @@
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.10 or later and a free Xero developer app, about five minutes of one-off setup. It works with Xero's free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
+<span class="cmd">git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.6</span>
 <span class="cmd">cd accounting-review-pipeline/packages/xero-trial-balance-export</span>
 <span class="cmd">python -m pip install --require-hashes -r requirements.lock</span>
 <span class="comment"># copy .env.example to .env and add the app's client ID and secret, then:</span>

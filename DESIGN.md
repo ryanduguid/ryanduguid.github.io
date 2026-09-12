@@ -566,3 +566,13 @@ remain unchanged. Copy controls show pending feedback and prevent repeat clicks
 until the clipboard request finishes. Loading a saved cash forecast also shows
 status text while the browser reads the file. The footer disclaimer appears on
 all 30 styled pages; its wording is unchanged.
+
+## CodeRabbit finding corrections, 12 September 2026
+
+Ryan requested fixes to the existing review findings. The Division 7A
+explanation now holds the unpaid balance and remaining term constant
+when describing the effect of a higher rate. Its FAQ and JSON-LD use
+the same wording. Subcontractor skills name either compatible agent.
+The two evaluated installation examples now select their stated tags,
+and case-study links select recorded commits. Only the affected prose
+and JSON-LD baselines change; rates, CSVs and crawler rules stay intact.

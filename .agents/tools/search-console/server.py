@@ -65,6 +65,8 @@ def _credentials() -> Credentials:
         )
     try:
         details = json.loads(serialised)
+        if not isinstance(details, dict):
+            raise ValueError("stored credential must be an object")
         credentials = Credentials.from_authorized_user_info(details, SCOPES)
     except (TypeError, ValueError, json.JSONDecodeError) as error:
         raise RuntimeError(
@@ -321,6 +323,17 @@ def build_server() -> MCPServer:
 
 
 async def _self_test() -> None:
+    from unittest.mock import patch
+
+    # Patch the storage boundary before exercising malformed fabricated values.
+    for stored in ('[]', 'null', 'true', '42', '"fabricated"'):
+        with patch.object(keyring, 'get_password', return_value=stored):
+            try:
+                _credentials()
+            except RuntimeError as error:
+                assert 'credential is invalid' in str(error)
+            else:
+                raise AssertionError('non-object credential accepted')
     tools = await build_server().list_tools()
     expected = {
         "compare_search_performance",

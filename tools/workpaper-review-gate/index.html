@@ -98,6 +98,7 @@
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/accounting-review-pipeline.git
+git -C accounting-review-pipeline checkout review-ready-gate/v0.1.3
 cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready</code></pre>
