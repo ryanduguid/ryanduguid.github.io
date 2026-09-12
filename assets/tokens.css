@@ -94,6 +94,18 @@
   --colour-print-paper: #ffffff;
   --colour-print-ink: #000000;
 
+  /* The requested Cloudflare-style view switch has its own neutral palette. */
+  --colour-mode-surface: rgba(20, 20, 20, 0.85);
+  --colour-mode-rule: rgba(255, 255, 255, 0.12);
+  --colour-mode-ink: #ffffff;
+  --colour-mode-muted: rgba(255, 255, 255, 0.55);
+  --colour-mode-selected: rgba(255, 255, 255, 0.08);
+  --colour-mode-dot: rgba(255, 255, 255, 0.25);
+  --colour-mode-accent: var(--colour-stamp);
+  --colour-mode-shadow: rgba(0, 0, 0, 0.25);
+  --colour-machine-canvas: #0a0a0a;
+  --colour-machine-ink: #e6e6e6;
+
   --font-display: "IBM Plex Serif", Georgia, serif;
   --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;

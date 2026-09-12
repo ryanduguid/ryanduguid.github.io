@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 12 September 2026 Human/Machine switch follows Ryan's Cloudflare Connect
+reference. Its fixed bottom-centred pill, neutral surface, and blur are explicit
+exceptions to the register shapes below. The selected dot and keyboard focus
+outline use the existing green stamp accent, as Ryan requested in the follow-up.
+The control uses the existing IBM Plex Mono font, native keyboard controls,
+44px touch targets, and a saved view preference. Machine displays the current
+page's existing generated text and source links. The unindexed 404 page uses
+its existing text without a download. Page content and review boundaries
+remain unchanged.
+
 The approved 11 September 2026 portfolio follow-up leads the homepage with
 "Australian accounting tools, with the working explained." The first action
 opens the fictional cash-flow case and remains visible at 390 by 844 pixels.
