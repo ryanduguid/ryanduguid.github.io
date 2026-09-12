@@ -92,7 +92,7 @@ test('search, topic selection and a direct link can reveal the last question', a
   await expect(page.locator('details.question:visible')).toHaveCount(100);
   await page.goto('/tools/accounting-questions/#q100');
   await expect(page.locator('#q100')).toHaveAttribute('open', '');
-  await page.getByLabel('Select question 100', { exact: true }).check();
+  await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download selected checklist' }).click();
   const file = await download;
@@ -166,7 +166,7 @@ for (const [id, inputs, expected] of [
 
 test('printing includes selected questions hidden by a filter and restores the screen', async ({ page }) => {
   await page.goto('/tools/accounting-questions/#q100');
-  await page.getByLabel('Select question 100', { exact: true }).check();
+  await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();
   await page.getByLabel('Search questions').fill('BAS');
   await page.getByLabel('Topic', { exact: true }).selectOption('gst-bas');
   // Suppress only the native print dialog; exercise the real selection and CSS.
@@ -187,7 +187,7 @@ test('selected checklist retains worked examples and the topic review period', a
   await page.goto('/tools/accounting-questions/');
   for (const id of [36, 60, 61]) {
     await page.locator(`#q${id} summary`).click();
-    await page.getByLabel(`Select question ${id}`, { exact: true }).check();
+    await page.getByLabel(`Add to my checklist, question ${id}`, { exact: true }).check();
   }
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download selected checklist' }).click();
