@@ -21,7 +21,8 @@ if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') 
     status.className = 'copy-status';
     status.setAttribute('role', 'status');
     button.addEventListener('click', async () => {
-      status.textContent = '';
+      button.disabled = true;
+      status.textContent = 'Copying command...';
       const commands = [...pre.querySelectorAll('.cmd')];
       const text = (commands.length
         ? commands.map((command) => command.textContent).join('\n')
@@ -32,6 +33,8 @@ if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') 
         status.textContent = 'Copied to clipboard.';
       } catch {
         status.textContent = 'Copy unavailable. Select the command and copy it manually.';
+      } finally {
+        button.disabled = false;
       }
     });
     wrap.append(button, status);

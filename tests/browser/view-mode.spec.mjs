@@ -33,6 +33,9 @@ test('saved Machine mode follows the current page and synchronises other tabs', 
   await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Source: https://duguid.com.au/');
   await page.goto('/about/');
   await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Source: https://duguid.com.au/about/');
+  await page.goto('/privacy/');
+  await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('display preference');
+  await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement');
   const other = await context.newPage();
   await other.goto('/tools/');
   await expect(other.getByRole('radio', { name: 'Machine', exact: true })).toBeChecked();
@@ -91,10 +94,10 @@ test('text download failures offer a working way back and can be retried', async
   await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Source: https://duguid.com.au/');
 });
 
-test('Human content stays usable when JavaScript is disabled', async ({ browser }) => {
-  const context = await browser.newContext({ javaScriptEnabled: false });
+test('Human content stays usable when JavaScript is disabled', async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false, baseURL });
   const page = await context.newPage();
-  await page.goto('http://127.0.0.1:4173/');
+  await page.goto('/');
   await expect(page.locator('#main')).toBeVisible();
   await expect(page.getByRole('radiogroup', { name: 'View mode' })).toBeHidden();
   await expect(page.getByRole('link', { name: 'Machine-readable index', exact: true })).toBeVisible();

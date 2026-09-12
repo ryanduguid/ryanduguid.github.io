@@ -2,7 +2,7 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-Last reviewed 11 September 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
+Last reviewed 12 September 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
@@ -13,6 +13,8 @@ He is distinct from the United States software product executive Ryan Duguid who
 Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval, or period lock. Nothing here is tax, legal, or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
+
+- [Privacy and site use](https://duguid.com.au/privacy/): browser calculations, cookies, hosting, feedback and links to the advice boundaries and software licences.
 
 - **Profit and cash** (https://duguid.com.au/evaluate/#profit-and-cash): a fictional Newcastle service-business forecast, with a downloadable Excel workbook and synthetic source files. Delaying one $44,000 receipt by 45 days creates a $25,160 daily cash shortfall while quarterly profit before income tax stays $35,957.55. The independent accountant trial is pending; no client outcome or time saving is claimed.
 - **Adopt** (https://duguid.com.au/#adopt): use the supported install commands and evaluate tools with fabricated data.

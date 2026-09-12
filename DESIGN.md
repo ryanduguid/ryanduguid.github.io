@@ -384,9 +384,9 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `3BED4ECAF9667EA6B3D50CFF0CF659917B18841038B240C54A84F99764546D46`
+- `llms.txt`: SHA-256 `11784D27EBF1B945AB270B36FAC80BF7336F3B5082FB2508B0D4FD1D9C2A5552`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `30CCD386898C3B1C3121363AC067E711B619BFF65FF10BD11A89871BC83BDABB`
+- `sitemap.xml`: SHA-256 `47B25A4DA228C73DEF72BEA490B0CB71682D2B02F656D3017E19BA285423D779`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -547,3 +547,14 @@ The question filters occupy their space before JavaScript loads. The shared
 script loads calculator arithmetic only on pages with calculator forms. The
 preview negotiates gzip for text resources to match verified GitHub Pages
 delivery. Lighthouse thresholds remain unchanged.
+
+## Website checklist, 12 September 2026
+
+The Privacy and site use page records browser data handling, cookies, hosting,
+feedback and the existing advice and licence boundaries. Its shared footer link
+and machine-index entry make the notice discoverable. The two index hashes above
+include this page. Existing routes, rates, crawler rules and advice boundaries
+remain unchanged. Copy controls show pending feedback and prevent repeat clicks
+until the clipboard request finishes. Loading a saved cash forecast also shows
+status text while the browser reads the file. The footer disclaimer appears on
+all 30 styled pages; its wording is unchanged.
