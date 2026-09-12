@@ -130,8 +130,8 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    review_date = "2 September 2026"
-    modified_date = "2026-09-02"
+    review_date = "12 September 2026"
+    modified_date = "2026-09-12"
     homepage_title = (
         "Ryan Duguid: open-source Australian accounting controls"
     )
@@ -224,7 +224,7 @@ def test_geo_leftovers_surface() -> None:
     # the rates hub kept the GEO-pass date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("11 September 2026", "2026-09-11"),
+        "evaluate/index.html": ("12 September 2026", "2026-09-12"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -541,8 +541,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 11 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 11 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 12 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 12 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -652,7 +652,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "11 September 2026", "2026-09-11"),
+        ("index.html", "12 September 2026", "2026-09-12"),
         ("tools/index.html", "11 September 2026", "2026-09-11"),
         ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
@@ -1283,8 +1283,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 10 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 12 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 12 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),

@@ -16,11 +16,11 @@ Public register / Australian accounting controls
 
 # Australian accounting tools, with the working explained.
 
-I'm Ryan Duguid, an accountant in Newcastle. Explore a fictional business's cash forecast, inspect month-end exceptions, or try an Australian payroll calculation.
+I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 11 September 2026.
+Last reviewed 12 September 2026.
 
 Explore the cash-flow example Browse all tools
 
@@ -62,11 +62,11 @@ Australian tax tools for AI agents
 
 Review aids only. No client files. No lodgement. Human sign-off.
 
-Scope 01 Accounting workflow controls
+Scope Accounting workflow controls
 
-Method 02 Primary sources and exact arithmetic
+Method Primary sources and exact arithmetic
 
-Boundary 03 Calculation is not judgement
+Boundary Calculation is not judgement
 
 ## Worked proof
 
@@ -184,17 +184,15 @@ Xero trial balance integrity Reproduce the balanced-export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-Run fabricated records or the public sample files. Check the output against current primary sources.
+The evaluations pin the release they reproduce. The install commands fetch the current release, so check the version before comparing results.
 
 Verify
 
 ## Check the source before the result.
 
-Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open-source index in his own time and on his own equipment. It is not an accounting practice.
+Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open-source index in his own time and on his own equipment.
 
 Source on GitHub
-
-Credentials establish a limited identity claim. Releases establish what shipped. Evaluations show whether declared inputs reproduce the expected refusal or result.
 
 Professional body
 
@@ -272,7 +270,19 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 11 September 2026.
+Last reviewed 12 September 2026.
+
+## The short facts
+
+Name | Ryan Duguid, accountant in Newcastle, NSW
+Based in | Newcastle, New South Wales, Australia
+Not the same person | I am not the US software product executive of the same name.
+Field | Accounting, Australian taxation, payroll, and statutory compliance
+Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I am Xero L3 Specialist Certified.
+Education | Bachelor of Commerce (Accounting), University of Newcastle
+Code | github.com/ryanduguid
+LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
 
 ## What my public work demonstrates
 
@@ -287,18 +297,6 @@ These examples use fabricated data. Their evidence covers the supplied cases and
 The tools cite legislation, regulator guidance, or an accounting standard and refuse a result when the supplied facts do not settle the test.
 
 The evidence register links identity, releases, source reviews, repository controls, and reproducible tests. It also states what those records cannot establish.
-
-## The short facts
-
-Name | Ryan Duguid, accountant in Newcastle, NSW
-Based in | Newcastle, New South Wales, Australia
-Not the same person | I am not the US software product executive of the same name.
-Field | Accounting, Australian taxation, payroll, and statutory compliance
-Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
-Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I am Xero L3 Specialist Certified.
-Education | Bachelor of Commerce (Accounting), University of Newcastle
-Code | github.com/ryanduguid
-LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
 
 ## What I build
 
@@ -349,12 +347,12 @@ I write and maintain this site in my own time and on my own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
+- github.com/ryanduguid: https://github.com/ryanduguid
+- linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Lumbridge case: https://duguid.com.au/evaluate/#profit-and-cash
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
-- github.com/ryanduguid: https://github.com/ryanduguid
-- linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Payday super timing and SG charge exposure: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate keeps incomplete packs off the review desk: https://duguid.com.au/tools/workpaper-review-gate/
 - A Xero trial balance export that has to balance: https://duguid.com.au/tools/xero-trial-balance/
@@ -552,7 +550,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
 
-Last reviewed 11 September 2026.
+Last reviewed 12 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -594,6 +592,8 @@ This is a maintainer-prepared demonstration. Its calculations have technical ver
 Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.
 
 Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
+
+Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.
 
 ## Five-minute accounting cases
 
@@ -1048,9 +1048,9 @@ Source: https://duguid.com.au/rates/
 
 Three maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
 
-Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages.
+Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 2 September 2026.
+Last reviewed 12 September 2026.
 
 ## Super guarantee rate history
 
@@ -1167,9 +1167,10 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Division 7A benchmark interest rate
 - Cents per kilometre rate for car expenses
 - Coal LSL levy calculator
+- Staff cost calculator
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 2 September 2026.
+Published 24 August 2026. Last reviewed 12 September 2026.
 
 ## Links
 
@@ -1183,6 +1184,7 @@ Published 24 August 2026. Last reviewed 2 September 2026.
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/#staff
 - About Ryan Duguid: https://duguid.com.au/about/
 
 ---
@@ -2617,7 +2619,7 @@ This tool pulls the trial balance from Xero's own reporting API and refuses to w
 
 Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures.
 
-Published 24 August 2026. Last reviewed 10 September 2026.
+Published 24 August 2026. Last reviewed 12 September 2026.
 
 This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements, and year-to-date balances.
 
@@ -2694,6 +2696,7 @@ No file is written. The balance check runs before anything reaches disk, and bot
 - Turn trial balance CSVs into a monthly close exception report
 - How a business compares to the ATO benchmarks
 - When is payday super due
+- What the Xero trial balance export refuses
 - Evidence and Assurance
 - About Ryan Duguid
 
@@ -2710,6 +2713,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
+- What the Xero trial balance export refuses: https://duguid.com.au/tools/refusals/#xero-trial-balance
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
 
@@ -2727,7 +2731,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.0, tagged source on GitHub.
 
-Published 25 August 2026. Last reviewed 11 September 2026.
+Published 25 August 2026. Last reviewed 12 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -2824,6 +2828,7 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. Use the supported 
 - When is payday super due
 - ATO small business benchmark comparison
 - Super guarantee rate history
+- What the Aus Accounting MCP refuses
 - Evidence and Assurance
 - About Ryan Duguid
 
@@ -2852,6 +2857,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- What the Aus Accounting MCP refuses: https://duguid.com.au/tools/refusals/#aus-accounting-mcp
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
 
@@ -2869,7 +2875,7 @@ This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCK
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures.
 
-Published 25 August 2026. Last reviewed 4 September 2026.
+Published 25 August 2026. Last reviewed 12 September 2026.
 
 Preparation got cheaper and review did not. Offshore teams, juniors, and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email, and the same error as last period.
 
@@ -2924,6 +2930,7 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - Fabricated BAS evaluation and expected results
 - How to export a Xero trial balance to CSV that balances
 - Monthly Close Controls
+- What Workpaper Review Gate refuses
 - Evidence and Assurance
 - About Ryan Duguid
 
@@ -2937,6 +2944,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Fabricated BAS evaluation and expected results: https://duguid.com.au/evaluate/manager-review-gate/
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
+- What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate
 - Evidence and Assurance: https://duguid.com.au/evidence/
 - About Ryan Duguid: https://duguid.com.au/about/
 
@@ -2950,9 +2958,9 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-This site is a personal index of open-source accounting tools I build in my own time and on my own equipment.
+Email is welcome for feedback on the cash-flow example, a tool result you could not reproduce, or an independent review of the Lumbridge case.
 
-It is not a practice, and I am not accepting professional engagements through this site.
+This site is a personal index of open-source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
 
 ## Feedback on the cash-flow example
 
@@ -2970,7 +2978,7 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
 
-Published 30 August 2026. Last reviewed 11 September 2026.
+Published 30 August 2026. Last reviewed 12 September 2026.
 
 ## Links
 
@@ -3050,7 +3058,7 @@ Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs
 
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 
-Published 11 September 2026. Last reviewed 11 September 2026.
+Published 11 September 2026. Last reviewed 12 September 2026.
 
 ## Inputs
 
@@ -3125,6 +3133,7 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 
 - Export a Xero trial balance to CSV
 - Check a workpaper pack before manager review
+- What Monthly Close Controls refuses
 - Reproducible examples and evaluations
 - Evidence and Assurance
 
@@ -3139,6 +3148,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
+- What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
 - Reproducible examples and evaluations: https://duguid.com.au/evaluate/
 - Evidence and Assurance: https://duguid.com.au/evidence/
 
@@ -4712,7 +4722,7 @@ Work through a business decision with supplied amounts and visible formulas. Cal
 
 Find a question and prepare a checklist.
 
-Published and reviewed 11 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+Published 11 September 2026. Last reviewed 12 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
 
 JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
 
@@ -4792,6 +4802,8 @@ Difference = actual − budget. Percentage = difference / absolute budget × 100
 
 Budget explanation checklist
 
+Monthly Close Controls compares trial balance CSVs and lists material movements for review.
+
 Budget variance inputs
 
 Actual (AUD) Budget (AUD)
@@ -4829,6 +4841,8 @@ Calculate Enter the inputs and calculate.
 Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
 
 business.gov.au: cash flow
+
+The Lumbridge cash-flow case works the same question with a 45-day receipt delay.
 
 13-week cash forecast inputs
 
@@ -4879,9 +4893,11 @@ Download forecast CSV
 - Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/#q15
 - business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/#q75
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
 - Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Lumbridge cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
 
 ---
 

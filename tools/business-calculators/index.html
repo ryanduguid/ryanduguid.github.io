@@ -53,7 +53,7 @@
         <h1>Business calculators</h1>
         <p class="lead-note">Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
-        <p class="page-meta">Published and reviewed 11 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 12 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.</p></noscript>
@@ -116,6 +116,7 @@
 </form></section>
 <section class="business-calculator" id="variance">
 <h2>Budget variance</h2><p>Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.</p><p><a href="/tools/accounting-questions/#q75">Budget explanation checklist</a></p>
+<p><a href="/tools/monthly-close-controls/">Monthly Close Controls</a> compares trial balance CSVs and lists material movements for review.</p>
 <form data-calculator="variance">
 <fieldset disabled><legend>Budget variance inputs</legend><div class="form-grid"><label class="field" for="variance-actual">Actual (AUD)<input id="variance-actual" name="actual" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="variance-budget">Budget (AUD)<input id="variance-budget" name="budget" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
@@ -145,6 +146,7 @@
 </form></section>
 <section class="business-calculator" id="cash">
 <h2>13-week cash forecast</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
+<p>The <a href="/evaluate/#profit-and-cash">Lumbridge cash-flow case</a> works the same question with a 45-day receipt delay.</p>
 <form data-calculator="cash">
 <fieldset disabled><legend>13-week cash forecast inputs</legend>
 <div class="form-grid"><label class="field" for="cash-start">First day of week 1<input id="cash-start" name="start-date" type="date" min="1900-01-01" max="9999-10-02" required /></label>
@@ -194,7 +196,7 @@
       "description": "Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-11",
+      "dateModified": "2026-09-12",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

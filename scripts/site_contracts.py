@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-11"
-MCP_VISIBLE_REVIEW_DATE = "11 September 2026"
+MCP_REVIEW_DATE = "2026-09-12"
+MCP_VISIBLE_REVIEW_DATE = "12 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -620,8 +620,8 @@ HOMEPAGE_HEADING_MARKUP = (
     '<h1 id="home-title">Australian accounting tools, with the working explained.</h1>'
 )
 HOMEPAGE_SUPPORT = (
-    "I'm Ryan Duguid, an accountant in Newcastle. Explore a fictional business's "
-    "cash forecast, inspect month-end exceptions, or try an Australian payroll calculation."
+    "I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business "
+    "whose quarterly profit never moves while its cash runs $25,160 short."
 )
 HOMEPAGE_ACTIONS = (
     ("/evaluate/#profit-and-cash", "Explore the cash-flow example"),
