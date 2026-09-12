@@ -127,6 +127,7 @@
 .cash-scroll {
   max-width: 100%;
   overflow-x: auto;
+  overscroll-behavior-inline: contain;
   margin-block: var(--space-4);
 }
 
