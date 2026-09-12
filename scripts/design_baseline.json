@@ -6,7 +6,7 @@
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "80702aedd270440b3e09f1ecffc8fd40c4e439239736907bfb32605ee3ad74d9",
-    "rates/div7a-benchmark-rate/index.html": "27279ae23c241782628c4bf28b18a5035156281ac193d4cee6cea36bffe2e15b",
+    "rates/div7a-benchmark-rate/index.html": "14d828395b564b2e8713c602c71948e50e6409982ca149840eae59bbc0ebc3fd",
     "rates/cents-per-kilometre/index.html": "b04c5aaff56d7bb2c2a102ba027e9e2a266ba2526391f1da5be324e15c4580c7"
   },
   "protected_main_links": {
@@ -89,7 +89,7 @@
       "84da9823fed754240d53c8f4167569ef01aa9d0ab0726cbae311cae9096807e0"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "f4d5edba35c9a1da52a979c84f186aa5e7fe56e49c2a3ca4d6325560b2ec849e"
+      "8617655d08de21389aecb5563220fc323d704b96d606ae88ea7682e338549c04"
     ],
     "rates/index.html": [
       "ccf8f3c65de6203b7fcb62ccfb308382c795ead3b305153446477c4679d2d57c"
@@ -116,7 +116,7 @@
       "567694153f2f9e1290a35854c7628d8270b09de4278db2b92ebd75081ac5f60d"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "89c556bc0995dce149208bd44393abbb4151e8a27bdb7c3658c47f06967355cb"
+      "04b1b8c66d1e627c54b077af05fc50b76b2367c7463cca1f60f9ebd4b0d2fe72"
     ],
     "tools/trust-distributions/index.html": [
       "e9212b77172145f93d546a126ea4ae4e4875c7f5d6510c380a092ef0df1086b2"
