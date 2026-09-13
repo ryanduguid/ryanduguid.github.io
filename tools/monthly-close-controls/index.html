@@ -92,13 +92,13 @@
               <table class="tool-table--wide">
                 <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: -$250.</td><td>Trace the reconciling items and document their cause.</td></tr>
+                  <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: ($250).</td><td>Trace the reconciling items and document their cause.</td></tr>
                   <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account's review group.</td></tr>
                   <tr><th scope="row">Financial year reset</th><td>The comparison crosses 1 July.</td><td>Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.</td></tr>
                 </tbody>
               </table>
             </div>
-            <p>Five threshold movements make up the remaining exceptions. Eight exceptions do not establish 8 accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
+            <p>Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
             <p>The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md">captured manager case study</a> explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fabricated.</p>
           </section>
           <section id="get-it" class="install-panel">

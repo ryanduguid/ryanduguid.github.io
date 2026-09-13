@@ -169,26 +169,16 @@
             </p>
             <p>
               Published products expose release assets through the release pages linked
-              above. Their repository attestation indexes provide inspectable SLSA
-              provenance and SPDX SBOM records:
-              <a href="https://github.com/ryanduguid/australian-accounting/attestations">Aus Accounting MCP attestations</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/attestations">Payday Super attestations</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/attestations">ATO benchmark attestations</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/attestations">trust distribution attestations</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/attestations">company tax attestations</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting-skills/attestations">Hardhat Ledger attestations</a>,
-              <a href="https://github.com/ryanduguid/accounting-review-pipeline/attestations">Xero export attestations</a>,
-              and <a href="https://github.com/ryanduguid/australian-accounting-skills/attestations">Australian Accounting Skills attestations</a>.
-              The release workflow pages separately show the workflow definitions and
-              their current run results:
-              <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml">Aus Accounting MCP</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml">Payday Super</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml">ATO benchmarks</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml">trust distributions</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-the-exchequer-tally.yml">company tax</a>,
-              <a href="https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml">Hardhat Ledger</a>,
-              <a href="https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml">Xero export</a>,
-              and <a href="https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml">Australian Accounting Skills</a>.
+              above. Each repository's attestation index provides inspectable SLSA
+              provenance and SPDX SBOM records, and each release workflow page shows
+              the workflow definition and its current run results:
+            </p>
+            <ul>
+              <li>australian-accounting: <a href="https://github.com/ryanduguid/australian-accounting/attestations">attestations</a>; release workflows for <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml">Aus Accounting MCP</a>, <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml">Payday Super</a>, <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml">ATO benchmarks</a>, <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml">trust distributions</a> and <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-the-exchequer-tally.yml">company tax</a></li>
+              <li>australian-accounting-skills (Hardhat Ledger included): <a href="https://github.com/ryanduguid/australian-accounting-skills/attestations">attestations</a>; <a href="https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml">release workflow</a></li>
+              <li>accounting-review-pipeline (Xero export): <a href="https://github.com/ryanduguid/accounting-review-pipeline/attestations">attestations</a>; <a href="https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml">release workflow</a></li>
+            </ul>
+            <p>
               Passing tests proves only the specified behaviour under the tested
               conditions. It does not prove a real-world accounting conclusion or a
               client outcome.

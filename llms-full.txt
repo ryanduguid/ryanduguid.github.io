@@ -320,7 +320,7 @@ The tools extract records into a reviewable shape, apply deterministic calculati
 
 ## How the work is grounded
 
-I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992 . The rate history records the figures, source dates, and review boundary.
+I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates, and review boundary.
 
 - Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
@@ -407,7 +407,7 @@ Install commands are under Adopt. The package, release, compatibility, and licen
 
 ## Sources and review dates
 
-Start with current Commonwealth legislation, such as the Income Tax Assessment Act 1997 . Regulator material supplies administrative and operational guidance, while accounting standards govern questions within their scope. Check the current primary source before each calculation; secondary summaries are not authoritative.
+Start with current Commonwealth legislation, such as the Income Tax Assessment Act 1997. Regulator material supplies administrative and operational guidance, while accounting standards govern questions within their scope. Check the current primary source before each calculation; secondary summaries are not authoritative.
 
 - Payday Super primary source review and ATO benchmark source notes.
 - Trust distribution statutory review record and company tax and franking statutory review record.
@@ -432,7 +432,13 @@ Ryan Duguid publishes a security policy for the Aus Accounting MCP, Payday Super
 
 Each repository shows its current GitHub Actions results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills, and this site.
 
-Published products expose release assets through the release pages linked above. Their repository attestation indexes provide inspectable SLSA provenance and SPDX SBOM records: Aus Accounting MCP attestations, Payday Super attestations, ATO benchmark attestations, trust distribution attestations, company tax attestations, Hardhat Ledger attestations, Xero export attestations, and Australian Accounting Skills attestations. The release workflow pages separately show the workflow definitions and their current run results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, Xero export, and Australian Accounting Skills. Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
+Published products expose release assets through the release pages linked above. Each repository's attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
+
+- australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and company tax
+- australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
+- accounting-review-pipeline (Xero export): attestations; release workflow
+
+Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
 
 ## Human accountability and refusals
 
@@ -522,16 +528,16 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/actions
 - this site: https://github.com/ryanduguid/ryanduguid.github.io/actions
-- Aus Accounting MCP attestations: https://github.com/ryanduguid/australian-accounting/attestations
-- Hardhat Ledger attestations: https://github.com/ryanduguid/australian-accounting-skills/attestations
-- Xero export attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
+- attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
 - Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml
 - ATO benchmarks: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml
 - trust distributions: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml
 - company tax: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-the-exchequer-tally.yml
-- Hardhat Ledger: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
-- Xero export: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
+- attestations: https://github.com/ryanduguid/australian-accounting-skills/attestations
+- release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
+- attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
+- release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
 - Report any mismatch in the site repository.: https://github.com/ryanduguid/ryanduguid.github.io/issues
 
 ---
@@ -603,10 +609,10 @@ Start with a review question and inspect the synthetic inputs, command, and outp
 
 The synthetic July close returns REVIEW: 8 exceptions, none blocked. Three findings explain why the balanced trial balance still needs attention.
 
-Three findings from the supplied case. Eight exceptions do not establish 8 accounting errors.
+Three findings from the supplied case. The 8 exceptions are not 8 accounting errors.
 
 Finding | Evidence | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: -$250. | Trace the difference and document its cause.
+Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the difference and document its cause.
 Account mapping | Operating Expenses account 6000 has no review-group mapping. | Confirm the mapping and review owner.
 Financial-year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
 
@@ -1118,11 +1124,11 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Verified 30 August 2026 against the ATO's super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992 .
+Verified 30 August 2026 against the ATO's super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992.
 
 ## Current rate
 
-The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and stays at 12% in later years. From 1 July 2026, the timing changes under Payday Super: contributions are generally due within 7 business days of each payday rather than quarterly. The rate stays 12%; only the payment schedule changes.
+12% since 1 July 2025, with no later step scheduled. From 1 July 2026, Payday Super changed the timing: contributions are generally due within 7 business days of each payday rather than quarterly. Only the payment schedule changed.
 
 Period | General SG rate (%)
 1 July 2025 onwards | 12.00
@@ -1227,7 +1233,7 @@ The data is at the Reserve Bank's statistical tables, table F5.
 
 ## What the rate is for
 
-A loan from a private company to a shareholder or an associate is treated as a dividend unless it is put on terms that satisfy section 109N, all of which have to be in place before the lodgment day for the year the loan was made. Section 109N(1) asks for 3 things: a written agreement, a rate of interest for years after the year the loan was made that equals or exceeds that year's benchmark rate, and a term inside the maximum. The minimum yearly repayment is then calculated using the current year's benchmark rate under section 109E. The maximum term is 7 years, or twenty-five years where the loan is fully secured by a registered mortgage over real property and the property's value, net of prior liabilities, is at least 110% of the loan.
+A loan from a private company to a shareholder or an associate is treated as a dividend unless it is put on terms that satisfy section 109N, all of which have to be in place before the lodgment day for the year the loan was made. Section 109N(1) asks for 3 things: a written agreement, a rate of interest for years after the year the loan was made that equals or exceeds that year's benchmark rate, and a term inside the maximum. The minimum yearly repayment is then calculated using the current year's benchmark rate under section 109E. The maximum term is 7 years, or 25 years where the loan is fully secured by a registered mortgage over real property and the property's value, net of prior liabilities, is at least 110% of the loan.
 
 A higher benchmark rate increases the minimum yearly repayment when the unpaid balance and remaining term are unchanged.
 
@@ -1251,7 +1257,7 @@ Yes. The minimum yearly repayment uses that year's benchmark rate, the unpaid ba
 
 ### What is the maximum term for a complying Division 7A loan?
 
-Seven years, or twenty-five years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
+Seven years, or 25 years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
 
 General reference only, not tax, legal, or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
 
@@ -2128,7 +2134,7 @@ Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub.
 
 Published 24 August 2026. Last reviewed 10 September 2026.
 
-Checking a business against the benchmarks before lodgement is a useful review step, and most people do it by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
+Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
 
 This tool does that on your own machine, with no network call in the runtime, and it records which account went into which figure so a second reviewer can check your working later. It applies the ATO's own narrow definitions rather than a rough 'expenses over income': wages sitting inside cost of sales come out of that ratio, and payments to associated persons come out of total expenses before the division.
 
@@ -2277,7 +2283,7 @@ This verifies the published command's behaviour on fabricated inputs. Confirm re
 
 Nothing this engine produces is tax, legal, or financial advice, an assessment or a determination. Outputs are review aids: confirm every allocation, zone, and exemption against the current law, the trust deed, and the entity's facts before acting, and leave lodgement decisions with a registered practitioner.
 
-Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936 .
+Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject.
 
@@ -2340,7 +2346,7 @@ Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub.
 
 Published 24 August 2026. Last reviewed 11 September 2026.
 
-This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and the 30 per cent offset reduction penalty where a deficit exceeds 10% of annual credits. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
+This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and the 30% offset reduction penalty where a deficit exceeds 10% of annual credits. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
 It builds the statement fields a dividend distribution statement needs, too. That is a review helper for the statement, not a lodgement or a compliance certificate.
 
@@ -2364,7 +2370,7 @@ python -m pip install "the-exchequer-tally==0.1.3"
 
 Published package and release instructions.
 
-Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997 .
+Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject.
 
@@ -2522,7 +2528,7 @@ Published 25 August 2026. Last reviewed 10 September 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims, and present each contract as an asset or a liability, never a portfolio net.
 
-This tool does the arithmetic. Install the Python engine, point it at a contract CSV, and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability, and any onerous-contract provision stay with a person. subcontractor ledger skills owns that workflow: it assembles the file and names this engine rather than inventing the numbers.
+This tool does the arithmetic. Install the Python engine, point it at a contract CSV, and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability, and any onerous-contract provision stay with a person. The subcontractor ledger skills own that workflow: they assemble the file and name this engine rather than inventing the numbers.
 
 ## What this tool does
 
@@ -2623,15 +2629,12 @@ Published 24 August 2026. Last reviewed 12 September 2026.
 
 This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements, and year-to-date balances.
 
-Before anything is written to disk, it runs a balance check: both the current month's movement and the year-to-date figures must balance, or no file is written at all. Note the real limit: --date is an as-at date, not a range, because Xero's Trial Balance endpoint only accepts a date, so Trial Balance by Date Range, a report that exists in the Xero interface only, cannot be reproduced this way. The movement columns already cover the usual reason someone reaches for a range: the current month.
-
-It is read-only. The scope it asks Xero for is report reading only, so it cannot write anything back to your ledger.
+Before anything is written to disk, it runs a balance check: both the current month's movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero's Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
 ## What this tool does
 
 - Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel, or pandas loads without clean-up.
 - Refuses to write a file unless both the month's movement and the year-to-date figures balance.
-- Is read-only: it cannot write to any ledger.
 
 ## Limits
 
@@ -2763,7 +2766,7 @@ Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusi
 
 ## Primary sources
 
-Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2. Benchmark comparisons use the ATO's small business benchmarks. The limited Division 7A review applies sections 109N and 109E of the Income Tax Assessment Act 1936 .
+Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2. Benchmark comparisons use the ATO's small business benchmarks. The limited Division 7A review applies sections 109N and 109E of the Income Tax Assessment Act 1936.
 
 Each engine's source review and release record state what was checked. Verify current sources and the supplied facts before using an output.
 
@@ -2779,9 +2782,9 @@ claude mcp add aus-accounting -- uvx aus-accounting-mcp
 codex mcp add aus-accounting -- uvx aus-accounting-mcp
 ```
 
-The supported Adopt route remains the maintained source for these commands and the skills variant.
+The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
 
-aus-accounting-mcp has a published PyPI record and remains available from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
+aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject.
 
@@ -2809,7 +2812,7 @@ No. It does not lodge, declare, or replace a registered agent. SBR payloads it c
 
 ### When is a Payday Super contribution on time?
 
-Since 1 July 2026, the fund must receive it within 7 business days of payday, or twenty business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock.
+Since 1 July 2026, the fund must receive it within 7 business days of payday, or 20 business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock.
 
 ### Who maintains these tools?
 
@@ -2817,11 +2820,11 @@ Ryan Duguid is an Australian accountant based in Newcastle, New South Wales. He 
 
 ### Where is aus-accounting-mcp available?
 
-aus-accounting-mcp has a published PyPI record and remains available from its source repository. Use the supported Adopt route for the maintained install command; it keeps the repository and executable explicit.
+On PyPI and from its source repository. Install with the commands under Adopt; they name the repository and the executable.
 
 ### Is aus-accounting-mcp on the official MCP registry?
 
-Yes. The listing name is io.github.ryanduguid/aus-accounting. Use the supported Adopt route for the maintained installation path.
+Yes. The listing name is io.github.ryanduguid/aus-accounting. The install commands under Adopt are the maintained path.
 
 ## Related
 
@@ -2849,7 +2852,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
-- The supported Adopt route: https://duguid.com.au/#adopt
+- Adopt: https://duguid.com.au/#adopt
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/
@@ -3080,11 +3083,11 @@ PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED
 The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
 
 Exception | Result | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: -$250. | Trace the reconciling items and document their cause.
+Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the reconciling items and document their cause.
 Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
 Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.
 
-Five threshold movements make up the remaining exceptions. Eight exceptions do not establish 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
+Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
 
 The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fabricated.
 
