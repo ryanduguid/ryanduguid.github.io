@@ -49,7 +49,16 @@ $inkSoft = Rgb $tokens['ink-soft']
 $stamp = Rgb $tokens['stamp']
 $alert = Rgb $tokens['alert']
 
+Add-Type -Namespace Win32 -Name Native -MemberDefinition @'
+[DllImport("user32.dll")]
+public static extern uint GetWindowThreadProcessId(IntPtr hWnd, out uint processId);
+'@
+
 $xl = New-Object -ComObject Excel.Application
+# The process behind this COM instance, so cleanup can never touch another
+# Excel automation that starts while the export runs.
+[uint32]$excelPid = 0
+[void][Win32.Native]::GetWindowThreadProcessId([IntPtr]$xl.Hwnd, [ref]$excelPid)
 try {
   $xl.Visible = $false
   $xl.DisplayAlerts = $false
@@ -166,8 +175,13 @@ try {
   $xl.Quit()
   [void][System.Runtime.InteropServices.Marshal]::ReleaseComObject($xl)
   [GC]::Collect()
+  [GC]::WaitForPendingFinalizers()
   Start-Sleep -Seconds 2
-  Get-Process EXCEL -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowHandle -eq 0 } | Stop-Process -Force
+  # Quit() leaves this build's EXCEL.EXE behind; stop only the process this
+  # script created, and only if it is still there.
+  if ($excelPid -ne 0) {
+    Get-Process -Id $excelPid -ErrorAction SilentlyContinue | Stop-Process -Force
+  }
 }
 
 $hash = (Get-FileHash $out -Algorithm SHA256).Hash.ToLower()
