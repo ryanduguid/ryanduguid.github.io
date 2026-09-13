@@ -18,6 +18,29 @@ test('calculator load failure explains recovery and reload retries the module', 
   expect(errors).toEqual([]);
 });
 
+test('an invalid business calculator field gets an inline instruction and focus', async ({ page }) => {
+  await page.goto('/tools/business-calculators/');
+  const form = page.locator('#gst form');
+  const amount = form.locator('input[name=amount]');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await calculate.click();
+  await expect(amount).toHaveAttribute('aria-invalid', 'true');
+  await expect(amount).toBeFocused();
+  await expect(form.locator('.field-error')).toHaveText('Enter an amount.');
+  await expect(form.locator('output')).toHaveText('Enter the inputs and calculate.');
+  await amount.fill('-1');
+  await expect(form.locator('.field-error')).toHaveCount(0);
+  await calculate.click();
+  await expect(form.locator('.field-error')).toHaveText('Enter $0.00 or more.');
+  await amount.fill('1.005');
+  await calculate.click();
+  await expect(form.locator('.field-error')).toHaveText('Use no more than two decimal places.');
+  await amount.fill('1.01');
+  await calculate.click();
+  await expect(form.locator('.field-error')).toHaveCount(0);
+  await expect(form.locator('output')).toContainText('GST: $0.10');
+});
+
 test('question search finds abbreviations and words in the guidance', async ({ page }) => {
   const requests = [];
   page.on('request', request => requests.push(request.url()));

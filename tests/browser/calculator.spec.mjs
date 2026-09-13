@@ -94,6 +94,16 @@ test('home proof announces the applied formula and rejects an oversized combined
   health.assertHealthy();
 });
 
+test('a negative amount gets the page wording, not the browser validation text', async ({ page }) => {
+  await page.goto('/tools/coal-lsl-levy/');
+  const field = page.getByRole('spinbutton', { name: 'Base rate of pay', exact: true });
+  await field.fill('-5');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('#calc-form .field-error')).toHaveText('Enter $0.00 or more.');
+  await expect(field).toHaveAttribute('aria-describedby', /baseRate-error/);
+  await expect(field).toBeFocused();
+});
+
 test('every calculator branch and added bonus rejects oversized amounts and recovers', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');

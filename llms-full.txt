@@ -20,7 +20,7 @@ I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business who
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 12 September 2026.
+Last reviewed 14 September 2026.
 
 Explore the cash-flow example Browse all tools
 
@@ -28,7 +28,7 @@ Explore the cash-flow example Browse all tools
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. An independent accountant trial is pending.
+Synthetic demonstration. An independent accountant trial is pending. Offer a review of the Lumbridge case.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
@@ -230,6 +230,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 - Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
 - Browse all tools: https://duguid.com.au/tools/
+- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Extract: https://duguid.com.au/tools/#extract-tools
@@ -398,12 +399,12 @@ Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or
 
 Install commands are under Adopt. The package, release, compatibility, and licence links below point to maintained records.
 
-- Aus Accounting MCP: MCP Registry, PyPI, repository, releases, owned engine compatibility source, and licence.
-- payday-super-checker: PyPI, repository, releases, owned release records, and licence.
-- ATO benchmarks, trust distributions, and company tax: ato-benchmark-compare repository, releases, and licence; Solomon's Sword repository, releases, and licence; The Exchequer Tally repository, releases, and licence.
-- Agent skills and construction WIP: Australian Accounting Skills, releases, and licence; Hardhat Ledger, releases, and licence; TheWIPTally repository and licence.
-- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, owned release and compatibility record, and licence; Workpaper Review Gate repository, owned release record, and licence.
-- Coal LSL calculator and this record: site repository and licence.
+- Aus Accounting MCP: MCP Registry , PyPI , repository , releases , owned engine compatibility source, and licence .
+- payday-super-checker: PyPI , repository , releases , owned release records, and licence .
+- ATO benchmarks, trust distributions, and company tax: ato-benchmark-compare repository, releases , and licence ; Solomon's Sword repository, releases , and licence ; The Exchequer Tally repository, releases , and licence .
+- Agent skills and construction WIP: Australian Accounting Skills, releases , and licence ; Hardhat Ledger, releases , and licence ; TheWIPTally repository and licence .
+- Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases , owned release and compatibility record, and licence ; Workpaper Review Gate repository, owned release record, and licence .
+- Coal LSL calculator and this record: site repository and licence .
 
 ## Sources and review dates
 
@@ -556,7 +557,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
 
-Last reviewed 12 September 2026.
+Last reviewed 14 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -593,7 +594,7 @@ Varrock and Falador are the fictional service lines, named after Old School Rune
 
 ### Evidence and limits
 
-This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
+This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
 
 Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.
 
@@ -696,10 +697,10 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Tools register: https://duguid.com.au/tools/
 - Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
+- offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
-- Give feedback on this example: https://duguid.com.au/contact/#example-feedback
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/payday-super-checker/docs/manager-case-study.md

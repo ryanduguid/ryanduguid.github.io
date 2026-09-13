@@ -223,7 +223,7 @@ def test_geo_leftovers_surface() -> None:
     # the rates hub kept the GEO-pass date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("12 September 2026", "2026-09-12"),
+        "evaluate/index.html": ("14 September 2026", "2026-09-14"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -540,8 +540,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 12 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 12 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 14 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 14 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -651,7 +651,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "12 September 2026", "2026-09-12"),
+        ("index.html", "14 September 2026", "2026-09-14"),
         ("tools/index.html", "11 September 2026", "2026-09-11"),
         ("evidence/index.html", "6 September 2026", "2026-09-06"),
     )
