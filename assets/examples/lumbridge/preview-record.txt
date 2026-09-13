@@ -35,6 +35,13 @@ The second series is the assumed 15000 cash buffer.
 
 PNG SHA-256: 8210ae4ba3953c8404fba8f493af7fa6a7fa26706f5396e31ad6ac41ee329c40
 
+cash-preview-640.png is the narrow-viewport srcset candidate: the PNG above
+converted to RGB, resized to 640 by 319 pixels with Pillow 12.3.0 LANCZOS
+resampling on 14 September 2026, quantised back to 256 colours without
+dithering and saved with optimize=True. No pixel came from any other source.
+Regenerate it from the PNG above whenever that file changes.
+cash-preview-640.png SHA-256: ff54011f7fa6b6f985a364096972e313de580048f8971f664600faf74eff8eda
+
 This is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.
 Refresh it with scripts/export-cash-chart.ps1, the same native Excel export,

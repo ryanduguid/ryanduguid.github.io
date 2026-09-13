@@ -1,0 +1,250 @@
+# Ryan Duguid: review-ready Australian accounting controls
+
+Source: https://duguid.com.au/
+
+> Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
+
+Public register / Australian accounting controls
+
+# Australian accounting tools, with the working explained.
+
+I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.
+
+A personal open-source index, not an accounting practice.
+
+Last reviewed 14 September 2026.
+
+Explore the cash-flow example Browse all tools
+
+## Profit does not pay the next bill.
+
+Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
+
+Synthetic demonstration. An independent accountant trial is pending. Offer a review of the Lumbridge case.
+
+Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
+
+Tool register / four review tasks
+
+## Start with the work to review
+
+### Extract
+
+Get records into a shape that can be reconciled and reviewed.
+
+Xero trial balance CSV export
+
+### Calculate
+
+Apply a rule without hiding the branch, formula, or rounding.
+
+Coal LSL levy calculator
+
+### Control
+
+Stop incomplete work before it reaches a manager.
+
+Workpaper Review Gate
+
+### Inspect
+
+Compare Australian tax tools for AI agents and check their limits.
+
+Australian tax tools for AI agents
+
+Review aids only. No client files. No lodgement. Human sign-off.
+
+Scope Accounting workflow controls
+
+Method Primary sources and exact arithmetic
+
+Boundary Calculation is not judgement
+
+## Worked proof
+
+Coal LSL / synthetic result
+
+### One calculation, with the winning branch left visible.
+
+The browser calculator applies section 3B, names the formula, and rounds only at the final step.
+
+One employee, one month. Enter each amount, including zero, to see which formula applies.
+
+Base rate of pay
+
+Overtime and penalty
+
+Allowances
+
+Formula A, base rate plus bonuses
+
+$6,000.00
+
+Formula B, 75 per cent of every component
+
+$7,125.00
+
+Eligible wages, the greater of the two
+
+$7,125.00
+
+Levy at 2.7 per cent, before rounding
+
+$192.3750
+
+Formula B applies. Levy payable, rounded once at the end
+
+$192.38
+
+Fabricated figures, calculated in your browser; nothing is sent or stored. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual, and bonus frequency.
+
+Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
+
+View the fixed calculator example
+
+Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
+
+Adopt
+
+## Test it with fabricated data first.
+
+Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
+
+The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is under review and available from the development checkout; the published packages do not yet include it.
+
+### Five ways to try it
+
+Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
+
+No install
+
+Open the browser calculator with fabricated figures. Nothing to install and nothing leaves the browser.
+
+Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
+
+Claude Code
+
+Needs uv installed.
+
+```
+# Australian Accounting & Tax MCP server for Claude Code
+claude mcp add aus-accounting -- uvx aus-accounting-mcp
+```
+
+Full setup and limits: Australian tax tools for AI agents.
+
+Codex
+
+Needs uv installed.
+
+```
+# Australian Accounting & Tax MCP server for Codex
+codex mcp add aus-accounting -- uvx aus-accounting-mcp
+```
+
+Full setup and limits: Australian tax tools for AI agents.
+
+Skills
+
+Needs Node.
+
+```
+# Public Practice & Tax skills
+npx skills add ryanduguid/australian-accounting-skills
+```
+
+Full setup and limits: Australian tax tools for AI agents.
+
+GitHub workflows
+
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
+
+Needs Git and PowerShell 7.
+
+```
+# GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
+git clone https://github.com/ryanduguid/github-agent-skills.git
+cd github-agent-skills
+pwsh -File scripts/sync-skills.ps1
+```
+
+Full setup and limits: Australian tax tools for AI agents.
+
+Manager review gate Reproduce the incomplete-pack checks.
+
+Xero trial balance integrity Reproduce the balanced-export checks.
+
+Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
+
+The evaluations pin the release they reproduce. The install commands fetch the current release, so check the version before comparing results.
+
+Verify
+
+## Check the source before the result.
+
+Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open-source index in his own time and on his own equipment.
+
+Source on GitHub
+
+Professional body
+
+Provisional CA ANZ Member; no CA ANZ endorsement of this site or its tools
+
+Product systems
+
+SAP S/4HANA Financial Accounting and Management Accounting
+
+Practice software
+
+Xero L3 Specialist Certified
+
+Open the evidence register Browse reproducible evaluations
+
+The evidence supports limited claims about the software, not endorsements or client outcomes.
+
+## Five checks before a claim leaves the page
+
+Useful before impressive Start with the review problem and the next useful action.
+
+Sources beside claims Put the legislation, regulator guidance, or standard within reach.
+
+Working stays visible Show the branch, formula, evidence state, and rounding.
+
+Unknown means unknown Refuse a result when the supplied facts do not settle the test.
+
+A person signs off Automate calculation and validation, not judgement or lodgement.
+
+## Rates, source work, and release policy
+
+Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
+
+## Links
+
+- Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
+- Browse all tools: https://duguid.com.au/tools/
+- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
+- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- Extract: https://duguid.com.au/tools/#extract-tools
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
+- Calculate: https://duguid.com.au/tools/#calculate-tools
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Control: https://duguid.com.au/tools/#control-tools
+- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
+- Inspect: https://duguid.com.au/tools/#inspect-tools
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Review the evidence register: https://duguid.com.au/evidence/
+- Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
+- Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
+- Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
+- reproducible evaluation: https://duguid.com.au/evaluate/
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Manager review gate Reproduce the incomplete-pack checks.: https://duguid.com.au/evaluate/manager-review-gate/
+- Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Source on GitHub: https://github.com/ryanduguid
+- Maintained rates: https://duguid.com.au/rates/
+- Related resources: https://duguid.com.au/tools/#related-resources
+- Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
+- Tax Radar AU (in the legislation corpus): https://github.com/ryanduguid/au-tax-legislation-corpus/blob/main/RADAR.md
+- Release Policy: https://github.com/ryanduguid/release-policy

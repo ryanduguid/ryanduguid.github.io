@@ -226,7 +226,7 @@ test('selected checklist retains worked examples and the topic review period', a
 for (const route of ['/tools/accounting-questions/', '/tools/business-calculators/']) {
   test(`new page is accessible and stays within the viewport: ${route}`, async ({ page }) => {
     await page.goto(route);
-    await expect(page).toHaveTitle(/100 Australian accounting questions|Business calculators/);
+    await expect(page).toHaveTitle(/100 Australian accounting questions|Australian business calculators/);
     await expect(page.locator('h1')).toHaveCount(1);
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(results.violations).toEqual([]);

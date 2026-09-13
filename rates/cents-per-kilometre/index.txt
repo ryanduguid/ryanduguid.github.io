@@ -1,0 +1,86 @@
+# Cents per kilometre car deduction rate by year
+
+Source: https://duguid.com.au/rates/cents-per-kilometre/
+
+> 91 cents for 2026-27, 88 cents for the 2 years before it, capped at 5,000 business kilometres. Each rate cites the determination that sets it.
+
+# Cents per kilometre rate for car expenses
+
+The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves.
+
+Each rate below is taken from the determination that sets it, read on 28 August 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
+
+## The rate, by income year
+
+Income year | Rate (cents per km) | Set by
+2026-27 | 91 | Determination 2026 (F2026L00785), section 6, that year only
+2025-26 | 88 | Determination 2024 (F2024L00697), section 6
+2024-25 | 88 | Determination 2024 (F2024L00697), section 6
+
+Earlier years were set the same way, each determination repealing the one before it. The 2024 determination repealed the 2023 determination, and the 2026 determination repealed the 2024 one. Rates for those earlier years are not listed here because they were not read from the instruments themselves.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Cents per kilometre car deduction rate by year [Data set]. https://duguid.com.au/rates/cents-per-kilometre/. 91 cents is for 2026-27 only; it does not carry forward the way 88 cents did.
+
+## Why 2025-26 did not move, and why 2026-27 is different
+
+A determination is not always written one year at a time, and the 2 most recent ones are drafted differently. The 2024 determination set the rate 'for income years commencing on or after 1 July 2024', and its own note says it applies to the year commencing 1 July 2024 and to any subsequent income year until it is repealed or varied. Nothing replaced it for 2025-26, so 88 cents carried through unchanged.
+
+The 2026 determination repealed it and is written for one year only. Section 6 sets the rate 'for the income year commencing on 1 July 2026', and it carries no note extending that to subsequent years. So 91 cents does not carry forward the way 88 cents did. A further determination has to be registered to set the rate for 2027-28, and until one is registered, there is no rate for that year to rely on.
+
+## How the method works
+
+Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: business kilometres travelled by the car in the income year, multiplied by the rate determined for that year. Four features of it catch people out.
+
+- 5,000 kilometres is a ceiling, not a threshold. If the car travelled 5,085 business kilometres, you claim 5,000 and lose the extra 85. The Act uses that exact example.
+- One rate for every car. Engine size stopped mattering when the old engine capacity bands were replaced by a single determined rate.
+- No substantiation of the car expenses. Section 28-35 removes that requirement for this method, which is not the same as needing no records: the business kilometres still have to be a reasonable estimate you can explain.
+- The rate is meant to cover everything. In setting it, the Commissioner must have regard to average operating costs, which the Act's own note describes as including registration, insurance, and depreciation as well as fuel and maintenance. Claiming those separately on top of the rate is double counting.
+
+## Common questions
+
+### What is the cents per kilometre rate for 2026-27?
+
+91 cents per kilometre, set by section 6 of the Income Tax Assessment (Cents per Kilometre Deduction Rate for Car Expenses) Determination 2026.
+
+### What was the rate for 2025-26?
+
+88 cents per kilometre. The 2024 determination set that rate for income years commencing on or after 1 July 2024, and nothing replaced it before the 2025-26 year, so it carried through.
+
+### What rate applies for 2027-28?
+
+Not yet set. Section 6 of the 2026 determination sets 91 cents for the income year commencing on 1 July 2026 only, and it carries no note extending that to later years, so a further determination has to be registered before there is a rate for 2027-28.
+
+### How many kilometres can I claim under this method?
+
+The first 5,000 business kilometres per car per income year. Kilometres above 5,000 are discarded rather than paid at a lower rate, so a car that travelled 5,085 business kilometres claims 5,000.
+
+### Does the rate depend on the size of the car's engine?
+
+No. A single rate applies to every car for the income year. The engine capacity bands belong to an older version of the method.
+
+### Can I claim fuel, registration, and insurance as well as the rate?
+
+No. The Commissioner sets the rate by having regard to average operating costs, and the Act names registration, insurance, depreciation, fuel, and maintenance as examples of those costs. They are already inside the rate.
+
+General reference only, not tax, legal, or financial advice, and using it creates no professional relationship. Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
+
+## Related
+
+- Super guarantee rate history
+- Division 7A benchmark interest rate
+- Australian tax tools for AI agents
+- About Ryan Duguid
+
+Published 24 August 2026. Last reviewed 2 September 2026.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 2026 determination (F2026L00785): https://www.legislation.gov.au/F2026L00785/asmade
+- 2024 determination (F2024L00697): https://www.legislation.gov.au/F2024L00697/asmade
+- Download the table as CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- About Ryan Duguid: https://duguid.com.au/about/

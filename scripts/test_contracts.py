@@ -132,9 +132,9 @@ def test_geo_leftovers_surface() -> None:
     review_date = "12 September 2026"
     modified_date = "2026-09-12"
     homepage_title = (
-        "Ryan Duguid: open-source Australian accounting controls"
+        "Ryan Duguid: review-ready Australian accounting controls"
     )
-    coal_title = "Coal LSL levy calculator and eligible wages under section 3B"
+    coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
         "Checked 2 September 2026: the Coal LSL levy is 2.7% of "
         "eligible wages for the month. Section 3B determines eligible wages "
@@ -358,9 +358,9 @@ def test_design_contracts() -> int:
         (
             "preload discovered after the stylesheets",
             "rates/index.html",
-            check_design.FONT_PRELOADS["IBMPlexMono-Regular"] + "\n  " + check_design.TOKENS_LINK,
-            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["IBMPlexMono-Regular"],
-            "rates/index.html: expected the IBMPlexMono-Regular preload before the tokens stylesheet",
+            check_design.FONT_PRELOADS["IBMPlexSans-SemiBold"] + "\n  " + check_design.TOKENS_LINK,
+            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["IBMPlexSans-SemiBold"],
+            "rates/index.html: expected the IBMPlexSans-SemiBold preload before the tokens stylesheet",
         ),
         (
             "inline script restored",
@@ -505,7 +505,7 @@ def test_design_contracts() -> int:
         (
             "font URL broken",
             "assets/tokens.css",
-            "/assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+            "/assets/fonts/IBMPlexSerif-Regular-Subset.woff2",
             "/assets/fonts/Missing.woff2",
             "font face target missing: assets/fonts/Missing.woff2",
         ),
@@ -708,11 +708,11 @@ def test_design_contracts() -> int:
         )
 
     with copied_site() as root:
-        (root / "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2").unlink()
+        (root / "assets/fonts/IBMPlexSerif-Regular-Subset.woff2").unlink()
         expect_failure(
             "protected font removed",
             check_design.check_repository(root),
-            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Subset.woff2",
         )
 
     with copied_site() as root:
@@ -1019,7 +1019,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Ryan Duguid: open-source Australian accounting controls</title>",
+            "<title>Ryan Duguid: review-ready Australian accounting controls</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1115,7 +1115,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Ryan Duguid: open-source Australian accounting controls" />',
+            '<meta name="twitter:title" content="Ryan Duguid: review-ready Australian accounting controls" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),

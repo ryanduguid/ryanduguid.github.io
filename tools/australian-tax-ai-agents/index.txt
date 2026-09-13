@@ -1,0 +1,141 @@
+# Australian tax tools for AI agents
+
+Source: https://duguid.com.au/tools/australian-tax-ai-agents/
+
+> Run local ATO benchmark, Payday Super, and limited Division 7A checks, 6 bounded tax worksheets, and optional Markdown search. Includes scope and setup.
+
+# Australian tax tools for AI agents
+
+aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
+
+Reference release v0.2.0, tagged source on GitHub.
+
+Published 25 August 2026. Last reviewed 12 September 2026.
+
+Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
+
+## The split, in one table
+
+Job | What to install | Where it runs | What it will not do
+Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
+Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
+Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx skills add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
+Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax-return preparation. Each worksheet requires established facts and a supported period.
+
+Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
+
+## What aus-accounting-mcp does
+
+- Lists and searches the shipped ATO small-business benchmark industries.
+- Compares the profit-and-loss buckets you supply to the published ATO ranges. Omitted buckets stay not_supplied; they are not treated as zero.
+- Reviews one Payday Super contribution or a related group for one employer, using payday-super-checker. Missing fund-receipt evidence remains unresolved.
+- Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.
+- Calculates 6 experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
+- Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.
+- Emits synthetic SBR fixtures for agent tests, labelled synthetic: true.
+
+Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
+
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.2. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+
+Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
+
+## Primary sources
+
+Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2. Benchmark comparisons use the ATO's small business benchmarks. The limited Division 7A review applies sections 109N and 109E of the Income Tax Assessment Act 1936.
+
+Each engine's source review and release record state what was checked. Verify current sources and the supplied facts before using an output.
+
+## Adopt
+
+Needs Python 3.10 or later and uv.
+
+```
+# Australian Accounting & Tax MCP server for Claude Code
+claude mcp add aus-accounting -- uvx aus-accounting-mcp
+
+# Australian Accounting & Tax MCP server for Codex
+codex mcp add aus-accounting -- uvx aus-accounting-mcp
+```
+
+The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
+
+aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Limits
+
+Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
+
+## Common questions
+
+### What is aus-accounting-mcp?
+
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review, 6 bounded tax worksheets, and optional search of a configured Markdown library. Outputs need human review.
+
+### Is aus-accounting-mcp a hosted ATO document library?
+
+No. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context.
+
+### Does it calculate Division 7A repayments?
+
+It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements, and distributable surplus.
+
+### Does it lodge with the ATO?
+
+No. It does not lodge, declare, or replace a registered agent. SBR payloads it can emit are synthetic test fixtures.
+
+### When is a Payday Super contribution on time?
+
+Since 1 July 2026, the fund must receive it within 7 business days of payday, or 20 business days for a first contribution to a new fund. Sending money to a clearing house does not stop the clock.
+
+### Who maintains these tools?
+
+Ryan Duguid is an Australian accountant based in Newcastle, New South Wales. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. He is not the US software product executive of the same name.
+
+### Where is aus-accounting-mcp available?
+
+On PyPI and from its source repository. Install with the commands under Adopt; they name the repository and the executable.
+
+### Is aus-accounting-mcp on the official MCP registry?
+
+Yes. The listing name is io.github.ryanduguid/aus-accounting. The install commands under Adopt are the maintained path.
+
+## Related
+
+- When is payday super due
+- ATO small business benchmark comparison
+- Super guarantee rate history
+- What the Aus Accounting MCP refuses
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.0
+- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- ato-mcp: https://github.com/william-laverty/ato-mcp
+- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
+- australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md
+- payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
+- ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md#supported-periods
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.0/apps/aus-accounting-mcp/README.md#tools
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
+- small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
+- Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
+- Adopt: https://duguid.com.au/#adopt
+- PyPI: https://pypi.org/project/aus-accounting-mcp/
+- registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
+- PyPI: https://pypi.org/project/payday-super-checker/
+- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- What the Aus Accounting MCP refuses: https://duguid.com.au/tools/refusals/#aus-accounting-mcp
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

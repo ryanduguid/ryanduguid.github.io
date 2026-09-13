@@ -1,0 +1,113 @@
+# Payday Super timing evidence evaluation
+
+Source: https://duguid.com.au/evaluate/payday-super-evidence/
+
+> Reproduce Payday Super timing outcomes with 4 fabricated fixtures, then inspect the evidence limits and required human decision.
+
+# Payday Super timing evidence evaluation
+
+Reproduce 4 fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
+
+Published 26 August 2026. Last reviewed 11 September 2026.
+
+## Accounting problem
+
+For Payday Super, the operational record can show when money was remitted, but the statutory timing question depends on when an eligible fund received and allocated the contribution.
+
+## Intended reviewer
+
+This pack is for an accountant, payroll reviewer, or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
+
+## Fabricated inputs
+
+The 4 CSV fixtures contain fabricated dates and amounts for a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee, or live payroll data is included.
+
+## Reproduce
+
+Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.
+
+```
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o timely-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/late_remittance_no_receipt.csv --as-at 2026-08-20 -o late-remittance-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_on_due_date.csv --as-at 2026-08-20 -o on-time-report.csv
+uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_super_evidence/fixtures/receipt_after_due_date.csv --as-at 2026-08-20 -o late-receipt-report.csv
+uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q
+```
+
+## Development evidence pack (unreleased)
+
+The tool page links the CLI and MCP pull requests for this unreleased workflow. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.
+
+```
+git fetch origin pull/147/head
+git switch --detach d91bef569e01c8b9e4f15bbe0978f33bf4567a8b
+cd packages/payday-super-checker
+uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
+uv run --locked --extra dev pytest tests/test_evidence_pack.py -q
+```
+
+The evidence-pack command exits 2 and writes 4 files into a new directory. exceptions.json must contain AT_RISK; decision-log.md has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the 4 pinned timing outcomes. They do not establish model performance or renew the legal review date.
+
+The new command follows review-pack exit meanings: 0 only for all ON_TIME, 2 for any exception, and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.
+
+## Expected result
+
+Fabricated fixture | Expected result
+timely_remittance_no_receipt.csv | timely_remittance_no_receipt.csv exits 2 with AT_RISK.
+late_remittance_no_receipt.csv | late_remittance_no_receipt.csv exits 2 with LATE.
+receipt_on_due_date.csv | receipt_on_due_date.csv exits 0 with ON_TIME.
+receipt_after_due_date.csv | receipt_after_due_date.csv exits 2 with LATE.
+
+A missing receipt cannot prove on-time, remittance timing can prove late, and timely remittance without receipt remains at-risk. The outcome identifiers are AT_RISK, ON_TIME, and LATE.
+
+## Controls triggered
+
+The production check keeps a missing receipt at AT_RISK, records an on-time receipt as ON_TIME, and classifies a remittance after the deadline or a late receipt as LATE.
+
+## Primary sources
+
+- Superannuation Guarantee (Administration) Act 1992
+- Australian Taxation Office, LCR 2026/2
+- Primary source review
+
+## Versions
+
+Product release v0.1.3; fixture version 1; source reviewed 15 August 2026.
+
+payday-super-checker/v0.1.3 is the first release from the australian-accounting monorepo and the first to contain the evaluation directory. Its calculation behaviour is unchanged from v0.1.2, and the evaluation artefacts are fixed to that release's commit.
+
+- Immutable payday-super-checker/v0.1.3 GitHub Release
+- Evaluation pack
+- Expected results contract
+- Evaluation contract test
+
+## Human decision
+
+Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation, and the other assessment facts before relying on a statutory conclusion.
+
+## Limitations
+
+Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment. It tests fabricated evidence classifications only. See Evidence and Assurance for the common assurance record and boundaries.
+
+## Related
+
+- Payday Super timing
+- Super guarantee rate history
+- All evaluations
+
+Written by Ryan Duguid in his own time and on his own equipment.
+
+## Links
+
+- tool page links the CLI and MCP pull requests: https://duguid.com.au/tools/payday-super/#evidence-pack
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
+- Primary source review: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md
+- Immutable payday-super-checker/v0.1.3 GitHub Release: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
+- Evaluation pack: https://github.com/ryanduguid/australian-accounting/tree/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence
+- Expected results contract: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/expected_results.json
+- Evaluation contract test: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/tests/test_evaluation_pack.py
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- Payday Super timing: https://duguid.com.au/tools/payday-super/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- All evaluations: https://duguid.com.au/evaluate/

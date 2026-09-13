@@ -116,14 +116,14 @@ test('storage denial does not prevent switching views', async ({ page }) => {
 });
 
 test('text download failures offer a working way back and can be retried', async ({ page }) => {
-  await page.route('**/llms-full.txt', route => route.fulfill({ status: 503, body: 'Unavailable' }));
+  await page.route('**/index.txt', route => route.fulfill({ status: 503, body: 'Unavailable' }));
   await page.goto('/');
   await page.getByRole('radio', { name: 'Machine', exact: true }).check();
   await expect(page.getByText('Page text could not be loaded.')).toBeVisible();
   await expect(page.getByRole('link', { name: 'Open full text' })).toHaveAttribute('href', '/llms-full.txt');
   await page.getByRole('radio', { name: 'Human', exact: true }).check();
   await expect(page.locator('#main')).toBeVisible();
-  await page.unroute('**/llms-full.txt');
+  await page.unroute('**/index.txt');
   await page.getByRole('radio', { name: 'Machine', exact: true }).check();
   await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Source: https://duguid.com.au/');
 });
@@ -144,7 +144,7 @@ test('saved Machine mode renders the unindexed not-found page without a text dow
   await page.getByRole('radio', { name: 'Machine', exact: true }).check();
   await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('Source: https://duguid.com.au/');
   let textRequests = 0;
-  await page.route('**/llms-full.txt', route => {
+  await page.route('**/index.txt', route => {
     textRequests += 1;
     return route.abort();
   });

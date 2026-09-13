@@ -27,10 +27,10 @@
       try {
         let section;
         if (canonical) {
-          const response = await fetch('/llms-full.txt');
+          // Each indexable page ships its own llms-full.txt entry as index.txt.
+          const response = await fetch(new URL('index.txt', location.href));
           if (!response.ok) throw new Error('Text unavailable');
-          const fullText = (await response.text()).replace(/\r\n/g, '\n');
-          section = fullText.split('\n---\n').find(part => part.includes(`\nSource: ${source}\n`));
+          section = (await response.text()).replace(/\r\n/g, '\n');
         }
         // The unindexed 404 page has no entry in llms-full.txt.
         const content = section || `# ${document.title}\n\nSource: ${source}\n\n${document.querySelector('#main').textContent.trim()}`;

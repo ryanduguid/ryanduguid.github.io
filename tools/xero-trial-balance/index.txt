@@ -1,0 +1,106 @@
+# Export a Xero trial balance to CSV that balances
+
+Source: https://duguid.com.au/tools/xero-trial-balance/
+
+> Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas.
+
+# How to export a Xero trial balance to CSV that balances
+
+This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+
+Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures.
+
+Published 24 August 2026. Last reviewed 12 September 2026.
+
+This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements, and year-to-date balances.
+
+Before anything is written to disk, it runs a balance check: both the current month's movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero's Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
+
+## What this tool does
+
+- Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel, or pandas loads without clean-up.
+- Refuses to write a file unless both the month's movement and the year-to-date figures balance.
+
+## Limits
+
+Read-only (accounting.reports.trialbalance.read); this tool cannot write to any ledger.
+
+MIT-licensed utility code, no warranty; outputs feed professional review like any other workpaper input. Not affiliated with or endorsed by Xero.
+
+## Get it
+
+Needs Python 3.10 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero's free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+
+```
+git clone https://github.com/ryanduguid/accounting-review-pipeline.git
+git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.6
+cd accounting-review-pipeline/packages/xero-trial-balance-export
+python -m pip install --require-hashes -r requirements.lock
+# copy .env.example to .env and add the app's client ID and secret, then:
+python auth.py
+```
+
+First success takes one command. After the one-off consent step above, export a dated trial balance:
+
+```
+python export_tb.py --date 2026-06-30
+# writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
+```
+
+Source on GitHub
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Synthetic worked example
+
+Reproduce the Xero trial balance integrity evaluation
+
+These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and synthetic account rows. They do not contain a live organisation's data.
+
+Outcome | Synthetic facts | Test-backed result
+Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.
+Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity (960) has a $100.00 movement credit but only a $90.00 YTD credit. | The movement balances, but the $10.00 YTD difference causes exit code 1 and no CSV file output.
+
+The tagged balanced-output test pins the CSV bytes. The tagged unbalanced-YTD test pins the refusal and warning. Refused means no CSV file output; the diagnostic warning is still printed.
+
+The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns, or lock periods.
+
+## Common questions
+
+### Can it export a trial balance for a date range?
+
+No. Xero's Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month.
+
+### Can this tool change my Xero data?
+
+No. It requests the accounting.reports.trialbalance.read scope, which is read-only, so it cannot write to any ledger.
+
+### What happens if the trial balance does not balance?
+
+No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year-to-date figures have to balance for the export to proceed.
+
+## Related
+
+- Turn trial balance CSVs into a monthly close exception report
+- How a business compares to the ATO benchmarks
+- When is payday super due
+- What the Xero trial balance export refuses
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
+- Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
+- Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
+- tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
+- Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
+- How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- What the Xero trial balance export refuses: https://duguid.com.au/tools/refusals/#xero-trial-balance
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

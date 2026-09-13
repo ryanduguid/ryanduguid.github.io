@@ -1,0 +1,94 @@
+# How does this business compare to ATO benchmarks?
+
+Source: https://duguid.com.au/tools/ato-benchmarks/
+
+> Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.
+
+# How does this business compare to the ATO small business benchmarks?
+
+The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub.
+
+Published 24 August 2026. Last reviewed 10 September 2026.
+
+Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
+
+This tool does that on your own machine, with no network call in the runtime, and it records which account went into which figure so a second reviewer can check your working later. It applies the ATO's own narrow definitions rather than a rough 'expenses over income': wages sitting inside cost of sales come out of that ratio, and payments to associated persons come out of total expenses before the division.
+
+The workflow is 2 steps on purpose. First, the tool drafts a mapping from the profit and loss, suggesting a bucket for each account from its name alone. Then a person reviews and corrects that mapping, because no account name on its own tells you whether wages went to an associate.
+
+## What this tool does
+
+- Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.
+- Applies the ATO's own narrow definitions of turnover, cost of sales, and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.
+- Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.
+
+## Worked example: cost of sales excluding wages
+
+This synthetic example comes from the ratio tests in ato-benchmark-compare v0.1.6. It starts with mapped totals:
+
+- Turnover: $100,000.
+- Cost of sales excluding wages: $30,000.
+- Wages recorded within cost of sales, mapped separately: $10,000.
+
+The cost-of-sales ratio is $30,000 ÷ $100,000 = 30%. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.
+
+A person must review the mapping and select the relevant industry, year, and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.
+
+## Limits
+
+It is not tax advice, and sitting outside a range is not a finding that anything is wrong. The ATO publishes ranges because businesses differ.
+
+## Get it
+
+Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
+
+```
+git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting/packages/ato-benchmark-compare
+pip install .
+```
+
+Source on GitHub · Primary source: the ATO's small business benchmarks.
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Common questions
+
+### What are the ATO small business benchmarks?
+
+Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine.
+
+### Does being outside a benchmark range mean something is wrong?
+
+No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why.
+
+### Does this tool send my client data anywhere?
+
+No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later.
+
+### Why does a person have to review the account mapping?
+
+Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.
+
+## Related
+
+- Company tax rate and franking account checks
+- A Xero trial balance export that balances
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
+- ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
+- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
+- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
+- A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

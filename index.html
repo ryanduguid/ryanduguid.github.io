@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
-  <title>Ryan Duguid: open-source Australian accounting controls</title>
+  <title>Ryan Duguid: review-ready Australian accounting controls</title>
   <meta name="description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Ryan Duguid: open-source Australian accounting controls" />
+  <meta property="og:title" content="Ryan Duguid: review-ready Australian accounting controls" />
   <meta property="og:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ryan Duguid" />
@@ -23,7 +23,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ryan Duguid: open-source Australian accounting controls" />
+  <meta name="twitter:title" content="Ryan Duguid: review-ready Australian accounting controls" />
   <meta name="twitter:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site.png" />
   <meta name="twitter:image:alt" content="OLED register card: Ryan Duguid: review-ready Australian accounting controls." />
@@ -34,9 +34,11 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="modulepreload" href="/assets/levy.mjs" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
@@ -56,17 +58,17 @@
           <a href="/tools/">Browse all tools</a>
         </nav>
       </div>
-      <div class="home-case" aria-labelledby="cash-case-title">
+      <section class="home-case" aria-labelledby="cash-case-title">
         <div>
           <h2 id="cash-case-title">Profit does not pay the next bill.</h2>
           <p>Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.</p>
           <p class="field-note">Synthetic demonstration. An independent accountant trial is pending. <a href="/contact/#example-feedback">Offer a review of the Lumbridge case</a>.</p>
         </div>
         <figure class="case-preview">
-          <a href="/assets/examples/lumbridge/cash-preview.png"><img src="/assets/examples/lumbridge/cash-preview.png" width="1282" height="639" fetchpriority="high" decoding="async" alt="Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer" /></a>
+          <a href="/assets/examples/lumbridge/cash-preview.png"><img src="/assets/examples/lumbridge/cash-preview.png" srcset="/assets/examples/lumbridge/cash-preview-640.png 640w, /assets/examples/lumbridge/cash-preview.png 1282w" sizes="(max-width: 40rem) 100vw, 50vw" width="1282" height="639" fetchpriority="high" decoding="async" alt="Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer" /></a>
           <figcaption>Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. <a href="/assets/examples/lumbridge/cash-preview.png">View full-size chart</a>. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</figcaption>
         </figure>
-      </div>
+      </section>
     </section>
 
     <section class="home-tool-preview site-shell" aria-labelledby="preview-title">
@@ -316,7 +318,7 @@
         "@type": "WebPage",
         "@id": "https://duguid.com.au/#webpage",
         "url": "https://duguid.com.au/",
-        "name": "Ryan Duguid: open-source Australian accounting controls",
+        "name": "Ryan Duguid: review-ready Australian accounting controls",
         "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",

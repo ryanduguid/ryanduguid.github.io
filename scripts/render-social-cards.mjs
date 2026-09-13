@@ -138,9 +138,9 @@ async function loadSources() {
   const [template, data, serif, sans, mono] = await Promise.all([
     readFile(TEMPLATE_PATH, 'utf8'),
     readFile(DATA_PATH, 'utf8'),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSerif-SemiBold-Latin1.woff2')),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSans-Regular-Latin1.woff2')),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexMono-Regular-Latin1.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSerif-SemiBold-Subset.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSans-Regular-Subset.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'IBMPlexMono-Regular-Subset.woff2')),
   ]);
   return {
     template,

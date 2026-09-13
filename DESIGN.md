@@ -287,12 +287,16 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 
 IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 
-The 6 files are IBM's unmodified Latin1 subsets from tag `v6.4.2`, peeled
-commit `242c4cccd37e87985a5337815c99b960ef13c65c`. Exact upstream paths, byte
-counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`. The
-declared set is 129,872 bytes, down from 384,756 bytes. The 4 faces used by
-the homepage total 84,268 source bytes before HTTP overhead, down from about
-250 KB transferred. Four faces remain deliberate: Serif, Sans and Mono each
+The 6 files are cut from IBM's Latin1 subsets at tag `v6.4.2`, peeled
+commit `242c4cccd37e87985a5337815c99b960ef13c65c`, to ASCII plus the
+punctuation and symbols the pages use (154 glyphs, every OpenType feature
+kept). The subset command, upstream paths, byte counts and SHA-256 values are
+recorded in `assets/fonts/SOURCES.md`; each face declares the same ranges as
+its `unicode-range`, which `check_design.py` tests against every page. The declared set is 91,288 bytes, down from
+129,872 as shipped by IBM and 384,756 before that. The 4 faces used by the
+homepage total 59,156 source bytes before HTTP overhead, down from about
+250 KB transferred, and all 4 are preloaded so `font-display: optional` has
+every face by first paint. Four faces remain deliberate: Serif, Sans and Mono each
 carry a distinct information role, while regular and semi-bold Sans preserve
 the practical control and reading hierarchy without synthesised weight.
 
@@ -663,6 +667,25 @@ remain unchanged. Copy controls show pending feedback and prevent repeat clicks
 until the clipboard request finishes. Loading a saved cash forecast also shows
 status text while the browser reads the file. The footer disclaimer appears on
 all 30 styled pages; its wording is unchanged.
+
+## Technical audit actions, 14 September 2026
+
+Ryan asked for the technical audit findings to be applied. The six webfonts
+are subset to the characters the pages use and the fourth homepage face is
+preloaded, so first visits carry about 30 KB less and render every face at
+first paint. The calculator pages and the homepage preload their module
+graphs, so the Coal LSL calculator's scripts arrive in one round trip instead
+of two. The homepage title and share titles now match the H1 wording; five
+tool titles are shortened or qualified. The Payday Super page and the
+business-use calculator link the maintained rate tables they depend on. The
+homepage case study is a section rather than a labelled div, the nine
+calculator outputs drop their redundant status role, and every tool node
+carries `operatingSystem`. The hero chart offers a 640-pixel candidate for
+narrow viewports, recorded in the capture record. The Machine view fetches a
+per-page `index.txt` written by the llms-full builder instead of the whole
+text file. `pyproject.toml` and `SECURITY.md` leave the published tree and
+the Privacy page links the licence on GitHub. Baselines: fonts, sitemap and
+eleven JSON-LD digests.
 
 ## CodeRabbit finding corrections, 12 September 2026
 

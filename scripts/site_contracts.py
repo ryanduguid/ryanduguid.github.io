@@ -658,7 +658,7 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Unknown means unknown",
     "A person signs off",
 ]
-HOMEPAGE_TITLE = "Ryan Duguid: open-source Australian accounting controls"
+HOMEPAGE_TITLE = "Ryan Duguid: review-ready Australian accounting controls"
 HOMEPAGE_DESCRIPTION = (
     "Personal index of open-source Australian accounting tools for payroll, Xero, "
     "workpapers, and AI workflows, with sources and working kept visible."
