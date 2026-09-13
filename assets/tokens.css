@@ -75,22 +75,25 @@
 :root {
   color-scheme: dark;
 
+  /* True-black OLED register: every surface is #000000 except the raised
+     field and the emphasis wash, and the greys carry no hue. Stamp green is
+     the single accent. */
   --colour-canvas: #000000;
-  --colour-paper: #050806;
-  --colour-paper-raised: #09100d;
-  --colour-ink: #eef4f0;
-  --colour-ink-mid: #c9d2cc;
-  --colour-ink-soft: #9aa89f;
-  --colour-rule: #26332d;
-  --colour-rule-strong: #5c7166;
+  --colour-paper: #000000;
+  --colour-paper-raised: #0a0a0a;
+  --colour-ink: #f2f2f2;
+  --colour-ink-mid: #c8c8c8;
+  --colour-ink-soft: #9a9a9a;
+  --colour-rule: #262626;
+  --colour-rule-strong: #606060;
   --colour-stamp: #4dff88;
   --colour-stamp-strong: #78ffa3;
-  --colour-stamp-wash: #082619;
+  --colour-stamp-wash: #161616;
   --colour-alert: #ff9c91;
-  --colour-masthead: #eef4f0;
-  --colour-code: #020403;
-  --colour-code-ink: #eef4f0;
-  --colour-code-comment: #9aa89f;
+  --colour-masthead: #f2f2f2;
+  --colour-code: #000000;
+  --colour-code-ink: #f2f2f2;
+  --colour-code-comment: #9a9a9a;
   --colour-print-paper: #ffffff;
   --colour-print-ink: #000000;
 
@@ -163,9 +166,9 @@
 
 @media (prefers-contrast: more) {
   :root {
-    --colour-ink-mid: #eef4f0;
-    --colour-ink-soft: #eef4f0;
-    --colour-rule: #5c7166;
+    --colour-ink-mid: #f2f2f2;
+    --colour-ink-soft: #f2f2f2;
+    --colour-rule: #606060;
     --rule-thin: 0.125rem;
   }
 }

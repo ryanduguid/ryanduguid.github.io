@@ -36,6 +36,12 @@ sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
 the mono rule for figures because each result is a sentence, not a ledger
 row.
 
+Ryan then asked for a true-black OLED register in place of the green-tinted
+dark surfaces. The token palette in the Colour section records the new
+values; component CSS is unchanged because it consumes tokens only. The cash
+chart is re-exported against the black canvas and the fixed calculator proof
+images are recaptured so the artefacts match the page.
+
 The same day's surface pass lets the worked-proof band bleed to the viewport
 edges like the trust band above it, with one shared rule between them; sets
 the homepage cash chart in IBM Plex Sans by installing the family for Excel
@@ -218,24 +224,30 @@ and no system preference creates a second branded state.
 | Token role | Value | Use | Contrast on canvas |
 | --- | --- | --- | ---: |
 | Canvas | `#000000` | Browser edge and dominant page ground | n/a |
-| Paper | `#050806` | Quiet grouped surfaces | n/a |
-| Paper raised | `#09100D` | Rare stronger hierarchy | n/a |
-| Ink | `#EEF4F0` | Main reading text | 18.83:1 |
-| Ink soft | `#9AA89F` | Supporting copy and metadata | 8.48:1 |
-| Rule | `#26332D` | Hairlines and table rows | n/a |
-| Rule strong | `#5C7166` | Structural boundaries | n/a |
+| Paper | `#000000` | Grouped surfaces, separated by rules alone | n/a |
+| Paper raised | `#0A0A0A` | Fields and the proof panel | n/a |
+| Ink | `#F2F2F2` | Main reading text | 18.76:1 |
+| Ink mid | `#C8C8C8` | Lead and route paragraphs | 12.55:1 |
+| Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
+| Rule | `#262626` | Hairlines and table rows | n/a |
+| Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
 | Stamp | `#4DFF88` | Links, focus, route state and live evidence | 15.98:1 |
 | Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
-| Stamp wash | `#082619` | Rare evidence emphasis | n/a |
+| Stamp wash | `#161616` | Rare evidence emphasis, always beside a stamp rule | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
-| Masthead | `#EEF4F0` | Homepage identity statement only | n/a |
-| Code | `#020403` | Code and install background | n/a |
-| Code ink | `#EEF4F0` | Code text | n/a |
-| Code comment | `#9AA89F` | Secondary annotation inside code blocks | n/a |
+| Masthead | `#F2F2F2` | Homepage identity statement only | n/a |
+| Code | `#000000` | Code and install background, bounded by its rule | n/a |
+| Code ink | `#F2F2F2` | Code text | n/a |
+| Code comment | `#9A9A9A` | Secondary annotation inside code blocks | n/a |
 
 True black is intentional: large canvas areas let OLED pixels switch off. This
-overrides the earlier pure-black prohibition. No gradient, glow, indigo,
-violet, texture or alternate theme is permitted.
+overrides the earlier pure-black prohibition. From 13 September 2026 the
+surfaces are true black rather than green-tinted near-black and the greys
+carry no hue, so stamp green is the only colour on the page besides the
+alert. Rules, not fills, separate the header, footer, bands and code blocks.
+No gradient, glow, indigo, violet, texture or alternate theme is permitted.
+The favicon and social cards keep their earlier off-white and grey literals;
+they are separate pinned artefacts and read the same at their sizes.
 
 ## Typography and licence
 

@@ -15,8 +15,8 @@ sheet from that chart's two SERIES formulas:
 =SERIES('Cash 13 weeks'!$G$1,'Cash 13 weeks'!$B$2:$B$14,'Cash 13 weeks'!$G$2:$G$14,2)
 Excel reads every plotted date and value from those workbook cells.
 
-Formatting applied in memory for the website's dark canvas: chart fill
-#09100d with a #26332d border; horizontal gridlines only; the category axis
+Formatting applied in memory for the website's true-black canvas: chart fill
+#000000 with a #262626 border; horizontal gridlines only; the category axis
 line drawn at zero; AUD tick labels; fortnightly date labels; the date axis
 extended three weeks past 31 December with those extra labels blanked, to
 leave room for the end labels; the legend replaced by direct labels for the
@@ -33,7 +33,7 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-PNG SHA-256: 09f03e69532ff3240486c4ee809c5b41832f78cceee7f80c7bff4e798f14acd4
+PNG SHA-256: 8210ae4ba3953c8404fba8f493af7fa6a7fa26706f5396e31ad6ac41ee329c40
 
 This is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.
