@@ -3,8 +3,8 @@
 from __future__ import annotations
 
 import hashlib
-import re
 import json
+import re
 import shutil
 import struct
 import subprocess
@@ -18,7 +18,6 @@ from pathlib import Path
 import check_design
 import seo_core as core
 import site_contracts as contracts
-
 
 ROOT = Path(__file__).resolve().parents[1]
 COPY_IGNORE = shutil.ignore_patterns(".git", "node_modules", "work", "__pycache__")

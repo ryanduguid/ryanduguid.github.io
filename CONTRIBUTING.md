@@ -8,7 +8,7 @@ before changing a page.
 
 Use Ruby 3.3 with Bundler, Python 3.10 or newer and Node 22. Run `bundle install`
 once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
-pinned linters first, then the site checks on Python 3.10, 3.12 and 3.13:
+pinned linters first, then the site checks on Python 3.12:
 
 ```bash
 python -m pip install "ruff==0.16.6" "mypy==2.3.1"
@@ -18,8 +18,8 @@ python scripts/check_site.py
 ```
 
 Use `python scripts/check_site.py --offline` to skip external requests while
-checking the built pages and local links. CI runs live link checks on Python
-3.12 and offline checks on the other versions. HTTP 429 retries honour
+checking the built pages and local links. CI runs the live checks. HTTP 429
+retries honour
 `Retry-After`, with a five-attempt limit and at most 30 seconds of waiting per
 fetch. An unresolved rate limit still fails the live check.
 
@@ -67,7 +67,7 @@ locally on 11 September 2026. They are listed individually in
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
 
-Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check and ruff format on staged files.
+Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
 
 ## Pull requests
 

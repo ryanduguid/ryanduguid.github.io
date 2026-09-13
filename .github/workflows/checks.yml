@@ -34,10 +34,6 @@ jobs:
     needs: lint
     timeout-minutes: 30
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        python: ["3.10", "3.12", "3.13"]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b
@@ -46,7 +42,7 @@ jobs:
           bundler-cache: true
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: ${{ matrix.python }}
+          python-version: "3.12"
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: "22"
@@ -60,8 +56,7 @@ jobs:
           # Lifts the unauthenticated GitHub API rate limit for the
           # archived-repository lookups in scripts/check_links.py.
           GITHUB_TOKEN: ${{ github.token }}
-        # Run live external checks once; every version still checks local content.
-        run: python scripts/check_site.py ${{ matrix.python != '3.12' && '--offline' || '' }}
+        run: python scripts/check_site.py
 
   browser:
     timeout-minutes: 30

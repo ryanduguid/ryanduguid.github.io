@@ -255,14 +255,14 @@ def required_meta_fields(
 ) -> dict[str, str]:
     """Require one non-empty value for each named metadata field."""
     found: dict[str, str] = {}
-    for field in fields:
-        values = meta_values(html, attr, field)
+    for name in fields:
+        values = meta_values(html, attr, name)
         if len(values) != 1 or not values[0]:
             failures.append(
-                f"{rel}: expected exactly one non-empty {field}, found {len(values)}"
+                f"{rel}: expected exactly one non-empty {name}, found {len(values)}"
             )
         else:
-            found[field] = values[0]
+            found[name] = values[0]
     return found
 
 
@@ -293,10 +293,10 @@ def check_social_metadata(
         "og:image:width": "1200",
         "og:image:height": "630",
     }
-    for field, expected in expected_open_graph.items():
-        value = open_graph.get(field)
+    for name, expected in expected_open_graph.items():
+        value = open_graph.get(name)
         if value is not None and expected is not None and value != expected:
-            failures.append(f"{rel}: {field} is {value!r}, expected {expected!r}")
+            failures.append(f"{rel}: {name} is {value!r}, expected {expected!r}")
 
     expected_twitter = {
         "twitter:card": "summary_large_image",
@@ -305,10 +305,10 @@ def check_social_metadata(
         "twitter:image": expected_image,
         "twitter:image:alt": expected_alt,
     }
-    for field, expected in expected_twitter.items():
-        value = twitter.get(field)
+    for name, expected in expected_twitter.items():
+        value = twitter.get(name)
         if value is not None and expected is not None and value != expected:
-            failures.append(f"{rel}: {field} is {value!r}, expected {expected!r}")
+            failures.append(f"{rel}: {name} is {value!r}, expected {expected!r}")
 
 
 def check_referrer_policy(html: str, rel: str, failures: list[str]) -> None:
