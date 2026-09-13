@@ -1,13 +1,13 @@
 {
   "protected_files": {
-    "llms.txt": "11784d27ebf1b945ab270b36fac80bf7336f3b5082fb2508b0d4fd1d9c2a5552",
+    "llms.txt": "c08e87b0885ccd61dfe654606a139c615f256ba9ade592ac1379cfcf9ae19100",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
     "sitemap.xml": "aab1255582ef87d87b3dfcd8b57ab8dbbcd330eddcdbff6c2ccdbc4a87ac9ab9"
   },
   "protected_main_text": {
-    "rates/super-guarantee/index.html": "63f5d5a03181ade6f93bf46ab08ef0e222ab9f49ebda87053ae8a4080bae7d20",
-    "rates/div7a-benchmark-rate/index.html": "14d828395b564b2e8713c602c71948e50e6409982ca149840eae59bbc0ebc3fd",
-    "rates/cents-per-kilometre/index.html": "b04c5aaff56d7bb2c2a102ba027e9e2a266ba2526391f1da5be324e15c4580c7"
+    "rates/super-guarantee/index.html": "0e2b29de6d203708e6701cabeab07bdb77a5c21b6f5cc5f189005a4173573be4",
+    "rates/div7a-benchmark-rate/index.html": "860924fd6ae5ad5ecc58d90117ee7c1d8e346cbee4a0d8080addc881276bf838",
+    "rates/cents-per-kilometre/index.html": "42a3370c9dcd068a33611970fe05c87005158aacff3ba72f6db658b2bec85ff1"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -90,25 +90,25 @@
       "84da9823fed754240d53c8f4167569ef01aa9d0ab0726cbae311cae9096807e0"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "8617655d08de21389aecb5563220fc323d704b96d606ae88ea7682e338549c04"
+      "971c1f0e2ef96b6cb1cc6b44f42c6a81191b8b66baa9dd581e0762a92abbfff7"
     ],
     "rates/index.html": [
       "64032304f753fddafa4d67922ed43afc7fea5b3f0666810f5798009d8e22b796"
     ],
     "rates/super-guarantee/index.html": [
-      "323968eee7c3fa497fe3be4b4de8e375a8da5efa28c8e3931d02a520de598ecb"
+      "980bf0b5ec63c4037a329bba4864db54ab300db026495ea3a4a83d739359afec"
     ],
     "tools/ato-benchmarks/index.html": [
       "62a3b8308faabd1babfe5c6387226488740efceededee26b8d351e2e5d8c2035"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "7632858fb825445657817b3258f2a736bbff0566ae1261b23ca1b49984917a9a"
+      "a07e5cfd2e1b89f11e0363ca05301d12fa1e66806cecdcabbf19ccbfbe3b8198"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "e0e61a1fad71afc982db783f2bf5f3dbcf4c83c8b8c5caa427e0c540c1ce0ff6"
+      "f5acc1bb5281f18003a8b2713569e5e28d2eca3f20fb59129ea12efbe92ae23d"
     ],
     "tools/company-tax-franking/index.html": [
-      "411b868ccee73ed9da8a636a13ab3587dcd16d506b5a52c99b4b6d29085b771c"
+      "365715b31f28eb1143a329e640a3ab2289adc2155e649524902d42997fee6767"
     ],
     "tools/index.html": [
       "cbe3d7e352e317f8f3f79f0c8cfdfb94b2ec27b923d6b64f33bdcd7cb86e40ce"

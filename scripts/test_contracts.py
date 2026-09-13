@@ -136,7 +136,7 @@ def test_geo_leftovers_surface() -> None:
     )
     coal_title = "Coal LSL levy calculator and eligible wages under section 3B"
     coal_lead = (
-        "Checked 2 September 2026: the Coal LSL levy is 2.7 per cent of "
+        "Checked 2 September 2026: the Coal LSL levy is 2.7% of "
         "eligible wages for the month. Section 3B determines eligible wages "
         "under separate base-rate, annual-salary, and casual branches; the "
         "base-rate branch uses the greater of Formula A and Formula B."
@@ -372,8 +372,8 @@ def test_design_contracts() -> int:
         (
             "protected rate copy",
             "rates/super-guarantee/index.html",
-            "<strong>12 per cent</strong>",
-            "<strong>13 per cent</strong>",
+            "<strong>12%</strong>",
+            "<strong>13%</strong>",
             "protected main text changed: rates/super-guarantee/index.html",
         ),
         (
@@ -589,8 +589,8 @@ def test_design_contracts() -> int:
         (
             "machine-written vocabulary behind a JSON escape",
             "rates/super-guarantee/index.html",
-            '"text": "12 per cent. There are no further scheduled increases."',
-            '"text": "12 per cent. There are no further scheduled increases. D\\u0065lve no further."',
+            '"text": "12%. There are no further scheduled increases."',
+            '"text": "12%. There are no further scheduled increases. D\\u0065lve no further."',
             "rates/super-guarantee/index.html: banned JSON-LD phrase 'delve'",
         ),
         (

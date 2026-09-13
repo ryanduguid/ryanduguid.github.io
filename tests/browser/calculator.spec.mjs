@@ -483,7 +483,7 @@ test('calculator orientation and result render as an inspectable ledger', async 
   await calculateFormulaB(page);
 
   const method = page.locator('.calculator-method');
-  await expect(method).toContainText('2.7 per cent');
+  await expect(method).toContainText('2.7%');
   await expect(method).toContainText('2 September 2026');
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');

@@ -167,7 +167,7 @@ def _ico_frame(seal, size: int) -> bytes:
             red, green, blue = pixels[start : start + 3]
             row += bytes((blue, green, red, 255))
         rows.append(bytes(row))
-    # The seal is opaque, so the AND mask is empty; its rows pad to four bytes.
+    # The seal is opaque, so the AND mask is empty; its rows pad to 4 bytes.
     mask_stride = ((size + 31) // 32) * 4
     return header + b"".join(rows) + bytes(mask_stride * size)
 

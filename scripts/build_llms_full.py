@@ -92,7 +92,7 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
     body = LI_PATTERN.sub("\n\n- ", body)
     body = CELL_PATTERN.sub(" | ", body)
     body = BLOCK_PATTERN.sub("\n\n", body)
-    # Adjacent inline elements such as two links keep a space between them.
+    # Adjacent inline elements such as 2 links keep a space between them.
     body = body.replace("><", "> <")
     body = html_lib.unescape(TAG_PATTERN.sub("", body))
     blocks = [re.sub(r"\s+", " ", block).strip() for block in re.split(r"\n\s*\n", body)]

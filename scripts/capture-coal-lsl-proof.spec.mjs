@@ -10,7 +10,7 @@ import {
 
 // Canvas size straight from the WebP container, so the published proof can be
 // held to the capture contract without decoding it. A file Chromium wrote is
-// VP8X, but read the two simple forms as well rather than assume the encoder.
+// VP8X, but read the 2 simple forms as well rather than assume the encoder.
 function webpCanvasSize(image) {
   const chunk = image.subarray(12, 16).toString('ascii');
   if (chunk === 'VP8X') {

@@ -37,7 +37,7 @@ CHECKED WORKBOOK
 SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463
 
 The distributed workbook reuses the exact native-verified file from the original
-example. Its model and all six inputs match the captured source commit after
+example. Its model and all 6 inputs match the captured source commit after
 normalising line endings. A fresh formula check on 11 September 2026 passed all
 21 monthly lines. The full offline repository suite also passed.
 

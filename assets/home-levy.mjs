@@ -20,7 +20,7 @@ import {
 
 const money = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
 // Formula B is three quarters of a cents total, so it can carry a quarter cent,
-// and the levy before rounding carries whatever 2.7 per cent of that leaves.
+// and the levy before rounding carries whatever 2.7% of that leaves.
 // Both are shown in full: rounding them for display would perform the very
 // intermediate rounding the section says does not happen.
 const quarterCents = new Intl.NumberFormat('en-AU', {

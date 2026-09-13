@@ -15,13 +15,13 @@ at `1bde4cc`, `ryanduguid/ryanduguid.github.io` at `bf29c81` and
 
 ### 1.1 Skills: `.claude/skills/*/sources.json`
 
-The brief counted nineteen `sources.json` files. Nineteen skills exist, but
-thirteen ship `sources.json` and six ship `sources.exempt.json` instead
+The brief counted 19 `sources.json` files. Nineteen skills exist, but
+13 ship `sources.json` and 6 ship `sources.exempt.json` instead
 (`contracting-exports`, `div7a-compliance`, `fbt-annual-workflow`, `workpaper-tie-out`, `xero-exports`, `year-end-workpapers`). The test
 `tests/test_skill_metadata.py` requires one or the other, and an exemption must
 carry a reason.
 
-Shape, identical across the thirteen files:
+Shape, identical across the 13 files:
 
 ```json
 {"skill": "...", "notes": "...", "sources": [
@@ -45,7 +45,7 @@ Shape, identical across the thirteen files:
 | `stp-finalisation` | 5 | 2026-08-20 | Mutable ATO and Treasury facts. |
 | `wip-over-under-billing` | 2 | 2026-08-28 | Accounting-standard provenance. |
 
-Totals: 36 entries, checked between 2026-08-14 and 2026-08-28, 4 marked
+Totals: 36 entries, checked between 14 August 2026 and 28 August 2026, 4 marked
 `volatile: false` (Acts as made and one judgment), the rest `volatile: true`.
 
 Two properties matter for the register. First, these files record facts and
@@ -73,18 +73,18 @@ byte-pins that file.
 ### 1.2 Site: `ryanduguid.github.io/rates/`
 
 Three reference tables, each an HTML page with a `page-meta` review date plus a
-CSV the page links as its machine-readable copy. All three pages read "Last
+CSV the page links as its machine-readable copy. All 3 pages read "Last
 reviewed 2 September 2026". Only the super guarantee page carries a
 per-table verification sentence ("Verified 30 August 2026 against the ATO's
 super guarantee rate table", going on to name the Payday Superannuation Act
-and the SGAA compilation); the other two carry primary-source links but no
+and the SGAA compilation); the other 2 carry primary-source links but no
 separate verification date. The CSVs have no provenance columns beyond the
 notes below.
 
 | Table | CSV columns | Rows | Coverage as recorded | Primary sources linked on the page |
 |---|---|---|---|---|
-| Super guarantee rate history | `period_start`, `period_end`, `general_sg_rate_percent`, `notes` | 8 | 2002-07-01 onward; last row 2025-07-01 open-ended, 12.00 per cent | SGAA 1992 compilation (legislation.gov.au C2004A04402), Treasury Laws Amendment (Payday Superannuation) Act 2025 (C2025A00057), ATO super guarantee rate table |
-| Division 7A benchmark interest rate | `income_year`, `benchmark_rate_percent`, `rba_series_month`, `notes` | 8 | 2019-20 to 2026-27; 2026-27 recorded as 8.77 per cent from RBA series month 2026-05 | ITAA 1936 compilation (C1936A00027), RBA statistical tables |
+| Super guarantee rate history | `period_start`, `period_end`, `general_sg_rate_percent`, `notes` | 8 | 2002-07-01 onward; last row 2025-07-01 open-ended, 12.00% | SGAA 1992 compilation (legislation.gov.au C2004A04402), *Treasury Laws Amendment (Payday Superannuation) Act 2025* (C2025A00057), ATO super guarantee rate table |
+| Division 7A benchmark interest rate | `income_year`, `benchmark_rate_percent`, `rba_series_month`, `notes` | 8 | 2019-20 to 2026-27; 2026-27 recorded as 8.77% from RBA series month 2026-05 | ITAA 1936 compilation (C1936A00027), RBA statistical tables |
 | Cents per kilometre | `income_year`, `cents_per_km`, `instrument`, `register_id`, `scope` | 3 | 2024-25 to 2026-27; 2026-27 recorded as 91 cents under F2026L00785 | Determinations F2024L00697 and F2026L00785 on legislation.gov.au |
 
 A fourth rate lives outside `rates/`: the Coal LSL levy in
@@ -97,7 +97,7 @@ and a source constant, and repeated in prose on `tools/coal-lsl-levy/`.
 |---|---|---|---|---|
 | payday-super-checker | `paydaysuper/data/rates.json` | One financial year, 2026-27: `charge_percentage`, `concessional_cap`, `max_contributions_base` | `source`, `verify_at`, `cross_check`, `seen` | `seen` 2026-08-15 |
 | payday-super-checker | `paydaysuper/data/gic_rates.json` | GIC quarters `from`, `to`, `annual_pct`; covers 2026-04-01 to 2026-09-30 | `source`, `verify_at`, `seen` per quarter | `seen` 2026-08-14 |
-| payday-super-checker | `paydaysuper/data/business_days.json` | 59 non-business days; `official_sources` holds one entry per jurisdiction (eight) plus `checked`, `definition` and `coverage_note` | `verified_from`, `verified_until`, `generated`, `official_sources` | verified 2026-07-01 to 2027-08-31, generated 2026-08-02 |
+| payday-super-checker | `paydaysuper/data/business_days.json` | 59 non-business days; `official_sources` holds one entry per jurisdiction (8) plus `checked`, `definition` and `coverage_note` | `verified_from`, `verified_until`, `generated`, `official_sources` | verified 2026-07-01 to 2027-08-31, generated 2026-08-02 |
 | div7a-loan-review | `div7aloan/data/benchmark_rates.csv` | 8 income years 2019-20 to 2026-27, `rate` as a decimal fraction | columns `rba_table`, `rba_series`, `rba_month`, `source`, `verify_at`, `seen`; header comments `reviewed_until: 2026-27`, `reviewed_on: 2026-08-28` | `seen` 2026-08-28 |
 | ato-benchmark-compare | `atobenchmark/data/benchmarks-2022-23.json`, `benchmarks-2023-24.json` | 100 business types per year, `schema_version: 1` | `source` block: `publisher`, `dataset`, `dataset_page`, `resource_name`, `resource_url`, `resource_last_modified`, `retrieved`, `sha256`, `bytes`, `licence`, `licence_url` | `retrieved` 2026-08-13 |
 | the-exchequer-tally | `edwinnixon/corporate_tax.py` | `BRE_RATES` 2018 to 2027, `STANDARD_CORPORATE_RATE`, `TURNOVER_THRESHOLDS`, `BREPI_THRESHOLD_PERCENT` as Python constants | Docstring cites ITRA 1986 ss 23AA and 23AB and Division 328 ITAA 1997; a code comment cites the Enterprise Tax Plan Act 2017 for the turnover threshold; no URL | none |
@@ -112,20 +112,20 @@ SHA-256 of the material it was built from.
 ### 1.4 What the inventory shows
 
 1. Six shapes for one idea: a skills fact index, a site CSV with an HTML page,
-   two JSON dialects in one engine (`seen` and `verify_at`), a CSV with
+   2 JSON dialects in one engine (`seen` and `verify_at`), a CSV with
    provenance in header comments, a dataset manifest with a hash, and Python
    constants with none.
 2. The same rate is held in more than one place with independent dates. The
    Division 7A benchmark rate sits in the site CSV (page reviewed 2 September
    2026) and the engine CSV (`seen` 2026-08-28). The super guarantee percentage
    sits in the site CSV (verified 30 August 2026) and in `rates.json`
-   (`seen` 2026-08-15). The four payday-super source URLs are held by three
+   (`seen` 2026-08-15). The 4 payday-super source URLs are held by 3
    skills, each with its own copy.
 3. Verification granularity ranges from per row (engines, skills) to per page
    (site) to none (corporate tax constants).
 4. Nothing carries a checksum a consumer could verify, except the upstream
    hash inside the benchmarks manifest.
-5. Units differ silently: percent on the site, a decimal fraction in the
+5. Units differ silently: per cent on the site, a decimal fraction in the
    Division 7A engine, cents in one table, a numerator and denominator in the
    levy module.
 
@@ -142,7 +142,7 @@ of them by series id later.
 ### 2.2 Location and versioning
 
 Recommended home: a `rates/register/` directory in `ryanduguid.github.io`,
-because the site already publishes the three CSVs at stable URLs, runs the
+because the site already publishes the 3 CSVs at stable URLs, runs the
 protected-file and link checks, and is the place a human is sent to verify a
 figure. A separate repository is the alternative if the register grows past
 the site's static-hosting role; that is a later decision and this proposal
@@ -493,7 +493,7 @@ shape, not a fresh verification.
 }
 ```
 
-The `provision` above is deliberately the plain words "charge percentage".
+The `provision` above is deliberately the plain words 'charge percentage'.
 The site page cites the Act without a section, and the payday engine's
 `rates.json` cites `s 17A(2)`; the verifier records the section when the row
 is verified against the compilation, and this document does not choose one.
@@ -592,7 +592,7 @@ No consumer changes are proposed now. When they are:
 - Who verifies and signs: `verified_by` is a person, and the proposal assumes
   the owner. A second verifier field can be added without a schema bump.
 - Cadence: a scheduled check that flags a row whose `verified_at` is older
-  than a chosen age (six months is the number the forks policy already uses)
+  than a chosen age (6 months is the number the forks policy already uses)
   as due for re-verification, without changing the value.
 - Whether `unverified` rows may be published at all, or only held on a branch
   until verified.

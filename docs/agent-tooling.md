@@ -35,7 +35,7 @@ pwsh -File scripts/sync-skills.ps1
 
 The local Search Console reader is documented in
 `.agents/tools/search-console/README.md`. It is locked to
-`sc-domain:duguid.com.au`, exposes only three read methods through shared MCP
+`sc-domain:duguid.com.au`, exposes only 3 read methods through shared MCP
 and CLI handlers, and validates request bounds before loading a credential or
 contacting Google. A committed uv script lock fixes direct and transitive
 dependency versions and hashes. Authentication and logout are explicit CLI

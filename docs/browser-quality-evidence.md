@@ -19,8 +19,8 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Automated results
 
-- `npm run test:browser` collects 82 tests over its two projects, six of which
-  are intentional project-specific skips, leaving 76 that run. The two capture
+- `npm run test:browser` collects 82 tests over its 2 projects, 6 of which
+  are intentional project-specific skips, leaving 76 that run. The 2 capture
   specs are not part of that count: they run under a different config and
   project, and are described under Limits. Eleven approved routes passed the
   mobile and desktop page-shell matrix: one visible `h1`, `main#main`, primary
@@ -31,7 +31,7 @@ the checks described below, not a claim of WCAG conformance.
   route and status.
 - The homepage exposes one Tools action and exactly one Adopt and Verify section.
   The retired hash and path resolve quietly to the homepage. Protected fonts settle before line measurement: the
-  desktop masthead has two lines, the mobile masthead has no more than three,
+  desktop masthead has 2 lines, the mobile masthead has no more than 3,
   and both route words stay intact at the 900-pixel wide-layout seam.
 - Keyboard traversal reaches the last mobile primary-navigation link after the
   row scrolls, then reaches and activates the final catalogue category. The
@@ -54,14 +54,14 @@ Each snapshot first loads the bundled IBM Plex faces, then reloads from the
 warm browser cache. This makes the production `font-display: optional` choice
 deterministic on local and hosted Windows runners without changing that choice.
 
-- Desktop homepage, 1440 by 5388: the masthead occupies exactly two lines; one
+- Desktop homepage, 1440 by 5388: the masthead occupies exactly 2 lines; one
   ruled Adopt and Verify register appears after the separate trust
   band; each route word stays on one line; the current result proof is visible;
-  and the principles resolve as one lead cell beside four supporting cells.
-- Mobile homepage, 390 by 7734: the masthead occupies three lines; primary
+  and the principles resolve as one lead cell beside 4 supporting cells.
+- Mobile homepage, 390 by 7734: the masthead occupies 3 lines; primary
   navigation remains one horizontal row; no page edge is clipped; the decoded
   Formula B proof is visible with its values and caption; and the principles
-  collapse to five legible cells.
+  collapse to 5 legible cells.
 - Mobile calculator result, 358 by 528: each label and value has separate
   alignment, numeric values remain unbroken, the green levy is dominant and the
   complete Formula B explanation is readable.
@@ -71,7 +71,7 @@ the approved refresh.
 
 ## Lighthouse results
 
-Twelve new JSON reports were written under `work/lighthouse`, with three runs
+Twelve new JSON reports were written under `work/lighthouse`, with 3 runs
 for each route. The configured median assertions all passed.
 
 | Route | Performance | Accessibility | Best Practices | SEO | LCP | CLS | Total blocking time |
@@ -92,16 +92,16 @@ for each route. The configured median assertions all passed.
 - Each reviewed calculator control had the same solid 3 px focus outline.
   Radio-group arrow-key behaviour remains native browser behaviour.
 
-## 200 per cent zoom review
+## 200% zoom review
 
-- Chrome's own zoom control reported 200 per cent. At that setting the CSS
+- Chrome's own zoom control reported 200%. At that setting the CSS
   viewport was 531 px wide and both the homepage and calculator reported a
   531 px document scroll width, so neither introduced horizontal page scroll.
-- The calculator's radio control, four numeric inputs, two action buttons,
+- The calculator's radio control, 4 numeric inputs, 2 action buttons,
   employee label input and table button each scrolled into view when focused.
   A hit test at the focused control's centre found it visible and unobscured.
 - Visual inspection found readable reflow, full-width form controls and no
-  clipped calculator actions. Chrome was reset to 100 per cent afterwards.
+  clipped calculator actions. Chrome was reset to 100% afterwards.
 
 ## Forced-colours review
 
@@ -127,15 +127,15 @@ register at `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and
 - IBM Plex Serif remains justified by the statutory-note and public-register
   identity. The centred homepage masthead remains justified as the ceremonial
   artefact rather than a generic split hero.
-- The hero has its public-register label, two-line desktop or three-line mobile
+- The hero has its public-register label, 2-line desktop or three-line mobile
   masthead, concise identity sentence and one Tools action. The trust band is
   separate. Adopt and Verify occur once in the register, have distinct intent
   and do not wrap on the wide layout.
 - The desktop primary navigation stays on one line. Mobile navigation stays on
   one keyboard-scrollable row. The catalogue index is also keyboard reachable.
-- Exactly three homepage technical labels remain, and each carries evidence or
+- Exactly 3 homepage technical labels remain, and each carries evidence or
   register context rather than decorative section numbering. The catalogue is
-  grouped by four category destinations and the principles contain exactly five
+  grouped by 4 category destinations and the principles contain exactly 5
   cells with one visual lead.
 - The only product proof is the real local Formula B calculator result. It is
   fabricated-data-only evidence rather than generated imagery, stock imagery or
@@ -155,7 +155,7 @@ register at `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and
   apply; its ready, validation, error and result states remain present.
 - There is no logo wall, testimonial, quote, image overlay, version label,
   decorative status dot, fake precision, progress track, weather strip,
-  hand-drawn icon or mixed design system to assess. The grouped ten-tool public
+  hand-drawn icon or mixed design system to assess. The grouped 10-tool public
   register is intentionally visible in document flow rather than hidden behind
   a marketing carousel or disclosure.
 - Lighthouse confirms every route below 2.5 seconds median LCP, zero CLS and
@@ -187,8 +187,8 @@ desktop and 780 by 1192 mobile images; source-level image parsing remains an exp
 deferred limitation.
 
 From 10 September 2026, the focused capture check renders the same fabricated
-Formula B result at two sizes: desktop at 868 by 580 and mobile at 390 by 596
-CSS pixels with scale two, producing a 780 by 1192 image. Each fresh render and
+Formula B result at 2 sizes: desktop at 868 by 580 and mobile at 390 by 596
+CSS pixels with scale 2, producing a 780 by 1192 image. Each fresh render and
 its published WebP must have the RIFF/WEBP container, expected canvas dimensions
 and a file size no greater than 80,000 bytes. The published files are
 `assets/coal-lsl-calculator.webp` and `assets/coal-lsl-calculator-mobile.webp`.
@@ -212,7 +212,7 @@ tracked proof only when snapshot-update mode is explicit. It runs under
 social-card capture spec, so neither is part of the `npm run test:browser`
 count above.
 
-The repository commits three screenshot baselines for `win32` only, two
+The repository commits 3 screenshot baselines for `win32` only, 2
 full-page homepage captures and one capture of the calculator result panel.
 `win32` is the platform the browser job runs on. A run on another platform has
 no baseline to compare against, so it writes one and reports the test as

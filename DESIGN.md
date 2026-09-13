@@ -23,7 +23,7 @@ the Tools register, and the lead principle cell no longer matches its section
 heading. The route notes, install intro, proof note, capture summary and
 capture caption take the 68ch reading measure, as do the article body and
 the footer disclaimer. The caption token is fluid from 12 to 13px, matching
-the scale table below. The two accounting pages keep their review stamp to
+the scale table below. The 2 accounting pages keep their review stamp to
 one line and carry their boundary sentences as a small-text note; their
 forms share the reading measure, so inputs, button and result box close on
 one edge; their cash table uses the shared scroll region. The Verify button
@@ -41,10 +41,10 @@ dark surfaces. The token palette in the Colour section records the new
 values; component CSS is unchanged because it consumes tokens only. The cash
 chart is re-exported against the black canvas and the fixed calculator proof
 images are recaptured so the artefacts match the page. The favicon rasters
-and the five social cards follow the neutral ink and soft ink.
+and the 5 social cards follow the neutral ink and soft ink.
 
 The closing pass of the same day puts the cash chart in the first desktop
-viewport: above the 56rem collapse the hero is two columns, the masthead
+viewport: above the 56rem collapse the hero is 2 columns, the masthead
 spans both, the proposition, actions and case text stack on the left and
 the chart sits on the right from the summary line down. Mobile and tablet
 keep the stacked order. The chart export lives in
@@ -54,7 +54,7 @@ The same day's surface pass lets the worked-proof band bleed to the viewport
 edges like the trust band above it, with one shared rule between them; sets
 the homepage cash chart in IBM Plex Sans by installing the family for Excel
 and re-exporting from the pinned workbook; centres the lead principle cell's
-statement in its two-row height; keeps Calculate as the calculator's one
+statement in its 2-row height; keeps Calculate as the calculator's one
 full-width filled action while its helper buttons take their own width;
 removes the hover wash from static table rows and the accent colour from a
 targeted heading, so the accent keeps one meaning; hides native spin buttons
@@ -62,7 +62,7 @@ on number inputs; and runs the More index rule the full width of its last
 row.
 
 The 12 September 2026 alignment pass fixes text that sat off its neighbours:
-the hero link is centred on its button; the four-task header shares the
+the hero link is centred on its button; the 4-task header shares the
 entry column template so its heading starts on the description edge; the
 trust band's boundary and rail labels share one top inset on desktop and one
 left edge on mobile; label and value pairs in the collection entries and the
@@ -72,15 +72,15 @@ item no longer sits above its row; and the rates register drops the empty
 band between two strong rules. Loading states end with an ellipsis and the
 question filters live in the URL so a filtered view can be shared.
 
-The 12 September 2026 copy trim removes three homepage sentences that
+The 12 September 2026 copy trim removes 3 homepage sentences that
 repeated the page (a credentials triad, a duplicated boundary, a duplicated
 adopt note), drops the decorative digits from the scope strip, and lets the
 hero subhead serve its one button. Contact opens with what email is welcome
 for before its unchanged boundary sentences; About puts the short facts before
 the work samples; the Lumbridge case gains a cite-as line; the Rates index
 explains verified against last reviewed. Cross-links join the super guarantee
-page to the staff cost calculator, the two planning calculators to the
-Lumbridge case and Monthly Close Controls, four tool pages to their own
+page to the staff cost calculator, the 2 planning calculators to the
+Lumbridge case and Monthly Close Controls, 4 tool pages to their own
 refusal sections. Rates, CSVs,
 calculator arithmetic, install commands and every legal boundary are
 unchanged; the affected JSON-LD, super guarantee main-text and sitemap
@@ -105,11 +105,11 @@ its existing text without a download. Page content and review boundaries
 remain unchanged.
 
 The approved 11 September 2026 portfolio follow-up leads the homepage with
-"Australian accounting tools, with the working explained." The first action
+'Australian accounting tools, with the working explained.' The first action
 opens the fictional cash-flow case and remains visible at 390 by 844 pixels.
-An export from the supplied workbook sits in the hero before the four-category
+An export from the supplied workbook sits in the hero before the 4-category
 preview. Its capture record identifies the Excel version, scenario and hashes.
-Tools adds the same cash-flow entry; About connects three capabilities to public
+Tools adds the same cash-flow entry; About connects 3 capabilities to public
 samples; Evaluations shows a source-linked month-end exception excerpt.
 The independent accountant trial remains pending. Existing calculator behaviour,
 rates, disclosures and the non-practice boundary remain in force. On mobile,
@@ -124,7 +124,7 @@ once near its work samples, with the existing review boundaries retained.
 The 31 August 2026 refinement keeps the design read at
 `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and `VISUAL_DENSITY: 5`.
 
-- The homepage leads with browsing the tools, then a four-task preview, worked
+- The homepage leads with browsing the tools, then a 4-task preview, worked
   proof and the Adopt and Verify sections. It is explicitly a personal
   open-source index, not a practice.
 - The task preview immediately follows the hero; the unchanged scope strip
@@ -139,8 +139,8 @@ The 31 August 2026 refinement keeps the design read at
 - Calculator orientation uses one concise task sentence followed by a compact
   rate, method and boundary register. Its output is a label and value result
   ledger.
-- The Tools catalogue has a four-category index. Evaluations and Rates have
-  separate collection registers. The principles use an asymmetric five-cell
+- The Tools catalogue has a 4-category index. Evaluations and Rates have
+  separate collection registers. The principles use an asymmetric 5-cell
   composition with one lead cell, and mobile primary navigation is one
   horizontal scroll row.
 - Five tool-led social contexts use one editable OLED register template for the
@@ -160,12 +160,12 @@ The existing content is strong. The repeated visual grammar weakens it:
 
 - the system sans stack is anonymous and gives headings, body copy and navigation the same texture
 - the dark indigo and violet palette resembles an AI product interface
-- the first route choice is three equal rounded cards
+- the first route choice is 3 equal rounded cards
 - the route sections repeat the same rounded panel
-- four system layers repeat the same panel geometry and internal rhythm
-- ten tools repeat the same ruled row without useful grouping
+- 4 system layers repeat the same panel geometry and internal rhythm
+- 10 tools repeat the same ruled row without useful grouping
 - the homepage is 6,232 CSS pixels tall on desktop and 9,559 CSS pixels tall on mobile
-- the mobile page turns the four system layers and ten tools into a long undifferentiated column
+- the mobile page turns the 4 system layers and 10 tools into a long undifferentiated column
 - evidence, warning, source and legal material depend mostly on a purple left border
 - code, tables and citations inherit the same product-panel treatment rather than looking like inspectable records
 
@@ -202,11 +202,11 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 
 ### Supplementary reference requested during implementation
 
-[Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the three gold-standard references.
+[Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the 3 gold-standard references.
 
 - Borrow: the centred ceremonial masthead, near-black green field, cold luminous title colour, compact mono index labels and fine ruled geometry.
 - Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
-- Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its three-column project-card grid.
+- Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its 3-column project-card grid.
 
 The resulting system combines a cold ledger surface, a harbour-green review stamp, the IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
 
@@ -257,7 +257,7 @@ No gradient, glow, indigo, violet, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
 The favicon seal and the social-card template carry the same ink and soft
-ink literals, so their rasters are re-rendered whenever those two values
+ink literals, so their rasters are re-rendered whenever those 2 values
 change.
 
 ## Typography and licence
@@ -270,10 +270,10 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 
 IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 
-The six files are IBM's unmodified Latin1 subsets from tag `v6.4.2`, peeled
+The 6 files are IBM's unmodified Latin1 subsets from tag `v6.4.2`, peeled
 commit `242c4cccd37e87985a5337815c99b960ef13c65c`. Exact upstream paths, byte
 counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`. The
-declared set is 129,872 bytes, down from 384,756 bytes. The four faces used by
+declared set is 129,872 bytes, down from 384,756 bytes. The 4 faces used by
 the homepage total 84,268 source bytes before HTTP overhead, down from about
 250 KB transferred. Four faces remain deliberate: Serif, Sans and Mono each
 carry a distinct information role, while regular and semi-bold Sans preserve
@@ -337,7 +337,7 @@ The header is sticky, one line and at most 72px tall. Ryan Duguid appears as a t
 
 ### Footer
 
-The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200 per cent zoom.
+The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom.
 
 ### Buttons and links
 
@@ -374,7 +374,7 @@ The existing advice disclaimer remains exact. It sits above About, GitHub and Ma
 
 ### Evidence and citation chrome
 
-An evidence record has four ordered parts:
+An evidence record has 4 ordered parts:
 
 1. claim
 2. primary source or released artefact
@@ -389,7 +389,7 @@ The homepage uses stacked one-thought viewports and does not use scroll snapping
 
 ### Hero viewport: what to adopt
 
-The first viewport centres one tool-led proposition above a ruled three-part boundary register and answers three questions within five seconds:
+The first viewport centres one tool-led proposition above a ruled 3-part boundary register and answers 3 questions within 5 seconds:
 
 - The site provides open-source accounting review controls.
 - Sources and calculation working stay visible.
@@ -397,13 +397,13 @@ The first viewport centres one tool-led proposition above a ruled three-part bou
 
 The primary action opens the cash-flow case; the secondary action opens Tools.
 The workbook chart sits beside the proposition on desktop widths and directly
-below it on mobile; the four-task preview and real Coal LSL artefact follow. The
+below it on mobile; the 4-task preview and real Coal LSL artefact follow. The
 site states that it is a personal open-source index, not a practice, and does
 not accept professional engagements.
 
 ### Adopt viewport
 
-Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The three supported install commands and three evaluation packs are the proof. There is no trial funnel or signup language.
+Pain first: a tool that has not been tested on fabricated data does not belong in a firm workflow. The 3 supported install commands and 3 evaluation packs are the proof. There is no trial funnel or signup language.
 
 ### Verify viewport
 
@@ -411,25 +411,25 @@ Pain first: a rate or AI answer without a source and review boundary cannot be r
 
 ### Collection registers
 
-The homepage previews four review tasks. The full `/tools/` register groups the eleven controls by the work they stop or check:
+The homepage previews 4 review tasks. The full `/tools/` register groups the 11 controls by the work they stop or check:
 
 - Extract records into reviewable shape.
 - Calculate without hiding the branch, formula or rounding.
 - Control incomplete work before manager review.
 - Inspect sources, evidence and AI boundaries.
 
-`/evaluate/` groups the three reproducible evaluation packs and `/rates/` groups the three maintained reference tables. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
+`/evaluate/` groups the 3 reproducible evaluation packs and `/rates/` groups the 3 maintained reference tables. These registers are not second homepage essays. Each entry names the observable control, delivery form, source and human boundary.
 
 ### Reference and principles
 
-Rates and further references become one compact index. The five engineering principles read as working rules, not a marketing feature row.
+Rates and further references become one compact index. The 5 engineering principles read as working rules, not a marketing feature row.
 
 ## Inner-page system
 
 About, Evidence, tool guides, evaluation packs and rate pages share one article frame:
 
 - large page statement followed by one short answer
-- sticky local contents on wide screens when it has at least three useful destinations
+- sticky local contents on wide screens when it has at least 3 useful destinations
 - 68ch reading column
 - source and date metadata beside the relevant claim
 - full-width table or code artefact where the content needs it
@@ -439,7 +439,7 @@ On mobile, the contents rail becomes a compact in-flow index. No body copy falls
 
 ## Copy standard
 
-Every changed visible sentence must pass these five principles:
+Every changed visible sentence must pass these 5 principles:
 
 1. One reading pass. A visitor can finish the claim without rereading it.
 2. Pain first. Name the incomplete pack, late contribution, unbalanced trial balance or unsupported AI answer before the solution.
@@ -452,9 +452,9 @@ Banned visible language includes: revolutionise, seamless, cutting-edge, leverag
 Use Australian English and Oxford commas in original prose. Preserve exact
 quotations, command output, identifiers, and official titles. Keep the About
 page in the first person. Use Ryan's supplied credential labels exactly:
-"Provisional CA ANZ Member" and "Xero L3 Specialist Certified". State them
+'Provisional CA ANZ Member' and 'Xero L3 Specialist Certified'. State them
 directly and retain the CA ANZ non-endorsement statement. Never append bare
-"CA" to Ryan's name or invent credentials, rates, endorsements, customers,
+'CA' to Ryan's name or invent credentials, rates, endorsements, customers,
 or outcomes.
 
 The 10 September 2026 copy pass updates grammar and credential wording in
@@ -472,7 +472,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `11784D27EBF1B945AB270B36FAC80BF7336F3B5082FB2508B0D4FD1D9C2A5552`
+- `llms.txt`: SHA-256 `C08E87B0885CCD61DFE654606A139C615F256BA9ADE592AC1379CFCF9AE19100`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
@@ -516,7 +516,7 @@ It updates current-release references and adds fabricated first-use examples
 verified against trust and company-tax release 0.1.3. The affected JSON-LD
 baselines, machine-index hash, and sitemap review dates record those approved
 edits. Rate content, evaluation version pins, and calculator formulas stay fixed.
-The six refusal tables reuse the wide-table class inside their labelled scroll
+The 6 refusal tables reuse the wide-table class inside their labelled scroll
 regions so mobile prose keeps a readable measure.
 
 ## Accessibility and performance
@@ -538,7 +538,7 @@ without animated scrolling. Invalid submissions keep focus on the first
 invalid input.
 
 Once a result exists, edits to amounts, branches or bonuses show
-"Inputs changed. Calculate again." beside that result. The notice clears
+'Inputs changed. Calculate again.' beside that result. The notice clears
 only after a successful calculation, including the existing recalculation
 before printing or adding an employee. The empty notice remains a live
 region so its first update can be announced.
@@ -568,7 +568,7 @@ its own region at 320 CSS pixels, including the hidden column label.
 
 The measured production baseline before this refinement is about 303 KB of
 initial transfer: about 250 KB of fonts and about 46 KB from the below-fold
-proof image. Under the recorded 390 by 844, four-times CPU and emulated 4G
+proof image. Under the recorded 390 by 844, 4-times CPU and emulated 4G
 profile, LCP is about 1.40 seconds and CLS is 0. The implementation must reduce
 initial transfer materially without regressing the matched median LCP or CLS.
 
@@ -582,16 +582,16 @@ routes and all existing repository contracts.
 Browser review covers the homepage at 320, 390, 768 and 1440 CSS pixels plus
 Tools, Evaluations, Rates, About, Evidence, a tool guide, calculator, rate table
 and 404 page at desktop and mobile sizes. It checks exact primary-navigation
-order and current state, keyboard focus scrolling, all four homepage-to-Tools
+order and current state, keyboard focus scrolling, all 4 homepage-to-Tools
 anchors, overflow, computed fonts, console errors, reduced motion, forced
 colours, font/image failure and the one OLED colour scheme.
 
-Lighthouse uses three-run medians for the homepage, Tools, Evidence and Coal
+Lighthouse uses 3-run medians for the homepage, Tools, Evidence and Coal
 LSL calculator. Performance stays at or above 0.95; accessibility, best
 practices and SEO stay at 1; CLS stays at or below 0.01; LCP stays at or below
 2,500 ms; and total blocking time stays at or below 200 ms.
 
-The pull request must name the three selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.
+The pull request must name the 3 selected gold-standard references, the supplementary Pliny influence, IBM Plex licence, copy changes and the deliberate refusals: no sales funnel, no intake form, no mascot, no purple or Pliny-style gradient, no generic CTA and no altered rates or advice boundaries.
 
 ## Synthetic forecasting presentation, 11 September 2026
 
@@ -599,7 +599,7 @@ The competitor-analysis follow-up adds the existing fictional Newcastle forecast
 to Worked proof, Evaluations, and the feedback route. It adds a checked workbook
 and source ZIP so a reader can inspect the case without installing development
 tools. The profile remains a personal index, and professional engagements remain
-closed. The existing site layout, four tool categories, calculator, rates, and
+closed. The existing site layout, 4 tool categories, calculator, rates, and
 fixed-release evaluations are retained. Machine indexes and editorial dates
 record these copy changes; they do not assert independent accountant review or
 client outcomes.
@@ -617,7 +617,7 @@ protected baseline. No CSS or runtime dependency is added.
 ## Accounting question guides, 11 September 2026
 
 Ryan authorised implementation of the 100-question research register. Two Tools
-subpages add static question guides and nine browser calculators. They reuse
+subpages add static question guides and 9 browser calculators. They reuse
 the shared navigation, tokens and footer. The question data renders through
 Jekyll before machine-text extraction. The sitemap and machine-index hashes
 above now include these routes; the footer count rises from 27 to 29. Existing
@@ -640,7 +640,7 @@ delivery. Lighthouse thresholds remain unchanged.
 
 The Privacy and site use page records browser data handling, cookies, hosting,
 feedback and the existing advice and licence boundaries. Its shared footer link
-and machine-index entry make the notice discoverable. The two index hashes above
+and machine-index entry make the notice discoverable. The 2 index hashes above
 include this page. Existing routes, rates, crawler rules and advice boundaries
 remain unchanged. Copy controls show pending feedback and prevent repeat clicks
 until the clipboard request finishes. Loading a saved cash forecast also shows
@@ -653,6 +653,6 @@ Ryan requested fixes to the existing review findings. The Division 7A
 explanation now holds the unpaid balance and remaining term constant
 when describing the effect of a higher rate. Its FAQ and JSON-LD use
 the same wording. Subcontractor skills name either compatible agent.
-The two evaluated installation examples now select their stated tags,
+The 2 evaluated installation examples now select their stated tags,
 and case-study links select recorded commits. Only the affected prose
 and JSON-LD baselines change; rates, CSVs and crawler rules stay intact.

@@ -4,7 +4,7 @@ This local stdio MCP reports bounded evidence from the fixed Search Console
 property `sc-domain:duguid.com.au`. It cannot add properties, submit sitemaps,
 request indexing or change Search Console state.
 
-It exposes three tools:
+It exposes 3 tools:
 
 - `compare_search_performance` compares adjacent periods of up to 90 days and
   at most 1,000 top rows, using only `date`, `page`, `query`, `device` and

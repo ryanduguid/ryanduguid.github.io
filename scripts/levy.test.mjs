@@ -117,7 +117,7 @@ test('D9 casual: quantifiable loading is added as a third component', () => {
     instrumentSpecifiesLoading: true,
     loadingQuantifiable: true,
     baseRatePayCents: d(1800),      // 40.00/hr x 45 hours
-    casualLoadingCents: d(450),     // 25 per cent
+    casualLoadingCents: d(450),     // 25%
   });
   assert.equal(r.branch, 's 3B(3)(a)');
   assert.equal(r.eligibleWagesCents, 225000);
@@ -209,7 +209,7 @@ test('D10c casual: a salary sacrifice never makes a blank field look discarded',
 test('D10d casual: the pre-2024 branch names the all-in rate it discards', () => {
   // Before 2024 there is one pay figure, so a user who fills both fields has
   // one of them thrown away. The audited defect survived here while the
-  // controller collapsed the two fields into one argument: the engine could
+  // controller collapsed the 2 fields into one argument: the engine could
   // not see the discarded figure, so the page said nothing about it.
   const result = compute(casualForm({
     reportingMonth: '2023-12',
