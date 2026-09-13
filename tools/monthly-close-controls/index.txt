@@ -1,0 +1,105 @@
+# Monthly Close Controls: Xero close exception report
+
+Source: https://duguid.com.au/tools/monthly-close-controls/
+
+> Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source.
+
+# Xero monthly close exception report
+
+Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.
+
+Example reproduced from source commit ae88966. Results apply to this source snapshot.
+
+Published 11 September 2026. Last reviewed 12 September 2026.
+
+## Inputs
+
+Start with the canonical CSV written by the Xero trial balance exporter. Supply one current and one prior trial balance, plus an account mapping CSV. Each trial balance must contain one organisation and one report date; both must name the same organisation, with the prior date earlier than the current date.
+
+You can supply subledger balances for reconciliation and a review note. Set the absolute and percentage materiality thresholds and reconciliation tolerance for the review. The pinned source documentation defines the accepted files and controls.
+
+## Outputs and status
+
+- close-summary.md: overall status, thresholds, source hashes and the exception table.
+- exceptions.csv: account-level differences, reasons and suggested reviewer actions for Excel or Power BI.
+- client-queries.csv: draft questions for exceptions a client can help resolve. A preparer must review them before sending anything.
+- close-review-pack.json: structured results and evidence for the run, including any supplied review acknowledgement.
+
+PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.
+
+## Worked example: balanced trial balance, unfinished review
+
+The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
+
+Exception | Result | Reviewer action
+Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the reconciling items and document their cause.
+Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
+Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.
+
+Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
+
+The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fabricated.
+
+## Run the example
+
+Needs Git and Python 3.10 or later. The pinned source command uses Python's standard library. It needs no Xero account, API access or client files.
+
+```
+git clone https://github.com/ryanduguid/accounting-review-pipeline.git
+cd accounting-review-pipeline
+git checkout ae88966fc416f6f2ad618652779c50d0e348949d
+cd packages/monthly-close-control-plane
+```
+
+```
+python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ../../../close-control-demo
+```
+
+Expect exit code 2 and REVIEW; 8 exception(s); 6 client query(ies) drafted. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.
+
+Source on GitHub
+
+Unexpected result or question? Open an issue.
+
+## Limits
+
+A balanced trial balance can still contain omissions, misclassifications or unsupported transactions. These checks use the files, mappings and thresholds you supply. They do not establish that the source records are complete or that an accounting treatment is correct.
+
+The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm's workpaper process.
+
+## Common questions
+
+### Does Monthly Close Controls connect to Xero?
+
+No. It reads local CSV files in the canonical Xero trial balance export format. Use the Xero trial balance exporter separately to obtain those files.
+
+### Can I open the exception report in Excel?
+
+Yes. Import exceptions.csv to filter the account-level findings, differences and reviewer actions. The tool also writes a Markdown summary and a JSON evidence pack.
+
+### Does PASS approve the month-end close?
+
+No. PASS means the configured checks passed on the supplied inputs. A human still reviews completeness, accounting treatment and the evidence before approving a close.
+
+## Related
+
+- Export a Xero trial balance to CSV
+- Check a workpaper pack before manager review
+- What Monthly Close Controls refuses
+- Reproducible examples and evaluations
+- Evidence and Assurance
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
+- Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
+- pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
+- Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/
+- What Monthly Close Controls refuses: https://duguid.com.au/tools/refusals/#monthly-close-controls
+- Reproducible examples and evaluations: https://duguid.com.au/evaluate/
+- Evidence and Assurance: https://duguid.com.au/evidence/

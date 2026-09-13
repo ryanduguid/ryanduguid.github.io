@@ -1,0 +1,74 @@
+# Subcontract ledger skills for construction, mining
+
+Source: https://duguid.com.au/tools/subcontractor-ledgers/
+
+> Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.
+
+# Subcontract ledger workflows for construction and mining
+
+These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+
+Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
+
+Published 24 August 2026. Last reviewed 11 September 2026.
+
+Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
+
+For work in progress, the skills assemble the contract CSV. The arithmetic lives in TheWIPTally, which produces a deterministic AASB 15 schedule. Do not ask the agent to invent cost-to-cost progress, constrained variations, or the contract-asset versus contract-liability split.
+
+## What this tool does
+
+- The contracting core: progress claim preparation, retention schedules, work in progress and overbilling and underbilling under AASB 15, and contract cost tracking.
+- Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+- Paying subcontractors: super guarantee under the extended definition, TPAR, and a shared reference skill for the exports these workflows need.
+
+## Limits
+
+These skills prepare and check. They do not serve a payment claim, lodge a return, or sign anything. Contract interpretation, eligibility conclusions, and professional judgement stay with a person. Nothing here is tax, accounting, or legal advice.
+
+## Get it
+
+Needs an AI coding agent such as Claude Code or Codex, and Node.
+
+Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 50 skills; its 31 additions have no recorded model evaluation. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+
+Source on GitHub
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Common questions
+
+### Do I need Claude Code to use these skills?
+
+You need a compatible AI coding agent, such as Claude Code or Codex. These are agent skills, not a standalone program.
+
+### Will they tell me whether a contract is covered by a security of payment Act?
+
+No. Both that conclusion and whether a worker is a contractor or an employee stay with a person. The skills refuse both.
+
+### Do the skills hard-code rates and thresholds?
+
+No. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state.
+
+## Related
+
+- Construction WIP schedule under AASB 15
+- Coal LSL levy calculator
+- When is payday super due
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Australian Accounting Skills v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
+- TheWIPTally: https://duguid.com.au/tools/wip-schedule/
+- Adopt: https://duguid.com.au/#adopt
+- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
+- Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
+- Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

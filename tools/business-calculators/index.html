@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
-  <title>Business calculators</title>
+  <title>Australian business calculators: GST, margins, cash</title>
   <meta name="description" content="Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Business calculators" />
+  <meta property="og:title" content="Australian business calculators: GST, margins, cash" />
   <meta property="og:description" content="Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
@@ -23,7 +23,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Business calculators" />
+  <meta name="twitter:title" content="Australian business calculators: GST, margins, cash" />
   <meta name="twitter:description" content="Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
@@ -34,9 +34,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/llms.txt" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Subset.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="modulepreload" href="/assets/business-calculators.mjs" />
+  <link rel="modulepreload" href="/assets/field-errors.mjs" />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 
@@ -54,7 +57,7 @@
         <p class="lead-note">Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 12 September 2026.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 14 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.</p></noscript>
@@ -75,16 +78,16 @@
 <fieldset disabled><legend>GST inputs</legend><div class="form-grid"><label class="field" for="gst-amount">Amount (AUD)<input id="gst-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="check-field"><input type="checkbox" name="inclusive" /> Amount includes GST</label></div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="business-use">
-<h2>Business-use share</h2><p>Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.</p><p><a href="/tools/accounting-questions/#q15">Phone and internet record checklist</a></p>
+<h2>Business-use share</h2><p>Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.</p><p>For car expenses under the cents per kilometre method, the <a href="/rates/cents-per-kilometre/">rate by income year</a> is kept as a maintained table on this site.</p><p><a href="/tools/accounting-questions/#q15">Phone and internet record checklist</a></p>
 <form data-calculator="business-use">
 <fieldset disabled><legend>Business-use share inputs</legend><div class="form-grid"><label class="field" for="business-use-cost">Eligible cost (AUD)<input id="business-use-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="business-use-percent">Business use (%)<input id="business-use-percent" name="percent" type="number" inputmode="decimal" min="0" max="100" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="margin">
 <h2>Margin and markup</h2><p>Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -93,7 +96,7 @@
 <label class="field" for="margin-cost">Direct cost (AUD)<input id="margin-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="break-even">
 <h2>Break-even sales</h2><p>Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -103,7 +106,7 @@
 <label class="field" for="break-even-variable">Variable cost per unit (AUD)<input id="break-even-variable" name="variable" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="hourly">
 <h2>Hourly pricing</h2><p>Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -113,7 +116,7 @@
 <label class="field" for="hourly-hours">Annual billable hours<input id="hourly-hours" name="hours" type="number" inputmode="decimal" min="0.01" max="8784" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="variance">
 <h2>Budget variance</h2><p>Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.</p><p><a href="/tools/accounting-questions/#q75">Budget explanation checklist</a></p>
@@ -123,7 +126,7 @@
 <label class="field" for="variance-budget">Budget (AUD)<input id="variance-budget" name="budget" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
 <div class="field"><label for="variance-kind">Figure type</label><select name="kind" id="variance-kind"><option value="income">Income</option><option value="cost">Cost</option></select></div></div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="loan">
 <h2>Monthly loan payments</h2><p>For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.</p><p><a href="/tools/accounting-questions/#q57">Loan reconciliation checklist</a></p>
@@ -133,7 +136,7 @@
 <label class="field" for="loan-months">Number of monthly payments<input id="loan-months" name="months" type="number" inputmode="decimal" min="1" max="600" step="1" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="staff">
 <h2>Staff cost</h2><p>Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.</p><p><a href="/tools/accounting-questions/#q50">Staff-cost checklist</a></p>
@@ -143,7 +146,7 @@
 <label class="field" for="staff-other">Other annual costs (AUD)<input id="staff-other" name="other" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="cash">
 <h2>13-week cash forecast</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
@@ -178,7 +181,7 @@
 <tr><th scope="row">13</th><td><label class="field"><span class="visually-hidden">Week 13 receipts</span><input name="receipts-13" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 13 payments</span><input name="payments-13" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 </tbody></table></div>
 <button type="submit" class="button">Calculate</button></fieldset>
-<output role="status" aria-live="polite">Enter the inputs and calculate.</output>
+<output aria-live="polite">Enter the inputs and calculate.</output>
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
@@ -197,7 +200,7 @@
       "description": "Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-12",
+      "dateModified": "2026-09-14",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

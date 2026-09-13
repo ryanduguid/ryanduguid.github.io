@@ -1,0 +1,145 @@
+# Coal LSL levy calculator and section 3B eligible wages
+
+Source: https://duguid.com.au/tools/coal-lsl-levy/
+
+> Estimate the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees.
+
+# Coal LSL levy calculator and section 3B eligible wages
+
+Checked 2 September 2026: the Coal LSL levy is 2.7% of eligible wages for the month. Section 3B determines eligible wages under separate base-rate, annual-salary, and casual branches; the base-rate branch uses the greater of Formula A and Formula B.
+
+Rate
+
+2.7% of eligible wages, paid monthly, checked 2 September 2026
+
+Method
+
+Section 3B branch test
+
+Boundary
+
+Estimate only. Check the current prescribed percentage before relying on a figure.
+
+Published 24 August 2026. Last reviewed 10 September 2026.
+
+Load the synthetic example
+
+Uses the homepage's fabricated figures and replaces the current inputs. No client data.
+
+How is this employee paid?
+
+Your choice replaces the pay fields that follow.
+
+A base rate of pay (section 3B(1)) An annual salary (section 3B(2)) As a casual (section 3B(3))
+
+Leave a monetary amount blank to treat it as $0.00.
+
+Salary sacrificed amount
+
+Applies to base rate of pay, ordinary rate of pay, and annual salary. It does not apply to casual loading, bonuses, overtime, or allowances.
+
+## Bonuses
+
+Add a bonus
+
+Only bonuses paid weekly, fortnightly, or monthly count. Quarterly, half-yearly, and annual amounts are excluded, not spread across the year.
+
+Calculate
+
+## Result
+
+This calculator needs JavaScript to run in your browser. With scripts off, Calculate cannot show a result. The sources and disclaimer on this page still apply.
+
+Ready to calculate
+
+Enter this month's figures. The applied branch, formula, and explanation will appear here.
+
+Estimate only. Check the current prescribed percentage before relying on a figure. duguid.com.au/tools/coal-lsl-levy/
+
+## Employee reference table
+
+Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN, or other direct identifier. Calculate first, then add the result and choose Download CSV.
+
+Download CSV before leaving. This table is not saved and clears when you reload or close the page.
+
+## Disclaimer
+
+Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice, and it is not a tax agent service. Using it creates no adviser relationship.
+
+The levy rate applied is 2.7%, checked on 2 September 2026. Check the current prescribed percentage in section 6 of the Payroll Levy Regulations 2018 on the Federal Register of Legislation before relying on any figure.
+
+This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations, or the approved form, those prevail.
+
+This tool does not decide whether an employee is an eligible employee, does not calculate long service leave accrual or reimbursements, and does not calculate additional levy on late payments.
+
+Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here.
+
+Ryan Duguid gives no guarantee and accepts no liability for the accuracy, reliability, currency, or completeness of the output. Verify against Coal LSL.
+
+## What this tool does not resolve
+
+These are gaps in the Act, the Regulations, and the guidance note, not gaps in this tool. This tool does not guess a treatment for any of them, and it does not offer an input for any of them. Ask Coal LSL.
+
+- Does the levy apply to employer superannuation? Section 3B does not mention it at any point.
+- Are termination payments (redundancy, payment in lieu of notice, severance, and leave paid out) eligible wages? The Act, the Regulations, and the guidance note do not say.
+- Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages? The Act, the Regulations, and the guidance note do not say.
+- Is unpaid leave eligible wages? The Levy Advice form has a section for it, but no rule appears in the Act or the guidance note.
+- Does shift loading count for base rate and casual employees? Section 3B names it only for annual salary employees, in section 3B(2)(b), and is silent for the other 2 branches.
+- Do allowances count for annual salary employees, and do allowances, overtime, and penalty rates count for casual employees? Section 3B(2) and section 3B(3) are silent.
+- Does a fortnightly or weekly bonus satisfy 'paid at least once a month'? This tool assumes it does. Nothing in the Act, the Regulations, or the guidance note states it.
+- What does 'can be quantified' mean for a casual loading where an instrument names a percentage but the employee is paid a single all-in rate? Neither the Act nor the guidance note says.
+
+## Rounding
+
+The Act, the Regulations, and the guidance note publish no rounding rule. This tool rounds the levy half up to the nearest cent at the final step only, and shows the unrounded figure above whenever it differs from the rounded figure.
+
+## Common questions
+
+### What levy rate does this calculator use?
+
+2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.
+
+### Which bonuses count towards eligible wages?
+
+Weekly, fortnightly, and monthly bonuses count. Quarterly, half-yearly, and annual amounts are left out rather than spread across the year.
+
+### Does the levy apply to employer superannuation?
+
+Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it.
+
+### How does this tool round the levy?
+
+Half up to the nearest cent, once, at the final step. The Act, the Regulations, and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs.
+
+### Can I lodge my monthly Coal LSL return with this tool?
+
+No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Sources
+
+- Coal LSL, Determining eligible wages guidance note
+- Coal LSL, governing legislation
+
+## Related
+
+- Subcontract ledger workflows for construction and mining
+- When is payday super due
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992: https://www.legislation.gov.au/C2004A04352/latest/text
+- Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
+- Coal LSL: https://coallsl.com.au
+- Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
+- Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
+- Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
+- Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

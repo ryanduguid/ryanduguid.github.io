@@ -1,0 +1,54 @@
+# Site and release changelog | Ryan Duguid
+
+Source: https://duguid.com.au/changelog/
+
+> Dated register of site changes and tagged tool releases across the open-source Australian accounting portfolio.
+
+# Changelog
+
+What changed and when, across this site and the tagged tool releases. Dates are Australian Eastern time.
+
+## Site
+
+Date | Change
+11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
+6 September 2026 | The Tools page gained a Related resources section holding the third-party libraries, official guidance, and primary sources from the separate index repository, which is now archived; the footer links there instead.
+4 September 2026 | Every link to a repository archived after the September 2026 consolidation now points at its maintained home in the monorepos, the 3 evaluations were rerun against the namespaced monorepo releases, and the site checks fail on any link that resolves to an archived repository.
+2 September 2026 | Copy edit across the tool, rate, and evaluation pages, About, Contact, and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site's per cent style.
+2 September 2026 | Font preloads and a Content Security Policy on every page, entry headings on the Rates and Evaluations hubs, a no-script notice on the Coal LSL calculator, a security.txt contact file, and repository tooling removed from the published origin.
+31 August 2026 | Engage parked. The site remains a personal open-source tool index, not a practice, and is not accepting professional engagements through this site.
+30 August 2026 | Navigation, adoption, and accessibility refinements across the register, with contact and changelog pages added.
+30 August 2026 | Coal LSL calculator month validation and print recalculation fixes, and the split 2013-14 super guarantee history row.
+29 August 2026 | Adoption-first homepage, the Tools, Rates, and Evaluations hubs, contextual share cards, and calculator print and CSV improvements.
+28 August 2026 | True-black register redesign, self-hosted IBM Plex subsets, and the register-seal site icon.
+
+## Tool releases
+
+One row per tool: its current tagged release. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
+
+Date | Tool | Release
+10 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.0
+8 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.5
+7 September 2026 | Subcontract ledger skills | v0.2.1
+6 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.7
+2 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.6
+2 September 2026 | Payday Super timing | payday-super-checker/v0.1.3
+2 September 2026 | Trust distribution checks | solomons-sword/v0.1.3
+2 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.3
+
+Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
+
+Published 30 August 2026. Last reviewed 11 September 2026.
+
+## Links
+
+- aus-accounting-mcp/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.0
+- review-ready-gate/v0.1.5: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.5
+- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
+- xero-trial-balance-export/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.7
+- ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
+- payday-super-checker/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
+- solomons-sword/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3
+- the-exchequer-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3
+- evaluations: https://duguid.com.au/evaluate/
+- evidence register: https://duguid.com.au/evidence/

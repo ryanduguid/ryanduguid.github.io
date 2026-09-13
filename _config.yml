@@ -18,6 +18,8 @@ exclude:
   - package-lock.json
   - playwright.capture.config.mjs
   - playwright.config.mjs
+  - pyproject.toml
+  - SECURITY.md
   - scripts
   - tests
   - assets/social-card-template.svg

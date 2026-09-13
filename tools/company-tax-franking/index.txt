@@ -1,0 +1,102 @@
+# What company tax rate applies, and is franking OK?
+
+Source: https://duguid.com.au/tools/company-tax-franking/
+
+> Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.
+
+# What company tax rate applies, and is the franking account in order?
+
+A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
+
+Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub.
+
+Published 24 August 2026. Last reviewed 11 September 2026.
+
+This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and the 30% offset reduction penalty where a deficit exceeds 10% of annual credits. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
+
+It builds the statement fields a dividend distribution statement needs, too. That is a review helper for the statement, not a lodgement or a compliance certificate.
+
+## What this tool does
+
+- Tests whether a company is a base rate entity for a given financial year, against the aggregated turnover threshold and the 80% passive income test.
+- Tracks a franking account ledger and works out franking deficit tax and the 30% offset reduction penalty where the deficit exceeds 10% of annual credits.
+- Checks distributions in a franking period against the Division 203 benchmark rule, for over-franking tax and franking debit shortfalls.
+
+## Limits
+
+Nothing this engine produces is tax, legal, or financial advice, an assessment or a determination. Outputs are review aids: confirm every rate, threshold, and consequence against the current law and the entity's facts before acting, and leave lodgement decisions with a registered practitioner.
+
+## Get it
+
+Needs Python 3.10 or later. Install the reference release in your Python environment.
+
+```
+python -m pip install "the-exchequer-tally==0.1.3"
+```
+
+Published package and release instructions.
+
+Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Fabricated worked example
+
+For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.
+
+```
+the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+```
+
+Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
+
+```
+Passive Income Ratio:    15.00% (<= 80%: True)
+Base Rate Entity:        True
+Applicable Tax Rate:     25.0%
+```
+
+### Try a refusal
+
+Change --fy 2025 to --fy 2017. Release 0.1.3 has no bundled rate table for that year. It exits 2 and returns no rate.
+
+This verifies the published command's behaviour on fabricated inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.
+
+## Common questions
+
+### What makes a company a base rate entity?
+
+Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80% of assessable income being base rate entity passive income.
+
+### What is franking deficit tax?
+
+Tax payable where a franking account ends the year in deficit. Where the deficit exceeds 10% of the credits arising in the year, the offset may be reduced by 30%, but only for the part of the liability that relates to franking debits arising under the provisions listed in section 205-70(8); the debit types and any applicable exceptions need checking before the reduction is applied.
+
+### What is the benchmark rule?
+
+Under Division 203, a company must frank all distributions in a franking period to the same extent. Departing from the benchmark franking percentage produces over-franking tax or a franking debit shortfall.
+
+## Related
+
+- Division 7A benchmark interest rate
+- Is this trust distribution in the section 100A green zone
+- How a business compares to the ATO benchmarks
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- the-exchequer-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3
+- Published package: https://pypi.org/project/the-exchequer-tally/0.1.3/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.3/packages/the-exchequer-tally/README.md#quickstart
+- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
+- Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
+- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
+- How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

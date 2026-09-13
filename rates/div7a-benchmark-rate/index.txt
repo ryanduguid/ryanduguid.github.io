@@ -1,0 +1,88 @@
+# Division 7A benchmark interest rate by year
+
+Source: https://duguid.com.au/rates/div7a-benchmark-rate/
+
+> 8.77% for 2026-27, 8.37 for 2025-26. Section 109N(2) ties it to a Reserve Bank series, so the rate can be derived rather than looked up.
+
+# Division 7A benchmark interest rate
+
+The benchmark interest rate for the 2026-27 income year is 8.77%. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+
+Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%.
+
+## The rate, by income year
+
+Income year | Benchmark rate
+2026-27 | 8.77%
+2025-26 | 8.37%
+2024-25 | 8.77%
+2023-24 | 8.27%
+2022-23 | 4.77%
+2021-22 | 4.52%
+2020-21 | 4.52%
+2019-20 | 5.37%
+
+The table starts at 2019-20. The ATO publishes the same figure for each year on its own site, and that is the one to confirm against for the year you are relying on.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. The rate for an income year is the May Reserve Bank figure, not the June one.
+
+## How to work it out yourself
+
+Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 monthly, roughly 10 days after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%.
+
+Reading the June figure instead is the usual mistake, and it changes the answer in a normal year. June 2025 sat at 8.27% while May 2025 sat at 8.37%, and 8.37 is the benchmark rate for 2025-26. Section 109N(2) also leaves room for regulations to set the rate a different way, and none currently do.
+
+The data is at the Reserve Bank's statistical tables, table F5.
+
+## What the rate is for
+
+A loan from a private company to a shareholder or an associate that is still unpaid at the company's lodgment day for the year the loan was made is treated as a dividend unless an exclusion applies. For a loan not otherwise excluded, two relevant paths avoid that result: repaying the loan in full before the lodgment day, or a written agreement made before that day that satisfies section 109N. Section 109N(1) asks for 3 things: a written agreement, a rate of interest for years after the year the loan was made that equals or exceeds that year's benchmark rate, and a term inside the maximum. The minimum yearly repayment is then calculated using the current year's benchmark rate under section 109E. The maximum term is 7 years, or 25 years where the loan is fully secured by a registered mortgage over real property and the property's value, net of prior liabilities, is at least 110% of the loan.
+
+A higher benchmark rate increases the minimum yearly repayment when the unpaid balance and remaining term are unchanged.
+
+## Common questions
+
+### What is the Division 7A benchmark interest rate for 2026-27?
+
+8.77%. It is the Reserve Bank's indicator lending rate for bank variable housing loans last published before 1 July 2026, which was the May 2026 figure.
+
+### What was the benchmark rate for 2025-26?
+
+8.37%, the May 2025 figure. The June 2025 figure of 8.27% was not published until after the income year had started, so it does not apply.
+
+### Where does the rate come from?
+
+Section 109N(2) of the Income Tax Assessment Act 1936 points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the start of the income year, unless regulations provide another method. None currently do.
+
+### Does a change in the rate affect loans already on foot?
+
+Yes. The minimum yearly repayment uses that year's benchmark rate, the unpaid balance, and the remaining term. A higher rate increases the repayment when the other 2 inputs are unchanged.
+
+### What is the maximum term for a complying Division 7A loan?
+
+Seven years, or 25 years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
+
+General reference only, not tax, legal, or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
+
+## Related
+
+- Cents per kilometre rate for car expenses
+- Super guarantee rate history
+- Section 100A and Division 6 trust distributions
+- Australian tax tools for AI agents
+- About Ryan Duguid
+
+Published 24 August 2026. Last reviewed 2 September 2026.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- section 109N(2) of the Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
+- statistical table F5: https://www.rba.gov.au/statistics/tables/
+- Download the table as CSV: https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- Section 100A and Division 6 trust distributions: https://duguid.com.au/tools/trust-distributions/
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- About Ryan Duguid: https://duguid.com.au/about/

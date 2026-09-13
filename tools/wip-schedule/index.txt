@@ -1,0 +1,96 @@
+# Construction WIP under AASB 15: over- or under-billed?
+
+Source: https://duguid.com.au/tools/wip-schedule/
+
+> AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.
+
+# Construction WIP under AASB 15: over- or under-billed?
+
+TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
+
+Published 25 August 2026. Last reviewed 10 September 2026.
+
+Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims, and present each contract as an asset or a liability, never a portfolio net.
+
+This tool does the arithmetic. Install the Python engine, point it at a contract CSV, and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability, and any onerous-contract provision stay with a person. The subcontractor ledger skills own that workflow: they assemble the file and name this engine rather than inventing the numbers.
+
+## What this tool does
+
+- Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin.
+- Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.
+- Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.
+
+## Worked example: a $50,000 contract asset
+
+This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.0. The test uses a reasonably measurable outcome, with no variations, waste, or uninstalled materials. All amounts below exclude GST.
+
+- Transaction price: $1,000,000.
+- Costs incurred: $400,000. Estimated cost to complete: $400,000.
+- Certified billings: $450,000.
+
+Progress is $400,000 ÷ ($400,000 + $400,000) = 50%. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a $50,000 contract asset and no contract liability.
+
+A person must confirm that the recognition basis, contract terms, and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
+
+## Limits
+
+This is an educational tool, not tax, legal, or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion, or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
+
+## Get it
+
+Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
+
+```
+git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting/packages/the-wip-tally && pip install .
+wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31
+```
+
+The sample raises review flags by design. Exit code 2 means a person needs to look; it is not a crash. Then:
+
+```
+wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md
+```
+
+Source on GitHub · Use it from the subcontractor workflows
+
+Unexpected result or question? Open an issue or email with the tool named in the subject.
+
+## Common questions
+
+### What is a contract asset versus a contract liability?
+
+Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another.
+
+### Does wasted cost accelerate percentage complete?
+
+No. Para B19(a) amounts are stripped from the progress measure and kept in estimated cost at completion, so they hit margin instead of pulling revenue forward.
+
+### Are unapproved variations booked in full?
+
+No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%.
+
+### Is this an accounting determination?
+
+No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead.
+
+## Related
+
+- Subcontract ledger workflows for construction and mining
+- Coal LSL levy calculator
+- When is payday super due
+- Evidence and Assurance
+- About Ryan Duguid
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- cost-to-cost underbilling test in the-wip-tally v0.1.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py
+- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- About Ryan Duguid: https://duguid.com.au/about/

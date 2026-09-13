@@ -1,0 +1,78 @@
+# Super guarantee rate history (2002-03 to today)
+
+Source: https://duguid.com.au/rates/super-guarantee/
+
+> Every general super guarantee rate since 2002-03, with dates. It has been 12% since 1 July 2025, and payday super changed the timing, not the rate.
+
+# Super guarantee rate history
+
+The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
+
+Verified 30 August 2026 against the ATO's super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992.
+
+## Current rate
+
+12% since 1 July 2025, with no later step scheduled. From 1 July 2026, Payday Super changed the timing: contributions are generally due within 7 business days of each payday rather than quarterly. The rate stayed at 12%, but timing was not the only change: contributions are now worked out on qualifying earnings rather than ordinary time earnings, and the maximum contributions base is an annual limit rather than a quarterly one.
+
+Period | General SG rate (%)
+1 July 2025 onwards | 12.00
+1 July 2024 to 30 June 2025 | 11.50
+1 July 2023 to 30 June 2024 | 11.00
+1 July 2022 to 30 June 2023 | 10.50
+1 July 2021 to 30 June 2022 | 10.00
+1 July 2014 to 30 June 2021 | 9.50
+1 July 2013 to 30 June 2014 | 9.25
+1 July 2002 to 30 June 2013 | 9.00
+
+For periods before 2002-03, see former sections 20 and 21 of the Superannuation Guarantee (Administration) Act 1992.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What is the super guarantee rate for 2025-26?
+
+12%. The rate reached its final step of 12% on 1 July 2025.
+
+### What is the super guarantee rate for 2026-27?
+
+12%. There are no further scheduled increases.
+
+### Did the super guarantee rate change on 1 July 2026?
+
+No. Payday Super changed the timing from that date: pay within 7 business days of each payday instead of quarterly. The rate itself has been 12% since 1 July 2025.
+
+### When did the super guarantee rate stop increasing?
+
+The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 July: 11.5% (2024), 11% (2023), 10.5% (2022), 10% (2021).
+
+General reference only, not tax, legal, or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- When is payday super due
+- Australian tax tools for AI agents
+- Division 7A benchmark interest rate
+- Cents per kilometre rate for car expenses
+- Coal LSL levy calculator
+- Staff cost calculator
+- About Ryan Duguid
+
+Published 24 August 2026. Last reviewed 12 September 2026.
+
+## Links
+
+- super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
+- Treasury Laws Amendment (Payday Superannuation) Act 2025: https://www.legislation.gov.au/C2025A00057/asmade
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv
+- Source and contact: https://github.com/ryanduguid
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/#staff
+- About Ryan Duguid: https://duguid.com.au/about/

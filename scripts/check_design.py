@@ -55,10 +55,15 @@ CSP_META = (
 )
 FONT_PRELOADS = {
     face: (
-        f'<link rel="preload" href="/assets/fonts/{face}-Latin1.woff2" '
+        f'<link rel="preload" href="/assets/fonts/{face}-Subset.woff2" '
         'as="font" type="font/woff2" crossorigin />'
     )
-    for face in ("IBMPlexSerif-SemiBold", "IBMPlexSans-Regular", "IBMPlexMono-Regular")
+    for face in (
+        "IBMPlexSerif-SemiBold",
+        "IBMPlexSans-Regular",
+        "IBMPlexMono-Regular",
+        "IBMPlexSans-SemiBold",
+    )
 }
 SCRIPT_OPEN_PATTERN = re.compile(r"<script\b([^>]*)>", re.I)
 JSON_LD_TYPE_PATTERN = re.compile(

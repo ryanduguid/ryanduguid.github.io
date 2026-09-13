@@ -113,14 +113,15 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
     return text.strip()
 
 
-def build() -> str:
+def build() -> dict[str, str]:
+    """Each indexable page's entry keyed by URL, in sitemap order."""
     content_root = ROOT
     if (ROOT / "Gemfile").is_file():
         # Render Liquid data and includes before extracting the visible text.
         from build_site import build as render
 
         content_root = render()
-    parts = [HEADER]
+    entries: dict[str, str] = {}
     for url in core.sitemap_urls(ROOT):
         html = page_path(url, content_root).read_text(encoding="utf-8")
         title_match = re.search(r"<title>(.*?)</title>", html, re.S)
@@ -128,24 +129,43 @@ def build() -> str:
             raise ValueError(f"{url}: page has no <title>")
         title = html_lib.unescape(title_match.group(1)).strip()
         description = core.meta(html, "name", "description") or ""
-        parts.append(f"---\n\n# {title}\n\nSource: {url}\n\n> {description}\n\n{main_text(html, url)}\n")
-    return "\n".join(parts)
+        entries[url] = f"# {title}\n\nSource: {url}\n\n> {description}\n\n{main_text(html, url)}\n"
+    return entries
+
+
+def full_text(entries: dict[str, str]) -> str:
+    return "\n".join([HEADER, *(f"---\n\n{entry}" for entry in entries.values())])
+
+
+def page_text_path(url: str) -> Path:
+    """The per-page copy the Machine view fetches instead of the whole file."""
+    return page_path(url).with_name("index.txt")
+
+
+def read_text(path: Path) -> str:
+    return path.read_text(encoding="utf-8").replace("\r\n", "\n") if path.is_file() else ""
 
 
 def main(argv: list[str]) -> int:
-    built = build()
+    entries = build()
+    built = full_text(entries)
     index = (ROOT / "llms.txt").read_bytes()
     alias = ROOT / ".well-known/llms.txt"
     if "--write" in argv:
         OUTPUT.write_text(built, encoding="utf-8", newline="\n")
+        for url, entry in entries.items():
+            page_text_path(url).write_text(entry, encoding="utf-8", newline="\n")
         alias.parent.mkdir(parents=True, exist_ok=True)
         alias.write_bytes(index)
-        print(f"llms-full.txt written ({built.count('Source: ')} pages)")
+        print(f"llms-full.txt and {len(entries)} index.txt pages written")
         print(".well-known/llms.txt copied from llms.txt")
         return 0
-    current = OUTPUT.read_text(encoding="utf-8").replace("\r\n", "\n") if OUTPUT.is_file() else ""
-    if current != built:
+    if read_text(OUTPUT) != built:
         print("llms-full.txt is stale: run python scripts/build_llms_full.py --write")
+        return 1
+    stale = [url for url, entry in entries.items() if read_text(page_text_path(url)) != entry]
+    if stale:
+        print(f"{len(stale)} index.txt page(s) stale: run python scripts/build_llms_full.py --write")
         return 1
     if not alias.is_file() or alias.read_bytes() != index:
         print(".well-known/llms.txt is stale: run python scripts/build_llms_full.py --write")

@@ -1,0 +1,282 @@
+# Open-source Australian accounting tools | Ryan Duguid
+
+Source: https://duguid.com.au/tools/
+
+> Browse 11 open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+
+# Tools
+
+Start with 100 accounting questions or the business calculators, then inspect the controls below.
+
+Last reviewed 11 September 2026.
+
+## Start from your work
+
+- Cash flow and management reporting
+
+Fictional Newcastle cash-flow case Excel and source files
+
+- Payroll and super
+
+Payday Super timing Python Coal LSL levy calculator Browser
+
+- Month-end and BAS packs
+
+Workpaper Review Gate Python Monthly Close Controls Python Xero trial balance CSV export Python
+
+- Construction and mining clients
+
+Construction WIP schedule Python Subcontract ledger skills Agent skills
+
+- Tax positions
+
+Trust distribution checks Python Company tax and franking checks Python ATO benchmark comparison Python
+
+- AI agents in the workflow
+
+Australian tax tools for AI agents MCP
+
+Extract Calculate Control Inspect
+
+Extract
+
+## Get records into reviewable shape
+
+### Xero trial balance CSV export
+
+Writes a tidy CSV only after month movement and year-to-date debits and credits both balance.
+
+Delivery
+
+Python
+
+Boundary
+
+Read-only Xero scope; no ledger writes.
+
+Source repository Reproduce the evaluation Last commit 7 September 2026
+
+### Subcontract ledger skills
+
+Assembles progress claims, retentions, WIP, fuel credits, and levy inputs into inspectable ledgers.
+
+Delivery
+
+Agent skills
+
+Boundary
+
+Requires human review of contracts, classifications, and source records.
+
+Source repository Last commit 7 September 2026
+
+### Construction WIP schedule
+
+Calculates cost-to-cost revenue, contract assets or liabilities, and profit-fade flags by contract.
+
+Delivery
+
+Python
+
+Boundary
+
+Review aid under AASB 15, not an accounting determination.
+
+Source repository Last commit 7 September 2026
+
+Calculate
+
+## Apply a rule without hiding the working
+
+### Payday Super timing
+
+Classifies supplied receipt evidence against the 7-business-day rule and estimates late-line exposure.
+
+Delivery
+
+Python
+
+Boundary
+
+Missing receipt evidence stays at risk; the tool does not infer payment.
+
+Source repository Reproduce the evaluation Last commit 7 September 2026
+
+### ATO benchmark comparison
+
+Maps a profit and loss to published ATO categories and shows each ratio beside the published range.
+
+Delivery
+
+Python
+
+Boundary
+
+A comparison is not an audit finding or compliance conclusion.
+
+Source repository Last commit 7 September 2026
+
+### Coal LSL levy calculator
+
+Shows the section 3B employee branch, eligible-wages formula, and 2.7% monthly levy.
+
+Runs on this site now. Nothing to install.
+
+Delivery
+
+Browser
+
+Boundary
+
+No lodgement, storage, or network transmission; verify the monthly return.
+
+Source repository Last commit 6 September 2026
+
+### Trust distribution checks
+
+Classifies PCG 2022/2 zones and calculates Division 6 shares and a section 99B amount from supplied facts.
+
+Delivery
+
+Python
+
+Boundary
+
+Does not invent arrangements, intentions, or beneficiary facts.
+
+Source repository Last commit 7 September 2026
+
+### Company tax and franking checks
+
+Applies the base-rate-entity test and keeps franking account movements and deficit tax visible.
+
+Delivery
+
+Python
+
+Boundary
+
+Requires verified income composition, distributions, and ledger inputs.
+
+Source repository Last commit 7 September 2026
+
+Control
+
+## Stop incomplete work before manager review
+
+### Workpaper Review Gate
+
+Returns a BAS, month-end, or year-end pack when artefacts are missing, untied, or unbalanced.
+
+Delivery
+
+Python
+
+Boundary
+
+READY means ready for human review, not approved or signed off.
+
+Source repository Reproduce the evaluation Last commit 7 September 2026
+
+### Monthly Close Controls
+
+Compares trial balance CSVs and returns material movements, missing mappings and subledger differences for review.
+
+Delivery
+
+Python
+
+Boundary
+
+PASS applies to the configured checks. A human approves the close.
+
+Source repository Inspect the worked example Last commit 10 September 2026
+
+Inspect
+
+## Compare Australian tax tools for AI agents
+
+### Australian tax tools for AI agents
+
+Compares local deterministic calculations with hosted retrieval and states what each route refuses.
+
+Delivery
+
+MCP
+
+Boundary
+
+Human review required. Optional local-library excerpts enter the assistant's context; Division 7A scope stays limited.
+
+Source repository Last commit 7 September 2026
+
+## Before using a tool
+
+Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. Start with fabricated data and keep the stated boundary in view.
+
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output.
+
+## Workbooks and source
+
+Ozzit runs in Microsoft 365 or Excel 2024 and later. The toolkit and Power BI repositories include setup instructions.
+
+Download Ozzit (Excel workbook) Ozzit examples and source Power Query and VBA ledger toolkit Power BI accounting project
+
+## Related resources
+
+Third-party libraries, official guidance, and primary sources this work depends on or sits beside. None is maintained here; each link goes to its own home.
+
+OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO datasets on data.gov.au Standard Business Reporting developer resources SuperStream technical standards
+
+## Links
+
+- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- business calculators: https://duguid.com.au/tools/business-calculators/
+- Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
+- Payday Super timing Python: https://duguid.com.au/tools/payday-super/
+- Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
+- Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
+- Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
+- Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
+- Construction WIP schedule Python: https://duguid.com.au/tools/wip-schedule/
+- Subcontract ledger skills Agent skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- Trust distribution checks Python: https://duguid.com.au/tools/trust-distributions/
+- Company tax and franking checks Python: https://duguid.com.au/tools/company-tax-franking/
+- ATO benchmark comparison Python: https://duguid.com.au/tools/ato-benchmarks/
+- Australian tax tools for AI agents MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Extract: https://duguid.com.au/tools/#extract-tools
+- Calculate: https://duguid.com.au/tools/#calculate-tools
+- Control: https://duguid.com.au/tools/#control-tools
+- Inspect: https://duguid.com.au/tools/#inspect-tools
+- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
+- Reproduce the evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Source repository: https://github.com/ryanduguid/australian-accounting-skills
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
+- Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- Source repository: https://github.com/ryanduguid/ryanduguid.github.io
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- Reproduce the evaluation: https://duguid.com.au/evaluate/manager-review-gate/
+- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Inspect the worked example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- reproducible evaluations: https://duguid.com.au/evaluate/
+- What these tools refuse: https://duguid.com.au/tools/refusals/
+- Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest
+- Ozzit examples and source: https://github.com/ryanduguid/Ozzit
+- Power Query and VBA ledger toolkit: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit
+- Power BI accounting project: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/apps/australian-accounting-power-bi
+- OpenAccountants tax guides for coding agents: https://github.com/openaccountants/openaccountants
+- Xero Python SDK (official): https://github.com/XeroAPI/xero-python
+- Xero Node SDK (official): https://github.com/XeroAPI/xero-node
+- tap-xero Singer tap for the Xero API: https://github.com/Matatika/tap-xero
+- Excel Labs Advanced Formula Environment: https://github.com/microsoft/excel-labs
+- STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
+- Federal Register of Legislation: https://www.legislation.gov.au/
+- ATO Legal Database: https://www.ato.gov.au/law/
+- ATO datasets on data.gov.au: https://data.gov.au/data/organization/australiantaxationoffice
+- Standard Business Reporting developer resources: https://www.sbr.gov.au/
+- SuperStream technical standards: https://softwaredevelopers.ato.gov.au/SuperStreamStandard

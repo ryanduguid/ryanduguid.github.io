@@ -1,0 +1,89 @@
+# Manager review gate evaluation with fabricated BAS packs
+
+Source: https://duguid.com.au/evaluate/manager-review-gate/
+
+> Reproduce the review-ready-gate v0.1.3 result for 2 fabricated BAS packs, inspect the controls triggered, and retain the human decision boundary.
+
+# Manager review gate evaluation
+
+Reproduce the released review-ready gate against 2 fabricated BAS packs, then inspect the exact expected result and human boundary.
+
+Published 26 August 2026. Last reviewed 11 September 2026.
+
+## Accounting problem
+
+Before a BAS pack reaches a manager, a preparer needs a repeatable check that the configured completeness and blocking-item gates have not tripped.
+
+## Fabricated inputs
+
+The evaluation uses the repository fixtures examples/bas-not-ready and examples/bas-ready. They contain no client data.
+
+## Expected result
+
+The incomplete BAS pack exits with code 2 and NOT_READY. The corrected pack exits with code 0 and READY, with no configured findings. These results describe readiness for review; a manager still decides whether the work may progress.
+
+Pack | Released expectation
+Incomplete BAS | Exit 2 with NOT_READY.
+Corrected BAS | Exit 0 with READY and no configured findings.
+
+## Controls triggered
+
+- MISSING_ARTEFACT for gst_control_gl
+- SELF_REVIEW_INCOMPLETE
+- OPEN_ITEM_BLOCKING
+
+## Human decision
+
+READY means no configured gate tripped; it is not approval, advice, or lodgement authority.
+
+A manager still judges correctness, risk, materiality, client impact, and whether the pack may progress.
+
+## Reproduce
+
+```
+git clone --branch review-ready-gate/v0.1.3 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
+cd accounting-review-pipeline/packages/review-ready-gate
+uv sync --locked --all-extras
+uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
+uv run review-ready gate --profile bas --pack examples/bas-ready --output outputs/evaluation-ready
+uv run pytest tests/test_evaluation_pack.py -q
+```
+
+## Primary sources
+
+- Australian Taxation Office, Business activity statements
+- Australian Taxation Office, Monthly GST reporting
+
+## Versions
+
+Product release v0.1.3; fixture version 1; source reviewed 2026-08-26.
+
+review-ready-gate/v0.1.3 is the first release from the Accounting Review Pipeline monorepo. Its runtime behaviour and fabricated fixtures are unchanged from v0.1.1, and the evaluation artefacts are fixed to that release's commit.
+
+- Immutable review-ready-gate/v0.1.3 GitHub Release
+- Evaluation pack
+- Expected results contract
+- Evaluation contract test
+
+## Limitations
+
+This evaluates configured gates against fabricated inputs. It does not establish that a pack is correct, approve work, provide advice, or authorise lodgement. See Evidence and Assurance for the common assurance record and boundaries.
+
+## Related
+
+- Workpaper Review Gate
+- All evaluations
+
+Written by Ryan Duguid in his own time and on his own equipment.
+
+## Links
+
+- Australian Taxation Office, Business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
+- Australian Taxation Office, Monthly GST reporting: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting
+- Immutable review-ready-gate/v0.1.3 GitHub Release: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
+- Evaluation pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate
+- Expected results contract: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate/expected_results.json
+- Evaluation contract test: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/tests/test_evaluation_pack.py
+- Evidence and Assurance: https://duguid.com.au/evidence/
+- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
+- All evaluations: https://duguid.com.au/evaluate/
