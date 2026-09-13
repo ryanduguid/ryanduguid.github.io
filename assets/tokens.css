@@ -106,7 +106,7 @@
   --colour-mode-dot: rgba(255, 255, 255, 0.25);
   --colour-mode-accent: var(--colour-stamp);
   --colour-mode-shadow: rgba(0, 0, 0, 0.25);
-  --colour-machine-canvas: #0a0a0a;
+  --colour-machine-canvas: #000000;
   --colour-machine-ink: #e6e6e6;
 
   --font-display: "IBM Plex Serif", Georgia, serif;
