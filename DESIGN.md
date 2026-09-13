@@ -254,6 +254,8 @@ surfaces are true black rather than green-tinted near-black and the greys
 carry no hue, so stamp green is the only colour on the page besides the
 alert. Rules, not fills, separate the header, footer, bands and code blocks.
 No gradient, glow, indigo, violet, texture or alternate theme is permitted.
+The Machine view canvas is also true black so its text sits on switched-off
+OLED pixels; its ink stays on the switch's own neutral palette.
 The favicon seal and the social-card template carry the same ink and soft
 ink literals, so their rasters are re-rendered whenever those 2 values
 change.
