@@ -5,7 +5,7 @@ Workbook SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b84
 Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
 Licence: MIT, as recorded in the sample pack.
 
-Captured 12 September 2026 with desktop Excel 16.0 on Windows.
+Captured 13 September 2026 with desktop Excel 16.0 on Windows.
 The source workbook was opened read-only with links disabled and macros
 disabled. Assumptions!B2 was set to 45 in memory and CalculateFullRebuild ran.
 The first chart on Cash 13 weeks stores a fixed layout that Excel's object
@@ -20,11 +20,12 @@ Formatting applied in memory for the website's dark canvas: chart fill
 line drawn at zero; AUD tick labels; fortnightly date labels; the date axis
 extended three weeks past 31 December with those extra labels blanked, to
 leave room for the end labels; the legend replaced by direct labels for the
-lowest week, the final closing cash and the buffer; Segoe UI text, because
-IBM Plex is not installed for Excel. No value, date or series was altered.
+lowest week, the final closing cash and the buffer; IBM Plex Sans text from
+the same v6.4.2 family the site serves, installed for the exporting user so
+the chart matches the page. No value, date or series was altered.
 
-The chart was exported using Excel Chart.Export as PNG at 960 by 480 points,
-yielding 1282 by 639 pixels at this display scale.
+The chart was exported using Excel Chart.Export as PNG at 957 by 479.5
+points, yielding 1282 by 639 pixels at this display scale.
 The source workbook was closed without saving; its hash remained unchanged.
 
 Weekly closing cash values in the exported chart, AUD:
@@ -32,7 +33,7 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-PNG SHA-256: e87d93f71ce2c033fb4d4fd31c914e075d2030ad1b0753d1a8f492d7f9a05f8b
+PNG SHA-256: 09f03e69532ff3240486c4ee809c5b41832f78cceee7f80c7bff4e798f14acd4
 
 This is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.

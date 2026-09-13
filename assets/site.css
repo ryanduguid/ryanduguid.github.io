@@ -575,12 +575,6 @@ caption {
   caption-side: top;
 }
 
-@media (hover: hover) {
-  tbody tr:hover td {
-    background: var(--colour-stamp-wash);
-  }
-}
-
 .rate-table--wide,
 .tool-table--wide {
   min-width: 44rem;
@@ -988,13 +982,6 @@ caption {
 
 .print-note {
   display: none;
-}
-
-:target > h2,
-:target > .route-label,
-:target > .section-title,
-:target > header h2 {
-  color: var(--colour-stamp);
 }
 
 .site-footer {
@@ -1554,9 +1541,21 @@ caption {
   padding-block: var(--space-8);
 }
 
+/* The proof band bleeds to the viewport edges like the trust band above it,
+   with its content padded back to the shell width; the trust band's bottom
+   rule already separates the two, so the band's own top rule is dropped. */
 .proof-feature {
   border-block: var(--rule-strong) solid var(--colour-ink);
   background: var(--colour-paper);
+}
+
+.proof-feature.site-shell {
+  width: 100%;
+  padding-inline: max(var(--gutter), calc((100% - var(--site-width)) / 2));
+}
+
+.trust-band + .proof-feature {
+  border-top: 0;
 }
 
 .proof-feature__layout {
@@ -1674,10 +1673,17 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
-/* The lead cell sits on the shell edge like the heading above it. */
+/* The lead cell sits on the shell edge like the heading above it and centres
+   its statement in the two-row height instead of leaving the lower half
+   empty; its description reads at body size to match that weight. */
 .principles-list > div:first-child {
   grid-row: span 2;
+  align-content: center;
   padding-inline-start: 0;
+}
+
+.principles-list > div:first-child span {
+  font-size: var(--text-body);
 }
 
 .principles-list > div {
@@ -1716,6 +1722,13 @@ caption {
   font-family: var(--font-mono);
   font-size: var(--text-small);
   text-decoration: none;
+}
+
+/* Five links in three columns leave one empty cell; the pseudo-element takes
+   it so the last row's rule runs the full width. */
+.more-index__links::after {
+  content: "";
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
 }
 
 .home > .page-meta {
@@ -1760,6 +1773,24 @@ caption {
 #branch-fields {
   display: grid;
   gap: var(--space-5);
+}
+
+/* Calculate is the form's one filled, full-width action; the helper buttons
+   keep their own width so the hierarchy reads at a glance. */
+.calculator-form button[type="button"] {
+  justify-self: start;
+}
+
+/* Amounts are typed or pasted; the native spin buttons add a second control
+   the dark register does not style. Arrow keys still step the value. */
+input[type="number"] {
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
 }
 
 fieldset {
@@ -2283,6 +2314,10 @@ input[type="checkbox"] {
   .more-index__links,
   .site-footer__inner {
     grid-template-columns: 1fr;
+  }
+
+  .more-index__links::after {
+    display: none;
   }
 
   .collection-index {

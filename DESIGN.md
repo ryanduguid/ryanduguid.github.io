@@ -36,6 +36,17 @@ sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
 the mono rule for figures because each result is a sentence, not a ledger
 row.
 
+The same day's surface pass lets the worked-proof band bleed to the viewport
+edges like the trust band above it, with one shared rule between them; sets
+the homepage cash chart in IBM Plex Sans by installing the family for Excel
+and re-exporting from the pinned workbook; centres the lead principle cell's
+statement in its two-row height; keeps Calculate as the calculator's one
+full-width filled action while its helper buttons take their own width;
+removes the hover wash from static table rows and the accent colour from a
+targeted heading, so the accent keeps one meaning; hides native spin buttons
+on number inputs; and runs the More index rule the full width of its last
+row.
+
 The 12 September 2026 alignment pass fixes text that sat off its neighbours:
 the hero link is centred on its button; the four-task header shares the
 entry column template so its heading starts on the description edge; the
