@@ -162,11 +162,11 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site.png` | `ebc71c0e7dc09661a49ffbf399e7ef6a17464d60c572b5abd94292f3b63403cb` |
-| `assets/social-card-tools.png` | `68852e24b466f50c79e22034eff2dab27f5dc2c76df2a8b02c96ffbd8517d9c9` |
-| `assets/social-card-evaluations.png` | `1a28d3e9397f6ccda32e90b0c27017f10fda603efbbdf0b694a36dc27aeef5cb` |
-| `assets/social-card-rates.png` | `fd2ad81551af43597e5bb788b2532f18925fc3547ee29576a695eb3389fad676` |
-| `assets/social-card-evidence.png` | `dc5a32ff91efdb09487f3e2736e003e88e0d7ffd61ff41bd7c2f09392c41d6a1` |
+| `assets/social-card-site.png` | `3fa2706b6eb33311a8b411fcb9923e952b09167ae84f318024157ff7cc1bdc09` |
+| `assets/social-card-tools.png` | `5bd011c9f905ace49a2e8419812157e85c85e347921d3d6fa4634e50282d2f56` |
+| `assets/social-card-evaluations.png` | `ad8299da0500bdf406f8bfef3384b98591005619da5f676fa3504884807eaa94` |
+| `assets/social-card-rates.png` | `49c5ab563773bbac7584a6975821ac753a8051bf6b181574673b9afc390ddb3c` |
+| `assets/social-card-evidence.png` | `f5dcb41638b62d38fdef34e3f0c985d4bc93dbc23649f8e7ebde61d105357e3b` |
 
 ## Favicon provenance
 

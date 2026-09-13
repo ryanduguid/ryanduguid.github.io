@@ -16,6 +16,51 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 13 September 2026 layout and typography pass applies the review of the
+same date. Heading sizes now descend: an `h3` under a 32px `h2` takes the
+lead step on the homepage preview, the worked proof, the install band and
+the Tools register, and the lead principle cell no longer matches its section
+heading. The route notes, install intro, proof note, capture summary and
+capture caption take the 68ch reading measure, as do the article body and
+the footer disclaimer. The caption token is fluid from 12 to 13px, matching
+the scale table below. The two accounting pages keep their review stamp to
+one line and carry their boundary sentences as a small-text note; their
+forms share the reading measure, so inputs, button and result box close on
+one edge; their cash table uses the shared scroll region. The Verify button
+keeps its button geometry inside the action register; the calculator's
+rendered branch fields share the form rhythm; the work chooser, action rows
+and adoption rows align on the baseline; the hero's boundary note and review
+stamp read as one group; principle cells sit on the shell edge; Tools entry
+titles underline only on hover and focus. The business calculator result
+sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
+the mono rule for figures because each result is a sentence, not a ledger
+row.
+
+Ryan then asked for a true-black OLED register in place of the green-tinted
+dark surfaces. The token palette in the Colour section records the new
+values; component CSS is unchanged because it consumes tokens only. The cash
+chart is re-exported against the black canvas and the fixed calculator proof
+images are recaptured so the artefacts match the page. The favicon rasters
+and the five social cards follow the neutral ink and soft ink.
+
+The closing pass of the same day puts the cash chart in the first desktop
+viewport: above the 56rem collapse the hero is two columns, the masthead
+spans both, the proposition, actions and case text stack on the left and
+the chart sits on the right from the summary line down. Mobile and tablet
+keep the stacked order. The chart export lives in
+`scripts/export-cash-chart.ps1`, which reads its colours from the tokens.
+
+The same day's surface pass lets the worked-proof band bleed to the viewport
+edges like the trust band above it, with one shared rule between them; sets
+the homepage cash chart in IBM Plex Sans by installing the family for Excel
+and re-exporting from the pinned workbook; centres the lead principle cell's
+statement in its two-row height; keeps Calculate as the calculator's one
+full-width filled action while its helper buttons take their own width;
+removes the hover wash from static table rows and the accent colour from a
+targeted heading, so the accent keeps one meaning; hides native spin buttons
+on number inputs; and runs the More index rule the full width of its last
+row.
+
 The 12 September 2026 alignment pass fixes text that sat off its neighbours:
 the hero link is centred on its button; the four-task header shares the
 entry column template so its heading starts on the description edge; the
@@ -187,24 +232,31 @@ and no system preference creates a second branded state.
 | Token role | Value | Use | Contrast on canvas |
 | --- | --- | --- | ---: |
 | Canvas | `#000000` | Browser edge and dominant page ground | n/a |
-| Paper | `#050806` | Quiet grouped surfaces | n/a |
-| Paper raised | `#09100D` | Rare stronger hierarchy | n/a |
-| Ink | `#EEF4F0` | Main reading text | 18.83:1 |
-| Ink soft | `#9AA89F` | Supporting copy and metadata | 8.48:1 |
-| Rule | `#26332D` | Hairlines and table rows | n/a |
-| Rule strong | `#5C7166` | Structural boundaries | n/a |
+| Paper | `#000000` | Grouped surfaces, separated by rules alone | n/a |
+| Paper raised | `#0A0A0A` | Fields and the proof panel | n/a |
+| Ink | `#F2F2F2` | Main reading text | 18.76:1 |
+| Ink mid | `#C8C8C8` | Lead and route paragraphs | 12.55:1 |
+| Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
+| Rule | `#262626` | Hairlines and table rows | n/a |
+| Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
 | Stamp | `#4DFF88` | Links, focus, route state and live evidence | 15.98:1 |
 | Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
-| Stamp wash | `#082619` | Rare evidence emphasis | n/a |
+| Stamp wash | `#161616` | Rare evidence emphasis, always beside a stamp rule | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
-| Masthead | `#EEF4F0` | Homepage identity statement only | n/a |
-| Code | `#020403` | Code and install background | n/a |
-| Code ink | `#EEF4F0` | Code text | n/a |
-| Code comment | `#9AA89F` | Secondary annotation inside code blocks | n/a |
+| Masthead | `#F2F2F2` | Homepage identity statement only | n/a |
+| Code | `#000000` | Code and install background, bounded by its rule | n/a |
+| Code ink | `#F2F2F2` | Code text | n/a |
+| Code comment | `#9A9A9A` | Secondary annotation inside code blocks | n/a |
 
 True black is intentional: large canvas areas let OLED pixels switch off. This
-overrides the earlier pure-black prohibition. No gradient, glow, indigo,
-violet, texture or alternate theme is permitted.
+overrides the earlier pure-black prohibition. From 13 September 2026 the
+surfaces are true black rather than green-tinted near-black and the greys
+carry no hue, so stamp green is the only colour on the page besides the
+alert. Rules, not fills, separate the header, footer, bands and code blocks.
+No gradient, glow, indigo, violet, texture or alternate theme is permitted.
+The favicon seal and the social-card template carry the same ink and soft
+ink literals, so their rasters are re-rendered whenever those two values
+change.
 
 ## Typography and licence
 
@@ -259,8 +311,8 @@ Display tracking is modestly negative except for the uppercase homepage masthead
 - Reading shell: at most 68ch.
 - Header: at most 72px on desktop.
 - Default radius: 0.
-- Controls: 2px.
-- Media and code: 4px.
+- Controls and code blocks: 2px.
+- Media: 0.
 - Pills: prohibited.
 - Shadows: none for normal content. A one-pixel rule supplies hierarchy.
 - Layer order: base, sticky header, sticky route rail, focused skip link.
@@ -342,7 +394,8 @@ The first viewport centres one tool-led proposition above a ruled three-part bou
 - The tools are review aids, not judgement or lodgement.
 
 The primary action opens the cash-flow case; the secondary action opens Tools.
-The workbook chart, four-task preview and real Coal LSL artefact follow. The
+The workbook chart sits beside the proposition on desktop widths and directly
+below it on mobile; the four-task preview and real Coal LSL artefact follow. The
 site states that it is a personal open-source index, not a practice, and does
 not accept professional engagements.
 

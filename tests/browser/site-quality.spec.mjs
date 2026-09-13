@@ -68,9 +68,13 @@ const representativeHeightBaseline = {
   ]),
   'desktop-chromium': new Map([
     ['/', 6517],
-    // Tools with Related resources renders at 4,469px, plus the 234px guard.
-    ['/tools/', 4703],
-    ['/evidence/', 4217],
+    // Tools renders at 4,754px after the 13 September 2026 layout pass (the
+    // chooser rows align on the baseline, the footer disclaimer takes the
+    // 68ch measure and the caption token reaches 13px), plus the 234px guard.
+    ['/tools/', 4988],
+    // Evidence renders at 4,250px with the article body on the 68ch reading
+    // measure, plus the 234px guard.
+    ['/evidence/', 4484],
   ]),
 };
 

@@ -258,12 +258,6 @@ pre code {
   line-height: 1.2;
 }
 
-@media (min-width: 40rem) {
-  .site-nav {
-    font-size: 0.8125rem;
-  }
-}
-
 .site-nav a {
   padding-block: var(--space-2);
   color: var(--colour-ink-soft);
@@ -417,7 +411,7 @@ button:active {
 
 .article-body {
   min-width: 0;
-  max-width: 70ch;
+  max-width: var(--reading-width);
 }
 
 .article-body > p,
@@ -579,12 +573,6 @@ caption {
   font-size: var(--text-caption);
   text-align: left;
   caption-side: top;
-}
-
-@media (hover: hover) {
-  tbody tr:hover td {
-    background: var(--colour-stamp-wash);
-  }
 }
 
 .rate-table--wide,
@@ -757,23 +745,38 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
+/* Entry titles are heading links, so like the homepage preview headings they
+   underline only on hover and focus. */
 .collection-entry__title {
   color: var(--colour-ink);
   font-family: var(--font-display);
-  font-size: var(--text-heading-small);
   font-weight: 600;
   line-height: var(--leading-heading);
-  text-decoration-thickness: var(--rule-thin);
+  text-decoration: none;
+}
+
+.collection-entry__title:hover,
+.collection-entry__title:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
   text-underline-offset: var(--space-2);
 }
 
 /* Entry titles are headings for structure only; they keep the title link's
-   own measure rather than the heading tracking and balanced wrapping. */
+   own measure rather than the heading tracking and balanced wrapping. An h3
+   entry sits under a group h2, so it takes the next step down the scale. */
 .collection-entry > h2,
 .collection-entry > h3 {
-  font-size: var(--text-heading-small);
   letter-spacing: normal;
   text-wrap: wrap;
+}
+
+.collection-entry > h2 {
+  font-size: var(--text-heading-small);
+}
+
+.collection-entry > h3 {
+  font-size: var(--text-lead);
 }
 
 .collection-entry dl {
@@ -849,6 +852,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(11rem, 0.35fr) minmax(0, 1fr);
   gap: var(--space-4);
+  align-items: baseline;
   margin: 0;
   padding-block: var(--space-3);
   border-bottom: var(--rule-thin) solid var(--colour-rule);
@@ -859,7 +863,6 @@ caption {
 }
 
 .work-chooser__job {
-  align-self: center;
   font-weight: 600;
 }
 
@@ -981,13 +984,6 @@ caption {
   display: none;
 }
 
-:target > h2,
-:target > .route-label,
-:target > .section-title,
-:target > header h2 {
-  color: var(--colour-stamp);
-}
-
 .site-footer {
   border-top: var(--rule-strong) solid var(--colour-ink);
   background: var(--colour-paper);
@@ -1025,7 +1021,7 @@ caption {
 }
 
 .site-footer__inner > p {
-  max-width: 74ch;
+  max-width: var(--reading-width);
 }
 
 .site-footer__links {
@@ -1047,6 +1043,16 @@ caption {
 .home-hero__copy {
   display: grid;
   gap: var(--space-5);
+}
+
+/* The grid gap spaces the hero; the boundary note and the review stamp are
+   one metadata group, so the stamp closes up to half a step below the note. */
+.home-hero__copy > p {
+  margin-top: 0;
+}
+
+.home-hero__copy > .page-meta {
+  margin-top: calc(-1 * var(--space-4));
 }
 
 .nowrap {
@@ -1116,6 +1122,47 @@ caption {
   grid-column: 1 / -1;
 }
 
+/* Above the collapse the hero is two columns: the masthead spans both, the
+   proposition, actions and case text stack on the left and the chart sits
+   on the right from the first viewport. The copy and case wrappers dissolve
+   into the hero grid so their children can take their own cells. */
+@media (min-width: 56.0625rem) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-5) var(--space-8);
+  }
+
+  .home-hero__copy,
+  .home-case {
+    display: contents;
+  }
+
+  .home-hero > .technical-label,
+  .home-hero h1 {
+    grid-column: 1 / -1;
+  }
+
+  .home-hero__summary,
+  .home-hero__note,
+  .home-hero > .page-meta,
+  .home-hero__actions,
+  .home-case > div {
+    grid-column: 1;
+  }
+
+  .home-case > div {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: var(--rule-thin) solid var(--colour-rule);
+  }
+
+  .case-preview {
+    grid-column: 2;
+    grid-row: 3 / span 5;
+    align-self: start;
+  }
+}
+
 @media (max-width: 40rem) {
   .home-case {
     grid-template-columns: minmax(0, 1fr);
@@ -1175,10 +1222,6 @@ caption {
   align-items: baseline;
   padding-block: var(--space-5);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.home-tool-preview__entry h3 {
-  font-size: var(--text-heading-small);
 }
 
 .home-tool-preview__entry h3 a {
@@ -1328,6 +1371,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr);
   gap: var(--space-4);
+  align-items: baseline;
   padding-block: var(--space-3);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
   color: var(--colour-ink);
@@ -1339,6 +1383,24 @@ caption {
   .adoption-links > a:hover {
     color: var(--colour-stamp-strong);
     background: var(--colour-stamp-wash);
+  }
+}
+
+/* A button inside the action register is the section's control, not one of
+   its rows, so it keeps the button geometry and sits on the leading edge. */
+.route-actions > .button {
+  display: inline-flex;
+  justify-self: start;
+  margin-block: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: var(--rule-thin) solid var(--colour-stamp-strong);
+  color: var(--colour-stamp-strong);
+}
+
+@media (hover: hover) {
+  .route-actions > .button:hover {
+    color: var(--colour-paper);
+    background: var(--colour-stamp-strong);
   }
 }
 
@@ -1359,6 +1421,16 @@ caption {
   border-left-color: var(--colour-alert);
 }
 
+/* Notes, captions and the install intro keep the reading measure that the
+   route paragraphs already have. */
+.route-note,
+.install-band > p,
+.proof-calc__note,
+.proof-capture > summary,
+.proof-feature figcaption {
+  max-width: var(--reading-width);
+}
+
 .install-band {
   min-width: 0;
   border-top: 0;
@@ -1367,7 +1439,7 @@ caption {
 .install-band h3,
 .proof-feature h3 {
   font-family: var(--font-display);
-  font-size: var(--text-heading-small);
+  font-size: var(--text-lead);
   line-height: var(--leading-heading);
 }
 
@@ -1510,9 +1582,21 @@ caption {
   padding-block: var(--space-8);
 }
 
+/* The proof band bleeds to the viewport edges like the trust band above it,
+   with its content padded back to the shell width; the trust band's bottom
+   rule already separates the two, so the band's own top rule is dropped. */
 .proof-feature {
   border-block: var(--rule-strong) solid var(--colour-ink);
   background: var(--colour-paper);
+}
+
+.proof-feature.site-shell {
+  width: 100%;
+  padding-inline: max(var(--gutter), calc((100% - var(--site-width)) / 2));
+}
+
+.trust-band + .proof-feature {
+  border-top: 0;
 }
 
 .proof-feature__layout {
@@ -1615,7 +1699,7 @@ caption {
   border-top: var(--rule-thin) solid var(--colour-rule);
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
 }
 
 .principles-section > h2,
@@ -1630,12 +1714,17 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
+/* The lead cell sits on the shell edge like the heading above it and centres
+   its statement in the two-row height instead of leaving the lower half
+   empty; its description reads at body size to match that weight. */
 .principles-list > div:first-child {
   grid-row: span 2;
+  align-content: center;
+  padding-inline-start: 0;
 }
 
-.principles-list > div:first-child strong {
-  font-size: var(--text-heading-small);
+.principles-list > div:first-child span {
+  font-size: var(--text-body);
 }
 
 .principles-list > div {
@@ -1676,6 +1765,13 @@ caption {
   text-decoration: none;
 }
 
+/* Five links in three columns leave one empty cell; the pseudo-element takes
+   it so the last row's rule runs the full width. */
+.more-index__links::after {
+  content: "";
+  border-bottom: var(--rule-thin) solid var(--colour-rule);
+}
+
 .home > .page-meta {
   padding-block: var(--space-5) var(--space-7);
 }
@@ -1711,6 +1807,31 @@ caption {
 .calculator-form {
   display: grid;
   gap: var(--space-5);
+}
+
+/* The branch fields are rendered by script into one container, which needs
+   the same rhythm as the form around it. */
+#branch-fields {
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* Calculate is the form's one filled, full-width action; the helper buttons
+   keep their own width so the hierarchy reads at a glance. */
+.calculator-form button[type="button"] {
+  justify-self: start;
+}
+
+/* Amounts are typed or pasted; the native spin buttons add a second control
+   the dark register does not style. Arrow keys still step the value. */
+input[type="number"] {
+  appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
 }
 
 fieldset {
@@ -2028,9 +2149,9 @@ input[type="checkbox"] {
 
   .principles-list > div:nth-child(2),
   .principles-list > div:nth-child(4) {
+    padding-inline-start: 0;
     border-left: 0;
   }
-
 }
 
 @media (max-width: 56rem) {
@@ -2207,8 +2328,8 @@ input[type="checkbox"] {
     gap: var(--space-4);
   }
 
-  .home-hero__copy > p {
-    margin-top: 0;
+  .home-hero__copy > .page-meta {
+    margin-top: calc(-1 * var(--space-2));
   }
 
   .home-tool-preview {
@@ -2234,6 +2355,10 @@ input[type="checkbox"] {
   .more-index__links,
   .site-footer__inner {
     grid-template-columns: 1fr;
+  }
+
+  .more-index__links::after {
+    display: none;
   }
 
   .collection-index {
@@ -2282,6 +2407,10 @@ input[type="checkbox"] {
   .principles-list > div + div {
     border-left: 0;
     border-top: var(--rule-thin) solid var(--colour-rule-strong);
+  }
+
+  .principles-list > div {
+    padding-inline: 0;
   }
 
   .site-footer__links {
