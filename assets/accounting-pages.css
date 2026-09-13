@@ -7,10 +7,6 @@
   margin-block: 0;
 }
 
-.accounting-page .article-header .page-meta {
-  max-width: 85ch;
-}
-
 .accounting-content {
   max-width: 76rem;
   padding-bottom: var(--space-8);
@@ -18,7 +14,7 @@
 
 .accounting-page p,
 .accounting-page li {
-  max-width: 68ch;
+  max-width: var(--reading-width);
 }
 
 .question-topics ul,
@@ -119,13 +115,20 @@
   font-weight: 600;
 }
 
+/* Each form shares the reading measure of its description, so inputs, the
+   button and the result box close on one edge. The button is a grid item
+   of the fieldset and would otherwise stretch to that edge. */
+.accounting-page form {
+  max-width: var(--reading-width);
+}
+
 .accounting-page form button {
+  justify-self: start;
   margin-top: var(--space-4);
 }
 
 .accounting-page output {
   display: block;
-  max-width: 68ch;
   padding: var(--space-4);
   margin-block: var(--space-4);
   border: var(--rule-thin) solid var(--colour-rule-strong);
@@ -133,9 +136,6 @@
 }
 
 .cash-scroll {
-  max-width: 100%;
-  overflow-x: auto;
-  overscroll-behavior-inline: contain;
   margin-block: var(--space-4);
 }
 
@@ -168,6 +168,5 @@
     display: none;
   }
   .question-answer { padding-inline: 0; }
-  .cash-scroll { overflow: visible; }
   .cash-scroll table { min-width: 0; }
 }

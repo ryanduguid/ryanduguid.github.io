@@ -53,7 +53,8 @@
         <h1>Business calculators</h1>
         <p class="lead-note">Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 12 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
+        <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 12 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.</p></noscript>
@@ -161,7 +162,7 @@
 <label class="field" for="cash-delay">Delay in whole weeks<input id="cash-delay" name="delay" type="number" inputmode="decimal" min="0" max="13" step="1" value="0" required /></label>
 </div>
 <p>Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.</p>
-<div class="cash-scroll" role="region" aria-label="Weekly cash inputs" tabindex="0"><table><thead><tr><th scope="col">Week</th><th scope="col">Receipts (AUD)</th><th scope="col">Payments (AUD)</th></tr></thead><tbody>
+<div class="table-scroll cash-scroll" role="region" aria-label="Weekly cash inputs" tabindex="0"><table><thead><tr><th scope="col">Week</th><th scope="col">Receipts (AUD)</th><th scope="col">Payments (AUD)</th></tr></thead><tbody>
 <tr><th scope="row">1</th><td><label class="field"><span class="visually-hidden">Week 1 receipts</span><input name="receipts-1" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 1 payments</span><input name="payments-1" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 <tr><th scope="row">2</th><td><label class="field"><span class="visually-hidden">Week 2 receipts</span><input name="receipts-2" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 2 payments</span><input name="payments-2" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 <tr><th scope="row">3</th><td><label class="field"><span class="visually-hidden">Week 3 receipts</span><input name="receipts-3" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 3 payments</span><input name="payments-3" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
@@ -179,7 +180,7 @@
 <button type="submit">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
-<div class="cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
+<div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
 </form></section>
 </div></article></main>

@@ -110,7 +110,7 @@
   --font-body: "IBM Plex Sans", "Segoe UI", sans-serif;
   --font-mono: "IBM Plex Mono", "Cascadia Mono", Consolas, monospace;
 
-  --text-caption: 0.75rem;
+  --text-caption: clamp(0.75rem, 0.72rem + 0.15vw, 0.8125rem);
   --text-small: clamp(0.875rem, 0.84rem + 0.12vw, 0.9375rem);
   --text-body: clamp(1rem, 0.96rem + 0.18vw, 1.125rem);
   --text-lead: clamp(1.1875rem, 1.05rem + 0.48vw, 1.4375rem);

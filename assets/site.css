@@ -258,12 +258,6 @@ pre code {
   line-height: 1.2;
 }
 
-@media (min-width: 40rem) {
-  .site-nav {
-    font-size: 0.8125rem;
-  }
-}
-
 .site-nav a {
   padding-block: var(--space-2);
   color: var(--colour-ink-soft);
@@ -417,7 +411,7 @@ button:active {
 
 .article-body {
   min-width: 0;
-  max-width: 70ch;
+  max-width: var(--reading-width);
 }
 
 .article-body > p,
@@ -757,23 +751,38 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
+/* Entry titles are heading links, so like the homepage preview headings they
+   underline only on hover and focus. */
 .collection-entry__title {
   color: var(--colour-ink);
   font-family: var(--font-display);
-  font-size: var(--text-heading-small);
   font-weight: 600;
   line-height: var(--leading-heading);
-  text-decoration-thickness: var(--rule-thin);
+  text-decoration: none;
+}
+
+.collection-entry__title:hover,
+.collection-entry__title:focus-visible {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
   text-underline-offset: var(--space-2);
 }
 
 /* Entry titles are headings for structure only; they keep the title link's
-   own measure rather than the heading tracking and balanced wrapping. */
+   own measure rather than the heading tracking and balanced wrapping. An h3
+   entry sits under a group h2, so it takes the next step down the scale. */
 .collection-entry > h2,
 .collection-entry > h3 {
-  font-size: var(--text-heading-small);
   letter-spacing: normal;
   text-wrap: wrap;
+}
+
+.collection-entry > h2 {
+  font-size: var(--text-heading-small);
+}
+
+.collection-entry > h3 {
+  font-size: var(--text-lead);
 }
 
 .collection-entry dl {
@@ -849,6 +858,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(11rem, 0.35fr) minmax(0, 1fr);
   gap: var(--space-4);
+  align-items: baseline;
   margin: 0;
   padding-block: var(--space-3);
   border-bottom: var(--rule-thin) solid var(--colour-rule);
@@ -859,7 +869,6 @@ caption {
 }
 
 .work-chooser__job {
-  align-self: center;
   font-weight: 600;
 }
 
@@ -1025,7 +1034,7 @@ caption {
 }
 
 .site-footer__inner > p {
-  max-width: 74ch;
+  max-width: var(--reading-width);
 }
 
 .site-footer__links {
@@ -1047,6 +1056,16 @@ caption {
 .home-hero__copy {
   display: grid;
   gap: var(--space-5);
+}
+
+/* The grid gap spaces the hero; the boundary note and the review stamp are
+   one metadata group, so the stamp closes up to half a step below the note. */
+.home-hero__copy > p {
+  margin-top: 0;
+}
+
+.home-hero__copy > .page-meta {
+  margin-top: calc(-1 * var(--space-4));
 }
 
 .nowrap {
@@ -1175,10 +1194,6 @@ caption {
   align-items: baseline;
   padding-block: var(--space-5);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.home-tool-preview__entry h3 {
-  font-size: var(--text-heading-small);
 }
 
 .home-tool-preview__entry h3 a {
@@ -1328,6 +1343,7 @@ caption {
   display: grid;
   grid-template-columns: minmax(12rem, 0.85fr) minmax(0, 1.15fr);
   gap: var(--space-4);
+  align-items: baseline;
   padding-block: var(--space-3);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
   color: var(--colour-ink);
@@ -1339,6 +1355,24 @@ caption {
   .adoption-links > a:hover {
     color: var(--colour-stamp-strong);
     background: var(--colour-stamp-wash);
+  }
+}
+
+/* A button inside the action register is the section's control, not one of
+   its rows, so it keeps the button geometry and sits on the leading edge. */
+.route-actions > .button {
+  display: inline-flex;
+  justify-self: start;
+  margin-block: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  border-bottom: var(--rule-thin) solid var(--colour-stamp-strong);
+  color: var(--colour-stamp-strong);
+}
+
+@media (hover: hover) {
+  .route-actions > .button:hover {
+    color: var(--colour-paper);
+    background: var(--colour-stamp-strong);
   }
 }
 
@@ -1359,6 +1393,16 @@ caption {
   border-left-color: var(--colour-alert);
 }
 
+/* Notes, captions and the install intro keep the reading measure that the
+   route paragraphs already have. */
+.route-note,
+.install-band > p,
+.proof-calc__note,
+.proof-capture > summary,
+.proof-feature figcaption {
+  max-width: var(--reading-width);
+}
+
 .install-band {
   min-width: 0;
   border-top: 0;
@@ -1367,7 +1411,7 @@ caption {
 .install-band h3,
 .proof-feature h3 {
   font-family: var(--font-display);
-  font-size: var(--text-heading-small);
+  font-size: var(--text-lead);
   line-height: var(--leading-heading);
 }
 
@@ -1615,7 +1659,7 @@ caption {
   border-top: var(--rule-thin) solid var(--colour-rule);
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
-  font-size: var(--text-caption);
+  font-size: var(--text-small);
 }
 
 .principles-section > h2,
@@ -1630,12 +1674,10 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
+/* The lead cell sits on the shell edge like the heading above it. */
 .principles-list > div:first-child {
   grid-row: span 2;
-}
-
-.principles-list > div:first-child strong {
-  font-size: var(--text-heading-small);
+  padding-inline-start: 0;
 }
 
 .principles-list > div {
@@ -1709,6 +1751,13 @@ caption {
 }
 
 .calculator-form {
+  display: grid;
+  gap: var(--space-5);
+}
+
+/* The branch fields are rendered by script into one container, which needs
+   the same rhythm as the form around it. */
+#branch-fields {
   display: grid;
   gap: var(--space-5);
 }
@@ -2028,9 +2077,9 @@ input[type="checkbox"] {
 
   .principles-list > div:nth-child(2),
   .principles-list > div:nth-child(4) {
+    padding-inline-start: 0;
     border-left: 0;
   }
-
 }
 
 @media (max-width: 56rem) {
@@ -2207,8 +2256,8 @@ input[type="checkbox"] {
     gap: var(--space-4);
   }
 
-  .home-hero__copy > p {
-    margin-top: 0;
+  .home-hero__copy > .page-meta {
+    margin-top: calc(-1 * var(--space-2));
   }
 
   .home-tool-preview {
@@ -2282,6 +2331,10 @@ input[type="checkbox"] {
   .principles-list > div + div {
     border-left: 0;
     border-top: var(--rule-thin) solid var(--colour-rule-strong);
+  }
+
+  .principles-list > div {
+    padding-inline: 0;
   }
 
   .site-footer__links {

@@ -3166,7 +3166,9 @@ Find the records, calculations and steps for Australian tax and business questio
 
 Open the business calculators or try the fictional Newcastle cash-flow workbook.
 
-Editorial review: 11 September 2026. These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.
+These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
 
 Search questions
 
@@ -4722,7 +4724,9 @@ Work through a business decision with supplied amounts and visible formulas. Cal
 
 Find a question and prepare a checklist.
 
-Published 11 September 2026. Last reviewed 12 September 2026. Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+
+Published 11 September 2026. Last reviewed 12 September 2026.
 
 JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
 

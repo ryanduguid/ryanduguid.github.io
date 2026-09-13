@@ -16,6 +16,26 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 13 September 2026 layout and typography pass applies the review of the
+same date. Heading sizes now descend: an `h3` under a 32px `h2` takes the
+lead step on the homepage preview, the worked proof, the install band and
+the Tools register, and the lead principle cell no longer matches its section
+heading. The route notes, install intro, proof note, capture summary and
+capture caption take the 68ch reading measure, as do the article body and
+the footer disclaimer. The caption token is fluid from 12 to 13px, matching
+the scale table below. The two accounting pages keep their review stamp to
+one line and carry their boundary sentences as a small-text note; their
+forms share the reading measure, so inputs, button and result box close on
+one edge; their cash table uses the shared scroll region. The Verify button
+keeps its button geometry inside the action register; the calculator's
+rendered branch fields share the form rhythm; the work chooser, action rows
+and adoption rows align on the baseline; the hero's boundary note and review
+stamp read as one group; principle cells sit on the shell edge; Tools entry
+titles underline only on hover and focus. The business calculator result
+sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
+the mono rule for figures because each result is a sentence, not a ledger
+row.
+
 The 12 September 2026 alignment pass fixes text that sat off its neighbours:
 the hero link is centred on its button; the four-task header shares the
 entry column template so its heading starts on the description edge; the
