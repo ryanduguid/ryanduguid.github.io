@@ -8,6 +8,9 @@ import {
 } from '/assets/levy.mjs';
 import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
 import { compute } from '/assets/levy-form.mjs';
+import {
+  clearFieldError, describedByTokens, ensureControlId, reportFirstInvalid,
+} from '/assets/field-errors.mjs';
 
 // Visible label of each casual pay component casualWages() can report as
 // ignored, so a discarded figure is named rather than silently dropped.
@@ -103,57 +106,11 @@ const employeeRows = document.getElementById('employee-rows');
 const employeeTableWrap = document.getElementById('employee-table-wrap');
 const resultActions = document.getElementById('result-actions');
 
-let generatedFieldId = 0;
-
-function ensureControlId(control) {
-  if (!control.id) {
-    generatedFieldId += 1;
-    control.id = `calculator-field-${generatedFieldId}`;
-  }
-  return control.id;
-}
-
-function describedByTokens(control) {
-  return new Set((control.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
-}
-
-function clearFieldError(control) {
-  const id = `${ensureControlId(control)}-error`;
-  document.getElementById(id)?.remove();
-  control.removeAttribute('aria-invalid');
-  const tokens = describedByTokens(control);
-  tokens.delete(id);
-  if (tokens.size) control.setAttribute('aria-describedby', [...tokens].join(' '));
-  else control.removeAttribute('aria-describedby');
-}
-
-function showFieldError(control) {
-  clearFieldError(control);
-  const id = `${ensureControlId(control)}-error`;
-  const message = document.createElement('p');
-  message.id = id;
-  message.className = 'field-error';
-  message.setAttribute('role', 'alert');
-  message.textContent = control.validationMessage;
-  const anchor = control.closest('label') || control;
-  anchor.insertAdjacentElement('afterend', message);
-  control.setAttribute('aria-invalid', 'true');
-  const tokens = describedByTokens(control);
-  tokens.add(id);
-  control.setAttribute('aria-describedby', [...tokens].join(' '));
-}
-
 function validateForm() {
   for (const control of calcForm.querySelectorAll('input[type="number"]')) {
     control.max = String(MAX_WAGES_CENTS / 100);
   }
-  const invalid = [...calcForm.elements].find(
-    (control) => control.willValidate && !control.validity.valid
-  );
-  if (!invalid) return true;
-  showFieldError(invalid);
-  invalid.focus();
-  return false;
+  return reportFirstInvalid(calcForm);
 }
 
 function markResultStale() {

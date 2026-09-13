@@ -74,7 +74,7 @@
 <form data-calculator="gst">
 <fieldset disabled><legend>GST inputs</legend><div class="form-grid"><label class="field" for="gst-amount">Amount (AUD)<input id="gst-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="check-field"><input type="checkbox" name="inclusive" /> Amount includes GST</label></div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="business-use">
@@ -83,7 +83,7 @@
 <fieldset disabled><legend>Business-use share inputs</legend><div class="form-grid"><label class="field" for="business-use-cost">Eligible cost (AUD)<input id="business-use-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="business-use-percent">Business use (%)<input id="business-use-percent" name="percent" type="number" inputmode="decimal" min="0" max="100" step=".01" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="margin">
@@ -92,7 +92,7 @@
 <fieldset disabled><legend>Margin and markup inputs</legend><div class="form-grid"><label class="field" for="margin-sales">Sales (AUD)<input id="margin-sales" name="sales" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="margin-cost">Direct cost (AUD)<input id="margin-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="break-even">
@@ -102,7 +102,7 @@
 <label class="field" for="break-even-price">Selling price per unit (AUD)<input id="break-even-price" name="price" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="break-even-variable">Variable cost per unit (AUD)<input id="break-even-variable" name="variable" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="hourly">
@@ -112,7 +112,7 @@
 <label class="field" for="hourly-profit">Target annual profit (AUD)<input id="hourly-profit" name="profit" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="hourly-hours">Annual billable hours<input id="hourly-hours" name="hours" type="number" inputmode="decimal" min="0.01" max="8784" step=".01" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="variance">
@@ -122,7 +122,7 @@
 <fieldset disabled><legend>Budget variance inputs</legend><div class="form-grid"><label class="field" for="variance-actual">Actual (AUD)<input id="variance-actual" name="actual" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="variance-budget">Budget (AUD)<input id="variance-budget" name="budget" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="" required /></label>
 <div class="field"><label for="variance-kind">Figure type</label><select name="kind" id="variance-kind"><option value="income">Income</option><option value="cost">Cost</option></select></div></div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="loan">
@@ -132,7 +132,7 @@
 <label class="field" for="loan-rate">Annual nominal interest rate (%)<input id="loan-rate" name="rate" type="number" inputmode="decimal" min="0" max="100" step=".0001" value="" required /></label>
 <label class="field" for="loan-months">Number of monthly payments<input id="loan-months" name="months" type="number" inputmode="decimal" min="1" max="600" step="1" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="staff">
@@ -142,7 +142,7 @@
 <label class="field" for="staff-super">Annual super amount (AUD)<input id="staff-super" name="super" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="staff-other">Other annual costs (AUD)<input id="staff-other" name="other" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 </div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 </form></section>
 <section class="business-calculator" id="cash">
@@ -177,7 +177,7 @@
 <tr><th scope="row">12</th><td><label class="field"><span class="visually-hidden">Week 12 receipts</span><input name="receipts-12" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 12 payments</span><input name="payments-12" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 <tr><th scope="row">13</th><td><label class="field"><span class="visually-hidden">Week 13 receipts</span><input name="receipts-13" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 13 payments</span><input name="payments-13" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 </tbody></table></div>
-<button type="submit">Calculate</button></fieldset>
+<button type="submit" class="button">Calculate</button></fieldset>
 <output role="status" aria-live="polite">Enter the inputs and calculate.</output>
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>

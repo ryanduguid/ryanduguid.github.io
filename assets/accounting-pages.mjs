@@ -120,9 +120,16 @@ if (questions.length) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-if (forms.length) import('./business-calculators.mjs').then(calculate => {
+if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./field-errors.mjs')]).then(([calculate, fieldErrors]) => {
   for (const form of forms) {
     form.querySelector('fieldset').disabled = false;
+    // Submit and Save inputs validate the same way: the first invalid field
+    // gets an inline message in the page's words and takes focus, instead of
+    // the browser bubble that closes on the next tap.
+    form.setAttribute('novalidate', '');
+    form.addEventListener('input', event => {
+      if (event.target.matches('input, select')) fieldErrors.clearFieldError(event.target);
+    });
     const output = form.querySelector('output');
     let csv = '';
     const cashDownload = form.querySelector('#download-cash');
@@ -137,7 +144,7 @@ if (forms.length) import('./business-calculators.mjs').then(calculate => {
       start.value = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
       const fileStatus = form.querySelector('#cash-file-status');
       form.querySelector('#save-cash').addEventListener('click', () => {
-        if (!form.reportValidity()) return;
+        if (!fieldErrors.reportFirstInvalid(form)) return;
         try {
           const data = calculate.parseCashScenario(JSON.stringify(cashInputs()));
           download(JSON.stringify(data, null, 2), 'cash-forecast-inputs.json', 'application/json');
@@ -184,6 +191,7 @@ if (forms.length) import('./business-calculators.mjs').then(calculate => {
     form.addEventListener('submit', event => {
       event.preventDefault();
       invalidate();
+      if (!fieldErrors.reportFirstInvalid(form)) return;
       try {
         let message;
         switch (form.dataset.calculator) {

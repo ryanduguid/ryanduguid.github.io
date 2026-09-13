@@ -324,13 +324,17 @@ button:active {
   translate: 0 1px;
 }
 
-.button--secondary {
+/* A bare <button> is a helper action. The one primary action per view
+   opts into the fill with class="button". */
+.button--secondary,
+button:not(.button) {
   color: var(--colour-stamp-strong);
   background: transparent;
 }
 
 @media (hover: hover) {
-  .button--secondary:hover {
+  .button--secondary:hover,
+  button:not(.button):hover {
     color: var(--colour-paper);
     background: var(--colour-stamp-strong);
   }
@@ -745,18 +749,13 @@ caption {
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
-/* Entry titles are heading links, so like the homepage preview headings they
-   underline only on hover and focus. */
+/* Entry titles are heading links. The underline stays at rest so the row's
+   main control reads as one without hovering. */
 .collection-entry__title {
   color: var(--colour-ink);
   font-family: var(--font-display);
   font-weight: 600;
   line-height: var(--leading-heading);
-  text-decoration: none;
-}
-
-.collection-entry__title:hover,
-.collection-entry__title:focus-visible {
   text-decoration: underline;
   text-decoration-thickness: from-font;
   text-underline-offset: var(--space-2);
@@ -2613,9 +2612,8 @@ html[data-view-mode] .site-footer__inner {
 
 .view-mode {
   position: fixed;
-  left: 50%;
+  right: var(--gutter);
   bottom: max(20px, env(safe-area-inset-bottom));
-  transform: translateX(-50%);
   z-index: 60;
   display: inline-flex;
   align-items: center;
@@ -2742,10 +2740,7 @@ html[data-view-mode="machine"] body {
 @media (max-width: 40rem) {
   .view-mode {
     top: 0;
-    right: var(--gutter);
     bottom: auto;
-    left: auto;
-    transform: none;
     padding: 0;
     border: 0;
     outline: 1px solid var(--colour-mode-rule);

@@ -16,6 +16,23 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 14 September 2026 pass applies the full interface audit of the same
+date. A bare `button` is now a helper action in the secondary register, and
+the one primary action per view opts into the fill with `class="button"`
+(Calculate on the Coal LSL page and on each business calculator, Download
+selected checklist on the questions page). Both calculator pages share
+`assets/field-errors.mjs`: the first invalid field gets an inline
+`role="alert"` message in the page's own words (Enter $0.00 or more; Use no
+more than two decimal places) and takes focus, replacing the browser's
+validation bubble and its locale-dependent text. Repeated link texts on the
+Evidence and Rates pages carry a visually hidden suffix naming their package
+or rate, as the Tools register already did. Tools and Evaluations entry
+titles keep their underline at rest. The view switch sits at the trailing
+gutter on wide screens, matching its narrow-screen corner, so it no longer
+covers the reading column. The pending accountant trial sentence on the
+homepage and the Evaluations page now links to the Contact invitation. The
+404 title uses the shared separator.
+
 The 13 September 2026 layout and typography pass applies the review of the
 same date. Heading sizes now descend: an `h3` under a 32px `h2` takes the
 lead step on the homepage preview, the worked proof, the install band and
