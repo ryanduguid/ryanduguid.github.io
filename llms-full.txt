@@ -434,14 +434,9 @@ Each repository shows its current GitHub Actions results: Aus Accounting MCP, Pa
 
 Published products expose release assets through the release pages linked above. Each repository's attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 
-- Aus Accounting MCP: attestations, release workflow
-- Payday Super: attestations, release workflow
-- ATO benchmarks: attestations, release workflow
-- Trust distributions: attestations, release workflow
-- Company tax: attestations, release workflow
-- Hardhat Ledger: attestations, release workflow
-- Xero export: attestations, release workflow
-- Australian Accounting Skills: attestations, release workflow
+- australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and company tax
+- australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
+- accounting-review-pipeline (Xero export): attestations; release workflow
 
 Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
 
@@ -534,11 +529,11 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/actions
 - this site: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
-- release workflow: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
-- release workflow: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml
-- release workflow: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml
-- release workflow: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml
-- release workflow: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-the-exchequer-tally.yml
+- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
+- Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml
+- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml
+- trust distributions: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml
+- company tax: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-the-exchequer-tally.yml
 - attestations: https://github.com/ryanduguid/australian-accounting-skills/attestations
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
