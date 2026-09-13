@@ -6,7 +6,6 @@ import hashlib
 import html as html_module
 import json
 import re
-import sys
 from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -15,7 +14,6 @@ from xml.etree import ElementTree
 
 import favicon_render
 import seo_core as core
-
 
 ROOT = Path(__file__).resolve().parents[1]
 JSON_LD_PATTERN = re.compile(

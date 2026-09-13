@@ -8,7 +8,6 @@ resampling, no antialiasing, no hand-edited copies drifting from the SVG.
 from __future__ import annotations
 
 import struct
-import sys
 import zlib
 from pathlib import Path
 from xml.etree import ElementTree
