@@ -13,7 +13,6 @@ from urllib.parse import urlsplit
 
 from build_site import build
 
-
 ROOT = Path(__file__).resolve().parents[1]
 HOST = "127.0.0.1"
 PORT = 4173
