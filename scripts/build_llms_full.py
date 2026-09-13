@@ -92,8 +92,10 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
     body = LI_PATTERN.sub("\n\n- ", body)
     body = CELL_PATTERN.sub(" | ", body)
     body = BLOCK_PATTERN.sub("\n\n", body)
-    # Adjacent inline elements such as 2 links keep a space between them.
-    body = body.replace("><", "> <")
+    # Adjacent inline elements such as 2 links keep a space between them. A
+    # closing tag followed by another closing tag or by punctuation gets none,
+    # so "<a><em>Act 1997</em></a>." does not become "Act 1997 .".
+    body = re.sub(r"(</[a-zA-Z0-9]+>)(<[a-zA-Z])", r"\1 \2", body)
     body = html_lib.unescape(TAG_PATTERN.sub("", body))
     blocks = [re.sub(r"\s+", " ", block).strip() for block in re.split(r"\n\s*\n", body)]
     text = ""
