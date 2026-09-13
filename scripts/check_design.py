@@ -123,7 +123,7 @@ UNICODE_RANGE_PATTERN = re.compile(
 )
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
-FAVICON_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88"})
+FAVICON_COLOURS = frozenset({"#000000", "#f2f2f2", "#4dff88"})
 FAVICON_GEOMETRY_ATTRIBUTES = ("x", "y", "width", "height", "rx", "ry")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",

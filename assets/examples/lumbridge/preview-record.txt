@@ -37,7 +37,8 @@ PNG SHA-256: 8210ae4ba3953c8404fba8f493af7fa6a7fa26706f5396e31ad6ac41ee329c40
 
 This is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.
-Refresh it through the same native Excel export when the source workbook or
-scenario changes, then record the new workbook and image hashes here.
+Refresh it with scripts/export-cash-chart.ps1, the same native Excel export,
+when the source workbook, scenario or palette changes, then record the new
+workbook and image hashes here.
 No generated illustration, stock image or hand-drawn chart is used.
 This capture is not an independent accountant trial.

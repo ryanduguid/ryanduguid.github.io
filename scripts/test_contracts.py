@@ -604,8 +604,8 @@ def test_design_contracts() -> int:
         (
             "favicon rasters left behind the seal",
             "assets/favicon.svg",
-            '<rect x="24" y="40" width="16" height="4" fill="#eef4f0" />',
-            '<rect x="24" y="40" width="12" height="4" fill="#eef4f0" />',
+            '<rect x="24" y="40" width="16" height="4" fill="#f2f2f2" />',
+            '<rect x="24" y="40" width="12" height="4" fill="#f2f2f2" />',
             "favicon raster out of date: assets/favicon-32.png",
         ),
         (
@@ -632,8 +632,8 @@ def test_design_contracts() -> int:
         (
             "favicon rect overflowing the viewBox",
             "assets/favicon.svg",
-            '<rect x="24" y="40" width="16" height="4" fill="#eef4f0" />',
-            '<rect x="24" y="40" width="48" height="4" fill="#eef4f0" />',
+            '<rect x="24" y="40" width="16" height="4" fill="#f2f2f2" />',
+            '<rect x="24" y="40" width="48" height="4" fill="#f2f2f2" />',
             "favicon rect falls outside the viewBox",
         ),
         (

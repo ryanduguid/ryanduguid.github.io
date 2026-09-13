@@ -40,7 +40,15 @@ Ryan then asked for a true-black OLED register in place of the green-tinted
 dark surfaces. The token palette in the Colour section records the new
 values; component CSS is unchanged because it consumes tokens only. The cash
 chart is re-exported against the black canvas and the fixed calculator proof
-images are recaptured so the artefacts match the page.
+images are recaptured so the artefacts match the page. The favicon rasters
+and the five social cards follow the neutral ink and soft ink.
+
+The closing pass of the same day puts the cash chart in the first desktop
+viewport: above the 56rem collapse the hero is two columns, the masthead
+spans both, the proposition, actions and case text stack on the left and
+the chart sits on the right from the summary line down. Mobile and tablet
+keep the stacked order. The chart export lives in
+`scripts/export-cash-chart.ps1`, which reads its colours from the tokens.
 
 The same day's surface pass lets the worked-proof band bleed to the viewport
 edges like the trust band above it, with one shared rule between them; sets
@@ -246,8 +254,9 @@ surfaces are true black rather than green-tinted near-black and the greys
 carry no hue, so stamp green is the only colour on the page besides the
 alert. Rules, not fills, separate the header, footer, bands and code blocks.
 No gradient, glow, indigo, violet, texture or alternate theme is permitted.
-The favicon and social cards keep their earlier off-white and grey literals;
-they are separate pinned artefacts and read the same at their sizes.
+The favicon seal and the social-card template carry the same ink and soft
+ink literals, so their rasters are re-rendered whenever those two values
+change.
 
 ## Typography and licence
 
@@ -302,8 +311,8 @@ Display tracking is modestly negative except for the uppercase homepage masthead
 - Reading shell: at most 68ch.
 - Header: at most 72px on desktop.
 - Default radius: 0.
-- Controls: 2px.
-- Media and code: 4px.
+- Controls and code blocks: 2px.
+- Media: 0.
 - Pills: prohibited.
 - Shadows: none for normal content. A one-pixel rule supplies hierarchy.
 - Layer order: base, sticky header, sticky route rail, focused skip link.
@@ -385,7 +394,8 @@ The first viewport centres one tool-led proposition above a ruled three-part bou
 - The tools are review aids, not judgement or lodgement.
 
 The primary action opens the cash-flow case; the secondary action opens Tools.
-The workbook chart, four-task preview and real Coal LSL artefact follow. The
+The workbook chart sits beside the proposition on desktop widths and directly
+below it on mobile; the four-task preview and real Coal LSL artefact follow. The
 site states that it is a personal open-source index, not a practice, and does
 not accept professional engagements.
 

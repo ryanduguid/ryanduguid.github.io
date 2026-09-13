@@ -1122,6 +1122,47 @@ caption {
   grid-column: 1 / -1;
 }
 
+/* Above the collapse the hero is two columns: the masthead spans both, the
+   proposition, actions and case text stack on the left and the chart sits
+   on the right from the first viewport. The copy and case wrappers dissolve
+   into the hero grid so their children can take their own cells. */
+@media (min-width: 56.0625rem) {
+  .home-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: var(--space-5) var(--space-8);
+  }
+
+  .home-hero__copy,
+  .home-case {
+    display: contents;
+  }
+
+  .home-hero > .technical-label,
+  .home-hero h1 {
+    grid-column: 1 / -1;
+  }
+
+  .home-hero__summary,
+  .home-hero__note,
+  .home-hero > .page-meta,
+  .home-hero__actions,
+  .home-case > div {
+    grid-column: 1;
+  }
+
+  .home-case > div {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: var(--rule-thin) solid var(--colour-rule);
+  }
+
+  .case-preview {
+    grid-column: 2;
+    grid-row: 3 / span 5;
+    align-self: start;
+  }
+}
+
 @media (max-width: 40rem) {
   .home-case {
     grid-template-columns: minmax(0, 1fr);

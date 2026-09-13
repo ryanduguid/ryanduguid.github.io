@@ -816,7 +816,7 @@ SOCIAL_CARD_CONTEXTS = {
 }
 SOCIAL_CARD_DIMENSIONS = (1200, 630)
 SOCIAL_CARD_MAX_BYTES = 50_000
-SOCIAL_CARD_COLOURS = frozenset({"#000000", "#eef4f0", "#4dff88", "#9aa89f"})
+SOCIAL_CARD_COLOURS = frozenset({"#000000", "#f2f2f2", "#4dff88", "#9a9a9a"})
 SOCIAL_CARD_TEMPLATE_PLACEHOLDERS = frozenset(
     {
         "{{FONT_SERIF}}",
