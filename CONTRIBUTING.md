@@ -20,7 +20,7 @@ python scripts/check_site.py
 Use `python scripts/check_site.py --offline` to skip external requests while
 checking the built pages and local links. CI runs the live checks. HTTP 429
 retries honour
-`Retry-After`, with a five-attempt limit and at most 30 seconds of waiting per
+`Retry-After`, with a 5-attempt limit and at most 30 seconds of waiting per
 fetch. An unresolved rate limit still fails the live check.
 
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
@@ -28,7 +28,7 @@ describes them.
 
 The browser job also runs `npm audit --audit-level=high`, including development
 dependencies, and fails on high or critical advisories. Lighthouse reports are
-retained for seven days after successful and failed runs.
+retained for 7 days after successful and failed runs.
 
 The weekly source-freshness workflow checks the changelog's release links with
 `node scripts/stamp-source-freshness.mjs --check-releases`. This reads public
@@ -55,11 +55,11 @@ Both returned HTTP 200 locally on 10 September 2026. In
 [run 34593410260](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/34593410260),
 the runner also timed out on [applying for an ABN](https://www.abr.gov.au/business-super-funds-charities/applying-abn),
 [final pay](https://www.fairwork.gov.au/ending-employment/final-pay) and the
-[TPB register](https://www.tpb.gov.au/public-register). These three URLs returned
-HTTP 200 locally on 11 September 2026. The link checker reports all five exact
+[TPB register](https://www.tpb.gov.au/public-register). These 3 URLs returned
+HTTP 200 locally on 11 September 2026. The link checker reports all 5 exact
 URLs as requiring manual verification in GitHub Actions. Run
 `python scripts/check_links.py` locally before changing any of them; local runs
-still fetch all five. Remove the CI exceptions when runner access works again.
+still fetch all 5. Remove the CI exceptions when runner access works again.
 
 That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
 locally on 11 September 2026. They are listed individually in

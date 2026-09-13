@@ -70,7 +70,7 @@ test('the worked example shows the greater-of test doing something', () => {
 });
 
 test('the worked example still lands on a fractional cent', () => {
-  // The levy before rounding is shown to four decimals to make the point that
+  // The levy before rounding is shown to 4 decimals to make the point that
   // rounding happens once, at the end. A default that divided evenly would
   // quietly remove the only evidence of it.
   const eligible = 712500;
@@ -87,7 +87,7 @@ test('Formula A wins when there is little beyond the base rate', () => {
 });
 
 test('a quarter cent in Formula B is shown, not rounded away', () => {
-  // 75 per cent of one cent is 0.75 of a cent, and 2.7 per cent of that is
+  // 75% of one cent is 0.75 of a cent, and 2.7% of that is
   // 0.02025 of a cent. Both stay visible so the shown eligible wages reproduce
   // the shown levy, and only the payable figure is rounded.
   const computed = results({ base: 0, overtime: 0.01, allowances: 0 });

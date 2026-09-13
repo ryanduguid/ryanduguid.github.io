@@ -55,7 +55,7 @@
         </nav>
         <h1>Xero trial balance integrity evaluation</h1>
         <p class="lead-note">
-          Reproduce the offline movement and year-to-date integrity gate with three fabricated CSV fixtures, then inspect the exact results and human review boundary.
+          Reproduce the offline movement and year-to-date integrity gate with 3 fabricated CSV fixtures, then inspect the exact results and human review boundary.
         </p>
         <p class="page-meta">Published 26 August 2026. Last reviewed 4 September 2026.</p>
       </header>
@@ -115,14 +115,14 @@
           <section id="fabricated-inputs">
             <h2>Fabricated inputs</h2>
             <p>
-              The three CSV files are fabricated output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
+              The 3 CSV files are fabricated output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
             </p>
           </section>
 
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
             <p>
-              Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the three evaluation runner commands are fully offline, make no network request, and write no output file.
+              Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request, and write no output file.
             </p>
             <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>python -m pip install --require-hashes -r requirements.lock
 python -B -m unittest tests.test_evaluation_pack -v

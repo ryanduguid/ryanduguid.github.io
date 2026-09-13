@@ -4,11 +4,11 @@ Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan
 
 ## Site structure
 
-- `/tools/` groups eleven controls by Extract, Calculate, Control and Inspect.
-- `/evaluate/` holds three reproducible evaluations with fabricated inputs and expected results.
+- `/tools/` groups 11 controls by Extract, Calculate, Control and Inspect.
+- `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates.
 - `/tools/accounting-questions/` has 100 question guides with optional search and checklist downloads.
-- `/tools/business-calculators/` has nine planning calculators, including a 13-week cash scenario and CSV export.
+- `/tools/business-calculators/` has 9 planning calculators, including a 13-week cash scenario and CSV export.
 
 The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
 
@@ -43,14 +43,14 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - external links must resolve
 - the HTML must parse cleanly
 - retired repository names and em or en dashes must not appear
-- marketing and machine-written vocabulary ("delve", "leverage", "seamless", "robust", "tapestry" and the rest of the list in `scripts/check_design.py`) must not appear in visible text, meta content, JSON-LD strings or `llms.txt`
+- marketing and machine-written vocabulary ('delve', 'leverage', 'seamless', 'robust', 'tapestry' and the rest of the list in `scripts/check_design.py`) must not appear in visible text, meta content, JSON-LD strings or `llms.txt`
 - every page carries a title, a meta description in the length band, a canonical matching its own path, Open Graph tags and parseable JSON-LD; ItemList counts and positions must match their entries
 - every question marked up as an FAQ is visible on the page that claims it
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - `llms-full.txt` matches a fresh build from the visible main text of every indexable page, with each page's link destinations retained for citation; `.well-known/llms.txt` is an identical copy of the canonical `llms.txt` (`python scripts/build_llms_full.py --write` regenerates both)
 - every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
-- every styled page carries the Content Security Policy meta tag and the three font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
+- every styled page carries the Content Security Policy meta tag and the 3 font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
@@ -88,7 +88,7 @@ npm run test:capture
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
-Run three-pass Lighthouse medians for the homepage, Tools, Evidence, Coal
+Run 3-pass Lighthouse medians for the homepage, Tools, Evidence, Coal
 LSL calculator, accounting question hub, and business calculators:
 
 ```bash
@@ -156,7 +156,7 @@ The homepage cash-flow chart is a native Excel export of the supplied fictional
 workbook. Its [capture record](assets/examples/lumbridge/preview-record.txt)
 records the scenario, source and image hashes, renderer, and refresh procedure.
 
-The five contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
+The 5 contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 

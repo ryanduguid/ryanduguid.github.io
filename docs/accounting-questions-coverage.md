@@ -1,6 +1,6 @@
 # Implementation coverage
 
-All 100 research questions have a static guide with two preparation steps, a limit and a source. This table records the delivered route; it does not claim new legal determinations or model evaluations.
+All 100 research questions have a static guide with 2 preparation steps, a limit and a source. This table records the delivered route; it does not claim new legal determinations or model evaluations.
 
 | ID | Question | Delivered resource |
 | --- | --- | --- |

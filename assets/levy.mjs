@@ -1,5 +1,5 @@
 // Coal LSL payroll levy: eligible wages under s 3B of the Coal Mining Industry
-// (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No. 11
+// (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No 11
 // (C2026C00338, 7 July 2026). Rate prescribed by s 6 of the Coal Mining Industry
 // (Long Service Leave) Payroll Levy Regulations 2018.
 //
@@ -7,7 +7,7 @@
 // toCents(). No DOM access: this module is imported by both the page and the tests.
 
 export const LEVY_RATE_NUMERATOR = 27;
-export const LEVY_RATE_DENOMINATOR = 1000; // 2.7 per cent
+export const LEVY_RATE_DENOMINATOR = 1000; // 2.7%
 // Leave room for quarter cents and the levy numerator in exact integer arithmetic.
 export const MAX_WAGES_CENTS = Math.floor(Number.MAX_SAFE_INTEGER / (4 * LEVY_RATE_NUMERATOR));
 export const LEVY_RATE_AS_AT = '2026-09-02';
@@ -42,7 +42,7 @@ export function bonusCents(bonuses) {
     .reduce((total, b) => total + toCents(b.amount), 0);
 }
 
-// s 3B(4)(a), (aa), (b): gross up for salary sacrifice applies to exactly three
+// s 3B(4)(a), (aa), (b): gross up for salary sacrifice applies to exactly 3
 // components, being base rate of pay, ordinary rate of pay and annual salary.
 // It does NOT apply to the casual loading, bonuses, overtime or allowances.
 export function grossUp(paidCents, sacrificedCents = 0) {
@@ -59,7 +59,7 @@ export function baseRateWages({
   const bonus = bonusCents(bonuses);
   const formulaA = baseRateCents + bonus;
   const aggregate = baseRateCents + bonus + overtimeAndPenaltyCents + allowancesCents;
-  // 75 per cent as an exact quarter division. Both this and `* 0.75` are exact
+  // 75% as an exact quarter division. Both this and `* 0.75` are exact
   // here, because 0.75 is 3 x 2^-2 and so is representable; the integer form is
   // kept because it is exact by construction rather than by a property of the
   // literal that a later reader has to know. The value that matters is that
@@ -83,13 +83,13 @@ export function annualSalaryWages({ annualSalaryPaidCents, bonuses }) {
   };
 }
 
-// s 3B(3): no greater-of test and no 75 per cent factor. The branch is selected.
+// s 3B(3): no greater-of test and no 75% factor. The branch is selected.
 // Each branch reads only some of the three pay components the form offers, so
 // every entered component the selected branch does not read is named in
 // `ignored`. Without that, pay entered against the wrong branch was discarded
 // with nothing but a confident $0.00 to show for it.
 //
-// The three pay arguments are the figures the user actually entered, never a
+// The 3 pay arguments are the figures the user actually entered, never a
 // derived total. The salary sacrifice arrives as its own `sacrificedCents` and
 // this function grosses it onto whichever component the selected branch reads.
 // A caller that grosses up first cannot be trusted here: an entered-zero field

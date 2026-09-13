@@ -389,12 +389,12 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "Accounting API Reports endpoint.",
             "This pack is for a reviewer who wants to reproduce the offline integrity "
             "gate without connecting to Xero or handling client data.",
-            "The three CSV files are fabricated output-shape fixtures.",
+            "The 3 CSV files are fabricated output-shape fixtures.",
             "They are not Xero API responses or client records, and no OAuth flow runs "
             "in this evaluation.",
             "No Xero tenant credentials or tenant data are used.",
             "Dependency installation may download the hash-locked packages.",
-            "Once dependencies are installed, the three evaluation runner commands "
+            "Once dependencies are installed, the 3 evaluation runner commands "
             "are fully offline, make no network request, and write no output file.",
             "passing.csv exits 0 and reports that movement and YTD balance.",
             "failing_movement.csv exits 1, identifies the movement pair, and reports "
@@ -526,7 +526,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
                 "supported due date of 17 August 2026 and an as-at date of 20 August 2026",
             ),
             "reproduce": (
-                "Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first four commands write the four reports; the final command runs the evaluation contract test.",
+                "Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.",
             ),
             "limitations": (
                 "This evaluation does not provide advice or make an ATO assessment.",

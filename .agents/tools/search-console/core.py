@@ -138,7 +138,7 @@ def compare_search_rows(
     previous: list[dict[str, object]],
     dimensions: list[str] | tuple[str, ...],
 ) -> list[dict[str, object]]:
-    """Join two complete API row sets and rank absolute impression changes."""
+    """Join 2 complete API row sets and rank absolute impression changes."""
 
     selected = _validate_dimensions(dimensions)
     current_rows, current_order = _index_rows(current, selected)
