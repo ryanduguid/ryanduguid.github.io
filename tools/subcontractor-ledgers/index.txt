@@ -10,7 +10,7 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 11 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -25,6 +25,14 @@ For work in progress, the skills assemble the contract CSV. The arithmetic lives
 ## Limits
 
 These skills prepare and check. They do not serve a payment claim, lodge a return, or sign anything. Contract interpretation, eligibility conclusions, and professional judgement stay with a person. Nothing here is tax, accounting, or legal advice.
+
+## Repeat the agent evaluation procedure
+
+Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded, and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
+
+Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools, and result; retain the response with the working evidence.
+
+This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.
 
 ## Get it
 
@@ -64,6 +72,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Accounting Skills v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
+- evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/#adopt
 - installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills

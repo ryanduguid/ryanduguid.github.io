@@ -110,7 +110,7 @@ Adopt
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
 
-The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is under review and available from the development checkout; the published packages do not yet include it.
+The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
 ### Five ways to try it
 
