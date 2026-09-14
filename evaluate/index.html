@@ -56,7 +56,7 @@
         <h1>Evaluations</h1>
         <p class="short-answer">Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.</p>
         <p class="byline">An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.</p>
-        <p>For identity, source, and release assurance, see the <a href="/evidence/">Evidence register</a>. Each evaluated tool is listed in the <a href="/tools/">Tools register</a>.</p>
+        <p>For identity, source, and release assurance, see the <a href="/evidence/">Evidence register</a>. Each evaluated tool is listed in the <a href="/tools/">Tools register</a>. <a href="#example-routes">Choose an example for any tool in the register</a>.</p>
         <p class="page-meta">Last reviewed 14 September 2026.</p>
       </header>
       <div class="site-shell">
@@ -94,6 +94,32 @@
             <p>Download provenance and workbook checks are in the <a href="/assets/examples/lumbridge/README.txt">sample record</a>. <a href="https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services">Read the source, assumptions, and trial at the captured commit</a>. The Australian pack extends <a href="https://github.com/JeffBrines/openfpa">Jeff Brines / Guiderail's openfpa</a>.</p>
             <p><a href="/contact/#example-feedback">Give feedback on this example</a>. Describe the step, observed result, and Excel version using the synthetic files.</p>
             <p>Cite as Duguid, R. (2026). <em>Lumbridge Services synthetic cash-flow case</em> [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.</p>
+          </section>
+      </div>
+      <div class="site-shell">
+          <section class="article-body" id="example-routes" aria-labelledby="example-routes-title">
+            <h2 id="example-routes-title">Choose an example to reproduce</h2>
+            <p>Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.</p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Tool examples and reproduction routes">
+              <table class="facts rate-table--wide">
+                <caption>Examples for the tools in the register. All inputs are fabricated. Scroll sideways on small screens.</caption>
+                <thead><tr><th scope="col">Tool</th><th scope="col">Reproduction route</th><th scope="col">What to check</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row"><a href="/evaluate/xero-trial-balance-integrity/">Xero trial balance CSV export</a></th><td>Fixed-release evaluation</td><td>One accepted export and two refusals.</td></tr>
+                  <tr><th scope="row"><a href="/tools/subcontractor-ledgers/#reproduce">Subcontract ledger skills</a></th><td>Agent evaluation procedure</td><td>Declared checks and prohibitions, judged per fresh model session.</td></tr>
+                  <tr><th scope="row"><a href="/tools/wip-schedule/#worked-example">Construction WIP schedule</a></th><td>Pinned source test</td><td>50% progress and a $50,000 contract asset.</td></tr>
+                  <tr><th scope="row"><a href="/tools/payday-super/#try-example">Payday Super timing</a></th><td>Pinned package trial</td><td>AT_RISK while fund receipt is missing.</td></tr>
+                  <tr><th scope="row"><a href="/tools/ato-benchmarks/#worked-example">ATO benchmark comparison</a></th><td>Pinned source test</td><td>30% cost of sales after excluding the separately mapped wages.</td></tr>
+                  <tr><th scope="row"><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></th><td>Browser calculator</td><td>Choose Load the synthetic example, then Calculate; compare the inputs and formula with the fixed homepage proof.</td></tr>
+                  <tr><th scope="row"><a href="/tools/trust-distributions/#worked-example">Trust distribution checks</a></th><td>Pinned package trial</td><td>$100,000 on the declared section 99B assumptions, plus a refusal case.</td></tr>
+                  <tr><th scope="row"><a href="/tools/company-tax-franking/#worked-example">Company tax and franking checks</a></th><td>Pinned package trial</td><td>25.0% on the declared base-rate-entity inputs, plus an unsupported-year refusal.</td></tr>
+                  <tr><th scope="row"><a href="/evaluate/manager-review-gate/">Workpaper Review Gate</a></th><td>Fixed-release evaluation</td><td>NOT_READY findings, then READY after the stated corrections.</td></tr>
+                  <tr><th scope="row"><a href="/tools/monthly-close-controls/#worked-example">Monthly Close Controls</a></th><td>Pinned source case</td><td>REVIEW with eight exceptions in the supplied July close.</td></tr>
+                  <tr><th scope="row"><a href="/tools/australian-tax-ai-agents/#try-example">Australian tax tools for AI agents</a></th><td>Pinned package demonstration</td><td>Two synthetic tool calls, without an agent session or credentials.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The <a href="#profit-and-cash">Excel cash-flow case</a> and <a href="/tools/business-calculators/">browser planning calculators</a> offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.</p>
           </section>
       </div>
       <div class="site-shell collection-layout">

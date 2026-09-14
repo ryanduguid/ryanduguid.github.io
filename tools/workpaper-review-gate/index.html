@@ -59,7 +59,7 @@
       This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3">review-ready-gate/v0.1.3</a>, evaluated against tagged fixtures.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 12 September 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 14 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -98,6 +98,7 @@
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
+    <p><a href="/evaluate/manager-review-gate/">Run the two fabricated BAS packs and compare the expected findings</a>. The fixed-release evaluation shows the failures to correct before READY, with no client files or Xero connection.</p>
     <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/accounting-review-pipeline.git
 git -C accounting-review-pipeline checkout review-ready-gate/v0.1.3
@@ -152,7 +153,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "description": "Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-12",
+        "dateModified": "2026-09-14",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -216,7 +217,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-12"
+        "dateModified": "2026-09-14"
       },
       {
         "@type": "FAQPage",

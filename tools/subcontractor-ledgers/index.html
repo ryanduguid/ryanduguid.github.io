@@ -59,13 +59,14 @@
       These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
     </p>
     <p class="release-meta">Released pack: <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1">Australian Accounting Skills v0.2.1</a>. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 11 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 14 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#what-this-tool-does">What this tool does</a>
           <a href="#limits">Limits</a>
+          <a href="#reproduce">Repeat the evaluation procedure</a>
           <a href="#get-it">Get it</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
@@ -104,6 +105,12 @@
         here is tax, accounting, or legal advice.
       </p>
     </blockquote>
+    </section>
+    <section id="reproduce">
+    <h2>Repeat the agent evaluation procedure</h2>
+    <p>Use the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md">evaluation method</a> and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded, and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.</p>
+    <p>Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools, and result; retain the response with the working evidence.</p>
+    <p>This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.</p>
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
@@ -156,7 +163,7 @@
         "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-11",
+        "dateModified": "2026-09-14",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -224,7 +231,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-11"
+        "dateModified": "2026-09-14"
       },
       {
         "@type": "FAQPage",

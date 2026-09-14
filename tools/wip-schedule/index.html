@@ -62,7 +62,7 @@
       contract liability per job. Assets and liabilities are never netted.
       Review aid, not a determination.
     </p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 10 September 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 14 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -108,6 +108,14 @@
     </ul>
     <p>Progress is $400,000 ÷ ($400,000 + $400,000) = <strong>50%</strong>. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a <strong>$50,000 contract asset</strong> and no contract liability.</p>
     <p>A person must confirm that the recognition basis, contract terms, and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.</p>
+    <h3>Reproduce this exact example</h3>
+    <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
+    <pre tabindex="0" role="region" aria-label="Pinned the-wip-tally example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting
+git checkout the-wip-tally/v0.1.0
+cd packages/the-wip-tally
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling</code></pre>
+    <p>Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
@@ -183,7 +191,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-10",
+        "dateModified": "2026-09-14",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -251,7 +259,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-10"
+        "dateModified": "2026-09-14"
       },
       {
         "@type": "FAQPage",
