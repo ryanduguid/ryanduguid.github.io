@@ -14,8 +14,8 @@ Checks, in order, per file:
    transport failures and HTTP 5xx responses are retried up to five times;
    HTTP 429 also retries with Retry-After or exponential backoff, capped at
    30 seconds of total waiting per fetch. Other HTTP 4xx responses do not retry.
-   HTTP 403 from exact allow-listed ATO source URLs and HTTP 404 or 999 from
-   the hibernated LinkedIn profile are accepted.
+   HTTP 403 from exact allow-listed ATO source URLs and HTTP 999 from the
+   LinkedIn profile are accepted.
    Five exact government URLs require manual verification in GitHub Actions
    because runner connections time out; local runs still fetch them.
 4. The HTML parses cleanly and links carry no empty href.
@@ -197,8 +197,8 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
     }
 )
 
-# LinkedIn normally answers non-browser clients with HTTP 999. A hibernated
-# profile returns HTTP 404, so either response is expected for this exact URL.
+# LinkedIn answers non-browser clients with HTTP 999 even when the profile is
+# live, so that response is expected for this exact URL. HTTP 404 still fails.
 LINKEDIN_AUTOMATION_DENIAL_URLS = frozenset(
     {
         "https://www.linkedin.com/in/ryan-duguid",
@@ -270,7 +270,7 @@ def is_accepted_automation_denial(url: str, status: int) -> bool:
     """True only for exact allow-listed failures reproduced on GitHub runners."""
     if url in ATO_AUTOMATION_DENIAL_URLS and status == 403:
         return True
-    return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status in {404, 999}
+    return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status == 999
 
 
 def is_self_origin(href: str) -> bool:
@@ -528,8 +528,8 @@ def _self_check() -> None:
     assert is_accepted_automation_denial("https://www.linkedin.com/in/ryan-duguid", 999), (
         "the exact LinkedIn profile HTTP 999 must be an accepted automation denial"
     )
-    assert is_accepted_automation_denial("https://www.linkedin.com/in/ryan-duguid", 404), (
-        "the hibernated LinkedIn profile HTTP 404 must be accepted"
+    assert not is_accepted_automation_denial("https://www.linkedin.com/in/ryan-duguid", 404), (
+        "a LinkedIn profile HTTP 404 must still fail now the profile is live"
     )
     assert not is_accepted_automation_denial("https://www.linkedin.com/company/example", 999), (
         "a LinkedIn URL outside the allow-list must still fail"

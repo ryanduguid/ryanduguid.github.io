@@ -10,7 +10,7 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 12 September 2026.
+Last reviewed 14 September 2026.
 
 ## The short facts
 
@@ -22,7 +22,7 @@ Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed th
 Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I am Xero L3 Specialist Certified.
 Education | Bachelor of Commerce (Accounting), University of Newcastle
 Code | github.com/ryanduguid
-LinkedIn | linkedin.com/in/ryan-duguid (hibernated)
+LinkedIn | linkedin.com/in/ryan-duguid
 
 ## What my public work demonstrates
 
