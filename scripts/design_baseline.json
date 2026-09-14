@@ -2,12 +2,12 @@
   "protected_files": {
     "llms.txt": "1375088eafe94e195289d4d1dcba915a13f00e252f17db9ec71be3d7e1aec422",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "0cb7b98fb74dc131493d3bfe8fa8e2be8118f7cad4cde5dc46fcb0aab6c8b577"
+    "sitemap.xml": "fcfc5c2eb7373022f28511a940ca88337344b81fda6b44b0f9399f6ea9997010"
   },
   "protected_main_text": {
-    "rates/super-guarantee/index.html": "7c78babb2c91001f56b8cfe747041979a8e196f016f8dc66d223ac047ee8e1c4",
-    "rates/div7a-benchmark-rate/index.html": "c830551bd757b5f2d9570adbc3d792a2f004b37038c82abbfab05cd215341e90",
-    "rates/cents-per-kilometre/index.html": "42a3370c9dcd068a33611970fe05c87005158aacff3ba72f6db658b2bec85ff1"
+    "rates/super-guarantee/index.html": "42a3042f07f8f32239a23ac17a5bfedd057071e959fb91c048f5ed7b71d8879d",
+    "rates/div7a-benchmark-rate/index.html": "9d0d9625f01d6e6818211cedec06008e897e9c3ec67bf05ac82df55901ceb9a1",
+    "rates/cents-per-kilometre/index.html": "846bed16bb1143f66f8ab0f6a2134859a2e4fdca197c386c2f25e68b0e781776"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -27,6 +27,7 @@
     "rates/div7a-benchmark-rate/index.html": [
       "https://www.legislation.gov.au/C1936A00027/latest/text",
       "https://www.rba.gov.au/statistics/tables/",
+      "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
       "#rate-by-income-year",
       "#how-to-work-it-out",
       "#what-the-rate-is-for",
@@ -87,16 +88,16 @@
       "4b70c5f059cc2c5a3f4dafb780cc1ea603370b7d4dbecc4e9f5749c06be4babd"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "84da9823fed754240d53c8f4167569ef01aa9d0ab0726cbae311cae9096807e0"
+      "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "8d54ad8e3358602babf50adfc0dd5a31c4dd812f5cd74bd06401a3a795f281a6"
+      "70ce58f8cd020dbc5a40fcf036092c5db2dd606084b3b17e01f8e0ed56b57737"
     ],
     "rates/index.html": [
-      "64032304f753fddafa4d67922ed43afc7fea5b3f0666810f5798009d8e22b796"
+      "197f192b3a7b763a1a78cf69130167006c79f85efe97240dbe0d86d7d79d12e9"
     ],
     "rates/super-guarantee/index.html": [
-      "980bf0b5ec63c4037a329bba4864db54ab300db026495ea3a4a83d739359afec"
+      "0b00e50c0072bdb775b75da02194e0fc4a60eb39d5cf6b2db151668945ddf862"
     ],
     "tools/ato-benchmarks/index.html": [
       "dbc8a106831702aa4c9d87be6c08e243d7cf896f15988b15e794a33a3cfec0c2"

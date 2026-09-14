@@ -8,7 +8,7 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 The benchmark interest rate for the 2026-27 income year is 8.77%. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
-Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%.
+Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026; the earlier rows retain their original review date.
 
 ## The rate, by income year
 
@@ -72,7 +72,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 2 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -80,6 +80,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - section 109N(2) of the Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - statistical table F5: https://www.rba.gov.au/statistics/tables/
+- ATO benchmark rate table: https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate
 - Download the table as CSV: https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

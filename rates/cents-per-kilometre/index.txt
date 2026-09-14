@@ -8,7 +8,7 @@ Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves.
 
-Each rate below is taken from the determination that sets it, read on 28 August 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
+Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
 ## The rate, by income year
 
@@ -71,7 +71,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 2 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
