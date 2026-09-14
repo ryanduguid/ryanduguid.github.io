@@ -18,14 +18,28 @@ export function describedByTokens(control) {
   return new Set((control.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
 }
 
-// Money fields carry inputmode="decimal"; other numbers (percentages,
-// months, hours) read as plain figures.
+// Date fields carry ISO limits; money fields carry inputmode="decimal"; other
+// numbers (percentages, months, hours) read as plain figures.
 function formatBound(control, bound) {
+  if (control.type === 'date') {
+    const [year, month, day] = bound.split('-').map(Number);
+    return new Date(year, month - 1, day).toLocaleDateString('en-AU', {
+      day: 'numeric', month: 'long', year: 'numeric',
+    });
+  }
   const value = Number(bound);
   if (control.getAttribute('inputmode') === 'decimal') {
     return value.toLocaleString('en-AU', { style: 'currency', currency: 'AUD' });
   }
   return value.toLocaleString('en-AU');
+}
+
+// Dates read "or later" and "or earlier"; amounts read "or more" and "or less".
+function rangeMessage(control, bound, direction) {
+  const dateWords = { min: 'later', max: 'earlier' };
+  const numberWords = { min: 'more', max: 'less' };
+  const word = (control.type === 'date' ? dateWords : numberWords)[direction];
+  return `Enter ${formatBound(control, bound)} or ${word}.`;
 }
 
 // The browser's own text is locale-dependent and says "select" for a typed
@@ -37,8 +51,8 @@ export function fieldErrorMessage(control) {
     return control.type === 'number' ? 'Enter an amount.' : 'Enter a value.';
   }
   if (validity.badInput) return 'Enter a number using digits only.';
-  if (validity.rangeUnderflow) return `Enter ${formatBound(control, control.min)} or more.`;
-  if (validity.rangeOverflow) return `Enter ${formatBound(control, control.max)} or less.`;
+  if (validity.rangeUnderflow) return rangeMessage(control, control.min, 'min');
+  if (validity.rangeOverflow) return rangeMessage(control, control.max, 'max');
   if (validity.stepMismatch) {
     return Number(control.step) === 0.01
       ? 'Use no more than two decimal places.'

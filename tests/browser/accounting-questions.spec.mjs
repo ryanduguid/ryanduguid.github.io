@@ -57,7 +57,16 @@ test('question search finds abbreviations and words in the guidance', async ({ p
 test('cash inputs survive a save and reload with dated results', async ({ page }) => {
   await page.goto('/tools/business-calculators/#cash');
   const form = page.locator('#cash form');
-  await form.getByLabel('First day of week 1').fill('2026-09-28');
+  const startDate = form.getByLabel('First day of week 1');
+  const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
+  await startDate.fill('1899-12-31');
+  await calculate.click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 1 January 1900 or later.');
+  await expect(startDate).toBeFocused();
+  await startDate.fill('9999-12-31');
+  await calculate.click();
+  await expect(form.locator('.field-error')).toHaveText('Enter 2 October 9999 or earlier.');
+  await startDate.fill('2026-09-28');
   await form.getByLabel('Opening bank balance (AUD)').fill('200');
   await form.getByLabel('Week 1 receipts', { exact: true }).fill('1000');
   await form.getByLabel('Week 1 payments', { exact: true }).fill('300');
