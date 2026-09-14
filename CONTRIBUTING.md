@@ -67,6 +67,13 @@ locally on 11 September 2026. They are listed individually in
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
 
+The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
+also returned HTTP 403 in [run 34852175800](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/34852175800).
+The local link check and Camofox both returned HTTP 200 on 14 September 2026.
+Its exact URL is in the same exception list; other statuses and neighbouring
+URLs still fail. Recheck local access before changing the link, and remove
+the exception when runner access permits.
+
 Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
 
 ## Pull requests
