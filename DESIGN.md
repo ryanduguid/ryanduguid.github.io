@@ -484,6 +484,14 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
 
+The 14 September 2026 claim-maintenance pass refreshes the rate verification
+and editorial dates after reading the primary sources. The SG and Division 7A
+pages distinguish this rate check from their earlier statutory and RBA reviews.
+Rate values, CSV data, calculator behaviour, credential wording, and historical
+evaluation pins are unchanged. The rate-page text, source-link and JSON-LD
+baselines, sitemap dates, and generated machine views record these authorised
+edits. The scope and sources are in `docs/claim-maintenance.md`.
+
 The 11 September 2026 B1 update adds the unreleased Payday Super evidence-pack
 workflow to Adopt, the Payday Super tool page, its evaluation page and the machine
 indexes. The evaluation's editorial date and JSON-LD digest, the sitemap digest

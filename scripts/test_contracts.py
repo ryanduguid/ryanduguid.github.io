@@ -129,8 +129,8 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    review_date = "12 September 2026"
-    modified_date = "2026-09-12"
+    review_date = "14 September 2026"
+    modified_date = "2026-09-14"
     homepage_title = (
         "Ryan Duguid: review-ready Australian accounting controls"
     )
@@ -219,8 +219,8 @@ def test_geo_leftovers_surface() -> None:
         "meta-externalagent": ["Disallow: /"],
     }
 
-    # The evaluations hub was re-reviewed for source-link clarity;
-    # the rates hub kept the GEO-pass date.
+    # The rates hub records the latest primary-source rate check;
+    # the evaluations hub retains its own editorial review date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
         "evaluate/index.html": ("14 September 2026", "2026-09-14"),

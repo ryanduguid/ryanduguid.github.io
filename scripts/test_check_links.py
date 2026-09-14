@@ -170,6 +170,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             "https://www.ato.gov.au/businesses-and-organisations/"
             "income-deductions-and-concessions/small-business-benchmarks",
             "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
+            "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
             "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
             "https://www.ato.gov.au/businesses-and-organisations/"
             "hiring-and-paying-your-workers/single-touch-payroll/in-detail/"

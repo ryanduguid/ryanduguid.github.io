@@ -10,7 +10,7 @@ Three maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 12 September 2026.
+Last reviewed 14 September 2026.
 
 ## Super guarantee rate history
 
@@ -18,7 +18,7 @@ The general super guarantee rate is 12% from 1 July 2025, with no further percen
 
 Verified
 
-30 August 2026
+14 September 2026
 
 Scope
 
@@ -32,7 +32,7 @@ The benchmark rate is 8.77% for 2026/27 and 8.37% for 2025/26.
 
 Verified
 
-28 August 2026
+14 September 2026
 
 Scope
 
@@ -46,7 +46,7 @@ The rate is 91 cents for 2026/27 and applies to the first 5,000 business kilomet
 
 Verified
 
-28 August 2026
+14 September 2026
 
 Scope
 

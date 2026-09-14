@@ -1090,7 +1090,7 @@ Three maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 12 September 2026.
+Last reviewed 14 September 2026.
 
 ## Super guarantee rate history
 
@@ -1098,7 +1098,7 @@ The general super guarantee rate is 12% from 1 July 2025, with no further percen
 
 Verified
 
-30 August 2026
+14 September 2026
 
 Scope
 
@@ -1112,7 +1112,7 @@ The benchmark rate is 8.77% for 2026/27 and 8.37% for 2025/26.
 
 Verified
 
-28 August 2026
+14 September 2026
 
 Scope
 
@@ -1126,7 +1126,7 @@ The rate is 91 cents for 2026/27 and applies to the first 5,000 business kilomet
 
 Verified
 
-28 August 2026
+14 September 2026
 
 Scope
 
@@ -1158,7 +1158,7 @@ Source: https://duguid.com.au/rates/super-guarantee/
 
 The general super guarantee rate is 12%. It reached 12% on 1 July 2025 and no further increases are scheduled. Payday super, from 1 July 2026, changed when contributions must be paid, generally within 7 business days of each payday, and left the rate alone.
 
-Verified 30 August 2026 against the ATO's super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992.
+Verified 30 August 2026 against the ATO's super guarantee rate table, the Treasury Laws Amendment (Payday Superannuation) Act 2025 and the Superannuation Guarantee (Administration) Act 1992. The general SG rate table was rechecked against the ATO on 14 September 2026.
 
 ## Current rate
 
@@ -1210,7 +1210,7 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Staff cost calculator
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 12 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 ## Links
 
@@ -1239,7 +1239,7 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 The benchmark interest rate for the 2026-27 income year is 8.77%. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
-Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%.
+Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026; the earlier rows retain their original review date.
 
 ## The rate, by income year
 
@@ -1303,7 +1303,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 2 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -1311,6 +1311,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - section 109N(2) of the Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - statistical table F5: https://www.rba.gov.au/statistics/tables/
+- ATO benchmark rate table: https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate
 - Download the table as CSV: https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -1330,7 +1331,7 @@ Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves.
 
-Each rate below is taken from the determination that sets it, read on 28 August 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
+Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
 ## The rate, by income year
 
@@ -1393,7 +1394,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 2 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

@@ -185,6 +185,9 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "income-deductions-and-concessions/small-business-benchmarks"
         ),
         "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates",
+        # Run 34852175800 returned 403; Camofox and the local link check
+        # returned 200 on 14 September 2026. Other errors still fail.
+        "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
         ("https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001"),
         # Both answered 403 on the runner for pull request 89 (run 34021101111)
         # while answering 200 from a desktop client the same hour.
