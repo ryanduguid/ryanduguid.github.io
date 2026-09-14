@@ -20,7 +20,7 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
-Published 24 August 2026. Last reviewed 10 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Load the synthetic example
 
@@ -84,8 +84,9 @@ These are gaps in the Act, the Regulations, and the guidance note, not gaps in t
 - Are termination payments (redundancy, payment in lieu of notice, severance, and leave paid out) eligible wages? The Act, the Regulations, and the guidance note do not say.
 - Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages? The Act, the Regulations, and the guidance note do not say.
 - Is unpaid leave eligible wages? The Levy Advice form has a section for it, but no rule appears in the Act or the guidance note.
-- Does shift loading count for base rate and casual employees? Section 3B names it only for annual salary employees, in section 3B(2)(b), and is silent for the other 2 branches.
-- Do allowances count for annual salary employees, and do allowances, overtime, and penalty rates count for casual employees? Section 3B(2) and section 3B(3) are silent.
+- Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) adds overtime, penalty rates, and allowances to 75% of the base rate without naming shift loading, and section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
+- Do allowances, overtime, and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime, and penalty rates. The branch adds back only incentive-based payments, bonuses, and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.
+- Do allowances count for annual salary employees? Section 3B(2) excludes overtime, penalty rates, and shift loading and does not mention allowances.
 - Does a fortnightly or weekly bonus satisfy 'paid at least once a month'? This tool assumes it does. Nothing in the Act, the Regulations, or the guidance note states it.
 - What does 'can be quantified' mean for a casual loading where an instrument names a percentage but the employee is paid a single all-in rate? Neither the Act nor the guidance note says.
 

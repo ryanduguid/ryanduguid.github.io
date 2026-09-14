@@ -101,17 +101,28 @@ browser and hands-on accessibility observations are recorded in
 
 ## Response headers
 
-The site is served by GitHub Pages, which does not let a repository set response
+The origin is GitHub Pages, which does not let a repository set response
 headers. There is no `_headers`, `netlify.toml` or CDN configuration here, and
-adding one would have no effect on the published origin.
+adding one would have no effect on the origin.
 
-The consequence is that `Strict-Transport-Security`, `Content-Security-Policy`,
-`X-Content-Type-Options`, `X-Frame-Options` / `frame-ancestors` and
-`Permissions-Policy` are absent, and `Access-Control-Allow-Origin: *` is set by
-the platform. GitHub Pages does enforce HTTPS with a permanent redirect, and
-`Referrer-Policy` is carried in the document as
+The origin therefore sends none of `Strict-Transport-Security`,
+`Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options` /
+`frame-ancestors` or `Permissions-Policy`, and sets
+`Access-Control-Allow-Origin: *`. GitHub Pages does enforce HTTPS with a
+permanent redirect, and `Referrer-Policy` is carried in the document as
 `<meta name="referrer" content="strict-origin-when-cross-origin">` because that
 directive is honoured in markup.
+
+Since 14 September 2026 the public site has been served through Cloudflare in
+front of that origin. A response-header transform rule there adds
+`Strict-Transport-Security: max-age=31536000; includeSubDomains`,
+`X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`,
+`Permissions-Policy: camera=(), microphone=(), geolocation=()` and
+`Content-Security-Policy: frame-ancestors 'none'`. No `X-Frame-Options` header
+is set; `frame-ancestors` carries the framing restriction. Those headers live in
+the Cloudflare account, not in this repository: the local preview and the checks
+here cannot see or test them, and a request that reached the origin directly
+would still arrive without them.
 
 `Content-Security-Policy` is the exception. Browsers honour a policy delivered
 as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
@@ -132,8 +143,8 @@ script.
 
 The remainder are response-header-only controls: a `<meta http-equiv>` copy
 either does nothing or is ignored by browsers, so none is emitted rather than
-shipping a header that looks present and is not. Closing those means moving the
-origin behind a proxy that can set headers, which is a hosting decision, not a
+shipping a header that looks present and is not. They are supplied at the
+Cloudflare edge as described above, which is a hosting setting, not a
 repository one.
 
 ## Published files

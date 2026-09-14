@@ -183,9 +183,9 @@ def test_geo_leftovers_surface() -> None:
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
     assert (
         web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == "2026-09-10"
+        == "2026-09-14"
     )
-    assert "Last reviewed 10 September 2026." in core.visible_text(coal)
+    assert "Last reviewed 14 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (
@@ -250,7 +250,7 @@ def test_geo_leftovers_surface() -> None:
 
     assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
-        "2026-09-10"
+        "2026-09-14"
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
@@ -505,7 +505,7 @@ def test_design_contracts() -> int:
         (
             "font URL broken",
             "assets/tokens.css",
-            "/assets/fonts/IBMPlexSerif-Regular-Subset.woff2",
+            "/assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
             "/assets/fonts/Missing.woff2",
             "font face target missing: assets/fonts/Missing.woff2",
         ),
@@ -708,11 +708,11 @@ def test_design_contracts() -> int:
         )
 
     with copied_site() as root:
-        (root / "assets/fonts/IBMPlexSerif-Regular-Subset.woff2").unlink()
+        (root / "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2").unlink()
         expect_failure(
             "protected font removed",
             check_design.check_repository(root),
-            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Subset.woff2",
+            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
         )
 
     with copied_site() as root:

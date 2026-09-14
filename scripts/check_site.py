@@ -31,6 +31,7 @@ CHECKS = (
     (sys.executable, "scripts/check_links.py"),
     ("node", "--test", "scripts/levy.test.mjs"),
     ("node", "--test", "scripts/business-calculators.test.mjs"),
+    ("node", "--test", "scripts/field-errors.test.mjs"),
     ("node", "--test", "scripts/home-levy.test.mjs"),
     ("node", "--test", "scripts/stamp-source-freshness.test.mjs"),
 )
