@@ -717,3 +717,10 @@ editorial date and its JSON-LD, sitemap, and llms.txt baselines follow the corre
 The Payday download copies the existing fabricated CSV byte for byte. Its
 SHA-256 matches tools/payday-super/example-provenance.json. Serving it from
 the site makes the download action work without visiting a source-code host.
+
+Hosted browser verification caught the old homepage screenshots and the Tools
+height ceiling. The homepage baselines now show the verified release wording.
+Duplicate example destinations were removed from the register, source labels
+were shortened, and the mobile height ceiling allows the added introduction
+and example links with the existing approximate 234px margin. CSS and screenshot
+difference tolerances are unchanged.

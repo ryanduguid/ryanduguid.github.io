@@ -61,9 +61,10 @@ const homeHeightBaseline = {
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
-    // Monthly Close adds a 348px entry and 54px chooser link on mobile.
-    // Preserve the existing margin while allowing those measured 402px.
-    ['/tools/', 7857],
+    // Direct example links and the first-run introduction add visible content.
+    // After removing duplicate destinations, Camofox measures 8,033px at
+    // 390px wide. Retain about 234px of margin for this expanded register.
+    ['/tools/', 8270],
     ['/evidence/', 6426],
   ]),
   'desktop-chromium': new Map([
@@ -223,7 +224,7 @@ test('retired Engage routes redirect quietly to the homepage', async ({ page }) 
   health.assertHealthy();
 });
 
-test('shared rhythm reduces representative route length', async ({ page }, testInfo) => {
+test('representative routes stay within their height limits', async ({ page }, testInfo) => {
   for (const [route, baseline] of representativeHeightBaseline[testInfo.project.name]) {
     await page.goto(route);
     await waitForVisualFonts(page);
