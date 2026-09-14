@@ -698,3 +698,31 @@ the same wording. Subcontractor skills name either compatible agent.
 The 2 evaluated installation examples now select their stated tags,
 and case-study links select recorded commits. Only the affected prose
 and JSON-LD baselines change; rates, CSVs and crawler rules stay intact.
+
+## First-run examples, 14 September 2026
+
+Ryan approved a shorter first run and clearer reproduction routes. The Tools
+register links each control to an existing example or evaluation procedure.
+Payday, company tax, trust, and MCP examples use pinned PyPI commands. Benchmark
+and WIP examples name their existing release tests. Evaluations distinguishes
+package trials, source examples, and agent procedures from its three historical
+release evaluations. Editorial dates, affected JSON-LD baselines, the sitemap
+digest, and generated text indexes follow these changes. No CSS, runtime
+dependency, fixture, legal review date, or historical evaluation pin changes.
+
+Installed-package verification also found stale unreleased wording for Payday
+evidence packs. The homepage, tool guide, evaluation introduction, and machine
+index now name checker 0.1.4 and MCP 0.2.2. The original development commit,
+commands, expected outcomes, and legal review date remain fixed. The evaluation
+editorial date and its JSON-LD, sitemap, and llms.txt baselines follow the correction.
+
+The Payday download copies the existing fabricated CSV byte for byte. Its
+SHA-256 matches tools/payday-super/example-provenance.json. Serving it from
+the site makes the download action work without visiting a source-code host.
+
+Hosted browser verification caught the old homepage screenshots and the Tools
+height ceiling. The homepage baselines now show the verified release wording.
+Duplicate example destinations were removed from the register, source labels
+were shortened, and the mobile height ceiling allows the added introduction
+and example links with the existing approximate 234px margin. CSS and screenshot
+difference tolerances are unchanged.

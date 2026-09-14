@@ -10,7 +10,7 @@ Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool e
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
-For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
+For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
 
 Last reviewed 14 September 2026.
 
@@ -56,6 +56,27 @@ Download provenance and workbook checks are in the sample record. Read the sourc
 Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
 
 Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.
+
+## Choose an example to reproduce
+
+Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
+
+Examples for the tools in the register. All inputs are fabricated. Scroll sideways on small screens.
+
+Tool | Reproduction route | What to check
+Xero trial balance CSV export | Fixed-release evaluation | One accepted export and two refusals.
+Subcontract ledger skills | Agent evaluation procedure | Declared checks and prohibitions, judged per fresh model session.
+Construction WIP schedule | Pinned source test | 50% progress and a $50,000 contract asset.
+Payday Super timing | Pinned package trial | AT_RISK while fund receipt is missing.
+ATO benchmark comparison | Pinned source test | 30% cost of sales after excluding the separately mapped wages.
+Coal LSL levy calculator | Browser calculator | Choose Load the synthetic example, then Calculate; compare the inputs and formula with the fixed homepage proof.
+Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
+Company tax and franking checks | Pinned package trial | 25.0% on the declared base-rate-entity inputs, plus an unsupported-year refusal.
+Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
+Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
+Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
+
+The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
 ## Five-minute accounting cases
 
@@ -150,20 +171,32 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 
 - Evidence register: https://duguid.com.au/evidence/
 - Tools register: https://duguid.com.au/tools/
+- Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
 - Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example
+- Payday Super timing: https://duguid.com.au/tools/payday-super/#try-example
+- ATO benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/#worked-example
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Trust distribution checks: https://duguid.com.au/tools/trust-distributions/#worked-example
+- Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/#worked-example
+- Workpaper Review Gate: https://duguid.com.au/evaluate/manager-review-gate/
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Excel cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/div7a-loan-review/docs/manager-case-study.md
-- Manager review gate evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate
 - Australian Taxation Office, Business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
-- Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/evaluation/xero_tb_integrity
 - Xero, Accounting API Reports: https://developer.xero.com/documentation/api/accounting/reports
 - Payday Super timing evidence evaluation: https://duguid.com.au/evaluate/payday-super-evidence/

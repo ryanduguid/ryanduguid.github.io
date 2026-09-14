@@ -8,7 +8,9 @@ Source: https://duguid.com.au/tools/
 
 Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
-Last reviewed 11 September 2026.
+Try one synthetic Payday Super CSV, review a fabricated BAS pack, or choose another example.
+
+Last reviewed 14 September 2026.
 
 ## Start from your work
 
@@ -54,7 +56,7 @@ Boundary
 
 Read-only Xero scope; no ledger writes.
 
-Source repository Reproduce the evaluation Last commit 14 September 2026
+Try an example Source code Last commit 14 September 2026
 
 ### Subcontract ledger skills
 
@@ -68,7 +70,7 @@ Boundary
 
 Requires human review of contracts, classifications, and source records.
 
-Source repository Last commit 14 September 2026
+Evaluation procedure Source code Last commit 14 September 2026
 
 ### Construction WIP schedule
 
@@ -82,7 +84,7 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
-Source repository Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 Calculate
 
@@ -100,7 +102,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Source repository Reproduce the evaluation Last commit 14 September 2026
+Try an example Source code Reproduce the evaluation Last commit 14 September 2026
 
 ### ATO benchmark comparison
 
@@ -114,7 +116,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Source repository Last commit 14 September 2026
+Try an example Source code Last commit 14 September 2026
 
 ### Coal LSL levy calculator
 
@@ -130,7 +132,7 @@ Boundary
 
 No lodgement, storage, or network transmission; verify the monthly return.
 
-Source repository Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 ### Trust distribution checks
 
@@ -144,7 +146,7 @@ Boundary
 
 Does not invent arrangements, intentions, or beneficiary facts.
 
-Source repository Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 ### Company tax and franking checks
 
@@ -158,7 +160,7 @@ Boundary
 
 Requires verified income composition, distributions, and ledger inputs.
 
-Source repository Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 Control
 
@@ -176,7 +178,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Source repository Reproduce the evaluation Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 ### Monthly Close Controls
 
@@ -190,7 +192,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Source repository Inspect the worked example Last commit 13 September 2026
+Try an example Source code Last commit 13 September 2026
 
 Inspect
 
@@ -208,7 +210,7 @@ Boundary
 
 Human review required. Optional local-library excerpts enter the assistant's context; Division 7A scope stays limited.
 
-Source repository Last commit 14 September 2026
+Try an example Source code Last commit 14 September 2026
 
 ## Before using a tool
 
@@ -232,6 +234,9 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
+- Try one synthetic Payday Super CSV: https://duguid.com.au/tools/payday-super/#try-example
+- review a fabricated BAS pack: https://duguid.com.au/evaluate/manager-review-gate/
+- choose another example: https://duguid.com.au/evaluate/#example-routes
 - Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
@@ -248,21 +253,26 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate: https://duguid.com.au/tools/#calculate-tools
 - Control: https://duguid.com.au/tools/#control-tools
 - Inspect: https://duguid.com.au/tools/#inspect-tools
-- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
-- Reproduce the evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
-- Source repository: https://github.com/ryanduguid/australian-accounting-skills
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
+- Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
+- Evaluation procedure: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
+- Source code: https://github.com/ryanduguid/australian-accounting-skills
+- Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
-- Source repository: https://github.com/ryanduguid/ryanduguid.github.io
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
-- Reproduce the evaluation: https://duguid.com.au/evaluate/manager-review-gate/
-- Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
-- Inspect the worked example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
-- Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- Source code: https://github.com/ryanduguid/ryanduguid.github.io
+- Try an example: https://duguid.com.au/tools/trust-distributions/#worked-example
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Try an example: https://duguid.com.au/tools/company-tax-franking/#worked-example
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- Try an example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest

@@ -42,10 +42,12 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Fabricated worked example
 
+With uv installed, run this pinned package directly. No clone or input file is needed.
+
 For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.
 
 ```
-the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+uvx --from the-exchequer-tally==0.1.3 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
 ```
 
 Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
@@ -95,6 +97,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/

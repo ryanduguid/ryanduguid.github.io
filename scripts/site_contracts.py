@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-12"
-MCP_VISIBLE_REVIEW_DATE = "12 September 2026"
+MCP_REVIEW_DATE = "2026-09-14"
+MCP_VISIBLE_REVIEW_DATE = "14 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -444,7 +444,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ("intended-reviewer", "Intended reviewer"),
             ("fabricated-inputs", "Fabricated inputs"),
             ("reproduce", "Reproduce"),
-            ("evidence-pack", "Development evidence pack (unreleased)"),
+            ("evidence-pack", "Recorded development evidence pack"),
             ("expected-result", "Expected result"),
             ("controls-triggered", "Controls triggered"),
             ("primary-sources", "Primary sources"),
@@ -532,7 +532,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-09-11",
+        "sitemap_lastmod": "2026-09-14",
         "llms_section": "Evaluation packs",
     },
 }
