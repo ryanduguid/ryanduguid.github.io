@@ -117,8 +117,9 @@
     </section>
     <section id="worked-example">
     <h2>Fabricated worked example</h2>
+    <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run this pinned package directly. No clone or input file is needed.</p>
     <p>For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.</p>
-    <pre tabindex="0" role="region" aria-label="Fabricated company tax checker command"><code>the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000</code></pre>
+    <pre tabindex="0" role="region" aria-label="Fabricated company tax checker command"><code>uvx --from the-exchequer-tally==0.1.3 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000</code></pre>
     <p>Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.</p>
     <pre tabindex="0" role="region" aria-label="Expected company tax checker output"><code>Passive Income Ratio:    15.00% (&lt;= 80%: True)
 Base Rate Entity:        True

@@ -10,7 +10,7 @@ The ATO publishes benchmark ranges for around 100 industries and uses them to pi
 
 Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub.
 
-Published 24 August 2026. Last reviewed 10 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
 
@@ -35,6 +35,20 @@ This synthetic example comes from the ratio tests in ato-benchmark-compare v0.1.
 The cost-of-sales ratio is $30,000 ÷ $100,000 = 30%. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.
 
 A person must review the mapping and select the relevant industry, year, and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.
+
+### Reproduce this exact example
+
+In a fresh folder, with Git and uv installed, run the test at the release used above:
+
+```
+git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting
+git checkout ato-benchmark-compare/v0.1.6
+cd packages/ato-benchmark-compare
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_cost_of_sales_ratio_excludes_wages_inside_cost_of_sales
+```
+
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.
 
 ## Limits
 
@@ -85,6 +99,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
+- uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues

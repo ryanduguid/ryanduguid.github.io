@@ -118,7 +118,7 @@ Adopt
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
 
-The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is under review and available from the development checkout; the published packages do not yet include it.
+The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
 ### Five ways to try it
 
@@ -555,7 +555,7 @@ Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool e
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
-For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register.
+For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
 
 Last reviewed 14 September 2026.
 
@@ -601,6 +601,27 @@ Download provenance and workbook checks are in the sample record. Read the sourc
 Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
 
 Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.
+
+## Choose an example to reproduce
+
+Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
+
+Examples for the tools in the register. All inputs are fabricated. Scroll sideways on small screens.
+
+Tool | Reproduction route | What to check
+Xero trial balance CSV export | Fixed-release evaluation | One accepted export and two refusals.
+Subcontract ledger skills | Agent evaluation procedure | Declared checks and prohibitions, judged per fresh model session.
+Construction WIP schedule | Pinned source test | 50% progress and a $50,000 contract asset.
+Payday Super timing | Pinned package trial | AT_RISK while fund receipt is missing.
+ATO benchmark comparison | Pinned source test | 30% cost of sales after excluding the separately mapped wages.
+Coal LSL levy calculator | Browser calculator | Choose Load the synthetic example, then Calculate; compare the inputs and formula with the fixed homepage proof.
+Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
+Company tax and franking checks | Pinned package trial | 25.0% on the declared base-rate-entity inputs, plus an unsupported-year refusal.
+Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
+Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
+Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
+
+The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
 ## Five-minute accounting cases
 
@@ -695,20 +716,32 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 
 - Evidence register: https://duguid.com.au/evidence/
 - Tools register: https://duguid.com.au/tools/
+- Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
 - Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example
+- Payday Super timing: https://duguid.com.au/tools/payday-super/#try-example
+- ATO benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/#worked-example
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Trust distribution checks: https://duguid.com.au/tools/trust-distributions/#worked-example
+- Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/#worked-example
+- Workpaper Review Gate: https://duguid.com.au/evaluate/manager-review-gate/
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Excel cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/div7a-loan-review/docs/manager-case-study.md
-- Manager review gate evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate
 - Australian Taxation Office, Business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
-- Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/evaluation/xero_tb_integrity
 - Xero, Accounting API Reports: https://developer.xero.com/documentation/api/accounting/reports
 - Payday Super timing evidence evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
@@ -939,7 +972,7 @@ Source: https://duguid.com.au/evaluate/payday-super-evidence/
 
 Reproduce 4 fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
 
-Published 26 August 2026. Last reviewed 11 September 2026.
+Published 26 August 2026. Last reviewed 14 September 2026.
 
 ## Accounting problem
 
@@ -965,9 +998,9 @@ uv run --locked --extra dev --python 3.12 payday-super-check evaluation/payday_s
 uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q
 ```
 
-## Development evidence pack (unreleased)
+## Recorded development evidence pack
 
-The tool page links the CLI and MCP pull requests for this unreleased workflow. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.
+The tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2. These commands preserve the original development snapshot for comparison. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.
 
 ```
 git fetch origin pull/147/head
@@ -1030,7 +1063,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- tool page links the CLI and MCP pull requests: https://duguid.com.au/tools/payday-super/#evidence-pack
+- tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - Primary source review: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md
@@ -1386,7 +1419,9 @@ Source: https://duguid.com.au/tools/
 
 Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
-Last reviewed 11 September 2026.
+Try one synthetic Payday Super CSV, review a fabricated BAS pack, or choose another example.
+
+Last reviewed 14 September 2026.
 
 ## Start from your work
 
@@ -1432,7 +1467,7 @@ Boundary
 
 Read-only Xero scope; no ledger writes.
 
-Source repository Reproduce the evaluation Last commit 7 September 2026
+Try an example Source repository Reproduce the evaluation Last commit 7 September 2026
 
 ### Subcontract ledger skills
 
@@ -1446,7 +1481,7 @@ Boundary
 
 Requires human review of contracts, classifications, and source records.
 
-Source repository Last commit 7 September 2026
+Run the evaluation procedure Source repository Last commit 7 September 2026
 
 ### Construction WIP schedule
 
@@ -1460,7 +1495,7 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
-Source repository Last commit 7 September 2026
+Try an example Source repository Last commit 7 September 2026
 
 Calculate
 
@@ -1478,7 +1513,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Source repository Reproduce the evaluation Last commit 7 September 2026
+Try an example Source repository Reproduce the evaluation Last commit 7 September 2026
 
 ### ATO benchmark comparison
 
@@ -1492,7 +1527,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Source repository Last commit 7 September 2026
+Try an example Source repository Last commit 7 September 2026
 
 ### Coal LSL levy calculator
 
@@ -1508,7 +1543,7 @@ Boundary
 
 No lodgement, storage, or network transmission; verify the monthly return.
 
-Source repository Last commit 6 September 2026
+Try an example Source repository Last commit 6 September 2026
 
 ### Trust distribution checks
 
@@ -1522,7 +1557,7 @@ Boundary
 
 Does not invent arrangements, intentions, or beneficiary facts.
 
-Source repository Last commit 7 September 2026
+Try an example Source repository Last commit 7 September 2026
 
 ### Company tax and franking checks
 
@@ -1536,7 +1571,7 @@ Boundary
 
 Requires verified income composition, distributions, and ledger inputs.
 
-Source repository Last commit 7 September 2026
+Try an example Source repository Last commit 7 September 2026
 
 Control
 
@@ -1554,7 +1589,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Source repository Reproduce the evaluation Last commit 7 September 2026
+Try an example Source repository Reproduce the evaluation Last commit 7 September 2026
 
 ### Monthly Close Controls
 
@@ -1568,7 +1603,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Source repository Inspect the worked example Last commit 10 September 2026
+Try an example Source repository Inspect the worked example Last commit 10 September 2026
 
 Inspect
 
@@ -1586,7 +1621,7 @@ Boundary
 
 Human review required. Optional local-library excerpts enter the assistant's context; Division 7A scope stays limited.
 
-Source repository Last commit 7 September 2026
+Try an example Source repository Last commit 7 September 2026
 
 ## Before using a tool
 
@@ -1610,6 +1645,9 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
+- Try one synthetic Payday Super CSV: https://duguid.com.au/tools/payday-super/#try-example
+- review a fabricated BAS pack: https://duguid.com.au/evaluate/manager-review-gate/
+- choose another example: https://duguid.com.au/evaluate/#example-routes
 - Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
@@ -1626,20 +1664,25 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Calculate: https://duguid.com.au/tools/#calculate-tools
 - Control: https://duguid.com.au/tools/#control-tools
 - Inspect: https://duguid.com.au/tools/#inspect-tools
+- Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
-- Reproduce the evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Run the evaluation procedure: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Source repository: https://github.com/ryanduguid/australian-accounting-skills
+- Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
+- Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - Source repository: https://github.com/ryanduguid/ryanduguid.github.io
+- Try an example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Try an example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
-- Reproduce the evaluation: https://duguid.com.au/evaluate/manager-review-gate/
+- Try an example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Source repository: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
-- Inspect the worked example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source repository: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
@@ -2070,9 +2113,23 @@ The contribution amount this check tests is set by the super guarantee rate, kep
 
 Published 24 August 2026. Last reviewed 14 September 2026.
 
-## Evidence-pack workflow (unreleased)
+## Try the CSV without cloning
 
-The CLI change under review combines the existing checker and practitioner checklist in one command. It writes report.csv, practitioner-review.md, exceptions.json and a blank decision-log.md into a new directory.
+With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
+
+```
+uvx --from payday-super-checker==0.1.4 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
+```
+
+The command downloads checker 0.1.4 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+
+Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
+
+The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.4 and leaves the fund-receipt decision with the reviewer.
+
+## Evidence-pack workflow
+
+The CLI change combines the existing checker and practitioner checklist in one command. It writes report.csv, practitioner-review.md, exceptions.json and a blank decision-log.md into a new directory.
 
 The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fabricated example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
 
@@ -2082,7 +2139,7 @@ The companion MCP tool, build_payday_super_evidence_pack, accepts structured con
 
 The identifier-free report is for the included checklist. Existing review-pack and PaydaySuper.Report Excel imports require the ordinary checker's 18-column report.
 
-This workflow is not included in published checker v0.1.3 or uvx aus-accounting-mcp. Reproduce the development workflow with fabricated data. No advice, lodgement or ledger write is performed.
+This workflow is included in published checker 0.1.4 and MCP 0.2.2. Checker 0.1.3, used by the historical evaluation, does not include it. Reproduce the recorded development snapshot with fabricated data. No advice, lodgement or ledger write is performed.
 
 ## Check the evidence
 
@@ -2112,9 +2169,12 @@ Reproduction record
 
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
-- CLI change under review: https://github.com/ryanduguid/australian-accounting/pull/147
+- uv installed: https://docs.astral.sh/uv/
+- download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
+- recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
+- CLI change: https://github.com/ryanduguid/australian-accounting/pull/147
 - companion MCP tool: https://github.com/ryanduguid/australian-accounting/pull/148
-- Reproduce the development workflow with fabricated data: https://duguid.com.au/evaluate/payday-super-evidence/#evidence-pack
+- Reproduce the recorded development snapshot with fabricated data: https://duguid.com.au/evaluate/payday-super-evidence/#evidence-pack
 - Payday Super Checker 0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
@@ -2136,7 +2196,7 @@ The ATO publishes benchmark ranges for around 100 industries and uses them to pi
 
 Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub.
 
-Published 24 August 2026. Last reviewed 10 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
 
@@ -2161,6 +2221,20 @@ This synthetic example comes from the ratio tests in ato-benchmark-compare v0.1.
 The cost-of-sales ratio is $30,000 ÷ $100,000 = 30%. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.
 
 A person must review the mapping and select the relevant industry, year, and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.
+
+### Reproduce this exact example
+
+In a fresh folder, with Git and uv installed, run the test at the release used above:
+
+```
+git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting
+git checkout ato-benchmark-compare/v0.1.6
+cd packages/ato-benchmark-compare
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_cost_of_sales_ratio_excludes_wages_inside_cost_of_sales
+```
+
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.
 
 ## Limits
 
@@ -2211,6 +2285,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
+- uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
@@ -2233,7 +2308,7 @@ PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. The
 
 Reference release solomons-sword/v0.1.3, tagged source on GitHub.
 
-Published 24 August 2026. Last reviewed 11 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary's own rate. The ATO's finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -2259,10 +2334,12 @@ Published package and release instructions.
 
 ## Fabricated worked example
 
+With uv installed, run this pinned package directly. No clone or input file is needed.
+
 This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000, and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fabricated.
 
 ```
-solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000
+uvx --from solomons-sword==0.1.3 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000
 ```
 
 Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.
@@ -2325,6 +2402,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.3/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart
+- uv installed: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
@@ -2380,10 +2458,12 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Fabricated worked example
 
+With uv installed, run this pinned package directly. No clone or input file is needed.
+
 For the income year ending in 2025, use fabricated aggregated turnover of $4,500,000, assessable income of $800,000, and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.
 
 ```
-the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+uvx --from the-exchequer-tally==0.1.3 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
 ```
 
 Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
@@ -2433,6 +2513,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -2453,7 +2534,7 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 11 September 2026.
+Published 24 August 2026. Last reviewed 14 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -2468,6 +2549,14 @@ For work in progress, the skills assemble the contract CSV. The arithmetic lives
 ## Limits
 
 These skills prepare and check. They do not serve a payment claim, lodge a return, or sign anything. Contract interpretation, eligibility conclusions, and professional judgement stay with a person. Nothing here is tax, accounting, or legal advice.
+
+## Repeat the agent evaluation procedure
+
+Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded, and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
+
+Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools, and result; retain the response with the working evidence.
+
+This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.
 
 ## Get it
 
@@ -2507,6 +2596,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Australian Accounting Skills v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
+- evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/#adopt
 - installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
@@ -2528,7 +2618,7 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Published 25 August 2026. Last reviewed 10 September 2026.
+Published 25 August 2026. Last reviewed 14 September 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims, and present each contract as an asset or a liability, never a portfolio net.
 
@@ -2551,6 +2641,20 @@ This synthetic example comes from the cost-to-cost underbilling test in the-wip-
 Progress is $400,000 ÷ ($400,000 + $400,000) = 50%. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a $50,000 contract asset and no contract liability.
 
 A person must confirm that the recognition basis, contract terms, and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
+
+### Reproduce this exact example
+
+In a fresh folder, with Git and uv installed, run the test at the release used above:
+
+```
+git clone https://github.com/ryanduguid/australian-accounting.git
+cd australian-accounting
+git checkout the-wip-tally/v0.1.0
+cd packages/the-wip-tally
+uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
+```
+
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.
 
 ## Limits
 
@@ -2608,6 +2712,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py
+- uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
@@ -2738,7 +2843,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.0, tagged source on GitHub.
 
-Published 25 August 2026. Last reviewed 12 September 2026.
+Published 25 August 2026. Last reviewed 14 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -2773,6 +2878,18 @@ Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusi
 Payday Super timing draws on the Superannuation Guarantee (Administration) Act 1992 and Australian Taxation Office, LCR 2026/2. Benchmark comparisons use the ATO's small business benchmarks. The limited Division 7A review applies sections 109N and 109E of the Income Tax Assessment Act 1936.
 
 Each engine's source review and release record state what was checked. Verify current sources and the supplied facts before using an output.
+
+## Try two synthetic tool calls
+
+With uv installed, run the published demonstration without configuring an AI client:
+
+```
+uvx --from aus-accounting-mcp==0.2.2 aus-accounting-mcp-demo
+```
+
+Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
+
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.2 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 
@@ -2856,6 +2973,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
+- uv installed: https://docs.astral.sh/uv/
 - Adopt: https://duguid.com.au/#adopt
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
@@ -2882,7 +3000,7 @@ This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCK
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures.
 
-Published 25 August 2026. Last reviewed 12 September 2026.
+Published 25 August 2026. Last reviewed 14 September 2026.
 
 Preparation got cheaper and review did not. Offshore teams, juniors, and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email, and the same error as last period.
 
@@ -2901,6 +3019,8 @@ Local files only. No Xero connection, no lodgement, no LLM, no period lock. A RE
 MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the ATO or Xero. Not tax advice.
 
 ## Get it
+
+Run the two fabricated BAS packs and compare the expected findings. The fixed-release evaluation shows the failures to correct before READY, with no client files or Xero connection.
 
 Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
 
@@ -2946,9 +3066,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
+- Run the two fabricated BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
-- Fabricated BAS evaluation and expected results: https://duguid.com.au/evaluate/manager-review-gate/
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate

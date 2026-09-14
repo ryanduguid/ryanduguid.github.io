@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "c08e87b0885ccd61dfe654606a139c615f256ba9ade592ac1379cfcf9ae19100",
+    "llms.txt": "1375088eafe94e195289d4d1dcba915a13f00e252f17db9ec71be3d7e1aec422",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "5547622c1c23ff3b0b7646710712bf21355d3f429cf6bf94dfce068b95bfb10e"
+    "sitemap.xml": "49fa4597a569a62f7dff3fd4084dd19412764938da823ded64d20f7d4059819c"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "7c78babb2c91001f56b8cfe747041979a8e196f016f8dc66d223ac047ee8e1c4",
@@ -75,7 +75,7 @@
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "dc1d2ea0b76a090332747b97dd6648eb89bb16367f32723e302aedf70ae36f80"
+      "fac20eba79394a881a096ca0dd759ff150036b20f6fd76aa106a0b03b983578a"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
       "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
@@ -99,10 +99,10 @@
       "980bf0b5ec63c4037a329bba4864db54ab300db026495ea3a4a83d739359afec"
     ],
     "tools/ato-benchmarks/index.html": [
-      "d4ed4fd02bd946476869a14e7c8e335ccc0081c602589b59a060474ac7462d06"
+      "dbc8a106831702aa4c9d87be6c08e243d7cf896f15988b15e794a33a3cfec0c2"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "f0fdad59a00885c95e7d45b0994678305756435b57b5bec53478f9adfe4c55c0"
+      "8f7087e624c1fdde09414b8fb9589801d3e6ae0ff96f8e1f4f1629902a6fa2c2"
     ],
     "tools/coal-lsl-levy/index.html": [
       "6b0299416e306ca4d702a70e9ebd976ccfb3e898cc2206d0d2c853f794dcefd4"
@@ -111,22 +111,22 @@
       "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
     ],
     "tools/index.html": [
-      "cbe3d7e352e317f8f3f79f0c8cfdfb94b2ec27b923d6b64f33bdcd7cb86e40ce"
+      "05537b69d2797a43f10afe6dcb5e6a17454df6e853485db6a213c215bf5de1a3"
     ],
     "tools/payday-super/index.html": [
       "54cdaca300f8612a70083d4f5c7e3797b6843f0771db59854fd2963f094dc0bd"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "e2cbef8e93f28acfaa7e41f392c41d6b18aa450043436f54c037915200bcc907"
+      "c34d922f615c941c190021b1097c291867b5e2c3f5b36aec97c00f30d2e7dc4d"
     ],
     "tools/trust-distributions/index.html": [
-      "68c0f9910f1ef21d3bbf750c17e305f01024b0edc9b7160d80d3f8033b85def0"
+      "69af11de13e6c57231bb65aca757eddb7d623d2422a60cfe479d334ad35c7adf"
     ],
     "tools/wip-schedule/index.html": [
-      "f3dcfb60d313306260540995019930d16bd58778edae90d783fec69dfc6fb885"
+      "d1e94294ac3d5f12fb23670e818efb3ce0a2c81a484af7ae934acbfe101ad0ef"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "d1d871c226d33fe503d441375b7427e2cd591c92bfecda265382f6327a5e3434"
+      "15b9ac7144f7c6a6f4e183b91ec4751a527fd4a2f5ba2b671cbe7f78189ad828"
     ],
     "tools/xero-trial-balance/index.html": [
       "0caabfe29d8f7ff17833a5a574799098e3f8e1e70220c9b714b1fb9b97993689"
