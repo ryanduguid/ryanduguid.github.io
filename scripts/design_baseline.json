@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "1375088eafe94e195289d4d1dcba915a13f00e252f17db9ec71be3d7e1aec422",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "49fa4597a569a62f7dff3fd4084dd19412764938da823ded64d20f7d4059819c"
+    "sitemap.xml": "02efe4d5050622b590156601d0281b9b00e38593472f59c7511ac8d8590d866e"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "7c78babb2c91001f56b8cfe747041979a8e196f016f8dc66d223ac047ee8e1c4",
@@ -105,7 +105,7 @@
       "8f7087e624c1fdde09414b8fb9589801d3e6ae0ff96f8e1f4f1629902a6fa2c2"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "6b0299416e306ca4d702a70e9ebd976ccfb3e898cc2206d0d2c853f794dcefd4"
+      "66a8d2c5ffcace4938c6f688e3e8dd81add984486c8f388fe878e648bb4480c8"
     ],
     "tools/company-tax-franking/index.html": [
       "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
@@ -153,12 +153,12 @@
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },
   "fonts": {
-    "assets/fonts/IBMPlexMono-Regular-Subset.woff2": "dc43c343b69db4873f70619a5827d5e480537734754da86d8ca6e2acb52c64c4",
-    "assets/fonts/IBMPlexSans-Italic-Subset.woff2": "84ac0929564f7ce9cbf0cb30065c0a4621b687bd369904b2547d4a8dece18cae",
-    "assets/fonts/IBMPlexSans-Regular-Subset.woff2": "97f00f1654ee7be286fcac0ce15ddb394d218653539fa536465ad23b15b52037",
-    "assets/fonts/IBMPlexSans-SemiBold-Subset.woff2": "f60e1d2fdd59b9c7048122de975628203ec422f752d23441fce4a4e8f33b20d4",
-    "assets/fonts/IBMPlexSerif-Regular-Subset.woff2": "28303335096961fbfb591133d02e005421e5436f688236edad80713ef49dedf2",
-    "assets/fonts/IBMPlexSerif-SemiBold-Subset.woff2": "2c2d3894bba16df38beb2b48ba4ec38724cd1826dcd5f580b9cf90cbabe66206",
+    "assets/fonts/IBMPlexMono-Regular-Latin1.woff2": "10d3c7fa7eaf48e78db24f317b64f008a75e00f63a68bb3c2afc6ef51e58674f",
+    "assets/fonts/IBMPlexSans-Italic-Latin1.woff2": "0a06b98143f3453b81f3c396241a01c6c4cff84c1a77bf0c75b18bd603018506",
+    "assets/fonts/IBMPlexSans-Regular-Latin1.woff2": "b5ad7bd39f996144915f0ad9849a90183b27d8c28ad97ed98af5b1bebc51f6b1",
+    "assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2": "fff0ab3a88b0b4aa0b693e4f0201359a15183b08e3fa5696d1918d8f0ade8ad5",
+    "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",
+    "assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2": "1d34d4612be8d2f06a25858a8bc3c3c3b5c4ec0ee1285501c3a4df2ddace7afa",
     "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
   }
 }

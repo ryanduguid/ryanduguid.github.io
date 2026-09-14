@@ -287,14 +287,13 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 
 IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 
-The 6 files are cut from IBM's Latin1 subsets at tag `v6.4.2`, peeled
-commit `242c4cccd37e87985a5337815c99b960ef13c65c`, to ASCII plus the
-punctuation and symbols the pages use (154 glyphs, every OpenType feature
-kept). The subset command, upstream paths, byte counts and SHA-256 values are
-recorded in `assets/fonts/SOURCES.md`; each face declares the same ranges as
-its `unicode-range`, which `check_design.py` tests against every page. The declared set is 91,288 bytes, down from
-129,872 as shipped by IBM and 384,756 before that. The 4 faces used by the
-homepage total 59,156 source bytes before HTTP overhead, down from about
+The 6 files are IBM's unmodified Latin1 splits at tag `v6.4.2`, peeled
+commit `242c4cccd37e87985a5337815c99b960ef13c65c`. The upstream paths, byte
+counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`; each face
+declares the characters the pages use as its `unicode-range`, which
+`check_design.py` tests against every page. The declared set is 129,872 bytes
+as shipped by IBM, down from 384,756 before the Latin1 splits. The 4 faces used by the
+homepage total 84,268 source bytes before HTTP overhead, down from about
 250 KB transferred, and all 4 are preloaded so `font-display: optional` has
 every face by first paint. Four faces remain deliberate: Serif, Sans and Mono each
 carry a distinct information role, while regular and semi-bold Sans preserve
@@ -670,10 +669,13 @@ all 30 styled pages; its wording is unchanged.
 
 ## Technical audit actions, 14 September 2026
 
-Ryan asked for the technical audit findings to be applied. The six webfonts
-are subset to the characters the pages use and the fourth homepage face is
-preloaded, so first visits carry about 30 KB less and render every face at
-first paint. The calculator pages and the homepage preload their module
+Ryan asked for the technical audit findings to be applied. The fourth homepage
+face is preloaded, so every face renders at first paint. The six webfonts were
+also cut to the characters the pages use; the same day's fact check found that
+the cut files kept IBM's reserved font names without a recorded permission
+basis under the SIL Open Font License, and that the cut had dropped an
+OpenType feature the provenance said was kept, so the site returned to IBM's
+unmodified Latin1 splits (about 38 KB more on a first visit). The calculator pages and the homepage preload their module
 graphs, so the Coal LSL calculator's scripts arrive in one round trip instead
 of two. The homepage title and share titles now match the H1 wording; five
 tool titles are shortened or qualified. The Payday Super page and the
