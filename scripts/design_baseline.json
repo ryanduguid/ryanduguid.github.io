@@ -2,7 +2,7 @@
   "protected_files": {
     "llms.txt": "c08e87b0885ccd61dfe654606a139c615f256ba9ade592ac1379cfcf9ae19100",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "5031044451fe6d170ae39e6c127d762c260f2ef7895bea3b88507175c52d4cb5"
+    "sitemap.xml": "3289bc979889aefadcc584ab65f33e10c14c739a7d14f17b4e74a28f7918f6aa"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "7c78babb2c91001f56b8cfe747041979a8e196f016f8dc66d223ac047ee8e1c4",
@@ -108,7 +108,7 @@
       "6b0299416e306ca4d702a70e9ebd976ccfb3e898cc2206d0d2c853f794dcefd4"
     ],
     "tools/company-tax-franking/index.html": [
-      "eb9d5444d03a4b3963fa040573b7702a048840c6775b58b6e51d73b34eb06a02"
+      "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
     ],
     "tools/index.html": [
       "cbe3d7e352e317f8f3f79f0c8cfdfb94b2ec27b923d6b64f33bdcd7cb86e40ce"
