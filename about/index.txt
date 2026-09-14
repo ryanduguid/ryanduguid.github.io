@@ -106,7 +106,7 @@ I write and maintain this site in my own time and on my own equipment.
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - PyPI distribution: https://pypi.org/project/payday-super-checker/
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- Glama: https://glama.ai/mcp/servers/ryanduguid/aus-accounting-mcp
+- Glama: https://glama.ai/mcp/servers/ryanduguid/australian-accounting
 - official MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text

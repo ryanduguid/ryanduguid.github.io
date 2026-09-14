@@ -42,10 +42,6 @@ GOOGLE_FAVICON_LINKS = (
     '<link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />',
     '<link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />',
 )
-LLMS_ALTERNATE = (
-    '<link rel="alternate" type="text/plain" '
-    'href="https://duguid.com.au/llms.txt" />'
-)
 LLMS_VISIBLE = '<a href="/llms.txt">Machine-readable index</a>'
 CSP_META = (
     '<meta http-equiv="Content-Security-Policy" content="default-src \'none\'; '
@@ -919,10 +915,14 @@ def check_document_delivery(
             failures.append(
                 f"{rel}: expected one visible machine-readable index link"
             )
+        alternate = (
+            '<link rel="alternate" type="text/plain" '
+            f'href="https://duguid.com.au/{Path(rel).with_suffix(".txt").as_posix()}" />'
+        )
         if rel in indexable and (
-            raw.count(LLMS_ALTERNATE) != 1 or head.count(LLMS_ALTERNATE) != 1
+            raw.count(alternate) != 1 or head.count(alternate) != 1
         ):
-            failures.append(f"{rel}: expected one llms.txt alternate link")
+            failures.append(f"{rel}: expected one page-specific plain-text alternate link")
         if raw.count(CSP_META) != 1 or head.count(CSP_META) != 1:
             failures.append(f"{rel}: expected one Content Security Policy meta tag")
         for link in GOOGLE_FAVICON_LINKS:

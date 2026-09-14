@@ -1,10 +1,10 @@
-# Australian tax tools for AI agents
+# Australian tax MCP server: Aus Accounting MCP
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 > Run local ATO benchmark, Payday Super, and limited Division 7A checks, 6 bounded tax worksheets, and optional Markdown search. Includes scope and setup.
 
-# Australian tax tools for AI agents
+# Australian tax MCP server: Aus Accounting MCP
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 

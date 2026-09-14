@@ -49,7 +49,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
 - `llms-full.txt` matches a fresh build from the visible main text of every indexable page, with each page's link destinations retained for citation; each page's `index.txt` is its own entry from that file, and `.well-known/llms.txt` is an identical copy of the canonical `llms.txt` (`python scripts/build_llms_full.py --write` regenerates all of them)
-- every styled page discovers design tokens before component CSS, and every indexable page exposes the machine-readable index
+- every styled page discovers design tokens before component CSS, and every indexable page links to its own plain-text alternate and the machine-readable index
 - every styled page carries the Content Security Policy meta tag and the 4 font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
 - official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget

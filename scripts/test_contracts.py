@@ -136,10 +136,9 @@ def test_geo_leftovers_surface() -> None:
     )
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
-        "Checked 2 September 2026: the Coal LSL levy is 2.7% of "
-        "eligible wages for the month. Section 3B determines eligible wages "
-        "under separate base-rate, annual-salary, and casual branches; the "
-        "base-rate branch uses the greater of Formula A and Formula B."
+        "Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is "
+        "2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary "
+        "and casual branches. The base-rate branch uses the greater of Formula A and Formula B."
     )
 
     home = read_text(ROOT, "index.html")
@@ -438,6 +437,20 @@ def test_design_contracts() -> int:
             '<link rel="stylesheet" href="/assets/tokens.css" />',
             "",
             "index.html: expected one tokens stylesheet before site stylesheet",
+        ),
+        (
+            "homepage text alternate points to site index",
+            "index.html",
+            'href="https://duguid.com.au/index.txt"',
+            'href="https://duguid.com.au/llms.txt"',
+            "index.html: expected one page-specific plain-text alternate link",
+        ),
+        (
+            "nested text alternate points to another page",
+            "tools/australian-tax-ai-agents/index.html",
+            'href="https://duguid.com.au/tools/australian-tax-ai-agents/index.txt"',
+            'href="https://duguid.com.au/index.txt"',
+            "tools/australian-tax-ai-agents/index.html: expected one page-specific plain-text alternate link",
         ),
         (
             "machine index removed",

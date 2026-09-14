@@ -557,7 +557,7 @@ PRIMARY_NAV_LINKS = [
 BREADCRUMB_LEAF_NAMES = {
     "tools/monthly-close-controls/index.html": "Monthly Close Controls",
     "tools/ato-benchmarks/index.html": "ATO benchmark comparison",
-    "tools/australian-tax-ai-agents/index.html": "Australian tax tools for AI agents",
+    "tools/australian-tax-ai-agents/index.html": "Australian tax MCP server: Aus Accounting MCP",
     "tools/coal-lsl-levy/index.html": "Coal LSL levy calculator",
     "tools/company-tax-franking/index.html": "Company tax and franking checks",
     "tools/payday-super/index.html": "Payday Super timing",

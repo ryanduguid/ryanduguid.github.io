@@ -517,9 +517,9 @@ Canonical routes, `#adopt`, `/evidence/`, sitemap coverage, robots policy, calcu
 GEO here means truthful answerability, explicit entity context and nearby
 evidence. It does not mean keyword stuffing or a Google ranking campaign.
 
-- every indexable page exposes the current `llms.txt` through a text/plain
+- every indexable page exposes its own `index.txt` through a text/plain
   alternate link and every styled page exposes one visible Machine-readable
-  index link
+  index link to `llms.txt`
 - no Google-specific ranking work or `noindex` is added to an indexable page
 - ordinary crawlability remains available to people, search systems and answer
   systems
