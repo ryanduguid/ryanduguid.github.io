@@ -49,6 +49,8 @@ Varrock and Falador are the fictional service lines, named after Old School Rune
 
 ### Evidence and limits
 
+Maintainer trial, 14 September 2026: Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0-to-45-to-0 receipt-delay sequence and saving and reopening the file. The exact Excel build and individual result figures were not recorded in that feedback.
+
 This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
 
 Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.

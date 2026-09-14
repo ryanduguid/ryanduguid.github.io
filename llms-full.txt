@@ -367,7 +367,7 @@ I write and maintain this site in my own time and on my own equipment.
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - PyPI distribution: https://pypi.org/project/payday-super-checker/
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- Glama: https://glama.ai/mcp/servers/ryanduguid/aus-accounting-mcp
+- Glama: https://glama.ai/mcp/servers/ryanduguid/australian-accounting
 - official MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
@@ -593,6 +593,8 @@ At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $1
 Varrock and Falador are the fictional service lines, named after Old School RuneScape locations. No game knowledge is needed.
 
 ### Evidence and limits
+
+Maintainer trial, 14 September 2026: Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0-to-45-to-0 receipt-delay sequence and saving and reopening the file. The exact Excel build and individual result figures were not recorded in that feedback.
 
 This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
 
@@ -1950,7 +1952,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator and section 3B eligible wages
 
-Checked 2 September 2026: the Coal LSL levy is 2.7% of eligible wages for the month. Section 3B determines eligible wages under separate base-rate, annual-salary, and casual branches; the base-rate branch uses the greater of Formula A and Formula B.
+Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
 
 Rate
 
@@ -2833,13 +2835,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Australian tax tools for AI agents
+# Australian tax MCP server: Aus Accounting MCP
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 > Run local ATO benchmark, Payday Super, and limited Division 7A checks, 6 bounded tax worksheets, and optional Markdown search. Includes scope and setup.
 
-# Australian tax tools for AI agents
+# Australian tax MCP server: Aus Accounting MCP
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
