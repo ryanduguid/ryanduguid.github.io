@@ -1,6 +1,7 @@
 name: checks
 
 on:
+  workflow_dispatch:
   push:
     branches: [main]
   pull_request:
@@ -36,6 +37,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 2
+          persist-credentials: false
       - uses: ruby/setup-ruby@95ef2b042f9d7a56d8268cba8559e2842e2ad01b
         with:
           ruby-version: "3.3"
@@ -53,10 +57,11 @@ jobs:
           enable-cache: true
       - name: Site checks
         env:
+          CI_EVENT: ${{ github.event_name }}
           # Lifts the unauthenticated GitHub API rate limit for the
           # archived-repository lookups in scripts/check_links.py.
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/check_site.py
+        run: python scripts/check_site.py --ci
 
   browser:
     timeout-minutes: 30
