@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import os
+import re
 import shutil
 import subprocess
 import sys
@@ -17,6 +19,7 @@ CHECKS = (
     (sys.executable, "scripts/test_site_server.py"),
     (sys.executable, "scripts/check_design.py"),
     (sys.executable, "scripts/test_check_links.py"),
+    (sys.executable, "scripts/test_ci_link_selection.py"),
     (sys.executable, "scripts/test_search_console.py"),
     (
         "uv",
@@ -37,10 +40,71 @@ CHECKS = (
 )
 
 
+def can_skip_live_links(event: str, paths: list[str], diff: str) -> bool:
+    """Keep live validation for source or configuration changes that can alter links."""
+    if event != "pull_request":
+        return False
+    for path in paths:
+        if path.startswith(("scripts/", "_includes/", "_layouts/")):
+            return False
+        if Path(path).suffix not in {
+            ".html",
+            ".md",
+            ".txt",
+            ".css",
+            ".svg",
+            ".png",
+            ".webp",
+            ".jpg",
+        }:
+            return False
+    # Inspect context too: a changed value can sit below an unchanged href or url().
+    return (
+        re.search(
+            r"https?://|//|href|src|url\s*\(|@import|\\|\]\(|\{[{%]|^[ +\-]---\s*$",
+            diff,
+            re.IGNORECASE | re.MULTILINE,
+        )
+        is None
+    )
+
+
+def ci_offline() -> bool:
+    if os.environ.get("CI_EVENT") != "pull_request":
+        return False
+    # The first parent of GitHub's pull-request merge commit is its base tip.
+    try:
+        paths = subprocess.run(
+            ["git", "diff", "--name-only", "--no-renames", "-z", "HEAD^1", "HEAD"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout.split("\0")
+        paths = [path for path in paths if path]
+        # Decide conservatively before reading a diff for an unknown file type.
+        if not can_skip_live_links("pull_request", paths, ""):
+            return False
+        diff = subprocess.run(
+            ["git", "diff", "--no-ext-diff", "--unified=1000000", "HEAD^1", "HEAD", "--", *paths],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        ).stdout
+    except subprocess.CalledProcessError:
+        return False
+    return can_skip_live_links("pull_request", paths, diff)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--offline", action="store_true", help="skip live external-link checks")
+    parser.add_argument(
+        "--ci", action="store_true", help="select live checks from the pull-request diff"
+    )
     args = parser.parse_args()
+    args.offline = args.offline or (args.ci and ci_offline())
     rendered = build()
     subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
     # Add only the tooling and fixtures the checks need beside the built files.

@@ -18,7 +18,12 @@ python scripts/check_site.py
 ```
 
 Use `python scripts/check_site.py --offline` to skip external requests while
-checking the built pages and local links. CI runs the live checks. HTTP 429
+checking the built pages and local links. CI uses `python scripts/check_site.py --ci`:
+pull requests whose changed files contain no links, templates or front matter
+use offline checks. Potential link, template, script or configuration changes
+keep live checks. Pushes, scheduled
+runs and manual runs keep live checks too. An unavailable merge comparison runs
+the live checks. HTTP 429
 retries honour
 `Retry-After`, with a 5-attempt limit and at most 30 seconds of waiting per
 fetch. An unresolved rate limit still fails the live check.
