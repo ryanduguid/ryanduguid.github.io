@@ -202,7 +202,7 @@
               Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>.
             </p>
             <p>
-              A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, and diverge in two ways for the same comparison.
+              A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
             </p>
             <p>
               This is not the same as a profit-and-loss account with no mapping entry. The tool raises a mapping error listing the first 20 unmapped rows and a count of any beyond that, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped <em>to</em>: the mapping is complete, the bucket simply has nothing in it.
@@ -237,7 +237,7 @@
               <strong>What stays correct.</strong> The comparison behind both. Each path renders one comparison built from one mapping, so turnover, the turnover basis and every computed figure are the same on both sides.
             </p>
             <p>
-              Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
+              Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once <code>w1</code> is supplied, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
             </p>
             <p>
               Three things diverge independently, and running them together overstates the effect.
