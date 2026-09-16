@@ -47,7 +47,7 @@ What stays correct. The arithmetic on whatever was matched. Deadline computation
 
 Declared at runtime. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name.
 
-Human step. Re-export with an employee id column on both files and pay-period start and end columns on the super file. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
+Human step. Re-export with an employee id column on both files, a pay-period-end column in the payroll file, and pay-period start and end columns on the super file. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
 
 ## ATO benchmarks: an unmapped cost of sales changes which ratio is marked key
 
