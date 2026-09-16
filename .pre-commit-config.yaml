@@ -1,4 +1,4 @@
-# Local git hooks. Install once with `pre-commit install`. Ruff is pinned to
+# Local git hooks. Install once with `pre-commit install --hook-type pre-commit --hook-type commit-msg`. Ruff is pinned to
 # the version CI runs, so a commit that passes here passes the lint gate. CI
 # runs no format check, so there is no format hook.
 repos:

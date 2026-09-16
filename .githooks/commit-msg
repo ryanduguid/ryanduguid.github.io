@@ -3,8 +3,10 @@
 #
 # Enable once per clone:
 #
-#     git config core.hooksPath .githooks
+#     python -m pip install pre-commit && pre-commit install --hook-type pre-commit --hook-type commit-msg
 #
+# This installs both the repository's lint hook and this commit-message hook.
+
 # This mirrors the "No AI attribution" CI guard so a commit fails here rather
 # than after a push. It checks the two things that guard checks: authorship
 # credit in the message, and AI identities in the commit's own author and
@@ -75,14 +77,22 @@ check_identity author "$(git var GIT_AUTHOR_IDENT)"
 check_identity committer "$(git var GIT_COMMITTER_IDENT)"
 
 # --- message ---------------------------------------------------------------
-# Comment lines are stripped by git after this hook, so drop them here too, and
-# skip fenced code blocks so a quoted example is not read as a credit.
+# Scan comment lines too: depending on how the message was supplied, Git can
+# retain them in the committed message. Normalize like the shared CI scanner
+# before applying the same patterns.
+normalized=$(mktemp)
+trap 'rm -f "$normalized"' EXIT HUP INT TERM
+perl -CSD -MUnicode::Normalize -pe '
+  $_ = NFKD($_);
+  s/\p{M}//g;
+  s/[\x{2010}-\x{2015}\x{2212}]/-/g;
+  s/[^\S\r\n]+/ /g;
+' "$msg_file" > "$normalized"
 awk -v vendor="$VENDOR" -v domain="$DOMAIN" -v hook="$hook" '
 	function flag(why) {
 		printf "%s: %s line %d: %s\n", hook, why, NR, $0 > "/dev/stderr"
 		bad = 1
 	}
-	/^#/ { next }
 	{
 		line = tolower($0)
 		if (line ~ /^[ \t]*(```|~~~)/) { fence = !fence; next }
@@ -102,7 +112,7 @@ awk -v vendor="$VENDOR" -v domain="$DOMAIN" -v hook="$hook" '
 			flag("bare vendor url")
 	}
 	END { exit bad ? 1 : 0 }
-' "$msg_file" || status=1
+' "$normalized" || status=1
 
 if [ "$status" -ne 0 ]; then
 	cat >&2 <<'EOF'

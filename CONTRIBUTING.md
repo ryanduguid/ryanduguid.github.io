@@ -79,7 +79,7 @@ Its exact URL is in the same exception list; other statuses and neighbouring
 URLs still fail. Recheck local access before changing the link, and remove
 the exception when runner access permits.
 
-Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
+Install the git hooks once with `python -m pip install pre-commit && pre-commit install --hook-type pre-commit --hook-type commit-msg`; they run the pinned Ruff check on staged files and reject AI attribution in commit messages.
 
 ## Pull requests
 
