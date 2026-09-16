@@ -61,6 +61,8 @@ and update the explicit dates in:
 2. `about/index.html`, the Certifications row in "The short facts".
 3. `index.html`, the Practice software entry in the Verify section.
 4. `README.md` in `ryanduguid/ryanduguid`, the Background section.
+5. Replace the profile repository's local Xero badge, refresh its source hash,
+   and update both `README.md` and `llms.txt` with the renewed dates.
 
 Then regenerate the text indexes with
 `python scripts/build_llms_full.py --write`.
