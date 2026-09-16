@@ -192,7 +192,7 @@
               <strong>Declared at runtime.</strong> One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as <code>employee matching: by id</code> or <code>by name</code>.
             </p>
             <p>
-              <strong>Human step.</strong> Re-export with an employee id column on both files and pay-period start and end columns on the super file. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
+              <strong>Human step.</strong> Re-export with an employee id column on both files, a pay-period-end column in the payroll file, and pay-period start and end columns on the super file. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
             </p>
           </section>
 
@@ -225,7 +225,7 @@
             </table>
             </div>
             <p>
-              <strong>What stays correct.</strong> Every ratio and every verdict. Both paths compute the same turnover, cost of sales, total expenses and labour figures from the same mapping, and each ratio carries the same verdict against the same published range. Only which ratio is flagged as the key one differs, and only when the bucket was never mapped.
+              <strong>What stays correct.</strong> The underlying comparison computes the same figures and verdicts. The evidenced Python payload masks ratios whose required buckets were not supplied, replacing their values with <code>null</code> and their status with <code>not_supplied</code>; the command-line output does not. Only which ratio is flagged as the key one differs, and only when the bucket was never mapped.
             </p>
             <p>
               <strong>Human step.</strong> Map an account to cost of sales, including a deliberate nil where the business genuinely has none, before reading which ratio is key. Where a business has no cost of sales, the fallback is the ATO's own behaviour and the result stands.

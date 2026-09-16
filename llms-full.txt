@@ -2038,7 +2038,7 @@ Output | Behaviour when cost of sales is unmapped
 Command line text and JSON | Carries the ATO fallback. The key ratio is total expenses to turnover and the fallback note is present.
 Python library payload | Reverts to the business type's published key ratio, because it is told which buckets were supplied and the command line is not. The per-row key flag reverts with it, so the payload stays internally consistent.
 
-What stays correct. Every ratio and every verdict. Both paths compute the same turnover, cost of sales, total expenses and labour figures from the same mapping, and each ratio carries the same verdict against the same published range. Only which ratio is flagged as the key one differs, and only when the bucket was never mapped.
+What stays correct. The underlying comparison computes the same figures and verdicts. The evidenced Python payload masks ratios whose required buckets were not supplied, replacing their values with null and their status with not_supplied; the command-line output does not. Only which ratio is flagged as the key one differs, and only when the bucket was never mapped.
 
 Human step. Map an account to cost of sales, including a deliberate nil where the business genuinely has none, before reading which ratio is key. Where a business has no cost of sales, the fallback is the ATO's own behaviour and the result stands.
 
@@ -5213,3 +5213,4 @@ The website source is available under its MIT licence, which includes its warran
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
 - MIT licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+LICENSE
