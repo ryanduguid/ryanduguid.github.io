@@ -65,7 +65,11 @@ const representativeHeightBaseline = {
     // After removing duplicate destinations, Camofox measures 8,033px at
     // 390px wide. Retain about 234px of margin for this expanded register.
     ['/tools/', 8270],
-    ['/evidence/', 6426],
+    // The Xero certification record adds a badge, 4 dated facts and its
+    // boundary note to Identity and credentials. Evidence measures 7,014px at
+    // 390px wide, with the record's facts held to 2 columns at this width
+    // rather than stacking to 8 lines. Retain the same 234px guard.
+    ['/evidence/', 7248],
   ]),
   'desktop-chromium': new Map([
     ['/', 6517],
@@ -73,9 +77,10 @@ const representativeHeightBaseline = {
     // chooser rows align on the baseline, the footer disclaimer takes the
     // 68ch measure and the caption token reaches 13px), plus the 234px guard.
     ['/tools/', 4988],
-    // Evidence renders at 4,250px with the article body on the 68ch reading
-    // measure, plus the 234px guard.
-    ['/evidence/', 4484],
+    // Evidence renders at 4,802px with the article body on the 68ch reading
+    // measure and the Xero certification record under Identity and
+    // credentials, plus the 234px guard.
+    ['/evidence/', 5036],
   ]),
 };
 

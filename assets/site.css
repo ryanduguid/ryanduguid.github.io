@@ -2480,15 +2480,16 @@ input[type="checkbox"] {
   .route-actions.route-actions--mail > a,
   .adoption-links > a,
   .credential-register > div,
-  .credential-card,
-  .credential-card__facts > div {
+  .credential-card {
     grid-template-columns: 1fr;
   }
 
-  /* Stacked, the badge sits above the record instead of beside it; the facts
-     become label-over-value pairs so long values stop wrapping mid-phrase. */
+  /* Stacked, the badge sits above the record instead of beside it. The facts
+     keep their two columns on a narrower label, which stays readable at this
+     width and holds the record to 4 lines instead of 8. */
   .credential-card__facts > div {
-    gap: 0;
+    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr);
+    gap: var(--space-3);
   }
 
   .home-proof-rail p + p,
