@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "1375088eafe94e195289d4d1dcba915a13f00e252f17db9ec71be3d7e1aec422",
+    "llms.txt": "0bf19259c4422b2da4e7688831c17d105fcf61e645f67b302ee64261e5add78e",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "2cb92ab0aeba5bf91733eeca7ac39b7967ef50e0a9219e61b2856b7766910e6f"
+    "sitemap.xml": "20ce2fa4f4f825b0ec627d4684de27c2af54e631285b93bc05b10f4188d984c3"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "42a3042f07f8f32239a23ac17a5bfedd057071e959fb91c048f5ed7b71d8879d",
@@ -114,6 +114,9 @@
     "tools/index.html": [
       "05537b69d2797a43f10afe6dcb5e6a17454df6e853485db6a213c215bf5de1a3"
     ],
+    "tools/limitations/index.html": [
+      "8376e46954a1cdf060b096805864d19bd70cac99823004b4adcae515a0174d3f"
+    ],
     "tools/payday-super/index.html": [
       "54cdaca300f8612a70083d4f5c7e3797b6843f0771db59854fd2963f094dc0bd"
     ],
@@ -149,7 +152,7 @@
     ]
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 30,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 31,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   },

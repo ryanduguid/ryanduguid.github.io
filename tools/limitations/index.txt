@@ -1,0 +1,83 @@
+# Known limitations in these accounting tools
+
+Source: https://duguid.com.au/tools/limitations/
+
+> Cases where these open-source accounting tools return a figure you should not read at face value, with the trigger and what stays correct.
+
+# Known limitations
+
+A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
+
+Published 16 September 2026. Last reviewed 16 September 2026.
+
+## What belongs here
+
+Three kinds of boundary run through these tools, and only one of them belongs on this page.
+
+Kind | What happens | Where it is recorded
+Scope | The tool never attempts it. | Each tool page, and the "what it does not do" section of each repository README.
+Refusal | The tool stops and returns the question to a person with the reason attached. | What these tools refuse.
+Limitation | The tool answers, and the answer rests on something the reader should be told. | This page, and LIMITATIONS.md in each package.
+
+Every entry below is declared at runtime by the tool that carries it, so a reader who runs the command sees the caveat whether or not they find this page. Publishing them together is for the reader deciding whether to run anything at all.
+
+## Payday Super: an exposure estimate past the rate table extrapolates
+
+Recorded as PSC-1 against release payday-super-checker/v0.1.4.
+
+Field | Detail
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table.
+Effect | The last known quarterly rate is carried forward rather than refused, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so it moves with the extrapolated figure.
+What stays correct | The verdict. ON_TIME, LATE, AT_RISK and UNKNOWN are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate.
+Declared at runtime | A caveat on the result naming the table's end date, the rate carried forward, and the file to update.
+Human step | Update the rate table from the ATO general interest charge rates page, re-run, and confirm the caveat is gone before relying on an exposure figure.
+Status | Open, by design. Refusing would withhold a shortfall figure that is itself correct.
+
+## Payday Super: the payroll-to-super join degrades in four declared ways
+
+Recorded as PSC-2 against release payday-super-checker/v0.1.4. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong.
+
+Condition in the supplied exports | Effect on matching
+Either file has a blank employee id on any row | Matching falls back to employee name. Two employees sharing a name are merged.
+The payroll file has no pay-period-end column | Matching falls back to the payday. A super payment recorded against the pay period rather than the payday can be missed.
+The super file has only one of pay-period start or end | A payment's coverage collapses to a single day and can miss the payday it actually settled.
+The super file has no pay-period columns at all | A payment is treated as covering every payday for that employee, which can trigger the same-payment ambiguity check where an employee has more than one payday.
+
+What stays correct. The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
+
+Declared at runtime. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name.
+
+Human step. Re-export with an employee id column on both files, a pay-period-end column on the payroll file, and pay-period start and end columns on the super file. All three are needed: fixing only the ids still leaves the payday fallback and the coverage collapse in place. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
+
+## ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other
+
+Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7.
+
+An account not mapped to a bucket reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, and diverge in two ways for the same comparison.
+
+Behaviour | Command line text and JSON | Python library payload
+A ratio whose buckets were not supplied | Emitted as a computed figure, typically 0.0000, with no marker separating it from an established nil. | Value withheld as null, status not_supplied.
+The key ratio when cost of sales is unmapped | Carries the ATO fallback to total expenses to turnover, with the fallback note present. | Reverts to the business type's published key ratio, with the per-row key flag reverting alongside it.
+
+The command line receives no record of which buckets were supplied, so it cannot tell an unmapped bucket from a nil one. The library payload is told, and can.
+
+What stays correct. The comparison behind both. Each path renders one comparison built from one mapping, so turnover, the turnover basis and every computed figure are the same on both sides. Any ratio whose buckets were supplied carries the same value in both, against the same published range. The divergence is confined to ratios resting on buckets that were never mapped, and to the key flag those ratios drive. This is narrower than parity: do not read the two payloads as interchangeable.
+
+Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO's own behaviour and the result stands.
+
+## Telling me a number is wrong
+
+The most useful report carries the command you ran, the output it produced, the figure you expected, and where that expectation comes from. A primary source, a worked example from the regulator, or a second implementation all work. Open an issue on the repository that carries the tool, or use the contact page.
+
+Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
+
+## What this page is not
+
+This is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The evaluations reproduce the passing cases against fixed releases, and Evidence and Assurance records the review boundaries and the absence of third-party review.
+
+## Links
+
+- What these tools refuse: https://duguid.com.au/tools/refusals/
+- contact page: https://duguid.com.au/contact/
+- evaluations: https://duguid.com.au/evaluate/
+- Evidence and Assurance: https://duguid.com.au/evidence/
