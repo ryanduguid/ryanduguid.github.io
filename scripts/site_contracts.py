@@ -690,6 +690,7 @@ ARTICLE_PATTERN_PAGES = {
     "tools/payday-super/index.html",
     "tools/workpaper-review-gate/index.html",
     "tools/refusals/index.html",
+    "tools/limitations/index.html",
     "tools/subcontractor-ledgers/index.html",
     "tools/trust-distributions/index.html",
     "tools/wip-schedule/index.html",

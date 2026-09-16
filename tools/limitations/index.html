@@ -1,0 +1,344 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Known limitations in these accounting tools</title>
+  <meta name="description" content="Cases where these open-source accounting tools return a figure you should not read at face value, with the trigger and what stays correct." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Known limitations in these accounting tools" />
+  <meta property="og:description" content="Cases where these open-source accounting tools return a figure you should not read at face value, with the trigger and what stays correct." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/limitations/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Known limitations in these accounting tools" />
+  <meta name="twitter:description" content="Cases where these open-source accounting tools return a figure you should not read at face value, with the trigger and what stays correct." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/limitations/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/limitations/index.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Known limitations</li>
+          </ol>
+        </nav>
+        <h1>Known limitations</h1>
+        <p class="lead-note">
+          A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
+        </p>
+        <p class="page-meta">Published 16 September 2026. Last reviewed 16 September 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#what-belongs-here">What belongs here</a>
+          <a href="#psc-1">Payday Super: extrapolated GIC rate</a>
+          <a href="#psc-2">Payday Super: degraded join</a>
+          <a href="#abc-1">ATO benchmarks: unmapped buckets</a>
+          <a href="#reporting">Telling me a number is wrong</a>
+          <a href="#boundary">What this page is not</a>
+        </nav>
+        <div class="article-body">
+          <section id="what-belongs-here">
+            <h2>What belongs here</h2>
+            <p>
+              Three kinds of boundary run through these tools, and only one of them belongs on this page.
+            </p>
+            <div class="table-scroll" role="region" aria-label="Kinds of boundary" tabindex="0">
+            <table class="facts">
+              <thead>
+                <tr>
+                  <th scope="col">Kind</th>
+                  <th scope="col">What happens</th>
+                  <th scope="col">Where it is recorded</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Scope</th>
+                  <td>The tool never attempts it.</td>
+                  <td>Each tool page, and the "what it does not do" section of each repository README.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Refusal</th>
+                  <td>The tool stops and returns the question to a person with the reason attached.</td>
+                  <td><a href="/tools/refusals/">What these tools refuse</a>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Limitation</th>
+                  <td>The tool answers, and the answer rests on something the reader should be told.</td>
+                  <td>This page, and <code>LIMITATIONS.md</code> in each package.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p>
+              Every entry below is declared at runtime by the tool that carries it, so a reader who runs the command sees the caveat whether or not they find this page. Publishing them together is for the reader deciding whether to run anything at all.
+            </p>
+          </section>
+
+          <section id="psc-1">
+            <h2>Payday Super: an exposure estimate past the rate table extrapolates</h2>
+            <p>
+              Recorded as PSC-1 against release <code>payday-super-checker/v0.1.4</code>.
+            </p>
+            <div class="table-scroll" role="region" aria-label="PSC-1" tabindex="0">
+            <table class="facts tool-table--wide">
+              <thead>
+                <tr>
+                  <th scope="col">Field</th>
+                  <th scope="col">Detail</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Trigger</th>
+                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Effect</th>
+                  <td>The last known quarterly rate is carried forward rather than refused, so the notional earnings component under <em>SGAA 1992</em> s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's <em>uplift component</em> is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.</td>
+                </tr>
+                <tr>
+                  <th scope="row">What stays correct</th>
+                  <td>Every verdict. All 6 of them, <code>ON_TIME</code>, <code>AT_RISK</code>, <code>LATE</code>, <code>UNPAID</code>, <code>UNKNOWN</code> and <code>SKIPPED</code>, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: <code>LATE</code> and <code>UNPAID</code> carry the exposure estimate this entry qualifies, and a <code>SKIPPED</code> row has no estimate to qualify.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Declared at runtime</th>
+                  <td>A caveat on the result naming the table's end date, the rate carried forward, and the file to update.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Human step</th>
+                  <td>Update the rate table from the ATO general interest charge rates page, re-run, and confirm the caveat is gone before relying on an exposure figure.</td>
+                </tr>
+                <tr>
+                  <th scope="row">Status</th>
+                  <td>Open, by design. Refusing would withhold a shortfall figure that is itself correct.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+          </section>
+
+          <section id="psc-2">
+            <h2>Payday Super: the payroll-to-super join degrades in four declared ways</h2>
+            <p>
+              Recorded as PSC-2 against release <code>payday-super-checker/v0.1.4</code>. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong.
+            </p>
+            <div class="table-scroll" role="region" aria-label="PSC-2 conditions" tabindex="0">
+            <table class="facts tool-table--wide">
+              <thead>
+                <tr>
+                  <th scope="col">Condition in the supplied exports</th>
+                  <th scope="col">Effect on matching</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">Either file has a blank employee id on any row</th>
+                  <td>Matching falls back to employee name. Two employees sharing a name are merged.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The payroll file has no pay-period-end column</th>
+                  <td>Matching falls back to the payday. A super payment recorded against the pay period rather than the payday can be missed.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The super file has only one of pay-period start or end</th>
+                  <td>A payment's coverage collapses to a single day and can miss the payday it actually settled.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The super file has no pay-period columns at all</th>
+                  <td>A payment is treated as covering every payday for that employee. Where it cannot cover every competing balance, the tool refuses only if two or more of the still-competing payroll rows are identical in payday, effective period end and amount. Rows differing in any of those three are sorted and apportioned, not refused.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p>
+              <strong>What stays correct.</strong> The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
+            </p>
+            <p>
+              <strong>Declared at runtime, on the console only.</strong> One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as <code>employee matching: by id</code> or <code>by name</code>. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
+            </p>
+            <p>
+              <strong>Human step.</strong> Re-export with an employee id column on both files, a pay-period-end column on the payroll file, and pay-period start and end columns on the super file. All three are needed: fixing only the ids still leaves the payday fallback and the coverage collapse in place. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
+            </p>
+          </section>
+
+          <section id="abc-1">
+            <h2>ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other</h2>
+            <p>
+              Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>.
+            </p>
+            <p>
+              A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
+            </p>
+            <p>
+              This is not the same as a profit-and-loss account with no mapping entry. The tool raises a mapping error listing the first 20 unmapped rows and a count of any beyond that, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped <em>to</em>: the mapping is complete, the bucket simply has nothing in it.
+            </p>
+            <div class="table-scroll" role="region" aria-label="ABC-1 output paths" tabindex="0">
+            <table class="facts tool-table--wide">
+              <thead>
+                <tr>
+                  <th scope="col">Behaviour</th>
+                  <th scope="col">Command line text and JSON</th>
+                  <th scope="col">Python library payload</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">A ratio whose buckets were not supplied</th>
+                  <td>Emitted as a computed figure, typically 0.0000, with no marker separating it from an established nil.</td>
+                  <td>Value withheld as null, status <code>not_supplied</code>.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The key ratio when cost of sales is unmapped</th>
+                  <td>Carries the ATO fallback to total expenses to turnover, with the fallback note present.</td>
+                  <td>Reverts to the business type's published key ratio, with the per-row key flag reverting alongside it.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p>
+              The command line receives no record of which buckets were supplied, so it cannot tell an unmapped bucket from a nil one. The library payload is told, and can.
+            </p>
+            <p>
+              <strong>What stays correct.</strong> The comparison behind both. Each path renders one comparison built from one mapping, so turnover, the turnover basis and every computed figure are the same on both sides.
+            </p>
+            <p>
+              Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once <code>w1</code> is supplied, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
+            </p>
+            <p>
+              Three things diverge independently, and running them together overstates the effect.
+            </p>
+            <div class="table-scroll" role="region" aria-label="ABC-1 independent divergences" tabindex="0">
+            <table class="facts tool-table--wide">
+              <thead>
+                <tr>
+                  <th scope="col">What</th>
+                  <th scope="col">When it diverges</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">A ratio's value</th>
+                  <td>Its own buckets are absent, or an income field is. The library withholds it as <code>not_supplied</code>; the command line emits a figure.</td>
+                </tr>
+                <tr>
+                  <th scope="row">A ratio's benchmark range</th>
+                  <td>Only when an income field is absent. With both income fields supplied the range is retained, even on a row whose value is withheld.</td>
+                </tr>
+                <tr>
+                  <th scope="row">The key ratio and its flag</th>
+                  <td>Only in the cost of sales fallback above. A missing non-key bucket leaves the key ratio and every key flag alone.</td>
+                </tr>
+              </tbody>
+            </table>
+            </div>
+            <p>
+              Do not read the two payloads as interchangeable.
+            </p>
+            <p>
+              <strong>Human step.</strong> Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a <code>not_supplied</code> status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO's own behaviour and the result stands.
+            </p>
+          </section>
+
+          <section id="reporting">
+            <h2>Telling me a number is wrong</h2>
+            <p>
+              The most useful report carries the command you ran, the output it produced, the figure you expected, and where that expectation comes from. A primary source, a worked example from the regulator, or a second implementation all work. Open an issue on the repository that carries the tool, or use the <a href="/contact/">contact page</a>.
+            </p>
+            <p>
+              Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
+            </p>
+          </section>
+
+          <section id="boundary">
+            <h2>What this page is not</h2>
+            <p>
+              This is a register of limitations found and confirmed, not a proof that none remain. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else. Each entry is bound to the behaviour it describes by a test in its package, so a fix fails the test and forces the entry to be updated, but the register cannot report what has not been found. The <a href="/evaluate/">evaluations</a> reproduce the passing cases against fixed releases, and <a href="/evidence/">Evidence and Assurance</a> records the review boundaries and the absence of third-party review.
+            </p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/tools/limitations/#article",
+        "url": "https://duguid.com.au/tools/limitations/",
+        "headline": "Known limitations",
+        "description": "Cases where these open-source accounting tools return a figure you should not read at face value, with the trigger and what stays correct.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-09-16",
+        "dateModified": "2026-09-16",
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "breadcrumb": { "@id": "https://duguid.com.au/tools/limitations/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/limitations/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://duguid.com.au/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Tools",
+            "item": "https://duguid.com.au/tools/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Known limitations",
+            "item": "https://duguid.com.au/tools/limitations/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</body>
+</html>

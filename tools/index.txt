@@ -216,7 +216,7 @@ Try an example Source code Last commit 14 September 2026
 
 Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. Start with fabricated data and keep the stated boundary in view.
 
-Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output.
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a tool answers but the answer rests on something you should be told.
 
 ## Workbooks and source
 
@@ -275,6 +275,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
+- Known limitations: https://duguid.com.au/tools/limitations/
 - Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest
 - Ozzit examples and source: https://github.com/ryanduguid/Ozzit
 - Power Query and VBA ledger toolkit: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit
