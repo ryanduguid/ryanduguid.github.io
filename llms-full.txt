@@ -2006,7 +2006,7 @@ Recorded as PSC-1 against release payday-super-checker/v0.1.4.
 
 Field | Detail
 Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table.
-Effect | The last known quarterly rate is carried forward rather than refused, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Only the 0% low estimate is unmoved.
+Effect | The last known quarterly rate is carried forward rather than refused, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 What stays correct | Every verdict. All 6 of them, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: LATE and UNPAID carry the exposure estimate this entry qualifies, and a SKIPPED row has no estimate to qualify.
 Declared at runtime | A caveat on the result naming the table's end date, the rate carried forward, and the file to update.
 Human step | Update the rate table from the ATO general interest charge rates page, re-run, and confirm the caveat is gone before relying on an exposure figure.
@@ -2034,7 +2034,7 @@ Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7.
 
 A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, and diverge in two ways for the same comparison.
 
-This is not the same as a profit-and-loss account with no mapping entry. The tool raises a mapping error naming every unmapped row, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped to: the mapping is complete, the bucket simply has nothing in it.
+This is not the same as a profit-and-loss account with no mapping entry. The tool raises a mapping error listing the first 20 unmapped rows and a count of any beyond that, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped to: the mapping is complete, the bucket simply has nothing in it.
 
 Behaviour | Command line text and JSON | Python library payload
 A ratio whose buckets were not supplied | Emitted as a computed figure, typically 0.0000, with no marker separating it from an established nil. | Value withheld as null, status not_supplied.
@@ -2044,7 +2044,16 @@ The command line receives no record of which buckets were supplied, so it cannot
 
 What stays correct. The comparison behind both. Each path renders one comparison built from one mapping, so turnover, the turnover basis and every computed figure are the same on both sides.
 
-Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set, and the rest need their own field. Second, both income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library, and its benchmark range is withheld with it. Where both conditions hold, the row carries the same value in both against the same published range. Everywhere else the two diverge, and the key flag those ratios drive diverges with them. Do not read the two payloads as interchangeable.
+Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set, and the rest need their own field. Second, both income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
+
+Three things diverge independently, and running them together overstates the effect.
+
+What | When it diverges
+A ratio's value | Its own buckets are absent, or an income field is. The library withholds it as not_supplied; the command line emits a figure.
+A ratio's benchmark range | Only when an income field is absent. With both income fields supplied the range is retained, even on a row whose value is withheld.
+The key ratio and its flag | Only in the cost of sales fallback above. A missing non-key bucket leaves the key ratio and every key flag alone.
+
+Do not read the two payloads as interchangeable.
 
 Human step. Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a not_supplied status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO's own behaviour and the result stands.
 
