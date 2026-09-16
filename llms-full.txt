@@ -20,7 +20,7 @@ I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business who
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 14 September 2026.
+Last reviewed 16 September 2026.
 
 Explore the cash-flow example Browse all tools
 
@@ -272,7 +272,7 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 14 September 2026.
+Last reviewed 16 September 2026.
 
 ## The short facts
 
@@ -397,7 +397,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
 
-Last reviewed 6 September 2026.
+Last reviewed 16 September 2026.
 
 ## Identity and credentials
 
