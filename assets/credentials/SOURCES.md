@@ -60,7 +60,10 @@ and update the explicit dates in:
 1. `evidence/index.html`, the `#xero-certification` entry.
 2. `about/index.html`, the Certifications row in "The short facts".
 3. `index.html`, the Practice software entry in the Verify section.
-4. `README.md` in `ryanduguid/ryanduguid`, the Background section.
+4. In `ryanduguid/ryanduguid`, follow `assets/SOURCES.md`: replace the local
+   badge, refresh its hash, and update `README.md` and `llms.txt`.
+
+Keep the About page's Xero JSON-LD dates (`dateCreated` and `expires`) in sync.
 
 Then regenerate the text indexes with
 `python scripts/build_llms_full.py --write`.

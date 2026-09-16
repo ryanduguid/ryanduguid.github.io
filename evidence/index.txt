@@ -12,7 +12,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
 
-Last reviewed 6 September 2026.
+Last reviewed 16 September 2026.
 
 ## Identity and credentials
 

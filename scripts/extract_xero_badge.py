@@ -23,13 +23,14 @@ import sys
 import zlib
 from pathlib import Path
 
+from favicon_render import PNG_SIGNATURE, _chunk
+
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = "assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf"
 TARGET = "assets/credentials/xero-certified-specialist-level-3-badge.png"
 # The badge is the only 318 by 318 image in the certificate: the colour plate
 # and the soft mask that rounds its corners.
 BADGE_SIZE = 318
-PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 OBJECT_PATTERN = re.compile(rb"(\d+)\s+\d+\s+obj(.*?)endobj", re.DOTALL)
 SMASK_PATTERN = re.compile(rb"/SMask\s+(\d+)\s+\d+\s+R")
 WIDTH_PATTERN = re.compile(rb"/Width\s+(\d+)")
@@ -81,16 +82,6 @@ def _find_badge(objects: dict[int, bytes]) -> tuple[int, int]:
             f"expected one {BADGE_SIZE} by {BADGE_SIZE} masked image, found {len(found)}"
         )
     return found[0]
-
-
-def _chunk(kind: bytes, payload: bytes) -> bytes:
-    """Return one PNG chunk with its length and CRC."""
-    return (
-        struct.pack(">I", len(payload))
-        + kind
-        + payload
-        + struct.pack(">I", zlib.crc32(kind + payload) & 0xFFFFFFFF)
-    )
 
 
 def build_png(colour: bytes, alpha: bytes, size: int = BADGE_SIZE) -> bytes:
