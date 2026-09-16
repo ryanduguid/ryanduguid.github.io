@@ -196,7 +196,7 @@ SAP S/4HANA Financial Accounting and Management Accounting
 
 Practice software
 
-Xero L3 Specialist Certified
+Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
 Open the evidence register Browse reproducible evaluations
 
@@ -243,6 +243,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Source on GitHub: https://github.com/ryanduguid
+- certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
 - Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus

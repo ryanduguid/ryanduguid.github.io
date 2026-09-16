@@ -472,7 +472,7 @@ Banned visible language includes: revolutionise, seamless, cutting-edge, leverag
 Use Australian English and Oxford commas in original prose. Preserve exact
 quotations, command output, identifiers, and official titles. Keep the About
 page in the first person. Use Ryan's supplied credential labels exactly:
-'Provisional CA ANZ Member' and 'Xero L3 Specialist Certified'. State them
+'Provisional CA ANZ Member' and 'Xero Certified Specialist, Level 3'. State them
 directly and retain the CA ANZ non-endorsement statement. Never append bare
 'CA' to Ryan's name or invent credentials, rates, endorsements, customers,
 or outcomes.
@@ -483,6 +483,23 @@ corresponding prose baselines record these authorised changes; numerical
 facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
+
+The 16 September 2026 Xero credential pass publishes the certificate Xero issued
+to Ryan, with the individual Level 3 badge taken from that certificate, as one
+record under Identity and credentials at `/evidence/#xero-certification`. The
+About and homepage entries link to that anchor instead of restating it. The
+supplied credential label becomes 'Xero Certified Specialist, Level 3', which is
+the title the certificate itself carries, replacing the earlier
+'Xero L3 Specialist Certified' in visible text, metadata, JSON-LD and the
+machine-readable indexes. Both dates are written out, so no page claims a status
+that expires on its own. The SAP records stay described as issuer-verifiable and
+the Xero certificate as locally hosted, because Xero publishes no verification
+page for it. No partner-tier, Payroll or Migration badge is published: the
+Brandfolder collections hold partner-practice artwork, and this site is not a
+practice. The JSON-LD digests for `about/index.html` and `evidence/index.html`,
+the sitemap and llms.txt digests, and the generated machine views record these
+authorised edits. Asset provenance, usage limits and the renewal update
+locations are in `assets/credentials/SOURCES.md`.
 
 The 14 September 2026 claim-maintenance pass refreshes the rate verification
 and editorial dates after reading the primary sources. The SG and Division 7A
