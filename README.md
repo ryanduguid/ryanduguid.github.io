@@ -198,8 +198,26 @@ python scripts/favicon_render.py
 
 `scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for; 180 is not a whole-pixel scale of the 64-unit grid, so that file stays outside the render step.
 
+## Credential documents
+
+`assets/credentials/` holds the certificate Xero issued to Ryan Duguid and the
+individual Level 3 badge taken from it, which the evidence register publishes at
+[`/evidence/#xero-certification`](https://duguid.com.au/evidence/#xero-certification).
+[`assets/credentials/SOURCES.md`](assets/credentials/SOURCES.md) records both
+files' hashes, how the badge is rebuilt from the certificate with
+`python scripts/extract_xero_badge.py`, the usage limits carried into the page,
+and the 4 places to update on renewal. No Xero partner badge is published; that
+note records what evidence a Payroll or Migration badge would need first.
+
 ## Licence
 
-MIT, see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE), for this repository's own code and text.
+
+The MIT grant does not extend to third-party material published here. The IBM
+Plex subsets under `assets/fonts/` keep the SIL Open Font License 1.1 in
+`assets/fonts/OFL.txt`. The certificate and badge under `assets/credentials/`
+are Xero's document and artwork, published as a factual record of Ryan Duguid's
+own certification under the terms in `assets/credentials/SOURCES.md`, and carry
+no Xero endorsement of this site or its tools.
 
 Nothing on the site is tax, legal or financial advice. Outputs of the tools it links are review aids for a qualified professional, not compliance determinations.

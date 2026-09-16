@@ -16,6 +16,7 @@ from datetime import date
 from pathlib import Path
 
 import check_design
+import extract_xero_badge
 import seo_core as core
 import site_contracts as contracts
 
@@ -553,8 +554,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 14 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 14 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -567,8 +568,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 6 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 6 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -664,9 +665,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "14 September 2026", "2026-09-14"),
+        ("index.html", "16 September 2026", "2026-09-16"),
         ("tools/index.html", "14 September 2026", "2026-09-14"),
-        ("evidence/index.html", "6 September 2026", "2026-09-06"),
+        ("evidence/index.html", "16 September 2026", "2026-09-16"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -1614,7 +1615,14 @@ def test_full_text_references() -> None:
     print("full-text citation destinations passed")
 
 
+def test_xero_badge() -> None:
+    """The badge must reproduce the published certificate's pixels and mask."""
+    source = ROOT / extract_xero_badge.DEFAULT_SOURCE
+    assert extract_xero_badge.extract(source) == (ROOT / extract_xero_badge.TARGET).read_bytes()
+
+
 def main() -> None:
+    test_xero_badge()
     test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()

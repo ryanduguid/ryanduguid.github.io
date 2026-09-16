@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/about/
 
-> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am Xero L3 Specialist Certified.
+> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
 Home
 
@@ -10,7 +10,7 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 14 September 2026.
+Last reviewed 16 September 2026.
 
 ## The short facts
 
@@ -19,7 +19,13 @@ Based in | Newcastle, New South Wales, Australia
 Not the same person | I am not the US software product executive of the same name.
 Field | Accounting, Australian taxation, payroll, and statutory compliance
 Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
-Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I am Xero L3 Specialist Certified.
+
+Certifications |
+
+SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly.
+
+I am a Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027. Read the certificate in the evidence register, or explore my Xero trial balance export and review workflow.
+
 Education | Bachelor of Commerce (Accounting), University of Newcastle
 Code | github.com/ryanduguid
 LinkedIn | linkedin.com/in/ryan-duguid
@@ -87,6 +93,8 @@ I write and maintain this site in my own time and on my own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
+- Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
+- Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Lumbridge case: https://duguid.com.au/evaluate/#profit-and-cash
@@ -95,7 +103,6 @@ I write and maintain this site in my own time and on my own equipment.
 - evidence register: https://duguid.com.au/evidence/
 - Payday super timing and SG charge exposure: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate keeps incomplete packs off the review desk: https://duguid.com.au/tools/workpaper-review-gate/
-- A Xero trial balance export that has to balance: https://duguid.com.au/tools/xero-trial-balance/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - Construction WIP schedule under AASB 15: https://duguid.com.au/tools/wip-schedule/

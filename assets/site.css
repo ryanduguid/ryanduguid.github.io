@@ -1556,6 +1556,87 @@ caption {
   margin: 0;
 }
 
+/* One certification record: the issuer's own badge beside the qualification,
+   holder and explicit dates. Every fact stays selectable text, so the artwork
+   carries no information and is marked decorative. The card's padding and gap
+   hold the badge's clear space at more than a quarter of its displayed width;
+   keep them if the badge size changes. */
+.credential-card {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--space-5);
+  align-items: start;
+  min-width: 0;
+  padding: var(--space-5);
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  background: var(--colour-paper-raised);
+}
+
+.credential-card__badge {
+  width: 4.5rem;
+  height: auto;
+}
+
+.credential-card__detail {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.credential-card__detail > h3 {
+  margin-block: 0;
+}
+
+.credential-card__facts {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.credential-card__facts > div {
+  display: grid;
+  grid-template-columns: minmax(6rem, 0.35fr) minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+}
+
+.credential-card__facts dt {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.credential-card__facts dd {
+  margin: 0;
+}
+
+.credential-card__links {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-2);
+}
+
+/* The same badge at label scale, for the compact treatments that sit inside an
+   existing row rather than carrying a record of their own. */
+.credential-inline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.credential-inline__badge {
+  flex: none;
+  width: 2.75rem;
+  height: auto;
+}
+
+.credential-inline__text {
+  min-width: 0;
+}
+
 .route-section ul {
   display: grid;
   gap: var(--space-2);
@@ -2398,8 +2479,17 @@ input[type="checkbox"] {
   .route-actions > a,
   .route-actions.route-actions--mail > a,
   .adoption-links > a,
-  .credential-register > div {
+  .credential-register > div,
+  .credential-card {
     grid-template-columns: 1fr;
+  }
+
+  /* Stacked, the badge sits above the record instead of beside it. The facts
+     keep their two columns on a narrower label, which stays readable at this
+     width and holds the record to 4 lines instead of 8. */
+  .credential-card__facts > div {
+    grid-template-columns: minmax(5.5rem, auto) minmax(0, 1fr);
+    gap: var(--space-3);
   }
 
   .home-proof-rail p + p,

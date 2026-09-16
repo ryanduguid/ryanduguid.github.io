@@ -12,11 +12,33 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
 
-Last reviewed 6 September 2026.
+Last reviewed 16 September 2026.
 
 ## Identity and credentials
 
-Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. His 2 public credential records are the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. These credentials do not establish regulatory approval, authorisation to provide a regulated service, or a client outcome.
+Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. His 2 issuer-verifiable credential records are the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge, each hosted by the issuer and verifiable there. The Xero certification below has no issuer-hosted verification page, so the certificate Xero issued is published here instead and can be read in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service, or a client outcome.
+
+### Xero Certified Specialist, Level 3
+
+Holder
+
+Ryan Duguid
+
+Issued by
+
+Xero
+
+Awarded
+
+1 July 2026
+
+Valid until
+
+1 July 2027
+
+View certificate (PDF) Xero trial balance export and review workflow
+
+That certificate records Ryan Duguid's own product knowledge for the period shown. It is not a Xero endorsement, certification, or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero's artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository's software licence.
 
 ## Packages, releases, and repositories
 
@@ -82,6 +104,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
+- View certificate (PDF): https://duguid.com.au/assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf
+- Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - Adopt: https://duguid.com.au/#adopt
 - MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/aus-accounting-mcp/

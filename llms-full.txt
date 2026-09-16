@@ -20,7 +20,7 @@ I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business who
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 14 September 2026.
+Last reviewed 16 September 2026.
 
 Explore the cash-flow example Browse all tools
 
@@ -204,7 +204,7 @@ SAP S/4HANA Financial Accounting and Management Accounting
 
 Practice software
 
-Xero L3 Specialist Certified
+Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
 Open the evidence register Browse reproducible evaluations
 
@@ -251,6 +251,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Source on GitHub: https://github.com/ryanduguid
+- certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
 - Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
@@ -263,7 +264,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 Source: https://duguid.com.au/about/
 
-> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am Xero L3 Specialist Certified.
+> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
 Home
 
@@ -271,7 +272,7 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 14 September 2026.
+Last reviewed 16 September 2026.
 
 ## The short facts
 
@@ -280,7 +281,13 @@ Based in | Newcastle, New South Wales, Australia
 Not the same person | I am not the US software product executive of the same name.
 Field | Accounting, Australian taxation, payroll, and statutory compliance
 Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
-Certifications | SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly. I am Xero L3 Specialist Certified.
+
+Certifications |
+
+SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI) and Management Accounting (C_TS4CO), each verifiable on Credly.
+
+I am a Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027. Read the certificate in the evidence register, or explore my Xero trial balance export and review workflow.
+
 Education | Bachelor of Commerce (Accounting), University of Newcastle
 Code | github.com/ryanduguid
 LinkedIn | linkedin.com/in/ryan-duguid
@@ -348,6 +355,8 @@ I write and maintain this site in my own time and on my own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
+- Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
+- Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
 - Lumbridge case: https://duguid.com.au/evaluate/#profit-and-cash
@@ -356,7 +365,6 @@ I write and maintain this site in my own time and on my own equipment.
 - evidence register: https://duguid.com.au/evidence/
 - Payday super timing and SG charge exposure: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate keeps incomplete packs off the review desk: https://duguid.com.au/tools/workpaper-review-gate/
-- A Xero trial balance export that has to balance: https://duguid.com.au/tools/xero-trial-balance/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - Construction WIP schedule under AASB 15: https://duguid.com.au/tools/wip-schedule/
@@ -389,11 +397,33 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
 
-Last reviewed 6 September 2026.
+Last reviewed 16 September 2026.
 
 ## Identity and credentials
 
-Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. His 2 public credential records are the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. These credentials do not establish regulatory approval, authorisation to provide a regulated service, or a client outcome.
+Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. His 2 issuer-verifiable credential records are the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge, each hosted by the issuer and verifiable there. The Xero certification below has no issuer-hosted verification page, so the certificate Xero issued is published here instead and can be read in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service, or a client outcome.
+
+### Xero Certified Specialist, Level 3
+
+Holder
+
+Ryan Duguid
+
+Issued by
+
+Xero
+
+Awarded
+
+1 July 2026
+
+Valid until
+
+1 July 2027
+
+View certificate (PDF) Xero trial balance export and review workflow
+
+That certificate records Ryan Duguid's own product knowledge for the period shown. It is not a Xero endorsement, certification, or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero's artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository's software licence.
 
 ## Packages, releases, and repositories
 
@@ -459,6 +489,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
+- View certificate (PDF): https://duguid.com.au/assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf
+- Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - Adopt: https://duguid.com.au/#adopt
 - MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
