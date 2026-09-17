@@ -1,6 +1,6 @@
 # Claim maintenance
 
-## Review on 18 September 2026
+## Review on 17 September 2026
 
 - Section 3B of the [Payroll Levy Collection Act 1992](https://www.legislation.gov.au/C2004A04352/latest/text) was read in Compilation No 12 (C2026C00364, in force 1 September 2026), retrieved as EPUB from the Federal Register API because the web host refused every request from this machine. Paragraph 3B(1)(b) applies 75 per cent to the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime or penalty rates, and allowances other than expense reimbursements. Endnote 4 records section 3B as inserted by Act No 142, 2011 and amended by Act No 43, 2023; Act No 63, 2026, which compilation 12 incorporates, did not touch it. The calculator's arithmetic already matched; one sentence of explanation did not and was corrected. The 2.7 per cent rate keeps its 2 September 2026 check date because the Regulations were not re-read.
 - The [Coal LSL eligible wages guidance note](https://coallsl.com.au/guidance-notes/eligible-wages) was read on the same day. It sets Formula B out as 75 per cent of the total of the four components, which agrees with the Act as read.
