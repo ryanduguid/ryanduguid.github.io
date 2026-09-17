@@ -21,6 +21,7 @@ import re
 import sys
 import urllib.error
 import urllib.request
+from urllib.parse import urlparse
 from pathlib import Path
 from typing import Any
 
@@ -78,7 +79,8 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
     documented_version = documented.get("version")
     if documented_version is not None and documented_version != published["version"]:
         # A documented release may legitimately lag. The gap must be explicit.
-        if GAP_MARKER not in visible or published["version"] not in visible:
+        if (GAP_MARKER not in visible or published["version"] not in visible
+                or documented_version not in visible):
             failures.append(
                 f"{rel}: documents {name} {documented_version} while "
                 f"{published['version']} is published, without naming the difference"
@@ -92,7 +94,8 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
                 f"{rel}: structured softwareVersion is {versions!r}, expected [{declared!r}]"
             )
 
-    if published["release_url"] not in html:
+    hrefs = set(re.findall(r'<a\\b[^>]*\\bhref=["\\\']([^"\\\']+)', html, re.I))
+    if published["release_url"] not in hrefs:
         failures.append(f"{rel}: does not link the published release record")
 
     for command in component.get("pinned_commands", []):
@@ -134,7 +137,7 @@ def check_evaluations(root: Path, record: dict[str, Any]) -> list[str]:
             failures.append(f"{rel}: missing evaluation page")
             continue
         _, visible = page_text(root, rel)
-        if evaluation["version"] not in visible:
+        if evaluation["label"] not in visible:
             failures.append(
                 f"{rel}: preserved evaluation must keep release "
                 f"{evaluation['version']} visible"
@@ -175,11 +178,17 @@ def live_versions(component: dict[str, Any]) -> dict[str, str]:
     registry = published.get("registry_url")
     if registry:
         payload = fetch_json(registry)
+        if not isinstance(payload, dict):
+            raise ValueError("registry response is not an object")
         server = payload.get("server", payload)
-        found["registry"] = str(server.get("version"))
+        if not isinstance(server, dict) or "version" not in server:
+            raise ValueError("registry response has no usable server version")
+        found["registry"] = str(server["version"])
     repository = component["repository"]
     owner_repo = repository.removeprefix("https://github.com/")
     releases = fetch_json(f"https://api.github.com/repos/{owner_repo}/releases?per_page=100")
+    if not isinstance(releases, list):
+        raise ValueError("GitHub releases response is not a list")
     prefix = published["release_url"].rsplit("/tag/", 1)[-1].removesuffix(published["version"])
     tags = [
         release["tag_name"]
@@ -187,8 +196,23 @@ def live_versions(component: dict[str, Any]) -> dict[str, str]:
         if not release["draft"] and not release["prerelease"]
         and release["tag_name"].startswith(prefix)
     ]
-    if tags:
-        found["github"] = max(tags, key=lambda tag: _version_key(tag[len(prefix):]))[len(prefix):]
+    found["github"] = (
+        max(tags, key=lambda tag: _version_key(tag[len(prefix):]))[len(prefix):]
+        if tags else "MISSING"
+    )
+    download_url = published.get("download_url")
+    if download_url:
+        request = urllib.request.Request(download_url, headers={"User-Agent": USER_AGENT})
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            digest = __import__("hashlib").sha256()
+            size = 0
+            while chunk := response.read(1024 * 1024):
+                size += len(chunk)
+                digest.update(chunk)
+        if size != published.get("asset_bytes") or digest.hexdigest() != published.get("asset_sha256"):
+            found["github_asset"] = "DRIFT"
+        else:
+            found["github_asset"] = "matches"
     return found
 
 
@@ -209,6 +233,12 @@ def verify_live() -> int:
             print(f"{name}: INCONCLUSIVE, {type(error).__name__}: {error}")
             continue
         for source, version in found.items():
+            if source == "github_asset":
+                state = version
+                if state != "matches":
+                    drifted = True
+                print(f"{name}: {source} {state}")
+                continue
             state = "matches" if version == recorded else "DRIFT"
             if version != recorded:
                 drifted = True
