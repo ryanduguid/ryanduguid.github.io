@@ -56,14 +56,22 @@ if [ -z "${PY:-}" ]; then
 	exit 1
 fi
 
-# core.commentString is the modern spelling and core.commentChar the older
-# alias; either may carry the special value `auto`. Both are passed through and
-# resolved below rather than defaulted here, so an unset value stays unset.
+# Git 2.45 made commentString an alias for commentChar, with the last
+# configured value winning regardless of which spelling was used. Older Git
+# only understands commentChar, so do not let the newer spelling override it.
+GIT_VERSION=$(git --version | sed -n 's/^git version \([0-9][0-9]*\)\.\([0-9][0-9]*\).*$/\1 \2/p')
+GIT_MAJOR=${GIT_VERSION%% *}
+GIT_MINOR=${GIT_VERSION#* }
+if [ "$GIT_MAJOR" -gt 2 ] || [ "$GIT_MAJOR" -eq 2 ] && [ "$GIT_MINOR" -ge 45 ]; then
+	COMMENT_MARKER=$(git config --get-regexp '^core\.comment\(Char\|String\)$' 2>/dev/null |
+		awk '{ value = $0; sub(/^[^ ]+[[:space:]]+/, "", value); marker = value } END { print marker }' || true)
+else
+	COMMENT_MARKER=$(git config --get core.commentChar 2>/dev/null || true)
+fi
 MSG_FILE=$msg_file \
 AUTHOR_IDENT=$(git var GIT_AUTHOR_IDENT) \
 COMMITTER_IDENT=$(git var GIT_COMMITTER_IDENT) \
-COMMENT_STRING=$(git config --get core.commentString 2>/dev/null || true) \
-COMMENT_CHAR=$(git config --get core.commentChar 2>/dev/null || true) \
+COMMENT_MARKER=$COMMENT_MARKER \
 	"$PY" - <<'PY'
 import os
 import re
@@ -126,7 +134,7 @@ def comment_markers():
     `auto` names no single character, so every character Git may pick is
     treated as a marker: that scans more lines, never fewer.
     """
-    configured = (os.environ.get("COMMENT_STRING") or os.environ.get("COMMENT_CHAR") or "").strip()
+    configured = os.environ.get("COMMENT_MARKER", "").strip()
     if not configured:
         return ("#",)
     if configured.casefold() == "auto":
