@@ -12,7 +12,7 @@ I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business who
 
 A personal open-source index, not an accounting practice.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
 Explore the cash-flow example Browse all tools
 
@@ -220,7 +220,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 ## Links
 
-- Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
+- Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browse all tools: https://duguid.com.au/tools/
 - Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png

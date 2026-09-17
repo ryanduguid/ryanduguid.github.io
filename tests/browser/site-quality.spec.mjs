@@ -62,9 +62,10 @@ const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
     // Direct example links and the first-run introduction add visible content.
-    // After removing duplicate destinations, Camofox measures 8,033px at
-    // 390px wide. Retain about 234px of margin for this expanded register.
-    ['/tools/', 8270],
+    // The Ozzit workbook entry joins the Calculate group on 18 September 2026,
+    // taking the measured height from 8,033px to 8,540px at 390px wide.
+    // Retain about 234px of margin for this expanded register.
+    ['/tools/', 8774],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. Evidence measures 7,014px at
     // 390px wide, with the record's facts held to 2 columns at this width
@@ -73,10 +74,11 @@ const representativeHeightBaseline = {
   ]),
   'desktop-chromium': new Map([
     ['/', 6517],
-    // Tools renders at 4,754px after the 13 September 2026 layout pass (the
+    // Tools renders at 5,100px after the 13 September 2026 layout pass (the
     // chooser rows align on the baseline, the footer disclaimer takes the
-    // 68ch measure and the caption token reaches 13px), plus the 234px guard.
-    ['/tools/', 4988],
+    // 68ch measure and the caption token reaches 13px) and the 18 September
+    // 2026 Ozzit entry, which added 346px, plus the 234px guard.
+    ['/tools/', 5334],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
@@ -177,7 +179,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
     'Explore the cash-flow example',
     'Browse all tools',
   ]);
-  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/evaluate/#profit-and-cash');
+  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
   await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/tools/');
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);

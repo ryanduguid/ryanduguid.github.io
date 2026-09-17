@@ -223,7 +223,7 @@ def test_geo_leftovers_surface() -> None:
     # the evaluations hub retains its own editorial review date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("14 September 2026", "2026-09-14"),
+        "evaluate/index.html": ("18 September 2026", "2026-09-18"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -554,15 +554,15 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 14 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 14 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -665,8 +665,8 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "16 September 2026", "2026-09-16"),
-        ("tools/index.html", "14 September 2026", "2026-09-14"),
+        ("index.html", "18 September 2026", "2026-09-18"),
+        ("tools/index.html", "18 September 2026", "2026-09-18"),
         ("evidence/index.html", "16 September 2026", "2026-09-16"),
     )
     for rel, visible_date, structured_date in review_date_paths:
@@ -801,8 +801,8 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 30, (
-        f"expected 30 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 32, (
+        f"expected 32 canonical HTML pages, found {len(indexed_rels)}"
     )
     metadata_failures = [
         failure
@@ -1335,7 +1335,7 @@ def test_public_contracts() -> int:
         (
             "hub ItemList count",
             "tools/index.html",
-            '"numberOfItems": 11',
+            '"numberOfItems": 12',
             '"numberOfItems": 9',
             contracts.check_collection_hubs,
             "tools/index.html: ItemList count does not match visible entries",
@@ -1621,8 +1621,107 @@ def test_xero_badge() -> None:
     assert extract_xero_badge.extract(source) == (ROOT / extract_xero_badge.TARGET).read_bytes()
 
 
+def test_release_record() -> None:
+    """Current release claims, labelled historical ones and unreleased versions."""
+    import copy
+
+    import release_record
+
+    assert_clean("current release record", release_record.check_record(ROOT))
+    record = release_record.load()
+
+    # A page may document an older release than the published one, but only
+    # when it names the difference. The same lag without that sentence fails.
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["published"]["version"] = "0.3.0"
+        expect_failure(
+            "unlabelled release lag",
+            release_record.check_record(root, lagging),
+            "without naming the difference",
+        )
+
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["published"]["version"] = "0.3.0"
+        component["published"]["release_url"] = (
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/"
+            "aus-accounting-mcp/v0.3.0"
+        )
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "<p class=\"page-meta\">",
+            "<p>Release 0.3.0 is the current published release; this page still "
+            'documents 0.2.2.</p>\n    <p class="page-meta">',
+        )
+        failures = release_record.check_record(root, lagging)
+        assert not any("without naming the difference" in failure for failure in failures), (
+            f"a labelled lag must pass: {failures!r}"
+        )
+
+    # A preserved evaluation keeps the release it reproduced, not the current one.
+    with copied_site() as root:
+        page = root / "evaluate/manager-review-gate/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace("0.1.3", "0.1.6"),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "historical evaluation release replaced",
+            release_record.check_record(root),
+            "must keep release 0.1.3 visible",
+        )
+
+    # An unreleased default-branch version must not be offered as a download.
+    with copied_site() as root:
+        replace_file(
+            root,
+            "tools/ozzit/index.html",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
+        )
+        expect_failure(
+            "unreleased download offered",
+            release_record.check_record(root),
+            "which is not published",
+        )
+
+    # Structured data must describe the release the page documents.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            '"softwareVersion": "0.2.2"',
+            '"softwareVersion": "0.2.0"',
+        )
+        expect_failure(
+            "structured version drift",
+            release_record.check_record(root),
+            "structured softwareVersion is",
+        )
+
+    # An unpinned adoption command must stay labelled as tracking the package.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "Each command above tracks the published package",
+            "Each command above installs the reviewed release",
+        )
+        expect_failure(
+            "unlabelled tracking command",
+            release_record.check_record(root),
+            "must be labelled as tracking",
+        )
+    print("release record tests passed (6 cases)")
+
+
 def main() -> None:
     test_xero_badge()
+    test_release_record()
     test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()

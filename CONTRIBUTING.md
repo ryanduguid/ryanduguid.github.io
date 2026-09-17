@@ -79,6 +79,37 @@ Its exact URL is in the same exception list; other statuses and neighbouring
 URLs still fail. Recheck local access before changing the link, and remove
 the exception when runner access permits.
 
+## Release claims
+
+`scripts/release_record.json` is the reviewed statement of which release each page
+documents, which release is published, and which release each preserved evaluation
+reproduced. `scripts/check_site.py` validates the pages against it offline; no
+ordinary build fetches a version number.
+
+Refresh it deliberately, not on a schedule:
+
+```bash
+python scripts/release_record.py --verify-live
+```
+
+That reads the public GitHub, PyPI and MCP registry records and reports drift. It
+changes nothing. Review each difference, then update the record and the pages it
+covers together. A newer release does not change a preserved evaluation: those keep
+the version they were run against, and the tests fail if one is quietly upgraded.
+A page may document an older release than the published one, but it must say so in
+its own words, naming both versions.
+
+## Visibility benchmark
+
+`docs/visibility-benchmark/` holds the reviewed prompts and any recorded captures,
+and stays out of the published site. Read its README before recording a round.
+
+```bash
+python scripts/visibility_benchmark.py --template > round.json
+python scripts/visibility_benchmark.py --check
+python scripts/visibility_benchmark.py --summary
+```
+
 Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
 
 ## Pull requests

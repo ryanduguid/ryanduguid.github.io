@@ -1,5 +1,38 @@
 # Claim maintenance
 
+## Review on 18 September 2026
+
+- Aus Accounting MCP: the AI-agents page named reference release v0.2.0 in its
+  visible label, its release link and its structured `softwareVersion`, while its
+  demonstration command already pinned 0.2.2. Release 0.2.2 is the current published
+  release on GitHub (13 September 2026), on PyPI and in the MCP registry, where it is
+  active and latest. The page now documents 0.2.2 throughout, and
+  `scripts/release_record.json` records the published, documented and evaluated
+  releases separately.
+- The same page said the worksheet scope was fixed by australian-tax-calculators
+  0.1.2 and linked that release. Published MCP 0.2.2 pins 0.1.3, so both were
+  corrected. The supported-period table is identical in 0.1.2 and 0.1.3, so no scope
+  claim changed.
+- Ozzit: the published release is v3.4.1 (13 September 2026), whose asset is
+  downloadable and matches its published SHA-256. The repository's default branch
+  documents a prepared v3.4.2 cut whose tag, release page and download do not exist;
+  a request for that asset returned HTTP 404 on 18 September 2026. The new
+  `/tools/ozzit/` page documents v3.4.1, and the release record carries the
+  unreleased version with that observation.
+- Ozzit's 133 functions and 5 help tables remain correct: the released v3.4.1
+  workbook carries 138 `oz.` defined names, and the repository's own AGENTS.md and
+  release record state the 133 and 5 split.
+- The profile's upstream contribution counts were one project and one pull request
+  low. The profile's own date-bounded search returned 50 merged pull requests across
+  16 projects as at 14 September 2026, 33 of them in OpenAccountants. Both counts and
+  the project total were corrected; the links and the date bound are unchanged.
+- The Lumbridge case figures were reproduced from source at the pinned commit:
+  quarterly profit before income tax of $35,957.55 in both cases, October closing
+  cash of $32,040.00 against ($11,960.00), a lowest daily balance of $16,800.00 on
+  7 October against ($25,160.00) on 6 November, December closing cash of $67,320.00
+  and a cash reconciliation difference of $0.00. The distributed workbook's SHA-256
+  matches its sample record.
+
 ## Review on 14 September 2026
 
 - The [ATO SG table](https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee) matched every general-rate row on the site, including 12% from 1 July 2025. This check did not repeat the statutory timing review dated 30 August 2026.

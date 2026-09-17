@@ -48,7 +48,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const view = page.getByRole('main', { name: 'Machine view' });
   await expect(view).toContainText('Source: https://duguid.com.au/');
   await expect(view).toContainText('Australian accounting tools, with the working explained.');
-  await expect(view).toContainText('https://duguid.com.au/evaluate/#profit-and-cash');
+  await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
   await expect(view).toContainText('Nothing here is tax, legal, or financial advice.');
   await expect(page.locator('#main')).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
@@ -154,6 +154,29 @@ test('saved Machine mode renders the unindexed not-found page without a text dow
   await page.getByRole('radio', { name: 'Human', exact: true }).check();
   await expect(page.getByRole('link', { name: 'Home', exact: true })).toBeVisible();
   health.assertHealthy();
+});
+
+test('machine-view status text stays out of ordinary extraction but loads at runtime', async ({ page, request }) => {
+  const delivered = await (await request.get('/')).text();
+  expect(delivered).not.toContain('Loading page text');
+
+  await page.goto('/');
+  const extracted = await page.evaluate(() => document.body.innerText);
+  for (const status of ['Loading page text', 'Page text could not be loaded']) {
+    expect(extracted).not.toContain(status);
+  }
+
+  let release;
+  const pending = new Promise((resolve) => { release = resolve; });
+  await page.route('**/index.txt', async (route) => {
+    await pending;
+    await route.continue();
+  });
+  await page.getByRole('radio', { name: 'Machine', exact: true }).check();
+  const view = page.getByRole('main', { name: 'Machine view' });
+  await expect(view).toContainText('Loading page text');
+  release();
+  await expect(view).toContainText('Source: https://duguid.com.au/');
 });
 
 test('the floating switch leaves the last footer link unobscured', async ({ page }) => {
