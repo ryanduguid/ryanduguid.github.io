@@ -12,12 +12,27 @@ from urllib.request import Request, urlopen
 import build_site
 import serve_site
 
-# Directories that are not site sources: dependencies, build output and scratch.
-# Dot-directories are skipped as a class because Jekyll excludes them by
-# default, so nothing inside one reaches the build unless `_config.yml` names
-# it. That also keeps a local virtual environment's vendored CSS out of the
-# check, which would otherwise be inspected as though it were a site source.
-NOT_SOURCE = {"_site", "node_modules", "vendor", "work"}
+def _source_rules(root: Path) -> tuple[set[Path], set[Path]]:
+    """Read the root-relative include and exclude paths used by Jekyll."""
+    included: set[Path] = set()
+    excluded: set[Path] = set()
+    section: set[Path] | None = None
+    config = root / "_config.yml"
+    # Jekyll's destination is not a source even though it is not in config.
+    excluded.add(Path("_site"))
+    if not config.exists():
+        return included, excluded
+    for line in config.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if stripped == "include:":
+            section = included
+        elif stripped == "exclude:":
+            section = excluded
+        elif section is not None and stripped.startswith("- "):
+            section.add(Path(stripped[2:].strip()))
+        elif stripped and not line.startswith(" "):
+            section = None
+    return included, excluded
 
 
 def check_no_sass_sources(root: Path | None = None) -> int:
@@ -27,26 +42,28 @@ def check_no_sass_sources(root: Path | None = None) -> int:
     chain carries jekyll-sass-converter 1.5.2 and Ruby Sass 3.7.4, which has
     been end of life since 26 March 2019. The site is written in plain CSS, so
     the converter is installed but never given an input. This check keeps it
-    that way: a `.scss` or `.sass` source, or a stylesheet with front matter
-    (which Jekyll 3 hands to the converter), would put unmaintained code on the
+    that way: a `.scss` or `.sass` source would put unmaintained code on the
     build path of every page. Dropping the gem instead means leaving the Pages
     legacy build, which is a hosting decision, not a check.
     """
     root = root or build_site.ROOT
     offenders = []
     checked = 0
+    included, excluded = _source_rules(root)
     for path in sorted(root.rglob("*")):
-        parts = path.relative_to(root).parts
-        if NOT_SOURCE & set(parts) or any(part.startswith(".") for part in parts[:-1]):
-            continue
+        relative = path.relative_to(root)
         if not path.is_file():
             continue
+        if any(relative == item or item in relative.parents for item in excluded):
+            continue
+        if any(part.startswith(".") for part in relative.parts[:-1]) and not any(
+            relative == item or item in relative.parents for item in included
+        ):
+            continue
         if path.suffix in {".scss", ".sass"}:
-            offenders.append(f"{path.relative_to(root)}: Sass source")
+            offenders.append(f"{relative}: Sass source")
         elif path.suffix == ".css":
             checked += 1
-            if path.read_bytes().lstrip().startswith(b"---"):
-                offenders.append(f"{path.relative_to(root)}: stylesheet with front matter")
     assert not offenders, "Sass would reach the build:\n" + "\n".join(offenders)
     assert checked, "no stylesheet was inspected; the check is looking in the wrong place"
     return checked
