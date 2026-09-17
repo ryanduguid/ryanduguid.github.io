@@ -36,6 +36,9 @@ GAP_MARKER = "published release"
 # A source that answers but shows no matching release reports this, so an absent
 # release is visible drift rather than a missing line.
 MISSING = "no matching release"
+# Only these say the recorded asset is gone. Every other HTTP failure, such as
+# a rate limit or a server fault, is inconclusive and must not read as drift.
+ABSENT_STATUSES = frozenset({404, 410})
 
 
 def load(path: Path = RECORD) -> dict[str, Any]:
@@ -238,7 +241,12 @@ def live_versions(component: dict[str, Any]) -> dict[str, str]:
 
 
 def live_asset(published: dict[str, Any]) -> str | None:
-    """Confirm a recorded release asset is still served at its recorded size."""
+    """Confirm a recorded release asset is still served at its recorded size.
+
+    Only a status that says the asset is gone counts as drift. A rate limit or a
+    server fault proves nothing about the recorded bytes, so it is raised for the
+    caller's inconclusive path rather than reported as a changed artefact.
+    """
     url = published.get("download_url")
     if not url:
         return None
@@ -247,7 +255,9 @@ def live_asset(published: dict[str, Any]) -> str | None:
         with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
             served = response.read()
     except urllib.error.HTTPError as error:
-        return f"HTTP {error.code}"
+        if error.code in ABSENT_STATUSES:
+            return f"HTTP {error.code}, the recorded asset is no longer served"
+        raise
     recorded = published.get("asset_bytes")
     if recorded is not None and len(served) != recorded:
         return f"{len(served)} bytes, record says {recorded}"

@@ -220,6 +220,24 @@ def test_lookalike_hosts_are_not_site_citations() -> None:
     )
 
 
+def test_malformed_citation_urls_fail_one_observation() -> None:
+    """An unparseable URL fails its observation instead of ending the run."""
+    for url in ("https://[duguid.com.au/", "http://[::1", "not a url at all"):
+        assert not benchmark.site_cited_url(url), url
+        capture = base_capture()
+        capture["observations"][0]["cited_urls"] = [url]
+        failures = failures_for(capture)
+        expect_failure(f"malformed citation {url!r}", failures, "no cited URL is on duguid.com.au")
+
+    # A malformed URL beside a real site citation still leaves the citation valid.
+    capture = base_capture()
+    capture["observations"][0]["cited_urls"] = [
+        "https://[duguid.com.au/",
+        "https://duguid.com.au/about/",
+    ]
+    assert not failures_for(capture)
+
+
 def test_boolean_fields_reject_strings() -> None:
     """A string such as "false" must not be counted as a mention or a citation."""
     for field in ("mentioned", "site_cited", "fresh_session"):

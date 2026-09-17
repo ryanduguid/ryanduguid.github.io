@@ -1792,7 +1792,39 @@ def test_release_record() -> None:
             raise AssertionError("a non-object service response must raise, not crash later")
     finally:
         release_record.fetch_json = original_fetch
-    print("release record tests passed (12 cases)")
+
+    # A recorded asset that is gone is drift; a rate limit or a server fault is
+    # inconclusive and must reach the caller rather than read as a changed file.
+    published = copy.deepcopy(record["components"]["ozzit"]["published"])
+    original_open = release_record.urllib.request.urlopen
+
+    def refusing(status: int):
+        def opener(request, timeout=None):  # noqa: ARG001
+            raise release_record.urllib.error.HTTPError(
+                published["download_url"], status, "refused", {}, None
+            )
+        return opener
+
+    try:
+        for status in (404, 410):
+            release_record.urllib.request.urlopen = refusing(status)
+            reported = release_record.live_asset(published)
+            assert reported and str(status) in reported, (
+                f"HTTP {status} must report the asset as no longer served, got {reported!r}"
+            )
+        for status in (429, 500, 503):
+            release_record.urllib.request.urlopen = refusing(status)
+            try:
+                release_record.live_asset(published)
+            except release_record.urllib.error.HTTPError:
+                pass
+            else:
+                raise AssertionError(
+                    f"HTTP {status} proves nothing about the asset and must not report drift"
+                )
+    finally:
+        release_record.urllib.request.urlopen = original_open
+    print("release record tests passed (17 cases)")
 
 
 def main() -> None:
