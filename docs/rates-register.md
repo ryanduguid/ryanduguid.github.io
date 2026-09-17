@@ -1,9 +1,20 @@
 # Rates register proposal
 
+**Status, 18 September 2026.** Section 2 is partly built. `rates/register/`
+now holds the manifest, both schemas, `SHA256SUMS`, a changelog and one series
+(`coal-lsl-levy`), checked by `scripts/check_rates_register.py` in the site
+checks. The built schema adds a `review` field, `automated-retrieval` or
+`professional-review`, which section 2.3 did not have: it keeps a figure a tool
+retrieved apart from one a person reviewed. Section 1's inventory is unchanged
+and the other series in it are unmigrated. The migration order in 2.7 has not
+started, and the decisions in 2.8 are still open.
+
 Audit phase 3. A read-only inventory of where the portfolio keeps mutable
 rates, thresholds and the sources behind them, followed by a proposal for one
-versioned, machine-readable register. Nothing consumes the register yet and
-nothing here changes a published figure. Every value quoted below is quoted
+versioned, machine-readable register. When this was written nothing consumed
+the register; the Coal LSL service now reads the levy series from disk at
+start-up (see `rates/register/README.md`). Nothing here changes a published
+figure. Every value quoted below is quoted
 from the repository named, with that repository's own verification date. This
 document does not verify any rate and is not advice.
 

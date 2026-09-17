@@ -49,7 +49,7 @@ python export_tb.py --date 2026-06-30
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Synthetic worked example
 
@@ -95,6 +95,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- contact page: https://duguid.com.au/contact/
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433

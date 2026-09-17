@@ -66,7 +66,7 @@ pip install .
 
 Source on GitHub · Primary source: the ATO's small business benchmarks.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -103,6 +103,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/

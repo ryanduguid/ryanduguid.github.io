@@ -57,44 +57,39 @@
         <p class="short-answer">Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.</p>
         <p class="byline">An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.</p>
         <p>For identity, source, and release assurance, see the <a href="/evidence/">Evidence register</a>. Each evaluated tool is listed in the <a href="/tools/">Tools register</a>. <a href="#example-routes">Choose an example for any tool in the register</a>.</p>
-        <p class="page-meta">Last reviewed 14 September 2026.</p>
+        <p class="page-meta">Last reviewed 18 September 2026.</p>
       </header>
       <div class="site-shell">
           <section class="article-body" id="profit-and-cash" aria-labelledby="profit-and-cash-title">
             <h2 id="profit-and-cash-title">Profit of $35,957.55. A cash shortfall of $25,160.</h2>
-            <p>Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.</p>
-            <p><a href="/assets/examples/lumbridge/lumbridge.xlsx" download>Download the synthetic Excel forecast</a> or <a href="/assets/examples/lumbridge/lumbridge-sample-pack.zip" download>download the workbook, source files, and trial guide</a>. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.</p>
-            <p>The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.</p>
-            <div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge on-time and late-receipt forecast comparison">
+            <p>Lumbridge Services is a fictional maintenance business in Newcastle, NSW. Moving one $44,000 customer receipt from 14 October to 28 November 2026 leaves quarterly profit before income tax unchanged at $35,957.55 while daily cash falls to ($25,160.00) on 6 November. All amounts are AUD and every figure is fabricated.</p>
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge on-time and late-receipt forecast summary">
               <table class="facts rate-table--wide">
-                <caption>Same work performed, different receipt dates. Scroll sideways on small screens.</caption>
+                <caption>Summary of the worked example. Scroll sideways on small screens.</caption>
                 <thead><tr><th scope="col">Forecast measure</th><th scope="col">On time</th><th scope="col">45 days late</th></tr></thead>
                 <tbody>
-                  <tr><th scope="row">Quarter revenue</th><td>$180,000.00</td><td>$180,000.00</td></tr>
                   <tr><th scope="row">Profit before income tax</th><td>$35,957.55</td><td>$35,957.55</td></tr>
-                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td>($11,960.00)</td></tr>
                   <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td>($25,160.00) on 6 November</td></tr>
                   <tr><th scope="row">December closing cash</th><td>$67,320.00</td><td>$67,320.00</td></tr>
                 </tbody>
               </table>
             </div>
-            <p>The late case first runs short on 28 October. December cash catches up after the receipt arrives, but that later recovery cannot fund the earlier payments. Keeping the example's assumed $15,000 cash buffer would require $40,160 above the late-case trough.</p>
-            <h3>The decision to examine</h3>
-            <p>Confirm the customer receipt date and resolve the earlier cash gap before approving discretionary equipment spending. Then check actual collections against the forecast each week. No overdraft or new funding is assumed.</p>
-            <p>At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $13,200 supplier invoices payable. Its closing bank balance includes cash needed for those obligations.</p>
-            <h3>Try the workbook</h3>
+            <p><a href="/examples/profit-vs-cash-flow/">Read the full worked example</a>: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.</p>
+            <p>This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; <a href="/contact/#example-feedback">offer a review of the Lumbridge case</a>. No client outcome, forecast accuracy or time saving has been measured.</p>
+          </section>
+          <section class="article-body" id="independent-review" aria-labelledby="independent-review-title">
+            <h2 id="independent-review-title">Review the Lumbridge case: a bounded task</h2>
+            <p>No independent accountant has completed this review yet. This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.</p>
             <ol>
-              <li>Open the Model and Cash 13 weeks sheets and find the profit and cash figures.</li>
-              <li>Change <code>Assumptions!B2</code> from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.</li>
-              <li>Restore 0, save a copy, and reopen it. The workbook supports only whole-day receipt delays from 0 to 120; exported CSVs and briefing text stay fixed.</li>
+              <li>Download the <a href="/assets/examples/lumbridge/lumbridge-sample-pack.zip" download>sample pack</a> and open <code>lumbridge.xlsx</code> in desktop Excel with automatic calculation. Note your Excel version and operating system.</li>
+              <li>Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.</li>
+              <li>Change <code>Assumptions!B2</code> from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, December closing cash, and profit before income tax.</li>
+              <li>Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.</li>
+              <li>Restore 0, save a copy, reopen it, and confirm the base figures return.</li>
+              <li>List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.</li>
             </ol>
-            <p>Varrock and Falador are the fictional service lines, named after Old School RuneScape locations. No game knowledge is needed.</p>
-            <h3>Evidence and limits</h3>
-            <p>Maintainer trial, 14 September 2026: Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0-to-45-to-0 receipt-delay sequence and saving and reopening the file. The exact Excel build and individual result figures were not recorded in that feedback.</p>
-            <p>This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; <a href="/contact/#example-feedback">offer a review of the Lumbridge case</a>. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.</p>
-            <p>Download provenance and workbook checks are in the <a href="/assets/examples/lumbridge/README.txt">sample record</a>. <a href="https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services">Read the source, assumptions, and trial at the captured commit</a>. The Australian pack extends <a href="https://github.com/JeffBrines/openfpa">Jeff Brines / Guiderail's openfpa</a>.</p>
-            <p><a href="/contact/#example-feedback">Give feedback on this example</a>. Describe the step, observed result, and Excel version using the synthetic files.</p>
-            <p>Cite as Duguid, R. (2026). <em>Lumbridge Services synthetic cash-flow case</em> [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.</p>
+            <p><a href="/assets/examples/lumbridge/trial-response-template.txt" download>Download the blank response template</a> (plain text), fill it in, and email it to <a href="mailto:ryan@duguid.com.au?subject=Lumbridge%20review">ryan@duguid.com.au</a> with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, <code>TRIAL.md</code>, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.</p>
+            <p>Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External evaluation of this case is pending; this page reports no completed trial.</p>
           </section>
       </div>
       <div class="site-shell">
@@ -120,12 +115,12 @@
                 </tbody>
               </table>
             </div>
-            <p>The <a href="#profit-and-cash">Excel cash-flow case</a> and <a href="/tools/business-calculators/">browser planning calculators</a> offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.</p>
+            <p>The <a href="/examples/profit-vs-cash-flow/">Excel cash-flow case</a> and <a href="/tools/business-calculators/">browser planning calculators</a> offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.</p>
           </section>
       </div>
       <div class="site-shell collection-layout">
         <div class="collection-register">
-          <section class="collection-entry">
+          <section class="collection-entry" id="five-minute-cases">
             <h2>Five-minute accounting cases</h2>
             <p>Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.</p>
             <div id="month-end-preview">
@@ -201,7 +196,7 @@
         "description": "Reproduce three fixed accounting-tool evaluations with fabricated inputs, expected results, versioned releases, and explicit limits.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-29",
-        "dateModified": "2026-09-14",
+        "dateModified": "2026-09-18",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },

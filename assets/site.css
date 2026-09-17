@@ -239,7 +239,7 @@ pre code {
 }
 
 .site-identity::after {
-  content: " / register";
+  content: " / tool library";
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
@@ -458,7 +458,8 @@ button:not(.button) {
   margin: 0;
 }
 
-.article-body section {
+.article-body section,
+.article-body + .article-body {
   margin-top: var(--space-7);
   padding-top: var(--space-5);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
@@ -817,6 +818,15 @@ caption {
 .collection-entry > dl {
   grid-column: 3;
   grid-row: 1;
+}
+
+.task-routes {
+  padding-top: var(--space-6);
+}
+
+.task-routes h2 {
+  padding-bottom: var(--space-3);
+  border-bottom: var(--rule-strong) solid var(--colour-ink);
 }
 
 .work-chooser {
@@ -2328,7 +2338,9 @@ input[type="checkbox"] {
   }
 
   .home-tool-preview__entry {
-    grid-template-columns: minmax(8rem, 0.5fr) minmax(0, 1.5fr);
+    /* Task labels run to four words, so the first column holds two words a
+       line at this width rather than breaking every heading into three. */
+    grid-template-columns: minmax(11rem, 0.7fr) minmax(0, 1.4fr);
   }
 
   .home-tool-preview__entry > a {

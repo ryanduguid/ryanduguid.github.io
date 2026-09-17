@@ -42,7 +42,7 @@ Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. T
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -77,6 +77,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
+- contact page: https://duguid.com.au/contact/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/

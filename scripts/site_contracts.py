@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-14"
-MCP_VISIBLE_REVIEW_DATE = "14 September 2026"
+MCP_REVIEW_DATE = "2026-09-18"
+MCP_VISIBLE_REVIEW_DATE = "18 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -555,7 +555,9 @@ PRIMARY_NAV_LINKS = [
 ]
 
 BREADCRUMB_LEAF_NAMES = {
+    "examples/profit-vs-cash-flow/index.html": "Profit vs cash flow",
     "tools/monthly-close-controls/index.html": "Monthly Close Controls",
+    "tools/ozzit/index.html": "Ozzit Excel LAMBDA library",
     "tools/ato-benchmarks/index.html": "ATO benchmark comparison",
     "tools/australian-tax-ai-agents/index.html": "Australian tax MCP server: Aus Accounting MCP",
     "tools/coal-lsl-levy/index.html": "Coal LSL levy calculator",
@@ -580,6 +582,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
             ("/tools/trust-distributions/", "Trust distribution checks"),
             ("/tools/company-tax-franking/", "Company tax and franking checks"),
+            ("/tools/ozzit/", "Ozzit Excel LAMBDA library"),
             ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
             ("/tools/monthly-close-controls/", "Monthly Close Controls"),
             ("/tools/australian-tax-ai-agents/", "Australian tax tools for AI agents"),
@@ -615,23 +618,41 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     },
 }
 
-HOMEPAGE_HEADING = "Australian accounting tools, with the working explained."
+# The only email routes the Contact page may carry: general feedback and the
+# bounded Lumbridge review. Any other mailto is a consultancy route and fails.
+CONTACT_MAILTO_HREFS = (
+    "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",
+    "mailto:ryan@duguid.com.au?subject=Lumbridge%20review",
+)
+HOMEPAGE_HEADING = "Open-source accounting tools for Australian accountants."
 HOMEPAGE_HEADING_MARKUP = (
-    '<h1 id="home-title">Australian accounting tools, with the working explained.</h1>'
+    '<h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>'
 )
 HOMEPAGE_SUPPORT = (
-    "I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business "
-    "whose quarterly profit never moves while its cash runs $25,160 short."
+    "Inspect cash-flow models, calculations, and workpaper checks, with sources, "
+    "assumptions, and working visible."
 )
 HOMEPAGE_ACTIONS = (
-    ("/evaluate/#profit-and-cash", "Explore the cash-flow example"),
-    ("/tools/", "Browse all tools"),
+    ("/examples/profit-vs-cash-flow/", "Explore the cash-flow example"),
+    ("/tools/", "Browse tools by accounting task"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
-    ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),
-    ("Calculate", "/tools/#calculate-tools", "/tools/coal-lsl-levy/"),
-    ("Control", "/tools/#control-tools", "/tools/workpaper-review-gate/"),
-    ("Inspect", "/tools/#inspect-tools", "/tools/australian-tax-ai-agents/"),
+    (
+        "Understand an accounting problem",
+        "/examples/profit-vs-cash-flow/",
+        "/evaluate/#five-minute-cases",
+    ),
+    ("Try a browser calculator", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
+    (
+        "Evaluate an accounting workflow",
+        "/evaluate/manager-review-gate/",
+        "/tools/workpaper-review-gate/",
+    ),
+    (
+        "Inspect or integrate the software",
+        "/tools/australian-tax-ai-agents/#install",
+        "https://github.com/ryanduguid",
+    ),
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
@@ -665,8 +686,9 @@ HOMEPAGE_DESCRIPTION = (
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
-    "/tools/xero-trial-balance/",
-    "/tools/australian-tax-ai-agents/",
+    "/examples/profit-vs-cash-flow/",
+    "/evaluate/#independent-review",
+    "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
     "/tools/workpaper-review-gate/",
     "/evaluate/payday-super-evidence/",
@@ -678,6 +700,8 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 ARTICLE_PATTERN_PAGES = {
+    "examples/profit-vs-cash-flow/index.html",
+    "tools/ozzit/index.html",
     "tools/monthly-close-controls/index.html",
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -705,12 +729,34 @@ RATE_PAGES = {
     "rates/cents-per-kilometre/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+FORMULA_B_QUESTION = "What does the 75% in Formula B apply to?"
+# The complete Formula B answer has to name the branch it applies to, exclude
+# expense reimbursements, and carry both figures, or a reader of the answer
+# alone cannot tell an eligible allowance from a reimbursement.
+FORMULA_B_ANSWER_PHRASES = (
+    "non-casual employee paid a base rate",
+    "allowances other than expense reimbursements",
+    "section 3B(1)(b)(iii)",
+    "$7,125.00",
+    "$8,000.00",
+)
+PRIVACY_REL = "privacy/index.html"
+# Cloudflare documents detection outcomes and configuration-dependent use, so an
+# unconditional no-reporting assurance needs account-specific evidence this site
+# does not have.
+PRIVACY_FORBIDDEN_ABSOLUTES = (
+    "reports anything to the site owner",
+    "reports nothing to the site owner",
+    "nothing sent anywhere",
+)
+LLMS_ROUTE_SECTION = "Choose a route"
+TASK_ROUTES_REL = "tools/index.html"
 LEVY_PAGE_MODULE = "assets/levy-page.mjs"
 LEVY_PAGE_SCRIPT = '<script type="module" src="/assets/levy-page.mjs"></script>'
 HEADER_DATED_PAGES = {
     rel
     for rel in ARTICLE_PATTERN_PAGES
-    if rel.startswith(("tools/", "evaluate/"))
+    if rel.startswith(("tools/", "evaluate/", "examples/"))
 } | {CALCULATOR_REL, "rates/index.html", "evaluate/index.html"}
 CALCULATOR_MARKERS = [
     'name="branch"',
@@ -777,7 +823,7 @@ CALCULATOR_FIELD_HELP_IDS = {
 }
 SOCIAL_CARD_CONTEXTS = {
     "site": {
-        "label": "Public register / Australian accounting controls",
+        "label": "Open-source tool library / Australian accounting",
         "heading": [
             "Ryan Duguid:",
             "review-ready Australian",
@@ -860,7 +906,7 @@ def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
         context = "evidence"
     elif rel.startswith("tools/"):
         context = "tools"
-    elif rel.startswith("evaluate/"):
+    elif rel.startswith(("evaluate/", "examples/")):
         context = "evaluations"
     elif rel.startswith("rates/"):
         context = "rates"
@@ -1195,9 +1241,64 @@ def calculator_module_source(root: Path = core.ROOT) -> str:
     return path.read_text(encoding="utf-8") if path.is_file() else ""
 
 
+def check_formula_b_answer(html: str, failures: list[str]) -> None:
+    """Keep the visible and structured Formula B answers complete and identical."""
+    root = core.parse_structure(html)
+    answers: list[str] = []
+    for details in core.descendants(root, "details", rendered_only=True):
+        headings = core.descendants(details, "h3", rendered_only=True)
+        if not headings or core.element_text(headings[0]) != FORMULA_B_QUESTION:
+            continue
+        paragraphs = core.descendants(details, "p", rendered_only=True)
+        answers.extend(core.element_text(paragraph) for paragraph in paragraphs)
+    if len(answers) != 1:
+        failures.append(
+            f"{CALCULATOR_REL}: expected one visible {FORMULA_B_QUESTION!r} answer, "
+            f"found {len(answers)}"
+        )
+        return
+
+    parse_failures: list[str] = []
+    structured: list[str] = []
+    for block in core.json_ld_blocks(html, CALCULATOR_REL, parse_failures):
+        for node in core.nodes(block):
+            if node.get("name") != FORMULA_B_QUESTION:
+                continue
+            answer = node.get("acceptedAnswer")
+            # Any JSON shape can appear here. Report a malformed answer rather
+            # than raising out of the contract run.
+            text = answer.get("text") if isinstance(answer, dict) else None
+            if isinstance(text, str):
+                structured.append(text)
+            else:
+                failures.append(
+                    f"{CALCULATOR_REL}: structured {FORMULA_B_QUESTION!r} answer "
+                    "needs acceptedAnswer.text as a string"
+                )
+    failures.extend(parse_failures)
+    if len(structured) != 1:
+        failures.append(
+            f"{CALCULATOR_REL}: expected one structured {FORMULA_B_QUESTION!r} answer, "
+            f"found {len(structured)}"
+        )
+        return
+
+    missing = [phrase for phrase in FORMULA_B_ANSWER_PHRASES if phrase not in answers[0]]
+    if missing:
+        failures.append(
+            f"{CALCULATOR_REL}: Formula B answer omits the expense-reimbursement "
+            f"exclusion or its worked figures: {missing!r}"
+        )
+    if " ".join(structured[0].split()) != " ".join(answers[0].split()):
+        failures.append(
+            f"{CALCULATOR_REL}: structured Formula B answer differs from the visible one"
+        )
+
+
 def check_calculator_contract(
     html: str, failures: list[str], module_source: str | None = None
 ) -> None:
+    check_formula_b_answer(html, failures)
     positions = [html.find(marker) for marker in CALCULATOR_MARKERS]
     if any(position < 0 for position in positions) or positions != sorted(positions):
         failures.append(
@@ -1895,7 +1996,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
                 urlsplit(href).scheme.casefold() == "mailto"
                 and (
                     rel != "contact/index.html"
-                    or href != "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback"
+                    or href not in CONTACT_MAILTO_HREFS
                 )
                 for href in core.anchor_hrefs(page)
             )
@@ -2259,7 +2360,8 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
                     f"{sitemap_lastmod!r} exactly once, found {actual_lastmods!r}"
                 )
         llms_section = expected.get("llms_section")
-        llms_count = llms.count(url)
+        route_section = core.markdown_section(llms, LLMS_ROUTE_SECTION)
+        llms_count = llms.replace(route_section, "").count(url)
         if llms_count != 1:
             global_suffix = " globally" if llms_section else ""
             failures.append(
@@ -2571,6 +2673,9 @@ def collection_breadcrumb_shape(
     elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
         parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
     elif rel == "evaluate/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("examples/"):
+        # Worked examples are canonical pages under Home; there is no examples hub.
         parents = [("Home", "/", f"{SITE}/")]
     elif rel.startswith("evaluate/"):
         parents = [
@@ -2932,6 +3037,75 @@ def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
     return failures
 
 
+def check_task_routes(root: Path = core.ROOT) -> list[str]:
+    """Keep the four starting routes identical for readers and for engines."""
+    failures: list[str] = []
+    expected = [(label, primary) for label, primary, _ in HOMEPAGE_PREVIEW_ENTRIES]
+
+    tools_path = root / TASK_ROUTES_REL
+    tools_html = tools_path.read_text(encoding="utf-8") if tools_path.is_file() else ""
+    tools_root = core.parse_structure(tools_html)
+    navs = [
+        element
+        for element in core.descendants(tools_root, "nav", rendered_only=True)
+        if element.has_class("task-routes")
+    ]
+    if len(navs) != 1:
+        failures.append(f"{TASK_ROUTES_REL}: expected one .task-routes nav, found {len(navs)}")
+    else:
+        actual = []
+        for anchor in core.descendants(navs[0], "a", rendered_only=True):
+            labels = core.descendants(anchor, "strong", rendered_only=True)
+            label = core.element_text(labels[0]) if labels else ""
+            actual.append((label, anchor.attr("href")))
+        if actual != expected:
+            failures.append(
+                f"{TASK_ROUTES_REL}: task routes are {actual!r}, expected {expected!r}"
+            )
+
+    llms_path = root / "llms.txt"
+    llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
+    route_section = core.markdown_section(llms, LLMS_ROUTE_SECTION)
+    for label, primary in expected:
+        entry = f"- **{label}** ({SITE}{primary}):"
+        if route_section.count(entry) != 1:
+            failures.append(
+                f"llms.txt: ## {LLMS_ROUTE_SECTION} must route {label!r} to "
+                f"{SITE}{primary} exactly once"
+            )
+
+    home_path = root / "index.html"
+    home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
+    parse_failures: list[str] = []
+    listed = [
+        (item.get("name"), item.get("url"))
+        for block in core.json_ld_blocks(home, "index.html", parse_failures)
+        for node in core.nodes(block)
+        if node.get("@id") == f"{SITE}/#home-preview"
+        for item in node.get("itemListElement", [])
+        if isinstance(item, dict)
+    ]
+    failures.extend(parse_failures)
+    if listed != [(label, f"{SITE}{primary}") for label, primary in expected]:
+        failures.append(f"index.html: starting-route ItemList is {listed!r}")
+    return failures
+
+
+def check_privacy_delivery_claims(root: Path = core.ROOT) -> list[str]:
+    """Reject absolutes about what a delivery provider reports or transmits."""
+    failures: list[str] = []
+    checked = [root / PRIVACY_REL, root / "index.html", root / "llms.txt"]
+    for path in checked:
+        if not path.is_file():
+            continue
+        rel = path.relative_to(root).as_posix()
+        text = path.read_text(encoding="utf-8")
+        for phrase in PRIVACY_FORBIDDEN_ABSOLUTES:
+            if phrase in text:
+                failures.append(f"{rel}: unsupported delivery claim {phrase!r}")
+    return failures
+
+
 def check_site_contracts(paths: list[Path]) -> list[str]:
     """Check the cross-page contracts specific to this site."""
     failures: list[str] = []
@@ -2941,6 +3115,8 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
+    failures.extend(check_task_routes())
+    failures.extend(check_privacy_delivery_claims())
     failures.extend(check_collection_hubs())
     failures.extend(check_social_cards())
     failures.extend(check_robots_policy(robots))

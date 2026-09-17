@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "name": "Coal LSL eligible wages method records (s 3B of the Payroll Levy Collection Act 1992)",
+  "advice_status": "Not advice. Verify each provision against its primary source at the time of use.",
+  "notes": [
+    "A record is served only while service_supported is true. Months before 2024-01 are not served: the engine implements the earlier casual method for the browser page, but the pre-amendment text of s 3B was not read in the session that wrote this file, so no record vouches for it.",
+    "The compilation cited in assets/levy.mjs (C2026C00338) did not resolve on the Federal Register on 18 September 2026; the compilation actually read is named in each record."
+  ],
+  "records": [
+    {
+      "record_id": "s3b-from-2024-01",
+      "period_start": "2024-01-01",
+      "period_end": null,
+      "service_supported": true,
+      "review": "automated-retrieval",
+      "verified_at": "2026-09-18",
+      "verified_by": "automated retrieval (Claude Code session, 18 September 2026); no professional review recorded",
+      "citation": "Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, s 3B, as amended by the Fair Work Legislation Amendment (Protecting Worker Entitlements) Act 2023 (No 43, 2023), Sch 6 items 12 to 17, commenced 1 January 2024. Read in Compilation No. 12 (C2026C00364, compilation date 1 September 2026).",
+      "source": {
+        "title": "Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No. 12",
+        "url": "https://www.legislation.gov.au/C2004A04352/latest/text",
+        "publisher": "Federal Register of Legislation",
+        "register_id": "C2004A04352",
+        "compilation": "C2026C00364 (compilation date 1 September 2026, includes amendments up to Act No. 63, 2026)"
+      },
+      "provisions": {
+        "base_rate": "s 3B(1): greater of (a) base rate of pay including incentive-based payments and bonuses, and (b) 75% of the base rate of pay including incentive-based payments and bonuses, overtime or penalty rates, and allowances other than those for reimbursement of expenses.",
+        "annual_salary": "s 3B(2): annual salary paid including incentive-based payments and bonuses, excluding overtime or penalty rates and shift-loadings.",
+        "casual_quantifiable_loading": "s 3B(3)(a): where an industrial instrument covering the employee specifies a casual loading that can be quantified, the base rate of pay including incentive-based payments, bonuses and the casual loading.",
+        "casual_otherwise": "s 3B(3)(b): otherwise, the ordinary rate of pay including incentive-based payments and bonuses.",
+        "salary_sacrifice": "s 3B(4)(a) and (aa): base rate of pay and ordinary rate of pay are read before amounts deducted under a salary sacrifice arrangement. The engine also applies s 3B(4)(b) to annual salary.",
+        "bonus_frequency": "s 3B(4)(c) and (d) as implemented in assets/levy.mjs: incentive payments and bonuses count only where paid at least monthly."
+      },
+      "engine_branches": {
+        "base_rate": "s 3B(1)",
+        "annual_salary": "s 3B(2)",
+        "casual": ["s 3B(3)(a)", "s 3B(3)(b)"]
+      }
+    }
+  ]
+}

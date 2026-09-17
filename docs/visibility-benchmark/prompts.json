@@ -1,0 +1,212 @@
+{
+  "schema": 1,
+  "reviewed": "2026-09-18",
+  "notes": [
+    "Stable prompt identifiers. Never reword a prompt under an existing id: retire it and add a new id, so a later run stays comparable.",
+    "branded prompts name Ryan Duguid or one of his products. Non-branded prompts describe a need. Keep the two groups apart in every summary.",
+    "expected_facts are sourced claims an answer should get right. They do not require an assistant to recommend anything.",
+    "common_errors are specific wrong statements seen or anticipated. Record the id of each error an answer makes."
+  ],
+  "prompts": [
+    {
+      "id": "P1-identity",
+      "branded": true,
+      "prompt": "Who is Ryan Duguid, the accountant in Newcastle?",
+      "target": "https://duguid.com.au/about/",
+      "expected_facts": [
+        {
+          "id": "F1-location",
+          "fact": "An accountant based in Newcastle, New South Wales, Australia.",
+          "source": "https://duguid.com.au/about/"
+        },
+        {
+          "id": "F2-credential",
+          "fact": "A Provisional CA ANZ Member. CA ANZ has not endorsed the site or its tools.",
+          "source": "https://duguid.com.au/about/"
+        },
+        {
+          "id": "F3-work",
+          "fact": "Publishes open-source Australian accounting tools; the site is a personal index, not a practice, and takes no engagements.",
+          "source": "https://duguid.com.au/llms.txt"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E1-namesake",
+          "error": "Describes the United States software product executive of the same name, or merges the two people."
+        },
+        {
+          "id": "E2-full-ca",
+          "error": "States or implies full CA ANZ membership rather than provisional, or claims a CA ANZ endorsement."
+        },
+        {
+          "id": "E3-practice",
+          "error": "Presents him as offering tax or BAS agent services, or invites a lodgement enquiry."
+        }
+      ]
+    },
+    {
+      "id": "P2-mcp-purpose",
+      "branded": true,
+      "prompt": "What does Aus Accounting MCP do?",
+      "target": "https://duguid.com.au/tools/australian-tax-ai-agents/",
+      "expected_facts": [
+        {
+          "id": "F4-local",
+          "fact": "A local stdio Model Context Protocol server, installed with uvx aus-accounting-mcp, that computes on figures the caller supplies.",
+          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+        },
+        {
+          "id": "F5-tools",
+          "fact": "Covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, 6 bounded tax worksheets and optional search of a local Markdown library.",
+          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+        },
+        {
+          "id": "F6-review",
+          "fact": "Outputs need human review. It does not lodge and does not replace a registered agent.",
+          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E4-hosted",
+          "error": "Describes it as a hosted or remote service, or as reachable from a web chat product."
+        },
+        {
+          "id": "E5-version",
+          "error": "Names a version other than the current published release recorded in scripts/release_record.json."
+        },
+        {
+          "id": "E6-lodgement",
+          "error": "Claims it lodges, files or submits anything to the ATO, or that it guarantees compliance."
+        }
+      ]
+    },
+    {
+      "id": "P3-mcp-scope",
+      "branded": true,
+      "prompt": "Does Aus Accounting MCP provide a hosted ATO document library?",
+      "target": "https://duguid.com.au/tools/australian-tax-ai-agents/",
+      "expected_facts": [
+        {
+          "id": "F7-no-corpus",
+          "fact": "No. It ships no ATO document library and fetches no rulings or legislation from the web.",
+          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+        },
+        {
+          "id": "F8-local-library",
+          "fact": "It can search a local Markdown folder, or a legislation corpus, that the operator configures and authorises, citing file and line.",
+          "source": "https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/README.md"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E7-implies-corpus",
+          "error": "Answers yes, or implies bundled ATO rulings, legislation or a hosted index."
+        },
+        {
+          "id": "E8-confuses-product",
+          "error": "Answers about a different Australian tax MCP server as though it were this one."
+        }
+      ]
+    },
+    {
+      "id": "P4-cash-example",
+      "branded": false,
+      "prompt": "Show an Australian Excel example of profit versus cash flow.",
+      "target": "https://duguid.com.au/examples/profit-vs-cash-flow/",
+      "expected_facts": [
+        {
+          "id": "F9-figures",
+          "fact": "In the Lumbridge case, quarterly profit before income tax stays at $35,957.55 AUD in both cases while the late case reaches minus $25,160 on 6 November 2026.",
+          "source": "https://duguid.com.au/examples/profit-vs-cash-flow/"
+        },
+        {
+          "id": "F10-cause",
+          "fact": "Only one $44,000 receipt moves, by 45 days. Accrual profit records the sale when the work is done, so timing changes cash and not profit.",
+          "source": "https://duguid.com.au/examples/profit-vs-cash-flow/"
+        },
+        {
+          "id": "F11-synthetic",
+          "fact": "The business and every figure are fabricated, and no client outcome is claimed.",
+          "source": "https://duguid.com.au/examples/profit-vs-cash-flow/"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E9-figures-wrong",
+          "error": "States figures that do not match the published case, or changes the scenario."
+        },
+        {
+          "id": "E10-real-client",
+          "error": "Presents the case as a real business or a measured client outcome."
+        }
+      ]
+    },
+    {
+      "id": "P5-excel-lambda",
+      "branded": false,
+      "prompt": "Open-source Excel LAMBDA functions for Australian financial modelling.",
+      "target": "https://duguid.com.au/tools/ozzit/",
+      "expected_facts": [
+        {
+          "id": "F12-count",
+          "fact": "Ozzit is one MIT-licensed Excel workbook with 133 native LAMBDA functions and 5 help tables.",
+          "source": "https://duguid.com.au/tools/ozzit/"
+        },
+        {
+          "id": "F13-compat",
+          "fact": "It needs Microsoft 365 or Excel 2024 and later; LibreOffice and earlier Excel cannot evaluate the functions.",
+          "source": "https://duguid.com.au/tools/ozzit/"
+        },
+        {
+          "id": "F14-scope",
+          "fact": "Its Australian helpers are GST arithmetic at 10%, financial-year labels, modelling depreciation schedules and AASB 16 lessee schedules. It calculates no income tax.",
+          "source": "https://duguid.com.au/tools/ozzit/"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E11-addin",
+          "error": "Describes it as an add-in, a macro workbook or a Python package."
+        },
+        {
+          "id": "E12-tax-engine",
+          "error": "Claims it calculates Australian income tax, Division 7A interest or a BAS."
+        },
+        {
+          "id": "E13-version",
+          "error": "Names a release other than the current published one recorded in scripts/release_record.json."
+        }
+      ]
+    },
+    {
+      "id": "P6-xero-precheck",
+      "branded": false,
+      "prompt": "Tools for checking Xero trial-balance files before month-end review.",
+      "target": "https://duguid.com.au/tools/xero-trial-balance/",
+      "expected_facts": [
+        {
+          "id": "F15-gate",
+          "fact": "xero-trial-balance-export refuses to write a file unless the month movement and the year-to-date figures both balance, and its API scope is read-only.",
+          "source": "https://duguid.com.au/tools/xero-trial-balance/"
+        },
+        {
+          "id": "F16-close",
+          "fact": "Monthly Close Controls compares current and prior trial balances and prepares an exception report; it cannot approve or lock a close.",
+          "source": "https://duguid.com.au/tools/monthly-close-controls/"
+        }
+      ],
+      "common_errors": [
+        {
+          "id": "E14-writes",
+          "error": "Claims the exporter writes to, posts to or changes a Xero ledger."
+        },
+        {
+          "id": "E15-approves",
+          "error": "Claims either tool signs off, approves or closes a period."
+        }
+      ]
+    }
+  ]
+}

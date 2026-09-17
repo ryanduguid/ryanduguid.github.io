@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://duguid.com.au/rates/register/schema/register.schema.json",
+  "title": "Rates register manifest",
+  "type": "object",
+  "required": ["schema_version", "register_version", "series", "advice_status"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "register_version": {"type": "string", "pattern": "^[0-9]{4}\\.[0-9]{2}\\.[0-9]{2}(\\.[1-9][0-9]*)?$"},
+    "series": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"type": "string", "pattern": "^series/[a-z0-9]+(-[a-z0-9]+)*\\.json$"}
+    },
+    "advice_status": {"type": "string", "const": "Not advice. Verify each figure against its primary source at the time of use."}
+  }
+}

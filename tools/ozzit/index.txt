@@ -1,0 +1,143 @@
+# Ozzit: Excel LAMBDA functions for Australian financial modelling
+
+Source: https://duguid.com.au/tools/ozzit/
+
+> A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
+
+# Ozzit: Excel LAMBDA functions for Australian financial modelling
+
+Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial-year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
+
+Current release v3.4.1, published 13 September 2026, verified 18 September 2026. Release record and verification on GitHub.
+
+Published 18 September 2026. Last reviewed 18 September 2026.
+
+## What Ozzit is
+
+An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
+
+The v3.4.1 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
+
+The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial-year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
+
+## Who it is for and what it needs
+
+It suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.
+
+What the workbook needs. Scroll sideways on small screens.
+
+Requires | Microsoft 365 or Excel 2024 and later, with LAMBDA and dynamic arrays
+Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
+Contains | No VBA, no macros, no add-in and no external link
+Licence | MIT, covering the workbook, the formula source and the function index
+Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
+
+## Selected functions
+
+Ten of the 133, with their published signatures. The full index is in functions.csv.
+
+Every Ozzit name ends with a lambda, the Greek letter this site's Latin-1 fonts do not carry. The names below are written without that final character, so take the exact name from the workbook or the function index rather than retyping one from this page. In Excel, typing =oz.GSTExtract offers the complete name for you to accept.
+
+Selected functions from the v3.4.1 index. Scroll sideways on small screens.
+
+Function | Signature | What it returns
+oz.GSTExtract | (Amounts, [Rate]) | The GST contained in GST-inclusive amounts
+oz.GSTAdd | (Amounts, [Rate]) | GST added to GST-exclusive amounts
+oz.FinancialYear | (Dates, [StartMonth]) | The Australian financial year a date falls in, starting 1 July
+oz.PrimeCost | (Cost, Life) | A straight-line depreciation schedule in whole years
+oz.DiminishingValue | (Cost, Life) | A diminishing-balance schedule at 200% of the straight-line rate
+oz.Amortise | (Principals, APRs, Terms, StartDates, [Timeline]) | A corkscrew amortisation schedule
+oz.LeaseLiability | (Payments, Rate, [InAdvance]) | Present value of lease payments unpaid at commencement
+oz.PeriodRate | (AnnualRate, [PeriodsPerYear]) | An effective annual rate converted to a rate per period
+oz.DayCountRate | (Timeline, APR, [Convention], [EndDates]) | A period rate under 30/360, Actual/360, Actual/365 or Actual/Actual
+oz.IRR | (Values, Dates) | IRR corrected for a first investment outside the first period
+
+## One worked example
+
+Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. In any cell of the workbook, start typing =oz.GSTExtract, accept the complete name Excel offers, and pass it 1100:
+
+```
+Input     1100      GST-inclusive, assumed wholly taxable
+Function  oz.GSTExtract, at the default 10% rate
+Result    100.00
+Check     1100 / 11 = 100.00
+```
+
+That is the whole of the function's contribution: 10% arithmetic on an amount you supply.
+
+Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
+
+The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.1. The v3.4.1 gate results below are the record for the current file.
+
+## Download and use it
+
+Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.
+
+- Open the v3.4.1 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.4.1 asset is 438,897 bytes with SHA-256 71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7.
+- Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
+
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.1 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+
+## Release verification
+
+Release v3.4.1 was built from a signed tag and gated before publication. On 13 September 2026, in Excel 16.0 build 20430:
+
+- 1,129 formulas recalculated with 0 in error.
+- 868 assertions ran with 0 failures: 566 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.
+- 19,444 cached values were confirmed to equal what their formulas produce.
+- 207 unit tests passed, and the published formula source reproduced all 138 named formulas.
+
+Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct, and they are not an independent review.
+
+## Limits
+
+Not tax, legal or financial advice. The functions calculate; a person decides the accounting treatment and signs off.
+
+- The GST helpers do 10% arithmetic only. They do not classify a supply, test registration or prepare a BAS.
+- oz.PrimeCost and oz.DiminishingValue are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
+- The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment, or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
+- The library contains no individual income tax, Medicare levy, Division 7A interest or tax-rate cards.
+- The 13-week cash-flow workbook in the repository's templates folder is a separate template, not a function in this library.
+- Known defects are listed in the repository's changelog and issues. Check a schedule against an independent calculation before relying on it.
+
+## Common questions
+
+### What is Ozzit?
+
+An Excel workbook containing 133 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the MIT licence. It has no add-in, macro or external dependency.
+
+### Which Excel versions can run it?
+
+Microsoft 365 or Excel 2024 and later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
+
+### Does Ozzit calculate Australian tax?
+
+No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations.
+
+### Where do I get the current release?
+
+Release v3.4.1, published on 13 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.
+
+## Related
+
+- Profit vs cash flow: an Australian Excel worked example
+- Browser calculators, nothing to install
+- Construction WIP schedule
+- All tools
+- Evidence and Assurance
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1
+- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv
+- Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/docs/workbook-use.md
+- the v3.4.1 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff
+- Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- All tools: https://duguid.com.au/tools/
+- Evidence and Assurance: https://duguid.com.au/evidence/

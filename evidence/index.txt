@@ -10,9 +10,9 @@ Home / Evidence behind the tools
 
 This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.
 
-Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
+Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
 ## Identity and credentials
 
@@ -99,8 +99,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
-- OpenAccountants BAS guide: https://github.com/OpenAccountants/openaccountants/pull/85
-- Meltano refresh-token retention fix: https://github.com/meltano/sdk/pull/3727
+- pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
+- pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url

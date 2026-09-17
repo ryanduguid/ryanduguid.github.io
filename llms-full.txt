@@ -12,53 +12,53 @@ Source: https://duguid.com.au/
 
 > Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
 
-Public register / Australian accounting controls
+Open-source tool library / Australian accounting
 
-# Australian accounting tools, with the working explained.
+# Open-source accounting tools for Australian accountants.
 
-I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.
+Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.
 
-A personal open-source index, not an accounting practice.
+A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
-Explore the cash-flow example Browse all tools
+Explore the cash-flow example Browse tools by accounting task
 
 ## Profit does not pay the next bill.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. An independent accountant trial is pending. Offer a review of the Lumbridge case.
+Synthetic demonstration. An independent accountant trial is pending. Review the Lumbridge case yourself.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
-Tool register / four review tasks
+Starting routes / four ways in
 
-## Start with the work to review
+## Start with what you came to do
 
-### Extract
+### Understand an accounting problem
 
-Get records into a shape that can be reconciled and reviewed.
+Follow the fictional Lumbridge cash-flow case on the page: same quarterly profit, a $25,160 cash gap. The Excel workbook is optional.
 
-Xero trial balance CSV export
+Five-minute accounting cases
 
-### Calculate
+### Try a browser calculator
 
-Apply a rule without hiding the branch, formula, or rounding.
+Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser, without sending them to a server.
 
-Coal LSL levy calculator
+Business planning calculators
 
-### Control
+### Evaluate an accounting workflow
 
-Stop incomplete work before it reaches a manager.
+Rerun a fabricated BAS pack through the Workpaper Review Gate and see exactly why a pack is sent back. Needs Python; uses fabricated files only.
 
 Workpaper Review Gate
 
-### Inspect
+### Inspect or integrate the software
 
-Compare Australian tax tools for AI agents and check their limits.
+Source repositories, install commands and Python packages, plus an MCP server. That is a standard way to hand an AI assistant a fixed set of tools.
 
-Australian tax tools for AI agents
+Source on GitHub
 
 Review aids only. No client files. No lodgement. Human sign-off.
 
@@ -88,7 +88,7 @@ Formula A, base rate plus bonuses
 
 $6,000.00
 
-Formula B, 75 per cent of every component
+Formula B, 75 per cent of the aggregate
 
 $7,125.00
 
@@ -126,7 +126,7 @@ Start with the Excel cash-flow example or browser calculator. Firms using Claude
 
 No install
 
-Open the browser calculator with fabricated figures. Nothing to install and nothing leaves the browser.
+Open the browser calculator with fabricated figures. Nothing to install, and the figures you enter stay in the browser.
 
 Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
@@ -206,9 +206,9 @@ Practice software
 
 Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
-Open the evidence register Browse reproducible evaluations
+Open the evidence register Browse reproducible evaluations Review the Lumbridge case yourself
 
-The evidence supports limited claims about the software, not endorsements or client outcomes.
+The evidence supports limited claims about the software, not endorsements or client outcomes. No independent accountant has yet completed the Lumbridge review.
 
 ## Five checks before a claim leaves the page
 
@@ -228,29 +228,25 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 ## Links
 
-- Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
-- Browse all tools: https://duguid.com.au/tools/
-- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Browse tools by accounting task: https://duguid.com.au/tools/
+- Review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- Extract: https://duguid.com.au/tools/#extract-tools
-- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
-- Calculate: https://duguid.com.au/tools/#calculate-tools
-- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Control: https://duguid.com.au/tools/#control-tools
+- Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- Try a browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Business planning calculators: https://duguid.com.au/tools/business-calculators/
+- Evaluate an accounting workflow: https://duguid.com.au/evaluate/manager-review-gate/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Inspect: https://duguid.com.au/tools/#inspect-tools
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Inspect or integrate the software: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Source on GitHub: https://github.com/ryanduguid
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - reproducible evaluation: https://duguid.com.au/evaluate/
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Manager review gate Reproduce the incomplete-pack checks.: https://duguid.com.au/evaluate/manager-review-gate/
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
-- Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
@@ -272,7 +268,7 @@ Home
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
 ## The short facts
 
@@ -359,7 +355,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
-- Lumbridge case: https://duguid.com.au/evaluate/#profit-and-cash
+- Lumbridge case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
@@ -395,9 +391,9 @@ Home / Evidence behind the tools
 
 This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.
 
-Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
+Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
 ## Identity and credentials
 
@@ -484,8 +480,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
-- OpenAccountants BAS guide: https://github.com/OpenAccountants/openaccountants/pull/85
-- Meltano refresh-token retention fix: https://github.com/meltano/sdk/pull/3727
+- pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
+- pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
@@ -589,52 +585,37 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
 
-Last reviewed 14 September 2026.
+Last reviewed 18 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
-Lumbridge Services is a fictional maintenance business in Newcastle, NSW. This worked example asks whether the owner can pay the next bills if one customer pays late. All businesses, customers, invoices, and figures are fabricated; this is not a client result.
+Lumbridge Services is a fictional maintenance business in Newcastle, NSW. Moving one $44,000 customer receipt from 14 October to 28 November 2026 leaves quarterly profit before income tax unchanged at $35,957.55 while daily cash falls to ($25,160.00) on 6 November. All amounts are AUD and every figure is fabricated.
 
-Download the synthetic Excel forecast or download the workbook, source files, and trial guide. Use desktop Excel with automatic calculation. No Xero login, macros, or AI agent is needed.
-
-The forecast covers October to December 2026 in AUD. Moving one $44,000 receipt from 14 October to 28 November changes when cash is available. It leaves the quarter's revenue and profit unchanged.
-
-Same work performed, different receipt dates. Scroll sideways on small screens.
+Summary of the worked example. Scroll sideways on small screens.
 
 Forecast measure | On time | 45 days late
-Quarter revenue | $180,000.00 | $180,000.00
 Profit before income tax | $35,957.55 | $35,957.55
-October closing cash | $32,040.00 | ($11,960.00)
 Lowest daily closing cash | $16,800.00 on 7 October | ($25,160.00) on 6 November
 December closing cash | $67,320.00 | $67,320.00
 
-The late case first runs short on 28 October. December cash catches up after the receipt arrives, but that later recovery cannot fund the earlier payments. Keeping the example's assumed $15,000 cash buffer would require $40,160 above the late-case trough.
+Read the full worked example: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.
 
-### The decision to examine
+This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy or time saving has been measured.
 
-Confirm the customer receipt date and resolve the earlier cash gap before approving discretionary equipment spending. Then check actual collections against the forecast each week. No overdraft or new funding is assumed.
+## Review the Lumbridge case: a bounded task
 
-At 31 December, the model still has $12,600 GST, $5,000 PAYG withholding, and $13,200 supplier invoices payable. Its closing bank balance includes cash needed for those obligations.
+No independent accountant has completed this review yet. This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
 
-### Try the workbook
+- Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
+- Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.
+- Change Assumptions!B2 from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, December closing cash, and profit before income tax.
+- Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.
+- Restore 0, save a copy, reopen it, and confirm the base figures return.
+- List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
 
-- Open the Model and Cash 13 weeks sheets and find the profit and cash figures.
-- Change Assumptions!B2 from 0 to 45 calendar days. Trace invoice OPEN-V and the cash shortfall.
-- Restore 0, save a copy, and reopen it. The workbook supports only whole-day receipt delays from 0 to 120; exported CSVs and briefing text stay fixed.
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
 
-Varrock and Falador are the fictional service lines, named after Old School RuneScape locations. No game knowledge is needed.
-
-### Evidence and limits
-
-Maintainer trial, 14 September 2026: Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0-to-45-to-0 receipt-delay sequence and saving and reopening the file. The exact Excel build and individual result figures were not recorded in that feedback.
-
-This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
-
-Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.
-
-Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
-
-Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.
+Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External evaluation of this case is pending; this page reports no completed trial.
 
 ## Choose an example to reproduce
 
@@ -751,12 +732,10 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Evidence register: https://duguid.com.au/evidence/
 - Tools register: https://duguid.com.au/tools/
 - Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
-- Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
-- download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
+- Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
-- sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
-- Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
+- Download the blank response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example
@@ -768,7 +747,6 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Workpaper Review Gate: https://duguid.com.au/evaluate/manager-review-gate/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
-- Excel cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
 - browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
@@ -1448,17 +1426,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/
 
-> Browse 11 open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+> Browse 12 open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
 
 # Tools
 
 Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
-Try one synthetic Payday Super CSV, review a fabricated BAS pack, or choose another example.
+Last reviewed 18 September 2026.
 
-Last reviewed 14 September 2026.
+## Start with what you came to do
 
-## Start from your work
+Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+
+## Find a tool by accounting area
 
 - Cash flow and management reporting
 
@@ -1608,6 +1588,20 @@ Requires verified income composition, distributions, and ledger inputs.
 
 Try an example Source code Last commit 13 September 2026
 
+### Ozzit Excel LAMBDA library
+
+133 native Excel LAMBDA functions and 5 help tables for GST, financial years, depreciation, amortisation and AASB 16 lessee schedules.
+
+Delivery
+
+Excel workbook
+
+Boundary
+
+Calculates only. The reviewer decides the accounting treatment and the tax position.
+
+Try an example Source code Last commit 17 September 2026
+
 Control
 
 ## Stop incomplete work before manager review
@@ -1668,7 +1662,7 @@ Three of the tools carry reproducible evaluations against fixed releases, so a s
 
 Ozzit runs in Microsoft 365 or Excel 2024 and later. The toolkit and Power BI repositories include setup instructions.
 
-Download Ozzit (Excel workbook) Ozzit examples and source Power Query and VBA ledger toolkit Power BI accounting project
+Ozzit: functions, compatibility and release Download Ozzit (Excel workbook) Ozzit examples and source Power Query and VBA ledger toolkit Power BI accounting project
 
 ## Related resources
 
@@ -1680,12 +1674,11 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
-- Try one synthetic Payday Super CSV: https://duguid.com.au/tools/payday-super/#try-example
-- review a fabricated BAS pack: https://duguid.com.au/evaluate/manager-review-gate/
-- choose another example: https://duguid.com.au/evaluate/#example-routes
-- Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
+- Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
+- Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
-- Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
 - Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
@@ -1705,6 +1698,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting-skills
 - Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Try an example: https://duguid.com.au/tools/payday-super/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
 - Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
@@ -1714,6 +1708,9 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Try an example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/
+- Try an example: https://duguid.com.au/tools/ozzit/#worked-example
+- Source code: https://github.com/ryanduguid/Ozzit
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Try an example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
@@ -1723,7 +1720,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest
-- Ozzit examples and source: https://github.com/ryanduguid/Ozzit
 - Power Query and VBA ledger toolkit: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit
 - Power BI accounting project: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/apps/australian-accounting-power-bi
 - OpenAccountants tax guides for coding agents: https://github.com/openaccountants/openaccountants
@@ -2098,7 +2094,7 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 18 September 2026.
 
 Load the synthetic example
 
@@ -2162,7 +2158,7 @@ The notes below distinguish rules in the Act from questions this tool does not r
 - Are termination payments (redundancy, payment in lieu of notice, severance, and leave paid out) eligible wages?
 - Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages?
 - Is unpaid leave eligible wages? The Levy Advice form has a section for it.
-- Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) adds overtime, penalty rates, and allowances to 75% of the base rate without naming shift loading, and section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
+- Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) takes 75% of the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime, penalty rates, and allowances other than expense reimbursements, and does not name shift loading; section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
 - Do allowances, overtime, and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime, and penalty rates. The branch adds back only incentive-based payments, bonuses, and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.
 - Do allowances count for annual salary employees? Section 3B(2) excludes overtime, penalty rates, and shift loading and does not mention allowances.
 - Does a fortnightly or weekly bonus satisfy 'paid at least once a month'? This tool assumes it does.
@@ -2177,6 +2173,10 @@ The Act, the Regulations, and the guidance note publish no rounding rule. This t
 ### What levy rate does this calculator use?
 
 2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.
+
+### What does the 75% in Formula B apply to?
+
+For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026.
 
 ### Which bonuses count towards eligible wages?
 
@@ -2194,7 +2194,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations, 
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Sources
 
@@ -2216,6 +2216,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018: https://www.legislation.gov.au/F2018L00217/latest/text
 - Coal LSL: https://coallsl.com.au
 - Open an issue: https://github.com/ryanduguid/ryanduguid.github.io/issues
+- contact page: https://duguid.com.au/contact/
 - Coal LSL, Determining eligible wages guidance note: https://coallsl.com.au/guidance-notes/eligible-wages
 - Coal LSL, governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Subcontract ledger workflows for construction and mining: https://duguid.com.au/tools/subcontractor-ledgers/
@@ -2388,7 +2389,7 @@ pip install .
 
 Source on GitHub · Primary source: the ATO's small business benchmarks.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -2425,6 +2426,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - A Xero trial balance export that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -2502,7 +2504,7 @@ Nothing this engine produces is tax, legal, or financial advice, an assessment o
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -2542,6 +2544,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Company tax rate and franking account checks: https://duguid.com.au/tools/company-tax-franking/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
@@ -2590,7 +2593,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Fabricated worked example
 
@@ -2649,6 +2652,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - uv installed: https://docs.astral.sh/uv/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Is this trust distribution in the section 100A green zone: https://duguid.com.au/tools/trust-distributions/
@@ -2702,7 +2706,7 @@ Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. T
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -2737,6 +2741,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
+- contact page: https://duguid.com.au/contact/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -2814,7 +2819,7 @@ wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o
 
 Source on GitHub · Use it from the subcontractor workflows
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -2851,6 +2856,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -2909,7 +2915,7 @@ python export_tb.py --date 2026-06-30
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Synthetic worked example
 
@@ -2955,6 +2961,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- contact page: https://duguid.com.au/contact/
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
@@ -2977,9 +2984,9 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.0, tagged source on GitHub.
+Reference release v0.2.2, the current published release, verified 18 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 14 September 2026.
+Published 25 August 2026. Last reviewed 18 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3005,7 +3012,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.2. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.2 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -3041,9 +3048,11 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
 
+Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.2, and each evaluation keeps the release it was run against.
+
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Limits
 
@@ -3096,25 +3105,28 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.0
+- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
-- australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md
+- australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.3/packages/australian-tax-calculators/README.md
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
-- worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.2/packages/australian-tax-calculators/README.md#supported-periods
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.0/apps/aus-accounting-mcp/README.md#tools
+- worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.3/packages/australian-tax-calculators/README.md#supported-periods
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.2/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
 - Adopt: https://duguid.com.au/#adopt
+- Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- evaluation: https://duguid.com.au/evaluate/
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -3172,7 +3184,7 @@ The output goes outside the clone on purpose. A readiness pack names a client's 
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -3205,6 +3217,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Run the two fabricated BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
+- contact page: https://duguid.com.au/contact/
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - What Workpaper Review Gate refuses: https://duguid.com.au/tools/refusals/#workpaper-review-gate
@@ -3229,11 +3242,13 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures. Email ryan@duguid.com.au.
+For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+
+Email addresses here are obfuscated against scraping and need scripts to open. If a link does not work, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
-Do not post taxpayer information or client files to public repositories. Nothing here is tax, legal, or financial advice.
+Do not post taxpayer information or client files to public repositories or send them by email.
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
@@ -3241,11 +3256,13 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 14 September 2026.
+Published 30 August 2026. Last reviewed 18 September 2026.
 
 ## Links
 
-- fictional Newcastle cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- fictional Newcastle cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
+- response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
@@ -4814,7 +4831,7 @@ The linked repositories have different scopes and supported periods. A preparati
 ## Links
 
 - Open the business calculators: https://duguid.com.au/tools/business-calculators/
-- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/#general-tax
 - Deductions: https://duguid.com.au/tools/accounting-questions/#deductions
 - Starting a business: https://duguid.com.au/tools/accounting-questions/#business-setup
@@ -4913,6 +4930,7 @@ The linked repositories have different scopes and supported periods. A preparati
 - Link to question 59: https://duguid.com.au/tools/accounting-questions/#q59
 - Link to question 60: https://duguid.com.au/tools/accounting-questions/#q60
 - Link to question 61: https://duguid.com.au/tools/accounting-questions/#q61
+- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
 - Link to question 62: https://duguid.com.au/tools/accounting-questions/#q62
 - Link to question 63: https://duguid.com.au/tools/accounting-questions/#q63
 - Link to question 64: https://duguid.com.au/tools/accounting-questions/#q64
@@ -4990,7 +5008,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last reviewed 14 September 2026.
+Published 11 September 2026. Last reviewed 18 September 2026.
 
 JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
 
@@ -5168,7 +5186,7 @@ Download forecast CSV
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
 - Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Lumbridge cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 
 ---
 
@@ -5184,7 +5202,7 @@ Home
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 15 September 2026.
+Published 12 September 2026. Last reviewed 18 September 2026.
 
 ## Browser calculations
 
@@ -5197,6 +5215,10 @@ The accounting-question search also runs in your browser. It does not send searc
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
 Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+
+Cloudflare also rewrites email addresses on delivery to make basic address collection harder. The rewriting covers the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template are served as plain text and carry the address as written. Obfuscation does not make the address private. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
+
+Cloudflare also supplies visitor-verification code as part of page delivery. Both additions are made after the files leave this website's source and are served from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see Cloudflare's cookie documentation. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.
 
@@ -5222,9 +5244,327 @@ The website source is available under its MIT licence, which includes its warran
 
 - Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
+- rewrites email addresses on delivery: https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/
+- contact page: https://duguid.com.au/contact/
+- Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
+- Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/
 - GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
-- Contact page: https://duguid.com.au/contact/
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
 - MIT licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+
+---
+
+# Profit vs cash flow: an Australian Excel worked example
+
+Source: https://duguid.com.au/examples/profit-vs-cash-flow/
+
+> A fictional Newcastle business holds quarterly profit at $35,957.55 AUD while one late $44,000 receipt leaves cash $25,160 short. Workbook, figures and limits.
+
+# Profit vs cash flow: an Australian Excel worked example
+
+How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
+
+Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.
+
+Published 18 September 2026. Last reviewed 18 September 2026.
+
+## The business and the question
+
+Lumbridge Services is a fictional maintenance business in Newcastle, New South Wales. It bills two service lines, Varrock maintenance and Falador repairs, and invoices $60,000 of work each month: $40,000 Varrock and $20,000 Falador, before GST. The forecast covers the quarter from 1 October to 31 December 2026.
+
+The owner wants to buy equipment. The quarter shows a profit, so the money looks available. The question is whether the bank account can carry the business to the end of December if one customer pays late.
+
+The model holds every other assumption still. Monthly materials are $12,000 and overhead $6,000. Gross wages are $24,000 a month, with $19,000 paid to employees, $5,000 of PAYG withholding and $2,880 of super. The opening bank balance, receivables, payables, GST, loan and tax instalment all come from fabricated 30 September 2026 balances. The owner's policy is to keep $15,000 in the bank.
+
+## The one change: a 45-day delay
+
+Invoice OPEN-V is September work for the Varrock line: $40,000 plus $4,000 GST, so $44,000 is banked. The baseline case receives it on 14 October 2026. The late case receives the same $44,000 on 28 November 2026, 45 calendar days later.
+
+Nothing else changes. The work was performed in September either way, the invoice was issued either way, and the customer pays in full either way. Only the day the money lands moves.
+
+The workbook exposes that single control. Assumptions!B2 holds the delay in whole calendar days and accepts 0 to 120. Every figure below is the model's own output at 0 and at 45.
+
+## Both cases, side by side
+
+Same work, same customer, different receipt date. All amounts AUD. Scroll sideways on small screens.
+
+Forecast measure | Receipt on time | Receipt 45 days late
+Quarter revenue | $180,000.00 | $180,000.00
+Profit before income tax | $35,957.55 | $35,957.55
+October customer receipts | $66,000.00 | $22,000.00
+October closing cash | $32,040.00 | ($11,960.00)
+First day the bank account is negative | None in the quarter | 28 October 2026
+Lowest daily closing cash | $16,800.00 on 7 October | ($25,160.00) on 6 November
+December closing cash | $67,320.00 | $67,320.00
+
+The two cases end the quarter with the same cash because the delayed receipt still arrives, on 28 November. That later recovery cannot pay the wages, supplier invoices and GST that fall due in late October and early November.
+
+Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
+
+Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 13 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, ($11,960), ($11,960), ($25,160), $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
+
+## Why profit did not move
+
+Profit is measured on the accrual basis. Lumbridge earned the OPEN-V revenue when it performed the work in September, so the sale sits in the September accounts in both cases. Moving the receipt changes the debtor balance, not the revenue, and no expense changes either. Quarterly profit before income tax is $11,985.85 a month in both cases, or $35,957.55 for the quarter.
+
+Cash is measured on the day money moves. The payments the business owes do not wait for a customer. In the late case October receipts fall from $66,000 to $22,000, while the same $63,960 of payments still leaves the account, including materials on 7 October, the September-quarter GST of $12,600 and a $3,000 income tax instalment on 28 October, and net wages and super on 28 October.
+
+The model states the bridge between the two. It starts from profit, adds back depreciation of $200 a month and the non-cash leave provision of $2,254.15 a month, adjusts for the movement in gross receivables and the GST liability, then subtracts the $1,000 monthly loan principal and the tax instalment. A separate direct cash schedule ties to that bridge exactly: the model's reconciliation difference is $0.00 in every month of both cases.
+
+Three obligations are still outstanding at 31 December in both cases: $12,600 of GST, $5,000 of PAYG withholding and $13,200 of supplier invoices. The $67,320 closing balance is not spendable surplus.
+
+## The decision for a person
+
+The model does not approve or refuse the equipment purchase. It gives a reviewer three things to act on:
+
+- Confirm the OPEN-V receipt date with the customer before committing to discretionary spending.
+- Resolve the funding gap between 28 October and mid-November, which the model neither borrows nor overdraws. No overdraft, new loan or owner contribution is assumed anywhere in this forecast.
+- Compare actual collections with the forecast each week, because the whole result turns on one date.
+
+Whether the business should defer the purchase, arrange finance or accept the risk is a judgement about a real business with real customers. This example supplies the arithmetic, not that judgement.
+
+## Open the workbook
+
+Needs desktop Excel with automatic calculation. No Xero login, add-in, macro or AI agent is used, and the workbook contains no macros and no external links.
+
+- Download the synthetic Excel forecast (23,506 bytes).
+- Download the sample pack: the same workbook, the 6 source files, model notes, the management briefing, the trial guide, the fixed CSV exports and the source MIT licence.
+- Read the sample record for the source commit, hash and verification.
+- Open the Model and Cash 13 weeks sheets and find quarterly profit and December closing cash.
+- Change Assumptions!B2 from 0 to 45. Trace invoice OPEN-V and watch the lowest daily balance and its date.
+- Restore 0, then save a copy and reopen it to confirm the original figures return.
+
+Only the workbook recalculates. The briefing, the CSV exports and the JSON summary in the sample pack are fixed exports taken at a 0-day delay: editing the workbook does not rewrite them. Rebuild from source with the matching delay when you need an export and a workbook that agree.
+
+## Rebuild it from source
+
+The example lives in the au-fpa-pack repository, an Australian extension of Jeff Brines / Guiderail's openfpa. From a checkout of the captured commit, with Python 3.11 and uv:
+
+```
+uv sync --locked --extra dev
+uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py
+uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py --delay-days 45
+```
+
+Each run writes the workbook, briefing and schedules to examples/lumbridge-services/output/ and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect quarter_profit_before_tax of 35957.55 in both runs, and minimum_daily_cash of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.
+
+Read the source, assumptions and trial guide at the captured commit, or use the reviewer trial guide to record an independent review.
+
+## Provenance and verification
+
+- Source. au-fpa-pack at commit 386c7ff. The example is part of that repository, not of the published au-fpa-pack v0.1.1 distribution, so the commit rather than the release identifies it.
+- Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
+- Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository's offline suite passed.
+- Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
+- Maintainer trial. On 14 September 2026 Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0 to 45 to 0 sequence and saving and reopening. The exact Excel build and individual figures were not recorded in that report.
+- Independent review. None. No accountant outside this project has completed the trial. Offer a review of the Lumbridge case.
+
+## Limits
+
+This is a fabricated demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.
+
+- The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
+- Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding-table result.
+- Payroll tax is nil because annualised wages and super of $322,560 sit below the bundled $1.2 million New South Wales threshold for a single ungrouped employer. Grouping and interstate wages need separate assessment.
+- Daily balances net everything dated on the same day. They do not establish intraday liquidity or the order in which payments clear.
+- The output is not a complete forecast statutory balance sheet, and it does not calculate company income tax expense.
+- The example does not test when a super fund receives a contribution. Payday Super timing covers that question.
+
+Varrock and Falador are Old School RuneScape naming references. No game assets or prices are used, and no affiliation with Jagex is claimed. No game knowledge is needed.
+
+## Common questions
+
+### How can a business make a profit and still run out of cash?
+
+Profit records revenue when the work is performed and cash records money when it arrives. In this example the September work stays in September profit whether the $44,000 invoice is banked on 14 October or 28 November, so a 45-day delay leaves quarterly profit at $35,957.55 while the bank account falls to minus $25,160 on 6 November.
+
+### What changes between the two cases?
+
+One date. Invoice OPEN-V, worth $40,000 plus $4,000 GST, is received on 14 October 2026 in the baseline and on 28 November 2026 in the late case. Revenue, expenses, wages, supplier terms and every other payment date are identical.
+
+### Why do both cases end December with the same cash?
+
+The delayed receipt still arrives inside the quarter, on 28 November, so both cases close December at $67,320. The recovery is too late to fund the payments due in late October and early November, which is why the daily view matters more than the closing balance.
+
+### Is this a real client case?
+
+No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed, and an independent accountant trial has not been completed.
+
+## Related
+
+- Ozzit: Excel LAMBDA functions for Australian modelling
+- Browser cash-flow and planning calculators
+- Monthly Close Controls
+- Reproducible accounting tool evaluations
+- Evidence and Assurance
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fabricated and no client outcome is claimed.
+
+## Links
+
+- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
+- Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
+- Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
+- Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- uv: https://docs.astral.sh/uv/
+- Read the source, assumptions and trial guide at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
+- reviewer trial guide: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services/TRIAL.md
+- au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1
+- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- Payday Super timing: https://duguid.com.au/tools/payday-super/
+- Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
+- Browser cash-flow and planning calculators: https://duguid.com.au/tools/business-calculators/
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
+- Reproducible accounting tool evaluations: https://duguid.com.au/evaluate/
+- Evidence and Assurance: https://duguid.com.au/evidence/
+
+---
+
+# Ozzit: Excel LAMBDA functions for Australian financial modelling
+
+Source: https://duguid.com.au/tools/ozzit/
+
+> A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
+
+# Ozzit: Excel LAMBDA functions for Australian financial modelling
+
+Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial-year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
+
+Current release v3.4.1, published 13 September 2026, verified 18 September 2026. Release record and verification on GitHub.
+
+Published 18 September 2026. Last reviewed 18 September 2026.
+
+## What Ozzit is
+
+An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
+
+The v3.4.1 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
+
+The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial-year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
+
+## Who it is for and what it needs
+
+It suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.
+
+What the workbook needs. Scroll sideways on small screens.
+
+Requires | Microsoft 365 or Excel 2024 and later, with LAMBDA and dynamic arrays
+Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
+Contains | No VBA, no macros, no add-in and no external link
+Licence | MIT, covering the workbook, the formula source and the function index
+Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
+
+## Selected functions
+
+Ten of the 133, with their published signatures. The full index is in functions.csv.
+
+Every Ozzit name ends with a lambda, the Greek letter this site's Latin-1 fonts do not carry. The names below are written without that final character, so take the exact name from the workbook or the function index rather than retyping one from this page. In Excel, typing =oz.GSTExtract offers the complete name for you to accept.
+
+Selected functions from the v3.4.1 index. Scroll sideways on small screens.
+
+Function | Signature | What it returns
+oz.GSTExtract | (Amounts, [Rate]) | The GST contained in GST-inclusive amounts
+oz.GSTAdd | (Amounts, [Rate]) | GST added to GST-exclusive amounts
+oz.FinancialYear | (Dates, [StartMonth]) | The Australian financial year a date falls in, starting 1 July
+oz.PrimeCost | (Cost, Life) | A straight-line depreciation schedule in whole years
+oz.DiminishingValue | (Cost, Life) | A diminishing-balance schedule at 200% of the straight-line rate
+oz.Amortise | (Principals, APRs, Terms, StartDates, [Timeline]) | A corkscrew amortisation schedule
+oz.LeaseLiability | (Payments, Rate, [InAdvance]) | Present value of lease payments unpaid at commencement
+oz.PeriodRate | (AnnualRate, [PeriodsPerYear]) | An effective annual rate converted to a rate per period
+oz.DayCountRate | (Timeline, APR, [Convention], [EndDates]) | A period rate under 30/360, Actual/360, Actual/365 or Actual/Actual
+oz.IRR | (Values, Dates) | IRR corrected for a first investment outside the first period
+
+## One worked example
+
+Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. In any cell of the workbook, start typing =oz.GSTExtract, accept the complete name Excel offers, and pass it 1100:
+
+```
+Input     1100      GST-inclusive, assumed wholly taxable
+Function  oz.GSTExtract, at the default 10% rate
+Result    100.00
+Check     1100 / 11 = 100.00
+```
+
+That is the whole of the function's contribution: 10% arithmetic on an amount you supply.
+
+Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
+
+The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.1. The v3.4.1 gate results below are the record for the current file.
+
+## Download and use it
+
+Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.
+
+- Open the v3.4.1 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.4.1 asset is 438,897 bytes with SHA-256 71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7.
+- Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
+
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.1 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+
+## Release verification
+
+Release v3.4.1 was built from a signed tag and gated before publication. On 13 September 2026, in Excel 16.0 build 20430:
+
+- 1,129 formulas recalculated with 0 in error.
+- 868 assertions ran with 0 failures: 566 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.
+- 19,444 cached values were confirmed to equal what their formulas produce.
+- 207 unit tests passed, and the published formula source reproduced all 138 named formulas.
+
+Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct, and they are not an independent review.
+
+## Limits
+
+Not tax, legal or financial advice. The functions calculate; a person decides the accounting treatment and signs off.
+
+- The GST helpers do 10% arithmetic only. They do not classify a supply, test registration or prepare a BAS.
+- oz.PrimeCost and oz.DiminishingValue are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
+- The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment, or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
+- The library contains no individual income tax, Medicare levy, Division 7A interest or tax-rate cards.
+- The 13-week cash-flow workbook in the repository's templates folder is a separate template, not a function in this library.
+- Known defects are listed in the repository's changelog and issues. Check a schedule against an independent calculation before relying on it.
+
+## Common questions
+
+### What is Ozzit?
+
+An Excel workbook containing 133 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the MIT licence. It has no add-in, macro or external dependency.
+
+### Which Excel versions can run it?
+
+Microsoft 365 or Excel 2024 and later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
+
+### Does Ozzit calculate Australian tax?
+
+No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations.
+
+### Where do I get the current release?
+
+Release v3.4.1, published on 13 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.
+
+## Related
+
+- Profit vs cash flow: an Australian Excel worked example
+- Browser calculators, nothing to install
+- Construction WIP schedule
+- All tools
+- Evidence and Assurance
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1
+- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv
+- Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/docs/workbook-use.md
+- the v3.4.1 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff
+- Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- All tools: https://duguid.com.au/tools/
+- Evidence and Assurance: https://duguid.com.au/evidence/

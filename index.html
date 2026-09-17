@@ -48,21 +48,21 @@
   <main id="main" class="site-main home">
     <section class="home-hero site-shell" aria-labelledby="home-title">
       <div class="home-hero__copy">
-        <p class="technical-label">Public register / Australian accounting controls</p>
-        <h1 id="home-title">Australian accounting tools, with the working explained.</h1>
-        <p class="home-hero__summary short-answer">I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.</p>
-        <p class="home-hero__note">A personal open-source index, not an accounting practice.</p>
-        <p class="page-meta">Last reviewed 16 September 2026.</p>
+        <p class="technical-label">Open-source tool library / Australian accounting</p>
+        <h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>
+        <p class="home-hero__summary short-answer">Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.</p>
+        <p class="home-hero__note">A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.</p>
+        <p class="page-meta">Last reviewed 18 September 2026.</p>
         <nav class="home-hero__actions" aria-label="Homepage actions">
-          <a class="button" href="/evaluate/#profit-and-cash">Explore the cash-flow example</a>
-          <a href="/tools/">Browse all tools</a>
+          <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash-flow example</a>
+          <a href="/tools/">Browse tools by accounting task</a>
         </nav>
       </div>
       <section class="home-case" aria-labelledby="cash-case-title">
         <div>
           <h2 id="cash-case-title">Profit does not pay the next bill.</h2>
           <p>Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.</p>
-          <p class="field-note">Synthetic demonstration. An independent accountant trial is pending. <a href="/contact/#example-feedback">Offer a review of the Lumbridge case</a>.</p>
+          <p class="field-note">Synthetic demonstration. An independent accountant trial is pending. <a href="/evaluate/#independent-review">Review the Lumbridge case yourself</a>.</p>
         </div>
         <figure class="case-preview">
           <a href="/assets/examples/lumbridge/cash-preview.png"><img src="/assets/examples/lumbridge/cash-preview.png" srcset="/assets/examples/lumbridge/cash-preview-640.png 640w, /assets/examples/lumbridge/cash-preview.png 1282w" sizes="(max-width: 40rem) 100vw, 50vw" width="1282" height="639" fetchpriority="high" decoding="async" alt="Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer" /></a>
@@ -73,29 +73,29 @@
 
     <section class="home-tool-preview site-shell" aria-labelledby="preview-title">
       <header>
-        <p class="technical-label">Tool register / four review tasks</p>
-        <h2 id="preview-title">Start with the work to review</h2>
+        <p class="technical-label">Starting routes / four ways in</p>
+        <h2 id="preview-title">Start with what you came to do</h2>
       </header>
-      <nav class="home-tool-preview__list" aria-label="Tool categories">
+      <nav class="home-tool-preview__list" aria-label="Starting routes">
         <div class="home-tool-preview__entry">
-          <h3><a href="/tools/#extract-tools">Extract</a></h3>
-          <p>Get records into a shape that can be reconciled and reviewed.</p>
-          <a href="/tools/xero-trial-balance/">Xero trial balance CSV export</a>
+          <h3><a href="/examples/profit-vs-cash-flow/">Understand an accounting problem</a></h3>
+          <p>Follow the fictional Lumbridge cash-flow case on the page: same quarterly profit, a $25,160 cash gap. The Excel workbook is optional.</p>
+          <a href="/evaluate/#five-minute-cases">Five-minute accounting cases</a>
         </div>
         <div class="home-tool-preview__entry">
-          <h3><a href="/tools/#calculate-tools">Calculate</a></h3>
-          <p>Apply a rule without hiding the branch, formula, or rounding.</p>
-          <a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a>
+          <h3><a href="/tools/coal-lsl-levy/">Try a browser calculator</a></h3>
+          <p>Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser, without sending them to a server.</p>
+          <a href="/tools/business-calculators/">Business planning calculators</a>
         </div>
         <div class="home-tool-preview__entry">
-          <h3><a href="/tools/#control-tools">Control</a></h3>
-          <p>Stop incomplete work before it reaches a manager.</p>
+          <h3><a href="/evaluate/manager-review-gate/">Evaluate an accounting workflow</a></h3>
+          <p>Rerun a fabricated BAS pack through the Workpaper Review Gate and see exactly why a pack is sent back. Needs Python; uses fabricated files only.</p>
           <a href="/tools/workpaper-review-gate/">Workpaper Review Gate</a>
         </div>
         <div class="home-tool-preview__entry">
-          <h3><a href="/tools/#inspect-tools">Inspect</a></h3>
-          <p>Compare Australian tax tools for AI agents and check their limits.</p>
-          <a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a>
+          <h3><a href="/tools/australian-tax-ai-agents/#install">Inspect or integrate the software</a></h3>
+          <p>Source repositories, install commands and Python packages, plus an MCP server. That is a standard way to hand an AI assistant a fixed set of tools.</p>
+          <a href="https://github.com/ryanduguid">Source on GitHub</a>
         </div>
       </nav>
     </section>
@@ -128,7 +128,7 @@
             <p id="home-levy-error" class="field-error" role="alert" hidden>Enter an amount of $0.00 or more in each field, with no more than two decimal places.</p>
             <dl class="proof-calc__result">
               <div data-row="A"><dt>Formula A, base rate plus bonuses</dt><dd data-out="formulaA">$6,000.00</dd></div>
-              <div data-row="B" class="is-applied"><dt>Formula B, 75 per cent of every component</dt><dd data-out="formulaB">$7,125.00</dd></div>
+              <div data-row="B" class="is-applied"><dt>Formula B, 75 per cent of the aggregate</dt><dd data-out="formulaB">$7,125.00</dd></div>
               <div><dt>Eligible wages, the greater of the two</dt><dd data-out="eligible">$7,125.00</dd></div>
               <div><dt>Levy at 2.7 per cent, before rounding</dt><dd data-out="exact">$192.3750</dd></div>
               <div aria-live="polite" aria-atomic="true"><dt>Formula <span data-out="winner">B</span> applies. Levy payable, rounded once at the end</dt><dd data-out="levy">$192.38</dd></div>
@@ -165,13 +165,13 @@
           <div class="route-actions">
             <div class="install-band">
               <h3>Five ways to try it</h3>
-              <p>Start with the <a href="/evaluate/#profit-and-cash">Excel cash-flow example</a> or <a href="/tools/coal-lsl-levy/">browser calculator</a>. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.</p>
+              <p>Start with the <a href="/examples/profit-vs-cash-flow/">Excel cash-flow example</a> or <a href="/tools/coal-lsl-levy/">browser calculator</a>. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.</p>
               <div class="adopt-chooser" role="group" aria-label="Adoption routes">
                 <input class="adopt-input" type="radio" name="adopt-route" id="adopt-none" checked="checked" />
                 <label class="adopt-tab" for="adopt-none">No install</label>
                 <div class="adopt-panel">
-                  <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fabricated figures. Nothing to install and nothing leaves the browser.</p>
-                  <p>Open the <a href="/evaluate/#profit-and-cash">synthetic Excel forecast</a> in desktop Excel, or send a <a href="/evaluate/">reproducible evaluation</a> to whoever manages your systems.</p>
+                  <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fabricated figures. Nothing to install, and the figures you enter stay in the browser.</p>
+                  <p>Open the <a href="/examples/profit-vs-cash-flow/">synthetic Excel forecast</a> in desktop Excel, or send a <a href="/evaluate/">reproducible evaluation</a> to whoever manages your systems.</p>
                 </div>
                 <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
                 <label class="adopt-tab" for="adopt-claude">Claude Code</label>
@@ -252,8 +252,9 @@
           <div class="route-actions verification-links">
             <a class="button button--secondary" href="/evidence/">Open the evidence register</a>
             <a href="/evaluate/">Browse reproducible evaluations</a>
+            <a href="/evaluate/#independent-review">Review the Lumbridge case yourself</a>
           </div>
-          <p class="route-note">The evidence supports limited claims about the software, not endorsements or client outcomes.</p>
+          <p class="route-note">The evidence supports limited claims about the software, not endorsements or client outcomes. No independent accountant has yet completed the Lumbridge review.</p>
         </div>
       </section>
 
@@ -322,7 +323,7 @@
         "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-09-16",
+        "dateModified": "2026-09-18",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "about": { "@id": "https://duguid.com.au/about/#person" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
@@ -343,13 +344,13 @@
       {
         "@type": "ItemList",
         "@id": "https://duguid.com.au/#home-preview",
-        "name": "Australian accounting controls by review task",
+        "name": "Starting routes by task",
         "numberOfItems": 4,
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "Extract", "url": "https://duguid.com.au/tools/#extract-tools" },
-          { "@type": "ListItem", "position": 2, "name": "Calculate", "url": "https://duguid.com.au/tools/#calculate-tools" },
-          { "@type": "ListItem", "position": 3, "name": "Control", "url": "https://duguid.com.au/tools/#control-tools" },
-          { "@type": "ListItem", "position": 4, "name": "Inspect", "url": "https://duguid.com.au/tools/#inspect-tools" }
+          { "@type": "ListItem", "position": 1, "name": "Understand an accounting problem", "url": "https://duguid.com.au/examples/profit-vs-cash-flow/" },
+          { "@type": "ListItem", "position": 2, "name": "Try a browser calculator", "url": "https://duguid.com.au/tools/coal-lsl-levy/" },
+          { "@type": "ListItem", "position": 3, "name": "Evaluate an accounting workflow", "url": "https://duguid.com.au/evaluate/manager-review-gate/" },
+          { "@type": "ListItem", "position": 4, "name": "Inspect or integrate the software", "url": "https://duguid.com.au/tools/australian-tax-ai-agents/#install" }
         ]
       },
       {
