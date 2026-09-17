@@ -12,12 +12,72 @@ from urllib.request import Request, urlopen
 import build_site
 import serve_site
 
-# Directories that are not site sources: dependencies, build output and scratch.
-# Dot-directories are skipped as a class because Jekyll excludes them by
-# default, so nothing inside one reaches the build unless `_config.yml` names
-# it. That also keeps a local virtual environment's vendored CSS out of the
-# check, which would otherwise be inspected as though it were a site source.
-NOT_SOURCE = {"_site", "node_modules", "vendor", "work"}
+CONFIG = "_config.yml"
+# Jekyll always excludes its own destination, so `_config.yml` does not name it.
+DESTINATION = "_site"
+
+
+def site_selection(root: Path) -> tuple[set[str], set[str]]:
+    """The include and exclude lists `_config.yml` hands Jekyll.
+
+    Jekyll applies both to entries relative to the site source. Reading them
+    here keeps the guard and the build looking at the same files: a second list
+    in this script drifts from the config the moment either one changes.
+
+    The file states them as two flat blocks of `- value`. Anything else is a
+    shape this reader would misread, so it fails rather than silently selecting
+    nothing.
+    """
+    include: set[str] = set()
+    exclude: set[str] = set()
+    current: set[str] | None = None
+    for line in (root / CONFIG).read_text(encoding="utf-8").splitlines():
+        if line.startswith("include:"):
+            current = include
+        elif line.startswith("exclude:"):
+            current = exclude
+        elif line.startswith("  - ") and current is not None:
+            current.add(line[4:].strip().strip("/"))
+        elif line and not line.startswith((" ", "#")):
+            current = None
+    assert include and exclude, f"{CONFIG} no longer lists include and exclude as flat blocks"
+    return include, exclude
+
+
+def is_site_source(relative: Path, include: set[str], exclude: set[str]) -> bool:
+    """Whether Jekyll would read this path, by its own include and exclude rules.
+
+    Exclusions match a source-relative path or anything under it, not a bare
+    directory name at any depth: `_config.yml` excludes `work`, which says
+    nothing about `assets/work`. A dot-entry is skipped unless `include` names
+    that exact path, which is how `.well-known` reaches the build.
+    """
+    posix = relative.as_posix()
+    if posix == DESTINATION or posix.startswith(DESTINATION + "/"):
+        return False
+    if any(posix == name or posix.startswith(name + "/") for name in exclude):
+        return False
+    for depth, part in enumerate(relative.parts, start=1):
+        if part.startswith(".") and "/".join(relative.parts[:depth]) not in include:
+            return False
+    return True
+
+
+def check_site_selection(root: Path | None = None) -> None:
+    """The selection rules this guard now shares with the build."""
+    root = root or build_site.ROOT
+    include, exclude = site_selection(root)
+    for path, expected in (
+        ("assets/site.css", True),
+        (".well-known/security.txt", True),
+        (".git/config", False),
+        ("scripts/test_build_site.py", False),
+        ("vendor/bundle/gem.css", False),
+        ("_site/index.html", False),
+        ("assets/work/report.css", True),
+    ):
+        actual = is_site_source(Path(path), include, exclude)
+        assert actual is expected, f"{path}: selected={actual}, expected {expected}"
 
 
 def check_no_sass_sources(root: Path | None = None) -> int:
@@ -33,13 +93,13 @@ def check_no_sass_sources(root: Path | None = None) -> int:
     legacy build, which is a hosting decision, not a check.
     """
     root = root or build_site.ROOT
+    include, exclude = site_selection(root)
     offenders = []
     checked = 0
     for path in sorted(root.rglob("*")):
-        parts = path.relative_to(root).parts
-        if NOT_SOURCE & set(parts) or any(part.startswith(".") for part in parts[:-1]):
-            continue
         if not path.is_file():
+            continue
+        if not is_site_source(path.relative_to(root), include, exclude):
             continue
         if path.suffix in {".scss", ".sass"}:
             offenders.append(f"{path.relative_to(root)}: Sass source")
@@ -53,6 +113,7 @@ def check_no_sass_sources(root: Path | None = None) -> int:
 
 
 def main() -> None:
+    check_site_selection()
     stylesheets = check_no_sass_sources()
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
