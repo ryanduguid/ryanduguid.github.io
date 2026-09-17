@@ -6,11 +6,17 @@ Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan
 
 - `/tools/` groups 11 controls by Extract, Calculate, Control and Inspect.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
-- `/rates/` holds maintained Australian rate tables with primary sources and review dates.
+- `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds the versioned machine-readable register of those figures.
 - `/tools/accounting-questions/` has 100 question guides with optional search and checklist downloads.
 - `/tools/business-calculators/` has 9 planning calculators, including a 13-week cash scenario and CSV export.
 
 The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
+
+`service/coal-lsl-levy/` is development source, not part of the site: an HTTP
+surface around the same `assets/levy.mjs` the Coal LSL page uses, excluded from
+the Jekyll build in `_config.yml`. It is not deployed, not listed anywhere and
+not released. Its own [README](service/coal-lsl-levy/README.md) says how to run
+it locally.
 
 ## Local preview
 
@@ -37,6 +43,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 `.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job runs `ruff check .` and `mypy` over the check scripts first (pinned to `ruff==0.16.6` and `mypy==2.3.1`, configured in `pyproject.toml`), then the site checks run on Python 3.12:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
+- the rates register's shape, provenance, ordering and checksums, run with `python scripts/check_rates_register.py` and `python scripts/test_rates_register.py`
 - the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk

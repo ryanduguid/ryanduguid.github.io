@@ -1,0 +1,6 @@
+{
+  "schema_version": 1,
+  "register_version": "2026.09.18",
+  "series": ["series/coal-lsl-levy.json"],
+  "advice_status": "Not advice. Verify each figure against its primary source at the time of use."
+}

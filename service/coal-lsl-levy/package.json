@@ -1,0 +1,16 @@
+{
+  "name": "coal-lsl-levy-service",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Coal LSL payroll levy calculator over HTTP, reusing the site's assets/levy.mjs engine. Development source, not a release.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "node bin/serve.mjs",
+    "test": "node --test test/",
+    "conformance": "node conformance/check.mjs"
+  }
+}

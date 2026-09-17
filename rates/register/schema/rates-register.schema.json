@@ -1,0 +1,78 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://duguid.com.au/rates/register/schema/rates-register.schema.json",
+  "title": "Rates register series",
+  "description": "One effective-dated rate or threshold series. Values are decimal strings in the stated unit. Rows are immutable once published: a correction adds a row and marks the old one superseded.",
+  "type": "object",
+  "required": ["schema_version", "series_id", "name", "jurisdiction", "unit", "basis", "advice_status", "rows"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {"type": "integer", "const": 1},
+    "series_id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+    "name": {"type": "string", "minLength": 1},
+    "jurisdiction": {"type": "string", "enum": ["AU", "AU-NSW", "AU-QLD", "AU-VIC", "AU-WA", "AU-SA", "AU-TAS", "AU-ACT", "AU-NT"]},
+    "unit": {"type": "string", "enum": ["percent", "fraction", "cents", "aud", "days"]},
+    "basis": {
+      "type": "object",
+      "required": ["instrument", "provision"],
+      "additionalProperties": false,
+      "properties": {
+        "instrument": {"type": "string", "minLength": 1},
+        "provision": {"type": "string", "minLength": 1},
+        "url": {"type": "string", "pattern": "^https://"}
+      }
+    },
+    "advice_status": {"type": "string", "const": "Not advice. Verify each figure against its primary source at the time of use."},
+    "rows": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["row_id", "period_start", "period_end", "value", "status", "primary_source", "review", "verified_at", "verified_by"],
+        "additionalProperties": false,
+        "properties": {
+          "row_id": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"},
+          "period_start": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "period_end": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "income_year": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}$"},
+          "value": {"type": "string", "pattern": "^-?[0-9]+(\\.[0-9]+)?$"},
+          "status": {"type": "string", "enum": ["verified", "unverified", "superseded"]},
+          "review": {
+            "type": "string",
+            "enum": ["automated-retrieval", "professional-review"],
+            "description": "automated-retrieval: a tool read the named source and matched the figure; nobody has professionally reviewed it. professional-review: a named person reviewed the source and the figure."
+          },
+          "primary_source": {
+            "type": "object",
+            "required": ["title", "url", "publisher"],
+            "additionalProperties": false,
+            "properties": {
+              "title": {"type": "string", "minLength": 1},
+              "url": {"type": "string", "pattern": "^https://"},
+              "publisher": {"type": "string", "minLength": 1},
+              "register_id": {"type": "string"},
+              "compilation": {"type": "string"},
+              "series_reference": {"type": "string"},
+              "passage": {"type": "string"}
+            }
+          },
+          "cross_checks": {"type": "array", "items": {"type": "string", "pattern": "^https://"}},
+          "verified_at": {"type": ["string", "null"], "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"},
+          "verified_by": {"type": ["string", "null"], "minLength": 1},
+          "verification_note": {"type": "string", "minLength": 1},
+          "supersedes": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"}
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"status": {"enum": ["verified", "superseded"]}}},
+            "then": {"properties": {"verified_at": {"type": "string"}, "verified_by": {"type": "string"}}}
+          },
+          {
+            "if": {"properties": {"status": {"const": "unverified"}}},
+            "then": {"required": ["verification_note"]}
+          }
+        ]
+      }
+    }
+  }
+}
