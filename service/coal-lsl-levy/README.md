@@ -99,10 +99,23 @@ January 2024 to August 2026, from `GET /v1/calculators`. Two records have to
 cover a month before it is served:
 
 - a **rate row** in [`rates/register/series/coal-lsl-levy.json`](../../rates/register/series/coal-lsl-levy.json)
-  whose status is `verified` and whose check date is on or after the last day of
-  that month;
+  whose status is `verified`, whose check date is on or after the last day of
+  that month, and whose percentage is the one the engine applies;
 - a **method record** in [`methods.json`](methods.json) marked
   `service_supported`.
+
+That third condition on the rate row is about a disagreement the service
+cannot resolve. `assets/levy.mjs` owns the arithmetic and its rate is a
+constant in that file, so a register row carrying a different percentage
+cannot change the levy a response returns. What it would change is what the
+response says the levy was computed at: `rate.value_percent` would advertise
+the new row while `levy` and `levy_before_rounding` stayed at 2.7%. A figure
+and its stated provenance disagreeing inside one response is worse than either
+being wrong alone, so a verified row the engine does not implement is not
+served. The months it covers drop out, every other month stays, and
+`GET /v1/calculators` publishes the row under `unimplemented_rate_rows` so the
+absence is visible rather than mysterious. Changing the rate means changing
+the engine and the register together.
 
 The method record starts at 1 January 2024, when the amendments to s 3B made
 by the Fair Work Legislation Amendment (Protecting Worker Entitlements) Act

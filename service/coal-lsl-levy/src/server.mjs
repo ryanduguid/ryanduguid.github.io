@@ -170,6 +170,11 @@ export function createApp(options = {}) {
     },
     refusal_classes: Object.keys(REFUSAL_CLASSES),
     status: 'development',
+    // Verified rate rows this build will not serve, because the engine
+    // applies a different percentage from the one they record. Published
+    // rather than hidden: a caller comparing the register against the served
+    // months should be able to see why a month is absent.
+    unimplemented_rate_rows: register.unimplementedRows,
   }];
   const listingText = `${JSON.stringify(listing)}\n`;
 

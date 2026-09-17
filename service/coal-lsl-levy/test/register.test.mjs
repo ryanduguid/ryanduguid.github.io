@@ -5,7 +5,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createHash } from 'node:crypto';
 
-import { loadRegister, RATE_SERIES_PATH, METHODS_PATH, REPO_ROOT } from '../src/register.mjs';
+import { loadRegister, rowMatchesEngine, RATE_SERIES_PATH, METHODS_PATH, REPO_ROOT } from '../src/register.mjs';
 
 test('supported months run from the amended method start to the rate source-check month', () => {
   const register = loadRegister();
@@ -52,4 +52,48 @@ test('hashes are of the exact bytes on disk', () => {
   const register = loadRegister();
   assert.equal(register.rateSha256, createHash('sha256').update(readFileSync(RATE_SERIES_PATH)).digest('hex'));
   assert.equal(register.methodsSha256, createHash('sha256').update(readFileSync(METHODS_PATH)).digest('hex'));
+});
+
+test('rowMatchesEngine compares the percentage exactly, not as text', () => {
+  assert.equal(rowMatchesEngine('2.7'), true);
+  assert.equal(rowMatchesEngine('2.70'), true, 'trailing zeros are the same rate');
+  assert.equal(rowMatchesEngine('2.700000'), true);
+  assert.equal(rowMatchesEngine('2.8'), false);
+  assert.equal(rowMatchesEngine('2.71'), false);
+  assert.equal(rowMatchesEngine('27'), false, 'a percentage, not a fraction');
+  assert.equal(rowMatchesEngine('0.027'), false);
+  assert.equal(rowMatchesEngine(2.7), false, 'a float is not a decimal string');
+  assert.equal(rowMatchesEngine('two point seven'), false);
+  assert.equal(rowMatchesEngine(''), false);
+});
+
+test('a verified row the engine does not implement is recorded and never served', () => {
+  // The engine owns the arithmetic and its rate is a constant, so a register
+  // row carrying a different percentage cannot change the levy. It changed
+  // what the response CLAIMED the levy was computed at, which is the figure
+  // and its provenance disagreeing inside one response.
+  const series = JSON.parse(readFileSync(RATE_SERIES_PATH, 'utf8'));
+  const row = JSON.parse(JSON.stringify(series.rows[0]));
+  row.row_id = '2026-07-01';
+  row.value = '3.1';
+  row.period_start = '2026-07-01';
+  row.period_end = null;
+  row.verified_at = '2026-09-18';
+  series.rows[0].period_end = '2026-06-30';
+  series.rows.push(row);
+
+  const directory = mkdtempSync(join(tmpdir(), 'coal-lsl-rate-'));
+  const path = join(directory, 'series.json');
+  writeFileSync(path, JSON.stringify(series));
+  const register = loadRegister({ rateSeriesPath: path });
+
+  assert.equal(register.isSupported('2026-08'), false, 'August falls in the unimplemented row');
+  assert.equal(register.rateFor('2026-08'), null);
+  assert.deepEqual(
+    register.unimplementedRows.map((item) => [item.row_id, item.value]),
+    [['2026-07-01', '3.1']],
+  );
+  assert.equal(register.unimplementedRows[0].engine_rate_percent, '2.7');
+  // The months the engine still matches stay served.
+  assert.equal(register.isSupported('2026-06'), true);
 });

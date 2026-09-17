@@ -9,6 +9,7 @@
 // been checked once does not vouch for months after the check.
 
 import { createHash } from 'node:crypto';
+import { LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR } from '../../../assets/levy.mjs';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
@@ -46,6 +47,27 @@ function covers(record, month) {
   return month <= endMonth;
 }
 
+// Is a register row's percentage the rate the engine actually applies?
+//
+// The engine owns the arithmetic and its rate is a compile-time constant, so
+// the register cannot change the figure a response carries. It can change what
+// a response CLAIMS the figure was computed at, which is worse than either
+// being wrong alone: the levy stayed at 27/1000 while `rate.value_percent`
+// advertised the new row. A row the engine does not implement is therefore not
+// a row this service may serve.
+//
+// Compared exactly, as a fraction. `value` is a decimal percentage string, so
+// the row's fraction is value/100 and the engine's is N/D; they agree when
+// value * D equals N * 100, with both sides scaled by the row's own decimal
+// places.
+export function rowMatchesEngine(value) {
+  if (typeof value !== 'string' || !/^[0-9]+(\.[0-9]+)?$/.test(value)) return false;
+  const [whole, fraction = ''] = value.split('.');
+  const scale = 10n ** BigInt(fraction.length);
+  const scaled = BigInt(whole + fraction);
+  return scaled * BigInt(LEVY_RATE_DENOMINATOR) === BigInt(LEVY_RATE_NUMERATOR) * 100n * scale;
+}
+
 function nextMonth(month) {
   const year = Number(month.slice(0, 4));
   const m = Number(month.slice(5, 7));
@@ -68,7 +90,13 @@ export function loadRegister({
   if (methods.schema_version !== 1) {
     throw new Error(`unexpected methods shape in ${methodsPath}`);
   }
-  const rateRows = rateSeries.rows.filter((row) => row.status === 'verified');
+  const verifiedRows = rateSeries.rows.filter((row) => row.status === 'verified');
+  // A verified row whose percentage the engine does not implement is recorded
+  // and not served. Dropping the months rather than refusing to start keeps a
+  // register that gains a future rate row usable for every month the engine
+  // still matches, which is the honest half of what it knows.
+  const rateRows = verifiedRows.filter((row) => rowMatchesEngine(row.value));
+  const unimplementedRows = verifiedRows.filter((row) => !rowMatchesEngine(row.value));
   const methodRows = methods.records.filter((row) => row.service_supported === true);
 
   // A month is served only where the check covers the whole of it. A row read
@@ -109,6 +137,15 @@ export function loadRegister({
     return months;
   }
   return Object.freeze({
+    // The verified rows this service will not serve, because the engine
+    // applies a different percentage from the one they record. Empty in a
+    // consistent deployment; discovery reports it so it cannot go unnoticed.
+    unimplementedRows: Object.freeze(unimplementedRows.map((row) => Object.freeze({
+      row_id: row.row_id,
+      value: row.value,
+      period_start: row.period_start,
+      engine_rate_percent: `${(LEVY_RATE_NUMERATOR * 100) / LEVY_RATE_DENOMINATOR}`,
+    }))),
     rateSeries,
     rateBytes,
     rateSha256: sha256(rateBytes),
