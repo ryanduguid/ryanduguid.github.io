@@ -9,13 +9,47 @@ import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
 const MAX_AMOUNT = centsToString(MAX_WAGES_CENTS);
 
-// The pattern's digit count matches the boundary in src/money.mjs, which caps
-// every amount at MAX_WAGES_CENTS (833999930994.53, twelve dollar digits). A
-// pattern that admitted a thirteenth digit published a schema the service then
-// refused with amount_out_of_range.
+// A decimal-string pattern that matches exactly the amounts at or below a
+// ceiling, built from the ceiling's own digits. A pattern that admitted every
+// twelve-digit amount published a schema the service then refused above
+// 833999930994.53 with amount_out_of_range: a schema is a promise about what
+// will be accepted, and a digit count cannot keep it.
+//
+// Shape: any amount with fewer dollar digits than the ceiling, or the same
+// number of digits and lexically below it (fixed prefix, one smaller digit,
+// anything after), or exactly the ceiling's dollars with cents at or below
+// the ceiling's cents. Fractions are one or two digits, as parseMoney allows.
+export function atMostPattern(ceiling) {
+  const [dollars, cents = '00'] = ceiling.split('.');
+  const n = dollars.length;
+  const shorter = n > 1 ? `[1-9][0-9]{0,${n - 2}}` : null;
+  const below = [];
+  for (let i = 0; i < n; i += 1) {
+    const digit = Number(dollars[i]);
+    if (digit === 0) continue;
+    const prefix = dollars.slice(0, i);
+    const rest = n - i - 1;
+    const lead = i === 0 && digit === 1 ? '1' : `[${i === 0 ? 1 : 0}-${digit - 1}]`;
+    if (i === 0 && digit === 1) continue; // no leading digit below 1
+    below.push(`${prefix}${lead}${rest ? `[0-9]{${rest}}` : ''}`);
+  }
+  const anyFraction = '(\\.[0-9]{1,2})?';
+  const [c1, c2] = cents.padEnd(2, '0').split('').map(Number);
+  // Cents at or below c1c2, written as one or two digits.
+  const centAlternatives = [];
+  if (c1 > 0) centAlternatives.push(`[0-${c1 - 1}][0-9]?`);
+  centAlternatives.push(`${c1}${c2 > 0 ? `[0-${c2}]?` : '0?'}`);
+  const exact = `${dollars}(\\.(${centAlternatives.join('|')}))?`;
+  const alternatives = ['0' + anyFraction];
+  if (shorter) alternatives.push(shorter + anyFraction);
+  for (const alt of below) alternatives.push(alt + anyFraction);
+  alternatives.push(exact);
+  return `^(${alternatives.join('|')})$`;
+}
+
 const money = (description) => ({
   type: 'string',
-  pattern: '^(0|[1-9][0-9]{0,11})(\\.[0-9]{1,2})?$',
+  pattern: atMostPattern(MAX_AMOUNT),
   description: `${description} AUD as a decimal string with at most 2 decimal places, for example "6000.00", and at most ${MAX_AMOUNT} (the limits.max_amount the discovery listing publishes). JSON numbers are rejected. Send "0.00" for nil; a missing amount is not nil.`,
 });
 const tristate = (description) => ({

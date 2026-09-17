@@ -8,7 +8,7 @@ import { dirname, join } from 'node:path';
 import { clientKey, createApp, createThrottle } from '../src/server.mjs';
 import { REQUEST_SCHEMA } from '../src/openapi.mjs';
 import { validateRequest } from '../src/schema.mjs';
-import { centsToString } from '../src/money.mjs';
+import { centsToString, MoneyError, parseMoney } from '../src/money.mjs';
 import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -317,12 +317,35 @@ test('the published money pattern admits exactly what the validator accepts at t
   assert.equal(ceiling, '833999930994.53');
   assert.ok(money.description.includes(ceiling), 'the description states the ceiling');
   assert.ok(pattern.test(ceiling), 'the ceiling itself matches');
-  assert.ok(pattern.test('999999999999.99'), 'twelve digits match the pattern');
+  assert.equal(pattern.test('833999930994.54'), false, 'one cent above does not');
+  assert.equal(pattern.test('999999999999.99'), false, 'twelve digits above the ceiling do not');
   assert.equal(pattern.test('1000000000000.00'), false, 'a thirteenth digit does not');
-  // Above the ceiling but within the pattern is the validator's call, and it
-  // still refuses; the pattern narrows the gap to the last twelve-digit band.
-  assert.throws(() => validateRequest({
-    reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
-    pay: { annual_salary_paid: '999999999999.99', salary_sacrificed: '0.00', bonuses: [] },
-  }), /exceeds the largest amount/);
+  // The promise: whatever matches the published pattern, the validator
+  // accepts, and whatever the validator refuses for size, the pattern
+  // refuses. Checked around the boundary and across random amounts.
+  const accepts = (text) => {
+    try {
+      parseMoney(text, 'f');
+      return true;
+    } catch (error) {
+      if (error instanceof MoneyError && /largest amount/.test(error.message)) return false;
+      throw error;
+    }
+  };
+  const samples = ['0', '0.00', '0.5', '1', '9.99', '99999999999.99', '100000000000', '833999930993.99',
+    '833999930994', '833999930994.0', '833999930994.5', '833999930994.50', '833999930994.53',
+    '833999930994.54', '833999930994.6', '833999930995', '834000000000', '899999999999.99',
+    '999999999999.99'];
+  for (const text of samples) {
+    assert.equal(pattern.test(text), accepts(text), `pattern and validator agree on ${text}`);
+  }
+  let seed = 20260918;
+  const next = () => { seed = (seed * 1103515245 + 12345) % 2147483648; return seed; };
+  for (let i = 0; i < 20000; i += 1) {
+    const digits = 1 + (next() % 12);
+    let dollars = String(1 + (next() % 9));
+    while (dollars.length < digits) dollars += String(next() % 10);
+    const text = next() % 2 ? `${dollars}.${String(next() % 100).padStart(2, '0')}` : dollars;
+    assert.equal(pattern.test(text), accepts(text), `pattern and validator agree on ${text}`);
+  }
 });
