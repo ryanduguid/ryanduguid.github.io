@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import builtins
 import hashlib
 import json
 import re
@@ -1822,9 +1823,30 @@ def test_release_record() -> None:
                 raise AssertionError(
                     f"HTTP {status} proves nothing about the asset and must not report drift"
                 )
+        # An asset outage must not suppress version results already established.
+        release_record.urllib.request.urlopen = refusing(429)
+        original_versions = release_record.live_versions
+        try:
+            release_record.live_versions = lambda component: {"github": "9.9.9"}
+            printed: list[str] = []
+            original_print = builtins.print
+            builtins.print = lambda *args, **kwargs: printed.append(" ".join(map(str, args)))
+            try:
+                release_record.verify_live()
+            finally:
+                builtins.print = original_print
+        finally:
+            release_record.live_versions = original_versions
+        reported = "\n".join(printed)
+        assert "github reports 9.9.9" in reported, (
+            f"version drift must survive an asset outage: {reported!r}"
+        )
+        assert "asset INCONCLUSIVE" in reported, (
+            f"an asset outage must read as inconclusive: {reported!r}"
+        )
     finally:
         release_record.urllib.request.urlopen = original_open
-    print("release record tests passed (17 cases)")
+    print("release record tests passed (19 cases)")
 
 
 def main() -> None:

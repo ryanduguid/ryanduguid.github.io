@@ -39,6 +39,16 @@ MISSING = "no matching release"
 # Only these say the recorded asset is gone. Every other HTTP failure, such as
 # a rate limit or a server fault, is inconclusive and must not read as drift.
 ABSENT_STATUSES = frozenset({404, 410})
+# A refresh reports what it established and says so when it established nothing.
+LIVE_ERRORS = (
+    urllib.error.URLError,
+    TimeoutError,
+    OSError,
+    KeyError,
+    ValueError,
+    TypeError,
+    AttributeError,
+)
 
 
 def load(path: Path = RECORD) -> dict[str, Any]:
@@ -277,30 +287,29 @@ def verify_live() -> int:
     drifted = False
     for name, component in record["components"].items():
         recorded = component["published"]["version"]
+        # The version sources and the asset are reported independently, so an
+        # outage on one never hides a real result the other already established.
         try:
             found = live_versions(component)
-            asset = live_asset(component["published"])
-        except (
-            urllib.error.URLError,
-            TimeoutError,
-            OSError,
-            KeyError,
-            ValueError,
-            TypeError,
-            AttributeError,
-        ) as error:
+        except LIVE_ERRORS as error:
             # A failed fetch or a changed response shape is inconclusive. Neither
             # rewrites a claim, and neither is reported as a matching version.
-            print(f"{name}: INCONCLUSIVE, {type(error).__name__}: {error}")
-            continue
+            print(f"{name}: versions INCONCLUSIVE, {type(error).__name__}: {error}")
+            found = {}
         for source, version in found.items():
             state = "matches" if version == recorded else "DRIFT"
             if version != recorded:
                 drifted = True
             print(f"{name}: {source} reports {version}, record says {recorded} ({state})")
-        if asset is not None:
-            drifted = True
-            print(f"{name}: recorded release asset DRIFT, {asset}")
+
+        try:
+            asset = live_asset(component["published"])
+        except LIVE_ERRORS as error:
+            print(f"{name}: recorded asset INCONCLUSIVE, {type(error).__name__}: {error}")
+        else:
+            if asset is not None:
+                drifted = True
+                print(f"{name}: recorded release asset DRIFT, {asset}")
     if drifted:
         print(
             "\nReview each drift, then update scripts/release_record.json and the pages "

@@ -205,6 +205,8 @@ def test_unusable_files_are_reported_not_raised() -> None:
 def test_lookalike_hosts_are_not_site_citations() -> None:
     assert benchmark.site_cited_url("https://duguid.com.au/about/")
     assert benchmark.site_cited_url("https://www.duguid.com.au/about/")
+    assert benchmark.site_cited_url("https://duguid.com.au:8443/about/")
+    assert not benchmark.site_cited_url("https://duguid.com.au:not-a-port/")
     for url in (
         "https://duguid.com.au.example.org/about/",
         "https://notduguid.com.au/about/",
@@ -222,7 +224,12 @@ def test_lookalike_hosts_are_not_site_citations() -> None:
 
 def test_malformed_citation_urls_fail_one_observation() -> None:
     """An unparseable URL fails its observation instead of ending the run."""
-    for url in ("https://[duguid.com.au/", "http://[::1", "not a url at all"):
+    for url in (
+        "https://[duguid.com.au/",
+        "http://[::1",
+        "not a url at all",
+        "https://duguid.com.au:not-a-port/",
+    ):
         assert not benchmark.site_cited_url(url), url
         capture = base_capture()
         capture["observations"][0]["cited_urls"] = [url]

@@ -76,14 +76,19 @@ def load_capture(path: Path) -> dict[str, Any]:
 def site_cited_url(url: object) -> bool:
     """True only when a cited URL's host is the site, not merely contains its name.
 
-    A hand-entered citation can be malformed, and an unmatched bracket in the
-    network location makes urlsplit raise. An unparseable URL is simply not a
-    site citation, so it fails that observation instead of ending the run.
+    A hand-entered citation can be malformed: an unmatched bracket in the network
+    location makes urlsplit raise, and an invalid port makes the URL unusable
+    while still parsing a hostname. Neither is a citation a reader could follow,
+    so each fails its own observation instead of ending the run.
     """
     if not isinstance(url, str):
         return False
     try:
-        host = (urlsplit(url).hostname or "").lower()
+        split = urlsplit(url)
+        host = (split.hostname or "").lower()
+        # Reading the port validates it. An unusable port makes the whole URL
+        # unusable, so it cannot be a citation a reader could follow.
+        _ = split.port
     except ValueError:
         return False
     return host == SITE_HOST or host.endswith("." + SITE_HOST)
