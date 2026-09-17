@@ -82,8 +82,8 @@ test('starting routes lead to the promised activity on both pages', async ({ pag
   }
   for (const [, href] of startingRoutes) {
     await page.goto(href);
-    const [path, fragment] = href.split('#');
-    await expect(page).toHaveURL(new RegExp(`${path.replace(/\//g, '\\/')}`));
+    await expect(page).toHaveURL(href);
+    const fragment = href.split('#')[1];
     if (fragment) {
       await expect(page.locator(`#${fragment}`)).toBeVisible();
     }
