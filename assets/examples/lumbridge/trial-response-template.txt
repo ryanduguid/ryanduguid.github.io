@@ -1,0 +1,68 @@
+Lumbridge Services cash-flow case: independent review response
+Template version 18 September 2026. Plain text. Fill in each line after the colon.
+
+Send the completed file to ryan@duguid.com.au with the subject "Lumbridge review".
+Use the synthetic files only. Do not include client records, credentials,
+confidential files, or any real person's details.
+
+The task and the expected figures are at
+https://duguid.com.au/evaluate/#independent-review
+
+== 1. What you tested ==
+Sample pack downloaded on (date):
+Workbook SHA-256 (from README.txt in the pack, optional):
+Used the supplied lumbridge.xlsx or rebuilt it from source:
+
+== 2. Your environment ==
+Excel version and build (File, Account, About Excel):
+Operating system and version:
+Automatic calculation on (yes/no):
+Screen reader, magnifier, or other assistive technology used, if any:
+
+== 3. Scenario and input changes ==
+Receipt-delay values you entered in Assumptions!B2, in order (for example 0, 45, 0):
+Any other cell you changed, and why:
+
+== 4. Expected versus observed ==
+Write the figure you observed beside each expected figure.
+Quarter revenue, expected $180,000.00, observed:
+Profit before income tax, expected $35,957.55 in both cases, observed:
+October closing cash on time, expected $32,040.00, observed:
+October closing cash with a 45-day delay, expected ($11,960.00), observed:
+Lowest daily closing cash on time, expected $16,800.00 on 7 October, observed:
+Lowest daily closing cash with a 45-day delay, expected ($25,160.00) on 6 November, observed:
+First negative date with a 45-day delay, expected 28 October, observed:
+December closing cash, expected $67,320.00 in both cases, observed:
+Did profit change between the two cases (yes/no):
+Base figures returned after restoring 0, saving a copy, and reopening (yes/no):
+
+== 5. Completion and help ==
+Completed every step (yes/no); if no, which step stopped you:
+Needed help from anyone or anything other than the pack and the web page (yes/no):
+If yes, what help and at which step:
+Elapsed time (an observation only, not a time-saving claim):
+
+== 6. Unclear steps and misread outputs ==
+Steps whose instructions were unclear, and what you understood instead:
+Outputs you misread at first, and what corrected you:
+
+== 7. Defects and reproducible observations ==
+For each problem: the sheet and cell, what you did, what you expected, what happened.
+1.
+2.
+3.
+
+== 8. Before a controlled workplace trial ==
+What would need to be true, added, or removed before you would run this in a
+workplace with real data under supervision:
+
+== 9. Your background (optional) ==
+Role and years in accounting or bookkeeping:
+Familiarity with Excel forecasting (none, some, regular):
+
+== 10. Permission for later quotation ==
+Choose one and delete the others.
+- You may quote my responses with my name and role.
+- You may quote my responses anonymously (role and sector only).
+- Do not quote my responses; use them for corrections only.
+Name and date:

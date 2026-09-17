@@ -41,10 +41,10 @@ const currentNavigationCases = [
 const noCurrentNavigationRoutes = ['/evaluate/', '/evaluate/manager-review-gate/'];
 
 const homepagePreviewRoutes = [
-  ['Extract', '/tools/#extract-tools', 'extract-tools'],
-  ['Calculate', '/tools/#calculate-tools', 'calculate-tools'],
-  ['Control', '/tools/#control-tools', 'control-tools'],
-  ['Inspect', '/tools/#inspect-tools', 'inspect-tools'],
+  ['Understand an accounting problem', '/evaluate/#profit-and-cash', 'profit-and-cash'],
+  ['Try a browser calculator', '/tools/coal-lsl-levy/', 'calc-form'],
+  ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/', 'main'],
+  ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install', 'install'],
 ];
 
 const homeHeightBaseline = {
@@ -61,10 +61,10 @@ const homeHeightBaseline = {
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
-    // Direct example links and the first-run introduction add visible content.
-    // After removing duplicate destinations, Camofox measures 8,033px at
-    // 390px wide. Retain about 234px of margin for this expanded register.
-    ['/tools/', 8270],
+    // The four starting routes (heading plus four two-line rows) replaced the
+    // direct example links on 18 September 2026. Tools measures 8,565px at
+    // 390px wide in the mobile project. Retain the 234px guard.
+    ['/tools/', 8800],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. Evidence measures 7,014px at
     // 390px wide, with the record's facts held to 2 columns at this width
@@ -73,10 +73,9 @@ const representativeHeightBaseline = {
   ]),
   'desktop-chromium': new Map([
     ['/', 6517],
-    // Tools renders at 4,754px after the 13 September 2026 layout pass (the
-    // chooser rows align on the baseline, the footer disclaimer takes the
-    // 68ch measure and the caption token reaches 13px), plus the 234px guard.
-    ['/tools/', 4988],
+    // Tools renders at 5,080px with the four starting routes added on
+    // 18 September 2026 above the work chooser, plus the 234px guard.
+    ['/tools/', 5314],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
@@ -168,14 +167,14 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   await waitForVisualFonts(page);
   await expect(page.getByRole('heading', {
     level: 1,
-    name: 'Australian accounting tools, with the working explained.',
+    name: 'Open-source accounting tools for Australian accountants.',
     exact: true,
   })).toBeVisible();
 
   const actions = page.getByRole('navigation', { name: 'Homepage actions' });
   await expect(actions.getByRole('link')).toHaveText([
     'Explore the cash-flow example',
-    'Browse all tools',
+    'Browse tools by accounting task',
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/evaluate/#profit-and-cash');
   await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/tools/');
@@ -187,12 +186,12 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
     expect(primaryAction.y + primaryAction.height).toBeLessThan(page.viewportSize().height);
   }
 
-  const categories = page.getByRole('navigation', { name: 'Tool categories' });
+  const categories = page.getByRole('navigation', { name: 'Starting routes' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
-    'Extract',
-    'Calculate',
-    'Control',
-    'Inspect',
+    'Understand an accounting problem',
+    'Try a browser calculator',
+    'Evaluate an accounting workflow',
+    'Inspect or integrate the software',
   ]);
   expect(await page.evaluate(() => {
     const preview = document.querySelector('.home-tool-preview');
@@ -218,13 +217,13 @@ test('retired Engage routes redirect quietly to the homepage', async ({ page }) 
   await page.goto('/#engage');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Australian accounting tools, with the working explained.',
+    'Open-source accounting tools for Australian accountants.',
   );
 
   await page.goto('/engage/');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Australian accounting tools, with the working explained.',
+    'Open-source accounting tools for Australian accountants.',
   );
   health.assertHealthy();
 });
@@ -343,11 +342,11 @@ test('mobile sticky header preserves the reading viewport', async ({ page }, tes
   expect(height).toBeLessThanOrEqual(88);
 });
 
-test('all homepage preview routes land on valid Tools anchors', async ({ page }) => {
+test('all homepage starting routes land on their targets', async ({ page }) => {
   const health = observePageHealth(page);
   for (const [label, href, target] of homepagePreviewRoutes) {
     await page.goto('/');
-    const catalogue = page.getByRole('navigation', { name: 'Tool categories' });
+    const catalogue = page.getByRole('navigation', { name: 'Starting routes' });
     const link = catalogue.getByRole('link', { name: label, exact: true });
     await expect(link).toHaveAttribute('href', href);
     await link.click();

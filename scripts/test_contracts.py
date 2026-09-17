@@ -183,9 +183,9 @@ def test_geo_leftovers_surface() -> None:
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
     assert (
         web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == "2026-09-14"
+        == "2026-09-18"
     )
-    assert "Last reviewed 14 September 2026." in core.visible_text(coal)
+    assert "Last reviewed 18 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (
@@ -223,7 +223,7 @@ def test_geo_leftovers_surface() -> None:
     # the evaluations hub retains its own editorial review date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("14 September 2026", "2026-09-14"),
+        "evaluate/index.html": ("18 September 2026", "2026-09-18"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -250,7 +250,7 @@ def test_geo_leftovers_surface() -> None:
 
     assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
-        "2026-09-14"
+        "2026-09-18"
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
@@ -463,8 +463,8 @@ def test_design_contracts() -> int:
         (
             "hero action drift",
             "index.html",
-            'href="/tools/">Browse all tools',
-            'href="/missing-tools/">Browse all tools',
+            'href="/tools/">Browse tools by accounting task',
+            'href="/missing-tools/">Browse tools by accounting task',
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
@@ -554,22 +554,22 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 14 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 14 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -665,9 +665,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "16 September 2026", "2026-09-16"),
-        ("tools/index.html", "14 September 2026", "2026-09-14"),
-        ("evidence/index.html", "16 September 2026", "2026-09-16"),
+        ("index.html", "18 September 2026", "2026-09-18"),
+        ("tools/index.html", "18 September 2026", "2026-09-18"),
+        ("evidence/index.html", "18 September 2026", "2026-09-18"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -1057,8 +1057,8 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage category anchor",
-            'href="/tools/#control-tools"',
-            'href="/tools/#missing-control-tools"',
+            'href="/tools/workpaper-review-gate/"',
+            'href="/tools/missing-workpaper-review-gate/"',
             "index.html: category preview is",
         ),
         (

@@ -1,5 +1,12 @@
 # Claim maintenance
 
+## Review on 18 September 2026
+
+- Section 3B of the [Payroll Levy Collection Act 1992](https://www.legislation.gov.au/C2004A04352/latest/text) was read in Compilation No 12 (C2026C00364, in force 1 September 2026), retrieved as EPUB from the Federal Register API because the web host refused every request from this machine. Paragraph 3B(1)(b) applies 75 per cent to the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime or penalty rates, and allowances other than expense reimbursements. Endnote 4 records section 3B as inserted by Act No 142, 2011 and amended by Act No 43, 2023; Act No 63, 2026, which compilation 12 incorporates, did not touch it. The calculator's arithmetic already matched; one sentence of explanation did not and was corrected. The 2.7 per cent rate keeps its 2 September 2026 check date because the Regulations were not re-read.
+- The [Coal LSL eligible wages guidance note](https://coallsl.com.au/guidance-notes/eligible-wages) was read on the same day. It sets Formula B out as 75 per cent of the total of the four components, which agrees with the Act as read.
+- The two merged upstream contributions were confirmed through the GitHub API: [OpenAccountants pull request 85](https://github.com/OpenAccountants/openaccountants/pull/85) merged on 11 August 2026 across 10 files, and [Meltano SDK pull request 3727](https://github.com/meltano/sdk/pull/3727) merged on 8 August 2026 across 2 files. Merge status and file counts only; neither says anything about adoption, endorsement, or the accounting calculations here.
+- The public site was fetched and compared with the privacy notice. Cloudflare rewrites every email address into an obfuscated link and appends its own visitor-verification code, neither of which exists in this repository or the local build. The privacy notice now describes both, and the two pages that ask for a reply spell the address out in words.
+
 ## Review on 14 September 2026
 
 - The [ATO SG table](https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee) matched every general-rate row on the site, including 12% from 1 July 2025. This check did not repeat the statutory timing review dated 30 August 2026.

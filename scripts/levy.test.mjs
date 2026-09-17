@@ -54,8 +54,32 @@ test('D2 base rate: Formula B wins once overtime and allowances are large', () =
   assert.equal(r.formulaB, 712500);
   assert.equal(r.winner, 'B');
   assert.equal(r.eligibleWagesCents, 712500);
+  // s 3B(1)(b), Compilation No 12 (C2026C00364): '75% of the base rate of pay
+  // paid to the employee, including' bonuses, overtime or penalty rates and
+  // allowances. 0.75 x (6000 + 0 + 3000 + 500) = 7125.00, derived from that
+  // wording rather than from this module. The rejected reading, 75% of base pay
+  // plus the other components in full, would give 8000.00.
+  assert.notEqual(r.formulaB, 800000);
   // 712500 * 27 / 1000 = 19237.5 cents exactly, rounds half up
   assert.equal(levyCents(r.eligibleWagesCents), 19238);
+});
+
+test('D2a base rate: an at-least-monthly bonus sits inside the 75% bracket', () => {
+  // Formula A = 6000 + 400 = 6400.00; Formula B = 0.75 x (6000 + 400 + 3000 + 500)
+  // = 7425.00. Adding the bonus outside the 75% factor would give 7525.00.
+  // Bonus amounts cross the boundary in dollars and are converted by
+  // bonusCents; the other three arguments are already cents.
+  const r = baseRateWages({
+    baseRateCents: d(6000),
+    bonuses: [{ amount: 400, frequency: 'monthly' }],
+    overtimeAndPenaltyCents: d(3000),
+    allowancesCents: d(500),
+  });
+  assert.equal(r.formulaA, 640000);
+  assert.equal(r.formulaB, 742500);
+  assert.notEqual(r.formulaB, 752500);
+  assert.equal(r.winner, 'B');
+  assert.equal(r.eligibleWagesCents, 742500);
 });
 
 test('D3 base rate: exact tie resolves to Formula A', () => {

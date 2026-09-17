@@ -1,6 +1,6 @@
 # ryanduguid.github.io
 
-Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
 ## Site structure
 

@@ -16,6 +16,21 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 18 September 2026 task-route pass replaces the homepage's 4-category
+preview. The homepage now leads with 'Open-source accounting tools for
+Australian accountants.', a one-line proposition, the non-practice boundary and
+two actions: the cash-flow example and the tools page. Where the preview listed
+Extract, Calculate, Control and Inspect, 4 starting routes now name what a
+reader came to do: understand an accounting problem, try a browser calculator,
+evaluate an accounting workflow, inspect or integrate the software. The same 4
+appear above the chooser on Tools, which keeps Extract, Calculate, Control and
+Inspect as the catalogue index below. Each route states its delivery
+requirement before the reader follows it. Evaluations gains a bounded
+independent-review task with a plain-text response template; the independent
+accountant trial remains pending. The header wordmark reads 'tool library'
+rather than 'register'. The palette, type, tokens and restraint rules are
+unchanged.
+
 The 14 September 2026 pass applies the full interface audit of the same
 date. A bare `button` is now a helper action in the secondary register, and
 the one primary action per view opts into the fill with `class="button"`

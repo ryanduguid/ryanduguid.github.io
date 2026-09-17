@@ -615,23 +615,41 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     },
 }
 
-HOMEPAGE_HEADING = "Australian accounting tools, with the working explained."
+# The only email routes the Contact page may carry: general feedback and the
+# bounded Lumbridge review. Any other mailto is a consultancy route and fails.
+CONTACT_MAILTO_HREFS = (
+    "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",
+    "mailto:ryan@duguid.com.au?subject=Lumbridge%20review",
+)
+HOMEPAGE_HEADING = "Open-source accounting tools for Australian accountants."
 HOMEPAGE_HEADING_MARKUP = (
-    '<h1 id="home-title">Australian accounting tools, with the working explained.</h1>'
+    '<h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>'
 )
 HOMEPAGE_SUPPORT = (
-    "I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business "
-    "whose quarterly profit never moves while its cash runs $25,160 short."
+    "Inspect cash-flow models, calculations, and workpaper checks, with sources, "
+    "assumptions, and working visible."
 )
 HOMEPAGE_ACTIONS = (
     ("/evaluate/#profit-and-cash", "Explore the cash-flow example"),
-    ("/tools/", "Browse all tools"),
+    ("/tools/", "Browse tools by accounting task"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
-    ("Extract", "/tools/#extract-tools", "/tools/xero-trial-balance/"),
-    ("Calculate", "/tools/#calculate-tools", "/tools/coal-lsl-levy/"),
-    ("Control", "/tools/#control-tools", "/tools/workpaper-review-gate/"),
-    ("Inspect", "/tools/#inspect-tools", "/tools/australian-tax-ai-agents/"),
+    (
+        "Understand an accounting problem",
+        "/evaluate/#profit-and-cash",
+        "/evaluate/#five-minute-cases",
+    ),
+    ("Try a browser calculator", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
+    (
+        "Evaluate an accounting workflow",
+        "/evaluate/manager-review-gate/",
+        "/tools/workpaper-review-gate/",
+    ),
+    (
+        "Inspect or integrate the software",
+        "/tools/australian-tax-ai-agents/#install",
+        "https://github.com/ryanduguid",
+    ),
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
@@ -665,8 +683,9 @@ HOMEPAGE_DESCRIPTION = (
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
-    "/tools/xero-trial-balance/",
-    "/tools/australian-tax-ai-agents/",
+    "/evaluate/#profit-and-cash",
+    "/evaluate/#independent-review",
+    "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
     "/tools/workpaper-review-gate/",
     "/evaluate/payday-super-evidence/",
@@ -1895,7 +1914,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
                 urlsplit(href).scheme.casefold() == "mailto"
                 and (
                     rel != "contact/index.html"
-                    or href != "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback"
+                    or href not in CONTACT_MAILTO_HREFS
                 )
                 for href in core.anchor_hrefs(page)
             )

@@ -12,53 +12,53 @@ Source: https://duguid.com.au/
 
 > Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
 
-Public register / Australian accounting controls
+Open-source tool library / Australian accounting
 
-# Australian accounting tools, with the working explained.
+# Open-source accounting tools for Australian accountants.
 
-I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.
+Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.
 
-A personal open-source index, not an accounting practice.
+A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
-Explore the cash-flow example Browse all tools
+Explore the cash-flow example Browse tools by accounting task
 
 ## Profit does not pay the next bill.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. An independent accountant trial is pending. Offer a review of the Lumbridge case.
+Synthetic demonstration. An independent accountant trial is pending. Review the Lumbridge case yourself.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
-Tool register / four review tasks
+Starting routes / four ways in
 
-## Start with the work to review
+## Start with what you came to do
 
-### Extract
+### Understand an accounting problem
 
-Get records into a shape that can be reconciled and reviewed.
+Follow the fictional Lumbridge cash-flow case on the page: same quarterly profit, a $25,160 cash gap. The Excel workbook is optional.
 
-Xero trial balance CSV export
+Five-minute accounting cases
 
-### Calculate
+### Try a browser calculator
 
-Apply a rule without hiding the branch, formula, or rounding.
+Runs on this site with nothing to install and nothing sent anywhere: the Coal LSL levy calculator and nine business planning calculators.
 
-Coal LSL levy calculator
+Business planning calculators
 
-### Control
+### Evaluate an accounting workflow
 
-Stop incomplete work before it reaches a manager.
+Rerun a fabricated BAS pack through the Workpaper Review Gate and see exactly why a pack is sent back. Needs Python; uses fabricated files only.
 
 Workpaper Review Gate
 
-### Inspect
+### Inspect or integrate the software
 
-Compare Australian tax tools for AI agents and check their limits.
+Source repositories, install commands and Python packages, plus an MCP server. That is a standard way to hand an AI assistant a fixed set of tools.
 
-Australian tax tools for AI agents
+Source on GitHub
 
 Review aids only. No client files. No lodgement. Human sign-off.
 
@@ -88,7 +88,7 @@ Formula A, base rate plus bonuses
 
 $6,000.00
 
-Formula B, 75 per cent of every component
+Formula B, 75 per cent of the aggregate
 
 $7,125.00
 
@@ -206,9 +206,9 @@ Practice software
 
 Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
-Open the evidence register Browse reproducible evaluations
+Open the evidence register Browse reproducible evaluations Review the Lumbridge case yourself
 
-The evidence supports limited claims about the software, not endorsements or client outcomes.
+The evidence supports limited claims about the software, not endorsements or client outcomes. No independent accountant has yet completed the Lumbridge review.
 
 ## Five checks before a claim leaves the page
 
@@ -229,28 +229,24 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 ## Links
 
 - Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
-- Browse all tools: https://duguid.com.au/tools/
-- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- Browse tools by accounting task: https://duguid.com.au/tools/
+- Review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- Extract: https://duguid.com.au/tools/#extract-tools
-- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
-- Calculate: https://duguid.com.au/tools/#calculate-tools
-- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Control: https://duguid.com.au/tools/#control-tools
+- Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- Try a browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Business planning calculators: https://duguid.com.au/tools/business-calculators/
+- Evaluate an accounting workflow: https://duguid.com.au/evaluate/manager-review-gate/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Inspect: https://duguid.com.au/tools/#inspect-tools
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Inspect or integrate the software: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Source on GitHub: https://github.com/ryanduguid
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - reproducible evaluation: https://duguid.com.au/evaluate/
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Manager review gate Reproduce the incomplete-pack checks.: https://duguid.com.au/evaluate/manager-review-gate/
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
-- Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
@@ -395,9 +391,9 @@ Home / Evidence behind the tools
 
 This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.
 
-Accepted upstream work: OpenAccountants BAS guide and Meltano refresh-token retention fix. These merged contributions show maintainer acceptance, not adoption or endorsement of this portfolio. Rerun the tool evaluations.
+Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and stale sync runs could overwrite guides; pull request 85 restored the guide and guarded those writes, merged 11 August 2026, 10 files. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 16 September 2026.
+Last reviewed 18 September 2026.
 
 ## Identity and credentials
 
@@ -484,8 +480,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 ## Links
 
 - Home: https://duguid.com.au/
-- OpenAccountants BAS guide: https://github.com/OpenAccountants/openaccountants/pull/85
-- Meltano refresh-token retention fix: https://github.com/meltano/sdk/pull/3727
+- pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
+- pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
@@ -589,7 +585,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
 
-Last reviewed 14 September 2026.
+Last reviewed 18 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -628,13 +624,28 @@ Varrock and Falador are the fictional service lines, named after Old School Rune
 
 Maintainer trial, 14 September 2026: Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0-to-45-to-0 receipt-delay sequence and saving and reopening the file. The exact Excel build and individual result figures were not recorded in that feedback.
 
-This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
+This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; review the Lumbridge case yourself. No client outcome, forecast accuracy, or time saving has been measured. The case changes receipt timing only and does not produce a full statutory balance sheet.
 
 Download provenance and workbook checks are in the sample record. Read the source, assumptions, and trial at the captured commit. The Australian pack extends Jeff Brines / Guiderail's openfpa.
 
 Give feedback on this example. Describe the step, observed result, and Excel version using the synthetic files.
 
 Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/evaluate/#profit-and-cash. Figures are fabricated and no client outcome is claimed.
+
+## Review the Lumbridge case: a bounded task
+
+No independent accountant has completed this trial yet. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only. It asks you to reproduce one receipt-delay scenario and compare what you see with the table above.
+
+- Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
+- Record the base figures: quarter revenue, profit before income tax, December closing cash, and the lowest daily closing cash with its date.
+- Change Assumptions!B2 from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, and whether profit changed.
+- Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.
+- Restore 0, save a copy, reopen it, and confirm the base figures return.
+- List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
+
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks for the workbook version, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
+
+Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template. External evaluation of this case is pending; this page reports no completed trial.
 
 ## Choose an example to reproduce
 
@@ -753,10 +764,12 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
 - Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - download the workbook, source files, and trial guide: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
-- offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Read the source, assumptions, and trial at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- Give feedback on this example: https://duguid.com.au/contact/#example-feedback
+- Download the blank response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example
@@ -1454,11 +1467,13 @@ Source: https://duguid.com.au/tools/
 
 Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
-Try one synthetic Payday Super CSV, review a fabricated BAS pack, or choose another example.
+Last reviewed 18 September 2026.
 
-Last reviewed 14 September 2026.
+## Start with what you came to do
 
-## Start from your work
+Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install. Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+
+## Find a tool by accounting area
 
 - Cash flow and management reporting
 
@@ -1680,12 +1695,11 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
-- Try one synthetic Payday Super CSV: https://duguid.com.au/tools/payday-super/#try-example
-- review a fabricated BAS pack: https://duguid.com.au/evaluate/manager-review-gate/
-- choose another example: https://duguid.com.au/evaluate/#example-routes
-- Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
+- Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/evaluate/#profit-and-cash
+- Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
+- Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
-- Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
 - Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
@@ -1705,6 +1719,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting-skills
 - Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Try an example: https://duguid.com.au/tools/payday-super/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
 - Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
@@ -2098,7 +2113,7 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 18 September 2026.
 
 Load the synthetic example
 
@@ -2162,7 +2177,7 @@ The notes below distinguish rules in the Act from questions this tool does not r
 - Are termination payments (redundancy, payment in lieu of notice, severance, and leave paid out) eligible wages?
 - Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages?
 - Is unpaid leave eligible wages? The Levy Advice form has a section for it.
-- Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) adds overtime, penalty rates, and allowances to 75% of the base rate without naming shift loading, and section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
+- Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) takes 75% of the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime, penalty rates, and allowances, and does not name shift loading; section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
 - Do allowances, overtime, and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime, and penalty rates. The branch adds back only incentive-based payments, bonuses, and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.
 - Do allowances count for annual salary employees? Section 3B(2) excludes overtime, penalty rates, and shift loading and does not mention allowances.
 - Does a fortnightly or weekly bonus satisfy 'paid at least once a month'? This tool assumes it does.
@@ -2177,6 +2192,10 @@ The Act, the Regulations, and the guidance note publish no rounding rule. This t
 ### What levy rate does this calculator use?
 
 2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.
+
+### What does the 75% in Formula B apply to?
+
+The whole of the base rate of pay, at-least-monthly bonuses, overtime, penalty rates, and allowances added together, not the base rate alone. Section 3B(1)(b) reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. With $6,000 base pay, $3,000 overtime and penalty rates, and $500 allowances, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026.
 
 ### Which bonuses count towards eligible wages?
 
@@ -3229,11 +3248,13 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures. Email ryan@duguid.com.au.
+For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+
+Email addresses here are obfuscated against scraping and need scripts to open. If a link does not work, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
-Do not post taxpayer information or client files to public repositories. Nothing here is tax, legal, or financial advice.
+Do not post taxpayer information or client files to public repositories or send them by email.
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
@@ -3241,11 +3262,13 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 14 September 2026.
+Published 30 August 2026. Last reviewed 18 September 2026.
 
 ## Links
 
 - fictional Newcastle cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
+- response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
@@ -5184,7 +5207,7 @@ Home
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 15 September 2026.
+Published 12 September 2026. Last reviewed 18 September 2026.
 
 ## Browser calculations
 
@@ -5197,6 +5220,8 @@ The accounting-question search also runs in your browser. It does not send searc
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
 Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+
+Cloudflare also rewrites email addresses on delivery so that automated address collectors cannot read them, and adds its own visitor-verification code. Both are added after the files leave this website's source and are served from this domain, and neither reports anything to the site owner. Cloudflare may set its own security cookies when it delivers a page; see Cloudflare's cookie documentation. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.
 
@@ -5222,9 +5247,12 @@ The website source is available under its MIT licence, which includes its warran
 
 - Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
+- rewrites email addresses on delivery: https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/
+- Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/
+- contact page: https://duguid.com.au/contact/
+- Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
-- Contact page: https://duguid.com.au/contact/
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
 - MIT licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
