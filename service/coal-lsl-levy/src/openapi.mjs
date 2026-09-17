@@ -4,11 +4,19 @@
 
 import { BONUS_FREQUENCIES, BRANCHES, MAX_BONUSES } from './schema.mjs';
 import { REFUSAL_CLASSES } from './calculate.mjs';
+import { centsToString } from './money.mjs';
+import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
+const MAX_AMOUNT = centsToString(MAX_WAGES_CENTS);
+
+// The pattern's digit count matches the boundary in src/money.mjs, which caps
+// every amount at MAX_WAGES_CENTS (833999930994.53, twelve dollar digits). A
+// pattern that admitted a thirteenth digit published a schema the service then
+// refused with amount_out_of_range.
 const money = (description) => ({
   type: 'string',
-  pattern: '^(0|[1-9][0-9]{0,12})(\\.[0-9]{1,2})?$',
-  description: `${description} AUD as a decimal string with at most 2 decimal places, for example "6000.00". JSON numbers are rejected. Send "0.00" for nil; a missing amount is not nil.`,
+  pattern: '^(0|[1-9][0-9]{0,11})(\\.[0-9]{1,2})?$',
+  description: `${description} AUD as a decimal string with at most 2 decimal places, for example "6000.00", and at most ${MAX_AMOUNT} (the limits.max_amount the discovery listing publishes). JSON numbers are rejected. Send "0.00" for nil; a missing amount is not nil.`,
 });
 const tristate = (description) => ({
   description: `${description} true, false or the string "unknown". "unknown" is a fact not established, which is refused, never read as false.`,

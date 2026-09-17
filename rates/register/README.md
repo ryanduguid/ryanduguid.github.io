@@ -27,10 +27,13 @@ Fetch the series file and `SHA256SUMS`, check the digest, then read the row
 whose period covers your date.
 
 ```bash
-curl -sO https://duguid.com.au/rates/register/series/coal-lsl-levy.json
-curl -sO https://duguid.com.au/rates/register/SHA256SUMS
+curl -s --create-dirs -o series/coal-lsl-levy.json https://duguid.com.au/rates/register/series/coal-lsl-levy.json
+curl -s -o SHA256SUMS https://duguid.com.au/rates/register/SHA256SUMS
 sha256sum --check --ignore-missing SHA256SUMS
 ```
+
+`SHA256SUMS` names the file as `series/coal-lsl-levy.json`, so it has to land
+in a `series` directory or `sha256sum` verifies nothing and says so.
 
 Every row carries:
 

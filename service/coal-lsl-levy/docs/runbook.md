@@ -73,7 +73,8 @@ record and its retention policy applies. Check it before deploying.
 | Every request 404 on the period URN | The rate row's check date has fallen behind the months being asked for | Re-verify the rate against the Federal Register and update the row, or accept the narrower coverage |
 | Start-up throws on the register | A register or methods file is missing or malformed | Fix the file. The service refuses to start rather than serve without evidence |
 | 429 under normal load | The limit is too low for the caller, or one client is looping | Raise `COAL_LSL_RATE_LIMIT_PER_MINUTE` deliberately, or leave it |
-| 413 from a legitimate caller | More than 24 bonus rows, or a very large body | The bonus cap is in `src/schema.mjs`; changing it is a contract change |
+| 413 from a legitimate caller | A body over `COAL_LSL_MAX_BODY_BYTES` | Raise the limit deliberately; the default is 16 KiB and a levy request is under 1 KiB |
+| 422 `too_many_items` | More than 24 bonus rows | The bonus cap is in `src/schema.mjs`; changing it is a contract change |
 | 500 with a request id | A defect | The log line with that id has the message. Reproduce with a fixture before changing anything |
 
 ## Scaling

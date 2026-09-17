@@ -8,6 +8,8 @@ import { dirname, join } from 'node:path';
 import { clientKey, createApp, createThrottle } from '../src/server.mjs';
 import { REQUEST_SCHEMA } from '../src/openapi.mjs';
 import { validateRequest } from '../src/schema.mjs';
+import { centsToString } from '../src/money.mjs';
+import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const fixtures = JSON.parse(readFileSync(join(here, '..', 'fixtures', 'cases.json'), 'utf8'));
@@ -302,4 +304,25 @@ test('discovery publishes the real money ceiling, not a rounded one', async () =
     pay: { annual_salary_paid: entry.limits.max_amount, salary_sacrificed: '0.00', bonuses: [] },
   });
   assert.equal(at.status, 200);
+});
+
+test('the published money pattern admits exactly what the validator accepts at the ceiling', async () => {
+  // The schema once allowed a thirteenth dollar digit, so a request that
+  // matched the published pattern was refused with amount_out_of_range. A
+  // schema is a promise about what will be accepted, and it has to be kept.
+  const doc = await (await fetch(`${base}/openapi.json`)).json();
+  const money = doc.components.schemas.CoalLslLevyInput.properties.pay.oneOf[1].properties.annual_salary_paid;
+  const pattern = new RegExp(money.pattern);
+  const ceiling = centsToString(MAX_WAGES_CENTS);
+  assert.equal(ceiling, '833999930994.53');
+  assert.ok(money.description.includes(ceiling), 'the description states the ceiling');
+  assert.ok(pattern.test(ceiling), 'the ceiling itself matches');
+  assert.ok(pattern.test('999999999999.99'), 'twelve digits match the pattern');
+  assert.equal(pattern.test('1000000000000.00'), false, 'a thirteenth digit does not');
+  // Above the ceiling but within the pattern is the validator's call, and it
+  // still refuses; the pattern narrows the gap to the last twelve-digit band.
+  assert.throws(() => validateRequest({
+    reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
+    pay: { annual_salary_paid: '999999999999.99', salary_sacrificed: '0.00', bonuses: [] },
+  }), /exceeds the largest amount/);
 });

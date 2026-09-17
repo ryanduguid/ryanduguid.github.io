@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
 import { centsToString, exactDecimal, MoneyError, parseMoney, quarterCentsToString, toQuarterCents } from '../src/money.mjs';
-import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
+import { MAX_WAGES_CENTS, toCents } from '../../../assets/levy.mjs';
 
 test('decimal strings parse to exact cents without a float in between', () => {
   assert.equal(parseMoney('0.29', 'f'), 29);
@@ -45,4 +45,23 @@ test('rendering is exact and terminates', () => {
   assert.equal(exactDecimal(16200n, 100n), '162.00');
   assert.throws(() => exactDecimal(1n, 3n), RangeError);
   assert.throws(() => toQuarterCents(0.3), RangeError);
+});
+
+test('cents to dollars and back through the engine is exact across the accepted range', () => {
+  // The one Number in the money path: the engine's bonus API takes dollars and
+  // converts back with toCents(). calculate.mjs and docs/architecture.md say
+  // this test checks the round trip across the range, so it does: every cent
+  // count in a dense band at each end, and a stride across the middle.
+  const check = (cents) => {
+    if (toCents(cents / 100) !== cents) {
+      throw new assert.AssertionError({ message: `round trip lost a cent at ${cents}` });
+    }
+  };
+  for (let cents = 0; cents <= 2_000_000; cents += 1) check(cents);
+  for (let cents = MAX_WAGES_CENTS - 2_000_000; cents <= MAX_WAGES_CENTS; cents += 1) check(cents);
+  const stride = 1_000_003; // prime, so the samples do not line up with any power of ten
+  for (let cents = 0; cents <= MAX_WAGES_CENTS; cents += stride) check(cents);
+  for (const cents of [1, 99, 100, 101, 12345, 99999999, 100000000, 4503599627370496]) {
+    if (cents <= MAX_WAGES_CENTS) check(cents);
+  }
 });
