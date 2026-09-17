@@ -3035,10 +3035,11 @@ def check_task_routes(root: Path = core.ROOT) -> list[str]:
     if len(navs) != 1:
         failures.append(f"{TASK_ROUTES_REL}: expected one .task-routes nav, found {len(navs)}")
     else:
-        actual = [
-            (core.element_text(strong[0]) if (strong := core.descendants(anchor, "strong", rendered_only=True)) else "", anchor.attr("href"))
-            for anchor in core.descendants(navs[0], "a", rendered_only=True)
-        ]
+        actual = []
+        for anchor in core.descendants(navs[0], "a", rendered_only=True):
+            labels = core.descendants(anchor, "strong", rendered_only=True)
+            label = core.element_text(labels[0]) if labels else ""
+            actual.append((label, anchor.attr("href")))
         if actual != expected:
             failures.append(
                 f"{TASK_ROUTES_REL}: task routes are {actual!r}, expected {expected!r}"
