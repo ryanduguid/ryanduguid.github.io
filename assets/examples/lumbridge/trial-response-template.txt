@@ -17,7 +17,7 @@ https://duguid.com.au/evaluate/#independent-review
 
 == 1. Which workbook you tested ==
 Sample pack downloaded on (date):
-"Prepared" date on the first line of README.txt in the pack:
+Date on the line beginning "Prepared" near the top of README.txt in the pack:
 Source commit recorded under SOURCE AND REPRODUCTION in that README.txt:
 Used the supplied lumbridge.xlsx or rebuilt it from source:
 Optional. SHA-256 you computed yourself from the downloaded lumbridge.xlsx
