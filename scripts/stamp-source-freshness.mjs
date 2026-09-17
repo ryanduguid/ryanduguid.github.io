@@ -208,9 +208,14 @@ export async function checkToolReleases(pages, lookup = fetchReleases) {
       continue;
     }
     if (!repositories.has(repository)) repositories.set(repository, await lookup(repository));
+    const published = repositories.get(repository)
+      .filter((release) => !release.draft && !release.prerelease && release.published_at);
+    if (!published.some((release) => release.tag_name === tag)) {
+      failures.push(`${rel}: ${tag} is not a published stable release`);
+      continue;
+    }
     const prefix = version[1];
-    const tags = repositories.get(repository)
-      .filter((release) => !release.draft && !release.prerelease && release.published_at)
+    const tags = published
       .map((release) => release.tag_name)
       .filter((name) => name.startsWith(prefix) && /^\d+\.\d+\.\d+$/.test(name.slice(prefix.length)));
     const latest = tags.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).at(-1);
