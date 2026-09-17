@@ -1254,12 +1254,22 @@ def check_formula_b_answer(html: str, failures: list[str]) -> None:
         return
 
     parse_failures: list[str] = []
-    structured = [
-        node.get("acceptedAnswer", {}).get("text", "")
-        for block in core.json_ld_blocks(html, CALCULATOR_REL, parse_failures)
-        for node in core.nodes(block)
-        if isinstance(node, dict) and node.get("name") == FORMULA_B_QUESTION
-    ]
+    structured: list[str] = []
+    for block in core.json_ld_blocks(html, CALCULATOR_REL, parse_failures):
+        for node in core.nodes(block):
+            if node.get("name") != FORMULA_B_QUESTION:
+                continue
+            answer = node.get("acceptedAnswer")
+            # Any JSON shape can appear here. Report a malformed answer rather
+            # than raising out of the contract run.
+            text = answer.get("text") if isinstance(answer, dict) else None
+            if isinstance(text, str):
+                structured.append(text)
+            else:
+                failures.append(
+                    f"{CALCULATOR_REL}: structured {FORMULA_B_QUESTION!r} answer "
+                    "needs acceptedAnswer.text as a string"
+                )
     failures.extend(parse_failures)
     if len(structured) != 1:
         failures.append(

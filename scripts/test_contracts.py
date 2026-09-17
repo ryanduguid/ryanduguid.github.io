@@ -1295,6 +1295,14 @@ def test_public_contracts() -> int:
         "Formula B answer omits the expense-reimbursement exclusion",
     )
     contract_mutation(
+        "formula B structured answer is not a string",
+        calculator,
+        '"text": "For a non-casual',
+        '"text": 42, "ignored": "For a non-casual',
+        contracts.check_formula_b_answer,
+        "needs acceptedAnswer.text as a string",
+    )
+    contract_mutation(
         "formula B copies disagree",
         calculator,
         "$500 of allowances that are not expense reimbursements, Formula B is 75% of "
@@ -1545,7 +1553,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 37
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 38
 
 
 def test_current_component_metadata() -> None:
