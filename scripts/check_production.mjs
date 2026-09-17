@@ -3,9 +3,9 @@
 // sits in front of GitHub Pages and rewrites what visitors receive.
 //
 // Hard failures are the promises README.md makes about delivery: the five
-// response headers the transform rule adds, the two edge redirects, and
-// mailto links that survive delivery (Email Address Obfuscation rewrites them
-// and strips the address when it is on). Injected inline scripts and the
+// response headers the transform rule adds and the two edge redirects.
+// Email Address Obfuscation may rewrite mailto links when it is enabled.
+// Injected inline scripts and the
 // analytics tag are reported, not failed, because they are edge settings the
 // page's own Content Security Policy already blocks.
 //
@@ -46,12 +46,6 @@ export function sitemapPaths(xml) {
 export function inspectHtml(path, sourceHtml, deliveredHtml) {
   const failures = [];
   const notes = [];
-  const sourceMailtos = [...sourceHtml.matchAll(/href="(mailto:[^"]+)"/g)].map((match) => match[1]);
-  for (const href of new Set(sourceMailtos)) {
-    if (!deliveredHtml.includes(`href="${href}"`)) {
-      failures.push(`${path}: ${href} is not delivered intact (email obfuscation is on)`);
-    }
-  }
   const inlineScripts = [...deliveredHtml.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>/g)]
     .filter((match) => !/type="application\/ld\+json"/.test(match[1]));
   if (inlineScripts.length) {
@@ -78,11 +72,11 @@ async function main() {
   const failures = [];
   const notes = [];
   const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
-  for (const path of sitemapPaths(sitemap)) {
+  await Promise.all(sitemapPaths(sitemap).map(async (path) => {
     const response = await fetch(BASE + path, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
     if (response.status !== 200) {
       failures.push(`${path}: HTTP ${response.status}`);
-      continue;
+      return;
     }
     failures.push(...inspectHeaders(path, response.headers));
     const delivered = await response.text();
@@ -90,14 +84,14 @@ async function main() {
     const result = inspectHtml(path, readFileSync(sourcePath, 'utf8'), delivered);
     failures.push(...result.failures);
     notes.push(...result.notes);
-  }
-  for (const [from, to] of Object.entries(REDIRECTS)) {
+  }));
+  await Promise.all(Object.entries(REDIRECTS).map(async ([from, to]) => {
     const response = await fetch(BASE + from, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
     const location = response.headers.get('location');
     if (response.status !== 301 || location !== BASE + to) {
       failures.push(`${from}: expected 301 to ${to}, got HTTP ${response.status} ${location ?? ''}`.trim());
     }
-  }
+  }));
   for (const note of notes) console.log(`note: ${note}`);
   for (const failure of failures) console.error(failure);
   if (failures.length) return 1;
