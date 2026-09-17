@@ -643,7 +643,7 @@ No independent accountant has completed this trial yet. The task takes one workb
 - Restore 0, save a copy, reopen it, and confirm the base figures return.
 - List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
 
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks for the workbook version, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
 
 Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template. External evaluation of this case is pending; this page reports no completed trial.
 
@@ -1471,7 +1471,7 @@ Last reviewed 18 September 2026.
 
 ## Start with what you came to do
 
-Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install. Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
 
 ## Find a tool by accounting area
 
@@ -1696,8 +1696,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 - Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/evaluate/#profit-and-cash
-- Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
-- Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
+- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
 - Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
@@ -5221,7 +5221,7 @@ The website's own code does not set cookies or include advertising pixels. Its f
 
 Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
 
-Cloudflare also rewrites email addresses on delivery so that automated address collectors cannot read them, and adds its own visitor-verification code. Both are added after the files leave this website's source and are served from this domain, and neither reports anything to the site owner. Cloudflare may set its own security cookies when it delivers a page; see Cloudflare's cookie documentation. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
+Cloudflare also rewrites email addresses on delivery to slow automated address collectors, and adds its own visitor-verification code. The rewriting covers the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template are served as plain text and carry the address as written. Both are added after the files leave this website's source and are served from this domain, and neither reports anything to the site owner. Cloudflare may set its own security cookies when it delivers a page; see Cloudflare's cookie documentation. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.
 

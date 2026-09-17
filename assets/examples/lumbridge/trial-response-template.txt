@@ -3,15 +3,18 @@ Template version 18 September 2026. Plain text. Fill in each line after the colo
 
 Send the completed file to ryan@duguid.com.au with the subject "Lumbridge review".
 Use the synthetic files only. Do not include client records, credentials,
-confidential files, or any real person's details.
+confidential files, or any other person's details. Your own name is asked for
+once, at the end, and only so that the quotation choice you make there can be
+honoured. Leaving it blank is fine.
 
 The task and the expected figures are at
 https://duguid.com.au/evaluate/#independent-review
 
-== 1. What you tested ==
+== 1. Which workbook you tested ==
 Sample pack downloaded on (date):
-Workbook SHA-256 (from README.txt in the pack, optional):
 Used the supplied lumbridge.xlsx or rebuilt it from source:
+Workbook SHA-256, if you can compute it. README.txt in the pack shows the
+expected value, and a mismatch is worth reporting on its own:
 
 == 2. Your environment ==
 Excel version and build (File, Account, About Excel):
@@ -65,4 +68,4 @@ Choose one and delete the others.
 - You may quote my responses with my name and role.
 - You may quote my responses anonymously (role and sector only).
 - Do not quote my responses; use them for corrections only.
-Name and date:
+Your name, if you chose to be named, and the date:

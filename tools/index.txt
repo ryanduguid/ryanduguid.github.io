@@ -12,7 +12,7 @@ Last reviewed 18 September 2026.
 
 ## Start with what you came to do
 
-Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install. Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
 
 ## Find a tool by accounting area
 
@@ -237,8 +237,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
 - Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/evaluate/#profit-and-cash
-- Try a browser calculator Coal LSL levy and business planning calculators. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
-- Evaluate an accounting workflow Fabricated BAS pack through the review gate, or a synthetic month-end close. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
+- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
 - Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
