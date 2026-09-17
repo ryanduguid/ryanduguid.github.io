@@ -39,7 +39,10 @@ class RegisterFixture(unittest.TestCase):
         return register.REGISTER_DIR / "series" / "coal-lsl-levy.json"
 
     def _rewrite(self, path: Path, payload: dict) -> None:
-        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+        # newline="" or Windows writes CRLF, which is the very thing the digest
+        # check now refuses: the fixture would fail every test rather than the
+        # one that is about line endings.
+        path.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8", newline="")
         self._resum()
 
     def _resum(self) -> None:
@@ -48,7 +51,7 @@ class RegisterFixture(unittest.TestCase):
             if path.is_file() and path.name != "SHA256SUMS":
                 name = path.relative_to(register.REGISTER_DIR).as_posix()
                 lines.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {name}")
-        register.SUMS.write_text("\n".join(lines) + "\n", encoding="utf-8")
+        register.SUMS.write_text("\n".join(lines) + "\n", encoding="utf-8", newline="")
 
 
 class RegisterTests(RegisterFixture):
@@ -58,7 +61,10 @@ class RegisterTests(RegisterFixture):
 
     def test_a_changed_byte_breaks_the_digest(self) -> None:
         series = self._series()
-        series.write_text(series.read_text(encoding="utf-8").replace('"2.7"', '"2.8"'), encoding="utf-8")
+        series.write_text(
+            series.read_text(encoding="utf-8").replace('"2.7"', '"2.8"'),
+            encoding="utf-8", newline="",
+        )
         failures = register.check_register()
         self.assertTrue(any("digest does not match" in failure for failure in failures), failures)
 
@@ -75,6 +81,38 @@ class RegisterTests(RegisterFixture):
         self._rewrite(self._series(), payload)
         failures = register.check_register()
         self.assertTrue(any("is in the future" in failure for failure in failures), failures)
+
+    def test_a_crlf_file_is_refused_where_its_digest_is_made(self) -> None:
+        """A digest over CRLF bytes verifies only on the machine that wrote it.
+
+        The repository normalises to LF and the published file is LF, so a
+        Windows working copy that gained CRLF produced a SHA256SUMS that
+        matched nothing anywhere else. CI found it; this finds it first.
+        """
+        readme = register.REGISTER_DIR / "README.md"
+        readme.write_bytes(readme.read_bytes().replace(b"\n", b"\r\n"))
+        self._resum()
+        failures = register.check_register()
+        self.assertTrue(any("CRLF" in failure for failure in failures), failures)
+
+    def test_the_committed_register_has_no_crlf_file(self) -> None:
+        self._point_at(ROOT / "rates" / "register")
+        offenders = [
+            path.name for path in register.REGISTER_DIR.rglob("*")
+            if path.is_file() and b"\r\n" in path.read_bytes()
+        ]
+        self.assertEqual(offenders, [])
+
+    def test_today_is_measured_where_the_checks_are_made(self) -> None:
+        """A row checked this morning in Australia is not a future check.
+
+        A runner in UTC is up to eleven hours behind, and comparing against
+        its own date failed the register for those hours every time a row was
+        added. The helper reads the date in Australia instead.
+        """
+        today = register._today()
+        utc = dt.datetime.now(dt.timezone.utc).date()
+        self.assertIn((today - utc).days, (0, 1))
 
     def test_a_check_date_before_the_period_start_is_refused(self) -> None:
         payload = json.loads(self._series().read_text(encoding="utf-8"))
@@ -134,10 +172,10 @@ class RegisterTests(RegisterFixture):
         other["series_id"] = "example-series"
         other["rows"][0]["verified_at"] = "2026-01-05"
         path = register.REGISTER_DIR / "series" / "example-series.json"
-        path.write_text(json.dumps(other, indent=2) + "\n", encoding="utf-8")
+        path.write_text(json.dumps(other, indent=2) + "\n", encoding="utf-8", newline="")
         manifest = json.loads(register.MANIFEST.read_text(encoding="utf-8"))
         manifest["series"] = sorted(manifest["series"] + ["series/example-series.json"])
-        register.MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
+        register.MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="")
         self._resum()
         self.assertEqual(register.check_register(), [])
         first = json.loads(self._series().read_text(encoding="utf-8"))
@@ -223,7 +261,7 @@ class ReviewFindingTests(RegisterFixture):
     def test_a_second_sha256sums_deeper_in_the_tree_is_still_covered(self) -> None:
         # Only the register's own sums file is exempt. Another of that name was
         # neither hashed nor listed, and was published all the same.
-        (register.REGISTER_DIR / "series" / "SHA256SUMS").write_text("x\n", encoding="utf-8")
+        (register.REGISTER_DIR / "series" / "SHA256SUMS").write_text("x\n", encoding="utf-8", newline="")
         failures = register.check_register()
         self.assertTrue(
             any("series/SHA256SUMS is not listed" in failure for failure in failures), failures

@@ -14,7 +14,9 @@ Rules enforced here that a schema cannot express:
 - `verified_at` is not in the future and not before `period_start`.
 - A `superseded` row is named by exactly one `supersedes` in the same series.
 - `register.json` lists every series file exactly once and nothing else.
-- SHA256SUMS covers every file except itself and matches the bytes on disk.
+- SHA256SUMS covers every file except itself and matches the bytes on disk,
+  which must be LF: the published file is LF and a CRLF digest matches nothing
+  but the machine that wrote it.
 - A row claiming professional review names a person, and a row that does not
   says so rather than implying one.
 """
@@ -303,13 +305,41 @@ def check_sums(failures: list[str]) -> None:
     for extra in sorted(set(listed) - on_disk):
         failures.append(f"SHA256SUMS: lists {extra}, which is not in the register")
     for name in sorted(on_disk & set(listed)):
-        digest = hashlib.sha256((REGISTER_DIR / name).read_bytes()).hexdigest()
+        raw = (REGISTER_DIR / name).read_bytes()
+        if b"\r\n" in raw:
+            # A digest over CRLF bytes verifies only on the machine that wrote
+            # it. The repository normalises to LF and the published file is
+            # LF, so a CRLF working copy produces a SHA256SUMS that is wrong
+            # everywhere else, including for anyone running sha256sum against
+            # the download. Refuse it where it is made, not where it is read.
+            failures.append(
+                f"SHA256SUMS: {name} has CRLF line endings on disk. The published file is "
+                "LF, so its digest would not match. Convert it and regenerate SHA256SUMS."
+            )
+            continue
+        digest = hashlib.sha256(raw).hexdigest()
         if digest != listed[name]:
             failures.append(f"SHA256SUMS: {name} digest does not match the file")
 
 
+def _today() -> dt.date:
+    """Today where the checks are made.
+
+    These rows record an Australian date, written by someone in Australia. A
+    runner in UTC is up to eleven hours behind that, so comparing against its
+    own date called a check made this morning a check made in the future, and
+    the register failed for those hours every time a row was added.
+    """
+    try:
+        from zoneinfo import ZoneInfo
+
+        return dt.datetime.now(ZoneInfo("Australia/Sydney")).date()
+    except Exception:  # pragma: no cover - a runner with no tz database
+        return dt.datetime.now(dt.timezone(dt.timedelta(hours=11))).date()
+
+
 def check_register(today: dt.date | None = None) -> list[str]:
-    today = today or dt.date.today()
+    today = today or _today()
     failures: list[str] = []
     if not MANIFEST.is_file():
         return [f"{MANIFEST} is missing"]
