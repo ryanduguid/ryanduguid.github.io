@@ -61,10 +61,9 @@ export function createThrottle(limitPerMinute, now = Date.now) {
       const windowStart = current - (current % 60000);
       const entry = windows.get(key);
       if (!entry || entry.windowStart !== windowStart) {
+        for (const [k, v] of windows) if (v.windowStart !== windowStart) windows.delete(k);
+        if (windows.size >= 10000) return { allowed: false, retryAfterSeconds: 60 };
         windows.set(key, { windowStart, count: 1 });
-        if (windows.size > 10000) {
-          for (const [k, v] of windows) if (v.windowStart !== windowStart) windows.delete(k);
-        }
         return { allowed: true };
       }
       entry.count += 1;
@@ -94,7 +93,7 @@ function readBody(request, maxBytes) {
       size += chunk.length;
       if (size > maxBytes) {
         reject(Object.assign(new Error('body too large'), { code: 'body_too_large' }));
-        request.destroy();
+        request.resume();
         return;
       }
       chunks.push(chunk);
