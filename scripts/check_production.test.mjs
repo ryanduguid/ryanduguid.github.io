@@ -12,19 +12,25 @@ test('a mailto delivered intact passes without comment', () => {
   assert.deepEqual(notes, []);
 });
 
-test("Cloudflare's documented rewrite is a note, not a failure", () => {
+test('an obfuscated mailto fails the intact delivery requirement', () => {
   const delivered =
     '<p>Write to <a href="/cdn-cgi/l/email-protection#abc">[email&#160;protected]</a>.</p>';
   const { failures, notes } = inspectHtml('/contact/', SOURCE, delivered);
-  assert.deepEqual(failures, []);
-  assert.equal(notes.length, 1);
-  assert.match(notes[0], /rewritten by Cloudflare/);
+  assert.equal(failures.length, 1);
+  assert.match(failures[0], /not delivered intact/);
+  assert.deepEqual(notes, []);
 });
 
-test('a mailto that is neither intact nor rewritten is a failure', () => {
+test('a missing mailto is a failure', () => {
   const { failures } = inspectHtml('/contact/', SOURCE, '<p>Write to us.</p>');
   assert.equal(failures.length, 1);
-  assert.match(failures[0], /gone missing/);
+  assert.match(failures[0], /not delivered intact/);
+});
+
+test('an unrelated obfuscation marker cannot hide a missing mailto', () => {
+  const delivered = '<p data-path="/cdn-cgi/l/email-protection">Write to us.</p>';
+  const { failures } = inspectHtml('/contact/', SOURCE, delivered);
+  assert.equal(failures.length, 1);
 });
 
 test('no message repeats the address itself', () => {
