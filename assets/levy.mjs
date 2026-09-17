@@ -155,9 +155,9 @@ export function casualWages({
 // Rounding is a CHOICE, not a rule. Neither the Act, the Regulations nor the
 // guidance note states one, and real inputs land on half a cent. Half up at the
 // final step only. The page states this openly.
-export function levyCents(eligibleWagesCents) {
+export function levyCents(eligibleWagesCents, numerator = LEVY_RATE_NUMERATOR, denominator = LEVY_RATE_DENOMINATOR) {
   if (!Number.isSafeInteger(eligibleWagesCents * 4) || Math.abs(eligibleWagesCents) > MAX_WAGES_CENTS) {
     throw new RangeError('The total is too large to calculate accurately. Reduce the amounts.');
   }
-  return Math.round((eligibleWagesCents * LEVY_RATE_NUMERATOR) / LEVY_RATE_DENOMINATOR);
+  return Math.round((eligibleWagesCents * numerator) / denominator);
 }

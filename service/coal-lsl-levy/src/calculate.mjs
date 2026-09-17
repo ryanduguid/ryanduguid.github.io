@@ -180,6 +180,10 @@ export function calculate(request, register, config) {
   }
 
   const rateRow = register.rateFor(reportingMonth);
+  const rateMatch = /^([0-9]+)(?:\.([0-9]+))?$/.exec(rateRow.value);
+  if (!rateMatch) throw new ValidationError('rate', 'invalid_rate', 'The selected register rate is not a decimal percentage.');
+  const rateNumerator = BigInt(rateMatch[1] + (rateMatch[2] ?? ''));
+  const rateDenominator = 100n * 10n ** BigInt((rateMatch[2] ?? '').length);
   const method = register.methodFor(reportingMonth);
   let selected;
   if (request.branch === 'base_rate') selected = baseRate(request.pay);
@@ -188,7 +192,7 @@ export function calculate(request, register, config) {
 
   let roundedCents;
   try {
-    roundedCents = levyCents(selected.eligibleWagesCents);
+    roundedCents = levyCents(selected.eligibleWagesCents, Number(rateNumerator), Number(rateDenominator));
   } catch (issue) {
     if (issue instanceof RangeError) {
       throw new ValidationError('pay', 'amount_out_of_range',
@@ -198,7 +202,7 @@ export function calculate(request, register, config) {
   }
   const quarters = toQuarterCents(selected.eligibleWagesCents);
   // Levy in dollars before rounding = quarters * 27 / (4 * 1000 * 100).
-  const before = exactDecimal(quarters * BigInt(LEVY_RATE_NUMERATOR), 4n * BigInt(LEVY_RATE_DENOMINATOR) * 100n,
+  const before = exactDecimal(quarters * rateNumerator, 4n * rateDenominator * 100n,
     { minScale: 2, maxScale: 8 });
   const after = centsToString(roundedCents);
   const periodUrn = `${config.periodUrnPrefix}${reportingMonth}`;
@@ -215,7 +219,7 @@ export function calculate(request, register, config) {
     rate: {
       uri: rateUri,
       value_percent: rateRow.value,
-      as_fraction: `${LEVY_RATE_NUMERATOR}/${LEVY_RATE_DENOMINATOR}`,
+      as_fraction: `${rateNumerator}/${rateDenominator}`,
       effective_from: rateRow.period_start,
       source_checked: rateRow.verified_at,
       review: rateRow.review,
