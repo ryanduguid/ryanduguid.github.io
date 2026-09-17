@@ -33,6 +33,11 @@ export const REQUEST_SCHEMA = {
   type: 'object',
   additionalProperties: false,
   required: ['reporting_month', 'branch', 'employee', 'pay'],
+  allOf: [
+    { if: { properties: { branch: { const: 'base_rate' } } }, then: { properties: { pay: { required: ['base_rate_of_pay', 'salary_sacrificed', 'overtime_and_penalty_rates', 'allowances', 'allowances_exclude_expense_reimbursements', 'bonuses'] } } } },
+    { if: { properties: { branch: { const: 'annual_salary' } } }, then: { properties: { pay: { required: ['annual_salary_paid', 'salary_sacrificed', 'bonuses'] } } } },
+    { if: { properties: { branch: { const: 'casual' } } }, then: { properties: { pay: { required: ['instrument_specifies_loading', 'loading_quantifiable', 'base_rate_of_pay', 'casual_loading', 'ordinary_rate_of_pay', 'salary_sacrificed', 'bonuses'] } } } },
+  ],
   properties: {
     reporting_month: {
       type: 'string',
