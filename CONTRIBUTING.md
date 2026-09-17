@@ -44,7 +44,9 @@ not rewrite pages or evaluation pins. Its offline tests run through the site
 check command above. The same run reads every tool page's `release-meta` line:
 a page may keep a worked example pinned to an older release, but then the page
 text must name the current release too, so a reader installing from the page
-knows which version they get.
+knows which version they get. `scripts/release_record.json` (below) is the
+reviewed statement for the components it lists; this weekly read covers the
+tool pages outside it.
 
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
