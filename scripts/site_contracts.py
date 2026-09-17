@@ -69,8 +69,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-14"
-MCP_VISIBLE_REVIEW_DATE = "14 September 2026"
+MCP_REVIEW_DATE = "2026-09-18"
+MCP_VISIBLE_REVIEW_DATE = "18 September 2026"
 MCP_PAGE_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
@@ -555,7 +555,9 @@ PRIMARY_NAV_LINKS = [
 ]
 
 BREADCRUMB_LEAF_NAMES = {
+    "examples/profit-vs-cash-flow/index.html": "Profit vs cash flow",
     "tools/monthly-close-controls/index.html": "Monthly Close Controls",
+    "tools/ozzit/index.html": "Ozzit Excel LAMBDA library",
     "tools/ato-benchmarks/index.html": "ATO benchmark comparison",
     "tools/australian-tax-ai-agents/index.html": "Australian tax MCP server: Aus Accounting MCP",
     "tools/coal-lsl-levy/index.html": "Coal LSL levy calculator",
@@ -580,6 +582,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
             ("/tools/trust-distributions/", "Trust distribution checks"),
             ("/tools/company-tax-franking/", "Company tax and franking checks"),
+            ("/tools/ozzit/", "Ozzit Excel LAMBDA library"),
             ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
             ("/tools/monthly-close-controls/", "Monthly Close Controls"),
             ("/tools/australian-tax-ai-agents/", "Australian tax tools for AI agents"),
@@ -630,13 +633,13 @@ HOMEPAGE_SUPPORT = (
     "assumptions, and working visible."
 )
 HOMEPAGE_ACTIONS = (
-    ("/evaluate/#profit-and-cash", "Explore the cash-flow example"),
+    ("/examples/profit-vs-cash-flow/", "Explore the cash-flow example"),
     ("/tools/", "Browse tools by accounting task"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
     (
         "Understand an accounting problem",
-        "/evaluate/#profit-and-cash",
+        "/examples/profit-vs-cash-flow/",
         "/evaluate/#five-minute-cases",
     ),
     ("Try a browser calculator", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
@@ -683,7 +686,7 @@ HOMEPAGE_DESCRIPTION = (
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
-    "/evaluate/#profit-and-cash",
+    "/examples/profit-vs-cash-flow/",
     "/evaluate/#independent-review",
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
@@ -697,6 +700,8 @@ HOMEPAGE_PROOF_HREFS = [
     "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 ARTICLE_PATTERN_PAGES = {
+    "examples/profit-vs-cash-flow/index.html",
+    "tools/ozzit/index.html",
     "tools/monthly-close-controls/index.html",
     "about/index.html",
     "evaluate/manager-review-gate/index.html",
@@ -751,7 +756,7 @@ LEVY_PAGE_SCRIPT = '<script type="module" src="/assets/levy-page.mjs"></script>'
 HEADER_DATED_PAGES = {
     rel
     for rel in ARTICLE_PATTERN_PAGES
-    if rel.startswith(("tools/", "evaluate/"))
+    if rel.startswith(("tools/", "evaluate/", "examples/"))
 } | {CALCULATOR_REL, "rates/index.html", "evaluate/index.html"}
 CALCULATOR_MARKERS = [
     'name="branch"',
@@ -901,7 +906,7 @@ def social_metadata_for_page(rel: str) -> tuple[str | None, str | None]:
         context = "evidence"
     elif rel.startswith("tools/"):
         context = "tools"
-    elif rel.startswith("evaluate/"):
+    elif rel.startswith(("evaluate/", "examples/")):
         context = "evaluations"
     elif rel.startswith("rates/"):
         context = "rates"
@@ -2668,6 +2673,9 @@ def collection_breadcrumb_shape(
     elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
         parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
     elif rel == "evaluate/index.html":
+        parents = [("Home", "/", f"{SITE}/")]
+    elif rel.startswith("examples/"):
+        # Worked examples are canonical pages under Home; there is no examples hub.
         parents = [("Home", "/", f"{SITE}/")]
     elif rel.startswith("evaluate/"):
         parents = [

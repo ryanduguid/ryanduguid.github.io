@@ -220,7 +220,7 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 
 ## Links
 
-- Explore the cash-flow example: https://duguid.com.au/evaluate/#profit-and-cash
+- Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - Review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png

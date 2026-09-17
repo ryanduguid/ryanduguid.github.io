@@ -32,7 +32,7 @@ Published 30 August 2026. Last reviewed 18 September 2026.
 
 ## Links
 
-- fictional Newcastle cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- fictional Newcastle cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues

@@ -1,13 +1,115 @@
 {
-  "protected_files": {
-    "llms.txt": "e6d8096b04791e8424e386b51bb13b57d35c162f2aa230899f32c8940e1071de",
-    "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "1a53017915fec9bb69cb96439583277c2a969ee906147c876736b21cf2f76e0c"
+  "fonts": {
+    "assets/fonts/IBMPlexMono-Regular-Latin1.woff2": "10d3c7fa7eaf48e78db24f317b64f008a75e00f63a68bb3c2afc6ef51e58674f",
+    "assets/fonts/IBMPlexSans-Italic-Latin1.woff2": "0a06b98143f3453b81f3c396241a01c6c4cff84c1a77bf0c75b18bd603018506",
+    "assets/fonts/IBMPlexSans-Regular-Latin1.woff2": "b5ad7bd39f996144915f0ad9849a90183b27d8c28ad97ed98af5b1bebc51f6b1",
+    "assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2": "fff0ab3a88b0b4aa0b693e4f0201359a15183b08e3fa5696d1918d8f0ade8ad5",
+    "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",
+    "assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2": "1d34d4612be8d2f06a25858a8bc3c3c3b5c4ec0ee1285501c3a4df2ddace7afa",
+    "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
   },
-  "protected_main_text": {
-    "rates/super-guarantee/index.html": "42a3042f07f8f32239a23ac17a5bfedd057071e959fb91c048f5ed7b71d8879d",
-    "rates/div7a-benchmark-rate/index.html": "9d0d9625f01d6e6818211cedec06008e897e9c3ec67bf05ac82df55901ceb9a1",
-    "rates/cents-per-kilometre/index.html": "846bed16bb1143f66f8ab0f6a2134859a2e4fdca197c386c2f25e68b0e781776"
+  "json_ld": {
+    "about/index.html": [
+      "bb2996a08c0fca3a40d0b8ae4aaef4f39d48aed4c17902baeb6d137e95a36ef8"
+    ],
+    "changelog/index.html": [
+      "ee59e1d429c6c6897e209e910adf66d7ee483f48eb2c8514720734657fee583f"
+    ],
+    "contact/index.html": [
+      "eae9822161ee98f0af3337f06067ef6310f9f71dbfa9b4b14bc1d758612ae3e9"
+    ],
+    "evaluate/index.html": [
+      "5dc5680ce270fa6071dc3c7f16c74a64ee30530e8149ece77eb76d3e923e6a73"
+    ],
+    "evaluate/manager-review-gate/index.html": [
+      "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
+    ],
+    "evaluate/payday-super-evidence/index.html": [
+      "fac20eba79394a881a096ca0dd759ff150036b20f6fd76aa106a0b03b983578a"
+    ],
+    "evaluate/xero-trial-balance-integrity/index.html": [
+      "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
+    ],
+    "evidence/index.html": [
+      "57577023b37a379b13bcd629c1651ced208ef3f6ad37da749cd250edd891e529"
+    ],
+    "examples/profit-vs-cash-flow/index.html": [
+      "3b7ac3097af404a4b7da8b2438206a8dfcce16ea97652a6519959fb712b1653b"
+    ],
+    "index.html": [
+      "3a2be8af984258576ca5c38455faaf2f80add7dc707cde99fb1316bdc75a6667"
+    ],
+    "privacy/index.html": [
+      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
+    ],
+    "rates/cents-per-kilometre/index.html": [
+      "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
+    ],
+    "rates/div7a-benchmark-rate/index.html": [
+      "70ce58f8cd020dbc5a40fcf036092c5db2dd606084b3b17e01f8e0ed56b57737"
+    ],
+    "rates/index.html": [
+      "197f192b3a7b763a1a78cf69130167006c79f85efe97240dbe0d86d7d79d12e9"
+    ],
+    "rates/super-guarantee/index.html": [
+      "0b00e50c0072bdb775b75da02194e0fc4a60eb39d5cf6b2db151668945ddf862"
+    ],
+    "tools/accounting-questions/index.html": [
+      "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
+    ],
+    "tools/ato-benchmarks/index.html": [
+      "dbc8a106831702aa4c9d87be6c08e243d7cf896f15988b15e794a33a3cfec0c2"
+    ],
+    "tools/australian-tax-ai-agents/index.html": [
+      "5f303219d25ab3e7b137bef8e78587d4117fa175467d7728b72d3e0d48fc72ec"
+    ],
+    "tools/business-calculators/index.html": [
+      "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
+    ],
+    "tools/coal-lsl-levy/index.html": [
+      "540ffbf0863c554f09d2e4e0cf7ff99039d00051f0d1a3e1cc57a73c15db274b"
+    ],
+    "tools/company-tax-franking/index.html": [
+      "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
+    ],
+    "tools/index.html": [
+      "5826f10b87c5e26ec76bcd7aa3ec4cdd25d0cbeb4c42c8abb76cb208f318502e"
+    ],
+    "tools/limitations/index.html": [
+      "8376e46954a1cdf060b096805864d19bd70cac99823004b4adcae515a0174d3f"
+    ],
+    "tools/monthly-close-controls/index.html": [
+      "2dfe9d4b058de7f5a89d8fd24d31c89354e86a38a84e40779434370a84597cb2"
+    ],
+    "tools/ozzit/index.html": [
+      "a51605a44be60e346699f3f49b075cb02871e584da012580cd896c727bde8e1a"
+    ],
+    "tools/payday-super/index.html": [
+      "54cdaca300f8612a70083d4f5c7e3797b6843f0771db59854fd2963f094dc0bd"
+    ],
+    "tools/refusals/index.html": [
+      "7e7a8f362bac4aaa3a46c9703e426ef4638574652a9e6353687145834704a096"
+    ],
+    "tools/subcontractor-ledgers/index.html": [
+      "c34d922f615c941c190021b1097c291867b5e2c3f5b36aec97c00f30d2e7dc4d"
+    ],
+    "tools/trust-distributions/index.html": [
+      "69af11de13e6c57231bb65aca757eddb7d623d2422a60cfe479d334ad35c7adf"
+    ],
+    "tools/wip-schedule/index.html": [
+      "d1e94294ac3d5f12fb23670e818efb3ce0a2c81a484af7ae934acbfe101ad0ef"
+    ],
+    "tools/workpaper-review-gate/index.html": [
+      "15b9ac7144f7c6a6f4e183b91ec4751a527fd4a2f5ba2b671cbe7f78189ad828"
+    ],
+    "tools/xero-trial-balance/index.html": [
+      "0caabfe29d8f7ff17833a5a574799098e3f8e1e70220c9b714b1fb9b97993689"
+    ]
+  },
+  "protected_files": {
+    "llms.txt": "97060ad9155085052e0243424fc680174955d6038e9f474884af56dac1083ab7",
+    "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
+    "sitemap.xml": "2c11bc32ef6753dfa486c553ff2a2ee363fd16fb3fa83080020dde6935f4d532"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -59,110 +161,14 @@
       "/about/"
     ]
   },
-  "json_ld": {
-    "about/index.html": [
-      "9177cc65dd35bbbb78282d63ef204c6092accfddf3f97c4c11bc031fa28c4df3"
-    ],
-    "changelog/index.html": [
-      "ee59e1d429c6c6897e209e910adf66d7ee483f48eb2c8514720734657fee583f"
-    ],
-    "contact/index.html": [
-      "eae9822161ee98f0af3337f06067ef6310f9f71dbfa9b4b14bc1d758612ae3e9"
-    ],
-    "evaluate/index.html": [
-      "5dc5680ce270fa6071dc3c7f16c74a64ee30530e8149ece77eb76d3e923e6a73"
-    ],
-    "evaluate/manager-review-gate/index.html": [
-      "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
-    ],
-    "evaluate/payday-super-evidence/index.html": [
-      "fac20eba79394a881a096ca0dd759ff150036b20f6fd76aa106a0b03b983578a"
-    ],
-    "evaluate/xero-trial-balance-integrity/index.html": [
-      "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
-    ],
-    "evidence/index.html": [
-      "57577023b37a379b13bcd629c1651ced208ef3f6ad37da749cd250edd891e529"
-    ],
-    "index.html": [
-      "74e573ab87e791fb8d36a9a77a96a396417e0a55db8688fc0b6a95697421d535"
-    ],
-    "rates/cents-per-kilometre/index.html": [
-      "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
-    ],
-    "rates/div7a-benchmark-rate/index.html": [
-      "70ce58f8cd020dbc5a40fcf036092c5db2dd606084b3b17e01f8e0ed56b57737"
-    ],
-    "rates/index.html": [
-      "197f192b3a7b763a1a78cf69130167006c79f85efe97240dbe0d86d7d79d12e9"
-    ],
-    "rates/super-guarantee/index.html": [
-      "0b00e50c0072bdb775b75da02194e0fc4a60eb39d5cf6b2db151668945ddf862"
-    ],
-    "tools/ato-benchmarks/index.html": [
-      "dbc8a106831702aa4c9d87be6c08e243d7cf896f15988b15e794a33a3cfec0c2"
-    ],
-    "tools/australian-tax-ai-agents/index.html": [
-      "733ed1c0f721ba8ce7a3e7e6caf525a1aafb697985ded1e391af62b61f398408"
-    ],
-    "tools/coal-lsl-levy/index.html": [
-      "540ffbf0863c554f09d2e4e0cf7ff99039d00051f0d1a3e1cc57a73c15db274b"
-    ],
-    "tools/company-tax-franking/index.html": [
-      "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
-    ],
-    "tools/index.html": [
-      "bc3dd9d3fa7ed8c283d8425af730b6dd49619c9749383665d7b4004fa175f63b"
-    ],
-    "tools/limitations/index.html": [
-      "8376e46954a1cdf060b096805864d19bd70cac99823004b4adcae515a0174d3f"
-    ],
-    "tools/payday-super/index.html": [
-      "54cdaca300f8612a70083d4f5c7e3797b6843f0771db59854fd2963f094dc0bd"
-    ],
-    "tools/subcontractor-ledgers/index.html": [
-      "c34d922f615c941c190021b1097c291867b5e2c3f5b36aec97c00f30d2e7dc4d"
-    ],
-    "tools/trust-distributions/index.html": [
-      "69af11de13e6c57231bb65aca757eddb7d623d2422a60cfe479d334ad35c7adf"
-    ],
-    "tools/wip-schedule/index.html": [
-      "d1e94294ac3d5f12fb23670e818efb3ce0a2c81a484af7ae934acbfe101ad0ef"
-    ],
-    "tools/workpaper-review-gate/index.html": [
-      "15b9ac7144f7c6a6f4e183b91ec4751a527fd4a2f5ba2b671cbe7f78189ad828"
-    ],
-    "tools/xero-trial-balance/index.html": [
-      "0caabfe29d8f7ff17833a5a574799098e3f8e1e70220c9b714b1fb9b97993689"
-    ],
-    "tools/refusals/index.html": [
-      "7e7a8f362bac4aaa3a46c9703e426ef4638574652a9e6353687145834704a096"
-    ],
-    "tools/monthly-close-controls/index.html": [
-      "2dfe9d4b058de7f5a89d8fd24d31c89354e86a38a84e40779434370a84597cb2"
-    ],
-    "tools/accounting-questions/index.html": [
-      "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
-    ],
-    "tools/business-calculators/index.html": [
-      "c654e0b1faa83524d1386a95b00ca1ab9d133d163524eaa5e32b8c122507e155"
-    ],
-    "privacy/index.html": [
-      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
-    ]
+  "protected_main_text": {
+    "rates/cents-per-kilometre/index.html": "846bed16bb1143f66f8ab0f6a2134859a2e4fdca197c386c2f25e68b0e781776",
+    "rates/div7a-benchmark-rate/index.html": "9d0d9625f01d6e6818211cedec06008e897e9c3ec67bf05ac82df55901ceb9a1",
+    "rates/super-guarantee/index.html": "42a3042f07f8f32239a23ac17a5bfedd057071e959fb91c048f5ed7b71d8879d"
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 31,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 33,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
-  },
-  "fonts": {
-    "assets/fonts/IBMPlexMono-Regular-Latin1.woff2": "10d3c7fa7eaf48e78db24f317b64f008a75e00f63a68bb3c2afc6ef51e58674f",
-    "assets/fonts/IBMPlexSans-Italic-Latin1.woff2": "0a06b98143f3453b81f3c396241a01c6c4cff84c1a77bf0c75b18bd603018506",
-    "assets/fonts/IBMPlexSans-Regular-Latin1.woff2": "b5ad7bd39f996144915f0ad9849a90183b27d8c28ad97ed98af5b1bebc51f6b1",
-    "assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2": "fff0ab3a88b0b4aa0b693e4f0201359a15183b08e3fa5696d1918d8f0ade8ad5",
-    "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",
-    "assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2": "1d34d4612be8d2f06a25858a8bc3c3c3b5c4ec0ee1285501c3a4df2ddace7afa",
-    "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
   }
 }

@@ -12,7 +12,7 @@ Find a question and prepare a checklist.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
 
-Published 11 September 2026. Last reviewed 14 September 2026.
+Published 11 September 2026. Last reviewed 18 September 2026.
 
 JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
 
@@ -190,4 +190,4 @@ Download forecast CSV
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
 - Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Lumbridge cash-flow case: https://duguid.com.au/evaluate/#profit-and-cash
+- Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/

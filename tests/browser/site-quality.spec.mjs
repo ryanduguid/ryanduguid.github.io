@@ -16,6 +16,8 @@ const routes = [
   ['rates', '/rates/'],
   ['super guarantee rate', '/rates/super-guarantee/'],
   ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],
+  ['profit versus cash flow', '/examples/profit-vs-cash-flow/'],
+  ['Ozzit Excel LAMBDA library', '/tools/ozzit/'],
   ['Coal LSL calculator', '/tools/coal-lsl-levy/'],
   ['not-found page', '/404.html'],
 ];
@@ -41,7 +43,7 @@ const currentNavigationCases = [
 const noCurrentNavigationRoutes = ['/evaluate/', '/evaluate/manager-review-gate/'];
 
 const homepagePreviewRoutes = [
-  ['Understand an accounting problem', '/evaluate/#profit-and-cash', 'profit-and-cash'],
+  ['Understand an accounting problem', '/examples/profit-vs-cash-flow/', 'business'],
   ['Try a browser calculator', '/tools/coal-lsl-levy/', 'calc-form'],
   ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/', 'accounting-problem'],
   ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install', 'install'],
@@ -62,9 +64,10 @@ const representativeHeightBaseline = {
   'mobile-chromium': new Map([
     ['/', 9723],
     // The four starting routes (heading plus four two-line rows) replaced the
-    // direct example links on 18 September 2026. Tools measures 8,565px at
-    // 390px wide in the mobile project. Retain the 234px guard.
-    ['/tools/', 8800],
+    // direct example links on 18 September 2026, and the Ozzit entry joined
+    // the Calculate group the same day. Tools measures 8,978px at 390px wide
+    // in the mobile project. Retain the 234px guard.
+    ['/tools/', 9212],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. The upstream summary then
     // gained the detection-is-not-prevention qualification on 18 September
@@ -181,7 +184,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
     'Explore the cash-flow example',
     'Browse tools by accounting task',
   ]);
-  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/evaluate/#profit-and-cash');
+  await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
   await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/tools/');
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);

@@ -5,7 +5,7 @@ const SAMPLE_PACK = '/assets/examples/lumbridge/lumbridge-sample-pack.zip';
 
 // The four starting routes, as the homepage, Tools and llms.txt all state them.
 const startingRoutes = [
-  ['Understand an accounting problem', '/evaluate/#profit-and-cash'],
+  ['Understand an accounting problem', '/examples/profit-vs-cash-flow/'],
   ['Try a browser calculator', '/tools/coal-lsl-levy/'],
   ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/'],
   ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install'],

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import builtins
 import hashlib
 import json
 import re
@@ -14,6 +15,8 @@ from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
+from typing import Any
+from urllib.parse import urlsplit
 
 import check_design
 import extract_xero_badge
@@ -801,8 +804,8 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 30, (
-        f"expected 30 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 32, (
+        f"expected 32 canonical HTML pages, found {len(indexed_rels)}"
     )
     metadata_failures = [
         failure
@@ -1412,7 +1415,7 @@ def test_public_contracts() -> int:
         (
             "hub ItemList count",
             "tools/index.html",
-            '"numberOfItems": 11',
+            '"numberOfItems": 12',
             '"numberOfItems": 9',
             contracts.check_collection_hubs,
             "tools/index.html: ItemList count does not match visible entries",
@@ -1698,8 +1701,495 @@ def test_xero_badge() -> None:
     assert extract_xero_badge.extract(source) == (ROOT / extract_xero_badge.TARGET).read_bytes()
 
 
+def test_release_record() -> None:
+    """Current release claims, labelled historical ones and unreleased versions."""
+    import copy
+
+    import release_record
+
+    assert_clean("current release record", release_record.check_record(ROOT))
+    record = release_record.load()
+
+    # A page may document an older release than the published one, but only
+    # when it names the difference. The same lag without that sentence fails.
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["published"]["version"] = "0.3.0"
+        expect_failure(
+            "unlabelled release lag",
+            release_record.check_record(root, lagging),
+            "without naming the difference",
+        )
+
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["published"]["version"] = "0.3.0"
+        component["published"]["release_url"] = (
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/"
+            "aus-accounting-mcp/v0.3.0"
+        )
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "<p class=\"page-meta\">",
+            "<p>Release 0.3.0 is the current published release; this page still "
+            'documents 0.2.2.</p>\n    <p class="page-meta">',
+        )
+        failures = release_record.check_record(root, lagging)
+        assert not any("without naming the difference" in failure for failure in failures), (
+            f"a labelled lag must pass: {failures!r}"
+        )
+
+    # A preserved evaluation keeps the release it reproduced, not the current one.
+    with copied_site() as root:
+        page = root / "evaluate/manager-review-gate/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace("0.1.3", "0.1.6"),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "historical evaluation release replaced",
+            release_record.check_record(root),
+            "must keep release 0.1.3 visible",
+        )
+
+    # An unreleased default-branch version must not be offered as a download.
+    with copied_site() as root:
+        replace_file(
+            root,
+            "tools/ozzit/index.html",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
+        )
+        expect_failure(
+            "unreleased download offered",
+            release_record.check_record(root),
+            "which is not published",
+        )
+
+    # Structured data must describe the release the page documents.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            '"softwareVersion": "0.2.2"',
+            '"softwareVersion": "0.2.0"',
+        )
+        expect_failure(
+            "structured version drift",
+            release_record.check_record(root),
+            "structured softwareVersion is",
+        )
+
+    # An unpinned adoption command must stay labelled as tracking the package.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "Each command above is unpinned. uvx may reuse a cached environment or an",
+            "Each command above installs the latest release every time it runs, and",
+        )
+        expect_failure(
+            "unpinned command promising the latest release",
+            release_record.check_record(root),
+            "must say they are unpinned",
+        )
+
+    # A lag the record claims must be a release the page actually names.
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["documented"]["version"] = "0.1.0"
+        component["documented"].pop("software_version", None)
+        expect_failure(
+            "documented release the page never names",
+            release_record.check_record(root, lagging),
+            "without naming the difference",
+        )
+
+    # The release record must be a link a reader can follow, not a mention.
+    with copied_site() as root:
+        url = record["components"]["ozzit"]["published"]["release_url"]
+        page = root / "tools/ozzit/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(f'href="{url}"', f'data-was="{url}"'),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "release record mentioned but not linked",
+            release_record.check_record(root),
+            "does not link the published release record",
+        )
+
+    # A page that names a pinned engine must name the version the release pins.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "australian-tax-calculators 0.1.3",
+            "australian-tax-calculators 0.1.2",
+        )
+        expect_failure(
+            "engine pin drift",
+            release_record.check_record(root),
+            "but aus-accounting-mcp 0.2.2 pins 0.1.3",
+        )
+
+    # An evaluation's label names its component, so an unrelated number cannot pass.
+    with copied_site() as root:
+        page = root / "evaluate/xero-trial-balance-integrity/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(
+                "xero-trial-balance-export/v0.1.6", "some-other-package/v0.1.6"
+            ),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "evaluation label replaced by a bare version",
+            release_record.check_record(root),
+            "must keep release 0.1.6 visible",
+        )
+
+    # A release URL hidden from readers does not satisfy the link contract.
+    hidden_forms = {
+        "an HTML comment": '<!-- {url} -->',
+        "a script": '<script type="application/ld+json">{{"seeAlso": "{url}"}}</script>',
+        "an unrelated attribute": '<span data-source="{url}">see the release</span>',
+        "a hidden element": '<p hidden><a href="{url}">Release</a></p>',
+    }
+    url = record["components"]["ozzit"]["published"]["release_url"]
+    for label, markup in hidden_forms.items():
+        with copied_site() as root:
+            page = root / "tools/ozzit/index.html"
+            text = page.read_text(encoding="utf-8").replace(
+                f'href="{url}"', 'href="https://example.org/elsewhere"'
+            )
+            text = text.replace("</main>", markup.format(url=url) + "</main>")
+            page.write_text(text, encoding="utf-8")
+            expect_failure(
+                f"release URL only in {label}",
+                release_record.check_record(root),
+                "does not link the published release record",
+            )
+
+    # Another repository's identical version number is not this unreleased download.
+    with copied_site() as root:
+        page = root / "tools/ozzit/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(
+                "</main>",
+                '<p><a href="https://github.com/example/other/releases/tag/v3.4.2">Another '
+                "project's v3.4.2</a></p></main>",
+            ),
+            encoding="utf-8",
+        )
+        assert_clean(
+            "unrelated repository sharing a version number",
+            [
+                failure
+                for failure in release_record.check_record(root)
+                if "not published" in failure
+            ],
+        )
+
+    # A release-specific supporting file must be read at the documented release,
+    # not at a default branch that may already carry a later version.
+    for replacement in ("main", "v3.4.2"):
+        with copied_site() as root:
+            page = root / "tools/ozzit/index.html"
+            page.write_text(
+                page.read_text(encoding="utf-8").replace(
+                    "Ozzit/blob/v3.4.1/CITATION.cff",
+                    f"Ozzit/blob/{replacement}/CITATION.cff",
+                ),
+                encoding="utf-8",
+            )
+            expect_failure(
+                f"citation retargeted to {replacement}",
+                release_record.check_record(root),
+                "CITATION.cff must be linked at v3.4.1",
+            )
+
+    # Supporting evidence must also be a link a reader can see.
+    with copied_site() as root:
+        page = root / "tools/ozzit/index.html"
+        citation = (
+            "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff"
+        )
+        text = page.read_text(encoding="utf-8").replace(
+            f'href="{citation}"', 'href="https://example.org/elsewhere"'
+        )
+        text = text.replace("</main>", f"<!-- {citation} --></main>")
+        page.write_text(text, encoding="utf-8")
+        expect_failure(
+            "supporting evidence only in a comment",
+            release_record.check_record(root),
+            "CITATION.cff must be linked at v3.4.1",
+        )
+
+    # The repository root is a general destination and stays unpinned.
+    with copied_site() as root:
+        assert_clean(
+            "unpinned repository link",
+            [
+                failure
+                for failure in release_record.check_record(root)
+                if "github.com/ryanduguid/Ozzit\"" in failure
+            ],
+        )
+
+    # The live refresh runs entirely offline here, against stubbed responses.
+    # Each source is probed independently, so one failure must not hide another
+    # source's result, and no failure may read as a matching version.
+    record_path = release_record.RECORD
+    before = record_path.read_bytes()
+    ozzit = copy.deepcopy(record["components"]["ozzit"])
+    mcp = copy.deepcopy(record["components"]["aus-accounting-mcp"])
+    original_fetch = release_record.fetch_json
+    original_open = release_record.urllib.request.urlopen
+
+    def host_of(url: str) -> str:
+        """The stub routes on the parsed host, not a substring of the whole URL."""
+        return (urlsplit(url).hostname or "").lower()
+
+    def states(probes: list) -> dict[str, tuple[str, str]]:
+        return {probe.source: (probe.state, probe.detail) for probe in probes}
+
+    def http_error(status: int):
+        def raiser(*arguments, **keywords):
+            raise release_record.urllib.error.HTTPError(
+                "https://example.invalid/asset", status, "refused", {}, None
+            )
+        return raiser
+
+    try:
+        # An empty release list means the recorded release is gone, which is a
+        # finding, not a source to leave out of the report.
+        release_record.fetch_json = lambda url: []
+        absent = states(release_record.live_versions(ozzit))
+        assert absent["github"] == (release_record.FOUND, release_record.MISSING), absent
+
+        # A changed response contract is inconclusive, never a version named "None".
+        release_record.fetch_json = lambda url: ["unexpected shape"]
+        shaped = states(release_record.live_versions(mcp))
+        for source in ("pypi", "registry"):
+            assert shaped[source][0] == release_record.INCONCLUSIVE, shaped
+        # A list is the releases endpoint's own shape, so GitHub reports that no
+        # matching release is in it rather than inventing one.
+        assert shaped["github"] == (release_record.FOUND, release_record.MISSING), shaped
+        for state, detail in shaped.values():
+            assert "None" not in detail, shaped
+
+        # A registry record without a version string is a changed contract.
+        release_record.fetch_json = lambda url: {"server": {}}
+        versionless = states(release_record.live_versions(mcp))
+        assert versionless["registry"][0] == release_record.INCONCLUSIVE, versionless
+        assert "no version string" in versionless["registry"][1], versionless
+
+        # One failing source must not suppress the others. PyPI answers, the
+        # registry fails, and GitHub is still asked and still reports.
+        def mixed(url: str):
+            if host_of(url) == "pypi.org":
+                return {"info": {"version": "0.3.0"}}
+            if host_of(url) == "registry.modelcontextprotocol.io":
+                raise TimeoutError("registry timed out")
+            if "/releases/tags/" in url:
+                return {"tag_name": "aus-accounting-mcp/v0.3.0"}
+            return [{"tag_name": "aus-accounting-mcp/v0.3.0", "draft": False, "prerelease": False}]
+
+        release_record.fetch_json = mixed
+        both = states(release_record.live_versions(mcp))
+        assert both["pypi"] == (release_record.FOUND, "0.3.0"), both
+        assert both["registry"][0] == release_record.INCONCLUSIVE, both
+        assert both["github"] == (release_record.FOUND, "0.3.0"), both
+
+        # The first source failing must not stop the last one being attempted.
+        def first_fails(url: str):
+            if host_of(url) == "pypi.org":
+                raise TimeoutError("pypi timed out")
+            if "/releases/tags/" in url:
+                return {"tag_name": "aus-accounting-mcp/v0.2.2"}
+            if host_of(url) == "registry.modelcontextprotocol.io":
+                return {"server": {"version": "0.2.2"}}
+            return [{"tag_name": "aus-accounting-mcp/v0.2.2", "draft": False, "prerelease": False}]
+
+        release_record.fetch_json = first_fails
+        after_first = states(release_record.live_versions(mcp))
+        assert after_first["pypi"][0] == release_record.INCONCLUSIVE, after_first
+        assert after_first["github"] == (release_record.FOUND, "0.2.2"), after_first
+
+        # A capped search establishes nothing: only an exhausted listing can say a
+        # release is absent, so hitting the page cap is inconclusive, not MISSING.
+        release_record.fetch_json = lambda url: [
+            {"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
+            for n in range(release_record.RELEASE_PAGE_SIZE)
+        ]
+        capped = states(release_record.live_versions(ozzit))
+        assert capped["github"][0] == release_record.INCONCLUSIVE, capped
+        assert "without reaching the end" in capped["github"][1], capped
+
+        # A registry that reports the version but marks it deprecated, or no
+        # longer latest, contradicts a record claiming active and latest. That is
+        # a clear answer, so it is CHANGED (a drift finding), not inconclusive.
+        def registry_meta(meta: Any) -> Callable[[str], Any]:
+            def read(url: str) -> Any:
+                record: dict[str, Any] = {"server": {"version": "0.2.2"}}
+                if meta is not None:
+                    record["_meta"] = {"io.modelcontextprotocol.registry/official": meta}
+                return record
+            return read
+
+        for meta, expected in (
+            ({"status": "deprecated", "isLatest": True}, "status"),
+            ({"status": "active", "isLatest": False}, "latest"),
+        ):
+            stub: Any = registry_meta(meta)
+            release_record.fetch_json = stub
+            lifecycle = states(release_record.live_versions(mcp))
+            assert lifecycle["registry"][0] == release_record.CHANGED, lifecycle
+            assert expected in lifecycle["registry"][1], lifecycle
+
+        # A registry response with the right number but no usable lifecycle
+        # metadata confirms nothing about "active" or "latest": inconclusive,
+        # never a match.
+        partial: Any
+        for partial in (
+            None,
+            {},
+            {"status": "", "isLatest": True},
+            {"status": "active"},
+            {"status": "active", "isLatest": "true"},
+            "official",
+        ):
+            stub = registry_meta(partial)
+            release_record.fetch_json = stub
+            lifecycle = states(release_record.live_versions(mcp))
+            assert lifecycle["registry"][0] == release_record.INCONCLUSIVE, (partial, lifecycle)
+            assert "lifecycle" in lifecycle["registry"][1] or "isLatest" in lifecycle["registry"][1], lifecycle
+
+        # Confirmed lifecycle metadata with the recorded number is the only match.
+        stub = registry_meta({"status": "active", "isLatest": True})
+        release_record.fetch_json = stub
+        assert states(release_record.live_versions(mcp))["registry"] == (release_record.FOUND, "0.2.2")
+
+        # The record's own claim is a fixed vocabulary. A typo or an unrecognised
+        # word must not silently skip a check: it is a record error offline and
+        # inconclusive live, never a match.
+        for claim in ("active, lastest", "inactive", "active latest", 7):
+            mistyped = copy.deepcopy(mcp)
+            mistyped["published"]["registry_status"] = claim
+            live = states(release_record.live_versions(mistyped))
+            assert live["registry"][0] == release_record.INCONCLUSIVE, (claim, live)
+            assert "registry_status" in live["registry"][1], live
+            bad_record = copy.deepcopy(record)
+            bad_record["components"]["aus-accounting-mcp"] = mistyped
+            expect_failure(
+                f"mistyped registry claim {claim!r}",
+                release_record.check_record(ROOT, bad_record),
+                "registry_status",
+            )
+        assert release_record.registry_claims({"registry_status": " latest ,active"}) == {"active", "latest"}
+        assert release_record.registry_claims({}) == frozenset()
+
+        # Releases spanning pages: an older tag on page two is still found, so a
+        # full first page never makes a present release look absent.
+        pages = {
+            1: [{"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
+                for n in range(100)],
+            2: [{"tag_name": "v3.4.1", "draft": False, "prerelease": False}],
+        }
+        release_record.fetch_json = lambda url: pages[int(url.rsplit("page=", 1)[-1])]
+        found_tags, exhausted = release_record.release_tags("ryanduguid/Ozzit", "v")
+        assert found_tags == ["v3.4.1"], "a release beyond the first page must still be found"
+        assert exhausted, "a short page ends the listing"
+
+    finally:
+        release_record.fetch_json = original_fetch
+
+    # Asset classification: gone is a finding, refused is inconclusive, and a
+    # served file is compared with the recorded bytes.
+    published = copy.deepcopy(record["components"]["ozzit"]["published"])
+    try:
+        for status in (404, 410):
+            release_record.urllib.request.urlopen = http_error(status)
+            probe = release_record.live_asset(published)
+            assert probe is not None and probe.state == release_record.ABSENT, probe
+            assert str(status) in probe.detail, probe
+        for status in (401, 403, 408, 429, 500, 503):
+            release_record.urllib.request.urlopen = http_error(status)
+            probe = release_record.live_asset(published)
+            assert probe is not None and probe.state == release_record.INCONCLUSIVE, (
+                f"HTTP {status} proves nothing about the recorded bytes: {probe}"
+            )
+        release_record.urllib.request.urlopen = lambda *a, **k: (_ for _ in ()).throw(
+            TimeoutError("asset timed out")
+        )
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.INCONCLUSIVE, probe
+
+        served = b"x" * int(published["asset_bytes"])
+
+        class Response:
+            def __init__(self, payload: bytes) -> None:
+                self.payload = payload
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *arguments: object) -> None:
+                return None
+
+            def read(self) -> bytes:
+                return self.payload
+
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(served)
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.CHANGED, probe
+        assert "SHA-256 differs" in probe.detail, probe
+
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(b"short")
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.CHANGED, probe
+        assert "bytes, record says" in probe.detail, probe
+
+        matching = copy.deepcopy(published)
+        matching["asset_bytes"] = len(served)
+        matching["asset_sha256"] = hashlib.sha256(served).hexdigest()
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(served)
+        probe = release_record.live_asset(matching)
+        assert probe is not None and probe.state == release_record.FOUND, probe
+
+        # An asset outage must not suppress version results already established.
+        release_record.urllib.request.urlopen = http_error(429)
+        original_versions = release_record.live_versions
+        try:
+            release_record.live_versions = lambda component: [
+                release_record.Probe("github", release_record.FOUND, "9.9.9")
+            ]
+            printed: list[str] = []
+            original_print = builtins.print
+            builtins.print = lambda *args, **kwargs: printed.append(" ".join(map(str, args)))
+            try:
+                release_record.verify_live()
+            finally:
+                builtins.print = original_print
+        finally:
+            release_record.live_versions = original_versions
+        reported = "\n".join(printed)
+        assert "github reports 9.9.9" in reported, reported
+        assert "asset INCONCLUSIVE" in reported, reported
+    finally:
+        release_record.urllib.request.urlopen = original_open
+
+    assert record_path.read_bytes() == before, "the refresh must not rewrite the record"
+    print("release record tests passed (37 cases)")
+
+
 def main() -> None:
     test_xero_badge()
+    test_release_record()
     test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()

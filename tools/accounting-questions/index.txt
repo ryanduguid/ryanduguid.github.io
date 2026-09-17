@@ -1394,7 +1394,7 @@ The linked repositories have different scopes and supported periods. A preparati
 ## Links
 
 - Open the business calculators: https://duguid.com.au/tools/business-calculators/
-- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/#general-tax
 - Deductions: https://duguid.com.au/tools/accounting-questions/#deductions
 - Starting a business: https://duguid.com.au/tools/accounting-questions/#business-setup
@@ -1493,6 +1493,7 @@ The linked repositories have different scopes and supported periods. A preparati
 - Link to question 59: https://duguid.com.au/tools/accounting-questions/#q59
 - Link to question 60: https://duguid.com.au/tools/accounting-questions/#q60
 - Link to question 61: https://duguid.com.au/tools/accounting-questions/#q61
+- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
 - Link to question 62: https://duguid.com.au/tools/accounting-questions/#q62
 - Link to question 63: https://duguid.com.au/tools/accounting-questions/#q63
 - Link to question 64: https://duguid.com.au/tools/accounting-questions/#q64
