@@ -29,6 +29,8 @@ CHECKS = (
         ".agents/tools/search-console/server.py",
         "self-test",
     ),
+    (sys.executable, "scripts/check_rates_register.py"),
+    (sys.executable, "scripts/test_rates_register.py"),
     (sys.executable, "scripts/check_seo.py"),
     (sys.executable, "scripts/release_record.py"),
     (sys.executable, "scripts/test_visibility_benchmark.py"),

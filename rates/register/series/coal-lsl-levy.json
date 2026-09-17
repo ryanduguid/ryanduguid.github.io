@@ -1,0 +1,38 @@
+{
+  "schema_version": 1,
+  "series_id": "coal-lsl-levy",
+  "name": "Coal LSL payroll levy: prescribed percentage of eligible wages",
+  "jurisdiction": "AU",
+  "unit": "percent",
+  "basis": {
+    "instrument": "Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018",
+    "provision": "s 6 (Rate of levy), made for s 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992",
+    "url": "https://www.legislation.gov.au/F2018L00217/latest/text"
+  },
+  "advice_status": "Not advice. Verify each figure against its primary source at the time of use.",
+  "rows": [
+    {
+      "row_id": "2023-07-01",
+      "period_start": "2023-07-01",
+      "period_end": null,
+      "value": "2.7",
+      "status": "verified",
+      "review": "automated-retrieval",
+      "primary_source": {
+        "title": "Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018, Compilation No. 1",
+        "url": "https://www.legislation.gov.au/F2018L00217/latest/text",
+        "publisher": "Federal Register of Legislation",
+        "register_id": "F2018L00217",
+        "compilation": "F2023C00557 (compilation date 1 July 2023, registered 7 July 2023, includes amendments up to F2023L00772)",
+        "passage": "s 6: For the purposes of section 5 of the Act, 2.7% is the prescribed percentage of the eligible wages paid. s 8: the amendment made by the Coal Mining Industry (Long Service Leave) Payroll Levy Amendment Regulations 2023 applies in relation to eligible wages paid on or after 1 July 2023."
+      },
+      "cross_checks": [
+        "https://duguid.com.au/tools/coal-lsl-levy/",
+        "https://coallsl.com.au/guidance-notes/eligible-wages"
+      ],
+      "verified_at": "2026-09-18",
+      "verified_by": "automated retrieval (Claude Code session, 18 September 2026); no professional review recorded",
+      "verification_note": "The compilation shows s 6 as amended by F2023L00772 (commenced 1 July 2023). The rate text in force before 1 July 2023 was not read in this session, so no row covers earlier months. A later compilation supersedes this row; check the Register before relying on it."
+    }
+  ]
+}
