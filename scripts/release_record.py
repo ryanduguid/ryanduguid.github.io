@@ -77,6 +77,14 @@ class Probe(NamedTuple):
     detail: str
 
 
+class Contradiction(Exception):
+    """A source answered clearly and its answer disagrees with the record.
+
+    Deliberately not a LIVE_ERRORS member: those mean the source could not be
+    read, which establishes nothing. This one is a finding.
+    """
+
+
 def load(path: Path = RECORD) -> dict[str, Any]:
     """Read the reviewed release record."""
     record: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
@@ -267,6 +275,8 @@ def probe(source: str, read: Callable[[], str]) -> Probe:
     """Run one source and classify its outcome, never raising to its neighbours."""
     try:
         return Probe(source, FOUND, read())
+    except Contradiction as error:
+        return Probe(source, CHANGED, str(error))
     except LIVE_ERRORS as error:
         # A failed fetch or a changed response contract establishes nothing. It
         # is reported as such, and never as a version or a confirmed change.
@@ -289,7 +299,9 @@ def registry_version(published: dict[str, Any]) -> str:
         raise ValueError("the MCP registry server record carries no version string")
 
     # The record claims a lifecycle state as well as a number. A version that is
-    # still present but deprecated, or no longer latest, is not what it claims.
+    # still present but deprecated, or no longer latest, is not what it claims;
+    # a response that carries no lifecycle metadata cannot confirm the claim
+    # either, so the number alone is not a match.
     claimed = str(published.get("registry_status", ""))
     if claimed:
         meta = payload.get("_meta")
@@ -298,12 +310,20 @@ def registry_version(published: dict[str, Any]) -> str:
             if isinstance(meta, dict)
             else {}
         )
-        status = str(official.get("status", "")) if isinstance(official, dict) else ""
-        latest = official.get("isLatest") if isinstance(official, dict) else None
-        if "active" in claimed and status and status != "active":
-            raise ValueError(f"the registry reports status {status!r}, record says {claimed!r}")
-        if "latest" in claimed and latest is False:
-            raise ValueError(f"the registry no longer marks this version latest, record says {claimed!r}")
+        if not isinstance(official, dict):
+            official = {}
+        status = official.get("status")
+        latest = official.get("isLatest")
+        if "active" in claimed:
+            if not isinstance(status, str) or not status:
+                raise ValueError("the registry record carries no lifecycle status to check")
+            if status != "active":
+                raise Contradiction(f"the registry reports status {status!r}, record says {claimed!r}")
+        if "latest" in claimed:
+            if not isinstance(latest, bool):
+                raise ValueError("the registry record carries no isLatest flag to check")
+            if not latest:
+                raise Contradiction(f"the registry no longer marks this version latest, record says {claimed!r}")
     return version
 
 

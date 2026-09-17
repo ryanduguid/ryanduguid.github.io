@@ -2031,13 +2031,14 @@ def test_release_record() -> None:
         assert "without reaching the end" in capped["github"][1], capped
 
         # A registry that reports the version but marks it deprecated, or no
-        # longer latest, does not match a record claiming active and latest.
-        def registry_meta(meta: dict) -> Callable[[str], Any]:
+        # longer latest, contradicts a record claiming active and latest. That is
+        # a clear answer, so it is CHANGED (a drift finding), not inconclusive.
+        def registry_meta(meta: Any) -> Callable[[str], Any]:
             def read(url: str) -> Any:
-                return {
-                    "server": {"version": "0.2.2"},
-                    "_meta": {"io.modelcontextprotocol.registry/official": meta},
-                }
+                record: dict[str, Any] = {"server": {"version": "0.2.2"}}
+                if meta is not None:
+                    record["_meta"] = {"io.modelcontextprotocol.registry/official": meta}
+                return record
             return read
 
         for meta, expected in (
@@ -2047,8 +2048,31 @@ def test_release_record() -> None:
             stub: Any = registry_meta(meta)
             release_record.fetch_json = stub
             lifecycle = states(release_record.live_versions(mcp))
-            assert lifecycle["registry"][0] == release_record.INCONCLUSIVE, lifecycle
+            assert lifecycle["registry"][0] == release_record.CHANGED, lifecycle
             assert expected in lifecycle["registry"][1], lifecycle
+
+        # A registry response with the right number but no usable lifecycle
+        # metadata confirms nothing about "active" or "latest": inconclusive,
+        # never a match.
+        partial: Any
+        for partial in (
+            None,
+            {},
+            {"status": "", "isLatest": True},
+            {"status": "active"},
+            {"status": "active", "isLatest": "true"},
+            "official",
+        ):
+            stub = registry_meta(partial)
+            release_record.fetch_json = stub
+            lifecycle = states(release_record.live_versions(mcp))
+            assert lifecycle["registry"][0] == release_record.INCONCLUSIVE, (partial, lifecycle)
+            assert "lifecycle" in lifecycle["registry"][1] or "isLatest" in lifecycle["registry"][1], lifecycle
+
+        # Confirmed lifecycle metadata with the recorded number is the only match.
+        stub = registry_meta({"status": "active", "isLatest": True})
+        release_record.fetch_json = stub
+        assert states(release_record.live_versions(mcp))["registry"] == (release_record.FOUND, "0.2.2")
 
         # Releases spanning pages: an older tag on page two is still found, so a
         # full first page never makes a present release look absent.
