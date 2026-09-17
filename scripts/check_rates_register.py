@@ -27,6 +27,11 @@ import json
 import re
 import sys
 from pathlib import Path
+
+try:
+    from jsonschema import Draft202012Validator
+except ImportError:  # pragma: no cover - the repository check requires this dependency
+    Draft202012Validator = None
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -209,8 +214,19 @@ def check_series(path: Path, failures: list[str], today: dt.date) -> str | None:
         if target is not None and target not in seen:
             failures.append(f"{series_id}/{row.get('row_id')}: supersedes unknown row {target!r}")
     superseded = {row["row_id"] for row in rows if isinstance(row, dict) and row.get("status") == "superseded"}
-    named = {row["supersedes"] for row in rows if isinstance(row, dict) and row.get("supersedes")}
-    for orphan in sorted(superseded - named):
+    replacements: dict[str, list[dict[str, Any]]] = {}
+    by_id = {row.get("row_id"): row for row in rows if isinstance(row, dict)}
+    for row in rows:
+        if isinstance(row, dict) and row.get("supersedes"):
+            replacements.setdefault(row["supersedes"], []).append(row)
+    for target, refs in replacements.items():
+        if target not in by_id:
+            continue
+        if len(refs) != 1 or target not in superseded:
+            failures.append(f"{series_id}/{target}: supersedes must have exactly one replacement and target a superseded row")
+        elif refs[0].get("row_id") == target or refs[0].get("status") == "superseded":
+            failures.append(f"{series_id}/{target}: replacement must be a distinct live row")
+    for orphan in sorted(superseded - set(replacements)): 
         failures.append(
             f"{series_id}/{orphan}: status is superseded but no row names it in supersedes"
         )
@@ -247,10 +263,15 @@ def check_sums(failures: list[str]) -> None:
 
 def check_register(today: dt.date | None = None) -> list[str]:
     today = today or dt.date.today()
+    if Draft202012Validator is None:
+        return ["jsonschema package is required to validate the published register schemas"]
     failures: list[str] = []
     if not MANIFEST.is_file():
         return [f"{MANIFEST} is missing"]
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    manifest_schema = json.loads((REGISTER_DIR / "schema" / "register.schema.json").read_text(encoding="utf-8"))
+    for error in Draft202012Validator(manifest_schema).iter_errors(manifest):
+        failures.append(f"register.json schema: {error.message}")
     if manifest.get("schema_version") != 1:
         failures.append("register.json: schema_version must be 1")
     if not re.fullmatch(r"[0-9]{4}\.[0-9]{2}\.[0-9]{2}(\.[1-9][0-9]*)?", str(manifest.get("register_version"))):
@@ -267,8 +288,16 @@ def check_register(today: dt.date | None = None) -> list[str]:
         failures.append(
             f"register.json: series list {sorted(declared)} does not match the files {on_disk}"
         )
+    series_schema = json.loads((REGISTER_DIR / "schema" / "rates-register.schema.json").read_text(encoding="utf-8"))
     for name in on_disk:
-        check_series(REGISTER_DIR / name, failures, today)
+        series_path = REGISTER_DIR / name
+        try:
+            document = json.loads(series_path.read_text(encoding="utf-8"))
+            for error in Draft202012Validator(series_schema).iter_errors(document):
+                failures.append(f"{name} schema: {error.message}")
+        except (OSError, json.JSONDecodeError):
+            pass
+        check_series(series_path, failures, today)
 
     for schema_name in ("rates-register.schema.json", "register.schema.json"):
         path = REGISTER_DIR / "schema" / schema_name
