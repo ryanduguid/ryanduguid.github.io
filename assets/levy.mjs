@@ -1,6 +1,7 @@
 // Coal LSL payroll levy: eligible wages under s 3B of the Coal Mining Industry
-// (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No 11
-// (C2026C00338, 7 July 2026). Rate prescribed by s 6 of the Coal Mining Industry
+// (Long Service Leave) Payroll Levy Collection Act 1992, Compilation No 12
+// (C2026C00364, in force 1 September 2026; s 3B last amended by No 43, 2023).
+// Rate prescribed by s 6 of the Coal Mining Industry
 // (Long Service Leave) Payroll Levy Regulations 2018.
 //
 // Money is integer cents throughout. Dollars only cross the public boundary via

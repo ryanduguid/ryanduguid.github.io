@@ -61,9 +61,9 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   for (const [route, name] of [['/', 'Explore the cash-flow example'], ['/tools/', 'Fictional Newcastle cash-flow case Excel and source files']]) {
     await page.goto(route);
     await page.getByRole('link', { name, exact: true }).click();
-    await expect(page).toHaveURL(/\/evaluate\/#profit-and-cash$/);
+    await expect(page).toHaveURL(/\/examples\/profit-vs-cash-flow\/$/);
     await waitForVisualFonts(page);
-    const downloadOffset = await page.locator('#profit-and-cash').evaluate((section) => (
+    const downloadOffset = await page.locator('#try').evaluate((section) => (
       section.querySelector('a[download]').getBoundingClientRect().top
       - section.getBoundingClientRect().top
     ));

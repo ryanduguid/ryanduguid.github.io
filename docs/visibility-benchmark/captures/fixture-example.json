@@ -1,0 +1,56 @@
+{
+  "schema": 1,
+  "fixture": true,
+  "recorded_by": "fixture, not an observation",
+  "run_notes": "Labelled fixture for the validator and summariser tests. Every value here is invented and must never be reported as a measurement. The summary excludes it unless --include-fixtures is passed.",
+  "observations": [
+    {
+      "prompt_id": "P1-identity",
+      "status": "complete",
+      "system": "Example Assistant",
+      "model_reported": "not disclosed",
+      "search_enabled": "on",
+      "fresh_session": true,
+      "executed_at": "2026-09-18T09:00:00+10:00",
+      "timezone": "Australia/Melbourne",
+      "prompt_sent": "Who is Ryan Duguid, the accountant in Newcastle?",
+      "answer_evidence": "fixture, no file retained",
+      "mentioned": true,
+      "site_cited": true,
+      "cited_urls": [
+        "https://duguid.com.au/about/"
+      ],
+      "factual_errors": [],
+      "notes": "Fixture: a clean branded answer that cites the About page."
+    },
+    {
+      "prompt_id": "P2-mcp-purpose",
+      "status": "complete",
+      "system": "Example Assistant",
+      "model_reported": "not disclosed",
+      "search_enabled": "on",
+      "fresh_session": true,
+      "executed_at": "2026-09-18T09:05:00+10:00",
+      "timezone": "Australia/Melbourne",
+      "prompt_sent": "What does Aus Accounting MCP do?",
+      "answer_evidence": "fixture, no file retained",
+      "mentioned": true,
+      "site_cited": false,
+      "cited_urls": [],
+      "factual_errors": [
+        "E5-version"
+      ],
+      "notes": "Fixture: a mention without a citation, and a stale version number."
+    },
+    {
+      "prompt_id": "P4-cash-example",
+      "status": "blocked",
+      "reason": "Fixture: the system required a sign-in, so no answer was produced. Excluded from every denominator.",
+      "system": "Example Assistant",
+      "timezone": "Australia/Melbourne",
+      "prompt_sent": "Show an Australian Excel example of profit versus cash flow.",
+      "factual_errors": [],
+      "notes": "Fixture: shows that a blocked run is not a zero."
+    }
+  ]
+}

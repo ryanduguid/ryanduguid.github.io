@@ -1,5 +1,43 @@
 # Claim maintenance
 
+## Review on 18 September 2026
+
+- Section 3B of the [Payroll Levy Collection Act 1992](https://www.legislation.gov.au/C2004A04352/latest/text) was read in Compilation No 12 (C2026C00364, in force 1 September 2026), retrieved as EPUB from the Federal Register API because the web host refused every request from this machine. Paragraph 3B(1)(b) applies 75 per cent to the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime or penalty rates, and allowances other than expense reimbursements. Endnote 4 records section 3B as inserted by Act No 142, 2011 and amended by Act No 43, 2023; Act No 63, 2026, which compilation 12 incorporates, did not touch it. The calculator's arithmetic already matched; one sentence of explanation did not and was corrected. The 2.7 per cent rate keeps its 2 September 2026 check date because the Regulations were not re-read.
+- The [Coal LSL eligible wages guidance note](https://coallsl.com.au/guidance-notes/eligible-wages) was read on the same day. It sets Formula B out as 75 per cent of the total of the four components, which agrees with the Act as read.
+- The two merged upstream contributions were confirmed through the GitHub API: [OpenAccountants pull request 85](https://github.com/OpenAccountants/openaccountants/pull/85) merged on 11 August 2026 across 10 files, and [Meltano SDK pull request 3727](https://github.com/meltano/sdk/pull/3727) merged on 8 August 2026 across 2 files. Merge status and file counts only; neither says anything about adoption, endorsement, or the accounting calculations here.
+- The public site was fetched and compared with the privacy notice. Cloudflare rewrites email addresses in the delivered HTML into an obfuscated link and appends its own visitor-verification code, neither of which exists in this repository or the local build. The rewriting reaches the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template carry the address as written. The privacy notice now describes both additions, and every page that asks for a reply either spells the address out or links the contact page, which does.
+- [Cloudflare's JavaScript Detections documentation](https://developers.cloudflare.com/cloudflare-challenges/challenge-types/javascript-detections/), last updated 26 August 2026, was read on 18 September 2026. The script is injected into HTML page responses only, and the verification outcome is stored in a `cf_clearance` cookie that populates the `cf.bot_management.js_detection.passed` field for WAF custom rules and Workers. The notice's earlier claim that neither addition reports anything to the site owner was therefore removed: whether this zone reads that field depends on its own configuration, which was not inspected.
+- Aus Accounting MCP: the AI-agents page named reference release v0.2.0 in its
+  visible label, its release link and its structured `softwareVersion`, while its
+  demonstration command already pinned 0.2.2. Release 0.2.2 is the current published
+  release on GitHub (13 September 2026), on PyPI and in the MCP registry, where it is
+  active and latest. The page now documents 0.2.2 throughout, and
+  `scripts/release_record.json` records the published, documented and evaluated
+  releases separately.
+- The same page said the worksheet scope was fixed by australian-tax-calculators
+  0.1.2 and linked that release. Published MCP 0.2.2 pins 0.1.3, so both were
+  corrected. The supported-period table is identical in 0.1.2 and 0.1.3, so no scope
+  claim changed.
+- Ozzit: the published release is v3.4.1 (13 September 2026), whose asset is
+  downloadable and matches its published SHA-256. The repository's default branch
+  documents a prepared v3.4.2 cut whose tag, release page and download do not exist;
+  a request for that asset returned HTTP 404 on 18 September 2026. The new
+  `/tools/ozzit/` page documents v3.4.1, and the release record carries the
+  unreleased version with that observation.
+- Ozzit's 133 functions and 5 help tables remain correct: the released v3.4.1
+  workbook carries 138 `oz.` defined names, and the repository's own AGENTS.md and
+  release record state the 133 and 5 split.
+- The profile's upstream contribution counts were one project and one pull request
+  low. The profile's own date-bounded search returned 50 merged pull requests across
+  16 projects as at 14 September 2026, 33 of them in OpenAccountants. Both counts and
+  the project total were corrected; the links and the date bound are unchanged.
+- The Lumbridge case figures were reproduced from source at the pinned commit:
+  quarterly profit before income tax of $35,957.55 in both cases, October closing
+  cash of $32,040.00 against ($11,960.00), a lowest daily balance of $16,800.00 on
+  7 October against ($25,160.00) on 6 November, December closing cash of $67,320.00
+  and a cash reconciliation difference of $0.00. The distributed workbook's SHA-256
+  matches its sample record.
+
 ## Review on 14 September 2026
 
 - The [ATO SG table](https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee) matched every general-rate row on the site, including 12% from 1 July 2025. This check did not repeat the statutory timing review dated 30 August 2026.
