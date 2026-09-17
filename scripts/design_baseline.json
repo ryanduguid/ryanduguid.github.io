@@ -1,8 +1,8 @@
 {
   "protected_files": {
-    "llms.txt": "95e96181229c2451cb41b6ece365f16d699a5ed7d3e259f180c8efd9404e20a5",
+    "llms.txt": "e6d8096b04791e8424e386b51bb13b57d35c162f2aa230899f32c8940e1071de",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "20ce2fa4f4f825b0ec627d4684de27c2af54e631285b93bc05b10f4188d984c3"
+    "sitemap.xml": "1a53017915fec9bb69cb96439583277c2a969ee906147c876736b21cf2f76e0c"
   },
   "protected_main_text": {
     "rates/super-guarantee/index.html": "42a3042f07f8f32239a23ac17a5bfedd057071e959fb91c048f5ed7b71d8879d",
@@ -67,10 +67,10 @@
       "ee59e1d429c6c6897e209e910adf66d7ee483f48eb2c8514720734657fee583f"
     ],
     "contact/index.html": [
-      "8410b8ecc558daba5890d5b57d265248bc2bf4f18e5747f834488eb23a3debd1"
+      "eae9822161ee98f0af3337f06067ef6310f9f71dbfa9b4b14bc1d758612ae3e9"
     ],
     "evaluate/index.html": [
-      "4e4d68284e1c41c8680577fbbad140472116f34fc77fb56572c8f893602e1490"
+      "5dc5680ce270fa6071dc3c7f16c74a64ee30530e8149ece77eb76d3e923e6a73"
     ],
     "evaluate/manager-review-gate/index.html": [
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
@@ -82,10 +82,10 @@
       "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
     ],
     "evidence/index.html": [
-      "b7f0c4e7657b9f28e9491697d045280246faac42255284aa0b19d68a78114969"
+      "57577023b37a379b13bcd629c1651ced208ef3f6ad37da749cd250edd891e529"
     ],
     "index.html": [
-      "a75c7e9ec104408ad7a49c6e813ddcf27080ab31eb9b162b7c1870ed522212c5"
+      "74e573ab87e791fb8d36a9a77a96a396417e0a55db8688fc0b6a95697421d535"
     ],
     "rates/cents-per-kilometre/index.html": [
       "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
@@ -106,13 +106,13 @@
       "733ed1c0f721ba8ce7a3e7e6caf525a1aafb697985ded1e391af62b61f398408"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "66a8d2c5ffcace4938c6f688e3e8dd81add984486c8f388fe878e648bb4480c8"
+      "540ffbf0863c554f09d2e4e0cf7ff99039d00051f0d1a3e1cc57a73c15db274b"
     ],
     "tools/company-tax-franking/index.html": [
       "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
     ],
     "tools/index.html": [
-      "05537b69d2797a43f10afe6dcb5e6a17454df6e853485db6a213c215bf5de1a3"
+      "bc3dd9d3fa7ed8c283d8425af730b6dd49619c9749383665d7b4004fa175f63b"
     ],
     "tools/limitations/index.html": [
       "8376e46954a1cdf060b096805864d19bd70cac99823004b4adcae515a0174d3f"
@@ -148,7 +148,7 @@
       "c654e0b1faa83524d1386a95b00ca1ab9d133d163524eaa5e32b8c122507e155"
     ],
     "privacy/index.html": [
-      "718f404f4780d93bdd44e8197c552b5ed8b2ec090f24222e2dcb6e0d89e9802f"
+      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
     ]
   },
   "protected_text": {

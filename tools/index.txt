@@ -8,11 +8,13 @@ Source: https://duguid.com.au/tools/
 
 Start with 100 accounting questions or the business calculators, then inspect the controls below.
 
-Try one synthetic Payday Super CSV, review a fabricated BAS pack, or choose another example.
+Last reviewed 18 September 2026.
 
-Last reviewed 14 September 2026.
+## Start with what you came to do
 
-## Start from your work
+Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+
+## Find a tool by accounting area
 
 - Cash flow and management reporting
 
@@ -234,12 +236,11 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - business calculators: https://duguid.com.au/tools/business-calculators/
-- Try one synthetic Payday Super CSV: https://duguid.com.au/tools/payday-super/#try-example
-- review a fabricated BAS pack: https://duguid.com.au/evaluate/manager-review-gate/
-- choose another example: https://duguid.com.au/evaluate/#example-routes
-- Fictional Newcastle cash-flow case Excel and source files: https://duguid.com.au/evaluate/#profit-and-cash
+- Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/evaluate/#profit-and-cash
+- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
+- Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
-- Coal LSL levy calculator Browser: https://duguid.com.au/tools/coal-lsl-levy/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
 - Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
@@ -259,6 +260,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting-skills
 - Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Try an example: https://duguid.com.au/tools/payday-super/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
 - Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example

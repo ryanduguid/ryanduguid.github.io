@@ -10,7 +10,7 @@ Home
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 15 September 2026.
+Published 12 September 2026. Last reviewed 18 September 2026.
 
 ## Browser calculations
 
@@ -23,6 +23,10 @@ The accounting-question search also runs in your browser. It does not send searc
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
 Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+
+Cloudflare also rewrites email addresses on delivery to make basic address collection harder. The rewriting covers the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template are served as plain text and carry the address as written. Obfuscation does not make the address private. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
+
+Cloudflare also supplies visitor-verification code as part of page delivery. Both additions are made after the files leave this website's source and are served from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see Cloudflare's cookie documentation. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.
 
@@ -48,9 +52,12 @@ The website source is available under its MIT licence, which includes its warran
 
 - Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
+- rewrites email addresses on delivery: https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/
+- contact page: https://duguid.com.au/contact/
+- Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
+- Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/
 - GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
-- Contact page: https://duguid.com.au/contact/
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
 - MIT licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE

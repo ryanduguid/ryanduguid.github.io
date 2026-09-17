@@ -1,6 +1,6 @@
 # ryanduguid.github.io
 
-Source for [duguid.com.au](https://duguid.com.au/), the public register for Ryan Duguid's open-source Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
 ## Site structure
 
@@ -173,7 +173,7 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site.png` | `3fa2706b6eb33311a8b411fcb9923e952b09167ae84f318024157ff7cc1bdc09` |
+| `assets/social-card-site.png` | `0c8f209454e9f7d7f209a7ddbc2f8f23e50eb7c800ee766efaad33c3a15febcb` |
 | `assets/social-card-tools.png` | `5bd011c9f905ace49a2e8419812157e85c85e347921d3d6fa4634e50282d2f56` |
 | `assets/social-card-evaluations.png` | `ad8299da0500bdf406f8bfef3384b98591005619da5f676fa3504884807eaa94` |
 | `assets/social-card-rates.png` | `49c5ab563773bbac7584a6975821ac753a8051bf6b181574673b9afc390ddb3c` |
