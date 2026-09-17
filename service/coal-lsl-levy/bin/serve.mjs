@@ -34,6 +34,10 @@ const app = await listen({
   maxBodyBytes: maxBody,
   allowedOrigins: env('COAL_LSL_ALLOWED_ORIGINS', '').split(',').map((s) => s.trim()).filter(Boolean),
   trustProxy: env('COAL_LSL_TRUST_PROXY', '0') === '1',
+  // How many proxies you control sit in front of this service. The caller's
+  // address is that many places from the right of X-Forwarded-For; everything
+  // to the left of it is whatever the caller chose to send.
+  trustedProxyDepth: Number(env('COAL_LSL_TRUSTED_PROXY_DEPTH', '0')),
   calculatorUrn: env('COAL_LSL_CALCULATOR_URN', 'urn:sbrm:calc:coal-lsl-levy'),
   publicBaseUrl: env('COAL_LSL_PUBLIC_BASE_URL', null),
   codeRevision: codeRevision(),

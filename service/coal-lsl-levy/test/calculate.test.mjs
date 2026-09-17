@@ -51,7 +51,7 @@ for (const fixture of fixtures.cases) {
 }
 
 test('the two unsupported months refuse at the calculation layer too', () => {
-  for (const month of ['2023-12', '2026-12']) {
+  for (const month of ['2023-12', '2026-09', '2026-12']) {
     const { status, body } = run({
       reporting_month: month, branch: 'annual_salary', employee: { eligible_employee: true },
       pay: { annual_salary_paid: '10.00', salary_sacrificed: '0.00', bonuses: [] },
@@ -59,7 +59,7 @@ test('the two unsupported months refuse at the calculation layer too', () => {
     assert.equal(status, 400);
     assert.equal(body.refusal_class, 'unsupported_period');
     assert.equal(body.supported_months.first, '2024-01');
-    assert.equal(body.supported_months.last, '2026-09');
+    assert.equal(body.supported_months.last, '2026-08');
   }
 });
 

@@ -61,12 +61,19 @@ function bonusWorkings(bonuses) {
   return { counted, excluded };
 }
 
-// Engine bonuses take dollars through toCents(); we already hold exact
-// cents, so hand the engine a shape whose toCents round trip is exact.
-// bonusCents() calls toCents(amount) with amount in dollars; integer cents
-// divided by 100 is exactly representable for every value in range because
-// toCents rounds back to the same integer.
+// The engine's bonus API takes dollars and converts with toCents(), so the
+// cents parsed here are divided by 100 and rounded straight back. That round
+// trip is exact for every integer cent count this service accepts, which
+// `test/money.test.mjs` checks across the range rather than asserting. It is
+// the one place a dollar figure is a Number, and it is the engine's boundary
+// rather than the request's: nothing parsed from a request body goes through
+// a float.
 const engineBonuses = (bonuses) => bonuses.map((b) => ({ amount: b.amountCents / 100, frequency: b.frequency }));
+
+// The same at-least-monthly test the engine applies, over the cents already
+// parsed, for figures this module publishes itself.
+const countedBonusCents = (bonuses) =>
+  bonuses.reduce((total, b) => (AT_LEAST_MONTHLY.has(b.frequency) ? total + b.amountCents : total), 0);
 
 function baseRate(pay) {
   if (pay.allowancesCents > 0 && pay.allowancesExcludeExpenseReimbursements !== true) {
@@ -91,8 +98,11 @@ function baseRate(pay) {
       formula_a: centsToString(result.formulaA),
       formula_b: quarterCentsToString(toQuarterCents(result.formulaB)),
       formula_b_basis: {
+        // Summed from the parsed cents, not by re-parsing the rendered
+        // dollar strings through Number(). The figures are the same either
+        // way; only one of them keeps a float out of it.
         aggregate: centsToString(grossed + pay.overtimeAndPenaltyCents + pay.allowancesCents
-          + bonuses.counted.reduce((total, b) => total + Math.round(Number(b.amount) * 100), 0)),
+          + countedBonusCents(pay.bonuses)),
         factor: '0.75',
       },
       winner: result.winner === 'A' ? 'formula_a' : 'formula_b',
@@ -119,14 +129,29 @@ function annualSalary(pay) {
 }
 
 function casual(pay, reportingMonth) {
-  for (const key of ['instrumentSpecifiesLoading', 'loadingQuantifiable']) {
-    if (pay[key] === 'unknown') {
-      const field = key === 'instrumentSpecifiesLoading' ? 'pay.instrument_specifies_loading' : 'pay.loading_quantifiable';
-      throw new Refusal('insufficient_facts',
-        `${field} is "unknown". The two loading answers select between s 3B(3)(a) and s 3B(3)(b), so the levy cannot be calculated until they are established.`,
-        { field });
-    }
+  // Only refuse for an answer that still decides the branch. s 3B(3)(a) needs
+  // both a specified loading and a quantifiable one, so a false to either
+  // settles the question on its own and the other answer changes nothing.
+  // Refusing anyway produced a 400 whose stated reason, that the levy cannot
+  // be calculated until both are established, was untrue for those inputs.
+  const unresolved = [];
+  if (pay.instrumentSpecifiesLoading === 'unknown') {
+    unresolved.push(['instrumentSpecifiesLoading', 'pay.instrument_specifies_loading']);
+  } else if (pay.instrumentSpecifiesLoading === true && pay.loadingQuantifiable === 'unknown') {
+    unresolved.push(['loadingQuantifiable', 'pay.loading_quantifiable']);
   }
+  for (const [, field] of unresolved) {
+    throw new Refusal('insufficient_facts',
+      `${field} is "unknown", and on the answers supplied it is what selects between s 3B(3)(a) and s 3B(3)(b). The levy cannot be calculated until it is established.`,
+      { field });
+  }
+  // Past that point an unknown cannot change the branch, so read it as the
+  // false it is equivalent to here rather than handing a string to the engine.
+  pay = {
+    ...pay,
+    instrumentSpecifiesLoading: pay.instrumentSpecifiesLoading === true,
+    loadingQuantifiable: pay.loadingQuantifiable === true,
+  };
   const result = casualWages({
     reportingMonth,
     instrumentSpecifiesLoading: pay.instrumentSpecifiesLoading,

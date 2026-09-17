@@ -32,6 +32,14 @@ spec:
               value: "https://PLACEHOLDER"
             - name: COAL_LSL_TRUST_PROXY
               value: "1"
+            # How many proxies you control sit in front. Cloud Run's front end
+            # appends one entry, and a caller may have written its own to the
+            # left of it, so the caller is the LAST entry: depth 0. Raise this
+            # only if you add a proxy of your own in front of Cloud Run, and
+            # never guess: the wrong depth keys the throttle on a value the
+            # caller controls.
+            - name: COAL_LSL_TRUSTED_PROXY_DEPTH
+              value: "0"
             - name: COAL_LSL_CODE_REVISION
               value: "PLACEHOLDER"
           resources:

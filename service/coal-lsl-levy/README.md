@@ -83,8 +83,10 @@ not, so it is stricter in four ways.
   says so on screen. Over HTTP a missing field is a `422`: send `"0.00"` when
   an amount is nil.
 - **Money is a decimal string.** `"6000.00"`, never `6000` or `6000.0`. The
-  string is parsed digit by digit into integer cents, so no dollar figure
-  ever passes through a binary float. A JSON number is a `422`.
+  string is parsed digit by digit into integer cents, so nothing parsed from a
+  request body passes through a binary float. A JSON number is a `422`. The
+  largest amount any single field accepts is `833999930994.53`, and discovery
+  publishes that figure as `limits.max_amount`.
 - **Facts are three-valued.** `true`, `false` or `"unknown"`. `"unknown"` is
   a `400 insufficient_facts`, never read as `false`.
 - **Pay the branch does not read is a refusal, not a silent drop.** The page
@@ -93,19 +95,24 @@ not, so it is stricter in four ways.
 
 ## Supported months
 
-January 2024 to September 2026, from `GET /v1/calculators`. Two records have
-to cover a month before it is served:
+January 2024 to August 2026, from `GET /v1/calculators`. Two records have to
+cover a month before it is served:
 
 - a **rate row** in [`rates/register/series/coal-lsl-levy.json`](../../rates/register/series/coal-lsl-levy.json)
-  whose status is `verified` and whose check date is in that month or later;
+  whose status is `verified` and whose check date is on or after the last day of
+  that month;
 - a **method record** in [`methods.json`](methods.json) marked
   `service_supported`.
 
 The method record starts at 1 January 2024, when the amendments to s 3B made
 by the Fair Work Legislation Amendment (Protecting Worker Entitlements) Act
-2023 commenced. The rate row was checked on 18 September 2026, so September
-2026 is the last month served: a rate checked once does not vouch for the
-months after the check.
+2023 commenced. The rate row was checked on 18 September 2026, which does not
+cover the whole of September, so August 2026 is the last month served. A check
+part way through a month does not vouch for wages paid at the end of it.
+
+The supported set need not be contiguous. Two rate rows with different check
+dates leave a hole, which is why discovery publishes every month rather than a
+range.
 
 The browser page still calculates months before 2024 using the earlier casual
 method. The service does not, because the pre-amendment text of s 3B was not

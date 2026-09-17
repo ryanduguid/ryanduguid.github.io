@@ -71,14 +71,21 @@ export function loadRegister({
   const rateRows = rateSeries.rows.filter((row) => row.status === 'verified');
   const methodRows = methods.records.filter((row) => row.service_supported === true);
 
-  // The service caps support at the month of the latest verification, so a
-  // row verified on 18 September 2026 supports months up to 2026-09 and no
-  // later. This is what stops a checked-once rate being applied to every
-  // month the engine can parse.
+  // A month is served only where the check covers the whole of it. A row read
+  // on 18 September 2026 does not vouch for wages paid on 30 September, so
+  // September is not served: the last served month is August. Comparing
+  // months alone let part of the served range sit after the check, which is
+  // the staleness this rule exists to prevent.
+  function lastDayOf(month) {
+    const year = Number(month.slice(0, 4));
+    const index = Number(month.slice(5, 7));
+    const day = new Date(Date.UTC(year, index, 0)).getUTCDate();
+    return `${month}-${String(day).padStart(2, '0')}`;
+  }
   function rateFor(month) {
     const row = rateRows.find((candidate) => covers(candidate, month));
     if (!row) return null;
-    if (month > monthOf(row.verified_at)) return null;
+    if (row.verified_at < lastDayOf(month)) return null;
     return row;
   }
   function methodFor(month) {
@@ -87,8 +94,10 @@ export function loadRegister({
   function isSupported(month) {
     return rateFor(month) !== null && methodFor(month) !== null;
   }
-  // Enumerate supported months: from the earliest supported record start to
-  // the latest verification month, keeping only months both records cover.
+  // Enumerate supported months: from the earliest record start to the latest
+  // verification month, keeping only the months both records cover. The set
+  // need not be contiguous, which is why discovery publishes every month
+  // rather than a first-to-last range.
   function supportedMonths() {
     const starts = [...rateRows, ...methodRows].map((row) => monthOf(row.period_start)).sort();
     const ends = rateRows.map((row) => monthOf(row.verified_at)).sort();

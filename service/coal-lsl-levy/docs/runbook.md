@@ -18,8 +18,11 @@ logs. The controls below are aimed at those three.
       to `0.0.0.0` is a decision, not a default.
 - [ ] `COAL_LSL_ALLOWED_ORIGINS` lists only origins that need browser access,
       or is empty.
-- [ ] `COAL_LSL_TRUST_PROXY=1` **only** when a proxy you control strips and
-      sets `X-Forwarded-For`. Otherwise throttling is per socket address.
+- [ ] `COAL_LSL_TRUST_PROXY=1` only when a proxy you control appends to
+      `X-Forwarded-For`, and `COAL_LSL_TRUSTED_PROXY_DEPTH` set to how many such
+      proxies sit in front. The caller is read that many places from the right;
+      everything to the left is whatever the caller chose to send. Get the depth
+      wrong and you are keying the throttle on a value a client controls.
 - [ ] An instance cap is set on the platform. The publishing standard asks
       publishers to bound their own cost; the throttle alone does not.
 - [ ] The rate row in the register has been re-read against the Federal
@@ -37,6 +40,7 @@ logs. The controls below are aimed at those three.
 | `COAL_LSL_RATE_LIMIT_PER_MINUTE` | `60` | Per client, fixed window |
 | `COAL_LSL_ALLOWED_ORIGINS` | empty | Comma separated; exact origins, no wildcard |
 | `COAL_LSL_TRUST_PROXY` | `0` | See above |
+| `COAL_LSL_TRUSTED_PROXY_DEPTH` | `0` | How many proxies you control sit in front. Only read when the above is `1` |
 | `COAL_LSL_CALCULATOR_URN` | `urn:sbrm:calc:coal-lsl-levy` | Changeable if the registry wants another spelling |
 | `COAL_LSL_PUBLIC_BASE_URL` | unset | Only affects the `servers` entry in the OpenAPI document |
 | `COAL_LSL_CODE_REVISION` | from `git rev-parse` | Set explicitly where git is unavailable |
@@ -46,8 +50,11 @@ needs one, that is a change to review, not a configuration tweak.
 
 ## What is logged
 
-One JSON line per request: a random request id, the method, the path with the
-query string removed, the status and the duration in milliseconds. That is
+One JSON line per request: a random request id, the method, the resolved path,
+the status and the duration in milliseconds. The path is the one the routing
+used, with dot segments resolved and each segment decoded, not the raw request
+target: logging what the caller typed let the record disagree with the handler
+that ran. That is
 all. No body, no amount, no field name, no client address, no user agent, no
 header. An internal error logs the error message against the request id and
 returns only the request id to the caller.

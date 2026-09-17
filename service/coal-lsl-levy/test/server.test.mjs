@@ -5,7 +5,7 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
-import { createApp, createThrottle } from '../src/server.mjs';
+import { clientKey, createApp, createThrottle } from '../src/server.mjs';
 import { REQUEST_SCHEMA } from '../src/openapi.mjs';
 import { validateRequest } from '../src/schema.mjs';
 
@@ -37,8 +37,8 @@ test('discovery lists the calculator, its periods, limits and refusal classes', 
   assert.equal(entry.calc_uri, CALC);
   assert.deepEqual(entry.calc_uri_aliases, ['urn:sbrm:calculator:coal-lsl-levy']);
   assert.equal(entry.supported_periods[0], 'urn:sbrm:period:coal-lsl-levy:2024-01');
-  assert.equal(entry.supported_periods.at(-1), 'urn:sbrm:period:coal-lsl-levy:2026-09');
-  assert.equal(entry.supported_periods.length, 33);
+  assert.equal(entry.supported_periods.at(-1), 'urn:sbrm:period:coal-lsl-levy:2026-08');
+  assert.equal(entry.supported_periods.length, 32);
   assert.ok(entry.refusal_classes.includes('unsupported_period'));
   assert.equal(entry.limits.max_body_bytes, 16384);
 });
@@ -205,4 +205,101 @@ test('logs carry no request bodies, amounts or client addresses', () => {
   assert.ok(!joined.includes('6000.00'));
   assert.ok(!joined.includes('127.0.0.1'));
   assert.ok(!joined.includes('base_rate_of_pay'));
+});
+
+
+// -- regressions from the 18 September 2026 review ------------------------
+
+test('a forwarded chain cannot buy a fresh bucket or spend another client\'s', () => {
+  const socket = { remoteAddress: '10.0.0.1' };
+  const withChain = (value) => ({ headers: { 'x-forwarded-for': value }, socket });
+  const trusted = { trustProxy: true, trustedProxyDepth: 0 };
+
+  // The leftmost entry is whatever the caller wrote. The rightmost is what the
+  // proxy we trust appended, which is the one that identifies the caller.
+  assert.equal(clientKey(withChain('1.2.3.4, 203.0.113.7'), trusted), '203.0.113.7');
+  assert.equal(clientKey(withChain('9.9.9.9, 203.0.113.7'), trusted), '203.0.113.7',
+    'a different spoofed prefix is still the same client');
+  assert.equal(clientKey(withChain('203.0.113.9, 10.1.1.1'), trusted), '10.1.1.1',
+    'naming a victim on the left does not spend the victim\'s budget');
+
+  // Two proxies deep, the caller is two from the right.
+  assert.equal(clientKey(withChain('1.2.3.4, 203.0.113.7, 10.1.1.1'),
+    { trustProxy: true, trustedProxyDepth: 1 }), '203.0.113.7');
+  // A chain shorter than the configured depth falls back to the socket.
+  assert.equal(clientKey(withChain('1.2.3.4'), { trustProxy: true, trustedProxyDepth: 2 }), '10.0.0.1');
+  // Untrusted, the header is ignored entirely.
+  assert.equal(clientKey(withChain('1.2.3.4, 5.6.7.8'), { trustProxy: false }), '10.0.0.1');
+});
+
+test('a preflight spends throttle budget like any other request', async () => {
+  const strict = createApp({ port: 0, rateLimitPerMinute: 2, allowedOrigins: ['https://duguid.com.au'], log: () => {} });
+  await new Promise((resolve) => strict.server.listen(0, '127.0.0.1', resolve));
+  try {
+    const url = `http://127.0.0.1:${strict.server.address().port}/healthz`;
+    await fetch(url, { method: 'OPTIONS', headers: { origin: 'https://duguid.com.au' } });
+    await fetch(url, { method: 'OPTIONS', headers: { origin: 'https://duguid.com.au' } });
+    assert.equal((await fetch(url)).status, 429, 'the preflights consumed the budget');
+  } finally {
+    strict.server.close();
+  }
+});
+
+test('the throttle map does not grow across windows', () => {
+  let now = 1_000_000;
+  const throttle = createThrottle(5, () => now);
+  for (let i = 0; i < 20000; i += 1) throttle.take(`key-${i}`);
+  // A key from the previous window starts fresh rather than accumulating.
+  now += 60000;
+  for (let i = 0; i < 5; i += 1) assert.equal(throttle.take('key-0').allowed, true);
+  assert.equal(throttle.take('key-0').allowed, false);
+});
+
+test('the logged path is the route that ran, not the raw target', async () => {
+  const seen = [];
+  const app2 = createApp({ port: 0, rateLimitPerMinute: 1000, log: (line) => seen.push(JSON.parse(line)) });
+  await new Promise((resolve) => app2.server.listen(0, '127.0.0.1', resolve));
+  try {
+    const root = `http://127.0.0.1:${app2.server.address().port}`;
+    // Dot segments resolve before routing, so this runs the liveness handler.
+    const traversed = await fetch(`${root}/v1/rates/urn:sbrm:period:coal-lsl-levy:2026-06/../../../healthz`);
+    assert.equal(traversed.status, 200);
+    assert.equal(seen.at(-1).path, '/healthz', 'the log names the handler that ran');
+    // A percent-encoded segment routes decoded, and the log says so too.
+    await fetch(`${root}/v1/%72ates/urn:sbrm:period:coal-lsl-levy:2026-06`);
+    assert.ok(!seen.at(-1).path.includes('%72'), 'the log is not the caller\'s spelling');
+  } finally {
+    app2.server.close();
+  }
+});
+
+test('an oversized chunked body gets the documented 413, not a dropped connection', async () => {
+  const padding = 'x'.repeat(40000);
+  const response = await fetch(`${base}/v1/calculators/${CALC}/${PERIOD}`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: new ReadableStream({
+      start(controller) { controller.enqueue(new TextEncoder().encode(`{"pad":"${padding}"}`)); controller.close(); },
+    }),
+    duplex: 'half',
+  });
+  assert.equal(response.status, 413);
+  assert.equal((await response.json()).max_body_bytes, 16384);
+});
+
+test('discovery publishes the real money ceiling, not a rounded one', async () => {
+  const [entry] = await (await fetch(`${base}/v1/calculators`)).json();
+  assert.equal(entry.limits.max_amount, '833999930994.53');
+  assert.ok(entry.limits.money.includes('833999930994.53'));
+  // The published figure is the one the boundary actually enforces.
+  const over = await post(`/v1/calculators/${CALC}/${PERIOD}`, {
+    reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
+    pay: { annual_salary_paid: '833999930994.54', salary_sacrificed: '0.00', bonuses: [] },
+  });
+  assert.equal(over.status, 422);
+  const at = await post(`/v1/calculators/${CALC}/${PERIOD}`, {
+    reporting_month: '2026-06', branch: 'annual_salary', employee: { eligible_employee: true },
+    pay: { annual_salary_paid: entry.limits.max_amount, salary_sacrificed: '0.00', bonuses: [] },
+  });
+  assert.equal(at.status, 200);
 });

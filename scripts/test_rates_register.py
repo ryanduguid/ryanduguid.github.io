@@ -16,7 +16,10 @@ import check_rates_register as register
 ROOT = Path(__file__).resolve().parents[1]
 
 
-class RegisterTests(unittest.TestCase):
+class RegisterFixture(unittest.TestCase):
+    """Shared fixture. Subclassing a TestCase that has tests re-runs them, so
+    the helpers live here and both suites inherit only these."""
+
     def setUp(self) -> None:
         self.directory = Path(tempfile.mkdtemp())
         shutil.copytree(ROOT / "rates" / "register", self.directory / "register")
@@ -47,6 +50,8 @@ class RegisterTests(unittest.TestCase):
                 lines.append(f"{hashlib.sha256(path.read_bytes()).hexdigest()}  {name}")
         register.SUMS.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
+
+class RegisterTests(RegisterFixture):
     def test_committed_register_passes(self) -> None:
         self._point_at(ROOT / "rates" / "register")
         self.assertEqual(register.check_register(), [])
@@ -147,6 +152,92 @@ class RegisterTests(unittest.TestCase):
         failures = register.check_register(today=dt.date(2026, 9, 17))
         self.assertTrue(any("is in the future" in failure for failure in failures), failures)
 
+class ReviewFindingTests(RegisterFixture):
+    """Regressions from the 18 September 2026 review.
+
+    Each of these registers passed the checker before and should not have.
+    """
+
+    def test_a_backslash_makes_the_host_ambiguous_and_is_refused(self) -> None:
+        # A browser reads the authority as evil.example; a split on "/" reads
+        # the legislation host. A provenance URL two parsers disagree about is
+        # not provenance.
+        payload = json.loads(self._series().read_text(encoding="utf-8"))
+        payload["rows"][0]["primary_source"]["url"] = (
+            "https://evil.example" + chr(92) + "@www.legislation.gov.au/F2018L00217/latest/text"
+        )
+        self._rewrite(self._series(), payload)
+        failures = register.check_register()
+        self.assertTrue(any("backslash" in failure for failure in failures), failures)
+
+    def test_credentials_in_a_primary_source_url_are_refused(self) -> None:
+        payload = json.loads(self._series().read_text(encoding="utf-8"))
+        payload["rows"][0]["primary_source"]["url"] = (
+            "https://user:pw@www.legislation.gov.au/F2018L00217/latest/text"
+        )
+        self._rewrite(self._series(), payload)
+        failures = register.check_register()
+        self.assertTrue(any("credentials" in failure for failure in failures), failures)
+
+    def test_a_row_cannot_supersede_itself(self) -> None:
+        # The damaging shape: a single-row series marks itself superseded,
+        # passes, and silently drops out of every consumer's verified set.
+        payload = json.loads(self._series().read_text(encoding="utf-8"))
+        payload["rows"][0]["status"] = "superseded"
+        payload["rows"][0]["supersedes"] = payload["rows"][0]["row_id"]
+        self._rewrite(self._series(), payload)
+        failures = register.check_register()
+        self.assertTrue(any("supersedes itself" in failure for failure in failures), failures)
+
+    def test_only_one_replacement_may_name_a_superseded_row(self) -> None:
+        payload = json.loads(self._series().read_text(encoding="utf-8"))
+        original = json.loads(json.dumps(payload["rows"][0]))
+        payload["rows"][0]["status"] = "superseded"
+        payload["rows"][0]["period_end"] = "2023-12-31"
+        for index, start in enumerate(("2024-01-01", "2025-01-01")):
+            row = json.loads(json.dumps(original))
+            row["row_id"] = f"live-{index}"
+            row["period_start"] = start
+            row["period_end"] = "2024-12-31" if index == 0 else None
+            row["supersedes"] = original["row_id"]
+            payload["rows"].append(row)
+        self._rewrite(self._series(), payload)
+        failures = register.check_register()
+        self.assertTrue(any("exactly one replacement" in failure for failure in failures), failures)
+
+    def test_a_live_row_cannot_be_superseded(self) -> None:
+        payload = json.loads(self._series().read_text(encoding="utf-8"))
+        original = json.loads(json.dumps(payload["rows"][0]))
+        payload["rows"][0]["period_end"] = "2023-12-31"
+        replacement = json.loads(json.dumps(original))
+        replacement["row_id"] = "live-1"
+        replacement["period_start"] = "2024-01-01"
+        replacement["supersedes"] = original["row_id"]
+        payload["rows"].append(replacement)
+        self._rewrite(self._series(), payload)
+        failures = register.check_register()
+        self.assertTrue(
+            any("rather than 'superseded'" in failure for failure in failures), failures
+        )
+
+    def test_a_second_sha256sums_deeper_in_the_tree_is_still_covered(self) -> None:
+        # Only the register's own sums file is exempt. Another of that name was
+        # neither hashed nor listed, and was published all the same.
+        (register.REGISTER_DIR / "series" / "SHA256SUMS").write_text("x\n", encoding="utf-8")
+        failures = register.check_register()
+        self.assertTrue(
+            any("series/SHA256SUMS is not listed" in failure for failure in failures), failures
+        )
+
+    def test_an_unvalidated_series_in_a_subdirectory_is_refused(self) -> None:
+        nested = register.REGISTER_DIR / "series" / "extra"
+        nested.mkdir()
+        shutil.copy(self._series(), nested / "made-up.json")
+        self._resum()
+        failures = register.check_register()
+        self.assertTrue(
+            any("does not match the files" in failure for failure in failures), failures
+        )
 
 if __name__ == "__main__":
     unittest.main(argv=[sys.argv[0], "-v"])

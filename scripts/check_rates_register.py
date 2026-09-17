@@ -26,6 +26,7 @@ import hashlib
 import json
 import re
 import sys
+import urllib.parse
 from pathlib import Path
 from typing import Any
 
@@ -79,10 +80,37 @@ def _date(value: str, where: str, failures: list[str]) -> dt.date | None:
 
 
 def _https_host(url: str, where: str, failures: list[str], *, primary: bool) -> None:
+    """Check a URL's scheme and, for a primary source, its host.
+
+    The host is read with `urlsplit`, not by splitting on "/". A browser and
+    anything using WHATWG parsing treat a backslash in an https URL as a path
+    delimiter, so `https://evil.example\\@good.example/x` has the authority
+    `evil.example` there while a naive split reads `good.example`. Rather than
+    reimplement that rule, any backslash is refused outright: no legitimate
+    source URL in this register needs one, and a URL that two parsers read
+    differently has no place in a provenance record.
+    """
     if not isinstance(url, str) or not url.startswith("https://"):
         failures.append(f"{where}: {url!r} must be an https URL")
         return
-    host = url.split("/")[2].split("@")[-1].split(":")[0].lower()
+    if "\\" in url:
+        failures.append(
+            f"{where}: {url!r} contains a backslash. A backslash is a path delimiter to a "
+            "browser and an ordinary character to some parsers, so the host is ambiguous."
+        )
+        return
+    parts = urllib.parse.urlsplit(url)
+    if parts.username or parts.password:
+        failures.append(f"{where}: {url!r} carries credentials in the authority")
+        return
+    try:
+        host = (parts.hostname or "").lower()
+    except ValueError as exc:
+        failures.append(f"{where}: {url!r} has an unreadable authority ({exc})")
+        return
+    if not host:
+        failures.append(f"{where}: {url!r} has no host")
+        return
     if primary and host not in PRIMARY_HOSTS:
         failures.append(
             f"{where}: {host} is not a primary source host. A site page, engine file or "
@@ -202,15 +230,47 @@ def check_series(path: Path, failures: list[str], today: dt.date) -> str | None:
             failures.append(
                 f"{series_id}: rows {earlier.get('row_id')} and {later.get('row_id')} overlap"
             )
+    # A correction is one live row naming one superseded row. Each half of that
+    # is checked, because each half failing on its own is a legible-looking
+    # register that is not legible: a row that supersedes itself drops out of
+    # every consumer's verified set while passing the check, and a single-row
+    # series doing it takes the whole series with it.
+    by_id = {row["row_id"]: row for row in rows if isinstance(row, dict) and "row_id" in row}
+    namers: dict[str, list[str]] = {}
     for row in rows:
         if not isinstance(row, dict):
             continue
         target = row.get("supersedes")
-        if target is not None and target not in seen:
-            failures.append(f"{series_id}/{row.get('row_id')}: supersedes unknown row {target!r}")
-    superseded = {row["row_id"] for row in rows if isinstance(row, dict) and row.get("status") == "superseded"}
-    named = {row["supersedes"] for row in rows if isinstance(row, dict) and row.get("supersedes")}
-    for orphan in sorted(superseded - named):
+        if target is None:
+            continue
+        row_id = str(row.get("row_id"))
+        if target not in seen:
+            failures.append(f"{series_id}/{row_id}: supersedes unknown row {target!r}")
+            continue
+        if target == row_id:
+            failures.append(f"{series_id}/{row_id}: supersedes itself")
+            continue
+        if by_id[target].get("status") != "superseded":
+            failures.append(
+                f"{series_id}/{row_id}: supersedes {target}, whose status is "
+                f"{by_id[target].get('status')!r} rather than 'superseded'"
+            )
+        if row.get("status") == "superseded":
+            failures.append(
+                f"{series_id}/{row_id}: a superseded row cannot itself supersede {target}"
+            )
+        namers.setdefault(str(target), []).append(row_id)
+    for target, rows_naming in sorted(namers.items()):
+        if len(rows_naming) > 1:
+            failures.append(
+                f"{series_id}/{target}: named by {len(rows_naming)} rows "
+                f"({', '.join(sorted(rows_naming))}); exactly one replacement may name it"
+            )
+    superseded = {
+        row["row_id"] for row in rows
+        if isinstance(row, dict) and row.get("status") == "superseded"
+    }
+    for orphan in sorted(superseded - set(namers)):
         failures.append(
             f"{series_id}/{orphan}: status is superseded but no row names it in supersedes"
         )
@@ -230,10 +290,13 @@ def check_sums(failures: list[str]) -> None:
             failures.append(f"SHA256SUMS: malformed line {line!r}")
             continue
         listed[name] = digest
+    # Only the register's own SHA256SUMS is exempt. A second file of that name
+    # further down would otherwise be neither hashed nor listed, and would
+    # still be published.
     on_disk = {
         path.relative_to(REGISTER_DIR).as_posix()
         for path in REGISTER_DIR.rglob("*")
-        if path.is_file() and path.name != "SHA256SUMS"
+        if path.is_file() and path != SUMS
     }
     for missing in sorted(on_disk - set(listed)):
         failures.append(f"SHA256SUMS: {missing} is not listed")
@@ -259,9 +322,12 @@ def check_register(today: dt.date | None = None) -> list[str]:
         failures.append("register.json: advice_status must be the fixed sentence")
 
     declared = manifest.get("series", [])
+    # rglob, not glob: a file under series/ that the manifest does not list is
+    # published either way, and an unvalidated series in a subdirectory is
+    # exactly the thing the manifest is supposed to rule out.
     on_disk = sorted(
         path.relative_to(REGISTER_DIR).as_posix()
-        for path in (REGISTER_DIR / "series").glob("*.json")
+        for path in (REGISTER_DIR / "series").rglob("*.json")
     )
     if sorted(declared) != on_disk:
         failures.append(

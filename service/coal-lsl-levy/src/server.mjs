@@ -7,7 +7,9 @@
 
 import { createServer } from 'node:http';
 import { randomUUID } from 'node:crypto';
+import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 import { calculate, REFUSAL_CLASSES, Refusal } from './calculate.mjs';
+import { centsToString } from './money.mjs';
 import { buildOpenApi } from './openapi.mjs';
 import { loadRegister } from './register.mjs';
 import { ValidationError, validateRequest } from './schema.mjs';
@@ -29,6 +31,7 @@ export const DEFAULTS = Object.freeze({
   rateLimitPerMinute: 60,
   allowedOrigins: [],
   trustProxy: false,
+  trustedProxyDepth: 0,
   codeRevision: null,
   publicBaseUrl: null,
   log: (line) => process.stderr.write(`${line}\n`),
@@ -50,21 +53,29 @@ function send(response, status, body, headers = {}) {
   return status;
 }
 
-// Fixed-window per-client throttle. ponytail: one Map in process memory,
-// enough for one instance behind an instance cap; a fleet needs a shared
-// store, which is the documented upgrade path in docs/runbook.md.
+// Fixed-window per-client throttle. One Map in process memory, enough for one
+// instance behind an instance cap; a fleet needs a shared store, which is the
+// documented upgrade path in docs/runbook.md.
+//
+// The whole map is replaced when the window turns, rather than swept per
+// insert. The old sweep only deleted entries from a previous window, so while
+// one window was open it freed nothing and rescanned everything on every
+// insert past its size threshold: a caller producing many distinct keys made
+// each of its own later requests O(n).
 export function createThrottle(limitPerMinute, now = Date.now) {
-  const windows = new Map();
+  let windows = new Map();
+  let openWindow = null;
   return {
     take(key) {
       const current = now();
       const windowStart = current - (current % 60000);
+      if (windowStart !== openWindow) {
+        windows = new Map();
+        openWindow = windowStart;
+      }
       const entry = windows.get(key);
-      if (!entry || entry.windowStart !== windowStart) {
-        windows.set(key, { windowStart, count: 1 });
-        if (windows.size > 10000) {
-          for (const [k, v] of windows) if (v.windowStart !== windowStart) windows.delete(k);
-        }
+      if (!entry) {
+        windows.set(key, { count: 1 });
         return { allowed: true };
       }
       entry.count += 1;
@@ -76,32 +87,62 @@ export function createThrottle(limitPerMinute, now = Date.now) {
   };
 }
 
-function clientKey(request, trustProxy) {
+// X-Forwarded-For grows left to right: a client may send its own, and each
+// proxy appends the address it saw. So the rightmost entries are the ones a
+// client cannot forge, and the caller's real address is `trustedProxyDepth`
+// places from the right. Reading element [0], as this did, reads whatever the
+// client wrote: an unlimited bypass, and a way to spend another client's
+// budget by naming it.
+export function clientKey(request, { trustProxy = false, trustedProxyDepth = 0 } = {}) {
   if (trustProxy) {
     const forwarded = request.headers['x-forwarded-for'];
     if (typeof forwarded === 'string' && forwarded.trim()) {
-      return forwarded.split(',')[0].trim();
+      const chain = forwarded.split(',').map((part) => part.trim()).filter(Boolean);
+      const index = chain.length - 1 - trustedProxyDepth;
+      if (index >= 0) return chain[index];
+      // The chain is shorter than the configured depth, so the entry that
+      // should be there is missing. Fall through to the socket address rather
+      // than trust the leftmost value.
     }
   }
   return request.socket.remoteAddress ?? 'unknown';
 }
 
+// Stop reading once the ceiling is passed, but leave the socket alone: the
+// caller still has to write the 413 the contract promises. Destroying the
+// request here closed the connection with no response at all, so a chunked
+// oversized body got silence instead of the documented status.
 function readBody(request, maxBytes) {
   return new Promise((resolve, reject) => {
     const chunks = [];
     let size = 0;
+    let done = false;
     request.on('data', (chunk) => {
+      if (done) return;
       size += chunk.length;
       if (size > maxBytes) {
+        done = true;
+        request.pause();
         reject(Object.assign(new Error('body too large'), { code: 'body_too_large' }));
-        request.destroy();
         return;
       }
       chunks.push(chunk);
     });
-    request.on('end', () => resolve(Buffer.concat(chunks)));
-    request.on('error', reject);
+    request.on('end', () => { if (!done) resolve(Buffer.concat(chunks)); });
+    request.on('error', (issue) => { if (!done) reject(issue); });
   });
+}
+
+// Resolve a request target to the path the routing uses: dot segments
+// resolved by `URL`, then each segment percent-decoded. Both the router and
+// the log read this, so the record cannot describe a different route from the
+// one that ran.
+export function resolvePath(requestUrl) {
+  const url = new URL(requestUrl ?? '/', 'http://localhost');
+  const segments = url.pathname.split('/').slice(1).map((segment) => {
+    try { return decodeURIComponent(segment); } catch { return segment; }
+  });
+  return { pathname: `/${segments.join('/')}`, segments };
 }
 
 export function createApp(options = {}) {
@@ -124,7 +165,8 @@ export function createApp(options = {}) {
     limits: {
       max_body_bytes: config.maxBodyBytes,
       requests_per_minute_per_client: config.rateLimitPerMinute,
-      money: 'decimal strings, at most 2 decimal places, whole-cent amounts up to about 83 billion dollars each',
+      money: `decimal strings, at most 2 decimal places, whole-cent amounts up to ${centsToString(MAX_WAGES_CENTS)} each`,
+      max_amount: centsToString(MAX_WAGES_CENTS),
     },
     refusal_classes: Object.keys(REFUSAL_CLASSES),
     status: 'development',
@@ -171,6 +213,12 @@ export function createApp(options = {}) {
     const started = process.hrtime.bigint();
     const requestId = randomUUID();
     const cors = corsHeaders(request);
+    // The path the routing actually used, not the raw request target, so a
+    // caller cannot make the record disagree with what ran.
+    let logPath = '(unparsed)';
+    try {
+      logPath = resolvePath(request.url).pathname;
+    } catch { /* keep the placeholder */ }
     let status;
     try {
       status = await route(request, response, cors, requestId);
@@ -181,27 +229,26 @@ export function createApp(options = {}) {
     }
     const ms = Number(process.hrtime.bigint() - started) / 1e6;
     // Minimal log: no bodies, no client address, no query strings.
-    config.log(JSON.stringify({ request_id: requestId, method: request.method, path: request.url?.split('?')[0], status, ms: Math.round(ms) }));
+    config.log(JSON.stringify({ request_id: requestId, method: request.method, path: logPath, status, ms: Math.round(ms) }));
   }
 
   async function route(request, response, cors, requestId) {
     const headers = { ...cors, 'X-Request-Id': requestId };
-    const url = new URL(request.url ?? '/', 'http://localhost');
-    const path = url.pathname;
-    const segments = path.split('/').slice(1).map((segment) => {
-      try { return decodeURIComponent(segment); } catch { return segment; }
-    });
+    const { pathname: path, segments } = resolvePath(request.url);
+
+    // Throttle first, for every method. A preflight is a request the service
+    // answers, so it spends budget like any other; skipping it left a method
+    // outside the limit discovery publishes.
+    const throttled = throttle.take(clientKey(request, config));
+    if (!throttled.allowed) {
+      return send(response, 429, { error: 'throttled', retry_after_seconds: throttled.retryAfterSeconds },
+        { ...headers, 'Retry-After': String(throttled.retryAfterSeconds) });
+    }
 
     if (request.method === 'OPTIONS') {
       response.writeHead(Object.keys(cors).length ? 204 : 404, headers);
       response.end();
       return Object.keys(cors).length ? 204 : 404;
-    }
-
-    const throttled = throttle.take(clientKey(request, config.trustProxy));
-    if (!throttled.allowed) {
-      return send(response, 429, { error: 'throttled', retry_after_seconds: throttled.retryAfterSeconds },
-        { ...headers, 'Retry-After': String(throttled.retryAfterSeconds) });
     }
 
     if (request.method === 'GET' || request.method === 'HEAD') {

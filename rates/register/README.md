@@ -17,7 +17,7 @@ register.json                        manifest: schema version, register version,
 schema/register.schema.json          the manifest's schema
 schema/rates-register.schema.json    a series file's schema
 series/coal-lsl-levy.json            the Coal LSL levy percentage
-SHA256SUMS                           sha256 of every file above except itself
+SHA256SUMS                           sha256 of every file in the register except itself
 CHANGELOG.md                         one entry per register version
 ```
 
@@ -57,8 +57,9 @@ and the difference is the whole point of recording it.
 compilation registered the day after a check supersedes the row and nothing
 here will know. Consumers that care about currency should treat the check date
 as an upper bound on what the register can vouch for, which is what the Coal
-LSL service does: it refuses months after the check date rather than applying
-a stale figure to them.
+LSL service does: it serves a month only where the check date is on or after
+the last day of that month, so a check part way through a month does not price
+wages paid at the end of it.
 
 A content hash proves the bytes are the bytes. It proves nothing about whether
 the figure is legally correct.
@@ -69,13 +70,20 @@ Enforced by `scripts/check_rates_register.py`, which runs in the site checks:
 
 - `primary_source.url` sits on a primary host (legislation.gov.au, ato.gov.au,
   rba.gov.au, standards.aasb.gov.au, coallsl.com.au or a state legislation
-  site). A duguid.com.au page is a cross-check.
+  site). A duguid.com.au page is a cross-check. The host is read with a URL
+  parser, credentials in the authority are refused, and a URL containing a
+  backslash is refused outright: a browser treats it as a path delimiter and
+  other parsers do not, so the host would be ambiguous.
 - `row_id` is unique within a series; non-superseded rows are ordered by
   `period_start`, do not overlap, and at most one has an open end.
 - `verified_at` is not in the future and not before `period_start`.
-- A `superseded` row is named by a `supersedes` on its replacement.
-- `register.json` lists every series file exactly once and nothing else.
-- `SHA256SUMS` covers every file except itself and matches the bytes on disk.
+- A `superseded` row is named by a `supersedes` on exactly one live
+  replacement. A row cannot supersede itself, a superseded row cannot supersede
+  anything, and a live row cannot be superseded.
+- `register.json` lists every `.json` under `series/`, at any depth, exactly
+  once and nothing else.
+- `SHA256SUMS` covers every file in the register except that file itself, at
+  any depth, and matches the bytes on disk.
 
 ## Changing a figure
 
