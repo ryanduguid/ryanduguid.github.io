@@ -15,6 +15,7 @@ from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
+from urllib.parse import urlsplit
 
 import check_design
 import extract_xero_badge
@@ -1854,6 +1855,10 @@ def test_release_record() -> None:
     original_fetch = release_record.fetch_json
     original_open = release_record.urllib.request.urlopen
 
+    def host_of(url: str) -> str:
+        """The stub routes on the parsed host, not a substring of the whole URL."""
+        return (urlsplit(url).hostname or "").lower()
+
     def states(probes: list) -> dict[str, tuple[str, str]]:
         return {probe.source: (probe.state, probe.detail) for probe in probes}
 
@@ -1891,9 +1896,9 @@ def test_release_record() -> None:
         # One failing source must not suppress the others. PyPI answers, the
         # registry fails, and GitHub is still asked and still reports.
         def mixed(url: str):
-            if "pypi.org" in url:
+            if host_of(url) == "pypi.org":
                 return {"info": {"version": "0.3.0"}}
-            if "registry.modelcontextprotocol.io" in url:
+            if host_of(url) == "registry.modelcontextprotocol.io":
                 raise TimeoutError("registry timed out")
             if "/releases/tags/" in url:
                 return {"tag_name": "aus-accounting-mcp/v0.3.0"}
@@ -1907,11 +1912,11 @@ def test_release_record() -> None:
 
         # The first source failing must not stop the last one being attempted.
         def first_fails(url: str):
-            if "pypi.org" in url:
+            if host_of(url) == "pypi.org":
                 raise TimeoutError("pypi timed out")
             if "/releases/tags/" in url:
                 return {"tag_name": "aus-accounting-mcp/v0.2.2"}
-            if "registry" in url:
+            if host_of(url) == "registry.modelcontextprotocol.io":
                 return {"server": {"version": "0.2.2"}}
             return [{"tag_name": "aus-accounting-mcp/v0.2.2", "draft": False, "prerelease": False}]
 
