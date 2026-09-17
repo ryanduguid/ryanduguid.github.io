@@ -24,7 +24,7 @@ The website's own code does not set cookies or include advertising pixels. Its f
 
 Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
 
-Cloudflare also rewrites email addresses on delivery to make basic address collection harder. The rewriting covers the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template are served as plain text and carry the address as written. Obfuscation does not make the address private. The contact page and the Lumbridge review task spell the address out as well, for anyone whose browser cannot run the rewriting.
+Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
 
 Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries anything you type on this site.
 
@@ -54,7 +54,6 @@ The website source is available under its MIT licence, which includes its warran
 
 - Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
-- rewrites email addresses on delivery: https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/

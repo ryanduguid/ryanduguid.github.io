@@ -16,7 +16,7 @@ I welcome feedback from accountants and business owners on the fictional Newcast
 
 For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
 
-Email addresses here are obfuscated against scraping and need scripts to open. If a link does not work, write to ryan at duguid dot com dot au.
+Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 

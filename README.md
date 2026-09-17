@@ -135,9 +135,10 @@ Cloudflare also changes the delivered page in ways the repository never sees:
 it adds `nel`, `report-to` and `speculation-rules` headers, appends an inline
 visitor-verification script and, for browser requests, a Web Analytics script
 tag (both blocked by the page's Content Security Policy), answers `301` for the
-retired `/engage/` and `/tools/review-ready-gate/` routes, and, when Email
-Address Obfuscation is on, rewrites every `mailto:` link and strips the address
-from the HTML. `node scripts/check_production.mjs` fetches the live pages and
+retired `/engage/` and `/tools/review-ready-gate/` routes. Email Address
+Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
+the production check requires those links to arrive intact.
+`node scripts/check_production.mjs` fetches the live pages and
 fails when a documented header or redirect is missing or a `mailto:` link no
 longer arrives intact; it runs weekly from `source-freshness.yml`.
 

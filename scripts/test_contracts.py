@@ -1030,7 +1030,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "privacy/index.html",
-            "Obfuscation does not make the address private.",
+            "Email Address Obfuscation is disabled so email links work without scripts.",
             "Neither addition reports anything to the site owner.",
         )
         expect_failure(
