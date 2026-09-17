@@ -1,9 +1,9 @@
 Lumbridge Services cash-flow case: independent review response
-Template version 18 September 2026. Plain text. Fill in each line after the colon.
+Template version 17 September 2026. Plain text. Fill in each line after the colon.
 
 Send the completed file to ryan@duguid.com.au with the subject "Lumbridge review".
 Use the synthetic files only. Do not include client records, credentials,
-confidential files, or any real person's details.
+confidential files, or personal information about clients or other third parties. You may provide your own details only if you choose the named quotation option below.
 
 The task and the expected figures are at
 https://duguid.com.au/evaluate/#independent-review
@@ -62,7 +62,7 @@ Familiarity with Excel forecasting (none, some, regular):
 
 == 10. Permission for later quotation ==
 Choose one and delete the others.
-- You may quote my responses with my name and role.
+- You may quote my responses with my name and role (complete the conditional name field below).
 - You may quote my responses anonymously (role and sector only).
 - Do not quote my responses; use them for corrections only.
 Name and date:
