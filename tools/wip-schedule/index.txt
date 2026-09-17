@@ -8,7 +8,9 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Published 25 August 2026. Last reviewed 14 September 2026.
+Reference release the-wip-tally/v0.1.0, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-wip-tally/v0.1.1.
+
+Published 25 August 2026. Last reviewed 18 September 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims, and present each contract as an asset or a liability, never a portfolio net.
 
@@ -44,7 +46,7 @@ cd packages/the-wip-tally
 uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
 ```
 
-Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs.
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.0 so its figures stay reproducible.
 
 ## Limits
 
@@ -100,6 +102,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- the-wip-tally/v0.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.0
+- the-wip-tally/v0.1.1: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.1
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/

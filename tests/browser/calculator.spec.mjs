@@ -553,9 +553,11 @@ test('edited results stay marked until a valid recalculation', async ({ page }) 
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(notice).toBeVisible();
   await expect(page.locator('#baseRate')).toBeFocused();
+  // A refused recalculation must not leave the previous figures on screen.
+  await expect(page.locator('[data-result-kind="levy"]')).toHaveCount(0);
+  await expect(page.locator('#result-actions')).toBeHidden();
   await page.locator('#baseRate').fill('8000');
   await expect(notice).toHaveText('Inputs changed. Calculate again.');
-  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$192.38');
   await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(notice).toBeEmpty();
   await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$232.88');

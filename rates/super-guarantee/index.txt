@@ -26,6 +26,8 @@ Period | General SG rate (%)
 
 For periods before 2002-03, see former sections 20 and 21 of the Superannuation Guarantee (Administration) Act 1992.
 
+These are the general rates. Norfolk Island has a separate transitional rate that has been stepping up since 1 July 2016 and reaches 12% on 1 July 2027; the ATO publishes it in a second column of the same table.
+
 Download the table as CSV. Cite as Duguid, R. (2026). Super guarantee rate history (2002-03 to today) [Data set]. https://duguid.com.au/rates/super-guarantee/. Verify against current ATO guidance before relying on a figure.
 
 ## Common questions
@@ -60,7 +62,7 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Staff cost calculator
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 18 September 2026.
 
 ## Links
 

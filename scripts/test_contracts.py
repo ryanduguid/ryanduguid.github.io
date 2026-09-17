@@ -111,7 +111,7 @@ def test_parked_consultancy_surface() -> None:
 
     for path in core.html_files(ROOT):
         rel = path.relative_to(ROOT).as_posix()
-        if rel in {"changelog/index.html", "engage/index.html"}:
+        if rel == "changelog/index.html":
             continue
         public_html = path.read_text(encoding="utf-8")
         assert "/#engage" not in public_html.casefold(), f"{rel}: Engage URL remains"
@@ -119,24 +119,13 @@ def test_parked_consultancy_surface() -> None:
             f"{rel}: firm-workflow route remains"
         )
 
-    redirect = ROOT / "engage" / "index.html"
-    assert redirect.is_file(), "engage/index.html: quiet redirect page missing"
-    assert_clean(
-        "retired Engage route",
-        contracts.check_static_redirect(
-            redirect.read_text(encoding="utf-8"),
-            "engage/index.html",
-            "https://duguid.com.au/",
-        ),
-    )
-
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
     review_date = "14 September 2026"
     modified_date = "2026-09-14"
     homepage_title = (
-        "Ryan Duguid: review-ready Australian accounting controls"
+        "Open-source accounting tools for Australian accountants"
     )
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
@@ -1041,7 +1030,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "privacy/index.html",
-            "Obfuscation does not make the address private.",
+            "Email Address Obfuscation is disabled so email links work without scripts.",
             "Neither addition reports anything to the site owner.",
         )
         expect_failure(
@@ -1079,7 +1068,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Ryan Duguid: review-ready Australian accounting controls</title>",
+            "<title>Open-source accounting tools for Australian accountants</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1145,7 +1134,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter field",
-            '  <meta name="twitter:image:alt" content="OLED register card: Ryan Duguid: review-ready Australian accounting controls." />\n',
+            '  <meta name="twitter:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />\n',
             "",
             "expected exactly one non-empty twitter:image:alt",
         ),
@@ -1175,7 +1164,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Ryan Duguid: review-ready Australian accounting controls" />',
+            '<meta name="twitter:title" content="Open-source accounting tools for Australian accountants" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
@@ -1376,8 +1365,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 12 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 12 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
@@ -1458,8 +1447,8 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "assets/social-cards.json",
-            "review-ready Australian",
-            "review Australian",
+            "Australian accountants.",
+            "Australia accountants.",
         )
         expect_failure(
             "social card context copy",

@@ -8,7 +8,9 @@ Source: https://duguid.com.au/tools/refusals/
 
 A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. The DrDebits guide in llm-tax-guardrails specifies the scenarios it requires a model to refuse.
 
-Published 4 September 2026. Last reviewed 11 September 2026.
+Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not re-checked against it; the changelog lists current releases.
+
+Published 4 September 2026. Last reviewed 18 September 2026.
 
 ## Fabricated inputs
 
@@ -216,6 +218,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- changelog: https://duguid.com.au/changelog/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - examples/bas-not-ready: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/examples/bas-not-ready
 - examples/bas-blocked: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/examples/bas-blocked

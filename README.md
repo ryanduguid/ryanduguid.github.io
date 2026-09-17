@@ -131,6 +131,17 @@ the Cloudflare account, not in this repository: the local preview and the checks
 here cannot see or test them, and a request that reached the origin directly
 would still arrive without them.
 
+Cloudflare also changes the delivered page in ways the repository never sees:
+it adds `nel`, `report-to` and `speculation-rules` headers, appends an inline
+visitor-verification script and, for browser requests, a Web Analytics script
+tag (both blocked by the page's Content Security Policy), answers `301` for the
+retired `/engage/` and `/tools/review-ready-gate/` routes. Email Address
+Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
+the production check requires those links to arrive intact.
+`node scripts/check_production.mjs` fetches the live pages and
+fails when a documented header or redirect is missing or a `mailto:` link no
+longer arrives intact; it runs weekly from `source-freshness.yml`.
+
 `Content-Security-Policy` is the exception. Browsers honour a policy delivered
 as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
 `report-uri` / `report-to` and report-only mode, which the specification
@@ -180,7 +191,7 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site.png` | `0c8f209454e9f7d7f209a7ddbc2f8f23e50eb7c800ee766efaad33c3a15febcb` |
+| `assets/social-card-site.png` | `1da33fc08f6ee7f89ca8c237d6f9e33f93eee3b537cb31f72d016bd7d6d59db6` |
 | `assets/social-card-tools.png` | `5bd011c9f905ace49a2e8419812157e85c85e347921d3d6fa4634e50282d2f56` |
 | `assets/social-card-evaluations.png` | `ad8299da0500bdf406f8bfef3384b98591005619da5f676fa3504884807eaa94` |
 | `assets/social-card-rates.png` | `49c5ab563773bbac7584a6975821ac753a8051bf6b181574673b9afc390ddb3c` |

@@ -2,13 +2,13 @@
   "site": {
     "label": "Open-source tool library / Australian accounting",
     "heading": [
-      "Ryan Duguid:",
-      "review-ready Australian",
-      "accounting controls."
+      "Open-source",
+      "accounting tools for",
+      "Australian accountants."
     ],
     "host": "duguid.com.au",
     "output": "social-card-site.png",
-    "alt": "OLED register card: Ryan Duguid: review-ready Australian accounting controls."
+    "alt": "OLED register card: Open-source accounting tools for Australian accountants."
   },
   "tools": {
     "label": "Open-source tools",

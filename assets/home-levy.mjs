@@ -73,9 +73,13 @@ if (form) {
   );
 
   const render = () => {
-    error.textContent = fields.some((field) => field.validity.rangeOverflow)
-      ? `${inputError} Each amount must be at most ${money.format(MAX_WAGES_CENTS / 100)}.`
-      : inputError;
+    if (fields.some((field) => field.validity.badInput)) {
+      error.textContent = `${inputError} Use digits only, without commas or currency symbols.`;
+    } else if (fields.some((field) => field.validity.rangeOverflow)) {
+      error.textContent = `${inputError} Each amount must be at most ${money.format(MAX_WAGES_CENTS / 100)}.`;
+    } else {
+      error.textContent = inputError;
+    }
     for (const field of fields) {
       if (field.validity.valid) field.removeAttribute('aria-invalid');
       else field.setAttribute('aria-invalid', 'true');

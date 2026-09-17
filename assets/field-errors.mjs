@@ -48,6 +48,7 @@ export function fieldErrorMessage(control) {
   const validity = control.validity;
   if (validity.valueMissing) {
     if (control.type === 'date') return 'Enter a date.';
+    if (control.type === 'month') return 'Enter a month.';
     return control.type === 'number' ? 'Enter an amount.' : 'Enter a value.';
   }
   if (validity.badInput) return 'Enter a number using digits only.';

@@ -209,3 +209,23 @@ test('release check leaves historical references outside the current table alone
     '<p>Earlier evaluation: <a href="https://github.com/ryanduguid/example/releases/tag/v1.1.0">v1.1.0</a></p>';
   assert.deepEqual(await freshness.checkReleases(html, async () => [release('v1.2.0'), release('v1.1.0')]), []);
 });
+
+function toolPage(pinned, extra = '') {
+  return [
+    '<p class="release-meta">Reference release ',
+    `<a href="https://github.com/ryanduguid/example/releases/tag/tool/${pinned}">tool/${pinned}</a>, tagged source.</p>`,
+    extra,
+  ].join('');
+}
+
+test('a tool page may pin an older release only if it names the current one', async () => {
+  const lookup = async () => [release('tool/v1.2.0'), release('tool/v1.1.0')];
+  assert.deepEqual(await freshness.checkToolReleases([['tools/a/index.html', toolPage('v1.2.0')]], lookup), []);
+  assert.deepEqual(await freshness.checkToolReleases([
+    ['tools/a/index.html', toolPage('v1.1.0', '<p>The current release is tool/v1.2.0.</p>')],
+  ], lookup), []);
+  assert.deepEqual(await freshness.checkToolReleases([['tools/a/index.html', toolPage('v1.1.0')]], lookup), [
+    'tools/a/index.html: pins tool/v1.1.0 but does not name the current release tool/v1.2.0',
+  ]);
+  assert.deepEqual(await freshness.checkToolReleases([['tools/b/index.html', '<p>No release-meta here</p>']], lookup), []);
+});
