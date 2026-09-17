@@ -43,6 +43,34 @@ editorial review of the changelog and capability descriptions; the check does
 not rewrite pages or evaluation pins. Its offline tests run through the site
 check command above.
 
+## Ruby Sass in the locked chain
+
+`Gemfile.lock` resolves Jekyll 3.10.0 to jekyll-sass-converter 1.5.2 and Ruby
+Sass 3.7.4. Ruby Sass reached end of life on 26 March 2019 and its maintainers
+direct users to Dart Sass. As at 18 September 2026 GitHub's advisory database
+lists no advisory against the `sass` or `jekyll-sass-converter` gems, and the
+one Jekyll advisory, GHSA-4xjh-m3qx-49wc, stops at 3.8.4 and does not reach
+3.10.0. So this is unmaintained software in the dependency graph, not a known
+vulnerability.
+
+It is also unreached. The site is written in plain CSS under `assets/`, so the
+converter is installed but never given an input. `scripts/test_build_site.py`
+enforces that: it fails on any `.scss` or `.sass` source, and on any stylesheet
+carrying front matter, because Jekyll 3 hands those to the converter. Keep
+writing plain CSS and the unsupported code stays off the build path.
+
+Removing the gem is not a dependency bump. Jekyll 3.10.0 is pinned to match
+what GitHub Pages actually runs, and jekyll-sass-converter is Jekyll's own
+dependency, so the gem cannot be dropped while the site uses the Pages legacy
+build. Migrating means changing how the site is deployed: build with a current
+Jekyll in Actions and publish the artefact, which replaces the Pages legacy
+build with a workflow, changes the deployment surface and needs the Pages
+source setting changed from a branch to GitHub Actions. That is a hosting
+decision, so it is recorded here rather than made in a pull request. Whoever
+takes it should keep the rendered output byte-identical where possible and run
+the full offline check, the browser suite and Lighthouse against the result
+before switching the Pages source.
+
 The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
 dependency chain otherwise installs vulnerable `extract-zip` 2.0.1
 ([GHSA-7pqw-9j4j-h8q3](https://github.com/advisories/GHSA-7pqw-9j4j-h8q3)).

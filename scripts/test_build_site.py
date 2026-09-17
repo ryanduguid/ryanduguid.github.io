@@ -12,8 +12,48 @@ from urllib.request import Request, urlopen
 import build_site
 import serve_site
 
+# Directories that are not site sources: dependencies, build output and scratch.
+# Dot-directories are skipped as a class because Jekyll excludes them by
+# default, so nothing inside one reaches the build unless `_config.yml` names
+# it. That also keeps a local virtual environment's vendored CSS out of the
+# check, which would otherwise be inspected as though it were a site source.
+NOT_SOURCE = {"_site", "node_modules", "vendor", "work"}
+
+
+def check_no_sass_sources(root: Path | None = None) -> int:
+    """No Sass reaches the build, so the unsupported Ruby Sass in the chain never runs.
+
+    The Gemfile pins Jekyll 3.10.0 to match the GitHub Pages build, and that
+    chain carries jekyll-sass-converter 1.5.2 and Ruby Sass 3.7.4, which has
+    been end of life since 26 March 2019. The site is written in plain CSS, so
+    the converter is installed but never given an input. This check keeps it
+    that way: a `.scss` or `.sass` source, or a stylesheet with front matter
+    (which Jekyll 3 hands to the converter), would put unmaintained code on the
+    build path of every page. Dropping the gem instead means leaving the Pages
+    legacy build, which is a hosting decision, not a check.
+    """
+    root = root or build_site.ROOT
+    offenders = []
+    checked = 0
+    for path in sorted(root.rglob("*")):
+        parts = path.relative_to(root).parts
+        if NOT_SOURCE & set(parts) or any(part.startswith(".") for part in parts[:-1]):
+            continue
+        if not path.is_file():
+            continue
+        if path.suffix in {".scss", ".sass"}:
+            offenders.append(f"{path.relative_to(root)}: Sass source")
+        elif path.suffix == ".css":
+            checked += 1
+            if path.read_bytes().lstrip().startswith(b"---"):
+                offenders.append(f"{path.relative_to(root)}: stylesheet with front matter")
+    assert not offenders, "Sass would reach the build:\n" + "\n".join(offenders)
+    assert checked, "no stylesheet was inspected; the check is looking in the wrong place"
+    return checked
+
 
 def main() -> None:
+    stylesheets = check_no_sass_sources()
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         (root / "_includes").mkdir()
@@ -81,7 +121,10 @@ def main() -> None:
             server.shutdown()
             server.server_close()
             thread.join(timeout=5)
-    print("Jekyll build and rendered preview tests passed")
+    print(
+        "Jekyll build and rendered preview tests passed "
+        f"({stylesheets} stylesheets carry no Sass)"
+    )
 
 
 if __name__ == "__main__":
