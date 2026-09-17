@@ -5415,7 +5415,7 @@ It suits an accountant or analyst who builds models in Excel and wants the worki
 What the workbook needs. Scroll sideways on small screens.
 
 Requires | Microsoft 365 or Excel 2024 and later, with LAMBDA and dynamic arrays
-Does not run in | LibreOffice, Google Sheets and Excel versions before 2024, which cannot evaluate the functions
+Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
 Contains | No VBA, no macros, no add-in and no external link
 Licence | MIT, covering the workbook, the formula source and the function index
 Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
@@ -5497,7 +5497,7 @@ An Excel workbook containing 133 native LAMBDA functions and 5 help tables for f
 
 ### Which Excel versions can run it?
 
-Microsoft 365 or Excel 2024 and later, which support LAMBDA and dynamic arrays. LibreOffice, Google Sheets and earlier Excel versions cannot evaluate the functions.
+Microsoft 365 or Excel 2024 and later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
 
 ### Does Ozzit calculate Australian tax?
 
