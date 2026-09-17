@@ -4,53 +4,53 @@ Source: https://duguid.com.au/
 
 > Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
 
-Public register / Australian accounting controls
+Open-source tool library / Australian accounting
 
-# Australian accounting tools, with the working explained.
+# Open-source accounting tools for Australian accountants.
 
-I'm Ryan Duguid, an accountant in Newcastle. Start with a fictional business whose quarterly profit never moves while its cash runs $25,160 short.
+Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.
 
-A personal open-source index, not an accounting practice.
+A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
 Last reviewed 18 September 2026.
 
-Explore the cash-flow example Browse all tools
+Explore the cash-flow example Browse tools by accounting task
 
 ## Profit does not pay the next bill.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. An independent accountant trial is pending. Offer a review of the Lumbridge case.
+Synthetic demonstration. An independent accountant trial is pending. Review the Lumbridge case yourself.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
-Tool register / four review tasks
+Starting routes / four ways in
 
-## Start with the work to review
+## Start with what you came to do
 
-### Extract
+### Understand an accounting problem
 
-Get records into a shape that can be reconciled and reviewed.
+Follow the fictional Lumbridge cash-flow case on the page: same quarterly profit, a $25,160 cash gap. The Excel workbook is optional.
 
-Xero trial balance CSV export
+Five-minute accounting cases
 
-### Calculate
+### Try a browser calculator
 
-Apply a rule without hiding the branch, formula, or rounding.
+Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser, without sending them to a server.
 
-Coal LSL levy calculator
+Business planning calculators
 
-### Control
+### Evaluate an accounting workflow
 
-Stop incomplete work before it reaches a manager.
+Rerun a fabricated BAS pack through the Workpaper Review Gate and see exactly why a pack is sent back. Needs Python; uses fabricated files only.
 
 Workpaper Review Gate
 
-### Inspect
+### Inspect or integrate the software
 
-Compare Australian tax tools for AI agents and check their limits.
+Source repositories, install commands and Python packages, plus an MCP server. That is a standard way to hand an AI assistant a fixed set of tools.
 
-Australian tax tools for AI agents
+Source on GitHub
 
 Review aids only. No client files. No lodgement. Human sign-off.
 
@@ -80,7 +80,7 @@ Formula A, base rate plus bonuses
 
 $6,000.00
 
-Formula B, 75 per cent of every component
+Formula B, 75 per cent of the aggregate
 
 $7,125.00
 
@@ -118,7 +118,7 @@ Start with the Excel cash-flow example or browser calculator. Firms using Claude
 
 No install
 
-Open the browser calculator with fabricated figures. Nothing to install and nothing leaves the browser.
+Open the browser calculator with fabricated figures. Nothing to install, and the figures you enter stay in the browser.
 
 Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
@@ -198,9 +198,9 @@ Practice software
 
 Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
-Open the evidence register Browse reproducible evaluations
+Open the evidence register Browse reproducible evaluations Review the Lumbridge case yourself
 
-The evidence supports limited claims about the software, not endorsements or client outcomes.
+The evidence supports limited claims about the software, not endorsements or client outcomes. No independent accountant has yet completed the Lumbridge review.
 
 ## Five checks before a claim leaves the page
 
@@ -221,28 +221,24 @@ Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legis
 ## Links
 
 - Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Browse all tools: https://duguid.com.au/tools/
-- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- Browse tools by accounting task: https://duguid.com.au/tools/
+- Review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- Extract: https://duguid.com.au/tools/#extract-tools
-- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
-- Calculate: https://duguid.com.au/tools/#calculate-tools
-- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Control: https://duguid.com.au/tools/#control-tools
+- Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- Try a browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Business planning calculators: https://duguid.com.au/tools/business-calculators/
+- Evaluate an accounting workflow: https://duguid.com.au/evaluate/manager-review-gate/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Inspect: https://duguid.com.au/tools/#inspect-tools
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Inspect or integrate the software: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Source on GitHub: https://github.com/ryanduguid
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - reproducible evaluation: https://duguid.com.au/evaluate/
-- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Manager review gate Reproduce the incomplete-pack checks.: https://duguid.com.au/evaluate/manager-review-gate/
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
-- Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources

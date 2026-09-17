@@ -28,3 +28,34 @@ When updating the sample:
 The public sample includes expected results. A separate review kit can omit
 those exports for an unaided trial, with any prior exposure recorded. No
 independent accountant trial has been completed as at 11 September 2026.
+
+## Human follow-through for the independent review
+
+The public page `/evaluate/#independent-review` and the blank
+`assets/examples/lumbridge/trial-response-template.txt` were added on
+18 September 2026. Preparing them is not a trial.
+
+The public route is a guided reproduction, not a blinded study. The template
+repeats the expected figures, so a completed response shows whether the workbook
+and the instructions reproduce those figures for someone else. It does not show
+unaided interpretation. A study of that kind would need a separate kit with the
+expected results, the management briefing and TRIAL.md removed, and it has not
+been prepared.
+
+Before any claim about external evaluation, a person needs to:
+
+1. Recruit reviewers, send them the sample pack and template only, and keep the
+   prior-exposure answers in section 2 of each response with the response.
+2. Let each reproduction run without coaching. Answer no questions during it;
+   log every request for help as an observation.
+3. Read each response against the expected figures, record differences and
+   defects as issues, and separate usability findings from accounting findings.
+4. Obtain the quotation permission the template asks for before quoting or
+   naming anyone, and keep responses out of the repository. Treat an unselected
+   or contradictory choice as no permission.
+5. Update the "independent accountant trial" sentences on the homepage,
+   `/evaluate/` and `/contact/` only after at least one completed, uncoached
+   response exists, and say how many were run and what changed as a result.
+   Describe them as reproductions, not as unaided trials or client evidence.
+
+Until then the site states that external evaluation is pending.

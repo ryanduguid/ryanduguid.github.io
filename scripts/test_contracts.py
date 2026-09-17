@@ -186,9 +186,9 @@ def test_geo_leftovers_surface() -> None:
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
     assert (
         web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == "2026-09-14"
+        == "2026-09-18"
     )
-    assert "Last reviewed 14 September 2026." in core.visible_text(coal)
+    assert "Last reviewed 18 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (
@@ -253,7 +253,7 @@ def test_geo_leftovers_surface() -> None:
 
     assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
-        "2026-09-14"
+        "2026-09-18"
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
@@ -466,8 +466,8 @@ def test_design_contracts() -> int:
         (
             "hero action drift",
             "index.html",
-            'href="/tools/">Browse all tools',
-            'href="/missing-tools/">Browse all tools',
+            'href="/tools/">Browse tools by accounting task',
+            'href="/missing-tools/">Browse tools by accounting task',
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
@@ -571,8 +571,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 16 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 16 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -670,7 +670,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "18 September 2026", "2026-09-18"),
         ("tools/index.html", "18 September 2026", "2026-09-18"),
-        ("evidence/index.html", "16 September 2026", "2026-09-16"),
+        ("evidence/index.html", "18 September 2026", "2026-09-18"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -882,6 +882,10 @@ def test_public_contracts() -> int:
         )
 
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
+    assert_clean("task routes", contracts.check_task_routes(ROOT))
+    assert_clean(
+        "privacy delivery claims", contracts.check_privacy_delivery_claims(ROOT)
+    )
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
@@ -1010,6 +1014,45 @@ def test_public_contracts() -> int:
     with copied_site() as root:
         replace_file(
             root,
+            "tools/index.html",
+            '<a href="/evaluate/manager-review-gate/"><strong>Evaluate an accounting workflow</strong>',
+            '<a href="/evaluate/#example-routes"><strong>Evaluate an accounting workflow</strong>',
+        )
+        expect_failure(
+            "tools task route destination",
+            contracts.check_task_routes(root),
+            "tools/index.html: task routes are",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "llms.txt",
+            "- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/):",
+            "- **Try a browser calculator** (https://duguid.com.au/tools/):",
+        )
+        expect_failure(
+            "machine route destination",
+            contracts.check_task_routes(root),
+            "must route 'Try a browser calculator'",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "privacy/index.html",
+            "Obfuscation does not make the address private.",
+            "Neither addition reports anything to the site owner.",
+        )
+        expect_failure(
+            "provider no-reporting assurance",
+            contracts.check_privacy_delivery_claims(root),
+            "unsupported delivery claim",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
             "evidence/index.html",
             "Run one fixed evaluation and record the command, release, expected result, and observed result.",
             "Run an evaluation and share what happened.",
@@ -1060,8 +1103,8 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage category anchor",
-            'href="/tools/#control-tools"',
-            'href="/tools/#missing-control-tools"',
+            'href="/tools/workpaper-review-gate/"',
+            'href="/tools/missing-workpaper-review-gate/"',
             "index.html: category preview is",
         ),
         (
@@ -1237,6 +1280,40 @@ def test_public_contracts() -> int:
             contracts.check_calculator_contract,
             expected,
         )
+
+    formula_b_failures: list[str] = []
+    contracts.check_formula_b_answer(
+        calculator.replace(
+            "allowances other than expense reimbursements", "allowances"
+        ).replace(
+            "An amount that reimburses an expense is excluded by "
+            "section 3B(1)(b)(iii). ",
+            "",
+        ),
+        formula_b_failures,
+    )
+    expect_failure(
+        "formula B exclusion removed from both copies",
+        formula_b_failures,
+        "Formula B answer omits the expense-reimbursement exclusion",
+    )
+    contract_mutation(
+        "formula B structured answer is not a string",
+        calculator,
+        '"text": "For a non-casual',
+        '"text": 42, "ignored": "For a non-casual',
+        contracts.check_formula_b_answer,
+        "needs acceptedAnswer.text as a string",
+    )
+    contract_mutation(
+        "formula B copies disagree",
+        calculator,
+        "$500 of allowances that are not expense reimbursements, Formula B is 75% of "
+        "$9,500, which is $7,125.00.",
+        "$500 of eligible allowances, Formula B is 75% of $9,500, which is $7,125.00.",
+        contracts.check_formula_b_answer,
+        "structured Formula B answer differs from the visible one",
+    )
 
     calculator_module = read_text(ROOT, contracts.LEVY_PAGE_MODULE)
     module_mutations = (
@@ -1479,7 +1556,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 32
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 38
 
 
 def test_current_component_metadata() -> None:

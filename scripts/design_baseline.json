@@ -31,16 +31,16 @@
       "4c39f682400a08f2496426bd91103c878410a0f45332ccb88a7f624916a4cb8f"
     ],
     "evidence/index.html": [
-      "b7f0c4e7657b9f28e9491697d045280246faac42255284aa0b19d68a78114969"
+      "57577023b37a379b13bcd629c1651ced208ef3f6ad37da749cd250edd891e529"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "3b7ac3097af404a4b7da8b2438206a8dfcce16ea97652a6519959fb712b1653b"
     ],
     "index.html": [
-      "5d5a381d8013a65a89d870cb4dc9439aa396b60b4ccc031d95ebd1643caad775"
+      "3a2be8af984258576ca5c38455faaf2f80add7dc707cde99fb1316bdc75a6667"
     ],
     "privacy/index.html": [
-      "718f404f4780d93bdd44e8197c552b5ed8b2ec090f24222e2dcb6e0d89e9802f"
+      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
     ],
     "rates/cents-per-kilometre/index.html": [
       "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
@@ -67,7 +67,7 @@
       "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "66a8d2c5ffcace4938c6f688e3e8dd81add984486c8f388fe878e648bb4480c8"
+      "540ffbf0863c554f09d2e4e0cf7ff99039d00051f0d1a3e1cc57a73c15db274b"
     ],
     "tools/company-tax-franking/index.html": [
       "1277e3caf13d91777e11f5632766b4fb7c2ad83f7f9e8b403b8fb756d74f9ac4"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "eca4e772f9dd93c36cf6b9d6808fe56bd80c258ae361fab56cd731a09fcd2605",
+    "llms.txt": "97060ad9155085052e0243424fc680174955d6038e9f474884af56dac1083ab7",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "21a1638934885caeef82129b8d210fe8b3f46be26753930ff88d4a124dcceb79"
+    "sitemap.xml": "2c11bc32ef6753dfa486c553ff2a2ee363fd16fb3fa83080020dde6935f4d532"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

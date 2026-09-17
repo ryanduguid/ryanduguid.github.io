@@ -14,11 +14,13 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures. Email ryan@duguid.com.au.
+For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+
+Email addresses here are obfuscated against scraping and need scripts to open. If a link does not work, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
-Do not post taxpayer information or client files to public repositories. Nothing here is tax, legal, or financial advice.
+Do not post taxpayer information or client files to public repositories or send them by email.
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
@@ -31,6 +33,8 @@ Published 30 August 2026. Last reviewed 18 September 2026.
 ## Links
 
 - fictional Newcastle cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
+- response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
