@@ -21,6 +21,7 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+from urllib.parse import urlparse
 from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
@@ -127,17 +128,25 @@ def check_observation(
 
 def check_capture(path: Path, prompts: dict[str, dict[str, Any]]) -> list[str]:
     """Check one capture file's shape and every observation in it."""
-    capture = load_capture(path)
     label = path.name
+    try:
+        capture = load_capture(path)
+    except (OSError, json.JSONDecodeError) as error:
+        return [f"{label}: cannot read capture ({error})"]
+    if not isinstance(capture, dict):
+        return [f"{label}: top level must be an object"]
     failures: list[str] = []
-    if capture.get("fixture") is None:
-        failures.append(f"{label}: must declare fixture true or false")
+    if type(capture.get("fixture")) is not bool:
+        failures.append(f"{label}: fixture must be a boolean")
     if not capture.get("recorded_by"):
         failures.append(f"{label}: must name who recorded it")
     observations = capture.get("observations")
     if not isinstance(observations, list) or not observations:
         return [*failures, f"{label}: needs a non-empty observations list"]
     for index, observation in enumerate(observations, start=1):
+        if not isinstance(observation, dict):
+            failures.append(f"{label} observation {index}: must be an object")
+            continue
         failures.extend(check_observation(label, index, observation, prompts))
     return failures
 
@@ -159,7 +168,7 @@ def summarise(
             prompt = prompts.get(observation.get("prompt_id", ""))
             if prompt is None:
                 continue
-            bucket = counts[(observation.get("system", "unknown"), bool(prompt["branded"]))]
+            bucket = counts[(observation.get("system") or "unknown", bool(prompt["branded"]))]
             if observation.get("status") != "complete":
                 bucket["excluded"] += 1
                 continue
@@ -231,7 +240,7 @@ def template(prompts: dict[str, dict[str, Any]]) -> str:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--template", action="store_true", help="print a blank capture file")
-    parser.add_argument("--check", action="store_true", help="validate the stored captures")
+    parser.add_argument("--check", nargs="*", help="validate captures (default: stored captures)")
     parser.add_argument("--summary", nargs="*", help="summarise the given capture files")
     parser.add_argument(
         "--include-fixtures",
@@ -251,7 +260,27 @@ def main(argv: list[str]) -> int:
         print(summarise(chosen, prompts, args.include_fixtures))
         return 0
 
-    failures = [failure for path in stored for failure in check_capture(path, prompts)]
+    check_paths = [Path(name) for name in args.check] if args.check else stored
+    failures = [failure for path in check_paths for failure in check_capture(path, prompts)]
+    for failure in failures:
+        print(f"  FAIL {failure}")
+    if failures:
+        print(f"{len(failures)} benchmark capture failure(s)")
+        return 1
+    print(f"benchmark captures valid ({len(stored)} file(s), {len(prompts)} prompts)")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main(sys.argv[1:]))
+d = sorted(CAPTURES.glob("*.json")) if CAPTURES.is_dir() else []
+    if args.summary is not None:
+        chosen = [Path(name) for name in args.summary] or stored
+        print(summarise(chosen, prompts, args.include_fixtures))
+        return 0
+
+    check_paths = [Path(name) for name in args.check] if args.check else stored
+    failures = [failure for path in check_paths for failure in check_capture(path, prompts)]
     for failure in failures:
         print(f"  FAIL {failure}")
     if failures:
