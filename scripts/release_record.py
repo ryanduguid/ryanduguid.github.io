@@ -249,6 +249,10 @@ def check_record(
     record = record if record is not None else load()
     failures: list[str] = []
     for name, component in record["components"].items():
+        try:
+            registry_claims(component["published"])
+        except ValueError as error:
+            failures.append(f"{name}: {error}")
         failures.extend(check_component(root, name, component))
         failures.extend(check_unreleased(root, name, component))
     failures.extend(check_evaluations(root, record))
@@ -302,7 +306,7 @@ def registry_version(published: dict[str, Any]) -> str:
     # still present but deprecated, or no longer latest, is not what it claims;
     # a response that carries no lifecycle metadata cannot confirm the claim
     # either, so the number alone is not a match.
-    claimed = str(published.get("registry_status", ""))
+    claimed = registry_claims(published)
     if claimed:
         meta = payload.get("_meta")
         official = (
@@ -318,13 +322,33 @@ def registry_version(published: dict[str, Any]) -> str:
             if not isinstance(status, str) or not status:
                 raise ValueError("the registry record carries no lifecycle status to check")
             if status != "active":
-                raise Contradiction(f"the registry reports status {status!r}, record says {claimed!r}")
+                raise Contradiction(f"the registry reports status {status!r}, record claims active")
         if "latest" in claimed:
             if not isinstance(latest, bool):
                 raise ValueError("the registry record carries no isLatest flag to check")
             if not latest:
-                raise Contradiction(f"the registry no longer marks this version latest, record says {claimed!r}")
+                raise Contradiction("the registry no longer marks this version latest, record claims latest")
     return version
+
+
+# The lifecycle claims a record may make about its registry entry. Anything else
+# is a record error, refused before it can silently skip a check.
+REGISTRY_CLAIMS = frozenset({"active", "latest"})
+
+
+def registry_claims(published: dict[str, Any]) -> frozenset[str]:
+    """The record's registry lifecycle claims, or a ValueError naming a bad one."""
+    text = published.get("registry_status", "")
+    if not isinstance(text, str):
+        raise ValueError(f"registry_status must be a string, got {type(text).__name__}")
+    claims = frozenset(part.strip() for part in text.split(",") if part.strip())
+    unknown = sorted(claims - REGISTRY_CLAIMS)
+    if unknown:
+        raise ValueError(
+            f"registry_status claims {', '.join(map(repr, unknown))}; "
+            f"recognised claims are {', '.join(sorted(REGISTRY_CLAIMS))}"
+        )
+    return claims
 
 
 def release_tags(owner_repo: str, prefix: str) -> tuple[list[str], bool]:

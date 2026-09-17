@@ -2074,6 +2074,25 @@ def test_release_record() -> None:
         release_record.fetch_json = stub
         assert states(release_record.live_versions(mcp))["registry"] == (release_record.FOUND, "0.2.2")
 
+        # The record's own claim is a fixed vocabulary. A typo or an unrecognised
+        # word must not silently skip a check: it is a record error offline and
+        # inconclusive live, never a match.
+        for claim in ("active, lastest", "inactive", "active latest", 7):
+            mistyped = copy.deepcopy(mcp)
+            mistyped["published"]["registry_status"] = claim
+            live = states(release_record.live_versions(mistyped))
+            assert live["registry"][0] == release_record.INCONCLUSIVE, (claim, live)
+            assert "registry_status" in live["registry"][1], live
+            bad_record = copy.deepcopy(record)
+            bad_record["components"]["aus-accounting-mcp"] = mistyped
+            expect_failure(
+                f"mistyped registry claim {claim!r}",
+                release_record.check_record(ROOT, bad_record),
+                "registry_status",
+            )
+        assert release_record.registry_claims({"registry_status": " latest ,active"}) == {"active", "latest"}
+        assert release_record.registry_claims({}) == frozenset()
+
         # Releases spanning pages: an older tag on page two is still found, so a
         # full first page never makes a present release look absent.
         pages = {
