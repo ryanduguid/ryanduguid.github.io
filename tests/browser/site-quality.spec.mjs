@@ -16,6 +16,8 @@ const routes = [
   ['rates', '/rates/'],
   ['super guarantee rate', '/rates/super-guarantee/'],
   ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],
+  ['profit versus cash flow', '/examples/profit-vs-cash-flow/'],
+  ['Ozzit Excel LAMBDA library', '/tools/ozzit/'],
   ['Coal LSL calculator', '/tools/coal-lsl-levy/'],
   ['not-found page', '/404.html'],
 ];
