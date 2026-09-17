@@ -73,8 +73,8 @@ byte-pins that file.
 ### 1.2 Site: `ryanduguid.github.io/rates/`
 
 Three reference tables, each an HTML page with a `page-meta` review date plus a
-CSV the page links as its machine-readable copy. All 3 pages read "Last
-reviewed 2 September 2026". Only the super guarantee page carries a
+CSV the page links as its machine-readable copy. As at 5 September 2026 all 3
+pages read "Last reviewed 2 September 2026". Only the super guarantee page carries a
 per-table verification sentence ("Verified 30 August 2026 against the ATO's
 super guarantee rate table", going on to name the Payday Superannuation Act
 and the SGAA compilation); the other 2 carry primary-source links but no
@@ -117,7 +117,7 @@ SHA-256 of the material it was built from.
    constants with none.
 2. The same rate is held in more than one place with independent dates. The
    Division 7A benchmark rate sits in the site CSV (page reviewed 2 September
-   2026) and the engine CSV (`seen` 2026-08-28). The super guarantee percentage
+   2026 as at the inventory date) and the engine CSV (`seen` 2026-08-28). The super guarantee percentage
    sits in the site CSV (verified 30 August 2026) and in `rates.json`
    (`seen` 2026-08-15). The 4 payday-super source URLs are held by 3
    skills, each with its own copy.

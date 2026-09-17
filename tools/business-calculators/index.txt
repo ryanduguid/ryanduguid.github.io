@@ -169,6 +169,8 @@ Receipts delayed beyond week 13 appear separately in the result and CSV. They do
 
 Download forecast CSV
 
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
 ## Links
 
 - Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/

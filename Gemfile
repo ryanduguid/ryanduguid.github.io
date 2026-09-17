@@ -7,3 +7,7 @@ source "https://rubygems.org"
 # the build, not a routine bump: raise this pin when GitHub Pages raises
 # theirs, or move the site off the Pages build first.
 gem "jekyll", "3.10.0"
+# Default gems until Ruby 3.3; Ruby 3.4 no longer ships them, and Jekyll 3.10
+# and its Liquid still load both.
+gem "base64"
+gem "bigdecimal"

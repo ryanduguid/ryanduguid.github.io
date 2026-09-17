@@ -297,6 +297,24 @@ def self_origin_target(href: str) -> Path:
     return ROOT / path.lstrip("/")
 
 
+FRAGMENT_TARGET = re.compile(r"""\s(?:id|name)=(["'])([^"']+)\1""")
+
+
+def fragment_exists(target: Path, fragment: str) -> bool:
+    """True when the HTML file declares an element with that id or name.
+
+    Only HTML targets are checked; a fragment on a text or image URL is left
+    to the browser. Templated ids (Liquid output) are accepted as unknown.
+    """
+    if target.suffix.lower() not in {".html", ".htm"}:
+        return True
+    text = target.read_text(encoding="utf-8")
+    if any(match.group(2) == fragment for match in FRAGMENT_TARGET.finditer(text)):
+        return True
+    # A page that builds ids from data (Liquid output) cannot be checked statically.
+    return "{%" in text and "{{" in text
+
+
 # GitHub owner and repository names are case-insensitive; names are
 # lower-cased so the cache, the allowlist and the redirect check agree.
 OWN_REPO = re.compile(r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)", re.I)
@@ -438,10 +456,16 @@ def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[st
             continue
         if href.startswith("/") or is_self_origin(href):
             target = self_origin_target(href)
+            fragment = urlsplit(href).fragment
             if not target.is_file():
                 failures.append(
                     f"{rel}: {href} -> no file at {target.relative_to(ROOT).as_posix()} "
                     "(same-origin link does not resolve on disk)"
+                )
+            elif fragment and not fragment_exists(target, fragment):
+                failures.append(
+                    f"{rel}: {href} -> no element with id or name "
+                    f"{fragment!r} in {target.relative_to(ROOT).as_posix()}"
                 )
             else:
                 print(

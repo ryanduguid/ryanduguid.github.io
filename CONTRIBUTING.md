@@ -41,7 +41,21 @@ GitHub releases without credentials and compares stable version numbers within
 each package's tag prefix. API failures fail the check. A newer release needs
 editorial review of the changelog and capability descriptions; the check does
 not rewrite pages or evaluation pins. Its offline tests run through the site
-check command above.
+check command above. The same run reads every tool page's `release-meta` line:
+a page may keep a worked example pinned to an older release, but then the page
+text must name the current release too, so a reader installing from the page
+knows which version they get.
+
+The same workflow runs `node scripts/check_production.mjs`, which fetches the
+live pages and holds them to the delivery promises in the README: the five
+Cloudflare response headers, the two edge redirects, and `mailto:` links that
+arrive intact. Injected inline scripts and the analytics tag are printed as
+notes because the page's Content Security Policy blocks them.
+
+`scripts/design_baseline.json` pins digests of the machine-readable files, the
+rates pages and every page's JSON-LD. After a content edit, run
+`python scripts/check_design.py --update-baseline` and check that the diff
+touches only the pages you changed.
 
 The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
 dependency chain otherwise installs vulnerable `extract-zip` 2.0.1

@@ -19,14 +19,14 @@
   <meta property="og:url" content="https://duguid.com.au/privacy/" />
   <meta property="og:image" content="https://duguid.com.au/assets/social-card-site.png" />
   <meta property="og:image:type" content="image/png" />
-  <meta property="og:image:alt" content="OLED register card: Ryan Duguid: review-ready Australian accounting controls." />
+  <meta property="og:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Privacy and site use | Ryan Duguid" />
   <meta name="twitter:description" content="How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site.png" />
-  <meta name="twitter:image:alt" content="OLED register card: Ryan Duguid: review-ready Australian accounting controls." />
+  <meta name="twitter:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />
   <link rel="canonical" href="https://duguid.com.au/privacy/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
@@ -65,13 +65,14 @@
           <section id="browser-data">
             <h2>Browser calculations</h2>
             <p>The website's calculators process the figures you enter in your browser. They do not send those figures to a server or save them in browser storage. Download any results you want to keep before leaving the page. Downloaded files stay wherever you save them.</p>
-            <p>The accounting-question search also runs in your browser. It does not send search text to a search service.</p>
+            <p>The accounting-question search also runs in your browser. It does not send search text to a search service. It does place the search term and topic in the page address so a filtered list can be bookmarked or shared, which means the term appears in your browser history and in any address you pass on.</p>
           </section>
           <section id="cookies">
             <h2>Cookies and analytics</h2>
             <p>The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.</p>
             <p>Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See <a href="https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/">Cloudflare's analytics documentation</a> for how its script works.</p>
             <p>Cloudflare also <a href="https://developers.cloudflare.com/waf/tools/scrape-shield/email-address-obfuscation/">rewrites email addresses on delivery</a> to make basic address collection harder. The rewriting covers the HTML pages only: the plain-text alternate of each page, the machine-readable index and the downloadable review template are served as plain text and carry the address as written. Obfuscation does not make the address private. The <a href="/contact/">contact page</a> and the <a href="/evaluate/#independent-review">Lumbridge review task</a> spell the address out as well, for anyone whose browser cannot run the rewriting.</p>
+            <p>Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the <code>nel</code>, <code>report-to</code> and <code>speculation-rules</code> response headers). Neither carries anything you type on this site.</p>
             <p>Cloudflare also supplies visitor-verification code as part of page delivery. Both additions are made after the files leave this website's source and are served from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see <a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/">Cloudflare's cookie documentation</a>. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.</p>
             <p>When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site's browser storage.</p>
           </section>

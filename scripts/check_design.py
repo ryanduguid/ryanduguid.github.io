@@ -6,6 +6,7 @@ import hashlib
 import html as html_module
 import json
 import re
+import sys
 from datetime import date, datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -1110,7 +1111,44 @@ def check_repository(root: Path = ROOT) -> list[str]:
     return failures
 
 
-def main() -> int:
+def update_baseline(root: Path = ROOT) -> Path:
+    """Re-derive every digest in the design baseline from the current tree.
+
+    Only the digest sections are rewritten; ``protected_text`` and ``fonts``
+    are hand-maintained policy and stay as they are. Run after a content edit,
+    then review the diff: an entry should change only for the page you edited.
+    """
+    baseline_path = root / "scripts/design_baseline.json"
+    baseline = json.loads(baseline_path.read_text(encoding="utf-8"))
+    for rel in baseline.get("protected_files", {}):
+        baseline["protected_files"][rel] = normalised_text_digest(root / rel)
+    for rel in baseline.get("protected_main_text", {}):
+        digest = main_visible_digest(root / rel)
+        if digest is None:
+            raise SystemExit(f"{rel}: main missing or duplicated; baseline not written")
+        baseline["protected_main_text"][rel] = digest
+    for rel in baseline.get("protected_main_links", {}):
+        links = main_link_targets(root / rel)
+        if links is None:
+            raise SystemExit(f"{rel}: main missing or duplicated; baseline not written")
+        baseline["protected_main_links"][rel] = links
+    for rel in baseline.get("json_ld", {}):
+        digests, parse_failures = json_ld_digests(root / rel)
+        if parse_failures:
+            raise SystemExit("; ".join(parse_failures))
+        baseline["json_ld"][rel] = digests
+    baseline_path.write_text(
+        json.dumps(baseline, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
+    return baseline_path
+
+
+def main(argv: list[str] | None = None) -> int:
+    args = sys.argv[1:] if argv is None else argv
+    if "--update-baseline" in args:
+        written = update_baseline()
+        print(f"design baseline updated: {written.relative_to(ROOT).as_posix()}")
+        return 0
     failures = check_repository()
     if failures:
         print("design contract failures:")

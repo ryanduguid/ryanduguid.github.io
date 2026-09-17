@@ -84,7 +84,7 @@
 <h2>Business-use share</h2><p>Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.</p><p>For car expenses under the cents per kilometre method, the <a href="/rates/cents-per-kilometre/">rate by income year</a> is kept as a maintained table on this site.</p><p><a href="/tools/accounting-questions/#q15">Phone and internet record checklist</a></p>
 <form data-calculator="business-use">
 <fieldset disabled><legend>Business-use share inputs</legend><div class="form-grid"><label class="field" for="business-use-cost">Eligible cost (AUD)<input id="business-use-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="business-use-percent">Business use (%)<input id="business-use-percent" name="percent" type="number" inputmode="decimal" min="0" max="100" step=".01" value="" required /></label>
+<label class="field" for="business-use-percent">Business use (%)<input id="business-use-percent" name="percent" type="number" min="0" max="100" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
@@ -113,7 +113,7 @@
 <form data-calculator="hourly">
 <fieldset disabled><legend>Hourly pricing inputs</legend><div class="form-grid"><label class="field" for="hourly-cost">Annual costs (AUD)<input id="hourly-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="field" for="hourly-profit">Target annual profit (AUD)<input id="hourly-profit" name="profit" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="hourly-hours">Annual billable hours<input id="hourly-hours" name="hours" type="number" inputmode="decimal" min="0.01" max="8784" step=".01" value="" required /></label>
+<label class="field" for="hourly-hours">Annual billable hours<input id="hourly-hours" name="hours" type="number" min="0.01" max="8784" step=".01" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
@@ -132,8 +132,8 @@
 <h2>Monthly loan payments</h2><p>For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.</p><p><a href="/tools/accounting-questions/#q57">Loan reconciliation checklist</a></p>
 <form data-calculator="loan">
 <fieldset disabled><legend>Monthly loan payments inputs</legend><div class="form-grid"><label class="field" for="loan-principal">Loan principal (AUD)<input id="loan-principal" name="principal" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
-<label class="field" for="loan-rate">Annual nominal interest rate (%)<input id="loan-rate" name="rate" type="number" inputmode="decimal" min="0" max="100" step=".0001" value="" required /></label>
-<label class="field" for="loan-months">Number of monthly payments<input id="loan-months" name="months" type="number" inputmode="decimal" min="1" max="600" step="1" value="" required /></label>
+<label class="field" for="loan-rate">Annual nominal interest rate (%)<input id="loan-rate" name="rate" type="number" min="0" max="100" step=".0001" value="" required /></label>
+<label class="field" for="loan-months">Number of monthly payments<input id="loan-months" name="months" type="number" min="1" max="600" step="1" value="" required /></label>
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
@@ -160,9 +160,9 @@
 <p id="cash-file-status" role="status"></p>
 <div class="form-grid"><label class="field" for="cash-opening">Opening bank balance (AUD)<input id="cash-opening" name="opening" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="cash-buffer">Minimum cash buffer (AUD)<input id="cash-buffer" name="buffer" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="cash-week">Original receipt week<input id="cash-week" name="week" type="number" inputmode="decimal" min="1" max="13" step="1" value="1" required /></label>
+<label class="field" for="cash-week">Original receipt week<input id="cash-week" name="week" type="number" min="1" max="13" step="1" value="1" required /></label>
 <label class="field" for="cash-amount">Receipt to delay (AUD)<input id="cash-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
-<label class="field" for="cash-delay">Delay in whole weeks<input id="cash-delay" name="delay" type="number" inputmode="decimal" min="0" max="13" step="1" value="0" required /></label>
+<label class="field" for="cash-delay">Delay in whole weeks<input id="cash-delay" name="delay" type="number" min="0" max="13" step="1" value="0" required /></label>
 </div>
 <p>Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Weekly cash inputs" tabindex="0"><table><thead><tr><th scope="col">Week</th><th scope="col">Receipts (AUD)</th><th scope="col">Payments (AUD)</th></tr></thead><tbody>
@@ -186,6 +186,11 @@
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
 </form></section>
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+        CA ANZ has not endorsed this site or its tools.
+      </p>
 </div></article></main>
 {% include site-footer.html %}
 <script type="application/ld+json">

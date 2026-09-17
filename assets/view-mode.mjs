@@ -59,6 +59,6 @@
       if (event.key === key || event.key === null) setMode(event.newValue);
     });
     setMode(mode);
-    toggle.hidden = false;
+    toggle.parentElement.hidden = false;
   });
 })();

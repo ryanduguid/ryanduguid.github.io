@@ -183,7 +183,12 @@ bonusRows.addEventListener('click', (e) => {
 });
 
 function calculate() {
-  if (!validateForm()) return false;
+  if (!validateForm()) {
+    // A refused recalculation must not leave the previous figures on screen.
+    resultEl.replaceChildren();
+    resultActions.hidden = true;
+    return false;
+  }
   const allMonetaryAmountsBlank = [...calcForm.querySelectorAll('input[type="number"]')]
     .every((input) => input.value.trim() === '');
   try {
