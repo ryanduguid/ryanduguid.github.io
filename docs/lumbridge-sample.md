@@ -33,8 +33,7 @@ independent accountant trial has been completed as at 11 September 2026.
 
 The public page `/evaluate/#independent-review` and the blank
 `assets/examples/lumbridge/trial-response-template.txt` were added on
-18 September 2026. Preparing them is not a trial. Before any claim about
-external evaluation, a person needs to:
+18 September 2026. Preparing them is not a trial.
 
 The public route is a guided reproduction, not a blinded study. The template
 repeats the expected figures, so a completed response shows whether the workbook

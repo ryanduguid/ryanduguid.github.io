@@ -3073,7 +3073,7 @@ def check_task_routes(root: Path = core.ROOT) -> list[str]:
         (item.get("name"), item.get("url"))
         for block in core.json_ld_blocks(home, "index.html", parse_failures)
         for node in core.nodes(block)
-        if isinstance(node, dict) and node.get("@type") == "ItemList"
+        if node.get("@id") == f"{SITE}/#home-preview"
         for item in node.get("itemListElement", [])
         if isinstance(item, dict)
     ]

@@ -43,7 +43,7 @@ const noCurrentNavigationRoutes = ['/evaluate/', '/evaluate/manager-review-gate/
 const homepagePreviewRoutes = [
   ['Understand an accounting problem', '/evaluate/#profit-and-cash', 'profit-and-cash'],
   ['Try a browser calculator', '/tools/coal-lsl-levy/', 'calc-form'],
-  ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/', 'main'],
+  ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/', 'accounting-problem'],
   ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install', 'install'],
 ];
 
