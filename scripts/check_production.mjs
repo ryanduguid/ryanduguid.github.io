@@ -43,13 +43,22 @@ export function sitemapPaths(xml) {
   return [...xml.matchAll(/<loc>https:\/\/duguid\.com\.au([^<]*)<\/loc>/g)].map((match) => match[1]);
 }
 
+// Cloudflare's email obfuscation replaces a mailto href with this path and
+// decodes it in a script. /privacy/ documents the rewrite, so a delivered href
+// that no longer matches the source is expected rather than a fault. One that
+// is neither the original nor the rewrite has been dropped, which is a fault.
+const EMAIL_PROTECTION = '/cdn-cgi/l/email-protection';
+
 export function inspectHtml(path, sourceHtml, deliveredHtml) {
   const failures = [];
   const notes = [];
   const sourceMailtos = [...sourceHtml.matchAll(/href="(mailto:[^"]+)"/g)].map((match) => match[1]);
   for (const href of new Set(sourceMailtos)) {
-    if (!deliveredHtml.includes(`href="${href}"`)) {
-      failures.push(`${path}: ${href} is not delivered intact (email obfuscation is on)`);
+    if (deliveredHtml.includes(`href="${href}"`)) continue;
+    if (deliveredHtml.includes(EMAIL_PROTECTION)) {
+      notes.push(`${path}: a mailto link was rewritten by Cloudflare's email obfuscation, as /privacy/ describes`);
+    } else {
+      failures.push(`${path}: a mailto link is neither delivered intact nor rewritten by Cloudflare, so it has gone missing`);
     }
   }
   const inlineScripts = [...deliveredHtml.matchAll(/<script(?![^>]*\bsrc=)([^>]*)>/g)]
