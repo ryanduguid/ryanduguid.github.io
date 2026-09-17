@@ -77,7 +77,7 @@ Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.
 - Check the file before you trust it: the v3.4.1 asset is 438,897 bytes with SHA-256 71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in CITATION.cff.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.1 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
@@ -132,10 +132,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1
-- functions.csv: https://github.com/ryanduguid/Ozzit/blob/main/functions.csv
+- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/main/docs/workbook-use.md
-- CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/main/CITATION.cff
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/docs/workbook-use.md
+- the v3.4.1 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff
 - Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/

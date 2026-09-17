@@ -179,11 +179,13 @@
       executable.
     </p>
     <p>
-      Each command above tracks the published package, so it installs whatever
-      version is current when you run it. It does not reproduce a recorded
-      result. The pinned command under <a href="#try-example">Try two synthetic
-      tool calls</a> reproduces release 0.2.2, and each
-      <a href="/evaluate/">evaluation</a> keeps the release it was run against.
+      Each command above is unpinned. uvx may reuse a cached environment or an
+      already installed tool, so an unpinned command does not guarantee the
+      latest release on every run. Upgrade deliberately, and check which version
+      you are running before you compare a result with anything. The pinned
+      command under <a href="#try-example">Try two synthetic tool calls</a>
+      reproduces release 0.2.2, and each <a href="/evaluate/">evaluation</a>
+      keeps the release it was run against.
     </p>
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.

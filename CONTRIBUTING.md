@@ -105,10 +105,17 @@ its own words, naming both versions.
 and stays out of the published site. Read its README before recording a round.
 
 ```bash
-python scripts/visibility_benchmark.py --template > round.json
-python scripts/visibility_benchmark.py --check
-python scripts/visibility_benchmark.py --summary
+python scripts/visibility_benchmark.py --template > docs/visibility-benchmark/captures/round.json
+python scripts/visibility_benchmark.py --check docs/visibility-benchmark/captures/round.json
+python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/round.json
 ```
+
+Each command names the same file, so what you validate is what you summarise.
+With no path, `--check` and `--summary` read every capture in that directory. A
+named file that does not exist fails rather than being skipped. The template is
+deliberately unfinished: it needs a recorder, and an observation marked complete
+needs its evidence, so it does not validate until a real round is recorded in it.
+A summary validates first and withholds every metric when any selected file fails.
 
 Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
 

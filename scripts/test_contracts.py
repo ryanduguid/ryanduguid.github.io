@@ -1709,13 +1709,13 @@ def test_release_record() -> None:
         replace_file(
             root,
             contracts.MCP_REL,
-            "Each command above tracks the published package",
-            "Each command above installs the reviewed release",
+            "Each command above is unpinned. uvx may reuse a cached environment or an",
+            "Each command above installs the latest release every time it runs, and",
         )
         expect_failure(
-            "unlabelled tracking command",
+            "unpinned command promising the latest release",
             release_record.check_record(root),
-            "must be labelled as tracking",
+            "must say they are unpinned",
         )
 
     # A lag the record claims must be a release the page actually names.
@@ -1773,61 +1773,227 @@ def test_release_record() -> None:
             "must keep release 0.1.6 visible",
         )
 
-    # The live refresh runs offline here against stubbed responses: an absent
-    # release must read as drift, and a changed response shape as inconclusive.
-    ozzit = copy.deepcopy(record["components"]["ozzit"])
-    original_fetch = release_record.fetch_json
-    try:
-        release_record.fetch_json = lambda url: []
-        assert release_record.live_versions(ozzit)["github"] == release_record.MISSING, (
-            "a deleted release must report as missing, not be left out"
+    # A release URL hidden from readers does not satisfy the link contract.
+    hidden_forms = {
+        "an HTML comment": '<!-- {url} -->',
+        "a script": '<script type="application/ld+json">{{"seeAlso": "{url}"}}</script>',
+        "an unrelated attribute": '<span data-source="{url}">see the release</span>',
+        "a hidden element": '<p hidden><a href="{url}">Release</a></p>',
+    }
+    url = record["components"]["ozzit"]["published"]["release_url"]
+    for label, markup in hidden_forms.items():
+        with copied_site() as root:
+            page = root / "tools/ozzit/index.html"
+            text = page.read_text(encoding="utf-8").replace(
+                f'href="{url}"', 'href="https://example.org/elsewhere"'
+            )
+            text = text.replace("</main>", markup.format(url=url) + "</main>")
+            page.write_text(text, encoding="utf-8")
+            expect_failure(
+                f"release URL only in {label}",
+                release_record.check_record(root),
+                "does not link the published release record",
+            )
+
+    # Another repository's identical version number is not this unreleased download.
+    with copied_site() as root:
+        page = root / "tools/ozzit/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(
+                "</main>",
+                '<p><a href="https://github.com/example/other/releases/tag/v3.4.2">Another '
+                "project's v3.4.2</a></p></main>",
+            ),
+            encoding="utf-8",
+        )
+        assert_clean(
+            "unrelated repository sharing a version number",
+            [
+                failure
+                for failure in release_record.check_record(root)
+                if "not published" in failure
+            ],
         )
 
-        mcp = copy.deepcopy(record["components"]["aus-accounting-mcp"])
+    # A release-specific supporting file must be read at the documented release,
+    # not at a default branch that may already carry a later version.
+    for replacement in ("main", "v3.4.2"):
+        with copied_site() as root:
+            page = root / "tools/ozzit/index.html"
+            page.write_text(
+                page.read_text(encoding="utf-8").replace(
+                    "Ozzit/blob/v3.4.1/CITATION.cff",
+                    f"Ozzit/blob/{replacement}/CITATION.cff",
+                ),
+                encoding="utf-8",
+            )
+            expect_failure(
+                f"citation retargeted to {replacement}",
+                release_record.check_record(root),
+                "CITATION.cff must be linked at v3.4.1",
+            )
+
+    # The repository root is a general destination and stays unpinned.
+    with copied_site() as root:
+        assert_clean(
+            "unpinned repository link",
+            [
+                failure
+                for failure in release_record.check_record(root)
+                if "github.com/ryanduguid/Ozzit\"" in failure
+            ],
+        )
+
+    # The live refresh runs entirely offline here, against stubbed responses.
+    # Each source is probed independently, so one failure must not hide another
+    # source's result, and no failure may read as a matching version.
+    record_path = release_record.RECORD
+    before = record_path.read_bytes()
+    ozzit = copy.deepcopy(record["components"]["ozzit"])
+    mcp = copy.deepcopy(record["components"]["aus-accounting-mcp"])
+    original_fetch = release_record.fetch_json
+    original_open = release_record.urllib.request.urlopen
+
+    def states(probes: list) -> dict[str, tuple[str, str]]:
+        return {probe.source: (probe.state, probe.detail) for probe in probes}
+
+    def http_error(status: int):
+        def raiser(*arguments, **keywords):
+            raise release_record.urllib.error.HTTPError(
+                "https://example.invalid/asset", status, "refused", {}, None
+            )
+        return raiser
+
+    try:
+        # An empty release list means the recorded release is gone, which is a
+        # finding, not a source to leave out of the report.
+        release_record.fetch_json = lambda url: []
+        absent = states(release_record.live_versions(ozzit))
+        assert absent["github"] == (release_record.FOUND, release_record.MISSING), absent
+
+        # A changed response contract is inconclusive, never a version named "None".
         release_record.fetch_json = lambda url: ["unexpected shape"]
-        try:
-            release_record.live_versions(mcp)
-        except ValueError:
-            pass
-        else:
-            raise AssertionError("a non-object service response must raise, not crash later")
+        shaped = states(release_record.live_versions(mcp))
+        for source in ("pypi", "registry"):
+            assert shaped[source][0] == release_record.INCONCLUSIVE, shaped
+        # A list is the releases endpoint's own shape, so GitHub reports that no
+        # matching release is in it rather than inventing one.
+        assert shaped["github"] == (release_record.FOUND, release_record.MISSING), shaped
+        for state, detail in shaped.values():
+            assert "None" not in detail, shaped
+
+        # A registry record without a version string is a changed contract.
+        release_record.fetch_json = lambda url: {"server": {}}
+        versionless = states(release_record.live_versions(mcp))
+        assert versionless["registry"][0] == release_record.INCONCLUSIVE, versionless
+        assert "no version string" in versionless["registry"][1], versionless
+
+        # One failing source must not suppress the others. PyPI answers, the
+        # registry fails, and GitHub is still asked and still reports.
+        def mixed(url: str):
+            if "pypi.org" in url:
+                return {"info": {"version": "0.3.0"}}
+            if "registry.modelcontextprotocol.io" in url:
+                raise TimeoutError("registry timed out")
+            if "/releases/tags/" in url:
+                return {"tag_name": "aus-accounting-mcp/v0.3.0"}
+            return [{"tag_name": "aus-accounting-mcp/v0.3.0", "draft": False, "prerelease": False}]
+
+        release_record.fetch_json = mixed
+        both = states(release_record.live_versions(mcp))
+        assert both["pypi"] == (release_record.FOUND, "0.3.0"), both
+        assert both["registry"][0] == release_record.INCONCLUSIVE, both
+        assert both["github"] == (release_record.FOUND, "0.3.0"), both
+
+        # The first source failing must not stop the last one being attempted.
+        def first_fails(url: str):
+            if "pypi.org" in url:
+                raise TimeoutError("pypi timed out")
+            if "/releases/tags/" in url:
+                return {"tag_name": "aus-accounting-mcp/v0.2.2"}
+            if "registry" in url:
+                return {"server": {"version": "0.2.2"}}
+            return [{"tag_name": "aus-accounting-mcp/v0.2.2", "draft": False, "prerelease": False}]
+
+        release_record.fetch_json = first_fails
+        after_first = states(release_record.live_versions(mcp))
+        assert after_first["pypi"][0] == release_record.INCONCLUSIVE, after_first
+        assert after_first["github"] == (release_record.FOUND, "0.2.2"), after_first
+
+        # Releases spanning pages: an older tag on page two is still found, so a
+        # full first page never makes a present release look absent.
+        pages = {
+            1: [{"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
+                for n in range(100)],
+            2: [{"tag_name": "v3.4.1", "draft": False, "prerelease": False}],
+        }
+        release_record.fetch_json = lambda url: pages[int(url.rsplit("page=", 1)[-1])]
+        assert release_record.release_tags("ryanduguid/Ozzit", "v") == ["v3.4.1"], (
+            "a release beyond the first page must still be found"
+        )
     finally:
         release_record.fetch_json = original_fetch
 
-    # A recorded asset that is gone is drift; a rate limit or a server fault is
-    # inconclusive and must reach the caller rather than read as a changed file.
+    # Asset classification: gone is a finding, refused is inconclusive, and a
+    # served file is compared with the recorded bytes.
     published = copy.deepcopy(record["components"]["ozzit"]["published"])
-    original_open = release_record.urllib.request.urlopen
-
-    def refusing(status: int):
-        def opener(request, timeout=None):  # noqa: ARG001
-            raise release_record.urllib.error.HTTPError(
-                published["download_url"], status, "refused", {}, None
-            )
-        return opener
-
     try:
         for status in (404, 410):
-            release_record.urllib.request.urlopen = refusing(status)
-            reported = release_record.live_asset(published)
-            assert reported and str(status) in reported, (
-                f"HTTP {status} must report the asset as no longer served, got {reported!r}"
+            release_record.urllib.request.urlopen = http_error(status)
+            probe = release_record.live_asset(published)
+            assert probe is not None and probe.state == release_record.ABSENT, probe
+            assert str(status) in probe.detail, probe
+        for status in (401, 403, 408, 429, 500, 503):
+            release_record.urllib.request.urlopen = http_error(status)
+            probe = release_record.live_asset(published)
+            assert probe is not None and probe.state == release_record.INCONCLUSIVE, (
+                f"HTTP {status} proves nothing about the recorded bytes: {probe}"
             )
-        for status in (429, 500, 503):
-            release_record.urllib.request.urlopen = refusing(status)
-            try:
-                release_record.live_asset(published)
-            except release_record.urllib.error.HTTPError:
-                pass
-            else:
-                raise AssertionError(
-                    f"HTTP {status} proves nothing about the asset and must not report drift"
-                )
+        release_record.urllib.request.urlopen = lambda *a, **k: (_ for _ in ()).throw(
+            TimeoutError("asset timed out")
+        )
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.INCONCLUSIVE, probe
+
+        served = b"x" * int(published["asset_bytes"])
+
+        class Response:
+            def __init__(self, payload: bytes) -> None:
+                self.payload = payload
+
+            def __enter__(self):
+                return self
+
+            def __exit__(self, *arguments: object) -> None:
+                return None
+
+            def read(self) -> bytes:
+                return self.payload
+
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(served)
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.CHANGED, probe
+        assert "SHA-256 differs" in probe.detail, probe
+
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(b"short")
+        probe = release_record.live_asset(published)
+        assert probe is not None and probe.state == release_record.CHANGED, probe
+        assert "bytes, record says" in probe.detail, probe
+
+        matching = copy.deepcopy(published)
+        matching["asset_bytes"] = len(served)
+        matching["asset_sha256"] = hashlib.sha256(served).hexdigest()
+        release_record.urllib.request.urlopen = lambda *a, **k: Response(served)
+        probe = release_record.live_asset(matching)
+        assert probe is not None and probe.state == release_record.FOUND, probe
+
         # An asset outage must not suppress version results already established.
-        release_record.urllib.request.urlopen = refusing(429)
+        release_record.urllib.request.urlopen = http_error(429)
         original_versions = release_record.live_versions
         try:
-            release_record.live_versions = lambda component: {"github": "9.9.9"}
+            release_record.live_versions = lambda component: [
+                release_record.Probe("github", release_record.FOUND, "9.9.9")
+            ]
             printed: list[str] = []
             original_print = builtins.print
             builtins.print = lambda *args, **kwargs: printed.append(" ".join(map(str, args)))
@@ -1838,15 +2004,13 @@ def test_release_record() -> None:
         finally:
             release_record.live_versions = original_versions
         reported = "\n".join(printed)
-        assert "github reports 9.9.9" in reported, (
-            f"version drift must survive an asset outage: {reported!r}"
-        )
-        assert "asset INCONCLUSIVE" in reported, (
-            f"an asset outage must read as inconclusive: {reported!r}"
-        )
+        assert "github reports 9.9.9" in reported, reported
+        assert "asset INCONCLUSIVE" in reported, reported
     finally:
         release_record.urllib.request.urlopen = original_open
-    print("release record tests passed (19 cases)")
+
+    assert record_path.read_bytes() == before, "the refresh must not rewrite the record"
+    print("release record tests passed (31 cases)")
 
 
 def main() -> None:

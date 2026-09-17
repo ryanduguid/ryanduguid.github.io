@@ -7,7 +7,8 @@
     "published: the release a reader can download today, verified on the date shown.",
     "documented: the release each page's prose, links and structured data describe.",
     "Release instants are UTC. 'reviewed' and 'verified' are Australia/Melbourne dates.",
-    "evaluations[].label is the namespaced tag each evaluation page must keep visible. It names the component as well as the version, so an unrelated occurrence of the same number cannot satisfy the contract."
+    "evaluations[].label is the namespaced tag each evaluation page must keep visible. It names the component as well as the version, so an unrelated occurrence of the same number cannot satisfy the contract.",
+    "documented.supporting_files are release-specific files a page cites as evidence. Each must be linked at documented.tag, so a reader sees the files belonging to the release the page documents rather than a later default branch."
   ],
   "components": {
     "aus-accounting-mcp": {
@@ -62,7 +63,13 @@
         "page": "tools/ozzit/index.html",
         "version": "3.4.1",
         "visible_label": "Current release v3.4.1",
-        "software_version": "3.4.1"
+        "software_version": "3.4.1",
+        "tag": "v3.4.1",
+        "supporting_files": [
+          "CITATION.cff",
+          "functions.csv",
+          "docs/workbook-use.md"
+        ]
       },
       "unreleased_default_branch": {
         "version": "3.4.2",

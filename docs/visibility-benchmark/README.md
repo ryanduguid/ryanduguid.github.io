@@ -18,14 +18,24 @@ sourced expected facts and the specific errors worth counting.
 ```bash
 python scripts/visibility_benchmark.py --template > docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
 # answer the prompts by hand, fill in the file, keep the answers beside it
-python scripts/visibility_benchmark.py --check
-python scripts/visibility_benchmark.py --summary
+python scripts/visibility_benchmark.py --check docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
+python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
 ```
 
-Write the round into `captures/`, because `--check` with no arguments validates
-every file there and nothing else. To check a file kept elsewhere while you work on
-it, name it: `python scripts/visibility_benchmark.py --check my-round.json`. Naming a
-file that does not exist is a failure, not a quiet pass.
+Every command names the same file, so what you validate is what you summarise. With
+no path, both reading modes cover every capture in `captures/`. A named file that
+does not exist is a failure, not a quiet pass, and `--template`, `--check` and
+`--summary` are mutually exclusive so a supplied mode is never ignored.
+
+The template does not validate on its own, by design. It needs a recorder, and any
+observation you mark `complete` needs the evidence the validator requires. Leave the
+prompts you did not run as `not_run` or `blocked` with a reason: they need no result
+fields, they stay out of every denominator, and they report under the same system as
+the completed answers in the same file.
+
+A summary validates the files it was given before counting anything. If any selected
+file fails, the metrics are withheld and the diagnostics are what you get, because a
+partial report of a partly invalid round would misstate it.
 
 One file per system per round. Send each prompt exactly as `prompts.json` records
 it: the validator rejects a reworded prompt, because a reworded prompt is a
@@ -34,7 +44,10 @@ capture. Record the search-enabled state, because an answer composed without
 retrieval says nothing about whether a page is reachable.
 
 Keep the answer itself. `answer_evidence` points at a retained transcript or
-screenshot; a summary written from memory is not evidence.
+screenshot; a summary written from memory is not evidence. The validator checks
+only that the reference is not blank. It does not open the file, confirm the file
+exists or judge whether the answer was right, and it never reaches the network to
+do so. Those remain the recorder's responsibility.
 
 ## What the numbers mean
 
