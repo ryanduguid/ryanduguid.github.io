@@ -61,18 +61,18 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 
 ## Review the Lumbridge case: a bounded task
 
-No independent accountant has completed this trial yet. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only. It asks you to reproduce one receipt-delay scenario and compare what you see with the table above.
+No independent accountant has completed this review yet. This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
 
 - Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
-- Record the base figures: quarter revenue, profit before income tax, December closing cash, and the lowest daily closing cash with its date.
-- Change Assumptions!B2 from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, and whether profit changed.
+- Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.
+- Change Assumptions!B2 from 0 to 45. Record the same figures again: the lowest daily closing cash and its date, the first negative date, October closing cash, December closing cash, and profit before income tax.
 - Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.
 - Restore 0, save a copy, reopen it, and confirm the base figures return.
 - List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
 
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
 
-Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template. External evaluation of this case is pending; this page reports no completed trial.
+Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External evaluation of this case is pending; this page reports no completed trial.
 
 ## Choose an example to reproduce
 

@@ -36,7 +36,7 @@ Five-minute accounting cases
 
 ### Try a browser calculator
 
-Runs on this site with nothing to install and nothing sent anywhere: the Coal LSL levy calculator and nine business planning calculators.
+Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser, without sending them to a server.
 
 Business planning calculators
 
@@ -118,7 +118,7 @@ Start with the Excel cash-flow example or browser calculator. Firms using Claude
 
 No install
 
-Open the browser calculator with fabricated figures. Nothing to install and nothing leaves the browser.
+Open the browser calculator with fabricated figures. Nothing to install, and the figures you enter stay in the browser.
 
 Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 

@@ -68,7 +68,7 @@ wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o
 
 Source on GitHub · Use it from the subcontractor workflows
 
-Unexpected result or question? Open an issue or email with the tool named in the subject.
+Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -105,6 +105,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
+- contact page: https://duguid.com.au/contact/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/

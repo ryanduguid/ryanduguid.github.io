@@ -66,13 +66,18 @@ const representativeHeightBaseline = {
     // 390px wide in the mobile project. Retain the 234px guard.
     ['/tools/', 8800],
     // The Xero certification record adds a badge, 4 dated facts and its
-    // boundary note to Identity and credentials. Evidence measures 7,014px at
-    // 390px wide, with the record's facts held to 2 columns at this width
-    // rather than stacking to 8 lines. Retain the same 234px guard.
-    ['/evidence/', 7248],
+    // boundary note to Identity and credentials. The upstream summary then
+    // gained the detection-is-not-prevention qualification on 18 September
+    // 2026. Evidence measures 7,354px at 390px wide, with the record's facts
+    // held to 2 columns at this width rather than stacking to 8 lines. Retain
+    // the same 234px guard.
+    ['/evidence/', 7588],
   ]),
   'desktop-chromium': new Map([
-    ['/', 6517],
+    // The browser-calculator route replaced 'nothing sent anywhere' with the
+    // input-scoped description on 18 September 2026, which wraps to a third
+    // line. Home measures 6,535px at 1440px wide, plus the 234px guard.
+    ['/', 6769],
     // Tools renders at 5,080px with the four starting routes added on
     // 18 September 2026 above the work chooser, plus the 234px guard.
     ['/tools/', 5314],

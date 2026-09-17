@@ -80,6 +80,8 @@ test('D2a base rate: an at-least-monthly bonus sits inside the 75% bracket', () 
   assert.notEqual(r.formulaB, 752500);
   assert.equal(r.winner, 'B');
   assert.equal(r.eligibleWagesCents, 742500);
+  // 742500 * 27 / 1000 = 20047.5 cents exactly, rounds half up
+  assert.equal(levyCents(r.eligibleWagesCents), 20048);
 });
 
 test('D3 base rate: exact tie resolves to Formula A', () => {
@@ -97,6 +99,21 @@ test('D4 base rate: expense reimbursements never enter the Formula B bracket', (
   assert.equal(r.formulaB, 637500);
   assert.equal(r.eligibleWagesCents, 637500);
   assert.equal(levyCents(r.eligibleWagesCents), 17213); // 17212.5 rounds half up
+
+  // Same payroll as D2, with the 500 classified as an expense reimbursement
+  // rather than an allowance: s 3B(1)(b)(iii) leaves it outside the bracket, so
+  // 0.75 x (6000 + 3000) = 6750.00 instead of D2's 7125.00. The classification
+  // is the caller's; baseRateWages only ever sees the eligible amount.
+  const reimbursed = baseRateWages({
+    baseRateCents: d(6000),
+    overtimeAndPenaltyCents: d(3000),
+  });
+  assert.equal(reimbursed.formulaA, 600000);
+  assert.equal(reimbursed.formulaB, 675000);
+  assert.equal(reimbursed.winner, 'B');
+  assert.equal(reimbursed.eligibleWagesCents, 675000);
+  // 675000 * 27 / 1000 = 18225 cents exactly
+  assert.equal(levyCents(reimbursed.eligibleWagesCents), 18225);
 });
 
 test('D5 base rate: a monthly bonus counts in both formulas', () => {

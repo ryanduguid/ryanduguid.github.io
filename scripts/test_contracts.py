@@ -879,6 +879,10 @@ def test_public_contracts() -> int:
         )
 
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
+    assert_clean("task routes", contracts.check_task_routes(ROOT))
+    assert_clean(
+        "privacy delivery claims", contracts.check_privacy_delivery_claims(ROOT)
+    )
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
@@ -1003,6 +1007,45 @@ def test_public_contracts() -> int:
         ),
         "evidence/index.html: page opening must be",
     )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "tools/index.html",
+            '<a href="/evaluate/manager-review-gate/"><strong>Evaluate an accounting workflow</strong>',
+            '<a href="/evaluate/#example-routes"><strong>Evaluate an accounting workflow</strong>',
+        )
+        expect_failure(
+            "tools task route destination",
+            contracts.check_task_routes(root),
+            "tools/index.html: task routes are",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "llms.txt",
+            "- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/):",
+            "- **Try a browser calculator** (https://duguid.com.au/tools/):",
+        )
+        expect_failure(
+            "machine route destination",
+            contracts.check_task_routes(root),
+            "must route 'Try a browser calculator'",
+        )
+
+    with copied_site() as root:
+        replace_file(
+            root,
+            "privacy/index.html",
+            "Obfuscation does not make the address private.",
+            "Neither addition reports anything to the site owner.",
+        )
+        expect_failure(
+            "provider no-reporting assurance",
+            contracts.check_privacy_delivery_claims(root),
+            "unsupported delivery claim",
+        )
 
     with copied_site() as root:
         replace_file(
@@ -1234,6 +1277,32 @@ def test_public_contracts() -> int:
             contracts.check_calculator_contract,
             expected,
         )
+
+    formula_b_failures: list[str] = []
+    contracts.check_formula_b_answer(
+        calculator.replace(
+            "allowances other than expense reimbursements", "allowances"
+        ).replace(
+            "An amount that reimburses an expense is excluded by "
+            "section 3B(1)(b)(iii). ",
+            "",
+        ),
+        formula_b_failures,
+    )
+    expect_failure(
+        "formula B exclusion removed from both copies",
+        formula_b_failures,
+        "Formula B answer omits the expense-reimbursement exclusion",
+    )
+    contract_mutation(
+        "formula B copies disagree",
+        calculator,
+        "$500 of allowances that are not expense reimbursements, Formula B is 75% of "
+        "$9,500, which is $7,125.00.",
+        "$500 of eligible allowances, Formula B is 75% of $9,500, which is $7,125.00.",
+        contracts.check_formula_b_answer,
+        "structured Formula B answer differs from the visible one",
+    )
 
     calculator_module = read_text(ROOT, contracts.LEVY_PAGE_MODULE)
     module_mutations = (
@@ -1476,7 +1545,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 32
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 37
 
 
 def test_current_component_metadata() -> None:

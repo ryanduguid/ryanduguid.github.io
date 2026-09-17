@@ -17,8 +17,8 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 The four starting routes on the homepage and Tools page, by task, plus the standing review invitation:
 
 - **Understand an accounting problem** (https://duguid.com.au/evaluate/#profit-and-cash): the Lumbridge cash-flow case, readable on the page; the Excel workbook is optional.
-- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator and the business planning calculators run in the browser with nothing to install and nothing sent anywhere.
-- **Evaluate an accounting workflow** (https://duguid.com.au/evaluate/#example-routes): rerun a fabricated BAS pack through the Workpaper Review Gate or a July close through Monthly Close Controls; needs Python and fabricated files only.
+- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator, with nothing to install; its own code works out the figures you enter in the browser without sending them to a server. The business planning calculators (https://duguid.com.au/tools/business-calculators/) work the same way.
+- **Evaluate an accounting workflow** (https://duguid.com.au/evaluate/manager-review-gate/): rerun a fabricated BAS pack through the Workpaper Review Gate; needs Python and fabricated files only. Monthly Close Controls (https://duguid.com.au/tools/monthly-close-controls/) reruns a synthetic July close the same way.
 - **Inspect or integrate the software** (https://duguid.com.au/tools/australian-tax-ai-agents/#install): source repositories, install commands, Python packages and the MCP server.
 - **Review the Lumbridge case** (https://duguid.com.au/evaluate/#independent-review): a bounded independent review task with a plain-text response template; external evaluation is pending.
 

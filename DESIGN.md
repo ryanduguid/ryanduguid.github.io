@@ -31,6 +31,24 @@ accountant trial remains pending. The header wordmark reads 'tool library'
 rather than 'register'. The palette, type, tokens and restraint rules are
 unchanged.
 
+The same pass was then reviewed again and finished. The Formula B answer on the
+Coal LSL page names the branch it applies to and excludes expense
+reimbursements, in the visible copy and in the FAQPage data, which a contract
+now holds identical. The privacy notice drops the claim that neither Cloudflare
+addition reports anything to the site owner, and separates delivery and
+security processing from what the calculators do with entered figures; the
+route copy says the calculators work the figures out in the browser rather than
+that nothing is sent anywhere. The machine index routes the same 4 tasks to the
+same destinations as the homepage and Tools, and gives the business calculators
+and Monthly Close Controls their own links. The review template asks what a
+reviewer had already seen and gives each figure checked in both scenarios its
+own line, because the published expected results make this a guided
+reproduction rather than a blinded trial. Every tool feedback line now reaches
+the written-out address through the contact page. The site social card carries
+the tool-library label; it was re-rendered with the pinned Chromium and its
+checksum refreshed, and the other 4 cards rendered byte for byte identical. No
+CSS, token, palette, runtime dependency or calculation changes.
+
 The 14 September 2026 pass applies the full interface audit of the same
 date. A bare `button` is now a helper action in the secondary register, and
 the one primary action per view opts into the fill with `class="button"`
