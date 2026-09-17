@@ -141,17 +141,18 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
                 f"{rel}: structured softwareVersion is {versions!r}, expected [{declared!r}]"
             )
 
-    # A reader needs a link they can see and follow, so the URL must be an anchor
-    # destination in the rendered page, not text in a comment, a script, an
-    # unrelated attribute or an element that is never shown.
-    if published["release_url"] not in core.anchor_hrefs(core.visible_html(html)):
+    # A reader needs a link they can see and follow, so every recorded URL must be
+    # an anchor destination in the rendered page, not text in a comment, a script,
+    # an unrelated attribute or an element that is never shown.
+    visible_links = core.anchor_hrefs(core.visible_html(html))
+    if published["release_url"] not in visible_links:
         failures.append(f"{rel}: does not link the published release record")
 
     for supporting in documented.get("supporting_files", []):
         # Evidence for the documented release is read at that release. A general
         # repository, issue or development link stays unpinned deliberately.
         expected = f"{component['repository']}/blob/{documented['tag']}/{supporting}"
-        if f'href="{expected}"' not in html:
+        if expected not in visible_links:
             failures.append(
                 f"{rel}: {supporting} must be linked at {documented['tag']}, "
                 f"the release this page documents"
@@ -286,12 +287,35 @@ def registry_version(published: dict[str, Any]) -> str:
     # "None": saying so is the difference between a fact and a fabrication.
     if not isinstance(version, str) or not version:
         raise ValueError("the MCP registry server record carries no version string")
+
+    # The record claims a lifecycle state as well as a number. A version that is
+    # still present but deprecated, or no longer latest, is not what it claims.
+    claimed = str(published.get("registry_status", ""))
+    if claimed:
+        meta = payload.get("_meta")
+        official = (
+            meta.get("io.modelcontextprotocol.registry/official", {})
+            if isinstance(meta, dict)
+            else {}
+        )
+        status = str(official.get("status", "")) if isinstance(official, dict) else ""
+        latest = official.get("isLatest") if isinstance(official, dict) else None
+        if "active" in claimed and status and status != "active":
+            raise ValueError(f"the registry reports status {status!r}, record says {claimed!r}")
+        if "latest" in claimed and latest is False:
+            raise ValueError(f"the registry no longer marks this version latest, record says {claimed!r}")
     return version
 
 
-def release_tags(owner_repo: str, prefix: str) -> list[str]:
-    """Every published tag under one prefix, following pages to the end."""
+def release_tags(owner_repo: str, prefix: str) -> tuple[list[str], bool]:
+    """Every published tag under one prefix, and whether the listing was exhausted.
+
+    Only an exhausted search can say a release is absent. Stopping at the page
+    cap means the answer is unknown, which the caller reports as inconclusive
+    rather than as a missing release.
+    """
     tags: list[str] = []
+    exhausted = False
     for page in range(1, RELEASE_PAGES + 1):
         releases = fetch_json(
             f"https://api.github.com/repos/{owner_repo}/releases"
@@ -310,8 +334,9 @@ def release_tags(owner_repo: str, prefix: str) -> list[str]:
         # A short page is the last page. A monorepo's releases span many pages,
         # so stopping at the first would mistake an older release for an absent one.
         if len(releases) < RELEASE_PAGE_SIZE:
+            exhausted = True
             break
-    return tags
+    return tags, exhausted
 
 
 def github_version(component: dict[str, Any]) -> str:
@@ -319,8 +344,13 @@ def github_version(component: dict[str, Any]) -> str:
     owner_repo = str(component["repository"]).removeprefix("https://github.com/")
     tag = published["release_url"].rsplit("/tag/", 1)[-1]
     prefix = tag.removesuffix(published["version"])
-    tags = release_tags(owner_repo, prefix)
+    tags, exhausted = release_tags(owner_repo, prefix)
     if not tags:
+        if not exhausted:
+            raise ValueError(
+                f"stopped after {RELEASE_PAGES} pages without reaching the end of the "
+                "release listing, so no conclusion about this release is possible"
+            )
         return MISSING
     return max(tags, key=lambda name: _version_key(name[len(prefix):]))[len(prefix):]
 

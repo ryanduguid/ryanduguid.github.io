@@ -15,6 +15,7 @@ from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
+from typing import Any
 from urllib.parse import urlsplit
 
 import check_design
@@ -1834,6 +1835,23 @@ def test_release_record() -> None:
                 "CITATION.cff must be linked at v3.4.1",
             )
 
+    # Supporting evidence must also be a link a reader can see.
+    with copied_site() as root:
+        page = root / "tools/ozzit/index.html"
+        citation = (
+            "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff"
+        )
+        text = page.read_text(encoding="utf-8").replace(
+            f'href="{citation}"', 'href="https://example.org/elsewhere"'
+        )
+        text = text.replace("</main>", f"<!-- {citation} --></main>")
+        page.write_text(text, encoding="utf-8")
+        expect_failure(
+            "supporting evidence only in a comment",
+            release_record.check_record(root),
+            "CITATION.cff must be linked at v3.4.1",
+        )
+
     # The repository root is a general destination and stays unpinned.
     with copied_site() as root:
         assert_clean(
@@ -1925,6 +1943,36 @@ def test_release_record() -> None:
         assert after_first["pypi"][0] == release_record.INCONCLUSIVE, after_first
         assert after_first["github"] == (release_record.FOUND, "0.2.2"), after_first
 
+        # A capped search establishes nothing: only an exhausted listing can say a
+        # release is absent, so hitting the page cap is inconclusive, not MISSING.
+        release_record.fetch_json = lambda url: [
+            {"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
+            for n in range(release_record.RELEASE_PAGE_SIZE)
+        ]
+        capped = states(release_record.live_versions(ozzit))
+        assert capped["github"][0] == release_record.INCONCLUSIVE, capped
+        assert "without reaching the end" in capped["github"][1], capped
+
+        # A registry that reports the version but marks it deprecated, or no
+        # longer latest, does not match a record claiming active and latest.
+        def registry_meta(meta: dict) -> Callable[[str], Any]:
+            def read(url: str) -> Any:
+                return {
+                    "server": {"version": "0.2.2"},
+                    "_meta": {"io.modelcontextprotocol.registry/official": meta},
+                }
+            return read
+
+        for meta, expected in (
+            ({"status": "deprecated", "isLatest": True}, "status"),
+            ({"status": "active", "isLatest": False}, "latest"),
+        ):
+            stub: Any = registry_meta(meta)
+            release_record.fetch_json = stub
+            lifecycle = states(release_record.live_versions(mcp))
+            assert lifecycle["registry"][0] == release_record.INCONCLUSIVE, lifecycle
+            assert expected in lifecycle["registry"][1], lifecycle
+
         # Releases spanning pages: an older tag on page two is still found, so a
         # full first page never makes a present release look absent.
         pages = {
@@ -1933,9 +1981,10 @@ def test_release_record() -> None:
             2: [{"tag_name": "v3.4.1", "draft": False, "prerelease": False}],
         }
         release_record.fetch_json = lambda url: pages[int(url.rsplit("page=", 1)[-1])]
-        assert release_record.release_tags("ryanduguid/Ozzit", "v") == ["v3.4.1"], (
-            "a release beyond the first page must still be found"
-        )
+        found_tags, exhausted = release_record.release_tags("ryanduguid/Ozzit", "v")
+        assert found_tags == ["v3.4.1"], "a release beyond the first page must still be found"
+        assert exhausted, "a short page ends the listing"
+
     finally:
         release_record.fetch_json = original_fetch
 
@@ -2015,7 +2064,7 @@ def test_release_record() -> None:
         release_record.urllib.request.urlopen = original_open
 
     assert record_path.read_bytes() == before, "the refresh must not rewrite the record"
-    print("release record tests passed (31 cases)")
+    print("release record tests passed (37 cases)")
 
 
 def main() -> None:

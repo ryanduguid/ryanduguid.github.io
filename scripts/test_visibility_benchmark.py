@@ -141,13 +141,15 @@ def test_a_partial_round_from_the_template() -> None:
     ]
     assert not failures_for(capture)
     summary = summary_of([capture])
-    assert "Test Assistant, branded prompts" in summary
+    assert "Test Assistant, branded prompts, search on" in summary
     assert "mentions:   1/1 completed answers" in summary
     # The unrun prompts belong to the same round, so they report under its system.
-    assert "excluded (not run or blocked): 2" in summary
-    assert "Test Assistant, non-branded prompts" in summary
+    # They carry no search state, so they never join a measured rate.
+    assert "Test Assistant, branded prompts, search unknown" in summary
+    assert "no completed observations (2 excluded)" in summary
+    assert "Test Assistant, non-branded prompts, search unknown" in summary
     assert "no completed observations (3 excluded)" in summary
-    assert "unknown" not in summary
+    assert "unknown, " not in summary, "an unrun row must not lose its round's system"
 
 
 def test_the_template_alone_does_not_validate() -> None:
@@ -291,8 +293,8 @@ def test_branded_and_unbranded_stay_apart() -> None:
     unbranded["cited_urls"] = []
     capture["observations"].append(unbranded)
     summary = summary_of([capture])
-    assert "Test Assistant, branded prompts" in summary
-    assert "Test Assistant, non-branded prompts" in summary
+    assert "Test Assistant, branded prompts, search on" in summary
+    assert "Test Assistant, non-branded prompts, search on" in summary
 
 
 def test_unusable_files_are_reported_not_raised() -> None:
@@ -427,6 +429,47 @@ def test_cli_check_and_mode_handling() -> None:
         conflict = run_cli("--check", "--summary")
         assert conflict.returncode == 2, conflict.stderr
         assert "not allowed with" in conflict.stderr
+
+
+def test_search_modes_are_reported_separately() -> None:
+    """An answer written without retrieval is not averaged into the same rate."""
+    capture = base_capture()
+    offline = complete_observation(UNBRANDED_ID)
+    offline["search_enabled"] = "off"
+    offline["site_cited"] = False
+    offline["cited_urls"] = []
+    capture["observations"].append(offline)
+    summary = summary_of([capture])
+    assert "search on" in summary and "search off" in summary
+    # Each mode keeps its own denominator rather than being blended into one.
+    assert summary.count("citations:  1/1 completed answers") == 1
+    assert summary.count("citations:  0/1 completed answers") == 1
+
+
+def test_non_fresh_runs_are_named_not_blended() -> None:
+    capture = base_capture()
+    capture["observations"][0]["fresh_session"] = False
+    summary = summary_of([capture])
+    assert "recorded without a fresh session: 1/1" in summary
+    assert "not comparable with the rest" in summary
+
+    fresh = summary_of([base_capture()])
+    assert "recorded without a fresh session" not in fresh
+
+
+def test_one_capture_records_one_system() -> None:
+    """A single file cannot present itself as separate system measurements."""
+    capture = base_capture()
+    second = complete_observation(UNBRANDED_ID)
+    second["system"] = "Another Assistant"
+    second["site_cited"] = False
+    second["cited_urls"] = []
+    capture["observations"].append(second)
+    expect_failure(
+        "two systems in one capture",
+        failures_for(capture),
+        "one capture records one system per round",
+    )
 
 
 def test_template_covers_every_prompt() -> None:

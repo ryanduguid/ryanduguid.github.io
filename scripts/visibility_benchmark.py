@@ -227,6 +227,15 @@ def check_observation(
     return failures
 
 
+def named_systems(capture: dict[str, Any]) -> set[str]:
+    """Every system named by the observations in one capture."""
+    return {
+        str(observation["system"])
+        for observation in capture.get("observations", [])
+        if isinstance(observation, dict) and is_text(observation.get("system"))
+    }
+
+
 def check_capture_data(
     label: str, capture: dict[str, Any], prompts: dict[str, dict[str, Any]]
 ) -> list[str]:
@@ -246,6 +255,14 @@ def check_capture_data(
         return [*failures, f"{label}: needs a non-empty observations list"]
     for index, observation in enumerate(observations, start=1):
         failures.extend(check_observation(label, index, observation, prompts))
+
+    # One file is one system per round, so a single capture cannot be presented
+    # as separate measurements of different assistants.
+    systems = named_systems(capture)
+    if len(systems) > 1:
+        failures.append(
+            f"{label}: one capture records one system per round, found {sorted(systems)}"
+        )
     return failures
 
 
@@ -296,11 +313,7 @@ def capture_system(capture: dict[str, Any]) -> str | None:
     system as the completed ones beside it. Where a file names several, or none,
     an unrun observation stays unattributed rather than being guessed at.
     """
-    named = {
-        observation["system"]
-        for observation in capture.get("observations", [])
-        if isinstance(observation, dict) and is_text(observation.get("system"))
-    }
+    named = named_systems(capture)
     return named.pop() if len(named) == 1 else None
 
 
@@ -314,8 +327,15 @@ def summarise(
     Every capture reaching here has already been validated, so the counts come
     from records whose fields were checked rather than merely parsed.
     """
-    counts: dict[tuple[str, bool], dict[str, int]] = defaultdict(
-        lambda: {"complete": 0, "mentioned": 0, "cited": 0, "clean": 0, "excluded": 0}
+    counts: dict[tuple[str, bool, str], dict[str, int]] = defaultdict(
+        lambda: {
+            "complete": 0,
+            "mentioned": 0,
+            "cited": 0,
+            "clean": 0,
+            "excluded": 0,
+            "not_fresh": 0,
+        }
     )
     fixtures_skipped = 0
     for _, capture in captures:
@@ -331,7 +351,10 @@ def summarise(
             # it sits in, so a partial round reports under one heading, and the
             # key stays a string so sorting never compares None with a name.
             system = observation.get("system") or recorded or "unknown"
-            bucket = counts[(str(system), bool(prompt["branded"]))]
+            # Retrieval changes what an answer can possibly cite, so answers
+            # composed with search off are never averaged into the same rate.
+            search = str(observation.get("search_enabled") or "unknown")
+            bucket = counts[(str(system), bool(prompt["branded"]), search)]
             if observation.get("status") != "complete":
                 bucket["excluded"] += 1
                 continue
@@ -339,14 +362,15 @@ def summarise(
             bucket["mentioned"] += 1 if observation.get("mentioned") is True else 0
             bucket["cited"] += 1 if observation.get("site_cited") is True else 0
             bucket["clean"] += 0 if observation.get("factual_errors") else 1
+            bucket["not_fresh"] += 0 if observation.get("fresh_session") is True else 1
 
     lines = ["Assistant visibility and accuracy, by system and prompt group", ""]
     if not counts:
         lines.append("No observations to summarise.")
-    for (system, branded), bucket in sorted(counts.items()):
+    for (system, branded, search), bucket in sorted(counts.items()):
         group = "branded" if branded else "non-branded"
         total = bucket["complete"]
-        lines.append(f"{system}, {group} prompts")
+        lines.append(f"{system}, {group} prompts, search {search}")
         if total == 0:
             lines.append(f"  no completed observations ({bucket['excluded']} excluded)")
             continue
@@ -354,6 +378,13 @@ def summarise(
         lines.append(f"  citations:  {bucket['cited']}/{total} completed answers")
         lines.append(f"  no declared factual error: {bucket['clean']}/{total}")
         lines.append(f"  excluded (not run or blocked): {bucket['excluded']}")
+        if bucket["not_fresh"]:
+            # A reused session can carry context from an earlier prompt, so these
+            # are named rather than blended into a rate that looks comparable.
+            lines.append(
+                f"  recorded without a fresh session: {bucket['not_fresh']}/{total}, "
+                "not comparable with the rest"
+            )
     if fixtures_skipped:
         lines.append("")
         lines.append(f"Excluded {fixtures_skipped} fixture file(s) from these counts.")
@@ -363,6 +394,8 @@ def summarise(
             "A mention is not a citation, and a citation is not a ranking. One",
             "response is one observation: repeat a prompt before reading a trend,",
             "and never compare a search result page with an assistant's answer.",
+            "Answers composed with search off are reported separately, because an",
+            "answer written without retrieval says nothing about page reachability.",
             "No declared factual error means no error from the recorded list was",
             "seen. It is not proof that an answer was correct.",
         ]
