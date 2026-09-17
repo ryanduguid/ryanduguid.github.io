@@ -58,8 +58,8 @@
     <p class="lead-note">
       The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 14 September 2026.</p>
+    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.7">ato-benchmark-compare/v0.1.7</a>.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -134,6 +134,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
+    <p>One known limitation is recorded against this tool, on how a profit and loss line that maps to no published category is treated. See <a href="/tools/limitations/">Known limitations</a>.</p>
     <p>Unexpected result or question? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=ATO%20benchmark%20comparison">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>
@@ -181,7 +182,7 @@ pip install .</code></pre>
         "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-14",
+        "dateModified": "2026-09-18",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -249,7 +250,7 @@ pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-14"
+        "dateModified": "2026-09-18"
       },
       {
         "@type": "FAQPage",

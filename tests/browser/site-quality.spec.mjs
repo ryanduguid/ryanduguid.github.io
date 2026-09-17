@@ -220,15 +220,11 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   health.assertHealthy();
 });
 
-test('retired Engage routes redirect quietly to the homepage', async ({ page }) => {
+// The retired /engage/ path itself is a 301 at the Cloudflare edge, checked by
+// scripts/check_production.mjs; the local preview only sees the hash form.
+test('the retired Engage hash redirects quietly to the homepage', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/#engage');
-  await expect(page).toHaveURL('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Open-source accounting tools for Australian accountants.',
-  );
-
-  await page.goto('/engage/');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
     'Open-source accounting tools for Australian accountants.',

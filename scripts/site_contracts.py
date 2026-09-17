@@ -17,13 +17,9 @@ from urllib.parse import urlsplit
 import seo_core as core
 
 SITE = "https://duguid.com.au"
-STATIC_REDIRECTS = {
-    "engage/index.html": "https://duguid.com.au/",
-    "tools/review-ready-gate/index.html": (
-        "https://duguid.com.au/tools/workpaper-review-gate/"
-    ),
-}
-NOT_INDEXED = {"404.html"} | set(STATIC_REDIRECTS)
+# The retired /engage/ and /tools/review-ready-gate/ routes are answered with
+# 301 redirects at the Cloudflare edge; scripts/check_production.mjs holds them.
+NOT_INDEXED = {"404.html"}
 
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
@@ -210,26 +206,6 @@ CRAWLER_POLICY_COMMENTS = (
 )
 
 
-def check_static_redirect(html: str, rel: str, target: str) -> list[str]:
-    target_path = urlsplit(target).path or "/"
-    failures = []
-    for marker in (
-        '<meta name="robots" content="noindex, follow" />',
-        f'<link rel="canonical" href="{target}" />',
-    ):
-        if marker not in html:
-            failures.append(f"{rel}: missing redirect marker {marker}")
-    refresh_targets = {target, target_path}
-    if not any(
-        f'<meta http-equiv="refresh" content="0; url={candidate}" />' in html
-        for candidate in refresh_targets
-    ):
-        failures.append(f"{rel}: missing immediate redirect to {target}")
-    if not set(core.anchor_hrefs(html)).intersection(refresh_targets):
-        failures.append(f"{rel}: missing fallback link to {target}")
-    return failures
-
-
 WORKED_EXAMPLES: dict[str, dict[str, Any]] = {
     "tools/payday-super/index.html": {
         "fixture_urls": [
@@ -374,6 +350,9 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "source reviewed 2026-08-26",
         ),
         "reproduction_recipe": (
+            "git clone --branch xero-trial-balance-export/v0.1.6 --depth 1 "
+            "https://github.com/ryanduguid/accounting-review-pipeline.git",
+            "cd accounting-review-pipeline/packages/xero-trial-balance-export",
             "python -m pip install --require-hashes -r requirements.lock",
             "python -B -m unittest tests.test_evaluation_pack -v",
             "python -B -m unittest discover -s tests -v",
@@ -470,6 +449,9 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "source reviewed 15 August 2026",
         ),
         "reproduction_recipe": (
+            "git clone --branch payday-super-checker/v0.1.3 --depth 1 "
+            "https://github.com/ryanduguid/australian-accounting.git",
+            "cd australian-accounting/packages/payday-super-checker",
             "uv run --locked --extra dev --python 3.12 payday-super-check "
             "evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv "
             "--as-at 2026-08-20 -o timely-report.csv",
@@ -526,13 +508,13 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
                 "supported due date of 17 August 2026 and an as-at date of 20 August 2026",
             ),
             "reproduce": (
-                "Use a checkout of the australian-accounting monorepo fixed at commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182 (tag payday-super-checker/v0.1.3) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.",
+                "Needs Git, and uv with Python 3.12; the commands are the same on Windows, macOS and Linux. Clone the australian-accounting monorepo at tag payday-super-checker/v0.1.3 (commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.",
             ),
             "limitations": (
                 "This evaluation does not provide advice or make an ATO assessment.",
             ),
         },
-        "sitemap_lastmod": "2026-09-14",
+        "sitemap_lastmod": "2026-09-18",
         "llms_section": "Evaluation packs",
     },
 }
@@ -673,13 +655,9 @@ HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_SUPPORT,
     "Test it with fabricated data first.",
     "Check the source before the result.",
-    "Useful before impressive",
-    "Sources beside claims",
-    "Working stays visible",
-    "Unknown means unknown",
-    "A person signs off",
+    "Rates, source work, and release policy",
 ]
-HOMEPAGE_TITLE = "Ryan Duguid: review-ready Australian accounting controls"
+HOMEPAGE_TITLE = "Open-source accounting tools for Australian accountants"
 HOMEPAGE_DESCRIPTION = (
     "Personal index of open-source Australian accounting tools for payroll, Xero, "
     "workpapers, and AI workflows, with sources and working kept visible."
@@ -825,9 +803,9 @@ SOCIAL_CARD_CONTEXTS = {
     "site": {
         "label": "Open-source tool library / Australian accounting",
         "heading": [
-            "Ryan Duguid:",
-            "review-ready Australian",
-            "accounting controls.",
+            "Open-source",
+            "accounting tools for",
+            "Australian accountants.",
         ],
         "host": "duguid.com.au",
         "output": "social-card-site.png",
@@ -2670,7 +2648,7 @@ def collection_breadcrumb_shape(
     current_url = core.site_url(rel, SITE)
     if rel == "tools/index.html":
         parents = [("Home", "/", f"{SITE}/")]
-    elif rel.startswith("tools/") and rel not in STATIC_REDIRECTS:
+    elif rel.startswith("tools/"):
         parents = [("Home", "/", f"{SITE}/"), ("Tools", "/tools/", f"{SITE}/tools/")]
     elif rel == "evaluate/index.html":
         parents = [("Home", "/", f"{SITE}/")]
@@ -2852,8 +2830,7 @@ def check_file_contracts(path: Path) -> list[str]:
     rel = path.relative_to(core.ROOT).as_posix()
     html = path.read_text(encoding="utf-8")
 
-    if rel not in STATIC_REDIRECTS:
-        check_shared_shell(html, rel, failures)
+    check_shared_shell(html, rel, failures)
     if rel == "index.html":
         check_homepage_contract(html, failures)
     if rel in ARTICLE_PATTERN_PAGES:
@@ -3121,12 +3098,4 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_social_cards())
     failures.extend(check_robots_policy(robots))
     failures.extend(check_canonical_identity_urls(paths))
-    for rel, target in STATIC_REDIRECTS.items():
-        path = core.ROOT / rel
-        if not path.is_file():
-            failures.append(f"{rel}: missing static redirect page")
-            continue
-        failures.extend(
-            check_static_redirect(path.read_text(encoding="utf-8"), rel, target)
-        )
     return failures

@@ -7,10 +7,10 @@
 // --write refreshes them through gh, which holds its own credentials.
 // --check-releases reads public release records and flags changelog drift.
 
-import { readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
-import { dirname, join, resolve } from 'node:path';
+import { dirname, join, relative, resolve } from 'node:path';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const page = join(root, 'tools', 'index.html');
@@ -189,9 +189,58 @@ export async function checkReleases(html, lookup = fetchReleases) {
   return failures;
 }
 
+// A tool page may pin an older release for its worked example, but then it
+// must name the current release too, so a reader who installs from the page
+// knows which version they are getting. The page passes when its release-meta
+// tag is current, or when the current tag appears somewhere in the page text.
+export async function checkToolReleases(pages, lookup = fetchReleases) {
+  const failures = [];
+  const repositories = new Map();
+  for (const [rel, html] of pages) {
+    const meta = /<p class="release-meta">([\s\S]*?)<\/p>/.exec(html)?.[1];
+    if (!meta) continue;
+    const link = /<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/.exec(meta);
+    if (!link) continue;
+    const [, repository, tag] = link;
+    const version = /^(.*?)(\d+\.\d+\.\d+)$/.exec(tag);
+    if (!version) {
+      failures.push(`${rel}: ${tag} is not a stable release tag`);
+      continue;
+    }
+    if (!repositories.has(repository)) repositories.set(repository, await lookup(repository));
+    const prefix = version[1];
+    const tags = repositories.get(repository)
+      .filter((release) => !release.draft && !release.prerelease && release.published_at)
+      .map((release) => release.tag_name)
+      .filter((name) => name.startsWith(prefix) && /^\d+\.\d+\.\d+$/.test(name.slice(prefix.length)));
+    const latest = tags.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).at(-1);
+    if (latest && latest !== tag && !html.includes(latest)) {
+      failures.push(`${rel}: pins ${tag} but does not name the current release ${latest}`);
+    }
+  }
+  return failures;
+}
+
+function toolPages() {
+  const toolsDirectory = join(root, 'tools');
+  return readdirSync(toolsDirectory, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => join(toolsDirectory, entry.name, 'index.html'))
+    .filter((path) => existsSync(path))
+    .map((path) => [relative(root, path).replaceAll('\\', '/'), readFileSync(path, 'utf8')]);
+}
+
 async function main() {
   if (process.argv.includes('--check-releases')) {
-    const failures = await checkReleases(readFileSync(join(root, 'changelog', 'index.html'), 'utf8'));
+    const releaseLookup = new Map();
+    const cachedLookup = async (repository) => {
+      if (!releaseLookup.has(repository)) releaseLookup.set(repository, await fetchReleases(repository));
+      return releaseLookup.get(repository);
+    };
+    const failures = [
+      ...await checkReleases(readFileSync(join(root, 'changelog', 'index.html'), 'utf8'), cachedLookup),
+      ...await checkToolReleases(toolPages(), cachedLookup),
+    ];
     for (const failure of failures) console.error(failure);
     if (failures.length) return 1;
     console.log('current release references passed');

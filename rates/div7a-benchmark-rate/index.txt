@@ -28,7 +28,7 @@ Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark inte
 
 ## How to work it out yourself
 
-Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 monthly, roughly 10 days after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%.
+Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 in the first week after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%.
 
 Reading the June figure instead is the usual mistake, and it changes the answer in a normal year. June 2025 sat at 8.27% while May 2025 sat at 8.37%, and 8.37 is the benchmark rate for 2025-26. Section 109N(2) also leaves room for regulations to set the rate a different way, and none currently do.
 
@@ -72,7 +72,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 18 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

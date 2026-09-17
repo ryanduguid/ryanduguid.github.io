@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 
 Reproduce the offline movement and year-to-date integrity gate with 3 fabricated CSV fixtures, then inspect the exact results and human review boundary.
 
-Published 26 August 2026. Last reviewed 4 September 2026.
+Published 26 August 2026. Last reviewed 18 September 2026.
 
 Problem
 
@@ -46,9 +46,11 @@ The 3 CSV files are fabricated output-shape fixtures. They are not Xero API resp
 
 ## Reproduce
 
-Use a checkout of the Accounting Review Pipeline fixed at commit 3ae854911bf36f00bd3cc3eeafd1855848896629 (tag xero-trial-balance-export/v0.1.6) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request, and write no output file.
+Needs Git and Python 3.10 or newer with pip; the commands are the same on Windows, macOS and Linux. Clone the Accounting Review Pipeline at tag xero-trial-balance-export/v0.1.6 (commit 3ae854911bf36f00bd3cc3eeafd1855848896629) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request, and write no output file.
 
 ```
+git clone --branch xero-trial-balance-export/v0.1.6 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
+cd accounting-review-pipeline/packages/xero-trial-balance-export
 python -m pip install --require-hashes -r requirements.lock
 python -B -m unittest tests.test_evaluation_pack -v
 python -B -m unittest discover -s tests -v
