@@ -1716,7 +1716,83 @@ def test_release_record() -> None:
             release_record.check_record(root),
             "must be labelled as tracking",
         )
-    print("release record tests passed (6 cases)")
+
+    # A lag the record claims must be a release the page actually names.
+    with copied_site() as root:
+        lagging = copy.deepcopy(record)
+        component = lagging["components"]["aus-accounting-mcp"]
+        component["documented"]["version"] = "0.1.0"
+        component["documented"].pop("software_version", None)
+        expect_failure(
+            "documented release the page never names",
+            release_record.check_record(root, lagging),
+            "without naming the difference",
+        )
+
+    # The release record must be a link a reader can follow, not a mention.
+    with copied_site() as root:
+        url = record["components"]["ozzit"]["published"]["release_url"]
+        page = root / "tools/ozzit/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(f'href="{url}"', f'data-was="{url}"'),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "release record mentioned but not linked",
+            release_record.check_record(root),
+            "does not link the published release record",
+        )
+
+    # A page that names a pinned engine must name the version the release pins.
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "australian-tax-calculators 0.1.3",
+            "australian-tax-calculators 0.1.2",
+        )
+        expect_failure(
+            "engine pin drift",
+            release_record.check_record(root),
+            "but aus-accounting-mcp 0.2.2 pins 0.1.3",
+        )
+
+    # An evaluation's label names its component, so an unrelated number cannot pass.
+    with copied_site() as root:
+        page = root / "evaluate/xero-trial-balance-integrity/index.html"
+        page.write_text(
+            page.read_text(encoding="utf-8").replace(
+                "xero-trial-balance-export/v0.1.6", "some-other-package/v0.1.6"
+            ),
+            encoding="utf-8",
+        )
+        expect_failure(
+            "evaluation label replaced by a bare version",
+            release_record.check_record(root),
+            "must keep release 0.1.6 visible",
+        )
+
+    # The live refresh runs offline here against stubbed responses: an absent
+    # release must read as drift, and a changed response shape as inconclusive.
+    ozzit = copy.deepcopy(record["components"]["ozzit"])
+    original_fetch = release_record.fetch_json
+    try:
+        release_record.fetch_json = lambda url: []
+        assert release_record.live_versions(ozzit)["github"] == release_record.MISSING, (
+            "a deleted release must report as missing, not be left out"
+        )
+
+        mcp = copy.deepcopy(record["components"]["aus-accounting-mcp"])
+        release_record.fetch_json = lambda url: ["unexpected shape"]
+        try:
+            release_record.live_versions(mcp)
+        except ValueError:
+            pass
+        else:
+            raise AssertionError("a non-object service response must raise, not crash later")
+    finally:
+        release_record.fetch_json = original_fetch
+    print("release record tests passed (12 cases)")
 
 
 def main() -> None:

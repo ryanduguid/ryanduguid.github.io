@@ -16,11 +16,16 @@ sourced expected facts and the specific errors worth counting.
 ## Run a round
 
 ```bash
-python scripts/visibility_benchmark.py --template > round-2026-09-18-chatgpt.json
+python scripts/visibility_benchmark.py --template > docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
 # answer the prompts by hand, fill in the file, keep the answers beside it
 python scripts/visibility_benchmark.py --check
-python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/*.json
+python scripts/visibility_benchmark.py --summary
 ```
+
+Write the round into `captures/`, because `--check` with no arguments validates
+every file there and nothing else. To check a file kept elsewhere while you work on
+it, name it: `python scripts/visibility_benchmark.py --check my-round.json`. Naming a
+file that does not exist is a failure, not a quiet pass.
 
 One file per system per round. Send each prompt exactly as `prompts.json` records
 it: the validator rejects a reworded prompt, because a reworded prompt is a

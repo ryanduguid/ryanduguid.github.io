@@ -12,7 +12,7 @@ excluded from real summaries, and branded prompts are summarised apart from
 non-branded ones.
 
     python scripts/visibility_benchmark.py --template > capture.json
-    python scripts/visibility_benchmark.py --check
+    python scripts/visibility_benchmark.py --check round-2026-09-18-chatgpt.json
     python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/*.json
 """
 
@@ -25,11 +25,13 @@ from collections import defaultdict
 from datetime import datetime
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCHMARK = ROOT / "docs/visibility-benchmark"
 PROMPTS = BENCHMARK / "prompts.json"
 CAPTURES = BENCHMARK / "captures"
+SITE_HOST = "duguid.com.au"
 RUN_STATES = {"complete", "not_run", "blocked"}
 SEARCH_STATES = {"on", "off", "unknown"}
 REQUIRED_WHEN_COMPLETE = (
@@ -54,8 +56,29 @@ def load_prompts(path: Path = PROMPTS) -> dict[str, dict[str, Any]]:
 
 
 def load_capture(path: Path) -> dict[str, Any]:
-    capture: dict[str, Any] = json.loads(path.read_text(encoding="utf-8"))
-    return capture
+    """Read one capture, or raise ValueError describing what is unusable."""
+    try:
+        capture = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as error:
+        raise ValueError(f"is not valid JSON: {error}") from error
+    if not isinstance(capture, dict):
+        raise ValueError(f"is a {type(capture).__name__}, expected an object")
+    observations = capture.get("observations")
+    if observations is not None and (
+        not isinstance(observations, list)
+        or any(not isinstance(item, dict) for item in observations)
+    ):
+        raise ValueError("observations must be a list of objects")
+    result: dict[str, Any] = capture
+    return result
+
+
+def site_cited_url(url: object) -> bool:
+    """True only when a cited URL's host is the site, not merely contains its name."""
+    if not isinstance(url, str):
+        return False
+    host = (urlsplit(url).hostname or "").lower()
+    return host == SITE_HOST or host.endswith("." + SITE_HOST)
 
 
 def known_error_ids(prompt: dict[str, Any]) -> set[str]:
@@ -106,15 +129,22 @@ def check_observation(
             if parsed.utcoffset() is None:
                 failures.append(f"{where}: executed_at must carry a UTC offset")
 
+    for field in ("mentioned", "site_cited", "fresh_session"):
+        value = observation.get(field)
+        # A string such as "false" is truthy, so a loose check would count a
+        # hand-edited capture as a mention or a citation.
+        if value is not None and not isinstance(value, bool):
+            failures.append(f"{where}: {field} must be true or false, not {value!r}")
+
     cited = observation.get("cited_urls")
     if cited is not None and not isinstance(cited, list):
         failures.append(f"{where}: cited_urls must be a list, empty when none were shown")
     if isinstance(cited, list) and observation.get("site_cited") is True:
-        if not any("duguid.com.au" in url for url in cited):
+        if not any(site_cited_url(url) for url in cited):
             failures.append(
                 f"{where}: site_cited is true but no cited URL is on duguid.com.au"
             )
-    if observation.get("site_cited") and not observation.get("mentioned"):
+    if observation.get("site_cited") is True and observation.get("mentioned") is not True:
         failures.append(f"{where}: an answer that cites the site also mentions it")
 
     for error_id in observation.get("factual_errors", []) or []:
@@ -127,10 +157,14 @@ def check_observation(
 
 def check_capture(path: Path, prompts: dict[str, dict[str, Any]]) -> list[str]:
     """Check one capture file's shape and every observation in it."""
-    capture = load_capture(path)
     label = path.name
+    try:
+        capture = load_capture(path)
+    except (ValueError, OSError) as error:
+        # An unusable file is a validation result, not a traceback.
+        return [f"{label}: {error}"]
     failures: list[str] = []
-    if capture.get("fixture") is None:
+    if not isinstance(capture.get("fixture"), bool):
         failures.append(f"{label}: must declare fixture true or false")
     if not capture.get("recorded_by"):
         failures.append(f"{label}: must name who recorded it")
@@ -150,22 +184,30 @@ def summarise(
         lambda: {"complete": 0, "mentioned": 0, "cited": 0, "clean": 0, "excluded": 0}
     )
     fixtures_skipped = 0
+    unreadable: list[str] = []
     for path in captures:
-        capture = load_capture(path)
-        if capture.get("fixture") and not include_fixtures:
+        try:
+            capture = load_capture(path)
+        except (ValueError, OSError) as error:
+            unreadable.append(f"{path.name}: {error}")
+            continue
+        if capture.get("fixture") is True and not include_fixtures:
             fixtures_skipped += 1
             continue
         for observation in capture.get("observations", []):
             prompt = prompts.get(observation.get("prompt_id", ""))
             if prompt is None:
                 continue
-            bucket = counts[(observation.get("system", "unknown"), bool(prompt["branded"]))]
+            # A non-complete observation may omit its system, so the key stays a
+            # string and sorting never compares None with a name.
+            system = observation.get("system") or "unknown"
+            bucket = counts[(str(system), bool(prompt["branded"]))]
             if observation.get("status") != "complete":
                 bucket["excluded"] += 1
                 continue
             bucket["complete"] += 1
-            bucket["mentioned"] += 1 if observation.get("mentioned") else 0
-            bucket["cited"] += 1 if observation.get("site_cited") else 0
+            bucket["mentioned"] += 1 if observation.get("mentioned") is True else 0
+            bucket["cited"] += 1 if observation.get("site_cited") is True else 0
             bucket["clean"] += 0 if observation.get("factual_errors") else 1
 
     lines = ["Assistant visibility and accuracy, by system and prompt group", ""]
@@ -185,6 +227,10 @@ def summarise(
     if fixtures_skipped:
         lines.append("")
         lines.append(f"Excluded {fixtures_skipped} fixture file(s) from these counts.")
+    if unreadable:
+        lines.append("")
+        lines.append("Could not read, and therefore excluded entirely:")
+        lines.extend(f"  {problem}" for problem in unreadable)
     lines.extend(
         [
             "",
@@ -231,7 +277,11 @@ def template(prompts: dict[str, dict[str, Any]]) -> str:
 def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--template", action="store_true", help="print a blank capture file")
-    parser.add_argument("--check", action="store_true", help="validate the stored captures")
+    parser.add_argument(
+        "--check",
+        nargs="*",
+        help="validate the given capture files, or the stored captures when none are named",
+    )
     parser.add_argument("--summary", nargs="*", help="summarise the given capture files")
     parser.add_argument(
         "--include-fixtures",
@@ -251,13 +301,22 @@ def main(argv: list[str]) -> int:
         print(summarise(chosen, prompts, args.include_fixtures))
         return 0
 
-    failures = [failure for path in stored for failure in check_capture(path, prompts)]
+    chosen = [Path(name) for name in args.check or []] or stored
+    missing = [path for path in chosen if not path.is_file()]
+    for path in missing:
+        print(f"  FAIL {path}: no such capture file")
+    failures = [
+        failure
+        for path in chosen
+        if path.is_file()
+        for failure in check_capture(path, prompts)
+    ]
     for failure in failures:
         print(f"  FAIL {failure}")
-    if failures:
-        print(f"{len(failures)} benchmark capture failure(s)")
+    if failures or missing:
+        print(f"{len(failures) + len(missing)} benchmark capture failure(s)")
         return 1
-    print(f"benchmark captures valid ({len(stored)} file(s), {len(prompts)} prompts)")
+    print(f"benchmark captures valid ({len(chosen)} file(s), {len(prompts)} prompts)")
     return 0
 
 

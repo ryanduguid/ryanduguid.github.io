@@ -16,6 +16,7 @@ and never runs as part of an ordinary build.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import sys
@@ -32,6 +33,9 @@ USER_AGENT = "duguid-site-release-record/1 (+https://duguid.com.au)"
 # A page that documents an older release than the published one must say so in
 # its own words. The sentence must name both versions and mark which is current.
 GAP_MARKER = "published release"
+# A source that answers but shows no matching release reports this, so an absent
+# release is visible drift rather than a missing line.
+MISSING = "no matching release"
 
 
 def load(path: Path = RECORD) -> dict[str, Any]:
@@ -77,8 +81,14 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
 
     documented_version = documented.get("version")
     if documented_version is not None and documented_version != published["version"]:
-        # A documented release may legitimately lag. The gap must be explicit.
-        if GAP_MARKER not in visible or published["version"] not in visible:
+        # A documented release may legitimately lag. The gap must be explicit, and
+        # the page must actually name the release the record says it documents.
+        named = (
+            GAP_MARKER in visible
+            and published["version"] in visible
+            and documented_version in visible
+        )
+        if not named:
             failures.append(
                 f"{rel}: documents {name} {documented_version} while "
                 f"{published['version']} is published, without naming the difference"
@@ -92,8 +102,20 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
                 f"{rel}: structured softwareVersion is {versions!r}, expected [{declared!r}]"
             )
 
-    if published["release_url"] not in html:
+    # A reader needs a link, not a mention buried in an attribute or a comment.
+    if not re.search(rf'href="{re.escape(published["release_url"])}"', html):
         failures.append(f"{rel}: does not link the published release record")
+
+    for engine, version in (component.get("pinned_engines") or {}).items():
+        # Only engines the page names: it need not list every dependency, but a
+        # version it does state must be the one the published release pins.
+        if engine in visible:
+            stated = set(re.findall(rf"{re.escape(engine)}\s+(\d+\.\d+\.\d+)", visible))
+            if stated and stated != {version}:
+                failures.append(
+                    f"{rel}: names {engine} {sorted(stated)} but {name} "
+                    f"{published['version']} pins {version}"
+                )
 
     for command in component.get("pinned_commands", []):
         if command not in core.raw_text(html):
@@ -134,10 +156,13 @@ def check_evaluations(root: Path, record: dict[str, Any]) -> list[str]:
             failures.append(f"{rel}: missing evaluation page")
             continue
         _, visible = page_text(root, rel)
-        if evaluation["version"] not in visible:
+        # The label names the component as well as the version, so an unrelated
+        # occurrence of the same number cannot satisfy the contract.
+        expected = evaluation.get("label") or evaluation["version"]
+        if expected not in visible:
             failures.append(
                 f"{rel}: preserved evaluation must keep release "
-                f"{evaluation['version']} visible"
+                f"{evaluation['version']} visible as {expected!r}"
             )
     return failures
 
@@ -164,32 +189,72 @@ def fetch_json(url: str) -> Any:
         return json.loads(response.read())
 
 
+def mapping(value: Any, where: str) -> dict[str, Any]:
+    """A service response that is not an object is a changed contract, not a version."""
+    if not isinstance(value, dict):
+        raise ValueError(f"{where} returned {type(value).__name__}, expected an object")
+    return value
+
+
 def live_versions(component: dict[str, Any]) -> dict[str, str]:
-    """Current versions from each public source that component declares."""
+    """Current versions from each public source that component declares.
+
+    A source that answers but shows no matching release reports MISSING rather
+    than being left out, so a deleted release or a changed tag prefix is drift a
+    person sees instead of a silent pass.
+    """
     published = component["published"]
     found: dict[str, str] = {}
     pypi = published.get("pypi_url")
     if pypi:
         name = pypi.rstrip("/").rsplit("/", 1)[-1]
-        found["pypi"] = fetch_json(f"https://pypi.org/pypi/{name}/json")["info"]["version"]
+        payload = mapping(fetch_json(f"https://pypi.org/pypi/{name}/json"), "PyPI")
+        found["pypi"] = str(mapping(payload["info"], "PyPI info")["version"])
     registry = published.get("registry_url")
     if registry:
-        payload = fetch_json(registry)
-        server = payload.get("server", payload)
-        found["registry"] = str(server.get("version"))
+        payload = mapping(fetch_json(registry), "the MCP registry")
+        server = mapping(payload.get("server", payload), "the MCP registry server record")
+        found["registry"] = str(server.get("version", MISSING))
     repository = component["repository"]
     owner_repo = repository.removeprefix("https://github.com/")
     releases = fetch_json(f"https://api.github.com/repos/{owner_repo}/releases?per_page=100")
+    if not isinstance(releases, list):
+        raise ValueError("the GitHub releases endpoint returned an object, expected a list")
     prefix = published["release_url"].rsplit("/tag/", 1)[-1].removesuffix(published["version"])
     tags = [
         release["tag_name"]
         for release in releases
-        if not release["draft"] and not release["prerelease"]
-        and release["tag_name"].startswith(prefix)
+        if isinstance(release, dict)
+        and not release.get("draft")
+        and not release.get("prerelease")
+        and str(release.get("tag_name", "")).startswith(prefix)
     ]
-    if tags:
-        found["github"] = max(tags, key=lambda tag: _version_key(tag[len(prefix):]))[len(prefix):]
+    found["github"] = (
+        max(tags, key=lambda tag: _version_key(tag[len(prefix):]))[len(prefix):]
+        if tags
+        else MISSING
+    )
     return found
+
+
+def live_asset(published: dict[str, Any]) -> str | None:
+    """Confirm a recorded release asset is still served at its recorded size."""
+    url = published.get("download_url")
+    if not url:
+        return None
+    request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    try:
+        with urllib.request.urlopen(request, timeout=TIMEOUT) as response:
+            served = response.read()
+    except urllib.error.HTTPError as error:
+        return f"HTTP {error.code}"
+    recorded = published.get("asset_bytes")
+    if recorded is not None and len(served) != recorded:
+        return f"{len(served)} bytes, record says {recorded}"
+    digest = published.get("asset_sha256")
+    if digest is not None and hashlib.sha256(served).hexdigest() != digest:
+        return "SHA-256 differs from the record"
+    return None
 
 
 def _version_key(version: str) -> tuple[int, ...]:
@@ -204,8 +269,18 @@ def verify_live() -> int:
         recorded = component["published"]["version"]
         try:
             found = live_versions(component)
-        except (urllib.error.URLError, TimeoutError, OSError, KeyError, ValueError) as error:
-            # A failed fetch is inconclusive. It never rewrites or fails a claim.
+            asset = live_asset(component["published"])
+        except (
+            urllib.error.URLError,
+            TimeoutError,
+            OSError,
+            KeyError,
+            ValueError,
+            TypeError,
+            AttributeError,
+        ) as error:
+            # A failed fetch or a changed response shape is inconclusive. Neither
+            # rewrites a claim, and neither is reported as a matching version.
             print(f"{name}: INCONCLUSIVE, {type(error).__name__}: {error}")
             continue
         for source, version in found.items():
@@ -213,6 +288,9 @@ def verify_live() -> int:
             if version != recorded:
                 drifted = True
             print(f"{name}: {source} reports {version}, record says {recorded} ({state})")
+        if asset is not None:
+            drifted = True
+            print(f"{name}: recorded release asset DRIFT, {asset}")
     if drifted:
         print(
             "\nReview each drift, then update scripts/release_record.json and the pages "

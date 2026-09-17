@@ -178,6 +178,76 @@ def test_branded_and_unbranded_stay_apart() -> None:
     assert "Test Assistant, non-branded prompts" in summary
 
 
+def test_unusable_files_are_reported_not_raised() -> None:
+    """A malformed capture is a validation message, never a traceback."""
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        cases = {
+            "broken.json": "{ not json",
+            "array.json": "[]",
+            "null.json": "null",
+            "scalar-observation.json": '{"fixture": false, "recorded_by": "t", "observations": [1]}',
+        }
+        for name, text in cases.items():
+            path = root / name
+            path.write_text(text, encoding="utf-8")
+            failures = benchmark.check_capture(path, PROMPTS)
+            assert failures, f"{name}: expected a validation failure"
+            assert all(name in failure for failure in failures), failures
+        # A summary over the same files reports them and counts nothing.
+        summary = benchmark.summarise(
+            [root / name for name in cases], PROMPTS, include_fixtures=True
+        )
+        assert "Could not read" in summary
+        assert "No observations to summarise." in summary
+
+
+def test_lookalike_hosts_are_not_site_citations() -> None:
+    assert benchmark.site_cited_url("https://duguid.com.au/about/")
+    assert benchmark.site_cited_url("https://www.duguid.com.au/about/")
+    for url in (
+        "https://duguid.com.au.example.org/about/",
+        "https://notduguid.com.au/about/",
+        "https://example.org/?q=duguid.com.au",
+        None,
+    ):
+        assert not benchmark.site_cited_url(url), url
+
+    capture = base_capture()
+    capture["observations"][0]["cited_urls"] = ["https://duguid.com.au.example.org/"]
+    expect_failure(
+        "lookalike host", failures_for(capture), "no cited URL is on duguid.com.au"
+    )
+
+
+def test_boolean_fields_reject_strings() -> None:
+    """A string such as "false" must not be counted as a mention or a citation."""
+    for field in ("mentioned", "site_cited", "fresh_session"):
+        capture = base_capture()
+        capture["observations"][0][field] = "false"
+        expect_failure(f"{field} as a string", failures_for(capture), "must be true or false")
+
+    capture = base_capture()
+    capture["fixture"] = "false"
+    expect_failure("fixture as a string", failures_for(capture), "must declare fixture true or false")
+
+
+def test_a_capture_with_no_system_does_not_crash_the_summary() -> None:
+    """The blank template is summarisable: its null system must not break sorting."""
+    capture = json.loads(benchmark.template(PROMPTS))
+    capture["recorded_by"] = "test"
+    for observation in capture["observations"]:
+        observation["reason"] = "not attempted"
+    filled = complete_observation()
+    capture["observations"].append(filled)
+    with tempfile.TemporaryDirectory() as directory:
+        path = written(capture, Path(directory))
+        assert not benchmark.check_capture(path, PROMPTS)
+        summary = benchmark.summarise([path], PROMPTS, include_fixtures=False)
+    assert "unknown, branded prompts" in summary
+    assert "mentions:   1/1 completed answers" in summary
+
+
 def test_template_covers_every_prompt() -> None:
     capture = json.loads(benchmark.template(PROMPTS))
     assert capture["fixture"] is False
