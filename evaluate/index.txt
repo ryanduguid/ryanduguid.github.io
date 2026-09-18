@@ -27,11 +27,11 @@ December closing cash | $67,320.00 | $67,320.00
 
 Read the full worked example: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.
 
-This is a maintainer-prepared demonstration. Its calculations have technical verification records; an independent accountant trial has not yet been completed; offer a review of the Lumbridge case. No client outcome, forecast accuracy or time saving has been measured.
+This is a maintainer-prepared demonstration. Its calculations have technical verification records. Review the Lumbridge case. No client outcome, forecast accuracy or time saving has been measured.
 
 ## Review the Lumbridge case: a bounded task
 
-No independent accountant has completed this review yet. This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
+This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
 
 - Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
 - Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.
@@ -160,7 +160,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Tools register: https://duguid.com.au/tools/
 - Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
 - Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
+- Review the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Download the blank response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/

@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 18 September review follow-up adds workbook actions to the opening of the
+Lumbridge and Ozzit pages. Tools now gives one starting instruction, with the
+question library and planning calculators as secondary shortcuts. Ozzit shows
+complete function names and a formula that can be copied into its workbook.
+Its lambda character uses the native maths-font fallback described below.
+Ryan then requested removal of the notices about an outstanding independent
+accountant trial. The public pages, FAQ data and text indexes omit those
+notices, including the sample pack's supporting notes; the reproduction
+instructions and recorded verification remain.
+
 The 18 September 2026 task-route pass replaces the homepage's 4-category
 preview. The homepage now leads with 'Open-source accounting tools for
 Australian accountants.', a one-line proposition, the non-practice boundary and
@@ -317,6 +327,11 @@ The site uses IBM Plex from the official [IBM Plex repository](https://github.co
 - IBM Plex Serif Regular and SemiBold: display and section headings. The serif is justified by the statute, ledger and public-record context.
 - IBM Plex Sans Regular, Italic and SemiBold: navigation, body copy, controls and explanatory text.
 - IBM Plex Mono Regular: rates, commands, versions, dates, evidence labels and tabular figures.
+- Ozzit's lambda symbol uses Cambria Math, STIX Two Math or DejaVu Serif, with
+  the browser's serif fallback last. These native fonts need no download.
+  Mark only the symbol with `function-symbol`; keep identifiers as selectable
+  text. The font check still rejects unsupported characters outside that
+  exact markup and requires its fallback styling and font stack.
 
 IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
 

@@ -48,4 +48,3 @@ Refresh it with scripts/export-cash-chart.ps1, the same native Excel export,
 when the source workbook, scenario or palette changes, then record the new
 workbook and image hashes here.
 No generated illustration, stock image or hand-drawn chart is used.
-This capture is not an independent accountant trial.

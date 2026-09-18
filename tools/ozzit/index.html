@@ -55,6 +55,11 @@
           </ol>
         </nav>
         <h1>Ozzit: Excel LAMBDA functions for Australian financial modelling</h1>
+        <div class="article-actions">
+          <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1">Download Ozzit from GitHub</a>
+          <a href="#worked-example">Try a formula</a>
+        </div>
+        <p class="field-note">Needs Microsoft 365 or Excel 2024 and later. Choose <code>ozzit.xlsx</code> under Assets on the release page.</p>
         <p class="lead-note">
           Ozzit is a single Excel workbook holding 133 native LAMBDA functions
           and 5 named help tables, all under the <code>oz.</code> prefix. It
@@ -108,7 +113,6 @@
           <section id="functions">
             <h2>Selected functions</h2>
             <p>Ten of the 133, with their published signatures. The full index is in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv">functions.csv</a>.</p>
-            <p class="field-note">Every Ozzit name ends with a lambda, the Greek letter this site's Latin-1 fonts do not carry. The names below are written without that final character, so take the exact name from the workbook or the function index rather than retyping one from this page. In Excel, typing <code>=oz.GSTExtract</code> offers the complete name for you to accept.</p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="Selected Ozzit functions and signatures">
               <table class="facts rate-table--wide">
                 <caption>Selected functions from the v3.4.1 index. Scroll sideways on small screens.</caption>
@@ -116,16 +120,16 @@
                   <tr><th scope="col">Function</th><th scope="col">Signature</th><th scope="col">What it returns</th></tr>
                 </thead>
                 <tbody>
-                  <tr><th scope="row"><code>oz.GSTExtract</code></th><td><code>(Amounts, [Rate])</code></td><td>The GST contained in GST-inclusive amounts</td></tr>
-                  <tr><th scope="row"><code>oz.GSTAdd</code></th><td><code>(Amounts, [Rate])</code></td><td>GST added to GST-exclusive amounts</td></tr>
-                  <tr><th scope="row"><code>oz.FinancialYear</code></th><td><code>(Dates, [StartMonth])</code></td><td>The Australian financial year a date falls in, starting 1 July</td></tr>
-                  <tr><th scope="row"><code>oz.PrimeCost</code></th><td><code>(Cost, Life)</code></td><td>A straight-line depreciation schedule in whole years</td></tr>
-                  <tr><th scope="row"><code>oz.DiminishingValue</code></th><td><code>(Cost, Life)</code></td><td>A diminishing-balance schedule at 200% of the straight-line rate</td></tr>
-                  <tr><th scope="row"><code>oz.Amortise</code></th><td><code>(Principals, APRs, Terms, StartDates, [Timeline])</code></td><td>A corkscrew amortisation schedule</td></tr>
-                  <tr><th scope="row"><code>oz.LeaseLiability</code></th><td><code>(Payments, Rate, [InAdvance])</code></td><td>Present value of lease payments unpaid at commencement</td></tr>
-                  <tr><th scope="row"><code>oz.PeriodRate</code></th><td><code>(AnnualRate, [PeriodsPerYear])</code></td><td>An effective annual rate converted to a rate per period</td></tr>
-                  <tr><th scope="row"><code>oz.DayCountRate</code></th><td><code>(Timeline, APR, [Convention], [EndDates])</code></td><td>A period rate under 30/360, Actual/360, Actual/365 or Actual/Actual</td></tr>
-                  <tr><th scope="row"><code>oz.IRR</code></th><td><code>(Values, Dates)</code></td><td>IRR corrected for a first investment outside the first period</td></tr>
+                  <tr><th scope="row"><code>oz.GSTExtract<span class="function-symbol">λ</span></code></th><td><code>(Amounts, [Rate])</code></td><td>The GST contained in GST-inclusive amounts</td></tr>
+                  <tr><th scope="row"><code>oz.GSTAdd<span class="function-symbol">λ</span></code></th><td><code>(Amounts, [Rate])</code></td><td>GST added to GST-exclusive amounts</td></tr>
+                  <tr><th scope="row"><code>oz.FinancialYear<span class="function-symbol">λ</span></code></th><td><code>(Dates, [StartMonth])</code></td><td>The Australian financial year a date falls in, starting 1 July</td></tr>
+                  <tr><th scope="row"><code>oz.PrimeCost<span class="function-symbol">λ</span></code></th><td><code>(Cost, Life)</code></td><td>A straight-line depreciation schedule in whole years</td></tr>
+                  <tr><th scope="row"><code>oz.DiminishingValue<span class="function-symbol">λ</span></code></th><td><code>(Cost, Life)</code></td><td>A diminishing-balance schedule at 200% of the straight-line rate</td></tr>
+                  <tr><th scope="row"><code>oz.Amortise<span class="function-symbol">λ</span></code></th><td><code>(Principals, APRs, Terms, StartDates, [Timeline])</code></td><td>A corkscrew amortisation schedule</td></tr>
+                  <tr><th scope="row"><code>oz.LeaseLiability<span class="function-symbol">λ</span></code></th><td><code>(Payments, Rate, [InAdvance])</code></td><td>Present value of lease payments unpaid at commencement</td></tr>
+                  <tr><th scope="row"><code>oz.PeriodRate<span class="function-symbol">λ</span></code></th><td><code>(AnnualRate, [PeriodsPerYear])</code></td><td>An effective annual rate converted to a rate per period</td></tr>
+                  <tr><th scope="row"><code>oz.DayCountRate<span class="function-symbol">λ</span></code></th><td><code>(Timeline, APR, [Convention], [EndDates])</code></td><td>A period rate under 30/360, Actual/360, Actual/365 or Actual/Actual</td></tr>
+                  <tr><th scope="row"><code>oz.IRR<span class="function-symbol">λ</span></code></th><td><code>(Values, Dates)</code></td><td>IRR corrected for a first investment outside the first period</td></tr>
                 </tbody>
               </table>
             </div>
@@ -133,11 +137,9 @@
 
           <section id="worked-example">
             <h2>One worked example</h2>
-            <p>Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. In any cell of the workbook, start typing <code>=oz.GSTExtract</code>, accept the complete name Excel offers, and pass it 1100:</p>
-            <pre tabindex="0" role="region" aria-label="Ozzit GST extraction example"><code>Input     1100      GST-inclusive, assumed wholly taxable
-Function  oz.GSTExtract, at the default 10% rate
-Result    100.00
-Check     1100 / 11 = 100.00</code></pre>
+            <p>Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter this formula in a cell of the Ozzit workbook:</p>
+            <pre tabindex="0" role="region" aria-label="Ozzit GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
+            <p>The result is <code>100.00</code>. Check: 1100 / 11 = 100.00.</p>
             <p>That is the whole of the function's contribution: 10% arithmetic on an amount you supply.</p>
             <p>Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.</p>
             <p>The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.1. The v3.4.1 gate results below are the record for the current file.</p>
@@ -163,7 +165,7 @@ Check     1100 / 11 = 100.00</code></pre>
               <li>19,444 cached values were confirmed to equal what their formulas produce.</li>
               <li>207 unit tests passed, and the published formula source reproduced all 138 named formulas.</li>
             </ul>
-            <p>Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct, and they are not an independent review.</p>
+            <p>Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.</p>
           </section>
 
           <section id="limits">
@@ -173,7 +175,7 @@ Check     1100 / 11 = 100.00</code></pre>
             </blockquote>
             <ul>
               <li>The GST helpers do 10% arithmetic only. They do not classify a supply, test registration or prepare a BAS.</li>
-              <li><code>oz.PrimeCost</code> and <code>oz.DiminishingValue</code> are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.</li>
+              <li><code>oz.PrimeCost<span class="function-symbol">λ</span></code> and <code>oz.DiminishingValue<span class="function-symbol">λ</span></code> are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.</li>
               <li>The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment, or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.</li>
               <li>The library contains no individual income tax, Medicare levy, Division 7A interest or tax-rate cards.</li>
               <li>The 13-week cash-flow workbook in the repository's templates folder is a separate template, not a function in this library.</li>

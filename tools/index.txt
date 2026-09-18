@@ -6,13 +6,15 @@ Source: https://duguid.com.au/tools/
 
 # Tools
 
-Start with 100 accounting questions or the business calculators, then inspect the controls below.
+Choose a task below to find an example, browser calculator or accounting workflow.
 
 Last reviewed 18 September 2026.
 
 ## Start with what you came to do
 
 Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+
+For quick reference, browse 100 accounting questions or open the business planning calculators.
 
 ## Find a tool by accounting area
 
@@ -248,12 +250,12 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
-- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
-- business calculators: https://duguid.com.au/tools/business-calculators/
 - Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
 - Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- business planning calculators: https://duguid.com.au/tools/business-calculators/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Python: https://duguid.com.au/tools/monthly-close-controls/
