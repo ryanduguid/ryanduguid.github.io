@@ -20,7 +20,7 @@ Explore the cash-flow example Browse tools by accounting task
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. No independent accountant has trialled this case yet. Review the Lumbridge case yourself.
+Synthetic demonstration. Review the Lumbridge case yourself.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
@@ -206,7 +206,7 @@ The five working rules behind every tool are on the About page.
 
 Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
 
-The evidence supports limited claims about the software, not endorsements or client outcomes. No independent accountant has yet completed the Lumbridge review.
+The evidence supports limited claims about the software, not endorsements or client outcomes.
 
 ## Links
 

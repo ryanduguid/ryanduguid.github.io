@@ -8,6 +8,10 @@ Source: https://duguid.com.au/examples/profit-vs-cash-flow/
 
 How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.
 
+Download the Excel example Compare the two cases
+
+XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.
+
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.
 
 Published 18 September 2026. Last reviewed 18 September 2026.
@@ -101,7 +105,6 @@ Read the source, assumptions and trial guide at the captured commit, or use the 
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository's offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
 - Maintainer trial. On 14 September 2026 Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0 to 45 to 0 sequence and saving and reopening. The exact Excel build and individual figures were not recorded in that report.
-- Independent review. None. No accountant outside this project has completed the trial. Offer a review of the Lumbridge case.
 
 ## Limits
 
@@ -132,7 +135,7 @@ The delayed receipt still arrives inside the quarter, on 28 November, so both ca
 
 ### Is this a real client case?
 
-No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed, and an independent accountant trial has not been completed.
+No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed.
 
 ## Related
 
@@ -148,8 +151,9 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 
 ## Links
 
+- Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
+- Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- Download the synthetic Excel forecast: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
@@ -157,7 +161,6 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 - Read the source, assumptions and trial guide at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - reviewer trial guide: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services/TRIAL.md
 - au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1
-- Offer a review of the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash-flow and planning calculators: https://duguid.com.au/tools/business-calculators/

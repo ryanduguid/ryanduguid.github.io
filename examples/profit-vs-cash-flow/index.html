@@ -55,6 +55,11 @@
         </nav>
         <h1>Profit vs cash flow: an Australian Excel worked example</h1>
         <p class="short-answer">How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.</p>
+        <div class="article-actions">
+          <a class="button" href="/assets/examples/lumbridge/lumbridge.xlsx" download>Download the Excel example</a>
+          <a href="#results">Compare the two cases</a>
+        </div>
+        <p class="field-note">XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.</p>
         <p class="byline">Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.</p>
         <p class="page-meta">Published 18 September 2026. Last reviewed 18 September 2026.</p>
       </header>
@@ -173,7 +178,6 @@
               <li><strong>Formula check.</strong> A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository's offline suite passed.</li>
               <li><strong>Native Excel record.</strong> The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.</li>
               <li><strong>Maintainer trial.</strong> On 14 September 2026 Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0 to 45 to 0 sequence and saving and reopening. The exact Excel build and individual figures were not recorded in that report.</li>
-              <li><strong>Independent review.</strong> None. No accountant outside this project has completed the trial. <a href="/contact/#example-feedback">Offer a review of the Lumbridge case</a>.</li>
             </ul>
           </section>
 
@@ -203,7 +207,7 @@
               <h3>Why do both cases end December with the same cash?</h3>
               <p>The delayed receipt still arrives inside the quarter, on 28 November, so both cases close December at $67,320. The recovery is too late to fund the payments due in late October and early November, which is why the daily view matters more than the closing balance.</p>
               <h3>Is this a real client case?</h3>
-              <p>No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed, and an independent accountant trial has not been completed.</p>
+              <p>No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed.</p>
             </div>
           </section>
 
@@ -307,7 +311,7 @@
           {
             "@type": "Question",
             "name": "Is this a real client case?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed, and an independent accountant trial has not been completed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed." }
           }
         ]
       }

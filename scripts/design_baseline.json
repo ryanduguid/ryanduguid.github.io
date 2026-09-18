@@ -34,7 +34,7 @@
       "57577023b37a379b13bcd629c1651ced208ef3f6ad37da749cd250edd891e529"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "3b7ac3097af404a4b7da8b2438206a8dfcce16ea97652a6519959fb712b1653b"
+      "2b829a9d8e60bfae21ad714c32fcfbc98098c4deac40356d3fffbaccf5ba69fc"
     ],
     "index.html": [
       "c269025c549a1e880e8c0c175bebfa00ba48d1b48fd97f9f679f42785797858f"
@@ -107,7 +107,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "97060ad9155085052e0243424fc680174955d6038e9f474884af56dac1083ab7",
+    "llms.txt": "1884cbc55a98a96feaf9dd17ba16a28a836b69558bb00bf6a78f737ab6bf3e7b",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
     "sitemap.xml": "4c4abdb0ec9b84532cbc674307342f74cc2ee5cd004a98dfcc4a17ac8d40efdc"
   },

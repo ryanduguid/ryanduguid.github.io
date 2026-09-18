@@ -3,7 +3,7 @@ Prepared 11 September 2026. All amounts are AUD.
 
 This is a fictional Newcastle maintenance business. Its businesses, customers,
 invoices and accounts are fabricated. No client outcome, forecast accuracy or
-time saving has been measured. The independent accountant trial remains pending.
+time saving has been measured.
 
 OPEN THE SAMPLE
 
@@ -43,8 +43,8 @@ normalising line endings. A fresh formula check on 11 September 2026 passed all
 
 The original native Excel 16.0 record, dated 11 September 2026, checked 116 cells
 and 13 chart values per case at 0, 45 and 100-day delays, invalid input bounds,
-formula errors and save/reopen behaviour. These are technical checks, not an
-independent accountant trial or professional sign-off.
+formula errors and save/reopen behaviour. These technical checks do not establish
+professional sign-off.
 
 MODEL LIMITS
 

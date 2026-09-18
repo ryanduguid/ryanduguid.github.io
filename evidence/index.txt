@@ -90,9 +90,9 @@ Passing tests proves only the specified behaviour under the tested conditions. I
 
 Human review remains mandatory before posting, payment, lodgement, approval, or period lock. Professional judgement stays with a person. A tool must refuse or escalate missing, contradictory, stale, or out-of-scope facts rather than invent a result. Each product page records its specific inputs, refusal conditions, source-currency limits, and human decision boundary.
 
-## Independent evaluation
+## Reproduce the evaluations
 
-Ryan Duguid publishes evaluations of fixed releases at Evaluations. They are his work, not third-party reviews. He publishes no testimonial or independent firm review, and uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation. Reproduce it yourself. Run one fixed evaluation and record the command, release, expected result, and observed result. Report any mismatch in the site repository.
+Ryan Duguid publishes evaluations of fixed releases at Evaluations. He uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation. Reproduce it yourself. Run one fixed evaluation and record the command, release, expected result, and observed result. Report any mismatch in the site repository.
 
 Written by Ryan Duguid in his own time and on his own equipment.
 

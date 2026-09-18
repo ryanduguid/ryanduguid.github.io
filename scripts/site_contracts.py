@@ -78,7 +78,7 @@ ASSURANCE_ANCHORS = {
     "data-and-privacy-boundary": "Data and privacy boundary",
     "security-tests-and-release-evidence": "Security, tests, and release evidence",
     "human-accountability-and-refusals": "Human accountability and refusals",
-    "independent-evaluation": "Independent evaluation",
+    "independent-evaluation": "Reproduce the evaluations",
 }
 ASSURANCE_HEADINGS = tuple(ASSURANCE_ANCHORS.values())
 AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"

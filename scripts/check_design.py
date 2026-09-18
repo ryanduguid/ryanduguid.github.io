@@ -34,6 +34,7 @@ MAIN_LINK_PATTERN = re.compile(
 FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
 SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
+LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css" />'
 SITE_LINK = '<link rel="stylesheet" href="/assets/site.css" />'
@@ -467,10 +468,26 @@ def check_font_delivery(
     failures: list[str] = []
     faces = FONT_FACE_PATTERN.findall(tokens_css)
     rendered_text: list[str] = []
+    uses_symbol_font = False
     for path in core.html_files(root):
         raw = path.read_text(encoding="utf-8")
-        rendered_text.append(core.raw_text(raw))
+        uses_symbol_font = uses_symbol_font or LAMBDA_MARKUP in raw
+        # Only this explicitly styled glyph uses the native maths font.
+        # Unmarked symbols and script-generated text still need Plex coverage.
+        rendered_text.append(core.raw_text(raw.replace(LAMBDA_MARKUP, "")))
         rendered_text.extend(script_contents(raw))
+    if uses_symbol_font:
+        if not re.search(
+            r'--font-symbol:\s*"Cambria Math",\s*"STIX Two Math",\s*"DejaVu Serif",\s*serif;',
+            tokens_css,
+        ):
+            failures.append("lambda fallback must retain the native maths font stack")
+        site_css = (root / "assets/site.css").read_text(encoding="utf-8")
+        if not re.search(
+            r"\.function-symbol\s*\{\s*font-family:\s*var\(--font-symbol\);\s*\}",
+            site_css,
+        ):
+            failures.append("lambda markup must use the symbol font")
     rendered_text.extend(
         path.read_text(encoding="utf-8")
         for path in sorted((root / "assets").rglob("*.mjs"))
