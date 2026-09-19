@@ -59,10 +59,9 @@ and the difference is the whole point of recording it.
 `verified_at` is the date of a check, not a guarantee of currency after it. A
 compilation registered the day after a check supersedes the row and nothing
 here will know. Consumers that care about currency should treat the check date
-as an upper bound on what the register can vouch for, which is what the Coal
-LSL service does: it serves a month only where the check date is on or after
-the last day of that month, so a check part way through a month does not price
-wages paid at the end of it.
+as an upper bound on what the register can vouch for: serve a month only where
+the check date is on or after the last day of that month, so a check part way
+through a month does not price wages paid at the end of it.
 
 A content hash proves the bytes are the bytes. It proves nothing about whether
 the figure is legally correct.
@@ -108,9 +107,8 @@ one `superseded`, so the correction stays legible. Bump `register_version` in
 `register.json`, add a `CHANGELOG.md` entry, regenerate `SHA256SUMS`, and run
 `python scripts/check_rates_register.py`.
 
-Nothing consumes this register at runtime over the network. The Coal LSL
-service reads the committed file from disk at start-up and hashes those exact
-bytes. An offline engine that adopts the register later should bundle a
-snapshot, not fetch one.
+Nothing consumes this register at runtime over the network. An offline engine
+that adopts the register later should bundle a snapshot of the committed file
+and hash those exact bytes, not fetch one.
 
 Not advice. Verify each figure against its primary source at the time of use.
