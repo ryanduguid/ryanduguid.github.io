@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au{{ page.url }}" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title }}" />
+  <meta name="twitter:description" content="{{ page.description }}" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au{{ page.url }}" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au{{ page.url }}index.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+
+  <link rel="stylesheet" href="/assets/accounting-pages.css" />
+  <script type="module" src="/assets/accounting-pages.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+{% assign topic = site.data.accounting_questions.topics | where: "id", page.topic | first %}
+{% assign questions = site.data.accounting_questions.questions | where: "topic", page.topic %}
+  <main id="main" class="site-main accounting-page">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
+        <h1>{{ page.heading }}</h1>
+        <p class="lead-note">{{ page.lead }}</p>
+        <p>One of ten topics in the <a href="/tools/accounting-questions/">100 Australian accounting questions</a>. Select questions here to build a checklist for this topic.</p>
+        <p class="field-note">{{ topic.period | escape }} Tax guidance must match your year and circumstances.</p>
+        <p class="page-meta">Editorial review: {{ topic.reviewed | date: "%e %B %Y" | strip }}.</p>
+      </header>
+      <div class="site-shell accounting-content">
+        <div class="question-controls">
+          <fieldset disabled><legend class="visually-hidden">Question filters and checklist</legend>
+          <div class="form-grid">
+            <label class="field" for="question-search">Search questions<input type="search" id="question-search" name="q" autocomplete="off" placeholder="Try BAS, cash flow or Newcastle" aria-describedby="question-search-help" /></label>
+            <div class="field"><label for="question-topic">Topic</label><select id="question-topic"><option value="">All topics</option><option value="{{ topic.id }}">{{ topic.label | escape }}</option></select></div>
+          </div>
+          <p class="field-note" id="question-search-help">Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.</p>
+          <div class="accounting-actions">
+            <button type="button" id="clear-filters">Clear filters</button>
+            <button type="button" id="download-checklist" class="button" disabled>Download selected checklist</button>
+            <button type="button" id="print-checklist" disabled>Print selected checklist</button>
+            <button type="button" id="clear-selection" disabled>Clear selection</button>
+          </div>
+          <p id="question-count" role="status">{{ questions | size }} questions. 0 selected.</p>
+          <p class="field-note">Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.</p>
+          </fieldset>
+        </div>
+        <noscript><p>All {{ questions | size }} answers are available below. JavaScript adds search, selection and checklist downloads.</p></noscript>
+        {% capture question_sections %}
+        <section class="question-group" id="{{ topic.id }}" data-topic="{{ topic.id }}">
+          <h2>{{ topic.label | escape }}</h2>
+          <p class="topic-review field-note">Reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}. {{ topic.period | escape }}</p>
+          {% for question in questions %}
+          {% assign source = site.data.accounting_questions.sources[question.source] %}
+          {% assign tool = site.data.accounting_questions.tools[question.tool] %}
+          <details class="question" id="q{{ question.id }}"{% if question.keywords %} data-search-terms="{{ question.keywords | escape }}"{% endif %}>
+            <summary><span class="question-number">{{ question.id }}.</span> {{ question.question | escape }}</summary>
+            <div class="question-answer">
+              <p>{{ question.answer | escape }}</p>
+              <ol>{% for step in question.steps %}<li>{{ step | escape }}</li>{% endfor %}</ol>
+              {% if question.example %}<div class="question-example"><p><strong>Fictional worked example</strong></p><p>{{ question.example | escape }}</p></div>{% endif %}
+              <p class="question-boundary">{{ question.boundary | escape }}</p>
+              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
+              <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Add to my checklist, question {{ question.id }}" /> Add to my checklist</label></p>
+              <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
+            </div>
+          </details>
+          {% endfor %}
+        </section>
+        {% endcapture %}{{ question_sections | normalize_whitespace }}
+        <nav class="question-topics" aria-label="Other topics"><ul>{% for other in site.data.accounting_questions.topics %}{% if other.id != topic.id %}
+          <li><a href="/tools/accounting-questions/{{ other.id }}/">{{ other.label | escape }}</a></li>{% endif %}{% endfor %}
+        </ul></nav>
+        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.</p>
+      </div>
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+        CA ANZ has not endorsed this site or its tools.
+      </p>
+    </article>
+  </main>
+{% include site-footer.html %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au{{ page.url }}#webpage",
+      "url": "https://duguid.com.au{{ page.url }}",
+      "name": "{{ page.title }}",
+      "description": "{{ page.description }}",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-20",
+      "dateModified": "2026-09-20",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ page.heading }}",
+          "item": "https://duguid.com.au{{ page.url }}"
+        }
+      ]
+    }
+  ]
+}
+</script></body></html>

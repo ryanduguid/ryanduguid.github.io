@@ -4,8 +4,6 @@ Source: https://duguid.com.au/about/
 
 > I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
-Home
-
 # About Ryan Duguid
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
@@ -92,7 +90,6 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid

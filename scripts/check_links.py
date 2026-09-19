@@ -104,6 +104,31 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
     {
         # These sources returned 403 in run 34593410260 and 200 locally
         # on 11 September 2026. Other statuses and neighbouring URLs still fail.
+        # The six rates sources below returned 403 in run 35459888870 and 200
+        # locally on 20 September 2026.
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/"
+            "car-thresholds-from-1-july"
+        ),
+        (
+            "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/"
+            "tradies-be-certain-about-what-you-can-claim"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/"
+            "depreciation-and-capital-expenses-and-allowances/"
+            "backing-business-investment-accelerated-depreciation"
+        ),
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/"
+            "in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/"
+            "purchasing-a-motor-vehicle"
+        ),
+        "https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds",
+        (
+            "https://www.ato.gov.au/tax-rates-and-codes/"
+            "fringe-benefits-tax-historical-rates-and-thresholds"
+        ),
         "https://www.ato.gov.au/individuals-and-families/your-tax-return",
         (
             "https://www.ato.gov.au/individuals-and-families/"

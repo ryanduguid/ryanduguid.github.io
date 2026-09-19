@@ -183,9 +183,7 @@ def check_observation(
             failures.append(f"{where}: {field} must be true or false, not {value!r}")
 
     if observation.get("prompt_sent") != prompt["prompt"]:
-        failures.append(
-            f"{where}: prompt_sent does not match the reviewed text for {prompt_id}"
-        )
+        failures.append(f"{where}: prompt_sent does not match the reviewed text for {prompt_id}")
     search_enabled = observation.get("search_enabled")
     if not isinstance(search_enabled, str) or search_enabled not in SEARCH_STATES:
         failures.append(

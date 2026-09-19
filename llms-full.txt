@@ -60,14 +60,6 @@ Source repositories, install commands and Python packages, plus an MCP server. T
 
 Source on GitHub
 
-Review aids only. No client files. No lodgement. Human sign-off.
-
-Scope Accounting workflow controls
-
-Method Primary sources and exact arithmetic
-
-Boundary Calculation is not judgement
-
 ## Worked proof
 
 Coal LSL / synthetic result
@@ -253,8 +245,6 @@ Source: https://duguid.com.au/about/
 
 > I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
-Home
-
 # About Ryan Duguid
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
@@ -341,7 +331,6 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
@@ -375,8 +364,6 @@ I write and maintain this site in my own time and on my own equipment.
 Source: https://duguid.com.au/evidence/
 
 > Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools.
-
-Home / Evidence behind the tools
 
 # Evidence behind the tools
 
@@ -470,7 +457,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
 - pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
@@ -562,7 +548,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ---
 
-# Reproducible accounting tool evaluations | Ryan Duguid
+# Reproducible accounting tool evaluations
 
 Source: https://duguid.com.au/evaluate/
 
@@ -574,7 +560,7 @@ Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool e
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
-For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
+For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
 Last reviewed 18 September 2026.
 
@@ -612,7 +598,7 @@ Use the synthetic files only. Do not send client records, credentials, or confid
 
 Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
 
-Examples for the tools in the register. All inputs are fabricated. Scroll sideways on small screens.
+Examples for each tool. All inputs are fabricated. Scroll sideways on small screens.
 
 Tool | Reproduction route | What to check
 Xero trial balance CSV export | Fixed-release evaluation | One accepted export and two refusals.
@@ -722,8 +708,8 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 ## Links
 
 - Evidence register: https://duguid.com.au/evidence/
-- Tools register: https://duguid.com.au/tools/
-- Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
+- Tools page: https://duguid.com.au/tools/
+- Choose an example for any tool: https://duguid.com.au/evaluate/#example-routes
 - Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Review the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
@@ -1088,15 +1074,15 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ---
 
-# Maintained Australian accounting rates | Ryan Duguid
+# Maintained Australian accounting rates
 
 Source: https://duguid.com.au/rates/
 
-> Open maintained Australian super guarantee, Division 7A, cents-per-kilometre and announced-measure references with verified dates and primary sources.
+> Open maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT references with verified dates and primary sources.
 
 # Rates
 
-Four maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
+Seven maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
@@ -1144,9 +1130,51 @@ Income-year rates, determinations, and the 5,000-kilometre cap.
 
 Primary source Download CSV
 
+## Maximum super contribution base
+
+$270,830 a year for 2026-27 under Payday Super; quarterly bases apply to 30 June 2026.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Annual base from 2026/27 and quarterly bases from 2021/22.
+
+Primary source Download CSV
+
+## Car limit for depreciation
+
+$69,883 for a car first used or leased in 2026/27, and $69,674 for the two years before it.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Income-year limits from 2019/20 and the GST credit cap.
+
+Primary source Download CSV
+
+## FBT rate and gross-up rates
+
+47%, with gross-up rates of 2.0802 and 1.8868, for every FBT year ending 31 March 2018 to 2027.
+
+Verified
+
+20 September 2026
+
+Scope
+
+FBT years ending 31 March 2018 to 2027.
+
+Primary source Download CSV
+
 ## Announced tax measures not yet law
 
-Fifteen Budget and MYEFO measures have no bill; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
+Fifteen Budget and MYEFO measures have no bill named; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
 
 Verified
 
@@ -1169,6 +1197,14 @@ Primary source Download CSV
 - Cents per kilometre car-expense rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Primary source: https://www.legislation.gov.au/F2026L00785/asmade
 - Download CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
+- Download CSV: https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv
+- Car limit for depreciation: https://duguid.com.au/rates/car-limit/
+- Primary source: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july
+- Download CSV: https://duguid.com.au/rates/car-limit/car-limit.csv
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+- Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
 - Announced tax measures not yet law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
@@ -1379,7 +1415,7 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Staff cost calculator: https://duguid.com.au/tools/business-calculators/#staff
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - About Ryan Duguid: https://duguid.com.au/about/
 
 ---
@@ -1565,7 +1601,249 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Open-source Australian accounting tools | Ryan Duguid
+# Maximum super contribution base by year
+
+Source: https://duguid.com.au/rates/maximum-contribution-base/
+
+> $270,830 a year for 2026-27 under Payday Super, and the quarterly bases back to 2021-22. The formula, the SG ceiling it sets and the ATO source.
+
+# Maximum super contribution base
+
+The maximum contribution base is $270,830 for 2026-27, and it is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+
+Verified 20 September 2026 against the ATO's super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
+
+## Current base
+
+$270,830 for 2026-27. Payday Super made the base an annual limit on the qualifying earnings each employer pays from 1 July 2026; an employee with two employers has a separate base with each. The ATO derives it as the concessional contributions cap multiplied by 100, divided by the charge percentage, rounded down to the nearest $10. At 12% that caps compulsory super guarantee for one employee at $32,499.60 for the year.
+
+Income year | Maximum contribution base (annual)
+2026-27 | $270,830
+
+## Quarterly bases to 30 June 2026
+
+For quarters ending on or before 30 June 2026 the base was a quarterly earnings amount and applied to ordinary time earnings. The ATO publishes the base and the super guarantee it implies at that year's percentage.
+
+Income year | Base per quarter | Maximum SG per quarter
+2025-26 | $62,500 | $7,500.00
+2024-25 | $65,070 | $7,483.05
+2023-24 | $62,270 | $6,849.70
+2022-23 | $60,220 | $6,323.10
+2021-22 | $58,920 | $5,892.00
+
+The base is indexed to average weekly ordinary time earnings. Earlier years are on the ATO page and are not listed here because they were not read from it.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What is the maximum super contribution base for 2026-27?
+
+$270,830 of qualifying earnings for the year, counted separately by each employer. An employer does not have to pay super guarantee on the earnings it pays above that.
+
+### Is the base annual or quarterly?
+
+Annual from 1 July 2026, when Payday Super started, and applied per employer. For quarters up to 30 June 2026 it was a quarterly amount, $62,500 for each quarter of 2025-26.
+
+### How is the base worked out?
+
+Concessional contributions cap, multiplied by 100, divided by the super guarantee charge percentage, rounded down to the nearest $10. That is the ATO's published formula.
+
+### What is the most super guarantee an employer must pay for one employee in 2026-27?
+
+12% of $270,830, which is $32,499.60 for the year, before any salary-sacrifice or additional contributions the employer chooses to make.
+
+General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Super guarantee rate history
+- When is payday super due
+- Staff cost calculator
+- Division 7A benchmark interest rate
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- super guarantee rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv
+- Source and contact: https://github.com/ryanduguid
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# Car limit for depreciation by income year
+
+Source: https://duguid.com.au/rates/car-limit/
+
+> $69,883 for 2026-27 and every car limit back to 2019-20, with the ATO page each figure was read from. One-eleventh of the limit caps the GST credit.
+
+# Car limit for depreciation
+
+The car limit is $69,883 for a car first used or leased in 2026-27. It caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid. It was $69,674 for both 2025-26 and 2024-25.
+
+Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
+
+## The limit, by income year
+
+Income year | Car limit | Read from
+2026-27 | $69,883 | ATO car thresholds notice, 9 June 2026
+2025-26 | $69,674 | ATO car limit list, 27 May 2026
+2024-25 | $69,674 | ATO car limit list, 27 May 2026
+2023-24 | $68,108 | ATO car limit list, 27 May 2026
+2022-23 | $64,741 | ATO car limit list, 27 May 2026
+2021-22 | $60,733 | ATO car limit list, 27 May 2026
+2020-21 | $59,136 | ATO accelerated depreciation page
+2019-20 | $57,581 | ATO accelerated depreciation page
+
+The limit applies in the income year the car is first used or leased, and it applies to the GST-exclusive cost. The ATO no longer publishes an annual determination for it; the figure is indexed and announced on its website each June.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
+
+## GST credit and luxury car tax
+
+When a car costs more than the limit, the GST credit is generally capped at one-eleventh of the limit: $6,353 for 2026-27, per the ATO's motor vehicle purchase guidance. Luxury car tax paid on the purchase is never creditable. The luxury car tax thresholds are separate figures, $91,661 for fuel-efficient vehicles and $80,809 for other vehicles in 2026-27, and are not maintained here.
+
+## Common questions
+
+### What is the car limit for 2026-27?
+
+$69,883 for a car first used or leased in the 2026-27 income year, per the ATO's car thresholds notice of 9 June 2026.
+
+### Did the car limit change for 2025-26?
+
+No. It stayed at $69,674, the same figure as 2024-25, because the indexation factor for that year did not lift it.
+
+### Which vehicles does the car limit apply to?
+
+Passenger vehicles designed to carry a load of less than one tonne and fewer than nine passengers. A motorcycle or similar vehicle is excluded, as are utes and vans over the one-tonne load rating.
+
+### What is the most GST credit for a car over the limit?
+
+Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid on the car is not creditable.
+
+General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Cents per kilometre rate for car expenses
+- Business-use share calculator
+- Deduction questions
+- Division 7A benchmark interest rate
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- 2026-27 car thresholds notice: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july
+- car limit list for 2021-22 to 2025-26: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim
+- accelerated depreciation page: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation
+- Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/car-limit/car-limit.csv
+- motor vehicle purchase guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle
+- Source and contact: https://github.com/ryanduguid
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Deduction questions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# FBT rate and gross-up rates by FBT year
+
+Source: https://duguid.com.au/rates/fbt-rate/
+
+> 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for every FBT year ending 31 March 2018 to 31 March 2027, from the ATO's current and historical tables.
+
+# FBT rate and gross-up rates
+
+The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
+
+Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The rate is set by the Fringe Benefits Tax Assessment Act 1986.
+
+## Rate and gross-up rates, by FBT year
+
+FBT year ending | FBT rate | Type 1 gross-up | Type 2 gross-up
+31 March 2027 | 47% | 2.0802 | 1.8868
+31 March 2026 | 47% | 2.0802 | 1.8868
+31 March 2025 | 47% | 2.0802 | 1.8868
+31 March 2024 | 47% | 2.0802 | 1.8868
+31 March 2023 | 47% | 2.0802 | 1.8868
+31 March 2022 | 47% | 2.0802 | 1.8868
+31 March 2021 | 47% | 2.0802 | 1.8868
+31 March 2020 | 47% | 2.0802 | 1.8868
+31 March 2019 | 47% | 2.0802 | 1.8868
+31 March 2018 | 47% | 2.0802 | 1.8868
+
+Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee's income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
+
+Download the table as CSV. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
+
+## How the rate and the gross-up fit together
+
+FBT is charged on the grossed-up taxable value, not the taxable value itself. The gross-up converts the benefit to the pre-tax salary that would have bought it, so the 47% rate then produces the same tax as the top marginal rate plus Medicare levy. A $10,000 Type 2 benefit grosses up to $18,868 and attracts $8,867.96 of FBT.
+
+## Common questions
+
+### What is the FBT rate for the year ending 31 March 2027?
+
+47%. The ATO lists the same rate for the FBT years ending 31 March 2023 through 2027.
+
+### What are the FBT gross-up rates?
+
+Type 1 is 2.0802 and Type 2 is 1.8868, unchanged for every FBT year ending 31 March 2018 to 2027.
+
+### When does the FBT year start and end?
+
+It runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 April 2026.
+
+### Which gross-up rate applies to reportable fringe benefits?
+
+The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporting threshold is a taxable value above $2,000, which grosses up to $3,773.
+
+General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Cents per kilometre rate for car expenses
+- Car limit for depreciation
+- Company tax and franking checks
+- Payroll and super questions
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+- historical rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds
+- Fringe Benefits Tax Assessment Act 1986: https://www.legislation.gov.au/C2004A03280/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
+- Source and contact: https://github.com/ryanduguid
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Car limit for depreciation: https://duguid.com.au/rates/car-limit/
+- Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/
+- Payroll and super questions: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- About Ryan Duguid: https://duguid.com.au/about/
+
+---
+
+# Open-source Australian accounting tools
 
 Source: https://duguid.com.au/tools/
 
@@ -1608,8 +1886,6 @@ Trust distribution checks Python Company tax and franking checks Python ATO benc
 - AI agents in the workflow
 
 Australian tax tools for AI agents MCP
-
-Extract Calculate Control Inspect
 
 Extract
 
@@ -1833,10 +2109,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Company tax and franking checks Python: https://duguid.com.au/tools/company-tax-franking/
 - ATO benchmark comparison Python: https://duguid.com.au/tools/ato-benchmarks/
 - Australian tax tools for AI agents MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- Extract: https://duguid.com.au/tools/#extract-tools
-- Calculate: https://duguid.com.au/tools/#calculate-tools
-- Control: https://duguid.com.au/tools/#control-tools
-- Inspect: https://duguid.com.au/tools/#inspect-tools
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - Evaluation procedure: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
@@ -2228,7 +2500,7 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator and section 3B eligible wages
 
-Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
+The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
 
 Rate
 
@@ -3400,7 +3672,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ---
 
-# Contact and project links | Ryan Duguid
+# Contact and project links
 
 Source: https://duguid.com.au/contact/
 
@@ -3443,7 +3715,7 @@ Published 30 August 2026. Last reviewed 18 September 2026.
 
 ---
 
-# Site and release changelog | Ryan Duguid
+# Site and release changelog
 
 Source: https://duguid.com.au/changelog/
 
@@ -3451,11 +3723,14 @@ Source: https://duguid.com.au/changelog/
 
 # Changelog
 
+Follow this changelog as an Atom feed.
+
 What changed and when, across this site and the tagged tool releases. Dates are Australian Eastern time.
 
 ## Site
 
 Date | Change
+20 September 2026 | The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.
 20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
 14 September 2026 | The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.
 11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
@@ -3485,10 +3760,11 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 14 September 2026.
+Published 30 August 2026. Last reviewed 20 September 2026.
 
 ## Links
 
+- Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
 - aus-accounting-mcp/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
 - review-ready-gate/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.6
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
@@ -3618,38 +3894,357 @@ Source: https://duguid.com.au/tools/accounting-questions/
 
 # 100 Australian accounting questions
 
-Find the records, calculations and steps for Australian tax and business questions. Select questions to build a checklist.
+Find the records, calculations and steps for Australian tax and business questions. Each topic page carries ten answers, a search box and a checklist download.
 
 Open the business calculators or try the fictional Newcastle cash-flow workbook.
 
 These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.
 
+Editorial review: 11 September 2026. Last reviewed 20 September 2026.
+
+## Tax returns
+
+Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared.
+
+- What will my income-tax bill be?
+- Which expenses reduce my taxable income?
+- What steps are involved in completing a return?
+- Where can I obtain or recover my TFN?
+- What dates govern the annual tax cycle?
+- Which methods can I use to settle my tax bill?
+- Which earnings are taxable?
+- How long will the tax-return process take?
+- Where can I submit a completed return?
+- Which tax rules changed during 2025?
+
+## Deductions
+
+Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense.
+
+- How do I calculate my working-from-home deduction?
+- What records do I need to support my working-from-home claim?
+- Should I use the cents-per-kilometre or logbook method for car expenses?
+- How do I keep a valid vehicle logbook?
+- How do I calculate the work-related share of phone and internet expenses?
+- Can I deduct a laptop or tools immediately, or must I depreciate them?
+- Which work clothing, uniforms and laundry expenses can I claim?
+- Can I claim course fees, professional memberships and self-education expenses?
+- What can I claim if I have lost the receipt?
+- Does my business qualify for the instant asset write-off this financial year?
+
+## Starting a business
+
+Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
+
+- Do I need an ABN for freelance or contracting work?
+- How do I apply for an ABN, and what information do I need?
+- Is my activity a hobby or a business for tax purposes?
+- Should I operate as a sole trader or a company?
+- How much should I set aside for income tax as a sole trader?
+- Do I need a separate business bank account?
+- How do I pay myself and record drawings as a sole trader?
+- Do the personal services income rules apply to my contracting income?
+- How do I report income from a side hustle, delivery work or online sales?
+- Can I offset a business loss against my salary or other income?
+
+## GST and BAS
+
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis, and account due date being reviewed.
+
+- How do I add GST to a price or extract GST from an inclusive amount?
+- When must my business register for GST?
+- What is the difference between GST-free and input-taxed sales?
+- Do I charge GST when selling to overseas customers?
+- What information must appear on a valid tax invoice?
+- How do I prepare a BAS from my accounting records?
+- When is my BAS due, and when must I pay it?
+- Should I account for GST on a cash or accrual basis?
+- Why does my BAS GST figure differ from the GST balance in Xero?
+- How do I correct a mistake in a BAS I have already lodged?
+
+## Payroll and super
+
+Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
+
+- How much super must I pay, and which earnings count towards it?
+- By what date must a super contribution reach the employee's fund?
+- What should I do if a super payment is late, rejected or missing?
+- Do I have to pay super for a contractor who invoices through an ABN?
+- How much PAYG tax should I withhold from an employee's pay?
+- How do I finalise Single Touch Payroll at year-end?
+- How do I calculate an employee's final pay, including unused leave?
+- When does my business become liable for payroll tax in NSW?
+- Do contractor payments count towards NSW payroll tax?
+- What does an employee cost after super, leave, insurance and other on-costs?
+
+## Bookkeeping and close
+
+Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations.
+
+- Why does my Xero bank balance differ from my bank statement?
+- How do I identify and fix duplicate bank transactions in Xero?
+- How do I correct a customer payment matched to the wrong invoice?
+- How do I record a personal purchase paid from the business account?
+- Which business records should I keep, and for how long?
+- How should I organise my chart of accounts?
+- How do I split a loan repayment between principal and interest?
+- Should a purchase be recorded as an asset or an expense?
+- Why do my aged receivables or payables differ from the general ledger?
+- What should I reconcile and check before closing the month or financial year?
+
+## Cash flow
+
+Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
+
+- How do I build a 13-week cash-flow forecast?
+- Why is my business profitable but short of cash?
+- How much cash should I reserve for BAS, payroll and super payments?
+- What happens to my cash balance if a major customer pays 30 or 60 days late?
+- Can my business afford another employee?
+- What would buying equipment outright versus financing it do to my cash flow?
+- How much working capital or overdraft capacity will I need next quarter?
+- How can I reduce overdue customer balances and get paid sooner?
+- How do I plan for seasonal cash shortages?
+- How do I update my forecast each month using actual results?
+
+## Management reporting
+
+Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years.
+
+- How much must I sell each month to break even?
+- What is the difference between gross margin and markup?
+- What hourly rate should I charge to cover costs and earn a target profit?
+- Which customers, jobs or service lines are making money?
+- Why are my actual results different from my budget?
+- Which financial reports should a small-business owner review each month?
+- How do my business expenses compare with ATO small-business benchmarks?
+- How do I value and report work in progress and unbilled work?
+- Why has my gross margin fallen even though sales have increased?
+- How do I turn Xero data into a useful Excel or Power BI management dashboard?
+
+## Companies and trusts
+
+Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods.
+
+- Does my company qualify for the lower company tax rate?
+- How should I record money paid to a director as wages, dividends or a loan?
+- Does taking money out of my company create a Division 7A problem?
+- How do I calculate the minimum yearly repayment on a complying Division 7A loan?
+- Which payments count as repayments of a Division 7A loan?
+- What must a family trust document before distributing income at year-end?
+- How do dividends and franking credits affect my tax return?
+- Does providing a company car or paying an employee's private expenses create FBT?
+- What information do I need to prepare an ATO payment-plan proposal?
+- Could my related businesses be grouped together for NSW payroll tax?
+
+## Investments and Newcastle
+
+Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
+
+- Which expenses can I claim for a rental property?
+- Is work on my rental property a repair, an improvement or a depreciating asset?
+- How do I work out the capital gain when I sell an investment property?
+- How do capital losses and the CGT discount affect tax on shares I sell?
+- Do I owe tax when I sell, swap or spend cryptocurrency?
+- How do I report ETF distributions and their tax adjustments?
+- What records does my accountant need for an SMSF annual return and audit?
+- When does an investment property become liable for land tax in NSW?
+- How much does an accountant or bookkeeper cost for a small business in Newcastle?
+- How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Open the business calculators: https://duguid.com.au/tools/business-calculators/
+- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- What will my income-tax bill be?: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
+- Which expenses reduce my taxable income?: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
+- What steps are involved in completing a return?: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
+- Where can I obtain or recover my TFN?: https://duguid.com.au/tools/accounting-questions/general-tax/#q4
+- What dates govern the annual tax cycle?: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
+- Which methods can I use to settle my tax bill?: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
+- Which earnings are taxable?: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
+- How long will the tax-return process take?: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
+- Where can I submit a completed return?: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
+- Which tax rules changed during 2025?: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- How do I calculate my working-from-home deduction?: https://duguid.com.au/tools/accounting-questions/deductions/#q11
+- What records do I need to support my working-from-home claim?: https://duguid.com.au/tools/accounting-questions/deductions/#q12
+- Should I use the cents-per-kilometre or logbook method for car expenses?: https://duguid.com.au/tools/accounting-questions/deductions/#q13
+- How do I keep a valid vehicle logbook?: https://duguid.com.au/tools/accounting-questions/deductions/#q14
+- How do I calculate the work-related share of phone and internet expenses?: https://duguid.com.au/tools/accounting-questions/deductions/#q15
+- Can I deduct a laptop or tools immediately, or must I depreciate them?: https://duguid.com.au/tools/accounting-questions/deductions/#q16
+- Which work clothing, uniforms and laundry expenses can I claim?: https://duguid.com.au/tools/accounting-questions/deductions/#q17
+- Can I claim course fees, professional memberships and self-education expenses?: https://duguid.com.au/tools/accounting-questions/deductions/#q18
+- What can I claim if I have lost the receipt?: https://duguid.com.au/tools/accounting-questions/deductions/#q19
+- Does my business qualify for the instant asset write-off this financial year?: https://duguid.com.au/tools/accounting-questions/deductions/#q20
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- Do I need an ABN for freelance or contracting work?: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
+- How do I apply for an ABN, and what information do I need?: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
+- Is my activity a hobby or a business for tax purposes?: https://duguid.com.au/tools/accounting-questions/business-setup/#q23
+- Should I operate as a sole trader or a company?: https://duguid.com.au/tools/accounting-questions/business-setup/#q24
+- How much should I set aside for income tax as a sole trader?: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
+- Do I need a separate business bank account?: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
+- How do I pay myself and record drawings as a sole trader?: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
+- Do the personal services income rules apply to my contracting income?: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
+- How do I report income from a side hustle, delivery work or online sales?: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
+- Can I offset a business loss against my salary or other income?: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- How do I add GST to a price or extract GST from an inclusive amount?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
+- When must my business register for GST?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q32
+- What is the difference between GST-free and input-taxed sales?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q33
+- Do I charge GST when selling to overseas customers?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q34
+- What information must appear on a valid tax invoice?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q35
+- How do I prepare a BAS from my accounting records?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q36
+- When is my BAS due, and when must I pay it?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q37
+- Should I account for GST on a cash or accrual basis?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
+- Why does my BAS GST figure differ from the GST balance in Xero?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
+- How do I correct a mistake in a BAS I have already lodged?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- How much super must I pay, and which earnings count towards it?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
+- By what date must a super contribution reach the employee's fund?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- What should I do if a super payment is late, rejected or missing?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
+- Do I have to pay super for a contractor who invoices through an ABN?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
+- How much PAYG tax should I withhold from an employee's pay?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
+- How do I finalise Single Touch Payroll at year-end?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
+- How do I calculate an employee's final pay, including unused leave?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
+- When does my business become liable for payroll tax in NSW?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
+- Do contractor payments count towards NSW payroll tax?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
+- What does an employee cost after super, leave, insurance and other on-costs?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Why does my Xero bank balance differ from my bank statement?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q51
+- How do I identify and fix duplicate bank transactions in Xero?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q52
+- How do I correct a customer payment matched to the wrong invoice?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q53
+- How do I record a personal purchase paid from the business account?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
+- Which business records should I keep, and for how long?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
+- How should I organise my chart of accounts?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
+- How do I split a loan repayment between principal and interest?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Should a purchase be recorded as an asset or an expense?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q58
+- Why do my aged receivables or payables differ from the general ledger?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q59
+- What should I reconcile and check before closing the month or financial year?: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q60
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- How do I build a 13-week cash-flow forecast?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q61
+- Why is my business profitable but short of cash?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q62
+- How much cash should I reserve for BAS, payroll and super payments?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q63
+- What happens to my cash balance if a major customer pays 30 or 60 days late?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q64
+- Can my business afford another employee?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q65
+- What would buying equipment outright versus financing it do to my cash flow?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q66
+- How much working capital or overdraft capacity will I need next quarter?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q67
+- How can I reduce overdue customer balances and get paid sooner?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q68
+- How do I plan for seasonal cash shortages?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q69
+- How do I update my forecast each month using actual results?: https://duguid.com.au/tools/accounting-questions/cash-flow/#q70
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- How much must I sell each month to break even?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q71
+- What is the difference between gross margin and markup?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q72
+- What hourly rate should I charge to cover costs and earn a target profit?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q73
+- Which customers, jobs or service lines are making money?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q74
+- Why are my actual results different from my budget?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
+- Which financial reports should a small-business owner review each month?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q76
+- How do my business expenses compare with ATO small-business benchmarks?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q77
+- How do I value and report work in progress and unbilled work?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q78
+- Why has my gross margin fallen even though sales have increased?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q79
+- How do I turn Xero data into a useful Excel or Power BI management dashboard?: https://duguid.com.au/tools/accounting-questions/management-reporting/#q80
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Does my company qualify for the lower company tax rate?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
+- How should I record money paid to a director as wages, dividends or a loan?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
+- Does taking money out of my company create a Division 7A problem?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
+- How do I calculate the minimum yearly repayment on a complying Division 7A loan?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
+- Which payments count as repayments of a Division 7A loan?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
+- What must a family trust document before distributing income at year-end?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
+- How do dividends and franking credits affect my tax return?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
+- Does providing a company car or paying an employee's private expenses create FBT?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
+- What information do I need to prepare an ATO payment-plan proposal?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
+- Could my related businesses be grouped together for NSW payroll tax?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Which expenses can I claim for a rental property?: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
+- Is work on my rental property a repair, an improvement or a depreciating asset?: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
+- How do I work out the capital gain when I sell an investment property?: https://duguid.com.au/tools/accounting-questions/investments-local/#q93
+- How do capital losses and the CGT discount affect tax on shares I sell?: https://duguid.com.au/tools/accounting-questions/investments-local/#q94
+- Do I owe tax when I sell, swap or spend cryptocurrency?: https://duguid.com.au/tools/accounting-questions/investments-local/#q95
+- How do I report ETF distributions and their tax adjustments?: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
+- What records does my accountant need for an SMSF annual return and audit?: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
+- When does an investment property become liable for land tax in NSW?: https://duguid.com.au/tools/accounting-questions/investments-local/#q98
+- How much does an accountant or bookkeeper cost for a small business in Newcastle?: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
+- How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?: https://duguid.com.au/tools/accounting-questions/investments-local/#q100
+
+---
+
+# Australian business calculators: GST, margins, cash
+
+Source: https://duguid.com.au/tools/business-calculators/
+
+> Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.
+
+# Business calculators
+
+Nine calculators, each on its own page with the formula, assumptions and source beside the inputs. Calculations run in your browser; inputs are not saved or sent anywhere.
+
+Find a question and prepare a checklist.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+
+Published 11 September 2026. Last reviewed 20 September 2026.
+
+- GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
+- Business-use share calculator Apportion an eligible cost by a supported business-use percentage. It does not decide deductibility, depreciation or record sufficiency.
+- Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
+- Break-even sales calculator Whole units and sales required to cover fixed costs from price and variable cost per unit.
+- Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
+- Budget variance calculator Actual minus budget, the percentage of absolute budget, and whether the difference is favourable or unfavourable.
+- Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
+- Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/
+- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
+- Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
+- Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+
+---
+
+# Tax returns: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/general-tax/
+
+> Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Tax returns
+
+Practical steps, records and official guidance on tax returns. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the income year and residency facts for the return being prepared. Tax guidance must match your year and circumstances.
+
 Editorial review: 11 September 2026.
 
 Search questions
 
-Topic All topics Tax returns Deductions Starting a business GST and BAS Payroll and super Bookkeeping and close Cash flow Management reporting Companies and trusts Investments and Newcastle
+Topic All topics Tax returns
 
 Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
-100 questions. 0 selected.
+10 questions. 0 selected.
 
 Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
 
-All 100 answers are available below. JavaScript adds search, selection and checklist downloads.
-
-- Tax returns
-- Deductions
-- Starting a business
-- GST and BAS
-- Payroll and super
-- Bookkeeping and close
-- Cash flow
-- Management reporting
-- Companies and trusts
-- Investments and Newcastle
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Tax returns
 
@@ -3785,6 +4380,82 @@ Your tax return
 
 Link to question 10
 
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 1: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
+- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Link to question 2: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
+- Link to question 3: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
+- Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
+- Link to question 4: https://duguid.com.au/tools/accounting-questions/general-tax/#q4
+- Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
+- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
+- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Link to question 7: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
+- Link to question 8: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
+- Link to question 9: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
+- Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Deductions: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/deductions/
+
+> Ten questions on deductions for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Deductions
+
+Practical steps, records and official guidance on deductions. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Check eligibility and record requirements for the income year of the expense. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Deductions
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Deductions
 
 Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense.
@@ -3919,6 +4590,81 @@ Starting, registering or closing a business · Experimental tax worksheets and s
 
 Link to question 20
 
+- Tax returns
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Link to question 11: https://duguid.com.au/tools/accounting-questions/deductions/#q11
+- Link to question 12: https://duguid.com.au/tools/accounting-questions/deductions/#q12
+- Cents-per-kilometre rate table and method: https://duguid.com.au/rates/cents-per-kilometre/
+- Link to question 13: https://duguid.com.au/tools/accounting-questions/deductions/#q13
+- Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
+- Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
+- Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
+- Link to question 18: https://duguid.com.au/tools/accounting-questions/deductions/#q18
+- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
+- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Starting a business: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/business-setup/
+
+> Ten questions on starting a business for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Starting a business
+
+Practical steps, records and official guidance on starting a business. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the entity, activity, and income year being assessed. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Starting a business
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Starting a business
 
 Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
@@ -4052,6 +4798,79 @@ A loss in the accounts does not automatically offset salary in the tax return.
 Starting, registering or closing a business
 
 Link to question 30
+
+- Tax returns
+- Deductions
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
+- Link to question 21: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
+- Link to question 22: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
+- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Link to question 23: https://duguid.com.au/tools/accounting-questions/business-setup/#q23
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 24: https://duguid.com.au/tools/accounting-questions/business-setup/#q24
+- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Link to question 25: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
+- Link to question 26: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
+- Link to question 27: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
+- Link to question 28: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
+- Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
+- Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# GST and BAS: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
+
+> Ten questions on GST and BAS for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: GST and BAS
+
+Practical steps, records and official guidance on GST and BAS. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the BAS period, GST accounting basis, and account due date being reviewed. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics GST and BAS
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## GST and BAS
 
@@ -4191,6 +5010,80 @@ ATO GST guidance
 
 Link to question 40
 
+- Tax returns
+- Deductions
+- Starting a business
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/
+- Link to question 31: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
+- Link to question 32: https://duguid.com.au/tools/accounting-questions/gst-bas/#q32
+- Link to question 33: https://duguid.com.au/tools/accounting-questions/gst-bas/#q33
+- Link to question 34: https://duguid.com.au/tools/accounting-questions/gst-bas/#q34
+- Link to question 35: https://duguid.com.au/tools/accounting-questions/gst-bas/#q35
+- ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
+- BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
+- Link to question 36: https://duguid.com.au/tools/accounting-questions/gst-bas/#q36
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 37: https://duguid.com.au/tools/accounting-questions/gst-bas/#q37
+- Link to question 38: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
+- Link to question 39: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
+- Link to question 40: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Payroll and super: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
+
+> Ten questions on payroll and super for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Payroll and super
+
+Practical steps, records and official guidance on payroll and super. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Payroll and super
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Payroll and super
 
 Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
@@ -4324,6 +5217,83 @@ Do not add ordinary paid leave again if it is already included in the annual sal
 Final pay - Fair Work Ombudsman · Staff-cost calculator
 
 Link to question 50
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
+- Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
+- Payday Super receipt-evidence example: https://duguid.com.au/tools/payday-super/
+- Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- Link to question 43: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
+- Link to question 44: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
+- PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
+- Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
+- Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
+- Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
+- Link to question 47: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
+- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
+- Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
+- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Link to question 50: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Bookkeeping and close: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+
+> Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Bookkeeping and close
+
+Practical steps, records and official guidance on bookkeeping and close. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the same reporting date and accounting basis for all reconciliations. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Bookkeeping and close
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Bookkeeping and close
 
@@ -4463,6 +5433,81 @@ Record keeping for business · Monthly-close review pack
 
 Link to question 60
 
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 51: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q51
+- Link to question 52: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q52
+- Link to question 53: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q53
+- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
+- Link to question 54: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
+- Link to question 55: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
+- Link to question 56: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Link to question 57: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 58: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q58
+- Link to question 59: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q59
+- Link to question 60: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q60
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Cash flow: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/cash-flow/
+
+> Ten questions on cash flow for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Cash flow
+
+Practical steps, records and official guidance on cash flow. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Planning method for the dates entered. Include obligations in their expected payment weeks. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Cash flow
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Cash flow
 
 Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
@@ -4601,6 +5646,81 @@ Set up a cash flow statement · Budget variance calculator
 
 Link to question 70
 
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 61: https://duguid.com.au/tools/accounting-questions/cash-flow/#q61
+- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- Link to question 62: https://duguid.com.au/tools/accounting-questions/cash-flow/#q62
+- Link to question 63: https://duguid.com.au/tools/accounting-questions/cash-flow/#q63
+- Link to question 64: https://duguid.com.au/tools/accounting-questions/cash-flow/#q64
+- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Link to question 65: https://duguid.com.au/tools/accounting-questions/cash-flow/#q65
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Link to question 66: https://duguid.com.au/tools/accounting-questions/cash-flow/#q66
+- Link to question 67: https://duguid.com.au/tools/accounting-questions/cash-flow/#q67
+- Link to question 68: https://duguid.com.au/tools/accounting-questions/cash-flow/#q68
+- Link to question 69: https://duguid.com.au/tools/accounting-questions/cash-flow/#q69
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Link to question 70: https://duguid.com.au/tools/accounting-questions/cash-flow/#q70
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Management reporting: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/management-reporting/
+
+> Ten questions on management reporting for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Management reporting
+
+Practical steps, records and official guidance on management reporting. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Compare the same reporting period and basis; historical benchmarks retain their published years. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Management reporting
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Management reporting
 
 Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years.
@@ -4734,6 +5854,86 @@ The export tool supplies data; this guide does not install a Power BI connector 
 Record keeping for business · Xero trial-balance export
 
 Link to question 80
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Choose a pricing strategy: https://business.gov.au/products-and-services/choose-a-pricing-strategy
+- Break-even calculator: https://duguid.com.au/tools/business-calculators/break-even/
+- Link to question 71: https://duguid.com.au/tools/accounting-questions/management-reporting/#q71
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
+- Link to question 72: https://duguid.com.au/tools/accounting-questions/management-reporting/#q72
+- Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
+- Link to question 73: https://duguid.com.au/tools/accounting-questions/management-reporting/#q73
+- Link to question 74: https://duguid.com.au/tools/accounting-questions/management-reporting/#q74
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Link to question 75: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 76: https://duguid.com.au/tools/accounting-questions/management-reporting/#q76
+- ATO benchmark comparison method: https://duguid.com.au/tools/ato-benchmarks/
+- Link to question 77: https://duguid.com.au/tools/accounting-questions/management-reporting/#q77
+- Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- Link to question 78: https://duguid.com.au/tools/accounting-questions/management-reporting/#q78
+- Link to question 79: https://duguid.com.au/tools/accounting-questions/management-reporting/#q79
+- Xero trial-balance export: https://duguid.com.au/tools/xero-trial-balance/
+- Link to question 80: https://duguid.com.au/tools/accounting-questions/management-reporting/#q80
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Companies and trusts: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
+
+> Ten questions on companies and trusts for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Companies and trusts
+
+Practical steps, records and official guidance on companies and trusts. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the entity and relevant income or FBT year; linked tools have separate supported periods. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Companies and trusts
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Companies and trusts
 
@@ -4869,6 +6069,87 @@ Revenue NSW payroll tax
 
 Link to question 90
 
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
+- Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
+- Link to question 81: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
+- Link to question 82: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
+- Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
+- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
+- Link to question 83: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
+- Link to question 84: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
+- Link to question 85: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
+- Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
+- Trust distributions example: https://duguid.com.au/tools/trust-distributions/
+- Link to question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
+- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Link to question 87: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
+- Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 88: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
+- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 89: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
+- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Link to question 90: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+---
+
+# Investments and Newcastle: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+> Ten questions on investments and newcastle for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Investments and Newcastle
+
+Practical steps, records and official guidance on investments and newcastle. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Investments and Newcastle
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
 ## Investments and Newcastle
 
 Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
@@ -5003,203 +6284,70 @@ TPB register of tax and BAS agents
 
 Link to question 100
 
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
-- Open the business calculators: https://duguid.com.au/tools/business-calculators/
-- try the fictional Newcastle cash-flow workbook: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Tax returns: https://duguid.com.au/tools/accounting-questions/#general-tax
-- Deductions: https://duguid.com.au/tools/accounting-questions/#deductions
-- Starting a business: https://duguid.com.au/tools/accounting-questions/#business-setup
-- GST and BAS: https://duguid.com.au/tools/accounting-questions/#gst-bas
-- Payroll and super: https://duguid.com.au/tools/accounting-questions/#payroll-super
-- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/#bookkeeping-close
-- Cash flow: https://duguid.com.au/tools/accounting-questions/#cash-flow
-- Management reporting: https://duguid.com.au/tools/accounting-questions/#management-reporting
-- Companies and trusts: https://duguid.com.au/tools/accounting-questions/#company-compliance
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/#investments-local
-- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
-- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
-- Link to question 1: https://duguid.com.au/tools/accounting-questions/#q1
-- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
-- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/#business-use
-- Link to question 2: https://duguid.com.au/tools/accounting-questions/#q2
-- Link to question 3: https://duguid.com.au/tools/accounting-questions/#q3
-- Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
-- Link to question 4: https://duguid.com.au/tools/accounting-questions/#q4
-- Link to question 5: https://duguid.com.au/tools/accounting-questions/#q5
-- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
-- Link to question 6: https://duguid.com.au/tools/accounting-questions/#q6
-- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
-- Link to question 7: https://duguid.com.au/tools/accounting-questions/#q7
-- Link to question 8: https://duguid.com.au/tools/accounting-questions/#q8
-- Link to question 9: https://duguid.com.au/tools/accounting-questions/#q9
-- Link to question 10: https://duguid.com.au/tools/accounting-questions/#q10
-- Link to question 11: https://duguid.com.au/tools/accounting-questions/#q11
-- Link to question 12: https://duguid.com.au/tools/accounting-questions/#q12
-- Cents-per-kilometre rate table and method: https://duguid.com.au/rates/cents-per-kilometre/
-- Link to question 13: https://duguid.com.au/tools/accounting-questions/#q13
-- Link to question 14: https://duguid.com.au/tools/accounting-questions/#q14
-- Link to question 15: https://duguid.com.au/tools/accounting-questions/#q15
-- Link to question 16: https://duguid.com.au/tools/accounting-questions/#q16
-- Link to question 17: https://duguid.com.au/tools/accounting-questions/#q17
-- Link to question 18: https://duguid.com.au/tools/accounting-questions/#q18
-- Link to question 19: https://duguid.com.au/tools/accounting-questions/#q19
-- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
-- Link to question 20: https://duguid.com.au/tools/accounting-questions/#q20
-- ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
-- Link to question 21: https://duguid.com.au/tools/accounting-questions/#q21
-- Link to question 22: https://duguid.com.au/tools/accounting-questions/#q22
-- Link to question 23: https://duguid.com.au/tools/accounting-questions/#q23
-- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/#cash
-- Link to question 24: https://duguid.com.au/tools/accounting-questions/#q24
-- Link to question 25: https://duguid.com.au/tools/accounting-questions/#q25
-- Link to question 26: https://duguid.com.au/tools/accounting-questions/#q26
-- Link to question 27: https://duguid.com.au/tools/accounting-questions/#q27
-- Link to question 28: https://duguid.com.au/tools/accounting-questions/#q28
-- Link to question 29: https://duguid.com.au/tools/accounting-questions/#q29
-- Link to question 30: https://duguid.com.au/tools/accounting-questions/#q30
-- ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
-- GST calculator: https://duguid.com.au/tools/business-calculators/#gst
-- Link to question 31: https://duguid.com.au/tools/accounting-questions/#q31
-- Link to question 32: https://duguid.com.au/tools/accounting-questions/#q32
-- Link to question 33: https://duguid.com.au/tools/accounting-questions/#q33
-- Link to question 34: https://duguid.com.au/tools/accounting-questions/#q34
-- Link to question 35: https://duguid.com.au/tools/accounting-questions/#q35
-- ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
-- BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
-- Link to question 36: https://duguid.com.au/tools/accounting-questions/#q36
-- Link to question 37: https://duguid.com.au/tools/accounting-questions/#q37
-- Link to question 38: https://duguid.com.au/tools/accounting-questions/#q38
-- Link to question 39: https://duguid.com.au/tools/accounting-questions/#q39
-- Link to question 40: https://duguid.com.au/tools/accounting-questions/#q40
-- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
-- Link to question 41: https://duguid.com.au/tools/accounting-questions/#q41
-- Payday Super receipt-evidence example: https://duguid.com.au/tools/payday-super/
-- Link to question 42: https://duguid.com.au/tools/accounting-questions/#q42
-- Link to question 43: https://duguid.com.au/tools/accounting-questions/#q43
-- Link to question 44: https://duguid.com.au/tools/accounting-questions/#q44
-- PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
-- Link to question 45: https://duguid.com.au/tools/accounting-questions/#q45
-- Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
-- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
-- Link to question 46: https://duguid.com.au/tools/accounting-questions/#q46
-- Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
-- Link to question 47: https://duguid.com.au/tools/accounting-questions/#q47
-- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
-- Link to question 48: https://duguid.com.au/tools/accounting-questions/#q48
-- Link to question 49: https://duguid.com.au/tools/accounting-questions/#q49
-- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/#staff
-- Link to question 50: https://duguid.com.au/tools/accounting-questions/#q50
-- Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
-- Link to question 51: https://duguid.com.au/tools/accounting-questions/#q51
-- Link to question 52: https://duguid.com.au/tools/accounting-questions/#q52
-- Link to question 53: https://duguid.com.au/tools/accounting-questions/#q53
-- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
-- Link to question 54: https://duguid.com.au/tools/accounting-questions/#q54
-- Link to question 55: https://duguid.com.au/tools/accounting-questions/#q55
-- Link to question 56: https://duguid.com.au/tools/accounting-questions/#q56
-- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/#loan
-- Link to question 57: https://duguid.com.au/tools/accounting-questions/#q57
-- Link to question 58: https://duguid.com.au/tools/accounting-questions/#q58
-- Link to question 59: https://duguid.com.au/tools/accounting-questions/#q59
-- Link to question 60: https://duguid.com.au/tools/accounting-questions/#q60
-- Link to question 61: https://duguid.com.au/tools/accounting-questions/#q61
-- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
-- Link to question 62: https://duguid.com.au/tools/accounting-questions/#q62
-- Link to question 63: https://duguid.com.au/tools/accounting-questions/#q63
-- Link to question 64: https://duguid.com.au/tools/accounting-questions/#q64
-- Link to question 65: https://duguid.com.au/tools/accounting-questions/#q65
-- Link to question 66: https://duguid.com.au/tools/accounting-questions/#q66
-- Link to question 67: https://duguid.com.au/tools/accounting-questions/#q67
-- Link to question 68: https://duguid.com.au/tools/accounting-questions/#q68
-- Link to question 69: https://duguid.com.au/tools/accounting-questions/#q69
-- Budget variance calculator: https://duguid.com.au/tools/business-calculators/#variance
-- Link to question 70: https://duguid.com.au/tools/accounting-questions/#q70
-- Choose a pricing strategy: https://business.gov.au/products-and-services/choose-a-pricing-strategy
-- Break-even calculator: https://duguid.com.au/tools/business-calculators/#break-even
-- Link to question 71: https://duguid.com.au/tools/accounting-questions/#q71
-- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/#margin
-- Link to question 72: https://duguid.com.au/tools/accounting-questions/#q72
-- Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/#hourly
-- Link to question 73: https://duguid.com.au/tools/accounting-questions/#q73
-- Link to question 74: https://duguid.com.au/tools/accounting-questions/#q74
-- Link to question 75: https://duguid.com.au/tools/accounting-questions/#q75
-- Link to question 76: https://duguid.com.au/tools/accounting-questions/#q76
-- ATO benchmark comparison method: https://duguid.com.au/tools/ato-benchmarks/
-- Link to question 77: https://duguid.com.au/tools/accounting-questions/#q77
-- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
-- Link to question 78: https://duguid.com.au/tools/accounting-questions/#q78
-- Link to question 79: https://duguid.com.au/tools/accounting-questions/#q79
-- Xero trial-balance export: https://duguid.com.au/tools/xero-trial-balance/
-- Link to question 80: https://duguid.com.au/tools/accounting-questions/#q80
-- Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
-- Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
-- Link to question 81: https://duguid.com.au/tools/accounting-questions/#q81
-- Link to question 82: https://duguid.com.au/tools/accounting-questions/#q82
-- Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
-- Link to question 83: https://duguid.com.au/tools/accounting-questions/#q83
-- Link to question 84: https://duguid.com.au/tools/accounting-questions/#q84
-- Link to question 85: https://duguid.com.au/tools/accounting-questions/#q85
-- Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
-- Trust distributions example: https://duguid.com.au/tools/trust-distributions/
-- Link to question 86: https://duguid.com.au/tools/accounting-questions/#q86
-- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
-- Link to question 87: https://duguid.com.au/tools/accounting-questions/#q87
-- Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
-- Link to question 88: https://duguid.com.au/tools/accounting-questions/#q88
-- Link to question 89: https://duguid.com.au/tools/accounting-questions/#q89
-- Link to question 90: https://duguid.com.au/tools/accounting-questions/#q90
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Property and land: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land
-- Link to question 91: https://duguid.com.au/tools/accounting-questions/#q91
-- Link to question 92: https://duguid.com.au/tools/accounting-questions/#q92
+- Link to question 91: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
+- Link to question 92: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
 - Capital gains tax: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax
-- Link to question 93: https://duguid.com.au/tools/accounting-questions/#q93
-- Link to question 94: https://duguid.com.au/tools/accounting-questions/#q94
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 93: https://duguid.com.au/tools/accounting-questions/investments-local/#q93
+- Link to question 94: https://duguid.com.au/tools/accounting-questions/investments-local/#q94
 - Crypto asset investments: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments
-- Link to question 95: https://duguid.com.au/tools/accounting-questions/#q95
-- Link to question 96: https://duguid.com.au/tools/accounting-questions/#q96
+- Link to question 95: https://duguid.com.au/tools/accounting-questions/investments-local/#q95
+- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Link to question 96: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
 - ATO self-managed super funds: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf
-- Link to question 97: https://duguid.com.au/tools/accounting-questions/#q97
+- Link to question 97: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
 - Land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax
-- Link to question 98: https://duguid.com.au/tools/accounting-questions/#q98
+- Link to question 98: https://duguid.com.au/tools/accounting-questions/investments-local/#q98
 - TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
-- Link to question 99: https://duguid.com.au/tools/accounting-questions/#q99
-- Link to question 100: https://duguid.com.au/tools/accounting-questions/#q100
+- Link to question 99: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
+- Link to question 100: https://duguid.com.au/tools/accounting-questions/investments-local/#q100
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 ---
 
-# Australian business calculators: GST, margins, cash
+# GST calculator: exclusive, inclusive and GST amounts
 
-Source: https://duguid.com.au/tools/business-calculators/
+Source: https://duguid.com.au/tools/business-calculators/gst/
 
-> Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.
+> Enter an amount with or without GST and get the GST component, the exclusive amount and the inclusive amount at 10%, rounded once to cents, in your browser.
 
-# Business calculators
+# GST calculator
 
-Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.
+Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
 
-Find a question and prepare a checklist.
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Published 11 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 20 September 2026.
 
-JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
-
-- GST
-- Business-use share
-- Margin and markup
-- Break-even sales
-- Hourly pricing
-- Budget variance
-- Monthly loan payments
-- Staff cost
-- 13-week cash forecast
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 ## GST
 
@@ -5212,6 +6360,33 @@ GST inputs
 Amount (AUD) Amount includes GST
 
 Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+
+---
+
+# Business-use share calculator for apportioning costs
+
+Source: https://duguid.com.au/tools/business-calculators/business-use/
+
+> Apportion an eligible cost by a business-use percentage in your browser. It shows the share only; deductibility, depreciation and records are decided separately.
+
+# Business-use share calculator
+
+Apportion an eligible cost by a supported business-use percentage. It does not decide deductibility, depreciation or record sufficiency.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 ## Business-use share
 
@@ -5227,6 +6402,34 @@ Eligible cost (AUD) Business use (%)
 
 Calculate Enter the inputs and calculate.
 
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
+- Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/deductions/#q15
+
+---
+
+# Margin and markup calculator
+
+Source: https://duguid.com.au/tools/business-calculators/margin/
+
+> Work out gross profit, margin and markup from sales and direct cost in your browser, on a consistent GST basis. A zero denominator leaves that percentage undefined.
+
+# Margin and markup calculator
+
+Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
 ## Margin and markup
 
 Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
@@ -5238,6 +6441,33 @@ Margin and markup inputs
 Sales (AUD) Direct cost (AUD)
 
 Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
+
+---
+
+# Break-even sales calculator: units and sales
+
+Source: https://duguid.com.au/tools/business-calculators/break-even/
+
+> Work out contribution per unit, break-even units (rounded up) and break-even sales from fixed costs, price and variable cost per unit, in your browser.
+
+# Break-even sales calculator
+
+Whole units and sales required to cover fixed costs from price and variable cost per unit.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 ## Break-even sales
 
@@ -5251,6 +6481,33 @@ Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per 
 
 Calculate Enter the inputs and calculate.
 
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
+
+---
+
+# Hourly pricing calculator for a required rate
+
+Source: https://duguid.com.au/tools/business-calculators/hourly/
+
+> Work out the hourly rate before GST that covers annual costs and a target profit over your billable hours, in your browser, with the formula visible.
+
+# Hourly pricing calculator
+
+Required hourly rate before GST from annual costs, target profit and billable hours.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
 ## Hourly pricing
 
 Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
@@ -5262,6 +6519,33 @@ Hourly pricing inputs
 Annual costs (AUD) Target annual profit (AUD) Annual billable hours
 
 Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
+
+---
+
+# Budget variance calculator: favourable or unfavourable
+
+Source: https://duguid.com.au/tools/business-calculators/variance/
+
+> Compare actual to budget for an income or cost line in your browser: the difference, its percentage of absolute budget, and whether it is favourable or unfavourable.
+
+# Budget variance calculator
+
+Actual minus budget, the percentage of absolute budget, and whether the difference is favourable or unfavourable.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 ## Budget variance
 
@@ -5279,6 +6563,34 @@ Figure type Income Cost
 
 Calculate Enter the inputs and calculate.
 
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
+- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
+
+---
+
+# Monthly loan payment calculator
+
+Source: https://duguid.com.au/tools/business-calculators/loan/
+
+> Estimate a fixed monthly loan payment, first-month interest and principal, and total interest from principal, annual rate and term, in your browser.
+
+# Monthly loan payment calculator
+
+Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
 ## Monthly loan payments
 
 For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
@@ -5291,6 +6603,33 @@ Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
 Calculate Enter the inputs and calculate.
 
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+
+---
+
+# Staff cost calculator: annual and monthly
+
+Source: https://duguid.com.au/tools/business-calculators/staff/
+
+> Add wages, the super amount you supply and other annual costs to see the annual and monthly cost of a staff member, in your browser, with nothing counted twice.
+
+# Staff cost calculator
+
+Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
 ## Staff cost
 
 Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
@@ -5302,6 +6641,33 @@ Staff cost inputs
 Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
 Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+
+---
+
+# 13-week cash forecast calculator with CSV export
+
+Source: https://duguid.com.au/tools/business-calculators/cash/
+
+> Build a 13-week cash forecast in your browser: weekly closing cash, one delayed receipt, the funding gap against a buffer, CSV export and saved inputs.
+
+# 13-week cash forecast
+
+Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 ## 13-week cash forecast
 
@@ -5348,42 +6714,23 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
-- GST: https://duguid.com.au/tools/business-calculators/#gst
-- Business-use share: https://duguid.com.au/tools/business-calculators/#business-use
-- Margin and markup: https://duguid.com.au/tools/business-calculators/#margin
-- Break-even sales: https://duguid.com.au/tools/business-calculators/#break-even
-- Hourly pricing: https://duguid.com.au/tools/business-calculators/#hourly
-- Budget variance: https://duguid.com.au/tools/business-calculators/#variance
-- Monthly loan payments: https://duguid.com.au/tools/business-calculators/#loan
-- Staff cost: https://duguid.com.au/tools/business-calculators/#staff
-- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/#cash
-- ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
-- rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
-- Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/#q15
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/#q75
-- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
-- Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 
 ---
 
-# Privacy and site use | Ryan Duguid
+# Privacy and site use
 
 Source: https://duguid.com.au/privacy/
 
 > How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links.
 
-Home
-
 # Privacy and site use
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 18 September 2026.
+Published 12 September 2026. Last reviewed 20 September 2026.
 
 ## Browser calculations
 
@@ -5395,7 +6742,7 @@ The accounting-question search also runs in your browser. It does not send searc
 
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
-Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+No analytics script is delivered. Cloudflare Web Analytics was removed from this site on 20 September 2026, so no page-view data is collected or reported to the site owner. Technical request information is still handled by the hosting and delivery providers below.
 
 Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
 
@@ -5425,8 +6772,6 @@ The website source is available under its MIT licence, which includes its warran
 
 ## Links
 
-- Home: https://duguid.com.au/
-- Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/

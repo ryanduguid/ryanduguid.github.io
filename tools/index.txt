@@ -1,4 +1,4 @@
-# Open-source Australian accounting tools | Ryan Duguid
+# Open-source Australian accounting tools
 
 Source: https://duguid.com.au/tools/
 
@@ -41,8 +41,6 @@ Trust distribution checks Python Company tax and franking checks Python ATO benc
 - AI agents in the workflow
 
 Australian tax tools for AI agents MCP
-
-Extract Calculate Control Inspect
 
 Extract
 
@@ -266,10 +264,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Company tax and franking checks Python: https://duguid.com.au/tools/company-tax-franking/
 - ATO benchmark comparison Python: https://duguid.com.au/tools/ato-benchmarks/
 - Australian tax tools for AI agents MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- Extract: https://duguid.com.au/tools/#extract-tools
-- Calculate: https://duguid.com.au/tools/#calculate-tools
-- Control: https://duguid.com.au/tools/#control-tools
-- Inspect: https://duguid.com.au/tools/#inspect-tools
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - Evaluation procedure: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce

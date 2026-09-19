@@ -1,0 +1,204 @@
+# Starting a business: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/business-setup/
+
+> Ten questions on starting a business for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Starting a business
+
+Practical steps, records and official guidance on starting a business. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the entity, activity, and income year being assessed. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Starting a business
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Starting a business
+
+Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
+
+21. Do I need an ABN for freelance or contracting work?
+
+ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.
+
+- Record the work arrangement, independence, activity and evidence that the enterprise has started.
+- Read the ABR entitlement guidance before applying.
+
+An ABN does not decide whether a worker is an employee for tax, super or workplace law.
+
+ABR ABN application and entitlement
+
+Link to question 21
+
+22. How do I apply for an ABN, and what information do I need?
+
+Apply through the official ABR route after checking entitlement.
+
+- Gather the entity structure, business activity, start date and contact information required by the ABR.
+- Enter identity information directly into the official application and save its confirmation.
+
+This site neither applies for an ABN nor handles identity documents.
+
+ABR ABN application and entitlement
+
+Link to question 22
+
+23. Is my activity a hobby or a business for tax purposes?
+
+Assess the pattern of activity, commercial purpose and how the activity is organised.
+
+- Document your intention, pricing, repetition, scale, records and plan to make a profit.
+- Keep the conclusion and supporting facts, and reassess when the activity changes.
+
+There is no single revenue figure in this guide that classifies every activity.
+
+Starting, registering or closing a business
+
+Link to question 23
+
+24. Should I operate as a sole trader or a company?
+
+Compare liability, ownership, administration, tax and how profits will reach the owners.
+
+- Prepare the same forecast under each structure, including compliance costs and money taken out.
+- Discuss asset protection, existing contracts and restructuring costs with the relevant advisers before choosing.
+
+A lower company tax rate alone does not establish a lower total cost or a suitable structure.
+
+Starting, registering or closing a business · 13-week cash forecast
+
+Link to question 24
+
+25. How much should I set aside for income tax as a sole trader?
+
+Reserve cash against an estimate of your annual personal tax position and instalments already paid.
+
+- Forecast business profit alongside salary and other personal income, deductions and credits.
+- Place expected instalments and the remaining tax payment into the cash forecast on their due dates.
+
+A fixed percentage of sales can miss deductions, other income and tax already paid.
+
+Your tax return · 13-week cash forecast
+
+Link to question 25
+
+26. Do I need a separate business bank account?
+
+A separate account makes business transactions easier to trace. The requirements also depend on the entity.
+
+- Record which accounts hold business money and reconcile each to its statement.
+- For a company or trust, keep entity funds and private funds clearly identified and correctly recorded.
+
+Check the account requirements for your structure before opening or changing banking arrangements.
+
+Starting, registering or closing a business
+
+Link to question 26
+
+27. How do I pay myself and record drawings as a sole trader?
+
+Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.
+
+- Record the transfer against drawings or the owner's equity account in your agreed chart.
+- Keep drawings visible in the cash forecast so the business can meet upcoming obligations.
+
+A sole trader's drawings do not set the amount of taxable business profit.
+
+Starting, registering or closing a business · 13-week cash forecast
+
+Link to question 27
+
+28. Do the personal services income rules apply to my contracting income?
+
+Review whether the income is mainly a reward for personal effort or skill, then work through the applicable PSI tests.
+
+- Keep contracts, invoices, working arrangements and evidence for any test relied on.
+- Record the income streams separately and review personal-services-business conditions with your adviser.
+
+An ABN or company structure does not by itself switch off the PSI rules.
+
+Starting, registering or closing a business
+
+Link to question 28
+
+29. How do I report income from a side hustle, delivery work or online sales?
+
+Reconcile gross platform activity to payouts before deciding how to report it.
+
+- Export sales, fees, refunds and activity records for the income year.
+- Document whether the activity is business, employment or another income category and check GST separately.
+
+Net bank deposits can omit fees and gross receipts that need separate reporting.
+
+Starting, registering or closing a business
+
+Link to question 29
+
+30. Can I offset a business loss against my salary or other income?
+
+A business loss needs a separate review before it can reduce other income.
+
+- Keep the loss calculation, activity history and records relevant to the non-commercial loss tests.
+- Record whether an exception, test or discretion applies, or whether the loss must be deferred.
+
+A loss in the accounts does not automatically offset salary in the tax return.
+
+Starting, registering or closing a business
+
+Link to question 30
+
+- Tax returns
+- Deductions
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
+- Link to question 21: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
+- Link to question 22: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
+- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Link to question 23: https://duguid.com.au/tools/accounting-questions/business-setup/#q23
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 24: https://duguid.com.au/tools/accounting-questions/business-setup/#q24
+- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Link to question 25: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
+- Link to question 26: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
+- Link to question 27: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
+- Link to question 28: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
+- Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
+- Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

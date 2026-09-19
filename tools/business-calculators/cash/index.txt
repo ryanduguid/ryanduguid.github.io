@@ -1,0 +1,66 @@
+# 13-week cash forecast calculator with CSV export
+
+Source: https://duguid.com.au/tools/business-calculators/cash/
+
+> Build a 13-week cash forecast in your browser: weekly closing cash, one delayed receipt, the funding gap against a buffer, CSV export and saved inputs.
+
+# 13-week cash forecast
+
+Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+## 13-week cash forecast
+
+Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
+
+business.gov.au: cash flow
+
+The Lumbridge cash-flow case works the same question with a 45-day receipt delay.
+
+13-week cash forecast inputs
+
+First day of week 1 Load inputs (replaces the current forecast)
+
+Save inputs to a file on your device and load it to continue later. File contents are processed in your browser. A valid file replaces all forecast inputs; an invalid file leaves them intact. Each week covers 7 days from the start date.
+
+Save inputs
+
+Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
+
+Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.
+
+Week | Receipts (AUD) | Payments (AUD)
+1 | |
+2 | |
+3 | |
+4 | |
+5 | |
+6 | |
+7 | |
+8 | |
+9 | |
+10 | |
+11 | |
+12 | |
+13 | |
+
+Calculate Enter the inputs and calculate.
+
+Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.
+
+Download forecast CSV
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/

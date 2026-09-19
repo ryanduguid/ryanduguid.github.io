@@ -1,0 +1,17 @@
+<section class="business-calculator" id="loan">
+<h2>Monthly loan payments</h2><p>For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.</p><p><a href="/tools/accounting-questions/bookkeeping-close/#q57">Loan reconciliation checklist</a></p>
+<form data-calculator="loan">
+<fieldset disabled><legend>Monthly loan payments inputs</legend><div class="form-grid"><label class="field" for="loan-principal">Loan principal (AUD)<input id="loan-principal" name="principal" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
+<label class="field" for="loan-rate">Annual nominal interest rate (%)<input id="loan-rate" name="rate" type="number" min="0" max="100" step=".0001" value="" required /></label>
+<label class="field" for="loan-months">Number of monthly payments<input id="loan-months" name="months" type="number" min="1" max="600" step="1" value="" required /></label>
+</div>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formula: payment = principal × r / (1 − (1 + r) raised to −n), with r the monthly rate and n the number of payments; at zero interest, payment = principal / n. Payments in arrears, no fees or balloon.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The interest rate is yours, not a market or lender rate. No external source is applied.</li>
+</ul>
+</div>
+</form></section>

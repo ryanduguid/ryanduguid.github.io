@@ -1,0 +1,210 @@
+# Bookkeeping and close: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+
+> Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Bookkeeping and close
+
+Practical steps, records and official guidance on bookkeeping and close. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the same reporting date and accounting basis for all reconciliations. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Bookkeeping and close
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Bookkeeping and close
+
+Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations.
+
+51. Why does my Xero bank balance differ from my bank statement?
+
+Reconcile the bank statement and Xero at the same date before posting a correction.
+
+- Compare statement lines with ledger transactions, outstanding payments and deposits.
+- Investigate missing feeds, duplicates, opening balances and items dated outside the period.
+
+Do not post a balancing journal while the cause remains unknown.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 51
+
+52. How do I identify and fix duplicate bank transactions in Xero?
+
+Identify whether the duplicate is a statement line, an accounting transaction or both.
+
+- Match date, amount, bank reference and source document; distinguish repeated genuine payments.
+- Use the appropriate Xero correction after review, then re-run the bank reconciliation.
+
+Removing the wrong item can remove a real transaction; retain the correction trail.
+
+Record keeping for business
+
+Link to question 52
+
+53. How do I correct a customer payment matched to the wrong invoice?
+
+Trace the payment and both customer invoices before changing the match.
+
+- Save the original allocation details and check whether the invoice or period is locked.
+- Correct the allocation through Xero's supported workflow and recheck both customer balances and the bank reconciliation.
+
+A different bank receipt should not be created merely to fix an allocation.
+
+Record keeping for business
+
+Link to question 53
+
+54. How do I record a personal purchase paid from the business account?
+
+Code the private payment according to the entity and the person's relationship to it.
+
+- Keep the receipt, purpose and repayment evidence, and separate any business portion.
+- For a sole trader, review drawings; for a company, review the director or shareholder account and tax consequences.
+
+A company payment cannot automatically be treated as sole-trader drawings.
+
+Record keeping for business · Division 7A review case and limitations
+
+Link to question 54
+
+55. Which business records should I keep, and for how long?
+
+Keep records that let someone trace transactions, calculations and decisions for the required retention period.
+
+- Create a register covering tax, payroll, assets, loans, contracts and entity records.
+- Assign retention dates using the relevant ATO and other legal requirements, including longer periods for continuing assets or disputes.
+
+Do not apply one blanket retention date to every document.
+
+Record keeping for business
+
+Link to question 55
+
+56. How should I organise my chart of accounts?
+
+Use a chart of accounts that supports reporting and reconciliations at a manageable level of detail.
+
+- Separate assets, liabilities, equity, revenue and expenses; keep control accounts identifiable.
+- Use consistent account mappings and tracking categories for the dimensions you need to report.
+
+Do not create a new account for every customer or supplier when the subledger already tracks them.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 56
+
+57. How do I split a loan repayment between principal and interest?
+
+Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.
+
+- Reconcile opening principal, advances, principal repayments and closing principal.
+- Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender's statement.
+
+Fees, daily interest, variable rates and balloons need the actual lender schedule.
+
+Set up a cash flow statement · Monthly loan payment calculator
+
+Link to question 57
+
+58. Should a purchase be recorded as an asset or an expense?
+
+Apply your accounting policy to the nature, use and expected benefit of the purchase, then assess tax separately.
+
+- Record what was acquired, cost, useful life and when it became available for use.
+- If capitalised, update the asset register and depreciation; document any tax difference.
+
+An accounting asset policy and an immediate tax deduction rule can give different treatments.
+
+Record keeping for business · Experimental tax worksheets and supported years
+
+Link to question 58
+
+59. Why do my aged receivables or payables differ from the general ledger?
+
+Compare the aged report and ledger on the same date with the same filters.
+
+- Trace journals to control accounts, prepayments, credits, foreign-currency adjustments and excluded contacts.
+- Prepare a bridge to the ledger and resolve unexplained items before closing.
+
+A matching total alone does not establish that individual balances are collectible or payable.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 59
+
+60. What should I reconcile and check before closing the month or financial year?
+
+Close from reconciled balances and documented review decisions.
+
+- Reconcile bank, receivables, payables, GST, payroll, super, loans, fixed assets and key accruals.
+- Review cut-off, unusual journals and variances, then retain the pack and approval before locking the period.
+
+Fictional worked example
+
+At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner, and the evidence needed to resolve it before completing the close.
+
+The existing close pack supports review; it does not automatically approve journals or finalise accounts.
+
+Record keeping for business · Monthly-close review pack
+
+Link to question 60
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 51: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q51
+- Link to question 52: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q52
+- Link to question 53: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q53
+- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
+- Link to question 54: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
+- Link to question 55: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
+- Link to question 56: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Link to question 57: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 58: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q58
+- Link to question 59: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q59
+- Link to question 60: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q60
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

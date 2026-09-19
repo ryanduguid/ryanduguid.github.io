@@ -1,0 +1,36 @@
+# Break-even sales calculator: units and sales
+
+Source: https://duguid.com.au/tools/business-calculators/break-even/
+
+> Work out contribution per unit, break-even units (rounded up) and break-even sales from fixed costs, price and variable cost per unit, in your browser.
+
+# Break-even sales calculator
+
+Whole units and sales required to cover fixed costs from price and variable cost per unit.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+## Break-even sales
+
+Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
+
+business.gov.au: pricing
+
+Break-even sales inputs
+
+Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per unit (AUD)
+
+Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing

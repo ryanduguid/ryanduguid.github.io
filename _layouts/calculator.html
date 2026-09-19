@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="{{ page.title }}" />
+  <meta property="og:description" content="{{ page.description }}" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au{{ page.url }}" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{{ page.title }}" />
+  <meta name="twitter:description" content="{{ page.description }}" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au{{ page.url }}" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au{{ page.url }}index.txt" />
+  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="modulepreload" href="/assets/business-calculators.mjs" />
+  <link rel="modulepreload" href="/assets/field-errors.mjs" />
+  <link rel="stylesheet" href="/assets/tokens.css" />
+  <link rel="stylesheet" href="/assets/site.css" />
+
+  <link rel="stylesheet" href="/assets/accounting-pages.css" />
+  <script type="module" src="/assets/accounting-pages.mjs"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main accounting-page">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
+        <h1>{{ page.heading }}</h1>
+        <p class="lead-note">{{ page.lead }}</p>
+        <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser; inputs are not saved or sent anywhere.</p>
+        <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "loan" %}; loan estimates allow for calculation precision{% endif %}.</p>
+        <p class="page-meta">Published 20 September 2026. Last reviewed 20 September 2026.</p>
+      </header>
+      <div class="site-shell accounting-content">
+        <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
+{% include calculators/{{ page.calculator }}.html %}
+      <p class="byline">
+        Written by Ryan Duguid in his own time and on his own equipment.
+        He is a Provisional CA ANZ Member.
+        CA ANZ has not endorsed this site or its tools.
+      </p>
+</div></article></main>
+{% include site-footer.html %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au{{ page.url }}#webpage",
+      "url": "https://duguid.com.au{{ page.url }}",
+      "name": "{{ page.title }}",
+      "description": "{{ page.description }}",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-20",
+      "dateModified": "2026-09-20",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ page.heading }}",
+          "item": "https://duguid.com.au{{ page.url }}"
+        }
+      ]
+    }
+  ]
+}
+</script></body></html>

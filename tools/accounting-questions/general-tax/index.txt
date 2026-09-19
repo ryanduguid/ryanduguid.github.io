@@ -1,0 +1,207 @@
+# Tax returns: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/general-tax/
+
+> Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Tax returns
+
+Practical steps, records and official guidance on tax returns. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the income year and residency facts for the return being prepared. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Tax returns
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Tax returns
+
+Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared.
+
+1. What will my income-tax bill be?
+
+Start with taxable income for the correct income year, then account for levies, offsets, study loans and tax already withheld. A basic tax-bracket result alone is incomplete.
+
+- Gather income statements, investment statements, deductible expenses and PAYG credits.
+- Use the ATO return estimate and reconcile each adjustment before treating it as a budget.
+
+The linked experimental income-tax worksheet excludes levies and offsets; check its supported years.
+
+Your tax return · Experimental tax worksheets and supported years
+
+Link to question 1
+
+2. Which expenses reduce my taxable income?
+
+An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+
+- List each expense, its purpose, date, amount and reimbursement.
+- Record your work-use calculation and check the ATO category before claiming.
+
+A receipt proves spending, but does not by itself establish deductibility.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 2
+
+3. What steps are involved in completing a return?
+
+Collect the year's records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
+
+- Check income statements are ready and account for income missing from pre-fill.
+- Keep a copy of the reviewed return, declaration and lodgement receipt.
+
+The checklist prepares your records; lodgement happens with the ATO or your registered agent.
+
+Your tax return
+
+Link to question 3
+
+4. Where can I obtain or recover my TFN?
+
+Use the ATO's TFN application or lost-TFN route. The right application process depends on residency and circumstances.
+
+- If you already have a TFN, use the ATO recovery instructions before applying again.
+- Complete any identity checks directly with the official service.
+
+Do not put a TFN or identity documents into this website or a public issue.
+
+Tax file number
+
+Link to question 4
+
+5. What dates govern the annual tax cycle?
+
+Build a calendar from the dates that apply to your return, activity statements, payroll and entity obligations.
+
+- Record the period, lodgement date, payment date and responsible person for each obligation.
+- Confirm the dates in your ATO account or with your registered agent; record any approved extension.
+
+An agent's program or a particular account can have different dates from a general calendar.
+
+Your tax return
+
+Link to question 5
+
+6. Which methods can I use to settle my tax bill?
+
+Use the ATO payment instructions for the relevant account and payment reference.
+
+- Check the amount owing and available payment methods in the official service.
+- Allow for processing time and keep the receipt; reconcile the payment when it appears.
+
+This website does not collect payments or supply bank details.
+
+Paying the ATO
+
+Link to question 6
+
+7. Which earnings are taxable?
+
+Check each source of income against the ATO's categories. Amounts missing from pre-fill still need review.
+
+- Reconcile employment, business, investment, government and foreign income records.
+- List unusual receipts separately and record why they are included or excluded.
+
+A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.
+
+ATO income, deductions and records
+
+Link to question 7
+
+8. How long will the tax-return process take?
+
+Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.
+
+- Complete the record checklist before setting a preparation deadline.
+- After lodgement, use the official progress service and respond to any information request.
+
+No refund date or processing outcome is guaranteed here.
+
+Your tax return
+
+Link to question 8
+
+9. Where can I submit a completed return?
+
+Individuals can use the lodgement options on the ATO's tax-return page, including myTax where eligible, a registered agent or paper.
+
+- Choose the route for your circumstances and confirm the income year.
+- Review the declaration and save the lodgement receipt after submission.
+
+The site supplies preparation guidance and does not submit returns.
+
+Your tax return
+
+Link to question 9
+
+10. Which tax rules changed during 2025?
+
+A calendar-year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.
+
+- Use the ATO 'Before you prepare your tax return' guidance for each year.
+- Record each changed rate or rule, effective date, source and affected calculation in a change log.
+
+An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
+
+Your tax return
+
+Link to question 10
+
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 1: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
+- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Link to question 2: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
+- Link to question 3: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
+- Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
+- Link to question 4: https://duguid.com.au/tools/accounting-questions/general-tax/#q4
+- Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
+- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
+- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Link to question 7: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
+- Link to question 8: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
+- Link to question 9: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
+- Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
