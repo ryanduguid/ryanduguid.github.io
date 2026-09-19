@@ -56,7 +56,7 @@ uvx --from aus-accounting-mcp==0.2.3 aus-accounting-mcp-demo
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
 
-The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.2 package. Its full output includes the engine's caveats; retain those with any extracted result.
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.3 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 

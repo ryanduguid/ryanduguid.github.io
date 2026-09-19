@@ -1988,7 +1988,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
 
-Published 16 September 2026. Last reviewed 16 September 2026.
+Published 16 September 2026. Last reviewed 20 September 2026.
 
 ## What belongs here
 
@@ -2258,7 +2258,7 @@ This is a fixed example. Nothing to install or upload; these dates do not recalc
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 20 September 2026.
 
 ## Try the CSV without cloning
 
@@ -2350,9 +2350,9 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is ato-benchmark-compare/v0.1.7.
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is ato-benchmark-compare/v0.1.8.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 20 September 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts, and divide.
 
@@ -2442,7 +2442,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
-- ato-benchmark-compare/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.7
+- ato-benchmark-compare/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
@@ -3062,7 +3062,7 @@ uvx --from aus-accounting-mcp==0.2.3 aus-accounting-mcp-demo
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
 
-The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.2 package. Its full output includes the engine's caveats; retain those with any extracted result.
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.3 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 
