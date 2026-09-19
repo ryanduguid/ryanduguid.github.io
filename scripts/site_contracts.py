@@ -61,8 +61,7 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
-    "Ryan Duguid is a Provisional CA ANZ Member. "
-    "CA ANZ has not endorsed this site or its tools."
+    "Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-09-20"
@@ -128,8 +127,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "australian-accounting-skills": (
         "australian-accounting-skills",
         "https://github.com/ryanduguid/australian-accounting-skills",
-        "Claude Code and Codex skills for Australian public-practice workflows. "
-        "Not lodgement.",
+        "Claude Code and Codex skills for Australian public-practice workflows. Not lodgement.",
     ),
     "workpaper-review-gate": (
         "workpaper-review-gate",
@@ -313,9 +311,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
     },
     "evaluate/xero-trial-balance-integrity/index.html": {
         "url": f"{SITE}/evaluate/xero-trial-balance-integrity/",
-        "product_repository": (
-            "https://github.com/ryanduguid/accounting-review-pipeline"
-        ),
+        "product_repository": ("https://github.com/ryanduguid/accounting-review-pipeline"),
         "product_evidence_contract": (
             "global xero-trial-balance-export evidence hrefs must match approved "
             "permanent URLs exactly once"
@@ -378,12 +374,10 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "passing.csv exits 0 and reports that movement and YTD balance.",
             "failing_movement.csv exits 1, identifies the movement pair, and reports "
             "Nothing written.",
-            "failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing "
-            "written.",
+            "failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.",
             "failing_movement.csv breaks only the current-month Debit/Credit pair.",
             "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
-            "The evaluation runner calls the production check_balanced gate before "
-            "any CSV write.",
+            "The evaluation runner calls the production check_balanced gate before any CSV write.",
             "A balanced export passes this integrity control only; a human still "
             "decides completeness, classification, accounting treatment, and fitness "
             "for review.",
@@ -510,9 +504,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "reproduce": (
                 "Needs Git, and uv with Python 3.12; the commands are the same on Windows, macOS and Linux. Clone the australian-accounting monorepo at tag payday-super-checker/v0.1.3 (commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.",
             ),
-            "limitations": (
-                "This evaluation does not provide advice or make an ATO assessment.",
-            ),
+            "limitations": ("This evaluation does not provide advice or make an ATO assessment.",),
         },
         "sitemap_lastmod": "2026-09-18",
         "llms_section": "Evaluation packs",
@@ -596,6 +588,9 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
                 "/rates/cents-per-kilometre/",
                 "Cents per kilometre car-expense rate",
             ),
+            ("/rates/maximum-contribution-base/", "Maximum super contribution base"),
+            ("/rates/car-limit/", "Car limit for depreciation"),
+            ("/rates/fbt-rate/", "FBT rate and gross-up rates"),
         ],
     },
 }
@@ -700,11 +695,17 @@ ARTICLE_PATTERN_PAGES = {
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
+    "rates/maximum-contribution-base/index.html",
+    "rates/car-limit/index.html",
+    "rates/fbt-rate/index.html",
 }
 RATE_PAGES = {
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
+    "rates/maximum-contribution-base/index.html",
+    "rates/car-limit/index.html",
+    "rates/fbt-rate/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
 FORMULA_B_QUESTION = "What does the 75% in Formula B apply to?"
@@ -732,9 +733,7 @@ TASK_ROUTES_REL = "tools/index.html"
 LEVY_PAGE_MODULE = "assets/levy-page.mjs"
 LEVY_PAGE_SCRIPT = '<script type="module" src="/assets/levy-page.mjs"></script>'
 HEADER_DATED_PAGES = {
-    rel
-    for rel in ARTICLE_PATTERN_PAGES
-    if rel.startswith(("tools/", "evaluate/", "examples/"))
+    rel for rel in ARTICLE_PATTERN_PAGES if rel.startswith(("tools/", "evaluate/", "examples/"))
 } | {CALCULATOR_REL, "rates/index.html", "evaluate/index.html"}
 CALCULATOR_MARKERS = [
     'name="branch"',
@@ -776,9 +775,7 @@ CALCULATOR_REQUIRED_IDS = {
     "ordinaryPay",
     "bonus-row-template",
 }
-CALCULATOR_COMMON_HELP = (
-    "Leave a monetary amount blank to treat it as $0.00."
-)
+CALCULATOR_COMMON_HELP = "Leave a monetary amount blank to treat it as $0.00."
 CALCULATOR_BLANK_RESULT_EXPLANATION = (
     "All monetary amounts were blank, so the calculator treated each as $0.00."
 )
@@ -902,9 +899,7 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
     titles = re.findall(r"<title>(.*?)</title>", html, re.S)
     title = html_lib.unescape(titles[0].strip()) if len(titles) == 1 else None
     if title != HOMEPAGE_TITLE:
-        failures.append(
-            f"index.html: homepage title is {title!r}, expected {HOMEPAGE_TITLE!r}"
-        )
+        failures.append(f"index.html: homepage title is {title!r}, expected {HOMEPAGE_TITLE!r}")
     description = core.meta(html, "name", "description")
     if description != HOMEPAGE_DESCRIPTION:
         failures.append(
@@ -917,9 +912,7 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
     ):
         actual = core.meta(html, "property", property_name)
         if actual != expected:
-            failures.append(
-                f"index.html: {property_name} is {actual!r}, expected {expected!r}"
-            )
+            failures.append(f"index.html: {property_name} is {actual!r}, expected {expected!r}")
     text = core.visible_text(html)
     for required in HOMEPAGE_REQUIRED_TEXT:
         if required not in text:
@@ -935,9 +928,7 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         if element.has_class("home-hero__summary")
     ]
     if len(summaries) != 1 or core.element_text(summaries[0]) != HOMEPAGE_SUPPORT:
-        failures.append(
-            f"index.html: homepage support text must be {HOMEPAGE_SUPPORT!r}"
-        )
+        failures.append(f"index.html: homepage support text must be {HOMEPAGE_SUPPORT!r}")
 
     action_groups = [
         element
@@ -1000,14 +991,9 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         rendered.find('id="verify"'),
     )
     if any(position < 0 for position in sequence) or tuple(sorted(sequence)) != sequence:
-        failures.append(
-            "index.html: content order must be preview, proof, Adopt, Verify"
-        )
+        failures.append("index.html: content order must be preview, proof, Adopt, Verify")
 
-    hrefs = [
-        link.attr("href")
-        for link in core.descendants(root, "a", rendered_only=True)
-    ]
+    hrefs = [link.attr("href") for link in core.descendants(root, "a", rendered_only=True)]
     for href in HOMEPAGE_REQUIRED_HREFS:
         if href not in hrefs:
             failures.append(f"index.html: missing visible homepage route {href}")
@@ -1023,8 +1009,7 @@ def check_homepage_contract(html: str, failures: list[str]) -> None:
         )
         return
     proof_hrefs = {
-        link.attr("href")
-        for link in core.descendants(proof_features[0], "a", rendered_only=True)
+        link.attr("href") for link in core.descendants(proof_features[0], "a", rendered_only=True)
     }
     for href in HOMEPAGE_PROOF_HREFS:
         if href not in proof_hrefs:
@@ -1051,9 +1036,7 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
 
     links = core.descendants(toc, "a", rendered_only=True)
     if not links:
-        failures.append(
-            f"{rel}: On this page navigation must contain at least one local link"
-        )
+        failures.append(f"{rel}: On this page navigation must contain at least one local link")
         return
     target_ids = {
         element.attr("id")
@@ -1075,9 +1058,7 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
                 f"{rel}: evaluator link {external_href!r} must appear once "
                 f"across the rendered page, found {len(rendered_evaluator_links)}"
             )
-        matching_external_links = [
-            link for link in links if link.attr("href") == external_href
-        ]
+        matching_external_links = [link for link in links if link.attr("href") == external_href]
         if len(matching_external_links) != 1:
             failures.append(
                 f"{rel}: external On this page link {external_href!r} must appear "
@@ -1090,9 +1071,7 @@ def check_article_pattern(html: str, rel: str, failures: list[str]) -> None:
             )
         else:
             external_index = links.index(matching_external_links[0])
-            previous_label = (
-                core.element_text(links[external_index - 1]) if external_index else ""
-            )
+            previous_label = core.element_text(links[external_index - 1]) if external_index else ""
             if previous_label != preceding_label:
                 failures.append(
                     f"{rel}: external On this page link {external_href!r} must "
@@ -1141,19 +1120,14 @@ def check_header_review_date(html: str, rel: str, failures: list[str]) -> None:
     headers = [
         element
         for element in core.descendants(root, "header", rendered_only=True)
-        if element.has_class("article-header")
-        or element.has_class("calculator-header")
+        if element.has_class("article-header") or element.has_class("calculator-header")
     ]
     dates = [
         element
         for element in core.descendants(root, rendered_only=True)
         if element.has_class("page-meta")
     ]
-    if (
-        len(headers) != 1
-        or len(dates) != 1
-        or not core.is_descendant(dates[0], headers[0])
-    ):
+    if len(headers) != 1 or len(dates) != 1 or not core.is_descendant(dates[0], headers[0]):
         failures.append(f"{rel}: Published/Last reviewed line must be in the page header")
 
 
@@ -1196,16 +1170,13 @@ def check_id_contract(
         return None
     element = matches[0]
     if element.tag != tag:
-        failures.append(
-            f"{CALCULATOR_REL}: #{identifier} must be {tag}, found {element.tag}"
-        )
+        failures.append(f"{CALCULATOR_REL}: #{identifier} must be {tag}, found {element.tag}")
         return element
     for name, expected in attributes.items():
         actual = element.attr(name)
         if actual != expected:
             failures.append(
-                f"{CALCULATOR_REL}: #{identifier} {name} must be {expected!r}, "
-                f"found {actual!r}"
+                f"{CALCULATOR_REL}: #{identifier} {name} must be {expected!r}, found {actual!r}"
             )
     for name in present:
         if name not in element.attrs:
@@ -1285,35 +1256,24 @@ def check_calculator_contract(
 
     root = core.parse_structure(html)
     all_ids = [
-        identifier
-        for element in core.descendants(root)
-        if (identifier := element.attr("id"))
+        identifier for element in core.descendants(root) if (identifier := element.attr("id"))
     ]
     ids = set(all_ids)
     duplicate_ids = sorted(
         identifier for identifier, count in Counter(all_ids).items() if count > 1
     )
     if duplicate_ids:
-        failures.append(
-            f"{CALCULATOR_REL}: duplicate help or control IDs: {duplicate_ids}"
-        )
+        failures.append(f"{CALCULATOR_REL}: duplicate help or control IDs: {duplicate_ids}")
     missing_ids = sorted(CALCULATOR_REQUIRED_IDS - ids)
     if missing_ids:
         failures.append(f"{CALCULATOR_REL}: missing protected field IDs: {missing_ids}")
 
     common_help = core.element_by_id(root, "money-blank-help")
-    if (
-        len(common_help) != 1
-        or core.element_text(common_help[0]) != CALCULATOR_COMMON_HELP
-    ):
-        failures.append(
-            f"{CALCULATOR_REL}: form must contain one exact blank-as-zero note"
-        )
+    if len(common_help) != 1 or core.element_text(common_help[0]) != CALCULATOR_COMMON_HELP:
+        failures.append(f"{CALCULATOR_REL}: form must contain one exact blank-as-zero note")
 
     branch_radios = [
-        element
-        for element in core.descendants(root, "input")
-        if element.attr("name") == "branch"
+        element for element in core.descendants(root, "input") if element.attr("name") == "branch"
     ]
     branch_contract = [
         (radio.attr("type"), radio.attr("value"), "checked" in radio.attrs)
@@ -1342,9 +1302,7 @@ def check_calculator_contract(
             failures,
         )
         if control is not None:
-            described_by = set(
-                (control.attr("aria-describedby") or "").split()
-            )
+            described_by = set((control.attr("aria-describedby") or "").split())
             expected_help = {
                 "money-blank-help",
                 CALCULATOR_FIELD_HELP_IDS[identifier],
@@ -1356,9 +1314,7 @@ def check_calculator_contract(
                 )
         help_nodes = core.element_by_id(root, CALCULATOR_FIELD_HELP_IDS[identifier])
         if len(help_nodes) != 1:
-            failures.append(
-                f"{CALCULATOR_REL}: #{identifier} needs one unique field help ID"
-            )
+            failures.append(f"{CALCULATOR_REL}: #{identifier} needs one unique field help ID")
     check_id_contract(
         root,
         "reportingMonth",
@@ -1398,9 +1354,7 @@ def check_calculator_contract(
         "export-csv",
         "print-working",
     ):
-        check_id_contract(
-            root, identifier, "button", {"type": "button"}, failures
-        )
+        check_id_contract(root, identifier, "button", {"type": "button"}, failures)
     export_buttons = core.element_by_id(root, "export-csv")
     if len(export_buttons) == 1 and core.element_text(export_buttons[0]) != "Download CSV":
         failures.append(f"{CALCULATOR_REL}: missing visible CSV action")
@@ -1413,9 +1367,7 @@ def check_calculator_contract(
             if button.attr("type") == "submit"
         ]
         if len(submit_buttons) != 1:
-            failures.append(
-                f"{CALCULATOR_REL}: #calc-form must contain exactly one submit button"
-            )
+            failures.append(f"{CALCULATOR_REL}: #calc-form must contain exactly one submit button")
 
     bonus_templates = core.element_by_id(root, "bonus-row-template")
     if len(bonus_templates) == 1:
@@ -1426,9 +1378,7 @@ def check_calculator_contract(
             if element.has_class("bonus-amount")
         ]
         if len(bonus_amounts) != 1:
-            failures.append(
-                f"{CALCULATOR_REL}: expected exactly one .bonus-amount input"
-            )
+            failures.append(f"{CALCULATOR_REL}: expected exactly one .bonus-amount input")
         else:
             for name, expected in number_attributes.items():
                 actual = bonus_amounts[0].attr(name)
@@ -1463,8 +1413,7 @@ def check_calculator_contract(
         found_frequencies: list[str | None] = []
         if len(frequency_selects) == 1:
             found_frequencies = [
-                option.attr("value")
-                for option in core.descendants(frequency_selects[0], "option")
+                option.attr("value") for option in core.descendants(frequency_selects[0], "option")
             ]
         if found_frequencies != BONUS_FREQUENCIES:
             failures.append(
@@ -1478,9 +1427,7 @@ def check_calculator_contract(
             if element.has_class("bonus-remove")
         ]
         if len(remove_buttons) != 1 or remove_buttons[0].attr("type") != "button":
-            failures.append(
-                f"{CALCULATOR_REL}: .bonus-remove must be a button with type 'button'"
-            )
+            failures.append(f"{CALCULATOR_REL}: .bonus-remove must be a button with type 'button'")
 
     result_tags = core.element_by_id(root, "result")
     if len(result_tags) != 1:
@@ -1505,9 +1452,7 @@ def check_calculator_contract(
     result_actions = core.element_by_id(root, "result-actions")
     if len(result_actions) == 1:
         buttons = core.descendants(result_actions[0], "button")
-        actual_actions = [
-            (button.attr("id"), core.element_text(button)) for button in buttons
-        ]
+        actual_actions = [(button.attr("id"), core.element_text(button)) for button in buttons]
         expected_actions = [
             ("print-working", "Print working"),
             ("add-employee", "Add to monthly table"),
@@ -1534,9 +1479,7 @@ def check_calculator_contract(
             f"{LEVY_PAGE_MODULE} exactly once"
         )
     if CALCULATOR_BLANK_RESULT_EXPLANATION not in module_source:
-        failures.append(
-            f"{LEVY_PAGE_MODULE}: zero result needs the blank-as-zero explanation"
-        )
+        failures.append(f"{LEVY_PAGE_MODULE}: zero result needs the blank-as-zero explanation")
 
     if "from '/assets/levy.mjs'" not in module_source:
         failures.append(f"{LEVY_PAGE_MODULE}: protected levy engine import changed")
@@ -1557,8 +1500,7 @@ def check_canonical_person(person: dict[str, object]) -> list[str]:
     for field, expected in PERSON_REQUIRED_FIELDS.items():
         if person.get(field) != expected:
             failures.append(
-                f"person graph: Person {field} is {person.get(field)!r}, "
-                f"expected {expected!r}"
+                f"person graph: Person {field} is {person.get(field)!r}, expected {expected!r}"
             )
     if person.get("address") != PERSON_ADDRESS:
         failures.append("person graph: Person address must identify Newcastle, NSW, AU")
@@ -1573,7 +1515,9 @@ PERSON_STUB_FIELDS = ("@type", "@id", "name", "jobTitle", "url", "sameAs")
 def check_person_stub(rel: str, stub: dict[str, object], canonical: dict[str, object]) -> list[str]:
     """Check that a Person outside About is a homepage stub restating the canonical node."""
     if rel != "index.html":
-        return [f"person graph: {rel} must not define a Person node; only index.html may carry a stub"]
+        return [
+            f"person graph: {rel} must not define a Person node; only index.html may carry a stub"
+        ]
     failures: list[str] = []
     if set(stub) != set(PERSON_STUB_FIELDS):
         failures.append(
@@ -1657,9 +1601,7 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
 
     sitemap_count = core.sitemap_urls(root).count(EVIDENCE_URL)
     if sitemap_count != 1:
-        failures.append(
-            f"sitemap.xml: evidence URL must appear once, found {sitemap_count}"
-        )
+        failures.append(f"sitemap.xml: evidence URL must appear once, found {sitemap_count}")
     llms_count = (root / "llms.txt").read_text(encoding="utf-8").count(EVIDENCE_URL)
     if llms_count != 1:
         failures.append(f"llms.txt: evidence URL must appear once, found {llms_count}")
@@ -1679,9 +1621,7 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
     canonical_match = re.search(r'<link rel="canonical" href="(.*?)"', html)
     if not canonical_match or canonical_match.group(1) != EVIDENCE_URL:
         found = canonical_match.group(1) if canonical_match else None
-        failures.append(
-            f"{EVIDENCE_REL}: canonical is {found!r}, expected {EVIDENCE_URL!r}"
-        )
+        failures.append(f"{EVIDENCE_REL}: canonical is {found!r}, expected {EVIDENCE_URL!r}")
 
     nodes_on_evidence = [
         node
@@ -1765,9 +1705,7 @@ def check_mcp_review_dates(html: str) -> list[str]:
     """Keep the AI-agent page's visible and structured review dates aligned."""
     failures: list[str] = []
     visible = core.visible_text(html)
-    expected_visible = (
-        f"Published 25 August 2026. Last reviewed {MCP_VISIBLE_REVIEW_DATE}."
-    )
+    expected_visible = f"Published 25 August 2026. Last reviewed {MCP_VISIBLE_REVIEW_DATE}."
     if expected_visible not in visible:
         failures.append(f"{MCP_REL}: visible review date must be {MCP_VISIBLE_REVIEW_DATE}")
 
@@ -1781,15 +1719,11 @@ def check_mcp_review_dates(html: str) -> list[str]:
     for schema_type in ("TechArticle", "WebPage", "SoftwareApplication"):
         matches = [node for node in page_nodes if core.has_type(node, schema_type)]
         if len(matches) != 1 or matches[0].get("dateModified") != MCP_REVIEW_DATE:
-            failures.append(
-                f"{MCP_REL}: {schema_type} dateModified must be {MCP_REVIEW_DATE}"
-            )
+            failures.append(f"{MCP_REL}: {schema_type} dateModified must be {MCP_REVIEW_DATE}")
     for schema_type in ("TechArticle", "WebPage"):
         matches = [node for node in page_nodes if core.has_type(node, schema_type)]
         if len(matches) != 1 or matches[0].get("datePublished") != "2026-08-25":
-            failures.append(
-                f"{MCP_REL}: {schema_type} datePublished must remain 2026-08-25"
-            )
+            failures.append(f"{MCP_REL}: {schema_type} datePublished must remain 2026-08-25")
     return failures
 
 
@@ -1804,9 +1738,7 @@ def check_authority_section(
     rendered = core.visible_html(section_html)
     h2s = re.findall(r"<h2\b[^>]*>(.*?)</h2\s*>", rendered, re.S | re.I)
     if len(h2s) != 1:
-        failures.append(
-            f"index.html: authority section #{identifier} must have exactly one h2"
-        )
+        failures.append(f"index.html: authority section #{identifier} must have exactly one h2")
 
     # The route word is a label beside the content column; the statement is
     # the section's h2 so the heading outline descends in size.
@@ -1817,9 +1749,7 @@ def check_authority_section(
         re.S | re.I,
     )
     if len(label_matches) != 1 or core.visible_text(label_matches[0]) != label:
-        failures.append(
-            f"index.html: authority section #{identifier} label must be {label}"
-        )
+        failures.append(f"index.html: authority section #{identifier} label must be {label}")
 
     statement_matches = re.findall(
         r'<h2\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])'
@@ -1838,9 +1768,7 @@ def check_authority_section(
         re.I,
     )
     if len(action_groups) != 1:
-        failures.append(
-            f"index.html: authority section #{identifier} needs one action group"
-        )
+        failures.append(f"index.html: authority section #{identifier} needs one action group")
 
     notes = re.findall(
         r'<[a-z][\w:-]*\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-note\b[^"\']*["\'])[^>]*>',
@@ -1860,9 +1788,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     home_path = root / "index.html"
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
     rendered_home = core.visible_html(home)
-    sections = {
-        identifier: core.section_html(home, identifier) for identifier in AUTHORITY_PATHS
-    }
+    sections = {identifier: core.section_html(home, identifier) for identifier in AUTHORITY_PATHS}
     for identifier, label in AUTHORITY_PATHS.items():
         if not sections[identifier]:
             failures.append(f"index.html: missing visible authority section #{identifier}")
@@ -1888,8 +1814,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         failures.append("index.html: retired GitHub-source install command")
     if GITHUB_AGENT_SKILLS_BOUNDARY not in adopt_text:
         failures.append(
-            "index.html: github-agent-skills boundary must be "
-            f"{GITHUB_AGENT_SKILLS_BOUNDARY!r}"
+            f"index.html: github-agent-skills boundary must be {GITHUB_AGENT_SKILLS_BOUNDARY!r}"
         )
 
     llms_path = root / "llms.txt"
@@ -1899,17 +1824,12 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         failures.append("llms.txt: supported install commands must link to /#adopt instead")
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
         failures.append("llms.txt: retired GitHub-source install command")
-    if (
-        GITHUB_AGENT_SKILLS_URL not in llms
-        or GITHUB_AGENT_SKILLS_BOUNDARY not in llms
-    ):
+    if GITHUB_AGENT_SKILLS_URL not in llms or GITHUB_AGENT_SKILLS_BOUNDARY not in llms:
         failures.append("llms.txt: github-agent-skills adoption entry is incomplete")
 
     agent_tooling_path = root / "docs" / "agent-tooling.md"
     agent_tooling = (
-        agent_tooling_path.read_text(encoding="utf-8")
-        if agent_tooling_path.is_file()
-        else ""
+        agent_tooling_path.read_text(encoding="utf-8") if agent_tooling_path.is_file() else ""
     )
     if (
         GITHUB_AGENT_SKILLS_URL not in agent_tooling
@@ -1947,9 +1867,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
                 len(re.findall(pattern, page_text, re.I)) != 1
                 for pattern in MCP_PAGE_INSTALL_PATTERNS
             ):
-                failures.append(
-                    f"{rel}: MCP install commands must appear exactly once each"
-                )
+                failures.append(f"{rel}: MCP install commands must appear exactly once each")
             banned_patterns = tuple(
                 pattern
                 for pattern in PRIMARY_INSTALL_PATTERNS
@@ -1957,10 +1875,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             )
         else:
             banned_patterns = PRIMARY_INSTALL_PATTERNS
-        if any(
-            re.search(pattern, indexable_text, re.I)
-            for pattern in banned_patterns
-        ):
+        if any(re.search(pattern, indexable_text, re.I) for pattern in banned_patterns):
             failures.append(f"{rel}: supported install commands must link to /#adopt instead")
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
@@ -1972,10 +1887,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         if (
             any(
                 urlsplit(href).scheme.casefold() == "mailto"
-                and (
-                    rel != "contact/index.html"
-                    or href not in CONTACT_MAILTO_HREFS
-                )
+                and (rel != "contact/index.html" or href not in CONTACT_MAILTO_HREFS)
                 for href in core.anchor_hrefs(page)
             )
             or "not a practice" not in page_text.casefold()
@@ -2029,9 +1941,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     contents_labels = (
         [
             core.visible_text(label)
-            for label in re.findall(
-                r"<a\b[^>]*>(.*?)</a\s*>", contents_nav.group(0), re.S | re.I
-            )
+            for label in re.findall(r"<a\b[^>]*>(.*?)</a\s*>", contents_nav.group(0), re.S | re.I)
         ]
         if contents_nav
         else []
@@ -2046,15 +1956,15 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         or contents_labels != list(ASSURANCE_ANCHORS.values())
         or anchored_headings != ASSURANCE_ANCHORS
     ):
-        failures.append(
-            "evidence/index.html: contents navigator does not match assurance headings"
-        )
+        failures.append("evidence/index.html: contents navigator does not match assurance headings")
 
     for path in sorted(root.glob("tools/*/index.html")):
         rel = path.relative_to(root).as_posix()
         if rel in NOT_INDEXED:
             continue
-        if "/evidence/" not in core.anchor_hrefs(core.visible_html(path.read_text(encoding="utf-8"))):
+        if "/evidence/" not in core.anchor_hrefs(
+            core.visible_html(path.read_text(encoding="utf-8"))
+        ):
             failures.append(f"{rel}: no visible link to /evidence/")
 
     mcp_rel = MCP_REL
@@ -2079,9 +1989,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
 def check_payday_receipt_boundary(html: str) -> list[str]:
     """Keep the three missing-receipt branches accurate without freezing prose."""
     failures: list[str] = []
-    visible_html = re.sub(
-        r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
-    )
+    visible_html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
     visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
     paragraphs = [
         core.visible_text(paragraph)
@@ -2126,10 +2034,21 @@ def check_payday_example(html: str, record: dict[str, object]) -> list[str]:
     root = core.parse_structure(html)
     fields = core.descendants(root, rendered_only=True)
     for key in (
-        "employee_id", "payment_date", "sg_amount", "remitted_date",
-        "fund_received_date", "first_contribution", "out_of_cycle",
-        "as_at", "expected_due_date", "expected_verdict",
-        "tag", "commit", "fixture_blob_sha", "fixture_sha256", "wheel_sha256",
+        "employee_id",
+        "payment_date",
+        "sg_amount",
+        "remitted_date",
+        "fund_received_date",
+        "first_contribution",
+        "out_of_cycle",
+        "as_at",
+        "expected_due_date",
+        "expected_verdict",
+        "tag",
+        "commit",
+        "fixture_blob_sha",
+        "fixture_sha256",
+        "wheel_sha256",
     ):
         matches = [element for element in fields if element.attr("data-example") == key]
         if len(matches) != 1 or key not in record:
@@ -2169,9 +2088,7 @@ def check_worked_examples() -> list[str]:
     failures: list[str] = []
     for rel, expected in WORKED_EXAMPLES.items():
         html = (core.ROOT / rel).read_text(encoding="utf-8")
-        visible_html = re.sub(
-            r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I
-        )
+        visible_html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
         visible_html = re.sub(r"<!--.*?-->", " ", visible_html, flags=re.S)
         heading = re.search(
             r"<h([1-6])\b[^>]*>.*?\bsynthetic\s+worked\s+example\b.*?</h\1>",
@@ -2182,12 +2099,12 @@ def check_worked_examples() -> list[str]:
             failures.append(f"{rel}: no visible Synthetic worked example heading")
             example_html = ""
         else:
-            remainder = visible_html[heading.end():]
+            remainder = visible_html[heading.end() :]
             next_heading = re.search(r"<h[1-6]\b", remainder, re.I)
             example_end = (
                 heading.end() + next_heading.start() if next_heading else len(visible_html)
             )
-            example_html = visible_html[heading.start():example_end]
+            example_html = visible_html[heading.start() : example_end]
         example_text = core.visible_text(example_html)
 
         for fixture_url in expected["fixture_urls"]:
@@ -2217,27 +2134,19 @@ def check_worked_examples() -> list[str]:
     return failures
 
 
-def evaluation_article_html(
-    rendered: str, rel: str, failures: list[str]
-) -> str | None:
+def evaluation_article_html(rendered: str, rel: str, failures: list[str]) -> str | None:
     """Return the sole visible evaluator article within the sole main#main."""
     root = core.parse_structure(rendered)
     mains = core.descendants(root, "main", rendered_only=True)
     if len(mains) != 1:
-        failures.append(
-            f"{rel}: expected exactly one visible main, found {len(mains)}"
-        )
+        failures.append(f"{rel}: expected exactly one visible main, found {len(mains)}")
         return None
     if mains[0].attr("id") != "main":
-        failures.append(
-            f"{rel}: visible main id must be 'main', found {mains[0].attr('id')!r}"
-        )
+        failures.append(f"{rel}: visible main id must be 'main', found {mains[0].attr('id')!r}")
         return None
 
     articles = core.descendants(root, "article", rendered_only=True)
-    contained_articles = [
-        article for article in articles if core.is_descendant(article, mains[0])
-    ]
+    contained_articles = [article for article in articles if core.is_descendant(article, mains[0])]
     if len(contained_articles) != 1:
         failures.append(
             f"{rel}: main#main must contain exactly one visible evaluator article, "
@@ -2246,14 +2155,11 @@ def evaluation_article_html(
         return None
     if len(articles) != 1:
         failures.append(
-            f"{rel}: expected exactly one visible evaluator article, "
-            f"found {len(articles)}"
+            f"{rel}: expected exactly one visible evaluator article, found {len(articles)}"
         )
         return None
 
-    article_match = re.search(
-        r"<article\b[^>]*>.*?</article\s*>", rendered, re.S | re.I
-    )
+    article_match = re.search(r"<article\b[^>]*>.*?</article\s*>", rendered, re.S | re.I)
     if article_match is None:
         failures.append(f"{rel}: could not isolate the visible evaluator article")
         return None
@@ -2273,8 +2179,7 @@ def check_evaluation_structure(
     ]
     if actual_ids != configured_ids:
         failures.append(
-            f"{rel}: evaluation section order must be {configured_ids!r}, "
-            f"found {actual_ids!r}"
+            f"{rel}: evaluation section order must be {configured_ids!r}, found {actual_ids!r}"
         )
 
     sections_by_id = {
@@ -2289,8 +2194,7 @@ def check_evaluation_structure(
         sections = sections_by_id[identifier]
         if len(sections) != 1:
             failures.append(
-                f"{rel}: section #{identifier} must appear exactly once, "
-                f"found {len(sections)}"
+                f"{rel}: section #{identifier} must appear exactly once, found {len(sections)}"
             )
             continue
         headings = core.descendants(sections[0], "h2", rendered_only=True)
@@ -2326,8 +2230,7 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
         sitemap_count = listed.count(url)
         if sitemap_count != 1:
             failures.append(
-                f"sitemap.xml: evaluation URL {url} must appear once, "
-                f"found {sitemap_count}"
+                f"sitemap.xml: evaluation URL {url} must appear once, found {sitemap_count}"
             )
         sitemap_lastmod = expected.get("sitemap_lastmod")
         if sitemap_lastmod:
@@ -2361,15 +2264,11 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
 
         html = path.read_text(encoding="utf-8")
         page_nodes = [
-            node
-            for block in core.json_ld_blocks(html, rel, failures)
-            for node in core.nodes(block)
+            node for block in core.json_ld_blocks(html, rel, failures) for node in core.nodes(block)
         ]
         articles = [node for node in page_nodes if core.has_type(node, "TechArticle")]
         if len(articles) != 1 or articles[0].get("author") != {"@id": PERSON_ID}:
-            failures.append(
-                f"{rel}: TechArticle must be authored by the canonical Person"
-            )
+            failures.append(f"{rel}: TechArticle must be authored by the canonical Person")
 
         rendered = core.visible_html(html)
         article_html = evaluation_article_html(rendered, rel, failures)
@@ -2386,42 +2285,31 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
             if label not in text:
                 failures.append(f"{rel}: missing visible version label {label!r}")
         if "v0.1.0" in text:
-            failures.append(
-                f"{rel}: visible evaluator text must not name v0.1.0"
-            )
+            failures.append(f"{rel}: visible evaluator text must not name v0.1.0")
         for contract_text in expected["contract_text"]:
             if contract_text not in text:
-                failures.append(
-                    f"{rel}: missing visible contract text {contract_text!r}"
-                )
+                failures.append(f"{rel}: missing visible contract text {contract_text!r}")
         for section_id, required_texts in expected.get("section_contract_text", {}).items():
             section_text = core.visible_text(core.section_html(rendered, section_id))
             for required_text in required_texts:
                 if required_text not in section_text:
                     failures.append(
-                        f"{rel}: #{section_id} missing visible contract text "
-                        f"{required_text!r}"
+                        f"{rel}: #{section_id} missing visible contract text {required_text!r}"
                     )
         for section_id, configured_hrefs in (
             ("versions", expected["product_evidence_urls"]),
             ("primary-sources", expected["primary_source_urls"]),
         ):
             actual_hrefs = core.anchor_hrefs(core.section_html(rendered, section_id))
-            missing_hrefs = list(
-                (Counter(configured_hrefs) - Counter(actual_hrefs)).elements()
-            )
-            unexpected_hrefs = list(
-                (Counter(actual_hrefs) - Counter(configured_hrefs)).elements()
-            )
+            missing_hrefs = list((Counter(configured_hrefs) - Counter(actual_hrefs)).elements())
+            unexpected_hrefs = list((Counter(actual_hrefs) - Counter(configured_hrefs)).elements())
             if missing_hrefs or unexpected_hrefs:
                 failures.append(
                     f"{rel}: #{section_id} evidence hrefs must match exactly once; "
                     f"missing {missing_hrefs!r}; unexpected {unexpected_hrefs!r}"
                 )
 
-        product_repository = expected["product_repository"].casefold().removeprefix(
-            "https://"
-        )
+        product_repository = expected["product_repository"].casefold().removeprefix("https://")
         product_hrefs = [href for href in hrefs if product_repository in href.casefold()]
 
         product_evidence_urls = expected["product_evidence_urls"]
@@ -2441,33 +2329,23 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
                 if href not in version_hrefs:
                     continue
                 if "/blob/main/" in href.casefold():
-                    failures.append(
-                        f"{rel}: product evidence URL must not use /blob/main/: {href}"
-                    )
+                    failures.append(f"{rel}: product evidence URL must not use /blob/main/: {href}")
                 revision_match = re.search(r"/(?:blob|tree)/([^/]+)/", href, re.I)
                 if revision_match and not re.fullmatch(
                     r"[0-9a-f]{40}", revision_match.group(1), re.I
                 ):
                     failures.append(
-                        f"{rel}: product evidence URL must contain a 40-character "
-                        f"commit: {href}"
+                        f"{rel}: product evidence URL must contain a 40-character commit: {href}"
                     )
                 elif revision_match and revision_match.group(1) != permanent_commit:
                     failures.append(
-                        f"{rel}: product evidence URL commit must be "
-                        f"{permanent_commit}: {href}"
+                        f"{rel}: product evidence URL commit must be {permanent_commit}: {href}"
                     )
         missing_product_hrefs = list(
-            (
-                Counter(global_product_evidence_urls)
-                - Counter(product_hrefs)
-            ).elements()
+            (Counter(global_product_evidence_urls) - Counter(product_hrefs)).elements()
         )
         unexpected_product_hrefs = list(
-            (
-                Counter(product_hrefs)
-                - Counter(global_product_evidence_urls)
-            ).elements()
+            (Counter(product_hrefs) - Counter(global_product_evidence_urls)).elements()
         )
         if missing_product_hrefs or unexpected_product_hrefs:
             failures.append(
@@ -2476,18 +2354,14 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
             )
 
         reproduce_html = core.section_html(rendered, "reproduce")
-        code_blocks = re.findall(
-            r"<code\b[^>]*>(.*?)</code\s*>", reproduce_html, re.S | re.I
-        )
+        code_blocks = re.findall(r"<code\b[^>]*>(.*?)</code\s*>", reproduce_html, re.S | re.I)
         if len(code_blocks) != 1:
             failures.append(
                 f"{rel}: #reproduce must contain exactly one visible code block, "
                 f"found {len(code_blocks)}"
             )
         else:
-            recipe = html_lib.unescape(code_blocks[0]).replace("\r\n", "\n").replace(
-                "\r", "\n"
-            )
+            recipe = html_lib.unescape(code_blocks[0]).replace("\r\n", "\n").replace("\r", "\n")
             recipe_lines = [line.rstrip() for line in recipe.split("\n")]
             while recipe_lines and not recipe_lines[-1]:
                 recipe_lines.pop()
@@ -2530,10 +2404,8 @@ def check_xero_evaluation_summary(root: Path = core.ROOT) -> list[str]:
         re.S | re.I,
     )
     required = (
-        "Problem An automated trial balance export can look tidy while one balance "
-        "pair is wrong.",
-        "Control Check movement and year-to-date debits against credits before any "
-        "CSV write.",
+        "Problem An automated trial balance export can look tidy while one balance pair is wrong.",
+        "Control Check movement and year-to-date debits against credits before any CSV write.",
         "Evidence Three fabricated fixtures isolate a passing file, a movement "
         "failure, and a YTD failure.",
         "Result One run exits 0. Two runs exit 1 and report that nothing was written.",
@@ -2561,8 +2433,7 @@ def check_robots_policy(robots: str) -> list[str]:
     for agent, directives in expected.items():
         if groups.get(agent) != directives:
             failures.append(
-                f"robots.txt: {agent} must have exactly {directives!r}, found "
-                f"{groups.get(agent)!r}"
+                f"robots.txt: {agent} must have exactly {directives!r}, found {groups.get(agent)!r}"
             )
     unexpected = sorted(set(groups) - set(expected))
     if unexpected:
@@ -2581,8 +2452,7 @@ def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
     mains = core.descendants(root, "main", rendered_only=True)
     if len(mains) != 1 or mains[0].attr("id") != "main":
         failures.append(
-            f"{rel}: expected exactly one rendered main#main, found "
-            f"{len(mains)} main elements"
+            f"{rel}: expected exactly one rendered main#main, found {len(mains)} main elements"
         )
 
     skip_links = []
@@ -2707,9 +2577,7 @@ def check_collection_breadcrumb(html: str, rel: str, failures: list[str]) -> Non
                 failures.append(
                     f"{rel}: breadcrumb {name!r} points to {actual_href!r}, expected {href!r}"
                 )
-            if href is None and (
-                links or items[index].attr("aria-current") != "page"
-            ):
+            if href is None and (links or items[index].attr("aria-current") != "page"):
                 failures.append(
                     f"{rel}: current breadcrumb {name!r} must be unlinked and aria-current=page"
                 )
@@ -2723,9 +2591,7 @@ def check_collection_breadcrumb(html: str, rel: str, failures: list[str]) -> Non
     ]
     failures.extend(parse_failures)
     if len(structured) != 1:
-        failures.append(
-            f"{rel}: expected exactly one BreadcrumbList, found {len(structured)}"
-        )
+        failures.append(f"{rel}: expected exactly one BreadcrumbList, found {len(structured)}")
         return
     elements = structured[0].get("itemListElement")
     expected_structured = [
@@ -2763,9 +2629,7 @@ def check_collection_hubs(root: Path = core.ROOT) -> list[str]:
         ]
         expected_entries = contract["entries"]
         if len(registers) != 1:
-            failures.append(
-                f"{rel}: expected one collection register, found {len(registers)}"
-            )
+            failures.append(f"{rel}: expected one collection register, found {len(registers)}")
         else:
             rows = [
                 element
@@ -2883,12 +2747,9 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
                 template.tag.rsplit("}", 1)[-1] != "svg"
                 or template.get("width") != str(expected_width)
                 or template.get("height") != str(expected_height)
-                or template.get("viewBox")
-                != f"0 0 {expected_width} {expected_height}"
+                or template.get("viewBox") != f"0 0 {expected_width} {expected_height}"
             ):
-                failures.append(
-                    "assets/social-card-template.svg: template dimensions changed"
-                )
+                failures.append("assets/social-card-template.svg: template dimensions changed")
             fills = {
                 fill.casefold()
                 for element in template.iter()
@@ -2898,10 +2759,7 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
                 failures.append(
                     "assets/social-card-template.svg: OLED palette is incomplete or changed"
                 )
-            if any(
-                element.tag.rsplit("}", 1)[-1] == "image"
-                for element in template.iter()
-            ):
+            if any(element.tag.rsplit("}", 1)[-1] == "image" for element in template.iter()):
                 failures.append(
                     "assets/social-card-template.svg: template must not contain portrait imagery"
                 )
@@ -2933,15 +2791,11 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
         for card_id, record in SOCIAL_CARD_CONTEXTS.items()
     }
     if configured != expected_data:
-        failures.append(
-            "assets/social-cards.json: social-card context copy or mapping is stale"
-        )
+        failures.append("assets/social-cards.json: social-card context copy or mapping is stale")
 
     readme_path = root / "README.md"
     readme_lines = (
-        readme_path.read_text(encoding="utf-8").splitlines()
-        if readme_path.is_file()
-        else []
+        readme_path.read_text(encoding="utf-8").splitlines() if readme_path.is_file() else []
     )
     for card_id, record in SOCIAL_CARD_CONTEXTS.items():
         output = record["output"]
@@ -2959,13 +2813,9 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
                 if (width, height) != SOCIAL_CARD_DIMENSIONS:
                     failures.append(f"{asset_rel}: social card dimensions changed")
             if len(card) >= SOCIAL_CARD_MAX_BYTES:
-                failures.append(
-                    f"{asset_rel}: social card must be under 50,000 bytes"
-                )
+                failures.append(f"{asset_rel}: social card must be under 50,000 bytes")
 
-        provenance_row = next(
-            (line for line in readme_lines if f"`{asset_rel}`" in line), ""
-        )
+        provenance_row = next((line for line in readme_lines if f"`{asset_rel}`" in line), "")
         if not provenance_row:
             failures.append(f"README.md: missing provenance for {asset_rel}")
             continue
@@ -3036,9 +2886,7 @@ def check_task_routes(root: Path = core.ROOT) -> list[str]:
             label = core.element_text(labels[0]) if labels else ""
             actual.append((label, anchor.attr("href")))
         if actual != expected:
-            failures.append(
-                f"{TASK_ROUTES_REL}: task routes are {actual!r}, expected {expected!r}"
-            )
+            failures.append(f"{TASK_ROUTES_REL}: task routes are {actual!r}, expected {expected!r}")
 
     llms_path = root / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""

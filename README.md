@@ -7,8 +7,10 @@ Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting t
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds the versioned machine-readable register of those figures.
-- `/tools/accounting-questions/` has 100 question guides with optional search and checklist downloads.
-- `/tools/business-calculators/` has 9 planning calculators, including a 13-week cash scenario and CSV export.
+- `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
+- `/tools/business-calculators/` indexes 9 planning calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
+- `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
+- `/feed.xml` is an Atom feed built from the changelog tables by `scripts/build_feed.py`.
 
 The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
 

@@ -52,14 +52,6 @@ Source repositories, install commands and Python packages, plus an MCP server. T
 
 Source on GitHub
 
-Review aids only. No client files. No lodgement. Human sign-off.
-
-Scope Accounting workflow controls
-
-Method Primary sources and exact arithmetic
-
-Boundary Calculation is not judgement
-
 ## Worked proof
 
 Coal LSL / synthetic result

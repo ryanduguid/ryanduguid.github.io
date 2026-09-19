@@ -125,11 +125,11 @@
     },
     "use": {
       "label": "Business-use apportionment calculator",
-      "url": "/tools/business-calculators/#business-use"
+      "url": "/tools/business-calculators/business-use/"
     },
     "gst": {
       "label": "GST calculator",
-      "url": "/tools/business-calculators/#gst"
+      "url": "/tools/business-calculators/gst/"
     },
     "car": {
       "label": "Cents-per-kilometre rate table and method",
@@ -137,31 +137,31 @@
     },
     "cash": {
       "label": "13-week cash forecast",
-      "url": "/tools/business-calculators/#cash"
+      "url": "/tools/business-calculators/cash/"
     },
     "loan": {
       "label": "Monthly loan payment calculator",
-      "url": "/tools/business-calculators/#loan"
+      "url": "/tools/business-calculators/loan/"
     },
     "staff": {
       "label": "Staff-cost calculator",
-      "url": "/tools/business-calculators/#staff"
+      "url": "/tools/business-calculators/staff/"
     },
     "variance": {
       "label": "Budget variance calculator",
-      "url": "/tools/business-calculators/#variance"
+      "url": "/tools/business-calculators/variance/"
     },
     "break-even": {
       "label": "Break-even calculator",
-      "url": "/tools/business-calculators/#break-even"
+      "url": "/tools/business-calculators/break-even/"
     },
     "hourly": {
       "label": "Hourly pricing calculator",
-      "url": "/tools/business-calculators/#hourly"
+      "url": "/tools/business-calculators/hourly/"
     },
     "margin": {
       "label": "Margin and markup calculator",
-      "url": "/tools/business-calculators/#margin"
+      "url": "/tools/business-calculators/margin/"
     },
     "payday": {
       "label": "Payday Super receipt-evidence example",

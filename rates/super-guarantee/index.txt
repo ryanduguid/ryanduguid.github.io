@@ -76,5 +76,5 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Staff cost calculator: https://duguid.com.au/tools/business-calculators/#staff
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - About Ryan Duguid: https://duguid.com.au/about/

@@ -1,0 +1,209 @@
+# GST and BAS: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
+
+> Ten questions on GST and BAS for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: GST and BAS
+
+Practical steps, records and official guidance on GST and BAS. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the BAS period, GST accounting basis, and account due date being reviewed. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics GST and BAS
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## GST and BAS
+
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis, and account due date being reviewed.
+
+31. How do I add GST to a price or extract GST from an inclusive amount?
+
+For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.
+
+- Choose whether your amount already includes GST, then calculate the components.
+- Keep the source invoice and confirm that the whole amount is subject to GST.
+
+The calculator does not classify GST-free, input-taxed or mixed supplies.
+
+ATO GST guidance · GST calculator
+
+Link to question 31
+
+32. When must my business register for GST?
+
+Check current and projected GST turnover and any compulsory-registration rule for your activity.
+
+- Build a monthly turnover schedule and review what counts towards GST turnover.
+- Use the ATO registration guidance to determine the trigger and registration date.
+
+Taxi and ride-sourcing rules and other exceptions mean a general turnover threshold is not enough.
+
+ATO GST guidance
+
+Link to question 32
+
+33. What is the difference between GST-free and input-taxed sales?
+
+GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.
+
+- Classify each income stream using the ATO guidance and retain the basis for the classification.
+- Review purchase credits and any apportionment separately for input-taxed activities.
+
+Do not give both categories the same purchase-credit treatment just because no GST appears on the sale.
+
+ATO GST guidance
+
+Link to question 33
+
+34. Do I charge GST when selling to overseas customers?
+
+An overseas customer does not automatically make a sale GST-free.
+
+- Record what you sold, where it is supplied or used, customer circumstances and any export evidence.
+- Check the relevant goods or services rule before choosing the GST code.
+
+Export conditions and evidence requirements differ between goods and services.
+
+ATO GST guidance
+
+Link to question 34
+
+35. What information must appear on a valid tax invoice?
+
+Use an invoice checklist matched to the sale and the ATO's tax-invoice requirements.
+
+- Check supplier identity and ABN, date, description, price and how the GST amount is shown.
+- Check any buyer-identification requirement and clearly separate taxable and non-taxable items.
+
+Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.
+
+ATO GST guidance
+
+Link to question 35
+
+36. How do I prepare a BAS from my accounting records?
+
+Reconcile source records to each BAS label before approval.
+
+- Check reporting period and GST basis, reconcile tax-coded transactions and investigate exceptions.
+- Reconcile PAYG and other labels, retain the workpaper and obtain approval before lodgement.
+
+Fictional worked example
+
+For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly.
+
+The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.
+
+ATO business activity statements · BAS pack readiness checks
+
+Link to question 36
+
+37. When is my BAS due, and when must I pay it?
+
+Use the period and due date shown for your BAS account.
+
+- Record both lodgement and payment deadlines and any approved concession.
+- Put the cash payment in the forecast and assign someone to retain the receipt.
+
+General quarterly dates can differ from the dates that apply to your account.
+
+ATO GST guidance · 13-week cash forecast
+
+Link to question 37
+
+38. Should I account for GST on a cash or accrual basis?
+
+Compare the timing of receipts and payments under the methods your business is allowed to use.
+
+- Check eligibility and the method currently recorded with the ATO.
+- Model the effect on unpaid invoices and bills before changing method, and document transition adjustments.
+
+Changing a report setting in Xero does not by itself change the ATO accounting method.
+
+ATO GST guidance
+
+Link to question 38
+
+39. Why does my BAS GST figure differ from the GST balance in Xero?
+
+Bridge the BAS calculation to the GST control account at the same date and on the same basis.
+
+- Separate opening balances, payments to the ATO, cash-basis timing and journals.
+- List each reconciling item and clear unexplained differences before signing off.
+
+A control-account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
+
+ATO GST guidance · BAS pack readiness checks
+
+Link to question 39
+
+40. How do I correct a mistake in a BAS I have already lodged?
+
+Work out whether the error can be corrected on a later BAS or requires a revision.
+
+- Record the original period, error type, amount, discovery date and supporting transactions.
+- Apply the ATO's correction conditions and retain the approved amendment or later-period adjustment.
+
+Do not choose a later-period correction without checking time and value limits.
+
+ATO GST guidance
+
+Link to question 40
+
+- Tax returns
+- Deductions
+- Starting a business
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/
+- Link to question 31: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
+- Link to question 32: https://duguid.com.au/tools/accounting-questions/gst-bas/#q32
+- Link to question 33: https://duguid.com.au/tools/accounting-questions/gst-bas/#q33
+- Link to question 34: https://duguid.com.au/tools/accounting-questions/gst-bas/#q34
+- Link to question 35: https://duguid.com.au/tools/accounting-questions/gst-bas/#q35
+- ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
+- BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
+- Link to question 36: https://duguid.com.au/tools/accounting-questions/gst-bas/#q36
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 37: https://duguid.com.au/tools/accounting-questions/gst-bas/#q37
+- Link to question 38: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
+- Link to question 39: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
+- Link to question 40: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

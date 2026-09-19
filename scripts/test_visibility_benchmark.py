@@ -171,9 +171,7 @@ def test_unknown_prompt_and_error_ids_are_reported() -> None:
 def test_reworded_prompt_is_rejected() -> None:
     capture = base_capture()
     capture["observations"][0]["prompt_sent"] = "Who is Ryan Duguid?"
-    expect_failure(
-        "reworded prompt", failures_for(capture), "does not match the reviewed text"
-    )
+    expect_failure("reworded prompt", failures_for(capture), "does not match the reviewed text")
 
 
 def test_blank_and_missing_text_fields_are_rejected() -> None:
@@ -373,15 +371,11 @@ def test_citation_flag_must_agree_with_the_urls() -> None:
 
     capture = base_capture()
     capture["observations"][0]["site_cited"] = False
-    expect_failure(
-        "site URL without the flag", failures_for(capture), "but site_cited is false"
-    )
+    expect_failure("site URL without the flag", failures_for(capture), "but site_cited is false")
 
     capture = base_capture()
     capture["observations"][0]["mentioned"] = False
-    expect_failure(
-        "citation without a mention", failures_for(capture), "also mentions it"
-    )
+    expect_failure("citation without a mention", failures_for(capture), "also mentions it")
 
 
 def test_cli_rejects_invalid_input_before_summarising() -> None:
@@ -475,9 +469,7 @@ def test_one_capture_records_one_system() -> None:
 def test_template_covers_every_prompt() -> None:
     capture = json.loads(benchmark.template(PROMPTS))
     assert capture["fixture"] is False
-    assert [observation["prompt_id"] for observation in capture["observations"]] == list(
-        PROMPTS
-    )
+    assert [observation["prompt_id"] for observation in capture["observations"]] == list(PROMPTS)
     for observation in capture["observations"]:
         assert observation["status"] == "not_run"
         assert observation["prompt_sent"] == PROMPTS[observation["prompt_id"]]["prompt"]

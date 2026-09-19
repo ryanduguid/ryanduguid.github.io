@@ -1,0 +1,208 @@
+# Payroll and super: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
+
+> Ten questions on payroll and super for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Payroll and super
+
+Practical steps, records and official guidance on payroll and super. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Payroll and super
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Payroll and super
+
+Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
+
+41. How much super must I pay, and which earnings count towards it?
+
+Identify the applicable super regime and eligible earnings for the pay date before calculating a contribution.
+
+- From July 2026, use the ATO Payday Super guidance and map each pay component to the relevant earnings definition.
+- Check worker eligibility, limits and payroll settings; retain the calculation and contribution evidence.
+
+The old quarterly SG worksheet does not establish current Payday Super entitlement.
+
+Payday Super for employers
+
+Link to question 41
+
+42. By what date must a super contribution reach the employee's fund?
+
+Test receipt at the employee's fund against the applicable deadline.
+
+- Record payday, pathway, amount, remittance date and confirmed fund-receipt date.
+- Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
+
+The timing tool needs the contribution amount supplied and the correct pathway selected.
+
+Payday Super for employers · Payday Super receipt-evidence example
+
+Link to question 42
+
+43. What should I do if a super payment is late, rejected or missing?
+
+Investigate the payment trail and apply the current late-payment process.
+
+- Reconcile payroll, clearing-house status, rejections and fund receipt for each affected employee.
+- Resolve the cause, record any replacement payment and review the ATO's reporting and charge requirements.
+
+Sending a replacement does not automatically remove a late-payment consequence.
+
+Payday Super for employers · Payday Super receipt-evidence example
+
+Link to question 43
+
+44. Do I have to pay super for a contractor who invoices through an ABN?
+
+Review the actual contract and working arrangement against the ATO's super eligibility guidance.
+
+- Record who performs the work, how they are paid and whether the contract is for their labour.
+- Retain the eligibility conclusion separately from the supplier's ABN and invoice.
+
+An ABN is not proof that super is unnecessary.
+
+Payday Super for employers
+
+Link to question 44
+
+45. How much PAYG tax should I withhold from an employee's pay?
+
+Use the ATO withholding calculation for the payment type and pay period.
+
+- Check the declaration, residency, tax-free threshold choice, study-loan information and any variation.
+- Apply the current schedule or calculator and reconcile payroll totals to the withholding liability.
+
+A resident annual income-tax worksheet is not a payroll withholding calculator.
+
+PAYG withholding
+
+Link to question 45
+
+46. How do I finalise Single Touch Payroll at year-end?
+
+Reconcile payroll to the ledger and ATO reporting before making the STP finalisation declaration.
+
+- Check year-to-date wages, withholding, super and adjustments by employee.
+- Resolve discrepancies, confirm the applicable deadline and retain the finalisation evidence.
+
+An ordinary payroll submission and a finalisation declaration are different steps.
+
+Single Touch Payroll · Monthly-close review pack
+
+Link to question 46
+
+47. How do I calculate an employee's final pay, including unused leave?
+
+Build final pay from the employee's entitlements and the circumstances of departure.
+
+- Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.
+- Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment.
+
+The generic staff-cost calculator cannot determine final-pay entitlements.
+
+Final pay - Fair Work Ombudsman
+
+Link to question 47
+
+48. When does my business become liable for payroll tax in NSW?
+
+Review Australian taxable wages, NSW connection, grouping and the applicable threshold.
+
+- Prepare a wages reconciliation that includes the categories Revenue NSW requires.
+- Check the monthly registration trigger and annual reconciliation requirements for the relevant year.
+
+Book payroll expense alone can omit taxable benefits, super or grouped wages.
+
+Revenue NSW payroll tax
+
+Link to question 48
+
+49. Do contractor payments count towards NSW payroll tax?
+
+Contractor payments need a separate payroll-tax review under the NSW relevant-contract rules.
+
+- Keep the contract, services, days worked and evidence for any exclusion claimed.
+- Reconcile reviewed contractor amounts to the payroll-tax workpaper.
+
+An invoice, ABN or GST registration alone does not establish an exclusion.
+
+Revenue NSW payroll tax
+
+Link to question 49
+
+50. What does an employee cost after super, leave, insurance and other on-costs?
+
+Add annual wages, super and the other costs you expect to pay, then consider productive capacity separately.
+
+- Enter the annual super amount and other costs such as insurance, payroll tax, recruitment and equipment.
+- Allow for paid leave when estimating productive hours, and add relief staff costs only where expected.
+
+Do not add ordinary paid leave again if it is already included in the annual salary.
+
+Final pay - Fair Work Ombudsman · Staff-cost calculator
+
+Link to question 50
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
+- Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
+- Payday Super receipt-evidence example: https://duguid.com.au/tools/payday-super/
+- Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- Link to question 43: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
+- Link to question 44: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
+- PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
+- Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
+- Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
+- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
+- Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
+- Link to question 47: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
+- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
+- Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
+- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Link to question 50: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/
 
 # Business calculators
 
-Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.
+Nine calculators, each on its own page with the formula, assumptions and source beside the inputs. Calculations run in your browser; inputs are not saved or sent anywhere.
 
 Find a question and prepare a checklist.
 
@@ -14,182 +14,27 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 
 Published 11 September 2026. Last reviewed 20 September 2026.
 
-JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.
-
-- GST
-- Business-use share
-- Margin and markup
-- Break-even sales
-- Hourly pricing
-- Budget variance
-- Monthly loan payments
-- Staff cost
-- 13-week cash forecast
-
-## GST
-
-For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
-
-ATO: How GST works
-
-GST inputs
-
-Amount (AUD) Amount includes GST
-
-Calculate Enter the inputs and calculate.
-
-## Business-use share
-
-Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
-
-For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
-
-Phone and internet record checklist
-
-Business-use share inputs
-
-Eligible cost (AUD) Business use (%)
-
-Calculate Enter the inputs and calculate.
-
-## Margin and markup
-
-Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
-
-business.gov.au: pricing
-
-Margin and markup inputs
-
-Sales (AUD) Direct cost (AUD)
-
-Calculate Enter the inputs and calculate.
-
-## Break-even sales
-
-Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.
-
-business.gov.au: pricing
-
-Break-even sales inputs
-
-Fixed costs for the period (AUD) Selling price per unit (AUD) Variable cost per unit (AUD)
-
-Calculate Enter the inputs and calculate.
-
-## Hourly pricing
-
-Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
-
-business.gov.au: pricing
-
-Hourly pricing inputs
-
-Annual costs (AUD) Target annual profit (AUD) Annual billable hours
-
-Calculate Enter the inputs and calculate.
-
-## Budget variance
-
-Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
-
-Budget explanation checklist
-
-Monthly Close Controls compares trial balance CSVs and lists material movements for review.
-
-Budget variance inputs
-
-Actual (AUD) Budget (AUD)
-
-Figure type Income Cost
-
-Calculate Enter the inputs and calculate.
-
-## Monthly loan payments
-
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
-
-Loan reconciliation checklist
-
-Monthly loan payments inputs
-
-Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
-
-Calculate Enter the inputs and calculate.
-
-## Staff cost
-
-Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
-
-Staff-cost checklist
-
-Staff cost inputs
-
-Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
-
-Calculate Enter the inputs and calculate.
-
-## 13-week cash forecast
-
-Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.
-
-business.gov.au: cash flow
-
-The Lumbridge cash-flow case works the same question with a 45-day receipt delay.
-
-13-week cash forecast inputs
-
-First day of week 1 Load inputs (replaces the current forecast)
-
-Save inputs to a file on your device and load it to continue later. File contents are processed in your browser. A valid file replaces all forecast inputs; an invalid file leaves them intact. Each week covers 7 days from the start date.
-
-Save inputs
-
-Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
-
-Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.
-
-Week | Receipts (AUD) | Payments (AUD)
-1 | |
-2 | |
-3 | |
-4 | |
-5 | |
-6 | |
-7 | |
-8 | |
-9 | |
-10 | |
-11 | |
-12 | |
-13 | |
-
-Calculate Enter the inputs and calculate.
-
-Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.
-
-Download forecast CSV
+- GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
+- Business-use share calculator Apportion an eligible cost by a supported business-use percentage. It does not decide deductibility, depreciation or record sufficiency.
+- Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
+- Break-even sales calculator Whole units and sales required to cover fixed costs from price and variable cost per unit.
+- Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
+- Budget variance calculator Actual minus budget, the percentage of absolute budget, and whether the difference is favourable or unfavourable.
+- Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
+- Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
+- 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
 - Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
-- GST: https://duguid.com.au/tools/business-calculators/#gst
-- Business-use share: https://duguid.com.au/tools/business-calculators/#business-use
-- Margin and markup: https://duguid.com.au/tools/business-calculators/#margin
-- Break-even sales: https://duguid.com.au/tools/business-calculators/#break-even
-- Hourly pricing: https://duguid.com.au/tools/business-calculators/#hourly
-- Budget variance: https://duguid.com.au/tools/business-calculators/#variance
-- Monthly loan payments: https://duguid.com.au/tools/business-calculators/#loan
-- Staff cost: https://duguid.com.au/tools/business-calculators/#staff
-- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/#cash
-- ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
-- rate by income year: https://duguid.com.au/rates/cents-per-kilometre/
-- Phone and internet record checklist: https://duguid.com.au/tools/accounting-questions/#q15
-- business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
-- Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/#q75
-- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
-- Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/#q57
-- Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/#q50
-- business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- GST calculator: https://duguid.com.au/tools/business-calculators/gst/
+- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
+- Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
+- Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
