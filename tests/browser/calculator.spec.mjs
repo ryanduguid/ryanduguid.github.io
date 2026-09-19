@@ -389,7 +389,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 18 September 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 20 September 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();
@@ -418,7 +418,7 @@ test('monthly table explains aggregate rounding and downloads a sourced CSV', as
 
   await page.getByLabel('Employee reference', { exact: true }).fill('=SUM("1",2)');
   await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
-  await expect(page.locator('#employee-rows tr td:nth-child(4)')).toHaveText(['$162.01', '$162.01']);
+  await expect(page.locator('#employee-rows tr td:nth-child(4)')).toHaveText(['$6,000.20', '$6,000.20']);
   await expect(page.locator('#employee-total-wages')).toHaveText('$12,000.40');
   await expect(page.locator('#employee-total-levy')).toHaveText('$324.01');
 
@@ -430,14 +430,16 @@ test('monthly table explains aggregate rounding and downloads a sourced CSV', as
   for await (const chunk of stream) csv += chunk.toString('utf8');
   expect(download.suggestedFilename()).toBe('coal-lsl-levy.csv');
   expect(csv).toContain('Estimate only, not advice.');
-  expect(csv).toContain('Label,Branch,Eligible wages,Levy');
+  expect(csv).toContain('Label,Branch,Reporting month,Eligible wages,Eligible wages (exact),Levy');
   expect(csv).toContain('Currency,AUD\n');
   expect(csv).toContain('Levy rate,2.7%\n');
+  expect(csv).toContain('Rate applies from,2023-07\n');
   expect(csv).toContain('Rate reviewed,2026-09-02\n');
+  expect(csv).toContain('Eligible wages (exact) is the calculation basis to four decimal places; the displayed two-decimal column is not.\n');
   expect(csv).toContain('Rate source,https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf\n');
-  expect(csv).toContain('EMP-001,s 3B(1),6000.20,162.01\n');
-  expect(csv).toContain('"\'=SUM(""1"",2)",s 3B(1),6000.20,162.01\n');
-  expect(csv).toContain('Total,,12000.40,324.01');
+  expect(csv).toContain('EMP-001,s 3B(1),2026-09,6000.20,6000.2000,162.01\n');
+  expect(csv).toContain('"\'=SUM(""1"",2)",s 3B(1),2026-09,6000.20,6000.2000,162.01\n');
+  expect(csv).toContain('Total,,2026-09,12000.40,12000.4000,324.01');
   const rounding = page.locator('#employee-rounding-note');
   await expect(rounding).toBeVisible();
   await expect(rounding).toContainText('combined eligible wages and rounded once');
