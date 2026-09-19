@@ -57,7 +57,7 @@
         <p class="lead-note">Work through a business decision with supplied amounts and visible formulas. Calculations run in this browser. Inputs are not saved or sent anywhere; download the cash forecast before leaving.</p>
         <p><a href="/tools/accounting-questions/">Find a question and prepare a checklist</a>.</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 18 September 2026.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 20 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formulas, assumptions and source links remain available below.</p></noscript>
@@ -79,6 +79,14 @@
 <label class="check-field"><input type="checkbox" name="inclusive" /> Amount includes GST</label></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Rate: GST is 10% of the GST-exclusive value, so the GST in a GST-inclusive amount is one-eleventh of it. <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a>, read 20 September 2026; <a href="https://www.legislation.gov.au/C2004A00446/latest/text">A New Tax System (Goods and Services Tax) Act 1999</a>.</li>
+<li><span data-when="exclusive">Applied to your figure as a GST-exclusive amount: GST = amount / 10, rounded once to cents.</span><span data-when="inclusive" hidden>Applied to your figure as a GST-inclusive amount: GST = amount / 11, rounded once to cents.</span></li>
+<li>Supplied by you: the amount, whether it includes GST, and that the supply is wholly taxable. Mixed, GST-free and input-taxed supplies are not classified here.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="business-use">
 <h2>Business-use share</h2><p>Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.</p><p>For car expenses under the cents per kilometre method, the <a href="/rates/cents-per-kilometre/">rate by income year</a> is kept as a maintained table on this site.</p><p><a href="/tools/accounting-questions/#q15">Phone and internet record checklist</a></p>
@@ -88,6 +96,14 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formula: business-use share = eligible cost × business-use percentage / 100, rounded to cents.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The <a href="/rates/cents-per-kilometre/">cents per kilometre rate</a> is a separate table and is not applied by this calculator.</li>
+<li>Not determined here: deductibility, depreciation and whether the records support the percentage.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="margin">
 <h2>Margin and markup</h2><p>Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -97,6 +113,13 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: gross profit = sales − direct cost; margin = gross profit / sales × 100; markup = gross profit / direct cost × 100.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. Definitions follow <a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a>.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="break-even">
 <h2>Break-even sales</h2><p>Contribution per unit = price − variable cost per unit. Required units = fixed costs / contribution, rounded up. Required sales = whole units × price. Use one product or a stable representative mix and a consistent GST basis.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -107,6 +130,13 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: contribution per unit = price − variable cost; required units = fixed costs / contribution, rounded up to a whole unit; required sales = whole units × price.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. Definitions follow <a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a>.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="hourly">
 <h2>Hourly pricing</h2><p>Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
@@ -117,6 +147,13 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formula: required hourly rate = (annual costs + target annual profit) / annual billable hours, before GST.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. Definitions follow <a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a>.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="variance">
 <h2>Budget variance</h2><p>Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.</p><p><a href="/tools/accounting-questions/#q75">Budget explanation checklist</a></p>
@@ -127,6 +164,13 @@
 <div class="field"><label for="variance-kind">Figure type</label><select name="kind" id="variance-kind"><option value="income">Income</option><option value="cost">Cost</option></select></div></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: difference = actual − budget; percentage = difference / absolute budget × 100. Favourable means a positive income difference or a negative cost difference.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. No external source is applied; the favourability convention is the usual management-accounting one.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="loan">
 <h2>Monthly loan payments</h2><p>For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.</p><p><a href="/tools/accounting-questions/#q57">Loan reconciliation checklist</a></p>
@@ -137,6 +181,13 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formula: payment = principal × r / (1 − (1 + r) raised to −n), with r the monthly rate and n the number of payments; at zero interest, payment = principal / n. Payments in arrears, no fees or balloon.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The interest rate is yours, not a market or lender rate. No external source is applied.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="staff">
 <h2>Staff cost</h2><p>Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.</p><p><a href="/tools/accounting-questions/#q50">Staff-cost checklist</a></p>
@@ -147,6 +198,13 @@
 </div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: annual cost = wages + super amount + other annual costs; monthly average = annual cost / 12.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The super amount is the figure you enter; the <a href="/rates/super-guarantee/">super guarantee rate</a> is a separate table and is not applied by this calculator.</li>
+</ul>
+</div>
 </form></section>
 <section class="business-calculator" id="cash">
 <h2>13-week cash forecast</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
@@ -182,6 +240,13 @@
 </tbody></table></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: weekly closing cash = opening cash + receipts − payments, each closing balance opening the next week; funding gap = minimum buffer − lowest opening or weekly closing cash, floored at zero.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The layout follows <a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a>. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.</li>
+</ul>
+</div>
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
@@ -205,7 +270,7 @@
       "description": "Calculate GST, business use, margins, break-even sales, hourly rates, budget variances, loan payments, staff costs and a 13-week cash forecast in your browser.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-18",
+      "dateModified": "2026-09-20",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },
