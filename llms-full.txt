@@ -1183,13 +1183,13 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 # Announced tax measures not yet law
 
-Fifteen tax and super measures from the 2026-27 Budget and the 2025-26 MYEFO have no bill before Parliament, so no calculator or workpaper should apply them. Three more are enacted but start on 1 July 2027. The $1,000 instant deduction, the instant asset write-off and the tax loss carry-back are law and in force.
+Fifteen tax and super measures from the 2026-27 Budget and the 2025-26 MYEFO have no bill named on the ATO's list, so no calculator or workpaper should apply them. Three more are enacted but start on 1 July 2027. The $1,000 instant deduction, the instant asset write-off and the tax loss carry-back are law and in force.
 
 Read 20 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats what the ATO's Developments column says; a measure the ATO marks TBD has no bill, exposure draft or regulation to point to.
 
 ## Announced, no bill yet
 
-An announcement is not law. Until a bill passes both houses and receives Royal Assent, the existing law applies, and the ATO's guidance on announced measures sets out what happens if a taxpayer anticipates a change that then passes differently or not at all. These measures sat at TBD on the ATO's list when it was read.
+An announcement is not law. Until a bill passes both houses and receives Royal Assent, the existing law applies, and the ATO's guidance on announced measures sets out what happens if a taxpayer anticipates a change that then passes differently or not at all. Fourteen of these rows sat at TBD on the ATO's list when it was read. The MYEFO philanthropy package shows Various instead: several parts at different stages, none with a bill named.
 
 Announced measures without a bill, as listed by the ATO
 
@@ -1218,18 +1218,18 @@ These have Royal Assent and a start date after 20 September 2026. They belong in
 
 Enacted measures with a later start
 
-Measure | Announced in | Start | Legislation and Royal Assent
+Measure | Announced in | Start | Legislation and assent or registration
 Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
 
 ## Enacted and in force
 
-Listed because other Australian calculators still describe some of these as announced only. Each has Royal Assent and a start date on or before 20 September 2026.
+Listed because other Australian calculators still describe some of these as announced only. Each is in force: an Act with Royal Assent or a registered legislative instrument, with a start date on or before 20 September 2026.
 
 Enacted measures already in force
 
-Measure | Announced in | Start | Legislation and Royal Assent
+Measure | Announced in | Start | Legislation and assent or registration
 $1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
 Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
