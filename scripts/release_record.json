@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-18",
+  "reviewed": "2026-09-20",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,28 +18,28 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.2",
-        "released_utc": "2026-09-13T00:48:05Z",
-        "verified": "2026-09-18",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2",
+        "version": "0.2.3",
+        "released_utc": "2026-09-19T16:55:58Z",
+        "verified": "2026-09-20",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.2.2",
-        "visible_label": "Reference release v0.2.2",
-        "software_version": "0.2.2"
+        "version": "0.2.3",
+        "visible_label": "Reference release v0.2.3",
+        "software_version": "0.2.3"
       },
       "pinned_engines": {
-        "payday-super-checker": "0.1.4",
-        "ato-benchmark-compare": "0.1.7",
-        "div7a-loan-review": "0.1.2",
+        "payday-super-checker": "0.1.5",
+        "ato-benchmark-compare": "0.1.8",
+        "div7a-loan-review": "0.1.3",
         "australian-tax-calculators": "0.1.3"
       },
       "pinned_commands": [
-        "uvx --from aus-accounting-mcp==0.2.2 aus-accounting-mcp-demo"
+        "uvx --from aus-accounting-mcp==0.2.3 aus-accounting-mcp-demo"
       ],
       "tracking_commands": [
         "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
