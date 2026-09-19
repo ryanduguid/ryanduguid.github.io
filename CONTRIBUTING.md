@@ -123,6 +123,11 @@ Its exact URL is in the same exception list; other statuses and neighbouring
 URLs still fail. Recheck local access before changing the link, and remove
 the exception when runner access permits.
 
+The six ATO sources behind the car limit and FBT rate tables returned HTTP 403
+in [run 35459888870](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35459888870)
+and HTTP 200 locally and in Camofox on 20 September 2026; they are in the same
+list under the same rule.
+
 ## Release claims
 
 `scripts/release_record.json` is the reviewed statement of which release each page

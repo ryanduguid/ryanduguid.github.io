@@ -2,7 +2,9 @@
 
 Run with --write to regenerate the feed, or --check to fail when the committed
 feed is stale. Entries come from the two changelog tables only, so the feed can
-never say more than the page does.
+never say more than the page does. The changelog records calendar dates in
+Australian Eastern time; each becomes midnight UTC of that date, which needs no
+time-zone database and stays the same on every machine.
 """
 
 from __future__ import annotations
@@ -90,7 +92,7 @@ def build(html: str) -> str:
         f'  <link href="{SITE}/feed.xml" rel="self" />',
         f'  <link href="{CHANGELOG_URL}" />',
         f"  <id>{CHANGELOG_URL}</id>",
-        f"  <updated>{latest}T00:00:00+10:00</updated>",
+        f"  <updated>{latest}T00:00:00Z</updated>",
         "  <author><name>Ryan Duguid</name></author>",
     ]
     for when, title, summary, link in items:
@@ -100,7 +102,7 @@ def build(html: str) -> str:
             f"    <title>{escape(title)}</title>",
             f'    <link href="{escape(link)}" />',
             f"    <id>{CHANGELOG_URL}#entry-{digest}</id>",
-            f"    <updated>{when.isoformat()}T00:00:00+10:00</updated>",
+            f"    <updated>{when.isoformat()}T00:00:00Z</updated>",
             f"    <summary>{escape(summary)}</summary>",
             "  </entry>",
         ]
