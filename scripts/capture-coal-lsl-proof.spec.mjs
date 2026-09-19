@@ -75,7 +75,7 @@ test.describe('mobile proof', () => {
   test.use({ viewport: { width: 390, height: 1106 }, deviceScaleFactor: 2 });
 
   test('renders the same figures at the published mobile size', async ({ page }, testInfo) => {
-    const capture = { ...COAL_LSL_PROOF.capture, width: 390, height: 596, scale: 2 };
+    const capture = { ...COAL_LSL_PROOF.capture, width: 390, height: 616, scale: 2 };
     const image = await renderCoalLslProofPage(page, capture);
     expectProofContract(image, 'rendered mobile proof', capture);
     if (testInfo.config.updateSnapshots === 'all') {

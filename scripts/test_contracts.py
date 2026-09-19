@@ -130,10 +130,8 @@ def test_geo_leftovers_surface() -> None:
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
         "Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is "
-        "2.7% of monthly eligible wages. The 2.7% rate applies to eligible wages paid on "
-        "or after 1 July 2023; the calculator refuses earlier reporting months. "
-        "Section 3B has separate base-rate, annual-salary and casual branches. "
-        "The base-rate branch uses the greater of Formula A and Formula B."
+        "2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary "
+        "and casual branches. The base-rate branch uses the greater of Formula A and Formula B."
     )
 
     home = read_text(ROOT, "index.html")
