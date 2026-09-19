@@ -591,6 +591,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ("/rates/maximum-contribution-base/", "Maximum super contribution base"),
             ("/rates/car-limit/", "Car limit for depreciation"),
             ("/rates/fbt-rate/", "FBT rate and gross-up rates"),
+            ("/rates/announced-not-yet-law/", "Announced tax measures not yet law"),
         ],
     },
 }
@@ -698,6 +699,7 @@ ARTICLE_PATTERN_PAGES = {
     "rates/maximum-contribution-base/index.html",
     "rates/car-limit/index.html",
     "rates/fbt-rate/index.html",
+    "rates/announced-not-yet-law/index.html",
 }
 RATE_PAGES = {
     "rates/super-guarantee/index.html",
@@ -706,6 +708,7 @@ RATE_PAGES = {
     "rates/maximum-contribution-base/index.html",
     "rates/car-limit/index.html",
     "rates/fbt-rate/index.html",
+    "rates/announced-not-yet-law/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
 FORMULA_B_QUESTION = "What does the 75% in Formula B apply to?"

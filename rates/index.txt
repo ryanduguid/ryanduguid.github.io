@@ -6,7 +6,7 @@ Source: https://duguid.com.au/rates/
 
 # Rates
 
-Six maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
+Seven maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
@@ -96,6 +96,20 @@ FBT years ending 31 March 2018 to 2027.
 
 Primary source Download CSV
 
+## Announced tax measures not yet law
+
+Fifteen Budget and MYEFO measures have no bill named; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Tax and super measures on the ATO's Budget 2026-27 and MYEFO 2025-26 lists, by status.
+
+Primary source Download CSV
+
 ## Links
 
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -115,3 +129,6 @@ Primary source Download CSV
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
+- Announced tax measures not yet law: https://duguid.com.au/rates/announced-not-yet-law/
+- Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
+- Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv

@@ -31,6 +31,7 @@ The four starting routes on the homepage and Tools page, by task, plus the stand
 ## For AI agents
 
 - [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small-business benchmark ratios. It also supports limited, experimental Division 7A loan-term and repayment review, with human review required. It refuses loan formation, s 109R repayment classification, unpaid present entitlements, and distributable surplus. It also runs 6 bounded tax worksheets and can search a configured local Markdown library. Worksheets exclude HELP, Medicare, and full return preparation; confirm their supported periods and scope. Retrieved excerpts enter the calling assistant's context. It ships no ATO document library and does not fetch rulings from the web. Official MCP registry name: io.github.ryanduguid/aus-accounting.
+- [Agent skills manifest](https://duguid.com.au/.well-known/agent-skills/index.json): the 19 released SKILL.md files of australian-accounting-skills v0.2.1, each with its description, a URL that serves the released bytes at the release commit and a sha256 digest to check them against. Preparation-only workflows in the Agent Skills format; not advice and not lodgement.
 
 ## Person
 
@@ -46,7 +47,7 @@ The four starting routes on the homepage and Tools page, by task, plus the stand
 
 ## Reference tables
 
-- [Rates](https://duguid.com.au/rates/): index of the six maintained Australian tax and payroll references, their verification dates, primary sources, and downloadable CSVs where available.
+- [Rates](https://duguid.com.au/rates/): index of the seven maintained Australian tax and payroll references, their verification dates, primary sources, and downloadable CSVs where available.
 - [Super guarantee rate history](https://duguid.com.au/rates/super-guarantee/): every general SG percentage from 2002-03 to today. The rate has been 12% since 1 July 2025 with no further steps scheduled. From 1 July 2026, Payday Super changed when contributions must be paid, the earnings basis (qualifying earnings rather than ordinary time earnings) and the maximum contributions base treatment; the 12% percentage itself did not change.
 - [Super guarantee rate history CSV](https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv): machine-readable copy of the maintained table.
 - [Division 7A benchmark interest rate](https://duguid.com.au/rates/div7a-benchmark-rate/): 8.77% for 2026-27, 8.37% for 2025-26. Section 109N(2) ITAA 1936 ties the rate to the Reserve Bank's indicator lending rate for bank variable housing loans, the last figure published before the income year starts, which is the May figure rather than the June one.
@@ -59,6 +60,8 @@ The four starting routes on the homepage and Tools page, by task, plus the stand
 - [Car limit CSV](https://duguid.com.au/rates/car-limit/car-limit.csv): machine-readable copy of the maintained table.
 - [FBT rate and gross-up rates](https://duguid.com.au/rates/fbt-rate/): 47%, Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for every FBT year ending 31 March 2018 to 31 March 2027. Reportable fringe benefits use the Type 2 rate; the reporting threshold is a taxable value above $2,000.
 - [FBT rate CSV](https://duguid.com.au/rates/fbt-rate/fbt-rates.csv): machine-readable copy of the maintained table.
+- [Announced tax measures not yet law](https://duguid.com.au/rates/announced-not-yet-law/): the tax and super measures the ATO lists from the 2026-27 Budget and the 2025-26 MYEFO, split into announced with no bill named (15 measures, none to apply), enacted with a 1 July 2027 start (negative gearing and CGT discount reform, the Working Australians Tax Offset, the LISTO boost) and enacted and in force (the $1,000 instant deduction, the instant asset write-off and the tax loss carry-back among them). Read from ATO QC43473 on 20 September 2026.
+- [Announced tax measures CSV](https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv): machine-readable copy of the three tables.
 
 ## Browser tools, nothing to install
 

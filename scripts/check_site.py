@@ -37,6 +37,7 @@ CHECKS = (
     (sys.executable, "scripts/visibility_benchmark.py", "--check"),
     (sys.executable, "scripts/build_llms_full.py", "--check"),
     (sys.executable, "scripts/build_feed.py", "--check"),
+    (sys.executable, "scripts/build_agent_skills_manifest.py", "--check"),
     (sys.executable, "scripts/check_links.py"),
     ("node", "--test", "scripts/levy.test.mjs"),
     ("node", "--test", "scripts/business-calculators.test.mjs"),

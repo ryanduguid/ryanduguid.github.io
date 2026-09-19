@@ -1,0 +1,123 @@
+# Announced tax measures not yet law
+
+Source: https://duguid.com.au/rates/announced-not-yet-law/
+
+> Tax and super measures the ATO lists as announced but without a bill, and the enacted ones that start later, as at 20 September 2026.
+
+# Announced tax measures not yet law
+
+Fifteen tax and super measures from the 2026-27 Budget and the 2025-26 MYEFO have no bill named on the ATO's list, so no calculator or workpaper should apply them. Three more are enacted but start on 1 July 2027. The $1,000 instant deduction, the instant asset write-off and the tax loss carry-back are law and in force.
+
+Read 20 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats what the ATO's Developments column says; a measure the ATO marks TBD has no bill, exposure draft or regulation to point to.
+
+## Announced, no bill yet
+
+An announcement is not law. Until a bill passes both houses and receives Royal Assent, the existing law applies, and the ATO's guidance on announced measures sets out what happens if a taxpayer anticipates a change that then passes differently or not at all. Fourteen of these rows sat at TBD on the ATO's list when it was read. The MYEFO philanthropy package shows Various instead: several parts at different stages, none with a bill named.
+
+Announced measures without a bill, as listed by the ATO
+
+Measure | Announced in | Start | ATO status
+Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | No bill yet
+Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | No bill yet
+Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | No bill yet
+Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | No bill yet
+Modernising private health | Budget 2026-27 | 1 April 2027 | No bill yet
+Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | No bill yet
+Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | No bill yet
+Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | No bill yet
+Minimum tax on discretionary trusts | Budget 2026-27 | Various | No bill yet
+Loss refundability reforms for businesses and start-ups (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | No bill yet
+Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | No bill yet
+Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | No bill yet
+OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | No bill yet
+Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | No bill yet
+Supporting philanthropy | MYEFO 2025-26 | Various | Various
+
+Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
+
+## Enacted, starts later
+
+These have Royal Assent and a start date after 20 September 2026. They belong in planning, not in a 2026-27 calculation.
+
+Enacted measures with a later start
+
+Measure | Announced in | Start | Legislation and assent or registration
+Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
+Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
+Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
+
+## Enacted and in force
+
+Listed because other Australian calculators still describe some of these as announced only. Each is in force: an Act with Royal Assent or a registered legislative instrument, with a start date on or before 20 September 2026.
+
+Enacted measures already in force
+
+Measure | Announced in | Start | Legislation and assent or registration
+$1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
+Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
+Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
+Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026
+Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
+Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026, Royal Assent 30 June 2026
+Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
+Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
+Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
+
+Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures not yet law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure's status against the ATO page before relying on it; the list changes every sitting.
+
+## Common questions
+
+### Is the $1,000 instant tax deduction law?
+
+Yes. The Treasury Laws Amendment (Tax Reform No. 1) Act 2026 received Royal Assent on 26 June 2026 and the deduction applies from 1 July 2026, as the ATO's list records.
+
+### Is the negative gearing and CGT discount reform law?
+
+Yes, with a later start. The same Tax Reform No. 1 Acts enact it and it starts on 1 July 2027. Nothing changes for the 2026-27 income year.
+
+### What does TBD mean on the ATO's list?
+
+The ATO's Developments column names the bill, Act or instrument once one exists. TBD means there is none yet: no exposure draft, no bill and no regulation. Treat the measure as an announcement only.
+
+### How often is this page checked?
+
+At the events in the rates register's review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
+
+General reference only, not tax, legal, or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Rates
+- Rates register and its review cadence
+- Super guarantee rate history
+- Cents per kilometre rate for car expenses
+- Australian tax tools for AI agents
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- latest news on tax and superannuation law and policy: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
+- guidance on announced measures: https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures
+- Electric car discount: changes to the FBT treatment of electric cars: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/electric-car-discount-more-sustainable-fbt-treatment-of-electric-cars
+- Global minimum tax (Pillar Two): side-by-side package: https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/implementation-of-a-global-minimum-tax-and-a-domestic-minimum-tax
+- Foreign resident CGT regime: transitional arrangements: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/strengthening-the-foreign-resident-cgt-regime
+- Foreign investment: extending the ban on foreign purchases of established dwellings: https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/banning-foreign-purchases-of-established-dwellings
+- Better targeting the R&D Tax Incentive: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-better-targeting-the-research-and-development-tax-incentive
+- Expanding venture capital incentives: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-expanding-venture-capital-incentives
+- Minimum tax on discretionary trusts: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-introducing-a-minimum-tax-on-discretionary-trusts
+- Loss refundability reforms for businesses and start-ups (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
+- Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
+- Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
+- $1,000 instant tax deduction for work-related expenses: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/standard-deduction-for-work-related-expenses
+- Download the three tables as CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
+- rates register's: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
+- Source and contact: https://github.com/ryanduguid
+- Rates: https://duguid.com.au/rates/
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- About Ryan Duguid: https://duguid.com.au/about/

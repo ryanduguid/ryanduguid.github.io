@@ -806,7 +806,7 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 54, f"expected 54 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 55, f"expected 55 canonical HTML pages, found {len(indexed_rels)}"
     metadata_failures = [
         failure
         for path in html_paths

@@ -49,7 +49,7 @@
       "240e9aaefd99aa2dbf10a347cc141efcbc18a78f0c67fe16aed46f6b25974440"
     ],
     "rates/index.html": [
-      "7a9a002ef139674a06ea6b30859772f585a467eaced70bc3975a971afbbb76f8"
+      "a8e968df5432032683839b6aacc52999af7bf0f728768d40c65cdabd07935d3b"
     ],
     "rates/super-guarantee/index.html": [
       "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "51a76cd50ce2a339bb6f18e0fcf52ae51b7abcab2665521a9f92494713876f2e",
+    "llms.txt": "56f8e432cc3289d779d06ce2c84712737a713a1144e5c53852fc7b6bc5e03533",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "36a3f0747aae1bf0007d0bf4a3f3e163dae85479d5f9e1c703592c52850b62e1"
+    "sitemap.xml": "7452f6fce9581b04f469a4505de2764d212d82c9d2e9175f7c8f8b805361a4cf"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -167,7 +167,7 @@
     "rates/super-guarantee/index.html": "3484be5e7d8bc0fa701683871711f8162e5017e964d84892c0f02410786192b3"
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 55,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   }

@@ -222,6 +222,54 @@ ATO_AUTOMATION_DENIAL_URLS = frozenset(
             "single-touch-payroll-phase-2-employer-reporting-guidelines"
         ),
         "https://www.ato.gov.au/law/",
+        # The new-legislation pages returned 403 in run 35461899697 and 200
+        # locally on 20 September 2026.
+        "https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy",
+        "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "electric-car-discount-more-sustainable-fbt-treatment-of-electric-cars"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/"
+            "implementation-of-a-global-minimum-tax-and-a-domestic-minimum-tax"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "strengthening-the-foreign-resident-cgt-regime"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/"
+            "banning-foreign-purchases-of-established-dwellings"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "tax-reform-better-targeting-the-research-and-development-tax-incentive"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "tax-reform-expanding-venture-capital-incentives"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "tax-reform-introducing-a-minimum-tax-on-discretionary-trusts"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "tax-reform-loss-refundability-reforms-for-businesses-and-start-ups"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/"
+            "tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax"
+        ),
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/"
+            "standard-deduction-for-work-related-expenses"
+        ),
     }
 )
 
