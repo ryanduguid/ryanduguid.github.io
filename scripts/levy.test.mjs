@@ -348,6 +348,9 @@ test('assertReportingMonthSupported rejects malformed months', () => {
   assert.throws(() => assertReportingMonthSupported(undefined), TypeError);
   assert.throws(() => assertReportingMonthSupported('2024-01-01'), TypeError);
   assert.throws(() => assertReportingMonthSupported(202401), TypeError);
+  assert.throws(() => assertReportingMonthSupported('2023-00'), TypeError);
+  assert.throws(() => assertReportingMonthSupported('2023-13'), TypeError);
+  assert.throws(() => assertReportingMonthSupported('2024-13'), TypeError);
 });
 
 test('compute carries the reporting month for every branch', () => {
