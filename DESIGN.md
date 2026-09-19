@@ -19,8 +19,8 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 The 20 September evaluation pass splits the two long tool pages: the 100
 questions now live on 10 topic pages of 10, each with the search box and
 checklist download, and the 9 business calculators each have their own page.
-The old addresses stay as indexes, and an old calculator hash link is sent to
-the calculator's page. Rates gains the maximum super contribution base, the
+The old addresses stay as indexes; each keeps the old fragment ids on its
+links, and `hub-routes.mjs` follows the link when a page opens on one. Rates gains the maximum super contribution base, the
 car limit and the FBT rate, on the existing rates template. The homepage
 scope strip is removed because its four lines repeated the hero note and the
 footer; the Tools category jump links are removed because the accounting-area

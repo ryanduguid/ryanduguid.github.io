@@ -6,13 +6,13 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 # Maximum super contribution base
 
-The maximum contribution base is $270,830 for 2026-27, and it is now an annual figure: once an employee's qualifying earnings for the year pass it, the employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+The maximum contribution base is $270,830 for 2026-27, and it is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
 Verified 20 September 2026 against the ATO's super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
 ## Current base
 
-$270,830 for 2026-27. Payday Super made the base an annual limit on qualifying earnings from 1 July 2026. The ATO derives it as the concessional contributions cap multiplied by 100, divided by the charge percentage, rounded down to the nearest $10. At 12% that caps compulsory super guarantee for one employee at $32,499.60 for the year.
+$270,830 for 2026-27. Payday Super made the base an annual limit on the qualifying earnings each employer pays from 1 July 2026; an employee with two employers has a separate base with each. The ATO derives it as the concessional contributions cap multiplied by 100, divided by the charge percentage, rounded down to the nearest $10. At 12% that caps compulsory super guarantee for one employee at $32,499.60 for the year.
 
 Income year | Maximum contribution base (annual)
 2026-27 | $270,830
@@ -36,11 +36,11 @@ Download the table as CSV. Cite as Duguid, R. (2026). Maximum super contribution
 
 ### What is the maximum super contribution base for 2026-27?
 
-$270,830 of qualifying earnings for the year. Employers do not have to pay super guarantee on earnings above it.
+$270,830 of qualifying earnings for the year, counted separately by each employer. An employer does not have to pay super guarantee on the earnings it pays above that.
 
 ### Is the base annual or quarterly?
 
-Annual from 1 July 2026, when Payday Super started. For quarters up to 30 June 2026 it was a quarterly amount, $62,500 for each quarter of 2025-26.
+Annual from 1 July 2026, when Payday Super started, and applied per employer. For quarters up to 30 June 2026 it was a quarterly amount, $62,500 for each quarter of 2025-26.
 
 ### How is the base worked out?
 

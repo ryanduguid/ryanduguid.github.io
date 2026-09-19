@@ -63,10 +63,13 @@ test('the questions hub links every question to its topic page', async ({ page }
   await expect(page.locator('#q100')).toHaveAttribute('open', '');
 });
 
-test('old calculator hash links land on the calculator page', async ({ page }) => {
+test('old hash links land on the page that now holds the content', async ({ page }) => {
   await page.goto('/tools/business-calculators/#cash');
   await expect(page).toHaveURL(/business-calculators\/cash\/$/);
   await expect(page.locator('#cash form')).toBeVisible();
+  await page.goto('/tools/accounting-questions/#q100');
+  await expect(page).toHaveURL(/investments-local\/#q100$/);
+  await expect(page.locator('#q100')).toHaveAttribute('open', '');
 });
 
 test('cash inputs survive a save and reload with dated results', async ({ page }) => {
