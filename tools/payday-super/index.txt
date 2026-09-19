@@ -20,7 +20,7 @@ This is a fixed example. Nothing to install or upload; these dates do not recalc
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 20 September 2026.
 
 ## Try the CSV without cloning
 

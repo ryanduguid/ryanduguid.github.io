@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
 
-Published 16 September 2026. Last reviewed 16 September 2026.
+Published 16 September 2026. Last reviewed 20 September 2026.
 
 ## What belongs here
 
