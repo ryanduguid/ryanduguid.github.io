@@ -118,6 +118,7 @@ def main() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         (root / "_includes").mkdir()
+        (root / "_layouts").mkdir()
         (root / "_includes/nav.html").write_text(
             '<nav><a href="/"{% if page.url == "/" %} aria-current="page"'
             "{% endif %}>Home</a></nav>",
@@ -183,8 +184,7 @@ def main() -> None:
             server.server_close()
             thread.join(timeout=5)
     print(
-        "Jekyll build and rendered preview tests passed "
-        f"({stylesheets} stylesheets carry no Sass)"
+        f"Jekyll build and rendered preview tests passed ({stylesheets} stylesheets carry no Sass)"
     )
 
 

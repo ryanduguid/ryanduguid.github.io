@@ -63,7 +63,8 @@ class RegisterTests(RegisterFixture):
         series = self._series()
         series.write_text(
             series.read_text(encoding="utf-8").replace('"2.7"', '"2.8"'),
-            encoding="utf-8", newline="",
+            encoding="utf-8",
+            newline="",
         )
         failures = register.check_register()
         self.assertTrue(any("digest does not match" in failure for failure in failures), failures)
@@ -73,7 +74,9 @@ class RegisterTests(RegisterFixture):
         payload["rows"][0]["primary_source"]["url"] = "https://duguid.com.au/rates/coal-lsl-levy/"
         self._rewrite(self._series(), payload)
         failures = register.check_register()
-        self.assertTrue(any("not a primary source host" in failure for failure in failures), failures)
+        self.assertTrue(
+            any("not a primary source host" in failure for failure in failures), failures
+        )
 
     def test_a_future_check_date_is_refused(self) -> None:
         payload = json.loads(self._series().read_text(encoding="utf-8"))
@@ -98,7 +101,8 @@ class RegisterTests(RegisterFixture):
     def test_the_committed_register_has_no_crlf_file(self) -> None:
         self._point_at(ROOT / "rates" / "register")
         offenders = [
-            path.name for path in register.REGISTER_DIR.rglob("*")
+            path.name
+            for path in register.REGISTER_DIR.rglob("*")
             if path.is_file() and b"\r\n" in path.read_bytes()
         ]
         self.assertEqual(offenders, [])
@@ -137,9 +141,7 @@ class RegisterTests(RegisterFixture):
         payload["rows"][0]["review"] = "professional-review"
         self._rewrite(self._series(), payload)
         failures = register.check_register()
-        self.assertTrue(
-            any("not professional review" in failure for failure in failures), failures
-        )
+        self.assertTrue(any("not professional review" in failure for failure in failures), failures)
 
     def test_an_unverified_row_must_explain_itself(self) -> None:
         payload = json.loads(self._series().read_text(encoding="utf-8"))
@@ -150,20 +152,26 @@ class RegisterTests(RegisterFixture):
         row.pop("verification_note", None)
         self._rewrite(self._series(), payload)
         failures = register.check_register()
-        self.assertTrue(any("needs a verification_note" in failure for failure in failures), failures)
+        self.assertTrue(
+            any("needs a verification_note" in failure for failure in failures), failures
+        )
 
     def test_a_superseded_row_must_be_named_by_its_replacement(self) -> None:
         payload = json.loads(self._series().read_text(encoding="utf-8"))
         payload["rows"][0]["status"] = "superseded"
         self._rewrite(self._series(), payload)
         failures = register.check_register()
-        self.assertTrue(any("no row names it in supersedes" in failure for failure in failures), failures)
+        self.assertTrue(
+            any("no row names it in supersedes" in failure for failure in failures), failures
+        )
 
     def test_an_unlisted_series_file_is_refused(self) -> None:
         shutil.copy(self._series(), register.REGISTER_DIR / "series" / "made-up.json")
         self._resum()
         failures = register.check_register()
-        self.assertTrue(any("does not match the files" in failure for failure in failures), failures)
+        self.assertTrue(
+            any("does not match the files" in failure for failure in failures), failures
+        )
 
     def test_one_series_check_date_does_not_travel_to_another(self) -> None:
         """A second series keeps its own dates; refreshing one must not refresh the other."""
@@ -175,7 +183,9 @@ class RegisterTests(RegisterFixture):
         path.write_text(json.dumps(other, indent=2) + "\n", encoding="utf-8", newline="")
         manifest = json.loads(register.MANIFEST.read_text(encoding="utf-8"))
         manifest["series"] = sorted(manifest["series"] + ["series/example-series.json"])
-        register.MANIFEST.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="")
+        register.MANIFEST.write_text(
+            json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline=""
+        )
         self._resum()
         self.assertEqual(register.check_register(), [])
         first = json.loads(self._series().read_text(encoding="utf-8"))
@@ -189,6 +199,7 @@ class RegisterTests(RegisterFixture):
         self.assertEqual(register.check_register(today=dt.date(2026, 9, 18)), [])
         failures = register.check_register(today=dt.date(2026, 9, 17))
         self.assertTrue(any("is in the future" in failure for failure in failures), failures)
+
 
 class ReviewFindingTests(RegisterFixture):
     """Regressions from the 18 September 2026 review.
@@ -261,7 +272,9 @@ class ReviewFindingTests(RegisterFixture):
     def test_a_second_sha256sums_deeper_in_the_tree_is_still_covered(self) -> None:
         # Only the register's own sums file is exempt. Another of that name was
         # neither hashed nor listed, and was published all the same.
-        (register.REGISTER_DIR / "series" / "SHA256SUMS").write_text("x\n", encoding="utf-8", newline="")
+        (register.REGISTER_DIR / "series" / "SHA256SUMS").write_text(
+            "x\n", encoding="utf-8", newline=""
+        )
         failures = register.check_register()
         self.assertTrue(
             any("series/SHA256SUMS is not listed" in failure for failure in failures), failures
@@ -276,6 +289,7 @@ class ReviewFindingTests(RegisterFixture):
         self.assertTrue(
             any("does not match the files" in failure for failure in failures), failures
         )
+
 
 if __name__ == "__main__":
     unittest.main(argv=[sys.argv[0], "-v"])

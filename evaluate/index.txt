@@ -1,4 +1,4 @@
-# Reproducible accounting tool evaluations | Ryan Duguid
+# Reproducible accounting tool evaluations
 
 Source: https://duguid.com.au/evaluate/
 
@@ -10,7 +10,7 @@ Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool e
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
-For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed in the Tools register. Choose an example for any tool in the register.
+For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
 Last reviewed 18 September 2026.
 
@@ -48,7 +48,7 @@ Use the synthetic files only. Do not send client records, credentials, or confid
 
 Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
 
-Examples for the tools in the register. All inputs are fabricated. Scroll sideways on small screens.
+Examples for each tool. All inputs are fabricated. Scroll sideways on small screens.
 
 Tool | Reproduction route | What to check
 Xero trial balance CSV export | Fixed-release evaluation | One accepted export and two refusals.
@@ -158,8 +158,8 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 ## Links
 
 - Evidence register: https://duguid.com.au/evidence/
-- Tools register: https://duguid.com.au/tools/
-- Choose an example for any tool in the register: https://duguid.com.au/evaluate/#example-routes
+- Tools page: https://duguid.com.au/tools/
+- Choose an example for any tool: https://duguid.com.au/evaluate/#example-routes
 - Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Review the Lumbridge case: https://duguid.com.au/contact/#example-feedback
 - sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip

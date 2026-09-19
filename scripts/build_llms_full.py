@@ -107,9 +107,7 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
         previous = kind
     text = re.sub(r"PREFORMATTED-(\d+)", lambda m: pres[int(m.group(1))], text)
     if links:
-        text += "\n\n## Links\n\n" + "\n".join(
-            f"- {label}: {url}" for url, label in links.items()
-        )
+        text += "\n\n## Links\n\n" + "\n".join(f"- {label}: {url}" for url, label in links.items())
     return text.strip()
 
 
@@ -165,7 +163,9 @@ def main(argv: list[str]) -> int:
         return 1
     stale = [url for url, entry in entries.items() if read_text(page_text_path(url)) != entry]
     if stale:
-        print(f"{len(stale)} index.txt page(s) stale: run python scripts/build_llms_full.py --write")
+        print(
+            f"{len(stale)} index.txt page(s) stale: run python scripts/build_llms_full.py --write"
+        )
         return 1
     if not alias.is_file() or alias.read_bytes() != index:
         print(".well-known/llms.txt is stale: run python scripts/build_llms_full.py --write")

@@ -63,7 +63,6 @@ VOID_ELEMENTS = {
 NON_RENDERED_ELEMENTS = {"script", "style", "template"}
 
 
-
 def site_url(rel: str, site: str) -> str:
     """Return the live URL for a repository-relative HTML path."""
     if rel == "index.html":
@@ -80,10 +79,7 @@ def title_is_too_long(
 ) -> bool:
     """Apply the general title limit and exact configured exceptions."""
     rendered_title = html_lib.unescape(title)
-    return (
-        len(rendered_title) > TITLE_MAX
-        and title_exceptions.get(rel) != rendered_title
-    )
+    return len(rendered_title) > TITLE_MAX and title_exceptions.get(rel) != rendered_title
 
 
 def check_file_metadata(
@@ -174,14 +170,10 @@ def check_file_metadata(
         if isinstance(block, dict):
             contexts = [block.get("@context")]
         elif isinstance(block, list):
-            contexts = [
-                item.get("@context") for item in block if isinstance(item, dict)
-            ]
+            contexts = [item.get("@context") for item in block if isinstance(item, dict)]
         else:
             contexts = []
-        if not contexts or any(
-            context != "https://schema.org" for context in contexts
-        ):
+        if not contexts or any(context != "https://schema.org" for context in contexts):
             failures.append(f"{rel}: JSON-LD @context is not https://schema.org")
         check_item_lists(block, rel, failures)
         for node in nodes(block):
@@ -228,9 +220,7 @@ def check_sitemap(
 
 
 def meta(html: str, attr: str, value: str) -> str | None:
-    m = re.search(
-        rf'<meta {attr}="{re.escape(value)}" content="(.*?)"\s*/?>', html, re.S
-    )
+    m = re.search(rf'<meta {attr}="{re.escape(value)}" content="(.*?)"\s*/?>', html, re.S)
     return html_lib.unescape(m.group(1)).strip() if m else None
 
 
@@ -258,9 +248,7 @@ def required_meta_fields(
     for name in fields:
         values = meta_values(html, attr, name)
         if len(values) != 1 or not values[0]:
-            failures.append(
-                f"{rel}: expected exactly one non-empty {name}, found {len(values)}"
-            )
+            failures.append(f"{rel}: expected exactly one non-empty {name}, found {len(values)}")
         else:
             found[name] = values[0]
     return found
@@ -277,9 +265,7 @@ def check_social_metadata(
     failures: list[str],
 ) -> None:
     """Check complete Open Graph and Twitter metadata against one card context."""
-    open_graph = required_meta_fields(
-        html, rel, "property", OPEN_GRAPH_FIELDS, failures
-    )
+    open_graph = required_meta_fields(html, rel, "property", OPEN_GRAPH_FIELDS, failures)
     twitter = required_meta_fields(html, rel, "name", TWITTER_FIELDS, failures)
 
     expected_open_graph = {
@@ -316,8 +302,7 @@ def check_referrer_policy(html: str, rel: str, failures: list[str]) -> None:
     values = meta_values(html, "name", "referrer")
     if values != [REFERRER_POLICY]:
         failures.append(
-            f"{rel}: referrer policy is {values!r}, expected exactly "
-            f"[{REFERRER_POLICY!r}]"
+            f"{rel}: referrer policy is {values!r}, expected exactly [{REFERRER_POLICY!r}]"
         )
 
 
@@ -325,9 +310,7 @@ def visible_html(html: str) -> str:
     """HTML with non-rendered, hidden and comment content removed."""
     html = re.sub(r"<(script|style|template)\b.*?</\1>", " ", html, flags=re.S | re.I)
     html = re.sub(r"<!--.*?-->", " ", html, flags=re.S)
-    tag_pattern = re.compile(
-        r"<(?P<closing>/)?(?P<name>[a-z][\w:-]*)\b(?P<attrs>[^>]*)>", re.I
-    )
+    tag_pattern = re.compile(r"<(?P<closing>/)?(?P<name>[a-z][\w:-]*)\b(?P<attrs>[^>]*)>", re.I)
     hidden_attribute = re.compile(
         r"(?:^|\s)hidden\b(?:\s*=\s*(?:\"[^\"]*\"|'[^']*'|[^\s>]+))?"
         r"|(?:^|\s)aria-hidden\s*=\s*(?:\"true\"|'true'|true)"
@@ -381,9 +364,7 @@ def visible_html(html: str) -> str:
                 del hidden_stack[start:]
             elif not closing and not self_closing:
                 hidden_stack.append(name)
-        elif not closing and (
-            hidden_attribute.search(attrs) or has_visually_hidden_class(attrs)
-        ):
+        elif not closing and (hidden_attribute.search(attrs) or has_visually_hidden_class(attrs)):
             rendered.append(" ")
             if not self_closing:
                 hidden_stack.append(name)
@@ -408,9 +389,7 @@ def visible_text(html: str) -> str:
 
 def raw_text(html: str) -> str:
     """Like visible_text but keeping hidden content, which copy bans must read."""
-    return stripped_text(
-        re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
-    )
+    return stripped_text(re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", html, flags=re.I | re.S))
 
 
 @dataclass
@@ -437,9 +416,7 @@ class StructureParser(HTMLParser):
         self.root = HtmlElement("#document", {})
         self.stack = [self.root]
 
-    def _add_element(
-        self, tag: str, attrs: list[tuple[str, str | None]], push: bool
-    ) -> None:
+    def _add_element(self, tag: str, attrs: list[tuple[str, str | None]], push: bool) -> None:
         element = HtmlElement(
             tag.casefold(),
             {name.casefold(): value for name, value in attrs},
@@ -449,14 +426,10 @@ class StructureParser(HTMLParser):
         if push and element.tag not in VOID_ELEMENTS:
             self.stack.append(element)
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self._add_element(tag, attrs, push=True)
 
-    def handle_startendtag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         self._add_element(tag, attrs, push=False)
 
     def handle_endtag(self, tag: str) -> None:
@@ -499,9 +472,7 @@ def descendants(
         for child in parent.children:
             if not isinstance(child, HtmlElement):
                 continue
-            if (tag is None or child.tag == tag) and (
-                not rendered_only or is_rendered(child)
-            ):
+            if (tag is None or child.tag == tag) and (not rendered_only or is_rendered(child)):
                 found.append(child)
             visit(child)
 
@@ -539,9 +510,7 @@ def is_descendant(element: HtmlElement, ancestor: HtmlElement) -> bool:
 
 def json_ld_blocks(html: str, rel: str, failures: list[str]) -> list[object]:
     blocks: list[object] = []
-    for raw in re.findall(
-        r'<script type="application/ld\+json">(.*?)</script>', html, re.S
-    ):
+    for raw in re.findall(r'<script type="application/ld\+json">(.*?)</script>', html, re.S):
         try:
             blocks.append(json.loads(raw))
         except json.JSONDecodeError as exc:
@@ -608,9 +577,7 @@ def anchor_hrefs(html: str) -> list[str]:
     """Return href values from visible anchors."""
     return [
         html_lib.unescape(href)
-        for href in re.findall(
-            r'<a\b[^>]*\bhref\s*=\s*["\']([^"\']+)["\']', html, re.I
-        )
+        for href in re.findall(r'<a\b[^>]*\bhref\s*=\s*["\']([^"\']+)["\']', html, re.I)
     ]
 
 
@@ -679,9 +646,7 @@ def visible_faq_pairs(html: str) -> list[tuple[str, str]]:
     )
     pairs: list[tuple[str, str]] = []
     for container in containers:
-        headings = list(
-            re.finditer(r"<h3\b[^>]*>(.*?)</h3\s*>", container, re.S | re.I)
-        )
+        headings = list(re.finditer(r"<h3\b[^>]*>(.*?)</h3\s*>", container, re.S | re.I))
         for index, heading in enumerate(headings):
             end = headings[index + 1].start() if index + 1 < len(headings) else len(container)
             answer = re.search(
@@ -719,17 +684,11 @@ def check_faq_visible(node: dict, html: str, rel: str, failures: list[str]) -> N
             f"{rel}: FAQPage has {len(structured_pairs)} structured items but "
             f"{len(visible_pairs)} visible items"
         )
-    for index, (structured, visible) in enumerate(
-        zip(structured_pairs, visible_pairs), start=1
-    ):
+    for index, (structured, visible) in enumerate(zip(structured_pairs, visible_pairs), start=1):
         if structured[0] != visible[0]:
-            failures.append(
-                f"{rel}: FAQPage item {index} question does not match the visible FAQ"
-            )
+            failures.append(f"{rel}: FAQPage item {index} question does not match the visible FAQ")
         if structured[1] != visible[1]:
-            failures.append(
-                f"{rel}: FAQPage item {index} answer does not match the visible FAQ"
-            )
+            failures.append(f"{rel}: FAQPage item {index} answer does not match the visible FAQ")
 
 
 def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
@@ -744,26 +703,18 @@ def check_item_lists(value: object, rel: str, failures: list[str]) -> None:
         declared_count = node.get("numberOfItems")
         if type(declared_count) is not int:
             failures.append(
-                f"{rel}: ItemList numberOfItems must be an integer, "
-                f"found {declared_count!r}"
+                f"{rel}: ItemList numberOfItems must be an integer, found {declared_count!r}"
             )
         elif declared_count != len(items):
             failures.append(
-                f"{rel}: ItemList declares {declared_count!r} items, "
-                f"but contains {len(items)}"
+                f"{rel}: ItemList declares {declared_count!r} items, but contains {len(items)}"
             )
-        positions = [
-            item.get("position") if isinstance(item, dict) else None for item in items
-        ]
+        positions = [item.get("position") if isinstance(item, dict) else None for item in items]
         expected = list(range(1, len(items) + 1))
         if any(type(position) is not int for position in positions):
-            failures.append(
-                f"{rel}: ItemList positions must be integers, found {positions!r}"
-            )
+            failures.append(f"{rel}: ItemList positions must be integers, found {positions!r}")
         elif positions != expected:
-            failures.append(
-                f"{rel}: ItemList positions are {positions!r}, expected {expected!r}"
-            )
+            failures.append(f"{rel}: ItemList positions are {positions!r}, expected {expected!r}")
 
 
 def sitemap_urls(root: Path = ROOT) -> list[str]:
@@ -774,9 +725,7 @@ def sitemap_urls(root: Path = ROOT) -> list[str]:
 def sitemap_lastmods(url: str, root: Path = ROOT) -> list[str]:
     """Return lastmod values immediately associated with one sitemap URL."""
     xml = (root / "sitemap.xml").read_text(encoding="utf-8")
-    return re.findall(
-        rf"<loc>{re.escape(url)}</loc>\s*<lastmod>(.*?)</lastmod>", xml, re.S
-    )
+    return re.findall(rf"<loc>{re.escape(url)}</loc>\s*<lastmod>(.*?)</lastmod>", xml, re.S)
 
 
 def html_files(root: Path = ROOT) -> list[Path]:
@@ -785,9 +734,6 @@ def html_files(root: Path = ROOT) -> list[Path]:
         p
         for p in root.rglob("*.html")
         if not any(part.startswith(".") for part in p.relative_to(root).parts)
-        and not any(
-            part in GENERATED_HTML_DIRECTORIES
-            for part in p.relative_to(root).parts[:-1]
-        )
+        and not any(part in GENERATED_HTML_DIRECTORIES for part in p.relative_to(root).parts[:-1])
         and not (p.name.startswith("google") and p.name.endswith(".html"))
     )

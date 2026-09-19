@@ -1,0 +1,212 @@
+# Companies and trusts: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
+
+> Ten questions on companies and trusts for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Companies and trusts
+
+Practical steps, records and official guidance on companies and trusts. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the entity and relevant income or FBT year; linked tools have separate supported periods. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Companies and trusts
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Companies and trusts
+
+Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods.
+
+81. Does my company qualify for the lower company tax rate?
+
+Test the company's income and aggregated-turnover conditions for the relevant year.
+
+- Reconcile taxable income, passive-income categories and connected-entity information.
+- Use the existing company-tax example only after the inputs and applicable conditions have been established.
+
+The example does not determine eligibility merely from accounting profit.
+
+Corporate tax measures and assurance · Company tax and franking example
+
+Link to question 81
+
+82. How should I record money paid to a director as wages, dividends or a loan?
+
+Record a director payment according to its legal basis and supporting documents.
+
+- Gather payroll records, dividend documents or loan terms and trace each payment.
+- Review withholding, super, franking and Division 7A consequences before posting or reclassifying it.
+
+Changing the ledger label does not change the underlying transaction.
+
+Corporate tax measures and assurance · Company tax and franking example
+
+Link to question 82
+
+83. Does taking money out of my company create a Division 7A problem?
+
+Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+
+- Reconcile the person's account and gather agreements, dates and repayment evidence.
+- Use the existing review case to organise the evidence and identify unresolved legal questions.
+
+The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 83
+
+84. How do I calculate the minimum yearly repayment on a complying Division 7A loan?
+
+Use the minimum-yearly-repayment calculation for an established complying loan and the correct year.
+
+- Gather the relevant opening balance, benchmark rate, remaining term and qualifying repayments.
+- Reproduce the existing Division 7A case, then retain the inputs and compare required with actual qualifying repayments.
+
+Eligibility, amalgamation and repayment classification must already have been reviewed.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 84
+
+85. Which payments count as repayments of a Division 7A loan?
+
+Review the source, timing and surrounding arrangements for each proposed repayment.
+
+- Trace the payment through bank and loan records and identify any reborrowing or circular movement.
+- Document the section 109R review and qualifying amount before using the minimum-repayment worksheet.
+
+A credit to a director loan account is not automatically a qualifying Division 7A repayment.
+
+Private company benefits - Division 7A dividends · Division 7A review case and limitations
+
+Link to question 85
+
+86. What must a family trust document before distributing income at year-end?
+
+Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
+
+- Check the deed and timing requirements, prepare the relevant income and distribution schedules, and retain resolutions.
+- Use the existing trust example to separate arithmetic from missing documents and unresolved entitlement.
+
+The tool cannot validate a deed or cure a late or ineffective trustee decision.
+
+Trusts · Trust distributions example
+
+Link to question 86
+
+87. How do dividends and franking credits affect my tax return?
+
+Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
+
+- Record any foreign, trust or other adjustments and the relevant holding-period evidence.
+- Use the ATO investment and imputation guidance to determine what appears in the return.
+
+A stated franking credit does not automatically establish entitlement to use the offset.
+
+Investments and assets
+
+Link to question 87
+
+88. Does providing a company car or paying an employee's private expenses create FBT?
+
+Identify the benefit, recipient, private use and FBT year before valuing anything.
+
+- Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
+- Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
+
+The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.
+
+Fringe benefits tax (FBT) · Experimental tax worksheets and supported years
+
+Link to question 88
+
+89. What information do I need to prepare an ATO payment-plan proposal?
+
+Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+
+- Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
+- Use the ATO support route to discuss terms and retain any accepted arrangement.
+
+A forecast does not establish acceptance, interest relief or removal of other obligations.
+
+Paying the ATO · 13-week cash forecast
+
+Link to question 89
+
+90. Could my related businesses be grouped together for NSW payroll tax?
+
+Assess the relationships between businesses against the NSW grouping rules.
+
+- Prepare an ownership and control diagram, shared-employee details and financial relationships.
+- Document each grouping test and any exclusion application, then reconcile group wages.
+
+Separate company names or accounts do not by themselves prevent payroll-tax grouping.
+
+Revenue NSW payroll tax
+
+Link to question 90
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
+- Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
+- Link to question 81: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
+- Link to question 82: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
+- Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
+- Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
+- Link to question 83: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
+- Link to question 84: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
+- Link to question 85: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
+- Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
+- Trust distributions example: https://duguid.com.au/tools/trust-distributions/
+- Link to question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
+- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Link to question 87: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
+- Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 88: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
+- Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 89: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
+- Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Link to question 90: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

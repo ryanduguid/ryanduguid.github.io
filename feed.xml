@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>duguid.com.au changelog</title>
+  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open-source Australian accounting tools.</subtitle>
+  <link href="https://duguid.com.au/feed.xml" rel="self" />
+  <link href="https://duguid.com.au/changelog/" />
+  <id>https://duguid.com.au/changelog/</id>
+  <updated>2026-09-20T00:00:00+10:00</updated>
+  <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The 100 accounting questions moved to ten topic pages and the nine business c...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-62337d3c750b7d10</id>
+    <updated>2026-09-20T00:00:00+10:00</updated>
+    <summary>The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.</summary>
+  </entry>
+  <entry>
+    <title>Actions from the 19 September site audits: the Coal LSL calculator now takes...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-ebd4b0433d3efd2b</id>
+    <updated>2026-09-20T00:00:00+10:00</updated>
+    <summary>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</summary>
+  </entry>
+  <entry>
+    <title>The six webfonts return to IBM's unmodified Latin1 files, the response-header...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
+    <updated>2026-09-14T00:00:00+10:00</updated>
+    <summary>The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.2</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2" />
+    <id>https://duguid.com.au/changelog/#entry-c01902ed9f6cfe63</id>
+    <updated>2026-09-13T00:00:00+10:00</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.2.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.1.6</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.6" />
+    <id>https://duguid.com.au/changelog/#entry-ea21615f8e1f7604</id>
+    <updated>2026-09-13T00:00:00+10:00</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.6.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-e4caf5a88c5a69d9</id>
+    <updated>2026-09-13T00:00:00+10:00</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v0.1.6</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.6" />
+    <id>https://duguid.com.au/changelog/#entry-d951072b5d0dc6c1</id>
+    <updated>2026-09-13T00:00:00+10:00</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.1.6.</summary>
+  </entry>
+  <entry>
+    <title>Company tax and franking checks the-exchequer-tally/v0.1.6</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6" />
+    <id>https://duguid.com.au/changelog/#entry-7813c456323c0d75</id>
+    <updated>2026-09-13T00:00:00+10:00</updated>
+    <summary>Company tax and franking checks: release the-exchequer-tally/v0.1.6.</summary>
+  </entry>
+  <entry>
+    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.7</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.7" />
+    <id>https://duguid.com.au/changelog/#entry-786895d19311a06e</id>
+    <updated>2026-09-12T00:00:00+10:00</updated>
+    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.7.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.4</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.4" />
+    <id>https://duguid.com.au/changelog/#entry-812d03df13bdae28</id>
+    <updated>2026-09-12T00:00:00+10:00</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.4.</summary>
+  </entry>
+  <entry>
+    <title>Updated MCP capabilities and current release references, added verified trust...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-c5f123a0a4511359</id>
+    <updated>2026-09-11T00:00:00+10:00</updated>
+    <summary>Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.</summary>
+  </entry>
+  <entry>
+    <title>Subcontract ledger skills v0.2.1</title>
+    <link href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1" />
+    <id>https://duguid.com.au/changelog/#entry-eaa17f5549b11c83</id>
+    <updated>2026-09-07T00:00:00+10:00</updated>
+    <summary>Subcontract ledger skills: release v0.2.1.</summary>
+  </entry>
+  <entry>
+    <title>The Tools page gained a Related resources section holding the third-party lib...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-d194696daf327772</id>
+    <updated>2026-09-06T00:00:00+10:00</updated>
+    <summary>The Tools page gained a Related resources section holding the third-party libraries, official guidance, and primary sources from the separate index repository, which is now archived; the footer links there instead.</summary>
+  </entry>
+  <entry>
+    <title>Every link to a repository archived after the September 2026 consolidation no...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-2ba6f06ab6c1b349</id>
+    <updated>2026-09-04T00:00:00+10:00</updated>
+    <summary>Every link to a repository archived after the September 2026 consolidation now points at its maintained home in the monorepos, the 3 evaluations were rerun against the namespaced monorepo releases, and the site checks fail on any link that resolves to an archived repository.</summary>
+  </entry>
+  <entry>
+    <title>Copy edit across the tool, rate, and evaluation pages, About, Contact, and Ev...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-86ca9fdcc933e430</id>
+    <updated>2026-09-02T00:00:00+10:00</updated>
+    <summary>Copy edit across the tool, rate, and evaluation pages, About, Contact, and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site's per cent style.</summary>
+  </entry>
+  <entry>
+    <title>Font preloads and a Content Security Policy on every page, entry headings on...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-93a5cfb198beddc8</id>
+    <updated>2026-09-02T00:00:00+10:00</updated>
+    <summary>Font preloads and a Content Security Policy on every page, entry headings on the Rates and Evaluations hubs, a no-script notice on the Coal LSL calculator, a security.txt contact file, and repository tooling removed from the published origin.</summary>
+  </entry>
+  <entry>
+    <title>Engage parked. The site remains a personal open-source tool index, not a prac...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-eb0f892af8afe17a</id>
+    <updated>2026-08-31T00:00:00+10:00</updated>
+    <summary>Engage parked. The site remains a personal open-source tool index, not a practice, and is not accepting professional engagements through this site.</summary>
+  </entry>
+  <entry>
+    <title>Navigation, adoption, and accessibility refinements across the register, with...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-3d180c520c89f4f9</id>
+    <updated>2026-08-30T00:00:00+10:00</updated>
+    <summary>Navigation, adoption, and accessibility refinements across the register, with contact and changelog pages added.</summary>
+  </entry>
+  <entry>
+    <title>Coal LSL calculator month validation and print recalculation fixes, and the s...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-9eb90fb829d6c019</id>
+    <updated>2026-08-30T00:00:00+10:00</updated>
+    <summary>Coal LSL calculator month validation and print recalculation fixes, and the split 2013-14 super guarantee history row.</summary>
+  </entry>
+  <entry>
+    <title>Adoption-first homepage, the Tools, Rates, and Evaluations hubs, contextual s...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-267a6196f3a31919</id>
+    <updated>2026-08-29T00:00:00+10:00</updated>
+    <summary>Adoption-first homepage, the Tools, Rates, and Evaluations hubs, contextual share cards, and calculator print and CSV improvements.</summary>
+  </entry>
+  <entry>
+    <title>True-black register redesign, self-hosted IBM Plex subsets, and the register-...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-76ef72fb170e60e1</id>
+    <updated>2026-08-28T00:00:00+10:00</updated>
+    <summary>True-black register redesign, self-hosted IBM Plex subsets, and the register-seal site icon.</summary>
+  </entry>
+</feed>

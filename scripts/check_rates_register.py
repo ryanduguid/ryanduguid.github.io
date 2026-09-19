@@ -37,9 +37,7 @@ REGISTER_DIR = ROOT / "rates" / "register"
 MANIFEST = REGISTER_DIR / "register.json"
 SUMS = REGISTER_DIR / "SHA256SUMS"
 
-ADVICE_STATUS = (
-    "Not advice. Verify each figure against its primary source at the time of use."
-)
+ADVICE_STATUS = "Not advice. Verify each figure against its primary source at the time of use."
 PRIMARY_HOSTS = (
     "www.legislation.gov.au",
     "legislation.gov.au",
@@ -65,8 +63,15 @@ REVIEWS = {"automated-retrieval", "professional-review"}
 SLUG = re.compile(r"^[a-z0-9]+(-[a-z0-9]+)*$")
 DECIMAL = re.compile(r"^-?[0-9]+(\.[0-9]+)?$")
 ROW_REQUIRED = (
-    "row_id", "period_start", "period_end", "value", "status",
-    "review", "primary_source", "verified_at", "verified_by",
+    "row_id",
+    "period_start",
+    "period_end",
+    "value",
+    "status",
+    "review",
+    "primary_source",
+    "verified_at",
+    "verified_by",
 )
 
 
@@ -222,7 +227,9 @@ def check_series(path: Path, failures: list[str], today: dt.date) -> str | None:
     live = [row for row in rows if isinstance(row, dict) and row.get("status") != "superseded"]
     open_ended = [row for row in live if row.get("period_end") is None]
     if len(open_ended) > 1:
-        failures.append(f"{series_id}: {len(open_ended)} rows have an open period_end; at most 1 may")
+        failures.append(
+            f"{series_id}: {len(open_ended)} rows have an open period_end; at most 1 may"
+        )
     ordered = sorted(live, key=lambda row: str(row.get("period_start")))
     if [row.get("row_id") for row in live] != [row.get("row_id") for row in ordered]:
         failures.append(f"{series_id}: rows are not ordered by period_start")
@@ -269,8 +276,7 @@ def check_series(path: Path, failures: list[str], today: dt.date) -> str | None:
                 f"({', '.join(sorted(rows_naming))}); exactly one replacement may name it"
             )
     superseded = {
-        row["row_id"] for row in rows
-        if isinstance(row, dict) and row.get("status") == "superseded"
+        row["row_id"] for row in rows if isinstance(row, dict) and row.get("status") == "superseded"
     }
     for orphan in sorted(superseded - set(namers)):
         failures.append(
@@ -346,8 +352,12 @@ def check_register(today: dt.date | None = None) -> list[str]:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     if manifest.get("schema_version") != 1:
         failures.append("register.json: schema_version must be 1")
-    if not re.fullmatch(r"[0-9]{4}\.[0-9]{2}\.[0-9]{2}(\.[1-9][0-9]*)?", str(manifest.get("register_version"))):
-        failures.append(f"register.json: register_version {manifest.get('register_version')!r} is malformed")
+    if not re.fullmatch(
+        r"[0-9]{4}\.[0-9]{2}\.[0-9]{2}(\.[1-9][0-9]*)?", str(manifest.get("register_version"))
+    ):
+        failures.append(
+            f"register.json: register_version {manifest.get('register_version')!r} is malformed"
+        )
     if manifest.get("advice_status") != ADVICE_STATUS:
         failures.append("register.json: advice_status must be the fixed sentence")
 
@@ -376,7 +386,9 @@ def check_register(today: dt.date | None = None) -> list[str]:
         except json.JSONDecodeError as exc:
             failures.append(f"schema/{schema_name}: not valid JSON ({exc})")
             continue
-        if not str(schema.get("$id", "")).startswith("https://duguid.com.au/rates/register/schema/"):
+        if not str(schema.get("$id", "")).startswith(
+            "https://duguid.com.au/rates/register/schema/"
+        ):
             failures.append(f"schema/{schema_name}: $id must be its published URL")
 
     check_sums(failures)

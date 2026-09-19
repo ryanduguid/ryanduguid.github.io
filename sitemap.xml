@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/rates/</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/rates/super-guarantee/</loc>
@@ -43,6 +43,18 @@
   <url>
     <loc>https://duguid.com.au/rates/cents-per-kilometre/</loc>
     <lastmod>2026-09-14</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/maximum-contribution-base/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/car-limit/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/rates/fbt-rate/</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/</loc>
@@ -58,7 +70,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/coal-lsl-levy/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/payday-super/</loc>
@@ -102,7 +114,7 @@
   </url>
   <url>
     <loc>https://duguid.com.au/changelog/</loc>
-    <lastmod>2026-09-14</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/monthly-close-controls/</loc>
@@ -110,15 +122,91 @@
   </url>
   <url>
     <loc>https://duguid.com.au/tools/accounting-questions/</loc>
-    <lastmod>2026-09-11</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/tools/business-calculators/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/general-tax/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/deductions/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/business-setup/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/gst-bas/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/payroll-super/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/bookkeeping-close/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/cash-flow/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/management-reporting/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/company-compliance/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/accounting-questions/investments-local/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/gst/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/business-use/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/margin/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/break-even/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/hourly/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/variance/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/loan/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/staff/</loc>
+    <lastmod>2026-09-20</lastmod>
+  </url>
+  <url>
+    <loc>https://duguid.com.au/tools/business-calculators/cash/</loc>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/privacy/</loc>
-    <lastmod>2026-09-18</lastmod>
+    <lastmod>2026-09-20</lastmod>
   </url>
   <url>
     <loc>https://duguid.com.au/examples/profit-vs-cash-flow/</loc>

@@ -1,0 +1,206 @@
+# Deductions: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/deductions/
+
+> Ten questions on deductions for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Deductions
+
+Practical steps, records and official guidance on deductions. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Check eligibility and record requirements for the income year of the expense. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Deductions
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Deductions
+
+Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense.
+
+11. How do I calculate my working-from-home deduction?
+
+Compare the eligible working-from-home methods for the income year using the required evidence for each.
+
+- Record actual hours worked at home and the costs or rate that the chosen method covers.
+- Keep separately claimed costs out of any category already included in the chosen method.
+
+Eligibility, rates and record requirements must be checked for the year; this site does not select the method for you.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 11
+
+12. What records do I need to support my working-from-home claim?
+
+Keep evidence of hours and costs that supports the particular working-from-home method you use.
+
+- Record dates and hours throughout the required period and retain bills or receipts.
+- Keep a note of the method, year, work-use basis and costs excluded to prevent double claims.
+
+A reconstructed estimate may not meet the ATO's requirements for your method.
+
+Deductions you can claim
+
+Link to question 12
+
+13. Should I use the cents-per-kilometre or logbook method for car expenses?
+
+Compare the methods you are eligible to use, using the same car and income year.
+
+- For cents per kilometre, document eligible kilometres and check the year's rate and cap.
+- For the logbook method, gather a valid logbook, odometer readings and actual running costs.
+
+Vehicle type, ownership and entity structure can change which methods are available.
+
+Deductions you can claim · Cents-per-kilometre rate table and method
+
+Link to question 13
+
+14. How do I keep a valid vehicle logbook?
+
+A useful logbook records each business trip and lets another person check the business-use percentage.
+
+- Record the required trip dates, odometer readings, distance and business purpose.
+- Keep opening and closing odometer readings and review whether changed use requires a new logbook.
+
+Check the ATO's required recording period and validity conditions before relying on the logbook.
+
+Deductions you can claim · Cents-per-kilometre rate table and method
+
+Link to question 14
+
+15. How do I calculate the work-related share of phone and internet expenses?
+
+Apply a supported work-use percentage to eligible phone and internet costs.
+
+- Gather bills and a representative usage record that distinguishes private from work use.
+- Use the business-use calculator and retain the usage calculation with the result.
+
+Do not separately claim costs already covered by your chosen working-from-home method.
+
+Deductions you can claim · Business-use apportionment calculator
+
+Link to question 15
+
+16. Can I deduct a laptop or tools immediately, or must I depreciate them?
+
+Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
+
+- Record cost, acquisition date, first use, work-use share and whether the item forms part of a set.
+- Check the applicable year's asset rules and retain the calculation in an asset register.
+
+The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
+
+Deductions you can claim · Experimental tax worksheets and supported years
+
+Link to question 16
+
+17. Which work clothing, uniforms and laundry expenses can I claim?
+
+Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
+
+- Separate protective clothing, qualifying uniforms, occupation-specific clothing and ordinary items.
+- Retain purchases and a supportable laundry calculation, with any reimbursement recorded.
+
+Check the ATO category and evidence requirements before adding an amount to the return.
+
+Deductions you can claim
+
+Link to question 17
+
+18. Can I claim course fees, professional memberships and self-education expenses?
+
+Check how the course or membership relates to your current income-earning activities.
+
+- Keep invoices, course details, the work connection and any employer reimbursement.
+- Split private components and costs of gaining a new occupation from costs relevant to current work for review.
+
+A professional label or employer recommendation alone does not settle the tax treatment.
+
+Deductions you can claim
+
+Link to question 18
+
+19. What can I claim if I have lost the receipt?
+
+Try to replace missing evidence before deciding whether a claim can be supported.
+
+- Request duplicate invoices or download supplier records and match them to payment evidence.
+- Write down the expense, work purpose, missing record and the ATO evidence rule you relied on.
+
+A bank statement or a general receipt exception does not automatically support every claim.
+
+ATO income, deductions and records
+
+Link to question 19
+
+20. Does my business qualify for the instant asset write-off this financial year?
+
+Test eligibility against the rules enacted for the asset's relevant year and circumstances.
+
+- Record aggregated turnover, asset cost, acquisition and first-use dates, and business-use share.
+- Check the current ATO small-business depreciation rules, including exclusions and any applicable election.
+
+The ordinary depreciation worksheet does not determine instant asset write-off eligibility.
+
+Starting, registering or closing a business · Experimental tax worksheets and supported years
+
+Link to question 20
+
+- Tax returns
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Link to question 11: https://duguid.com.au/tools/accounting-questions/deductions/#q11
+- Link to question 12: https://duguid.com.au/tools/accounting-questions/deductions/#q12
+- Cents-per-kilometre rate table and method: https://duguid.com.au/rates/cents-per-kilometre/
+- Link to question 13: https://duguid.com.au/tools/accounting-questions/deductions/#q13
+- Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
+- Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
+- Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
+- Link to question 18: https://duguid.com.au/tools/accounting-questions/deductions/#q18
+- ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
+- Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

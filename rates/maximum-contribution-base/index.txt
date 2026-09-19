@@ -1,0 +1,77 @@
+# Maximum super contribution base by year
+
+Source: https://duguid.com.au/rates/maximum-contribution-base/
+
+> $270,830 a year for 2026-27 under Payday Super, and the quarterly bases back to 2021-22. The formula, the SG ceiling it sets and the ATO source.
+
+# Maximum super contribution base
+
+The maximum contribution base is $270,830 for 2026-27, and it is now an annual figure: once an employee's qualifying earnings for the year pass it, the employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
+
+Verified 20 September 2026 against the ATO's super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
+
+## Current base
+
+$270,830 for 2026-27. Payday Super made the base an annual limit on qualifying earnings from 1 July 2026. The ATO derives it as the concessional contributions cap multiplied by 100, divided by the charge percentage, rounded down to the nearest $10. At 12% that caps compulsory super guarantee for one employee at $32,499.60 for the year.
+
+Income year | Maximum contribution base (annual)
+2026-27 | $270,830
+
+## Quarterly bases to 30 June 2026
+
+For quarters ending on or before 30 June 2026 the base was a quarterly earnings amount and applied to ordinary time earnings. The ATO publishes the base and the super guarantee it implies at that year's percentage.
+
+Income year | Base per quarter | Maximum SG per quarter
+2025-26 | $62,500 | $7,500.00
+2024-25 | $65,070 | $7,483.05
+2023-24 | $62,270 | $6,849.70
+2022-23 | $60,220 | $6,323.10
+2021-22 | $58,920 | $5,892.00
+
+The base is indexed to average weekly ordinary time earnings. Earlier years are on the ATO page and are not listed here because they were not read from it.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Maximum super contribution base by year [Data set]. https://duguid.com.au/rates/maximum-contribution-base/. Verify against current ATO guidance before relying on a figure.
+
+## Common questions
+
+### What is the maximum super contribution base for 2026-27?
+
+$270,830 of qualifying earnings for the year. Employers do not have to pay super guarantee on earnings above it.
+
+### Is the base annual or quarterly?
+
+Annual from 1 July 2026, when Payday Super started. For quarters up to 30 June 2026 it was a quarterly amount, $62,500 for each quarter of 2025-26.
+
+### How is the base worked out?
+
+Concessional contributions cap, multiplied by 100, divided by the super guarantee charge percentage, rounded down to the nearest $10. That is the ATO's published formula.
+
+### What is the most super guarantee an employer must pay for one employee in 2026-27?
+
+12% of $270,830, which is $32,499.60 for the year, before any salary-sacrifice or additional contributions the employer chooses to make.
+
+General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Super guarantee rate history
+- When is payday super due
+- Staff cost calculator
+- Division 7A benchmark interest rate
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- super guarantee rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
+- Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv
+- Source and contact: https://github.com/ryanduguid
+- Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
+- When is payday super due: https://duguid.com.au/tools/payday-super/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- About Ryan Duguid: https://duguid.com.au/about/

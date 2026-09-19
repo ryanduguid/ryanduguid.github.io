@@ -1,0 +1,10 @@
+<section class="business-calculator" id="hourly">
+<h2>Hourly pricing</h2><p>Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.</p><p><a href="https://business.gov.au/products-and-services/pricing">business.gov.au: pricing</a></p>
+<form data-calculator="hourly">
+<fieldset disabled><legend>Hourly pricing inputs</legend><div class="form-grid"><label class="field" for="hourly-cost">Annual costs (AUD)<input id="hourly-cost" name="cost" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
+<label class="field" for="hourly-profit">Target annual profit (AUD)<input id="hourly-profit" name="profit" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
+<label class="field" for="hourly-hours">Annual billable hours<input id="hourly-hours" name="hours" type="number" min="0.01" max="8784" step=".01" value="" required /></label>
+</div>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite">Enter the inputs and calculate.</output>
+</form></section>

@@ -13,10 +13,10 @@
       "bb2996a08c0fca3a40d0b8ae4aaef4f39d48aed4c17902baeb6d137e95a36ef8"
     ],
     "changelog/index.html": [
-      "ee59e1d429c6c6897e209e910adf66d7ee483f48eb2c8514720734657fee583f"
+      "497f161a765592c12c686fc9a6eba750b8536f0282043c5fbfd1174452996bad"
     ],
     "contact/index.html": [
-      "eae9822161ee98f0af3337f06067ef6310f9f71dbfa9b4b14bc1d758612ae3e9"
+      "9ef797ca146db23d61006e5bf9ab33746488025bf640831c3590c686e6c76dd3"
     ],
     "evaluate/index.html": [
       "5dc5680ce270fa6071dc3c7f16c74a64ee30530e8149ece77eb76d3e923e6a73"
@@ -40,7 +40,7 @@
       "c269025c549a1e880e8c0c175bebfa00ba48d1b48fd97f9f679f42785797858f"
     ],
     "privacy/index.html": [
-      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
+      "06e1b0c54bf2586475113b92b55c41847e68fcdd62e49ba8dc1df8a6ada51771"
     ],
     "rates/cents-per-kilometre/index.html": [
       "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
@@ -49,13 +49,13 @@
       "240e9aaefd99aa2dbf10a347cc141efcbc18a78f0c67fe16aed46f6b25974440"
     ],
     "rates/index.html": [
-      "197f192b3a7b763a1a78cf69130167006c79f85efe97240dbe0d86d7d79d12e9"
+      "7a9a002ef139674a06ea6b30859772f585a467eaced70bc3975a971afbbb76f8"
     ],
     "rates/super-guarantee/index.html": [
       "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
     ],
     "tools/accounting-questions/index.html": [
-      "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
+      "37bcd2b0f5ae9c970acb21f93efbae8891cef6c2a7f9ebbccab80771b4fe1505"
     ],
     "tools/ato-benchmarks/index.html": [
       "94ae47e2d8af9ba77b6bdb398e2bfbd06d761cb1f570999d4503c80501ed88c8"
@@ -64,7 +64,7 @@
       "5f303219d25ab3e7b137bef8e78587d4117fa175467d7728b72d3e0d48fc72ec"
     ],
     "tools/business-calculators/index.html": [
-      "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
+      "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
     ],
     "tools/coal-lsl-levy/index.html": [
       "e6031ba5dbae181be3041488a8277f4996cb715886a6e20fa739b84b3c0c955b"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "e5e24842087083c241a43e7cb471cdd309d208f19f757841ce488bd1b390121c",
+    "llms.txt": "6ecce418c991addeb7e524a086ca1b08bec0d5281a0ac5b951c113dafc49d7a0",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "4c4abdb0ec9b84532cbc674307342f74cc2ee5cd004a98dfcc4a17ac8d40efdc"
+    "sitemap.xml": "f56cc58d59ca7da681f8dfd2d7164907cebda61400d97f6e7f330c9c05983804"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -157,7 +157,7 @@
       "/rates/div7a-benchmark-rate/",
       "/rates/cents-per-kilometre/",
       "/tools/coal-lsl-levy/",
-      "/tools/business-calculators/#staff",
+      "/tools/business-calculators/staff/",
       "/about/"
     ]
   },
@@ -167,7 +167,7 @@
     "rates/super-guarantee/index.html": "3484be5e7d8bc0fa701683871711f8162e5017e964d84892c0f02410786192b3"
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 33,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 55,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   }

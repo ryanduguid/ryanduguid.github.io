@@ -1,16 +1,14 @@
-# Privacy and site use | Ryan Duguid
+# Privacy and site use
 
 Source: https://duguid.com.au/privacy/
 
 > How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links.
 
-Home
-
 # Privacy and site use
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 18 September 2026.
+Published 12 September 2026. Last reviewed 20 September 2026.
 
 ## Browser calculations
 
@@ -22,7 +20,7 @@ The accounting-question search also runs in your browser. It does not send searc
 
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
-Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+No analytics script is delivered. Cloudflare Web Analytics was removed from this site on 20 September 2026, so no page-view data is collected or reported to the site owner. Technical request information is still handled by the hosting and delivery providers below.
 
 Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
 
@@ -52,8 +50,6 @@ The website source is available under its MIT licence, which includes its warran
 
 ## Links
 
-- Home: https://duguid.com.au/
-- Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/

@@ -1,0 +1,8 @@
+<section class="business-calculator" id="gst">
+<h2>GST</h2><p>For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.</p><p><a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a></p>
+<form data-calculator="gst">
+<fieldset disabled><legend>GST inputs</legend><div class="form-grid"><label class="field" for="gst-amount">Amount (AUD)<input id="gst-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
+<label class="check-field"><input type="checkbox" name="inclusive" /> Amount includes GST</label></div>
+<button type="submit" class="button">Calculate</button></fieldset>
+<output aria-live="polite">Enter the inputs and calculate.</output>
+</form></section>

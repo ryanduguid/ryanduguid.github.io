@@ -170,7 +170,8 @@ documentation and current maintenance where applicable, and be open-source
 software, official public resources or free developer interfaces.
 
 Keep every link to a live target, keep marketing vocabulary out of visible
-text, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py
+text, regenerate `feed.xml` with `python scripts/build_feed.py --write` after a
+changelog edit, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py
 --write` when a page's main text or `llms.txt` changes. That command also writes
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those

@@ -6,9 +6,9 @@ test('calculator load failure explains recovery and reload retries the module', 
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.route('**/assets/business-calculators.mjs', route => route.abort());
-  await page.goto('/tools/business-calculators/');
+  await page.goto('/tools/business-calculators/gst/');
   await expect(page.locator('#gst output')).toContainText('Calculators could not load.');
-  await expect(page.locator('form[data-calculator] fieldset:disabled')).toHaveCount(9);
+  await expect(page.locator('form[data-calculator] fieldset:disabled')).toHaveCount(1);
   await page.unroute('**/assets/business-calculators.mjs');
   await page.getByRole('button', { name: 'Reload this page to retry' }).first().click();
   await expect(page.locator('#gst fieldset')).toBeEnabled();
@@ -19,7 +19,7 @@ test('calculator load failure explains recovery and reload retries the module', 
 });
 
 test('an invalid business calculator field gets an inline instruction and focus', async ({ page }) => {
-  await page.goto('/tools/business-calculators/');
+  await page.goto('/tools/business-calculators/gst/');
   const form = page.locator('#gst form');
   const amount = form.locator('input[name=amount]');
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
@@ -44,18 +44,33 @@ test('an invalid business calculator field gets an inline instruction and focus'
 test('question search finds abbreviations and words in the guidance', async ({ page }) => {
   const requests = [];
   page.on('request', request => requests.push(request.url()));
-  await page.goto('/tools/accounting-questions/');
-  for (const [term, id] of [['STP', 46], ['WIP', 78], ['superannuation', 41], ['debtors', 76]]) {
+  await page.goto('/tools/accounting-questions/payroll-super/');
+  for (const [term, id] of [['STP', 46], ['superannuation', 41]]) {
     await page.getByLabel('Search questions').fill(term);
     await expect(page.locator(`#q${id}`)).toBeVisible();
   }
-  await page.getByLabel('Topic', { exact: true }).selectOption('gst-bas');
-  await expect(page.locator('#q76')).toBeHidden();
+  await page.getByLabel('Search questions').fill('STP');
+  await expect(page.locator('details.question:visible')).toHaveCount(1);
   expect(requests.some(url => url.endsWith('/assets/business-calculators.mjs'))).toBe(false);
 });
 
-test('cash inputs survive a save and reload with dated results', async ({ page }) => {
+test('the questions hub links every question to its topic page', async ({ page }) => {
+  await page.goto('/tools/accounting-questions/');
+  await expect(page.locator('ol.question-index li')).toHaveCount(100);
+  await expect(page.locator('#q100 a')).toHaveAttribute('href', '/tools/accounting-questions/investments-local/#q100');
+  await page.locator('#q100 a').click();
+  await expect(page).toHaveURL(/investments-local\/#q100$/);
+  await expect(page.locator('#q100')).toHaveAttribute('open', '');
+});
+
+test('old calculator hash links land on the calculator page', async ({ page }) => {
   await page.goto('/tools/business-calculators/#cash');
+  await expect(page).toHaveURL(/business-calculators\/cash\/$/);
+  await expect(page.locator('#cash form')).toBeVisible();
+});
+
+test('cash inputs survive a save and reload with dated results', async ({ page }) => {
+  await page.goto('/tools/business-calculators/cash/');
   const form = page.locator('#cash form');
   const startDate = form.getByLabel('First day of week 1');
   const calculate = form.getByRole('button', { name: 'Calculate', exact: true });
@@ -104,7 +119,9 @@ test('all 100 questions remain readable without JavaScript', async ({ browser })
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('/tools/accounting-questions/');
-  await expect(page.locator('details.question')).toHaveCount(100);
+  await expect(page.locator('ol.question-index li')).toHaveCount(100);
+  await page.goto('/tools/accounting-questions/investments-local/');
+  await expect(page.locator('details.question')).toHaveCount(10);
   await expect(page.getByLabel('Search questions')).toBeVisible();
   await expect(page.getByLabel('Search questions')).toBeDisabled();
   await page.locator('#q100 summary').click();
@@ -114,15 +131,15 @@ test('all 100 questions remain readable without JavaScript', async ({ browser })
 });
 
 test('search, topic selection and a direct link can reveal the last question', async ({ page }) => {
-  await page.goto('/tools/accounting-questions/');
+  await page.goto('/tools/accounting-questions/investments-local/');
   await page.getByLabel('Search questions').fill('Newcastle');
-  await expect(page.locator('details.question:visible')).toHaveCount(3);
-  await expect(page.locator('#q62')).toBeVisible();
-  await page.getByLabel('Topic', { exact: true }).selectOption('gst-bas');
+  await expect(page.locator('details.question:visible')).toHaveCount(2);
+  await expect(page.locator('#q99')).toBeVisible();
+  await page.getByLabel('Search questions').fill('payroll tax');
   await expect(page.locator('#question-count')).toContainText('0 questions');
   await page.getByRole('button', { name: 'Clear filters' }).click();
-  await expect(page.locator('details.question:visible')).toHaveCount(100);
-  await page.goto('/tools/accounting-questions/#q100');
+  await expect(page.locator('details.question:visible')).toHaveCount(10);
+  await page.goto('/tools/accounting-questions/investments-local/#q100');
   await expect(page.locator('#q100')).toHaveAttribute('open', '');
   await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();
   const download = page.waitForEvent('download');
@@ -136,7 +153,7 @@ test('search, topic selection and a direct link can reveal the last question', a
 });
 
 test('calculators show working, invalidate edited results and reject empty inputs', async ({ page }) => {
-  await page.goto('/tools/business-calculators/#gst');
+  await page.goto('/tools/business-calculators/gst/');
   const form = page.locator('#gst form');
   await form.getByLabel('Amount (AUD)').fill('110');
   await form.getByLabel('Amount includes GST').check();
@@ -150,7 +167,7 @@ test('calculators show working, invalidate edited results and reject empty input
 });
 
 test('cash scenario exports delayed receipts and reports the funding gap', async ({ page }) => {
-  await page.goto('/tools/business-calculators/#cash');
+  await page.goto('/tools/business-calculators/cash/');
   const form = page.locator('#cash form');
   await form.getByLabel('First day of week 1').fill('2026-09-28');
   await form.getByLabel('Opening bank balance (AUD)').fill('200');
@@ -184,7 +201,7 @@ for (const [id, inputs, expected] of [
   ['staff', { wages: '80000', super: '9600', other: '4000' }, '$93,600.00'],
 ]) {
   test(`${id} sends the entered values to its calculation`, async ({ page }) => {
-    await page.goto(`/tools/business-calculators/#${id}`);
+    await page.goto(`/tools/business-calculators/${id}/`);
     const form = page.locator(`#${id} form`);
     for (const [name, value] of Object.entries(inputs)) {
       const field = form.locator(`[name="${name}"]`);
@@ -197,10 +214,9 @@ for (const [id, inputs, expected] of [
 }
 
 test('printing includes selected questions hidden by a filter and restores the screen', async ({ page }) => {
-  await page.goto('/tools/accounting-questions/#q100');
+  await page.goto('/tools/accounting-questions/investments-local/#q100');
   await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();
-  await page.getByLabel('Search questions').fill('BAS');
-  await page.getByLabel('Topic', { exact: true }).selectOption('gst-bas');
+  await page.getByLabel('Search questions').fill('Newcastle fee');
   // Suppress only the native print dialog; exercise the real selection and CSS.
   await page.evaluate(() => { window.print = () => {}; });
   await page.getByRole('button', { name: 'Print selected checklist' }).click();
@@ -209,33 +225,31 @@ test('printing includes selected questions hidden by a filter and restores the s
   await expect(page.locator('#q100 .question-answer')).toBeVisible();
   await page.emulateMedia({ media: 'screen' });
   await page.evaluate(() => dispatchEvent(new Event('afterprint')));
-  await expect(page.getByLabel('Search questions')).toHaveValue('BAS');
-  await expect(page.getByLabel('Topic', { exact: true })).toHaveValue('gst-bas');
+  await expect(page.getByLabel('Search questions')).toHaveValue('Newcastle fee');
   await expect(page.locator('#q100')).toBeHidden();
   await expect(page.locator('#question-count')).toContainText('1 selected');
 });
 
 test('selected checklist retains worked examples and the topic review period', async ({ page }) => {
-  await page.goto('/tools/accounting-questions/');
-  for (const id of [36, 60, 61]) {
+  await page.goto('/tools/accounting-questions/gst-bas/');
+  for (const id of [36, 37]) {
     await page.locator(`#q${id} summary`).click();
     await page.getByLabel(`Add to my checklist, question ${id}`, { exact: true }).check();
   }
   const download = page.waitForEvent('download');
   await page.getByRole('button', { name: 'Download selected checklist' }).click();
   const checklist = await readFile(await (await download).path(), 'utf8');
-  expect(checklist.match(/Fictional worked example/g)).toHaveLength(3);
+  expect(checklist.match(/Fictional worked example/g)).toHaveLength(1);
   expect(checklist).toContain('Reviewed 11 September 2026.');
   expect(checklist).toContain('Use the BAS period');
   expect(checklist).toContain('GST component payable is $1,200');
-  expect(checklist).toContain('separate $500 exception');
-  expect(checklist).toContain('funding gap to the buffer is $200');
+  expect(checklist).toContain('## 37.');
 });
 
-for (const route of ['/tools/accounting-questions/', '/tools/business-calculators/']) {
+for (const route of ['/tools/accounting-questions/', '/tools/accounting-questions/gst-bas/', '/tools/business-calculators/', '/tools/business-calculators/cash/']) {
   test(`new page is accessible and stays within the viewport: ${route}`, async ({ page }) => {
     await page.goto(route);
-    await expect(page).toHaveTitle(/100 Australian accounting questions|Australian business calculators/);
+    await expect(page).toHaveTitle(/Australian accounting questions|business calculators|cash forecast calculator/);
     await expect(page.locator('h1')).toHaveCount(1);
     const results = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(results.violations).toEqual([]);

@@ -170,3 +170,19 @@
   .question-answer { padding-inline: 0; }
   .cash-scroll table { min-width: 0; }
 }
+
+.question-index,
+.calculator-list {
+  padding-left: 1.5rem;
+}
+
+.question-index li,
+.calculator-list li {
+  padding-block: var(--space-2);
+  border-top: var(--rule-thin) solid var(--colour-rule);
+}
+
+.calculator-list li + li,
+.question-index li + li {
+  margin-top: 0;
+}

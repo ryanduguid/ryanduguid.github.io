@@ -17,9 +17,7 @@ def main() -> None:
     with server_module.create_server(port=0) as queued_server, ExitStack() as connections:
         for _ in range(8):
             connections.enter_context(
-                socket.create_connection(
-                    (server_module.HOST, queued_server.server_port), timeout=1
-                )
+                socket.create_connection((server_module.HOST, queued_server.server_port), timeout=1)
             )
 
     original_guess_type = mimetypes.guess_type
@@ -42,8 +40,7 @@ def main() -> None:
         ) as response:
             content_type = response.headers.get_content_type()
         assert content_type == "text/javascript", (
-            f".mjs must remain executable when the host MIME map is wrong; "
-            f"found {content_type!r}"
+            f".mjs must remain executable when the host MIME map is wrong; found {content_type!r}"
         )
     finally:
         server.shutdown()

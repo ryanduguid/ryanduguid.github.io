@@ -4,8 +4,6 @@ Source: https://duguid.com.au/evidence/
 
 > Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools.
 
-Home / Evidence behind the tools
-
 # Evidence behind the tools
 
 This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.
@@ -98,7 +96,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
 - pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/

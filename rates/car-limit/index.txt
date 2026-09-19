@@ -1,0 +1,78 @@
+# Car limit for depreciation by income year
+
+Source: https://duguid.com.au/rates/car-limit/
+
+> $69,883 for 2026-27 and every car limit back to 2019-20, with the ATO page each figure was read from. One-eleventh of the limit caps the GST credit.
+
+# Car limit for depreciation
+
+The car limit is $69,883 for a car first used or leased in 2026-27. It caps the cost you can depreciate for a passenger car designed to carry fewer than nine passengers and a load under one tonne, whatever was paid. It was $69,674 for both 2025-26 and 2024-25.
+
+Each figure below was read on 20 September 2026 from an ATO page: the 2026-27 car thresholds notice, the car limit list for 2021-22 to 2025-26 and the accelerated depreciation page for 2019-20 and 2020-21. The limit itself is section 40-230 of the Income Tax Assessment Act 1997.
+
+## The limit, by income year
+
+Income year | Car limit | Read from
+2026-27 | $69,883 | ATO car thresholds notice, 9 June 2026
+2025-26 | $69,674 | ATO car limit list, 27 May 2026
+2024-25 | $69,674 | ATO car limit list, 27 May 2026
+2023-24 | $68,108 | ATO car limit list, 27 May 2026
+2022-23 | $64,741 | ATO car limit list, 27 May 2026
+2021-22 | $60,733 | ATO car limit list, 27 May 2026
+2020-21 | $59,136 | ATO accelerated depreciation page
+2019-20 | $57,581 | ATO accelerated depreciation page
+
+The limit applies in the income year the car is first used or leased, and it applies to the GST-exclusive cost. The ATO no longer publishes an annual determination for it; the figure is indexed and announced on its website each June.
+
+Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
+
+## GST credit and luxury car tax
+
+When a car costs more than the limit, the GST credit is generally capped at one-eleventh of the limit: $6,353 for 2026-27, per the ATO's motor vehicle purchase guidance. Luxury car tax paid on the purchase is never creditable. The luxury car tax thresholds are separate figures, $91,661 for fuel-efficient vehicles and $80,809 for other vehicles in 2026-27, and are not maintained here.
+
+## Common questions
+
+### What is the car limit for 2026-27?
+
+$69,883 for a car first used or leased in the 2026-27 income year, per the ATO's car thresholds notice of 9 June 2026.
+
+### Did the car limit change for 2025-26?
+
+No. It stayed at $69,674, the same figure as 2024-25, because the indexation factor for that year did not lift it.
+
+### Which vehicles does the car limit apply to?
+
+Passenger vehicles designed to carry a load of less than one tonne and fewer than nine passengers. A motorcycle or similar vehicle is excluded, as are utes and vans over the one-tonne load rating.
+
+### What is the most GST credit for a car over the limit?
+
+Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid on the car is not creditable.
+
+General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+
+Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+
+## Related
+
+- Cents per kilometre rate for car expenses
+- Business-use share calculator
+- Deduction questions
+- Division 7A benchmark interest rate
+- About Ryan Duguid
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+## Links
+
+- 2026-27 car thresholds notice: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july
+- car limit list for 2021-22 to 2025-26: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/tradies-be-certain-about-what-you-can-claim
+- accelerated depreciation page: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/backing-business-investment-accelerated-depreciation
+- Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
+- Download the table as CSV: https://duguid.com.au/rates/car-limit/car-limit.csv
+- motor vehicle purchase guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle
+- Source and contact: https://github.com/ryanduguid
+- Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
+- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Deduction questions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
+- About Ryan Duguid: https://duguid.com.au/about/

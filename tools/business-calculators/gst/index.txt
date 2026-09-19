@@ -1,0 +1,36 @@
+# GST calculator: exclusive, inclusive and GST amounts
+
+Source: https://duguid.com.au/tools/business-calculators/gst/
+
+> Enter an amount with or without GST and get the GST component, the exclusive amount and the inclusive amount at 10%, rounded once to cents, in your browser.
+
+# GST calculator
+
+Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
+
+One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
+Published 20 September 2026. Last reviewed 20 September 2026.
+
+JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
+
+## GST
+
+For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.
+
+ATO: How GST works
+
+GST inputs
+
+Amount (AUD) Amount includes GST
+
+Calculate Enter the inputs and calculate.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
+- ATO: How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works

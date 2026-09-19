@@ -16,6 +16,22 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 20 September evaluation pass splits the two long tool pages: the 100
+questions now live on 10 topic pages of 10, each with the search box and
+checklist download, and the 9 business calculators each have their own page.
+The old addresses stay as indexes, and an old calculator hash link is sent to
+the calculator's page. Rates gains the maximum super contribution base, the
+car limit and the FBT rate, on the existing rates template. The homepage
+scope strip is removed because its four lines repeated the hero note and the
+footer; the Tools category jump links are removed because the accounting-area
+finder and the catalogue headings already cover them. Six titles drop the
+site-name suffix so every title reads the same way. Every page now has a
+breadcrumb. Caption text grows from 12 to 13 px on a phone and radio and
+checkbox controls to 20 px. A secondary button inside a route-actions grid
+centres its label instead of sitting on the grid baseline. An Atom feed of
+the changelog is built from the changelog tables. The palette and tokens
+other than the caption size are unchanged.
+
 The 18 September review follow-up adds workbook actions to the opening of the
 Lumbridge and Ozzit pages. Tools now gives one starting instruction, with the
 question library and planning calculators as secondary shortcuts. Ozzit shows

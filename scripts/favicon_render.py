@@ -43,9 +43,7 @@ def _whole(value: str, label: str) -> int:
     try:
         return int(value)
     except ValueError as exc:
-        raise FaviconError(
-            f"favicon {label} must use whole pixels: {value}"
-        ) from exc
+        raise FaviconError(f"favicon {label} must use whole pixels: {value}") from exc
 
 
 def _length(element, name: str, default: int | None = None) -> int:
@@ -92,8 +90,7 @@ def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, byte
         # flat buffer and would wrap instead, so an unclipped rect is refused.
         if x + width > grid or y + height > grid:
             raise FaviconError(
-                "favicon rect falls outside the viewBox: "
-                f"x={x} y={y} width={width} height={height}"
+                f"favicon rect falls outside the viewBox: x={x} y={y} width={width} height={height}"
             )
         rects.append((x, y, width, height, _colour(element.get("fill"), tag)))
     if not rects:
@@ -104,9 +101,7 @@ def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, byte
 def _scale(value: int, grid: int, size: int, label: str) -> int:
     product = value * size
     if product % grid:
-        raise FaviconError(
-            f"favicon {label}={value} does not land on a whole pixel at {size}px"
-        )
+        raise FaviconError(f"favicon {label}={value} does not land on a whole pixel at {size}px")
     return product // grid
 
 
@@ -142,9 +137,7 @@ def _chunk(tag: bytes, payload: bytes) -> bytes:
 def png_bytes(seal, size: int) -> bytes:
     pixels = raster(seal, size)
     stride = size * 3
-    scanlines = b"".join(
-        b"\x00" + pixels[row * stride : (row + 1) * stride] for row in range(size)
-    )
+    scanlines = b"".join(b"\x00" + pixels[row * stride : (row + 1) * stride] for row in range(size))
     return (
         PNG_SIGNATURE
         + _chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
@@ -156,9 +149,7 @@ def png_bytes(seal, size: int) -> bytes:
 def _ico_frame(seal, size: int) -> bytes:
     """Encode one frame as the 32-bit BMP every ICO reader understands."""
     pixels = raster(seal, size)
-    header = struct.pack(
-        "<IiiHHIIiiII", 40, size, size * 2, 1, 32, 0, size * size * 4, 0, 0, 0, 0
-    )
+    header = struct.pack("<IiiHHIIiiII", 40, size, size * 2, 1, 32, 0, size * size * 4, 0, 0, 0, 0)
     rows = []
     for y in range(size - 1, -1, -1):
         row = bytearray()
@@ -190,9 +181,7 @@ def rasters(root: Path = ROOT) -> dict[str, bytes]:
     if not source.is_file():
         raise FaviconError(f"favicon missing: {SOURCE}")
     seal = parse_seal(source.read_text(encoding="utf-8"))
-    outputs = {
-        f"assets/favicon-{size}.png": png_bytes(seal, size) for size in PNG_SIZES
-    }
+    outputs = {f"assets/favicon-{size}.png": png_bytes(seal, size) for size in PNG_SIZES}
     outputs[ICO_TARGET] = ico_bytes(seal)
     return outputs
 

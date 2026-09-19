@@ -7,9 +7,7 @@ import unittest
 from datetime import date, datetime
 from pathlib import Path
 
-SEARCH_CONSOLE_DIR = (
-    Path(__file__).resolve().parents[1] / ".agents" / "tools" / "search-console"
-)
+SEARCH_CONSOLE_DIR = Path(__file__).resolve().parents[1] / ".agents" / "tools" / "search-console"
 sys.path.insert(0, str(SEARCH_CONSOLE_DIR))
 
 import core  # noqa: E402
@@ -55,9 +53,7 @@ class SearchRequestTests(unittest.TestCase):
 
     def test_rejects_more_than_90_inclusive_days(self) -> None:
         with self.assertRaisesRegex(ValueError, "90 days"):
-            core.build_search_request(
-                date(2026, 1, 1), date(2026, 4, 1), ["page"]
-            )
+            core.build_search_request(date(2026, 1, 1), date(2026, 4, 1), ["page"])
 
     def test_rejects_row_limits_over_1000(self) -> None:
         with self.assertRaisesRegex(ValueError, "1,000"):
@@ -70,9 +66,7 @@ class SearchRequestTests(unittest.TestCase):
 
     def test_rejects_unknown_dimensions(self) -> None:
         with self.assertRaisesRegex(ValueError, "dimension"):
-            core.build_search_request(
-                date(2026, 8, 1), date(2026, 8, 28), ["searchAppearance"]
-            )
+            core.build_search_request(date(2026, 8, 1), date(2026, 8, 28), ["searchAppearance"])
 
 
 class SiteUrlTests(unittest.TestCase):
@@ -95,9 +89,7 @@ class SiteUrlTests(unittest.TestCase):
             "https://example.com/duguid.com.au/",
             "https://duguid.com.au.example.com/",
         ):
-            with self.subTest(url=invalid), self.assertRaisesRegex(
-                ValueError, "HTTPS URL"
-            ):
+            with self.subTest(url=invalid), self.assertRaisesRegex(ValueError, "HTTPS URL"):
                 core.validate_site_url(invalid)
 
 
@@ -154,9 +146,7 @@ class CompareRowsTests(unittest.TestCase):
                 "delta": {"clicks": -5, "impressions": -80},
             },
         )
-        self.assertEqual(
-            rows[1]["delta"], {"clicks": 2, "impressions": 60}
-        )
+        self.assertEqual(rows[1]["delta"], {"clicks": 2, "impressions": 60})
 
     def test_empty_and_missing_rows_normalise_to_zero(self) -> None:
         rows = core.compare_search_rows(
