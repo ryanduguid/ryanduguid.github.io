@@ -12,8 +12,8 @@ started, and the decisions in 2.8 are still open.
 Audit phase 3. A read-only inventory of where the portfolio keeps mutable
 rates, thresholds and the sources behind them, followed by a proposal for one
 versioned, machine-readable register. When this was written nothing consumed
-the register; the Coal LSL service now reads the levy series from disk at
-start-up (see `rates/register/README.md`). Nothing here changes a published
+the register at runtime; `assets/levy.mjs` mirrors the levy series as constants
+(see `rates/register/README.md`). Nothing here changes a published
 figure. Every value quoted below is quoted
 from the repository named, with that repository's own verification date. This
 document does not verify any rate and is not advice.
