@@ -32,13 +32,20 @@ FORMAT = "duguid.com.au/agent-skills-index/1"
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 DIGEST_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
-# The release route from the skills README. The plugin marketplace route
-# installs the repository's default branch, which carries unreleased skills.
-INSTALL = [
-    f"git clone --branch {RELEASE} --depth 1 https://github.com/{REPOSITORY}.git accounting-skills-release",
-    "npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy",
-]
 TIMEOUT = 30
+
+
+def install_commands(commit: str) -> list[str]:
+    """The skills README's release route, checked out at the recorded commit.
+
+    The plugin marketplace route installs the default branch, which carries
+    unreleased skills, and a tag can be moved; the commit cannot.
+    """
+    return [
+        f"git clone https://github.com/{REPOSITORY}.git accounting-skills-release",
+        f"git -C accounting-skills-release checkout --detach {commit}",
+        "npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy",
+    ]
 
 
 def raw_prefix(commit: str) -> str:
@@ -111,7 +118,7 @@ def build() -> dict[str, Any]:
             "release": RELEASE,
             "commit": commit,
             "license": "MIT",
-            "install": INSTALL,
+            "install": install_commands(commit),
         },
         "note": (
             "Preparation-only accounting workflows for review by an authorised human. "
@@ -145,8 +152,10 @@ def check() -> list[str]:
     commit = source.get("commit")
     if not isinstance(commit, str) or not COMMIT_PATTERN.match(commit):
         return failures + ["source.commit is not a 40-character commit sha"]
-    if source.get("install") != INSTALL:
-        failures.append("source.install is not the marketplace-add and plugin-install pair")
+    if source.get("install") != install_commands(commit):
+        failures.append(
+            "source.install is not the clone, checkout and add sequence at source.commit"
+        )
     skills = manifest.get("skills")
     if not isinstance(skills, list) or not skills:
         return failures + ["skills must be a non-empty list"]
