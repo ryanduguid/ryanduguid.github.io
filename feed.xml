@@ -22,18 +22,32 @@
     <summary>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</summary>
   </entry>
   <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.3</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3" />
+    <id>https://duguid.com.au/changelog/#entry-5e7bf7f899f1b363</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.3.</summary>
+  </entry>
+  <entry>
+    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-0d69e343b0a47aeb</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.5</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.5" />
+    <id>https://duguid.com.au/changelog/#entry-89c482b715ac94f0</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.5.</summary>
+  </entry>
+  <entry>
     <title>The six webfonts return to IBM's unmodified Latin1 files, the response-header...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
     <updated>2026-09-14T00:00:00Z</updated>
     <summary>The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.</summary>
-  </entry>
-  <entry>
-    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.2</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2" />
-    <id>https://duguid.com.au/changelog/#entry-c01902ed9f6cfe63</id>
-    <updated>2026-09-13T00:00:00Z</updated>
-    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.2.</summary>
   </entry>
   <entry>
     <title>Workpaper Review Gate review-ready-gate/v0.1.6</title>
@@ -62,20 +76,6 @@
     <id>https://duguid.com.au/changelog/#entry-7813c456323c0d75</id>
     <updated>2026-09-13T00:00:00Z</updated>
     <summary>Company tax and franking checks: release the-exchequer-tally/v0.1.6.</summary>
-  </entry>
-  <entry>
-    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.7</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.7" />
-    <id>https://duguid.com.au/changelog/#entry-786895d19311a06e</id>
-    <updated>2026-09-12T00:00:00Z</updated>
-    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.7.</summary>
-  </entry>
-  <entry>
-    <title>Payday Super timing payday-super-checker/v0.1.4</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.4" />
-    <id>https://duguid.com.au/changelog/#entry-812d03df13bdae28</id>
-    <updated>2026-09-12T00:00:00Z</updated>
-    <summary>Payday Super timing: release payday-super-checker/v0.1.4.</summary>
   </entry>
   <entry>
     <title>Updated MCP capabilities and current release references, added verified trust...</title>

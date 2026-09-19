@@ -13,12 +13,6 @@ Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting t
 
 The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
 
-`service/coal-lsl-levy/` is development source, not part of the site: an HTTP
-surface around the same `assets/levy.mjs` the Coal LSL page uses, excluded from
-the Jekyll build in `_config.yml`. It is not deployed, not listed anywhere and
-not released. Its own [README](service/coal-lsl-levy/README.md) says how to run
-it locally.
-
 ## Local preview
 
 The pages share a Jekyll header and footer. Install Ruby 3.3 and Bundler,
