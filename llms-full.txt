@@ -2015,7 +2015,7 @@ Status | Open, by design. Refusing would withhold a shortfall figure that is its
 
 ## Payday Super: the payroll-to-super join degrades in four declared ways
 
-Recorded as PSC-2 against release payday-super-checker/v0.1.4. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong.
+Recorded as PSC-2 against release payday-super-checker/v0.1.4. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong. Release payday-super-checker/v0.1.5 (20 September 2026) carries each warning into the report's caveats column and the evidence pack; the four conditions are unchanged.
 
 Condition in the supplied exports | Effect on matching
 Either file has a blank employee id on any row | Matching falls back to employee name. Two employees sharing a name are merged.
@@ -2025,13 +2025,13 @@ The super file has no pay-period columns at all | A payment is treated as coveri
 
 What stays correct. The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
 
-Declared at runtime, on the console only. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
+Declared at runtime, on the console only in 0.1.4. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
 
 Human step. Re-export with an employee id column on both files, a pay-period-end column on the payroll file, and pay-period start and end columns on the super file. All three are needed: fixing only the ids still leaves the payday fallback and the coverage collapse in place. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
 
 ## ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other
 
-Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7.
+Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7. Release ato-benchmark-compare/v0.1.8 (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied, so a bucket no account was mapped to reads not_supplied on both paths, and the key ratio stays the ATO's published one where cost of sales was not supplied. The entry below describes 0.1.7.
 
 A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
 
@@ -2265,22 +2265,22 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
 
 ```
-uvx --from payday-super-checker==0.1.4 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
+uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-The command downloads checker 0.1.4 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
-Check the matching evidence before relying on the exported file. In checker 0.1.4, if employee identifiers or pay-period columns are missing, the structural matching warnings are printed to the console but are not carried into the CSV, and which super payment matches which payday can change. Keep the console output with the report, or reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
+Check the matching evidence before relying on the exported file. If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
 Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
 
-The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.4 and leaves the fund-receipt decision with the reviewer.
+The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.5 and leaves the fund-receipt decision with the reviewer.
 
 ## Evidence-pack workflow
 
 The CLI change combines the existing checker and practitioner checklist in one command. It writes report.csv, practitioner-review.md, exceptions.json and a blank decision-log.md into a new directory.
 
-Keep the console transcript with the pack: the CSV report does not carry the structural matching warnings described under Known limitations (PSC-2), so a reviewer who receives only the files cannot see them. Reconcile affected matches before relying on any verdict.
+From checker 0.1.5 the pack's report carries the structural matching warnings described under Known limitations (PSC-2). Checker 0.1.4 printed them to the console only, so keep its transcript with an older pack. Reconcile affected matches before relying on any verdict.
 
 The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fabricated example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
 
@@ -2408,7 +2408,7 @@ pip install .
 
 Source on GitHub · Primary source: the ATO's small business benchmarks.
 
-One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied; the two output paths differ on purpose. That is separate from a profit-and-loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
+One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied; the two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit-and-loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
@@ -3014,9 +3014,9 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.2, the current published release, verified 18 September 2026. Tagged source and release record on GitHub.
+Reference release v0.2.3, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 18 September 2026.
+Published 25 August 2026. Last reviewed 20 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3042,7 +3042,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.2 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.3 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -3057,7 +3057,7 @@ Each engine's source review and release record state what was checked. Verify cu
 With uv installed, run the published demonstration without configuring an AI client:
 
 ```
-uvx --from aus-accounting-mcp==0.2.2 aus-accounting-mcp-demo
+uvx --from aus-accounting-mcp==0.2.3 aus-accounting-mcp-demo
 ```
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
@@ -3078,7 +3078,7 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
 
-Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.2, and each evaluation keeps the release it was run against.
+Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.3, and each evaluation keeps the release it was run against.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -3135,7 +3135,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2
+- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3143,7 +3143,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.3/packages/australian-tax-calculators/README.md#supported-periods
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.2/apps/aus-accounting-mcp/README.md#tools
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.3/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -3331,12 +3331,12 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
-13 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.2
+20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.3
 13 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.6
 7 September 2026 | Subcontract ledger skills | v0.2.1
 13 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.8
-12 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.7
-12 September 2026 | Payday Super timing | payday-super-checker/v0.1.4
+20 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.8
+20 September 2026 | Payday Super timing | payday-super-checker/v0.1.5
 13 September 2026 | Trust distribution checks | solomons-sword/v0.1.6
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
 
@@ -3346,12 +3346,12 @@ Published 30 August 2026. Last reviewed 14 September 2026.
 
 ## Links
 
-- aus-accounting-mcp/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.2
+- aus-accounting-mcp/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
 - review-ready-gate/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.6
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.8: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.8
-- ato-benchmark-compare/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.7
-- payday-super-checker/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.4
+- ato-benchmark-compare/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8
+- payday-super-checker/v0.1.5: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.5
 - solomons-sword/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.6
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
 - evaluations: https://duguid.com.au/evaluate/
