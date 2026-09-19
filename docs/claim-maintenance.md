@@ -1,5 +1,12 @@
 # Claim maintenance
 
+## Review on 20 September 2026
+
+- Aus Accounting MCP: release 0.2.3 was published on 20 September 2026 (AEST) to GitHub, PyPI and the MCP registry, where it is active and latest. It pins payday-super-checker 0.1.5, ato-benchmark-compare 0.1.8, div7a-loan-review 0.1.3 and australian-tax-calculators 0.1.3, the first three released the same day and the calculators pin unchanged. The AI-agents page, its pinned demonstration command, its structured `softwareVersion`, the changelog rows and `scripts/release_record.json` now name 0.2.3. The pinned command was run from a clean directory and its output matched the checked transcript.
+- Payday Super: checker 0.1.5 carries the structural matching warnings into the canonical contributions CSV's `join_caveats` column, the report's caveats column and the evidence pack. The tool page's quick trial now pins 0.1.5; the command was rerun on the synthetic CSV and still reports one `AT_RISK` row due 17 August 2026 with exit 0. PSC-2 stays recorded against 0.1.4 with the release that carries the warnings noted on the limitations page and in `llms.txt`.
+- ATO benchmarks: ato-benchmark-compare 0.1.8 gates the command line text, JSON and exit code on the supplied buckets, so ABC-1's two paths agree from that release. The entry stays recorded against 0.1.7 with the change noted. The worked example on the tool page keeps its 0.1.6 pin.
+- The Payday Super evaluation keeps its 0.1.3 pin and the recorded development snapshot; no evaluation was rerun.
+
 ## Review on 18 September 2026
 
 - Section 3B of the [Payroll Levy Collection Act 1992](https://www.legislation.gov.au/C2004A04352/latest/text) was read in Compilation No 12 (C2026C00364, in force 1 September 2026), retrieved as EPUB from the Federal Register API because the web host refused every request from this machine. Paragraph 3B(1)(b) applies 75 per cent to the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime or penalty rates, and allowances other than expense reimbursements. Endnote 4 records section 3B as inserted by Act No 142, 2011 and amended by Act No 43, 2023; Act No 63, 2026, which compilation 12 incorporates, did not touch it. The calculator's arithmetic already matched; one sentence of explanation did not and was corrected. The 2.7 per cent rate keeps its 2 September 2026 check date because the Regulations were not re-read.

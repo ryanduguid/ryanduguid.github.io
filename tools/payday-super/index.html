@@ -61,7 +61,7 @@
             <p>This is a fixed example. Nothing to install or upload; these dates do not recalculate. <a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv">Inspect the exact fixture</a>.</p>
           </section>
         <p class="field-note">The contribution amount this check tests is set by the <a href="/rates/super-guarantee/">super guarantee rate</a>, kept as a maintained table on this site.</p>
-        <p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 20 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -77,17 +77,17 @@
           <section id="try-example">
             <h2>Try the CSV without cloning</h2>
             <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, <a href="/assets/examples/payday/timely_remittance_no_receipt.csv" download>download the synthetic CSV</a> as <code>timely_remittance_no_receipt.csv</code>. Open a terminal in that folder and run:</p>
-            <pre tabindex="0" role="region" aria-label="Pinned Payday Super example command"><code>uvx --from payday-super-checker==0.1.4 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv</code></pre>
-            <p>The command downloads checker 0.1.4 from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>.</p>
-            <p><strong>Check the matching evidence before relying on the exported file.</strong> In checker 0.1.4, if employee identifiers or pay-period columns are missing, the structural matching warnings are printed to the console but are not carried into the CSV, and which super payment matches which payday can change. Keep the console output with the report, or reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
+            <pre tabindex="0" role="region" aria-label="Pinned Payday Super example command"><code>uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv</code></pre>
+            <p>The command downloads checker 0.1.5 from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>.</p>
+            <p><strong>Check the matching evidence before relying on the exported file.</strong> If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's <code>caveats</code> column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
             <p>Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit <code>--confirm-remittance-only</code> to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.</p>
-            <p>The fixed example above and the <a href="/evaluate/payday-super-evidence/#reproduce">recorded public evaluation</a> use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.4 and leaves the fund-receipt decision with the reviewer.</p>
+            <p>The fixed example above and the <a href="/evaluate/payday-super-evidence/#reproduce">recorded public evaluation</a> use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.5 and leaves the fund-receipt decision with the reviewer.</p>
           </section>
 
           <section id="evidence-pack">
             <h2>Evidence-pack workflow</h2>
             <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/147">CLI change</a> combines the existing checker and practitioner checklist in one command. It writes <code>report.csv</code>, <code>practitioner-review.md</code>, <code>exceptions.json</code> and a blank <code>decision-log.md</code> into a new directory.</p>
-            <p>Keep the console transcript with the pack: the CSV report does not carry the structural matching warnings described under <a href="/tools/limitations/">Known limitations</a> (PSC-2), so a reviewer who receives only the files cannot see them. Reconcile affected matches before relying on any verdict.</p>
+            <p>From checker 0.1.5 the pack's report carries the structural matching warnings described under <a href="/tools/limitations/">Known limitations</a> (PSC-2). Checker 0.1.4 printed them to the console only, so keep its transcript with an older pack. Reconcile affected matches before relying on any verdict.</p>
             <p>The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than <code>ON_TIME</code> enters the queue; the fabricated example above remains <code>AT_RISK</code> and exits 2. A remittance-only acknowledgement does not clear that queue.</p>
             <p>A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence, and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.</p>
             <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/148">companion MCP tool</a>, <code>build_payday_super_evidence_pack</code>, accepts structured contribution rows and returns the 4 files in memory. It accepts no input or output paths, writes no files and records no decisions. It requires a checker with evidence-pack support.</p>
@@ -134,7 +134,7 @@
       "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-09-18",
+      "dateModified": "2026-09-20",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },
@@ -202,7 +202,7 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-09-18"
+      "dateModified": "2026-09-20"
     }
   ]
 }

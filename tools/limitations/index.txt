@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
 
-Published 16 September 2026. Last reviewed 16 September 2026.
+Published 16 September 2026. Last reviewed 20 September 2026.
 
 ## What belongs here
 
@@ -35,7 +35,7 @@ Status | Open, by design. Refusing would withhold a shortfall figure that is its
 
 ## Payday Super: the payroll-to-super join degrades in four declared ways
 
-Recorded as PSC-2 against release payday-super-checker/v0.1.4. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong.
+Recorded as PSC-2 against release payday-super-checker/v0.1.4. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong. Release payday-super-checker/v0.1.5 (20 September 2026) carries each warning into the report's caveats column and the evidence pack; the four conditions are unchanged.
 
 Condition in the supplied exports | Effect on matching
 Either file has a blank employee id on any row | Matching falls back to employee name. Two employees sharing a name are merged.
@@ -45,13 +45,13 @@ The super file has no pay-period columns at all | A payment is treated as coveri
 
 What stays correct. The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
 
-Declared at runtime, on the console only. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
+Declared at runtime, on the console only in 0.1.4. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
 
 Human step. Re-export with an employee id column on both files, a pay-period-end column on the payroll file, and pay-period start and end columns on the super file. All three are needed: fixing only the ids still leaves the payday fallback and the coverage collapse in place. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
 
 ## ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other
 
-Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7.
+Recorded as ABC-1 against release ato-benchmark-compare/v0.1.7. Release ato-benchmark-compare/v0.1.8 (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied, so a bucket no account was mapped to reads not_supplied on both paths, and the key ratio stays the ATO's published one where cost of sales was not supplied. The entry below describes 0.1.7.
 
 A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
 
