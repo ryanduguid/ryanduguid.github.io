@@ -11,8 +11,9 @@ import hashlib
 import html as html_lib
 import re
 import sys
-from datetime import date
+from datetime import date, datetime, time
 from pathlib import Path
+from zoneinfo import ZoneInfo
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -79,9 +80,13 @@ def entries(html: str) -> list[tuple[date, str, str, str]]:
 
 def build(html: str) -> str:
     items = entries(html)
+    eastern = ZoneInfo("Australia/Sydney")
+
+    def timestamp(when: date) -> str:
+        return datetime.combine(when, time.min, tzinfo=eastern).isoformat()
     if not items:
         raise SystemExit("changelog: no dated rows found")
-    latest = items[0][0].isoformat()
+    latest = timestamp(items[0][0])
     lines = [
         '<?xml version="1.0" encoding="utf-8"?>',
         '<feed xmlns="http://www.w3.org/2005/Atom">',
@@ -90,7 +95,7 @@ def build(html: str) -> str:
         f'  <link href="{SITE}/feed.xml" rel="self" />',
         f'  <link href="{CHANGELOG_URL}" />',
         f"  <id>{CHANGELOG_URL}</id>",
-        f"  <updated>{latest}T00:00:00+10:00</updated>",
+        f"  <updated>{latest}</updated>",
         "  <author><name>Ryan Duguid</name></author>",
     ]
     for when, title, summary, link in items:
@@ -100,7 +105,7 @@ def build(html: str) -> str:
             f"    <title>{escape(title)}</title>",
             f'    <link href="{escape(link)}" />',
             f"    <id>{CHANGELOG_URL}#entry-{digest}</id>",
-            f"    <updated>{when.isoformat()}T00:00:00+10:00</updated>",
+            f"    <updated>{timestamp(when)}</updated>",
             f"    <summary>{escape(summary)}</summary>",
             "  </entry>",
         ]
