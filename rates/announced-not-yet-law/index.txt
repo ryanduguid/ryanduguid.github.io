@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> Tax and super measures the ATO lists as announced but without a bill, and the enacted ones that start later, as at 20 September 2026.
+> Tax and super measures the ATO lists as announced but without a bill, and the enacted ones that start later, as at 19 September 2026.
 
 # Announced tax measures not yet law
 
 Fifteen tax and super measures from the 2026-27 Budget and the 2025-26 MYEFO have no bill before Parliament, so no calculator or workpaper should apply them. Three more are enacted but start on 1 July 2027. The $1,000 instant deduction, the instant asset write-off and the tax loss carry-back are law and in force.
 
-Read 20 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats what the ATO's Developments column says; a measure the ATO marks TBD has no bill, exposure draft or regulation to point to.
+Read 19 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats what the ATO's Developments column says; a measure the ATO marks TBD has no bill, exposure draft or regulation to point to.
 
 ## Announced, no bill yet
 
@@ -37,7 +37,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Enacted, starts later
 
-These have Royal Assent and a start date after 20 September 2026. They belong in planning, not in a 2026-27 calculation.
+These have Royal Assent and a start date after 19 September 2026. They belong in planning, not in a 2026-27 calculation.
 
 Enacted measures with a later start
 
@@ -48,7 +48,7 @@ Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 
 
 ## Enacted and in force
 
-Listed because other Australian calculators still describe some of these as announced only. Each has Royal Assent and a start date on or before 20 September 2026.
+Listed because other Australian calculators still describe some of these as announced only. Each Act has Royal Assent, or each delegated instrument has been registered, and has a start date on or before 19 September 2026.
 
 Enacted measures already in force
 
@@ -96,7 +96,7 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 19 September 2026. Last reviewed 19 September 2026.
 
 ## Links
 

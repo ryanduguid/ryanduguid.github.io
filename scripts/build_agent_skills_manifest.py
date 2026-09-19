@@ -28,7 +28,7 @@ MANIFEST = ROOT / ".well-known" / "agent-skills" / "index.json"
 REPOSITORY = "ryanduguid/australian-accounting-skills"
 RELEASE = "v0.2.1"
 SKILLS_DIR = ".claude/skills"
-RAW_PREFIX = f"https://raw.githubusercontent.com/{REPOSITORY}/{RELEASE}/{SKILLS_DIR}/"
+RAW_PREFIX = "https://raw.githubusercontent.com/{repository}/{commit}/{skills_dir}/"
 FORMAT = "duguid.com.au/agent-skills-index/1"
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 DIGEST_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
@@ -52,9 +52,9 @@ def frontmatter_field(text: str, field: str) -> str:
     return value
 
 
-def released_skill_names() -> list[str]:
+def released_skill_names(commit: str) -> list[str]:
     tree = json.loads(
-        fetch(f"https://api.github.com/repos/{REPOSITORY}/git/trees/{RELEASE}?recursive=1")
+        fetch(f"https://api.github.com/repos/{REPOSITORY}/git/trees/{commit}?recursive=1")
     )
     if tree.get("truncated"):
         raise RuntimeError("tree listing truncated")
@@ -74,8 +74,9 @@ def build() -> dict[str, Any]:
         "sha"
     ]
     skills = []
-    for name in released_skill_names():
-        url = f"{RAW_PREFIX}{name}/SKILL.md"
+    raw_prefix = RAW_PREFIX.format(repository=REPOSITORY, commit=commit, skills_dir=SKILLS_DIR)
+    for name in released_skill_names(commit):
+        url = f"{raw_prefix}{name}/SKILL.md"
         body = fetch(url)
         text = body.decode("utf-8")
         if frontmatter_field(text, "name") != name:
@@ -98,7 +99,10 @@ def build() -> dict[str, Any]:
             "release": RELEASE,
             "commit": commit,
             "license": "MIT",
-            "install": f"/plugin marketplace add {REPOSITORY}",
+            "install": [
+                f"/plugin marketplace add {REPOSITORY}",
+                f"/plugin install australian-accounting-skills@ryanduguid",
+            ],
         },
         "note": (
             "Preparation-only accounting workflows for review by an authorised human. "
@@ -126,8 +130,16 @@ def check() -> list[str]:
         return [f"{MANIFEST.relative_to(ROOT)}: {error}"]
     if manifest.get("format") != FORMAT:
         failures.append(f"format is {manifest.get('format')!r}, expected {FORMAT!r}")
-    if manifest.get("source", {}).get("release") != RELEASE:
+    source = manifest.get("source", {})
+    if source.get("release") != RELEASE:
         failures.append(f"source.release is not {RELEASE}")
+    if source.get("commit") != "527b0a22c8be5ce10855f12f052cd3bda7b7b827":
+        failures.append("source.commit does not match the pinned release")
+    if source.get("install") != [
+        f"/plugin marketplace add {REPOSITORY}",
+        "/plugin install australian-accounting-skills@ryanduguid",
+    ]:
+        failures.append("source.install must contain both ordered plugin commands")
     skills = manifest.get("skills")
     if not isinstance(skills, list) or not skills:
         return failures + ["skills must be a non-empty list"]
@@ -141,7 +153,8 @@ def check() -> list[str]:
         description = skill.get("description")
         if not isinstance(description, str) or not description.strip() or len(description) > 1024:
             failures.append(f"{name}: description missing or over 1024 characters")
-        if skill.get("url") != f"{RAW_PREFIX}{name}/SKILL.md":
+        expected_url = f"https://raw.githubusercontent.com/{REPOSITORY}/{source.get('commit')}/{SKILLS_DIR}/{name}/SKILL.md"
+        if skill.get("url") != expected_url:
             failures.append(f"{name}: url is not the pinned release file")
         if not isinstance(skill.get("digest"), str) or not DIGEST_PATTERN.match(skill["digest"]):
             failures.append(f"{name}: digest is not sha256:<64 hex>")
