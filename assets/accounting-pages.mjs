@@ -131,6 +131,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
       if (event.target.matches('input, select')) fieldErrors.clearFieldError(event.target);
     });
     const output = form.querySelector('output');
+    const applied = form.querySelector('.sources-applied');
     let csv = '';
     const cashDownload = form.querySelector('#download-cash');
     const value = name => form.elements.namedItem(name).value;
@@ -177,6 +178,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
     function invalidate(event) {
       if (event?.target.type === 'file') return;
       if (form.dataset.calculated) output.textContent = 'Inputs changed. Calculate again.';
+      if (applied) applied.hidden = true;
       csv = '';
       if (cashDownload) cashDownload.disabled = true;
       const table = form.querySelector('#cash-results');
@@ -264,6 +266,13 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
         }
         output.textContent = message;
         form.dataset.calculated = 'true';
+        if (applied) {
+          // The panel names the rule and the figures behind this result; a
+          // branch-specific line shows only for the branch that ran.
+          const branch = form.elements.namedItem('inclusive')?.checked ? 'inclusive' : 'exclusive';
+          for (const line of applied.querySelectorAll('[data-when]')) line.hidden = line.dataset.when !== branch;
+          applied.hidden = false;
+        }
       } catch (error) {
         output.textContent = error.message;
       }

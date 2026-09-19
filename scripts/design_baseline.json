@@ -64,7 +64,7 @@
       "89fe446b1f8281d1b0f2280d1cfcb0aab48de165a28b8e839a694de16a191110"
     ],
     "tools/business-calculators/index.html": [
-      "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
+      "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
     ],
     "tools/coal-lsl-levy/index.html": [
       "e6031ba5dbae181be3041488a8277f4996cb715886a6e20fa739b84b3c0c955b"
@@ -109,7 +109,7 @@
   "protected_files": {
     "llms.txt": "2c5f210284efd0d872f9c7eaabab97bef0fc5f8d9fd46268279e975c54da4d72",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "3b7925587d6d61fd2815d9cb58c66d90db2e593c11e9a3b40527c332b1bc8a3d"
+    "sitemap.xml": "9df6a45daa78356e75510d42cc6c64ecbe636b8e6fa939b107d7789f295b9482"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
