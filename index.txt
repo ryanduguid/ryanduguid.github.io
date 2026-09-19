@@ -146,7 +146,7 @@ Full setup and limits: Australian tax tools for AI agents.
 
 Skills
 
-Needs Node.
+Needs Node. Development checkout: installs the default branch, not the tagged release.
 
 ```
 # Public Practice & Tax skills
@@ -159,7 +159,7 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
 
-Needs Git and PowerShell 7.
+Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
@@ -176,7 +176,7 @@ Xero trial balance integrity Reproduce the balanced-export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-The install commands in this section fetch the current release. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
+The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
 
 Verify
 

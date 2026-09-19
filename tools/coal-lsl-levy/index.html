@@ -58,11 +58,11 @@
       </ol>
     </nav>
     <h1>Coal LSL levy calculator and section 3B eligible wages</h1>
-    <p class="short-answer">Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.</p>
+    <p class="short-answer">Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; the calculator refuses earlier reporting months. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.</p>
     <dl class="calculator-method" aria-label="Calculation method and boundary">
       <div>
         <dt>Rate</dt>
-        <dd>2.7% of eligible wages, paid monthly, checked 2 September 2026</dd>
+        <dd>2.7% of eligible wages, paid monthly, checked 2 September 2026. Applies to eligible wages paid on or after 1 July 2023</dd>
       </div>
       <div>
         <dt>Method</dt>
@@ -73,7 +73,7 @@
         <dd>Estimate only. Check the current prescribed percentage before relying on a figure.</dd>
       </div>
     </dl>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 20 September 2026.</p>
     </header>
 
     <div class="calculator-workspace site-shell">
@@ -89,6 +89,12 @@
         <label><input type="radio" name="branch" value="annual" aria-describedby="branch-note" /> An annual salary (section 3B(2))</label>
         <label><input type="radio" name="branch" value="casual" aria-describedby="branch-note" /> As a casual (section 3B(3))</label>
       </fieldset>
+
+      <div class="field">
+        <label for="reportingMonth">Reporting month</label>
+        <input type="month" id="reportingMonth" name="reportingMonth" required min="2023-07" pattern="[0-9]{4}-(0[1-9]|1[0-2])" title="Enter the month as YYYY-MM, like 2026-09" aria-describedby="reportingMonth-help" />
+        <p id="reportingMonth-help" class="field-note">Required for every branch: the levy rate and the casual method both depend on it. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; months before July 2023 are not supported.</p>
+      </div>
 
       <p id="money-blank-help" class="field-note">Leave a monetary amount blank to treat it as $0.00.</p>
 
@@ -150,12 +156,13 @@
           <table id="employee-table" aria-describedby="employee-rounding-note">
             <caption class="visually-hidden">Employee levy table with monthly totals</caption>
             <thead>
-              <tr><th scope="col">Label</th><th scope="col">Branch</th><th scope="col">Eligible wages</th><th scope="col">Levy</th><th scope="col"><span class="visually-hidden">Remove row</span></th></tr>
+              <tr><th scope="col">Label</th><th scope="col">Branch</th><th scope="col">Reporting month</th><th scope="col">Eligible wages</th><th scope="col">Levy</th><th scope="col"><span class="visually-hidden">Remove row</span></th></tr>
             </thead>
             <tbody id="employee-rows"></tbody>
             <tfoot>
               <tr>
                 <td>Total</td>
+                <td></td>
                 <td></td>
                 <td id="employee-total-wages">$0.00</td>
                 <td id="employee-total-levy">$0.00</td>
@@ -165,6 +172,7 @@
           </table>
         </div>
         <p id="employee-rounding-note" class="field-note">The monthly levy is calculated from combined eligible wages and rounded once. It may differ from the sum of the displayed row levies.</p>
+        <p class="field-note">The CSV records each row's reporting month and exports the exact eligible-wages calculation basis (up to four decimal places) beside the displayed two-decimal figure, so the levy can be recalculated from the file alone.</p>
         <button type="button" id="export-csv">Download CSV</button>
       </div>
     </section>
@@ -180,7 +188,9 @@
           and it is not a tax agent service. Using it creates no adviser relationship.
         </p>
         <p>
-          The levy rate applied is 2.7%, checked on 2 September 2026. Section 6 of the Payroll
+          The levy rate applied is 2.7%, checked on 2 September 2026. It applies to eligible
+          wages paid on or after 1 July 2023; reporting months before July 2023 are refused
+          because the earlier rate is not implemented. Section 6 of the Payroll
           Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the
           <a href="https://www.legislation.gov.au/C2004A04353/latest/text"><em>Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992</em></a>,
           which imposes the levy. Check the current prescribed percentage on the Federal
@@ -245,7 +255,7 @@
       <div class="faq">
         <details>
           <summary><h3>What levy rate does this calculator use?</h3></summary>
-          <p>2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.</p>
+          <p>2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure.</p>
         </details>
         <details>
           <summary><h3>What does the 75% in Formula B apply to?</h3></summary>
@@ -318,11 +328,6 @@
     </template>
 
     <template id="fields-casual">
-      <div class="field">
-        <label for="reportingMonth">Reporting month</label>
-        <input type="month" id="reportingMonth" name="reportingMonth" required pattern="[0-9]{4}-(0[1-9]|1[0-2])" title="Enter the month as YYYY-MM, like 2026-08" placeholder="2026-08" aria-describedby="reportingMonth-help" />
-        <p id="reportingMonth-help" class="field-note">Required for the casual branch because the eligible wages method changed for reporting months from January 2024.</p>
-      </div>
       <div class="field field-checkbox">
         <label><input type="checkbox" id="instrumentSpecifiesLoading" name="instrumentSpecifiesLoading" /> An industrial instrument specifies a casual loading</label>
       </div>
@@ -383,7 +388,7 @@
         "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-20",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -451,7 +456,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-18"
+        "dateModified": "2026-09-20"
       },
       {
         "@type": "FAQPage",
@@ -461,7 +466,7 @@
             "name": "What levy rate does this calculator use?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure."
+              "text": "2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure."
             }
           },
           {

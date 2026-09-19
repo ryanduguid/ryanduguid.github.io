@@ -192,7 +192,7 @@
                 <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
                 <label class="adopt-tab" for="adopt-skills">Skills</label>
                 <div class="adopt-panel">
-                  <p class="install-needs">Needs Node.</p>
+                  <p class="install-needs">Needs Node. Development checkout: installs the default branch, not the tagged release.</p>
                   <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Public Practice &amp; Tax skills</span>
 <span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
                   <p>Full setup and limits: <a href="/tools/australian-tax-ai-agents/#install">Australian tax tools for AI agents</a>.</p>
@@ -201,7 +201,7 @@
                 <label class="adopt-tab" for="adopt-github">GitHub workflows</label>
                 <div class="adopt-panel">
                   <p>github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.</p>
-                  <p class="install-needs">Needs Git and PowerShell 7.</p>
+                  <p class="install-needs">Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.</p>
                   <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
 <span class="cmd">cd github-agent-skills</span>
@@ -225,7 +225,7 @@
               </a>
             </div>
           </div>
-          <p class="route-note">The install commands in this section fetch the current release. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.</p>
+          <p class="route-note">The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.</p>
         </div>
       </section>
 

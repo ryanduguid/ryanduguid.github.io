@@ -3,7 +3,8 @@ import assert from 'node:assert/strict';
 import {
   toCents, bonusCents, grossUp,
   baseRateWages, annualSalaryWages, casualWages, levyCents,
-  CASUAL_METHOD_CHANGE_MONTH, MAX_WAGES_CENTS,
+  assertReportingMonthSupported,
+  CASUAL_METHOD_CHANGE_MONTH, LEVY_RATE_FROM_MONTH, MAX_WAGES_CENTS,
 } from '../assets/levy.mjs';
 import { compute } from '../assets/levy-form.mjs';
 
@@ -321,6 +322,44 @@ test('casualWages rejects an empty reportingMonth', () => {
   // Guards against "" < "2024-01" (true in JS), which would otherwise
   // silently misroute a blank field to the pre-2024 branch.
   assert.throws(() => casualWages({ reportingMonth: '' }), TypeError);
+});
+
+test('N140 months before July 2023 are refused, not priced at 2.7%', () => {
+  // June 2023 falls before the verified register row (2023-07-01). The
+  // engine must refuse it rather than apply the current rate.
+  assert.throws(
+    () => casualWages({ reportingMonth: '2023-06', ordinaryRatePayCents: d(10000) }),
+    RangeError,
+  );
+  assert.throws(() => assertReportingMonthSupported('2023-06'), RangeError);
+  assert.throws(() => assertReportingMonthSupported('2018-06'), RangeError);
+});
+
+test('N141 the July 2023 boundary month is supported and prices at 2.7%', () => {
+  assertReportingMonthSupported('2023-07');
+  assert.equal(LEVY_RATE_FROM_MONTH, '2023-07');
+  const r = casualWages({ reportingMonth: '2023-07', ordinaryRatePayCents: d(10000) });
+  assert.equal(r.branch, 'pre-2024');
+  assert.equal(levyCents(r.eligibleWagesCents), 27000); // $10,000 at 2.7% is $270.00
+});
+
+test('assertReportingMonthSupported rejects malformed months', () => {
+  assert.throws(() => assertReportingMonthSupported(''), TypeError);
+  assert.throws(() => assertReportingMonthSupported(undefined), TypeError);
+  assert.throws(() => assertReportingMonthSupported('2024-01-01'), TypeError);
+  assert.throws(() => assertReportingMonthSupported(202401), TypeError);
+});
+
+test('compute carries the reporting month for every branch', () => {
+  assert.equal(
+    compute(casualForm({ reportingMonth: '2023-12', ordinaryPay: '2250' })).reportingMonth,
+    '2023-12',
+  );
+  // The shared guard also refuses unsupported months through compute().
+  assert.throws(
+    () => compute(casualForm({ reportingMonth: '2023-06', ordinaryPay: '2250' })),
+    RangeError,
+  );
 });
 
 test('casualWages rejects an undefined reportingMonth', () => {

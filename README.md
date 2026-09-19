@@ -4,7 +4,7 @@ Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting t
 
 ## Site structure
 
-- `/tools/` groups 11 controls by Extract, Calculate, Control and Inspect.
+- `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds the versioned machine-readable register of those figures.
 - `/tools/accounting-questions/` has 100 question guides with optional search and checklist downloads.

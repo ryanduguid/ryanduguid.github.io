@@ -1,5 +1,6 @@
 import {
   annualSalaryWages,
+  assertReportingMonthSupported,
   baseRateWages,
   casualWages,
   grossUp,
@@ -14,6 +15,10 @@ function readBonuses(root) {
 }
 
 export function compute(form) {
+  // Enforced once here for every branch. casualWages() also enforces it in
+  // the engine, so no path can price a pre-July-2023 month at the 2.7% rate.
+  const reportingMonth = form.elements.reportingMonth?.value;
+  assertReportingMonthSupported(reportingMonth);
   const branch = form.querySelector('input[name="branch"]:checked').value;
   const bonuses = readBonuses(form);
   // Fields for the branches that are hidden do not exist in the DOM,
@@ -21,10 +26,13 @@ export function compute(form) {
   const num = (name) => Number(form.elements[name]?.value || 0);
 
   if (branch === 'annual') {
-    return annualSalaryWages({
-      annualSalaryPaidCents: grossUp(toCents(num('annualSalary')), toCents(num('sacrificed'))),
-      bonuses,
-    });
+    return {
+      ...annualSalaryWages({
+        annualSalaryPaidCents: grossUp(toCents(num('annualSalary')), toCents(num('sacrificed'))),
+        bonuses,
+      }),
+      reportingMonth,
+    };
   }
   if (branch === 'casual') {
     // Every casual figure is handed over exactly as the user typed it, with
@@ -35,21 +43,27 @@ export function compute(form) {
     // a blank field carrying only a grossed-up sacrifice was named as "not
     // counted" while its money sat in the total, and a pre-2024 all-in rate
     // folded into the base-rate argument was discarded without being named.
-    return casualWages({
-      reportingMonth: form.elements.reportingMonth.value,
-      instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
-      loadingQuantifiable: form.elements.loadingQuantifiable.checked,
-      baseRatePayCents: toCents(num('casualBasePay')),
-      casualLoadingCents: toCents(num('casualLoading')),
-      ordinaryRatePayCents: toCents(num('ordinaryPay')),
-      sacrificedCents: toCents(num('sacrificed')),
-      bonuses,
-    });
+    return {
+      ...casualWages({
+        reportingMonth,
+        instrumentSpecifiesLoading: form.elements.instrumentSpecifiesLoading.checked,
+        loadingQuantifiable: form.elements.loadingQuantifiable.checked,
+        baseRatePayCents: toCents(num('casualBasePay')),
+        casualLoadingCents: toCents(num('casualLoading')),
+        ordinaryRatePayCents: toCents(num('ordinaryPay')),
+        sacrificedCents: toCents(num('sacrificed')),
+        bonuses,
+      }),
+      reportingMonth,
+    };
   }
-  return baseRateWages({
-    baseRateCents: grossUp(toCents(num('baseRate')), toCents(num('sacrificed'))),
-    bonuses,
-    overtimeAndPenaltyCents: toCents(num('overtime')),
-    allowancesCents: toCents(num('allowances')),
-  });
+  return {
+    ...baseRateWages({
+      baseRateCents: grossUp(toCents(num('baseRate')), toCents(num('sacrificed'))),
+      bonuses,
+      overtimeAndPenaltyCents: toCents(num('overtime')),
+      allowancesCents: toCents(num('allowances')),
+    }),
+    reportingMonth,
+  };
 }

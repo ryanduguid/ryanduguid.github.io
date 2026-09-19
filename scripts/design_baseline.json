@@ -67,7 +67,7 @@
       "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "540ffbf0863c554f09d2e4e0cf7ff99039d00051f0d1a3e1cc57a73c15db274b"
+      "e6031ba5dbae181be3041488a8277f4996cb715886a6e20fa739b84b3c0c955b"
     ],
     "tools/company-tax-franking/index.html": [
       "fb1e39b6b32f5ac5d11ebe6d84eb857a25aba178816c4fa7e867157f21131e1b"
@@ -107,7 +107,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "1884cbc55a98a96feaf9dd17ba16a28a836b69558bb00bf6a78f737ab6bf3e7b",
+    "llms.txt": "e5e24842087083c241a43e7cb471cdd309d208f19f757841ce488bd1b390121c",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
     "sitemap.xml": "4c4abdb0ec9b84532cbc674307342f74cc2ee5cd004a98dfcc4a17ac8d40efdc"
   },
@@ -162,7 +162,7 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "846bed16bb1143f66f8ab0f6a2134859a2e4fdca197c386c2f25e68b0e781776",
+    "rates/cents-per-kilometre/index.html": "a2dbacdca0fe348e471813e46723565ea69f24eca98de16a71482cf3d414b5c6",
     "rates/div7a-benchmark-rate/index.html": "ed7f9faa5f938616deea1d0f62c3760ca8f526b18557e376a7e1a1dd5fe1b1ea",
     "rates/super-guarantee/index.html": "3484be5e7d8bc0fa701683871711f8162e5017e964d84892c0f02410786192b3"
   },
