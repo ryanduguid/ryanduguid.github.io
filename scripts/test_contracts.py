@@ -122,8 +122,8 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    review_date = "14 September 2026"
-    modified_date = "2026-09-14"
+    review_date = "20 September 2026"
+    modified_date = "2026-09-20"
     homepage_title = (
         "Open-source accounting tools for Australian accountants"
     )
@@ -821,8 +821,8 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 32, (
-        f"expected 32 canonical HTML pages, found {len(indexed_rels)}"
+    assert len(indexed_rels) == 33, (
+        f"expected 33 canonical HTML pages, found {len(indexed_rels)}"
     )
     metadata_failures = [
         failure

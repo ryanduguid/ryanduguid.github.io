@@ -596,6 +596,10 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
                 "/rates/cents-per-kilometre/",
                 "Cents per kilometre car-expense rate",
             ),
+            (
+                "/rates/announced-not-yet-law/",
+                "Announced tax measures not yet law",
+            ),
         ],
     },
 }
@@ -700,11 +704,13 @@ ARTICLE_PATTERN_PAGES = {
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
+    "rates/announced-not-yet-law/index.html",
 }
 RATE_PAGES = {
     "rates/super-guarantee/index.html",
     "rates/div7a-benchmark-rate/index.html",
     "rates/cents-per-kilometre/index.html",
+    "rates/announced-not-yet-law/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
 FORMULA_B_QUESTION = "What does the 75% in Formula B apply to?"

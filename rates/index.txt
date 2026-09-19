@@ -2,15 +2,15 @@
 
 Source: https://duguid.com.au/rates/
 
-> Open maintained Australian super guarantee, Division 7A, and cents-per-kilometre references with verified dates and primary sources.
+> Open maintained Australian super guarantee, Division 7A, cents-per-kilometre and announced-measure references with verified dates and primary sources.
 
 # Rates
 
-Three maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
+Four maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 14 September 2026.
+Last reviewed 20 September 2026.
 
 ## Super guarantee rate history
 
@@ -54,6 +54,20 @@ Income-year rates, determinations, and the 5,000-kilometre cap.
 
 Primary source Download CSV
 
+## Announced tax measures not yet law
+
+Fifteen Budget and MYEFO measures have no bill; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Tax and super measures on the ATO's Budget 2026-27 and MYEFO 2025-26 lists, by status.
+
+Primary source Download CSV
+
 ## Links
 
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -65,3 +79,6 @@ Primary source Download CSV
 - Cents per kilometre car-expense rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Primary source: https://www.legislation.gov.au/F2026L00785/asmade
 - Download CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- Announced tax measures not yet law: https://duguid.com.au/rates/announced-not-yet-law/
+- Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
+- Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
