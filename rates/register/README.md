@@ -66,6 +66,19 @@ through a month does not price wages paid at the end of it.
 A content hash proves the bytes are the bytes. It proves nothing about whether
 the figure is legally correct.
 
+## Review cadence
+
+`verified_at` moves only when a person or a tool re-reads the primary source.
+Those re-reads are scheduled around the events that change Australian rates:
+the 1 July financial-year rollover, the May Federal Budget and the December
+MYEFO, each sitting of Parliament for any bill a series depends on, and a new
+compilation on the Federal Register of any instrument a series cites. A
+reported error is checked against the primary source before the next register
+version is published, and a correction lands as a new row with the old one
+marked `superseded`, as described under Changing a figure. Between those
+checks a row says nothing about currency: treat `verified_at` as the upper
+bound described above.
+
 ## Rules the schema cannot express
 
 Enforced by `scripts/check_rates_register.py`, which runs in the site checks:

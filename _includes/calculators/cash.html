@@ -32,6 +32,13 @@
 </tbody></table></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
+<div class="sources-applied" hidden>
+<h3>Sources applied</h3>
+<ul class="sources">
+<li>Formulas: weekly closing cash = opening cash + receipts − payments, each closing balance opening the next week; funding gap = minimum buffer − lowest opening or weekly closing cash, floored at zero.</li>
+<li>Figures: supplied by you. No statutory rate or threshold is applied. The layout follows <a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a>. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.</li>
+</ul>
+</div>
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
