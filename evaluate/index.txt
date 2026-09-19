@@ -40,7 +40,7 @@ This is a guided reproduction rather than a blinded trial: the expected figures 
 - Restore 0, save a copy, reopen it, and confirm the base figures return.
 - List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
 
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The address ryan@duguid.com.au is shown as text and needs no scripts: if an email link does not open your email app, copy it. Do not include client records, taxpayer identifiers, credentials or confidential files.
 
 Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External evaluation of this case is pending; this page reports no completed trial.
 
@@ -62,6 +62,7 @@ Company tax and franking checks | Pinned package trial | 25.0% on the declared b
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.1, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
@@ -174,6 +175,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Workpaper Review Gate: https://duguid.com.au/evaluate/manager-review-gate/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/#download
 - browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md

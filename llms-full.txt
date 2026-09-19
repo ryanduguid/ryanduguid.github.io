@@ -154,7 +154,7 @@ Full setup and limits: Australian tax tools for AI agents.
 
 Skills
 
-Needs Node.
+Needs Node. Development checkout: installs the default branch, not the tagged release.
 
 ```
 # Public Practice & Tax skills
@@ -167,7 +167,7 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
 
-Needs Git and PowerShell 7.
+Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
@@ -184,7 +184,7 @@ Xero trial balance integrity Reproduce the balanced-export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-The install commands in this section fetch the current release. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
+The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
 
 Verify
 
@@ -604,7 +604,7 @@ This is a guided reproduction rather than a blinded trial: the expected figures 
 - Restore 0, save a copy, reopen it, and confirm the base figures return.
 - List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
 
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The email links here are obfuscated against scraping and need scripts to open; if one does not work, write to ryan at duguid dot com dot au.
+Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The address ryan@duguid.com.au is shown as text and needs no scripts: if an email link does not open your email app, copy it. Do not include client records, taxpayer identifiers, credentials or confidential files.
 
 Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External evaluation of this case is pending; this page reports no completed trial.
 
@@ -626,6 +626,7 @@ Company tax and franking checks | Pinned package trial | 25.0% on the declared b
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.1, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
@@ -738,6 +739,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Workpaper Review Gate: https://duguid.com.au/evaluate/manager-review-gate/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/#download
 - browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
 - Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
@@ -1339,7 +1341,7 @@ Source: https://duguid.com.au/rates/cents-per-kilometre/
 
 # Cents per kilometre rate for car expenses
 
-The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves.
+The rate is 91 cents per kilometre for the income year commencing 1 July 2026, set for that year alone, and was 88 cents for the 2 years before it. The method covers the first 5,000 business kilometres per car per year and no further. One rate applies to every car, whatever its engine size, and no receipts have to be kept for the car expenses themselves. This is the rate for the cents per kilometre method, one of the car-expense methods: it is a rate table, not a determination that a particular taxpayer, car or business kilometre is eligible, and the choice between methods is not made here.
 
 Each rate below is taken from the determination that sets it, read on 14 September 2026: the 2026 determination (F2026L00785) and the 2024 determination (F2024L00697), both made under section 28-25 of the Income Tax Assessment Act 1997.
 
@@ -2083,11 +2085,11 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator and section 3B eligible wages
 
-Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
+Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; the calculator refuses earlier reporting months. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
 
 Rate
 
-2.7% of eligible wages, paid monthly, checked 2 September 2026
+2.7% of eligible wages, paid monthly, checked 2 September 2026. Applies to eligible wages paid on or after 1 July 2023
 
 Method
 
@@ -2097,7 +2099,7 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 20 September 2026.
 
 Load the synthetic example
 
@@ -2108,6 +2110,10 @@ How is this employee paid?
 Your choice replaces the pay fields that follow.
 
 A base rate of pay (section 3B(1)) An annual salary (section 3B(2)) As a casual (section 3B(3))
+
+Reporting month
+
+Required for every branch: the levy rate and the casual method both depend on it. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; months before July 2023 are not supported.
 
 Leave a monetary amount blank to treat it as $0.00.
 
@@ -2143,7 +2149,7 @@ Download CSV before leaving. This table is not saved and clears when you reload 
 
 Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice, and it is not a tax agent service. Using it creates no adviser relationship.
 
-The levy rate applied is 2.7%, checked on 2 September 2026. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
+The levy rate applied is 2.7%, checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
 
 This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations, or the approved form, those prevail.
 
@@ -2175,7 +2181,7 @@ The Act, the Regulations, and the guidance note publish no rounding rule. This t
 
 ### What levy rate does this calculator use?
 
-2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.
+2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure.
 
 ### What does the 75% in Formula B apply to?
 
@@ -2264,6 +2270,8 @@ uvx --from payday-super-checker==0.1.4 payday-super-check timely_remittance_no_r
 
 The command downloads checker 0.1.4 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
+Check the matching evidence before relying on the exported file. In checker 0.1.4, if employee identifiers or pay-period columns are missing, the structural matching warnings are printed to the console but are not carried into the CSV, and which super payment matches which payday can change. Keep the console output with the report, or reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
+
 Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
 
 The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.4 and leaves the fund-receipt decision with the reviewer.
@@ -2271,6 +2279,8 @@ The fixed example above and the recorded public evaluation use release 0.1.3. Fo
 ## Evidence-pack workflow
 
 The CLI change combines the existing checker and practitioner checklist in one command. It writes report.csv, practitioner-review.md, exceptions.json and a blank decision-log.md into a new directory.
+
+Keep the console transcript with the pack: the CSV report does not carry the structural matching warnings described under Known limitations (PSC-2), so a reviewer who receives only the files cannot see them. Reconcile affected matches before relying on any verdict.
 
 The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fabricated example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
 
@@ -2316,6 +2326,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
+- Known limitations: https://duguid.com.au/tools/limitations/
 - recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
 - CLI change: https://github.com/ryanduguid/australian-accounting/pull/147
 - companion MCP tool: https://github.com/ryanduguid/australian-accounting/pull/148
@@ -2325,7 +2336,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
-- Known limitations: https://duguid.com.au/tools/limitations/
 - Reproduction record: https://duguid.com.au/tools/payday-super/example-provenance.json
 
 ---
@@ -2388,7 +2398,7 @@ It is not tax advice, and sitting outside a range is not a finding that anything
 
 ## Get it
 
-Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -2398,7 +2408,7 @@ pip install .
 
 Source on GitHub · Primary source: the ATO's small business benchmarks.
 
-One known limitation is recorded against this tool, on how a profit and loss line that maps to no published category is treated. See Known limitations.
+One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied; the two output paths differ on purpose. That is separate from a profit-and-loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
 Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
@@ -2575,7 +2585,7 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 # What company tax rate applies, and is the franking account in order?
 
-A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the error carries straight into the rate used to frank a dividend. This tool runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
+A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year's test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
 
 Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.1.6. pip install the-exchequer-tally fetches it.
 
@@ -2784,7 +2794,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## What this tool does
 
-- Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin.
+- Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin. Whether uninstalled materials qualify for that treatment depends on the applicable paragraph B19 conditions, so check them against the contract before relying on it; the fixed example below contains none.
 - Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.
 - Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.
 
@@ -3303,6 +3313,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
 14 September 2026 | The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.
 11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
 6 September 2026 | The Tools page gained a Related resources section holding the third-party libraries, official guidance, and primary sources from the separate index repository, which is now archived; the footer links there instead.
@@ -3317,7 +3328,7 @@ Date | Change
 
 ## Tool releases
 
-One row per tool: its current tagged release. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
+Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
 13 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.2
@@ -3475,6 +3486,8 @@ Editorial review: 11 September 2026.
 Search questions
 
 Topic All topics Tax returns Deductions Starting a business GST and BAS Payroll and super Bookkeeping and close Cash flow Management reporting Companies and trusts Investments and Newcastle
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -5243,7 +5256,7 @@ Cloudflare adds a performance analytics script when delivering pages. The site's
 
 Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
 
-Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries anything you type on this site.
+Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries the figures you type into the calculators. A prefetched or shared page address can carry question-search terms, because the search places them in the address; do not put confidential information in a search you may share or leave in your history.
 
 Cloudflare also supplies visitor-verification code as part of page delivery. Both additions are made after the files leave this website's source and are served from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see Cloudflare's cookie documentation. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.
 

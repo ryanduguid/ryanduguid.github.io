@@ -18,7 +18,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## What this tool does
 
-- Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin.
+- Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin. Whether uninstalled materials qualify for that treatment depends on the applicable paragraph B19 conditions, so check them against the contract before relying on it; the fixed example below contains none.
 - Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.
 - Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.
 

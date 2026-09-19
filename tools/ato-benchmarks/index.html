@@ -129,12 +129,12 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.</p>
+    <p class="install-needs">Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
-    <p>One known limitation is recorded against this tool, on how a profit and loss line that maps to no published category is treated. See <a href="/tools/limitations/">Known limitations</a>.</p>
+    <p>One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it <code>not_supplied</code>; the two output paths differ on purpose. That is separate from a profit-and-loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See <a href="/tools/limitations/">Known limitations</a>.</p>
     <p>Unexpected result or question? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=ATO%20benchmark%20comparison">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>

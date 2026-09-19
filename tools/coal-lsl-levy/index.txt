@@ -6,11 +6,11 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 # Coal LSL levy calculator and section 3B eligible wages
 
-Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
+Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; the calculator refuses earlier reporting months. Section 3B has separate base-rate, annual-salary and casual branches. The base-rate branch uses the greater of Formula A and Formula B.
 
 Rate
 
-2.7% of eligible wages, paid monthly, checked 2 September 2026
+2.7% of eligible wages, paid monthly, checked 2 September 2026. Applies to eligible wages paid on or after 1 July 2023
 
 Method
 
@@ -20,7 +20,7 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 20 September 2026.
 
 Load the synthetic example
 
@@ -31,6 +31,10 @@ How is this employee paid?
 Your choice replaces the pay fields that follow.
 
 A base rate of pay (section 3B(1)) An annual salary (section 3B(2)) As a casual (section 3B(3))
+
+Reporting month
+
+Required for every branch: the levy rate and the casual method both depend on it. The 2.7% rate applies to eligible wages paid on or after 1 July 2023; months before July 2023 are not supported.
 
 Leave a monetary amount blank to treat it as $0.00.
 
@@ -66,7 +70,7 @@ Download CSV before leaving. This table is not saved and clears when you reload 
 
 Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice, and it is not a tax agent service. Using it creates no adviser relationship.
 
-The levy rate applied is 2.7%, checked on 2 September 2026. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
+The levy rate applied is 2.7%, checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
 
 This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations, or the approved form, those prevail.
 
@@ -98,7 +102,7 @@ The Act, the Regulations, and the guidance note publish no rounding rule. This t
 
 ### What levy rate does this calculator use?
 
-2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. Confirm it on the Federal Register of Legislation before relying on a figure.
+2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure.
 
 ### What does the 75% in Formula B apply to?
 

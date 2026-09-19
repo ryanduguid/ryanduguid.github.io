@@ -11,6 +11,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
 14 September 2026 | The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.
 11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
 6 September 2026 | The Tools page gained a Related resources section holding the third-party libraries, official guidance, and primary sources from the separate index repository, which is now archived; the footer links there instead.
@@ -25,7 +26,7 @@ Date | Change
 
 ## Tool releases
 
-One row per tool: its current tagged release. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
+Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
 13 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.2
