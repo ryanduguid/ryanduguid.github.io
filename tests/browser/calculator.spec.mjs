@@ -291,16 +291,21 @@ test('visible monetary controls resolve common and field-specific help', async (
   health.assertHealthy();
 });
 
-test('casual branch requires and describes the reporting month', async ({ page }) => {
+test('reporting month is required on every branch and refuses pre-July-2023 months', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');
-  await page.getByRole('radio', {
-    name: 'As a casual (section 3B(3))',
-    exact: true,
-  }).check();
-  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
 
+  // The month sits outside the branch templates, so every branch carries it,
+  // and it arrives prefilled with the current month.
   const month = page.getByLabel('Reporting month', { exact: true });
+  await expect(month).toBeVisible();
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  await expect(month).toHaveValue(currentMonth);
+
+  // A cleared month fails visibly on the base-rate branch, not silently.
+  await month.fill('');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(month).toBeFocused();
   await expect(month).toHaveAttribute('aria-invalid', 'true');
   const describedBy = (await month.getAttribute('aria-describedby')).split(/\s+/);
@@ -308,6 +313,37 @@ test('casual branch requires and describes the reporting month', async ({ page }
   expect(errorId).toBeTruthy();
   await expect(page.locator(`#${errorId}`)).toHaveAttribute('role', 'alert');
   await expect(page.locator(`#${errorId}`)).toBeVisible();
+
+  // The casual branch exposes the same shared field, not its own copy.
+  await page.getByRole('radio', {
+    name: 'As a casual (section 3B(3))',
+    exact: true,
+  }).check();
+  await expect(page.locator('input#reportingMonth')).toHaveCount(1);
+
+  // June 2023 predates the verified rate row. The form's min constraint
+  // refuses it at the field (the engine refuses it independently; the node
+  // suite covers that message), and no levy row is rendered.
+  await month.fill('2023-06');
+  await page.getByRole('spinbutton', {
+    name: 'All-in ordinary rate pay',
+    exact: true,
+  }).fill('10000');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(month).toBeFocused();
+  await expect(month).toHaveAttribute('aria-invalid', 'true');
+  const juneDescribedBy = (await month.getAttribute('aria-describedby')).split(/\s+/);
+  const juneErrorId = juneDescribedBy.find((id) => id.endsWith('-error'));
+  expect(juneErrorId).toBeTruthy();
+  await expect(page.locator(`#${juneErrorId}`)).toBeVisible();
+  await expect(page.locator('[data-result-kind="levy"]')).toHaveCount(0);
+
+  // The boundary month itself is supported and prices at 2.7%.
+  await month.fill('2023-07');
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('[data-result-kind="levy"]')).toContainText('$270.00');
+  await expect(page.locator('[data-result-kind="reporting-month"]'))
+    .toContainText('July 2023');
   health.assertHealthy();
 });
 
@@ -372,7 +408,8 @@ test('printing and the monthly table recalculate from edited inputs', async ({ p
 
   await baseRate.fill('9000');
   await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
-  await expect(page.locator('#employee-rows tr td').nth(2)).toHaveText('$9,000.00');
+  // Label, branch, reporting month, then eligible wages.
+  await expect(page.locator('#employee-rows tr td').nth(3)).toHaveText('$9,000.00');
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toContainText('$9,000.00');
   health.assertHealthy();
 });
@@ -389,7 +426,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 18 September 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 20 September 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();
@@ -418,7 +455,7 @@ test('monthly table explains aggregate rounding and downloads a sourced CSV', as
 
   await page.getByLabel('Employee reference', { exact: true }).fill('=SUM("1",2)');
   await page.getByRole('button', { name: 'Add to monthly table', exact: true }).click();
-  await expect(page.locator('#employee-rows tr td:nth-child(4)')).toHaveText(['$162.01', '$162.01']);
+  await expect(page.locator('#employee-rows tr td:nth-child(5)')).toHaveText(['$162.01', '$162.01']);
   await expect(page.locator('#employee-total-wages')).toHaveText('$12,000.40');
   await expect(page.locator('#employee-total-levy')).toHaveText('$324.01');
 
@@ -430,14 +467,22 @@ test('monthly table explains aggregate rounding and downloads a sourced CSV', as
   for await (const chunk of stream) csv += chunk.toString('utf8');
   expect(download.suggestedFilename()).toBe('coal-lsl-levy.csv');
   expect(csv).toContain('Estimate only, not advice.');
-  expect(csv).toContain('Label,Branch,Eligible wages,Levy');
+  expect(csv).toContain('Label,Branch,Reporting month,Eligible wages,Eligible wages (exact),Levy');
   expect(csv).toContain('Currency,AUD\n');
   expect(csv).toContain('Levy rate,2.7%\n');
+  expect(csv).toContain('Rate applies from,2023-07\n');
   expect(csv).toContain('Rate reviewed,2026-09-02\n');
   expect(csv).toContain('Rate source,https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf\n');
-  expect(csv).toContain('EMP-001,s 3B(1),6000.20,162.01\n');
-  expect(csv).toContain('"\'=SUM(""1"",2)",s 3B(1),6000.20,162.01\n');
-  expect(csv).toContain('Total,,12000.40,324.01');
+  expect(csv).toContain(
+    'Eligible wages (exact) is the calculation basis to four decimal places; the displayed two-decimal column is not.\n',
+  );
+  // The row carries the prefilled current reporting month, which the test
+  // derives rather than pins, so the expectation survives the calendar.
+  const now = new Date();
+  const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+  expect(csv).toContain(`EMP-001,s 3B(1),${currentMonth},6000.20,6000.2000,162.01\n`);
+  expect(csv).toContain(`"\'=SUM(""1"",2)",s 3B(1),${currentMonth},6000.20,6000.2000,162.01\n`);
+  expect(csv).toContain(`Total,,${currentMonth},12000.40,12000.4000,324.01`);
   const rounding = page.locator('#employee-rounding-note');
   await expect(rounding).toBeVisible();
   await expect(rounding).toContainText('combined eligible wages and rounded once');
@@ -501,7 +546,11 @@ test('calculator orientation and result render as an inspectable ledger', async 
   const result = page.locator('#result');
   await expect(result).toContainText('as at 2 September 2026');
   const rows = result.locator('.result-row');
-  await expect(rows).toHaveCount(6);
+  await expect(rows).toHaveCount(7);
+  const now = new Date();
+  const monthName = now.toLocaleString('en-AU', { month: 'long' });
+  await expect(result.locator('[data-result-kind="reporting-month"]'))
+    .toContainText(`${monthName} ${now.getFullYear()}`);
   await expect(result.locator('[data-result-kind="eligible-wages"]'))
     .toContainText(COAL_LSL_PROOF.expected.eligibleWages);
   await expect(result.locator('[data-result-kind="levy"]'))

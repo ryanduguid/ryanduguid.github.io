@@ -62,9 +62,10 @@
         <div class="question-controls">
           <fieldset disabled><legend class="visually-hidden">Question filters and checklist</legend>
           <div class="form-grid">
-            <label class="field" for="question-search">Search questions<input type="search" id="question-search" name="q" autocomplete="off" placeholder="Try BAS, cash flow or Newcastle" /></label>
+            <label class="field" for="question-search">Search questions<input type="search" id="question-search" name="q" autocomplete="off" placeholder="Try BAS, cash flow or Newcastle" aria-describedby="question-search-help" /></label>
             <div class="field"><label for="question-topic">Topic</label><select id="question-topic"><option value="">All topics</option>{% for topic in site.data.accounting_questions.topics %}<option value="{{ topic.id }}">{{ topic.label | escape }}</option>{% endfor %}</select></div>
           </div>
+          <p class="field-note" id="question-search-help">Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.</p>
           <div class="accounting-actions">
             <button type="button" id="clear-filters">Clear filters</button>
             <button type="button" id="download-checklist" class="button" disabled>Download selected checklist</button>

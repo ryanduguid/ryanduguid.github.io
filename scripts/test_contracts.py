@@ -175,9 +175,9 @@ def test_geo_leftovers_surface() -> None:
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
     assert (
         web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == "2026-09-18"
+        == "2026-09-20"
     )
-    assert "Last reviewed 18 September 2026." in core.visible_text(coal)
+    assert "Last reviewed 20 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (

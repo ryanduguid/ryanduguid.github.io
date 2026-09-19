@@ -20,6 +20,23 @@ export const LEVY_RATE_SOURCE =
 // string, and '2024-01' < '2024-01-01' is true, which would misroute January.
 export const CASUAL_METHOD_CHANGE_MONTH = '2024-01';
 
+// The verified rate row in rates/register/series/coal-lsl-levy.json begins
+// 2023-07-01: 2.7% applies to eligible wages paid on or after 1 July 2023
+// (F2023L00772). Earlier months were levied at 2%, which this engine does
+// not implement, so they are refused rather than silently priced at 2.7%.
+export const LEVY_RATE_FROM_MONTH = '2023-07';
+
+export function assertReportingMonthSupported(reportingMonth) {
+  if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
+    throw new TypeError('reportingMonth must be a YYYY-MM string');
+  }
+  if (reportingMonth < LEVY_RATE_FROM_MONTH) {
+    throw new RangeError(
+      `Reporting month ${reportingMonth} is not supported. The 2.7% levy rate applies to eligible wages paid on or after 1 July 2023, and this calculator does not calculate levy for earlier months.`,
+    );
+  }
+}
+
 // s 3B(4)(c) and (d): incentive payments and bonuses count only where paid at
 // least once a month. Quarterly, half-yearly and annual amounts drop out
 // entirely; they are not spread across the year.
@@ -109,9 +126,9 @@ export function casualWages({
   sacrificedCents = 0,
   bonuses,
 }) {
-  if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
-    throw new TypeError('reportingMonth must be a YYYY-MM string');
-  }
+  // The rate boundary is enforced here as well as at the form boundary, so
+  // no caller can route a pre-July-2023 month through the casual branch.
+  assertReportingMonthSupported(reportingMonth);
   const entered = {
     baseRatePay: baseRatePayCents,
     casualLoading: casualLoadingCents,

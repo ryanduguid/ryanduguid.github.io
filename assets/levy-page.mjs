@@ -4,7 +4,7 @@
 // Served as an external module so every page can run under a
 // script-src 'self' Content Security Policy with no inline script.
 import {
-  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE, MAX_WAGES_CENTS,
+  levyCents, LEVY_RATE_AS_AT, LEVY_RATE_FROM_MONTH, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR, LEVY_RATE_SOURCE, MAX_WAGES_CENTS,
 } from '/assets/levy.mjs';
 import { explainLevyResult, money } from '/assets/levy-explanation.mjs';
 import { compute } from '/assets/levy-form.mjs';
@@ -24,6 +24,9 @@ const CASUAL_FIELD_LABELS = {
 // other date and dollar figure on the page and the home page worked proof.
 const longDate = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'long', year: 'numeric' });
 const RATE_AS_AT_LABEL = longDate.format(new Date(LEVY_RATE_AS_AT + 'T00:00:00'));
+const monthYear = new Intl.DateTimeFormat('en-AU', { month: 'long', year: 'numeric' });
+const monthLabel = (reportingMonth) =>
+  monthYear.format(new Date(reportingMonth + '-01T00:00:00'));
 const exactMoney = (cents) => (cents / 100).toLocaleString('en-AU', {
   style: 'currency', currency: 'AUD', minimumFractionDigits: 4, maximumFractionDigits: 7,
 });
@@ -41,10 +44,15 @@ function render(result, into, allMonetaryAmountsBlank = false) {
     ? 'section ' + result.branch.slice(2)
     : result.branch;
   const rows = [
+    {
+      kind: 'reporting-month',
+      label: 'Reporting month',
+      value: monthLabel(result.reportingMonth),
+    },
     { kind: 'eligible-wages', label: 'Eligible wages', value: money(cents) },
     {
       kind: 'levy',
-      label: 'Levy at 2.7 per cent, as at ' + RATE_AS_AT_LABEL,
+      label: 'Levy at 2.7 per cent for ' + monthLabel(result.reportingMonth) + ', as at ' + RATE_AS_AT_LABEL,
       value: money(rounded),
     },
     ...(exact !== rounded
@@ -105,6 +113,15 @@ const resultNotice = document.getElementById('result-notice');
 const employeeRows = document.getElementById('employee-rows');
 const employeeTableWrap = document.getElementById('employee-table-wrap');
 const resultActions = document.getElementById('result-actions');
+
+// Prefill the reporting month with the current month so every branch has a
+// supported period before the visitor types anything. The engine still
+// refuses anything earlier than July 2023.
+const monthInput = calcForm.elements.reportingMonth;
+if (monthInput && !monthInput.value) {
+  const now = new Date();
+  monthInput.value = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+}
 
 function validateForm() {
   for (const control of calcForm.querySelectorAll('input[type="number"]')) {
@@ -243,6 +260,7 @@ function renderEmployees() {
     totalWages += emp.eligibleWagesCents;
     const tr = document.createElement('tr');
     tr.innerHTML = `<td>${escapeHtml(emp.label)}</td><td>${emp.branch}</td>` +
+      `<td>${emp.reportingMonth}</td>` +
       `<td>${money(emp.eligibleWagesCents)}</td><td>${money(emp.levyCents)}</td>` +
       `<td><button type="button" class="link-button" data-remove="${i}" aria-label="Remove ${escapeHtml(emp.label)}">Remove</button></td>`;
     employeeRows.append(tr);
@@ -260,6 +278,13 @@ document.getElementById('add-employee').addEventListener('click', () => {
   // matches the figures shown beside it.
   if (!calculate()) return;
   const result = compute(calcForm);
+  // The employer aggregate is per reporting month, so rows for different
+  // months cannot sit in one table: the summed total would price a mixed
+  // period at one rate.
+  if (employees.length && employees[0].reportingMonth !== result.reportingMonth) {
+    tableStatus.textContent = `The monthly table holds rows for ${monthLabel(employees[0].reportingMonth)}. Calculate ${monthLabel(result.reportingMonth)} in a separate table.`;
+    return;
+  }
   try {
     levyCents(employees.reduce((total, emp) => total + emp.eligibleWagesCents, result.eligibleWagesCents));
   } catch (issue) {
@@ -277,6 +302,7 @@ document.getElementById('add-employee').addEventListener('click', () => {
   employees.push({
     label,
     branch: result.branch,
+    reportingMonth: result.reportingMonth,
     eligibleWagesCents: result.eligibleWagesCents,
     levyCents: levyCents(result.eligibleWagesCents),
   });
@@ -310,20 +336,25 @@ document.getElementById('export-csv').addEventListener('click', () => {
     'Estimate only, not advice.',
     'Currency,AUD',
     `Levy rate,${(LEVY_RATE_NUMERATOR * 100) / LEVY_RATE_DENOMINATOR}%`,
+    `Rate applies from,${LEVY_RATE_FROM_MONTH}`,
     `Rate reviewed,${LEVY_RATE_AS_AT}`,
     `Rate source,${csvField(LEVY_RATE_SOURCE)}`,
     `Rounding,${csvField(document.getElementById('employee-rounding-note').textContent.trim())}`,
-    'Label,Branch,Eligible wages,Levy',
+    'Eligible wages (exact) is the calculation basis to four decimal places; the displayed two-decimal column is not.',
+    'Label,Branch,Reporting month,Eligible wages,Eligible wages (exact),Levy',
   ];
   let totalWages = 0;
   for (const emp of employees) {
     totalWages += emp.eligibleWagesCents;
-    lines.push([csvField(emp.label), emp.branch, (emp.eligibleWagesCents / 100).toFixed(2),
+    lines.push([csvField(emp.label), emp.branch, emp.reportingMonth,
+      (emp.eligibleWagesCents / 100).toFixed(2), (emp.eligibleWagesCents / 100).toFixed(4),
       (emp.levyCents / 100).toFixed(2)].join(','));
   }
   // Same rounding rule as the on-page total: round once on the summed
   // eligible wages, not the sum of already rounded per-employee levies.
-  lines.push(['Total', '', (totalWages / 100).toFixed(2), (levyCents(totalWages) / 100).toFixed(2)].join(','));
+  lines.push(['Total', '', employees.length ? employees[0].reportingMonth : '',
+    (totalWages / 100).toFixed(2), (totalWages / 100).toFixed(4),
+    (levyCents(totalWages) / 100).toFixed(2)].join(','));
   const blob = new Blob([lines.join('\n')], { type: 'text/csv' });
   const url = URL.createObjectURL(blob);
   const a = document.createElement('a');
