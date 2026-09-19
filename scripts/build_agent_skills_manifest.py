@@ -32,9 +32,11 @@ FORMAT = "duguid.com.au/agent-skills-index/1"
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
 DIGEST_PATTERN = re.compile(r"^sha256:[0-9a-f]{64}$")
 COMMIT_PATTERN = re.compile(r"^[0-9a-f]{40}$")
+# The release route from the skills README. The plugin marketplace route
+# installs the repository's default branch, which carries unreleased skills.
 INSTALL = [
-    f"/plugin marketplace add {REPOSITORY}",
-    "/plugin install australian-accounting-skills@ryanduguid",
+    f"git clone --branch {RELEASE} --depth 1 https://github.com/{REPOSITORY}.git accounting-skills-release",
+    "npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy",
 ]
 TIMEOUT = 30
 
