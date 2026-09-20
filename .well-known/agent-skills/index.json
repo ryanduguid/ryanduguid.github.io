@@ -1,0 +1,137 @@
+{
+  "format": "duguid.com.au/agent-skills-index/1",
+  "generated": "2026-09-20",
+  "publisher": {
+    "name": "Ryan Duguid",
+    "url": "https://duguid.com.au/"
+  },
+  "skill_format": "https://agentskills.io/specification",
+  "source": {
+    "repository": "https://github.com/ryanduguid/australian-accounting-skills",
+    "release": "v0.2.1",
+    "commit": "527b0a22c8be5ce10855f12f052cd3bda7b7b827",
+    "license": "MIT",
+    "install": [
+      "git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release",
+      "git -C accounting-skills-release checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827",
+      "npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy"
+    ]
+  },
+  "note": "Preparation-only accounting workflows for review by an authorised human. Not tax advice and not lodgement. Each url serves the released bytes; check the digest before use.",
+  "skills": [
+    {
+      "name": "bas-preparation",
+      "description": "Use when preparing, reviewing, or reconciling a Business Activity Statement (BAS) or IAS for an Australian entity: mapping ledger figures to BAS labels, tying out GST control accounts, or investigating a GST variance before lodgment.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/bas-preparation/SKILL.md",
+      "digest": "sha256:d119ae1b426f487678b2b040f085cada2c4ef8d9967613f97930c13a517f4e53"
+    },
+    {
+      "name": "cashflow-forecast-13week",
+      "description": "Use when building or updating a rolling 13-week cashflow forecast for an Australian SME: receipts from debtor history, payments from creditors and payroll cycles, ATO obligation timing (BAS, PAYG, super), and weekly actual-vs-forecast variance.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/cashflow-forecast-13week/SKILL.md",
+      "digest": "sha256:57cac170ef32d799bb7cb85849c87af449c7b332b84bac7ad23619a69fdd2f02"
+    },
+    {
+      "name": "coal-lsl-levy",
+      "description": "Use when an employer has workers on or about a black coal mine site and must handle Coal LSL: testing which employees are eligible, building eligible wages, preparing the monthly levy return and payment hand-off, claiming reimbursement for long service leave paid, and reconciling the levy to payroll.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/coal-lsl-levy/SKILL.md",
+      "digest": "sha256:c0330c9ec817435c731872452e5984040c89b16a5ad432193b0135ba1a322c23"
+    },
+    {
+      "name": "contract-cost-tracking",
+      "description": "Use when job costing a construction or contracting job: committed against actual cost, labour, plant, subcontract and materials allocation, margin by contract, variance to budget, and the cost-to-date and cost-to-complete figures the WIP calculation consumes.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/contract-cost-tracking/SKILL.md",
+      "digest": "sha256:c385d832d1bfc00bd4e4eed12c2b86740047049f50cfcf11325a5adbdc0e1690"
+    },
+    {
+      "name": "contracting-exports",
+      "description": "Use when pulling, specifying, or validating the source exports the contracting pack runs on: job or tracking-dimension P&L, contract and claim registers, plant registers and hire dockets, payroll by employee and by job, and subcontractor payment listings, including file conventions, completeness checks and CSV parsing traps. Reference skill for the other skills in this pack.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/contracting-exports/SKILL.md",
+      "digest": "sha256:bcfec0dd235e2940eb2f0a5c447f097bc2257d85cc723c1151b4c1885aef929e"
+    },
+    {
+      "name": "contractor-super-tpar",
+      "description": "Use when a business pays subcontractors and needs a review schedule: SGAA s 12 employee screening and an indicative post-1 July 2026 individual SG amount, TPAR coverage and exemptions, and no-ABN withholding.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/contractor-super-tpar/SKILL.md",
+      "digest": "sha256:47ba8863485798b80cc25d1fe7485c58918b853032bc81e1f4128cce39e1eece"
+    },
+    {
+      "name": "div7a-compliance",
+      "description": "Use when reviewing shareholder or associate loans, payments, or debt forgiveness by a private company for Division 7A exposure: building the loan register, checking complying loan agreements, and calculating minimum yearly repayments.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/div7a-compliance/SKILL.md",
+      "digest": "sha256:f561a9056f4e5204eceae6990ffd880a5f6f7522b390a2c123e9917710b45b04"
+    },
+    {
+      "name": "fbt-annual-workflow",
+      "description": "Use when preparing FBT year-end work for an Australian employer: identifying fringe benefits, collecting declarations, applying gross-up, calculating reportable fringe benefits amounts, and building the FBT return workpaper. FBT year runs 1 April to 31 March.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/fbt-annual-workflow/SKILL.md",
+      "digest": "sha256:24558fa0fc65fc9cb1553ce642a80936ed65bdabfd9129cbf7d88b5583978be5"
+    },
+    {
+      "name": "fuel-tax-credits",
+      "description": "Use when preparing or reviewing an Australian fuel tax credit claim for a plant-operating business: eligibility and registration, the public-road against off-road against auxiliary split, the road user charge and the incidental-travel carve-out, apportionment method and evidence, adjustments against error corrections, and the BAS labels that carry it.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/fuel-tax-credits/SKILL.md",
+      "digest": "sha256:a2721d3afc420b17a4a13503b046870564f1f8e6bc0700ed144376ace2ae99be"
+    },
+    {
+      "name": "month-end-close",
+      "description": "Use when running or reviewing a month-end close (bank reconciliations, control account reconciliations, accruals and prepayments, depreciation, and P&L variance review) for an Australian SME or client entity.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/month-end-close/SKILL.md",
+      "digest": "sha256:95a6230d2a9acc7c072a6621381631d2bae2fcd67ea02e776d6a148437cf0eec"
+    },
+    {
+      "name": "payroll-tax-contractors",
+      "description": "Use when testing subcontractor payments for NSW payroll tax: whether a payment is deemed wages under a relevant contract, which section 32(2) exemption applies, labour hire and on-hire chains, contracts that include plant, and the effect of grouping on the threshold.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/payroll-tax-contractors/SKILL.md",
+      "digest": "sha256:1e6e58397fb139c4c3d7320f3c3cf38e86f632517921e1942447a70189bc9108"
+    },
+    {
+      "name": "plant-and-equipment-costing",
+      "description": "Use when costing plant per machine or settling its tax and accounting treatment: standing versus running cost, the hour denominator and utilisation, wet versus dry hire, effective life and decline in value, and hire purchase versus chattel mortgage versus lease.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/plant-and-equipment-costing/SKILL.md",
+      "digest": "sha256:7718b8226306e3ec6c546758a2839ee04c6ea964e550fdf83586e4081cac80af"
+    },
+    {
+      "name": "progress-claim-preparation",
+      "description": "Use when building or reviewing a construction progress payment claim in NSW or Queensland: measured quantities, variations, materials, retention withheld, GST, the claim trigger date, and the statutory content a valid claim must carry.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/progress-claim-preparation/SKILL.md",
+      "digest": "sha256:9d4b7bbf3789cab8c4e3e3686b7194eb6a7ec9f7604191151c4d5593917233e4"
+    },
+    {
+      "name": "retention-schedule",
+      "description": "Use when tracking retention withheld or held across construction contracts: caps, defects liability periods, two-tranche release, NSW and Queensland trust account obligations, and the tie-out to the retention asset and liability in the ledger.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/retention-schedule/SKILL.md",
+      "digest": "sha256:84e23a7a268391cb352c3d1f36d7bb5628690b6aa390a0492cfc81106832373c"
+    },
+    {
+      "name": "stp-finalisation",
+      "description": "Use for Single Touch Payroll year-end finalisation: reconciling payroll registers to the GL and to STP-filed totals, checking super guarantee, including RFBA, and producing the finalisation checklist before the declaration deadline.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/stp-finalisation/SKILL.md",
+      "digest": "sha256:9d7ebd9fcac6e095b149112cd6f3a7b9397e5a88c8701944190c8b88ff897d29"
+    },
+    {
+      "name": "wip-over-under-billing",
+      "description": "Use when preparing or reviewing a construction work-in-progress schedule under AASB 15: measuring progress by input or output method, cost to complete, contract assets and contract liabilities, variations and claims as constrained variable consideration, and tying the schedule to revenue and the general ledger.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/wip-over-under-billing/SKILL.md",
+      "digest": "sha256:c1aa5c432c41a5ac79ab384ce5ab7e472a555b6825faa01536e6e01aae8270b1"
+    },
+    {
+      "name": "workpaper-tie-out",
+      "description": "Use when verifying a set of financial statements or a workpaper pack against source documents: tracing every statement line to a workpaper reference and a source export, recalculating schedules, and producing an exceptions list.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/workpaper-tie-out/SKILL.md",
+      "digest": "sha256:d613fb6dea47a7199f3351c32fd68dff0dead90ff039d0529c787e0d590a148b"
+    },
+    {
+      "name": "xero-exports",
+      "description": "Use when working with Xero report exports (trial balance, account transactions, aged receivables/payables, activity statement and GST reconciliation, payroll summaries), including parsing quirks, completeness checks, and file conventions. Reference skill for the other skills in this pack.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/xero-exports/SKILL.md",
+      "digest": "sha256:3ebbca72e42154d6f6e76ae4b8dcbbf8e76540a6fb31a61adc907b68bb135792"
+    },
+    {
+      "name": "year-end-workpapers",
+      "description": "Use when building a review-ready annual workpaper pack from a trial balance: lead schedules per statement area, movement analysis, analytical review, and an indexed pack a reviewer can sign without hunting.",
+      "url": "https://raw.githubusercontent.com/ryanduguid/australian-accounting-skills/527b0a22c8be5ce10855f12f052cd3bda7b7b827/.claude/skills/year-end-workpapers/SKILL.md",
+      "digest": "sha256:40326716f0696187fdfedabdea3d49f2d97a32bc22149f107b2d22cc1c7d6304"
+    }
+  ]
+}

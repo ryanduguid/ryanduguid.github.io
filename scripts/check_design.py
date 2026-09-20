@@ -17,9 +17,7 @@ import favicon_render
 import seo_core as core
 
 ROOT = Path(__file__).resolve().parents[1]
-JSON_LD_PATTERN = re.compile(
-    r'<script type="application/ld\+json">(.*?)</script>', re.S
-)
+JSON_LD_PATTERN = re.compile(r'<script type="application/ld\+json">(.*?)</script>', re.S)
 MAIN_PATTERN = re.compile(r"<main\b[^>]*>(.*?)</main>", re.S | re.I)
 ARTICLE_CRUMB_PATTERN = re.compile(
     r'<(?P<tag>p|nav)\b(?=[^>]*\bclass="[^"]*\barticle-crumb\b[^"]*")[^>]*>'
@@ -28,9 +26,7 @@ ARTICLE_CRUMB_PATTERN = re.compile(
 )
 HEAD_PATTERN = re.compile(r"<head\b[^>]*>(.*?)</head>", re.S | re.I)
 FOOTER_PATTERN = re.compile(r"<footer\b[^>]*>(.*?)</footer>", re.S | re.I)
-MAIN_LINK_PATTERN = re.compile(
-    r'<a\b[^>]*\bhref\s*=\s*(["\'])(.*?)\1', re.S | re.I
-)
+MAIN_LINK_PATTERN = re.compile(r'<a\b[^>]*\bhref\s*=\s*(["\'])(.*?)\1', re.S | re.I)
 FONT_URL_PATTERN = re.compile(r'url\(["\']?(/assets/fonts/[^)"\']+\.woff2)')
 SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
@@ -64,9 +60,7 @@ FONT_PRELOADS = {
     )
 }
 SCRIPT_OPEN_PATTERN = re.compile(r"<script\b([^>]*)>", re.I)
-JSON_LD_TYPE_PATTERN = re.compile(
-    r'\btype\s*=\s*["\']application/ld\+json["\']', re.I
-)
+JSON_LD_TYPE_PATTERN = re.compile(r'\btype\s*=\s*["\']application/ld\+json["\']', re.I)
 SECURITY_TXT = ".well-known/security.txt"
 SECURITY_TXT_CANONICAL = "https://duguid.com.au/.well-known/security.txt"
 JEKYLL_CONFIG = "_config.yml"
@@ -80,29 +74,19 @@ MAX_PROOF_BYTES = 80_000
 PROOF_ASSET = "assets/coal-lsl-calculator.webp"
 PROOF_MOBILE_ASSET = "assets/coal-lsl-calculator-mobile.webp"
 PROOF_MOBILE_SOURCE = (
-    '<source media="(max-width: 40rem)" '
-    'srcset="/assets/coal-lsl-calculator-mobile.webp"'
+    '<source media="(max-width: 40rem)" srcset="/assets/coal-lsl-calculator-mobile.webp"'
 )
 HOMEPAGE_ANCHOR_IDS = ("adopt", "verify")
 HOMEPAGE_ACTION_TARGETS = {"/tools/": 1}
 COUNT_WORDS = {1: "one", 2: "two"}
 HOMEPAGE_REQUIRED_CLASSES = (
     "home-hero__actions",
-    "trust-band",
     "home-tool-preview",
 )
-TRUST_BAND_TEXT = (
-    "Review aids only. No client files. No lodgement. Human sign-off.",
-    "Scope Accounting workflow controls",
-    "Method Primary sources and exact arithmetic",
-    "Boundary Calculation is not judgement",
-)
-HERO_PREVIEW_TRUST_ADJACENCY_PATTERN = re.compile(
+HERO_PREVIEW_ADJACENCY_PATTERN = re.compile(
     r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-hero\b'
     r'[^"\']*["\'])[^>]*>.*?</section>\s*'
     r'<section\b(?=[^>]*class\s*=\s*["\'][^"\']*\bhome-tool-preview\b'
-    r'[^"\']*["\'])[^>]*>.*?</section>\s*'
-    r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
     r'[^"\']*["\'])',
     re.I | re.S,
 )
@@ -111,17 +95,9 @@ HERO_ACTIONS_PATTERN = re.compile(
     r'[^"\']*["\'])[^>]*>(.*?)</nav>',
     re.I | re.S,
 )
-TRUST_BAND_PATTERN = re.compile(
-    r'<aside\b(?=[^>]*class\s*=\s*["\'][^"\']*\btrust-band\b'
-    r'[^"\']*["\'])[^>]*>(.*?)</aside>',
-    re.I | re.S,
-)
-TRUST_RECORD_PATTERN = re.compile(r"<p\b[^>]*>(.*?)</p>", re.I | re.S)
 ROOT_BLOCK_PATTERN = re.compile(r":root\s*\{(.*?)\}", re.S | re.I)
 PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
-UNICODE_RANGE_PATTERN = re.compile(
-    r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I
-)
+UNICODE_RANGE_PATTERN = re.compile(r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I)
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
 FAVICON_COLOURS = frozenset({"#000000", "#f2f2f2", "#4dff88"})
@@ -227,12 +203,8 @@ OPENING_REVIEW_DATE_CONTEXTS = {
     "tools/index.html": "article-header",
     "evidence/index.html": "article-header",
 }
-OPENING_REVIEW_DATE_PATTERN = re.compile(
-    r"^Last reviewed (?P<date>\d{1,2} [A-Z][a-z]+ \d{4})\.$"
-)
-EMOJI_PATTERN = re.compile(
-    "[\u2600-\u26ff\u2700-\u27bf\U0001f300-\U0001faff]"
-)
+OPENING_REVIEW_DATE_PATTERN = re.compile(r"^Last reviewed (?P<date>\d{1,2} [A-Z][a-z]+ \d{4})\.$")
+EMOJI_PATTERN = re.compile("[\u2600-\u26ff\u2700-\u27bf\U0001f300-\U0001faff]")
 
 
 def sha256_bytes(payload: bytes) -> str:
@@ -266,9 +238,7 @@ def semantic_json_digest(value: object) -> str:
 def json_ld_digests(path: Path) -> tuple[list[str], list[str]]:
     failures: list[str] = []
     digests: list[str] = []
-    for index, raw in enumerate(
-        JSON_LD_PATTERN.findall(path.read_text(encoding="utf-8")), start=1
-    ):
+    for index, raw in enumerate(JSON_LD_PATTERN.findall(path.read_text(encoding="utf-8")), start=1):
         try:
             digests.append(semantic_json_digest(json.loads(raw)))
         except json.JSONDecodeError as exc:
@@ -284,9 +254,7 @@ class ScriptContentParser(HTMLParser):
         self.contents: list[str] = []
         self.inside_script = False
 
-    def handle_starttag(
-        self, tag: str, attrs: list[tuple[str, str | None]]
-    ) -> None:
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag.casefold() == "script":
             self.inside_script = True
 
@@ -324,10 +292,7 @@ def check_favicon(root: Path) -> list[str]:
         svg = ElementTree.fromstring(path.read_text(encoding="utf-8"))
     except ElementTree.ParseError as exc:
         return [f"favicon is not valid SVG: {exc}"]
-    if (
-        svg.tag.rsplit("}", 1)[-1] != "svg"
-        or svg.get("viewBox") != "0 0 64 64"
-    ):
+    if svg.tag.rsplit("}", 1)[-1] != "svg" or svg.get("viewBox") != "0 0 64 64":
         return ["favicon viewBox must be 0 0 64 64"]
     if any(element.tag.rsplit("}", 1)[-1] == "text" for element in svg.iter()):
         return ["favicon must use geometric shapes, not text"]
@@ -338,9 +303,7 @@ def check_favicon(root: Path) -> list[str]:
         for attribute in FAVICON_GEOMETRY_ATTRIBUTES:
             value = element.get(attribute)
             if value is not None and re.fullmatch(r"-?\d+", value.strip()) is None:
-                return [
-                    f"favicon geometry must use whole pixels: {attribute}={value}"
-                ]
+                return [f"favicon geometry must use whole pixels: {attribute}={value}"]
     return []
 
 
@@ -357,8 +320,7 @@ def check_favicon_assets(root: Path) -> list[str]:
             failures.append(f"favicon raster missing: {rel}")
         elif path.read_bytes() != expected:
             failures.append(
-                f"favicon raster out of date: {rel} "
-                "(run python scripts/favicon_render.py)"
+                f"favicon raster out of date: {rel} (run python scripts/favicon_render.py)"
             )
     return failures
 
@@ -376,10 +338,7 @@ def main_link_targets(path: Path) -> list[str] | None:
     if len(matches) != 1:
         return None
     protected = ARTICLE_CRUMB_PATTERN.sub("", matches[0])
-    return [
-        html_module.unescape(target)
-        for _, target in MAIN_LINK_PATTERN.findall(protected)
-    ]
+    return [html_module.unescape(target) for _, target in MAIN_LINK_PATTERN.findall(protected)]
 
 
 def css_root_properties(tokens_css: str) -> dict[str, str]:
@@ -396,9 +355,7 @@ def relative_luminance(colour: str) -> float:
     value = colour.removeprefix("#")
     channels = [int(value[index : index + 2], 16) / 255 for index in (0, 2, 4)]
     linear = [
-        channel / 12.92
-        if channel <= 0.04045
-        else ((channel + 0.055) / 1.055) ** 2.4
+        channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
         for channel in channels
     ]
     return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
@@ -437,18 +394,14 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
     display = properties.get("--text-display", "")
-    display_minimum = re.match(
-        r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", display
-    )
+    display_minimum = re.match(r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", display)
     if display_minimum is None or float(display_minimum.group(1)) > 2.5:
         failures.append("display type minimum must fit the 320px viewport")
     return failures
 
 
 def unicode_ranges(font_face: str) -> list[tuple[int, int]]:
-    declaration = re.search(
-        r"\bunicode-range\s*:\s*([^;]+);", font_face, re.I
-    )
+    declaration = re.search(r"\bunicode-range\s*:\s*([^;]+);", font_face, re.I)
     if declaration is None:
         return []
     ranges: list[tuple[int, int]] = []
@@ -462,9 +415,7 @@ def range_covers(ranges: list[tuple[int, int]], codepoint: int) -> bool:
     return any(start <= codepoint <= end for start, end in ranges)
 
 
-def check_font_delivery(
-    root: Path, tokens_css: str, baseline: dict[str, Any]
-) -> list[str]:
+def check_font_delivery(root: Path, tokens_css: str, baseline: dict[str, Any]) -> list[str]:
     failures: list[str] = []
     faces = FONT_FACE_PATTERN.findall(tokens_css)
     rendered_text: list[str] = []
@@ -489,8 +440,7 @@ def check_font_delivery(
         ):
             failures.append("lambda markup must use the symbol font")
     rendered_text.extend(
-        path.read_text(encoding="utf-8")
-        for path in sorted((root / "assets").rglob("*.mjs"))
+        path.read_text(encoding="utf-8") for path in sorted((root / "assets").rglob("*.mjs"))
     )
     visible = " ".join(rendered_text)
     required = sorted({ord(character) for character in visible if ord(character) > 31})
@@ -501,14 +451,10 @@ def check_font_delivery(
             continue
         for codepoint in required:
             if not range_covers(ranges, codepoint):
-                failures.append(
-                    f"font face {index} does not cover visible U+{codepoint:04X}"
-                )
+                failures.append(f"font face {index} does not cover visible U+{codepoint:04X}")
                 break
 
-    declared = sorted(
-        {url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)}
-    )
+    declared = sorted({url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)})
     total = 0
     for rel in declared:
         path = root / rel
@@ -580,9 +526,7 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     if not route_note_rule or "--colour-rule-strong" not in route_note_rule.group(1):
         failures.append("informational route notes must use the neutral register rule")
 
-    boundary_note_rule = re.search(
-        r"\.route-note\.boundary\s*\{(.*?)\}", site_css, re.S | re.I
-    )
+    boundary_note_rule = re.search(r"\.route-note\.boundary\s*\{(.*?)\}", site_css, re.S | re.I)
     if not boundary_note_rule or "--colour-alert" not in boundary_note_rule.group(1):
         failures.append("boundary route notes must retain the alert rule")
 
@@ -597,9 +541,7 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
             or not sources[0].endswith(".woff2")
             or re.search(r"\blocal\s*\(", font_face, re.I)
         ):
-            failures.append(
-                f"font face {index} must use one protected local WOFF2 source"
-            )
+            failures.append(f"font face {index} must use one protected local WOFF2 source")
 
     route_rules = re.findall(r"\.route-section\s*\{(.*?)\}", site_css, re.S | re.I)
     if any(
@@ -615,36 +557,22 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     route_label_rules = re.findall(
         r"\.route-section\s*>\s*\.route-label\s*\{(.*?)\}", site_css, re.S | re.I
     )
-    if any(
-        re.search(r"\bposition\s*:\s*sticky\s*;", rule, re.I)
-        for rule in route_label_rules
-    ):
+    if any(re.search(r"\bposition\s*:\s*sticky\s*;", rule, re.I) for rule in route_label_rules):
         failures.append("route labels must not be sticky")
 
-    route_content_rule = re.search(
-        r"\.route-content\s*\{(.*?)\}", site_css, re.S | re.I
-    )
+    route_content_rule = re.search(r"\.route-content\s*\{(.*?)\}", site_css, re.S | re.I)
     if not route_content_rule or not re.search(
         r"\bmin-width\s*:\s*0\s*;", route_content_rule.group(1), re.I
     ):
-        failures.append(
-            "route content must allow internal overflow without widening the page"
-        )
+        failures.append("route content must allow internal overflow without widening the page")
 
     for selector in ("route-actions", "install-band"):
-        rules = re.findall(
-            rf"\.{selector}\s*\{{(.*?)\}}", site_css, re.S | re.I
-        )
-        if not any(
-            re.search(r"\bmin-width\s*:\s*0\s*;", rule, re.I)
-            for rule in rules
-        ):
+        rules = re.findall(rf"\.{selector}\s*\{{(.*?)\}}", site_css, re.S | re.I)
+        if not any(re.search(r"\bmin-width\s*:\s*0\s*;", rule, re.I) for rule in rules):
             failures.append("route action groups must contain intrinsic-width content")
             break
 
-    proof_figure_rules = re.findall(
-        r"\.proof-feature\s+figure\s*\{(.*?)\}", site_css, re.S | re.I
-    )
+    proof_figure_rules = re.findall(r"\.proof-feature\s+figure\s*\{(.*?)\}", site_css, re.S | re.I)
     if not any(
         re.search(r"\bmin-width\s*:\s*0\s*;", rule, re.I)
         and re.search(r"\bmargin-inline\s*:\s*0\s*;", rule, re.I)
@@ -652,17 +580,13 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     ):
         failures.append("proof media must not widen the fallback viewport")
 
-    declared_fonts = {
-        url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)
-    }
+    declared_fonts = {url.removeprefix("/") for url in FONT_URL_PATTERN.findall(tokens_css)}
     for rel in sorted(declared_fonts):
         if not (root / rel).is_file():
             failures.append(f"font face target missing: {rel}")
 
     expected_fonts = {
-        rel
-        for rel in baseline.get("fonts", {})
-        if isinstance(rel, str) and rel.endswith(".woff2")
+        rel for rel in baseline.get("fonts", {}) if isinstance(rel, str) and rel.endswith(".woff2")
     }
     for rel in sorted(expected_fonts - declared_fonts):
         failures.append(f"protected font not declared in tokens: {rel}")
@@ -756,27 +680,19 @@ def check_opening_review_dates(root: Path) -> list[str]:
             for element in core.descendants(document, rendered_only=True)
             if element.has_class("page-meta")
         ]
-        if len(contexts) != 1 or len(dates) != 1 or not core.is_descendant(
-            dates[0], contexts[0]
-        ):
+        if len(contexts) != 1 or len(dates) != 1 or not core.is_descendant(dates[0], contexts[0]):
             failures.append(
-                f"{rel}: expected exactly one opening page-meta inside "
-                f".{context_class}"
+                f"{rel}: expected exactly one opening page-meta inside .{context_class}"
             )
             continue
 
         visible_label = core.element_text(dates[0])
         visible_match = OPENING_REVIEW_DATE_PATTERN.fullmatch(visible_label)
         if visible_match is None:
-            failures.append(
-                f"{rel}: opening page-meta must use "
-                "'Last reviewed D Month YYYY.'"
-            )
+            failures.append(f"{rel}: opening page-meta must use 'Last reviewed D Month YYYY.'")
             continue
         try:
-            visible_date = datetime.strptime(
-                visible_match.group("date"), "%d %B %Y"
-            ).date()
+            visible_date = datetime.strptime(visible_match.group("date"), "%d %B %Y").date()
         except ValueError:
             failures.append(f"{rel}: opening page-meta contains an invalid date")
             continue
@@ -807,8 +723,7 @@ def check_opening_review_dates(root: Path) -> list[str]:
 def class_count(raw_html: str, class_name: str) -> int:
     pattern = re.compile(r'class\s*=\s*(["\'])(.*?)\1', re.I | re.S)
     return sum(
-        class_name.casefold() in value.casefold().split()
-        for _, value in pattern.findall(raw_html)
+        class_name.casefold() in value.casefold().split() for _, value in pattern.findall(raw_html)
     )
 
 
@@ -821,16 +736,10 @@ def check_homepage_refinement(root: Path) -> list[str]:
     if len(main_regions) != 1:
         return ["index.html: expected one main region"]
     main = active_markup(main_regions[0])
-    links = [
-        html_module.unescape(target)
-        for _, target in MAIN_LINK_PATTERN.findall(main)
-    ]
+    links = [html_module.unescape(target) for _, target in MAIN_LINK_PATTERN.findall(main)]
     action_regions = HERO_ACTIONS_PATTERN.findall(main)
     action_links = (
-        [
-            html_module.unescape(target)
-            for _, target in MAIN_LINK_PATTERN.findall(action_regions[0])
-        ]
+        [html_module.unescape(target) for _, target in MAIN_LINK_PATTERN.findall(action_regions[0])]
         if len(action_regions) == 1
         else []
     )
@@ -846,9 +755,7 @@ def check_homepage_refinement(root: Path) -> list[str]:
             )
         if action_links.count(target) != 1:
             failures.append(
-                "index.html: expected exactly one "
-                + target
-                + " action in home-hero__actions"
+                "index.html: expected exactly one " + target + " action in home-hero__actions"
             )
     for identifier in HOMEPAGE_ANCHOR_IDS:
         count = len(
@@ -859,31 +766,14 @@ def check_homepage_refinement(root: Path) -> list[str]:
             )
         )
         if count != 1:
-            failures.append(
-                f"index.html: expected exactly one valid #{identifier} anchor"
-            )
+            failures.append(f"index.html: expected exactly one valid #{identifier} anchor")
     for class_name in HOMEPAGE_REQUIRED_CLASSES:
         if class_count(main, class_name) != 1:
             failures.append("index.html: expected one " + class_name)
-    if not HERO_PREVIEW_TRUST_ADJACENCY_PATTERN.search(main):
-        failures.append("index.html: tool preview must follow home hero, then trust-band")
-    trust_regions = TRUST_BAND_PATTERN.findall(main)
-    if len(trust_regions) != 1:
-        failures.append("index.html: expected one complete trust-band region")
-    else:
-        trust_records = tuple(
-            core.raw_text(record)
-            for record in TRUST_RECORD_PATTERN.findall(trust_regions[0])
-        )
-        if trust_records != TRUST_BAND_TEXT:
-            failures.append(
-                "index.html: trust-band records must match "
-                "the approved four-item tuple"
-            )
+    if not HERO_PREVIEW_ADJACENCY_PATTERN.search(main):
+        failures.append("index.html: tool preview must follow home hero")
     if class_count(main, "technical-label") != 3:
-        failures.append(
-            "index.html: expected exactly three evidence-bearing technical labels"
-        )
+        failures.append("index.html: expected exactly three evidence-bearing technical labels")
     label_pattern = re.compile(
         r'<p\b(?=[^>]*class\s*=\s*(["\'])[^"\']*\btechnical-label\b'
         r'[^"\']*\1)[^>]*>(.*?)</p>',
@@ -891,18 +781,12 @@ def check_homepage_refinement(root: Path) -> list[str]:
     )
     for _, body in label_pattern.findall(main):
         label = core.raw_text(body)
-        if re.match(r"^(?:0[1-3]|[A-D])\s*/", label) or re.search(
-            r"/\s*0?5$", label
-        ):
-            failures.append(
-                "index.html: decorative ordinal technical label: " + label
-            )
+        if re.match(r"^(?:0[1-3]|[A-D])\s*/", label) or re.search(r"/\s*0?5$", label):
+            failures.append("index.html: decorative ordinal technical label: " + label)
     return failures
 
 
-def check_document_delivery(
-    root: Path, baseline: dict[str, Any]
-) -> list[str]:
+def check_document_delivery(root: Path, baseline: dict[str, Any]) -> list[str]:
     failures: list[str] = []
     indexable = set(baseline.get("json_ld", {}))
     styled = indexable | {"404.html"}
@@ -926,20 +810,14 @@ def check_document_delivery(
             or head.count(SITE_LINK) != 1
             or token_at > site_at
         ):
-            failures.append(
-                f"{rel}: expected one tokens stylesheet before site stylesheet"
-            )
+            failures.append(f"{rel}: expected one tokens stylesheet before site stylesheet")
         if raw.count(LLMS_VISIBLE) != 1 or footer.count(LLMS_VISIBLE) != 1:
-            failures.append(
-                f"{rel}: expected one visible machine-readable index link"
-            )
+            failures.append(f"{rel}: expected one visible machine-readable index link")
         alternate = (
             '<link rel="alternate" type="text/plain" '
             f'href="https://duguid.com.au/{Path(rel).with_suffix(".txt").as_posix()}" />'
         )
-        if rel in indexable and (
-            raw.count(alternate) != 1 or head.count(alternate) != 1
-        ):
+        if rel in indexable and (raw.count(alternate) != 1 or head.count(alternate) != 1):
             failures.append(f"{rel}: expected one page-specific plain-text alternate link")
         if raw.count(CSP_META) != 1 or head.count(CSP_META) != 1:
             failures.append(f"{rel}: expected one Content Security Policy meta tag")
@@ -949,9 +827,7 @@ def check_document_delivery(
         for face, preload in FONT_PRELOADS.items():
             preload_at = head.find(preload)
             if raw.count(preload) != 1 or preload_at < 0 or preload_at > token_at:
-                failures.append(
-                    f"{rel}: expected the {face} preload before the tokens stylesheet"
-                )
+                failures.append(f"{rel}: expected the {face} preload before the tokens stylesheet")
         for attributes in SCRIPT_OPEN_PATTERN.findall(raw):
             if re.search(r"\bsrc\s*=", attributes, re.I):
                 continue
@@ -977,19 +853,13 @@ def check_document_delivery(
         }
         for marker, message in required.items():
             if marker not in image:
-                failures.append(
-                    f"index.html: Coal LSL proof image must {message}"
-                )
+                failures.append(f"index.html: Coal LSL proof image must {message}")
         alt = re.search(r'\balt\s*=\s*(["\'])(.*?)\1', image, re.I | re.S)
         if alt is None or len(core.raw_text(alt.group(2))) < 12:
-            failures.append(
-                "index.html: Coal LSL proof image must have descriptive alt text"
-            )
+            failures.append("index.html: Coal LSL proof image must have descriptive alt text")
 
     if PROOF_MOBILE_SOURCE not in homepage:
-        failures.append(
-            "index.html: Coal LSL proof picture must offer the mobile source"
-        )
+        failures.append("index.html: Coal LSL proof picture must offer the mobile source")
 
     for asset in (PROOF_ASSET, PROOF_MOBILE_ASSET):
         proof_path = root / asset
@@ -1000,9 +870,7 @@ def check_document_delivery(
         if proof[:4] != b"RIFF" or proof[8:12] != b"WEBP":
             failures.append(f"{asset}: proof image is not a WebP container")
         if len(proof) > MAX_PROOF_BYTES:
-            failures.append(
-                f"{asset}: proof image exceeds {MAX_PROOF_BYTES} bytes"
-            )
+            failures.append(f"{asset}: proof image exceeds {MAX_PROOF_BYTES} bytes")
     return failures
 
 
@@ -1089,8 +957,7 @@ def check_repository(root: Path = ROOT) -> list[str]:
             failures.append(f"JSON-LD changed: {rel}")
 
     html_text = "\n".join(
-        core.raw_text(path.read_text(encoding="utf-8"))
-        for path in core.html_files(root)
+        core.raw_text(path.read_text(encoding="utf-8")) for path in core.html_files(root)
     )
     for protected, expected_count in baseline.get("protected_text", {}).items():
         actual_count = html_text.count(protected)

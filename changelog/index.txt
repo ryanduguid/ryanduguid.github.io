@@ -1,4 +1,4 @@
-# Site and release changelog | Ryan Duguid
+# Site and release changelog
 
 Source: https://duguid.com.au/changelog/
 
@@ -6,11 +6,15 @@ Source: https://duguid.com.au/changelog/
 
 # Changelog
 
+Follow this changelog as an Atom feed.
+
 What changed and when, across this site and the tagged tool releases. Dates are Australian Eastern time.
 
 ## Site
 
 Date | Change
+20 September 2026 | Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; the Lumbridge review status carries a dated pending stamp; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.
+20 September 2026 | The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.
 20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
 14 September 2026 | The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.
 11 September 2026 | Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.
@@ -40,10 +44,11 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 14 September 2026.
+Published 30 August 2026. Last reviewed 20 September 2026.
 
 ## Links
 
+- Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
 - aus-accounting-mcp/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
 - review-ready-gate/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.6
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1

@@ -42,9 +42,7 @@ def main() -> int:
     )
     failures.extend(sitemap_failures)
     failures.extend(contracts.check_site_contracts(paths))
-    print(
-        f"checked sitemap.xml ({listed_count} URLs), llms.txt, robots.txt"
-    )
+    print(f"checked sitemap.xml ({listed_count} URLs), llms.txt, robots.txt")
 
     for warning in warnings:
         print(f"  WARN {warning}")

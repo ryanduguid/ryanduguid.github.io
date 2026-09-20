@@ -25,6 +25,7 @@ const routes = [
 const primaryNavigation = [
   ['/tools/', 'Tools'],
   ['/rates/', 'Rates'],
+  ['/evaluate/', 'Evaluations'],
   ['/evidence/', 'Evidence'],
   ['/about/', 'About'],
   ['/contact/', 'Contact'],
@@ -35,12 +36,14 @@ const currentNavigationCases = [
   ['/tools/coal-lsl-levy/', 'Tools', 'location'],
   ['/rates/', 'Rates', 'page'],
   ['/rates/super-guarantee/', 'Rates', 'location'],
+  ['/evaluate/', 'Evaluations', 'page'],
+  ['/evaluate/manager-review-gate/', 'Evaluations', 'location'],
   ['/contact/', 'Contact', 'page'],
 ];
 
-// Evaluations is a top-level section with no nav item of its own, so no
-// primary link claims the current location on those routes.
-const noCurrentNavigationRoutes = ['/evaluate/', '/evaluate/manager-review-gate/'];
+// Worked examples sit under Home, so no primary link claims the current
+// location on those routes.
+const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/'];
 
 const homepagePreviewRoutes = [
   ['Understand an accounting problem', '/examples/profit-vs-cash-flow/', 'business'],
@@ -295,17 +298,15 @@ test('primary navigation order and current states match the collection hierarchy
   health.assertHealthy();
 });
 
-test('all five primary navigation links fit the smallest mobile width', async ({ page }, testInfo) => {
+test('all six primary navigation links fit the smallest mobile width', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto('/');
   const primary = page.getByRole('navigation', { name: 'Primary' });
-  expect(await primary.evaluate((element) =>
-    getComputedStyle(element).flexWrap
-  )).toBe('nowrap');
   // Every link, Contact included, must be visible without horizontal
   // scrolling: a clipped nav item with no scroll cue is an invisible route.
+  // Below 360 px the row may wrap instead.
   const geometry = await primary.evaluate((navigation) => {
     const navigationBounds = navigation.getBoundingClientRect();
     return {
@@ -322,13 +323,13 @@ test('all five primary navigation links fit the smallest mobile width', async ({
     };
   });
   expect(geometry.scrollWidth, JSON.stringify(geometry)).toBeLessThanOrEqual(geometry.clientWidth);
-  expect(geometry.links).toHaveLength(5);
+  expect(geometry.links).toHaveLength(6);
   for (const link of geometry.links) {
     expect(link.fullyVisible, `${link.label} is clipped`).toBe(true);
   }
   const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
   await primary.getByRole('link', { name: 'Tools' }).focus();
-  for (let index = 0; index < 4; index += 1) {
+  for (let index = 0; index < 5; index += 1) {
     await page.keyboard.press('Tab');
   }
   await expect(lastPrimaryLink).toBeFocused();

@@ -1,0 +1,210 @@
+# Cash flow: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/cash-flow/
+
+> Ten questions on cash flow for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Cash flow
+
+Practical steps, records and official guidance on cash flow. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Planning method for the dates entered. Include obligations in their expected payment weeks. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Cash flow
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Cash flow
+
+Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
+
+61. How do I build a 13-week cash-flow forecast?
+
+Forecast cash by the week it is expected to move through the bank.
+
+- Start with the reconciled bank balance and schedule receipts, suppliers, wages, tax, debt and drawings across 13 weeks.
+- Use the browser forecast for a short scenario, or the existing workbook for a detailed worked example.
+
+Fictional worked example
+
+Start a fictional forecast on 28 September 2026 with $200 opening cash and a $100 buffer. Enter $1,000 receipts and $300 payments in week 1, and zero in every later week. Closing cash is $900. Delay the full $1,000 receipt by two weeks: cash closes at minus $100 in weeks 1 and 2, then returns to $900 in week 3. The lowest balance is minus $100, so the funding gap to the buffer is $200. The eventual closing balance is unchanged.
+
+Weekly closing balances can hide a shortage within the week; review daily timing where cash is tight.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 61
+
+62. Why is my business profitable but short of cash?
+
+Profit and cash diverge because income and expenses can be recognised at different times from receipts and payments.
+
+- Bridge profit to cash using receivables, payables, inventory, tax, capital spending, debt and drawings.
+- Use the fictional Newcastle example to inspect a profitable business with a temporary cash shortage.
+
+Loan proceeds and principal repayments affect cash without being ordinary trading revenue and expense.
+
+Set up a cash flow statement · Fictional Newcastle cash-flow workbook
+
+Link to question 62
+
+63. How much cash should I reserve for BAS, payroll and super payments?
+
+Schedule the actual expected liabilities and payment dates, then choose a buffer.
+
+- Reconcile GST, withholding and super liabilities to their supporting workpapers.
+- Enter their payment weeks in the cash forecast, including other committed cash costs.
+
+The forecast reserves supplied amounts; it does not calculate statutory liabilities from sales.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 63
+
+64. What happens to my cash balance if a major customer pays 30 or 60 days late?
+
+Move the expected receipt to its revised date and compare the lowest cash balance.
+
+- Use the weekly forecast's delayed-receipt controls and retain both scenarios.
+- For an exact 30- or 60-day delay, use the existing dated workbook and record any receipt outside its horizon.
+
+The browser scenario accepts whole weeks, so it is not an exact day-based simulation.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 64
+
+65. Can my business afford another employee?
+
+Compare the extra cash costs of hiring with conservative additional receipts and available cash.
+
+- Calculate annual staff cost, then phase wages, super, setup costs and training into the forecast.
+- Test slower sales, a delayed start and a minimum cash buffer before committing.
+
+Annual profitability does not establish that each payroll payment will be affordable.
+
+Set up a cash flow statement · Staff-cost calculator
+
+Link to question 65
+
+66. What would buying equipment outright versus financing it do to my cash flow?
+
+Compare the timing and total payments of outright purchase and finance.
+
+- Put the purchase price into the relevant cash week for the outright option.
+- For finance, schedule deposit, fees, repayments and any balloon; compare the cash minimum and total cost.
+
+The loan calculator assumes fixed monthly payments with no fees or balloon. Tax and ownership effects require separate review.
+
+Set up a cash flow statement · Monthly loan payment calculator
+
+Link to question 66
+
+67. How much working capital or overdraft capacity will I need next quarter?
+
+Find the lowest forecast balance and compare it with the cash buffer you need.
+
+- Include current bank cash, committed payments, realistic receipts and stressed collection dates.
+- Use the forecast funding-gap result as an initial amount to investigate, then review timing and facility terms.
+
+A calculated gap is not a credit approval or proof that borrowing is suitable.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 67
+
+68. How can I reduce overdue customer balances and get paid sooner?
+
+Prioritise overdue balances by amount, age, dispute and likelihood of collection.
+
+- Reconcile the aged ledger, assign an owner and record the next action for each overdue account.
+- Review invoice accuracy, payment terms and billing timing; update receipt dates using what customers confirm.
+
+Changing a forecast date does not improve collection evidence.
+
+Set up a cash flow statement
+
+Link to question 68
+
+69. How do I plan for seasonal cash shortages?
+
+Plan from the seasonal payment and receipt pattern, including the costs incurred before sales arrive.
+
+- Compare prior periods with current orders, staffing and supplier commitments.
+- Stress-test the low season and put any agreed funding or cost changes into the forecast.
+
+A straight average month can conceal the quarter's lowest cash balance.
+
+Set up a cash flow statement · 13-week cash forecast
+
+Link to question 69
+
+70. How do I update my forecast each month using actual results?
+
+Replace completed periods with reconciled actuals and explain the difference before rolling the forecast forward.
+
+- Save the previous forecast, match actual receipts and payments, and classify timing versus permanent changes.
+- Refresh remaining assumptions and extend the horizon with a dated version and owner.
+
+Do not overwrite the old forecast if you still need it to explain accuracy and decisions.
+
+Set up a cash flow statement · Budget variance calculator
+
+Link to question 70
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Management reporting
+- Companies and trusts
+- Investments and Newcastle
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
+- 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
+- Link to question 61: https://duguid.com.au/tools/accounting-questions/cash-flow/#q61
+- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- Link to question 62: https://duguid.com.au/tools/accounting-questions/cash-flow/#q62
+- Link to question 63: https://duguid.com.au/tools/accounting-questions/cash-flow/#q63
+- Link to question 64: https://duguid.com.au/tools/accounting-questions/cash-flow/#q64
+- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Link to question 65: https://duguid.com.au/tools/accounting-questions/cash-flow/#q65
+- Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
+- Link to question 66: https://duguid.com.au/tools/accounting-questions/cash-flow/#q66
+- Link to question 67: https://duguid.com.au/tools/accounting-questions/cash-flow/#q67
+- Link to question 68: https://duguid.com.au/tools/accounting-questions/cash-flow/#q68
+- Link to question 69: https://duguid.com.au/tools/accounting-questions/cash-flow/#q69
+- Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
+- Link to question 70: https://duguid.com.au/tools/accounting-questions/cash-flow/#q70
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
+- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/

@@ -1,16 +1,16 @@
-# Maintained Australian accounting rates | Ryan Duguid
+# Maintained Australian accounting rates
 
 Source: https://duguid.com.au/rates/
 
-> Open maintained Australian super guarantee, Division 7A, and cents-per-kilometre references with verified dates and primary sources.
+> Open maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT references with verified dates and primary sources.
 
 # Rates
 
-Three maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
+Seven maintained Australian reference tables with the current value, source-reviewed date, and primary material kept together.
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 14 September 2026.
+Last reviewed 20 September 2026.
 
 ## Super guarantee rate history
 
@@ -54,6 +54,62 @@ Income-year rates, determinations, and the 5,000-kilometre cap.
 
 Primary source Download CSV
 
+## Maximum super contribution base
+
+$270,830 a year for 2026-27 under Payday Super; quarterly bases apply to 30 June 2026.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Annual base from 2026/27 and quarterly bases from 2021/22.
+
+Primary source Download CSV
+
+## Car limit for depreciation
+
+$69,883 for a car first used or leased in 2026/27, and $69,674 for the two years before it.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Income-year limits from 2019/20 and the GST credit cap.
+
+Primary source Download CSV
+
+## FBT rate and gross-up rates
+
+47%, with gross-up rates of 2.0802 and 1.8868, for every FBT year ending 31 March 2018 to 2027.
+
+Verified
+
+20 September 2026
+
+Scope
+
+FBT years ending 31 March 2018 to 2027.
+
+Primary source Download CSV
+
+## Announced tax measures not yet law
+
+Fifteen Budget and MYEFO measures have no bill named; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
+
+Verified
+
+20 September 2026
+
+Scope
+
+Tax and super measures on the ATO's Budget 2026-27 and MYEFO 2025-26 lists, by status.
+
+Primary source Download CSV
+
 ## Links
 
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -65,3 +121,14 @@ Primary source Download CSV
 - Cents per kilometre car-expense rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Primary source: https://www.legislation.gov.au/F2026L00785/asmade
 - Download CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
+- Download CSV: https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv
+- Car limit for depreciation: https://duguid.com.au/rates/car-limit/
+- Primary source: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/car-thresholds-from-1-july
+- Download CSV: https://duguid.com.au/rates/car-limit/car-limit.csv
+- FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
+- Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
+- Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
+- Announced tax measures not yet law: https://duguid.com.au/rates/announced-not-yet-law/
+- Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
+- Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv

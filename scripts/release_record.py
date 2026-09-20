@@ -242,9 +242,7 @@ def check_evaluations(root: Path, record: dict[str, Any]) -> list[str]:
     return failures
 
 
-def check_record(
-    root: Path = core.ROOT, record: dict[str, Any] | None = None
-) -> list[str]:
+def check_record(root: Path = core.ROOT, record: dict[str, Any] | None = None) -> list[str]:
     """Check every release claim the record covers."""
     record = record if record is not None else load()
     failures: list[str] = []
@@ -327,7 +325,9 @@ def registry_version(published: dict[str, Any]) -> str:
             if not isinstance(latest, bool):
                 raise ValueError("the registry record carries no isLatest flag to check")
             if not latest:
-                raise Contradiction("the registry no longer marks this version latest, record claims latest")
+                raise Contradiction(
+                    "the registry no longer marks this version latest, record claims latest"
+                )
     return version
 
 
@@ -396,7 +396,7 @@ def github_version(component: dict[str, Any]) -> str:
                 "release listing, so no conclusion about this release is possible"
             )
         return MISSING
-    return max(tags, key=lambda name: _version_key(name[len(prefix):]))[len(prefix):]
+    return max(tags, key=lambda name: _version_key(name[len(prefix) :]))[len(prefix) :]
 
 
 def recorded_release_exists(component: dict[str, Any]) -> str:

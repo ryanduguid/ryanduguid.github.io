@@ -1,4 +1,4 @@
-# Privacy and site use | Ryan Duguid
+# Privacy and site use
 
 Source: https://duguid.com.au/privacy/
 
@@ -8,7 +8,7 @@ Source: https://duguid.com.au/privacy/
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 18 September 2026.
+Published 12 September 2026. Last reviewed 20 September 2026.
 
 ## Browser calculations
 
@@ -20,7 +20,7 @@ The accounting-question search also runs in your browser. It does not send searc
 
 The website's own code does not set cookies or include advertising pixels. Its fonts, images, and application scripts are served from this domain.
 
-Cloudflare adds a performance analytics script when delivering pages. The site's browser security policy is configured to block that script. This is separate from the technical request information handled by the hosting and delivery providers below. See Cloudflare's analytics documentation for how its script works.
+No analytics script is delivered. Cloudflare Web Analytics was removed from this site on 20 September 2026, so no page-view data is collected or reported to the site owner. Technical request information is still handled by the hosting and delivery providers below.
 
 Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
 
@@ -42,6 +42,12 @@ GitHub issues are public. Links to GitHub and other websites take you to service
 
 For questions about this notice or information you have sent me, email ryan@duguid.com.au. Other project links are on the Contact page.
 
+## AI crawlers and citation
+
+The site's robots.txt names each crawler and its treatment. Search indexing and the fetches an assistant makes to answer or cite for a user are allowed for the agents it names, and Google-Extended is allowed so Gemini grounding can cite the site. Common Crawl (CCBot) and Bytespider are allowed to crawl the open web, while the closed-lab training crawlers it names, GPTBot and ClaudeBot among them, are disallowed. The machine-readable index and the full page text are published for citation, and robots.txt is the current policy if this summary and the file ever differ.
+
+If an AI answer misquotes this site, email ryan@duguid.com.au with the page address and the quoted text. Use fabricated examples only; do not send client records or taxpayer information.
+
 ## Using this site
 
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page's assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
@@ -50,12 +56,14 @@ The website source is available under its MIT licence, which includes its warran
 
 ## Links
 
-- Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/
 - GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
+- robots.txt: https://duguid.com.au/robots.txt
+- machine-readable index: https://duguid.com.au/llms.txt
+- full page text: https://duguid.com.au/llms-full.txt
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
 - MIT licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE

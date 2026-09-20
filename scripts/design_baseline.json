@@ -13,13 +13,13 @@
       "bb2996a08c0fca3a40d0b8ae4aaef4f39d48aed4c17902baeb6d137e95a36ef8"
     ],
     "changelog/index.html": [
-      "ee59e1d429c6c6897e209e910adf66d7ee483f48eb2c8514720734657fee583f"
+      "497f161a765592c12c686fc9a6eba750b8536f0282043c5fbfd1174452996bad"
     ],
     "contact/index.html": [
-      "eae9822161ee98f0af3337f06067ef6310f9f71dbfa9b4b14bc1d758612ae3e9"
+      "9ef797ca146db23d61006e5bf9ab33746488025bf640831c3590c686e6c76dd3"
     ],
     "evaluate/index.html": [
-      "5dc5680ce270fa6071dc3c7f16c74a64ee30530e8149ece77eb76d3e923e6a73"
+      "889e599b4946ac99f4bc26da4ec8ebea35664aaaff5ddbe48a6ba4695417d723"
     ],
     "evaluate/manager-review-gate/index.html": [
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
@@ -40,7 +40,7 @@
       "c269025c549a1e880e8c0c175bebfa00ba48d1b48fd97f9f679f42785797858f"
     ],
     "privacy/index.html": [
-      "dfbc8249b54f778fe6822f21a9210e473130d4134621af682e028739480712d9"
+      "06e1b0c54bf2586475113b92b55c41847e68fcdd62e49ba8dc1df8a6ada51771"
     ],
     "rates/cents-per-kilometre/index.html": [
       "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
@@ -49,13 +49,13 @@
       "240e9aaefd99aa2dbf10a347cc141efcbc18a78f0c67fe16aed46f6b25974440"
     ],
     "rates/index.html": [
-      "197f192b3a7b763a1a78cf69130167006c79f85efe97240dbe0d86d7d79d12e9"
+      "a8e968df5432032683839b6aacc52999af7bf0f728768d40c65cdabd07935d3b"
     ],
     "rates/super-guarantee/index.html": [
       "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
     ],
     "tools/accounting-questions/index.html": [
-      "fca9dff5d54caf35d69f26168c171b3bd58f388793495d0067a80cec51cc6989"
+      "37bcd2b0f5ae9c970acb21f93efbae8891cef6c2a7f9ebbccab80771b4fe1505"
     ],
     "tools/ato-benchmarks/index.html": [
       "503e24262367dbf8d22375c1e919978b2809b878659a50a1da564b1430736261"
@@ -64,7 +64,7 @@
       "89fe446b1f8281d1b0f2280d1cfcb0aab48de165a28b8e839a694de16a191110"
     ],
     "tools/business-calculators/index.html": [
-      "0fbb0df71288911bbae5aaaf77b215387877fdc30b7502a42374728c8ba1fb97"
+      "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
     ],
     "tools/coal-lsl-levy/index.html": [
       "e6031ba5dbae181be3041488a8277f4996cb715886a6e20fa739b84b3c0c955b"
@@ -88,7 +88,7 @@
       "0f94a6b68467df7bded23ee21596cb09e14497c088fe66675890dcbd67734009"
     ],
     "tools/refusals/index.html": [
-      "d4780ef000e27452fa8fc8907c171295858a6e5c12a2718685f5de32a6f44ae6"
+      "3e7c9eb186e1b03077bf687f927a228ede25470c8b3e035184247167efcd723a"
     ],
     "tools/subcontractor-ledgers/index.html": [
       "c34d922f615c941c190021b1097c291867b5e2c3f5b36aec97c00f30d2e7dc4d"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "2c5f210284efd0d872f9c7eaabab97bef0fc5f8d9fd46268279e975c54da4d72",
+    "llms.txt": "b2dd3645577661556f5ff54bbd5ffa34a9bfacce728f02ed08060dfffd2ea839",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "3b7925587d6d61fd2815d9cb58c66d90db2e593c11e9a3b40527c332b1bc8a3d"
+    "sitemap.xml": "362ed43bb1c23e593d067ac1661edda04b0d0858e35c8de570725a84ab5ff707"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -157,7 +157,7 @@
       "/rates/div7a-benchmark-rate/",
       "/rates/cents-per-kilometre/",
       "/tools/coal-lsl-levy/",
-      "/tools/business-calculators/#staff",
+      "/tools/business-calculators/staff/",
       "/about/"
     ]
   },
@@ -167,7 +167,7 @@
     "rates/super-guarantee/index.html": "3484be5e7d8bc0fa701683871711f8162e5017e964d84892c0f02410786192b3"
   },
   "protected_text": {
-    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 33,
+    "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,
     "Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests.": 1
   }

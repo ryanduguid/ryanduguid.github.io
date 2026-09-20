@@ -1,0 +1,208 @@
+# Investments and Newcastle: 10 Australian accounting questions
+
+Source: https://duguid.com.au/tools/accounting-questions/investments-local/
+
+> Ten questions on investments and newcastle for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+
+# Accounting questions: Investments and Newcastle
+
+Practical steps, records and official guidance on investments and newcastle. Select questions to build a checklist.
+
+One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+
+Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified. Tax guidance must match your year and circumstances.
+
+Editorial review: 11 September 2026.
+
+Search questions
+
+Topic All topics Investments and Newcastle
+
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+
+Clear filters Download selected checklist Print selected checklist Clear selection
+
+10 questions. 0 selected.
+
+Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
+
+All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
+
+## Investments and Newcastle
+
+Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
+
+91. Which expenses can I claim for a rental property?
+
+Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
+
+- Gather agent statements, invoices, loan interest, ownership details and rental-availability records.
+- Apportion costs where required and reconcile the deduction schedule to the supporting documents.
+
+The treatment depends on the expense and property use; a rental label alone does not establish deductibility.
+
+Property and land
+
+Link to question 91
+
+92. Is work on my rental property a repair, an improvement or a depreciating asset?
+
+Review what the work did to the property and when the relevant damage or condition arose.
+
+- Keep invoices, scope of work, purchase condition and dates; split distinct components where supported.
+- Assess repair, capital works and depreciating-asset treatment separately and update the relevant schedules.
+
+Cost alone does not distinguish a repair from an improvement or initial repair.
+
+Property and land
+
+Link to question 92
+
+93. How do I work out the capital gain when I sell an investment property?
+
+Build the capital-gains calculation from the relevant event, proceeds and adjusted cost base.
+
+- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records.
+- Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
+
+A sale price minus purchase price calculation can omit material tax adjustments.
+
+Capital gains tax · Experimental tax worksheets and supported years
+
+Link to question 93
+
+94. How do capital losses and the CGT discount affect tax on shares I sell?
+
+Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
+
+- Retain trade records, cost-base adjustments, holding periods and carried-forward loss balances.
+- Reconcile the final calculation to the year's CGT schedule and keep the remaining-loss record.
+
+The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
+
+Capital gains tax · Experimental tax worksheets and supported years
+
+Link to question 94
+
+95. Do I owe tax when I sell, swap or spend cryptocurrency?
+
+Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.
+
+- Export exchange and wallet activity, fees and Australian-dollar values with dates.
+- Reconcile transfers between your own wallets separately from transactions that require tax review.
+
+The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.
+
+Crypto asset investments
+
+Link to question 95
+
+96. How do I report ETF distributions and their tax adjustments?
+
+Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.
+
+- Match cash, reinvestments, capital gains, foreign income and credits to the statement.
+- Record cost-base increases or decreases and carry them into the investment register.
+
+Cash received alone can differ from the amount and components that belong in the tax return.
+
+Investments and assets
+
+Link to question 96
+
+97. What records does my accountant need for an SMSF annual return and audit?
+
+Prepare the financial records and trustee evidence needed for both the return and the independent audit.
+
+- Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.
+- Reconcile opening and closing balances and resolve the auditor's record requests before finalising the return.
+
+This checklist does not perform an SMSF audit or certify compliance.
+
+ATO self-managed super funds
+
+Link to question 97
+
+98. When does an investment property become liable for land tax in NSW?
+
+Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land-tax year.
+
+- Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
+- Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence.
+
+Purchase price and one property's value alone do not establish the full land-tax position.
+
+Land tax
+
+Link to question 98
+
+99. How much does an accountant or bookkeeper cost for a small business in Newcastle?
+
+Compare written quotes for the same Newcastle bookkeeping or accounting scope. The research did not establish a reliable local fee range.
+
+- Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.
+- Compare inclusions, software, GST, setup fees, review frequency and work charged separately.
+
+This personal open-source site does not quote for professional engagements.
+
+TPB register of tax and BAS agents
+
+Link to question 99
+
+100. How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?
+
+Shortlist providers against the work you need and verify the relevant registrations.
+
+- Check the TPB register for tax or BAS services, and ask who prepares and reviews the work.
+- Request a sample reporting pack, Xero experience, cash-forecast process, responsibilities and a written scope.
+
+Location or software certification alone does not demonstrate the quality of advice or forecasting.
+
+TPB register of tax and BAS agents
+
+Link to question 100
+
+- Tax returns
+- Deductions
+- Starting a business
+- GST and BAS
+- Payroll and super
+- Bookkeeping and close
+- Cash flow
+- Management reporting
+- Companies and trusts
+
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
+## Links
+
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Property and land: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land
+- Link to question 91: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
+- Link to question 92: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
+- Capital gains tax: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax
+- Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
+- Link to question 93: https://duguid.com.au/tools/accounting-questions/investments-local/#q93
+- Link to question 94: https://duguid.com.au/tools/accounting-questions/investments-local/#q94
+- Crypto asset investments: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments
+- Link to question 95: https://duguid.com.au/tools/accounting-questions/investments-local/#q95
+- Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Link to question 96: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
+- ATO self-managed super funds: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf
+- Link to question 97: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
+- Land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax
+- Link to question 98: https://duguid.com.au/tools/accounting-questions/investments-local/#q98
+- TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
+- Link to question 99: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
+- Link to question 100: https://duguid.com.au/tools/accounting-questions/investments-local/#q100
+- Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
+- Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
+- Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
+- GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
+- Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
+- Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
+- Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
+- Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
+- Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/

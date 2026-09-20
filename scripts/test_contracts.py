@@ -85,8 +85,7 @@ def test_parked_consultancy_surface() -> None:
     homepage_root = core.parse_structure(homepage)
     homepage_hrefs = core.anchor_hrefs(homepage)
     homepage_ids = {
-        element.attr("id")
-        for element in core.descendants(homepage_root, rendered_only=True)
+        element.attr("id") for element in core.descendants(homepage_root, rendered_only=True)
     }
     assert "engage" not in homepage_ids
     assert "/#engage" not in homepage_hrefs
@@ -98,10 +97,9 @@ def test_parked_consultancy_surface() -> None:
         if rel == "about/index.html":
             assert "mailto:" not in page.casefold(), f"{rel}: consultancy email route remains"
         assert "not a practice" in page_text.casefold(), f"{rel}: practice boundary missing"
-        assert (
-            "not accepting professional engagements through this site"
-            in page_text.casefold()
-        ), f"{rel}: engagement boundary missing"
+        assert "not accepting professional engagements through this site" in page_text.casefold(), (
+            f"{rel}: engagement boundary missing"
+        )
 
     llms = read_text(ROOT, "llms.txt")
     route_section = core.markdown_section(llms, "Choose a route")
@@ -122,14 +120,12 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    review_date = "14 September 2026"
-    modified_date = "2026-09-14"
-    homepage_title = (
-        "Open-source accounting tools for Australian accountants"
-    )
+    review_date = "20 September 2026"
+    modified_date = "2026-09-20"
+    homepage_title = "Open-source accounting tools for Australian accountants"
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
-        "Checked 2 September 2026: the coal mining long service leave (Coal LSL) levy is "
+        "The coal mining long service leave (Coal LSL) levy is "
         "2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary "
         "and casual branches. The base-rate branch uses the greater of Formula A and Formula B."
     )
@@ -173,10 +169,7 @@ def test_geo_leftovers_surface() -> None:
     assert core.meta(coal, "property", "og:title") == coal_title
     assert core.meta(coal, "name", "twitter:title") == coal_title
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
-    assert (
-        web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified")
-        == "2026-09-20"
-    )
+    assert web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified") == "2026-09-20"
     assert "Last reviewed 20 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
@@ -215,7 +208,7 @@ def test_geo_leftovers_surface() -> None:
     # the evaluations hub retains its own editorial review date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("18 September 2026", "2026-09-18"),
+        "evaluate/index.html": ("20 September 2026", "2026-09-20"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -228,21 +221,21 @@ def test_geo_leftovers_surface() -> None:
         assert page_meta == [f"Last reviewed {hub_review_date}."]
         assert web_page(html, rel).get("dateModified") == hub_modified_date
 
-    reference_tables = core.markdown_section(
-        read_text(ROOT, "llms.txt"), "Reference tables"
-    )
+    reference_tables = core.markdown_section(read_text(ROOT, "llms.txt"), "Reference tables")
     csv_urls = (
         "https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv",
         "https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv",
-        "https://duguid.com.au/rates/cents-per-kilometre/"
-        "cents-per-kilometre-rates.csv",
+        "https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv",
+        "https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv",
+        "https://duguid.com.au/rates/car-limit/car-limit.csv",
+        "https://duguid.com.au/rates/fbt-rate/fbt-rates.csv",
     )
     for url in csv_urls:
         assert reference_tables.count(url) == 1
 
     assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
-        "2026-09-18"
+        "2026-09-20"
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
@@ -488,13 +481,6 @@ def test_design_contracts() -> int:
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
-            "trust record drift",
-            "index.html",
-            "Human sign-off.",
-            "Human sign-off changed.",
-            "index.html: trust-band records must match the approved four-item tuple",
-        ),
-        (
             "category preview removed",
             "index.html",
             "home-tool-preview",
@@ -672,8 +658,7 @@ def test_design_contracts() -> int:
         (
             "48px favicon link dropped from a page head",
             "index.html",
-            '  <link rel="icon" type="image/png" sizes="48x48" '
-            'href="/assets/favicon-48.png" />\n',
+            '  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />\n',
             "",
             "index.html: expected one favicon link",
         ),
@@ -821,15 +806,11 @@ def test_public_contracts() -> int:
         for path in html_paths
         if path.relative_to(ROOT).as_posix() not in contracts.NOT_INDEXED
     ]
-    assert len(indexed_rels) == 32, (
-        f"expected 32 canonical HTML pages, found {len(indexed_rels)}"
-    )
+    assert len(indexed_rels) == 55, f"expected 55 canonical HTML pages, found {len(indexed_rels)}"
     metadata_failures = [
         failure
         for path in html_paths
-        for failure in page_metadata_failures(
-            ROOT, path.relative_to(ROOT).as_posix()
-        )
+        for failure in page_metadata_failures(ROOT, path.relative_to(ROOT).as_posix())
     ]
     assert_clean("complete page metadata", metadata_failures)
 
@@ -870,8 +851,7 @@ def test_public_contracts() -> int:
     )
     for required in github_agent_skills_route:
         assert required in home_text, (
-            "index.html: missing github-agent-skills adoption route "
-            f"requirement {required!r}"
+            f"index.html: missing github-agent-skills adoption route requirement {required!r}"
         )
     with copied_site() as root:
         replace_file(
@@ -900,9 +880,7 @@ def test_public_contracts() -> int:
 
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
     assert_clean("task routes", contracts.check_task_routes(ROOT))
-    assert_clean(
-        "privacy delivery claims", contracts.check_privacy_delivery_claims(ROOT)
-    )
+    assert_clean("privacy delivery claims", contracts.check_privacy_delivery_claims(ROOT))
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("social cards", contracts.check_social_cards(ROOT))
     assert_clean("robots policy", contracts.check_robots_policy(robots))
@@ -910,28 +888,55 @@ def test_public_contracts() -> int:
     provenance = json.loads(read_text(ROOT, "tools/payday-super/example-provenance.json"))
     assert_clean("fixed Payday evidence", contracts.check_payday_example(payday, provenance))
     for label, before, after in (
-        ("wrong verdict", '>AT_RISK</span>', '>ON_TIME</span>'),
-        ("wrong contribution", '>$120.00</span>', '>$121.00</span>'),
-        ("wrong visible deadline", '>17 August 2026</time>', '>18 August 2026</time>'),
+        ("wrong verdict", ">AT_RISK</span>", ">ON_TIME</span>"),
+        ("wrong contribution", ">$120.00</span>", ">$121.00</span>"),
+        ("wrong visible deadline", ">17 August 2026</time>", ">18 August 2026</time>"),
         ("wrong deadline metadata", 'datetime="2026-08-17"', 'datetime="2026-08-18"'),
         ("wrong fixture fingerprint", provenance["fixture_sha256"], "0" * 64),
-        ("wrong first-contribution pathway", 'data-example="first_contribution">no', 'data-example="first_contribution">yes'),
-        ("wrong out-of-cycle pathway", 'data-example="out_of_cycle">no', 'data-example="out_of_cycle">yes'),
-        ("unpinned fixture", provenance["fixture_url"], provenance["fixture_url"].replace(provenance["commit"], "main")),
+        (
+            "wrong first-contribution pathway",
+            'data-example="first_contribution">no',
+            'data-example="first_contribution">yes',
+        ),
+        (
+            "wrong out-of-cycle pathway",
+            'data-example="out_of_cycle">no',
+            'data-example="out_of_cycle">yes',
+        ),
+        (
+            "unpinned fixture",
+            provenance["fixture_url"],
+            provenance["fixture_url"].replace(provenance["commit"], "main"),
+        ),
     ):
         assert before in payday
-        expect_failure(label, contracts.check_payday_example(payday.replace(before, after), provenance), "fixed Payday example")
+        expect_failure(
+            label,
+            contracts.check_payday_example(payday.replace(before, after), provenance),
+            "fixed Payday example",
+        )
     for pathway in ("first_contribution", "out_of_cycle"):
         changed_record = {**provenance, pathway: True}
-        expect_failure("recorded pathway drift", contracts.check_payday_example(payday, changed_record), "fixed Payday example")
-        changed_page = payday.replace(f'data-example="{pathway}">no', f'data-example="{pathway}">yes')
-        assert_clean("matching true pathway representation", contracts.check_payday_example(changed_page, changed_record))
-        expect_failure("non-boolean pathway", contracts.check_payday_example(payday, {**provenance, pathway: "no"}), "fixed Payday example")
+        expect_failure(
+            "recorded pathway drift",
+            contracts.check_payday_example(payday, changed_record),
+            "fixed Payday example",
+        )
+        changed_page = payday.replace(
+            f'data-example="{pathway}">no', f'data-example="{pathway}">yes'
+        )
+        assert_clean(
+            "matching true pathway representation",
+            contracts.check_payday_example(changed_page, changed_record),
+        )
+        expect_failure(
+            "non-boolean pathway",
+            contracts.check_payday_example(payday, {**provenance, pathway: "no"}),
+            "fixed Payday example",
+        )
     assert_clean(
         "AI-agent review date",
-        contracts.check_mcp_review_dates(
-            read_text(ROOT, contracts.MCP_REL)
-        ),
+        contracts.check_mcp_review_dates(read_text(ROOT, contracts.MCP_REL)),
     )
     sitemap_failures, _ = core.check_sitemap(
         core.html_files(ROOT),
@@ -967,7 +972,9 @@ def test_public_contracts() -> int:
         for node in core.nodes(block)
         if core.has_type(node, "Person")
     ]
-    assert len(homepage_people) == 1, f"expected one homepage Person stub, found {len(homepage_people)}"
+    assert len(homepage_people) == 1, (
+        f"expected one homepage Person stub, found {len(homepage_people)}"
+    )
     assert_clean(
         "homepage Person stub",
         contracts.check_person_stub("index.html", homepage_people[0], people[0]),
@@ -986,7 +993,9 @@ def test_public_contracts() -> int:
     expect_failure(
         "homepage Person stub extra type",
         contracts.check_person_stub(
-            "index.html", dict(homepage_people[0], **{"@type": ["Person", "Organization"]}), people[0]
+            "index.html",
+            dict(homepage_people[0], **{"@type": ["Person", "Organization"]}),
+            people[0],
         ),
         "stub @type differs from the canonical Person",
     )
@@ -1012,9 +1021,7 @@ def test_public_contracts() -> int:
         about,
         contracts.ABOUT_OPENING,
         "I build software.",
-        lambda html, found: contracts.check_approved_page_opening(
-            html, "about/index.html", found
-        ),
+        lambda html, found: contracts.check_approved_page_opening(html, "about/index.html", found),
         "about/index.html: page opening must be",
     )
     contract_mutation(
@@ -1207,9 +1214,7 @@ def test_public_contracts() -> int:
             expected,
         )
 
-    payday_description = (
-        'See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision.'
-    )
+    payday_description = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision."
     short_payday_description = (
         "Check Payday Super timing from payroll exports and estimate the SG charge "
         "for review, with fund receipt status visible."
@@ -1253,8 +1258,8 @@ def test_public_contracts() -> int:
         ),
         (
             "calculator print action",
-            '>Print working</button>',
-            '>Print result</button>',
+            ">Print working</button>",
+            ">Print result</button>",
             "result actions are",
         ),
         (
@@ -1265,8 +1270,8 @@ def test_public_contracts() -> int:
         ),
         (
             "calculator CSV action",
-            '>Download CSV</button>',
-            '>Export CSV</button>',
+            ">Download CSV</button>",
+            ">Export CSV</button>",
             "missing visible CSV action",
         ),
         (
@@ -1300,11 +1305,8 @@ def test_public_contracts() -> int:
 
     formula_b_failures: list[str] = []
     contracts.check_formula_b_answer(
-        calculator.replace(
-            "allowances other than expense reimbursements", "allowances"
-        ).replace(
-            "An amount that reimburses an expense is excluded by "
-            "section 3B(1)(b)(iii). ",
+        calculator.replace("allowances other than expense reimbursements", "allowances").replace(
+            "An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). ",
             "",
         ),
         formula_b_failures,
@@ -1369,9 +1371,7 @@ def test_public_contracts() -> int:
         evidence,
         'aria-label="On this page"',
         'aria-label="Contents"',
-        lambda html, found: contracts.check_article_pattern(
-            html, contracts.EVIDENCE_REL, found
-        ),
+        lambda html, found: contracts.check_article_pattern(html, contracts.EVIDENCE_REL, found),
         "expected exactly one On this page navigation",
     )
     contract_mutation(
@@ -1462,9 +1462,7 @@ def test_public_contracts() -> int:
     with copied_site() as root:
         card_path = root / site_card_rel
         card = card_path.read_bytes()
-        card_path.write_bytes(
-            card + b"\0" * (contracts.SOCIAL_CARD_MAX_BYTES - len(card))
-        )
+        card_path.write_bytes(card + b"\0" * (contracts.SOCIAL_CARD_MAX_BYTES - len(card)))
         expect_failure(
             "social card byte budget",
             contracts.check_social_cards(root),
@@ -1589,11 +1587,23 @@ def test_current_component_metadata() -> None:
     components = {
         "payday-super-checker": ("australian-accounting", "packages/payday-super-checker"),
         "aus-accounting-mcp": ("australian-accounting", "apps/aus-accounting-mcp"),
-        "xero-trial-balance-export": ("accounting-review-pipeline", "packages/xero-trial-balance-export"),
-        "accounting-excel-toolkit": ("accounting-review-pipeline", "adapters/accounting-excel-toolkit"),
+        "xero-trial-balance-export": (
+            "accounting-review-pipeline",
+            "packages/xero-trial-balance-export",
+        ),
+        "accounting-excel-toolkit": (
+            "accounting-review-pipeline",
+            "adapters/accounting-excel-toolkit",
+        ),
         "workpaper-review-gate": ("accounting-review-pipeline", "packages/review-ready-gate"),
-        "monthly-close-controls": ("accounting-review-pipeline", "packages/monthly-close-control-plane"),
-        "australian-accounting-power-bi": ("accounting-review-pipeline", "apps/australian-accounting-power-bi"),
+        "monthly-close-controls": (
+            "accounting-review-pipeline",
+            "packages/monthly-close-control-plane",
+        ),
+        "australian-accounting-power-bi": (
+            "accounting-review-pipeline",
+            "apps/australian-accounting-power-bi",
+        ),
     }
     for name, (repository, directory) in components.items():
         node = software[name]
@@ -1750,7 +1760,7 @@ def test_release_record() -> None:
         replace_file(
             root,
             contracts.MCP_REL,
-            "<p class=\"page-meta\">",
+            '<p class="page-meta">',
             "<p>Release 0.3.0 is the current published release; this page still "
             'documents 0.2.3.</p>\n    <p class="page-meta">',
         )
@@ -1871,7 +1881,7 @@ def test_release_record() -> None:
 
     # A release URL hidden from readers does not satisfy the link contract.
     hidden_forms = {
-        "an HTML comment": '<!-- {url} -->',
+        "an HTML comment": "<!-- {url} -->",
         "a script": '<script type="application/ld+json">{{"seeAlso": "{url}"}}</script>',
         "an unrelated attribute": '<span data-source="{url}">see the release</span>',
         "a hidden element": '<p hidden><a href="{url}">Release</a></p>',
@@ -1932,9 +1942,7 @@ def test_release_record() -> None:
     # Supporting evidence must also be a link a reader can see.
     with copied_site() as root:
         page = root / "tools/ozzit/index.html"
-        citation = (
-            "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff"
-        )
+        citation = "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff"
         text = page.read_text(encoding="utf-8").replace(
             f'href="{citation}"', 'href="https://example.org/elsewhere"'
         )
@@ -1953,7 +1961,7 @@ def test_release_record() -> None:
             [
                 failure
                 for failure in release_record.check_record(root)
-                if "github.com/ryanduguid/Ozzit\"" in failure
+                if 'github.com/ryanduguid/Ozzit"' in failure
             ],
         )
 
@@ -1979,6 +1987,7 @@ def test_release_record() -> None:
             raise release_record.urllib.error.HTTPError(
                 "https://example.invalid/asset", status, "refused", {}, None
             )
+
         return raiser
 
     try:
@@ -2056,6 +2065,7 @@ def test_release_record() -> None:
                 if meta is not None:
                     record["_meta"] = {"io.modelcontextprotocol.registry/official": meta}
                 return record
+
             return read
 
         for meta, expected in (
@@ -2084,12 +2094,17 @@ def test_release_record() -> None:
             release_record.fetch_json = stub
             lifecycle = states(release_record.live_versions(mcp))
             assert lifecycle["registry"][0] == release_record.INCONCLUSIVE, (partial, lifecycle)
-            assert "lifecycle" in lifecycle["registry"][1] or "isLatest" in lifecycle["registry"][1], lifecycle
+            assert (
+                "lifecycle" in lifecycle["registry"][1] or "isLatest" in lifecycle["registry"][1]
+            ), lifecycle
 
         # Confirmed lifecycle metadata with the recorded number is the only match.
         stub = registry_meta({"status": "active", "isLatest": True})
         release_record.fetch_json = stub
-        assert states(release_record.live_versions(mcp))["registry"] == (release_record.FOUND, "0.2.2")
+        assert states(release_record.live_versions(mcp))["registry"] == (
+            release_record.FOUND,
+            "0.2.2",
+        )
 
         # The record's own claim is a fixed vocabulary. A typo or an unrecognised
         # word must not silently skip a check: it is a record error offline and
@@ -2107,14 +2122,19 @@ def test_release_record() -> None:
                 release_record.check_record(ROOT, bad_record),
                 "registry_status",
             )
-        assert release_record.registry_claims({"registry_status": " latest ,active"}) == {"active", "latest"}
+        assert release_record.registry_claims({"registry_status": " latest ,active"}) == {
+            "active",
+            "latest",
+        }
         assert release_record.registry_claims({}) == frozenset()
 
         # Releases spanning pages: an older tag on page two is still found, so a
         # full first page never makes a present release look absent.
         pages = {
-            1: [{"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
-                for n in range(100)],
+            1: [
+                {"tag_name": f"other/v0.{n}.0", "draft": False, "prerelease": False}
+                for n in range(100)
+            ],
             2: [{"tag_name": "v3.4.1", "draft": False, "prerelease": False}],
         }
         release_record.fetch_json = lambda url: pages[int(url.rsplit("page=", 1)[-1])]

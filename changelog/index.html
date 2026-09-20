@@ -8,10 +8,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
-  <title>Site and release changelog | Ryan Duguid</title>
+  <title>Site and release changelog</title>
   <meta name="description" content="Dated register of site changes and tagged tool releases across the open-source Australian accounting portfolio." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Site and release changelog | Ryan Duguid" />
+  <meta property="og:title" content="Site and release changelog" />
   <meta property="og:description" content="Dated register of site changes and tagged tool releases across the open-source Australian accounting portfolio." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ryan Duguid" />
@@ -23,7 +23,7 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Site and release changelog | Ryan Duguid" />
+  <meta name="twitter:title" content="Site and release changelog" />
   <meta name="twitter:description" content="Dated register of site changes and tagged tool releases across the open-source Australian accounting portfolio." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site.png" />
   <meta name="twitter:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />
@@ -40,6 +40,7 @@
   <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
+  <link rel="alternate" type="application/atom+xml" href="https://duguid.com.au/feed.xml" title="duguid.com.au changelog" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -47,7 +48,14 @@
   <main id="main" class="site-main">
     <article class="article">
       <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li aria-current="page">Changelog</li>
+          </ol>
+        </nav>
         <h1>Changelog</h1>
+        <p><a href="/feed.xml">Follow this changelog as an Atom feed</a>.</p>
         <p class="short-answer">What changed and when, across this site and the tagged tool releases. Dates are Australian Eastern time.</p>
       </header>
       <div class="site-shell">
@@ -59,6 +67,8 @@
                 <tr><th scope="col">Date</th><th scope="col">Change</th></tr>
               </thead>
               <tbody>
+                <tr><td>20 September 2026</td><td>Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; the Lumbridge review status carries a dated pending stamp; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.</td></tr>
+                <tr><td>20 September 2026</td><td>The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.</td></tr>
                 <tr><td>20 September 2026</td><td>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</td></tr>
                 <tr><td>14 September 2026</td><td>The six webfonts return to IBM&#39;s unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.</td></tr>
                 <tr><td>11 September 2026</td><td>Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.</td></tr>
@@ -97,7 +107,7 @@
           </div>
           <p>Each release links its tagged source. The <a href="/evaluate/">evaluations</a> record which releases were tested against fabricated inputs, and the <a href="/evidence/">evidence register</a> records identity, source, and release assurance.</p>
         </section>
-        <p class="page-meta">Published 30 August 2026. Last reviewed 14 September 2026.</p>
+        <p class="page-meta">Published 30 August 2026. Last reviewed 20 September 2026.</p>
       </div>
     </article>
   </main>
@@ -110,11 +120,11 @@
         "@type": "WebPage",
         "@id": "https://duguid.com.au/changelog/#webpage",
         "url": "https://duguid.com.au/changelog/",
-        "name": "Site and release changelog | Ryan Duguid",
+        "name": "Site and release changelog",
         "description": "Dated register of site changes and tagged tool releases across the open-source Australian accounting portfolio.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-30",
-        "dateModified": "2026-09-14",
+        "dateModified": "2026-09-20",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" }

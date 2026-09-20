@@ -70,6 +70,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex="0"]:focus-visible,
+summary:focus-visible,
 .calculator-result h2:focus-visible {
   outline: 0.1875rem solid var(--colour-stamp);
   outline-offset: 0.1875rem;
@@ -698,38 +699,11 @@ caption {
   padding-block: var(--space-7) var(--space-9);
 }
 
-.collection-index {
-  position: sticky;
-  top: calc(var(--header-height) + var(--space-5));
-  display: grid;
-  gap: var(--space-2);
-  padding-top: var(--space-3);
-  border-top: var(--rule-strong) solid var(--colour-stamp);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-}
-
-.collection-index a {
-  color: var(--colour-ink-soft);
-  text-decoration: none;
-}
-
-.collection-index a:hover {
-  color: var(--colour-stamp-strong);
-  text-decoration: underline;
-}
-
 .collection-register {
   grid-column: 1 / -1;
   border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
-.collection-index + .collection-register {
-  grid-column: 2;
-}
-
-/* Without an index rail the page header's rule already closes the hero, so
-   a second strong rule above an empty band is dropped. */
 .collection-layout > .collection-register:first-child {
   border-top: 0;
 }
@@ -1263,77 +1237,6 @@ caption {
   font-size: var(--text-small);
 }
 
-.hero-boundary {
-  width: fit-content;
-  padding-top: var(--space-3);
-  border-top: var(--rule-strong) solid var(--colour-alert);
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: 0.02em;
-}
-
-.home-proof-rail {
-  display: grid;
-  width: min(100%, 64rem);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-inline: auto;
-  padding-top: var(--space-4);
-  border-block: var(--rule-thin) solid var(--colour-rule-strong);
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-align: left;
-  text-transform: uppercase;
-}
-
-.home-proof-rail p {
-  padding: 0 var(--space-4) var(--space-4);
-}
-
-.home-proof-rail p + p {
-  margin-top: 0;
-  border-left: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.home-proof-rail strong {
-  display: block;
-  margin-bottom: var(--space-1);
-  color: var(--colour-ink);
-}
-
-.trust-band {
-  border-block: var(--rule-strong) solid var(--colour-ink);
-  background: var(--colour-paper);
-}
-
-.trust-band__inner {
-  display: grid;
-  grid-template-columns: minmax(18rem, 0.7fr) minmax(0, 1.3fr);
-}
-
-.trust-band .hero-boundary {
-  width: auto;
-  margin: 0;
-  padding: var(--space-4) var(--space-5);
-  border-top: 0;
-  border-left: var(--rule-strong) solid var(--colour-alert);
-}
-
-.trust-band .home-proof-rail {
-  width: auto;
-  margin: 0;
-  padding: 0;
-  border: 0;
-}
-
-/* Rail cells and the boundary share the same top inset so their first lines
-   align across the band. */
-.trust-band .home-proof-rail p {
-  padding-top: var(--space-4);
-}
-
 .authority-routes {
   border-bottom: var(--rule-strong) solid var(--colour-ink);
 }
@@ -1410,6 +1313,7 @@ caption {
    its rows, so it keeps the button geometry and sits on the leading edge. */
 .route-actions > .button {
   display: inline-flex;
+  align-items: center;
   justify-self: start;
   margin-block: var(--space-3);
   padding: var(--space-2) var(--space-4);
@@ -1422,6 +1326,14 @@ caption {
     color: var(--colour-paper);
     background: var(--colour-stamp-strong);
   }
+}
+
+/* The row is the link, so its title carries the entry-title underline at rest;
+   touch devices get no hover and would otherwise read the row as a table. */
+.adoption-links > a > strong {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: var(--space-2);
 }
 
 .route-actions > a span,
@@ -1696,10 +1608,6 @@ caption {
   padding-inline: max(var(--gutter), calc((100% - var(--site-width)) / 2));
 }
 
-.trust-band + .proof-feature {
-  border-top: 0;
-}
-
 .proof-feature__layout {
   display: grid;
   min-width: 0;
@@ -1959,8 +1867,10 @@ fieldset label,
 
 input[type="radio"],
 input[type="checkbox"] {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
   min-height: auto;
-  margin-top: 0.35em;
+  margin-top: 0.2em;
   accent-color: var(--colour-stamp-strong);
 }
 
@@ -2295,18 +2205,6 @@ input[type="checkbox"] {
     gap: var(--space-6);
   }
 
-  .collection-index,
-  .collection-index + .collection-register {
-    grid-column: 1;
-  }
-
-  .collection-index {
-    position: static;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    padding-bottom: var(--space-4);
-    border-bottom: var(--rule-thin) solid var(--colour-rule);
-  }
-
   .collection-entry {
     grid-template-columns: minmax(10rem, 0.7fr) minmax(0, 1.3fr);
   }
@@ -2321,19 +2219,8 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
-  .home-proof-rail,
   .calculator-result {
     position: static;
-  }
-
-  .trust-band__inner {
-    grid-template-columns: 1fr;
-  }
-
-  /* Stacked cells share one text edge: the boundary's rule sits inside the
-     same inset as the rail labels. */
-  .trust-band .hero-boundary {
-    padding-left: calc(var(--space-4) - var(--rule-strong));
   }
 
   .home-tool-preview > header {
@@ -2409,6 +2296,8 @@ input[type="checkbox"] {
     overflow-x: auto;
     overscroll-behavior-inline: contain;
     padding-bottom: 0;
+    font-size: 0.75rem;
+    letter-spacing: 0;
   }
 
   .site-nav a {
@@ -2416,7 +2305,7 @@ input[type="checkbox"] {
     min-height: 2.75rem;
     flex: 0 0 auto;
     align-items: center;
-    padding-inline: var(--space-1);
+    padding-inline: 0.125rem;
   }
 
   .home-hero h1 {
@@ -2464,10 +2353,6 @@ input[type="checkbox"] {
     display: none;
   }
 
-  .collection-index {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .collection-group > header,
   .collection-entry,
   .evaluation-summary > div,
@@ -2486,7 +2371,6 @@ input[type="checkbox"] {
     padding-block: var(--space-2);
   }
 
-  .home-proof-rail,
   .principles-list {
     grid-template-columns: 1fr;
   }
@@ -2515,7 +2399,6 @@ input[type="checkbox"] {
     gap: var(--space-3);
   }
 
-  .home-proof-rail p + p,
   .principles-list > div + div {
     border-left: 0;
     border-top: var(--rule-thin) solid var(--colour-rule-strong);
@@ -2552,8 +2435,7 @@ input[type="checkbox"] {
 
   .site-footer__links a,
   .site-footer__nav a,
-  .article-toc a,
-  .collection-index a {
+  .article-toc a {
     display: inline-block;
     padding-block: var(--space-2);
   }
@@ -2852,7 +2734,6 @@ html[data-view-mode="machine"] body {
   }
 
   .view-mode__option {
-    min-height: 44px;
     padding-inline: 8px;
   }
 
@@ -2887,5 +2768,21 @@ html[data-view-mode="machine"] body {
   }
   [data-view-mode="machine"] :is(.site-header, #main, .site-footer, .skip-link) {
     visibility: visible;
+  }
+}
+
+/* Below 360 px the six primary links do not fit one row at a readable size,
+   so the row wraps and the sticky header grows with it. */
+@media (max-width: 22.5rem) {
+  :root {
+    --header-height: 8.25rem;
+  }
+
+  .site-header__inner {
+    grid-template-rows: 2.75rem auto;
+  }
+
+  .site-nav {
+    flex-wrap: wrap;
   }
 }
