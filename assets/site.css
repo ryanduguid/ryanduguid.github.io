@@ -632,7 +632,7 @@ caption {
 
 .faq summary {
   cursor: pointer;
-  padding-block: var(--space-1);
+  padding-block: var(--space-2);
 }
 
 .faq summary::marker {
@@ -2714,7 +2714,7 @@ input[type="checkbox"] {
 
 /* Human/Machine view switch, matching the requested Cloudflare Connect control. */
 html[data-view-mode] .site-footer__inner {
-  padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  padding-bottom: calc(80px + env(safe-area-inset-bottom));
 }
 
 .view-mode[hidden],
@@ -2746,7 +2746,7 @@ html[data-view-mode] .site-footer__inner {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  min-height: 26px;
+  min-height: 44px;
   margin: 0;
   padding: 0 12px;
   border-radius: 9999px;
@@ -2839,15 +2839,6 @@ html[data-view-mode="machine"] body {
   font: inherit;
   white-space: pre-wrap;
   overflow-wrap: anywhere;
-}
-
-@media (pointer: coarse) {
-  html[data-view-mode] .site-footer__inner {
-    padding-bottom: calc(80px + env(safe-area-inset-bottom));
-  }
-  .view-mode__option {
-    min-height: 44px;
-  }
 }
 
 @media (max-width: 40rem) {

@@ -253,8 +253,6 @@ Source: https://duguid.com.au/about/
 
 > I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
-Home
-
 # About Ryan Duguid
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
@@ -341,7 +339,6 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
@@ -375,8 +372,6 @@ I write and maintain this site in my own time and on my own equipment.
 Source: https://duguid.com.au/evidence/
 
 > Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools.
-
-Home / Evidence behind the tools
 
 # Evidence behind the tools
 
@@ -470,7 +465,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- Home: https://duguid.com.au/
 - pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
 - pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
@@ -5234,8 +5228,6 @@ Source: https://duguid.com.au/privacy/
 
 > How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links.
 
-Home
-
 # Privacy and site use
 
 This notice explains how this website handles browser calculations, hosting and feedback.
@@ -5282,7 +5274,6 @@ The website source is available under its MIT licence, which includes its warran
 
 ## Links
 
-- Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review

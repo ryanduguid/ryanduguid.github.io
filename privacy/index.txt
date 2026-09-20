@@ -4,8 +4,6 @@ Source: https://duguid.com.au/privacy/
 
 > How duguid.com.au handles browser calculations, cookies, hosting and feedback, with the site's advice boundaries and software licence links.
 
-Home
-
 # Privacy and site use
 
 This notice explains how this website handles browser calculations, hosting and feedback.
@@ -52,7 +50,6 @@ The website source is available under its MIT licence, which includes its warran
 
 ## Links
 
-- Home: https://duguid.com.au/
 - Cloudflare's analytics documentation: https://developers.cloudflare.com/web-analytics/data-metrics/data-origin-and-collection/
 - contact page: https://duguid.com.au/contact/
 - Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
