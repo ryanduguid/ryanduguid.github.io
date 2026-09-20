@@ -129,9 +129,10 @@ would still arrive without them.
 
 Cloudflare also changes the delivered page in ways the repository never sees:
 it adds `nel`, `report-to` and `speculation-rules` headers, appends an inline
-visitor-verification script and, for browser requests, a Web Analytics script
-tag (both blocked by the page's Content Security Policy), answers `301` for the
-retired `/engage/` and `/tools/review-ready-gate/` routes. Email Address
+visitor-verification script (blocked by the page's Content Security Policy;
+Cloudflare Web Analytics was switched off on 20 September 2026, so no analytics
+tag is appended), and answers `301` for the retired `/engage/` and
+`/tools/review-ready-gate/` routes. Email Address
 Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
 the production check requires those links to arrive intact.
 `node scripts/check_production.mjs` fetches the live pages and
