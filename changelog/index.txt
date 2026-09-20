@@ -33,12 +33,13 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
-20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.3
+20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.4
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 7 September 2026 | Subcontract ledger skills | v0.2.1
 20 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.9
 20 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.8
 20 September 2026 | Payday Super timing | payday-super-checker/v0.1.6
+20 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.4
 20 September 2026 | Trust distribution checks | solomons-sword/v0.1.7
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
 
@@ -49,12 +50,13 @@ Published 30 August 2026. Last reviewed 20 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- aus-accounting-mcp/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
+- aus-accounting-mcp/v0.2.4: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.9: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.9
 - ato-benchmark-compare/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8
 - payday-super-checker/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
+- div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
 - solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
 - evaluations: https://duguid.com.au/evaluate/

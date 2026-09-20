@@ -2421,7 +2421,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.3, pins checker 0.1.5 and still carries the rate forward behind a caveat; from 0.2.4, which pins 0.1.6, a result it returns never carries an extrapolated figure.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 What stays correct | Every verdict. All 6 of them, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG-charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -3429,7 +3429,7 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.3, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
+Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
 Published 25 August 2026. Last reviewed 20 September 2026.
 
@@ -3457,7 +3457,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.3 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.4 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -3472,12 +3472,12 @@ Each engine's source review and release record state what was checked. Verify cu
 With uv installed, run the published demonstration without configuring an AI client:
 
 ```
-uvx --from aus-accounting-mcp==0.2.3 aus-accounting-mcp-demo
+uvx --from aus-accounting-mcp==0.2.4 aus-accounting-mcp-demo
 ```
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
 
-The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.3 package. Its full output includes the engine's caveats; retain those with any extracted result.
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.4 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 
@@ -3493,7 +3493,7 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
 
-Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.3, and each evaluation keeps the release it was run against.
+Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -3550,7 +3550,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
+- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3558,7 +3558,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.3/packages/australian-tax-calculators/README.md#supported-periods
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.3/apps/aus-accounting-mcp/README.md#tools
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.4/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -3750,12 +3750,13 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
-20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.3
+20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.4
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 7 September 2026 | Subcontract ledger skills | v0.2.1
 20 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.9
 20 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.8
 20 September 2026 | Payday Super timing | payday-super-checker/v0.1.6
+20 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.4
 20 September 2026 | Trust distribution checks | solomons-sword/v0.1.7
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
 
@@ -3766,12 +3767,13 @@ Published 30 August 2026. Last reviewed 20 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- aus-accounting-mcp/v0.2.3: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.3
+- aus-accounting-mcp/v0.2.4: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.9: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.9
 - ato-benchmark-compare/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8
 - payday-super-checker/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
+- div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
 - solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
 - evaluations: https://duguid.com.au/evaluate/

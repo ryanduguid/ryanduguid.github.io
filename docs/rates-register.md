@@ -109,23 +109,30 @@ and a source constant, and repeated in prose on `tools/coal-lsl-levy/`.
 | payday-super-checker | `paydaysuper/data/rates.json` | One financial year, 2026-27: `charge_percentage`, `concessional_cap`, `max_contributions_base` | `source`, `verify_at`, `cross_check`, `seen` | `seen` 2026-08-15 |
 | payday-super-checker | `paydaysuper/data/gic_rates.json` | GIC quarters `from`, `to`, `annual_pct`; covers 2026-04-01 to 2026-09-30 | `source`, `verify_at`, `seen` per quarter | `seen` 2026-08-14 |
 | payday-super-checker | `paydaysuper/data/business_days.json` | 59 non-business days; `official_sources` holds one entry per jurisdiction (8) plus `checked`, `definition` and `coverage_note` | `verified_from`, `verified_until`, `generated`, `official_sources` | verified 2026-07-01 to 2027-08-31, generated 2026-08-02 |
-| div7a-loan-review | `div7aloan/data/benchmark_rates.csv` | 8 income years 2019-20 to 2026-27, `rate` as a decimal fraction | columns `rba_table`, `rba_series`, `rba_month`, `source`, `verify_at`, `seen`; header comments `reviewed_until: 2026-27`, `reviewed_on: 2026-08-28` | `seen` 2026-08-28 |
+| div7a-loan-review | `div7aloan/data/benchmark_rates.csv` | 8 income years 2019-20 to 2026-27, `rate` as a decimal fraction | columns `rba_table`, `rba_series`, `rba_month`, `source`, `verify_at`, `seen`, `primary_url`, `retrieved_on`, `snapshot_sha256`; header comments `reviewed_until: 2026-27`, `reviewed_on: 2026-08-28` | `seen` 2026-08-28, `retrieved_on` 2026-09-20 |
 | ato-benchmark-compare | `atobenchmark/data/benchmarks-2022-23.json`, `benchmarks-2023-24.json` | 100 business types per year, `schema_version: 1` | `source` block: `publisher`, `dataset`, `dataset_page`, `resource_name`, `resource_url`, `resource_last_modified`, `retrieved`, `sha256`, `bytes`, `licence`, `licence_url` | `retrieved` 2026-08-13 |
 | the-exchequer-tally | `edwinnixon/corporate_tax.py` | `BRE_RATES` 2018 to 2027, `STANDARD_CORPORATE_RATE`, `TURNOVER_THRESHOLDS`, `BREPI_THRESHOLD_PERCENT` as Python constants | Docstring cites ITRA 1986 ss 23AA and 23AB and Division 328 ITAA 1997; a code comment cites the Enterprise Tax Plan Act 2017 for the turnover threshold; no URL | none |
 | solomons-sword, the-wip-tally, aus-accounting-mcp | none | Logic only; the MCP consumes the engines above | | |
 
-Two provenance details stand out. The Division 7A engine's `verify_at` column
-points at `https://duguid.com.au/rates/div7a-benchmark-rate/`, so the engine
-cites the site and the site cites the RBA: a primary source one hop removed.
-The benchmarks dataset is the only table in the portfolio that records a
-SHA-256 of the material it was built from.
+Two provenance details stand out. The Division 7A engine names its primary
+source in the table itself. From div7a-loan-review 0.1.4 every row carries
+`primary_url`, the RBA statistical table F5 workbook at
+`https://www.rba.gov.au/statistics/tables/xls/f05hist.xlsx`, with `retrieved_on`
+2026-09-20 and `snapshot_sha256`
+`40da2e5b7b74ca5d96a32688a6aea133c7e722c32701f13d25a32fef77e077b0` for the bytes
+that were read. `verify_at` still points at
+`https://duguid.com.au/rates/div7a-benchmark-rate/`, but as a convenience link
+for a human, not the source of the figure, so the site is no longer an
+intermediate source between the engine and the RBA. No rate value changed in
+that release. The Division 7A table and the benchmarks dataset are the 2 tables
+in the portfolio that record a SHA-256 of the material they were built from.
 
 ### 1.4 What the inventory shows
 
 1. Six shapes for one idea: a skills fact index, a site CSV with an HTML page,
    2 JSON dialects in one engine (`seen` and `verify_at`), a CSV with
-   provenance in header comments, a dataset manifest with a hash, and Python
-   constants with none.
+   provenance columns and header comments, a dataset manifest with a hash, and
+   Python constants with none.
 2. The same rate is held in more than one place with independent dates. The
    Division 7A benchmark rate sits in the site CSV (page reviewed 2 September
    2026 as at the inventory date) and the engine CSV (`seen` 2026-08-28). The super guarantee percentage
