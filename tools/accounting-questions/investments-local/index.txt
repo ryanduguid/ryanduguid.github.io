@@ -18,7 +18,7 @@ Search questions
 
 Topic All topics Investments and Newcastle
 
-Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded and the terms appear in your browser history. Do not enter names, taxpayer identifiers or client details.
+Search and topic filters are kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 

@@ -129,9 +129,10 @@ would still arrive without them.
 
 Cloudflare also changes the delivered page in ways the repository never sees:
 it adds `nel`, `report-to` and `speculation-rules` headers, appends an inline
-visitor-verification script and, for browser requests, a Web Analytics script
-tag (both blocked by the page's Content Security Policy), answers `301` for the
-retired `/engage/` and `/tools/review-ready-gate/` routes. Email Address
+visitor-verification script (blocked by the page's Content Security Policy;
+Cloudflare Web Analytics was switched off on 20 September 2026, so no analytics
+tag is appended), and answers `301` for the retired `/engage/` and
+`/tools/review-ready-gate/` routes. Email Address
 Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
 the production check requires those links to arrive intact.
 `node scripts/check_production.mjs` fetches the live pages and
@@ -163,9 +164,11 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. The 30 styled pages include
-`_includes/site-header.html` and `_includes/site-footer.html`; the header
-sets the current page or section from each page's URL. Local builds and CI
+GitHub Pages builds the repository with Jekyll. All 55 canonical pages
+include `_includes/site-header.html` and `_includes/site-footer.html`,
+directly or through a layout in `_layouts/`; the header sets the current page
+or section from each page's URL. The count is the number of URLs in
+`sitemap.xml`, which `scripts/test_contracts.py` asserts. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
 `_config.yml` decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
