@@ -5,9 +5,10 @@
 // Hard failures are the promises README.md makes about delivery: the five
 // response headers the transform rule adds, the two edge redirects, and
 // mailto links that survive delivery (Email Address Obfuscation rewrites them
-// and strips the address when it is on). Injected inline scripts and the
-// analytics tag are reported, not failed, because they are edge settings the
-// page's own Content Security Policy already blocks.
+// and strips the address when it is on). Injected inline scripts are reported,
+// not failed, because they are edge settings the page's own Content Security
+// Policy already blocks. An analytics tag fails: the Privacy page states that
+// no analytics script is delivered, so its return would falsify that notice.
 //
 // Run with: node scripts/check_production.mjs [--base https://duguid.com.au]
 
@@ -58,7 +59,7 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
     notes.push(`${path}: ${inlineScripts.length} inline script(s) injected on delivery; the page CSP blocks them`);
   }
   if (/cloudflareinsights\.com\/beacon/.test(deliveredHtml)) {
-    notes.push(`${path}: Cloudflare analytics tag present; the page CSP blocks it`);
+    failures.push(`${path}: Cloudflare analytics tag present; the Privacy page says no analytics script is delivered`);
   }
   return { failures, notes };
 }
