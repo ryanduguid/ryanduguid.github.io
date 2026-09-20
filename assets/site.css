@@ -1328,7 +1328,6 @@ caption {
   }
 }
 
-.route-actions > a span,
 /* The row is the link, so its title carries the entry-title underline at rest;
    touch devices get no hover and would otherwise read the row as a table. */
 .adoption-links > a > strong {
@@ -1337,6 +1336,7 @@ caption {
   text-underline-offset: var(--space-2);
 }
 
+.route-actions > a span,
 .adoption-links > a span {
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
