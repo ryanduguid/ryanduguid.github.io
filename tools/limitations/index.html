@@ -110,9 +110,9 @@
           </section>
 
           <section id="psc-1">
-            <h2>Payday Super: an exposure estimate past the rate table extrapolates</h2>
+            <h2>Payday Super: an exposure estimate past the rate table is withheld unless asked for</h2>
             <p>
-              Recorded as PSC-1 against release <code>payday-super-checker/v0.1.4</code>.
+              Recorded as PSC-1 against release <code>payday-super-checker/v0.1.4</code>. Release <code>payday-super-checker/v0.1.6</code> (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
             </p>
             <div class="table-scroll" role="region" aria-label="PSC-1" tabindex="0">
             <table class="facts tool-table--wide">
@@ -125,27 +125,27 @@
               <tbody>
                 <tr>
                   <th scope="row">Trigger</th>
-                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table.</td>
+                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with <code>--allow-stale-gic</code>. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.3, pins checker 0.1.5 and still carries the rate forward behind a caveat; from 0.2.4, which pins 0.1.6, a result it returns never carries an extrapolated figure.</td>
                 </tr>
                 <tr>
                   <th scope="row">Effect</th>
-                  <td>The last known quarterly rate is carried forward rather than refused, so the notional earnings component under <em>SGAA 1992</em> s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's <em>uplift component</em> is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.</td>
+                  <td>With the flag, the last known quarterly rate is carried forward, so the notional earnings component under <em>SGAA 1992</em> s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's <em>uplift component</em> is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.</td>
                 </tr>
                 <tr>
                   <th scope="row">What stays correct</th>
-                  <td>Every verdict. All 6 of them, <code>ON_TIME</code>, <code>AT_RISK</code>, <code>LATE</code>, <code>UNPAID</code>, <code>UNKNOWN</code> and <code>SKIPPED</code>, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: <code>LATE</code> and <code>UNPAID</code> carry the exposure estimate this entry qualifies, and a <code>SKIPPED</code> row has no estimate to qualify.</td>
+                  <td>Every verdict. All 6 of them, <code>ON_TIME</code>, <code>AT_RISK</code>, <code>LATE</code>, <code>UNPAID</code>, <code>UNKNOWN</code> and <code>SKIPPED</code>, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: a <code>LATE</code> or <code>UNPAID</code> row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a <code>SKIPPED</code> row has no estimate to qualify.</td>
                 </tr>
                 <tr>
                   <th scope="row">Declared at runtime</th>
-                  <td>A caveat on the result naming the table's end date, the rate carried forward, and the file to update.</td>
+                  <td>Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG-charge estimate were not assessed for that row, and the five charge columns of <code>report.csv</code> are empty rather than nil.</td>
                 </tr>
                 <tr>
                   <th scope="row">Human step</th>
-                  <td>Update the rate table from the ATO general interest charge rates page, re-run, and confirm the caveat is gone before relying on an exposure figure.</td>
+                  <td>Update the rate table from the ATO general interest charge rates page rather than passing <code>--allow-stale-gic</code>. Re-run and confirm the caveat is gone before relying on an exposure figure.</td>
                 </tr>
                 <tr>
                   <th scope="row">Status</th>
-                  <td>Open, by design. Refusing would withhold a shortfall figure that is itself correct.</td>
+                  <td>Narrowed in v0.1.6. The extrapolation used to run behind a caveat the reader had to notice, which put an unpublished rate into both exposure totals by default. It is now an opt-in, so a default run either has a published rate for every day of the period or withholds the estimate for that row. The shortfall figure, which is itself correct, is reported either way.</td>
                 </tr>
               </tbody>
             </table>
