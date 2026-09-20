@@ -53,6 +53,8 @@
 
     toggle.addEventListener('change', event => {
       setMode(event.target.value);
+      // Only a user switch moves focus; the load and storage paths must not steal it.
+      if (mode === 'machine') view.focus();
       try { localStorage.setItem(key, mode); } catch { /* Keep the current view usable. */ }
     });
     window.addEventListener('storage', event => {
