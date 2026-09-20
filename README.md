@@ -128,12 +128,13 @@ here cannot see or test them, and a request that reached the origin directly
 would still arrive without them.
 
 Cloudflare also changes the delivered page in ways the repository never sees:
-it adds `nel`, `report-to` and `speculation-rules` headers, appends an inline
-visitor-verification script and, for browser requests, a Web Analytics script
-tag (both blocked by the page's Content Security Policy), answers `301` for the
-retired `/engage/` and `/tools/review-ready-gate/` routes. Email Address
-Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
-the production check requires those links to arrive intact.
+it adds `nel`, `report-to` and `speculation-rules` headers and appends an inline
+visitor-verification script (blocked by the page's Content Security Policy).
+Web Analytics has been removed, so no analytics script should be delivered.
+Cloudflare answers `301` for the retired `/engage/` and
+`/tools/review-ready-gate/` routes. Email Address Obfuscation is disabled so
+`mailto:` links work without scripts. Keep it off: the production check
+requires those links to arrive intact.
 `node scripts/check_production.mjs` fetches the live pages and
 fails when a documented header or redirect is missing or a `mailto:` link no
 longer arrives intact; it runs weekly from `source-freshness.yml`.

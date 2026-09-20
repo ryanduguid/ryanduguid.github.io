@@ -58,7 +58,7 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
     notes.push(`${path}: ${inlineScripts.length} inline script(s) injected on delivery; the page CSP blocks them`);
   }
   if (/cloudflareinsights\.com\/beacon/.test(deliveredHtml)) {
-    notes.push(`${path}: Cloudflare analytics tag present; the page CSP blocks it`);
+    failures.push(`${path}: Cloudflare analytics tag present; analytics should not be delivered`);
   }
   return { failures, notes };
 }
