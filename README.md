@@ -163,9 +163,11 @@ repository one.
 
 ## Published files
 
-GitHub Pages builds the repository with Jekyll. The 30 styled pages include
-`_includes/site-header.html` and `_includes/site-footer.html`; the header
-sets the current page or section from each page's URL. Local builds and CI
+GitHub Pages builds the repository with Jekyll. All 55 canonical pages
+include `_includes/site-header.html` and `_includes/site-footer.html`,
+directly or through a layout in `_layouts/`; the header sets the current page
+or section from each page's URL. The count is the number of URLs in
+`sitemap.xml`, which `scripts/test_contracts.py` asserts. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
 `_config.yml` decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the

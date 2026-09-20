@@ -731,6 +731,9 @@ PRIVACY_FORBIDDEN_ABSOLUTES = (
     "reports anything to the site owner",
     "reports nothing to the site owner",
     "nothing sent anywhere",
+    # Covers the longer 'nothing is sent or stored' as a substring, so one entry
+    # reports the phrase once.
+    "nothing is sent",
 )
 LLMS_ROUTE_SECTION = "Choose a route"
 TASK_ROUTES_REL = "tools/index.html"

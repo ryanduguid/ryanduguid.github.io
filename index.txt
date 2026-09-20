@@ -12,7 +12,7 @@ Inspect cash-flow models, calculations, and workpaper checks, with sources, assu
 
 A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 18 September 2026.
+Last reviewed 20 September 2026.
 
 Explore the cash-flow example Browse tools by accounting task
 
@@ -36,7 +36,7 @@ Five-minute accounting cases
 
 ### Try a browser calculator
 
-Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser, without sending them to a server.
+Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser; this site's code does not send them to a server.
 
 Business planning calculators
 
@@ -88,7 +88,7 @@ Formula B applies. Levy payable, rounded once at the end
 
 $192.38
 
-Fabricated figures, calculated in your browser; nothing is sent or stored. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual, and bonus frequency.
+Fabricated figures, calculated in your browser. This site's code sends and stores none of them; the Privacy page covers Cloudflare's delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual, and bonus frequency.
 
 Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
 
@@ -110,7 +110,7 @@ Start with the Excel cash-flow example or browser calculator. Firms using Claude
 
 No install
 
-Open the browser calculator with fabricated figures. Nothing to install, and the figures you enter stay in the browser.
+Open the browser calculator with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.
 
 Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
@@ -214,6 +214,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Inspect or integrate the software: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Source on GitHub: https://github.com/ryanduguid
+- Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation

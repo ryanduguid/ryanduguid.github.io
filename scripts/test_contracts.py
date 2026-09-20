@@ -560,8 +560,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 20 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 20 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -670,7 +670,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "18 September 2026", "2026-09-18"),
+        ("index.html", "20 September 2026", "2026-09-20"),
         ("tools/index.html", "18 September 2026", "2026-09-18"),
         ("evidence/index.html", "18 September 2026", "2026-09-18"),
     )
@@ -1623,7 +1623,9 @@ def test_consolidation_review_dates() -> None:
     pages = (
         "index.html",
         "about/index.html",
+        "contact/index.html",
         "evidence/index.html",
+        "privacy/index.html",
         "tools/index.html",
         "tools/ato-benchmarks/index.html",
         "tools/australian-tax-ai-agents/index.html",
