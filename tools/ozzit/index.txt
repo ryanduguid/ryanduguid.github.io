@@ -12,15 +12,15 @@ Needs Microsoft 365 or Excel 2024 and later. Choose ozzit.xlsx under Assets on t
 
 Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial-year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
 
-Current release v3.4.1, published 13 September 2026, verified 18 September 2026. Release record and verification on GitHub.
+Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 18 September 2026.
+Published 18 September 2026. Last reviewed 20 September 2026.
 
 ## What Ozzit is
 
 An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
 
-The v3.4.1 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
+The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
 
 The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial-year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
 
@@ -40,7 +40,7 @@ Author | Ryan Duguid. Built from scratch, with provenance recorded in the reposi
 
 Ten of the 133, with their published signatures. The full index is in functions.csv.
 
-Selected functions from the v3.4.1 index. Scroll sideways on small screens.
+Selected functions from the v3.4.2 index. Scroll sideways on small screens.
 
 Function | Signature | What it returns
 oz.GSTExtractλ | (Amounts, [Rate]) | The GST contained in GST-inclusive amounts
@@ -68,26 +68,26 @@ That is the whole of the function's contribution: 10% arithmetic on an amount yo
 
 Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
 
-The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.1. The v3.4.1 gate results below are the record for the current file.
+The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.2. The v3.4.2 gate results below are the record for the current file.
 
 ## Download and use it
 
 Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.
 
-- Open the v3.4.1 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
-- Check the file before you trust it: the v3.4.1 asset is 438,897 bytes with SHA-256 71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7.
+- Open the v3.4.2 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.1 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.2 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
-Release v3.4.1 was built from a signed tag and gated before publication. On 13 September 2026, in Excel 16.0 build 20430:
+Release v3.4.2 was built from a signed tag and gated before publication. On 20 September 2026, in Excel 16.0 build 20430:
 
 - 1,129 formulas recalculated with 0 in error.
-- 868 assertions ran with 0 failures: 566 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.
+- 905 assertions ran with 0 failures: 603 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.
 - 19,444 cached values were confirmed to equal what their formulas produce.
-- 207 unit tests passed, and the published formula source reproduced all 138 named formulas.
+- 246 unit tests passed, and the published formula source reproduced all 138 named formulas.
 
 Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.
 
@@ -118,7 +118,7 @@ No. It performs 10% GST arithmetic and labels Australian financial years, and it
 
 ### Where do I get the current release?
 
-Release v3.4.1, published on 13 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.
+Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.
 
 ## Related
 
@@ -132,12 +132,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Download Ozzit from GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1
+- Download Ozzit from GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
 - Try a formula: https://duguid.com.au/tools/ozzit/#worked-example
-- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv
+- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/docs/workbook-use.md
-- the v3.4.1 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/workbook-use.md
+- the v3.4.2 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff
 - Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/

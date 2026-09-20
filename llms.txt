@@ -92,7 +92,7 @@ The four starting routes on the homepage and Tools page, by task, plus the stand
 
 ## Tool guides, open source, install and run locally
 
-- [Ozzit Excel LAMBDA library](https://duguid.com.au/tools/ozzit/): an Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial-year labels, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.4.1, published 13 September 2026. Needs Microsoft 365 or Excel 2024 and later; LibreOffice and older Excel cannot evaluate the functions. MIT licensed. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
+- [Ozzit Excel LAMBDA library](https://duguid.com.au/tools/ozzit/): an Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial-year labels, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.4.2, published 20 September 2026. Needs Microsoft 365 or Excel 2024 and later; LibreOffice and older Excel cannot evaluate the functions. MIT licensed. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
 
 - [Monthly Close Controls](https://duguid.com.au/tools/monthly-close-controls/): compares current and prior Xero-shaped trial balance CSVs and prepares an exception report for human review. The pinned fabricated example returns REVIEW with 8 exceptions and 6 draft client queries. It reads local files and cannot approve a close.
 

@@ -51,30 +51,25 @@
       "distribution": "ozzit.xlsx",
       "repository": "https://github.com/ryanduguid/Ozzit",
       "published": {
-        "version": "3.4.1",
-        "released_utc": "2026-09-12T22:42:39Z",
-        "verified": "2026-09-18",
-        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1",
-        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.1/ozzit.xlsx",
-        "asset_sha256": "71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7",
-        "asset_bytes": 438897
+        "version": "3.4.2",
+        "released_utc": "2026-09-20T07:54:31Z",
+        "verified": "2026-09-20",
+        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
+        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx",
+        "asset_sha256": "0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f",
+        "asset_bytes": 439097
       },
       "documented": {
         "page": "tools/ozzit/index.html",
-        "version": "3.4.1",
-        "visible_label": "Current release v3.4.1",
-        "software_version": "3.4.1",
-        "tag": "v3.4.1",
+        "version": "3.4.2",
+        "visible_label": "Current release v3.4.2",
+        "software_version": "3.4.2",
+        "tag": "v3.4.2",
         "supporting_files": [
           "CITATION.cff",
           "functions.csv",
           "docs/workbook-use.md"
         ]
-      },
-      "unreleased_default_branch": {
-        "version": "3.4.2",
-        "observed": "2026-09-18",
-        "note": "The Ozzit default branch names v3.4.2 in its README and CITATION.cff, and no v3.4.2 release or asset exists. A request for that asset returned HTTP 404 on 18 September 2026. The site documents the published v3.4.1."
       }
     },
     "au-fpa-pack": {
