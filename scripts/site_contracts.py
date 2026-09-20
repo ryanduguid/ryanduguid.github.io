@@ -523,6 +523,7 @@ warnings: list[str] = []
 PRIMARY_NAV_LINKS = [
     ("/tools/", "Tools"),
     ("/rates/", "Rates"),
+    ("/evaluate/", "Evaluations"),
     ("/evidence/", "Evidence"),
     ("/about/", "About"),
     ("/contact/", "Contact"),
@@ -2496,6 +2497,10 @@ def check_shared_shell(html: str, rel: str, failures: list[str]) -> None:
         expected_current["/rates/"] = "page"
     elif rel.startswith("rates/"):
         expected_current["/rates/"] = "location"
+    elif rel == "evaluate/index.html":
+        expected_current["/evaluate/"] = "page"
+    elif rel.startswith("evaluate/"):
+        expected_current["/evaluate/"] = "location"
     elif rel == EVIDENCE_REL:
         expected_current["/evidence/"] = "page"
     elif rel == "about/index.html":
