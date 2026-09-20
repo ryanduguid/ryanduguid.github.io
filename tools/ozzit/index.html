@@ -138,7 +138,7 @@
           <section id="worked-example">
             <h2>One worked example</h2>
             <p>Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter this formula in a cell of the Ozzit workbook:</p>
-            <pre tabindex="0" role="region" aria-label="Ozzit GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Ozzit GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
             <p>The result is <code>100.00</code>. Check: 1100 / 11 = 100.00.</p>
             <p>That is the whole of the function's contribution: 10% arithmetic on an amount you supply.</p>
             <p>Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.</p>
@@ -334,5 +334,6 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

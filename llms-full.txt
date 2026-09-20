@@ -433,9 +433,9 @@ No client, taxpayer, or production-ledger data appears in public examples. Busin
 
 ## Security, tests, and release evidence
 
-Ryan Duguid publishes a security policy for the Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills, and this site.
+Ryan Duguid publishes a security policy for the Aus Accounting MCP , Payday Super , ATO benchmarks , trust distributions , company tax , Hardhat Ledger , TheWIPTally , Xero export , Workpaper Review Gate , Australian Accounting Skills , and this site .
 
-Each repository shows its current GitHub Actions results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills, and this site.
+Each repository shows its current GitHub Actions results: Aus Accounting MCP , Payday Super , ATO benchmarks , trust distributions , company tax , Hardhat Ledger , TheWIPTally , Xero export , Workpaper Review Gate , Australian Accounting Skills , and this site .
 
 Published products expose release assets through the release pages linked above. Each repository's attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 

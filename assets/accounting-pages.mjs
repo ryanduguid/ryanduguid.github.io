@@ -138,6 +138,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
     let csv = '';
     const cashDownload = form.querySelector('#download-cash');
     const value = name => form.elements.namedItem(name).value;
+    const money = name => aud(Number(value(name)));
 
     const cashInputs = () => ({ version: 1, currency: 'AUD', startDate: value('start-date'),
       opening: value('opening'), buffer: value('buffer'), week: value('week'), amount: value('amount'), delay: value('delay'),
@@ -201,46 +202,47 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
         let message;
         switch (form.dataset.calculator) {
           case 'gst': {
-            const r = calculate.gst(value('amount'), form.elements.namedItem('inclusive').checked);
-            message = `Excluding GST: ${aud(r.net)}. GST: ${aud(r.gst)}. Including GST: ${aud(r.gross)}.`;
+            const inclusive = form.elements.namedItem('inclusive').checked;
+            const r = calculate.gst(value('amount'), inclusive);
+            message = `Inputs: amount ${money('amount')}, ${inclusive ? 'includes' : 'excludes'} GST. Excluding GST: ${aud(r.net)}. GST: ${aud(r.gst)}. Including GST: ${aud(r.gross)}.`;
             break;
           }
           case 'business-use':
-            message = `Business-use share: ${aud(calculate.businessUse(value('cost'), value('percent')).share)}.`;
+            message = `Inputs: eligible cost ${money('cost')}, business use ${value('percent')}%. Business-use share: ${aud(calculate.businessUse(value('cost'), value('percent')).share)}.`;
             break;
           case 'margin': {
             const r = calculate.margin(value('sales'), value('cost'));
-            message = `Gross profit: ${aud(r.profit)}. Margin: ${percent(r.margin)}. Markup: ${percent(r.markup)}.`;
+            message = `Inputs: sales ${money('sales')}, direct cost ${money('cost')}. Gross profit: ${aud(r.profit)}. Margin: ${percent(r.margin)}. Markup: ${percent(r.markup)}.`;
             break;
           }
           case 'break-even': {
             const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
-            message = `Contribution per unit: ${aud(r.contribution)}. Break-even: ${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales.`;
+            message = `Inputs: fixed costs ${money('fixed')}, selling price ${money('price')} per unit, variable cost ${money('variable')} per unit. Contribution per unit: ${aud(r.contribution)}. Break-even: ${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales.`;
             break;
           }
           case 'hourly':
-            message = `Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
+            message = `Inputs: annual costs ${money('cost')}, target profit ${money('profit')}, ${value('hours')} billable hours. Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
             break;
           case 'variance': {
             const r = calculate.variance(value('actual'), value('budget'), value('kind'));
-            message = `Actual minus budget: ${aud(r.difference)}. Difference as a share of absolute budget: ${percent(r.percent)}. ${r.effect}.`;
+            message = `Inputs: actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}. Actual minus budget: ${aud(r.difference)}. Difference as a share of absolute budget: ${percent(r.percent)}. ${r.effect}.`;
             break;
           }
           case 'loan': {
             const r = calculate.loan(value('principal'), value('rate'), value('months'));
-            message = `Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
+            message = `Inputs: principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${value('months')} monthly payments. Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
             break;
           }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
-            message = `Annual staff cost: ${aud(r.annual)}. Monthly average: ${aud(r.monthly)}.`;
+            message = `Inputs: wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}. Annual staff cost: ${aud(r.annual)}. Monthly average: ${aud(r.monthly)}.`;
             break;
           }
           case 'cash': {
             const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
             const dates = calculate.cashWeekDates(value('start-date'));
             const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
-            message = `Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
+            message = `Inputs: week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${value('delay')} weeks. Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
             const body = form.querySelector('#cash-results tbody');
             body.replaceChildren();
             for (const row of r.rows) {
