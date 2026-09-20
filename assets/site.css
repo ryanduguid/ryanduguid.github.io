@@ -70,6 +70,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 [tabindex="0"]:focus-visible,
+summary:focus-visible,
 .calculator-result h2:focus-visible {
   outline: 0.1875rem solid var(--colour-stamp);
   outline-offset: 0.1875rem;
@@ -1325,6 +1326,14 @@ caption {
     color: var(--colour-paper);
     background: var(--colour-stamp-strong);
   }
+}
+
+/* The row is the link, so its title carries the entry-title underline at rest;
+   touch devices get no hover and would otherwise read the row as a table. */
+.adoption-links > a > strong {
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  text-underline-offset: var(--space-2);
 }
 
 .route-actions > a span,

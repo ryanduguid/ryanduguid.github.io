@@ -41,7 +41,10 @@ if (questions.length) {
     const count = selected().length;
     clearTimeout(countTimer);
     countTimer = setTimeout(() => {
-      countNode.textContent = `${questions.filter(q => !q.hidden).length} questions. ${count} selected.`;
+      const shown = questions.filter(q => !q.hidden).length;
+      countNode.textContent = shown
+        ? `${shown} questions. ${count} selected.`
+        : `No questions match. Choose Clear filters to show all ${questions.length}. ${count} selected.`;
     }, 300);
     for (const id of ['download-checklist', 'print-checklist', 'clear-selection']) {
       document.getElementById(id).disabled = count === 0;
