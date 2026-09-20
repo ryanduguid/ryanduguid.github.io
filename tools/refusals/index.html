@@ -183,7 +183,7 @@
             <p>
               <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fabricated file below has one employee's first contribution to a fund remitted on time but with no fund-receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
             </p>
-            <pre tabindex="0" role="region" aria-label="Fabricated payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
+            <pre class="copyable" tabindex="0" role="region" aria-label="Fabricated payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
 EMP009,2026-08-06,100.00,2026-08-07,,yes,no,,no
 EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
             <div class="table-scroll" role="region" aria-label="Payday Super timing refusal" tabindex="0">
@@ -219,7 +219,7 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
             <p>
               <a href="/tools/australian-tax-ai-agents/">Aus Accounting MCP</a> release <code>aus-accounting-mcp/v0.1.7</code> exposes a <code>refuse_div7a</code> tool for Division 7A matters outside the reviewed loan and minimum yearly repayment scope. The script below calls it in-process with fabricated names and a fabricated principal; it is the same path an MCP client takes.
             </p>
-            <pre tabindex="0" role="region" aria-label="Script that calls the refuse_div7a tool"><code>import asyncio, json
+            <pre class="copyable" tabindex="0" role="region" aria-label="Script that calls the refuse_div7a tool"><code>import asyncio, json
 from aus_accounting_mcp.server import mcp
 
 async def main():

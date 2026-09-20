@@ -1,6 +1,7 @@
-// Adds a Copy control to each install command block. Pages work unchanged
-// without JavaScript or without the asynchronous clipboard API.
-const blocks = document.querySelectorAll('.install-band pre, .install-panel pre');
+// Adds a Copy control to each install command block and each pre marked
+// copyable. Pages work unchanged without JavaScript or without the
+// asynchronous clipboard API.
+const blocks = document.querySelectorAll('.install-band pre, .install-panel pre, pre.copyable');
 
 if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
   for (const pre of blocks) {

@@ -543,6 +543,7 @@ blockquote,
 
 .table-scroll,
 .employee-table-scroll {
+  position: relative;
   max-width: 100%;
   overflow-x: auto;
   overscroll-behavior-inline: contain;
@@ -803,6 +804,15 @@ caption {
 .collection-entry > dl {
   grid-column: 3;
   grid-row: 1;
+}
+
+/* The five-minute cases entry carries long prose instead of a facts column,
+   so its paragraphs and list take the reading measure. The table keeps its
+   scroll region. Scoped to this entry so the catalogue entries keep theirs. */
+#five-minute-cases > p,
+#five-minute-cases > ul,
+#five-minute-cases #month-end-preview p {
+  max-width: var(--reading-width);
 }
 
 .task-routes {
@@ -2086,10 +2096,6 @@ input[type="checkbox"] {
 
 .result-actions .field {
   margin-bottom: 0;
-}
-
-.employee-table-scroll {
-  position: relative;
 }
 
 #employee-table {
