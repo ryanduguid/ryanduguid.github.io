@@ -62,7 +62,7 @@ Company tax and franking checks | Pinned package trial | 25.0% on the declared b
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
-Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.1, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 

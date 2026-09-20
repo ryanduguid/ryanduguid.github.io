@@ -36,6 +36,20 @@
     <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.3.</summary>
   </entry>
   <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.1.7</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7" />
+    <id>https://duguid.com.au/changelog/#entry-65df8604713dc80d</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.7.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.9</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.9" />
+    <id>https://duguid.com.au/changelog/#entry-684e370a2a97f4b1</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.9.</summary>
+  </entry>
+  <entry>
     <title>ATO benchmark comparison ato-benchmark-compare/v0.1.8</title>
     <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8" />
     <id>https://duguid.com.au/changelog/#entry-0d69e343b0a47aeb</id>
@@ -50,32 +64,18 @@
     <summary>Payday Super timing: release payday-super-checker/v0.1.6.</summary>
   </entry>
   <entry>
+    <title>Trust distribution checks solomons-sword/v0.1.7</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7" />
+    <id>https://duguid.com.au/changelog/#entry-e5f96b3417bc92e6</id>
+    <updated>2026-09-20T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.1.7.</summary>
+  </entry>
+  <entry>
     <title>The six webfonts return to IBM's unmodified Latin1 files, the response-header...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
     <updated>2026-09-14T00:00:00Z</updated>
     <summary>The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.</summary>
-  </entry>
-  <entry>
-    <title>Workpaper Review Gate review-ready-gate/v0.1.6</title>
-    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.6" />
-    <id>https://duguid.com.au/changelog/#entry-ea21615f8e1f7604</id>
-    <updated>2026-09-13T00:00:00Z</updated>
-    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.6.</summary>
-  </entry>
-  <entry>
-    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.8</title>
-    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.8" />
-    <id>https://duguid.com.au/changelog/#entry-e4caf5a88c5a69d9</id>
-    <updated>2026-09-13T00:00:00Z</updated>
-    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.8.</summary>
-  </entry>
-  <entry>
-    <title>Trust distribution checks solomons-sword/v0.1.6</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.6" />
-    <id>https://duguid.com.au/changelog/#entry-d951072b5d0dc6c1</id>
-    <updated>2026-09-13T00:00:00Z</updated>
-    <summary>Trust distribution checks: release solomons-sword/v0.1.6.</summary>
   </entry>
   <entry>
     <title>Company tax and franking checks the-exchequer-tally/v0.1.6</title>

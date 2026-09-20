@@ -56,7 +56,7 @@
         </nav>
         <h1>Ozzit: Excel LAMBDA functions for Australian financial modelling</h1>
         <div class="article-actions">
-          <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1">Download Ozzit from GitHub</a>
+          <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2">Download Ozzit from GitHub</a>
           <a href="#worked-example">Try a formula</a>
         </div>
         <p class="field-note">Needs Microsoft 365 or Excel 2024 and later. Choose <code>ozzit.xlsx</code> under Assets on the release page.</p>
@@ -68,8 +68,8 @@
           macro and no external dependency: the functions are ordinary defined
           names you can read and copy.
         </p>
-        <p class="release-meta">Current release v3.4.1, published 13 September 2026, verified 18 September 2026. <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1">Release record and verification on GitHub</a>.</p>
-        <p class="page-meta">Published 18 September 2026. Last reviewed 18 September 2026.</p>
+        <p class="release-meta">Current release v3.4.2, published 20 September 2026, verified 20 September 2026. <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2">Release record and verification on GitHub</a>.</p>
+        <p class="page-meta">Published 18 September 2026. Last reviewed 20 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -89,7 +89,7 @@
           <section id="what-it-is">
             <h2>What Ozzit is</h2>
             <p>An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native <code>LAMBDA</code> stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.</p>
-            <p>The v3.4.1 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's <code>src/</code> folder and indexed in <code>functions.csv</code>.</p>
+            <p>The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's <code>src/</code> folder and indexed in <code>functions.csv</code>.</p>
             <p>The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial-year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.</p>
           </section>
 
@@ -112,10 +112,10 @@
 
           <section id="functions">
             <h2>Selected functions</h2>
-            <p>Ten of the 133, with their published signatures. The full index is in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.1/functions.csv">functions.csv</a>.</p>
+            <p>Ten of the 133, with their published signatures. The full index is in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv">functions.csv</a>.</p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="Selected Ozzit functions and signatures">
               <table class="facts rate-table--wide">
-                <caption>Selected functions from the v3.4.1 index. Scroll sideways on small screens.</caption>
+                <caption>Selected functions from the v3.4.2 index. Scroll sideways on small screens.</caption>
                 <thead>
                   <tr><th scope="col">Function</th><th scope="col">Signature</th><th scope="col">What it returns</th></tr>
                 </thead>
@@ -142,28 +142,28 @@
             <p>The result is <code>100.00</code>. Check: 1100 / 11 = 100.00.</p>
             <p>That is the whole of the function's contribution: 10% arithmetic on an amount you supply.</p>
             <p>Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.</p>
-            <p>The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.1. The v3.4.1 gate results below are the record for the current file.</p>
+            <p>The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.2. The v3.4.2 gate results below are the record for the current file.</p>
           </section>
 
           <section id="download">
             <h2>Download and use it</h2>
             <p class="install-needs">Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.</p>
             <ul>
-              <li><a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1">Open the v3.4.1 release page</a> and download <code>ozzit.xlsx</code> from its assets. The release also publishes <code>SHA256SUMS</code> and a provenance record.</li>
-              <li>Check the file before you trust it: the v3.4.1 asset is 438,897 bytes with SHA-256 <code>71db4f7650b8f40a27c06524bb031166dfe96b9f25c4b8e8ba2928679d2391e7</code>.</li>
-              <li><a href="https://github.com/ryanduguid/Ozzit">Read the source, guides and changelog</a>, or start with the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.1/docs/workbook-use.md">guide to opening the workbook and copying functions</a>.</li>
+              <li><a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2">Open the v3.4.2 release page</a> and download <code>ozzit.xlsx</code> from its assets. The release also publishes <code>SHA256SUMS</code> and a provenance record.</li>
+              <li>Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 <code>0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f</code>.</li>
+              <li><a href="https://github.com/ryanduguid/Ozzit">Read the source, guides and changelog</a>, or start with the <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/workbook-use.md">guide to opening the workbook and copying functions</a>.</li>
             </ul>
-            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff">the v3.4.1 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
+            <p>To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff">the v3.4.2 CITATION.cff</a>, which names the release this page documents. The default branch may already carry a later version.</p>
           </section>
 
           <section id="verification">
             <h2>Release verification</h2>
-            <p>Release v3.4.1 was built from a signed tag and gated before publication. On 13 September 2026, in Excel 16.0 build 20430:</p>
+            <p>Release v3.4.2 was built from a signed tag and gated before publication. On 20 September 2026, in Excel 16.0 build 20430:</p>
             <ul>
               <li>1,129 formulas recalculated with 0 in error.</li>
-              <li>868 assertions ran with 0 failures: 566 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.</li>
+              <li>905 assertions ran with 0 failures: 603 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.</li>
               <li>19,444 cached values were confirmed to equal what their formulas produce.</li>
-              <li>207 unit tests passed, and the published formula source reproduced all 138 named formulas.</li>
+              <li>246 unit tests passed, and the published formula source reproduced all 138 named formulas.</li>
             </ul>
             <p>Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.</p>
           </section>
@@ -193,7 +193,7 @@
               <h3>Does Ozzit calculate Australian tax?</h3>
               <p>No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations.</p>
               <h3>Where do I get the current release?</h3>
-              <p>Release v3.4.1, published on 13 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.</p>
+              <p>Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.</p>
             </div>
           </section>
 
@@ -231,7 +231,7 @@
         "description": "A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial-year, depreciation and AASB 16 lessee helpers.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-20",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -249,7 +249,7 @@
         "description": "A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial-year, depreciation and AASB 16 lessee helpers.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-20",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -290,15 +290,15 @@
         "operatingSystem": "Windows, macOS",
         "softwareRequirements": "Microsoft 365 or Excel 2024 and later, with LAMBDA and dynamic arrays",
         "url": "https://duguid.com.au/tools/ozzit/",
-        "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1",
+        "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
         "codeRepository": "https://github.com/ryanduguid/Ozzit",
         "sameAs": [
           "https://github.com/ryanduguid/Ozzit"
         ],
-        "softwareVersion": "3.4.1",
-        "datePublished": "2026-09-13",
-        "dateModified": "2026-09-18",
-        "license": "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/LICENCE",
+        "softwareVersion": "3.4.2",
+        "datePublished": "2026-09-20",
+        "dateModified": "2026-09-20",
+        "license": "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/LICENCE",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "creator": { "@id": "https://duguid.com.au/about/#person" },
@@ -327,7 +327,7 @@
           {
             "@type": "Question",
             "name": "Where do I get the current release?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Release v3.4.1, published on 13 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use." }
           }
         ]
       }

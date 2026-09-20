@@ -1783,16 +1783,22 @@ def test_release_record() -> None:
         )
 
     # An unreleased default-branch version must not be offered as a download.
+    unreleased = copy.deepcopy(record)
+    unreleased["components"]["ozzit"]["unreleased_default_branch"] = {
+        "version": "3.4.3",
+        "observed": "2026-09-20",
+        "note": "Test fixture: a default-branch version with no release or asset.",
+    }
     with copied_site() as root:
         replace_file(
             root,
             "tools/ozzit/index.html",
-            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.1",
             "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.3",
         )
         expect_failure(
             "unreleased download offered",
-            release_record.check_record(root),
+            release_record.check_record(root, unreleased),
             "which is not published",
         )
 
@@ -1907,8 +1913,8 @@ def test_release_record() -> None:
         page.write_text(
             page.read_text(encoding="utf-8").replace(
                 "</main>",
-                '<p><a href="https://github.com/example/other/releases/tag/v3.4.2">Another '
-                "project's v3.4.2</a></p></main>",
+                '<p><a href="https://github.com/example/other/releases/tag/v3.4.3">Another '
+                "project's v3.4.3</a></p></main>",
             ),
             encoding="utf-8",
         )
@@ -1916,19 +1922,19 @@ def test_release_record() -> None:
             "unrelated repository sharing a version number",
             [
                 failure
-                for failure in release_record.check_record(root)
+                for failure in release_record.check_record(root, unreleased)
                 if "not published" in failure
             ],
         )
 
     # A release-specific supporting file must be read at the documented release,
     # not at a default branch that may already carry a later version.
-    for replacement in ("main", "v3.4.2"):
+    for replacement in ("main", "v3.4.3"):
         with copied_site() as root:
             page = root / "tools/ozzit/index.html"
             page.write_text(
                 page.read_text(encoding="utf-8").replace(
-                    "Ozzit/blob/v3.4.1/CITATION.cff",
+                    "Ozzit/blob/v3.4.2/CITATION.cff",
                     f"Ozzit/blob/{replacement}/CITATION.cff",
                 ),
                 encoding="utf-8",
@@ -1936,13 +1942,13 @@ def test_release_record() -> None:
             expect_failure(
                 f"citation retargeted to {replacement}",
                 release_record.check_record(root),
-                "CITATION.cff must be linked at v3.4.1",
+                "CITATION.cff must be linked at v3.4.2",
             )
 
     # Supporting evidence must also be a link a reader can see.
     with copied_site() as root:
         page = root / "tools/ozzit/index.html"
-        citation = "https://github.com/ryanduguid/Ozzit/blob/v3.4.1/CITATION.cff"
+        citation = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff"
         text = page.read_text(encoding="utf-8").replace(
             f'href="{citation}"', 'href="https://example.org/elsewhere"'
         )
@@ -1951,7 +1957,7 @@ def test_release_record() -> None:
         expect_failure(
             "supporting evidence only in a comment",
             release_record.check_record(root),
-            "CITATION.cff must be linked at v3.4.1",
+            "CITATION.cff must be linked at v3.4.2",
         )
 
     # The repository root is a general destination and stays unpinned.
