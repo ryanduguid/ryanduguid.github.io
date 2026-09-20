@@ -61,7 +61,7 @@
       "503e24262367dbf8d22375c1e919978b2809b878659a50a1da564b1430736261"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "89fe446b1f8281d1b0f2280d1cfcb0aab48de165a28b8e839a694de16a191110"
+      "f21bfd4de05de1a37b658a95dafb3ec1b4274a875f7d6f396cf5229c9f4bf42b"
     ],
     "tools/business-calculators/index.html": [
       "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
@@ -107,7 +107,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "0f44225c2fd56b40d24d65dfc50c7b99b57678c333d45fa2b79d045b13f7dab5",
+    "llms.txt": "7c75d951b963506290bcb5b7ba8ecb49b0231b6a63354c9cd4b4cd854b119ddd",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
     "sitemap.xml": "1b9ebe6637888fd810949a4ff248abf4b4509155944aa1820a334ba422d66778"
   },
