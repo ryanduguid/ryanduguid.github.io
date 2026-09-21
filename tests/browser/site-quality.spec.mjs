@@ -70,7 +70,10 @@ const representativeHeightBaseline = {
     // direct example links on 18 September 2026, and the Ozzit entry joined
     // the Calculate group the same day. Tools measures 8,978px at 390px wide
     // in the mobile project. Retain the 234px guard.
-    ['/tools/', 9212],
+    // The 21 September Excel chooser row and calculator shortcut add 121px
+    // at 390px in Camofox. Add that measured content cost to the existing
+    // ceiling; Chromium CI run 35598730192 confirms this limit passes.
+    ['/tools/', 9333],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. The upstream summary then
     // gained the detection-is-not-prevention qualification on 18 September
@@ -84,9 +87,9 @@ const representativeHeightBaseline = {
     // input-scoped description on 18 September 2026, which wraps to a third
     // line. Home measures 6,535px at 1440px wide, plus the 234px guard.
     ['/', 6769],
-    // Tools renders at 5,080px with the four starting routes added on
-    // 18 September 2026 above the work chooser, plus the 234px guard.
-    ['/tools/', 5314],
+    // Tools renders at 5,386px in Chromium CI run 35598730192 after the
+    // Excel chooser row and calculator shortcut. Retain the 234px guard.
+    ['/tools/', 5620],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.

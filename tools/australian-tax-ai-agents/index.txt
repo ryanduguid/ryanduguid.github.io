@@ -10,7 +10,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 20 September 2026.
+Published 25 August 2026. Last reviewed 21 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -60,19 +60,61 @@ The transcript's first line shows the source-checkout command, uv run --locked a
 
 ## Adopt
 
+### Five ways to try it
+
+Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
+
+No install
+
+Open the browser calculator with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.
+
+Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
+
+Claude Code
+
 Needs Python 3.10 or later and uv.
 
 ```
 # Australian Accounting & Tax MCP server for Claude Code
 claude mcp add aus-accounting -- uvx aus-accounting-mcp
+```
 
+Codex
+
+Needs Python 3.10 or later and uv.
+
+```
 # Australian Accounting & Tax MCP server for Codex
 codex mcp add aus-accounting -- uvx aus-accounting-mcp
 ```
 
-The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
+Skills
 
-Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
+Needs Node. Development checkout: installs the default branch, not the tagged release.
+
+```
+# Public Practice & Tax skills
+npx skills add ryanduguid/australian-accounting-skills
+```
+
+GitHub workflows
+
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
+
+Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
+
+```
+# GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
+git clone https://github.com/ryanduguid/github-agent-skills.git
+cd github-agent-skills
+python scripts/validate_skills.py --strict
+```
+
+A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
+
+The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
+
+The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -143,9 +185,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
-- Adopt: https://duguid.com.au/#adopt
+- Excel cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- reproducible evaluation: https://duguid.com.au/evaluate/
 - Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
-- evaluation: https://duguid.com.au/evaluate/
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/

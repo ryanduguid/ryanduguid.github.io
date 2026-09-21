@@ -62,7 +62,7 @@
       search a Markdown folder you configure. Outputs need human review.
     </p>
     <p class="release-meta">Reference release v0.2.4, the current published release, verified 20 September 2026. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4">Tagged source and release record on GitHub</a>.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 20 September 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 21 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -167,19 +167,52 @@
     </section>
     <section id="install" class="install-panel">
     <h2>Adopt</h2>
-    <p class="install-needs">Needs Python 3.10 or later and uv.</p>
-    <pre tabindex="0" role="region" aria-label="MCP install commands"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
-<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span>
-
-<span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
+    <div class="install-band">
+      <h3>Five ways to try it</h3>
+      <p>Start with the <a href="/examples/profit-vs-cash-flow/">Excel cash-flow example</a> or <a href="/tools/coal-lsl-levy/">browser calculator</a>. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.</p>
+      <div class="adopt-chooser" role="group" aria-label="Adoption routes">
+        <input class="adopt-input" type="radio" name="adopt-route" id="adopt-none" checked="checked" />
+        <label class="adopt-tab" for="adopt-none">No install</label>
+        <div class="adopt-panel">
+          <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.</p>
+          <p>Open the <a href="/examples/profit-vs-cash-flow/">synthetic Excel forecast</a> in desktop Excel, or send a <a href="/evaluate/">reproducible evaluation</a> to whoever manages your systems.</p>
+        </div>
+        <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
+        <label class="adopt-tab" for="adopt-claude">Claude Code</label>
+        <div class="adopt-panel">
+          <p class="install-needs">Needs Python 3.10 or later and uv.</p>
+          <pre tabindex="0" role="region" aria-label="Claude Code install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
+<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
+        </div>
+        <input class="adopt-input" type="radio" name="adopt-route" id="adopt-codex" />
+        <label class="adopt-tab" for="adopt-codex">Codex</label>
+        <div class="adopt-panel">
+          <p class="install-needs">Needs Python 3.10 or later and uv.</p>
+          <pre tabindex="0" role="region" aria-label="Codex install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
 <span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
+        </div>
+        <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
+        <label class="adopt-tab" for="adopt-skills">Skills</label>
+        <div class="adopt-panel">
+          <p class="install-needs">Needs Node. Development checkout: installs the default branch, not the tagged release.</p>
+          <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Public Practice &amp; Tax skills</span>
+<span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
+        </div>
+        <input class="adopt-input" type="radio" name="adopt-route" id="adopt-github" />
+        <label class="adopt-tab" for="adopt-github">GitHub workflows</label>
+        <div class="adopt-panel">
+          <p>github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.</p>
+          <p class="install-needs">Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.</p>
+          <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
+<span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
+<span class="cmd">cd github-agent-skills</span>
+<span class="cmd">python scripts/validate_skills.py --strict</span></code></pre>
+          <p>A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy <code>.claude/skills/</code> for Claude Code or <code>.agents/skills/</code> for Codex into that project's matching directory.</p>
+        </div>
+      </div>
+    </div>
     <p>
-      The commands under <a href="/#adopt">Adopt</a> are the maintained install
-      route, including the skills variant; they name the repository and the
-      executable.
-    </p>
-    <p>
-      Each command above is unpinned. uvx may reuse a cached environment or an
+      The MCP install commands above are unpinned. uvx may reuse a cached environment or an
       already installed tool, so an unpinned command does not guarantee the
       latest release on every run. Upgrade deliberately, and check which version
       you are running before you compare a result with anything. The pinned
@@ -187,6 +220,7 @@
       reproduces release 0.2.4, and each <a href="/evaluate/">evaluation</a>
       keeps the release it was run against.
     </p>
+    <p>The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp">Source on GitHub</a>,
@@ -269,7 +303,7 @@
         "description": "Run local ATO benchmark, Payday Super, and limited Division 7A checks, six bounded tax worksheets, and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-21",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -287,7 +321,7 @@
         "description": "Run local ATO benchmark, Payday Super, and limited Division 7A checks, six bounded tax worksheets, and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-21",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -343,7 +377,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-09-20"
+        "dateModified": "2026-09-21"
       },
       {
         "@type": "FAQPage",
@@ -394,6 +428,7 @@
     ]
   }
   </script>
+  <script type="module" src="/assets/legacy-routes.mjs"></script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

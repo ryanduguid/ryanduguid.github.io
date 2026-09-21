@@ -1447,6 +1447,7 @@ caption {
 
 .adopt-panel {
   display: none;
+  grid-template-columns: minmax(0, 1fr);
   flex: 1 1 100%;
   order: 1;
   min-width: 0;
