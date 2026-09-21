@@ -2792,4 +2792,17 @@ html[data-view-mode="machine"] body {
     display: grid;
     grid-template-columns: repeat(3, max-content);
   }
+
+  /* Keep the worked examples in the first viewport below the taller header. */
+  .calculator-header {
+    padding-block: var(--space-3);
+  }
+
+  .calculator-workspace {
+    padding-top: var(--space-4);
+  }
+
+  .payday-example .article-header {
+    padding-top: var(--space-2);
+  }
 }
