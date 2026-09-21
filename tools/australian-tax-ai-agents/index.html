@@ -113,7 +113,7 @@
         <tr>
           <td data-label="Job"><span class="comparison-value">Walk an agent through a public-practice workflow</span></td>
           <td data-label="What to install"><span class="comparison-value"><a href="https://github.com/ryanduguid/australian-accounting-skills">australian-accounting-skills</a></span></td>
-          <td data-label="Where it runs"><span class="comparison-value">Claude Code / Codex plugin, or <code>npx skills add</code></span></td>
+          <td data-label="Where it runs"><span class="comparison-value">Claude Code / Codex plugin, or <code>npx --yes skills@1.5.22 add</code></span></td>
           <td data-label="What it will not do"><span class="comparison-value">Does not hard-code rates. Sends the agent to ato.gov.au for current figures.</span></td>
         </tr>
         <tr>
@@ -196,7 +196,7 @@
         <div class="adopt-panel">
           <p class="install-needs">Needs Node. Development checkout: installs the default branch, not the tagged release.</p>
           <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Public Practice &amp; Tax skills</span>
-<span class="cmd">npx skills add ryanduguid/australian-accounting-skills</span></code></pre>
+<span class="cmd">npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-github" />
         <label class="adopt-tab" for="adopt-github">GitHub workflows</label>
@@ -220,7 +220,7 @@
       reproduces release 0.2.4, and each <a href="/evaluate/">evaluation</a>
       keeps the release it was run against.
     </p>
-    <p>The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
+    <p>The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp">Source on GitHub</a>,

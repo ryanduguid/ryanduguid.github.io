@@ -19,7 +19,7 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
 Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
-Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx skills add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
+Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
 Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax-return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
@@ -94,7 +94,7 @@ Needs Node. Development checkout: installs the default branch, not the tagged re
 
 ```
 # Public Practice & Tax skills
-npx skills add ryanduguid/australian-accounting-skills
+npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
 ```
 
 GitHub workflows
@@ -114,7 +114,7 @@ A fresh clone includes both runtime copies and needs no synchronisation. For ano
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
 
-The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
+The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 

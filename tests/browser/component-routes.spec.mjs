@@ -32,7 +32,7 @@ test('current tool routes lead to maintained component source and support', asyn
   // Adopt shows one route at a time: open the Skills route before reading it.
   await page.locator('label[for="adopt-skills"]').click();
   await expect(page.getByRole('region', { name: 'Skills install command' }))
-    .toContainText('npx skills add ryanduguid/australian-accounting-skills');
+    .toContainText('npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills');
 });
 
 test('adoption routes survive sharing, reload and browser history', async ({ page }) => {
