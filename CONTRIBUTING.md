@@ -154,8 +154,9 @@ its own words, naming both versions.
 
 ## What an agent can be made to run
 
-`llms.txt`, the per-page text alternates and the README are instruction files: an
-agent reads them and runs what they say. So an install command in them executes on
+`llms.txt`, the per-page text alternates, the README and everything the index
+links an agent to, including the agent-skills manifest, are instruction files:
+an agent reads them and runs what they say. So an install command in them executes on
 a reader's machine, and two things follow.
 
 A package name nobody has published is claimable by anyone, who then serves their
@@ -199,7 +200,7 @@ deliberately unfinished: it needs a recorder, and an observation marked complete
 needs its evidence, so it does not validate until a real round is recorded in it.
 A summary validates first and withholds every metric when any selected file fails.
 
-Install the git hooks once with `python -m pip install pre-commit && pre-commit install`; they run the pinned ruff check on staged files.
+Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pre-commit install`; they run the pinned ruff check on staged files.
 
 ## Pull requests
 

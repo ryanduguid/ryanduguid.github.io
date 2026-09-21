@@ -18,6 +18,7 @@ ZERO_WIDTH = chr(0x200B)
 RIGHT_TO_LEFT = chr(0x202E)
 POP_DIRECTION = chr(0x202C)
 TAG_LETTER = chr(0xE0041)
+ARABIC_LETTER_MARK = chr(0x61C)
 
 POLICY = {
     "packages": {
@@ -94,6 +95,52 @@ class NameTests(AgentFileFixture):
             [],
         )
 
+    def test_every_package_on_a_multi_package_line_is_read(self) -> None:
+        """An approved first package must not carry an unreviewed second one."""
+        found = self.findings("pip install solomons-sword acme-widgets\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_a_multi_package_npm_line_is_read_too(self) -> None:
+        found = self.findings("npm install skills@1.5.22 acme-widgets\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_installing_a_local_tool_from_the_registry_still_needs_a_pin(self) -> None:
+        """npx runs the copy npm ci installed; npm install resolves the registry."""
+        found = self.findings("npm install playwright\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("without a version", found[0])
+
+    def test_an_executable_after_from_is_not_a_second_package(self) -> None:
+        self.assertEqual(
+            self.findings("uvx --from solomons-sword==0.1.7 solomons-sword s99b-check --gross 1\n"),
+            [],
+        )
+
+    def test_a_flag_value_is_not_a_package(self) -> None:
+        self.assertEqual(
+            self.findings("pip install --index-url https://example.invalid/simple .\n"), []
+        )
+
+    def test_a_second_command_on_the_line_does_not_leak_into_the_first(self) -> None:
+        found = self.findings("pip install solomons-sword && echo acme-widgets\n")
+        self.assertEqual(found, [])
+
+    def test_a_manifest_an_agent_is_pointed_at_is_scanned(self) -> None:
+        """llms.txt links the agent-skills manifest, which carries an npx line."""
+        found = self.findings(
+            '{"install": "npx acme-cli@1.0.0 add ."}\n',
+            name=".well-known/agent-skills/index.json",
+        )
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-cli", found[0])
+
+    def test_a_published_markdown_file_is_scanned(self) -> None:
+        found = self.findings("    pip install acme-widgets\n", name="rates/register/README.md")
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-widgets", found[0])
+
     def test_a_page_text_alternate_is_scanned_too(self) -> None:
         found = self.findings("npm install acme-widgets\n", name="tools/thing/index.txt")
         self.assertEqual(len(found), 1)
@@ -113,6 +160,11 @@ class HiddenTextTests(AgentFileFixture):
     def test_a_unicode_tag_character_is_refused(self) -> None:
         found = self.findings("Ordinary text." + TAG_LETTER + "\n")
         self.assertIn("U+E0041", found[0])
+
+    def test_an_arabic_letter_mark_is_refused(self) -> None:
+        """A zero-width right-to-left control the first pass left out."""
+        found = self.findings("Ordinary text." + ARABIC_LETTER_MARK + "\n")
+        self.assertIn("U+061C", found[0])
 
     def test_the_finding_names_the_line(self) -> None:
         self.findings("one\ntwo\nthree" + ZERO_WIDTH + "\n")

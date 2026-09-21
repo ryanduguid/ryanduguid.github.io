@@ -39,53 +39,80 @@ ROOT = Path(__file__).resolve().parents[1]
 POLICY = Path(__file__).resolve().parent / "agent_file_policy.json"
 OWNER = "ryanduguid"
 
-# The files an agent is pointed at, in the built site.
+# The files an agent is pointed at, in the built site: the machine-readable
+# index, its per-page text alternates, the README, and anything else published
+# as text that the index links an agent to, such as the agent-skills manifest.
 SCANNED = ("llms.txt", "llms-full.txt", ".well-known/llms.txt", "README.md")
+SCANNED_GLOBS = ("**/*.txt", "**/*.md", ".well-known/**/*.json")
 
-# Zero width, bidirectional overrides and isolates, word joiners, the byte order
-# mark, and the Unicode tag block used to smuggle text past a reader.
+# Zero width, bidirectional marks, overrides and isolates, word joiners, the
+# byte order mark, and the Unicode tag block used to smuggle text past a reader.
 INVISIBLE = re.compile(
-    r"[\u200b-\u200f\u202a-\u202e\u2066-\u2069\u2060-\u2064\ufeff]|[\U000e0000-\U000e007f]"
+    r"[\u200b-\u200f\u202a-\u202e\u2066-\u2069\u2060-\u2064\u061c\ufeff]"
+    r"|[\U000e0000-\U000e007f]"
 )
 
-# A package token: a quoted or bare name, optionally with a version specifier.
-# Python spells that `name==1.2.3` and npm spells it `name@1.2.3`, and the npm
-# form has to be read off the name rather than after it.
-TOKEN = (
-    r"[\"']?((?:@[\w.-]+/)?[A-Za-z0-9][\w.-]*)(?:\[[^\]\s]*\])?"
-    r"(?:(==[\w.!+-]+)|(@[\w.+-]+))?[\"']?"
-)
-# Flags that sit between the subcommand and the package name.
-FLAGS = r"(?:(?:-[\w-]+|--[\w-]+(?:[= ][^\s]+)?)\s+)*"
-
-# (registry, pattern, command line only)
-COMMANDS = (
-    (
-        "pypi",
-        re.compile(r"\b(?:python\d?(?: -m)? )?(?:uv )?pip3? install\s+" + FLAGS + TOKEN),
-        False,
-    ),
-    ("pypi", re.compile(r"\buvx\s+" + FLAGS + r"--from\s+" + TOKEN), False),
-    ("pypi", re.compile(r"\bpipx (?:run|install)\s+" + FLAGS + TOKEN), False),
-    ("pypi", re.compile(r"\buv tool (?:run|install)\s+" + FLAGS + TOKEN), False),
-    ("npm", re.compile(r"\bnpm (?:i|install|add)\s+" + FLAGS + TOKEN), False),
-    ("npm", re.compile(r"\b(?:pnpm|yarn|bun) (?:add|dlx|install)\s+" + FLAGS + TOKEN), False),
-    ("pypi", re.compile(r"\buvx\s+" + FLAGS + TOKEN), True),
-    ("npm", re.compile(r"\bnpx\s+" + FLAGS + TOKEN), True),
+# Commands that install every package named after them.
+INSTALLERS = (
+    ("pypi", re.compile(r"\b(?:python\d?\s+-m\s+)?(?:uv\s+)?pip3?\s+install\b")),
+    ("npm", re.compile(r"\bnpm\s+(?:i|install|add)\b")),
+    ("npm", re.compile(r"\b(?:pnpm|yarn|bun)\s+(?:add|install)\b")),
 )
 
-# A local path, a requirements file or an editable install names no registry
-# package, so there is nothing for anyone else to claim.
-LOCAL = re.compile(r"^(?:\.|/|~|[A-Za-z]:|-|\$)|\.(?:txt|lock|toml|cfg|whl|tar\.gz|json)$")
+# Commands that fetch one package and run it. Later tokens are that tool's own
+# arguments rather than more packages. "uvx name" and "npx name" are two words
+# of ordinary English away from a sentence about them, and the page text
+# alternates carry both, so those two are read only where the line is a command.
+RUNNERS = (
+    ("pypi", re.compile(r"\buvx\b"), True),
+    ("pypi", re.compile(r"\bpipx\s+(?:run|install)\b"), False),
+    ("pypi", re.compile(r"\buv\s+tool\s+(?:run|install)\b"), False),
+    ("npm", re.compile(r"\bnpx\b"), True),
+    ("npm", re.compile(r"\b(?:pnpm|yarn|bun)\s+dlx\b"), False),
+)
 
-# `uvx name` and `npx name` are two words of ordinary English away from a
-# sentence about them, and the page text alternates carry both. Those two forms
-# are read only where the line is a command; every other form names its package
-# explicitly enough to read anywhere, including inside prose.
 COMMAND_LINE = re.compile(
     r"^\s*(?:[$>#]\s*)?(?:python\d?|py|pip3?|uv|uvx|pipx|npm|npx|pnpm|yarn|bun|node"
     r"|claude|codex|cd|git|just|make)\b"
 )
+
+# Flags that swallow the next token, so that token is not a package name.
+VALUE_FLAGS = {
+    "-r",
+    "--requirement",
+    "-c",
+    "--constraint",
+    "-e",
+    "--editable",
+    "-t",
+    "--target",
+    "-f",
+    "--find-links",
+    "--index-url",
+    "--extra-index-url",
+    "--prefix",
+    "--python",
+    "-p",
+    "--registry",
+    "--with",
+    "--agent",
+    "-a",
+    "--skill",
+    "-s",
+    "--metadata",
+    "--subagent",
+    "--from",
+}
+# uvx --from PACKAGE EXECUTABLE: the package is the flag's value, and the first
+# positional token is the executable it runs.
+SOURCE_FLAG = "--from"
+
+# One command ends where the next begins.
+SEPARATORS = {"&&", "||", "|", ";", "&", "#"}
+
+# A local path, a requirements file or an editable install names no registry
+# package, so there is nothing for anyone else to claim.
+LOCAL = re.compile(r"^(?:\.|/|~|[A-Za-z]:|-|\$)|\.(?:txt|lock|toml|cfg|whl|tar\.gz|json)$")
 
 
 class Finding(NamedTuple):
@@ -93,53 +120,107 @@ class Finding(NamedTuple):
     what: str
 
 
+class Install(NamedTuple):
+    registry: str
+    package: str
+    version: str | None
+    #: True when the command runs the package rather than installing it, which
+    #: is the only form npx resolves from a local node_modules.
+    runs_it: bool
+
+
 def scanned_files(root: Path) -> list[Path]:
     files = [root / name for name in SCANNED]
-    # _site is this same content one build later, and only in a source checkout.
-    files.extend(sorted(path for path in root.glob("**/index.txt") if "_site" not in path.parts))
-    return [path for path in files if path.is_file()]
+    for pattern in SCANNED_GLOBS:
+        # _site is this same content one build later, and only in a source checkout.
+        files.extend(path for path in root.glob(pattern) if "_site" not in path.parts)
+    unique: dict[Path, None] = {}
+    for path in files:
+        if path.is_file():
+            unique.setdefault(path.resolve(), None)
+    return sorted(unique)
 
 
 def load_policy(path: Path = POLICY) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
 
 
-def npm_name(token: str) -> tuple[str, str | None]:
-    """Split an npm token, where the version rides on an @ inside the name."""
+def split_version(registry: str, token: str) -> tuple[str, str | None]:
+    """Python spells a pin name==1.2.3, npm spells it name@1.2.3."""
+    token = token.strip("\"'`,")
+    token = re.sub(r"\[[^\]]*\]$", "", token)
+    if registry == "pypi":
+        name, _, version = token.partition("==")
+        return name, version or None
     if token.startswith("@"):
         scope, _, rest = token.partition("/")
         name, _, version = rest.partition("@")
-        return f"{scope}/{name}", version or None
+        return scope + "/" + name, version or None
     name, _, version = token.partition("@")
     return name, version or None
 
 
-def installs(text: str) -> list[tuple[str, str, str | None]]:
-    """Every (registry, package, version) an install command in `text` resolves."""
-    found: list[tuple[str, str, str | None]] = []
-    seen: set[tuple[int, str, str]] = set()
-    for number, line in enumerate(text.splitlines(), start=1):
-        is_command = bool(COMMAND_LINE.match(line))
-        for registry, pattern, command_only in COMMANDS:
+def packages_in(rest: str, registry: str, *, take_all: bool) -> list[tuple[str, str | None]]:
+    """The packages a command's remaining tokens resolve."""
+    positional: list[str] = []
+    source: str | None = None
+    awaiting: str | None = None
+    for token in rest.split():
+        if token in SEPARATORS:
+            break
+        if awaiting is not None:
+            if awaiting == SOURCE_FLAG:
+                source = token
+            awaiting = None
+            continue
+        if token.startswith("-"):
+            flag, separator, value = token.partition("=")
+            if flag == SOURCE_FLAG and separator:
+                source = value
+            elif flag in VALUE_FLAGS and not separator:
+                awaiting = flag
+            continue
+        positional.append(token)
+        if not take_all:
+            break
+    found = []
+    for token in [source] if source is not None else positional:
+        name, version = split_version(registry, token)
+        if name and not LOCAL.search(name):
+            found.append((name, version))
+    return found
+
+
+def installs(text: str, prose: bool = True) -> list[Install]:
+    """Every package an install or run command in the text resolves.
+
+    A prose file's sentences run on past the package name, so only a line
+    that starts as a command is read as a list of packages. A structured
+    file has no prose, and the agent-skills manifest carries its install
+    command inside a JSON string.
+    """
+    found: list[Install] = []
+    for line in text.splitlines():
+        is_command = not prose or bool(COMMAND_LINE.match(line))
+        seen: set[tuple[str, str]] = set()
+        for registry, prefix in INSTALLERS:
+            match = prefix.search(line)
+            if match:
+                for name, version in packages_in(
+                    line[match.end() :], registry, take_all=is_command
+                ):
+                    if (registry, name) not in seen:
+                        seen.add((registry, name))
+                        found.append(Install(registry, name, version, False))
+        for registry, prefix, command_only in RUNNERS:
             if command_only and not is_command:
                 continue
-            for match in pattern.finditer(line):
-                groups = [group for group in match.groups() if group is not None]
-                if not groups:
-                    continue
-                token = groups[0]
-                version = groups[1].lstrip("=@") if len(groups) > 1 else None
-                if LOCAL.search(token):
-                    continue
-                if registry == "npm":
-                    token, npm_version = npm_name(token)
-                    version = version or npm_version
-                # The bare and --from forms of one command both match, so the
-                # same install would otherwise be reported twice.
-                if (number, registry, token) in seen:
-                    continue
-                seen.add((number, registry, token))
-                found.append((registry, token, version))
+            match = prefix.search(line)
+            if match:
+                for name, version in packages_in(line[match.end() :], registry, take_all=False):
+                    if (registry, name) not in seen:
+                        seen.add((registry, name))
+                        found.append(Install(registry, name, version, True))
     return found
 
 
@@ -150,12 +231,15 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
     for path in scanned_files(root):
         where = path.relative_to(root).as_posix()
         text = path.read_text(encoding="utf-8")
+        prose = path.suffix != ".json"
         for match in INVISIBLE.finditer(text):
             line = text[: match.start()].count("\n") + 1
             findings.append(
                 Finding(f"{where}:{line}", f"invisible character U+{ord(match.group()):04X}")
             )
-        for registry, package, version in installs(text):
+        for install in installs(text, prose=prose):
+            registry, package = install.registry, install.package
+            version = install.version
             entry = known.get(registry, {}).get(package)
             if entry is None:
                 findings.append(
@@ -166,7 +250,12 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
                     )
                 )
                 continue
-            if entry.get("owner") != OWNER and not version and not entry.get("local_dependency"):
+            # The local_dependency exemption covers the run path only:
+            # after npm ci, npx runs the copy package.json pins. An
+            # npm install of the same name resolves the registry, so it
+            # still has to name a version.
+            exempt = bool(entry.get("local_dependency")) and install.runs_it
+            if entry.get("owner") != OWNER and not version and not exempt:
                 findings.append(
                     Finding(
                         where,
@@ -195,7 +284,10 @@ def verify_live(root: Path = ROOT) -> int:
     used = {
         (registry, package)
         for path in scanned_files(root)
-        for registry, package, _ in installs(path.read_text(encoding="utf-8"))
+        for registry, package, _, _ in installs(
+            path.read_text(encoding="utf-8"),
+            prose=path.suffix != ".json",
+        )
     }
     drift = 0
     for registry, packages in sorted(record["packages"].items()):

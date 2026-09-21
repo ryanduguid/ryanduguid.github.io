@@ -34,6 +34,15 @@
    },
    "the-wip-tally": {
     "owner": "ryanduguid"
+   },
+   "ruff": {
+    "owner": "astral-sh"
+   },
+   "mypy": {
+    "owner": "python"
+   },
+   "pre-commit": {
+    "owner": "pre-commit"
    }
   },
   "npm": {
