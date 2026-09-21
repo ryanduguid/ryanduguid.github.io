@@ -151,7 +151,15 @@ def png_content(png: bytes) -> list[tuple[bytes, bytes]]:
             raise FaviconError("invalid PNG chunk length or checksum")
         if tag == b"IDAT":
             try:
-                payload = zlib.decompress(payload)
+                decompressor = zlib.decompressobj()
+                decoded = decompressor.decompress(payload)
+                if (
+                    not decompressor.eof
+                    or decompressor.unused_data
+                    or decompressor.unconsumed_tail
+                ):
+                    raise FaviconError("invalid PNG image data")
+                payload = decoded
             except zlib.error as exc:
                 raise FaviconError("invalid PNG image data") from exc
         chunks.append((tag, payload))

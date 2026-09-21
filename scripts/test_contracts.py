@@ -1743,8 +1743,20 @@ def test_png_compression() -> None:
 
     original = png(pixels, 9)
     alternate = png(pixels, 0)
+    trailing_data = (
+        favicon_render.PNG_SIGNATURE
+        + favicon_render._chunk(b"IHDR", header)
+        + favicon_render._chunk(b"IDAT", zlib.compress(pixels, 9) + b"trailing")
+        + favicon_render._chunk(b"IEND", b"")
+    )
     assert original != alternate
     assert favicon_render.png_content(original) == favicon_render.png_content(alternate)
+    try:
+        favicon_render.png_content(trailing_data)
+    except favicon_render.FaviconError:
+        pass
+    else:
+        raise AssertionError("PNG with trailing compressed data passed content comparison")
     for changed in (pixels[:-1] + b"\x00", b"\x00\x11\x20\x30\xff"):
         assert favicon_render.png_content(original) != favicon_render.png_content(png(changed, 9))
     changed_header = struct.pack(">IIBBBBB", 2, 1, 8, 6, 0, 0, 0)
