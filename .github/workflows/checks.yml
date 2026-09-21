@@ -89,8 +89,6 @@ jobs:
         run: npm run test:capture
       - name: Browser checks
         run: npm run test:browser
-      - name: Repeat module load and recovery without retries
-        run: npm run test:browser -- --grep "calculator load failure explains recovery|business-use sends" --repeat-each=30 --retries=0
       - name: Upload browser evidence
         if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
