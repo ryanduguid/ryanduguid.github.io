@@ -12,7 +12,7 @@ Inspect cash-flow models, calculations, and workpaper checks, with sources, assu
 
 A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 22 September 2026.
+Last reviewed 21 September 2026.
 
 Explore the cash-flow example Browse tools by accounting task
 

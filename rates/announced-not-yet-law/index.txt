@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules, and sources checked on 22 September 2026.
+> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules, and sources checked on 21 September 2026.
 
 # Announced tax measures and enacted law
 
 Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill, or instrument exists. Check application and transition rules before using a measure.
 
-Read 22 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill, or instrument exists. Various identifies a package whose components may be at different stages.
+Read 21 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill, or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## ATO development status unresolved
 
@@ -58,7 +58,7 @@ The negative-gearing acquisition cut-off is not a general CGT grandfathering rul
 
 ## Legislated: earlier application
 
-For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule, or transitional exception. Read the measure and legislation for the period being calculated.
+For these 9 measures the ATO summary names an Act or instrument and an application date on or before 21 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule, or transitional exception. Read the measure and legislation for the period being calculated.
 
 ATO-reported legislation with earlier application
 
@@ -106,7 +106,7 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. ATO summary and reform provisions reviewed 22 September 2026; other measures retain source-reported status.
+Published 20 September 2026. ATO summary and reform provisions reviewed 21 September 2026; other measures retain source-reported status.
 
 ## Links
 

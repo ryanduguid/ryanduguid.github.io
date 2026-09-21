@@ -669,7 +669,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "22 September 2026", "2026-09-22"),
+        ("index.html", "21 September 2026", "2026-09-21"),
         ("tools/index.html", "21 September 2026", "2026-09-21"),
         ("evidence/index.html", "22 September 2026", "2026-09-22"),
     )

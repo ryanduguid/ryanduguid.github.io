@@ -10,7 +10,7 @@ Seven maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 22 September 2026.
+Last reviewed 21 September 2026.
 
 This review updates the announced-measures entry; each rate page keeps its own verification date.
 
@@ -104,7 +104,7 @@ The ATO summary lists 14 selected measures as TBD and one as Various. The page s
 
 Verified
 
-22 September 2026
+21 September 2026
 
 Scope
 
