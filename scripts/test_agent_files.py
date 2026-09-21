@@ -157,6 +157,29 @@ class NameTests(AgentFileFixture):
             self.findings("python -m pip install --require-hashes -r requirements.lock\n"), []
         )
 
+    def test_an_extra_does_not_hide_the_tool_being_run(self) -> None:
+        """uvx --with adds a package beside the one it runs, rather than replacing it."""
+        found = self.findings("uvx --with solomons-sword acme-tool\n")
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("acme-tool", found[0])
+
+    def test_a_second_package_flag_is_read(self) -> None:
+        found = self.findings("npx --package skills@1.5.22 --package acme-cli command\n")
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("acme-cli", found[0])
+
+    def test_a_command_after_an_unrelated_one_is_read_as_a_command(self) -> None:
+        """The second command is a command, whatever opened the line."""
+        found = self.findings("echo preparing && pip install solomons-sword acme-widgets\n")
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_a_second_use_of_one_package_is_checked_on_its_own_terms(self) -> None:
+        """A pinned use earlier on the line must not excuse an unpinned one after it."""
+        found = self.findings("npx skills@1.5.22 add first && npx skills add second\n")
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("without a version", found[0])
+
     def test_a_manifest_an_agent_is_pointed_at_is_scanned(self) -> None:
         """llms.txt links the agent-skills manifest, which carries an npx line."""
         found = self.findings(
