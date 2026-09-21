@@ -83,24 +83,27 @@ jobs:
           cache: npm
       - name: Install browser-test dependencies
         run: npm ci
-      - name: Audit dependencies
-        run: npm audit --audit-level=high
       - name: Install Chromium
         run: npx playwright install chromium
       - name: Proof capture check
         run: npm run test:capture
       - name: Browser checks
         run: npm run test:browser
-      - name: Upload browser failure evidence
-        if: failure()
+      - name: Upload browser evidence
+        if: ${{ !cancelled() }}
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
-          name: browser-failure-evidence
+          name: browser-evidence
           path: |
             work/playwright-report
             work/test-results
           if-no-files-found: ignore
           retention-days: 7
+      - name: Audit dependencies
+        # Save browser evidence before a registry outage or advisory fails
+        # this job, while keeping the audit mandatory.
+        if: ${{ !cancelled() }}
+        run: npm audit --audit-level=high
 
   lighthouse:
     timeout-minutes: 30
