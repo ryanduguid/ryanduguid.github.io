@@ -7,7 +7,7 @@ const installPath = '/tools/australian-tax-ai-agents/';
 
 function selectAdoptionRoute() {
   const hash = window.location.hash;
-  if (window.location.pathname === '/' && /^#adopt-(none|claude|codex|skills|github)$/.test(hash)) {
+  if ((window.location.pathname === '/' || window.location.pathname === '/index.html') && /^#adopt-(none|claude|codex|skills|github)$/.test(hash)) {
     window.location.replace(`${installPath}${window.location.search}${hash}`);
     return;
   }
