@@ -14,7 +14,7 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Choose a route
 
-The four starting routes on the homepage and Tools page, by task, plus the standing review invitation:
+The four starting routes on the homepage and Tools page, by task:
 
 - **Understand an accounting problem** (https://duguid.com.au/examples/profit-vs-cash-flow/): the Lumbridge cash-flow case, readable on the page; the Excel workbook is optional.
 - **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator, with nothing to install; its own code works out the figures you enter in the browser without sending them to a server. The business planning calculators (https://duguid.com.au/tools/business-calculators/) work the same way.
