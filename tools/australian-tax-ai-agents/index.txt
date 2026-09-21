@@ -101,14 +101,16 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
 
-Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.
+Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
 git clone https://github.com/ryanduguid/github-agent-skills.git
 cd github-agent-skills
-pwsh -File scripts/sync-skills.ps1
+python scripts/validate_skills.py --strict
 ```
+
+A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
 

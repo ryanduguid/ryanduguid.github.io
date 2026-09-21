@@ -41,6 +41,14 @@ test('adoption routes survive sharing, reload and browser history', async ({ pag
     await expect(page).toHaveURL(new RegExp(`/tools/australian-tax-ai-agents/\\?source=shared#adopt-${route}$`));
     await expect(page.locator(`#adopt-${route}`)).toBeChecked();
     await expect(page.locator(`#adopt-${route} + label + .adopt-panel`)).toBeVisible();
+    const bounds = await page.evaluate(() => ({
+      pageWidth: document.documentElement.scrollWidth,
+      viewportWidth: innerWidth,
+      copyButtonRight: document.querySelector('.adopt-input:checked + label + .adopt-panel .copy-button')
+        ?.getBoundingClientRect().right ?? 0,
+    }));
+    expect(bounds.pageWidth, `${route} page overflow`).toBeLessThanOrEqual(bounds.viewportWidth);
+    expect(bounds.copyButtonRight, `${route} copy button`).toBeLessThanOrEqual(bounds.viewportWidth);
   }
   await page.goto('/tools/australian-tax-ai-agents/#install');
   await expect(page.locator('#adopt-none')).toBeChecked();

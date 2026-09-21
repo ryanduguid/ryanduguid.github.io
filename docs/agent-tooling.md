@@ -28,8 +28,14 @@ github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows
 ```powershell
 git clone https://github.com/ryanduguid/github-agent-skills.git
 cd github-agent-skills
-pwsh -File scripts/sync-skills.ps1
+python scripts/validate_skills.py --strict
 ```
+
+Validation needs Python 3.11+. A fresh clone includes both runtime copies and
+needs no synchronisation. For another project, copy `.claude/skills/` for
+Claude Code or `.agents/skills/` for Codex into that project's matching directory.
+After editing the canonical `.claude/skills/` source, run
+`python scripts/validate_skills.py --sync` to regenerate the Codex copy.
 
 ## Search Console MCP and CLI
 

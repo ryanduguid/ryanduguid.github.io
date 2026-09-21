@@ -29,6 +29,9 @@ the no-install option. Old homepage links to individual tabs still select
 the corresponding option in the guide. The current design, calculation
 behaviour and review boundaries remain in force.
 
+Installation panels use a single shrinkable grid column so long commands
+scroll within their code block and the Copy button stays on screen.
+
 The 21 September improvement pass preserves saved question searches at the
 topic hub and removes the redundant single-topic selector. Search labels name
 the current topic. Calculator copy distinguishes automatic storage from local

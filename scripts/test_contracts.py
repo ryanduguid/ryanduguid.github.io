@@ -854,7 +854,7 @@ def test_public_contracts() -> int:
         "https://github.com/ryanduguid/github-agent-skills",
         "git clone https://github.com/ryanduguid/github-agent-skills.git",
         "cd github-agent-skills",
-        "pwsh -File scripts/sync-skills.ps1",
+        "python scripts/validate_skills.py --strict",
         "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
         "workflows this portfolio uses, and keeps the fabricated-data and "
         "human-review boundaries.",
@@ -871,8 +871,8 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             contracts.MCP_REL,
-            "pwsh -File scripts/sync-skills.ps1",
-            "pwsh -File scripts/sync-skills-copy.ps1",
+            "python scripts/validate_skills.py --strict",
+            "python scripts/validate_skills.py --missing",
         )
         expect_failure(
             "github-agent-skills bootstrap command",

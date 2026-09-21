@@ -47,7 +47,7 @@ GITHUB_AGENT_SKILLS_BOUNDARY = (
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
-    r"cd\s+github-agent-skills\s+pwsh\s+-File\s+scripts/sync-skills\.ps1\b"
+    r"cd\s+github-agent-skills\s+python\s+scripts/validate_skills\.py\s+--strict\b"
 )
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
@@ -1825,7 +1825,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             for command in (
                 "git clone https://github.com/ryanduguid/github-agent-skills.git",
                 "cd github-agent-skills",
-                "pwsh -File scripts/sync-skills.ps1",
+                "python scripts/validate_skills.py --strict",
             )
         )
     ):
