@@ -40,12 +40,15 @@ POLICY = Path(__file__).resolve().parent / "agent_file_policy.json"
 OWNER = "ryanduguid"
 
 # The files an agent is pointed at, in the built site.
-SCANNED = ("llms.txt", "llms-full.txt", ".well-known/llms.txt", "README.md")
+SCANNED = (
+    "llms.txt", "llms-full.txt", ".well-known/llms.txt", ".well-known/agent-skills/index.json",
+    "README.md", "rates/register/README.md",
+)
 
 # Zero width, bidirectional overrides and isolates, word joiners, the byte order
 # mark, and the Unicode tag block used to smuggle text past a reader.
 INVISIBLE = re.compile(
-    r"[\u200b-\u200f\u202a-\u202e\u2066-\u2069\u2060-\u2064\ufeff]|[\U000e0000-\U000e007f]"
+    r"[\u061c\u200b-\u200f\u202a-\u202e\u2066-\u2069\u2060-\u2064\ufeff]|[\U000e0000-\U000e007f]"
 )
 
 # A package token: a quoted or bare name, optionally with a version specifier.
@@ -55,20 +58,21 @@ TOKEN = (
     r"[\"']?((?:@[\w.-]+/)?[A-Za-z0-9][\w.-]*)(?:\[[^\]\s]*\])?"
     r"(?:(==[\w.!+-]+)|(@[\w.+-]+))?[\"']?"
 )
-# Flags that sit between the subcommand and the package name.
-FLAGS = r"(?:(?:-[\w-]+|--[\w-]+(?:[= ][^\s]+)?)\s+)*"
-
-# (registry, pattern, command line only)
+# Command prefixes. The remainder is parsed as arguments so every package in
+# an install command is checked, while option values are not mistaken for packages.
 COMMANDS = (
-    ("pypi", re.compile(r"\b(?:python\d?(?: -m)? )?(?:uv )?pip3? install\s+" + FLAGS + TOKEN), False),
-    ("pypi", re.compile(r"\buvx\s+" + FLAGS + r"--from\s+" + TOKEN), False),
-    ("pypi", re.compile(r"\bpipx (?:run|install)\s+" + FLAGS + TOKEN), False),
-    ("pypi", re.compile(r"\buv tool (?:run|install)\s+" + FLAGS + TOKEN), False),
-    ("npm", re.compile(r"\bnpm (?:i|install|add)\s+" + FLAGS + TOKEN), False),
-    ("npm", re.compile(r"\b(?:pnpm|yarn|bun) (?:add|dlx|install)\s+" + FLAGS + TOKEN), False),
-    ("pypi", re.compile(r"\buvx\s+" + FLAGS + TOKEN), True),
-    ("npm", re.compile(r"\bnpx\s+" + FLAGS + TOKEN), True),
+    ("pypi", re.compile(r"\b(?:python\d?(?: -m)? )?(?:uv )?pip3? install\s+"), False, False),
+    ("pypi", re.compile(r"\buvx\s+.*?--from\s+"), False, False),
+    ("pypi", re.compile(r"\bpipx (?:run|install)\s+"), False, False),
+    ("pypi", re.compile(r"\buv tool (?:run|install)\s+"), False, False),
+    ("npm", re.compile(r"\bnpm (?:i|install|add)\s+"), False, False),
+    ("npm", re.compile(r"\b(?:pnpm|yarn|bun) (?:add|dlx|install)\s+"), False, False),
+    ("pypi", re.compile(r"\buvx\s+"), True, False),
+    ("npm", re.compile(r"\bnpx\s+"), True, True),
 )
+
+# Options whose next argument is a value, rather than a package.
+OPTION_VALUES = {"-r", "--requirement", "--index-url", "--extra-index-url", "--from", "--python"}
 
 # A local path, a requirements file or an editable install names no registry
 # package, so there is nothing for anyone else to claim.
@@ -110,32 +114,44 @@ def npm_name(token: str) -> tuple[str, str | None]:
     return name, version or None
 
 
-def installs(text: str) -> list[tuple[str, str, str | None]]:
-    """Every (registry, package, version) an install command in `text` resolves."""
-    found: list[tuple[str, str, str | None]] = []
-    seen: set[tuple[int, str, str]] = set()
+def installs(text: str) -> list[tuple[str, str, str | None, bool]]:
+    """Every (registry, package, version, local-execution) resolved by text."""
+    found: list[tuple[str, str, str | None, bool]] = []
     for number, line in enumerate(text.splitlines(), start=1):
         is_command = bool(COMMAND_LINE.match(line))
-        for registry, pattern, command_only in COMMANDS:
+        for registry, pattern, command_only, local_exec in COMMANDS:
             if command_only and not is_command:
                 continue
             for match in pattern.finditer(line):
-                groups = [group for group in match.groups() if group is not None]
-                if not groups:
+                if local_exec and registry == "pypi" and "--from" in line[match.end():]:
                     continue
-                token = groups[0]
-                version = groups[1].lstrip("=@") if len(groups) > 1 else None
-                if LOCAL.search(token):
+                try:
+                    import shlex
+                    args = shlex.split(line[match.end():])
+                except ValueError:
                     continue
-                if registry == "npm":
-                    token, npm_version = npm_name(token)
-                    version = version or npm_version
-                # The bare and --from forms of one command both match, so the
-                # same install would otherwise be reported twice.
-                if (number, registry, token) in seen:
-                    continue
-                seen.add((number, registry, token))
-                found.append((registry, token, version))
+                packages = []
+                skip = False
+                for arg in args:
+                    if skip:
+                        skip = False
+                    elif arg in OPTION_VALUES:
+                        skip = True
+                    elif arg.startswith("-"):
+                        continue
+                    else:
+                        packages.append(arg)
+                        if local_exec:
+                            break
+                # `--from` itself selects the distribution; bare uvx has one
+                # executable, while install commands may have many packages.
+                for token in packages:
+                    if LOCAL.search(token):
+                        continue
+                    version = None
+                    if registry == "npm":
+                        token, version = npm_name(token)
+                    found.append((registry, token, version, local_exec))
     return found
 
 
@@ -151,7 +167,7 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
             findings.append(
                 Finding(f"{where}:{line}", f"invisible character U+{ord(match.group()):04X}")
             )
-        for registry, package, version in installs(text):
+        for registry, package, version, local_exec in installs(text):
             entry = known.get(registry, {}).get(package)
             if entry is None:
                 findings.append(
@@ -162,7 +178,7 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
                     )
                 )
                 continue
-            if entry.get("owner") != OWNER and not version and not entry.get("local_dependency"):
+            if entry.get("owner") != OWNER and not version and not (local_exec and entry.get("local_dependency")):
                 findings.append(
                     Finding(
                         where,
@@ -189,7 +205,7 @@ def verify_live(root: Path = ROOT) -> int:
     """Report drift between the reviewed record and the public registries."""
     record = load_policy()
     used = {(registry, package) for path in scanned_files(root)
-            for registry, package, _ in installs(path.read_text(encoding="utf-8"))}
+            for registry, package, _, _ in installs(path.read_text(encoding="utf-8"))}
     drift = 0
     for registry, packages in sorted(record["packages"].items()):
         for package, entry in sorted(packages.items()):
