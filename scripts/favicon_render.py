@@ -150,10 +150,13 @@ def png_content(png: bytes) -> list[tuple[bytes, bytes]]:
         if end > len(png) or png[offset:end] != _chunk(tag, payload):
             raise FaviconError("invalid PNG chunk length or checksum")
         if tag == b"IDAT":
+            stream = zlib.decompressobj()
             try:
-                payload = zlib.decompress(payload)
+                payload = stream.decompress(payload)
             except zlib.error as exc:
                 raise FaviconError("invalid PNG image data") from exc
+            if not stream.eof or stream.unused_data or stream.unconsumed_tail:
+                raise FaviconError("incomplete PNG image data or trailing compressed data")
         chunks.append((tag, payload))
         offset = end
     # Both local renderers emit this exact structure with one IDAT chunk.

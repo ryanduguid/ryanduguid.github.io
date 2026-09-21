@@ -1752,7 +1752,19 @@ def test_png_compression() -> None:
         favicon_render._chunk(b"IHDR", header), favicon_render._chunk(b"IHDR", changed_header)
     )
     assert favicon_render.png_content(original) != favicon_render.png_content(changed_metadata)
-    for broken in (original[:-1], original[:20] + b"\xff" + original[21:], original + b"extra"):
+    compressed = zlib.compress(pixels, 9)
+    invalid_streams = [
+        original.replace(
+            favicon_render._chunk(b"IDAT", compressed), favicon_render._chunk(b"IDAT", invalid)
+        )
+        for invalid in (compressed + b"extra", compressed + compressed, compressed[:-1])
+    ]
+    for broken in (
+        original[:-1],
+        original[:20] + b"\xff" + original[21:],
+        original + b"extra",
+        *invalid_streams,
+    ):
         try:
             favicon_render.png_content(broken)
         except favicon_render.FaviconError:
