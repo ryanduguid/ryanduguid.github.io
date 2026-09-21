@@ -2368,7 +2368,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
 
-Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and links the receipt-amount limitation; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -2386,7 +2386,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the development correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt-amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row's figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG-charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -2403,7 +2403,7 @@ The payroll file has no pay-period-end column | Matching falls back to the payda
 The super file has only one of pay-period start or end | A payment's coverage collapses to a single day and can miss the payday it actually settled.
 The super file has no pay-period columns at all | A payment is treated as covering every payday for that employee. Where it cannot cover every competing balance, the tool refuses only if two or more of the still-competing payroll rows are identical in payday, effective period end and amount. Rows differing in any of those three are sorted and apportioned, not refused.
 
-What stays correct. The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
+Unaffected by the join itself. Matching selects the rows and amounts sent to assessment; it does not change the downstream deadline, receipt or exposure rules. Their results still depend on receipt-amount evidence, calendar and GIC coverage, and the other documented limits. Correct arithmetic cannot establish that a payment was matched to the right payday or that the fund received it.
 
 Declared at runtime, on the console only in 0.1.4. One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as employee matching: by id or by name. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
 
@@ -2451,6 +2451,7 @@ This is a register of limitations found and confirmed, not a proof that none rem
 ## Links
 
 - What these tools refuse: https://duguid.com.au/tools/refusals/
+- workbook version note: https://duguid.com.au/tools/payday-super/#workbook-versions
 - receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - contact page: https://duguid.com.au/contact/
 - evaluations: https://duguid.com.au/evaluate/
@@ -2641,17 +2642,23 @@ Receipt amount matters. A fund-receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 22 September 2026. This review reproduces the receipt-amount cases in releases 0.1.5 and 0.1.6; the fixed evaluation remains pinned to 0.1.3.
+Published 24 August 2026. Last reviewed 22 September 2026. This review covers receipt-amount cases, published MCP dependencies and workbook version differences; the fixed evaluation remains pinned to 0.1.3.
 
 ## Receipt dates and amounts
 
 The published release 0.1.6 still assumes full receipt when the amount is missing. Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns ON_TIME and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. Read the 0.1.6 release record.
 
-The development implementation withholds ON_TIME for that missing-amount case. It is unreleased; installing the published package does not give you that change.
+The development implementation withholds ON_TIME for that missing-amount case. It is unreleased; installing the published package does not give you that change. Published aus-accounting-mcp 0.2.4 pins checker 0.1.6 and retains the assumption. The development rule leaves a timely receipt without an amount UNKNOWN. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.
 
 For the $120 obligation in this example, a timely $60 matched receipt returns UNPAID, not full payment. A timely $120 matched receipt returns ON_TIME only on the supplied facts. Late receipt returns LATE; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.
+
+## Workbook versions and limits
+
+The tagged 0.1.6 workbook assumes full receipt when a receipt date has no amount. It also extrapolates GIC beyond its last covered day, 31 December 2026. The 0.1.6 CLI withholds those estimates by default and offers --allow-stale-gic as an explicit opt-in; the workbook has no equivalent option.
+
+The development workbook fixes both cases. Its Summary shows Not assessed for rate-dependent totals if any row needs an uncovered rate. This is development 0.1.7, not a published package release. Desktop Excel checks on 22 September 2026 covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. They do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is BLOCKED.
 
 ## Try the CSV without cloning
 
@@ -2720,6 +2727,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Read the 0.1.6 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
 - development implementation: https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py
+- tagged 0.1.6 workbook: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx
+- development workbook: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker/workbooks
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
 - Known limitations: https://duguid.com.au/tools/limitations/

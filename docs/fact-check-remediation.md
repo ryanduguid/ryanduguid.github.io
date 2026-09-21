@@ -144,3 +144,43 @@ GitHub [run 35624778953](https://github.com/ryanduguid/ryanduguid.github.io/acti
 The site job in run 35625547449 passed the live checks. A simultaneous local run hit GitHub's unauthenticated API rate limit on archived-repository lookups, which remain failures. No rate-limit exception or credential access was added.
 
 That run's browser trace recorded `net::ERR_NO_BUFFER_SPACE` for a localhost font request. The default HTTP/1.0 preview server opened separate asset connections. Its request handler now uses HTTP/1.1 to permit reuse; a regression fails before the change and passes afterwards, checking one socket across compressed JavaScript, a HEAD response and an uncompressed font. This reduces connection churn without adding retries or relaxing browser assertions. The trace establishes the resource error; it does not establish that connection churn was its sole cause. Final browser and Lighthouse results are recorded on the PR.
+
+## Second pass, 22 September 2026
+
+Ryan authorised the v2 follow-up in both repositories, with PRs and merge after
+checks pass. Automatic website deployment is authorised; package publication is
+not. Website baseline: `765a8e9`; accounting baseline: `19a5824`.
+
+| Finding | Disposition |
+| --- | --- |
+| R1, broad PSC-2 assurance | Qualified the visible limitations page and concise machine index. Matching selects the assessed records; results still depend on receipt evidence, calendar and GIC coverage. Accounting `LIMITATIONS.md` makes the same distinction for PSC-1 and PSC-2. |
+| R2, package documentation | Accounting README and `llms.txt` separate published 0.1.6, development 0.1.7, the deliberate 0.1.4 trial and historical 0.1.3 evaluation. Current source already removed the evidence-pack unreleased heading; the frozen PyPI 0.1.6 description still has it. Source changes do not replace published metadata. |
+| R3, release and receipt evidence | PyPI and GitHub still publish 0.1.6. Eleven synthetic CLI cases were reproduced against its wheel and development source, with separate MCP tool-function calls. Published MCP 0.2.4 resolves checker 0.1.6. The development missing-amount rule was exercised, not inferred from a release-notes heading. The published warning remains visible. |
+| R4, workbook parity | Desktop Excel reproduced receipt and GIC cases in the tagged and development workbooks. Tagged 0.1.6 extrapolates beyond 31 December 2026 while its CLI withholds by default. Development already withheld the row estimates, but its Summary summed them as zero. The accounting change makes incomplete rate-dependent totals `Not assessed`, including a mixed register, and rebuilds the workbook. Website copy records the version difference and bounded verification. |
+| R5, deployment and provenance | Source, local checks, hosted checks and live delivery are separate evidence. The delivery report will identify the merged revision and compare meaningful live HTML and machine text after Pages deploys. Earlier credential and legal-review boundaries remain unchanged; no fresh date was applied to unrelated rate or proposal tables. |
+| R6, current toolchain | The current website uses Node 24 LTS, Ruby 3.3 and Python 3.14 in CI, with Ruff 0.16.8 and Mypy 2.3.1. This pass used Node 24.19.0 and Python 3.14.7 locally. The original Node 22 results above remain historical evidence. |
+
+The accounting review records the wheel/workbook hashes, synthetic inputs,
+commands and comparison results in
+`packages/payday-super-checker/docs/release-parity-review-2026-09-22.md` in that
+repository. Camofox verified the current PyPI page and ATO GIC table; the
+authoritative local Library supplied the receipt, allocation and amount
+distinction at *Superannuation Guarantee Scheme* paragraphs 12-110 and 12-260.
+No Library text was copied into the site.
+
+The first Excel probe cleared unused sample inputs but left their table rows,
+which correctly produced `BLOCKED`. The valid scenarios delete those unused
+rows as the workbook instructions require. A package test initially expected
+the old broad assurance heading; it now requires both scoped clauses and their
+evidence qualifications. Neither setup result was treated as an engine defect.
+
+The first local browser pass completed 226 tests with eight intentional skips
+and no retries. Capture checks passed all three cases. Final hosted results and
+post-deployment comparisons are recorded on the PR and in the delivery report.
+No check exception, retry policy or assertion tolerance was relaxed.
+
+GEO work here concerns consistent versioned claims, source links and generated
+text. No fresh assistant visibility or citation benchmark was run, and browser
+or Lighthouse results are not evidence of a GEO gain. Live issuer verification,
+every proposal's legislative status, universal workbook parity and package
+publication remain outside the verified conclusions.

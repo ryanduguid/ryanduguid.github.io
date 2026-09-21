@@ -62,7 +62,7 @@
           </section>
         <p class="field-note"><strong>Receipt amount matters.</strong> A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. <a href="#receipt-amount">Read the published-version limitation</a>.</p>
         <p class="field-note">The contribution amount this check tests is set by the <a href="/rates/super-guarantee/">super guarantee rate</a>, kept as a maintained table on this site.</p>
-        <p class="page-meta">Published 24 August 2026. Last reviewed 22 September 2026. This review reproduces the receipt-amount cases in releases 0.1.5 and 0.1.6; the fixed evaluation remains pinned to 0.1.3.</p>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 22 September 2026. This review covers receipt-amount cases, published MCP dependencies and workbook version differences; the fixed evaluation remains pinned to 0.1.3.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -70,6 +70,7 @@
           <a href="#synthetic-worked-example">Synthetic worked example</a>
           <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
           <a href="#receipt-amount">Receipt dates and amounts</a>
+          <a href="#workbook-versions">Workbook versions and limits</a>
           <a href="#try-example">Try the CSV</a>
           <a href="#evidence-pack">Evidence-pack workflow</a>
           <a href="#evidence">Check the evidence</a>
@@ -79,9 +80,15 @@
           <section id="receipt-amount">
             <h2>Receipt dates and amounts</h2>
             <p><strong>The published release 0.1.6 still assumes full receipt when the amount is missing.</strong> Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>ON_TIME</code> and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6">Read the 0.1.6 release record</a>.</p>
-            <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py">development implementation</a> withholds <code>ON_TIME</code> for that missing-amount case. It is unreleased; installing the published package does not give you that change.</p>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py">development implementation</a> withholds <code>ON_TIME</code> for that missing-amount case. It is unreleased; installing the published package does not give you that change. Published <code>aus-accounting-mcp</code> 0.2.4 pins checker 0.1.6 and retains the assumption. The development rule leaves a timely receipt without an amount <code>UNKNOWN</code>. A late receipt without an amount remains <code>LATE</code>, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.</p>
             <p><code>matched_amount</code> is the supplied amount associated with the payday. It takes precedence over <code>remitted_amount</code>, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.</p>
             <p>For the $120 obligation in this example, a timely $60 matched receipt returns <code>UNPAID</code>, not full payment. A timely $120 matched receipt returns <code>ON_TIME</code> only on the supplied facts. Late receipt returns <code>LATE</code>; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.</p>
+          </section>
+
+          <section id="workbook-versions">
+            <h2>Workbook versions and limits</h2>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx">tagged 0.1.6 workbook</a> assumes full receipt when a receipt date has no amount. It also extrapolates GIC beyond its last covered day, 31 December 2026. The 0.1.6 CLI withholds those estimates by default and offers <code>--allow-stale-gic</code> as an explicit opt-in; the workbook has no equivalent option.</p>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker/workbooks">development workbook</a> fixes both cases. Its Summary shows <code>Not assessed</code> for rate-dependent totals if any row needs an uncovered rate. This is development 0.1.7, not a published package release. Desktop Excel checks on 22 September 2026 covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. They do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is <code>BLOCKED</code>.</p>
           </section>
 
           <section id="try-example">
