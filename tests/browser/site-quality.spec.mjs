@@ -448,8 +448,9 @@ test('home proof uses practical inspection width without page overflow', async (
 test('home matches its viewport visual baseline', async ({ page }, testInfo) => {
   const health = observePageHealth(page);
   await gotoForVisualSnapshot(page, '/');
-  await decodedHomeProof(page);
-  await page.locator('.proof-capture > summary').click();
+  // This baseline shows the disclosure closed. The proof tests above cover
+  // opening and decoding each responsive image.
+  await expect(page.locator('.proof-capture')).not.toHaveAttribute('open');
   await page.evaluate(() => scrollTo(0, 0));
 
   const viewport = testInfo.project.name === 'mobile-chromium'
