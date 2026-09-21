@@ -84,7 +84,6 @@ tracks a visitor.
 | Package downloads | PyPI's public download statistics per distribution | Inflated by mirrors and continuous integration |
 | Repository traffic | GitHub's own traffic panel, retained 14 days | Aggregate only, and it expires quickly |
 | Delivery request counts | The Cloudflare account's own request metrics | Requests, not people or sessions |
-| Returned trial reports | Completed copies of the reviewer trial guide | Only what a reviewer chose to send |
 
 Adding an analytics script to make this benchmark look complete would change the
 site's privacy position for no measurement worth having. Do not do it.

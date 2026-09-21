@@ -70,7 +70,10 @@ const representativeHeightBaseline = {
     // direct example links on 18 September 2026, and the Ozzit entry joined
     // the Calculate group the same day. Tools measures 8,978px at 390px wide
     // in the mobile project. Retain the 234px guard.
-    ['/tools/', 9212],
+    // The 21 September Excel chooser row and calculator shortcut add 121px
+    // at 390px in Camofox. Add that measured content cost to the existing
+    // ceiling; Chromium verification remains part of the browser CI job.
+    ['/tools/', 9333],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. The upstream summary then
     // gained the detection-is-not-prevention qualification on 18 September

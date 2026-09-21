@@ -12,7 +12,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 20 September 2026.
+Last reviewed 21 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -27,22 +27,7 @@ December closing cash | $67,320.00 | $67,320.00
 
 Read the full worked example: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.
 
-This is a maintainer-prepared demonstration. Its calculations have technical verification records. Review the Lumbridge case. No client outcome, forecast accuracy or time saving has been measured.
-
-## Review the Lumbridge case: a bounded task
-
-This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
-
-- Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
-- Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.
-- Change Assumptions!B2 from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, December closing cash, and profit before income tax.
-- Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.
-- Restore 0, save a copy, reopen it, and confirm the base figures return.
-- List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
-
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The address ryan@duguid.com.au is shown as text and needs no scripts; delivery can rewrite email links, so if one does not work, write to ryan at duguid dot com dot au. Do not include client records, taxpayer identifiers, credentials or confidential files.
-
-Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External review status as at 20 September 2026: pending. No completed response template has been received, so this page reports no completed trial. The next step is the first completed template, which will be recorded here with the reviewer's stated permission.
+This is a maintainer-prepared demonstration. Its calculations have technical verification records. No client outcome, forecast accuracy or time saving has been measured.
 
 ## Choose an example to reproduce
 
@@ -161,9 +146,6 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Tools page: https://duguid.com.au/tools/
 - Choose an example for any tool: https://duguid.com.au/evaluate/#example-routes
 - Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Review the Lumbridge case: https://duguid.com.au/contact/#example-feedback
-- sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
-- Download the blank response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example

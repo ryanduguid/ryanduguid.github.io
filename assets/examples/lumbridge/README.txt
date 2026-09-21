@@ -12,10 +12,8 @@ Xero login, macros or external links. Assumptions!B2 accepts a whole-calendar-da
 receipt delay from 0 to 120. Restore 0 after trying the 45-day case.
 
 The sample ZIP includes the workbook, source CSVs, assumptions, management
-briefing and trial guide. Briefing and CSV values are fixed exports; editing the
-workbook does not change them. For an unaided trial, record your answers before
-reading the briefing or published results, and note any results already seen.
-The separate reviewer answer key is not included in the ZIP.
+briefing and scenario guide. Briefing and CSV values are fixed exports; editing
+the workbook does not change them. TRIAL.md explains how to explore the scenario.
 
 SOURCE AND REPRODUCTION
 
