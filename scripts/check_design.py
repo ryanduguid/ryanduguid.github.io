@@ -318,10 +318,20 @@ def check_favicon_assets(root: Path) -> list[str]:
         path = root / rel
         if not path.is_file():
             failures.append(f"favicon raster missing: {rel}")
-        elif path.read_bytes() != expected:
-            failures.append(
-                f"favicon raster out of date: {rel} (run python scripts/favicon_render.py)"
-            )
+        else:
+            actual = path.read_bytes()
+            try:
+                matches = (
+                    favicon_render.png_content(actual) == favicon_render.png_content(expected)
+                    if path.suffix == ".png"
+                    else actual == expected
+                )
+            except favicon_render.FaviconError:
+                matches = False
+            if not matches:
+                failures.append(
+                    f"favicon raster out of date: {rel} (run python scripts/favicon_render.py)"
+                )
     return failures
 
 

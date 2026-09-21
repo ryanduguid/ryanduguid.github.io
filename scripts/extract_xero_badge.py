@@ -4,8 +4,9 @@ The published badge is Xero's own artwork, taken from the certificate Xero
 issued to Ryan Duguid rather than redrawn or recoloured here. The certificate
 stores it as an RGB image XObject with a separate soft mask holding the rounded
 corners, so this script recombines the two into one RGBA PNG. Running it against
-the same certificate reproduces the shipped file byte for byte, which is what
-``assets/credentials/SOURCES.md`` records.
+the same certificate reproduces the shipped pixels and mask. PNG compression
+bytes can differ between zlib versions; an existing equivalent file is retained
+so the hash recorded in ``assets/credentials/SOURCES.md`` stays valid.
 
 Usage::
 
@@ -23,7 +24,7 @@ import sys
 import zlib
 from pathlib import Path
 
-from favicon_render import PNG_SIGNATURE, _chunk
+from favicon_render import PNG_SIGNATURE, FaviconError, _chunk, png_content
 
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_SOURCE = "assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf"
@@ -130,9 +131,16 @@ def main(argv: list[str]) -> int:
         return 1
     target = ROOT / TARGET
     digest = hashlib.sha256(png).hexdigest()
-    if target.is_file() and target.read_bytes() == png:
-        print(f"{TARGET} already matches {source.name} (SHA-256 {digest})")
-        return 0
+    if target.is_file():
+        existing = target.read_bytes()
+        try:
+            matches = png_content(existing) == png_content(png)
+        except FaviconError:
+            matches = False
+        if matches:
+            digest = hashlib.sha256(existing).hexdigest()
+            print(f"{TARGET} already matches {source.name} (SHA-256 {digest})")
+            return 0
     target.parent.mkdir(parents=True, exist_ok=True)
     target.write_bytes(png)
     print(f"wrote {TARGET} from {source.name} (SHA-256 {digest})")

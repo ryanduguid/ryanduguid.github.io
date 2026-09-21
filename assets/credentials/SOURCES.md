@@ -31,7 +31,9 @@ badge Xero placed in that certificate: the 318 by 318 pixel image XObject
 `5 0 R`, recombined with its `4 0 R` soft mask so the rounded corners stay
 transparent. No pixel came from any other source, and no colour, proportion or
 wording was changed. Reproduce it with `python scripts/extract_xero_badge.py`
-against the source PDF; the script records the same hash as the table above.
+against the source PDF. The script preserves the existing file when its pixels,
+mask and metadata match, even if the runtime's PNG compression differs. The
+table records the shipped file's hash.
 
 The site is not a Xero partner, so no partner-tier artwork is used. The badge is
 Xero's trademark, published here only as a factual record of Ryan Duguid's own
