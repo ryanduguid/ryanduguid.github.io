@@ -202,11 +202,11 @@
         <label class="adopt-tab" for="adopt-github">GitHub workflows</label>
         <div class="adopt-panel">
           <p>github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.</p>
-          <p class="install-needs">Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.</p>
+          <p class="install-needs">Needs Git. A fresh clone already contains the tracked runtime copies. For project-local use, copy the relevant <code>.claude/skills</code> or <code>.agents/skills</code> directory into your project. Python 3.11+ is needed only to validate or synchronise the skills.</p>
           <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
 <span class="cmd">cd github-agent-skills</span>
-<span class="cmd">pwsh -File scripts/sync-skills.ps1</span></code></pre>
+<span class="cmd">python scripts/validate_skills.py --sync</span></code></pre>
         </div>
       </div>
     </div>
