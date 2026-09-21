@@ -10,7 +10,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 21 September 2026.
+Published 25 August 2026. Last reviewed 22 September 2026. This review clarifies the checker 0.1.6 limitation and network boundaries.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -122,6 +122,12 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Limits
 
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+
+The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
+
+Published MCP 0.2.4 pins Payday Super Checker 0.1.6. Its receipt date without an amount can return ON_TIME under a full-receipt assumption. Review that limitation before interpreting a result.
+
 Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
 ## Common questions
@@ -194,6 +200,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PyPI: https://pypi.org/project/payday-super-checker/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
+- Website hosting and browser data handling: https://duguid.com.au/privacy/
+- Review that limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

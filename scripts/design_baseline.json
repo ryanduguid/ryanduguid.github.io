@@ -10,7 +10,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "bb2996a08c0fca3a40d0b8ae4aaef4f39d48aed4c17902baeb6d137e95a36ef8"
+      "619f9e29ccc58f2dd8dbcb6b3992cdcc7f6960b10b44b84fde7db3c1f143b14e"
     ],
     "changelog/index.html": [
       "07267bcb529e2746689e90e6f3934dd6460b6f03897a7eab52066b303382d338"
@@ -25,31 +25,31 @@
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "3c88137d3c3e6c7cfb391441ecfa20303148b7eb2bbb908858b6f084de9a4436"
+      "0e5a19a4bcaa9e28c3148fb7e06a9f7d75190e8812272f6b200f3ff4d29e27a9"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
       "1c87e3e0299f650984fdeb2ba70f33c2f2dc15f79689eec3e136d5df8e836e56"
     ],
     "evidence/index.html": [
-      "a200dbbf0b88880df495efd3c1504cc09e5e0749ad1ea4e6e33c995a1d09485e"
+      "29e0430c2b9f52075f008b85c990c77d439f715f829d8eec7d348a50f3161bb9"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "51ae7597aa5636fb7c0ad1d26808408c3b978ade96bee797f48f19ceee2a39de"
     ],
     "index.html": [
-      "9d71306bf6d891dd0fdd90b2019448c83e8227fd0f5aca6f561e21f63a3b8ec7"
+      "b5c38e31f9341c0aee57d896a5ce32738f4adb42d84cf6386b58ccde466864c7"
     ],
     "privacy/index.html": [
       "f3f23f9ae7be4356111b4ce8f848f88c90e66cfb2adac2c1633e537c23c738f2"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
+      "dcf7d6a989ca492140a1083d99d1d9bdbe75910901c0f75043de14332598b206"
     ],
     "rates/div7a-benchmark-rate/index.html": [
       "240e9aaefd99aa2dbf10a347cc141efcbc18a78f0c67fe16aed46f6b25974440"
     ],
     "rates/index.html": [
-      "a8e968df5432032683839b6aacc52999af7bf0f728768d40c65cdabd07935d3b"
+      "d8a26a145d055dc979e9696e2cafd0fa6fe38c55bc2c75231a9307ebfaedbcb5"
     ],
     "rates/super-guarantee/index.html": [
       "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
@@ -61,7 +61,7 @@
       "503e24262367dbf8d22375c1e919978b2809b878659a50a1da564b1430736261"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "09082e2544736875ba05a4c01d1c6d14ab2ef3cd5c6f1d9743ab7fda60942ea3"
+      "86716d698cf994609242dba4fc0f76a954f7609888ef68800b10024c805b4f76"
     ],
     "tools/business-calculators/index.html": [
       "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
@@ -76,7 +76,7 @@
       "be57eb74ea48662b3dce3486a0566f65775153265be7c01b9aba425b00134d02"
     ],
     "tools/limitations/index.html": [
-      "dfb2b0de2183dbe6bb3b087bffa258f9807b197ae5644a25548f2555c06f608b"
+      "defa35146e2ce6eb376585310d7818cb85ee9a1cdc2e1d94873764c3514152b2"
     ],
     "tools/monthly-close-controls/index.html": [
       "2dfe9d4b058de7f5a89d8fd24d31c89354e86a38a84e40779434370a84597cb2"
@@ -85,7 +85,7 @@
       "cb3eb72bc9d70ac5bc009461807c4ad18ef34f7a1430de530cf8d5e3a275a36d"
     ],
     "tools/payday-super/index.html": [
-      "0f94a6b68467df7bded23ee21596cb09e14497c088fe66675890dcbd67734009"
+      "2d17885d157d2f9f5affee119a3edddc70d5726eabaf3d3071aecdf0c37d2dca"
     ],
     "tools/refusals/index.html": [
       "3e7c9eb186e1b03077bf687f927a228ede25470c8b3e035184247167efcd723a"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "c6ed593c68380e0daf52017fbeabb84f5b2f40126d2e1905154937022bf4b5c4",
+    "llms.txt": "ba10fda2859295722a65d48613108d88bd508a8bb2208d3681200021b4dfc949",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "8d3ac4a6528c928f033dc22ca0fd18c4fd447f16009431a63272fac404aec8ab"
+    "sitemap.xml": "6de3c782fed7a242d8b6304346165114d5711b113384aa2dfcc90cb0758f63ae"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -121,6 +121,7 @@
       "#common-questions",
       "#related",
       "/rates/cents-per-kilometre/cents-per-kilometre-rates.csv",
+      "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
       "/rates/super-guarantee/",
       "/rates/div7a-benchmark-rate/",
       "/tools/australian-tax-ai-agents/",
@@ -162,7 +163,7 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "a2dbacdca0fe348e471813e46723565ea69f24eca98de16a71482cf3d414b5c6",
+    "rates/cents-per-kilometre/index.html": "e129219440ed4f149f879b77b9fe4fa48bf060ca2594f5c91e53c9f666cae141",
     "rates/div7a-benchmark-rate/index.html": "ed7f9faa5f938616deea1d0f62c3760ca8f526b18557e376a7e1a1dd5fe1b1ea",
     "rates/super-guarantee/index.html": "3484be5e7d8bc0fa701683871711f8162e5017e964d84892c0f02410786192b3"
   },

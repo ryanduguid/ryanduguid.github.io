@@ -55,7 +55,7 @@
         </nav>
         <h1>About Ryan Duguid</h1>
         <p class="lead-note">I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.</p>
-        <p class="page-meta">Last reviewed 18 September 2026.</p>
+        <p class="page-meta">Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -149,7 +149,7 @@
             <ul>
               <li><strong>Primary sources only.</strong> Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.</li>
               <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.</li>
-              <li><strong>Refusal over guessing.</strong> Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.</li>
+              <li><strong>Refusal over guessing.</strong> The tools have explicit refusal and unknown states, with release-specific limits. Published Payday Super Checker 0.1.6 still assumes full receipt from a receipt date without an amount. <a href="/tools/payday-super/#receipt-amount">Check its receipt-amount limitation</a> before relying on a result.</li>
               <li><strong>Synthetic data in public.</strong> Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.</li>
               <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
             </ul>
@@ -207,7 +207,7 @@
         "description": "I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-22",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "mainEntity": { "@id": "https://duguid.com.au/about/#person" },
         "about": { "@id": "https://duguid.com.au/about/#person" },

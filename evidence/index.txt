@@ -10,7 +10,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 21 September 2026.
+Last reviewed 22 September 2026.
 
 ## Identity and credentials
 
@@ -62,6 +62,10 @@ Start with current Commonwealth legislation, such as the Income Tax Assessment A
 These records link to maintained owners instead of restating volatile rates, thresholds, package versions, or compatibility matrices here.
 
 ## Data and privacy boundary
+
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+
+The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
 No client, taxpayer, or production-ledger data appears in public examples. Business fixtures are synthetic; dated official-source snapshots are identified separately and do not establish current law. Client data belongs in a controlled local directory, never a public issue, repository, or enquiry email.
 
@@ -147,6 +151,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Xero API scope record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer
 - Workpaper Review Gate design record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design
 - Coal LSL calculator source list: https://duguid.com.au/tools/coal-lsl-levy/#sources
+- LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
+- Website hosting and browser data handling: https://duguid.com.au/privacy/
 - ATO benchmark client-data control: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/README.md#client-data
 - Payday Super local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/README.md#local-file-boundary
 - TheWIPTally local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary

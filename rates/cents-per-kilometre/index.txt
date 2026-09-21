@@ -29,6 +29,8 @@ The 2026 determination repealed it and is written for one year only. Section 6 s
 
 ## How the method works
 
+For business claims, the ATO limits this method to sole traders and partnerships with at least one individual partner, claiming for a car. Private travel does not qualify. This eligibility guidance was checked on 22 September 2026; the historical rate-table review remains dated 14 September 2026.
+
 Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: business kilometres travelled by the car in the income year, multiplied by the rate determined for that year. Four features of it catch people out.
 
 - 5,000 kilometres is a ceiling, not a threshold. If the car travelled 5,085 business kilometres, you claim 5,000 and lose the extra 85. The Act uses that exact example.
@@ -80,6 +82,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - 2026 determination (F2026L00785): https://www.legislation.gov.au/F2026L00785/asmade
 - 2024 determination (F2024L00697): https://www.legislation.gov.au/F2024L00697/asmade
 - Download the table as CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- ATO limits this method: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/

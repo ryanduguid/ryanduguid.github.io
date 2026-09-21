@@ -15,6 +15,7 @@ from build_site import build
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = (
+    (sys.executable, "scripts/test_fact_check.py"),
     (sys.executable, "scripts/test_contracts.py"),
     (sys.executable, "scripts/test_site_server.py"),
     (sys.executable, "scripts/check_design.py"),
