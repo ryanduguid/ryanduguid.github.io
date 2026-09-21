@@ -44,6 +44,9 @@ OWNER = "ryanduguid"
 # as text that the index links an agent to, such as the agent-skills manifest.
 SCANNED = ("llms.txt", "llms-full.txt", ".well-known/llms.txt", "README.md")
 SCANNED_GLOBS = ("**/*.txt", "**/*.md", ".well-known/**/*.json")
+UNPUBLISHED = frozenset(
+    {"_site", "work", "node_modules", ".git", ".venv", "vendor", ".jekyll-cache"}
+)
 
 # Zero width, bidirectional marks, overrides and isolates, word joiners, the
 # byte order mark, and the Unicode tag block used to smuggle text past a reader.
@@ -132,8 +135,10 @@ class Install(NamedTuple):
 def scanned_files(root: Path) -> list[Path]:
     files = [root / name for name in SCANNED]
     for pattern in SCANNED_GLOBS:
-        # _site is this same content one build later, and only in a source checkout.
-        files.extend(path for path in root.glob(pattern) if "_site" not in path.parts)
+        # None of these are published: _site is this content one build later,
+        # and the rest are dependencies, scratch and caches. They exist only in
+        # a source checkout, never in the built tree the checks run against.
+        files.extend(path for path in root.glob(pattern) if not UNPUBLISHED & set(path.parts))
     unique: dict[Path, None] = {}
     for path in files:
         if path.is_file():
