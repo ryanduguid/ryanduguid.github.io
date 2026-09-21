@@ -18,7 +18,7 @@ Human decision: Obtain evidence of eligible fund receipt and check the applicabl
 
 This is a fixed example. Nothing to install or upload; these dates do not recalculate. Inspect the exact fixture.
 
-Receipt amount matters. A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the published-version limitation.
+Receipt amount matters. A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the version-specific receipt rules.
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
@@ -26,9 +26,9 @@ Published 24 August 2026. Last reviewed 22 September 2026. This review covers re
 
 ## Receipt dates and amounts
 
-The published release 0.1.6 still assumes full receipt when the amount is missing. Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns ON_TIME and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. Read the 0.1.6 release record.
+Checker 0.1.7 requires amount evidence for a timely receipt. Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. Read the 0.1.7 release record.
 
-The development implementation withholds ON_TIME for that missing-amount case. It is unreleased; installing the published package does not give you that change. Published aus-accounting-mcp 0.2.4 pins checker 0.1.6 and retains the assumption. The development rule leaves a timely receipt without an amount UNKNOWN. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
+Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.5 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.
 
@@ -38,7 +38,7 @@ For the $120 obligation in this example, a timely $60 matched receipt returns UN
 
 The tagged 0.1.6 workbook assumes full receipt when a receipt date has no amount. It also extrapolates GIC beyond its last covered day, 31 December 2026. The 0.1.6 CLI withholds those estimates by default and offers --allow-stale-gic as an explicit opt-in; the workbook has no equivalent option.
 
-The development workbook fixes both cases. Its Summary shows Not assessed for rate-dependent totals if any row needs an uncovered rate. This is development 0.1.7, not a published package release. Desktop Excel checks on 22 September 2026 (Australia/Sydney) covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. The verification record identifies the tested files and hashes. These checks do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is BLOCKED.
+The tagged 0.1.7 workbook fixes both cases. Its Summary shows Not assessed for rate-dependent totals if any row needs an uncovered rate. It is available from the 0.1.7 tag; a PyPI install does not install the workbook. Desktop Excel checks on 22 September 2026 (Australia/Sydney) covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. The verification record identifies the tested files and hashes. These checks do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is BLOCKED.
 
 ## Try the CSV without cloning
 
@@ -48,7 +48,7 @@ With uv installed, download the synthetic CSV as timely_remittance_no_receipt.cs
 uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-Quick trial release 0.1.5. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.5; the current published release is 0.1.7. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
@@ -103,12 +103,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
-- Read the published-version limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
-- Read the 0.1.6 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
-- development implementation: https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py
+- Read the 0.1.7 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
+- Published MCP 0.2.5: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5
 - tagged 0.1.6 workbook: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx
-- development workbook: https://github.com/ryanduguid/australian-accounting/tree/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/workbooks
+- tagged 0.1.7 workbook: https://github.com/ryanduguid/australian-accounting/tree/payday-super-checker/v0.1.7/packages/payday-super-checker/workbooks
 - verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv

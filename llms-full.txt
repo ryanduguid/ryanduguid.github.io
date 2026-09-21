@@ -110,7 +110,7 @@ Adopt
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
 
-A receipt date alone does not establish the amount received. Published checker 0.1.6 assumes full receipt when the amount is absent; check that limitation.
+A receipt date alone does not establish the amount received. Checker 0.1.7 leaves a timely receipt without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific rules.
 
 The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
@@ -175,7 +175,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
-- check that limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Check the version-specific rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
@@ -260,7 +260,7 @@ I use sources such as the Australian Taxation Office's super guarantee rate tabl
 
 - Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
-- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Published Payday Super Checker 0.1.6 still assumes full receipt from a receipt date without an amount. Check its receipt-amount limitation before relying on a result.
+- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific receipt rules before relying on a result.
 - Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check. Professional judgement and lodgement stay human.
 
@@ -307,7 +307,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - rate history: https://duguid.com.au/rates/super-guarantee/
-- Check its receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 
 ---
 
@@ -920,7 +920,7 @@ The 4 CSV fixtures contain fabricated dates and amounts for a supported due date
 
 ## Reproduce
 
-This historical run remains pinned to 0.1.3. Published checker 0.1.6 still treats a receipt date without an amount as full receipt, with a caveat. Check the receipt-amount limitation; these historical outputs do not establish a fix.
+This historical run remains pinned to 0.1.3. Checker 0.1.6 treats a receipt date without an amount as full receipt, with a caveat. Published 0.1.7 corrects that assumption. Check the version-specific receipt rules; these historical outputs do not establish a fix.
 
 Needs Git, and uv with Python 3.12; the commands are the same on Windows, macOS and Linux. Clone the australian-accounting monorepo at tag payday-super-checker/v0.1.3 (commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.
 
@@ -999,7 +999,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- Check the receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - uv: https://docs.astral.sh/uv/
 - tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
@@ -2386,7 +2386,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the development correction and verification scope.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.5, pins checker 0.1.7, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt-amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row's figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG-charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -2638,7 +2638,7 @@ Human decision: Obtain evidence of eligible fund receipt and check the applicabl
 
 This is a fixed example. Nothing to install or upload; these dates do not recalculate. Inspect the exact fixture.
 
-Receipt amount matters. A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the published-version limitation.
+Receipt amount matters. A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the version-specific receipt rules.
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
@@ -2646,9 +2646,9 @@ Published 24 August 2026. Last reviewed 22 September 2026. This review covers re
 
 ## Receipt dates and amounts
 
-The published release 0.1.6 still assumes full receipt when the amount is missing. Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns ON_TIME and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. Read the 0.1.6 release record.
+Checker 0.1.7 requires amount evidence for a timely receipt. Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. Read the 0.1.7 release record.
 
-The development implementation withholds ON_TIME for that missing-amount case. It is unreleased; installing the published package does not give you that change. Published aus-accounting-mcp 0.2.4 pins checker 0.1.6 and retains the assumption. The development rule leaves a timely receipt without an amount UNKNOWN. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.
+Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.5 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.
 
@@ -2658,7 +2658,7 @@ For the $120 obligation in this example, a timely $60 matched receipt returns UN
 
 The tagged 0.1.6 workbook assumes full receipt when a receipt date has no amount. It also extrapolates GIC beyond its last covered day, 31 December 2026. The 0.1.6 CLI withholds those estimates by default and offers --allow-stale-gic as an explicit opt-in; the workbook has no equivalent option.
 
-The development workbook fixes both cases. Its Summary shows Not assessed for rate-dependent totals if any row needs an uncovered rate. This is development 0.1.7, not a published package release. Desktop Excel checks on 22 September 2026 (Australia/Sydney) covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. The verification record identifies the tested files and hashes. These checks do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is BLOCKED.
+The tagged 0.1.7 workbook fixes both cases. Its Summary shows Not assessed for rate-dependent totals if any row needs an uncovered rate. It is available from the 0.1.7 tag; a PyPI install does not install the workbook. Desktop Excel checks on 22 September 2026 (Australia/Sydney) covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. The verification record identifies the tested files and hashes. These checks do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is BLOCKED.
 
 ## Try the CSV without cloning
 
@@ -2668,7 +2668,7 @@ With uv installed, download the synthetic CSV as timely_remittance_no_receipt.cs
 uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-Quick trial release 0.1.5. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.5; the current published release is 0.1.7. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
@@ -2723,12 +2723,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
-- Read the published-version limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
-- Read the 0.1.6 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
-- development implementation: https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py
+- Read the 0.1.7 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
+- Published MCP 0.2.5: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5
 - tagged 0.1.6 workbook: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx
-- development workbook: https://github.com/ryanduguid/australian-accounting/tree/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/workbooks
+- tagged 0.1.7 workbook: https://github.com/ryanduguid/australian-accounting/tree/payday-super-checker/v0.1.7/packages/payday-super-checker/workbooks
 - verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
@@ -3420,9 +3420,9 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 6 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
+Reference release v0.2.5, the current published release, verified 22 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 22 September 2026. This review clarifies the checker 0.1.6 limitation and network boundaries.
+Published 25 August 2026. Last reviewed 22 September 2026. This review verifies the 0.2.5 release and checker 0.1.7 receipt correction; network boundaries remain unchanged.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3448,7 +3448,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.4 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.5 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -3463,12 +3463,12 @@ Each engine's source review and release record state what was checked. Verify cu
 With uv installed, run the published demonstration without configuring an AI client:
 
 ```
-uvx --from aus-accounting-mcp==0.2.4 aus-accounting-mcp-demo
+uvx --from aus-accounting-mcp==0.2.5 aus-accounting-mcp-demo
 ```
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
 
-The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.4 package. Its full output includes the engine's caveats; retain those with any extracted result.
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.5 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 
@@ -3524,7 +3524,7 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
 
-The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
+The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.5, and each evaluation keeps the release it was run against.
 
 The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
@@ -3538,7 +3538,7 @@ The calculation engines and MCP server run locally. Installation downloads packa
 
 The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
-Published MCP 0.2.4 pins Payday Super Checker 0.1.6. Its receipt date without an amount can return ON_TIME under a full-receipt assumption. Review that limitation before interpreting a result.
+Published MCP 0.2.5 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
 Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
@@ -3589,7 +3589,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4
+- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3597,7 +3597,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.3/packages/australian-tax-calculators/README.md#supported-periods
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.4/apps/aus-accounting-mcp/README.md#tools
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.5/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -3614,7 +3614,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - contact page: https://duguid.com.au/contact/
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
-- Review that limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Review the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -3791,29 +3791,29 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
-20 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.4
+22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.5
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 7 September 2026 | Subcontract ledger skills | v0.2.1
 20 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.9
 20 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.8
-20 September 2026 | Payday Super timing | payday-super-checker/v0.1.6
+22 September 2026 | Payday Super timing | payday-super-checker/v0.1.7
 20 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.4
 20 September 2026 | Trust distribution checks | solomons-sword/v0.1.7
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 21 September 2026.
+Published 30 August 2026. Last reviewed 22 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
-- aus-accounting-mcp/v0.2.4: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4
+- aus-accounting-mcp/v0.2.5: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.9: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.9
 - ato-benchmark-compare/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8
-- payday-super-checker/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
+- payday-super-checker/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
 - div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
 - solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6

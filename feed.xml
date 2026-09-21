@@ -5,8 +5,22 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-20T00:00:00Z</updated>
+  <updated>2026-09-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.5</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5" />
+    <id>https://duguid.com.au/changelog/#entry-9a927bdda93c4af5</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.5.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.7</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7" />
+    <id>https://duguid.com.au/changelog/#entry-264a57de44554a95</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.7.</summary>
+  </entry>
   <entry>
     <title>Actions from the 20 September GEO audit: Evaluations joined the primary navig...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
@@ -29,13 +43,6 @@
     <summary>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</summary>
   </entry>
   <entry>
-    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.4</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4" />
-    <id>https://duguid.com.au/changelog/#entry-dc4669d11497f5a3</id>
-    <updated>2026-09-20T00:00:00Z</updated>
-    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.4.</summary>
-  </entry>
-  <entry>
     <title>Workpaper Review Gate review-ready-gate/v0.1.7</title>
     <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7" />
     <id>https://duguid.com.au/changelog/#entry-65df8604713dc80d</id>
@@ -55,13 +62,6 @@
     <id>https://duguid.com.au/changelog/#entry-0d69e343b0a47aeb</id>
     <updated>2026-09-20T00:00:00Z</updated>
     <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.8.</summary>
-  </entry>
-  <entry>
-    <title>Payday Super timing payday-super-checker/v0.1.6</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6" />
-    <id>https://duguid.com.au/changelog/#entry-224304cf078e0821</id>
-    <updated>2026-09-20T00:00:00Z</updated>
-    <summary>Payday Super timing: release payday-super-checker/v0.1.6.</summary>
   </entry>
   <entry>
     <title>Division 7A loan review div7a-loan-review/v0.1.4</title>
