@@ -15,6 +15,11 @@ const routes = [
   ['payday evidence evaluation', '/evaluate/payday-super-evidence/'],
   ['rates', '/rates/'],
   ['super guarantee rate', '/rates/super-guarantee/'],
+  ['FBT rate', '/rates/fbt-rate/'],
+  ['cents per kilometre', '/rates/cents-per-kilometre/'],
+  ['announced measures and enacted law', '/rates/announced-not-yet-law/'],
+  ['payday receipt evidence', '/tools/payday-super/'],
+  ['known limitations', '/tools/limitations/'],
   ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],
   ['profit versus cash flow', '/examples/profit-vs-cash-flow/'],
   ['Ozzit Excel LAMBDA library', '/tools/ozzit/'],
@@ -80,7 +85,9 @@ const representativeHeightBaseline = {
     // 2026. Evidence measures 7,354px at 390px wide, with the record's facts
     // held to 2 columns at this width rather than stacking to 8 lines. Retain
     // the same 234px guard.
-    ['/evidence/', 7588],
+    // The 22 September local-engine, AI-host and optional-adapter boundaries
+    // add 350px. Measured at 7,704px; retain the existing 234px guard.
+    ['/evidence/', 7938],
   ]),
   'desktop-chromium': new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -93,7 +100,8 @@ const representativeHeightBaseline = {
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
-    ['/evidence/', 5036],
+    // The same scoped privacy explanation measures 5,241px on desktop.
+    ['/evidence/', 5475],
   ]),
 };
 

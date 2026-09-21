@@ -21,6 +21,9 @@ PORT = 4173
 class SiteRequestHandler(SimpleHTTPRequestHandler):
     """Keep ES modules executable when a Windows MIME registry is incorrect."""
 
+    # Reuse asset connections during browser suites instead of opening one per request.
+    protocol_version = "HTTP/1.1"
+
     extensions_map = {
         **SimpleHTTPRequestHandler.extensions_map,
         ".mjs": "text/javascript",

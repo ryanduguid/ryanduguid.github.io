@@ -62,7 +62,7 @@
       search a Markdown folder you configure. Outputs need human review.
     </p>
     <p class="release-meta">Reference release v0.2.4, the current published release, verified 20 September 2026. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.4">Tagged source and release record on GitHub</a>.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 21 September 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 22 September 2026. This review clarifies the checker 0.1.6 limitation and network boundaries.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -236,6 +236,9 @@
     </section>
     <section id="limits">
     <h2>Limits</h2>
+    <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
+            <p>The optional <a href="https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter">LodgeiT calculator adapter</a> is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. <a href="/privacy/">Website hosting and browser data handling</a> have their own boundaries.</p>
+    <p>Published MCP 0.2.4 pins Payday Super Checker 0.1.6. Its receipt date without an amount can return <code>ON_TIME</code> under a full-receipt assumption. <a href="/tools/payday-super/#receipt-amount">Review that limitation</a> before interpreting a result.</p>
     <blockquote>
       <p>
         Not tax, legal, or financial advice, and using it creates no professional
@@ -303,7 +306,7 @@
         "description": "Run local ATO benchmark, Payday Super, and limited Division 7A checks, six bounded tax worksheets, and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-21",
+        "dateModified": "2026-09-22",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -321,7 +324,7 @@
         "description": "Run local ATO benchmark, Payday Super, and limited Division 7A checks, six bounded tax worksheets, and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-21",
+        "dateModified": "2026-09-22",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -377,7 +380,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-09-21"
+        "dateModified": "2026-09-22"
       },
       {
         "@type": "FAQPage",

@@ -60,25 +60,35 @@
             <p><strong>Human decision:</strong> Obtain evidence of eligible fund receipt and check the applicable timing pathway before closing this exception. Sending does not establish receipt.</p>
             <p>This is a fixed example. Nothing to install or upload; these dates do not recalculate. <a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv">Inspect the exact fixture</a>.</p>
           </section>
+        <p class="field-note"><strong>Receipt amount matters.</strong> A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. <a href="#receipt-amount">Read the published-version limitation</a>.</p>
         <p class="field-note">The contribution amount this check tests is set by the <a href="/rates/super-guarantee/">super guarantee rate</a>, kept as a maintained table on this site.</p>
-        <p class="page-meta">Published 24 August 2026. Last reviewed 20 September 2026.</p>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 22 September 2026. This review reproduces the receipt-amount cases in releases 0.1.5 and 0.1.6; the fixed evaluation remains pinned to 0.1.3.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#synthetic-worked-example">Synthetic worked example</a>
           <a href="/evaluate/payday-super-evidence/">Reproduce the evaluation</a>
+          <a href="#receipt-amount">Receipt dates and amounts</a>
           <a href="#try-example">Try the CSV</a>
           <a href="#evidence-pack">Evidence-pack workflow</a>
           <a href="#evidence">Check the evidence</a>
         </nav>
         <div class="article-body">
 
+          <section id="receipt-amount">
+            <h2>Receipt dates and amounts</h2>
+            <p><strong>The published release 0.1.6 still assumes full receipt when the amount is missing.</strong> Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>ON_TIME</code> and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6">Read the 0.1.6 release record</a>.</p>
+            <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py">development implementation</a> withholds <code>ON_TIME</code> for that missing-amount case. It is unreleased; installing the published package does not give you that change.</p>
+            <p><code>matched_amount</code> is the supplied amount associated with the payday. It takes precedence over <code>remitted_amount</code>, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.</p>
+            <p>For the $120 obligation in this example, a timely $60 matched receipt returns <code>UNPAID</code>, not full payment. A timely $120 matched receipt returns <code>ON_TIME</code> only on the supplied facts. Late receipt returns <code>LATE</code>; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.</p>
+          </section>
+
           <section id="try-example">
             <h2>Try the CSV without cloning</h2>
             <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, <a href="/assets/examples/payday/timely_remittance_no_receipt.csv" download>download the synthetic CSV</a> as <code>timely_remittance_no_receipt.csv</code>. Open a terminal in that folder and run:</p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Pinned Payday Super example command"><code>uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv</code></pre>
-            <p>The command downloads checker 0.1.5 from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>.</p>
+            <p>Quick trial release 0.1.5. The command downloads checker 0.1.5 from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>.</p>
             <p><strong>Check the matching evidence before relying on the exported file.</strong> If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's <code>caveats</code> column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
             <p>Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit <code>--confirm-remittance-only</code> to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.</p>
             <p>The fixed example above and the <a href="/evaluate/payday-super-evidence/#reproduce">recorded public evaluation</a> use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.5 and leaves the fund-receipt decision with the reviewer.</p>
@@ -100,7 +110,7 @@
             <p>Reproduced from <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3">Payday Super Checker 0.1.3</a>. The release's legal review date is 15 August 2026.</p>
             <p>The ordinary timing pathway tests fund receipt within 7 business days of payday. Check whether a different timing pathway applies before relying on the result. Primary sources are the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a> and <a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Australian Taxation Office, LCR 2026/2</a>, as recorded in the evaluation pack.</p>
             <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">Source on GitHub</a> · <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a></p>
-            <p>Two known limitations are recorded against this tool: an extrapolated general interest charge rate past the end of the published table, and the ways the payroll-to-super join degrades when identifiers do not match. See <a href="/tools/limitations/">Known limitations</a>.</p>
+            <p>Alongside the <a href="#receipt-amount">receipt-amount limitation</a>, two further limitations are recorded against this tool: an extrapolated general interest charge rate past the end of the published table, and the ways the payroll-to-super join degrades when identifiers do not match. See <a href="/tools/limitations/">Known limitations</a>.</p>
             <details>
               <summary>Version, file fingerprints, and timing boundary</summary>
               <p>Without a fund receipt date, records cannot prove ON_TIME. Remittance timing can still prove LATE, while timely remittance without fund receipt evidence remains AT_RISK.</p>
@@ -134,7 +144,7 @@
       "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-09-20",
+      "dateModified": "2026-09-22",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },
@@ -202,7 +212,7 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-09-20"
+      "dateModified": "2026-09-22"
     }
   ]
 }
