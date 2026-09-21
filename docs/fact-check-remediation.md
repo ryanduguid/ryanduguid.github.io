@@ -134,3 +134,9 @@ A standalone `check_design.py` invocation against unrendered source reported mis
 Checks not claimed at the initial local handoff: remote GitHub Actions execution, a Linux CI run, a full accounting-engine suite, fresh historical evaluation results, independent professional review, live issuer authentication of CA ANZ/Xero, and a complete legal search for every proposal or transition. The initial verification stage did not include publication or deployment; subsequent PR checks and deployment status are recorded on the pull request.
 
 Ponytail full review: reused the site's generators, contract parsers and test runners; added no website dependency or parallel release manifest. No AI Slop review: checked factual scope, release distinctions, Australian English and the limits of each verification. The unresolved factual boundaries remain explicit above.
+
+## PR follow-up
+
+[PR 218](https://github.com/ryanduguid/ryanduguid.github.io/pull/218) adds the receipt-amount section to the Payday page contents, preserves the required evaluation-link order, and aligns the rates hub's announced-measures verification date. The review dates use Australia/Sydney; UTC timestamps on 21 September after 14:00 fall on 22 September locally.
+
+GitHub [run 35624778953](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35624778953) returned HTTP 403 for Parliament's bills index and the ATO cents-per-kilometre eligibility page. Camofox returned HTTP 200 and the expected content for both on 22 September. The link checker now handles those two exact URLs through its existing confirmed-denial policy, with the evidence and removal condition in CONTRIBUTING.md. Regression coverage rejects other statuses and neighbouring URLs. This replaces the initial unresolved link-check result above with an explicit manual-verification boundary; an accepted HTTP 403 is not proof of source availability.

@@ -163,8 +163,12 @@ class FetchFinalUrlTests(unittest.TestCase):
             ]
             self.assertEqual(commands, expected)
 
-    def test_accepts_only_runner_confirmed_ato_403_denials(self) -> None:
+    def test_accepts_only_runner_confirmed_403_denials(self) -> None:
         confirmed = (
+            "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "income-deductions-and-concessions/income-and-deductions-for-business/"
+            "deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method",
             "https://www.ato.gov.au/tax-rates-and-codes/"
             "key-superannuation-rates-and-thresholds/super-guarantee",
             "https://www.ato.gov.au/businesses-and-organisations/"
@@ -184,7 +188,8 @@ class FetchFinalUrlTests(unittest.TestCase):
         for url in confirmed:
             with self.subTest(url=url):
                 self.assertTrue(check_links.is_accepted_automation_denial(url, 403))
-                self.assertFalse(check_links.is_accepted_automation_denial(url, 404))
+                for status in (401, 404, 408, 429, 500, 503, 999):
+                    self.assertFalse(check_links.is_accepted_automation_denial(url, status))
                 self.assertFalse(check_links.is_accepted_automation_denial(url + "/missing", 403))
 
         self.assertFalse(

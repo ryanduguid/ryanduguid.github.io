@@ -14,7 +14,7 @@ Checks, in order, per file:
    transport failures and HTTP 5xx responses are retried up to five times;
    HTTP 429 also retries with Retry-After or exponential backoff, capped at
    30 seconds of total waiting per fetch. Other HTTP 4xx responses do not retry.
-   HTTP 403 from exact allow-listed ATO source URLs and HTTP 999 from the
+   HTTP 403 from exact allow-listed source URLs and HTTP 999 from the
    LinkedIn profile are accepted.
    Five exact government URLs require manual verification in GitHub Actions
    because runner connections time out; local runs still fetch them.
@@ -100,8 +100,17 @@ CI_MANUAL_URLS = frozenset(
     }
 )
 
-ATO_AUTOMATION_DENIAL_URLS = frozenset(
+HTTP_403_AUTOMATION_DENIAL_URLS = frozenset(
     {
+        # Run 35624778953 returned 403 for these two sources. Camofox
+        # returned 200 with the expected page content on 22 September 2026.
+        # Remove these exact exceptions when automated access works again.
+        "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/"
+            "income-deductions-and-concessions/income-and-deductions-for-business/"
+            "deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method"
+        ),
         # These sources returned 403 in run 34593410260 and 200 locally
         # on 11 September 2026. Other statuses and neighbouring URLs still fail.
         # The six rates sources below returned 403 in run 35459888870 and 200
@@ -344,7 +353,7 @@ def fetch_final_url(url: str, *, opener: object = urllib.request.urlopen) -> tup
 
 def is_accepted_automation_denial(url: str, status: int) -> bool:
     """True only for exact allow-listed failures reproduced on GitHub runners."""
-    if url in ATO_AUTOMATION_DENIAL_URLS and status == 403:
+    if url in HTTP_403_AUTOMATION_DENIAL_URLS and status == 403:
         return True
     return url in LINKEDIN_AUTOMATION_DENIAL_URLS and status == 999
 
