@@ -41,11 +41,13 @@ traces for diagnosis, even if a retry passes. Homepage snapshots keep the proof 
 separate proof tests check both responsive images after opening it.
 
 The weekly source-freshness workflow checks the changelog's release links with
-`node scripts/stamp-source-freshness.mjs --check-releases`. This reads public
-GitHub releases without credentials and compares stable version numbers within
+`node scripts/stamp-source-freshness.mjs --check-releases`. This uses the GitHub
+CLI to read releases and compares stable version numbers within
 each package's tag prefix. API failures fail the check. A newer release needs
 editorial review of the changelog and capability descriptions; the check does
-not rewrite pages or evaluation pins. Its offline tests run through the site
+not rewrite pages or evaluation pins. Install `gh` and sign in with `gh auth login`
+for a local live check. Actions supplies its read-only token to `gh`; the script
+does not read or print the token. Its offline tests run through the site
 check command above. The same run reads every tool page's `release-meta` line:
 a page may keep a worked example pinned to an older release, but then the page
 text must name the current release too, so a reader installing from the page

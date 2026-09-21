@@ -39,6 +39,8 @@ jobs:
         with:
           node-version: "24"
       - name: Check current release references
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: node scripts/stamp-source-freshness.mjs --check-releases
 
   # The public site is delivered through Cloudflare, which can rewrite the

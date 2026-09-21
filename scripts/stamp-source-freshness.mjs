@@ -5,7 +5,7 @@
 //
 // Default mode re-checks the committed stamps offline and is safe for CI.
 // --write refreshes them through gh, which holds its own credentials.
-// --check-releases reads public release records and flags changelog drift.
+// --check-releases reads release records through gh and flags changelog drift.
 
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -145,18 +145,15 @@ export function checkHtml(html, today = new Date().toISOString().slice(0, 10)) {
   return failures;
 }
 
-export async function fetchReleases(repository, request = fetch) {
+export async function fetchReleases(repository, run = execFileSync) {
   const releases = [];
   for (let pageNumber = 1; ; pageNumber += 1) {
-    const url = `https://api.github.com/repos/${repository}/releases?per_page=100&page=${pageNumber}`;
-    const response = await request(url, {
-      headers: { Accept: 'application/vnd.github+json' },
-      signal: AbortSignal.timeout(15_000),
-    });
-    if (!response.ok) {
-      throw new Error(`GitHub release lookup failed for ${repository}: HTTP ${response.status}`);
-    }
-    const page = await response.json();
+    const endpoint = `repos/${repository}/releases?per_page=100&page=${pageNumber}`;
+    const page = JSON.parse(run(
+      'gh',
+      ['api', endpoint, '--jq', 'map({tag_name, draft, prerelease, published_at})'],
+      { encoding: 'utf8', timeout: 15_000 },
+    ));
     if (!Array.isArray(page)) throw new Error(`Invalid release list for ${repository}`);
     releases.push(...page);
     if (page.length < 100) return releases;
