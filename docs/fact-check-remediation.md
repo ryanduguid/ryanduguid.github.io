@@ -184,3 +184,5 @@ text. No fresh assistant visibility or citation benchmark was run, and browser
 or Lighthouse results are not evidence of a GEO gain. Live issuer verification,
 every proposal's legislative status, universal workbook parity and package
 publication remain outside the verified conclusions.
+
+The second-pass dates use Australia/Sydney (AEST, UTC+10). The ATO capture at 21 September 2026, 17:49 UTC was 22 September, 3:49 am locally; package provenance was captured at 17:51 UTC, or 3:51 am locally. Accounting PR 242 merged as 9cc29537e8675478d400b64863b01fcae2704887. The workbook and verification-record links now pin that revision, preserving the tested bytes when main advances.
