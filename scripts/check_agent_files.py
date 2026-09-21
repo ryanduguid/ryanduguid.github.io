@@ -183,8 +183,14 @@ def load_policy(path: Path = POLICY) -> dict[str, Any]:
 def is_exact_version(registry: str, version: str | None) -> bool:
     if registry == "pypi":
         return EXACT_PYTHON_VERSION.fullmatch(version or "") is not None
-    match = EXACT_NPM_VERSION.fullmatch(version or "")
+    if version is None or len(version) > 256:
+        return False
+    match = EXACT_NPM_VERSION.fullmatch(version)
     if match is None:
+        return False
+    # npm's semver parser limits core numbers to JavaScript's safe integers.
+    core = version.split("-", 1)[0].split("+", 1)[0]
+    if any(int(part) > 9007199254740991 for part in core.split(".")):
         return False
     # SemVer forbids leading zeroes in numeric prerelease identifiers, but
     # permits them in build metadata. Invalid versions can be mutable npm tags.

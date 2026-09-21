@@ -81,6 +81,8 @@ class NameTests(AgentFileFixture):
             "npx skills@1.2.3-01 add .",
             "npx skills@1.2.3-alpha..1 add .",
             "npx skills@1.2.3+build_tag add .",
+            "npx skills@9007199254740992.0.0 add .",
+            "npx skills@1.2.3+" + "a" * 260 + " add .",
             "pip install pre-commit==4.*",
         ):
             with self.subTest(command=command):
