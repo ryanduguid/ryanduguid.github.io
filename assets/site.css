@@ -2298,20 +2298,21 @@ input[type="checkbox"] {
   .site-nav {
     flex-wrap: nowrap;
     justify-content: space-between;
-    gap: 0;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
+    gap: 0 var(--space-2);
+    overflow: visible;
     padding-bottom: 0;
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     letter-spacing: 0;
   }
 
   .site-nav a {
     display: inline-flex;
     min-height: 2.75rem;
+    min-width: 2.75rem;
+    justify-content: center;
     flex: 0 0 auto;
     align-items: center;
-    padding-inline: 0.125rem;
+    padding-inline: var(--space-1);
   }
 
   .home-hero h1 {
@@ -2777,9 +2778,8 @@ html[data-view-mode="machine"] body {
   }
 }
 
-/* Below 360 px the six primary links do not fit one row at a readable size,
-   so the row wraps and the sticky header grows with it. */
-@media (max-width: 22.5rem) {
+/* Give the six mobile links two rows before their labels become cramped. */
+@media (max-width: 30rem) {
   :root {
     --header-height: 8.25rem;
   }
@@ -2789,6 +2789,7 @@ html[data-view-mode="machine"] body {
   }
 
   .site-nav {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
   }
 }

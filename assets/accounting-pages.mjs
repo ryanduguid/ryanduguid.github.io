@@ -16,10 +16,8 @@ function download(text, name, type) {
 const questions = [...document.querySelectorAll('details.question')];
 if (questions.length) {
   const search = document.querySelector('#question-search');
-  const topic = document.querySelector('#question-topic');
   const params = new URLSearchParams(location.search);
   search.value = params.get('q') || '';
-  topic.value = params.get('topic') || '';
   const checkbox = new Map(questions.map(q => [q, q.querySelector('input')]));
   const selected = () => questions.filter(q => checkbox.get(q).checked);
   const countNode = document.querySelector('#question-count');
@@ -33,8 +31,7 @@ if (questions.length) {
   function filter() {
     const words = normalise(search.value).split(/\s+/).filter(Boolean);
     for (const q of questions) {
-      q.hidden = (topic.value && q.closest('.question-group').dataset.topic !== topic.value)
-        || !words.every(word => text.get(q).includes(word));
+      q.hidden = !words.every(word => text.get(q).includes(word));
       q.classList.toggle('is-selected', checkbox.get(q).checked);
     }
     for (const group of groups) group.hidden = !group.querySelector('details:not([hidden])');
@@ -52,17 +49,14 @@ if (questions.length) {
     // The filters live in the URL so a filtered view can be shared or reloaded.
     const query = new URLSearchParams();
     if (search.value) query.set('q', search.value);
-    if (topic.value) query.set('topic', topic.value);
     const queryText = query.toString();
     history.replaceState(null, '', `${location.pathname}${queryText ? `?${queryText}` : ''}${location.hash}`);
   }
   search.addEventListener('input', filter);
-  topic.addEventListener('change', filter);
   for (const q of questions) checkbox.get(q).addEventListener('change', filter);
-  if (search.value || topic.value) filter();
+  if (search.value || params.has('topic')) filter();
   document.querySelector('#clear-filters').addEventListener('click', () => {
     search.value = '';
-    topic.value = '';
     filter();
     search.focus();
   });
@@ -76,7 +70,6 @@ if (questions.length) {
     const target = document.getElementById(location.hash.slice(1));
     if (!target || (!target.matches('.question, .question-group'))) return;
     search.value = '';
-    topic.value = '';
     filter();
     if (target.matches('.question')) target.open = true;
     target.scrollIntoView({ behavior: 'instant', block: 'start' });

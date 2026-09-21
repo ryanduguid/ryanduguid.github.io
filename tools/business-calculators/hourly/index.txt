@@ -8,11 +8,11 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-One of the nine business calculators. Calculations run in this browser; inputs are not saved or sent anywhere.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 21 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

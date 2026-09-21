@@ -55,7 +55,7 @@
       "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
     ],
     "tools/accounting-questions/index.html": [
-      "37bcd2b0f5ae9c970acb21f93efbae8891cef6c2a7f9ebbccab80771b4fe1505"
+      "f38785efe2699405c9bf245a1ce4560a7a9b508820a47c0ce8b3dba091422451"
     ],
     "tools/ato-benchmarks/index.html": [
       "503e24262367dbf8d22375c1e919978b2809b878659a50a1da564b1430736261"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7c75d951b963506290bcb5b7ba8ecb49b0231b6a63354c9cd4b4cd854b119ddd",
+    "llms.txt": "fa771b5074131f6f86170d92fa028f88e707a76ef7eb24c4a10c5312ac4da51b",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "ecb260edeaf768ebd1f169817e492167974bf2f34aa2132c6bb8d08d5c3ae6d1"
+    "sitemap.xml": "ac5dfc2cf259c99339e9ba84a032f5d119dacff914f3285fcf281462d28d9474"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

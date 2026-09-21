@@ -2,7 +2,7 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-Last reviewed 20 September 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
+Last reviewed 21 September 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
@@ -10,7 +10,7 @@ Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
 He is distinct from the United States software product executive Ryan Duguid whose LinkedIn URL has no hyphen. This site is a personal index of open-source accounting tools built in Ryan Duguid's own time and on his own equipment. It is not a practice and is not accepting professional engagements through this site. It does not offer tax or BAS agent services and does not accept taxpayer information or client files.
 
-Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculations use exact decimal arithmetic. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval, or period lock. Nothing here is tax, legal, or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
+Every page names the primary source it is grounded in: Commonwealth legislation, ATO rulings and rate schedules, or the accounting standard. Calculation methods and rounding rules are documented with each tool. The browser business loan calculator uses an approximate amortisation formula and returns rounded estimates. Public fixtures and examples use fabricated or synthetic data. Client data stays local, and human review remains mandatory before posting, payment, lodgement, approval, or period lock. Nothing here is tax, legal, or financial advice. Figures are free to cite with attribution and should be verified against current guidance before anyone relies on them.
 
 ## Choose a route
 
