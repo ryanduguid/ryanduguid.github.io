@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import shlex
 import sys
 import urllib.error
 import urllib.request
@@ -122,13 +123,14 @@ PACKAGE_FLAGS = SOURCE_FLAGS + EXTRA_FLAGS
 REQUIREMENT_FLAGS = ("-r", "--requirement")
 HASH_PIN = "--require-hashes"
 
-# One command ends where the next begins. A line is split on these before
-# anything is read, so each command is judged on its own start rather than on
-# whatever happened to open the line. No whitespace is required around them,
-# because a shell does not require it either: `echo x;pip install a b` is two
-# commands. Splitting too eagerly is safe here, since no package name contains
-# one of these characters and an over-split fragment simply reads as prose.
-SEPARATOR = re.compile(r"&&|\|\||[;&|#]")
+# Match quoted and escaped arguments before operators. A hash inside a URL is
+# part of that word; a hash at a word boundary starts a shell comment.
+SHELL_BOUNDARY = re.compile(r""""(?:\\.|[^"\\])*"|'[^']*'|\\.|[;&|]+|(?<!\S)\#.*""")
+EXACT_NPM_VERSION = re.compile(r"\d+\.\d+\.\d+(?:-[\w.-]+)?(?:\+[\w.-]+)?")
+EXACT_PYTHON_VERSION = re.compile(
+    r"(?:\d+!)?\d+(?:\.\d+)*(?:(?:a|b|rc)\d+)?(?:\.post\d+)?(?:\.dev\d+)?"
+    r"(?:\+[a-zA-Z0-9]+(?:[._-][a-zA-Z0-9]+)*)?"
+)
 
 # A local path, a requirements file or an editable install names no registry
 # package, so there is nothing for anyone else to claim.
@@ -195,7 +197,12 @@ def packages_in(rest: str, registry: str, *, take_all: bool) -> list[tuple[str, 
     source: list[str] = []
     extra: list[str] = []
     awaiting: str | None = None
-    for token in rest.split():
+    try:
+        tokens = shlex.split(rest)
+    except ValueError:
+        # Prose can contain an unmatched apostrophe after an inline command.
+        tokens = rest.split()
+    for token in tokens:
         if awaiting is not None:
             if awaiting in SOURCE_FLAGS:
                 source.append(token)
@@ -239,9 +246,32 @@ def commands_in(text: str, prose: bool) -> list[tuple[str, bool]]:
     structured file has no prose, and the agent-skills manifest carries its
     install command inside a JSON string.
     """
+    if not prose:
+        # Decode JSON before shell parsing, so its string quotes do not hide
+        # command chains or escaped newlines inside an install instruction.
+        def strings(value: Any) -> list[str]:
+            if isinstance(value, str):
+                return [value]
+            if isinstance(value, dict):
+                return [item for child in value.values() for item in strings(child)]
+            if isinstance(value, list):
+                return [item for child in value for item in strings(child)]
+            return []
+
+        text = "\n".join(strings(json.loads(text)))
     found = []
     for line in text.splitlines():
-        for segment in SEPARATOR.split(line):
+        start = 0
+        segments = []
+        for match in SHELL_BOUNDARY.finditer(line):
+            token = match.group()
+            if token[0] in ";&|#":
+                segments.append(line[start : match.start()])
+                start = match.end()
+                if token.startswith("#"):
+                    break
+        segments.append(line[start:])
+        for segment in segments:
             if segment and segment.strip():
                 found.append((segment, not prose or bool(COMMAND_LINE.match(segment))))
     return found
@@ -251,22 +281,22 @@ def installs(text: str, prose: bool = True) -> list[Install]:
     """Every package an install or run command in the text resolves."""
     found: list[Install] = []
     for segment, is_command in commands_in(text, prose):
-        seen: set[tuple[str, str]] = set()
+        seen: set[tuple[str, str, str | None]] = set()
         for registry, prefix in INSTALLERS:
             for match in prefix.finditer(segment):
                 for name, version in packages_in(
                     segment[match.end() :], registry, take_all=is_command
                 ):
-                    if (registry, name) not in seen:
-                        seen.add((registry, name))
+                    if (registry, name, version) not in seen:
+                        seen.add((registry, name, version))
                         found.append(Install(registry, name, version, False))
         for registry, prefix, command_only in RUNNERS:
             if command_only and not is_command:
                 continue
             for match in prefix.finditer(segment):
                 for name, version in packages_in(segment[match.end() :], registry, take_all=False):
-                    if (registry, name) not in seen:
-                        seen.add((registry, name))
+                    if (registry, name, version) not in seen:
+                        seen.add((registry, name, version))
                         found.append(Install(registry, name, version, True))
     return found
 
@@ -314,13 +344,18 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
             # after npm ci, npx runs the copy package.json pins. An
             # npm install of the same name resolves the registry, so it
             # still has to name a version.
-            exempt = bool(entry.get("local_dependency")) and install.runs_it
-            if entry.get("owner") != OWNER and not version and not exempt:
+            exempt = bool(entry.get("local_dependency")) and install.runs_it and version is None
+            exact_version = EXACT_NPM_VERSION if registry == "npm" else EXACT_PYTHON_VERSION
+            if (
+                entry.get("owner") != OWNER
+                and not exact_version.fullmatch(version or "")
+                and not exempt
+            ):
                 findings.append(
                     Finding(
                         where,
                         f"{registry} package {package!r} belongs to {entry.get('owner')!r} and is "
-                        "installed without a version, so the command runs whatever that registry "
+                        "installed without a version fixed to an exact release, so it runs what the registry "
                         "serves when an agent reads this file",
                     )
                 )

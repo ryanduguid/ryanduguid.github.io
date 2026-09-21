@@ -71,6 +71,58 @@ class NameTests(AgentFileFixture):
     def test_a_pinned_python_command_passes(self) -> None:
         self.assertEqual(self.findings('python -m pip install "pre-commit==4.0.1"\n'), [])
 
+    def test_mutable_versions_are_not_pins(self) -> None:
+        for command in (
+            "npx skills@latest add .",
+            "npx skills@^1.5.22 add .",
+            "npx skills@1.x add .",
+            "pip install pre-commit==4.*",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.findings(command))
+
+    def test_exact_prereleases_are_pins(self) -> None:
+        for command in (
+            "npx skills@1.5.22-beta.1 add .",
+            "pip install pre-commit==4.0.1rc1",
+        ):
+            with self.subTest(command=command):
+                self.assertEqual(self.findings(command), [])
+
+    def test_a_local_dependency_with_a_mutable_version_is_not_exempt(self) -> None:
+        self.assertTrue(self.findings("npx playwright@latest install chromium"))
+
+    def test_one_pin_does_not_hide_another_specifier_in_the_same_command(self) -> None:
+        for command in (
+            "npm install skills@1.5.22 skills@latest",
+            "npx --package skills@1.5.22 --package skills@latest skills add .",
+        ):
+            with self.subTest(command=command):
+                self.assertTrue(self.findings(command))
+
+    def test_url_punctuation_does_not_hide_packages(self) -> None:
+        for url in (
+            "https://example.invalid/simple#mirror",
+            '"https://example.invalid/simple?a=1&b=2"',
+            "'https://example.invalid/simple;a=1|b=2'",
+            r"https://example.invalid/simple?a=1\&b=2",
+        ):
+            with self.subTest(url=url):
+                found = self.findings(f"pip install --index-url {url} acme-widgets")
+                self.assertEqual(len(found), 1, found)
+                self.assertIn("acme-widgets", found[0])
+
+    def test_a_shell_comment_does_not_install_its_words(self) -> None:
+        self.assertEqual(self.findings("pip install solomons-sword # acme-widgets"), [])
+
+    def test_a_json_command_chain_is_checked_after_decoding(self) -> None:
+        found = self.findings(
+            '{"install": "npx skills@1.5.22 add .;npx skills add ."}',
+            name=".well-known/agent-skills/index.json",
+        )
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("without a version", found[0])
+
     def test_an_unpinned_command_for_our_own_name_passes(self) -> None:
         """Ryan publishes it, so the latest release is still his own code."""
         self.assertEqual(self.findings("pip install solomons-sword\n"), [])
