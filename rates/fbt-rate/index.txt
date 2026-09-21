@@ -8,7 +8,7 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
 
-Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The rate is set by the Fringe Benefits Tax Assessment Act 1986.
+Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
 ## Rate and gross-up rates, by FBT year
 
@@ -62,13 +62,13 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Payroll and super questions
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 22 September 2026. This review corrects the rate-setting Act citation. The historical table was verified on 20 September 2026.
 
 ## Links
 
 - FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - historical rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds
-- Fringe Benefits Tax Assessment Act 1986: https://www.legislation.gov.au/C2004A03280/latest/text
+- Fringe Benefits Tax Act 1986: https://www.legislation.gov.au/C2004A03281/latest/text
 - Download the table as CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
 - Source and contact: https://github.com/ryanduguid
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/

@@ -117,7 +117,7 @@ still fetch all 5. Remove the CI exceptions when runner access works again.
 
 That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
 locally on 11 September 2026. They are listed individually in
-`ATO_AUTOMATION_DENIAL_URLS` in `scripts/check_links.py`. Only HTTP 403 is accepted
+`HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/check_links.py`. Only HTTP 403 is accepted
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
 
@@ -132,6 +132,14 @@ The six ATO sources behind the car limit and FBT rate tables returned HTTP 403
 in [run 35459888870](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35459888870)
 and HTTP 200 locally and in Camofox on 20 September 2026; they are in the same
 list under the same rule.
+
+The [Parliament bills index](https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation)
+and [ATO cents-per-kilometre eligibility page](https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method)
+returned HTTP 403 in [run 35624778953](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35624778953).
+Camofox returned HTTP 200 and the expected content for both on 22 September 2026.
+The same exact-URL, HTTP-403 rule applies to them; other statuses and neighbouring
+URLs still fail. Recheck them in a browser when editing their citations and remove
+the exceptions when automated access works again.
 
 ## Release claims
 

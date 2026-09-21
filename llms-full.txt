@@ -20,7 +20,7 @@ Inspect cash-flow models, calculations, and workpaper checks, with sources, assu
 
 A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 21 September 2026.
+Last reviewed 22 September 2026.
 
 Explore the cash-flow example Browse tools by accounting task
 
@@ -110,6 +110,8 @@ Adopt
 
 Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
 
+A receipt date alone does not establish the amount received. Published checker 0.1.6 assumes full receipt when the amount is absent; check that limitation.
+
 The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
 ### Install and integrate
@@ -173,6 +175,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
+- check that limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
@@ -197,7 +200,7 @@ Source: https://duguid.com.au/about/
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 18 September 2026.
+Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.
 
 ## The short facts
 
@@ -257,7 +260,7 @@ I use sources such as the Australian Taxation Office's super guarantee rate tabl
 
 - Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
-- Refusal over guessing. Where the law does not settle a treatment, or the records supplied do not establish the fact the law tests, the tools return an unknown instead of a number.
+- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Published Payday Super Checker 0.1.6 still assumes full receipt from a receipt date without an amount. Check its receipt-amount limitation before relying on a result.
 - Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check. Professional judgement and lodgement stay human.
 
@@ -304,6 +307,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - rate history: https://duguid.com.au/rates/super-guarantee/
+- Check its receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 
 ---
 
@@ -319,7 +323,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 21 September 2026.
+Last reviewed 22 September 2026.
 
 ## Identity and credentials
 
@@ -371,6 +375,10 @@ Start with current Commonwealth legislation, such as the Income Tax Assessment A
 These records link to maintained owners instead of restating volatile rates, thresholds, package versions, or compatibility matrices here.
 
 ## Data and privacy boundary
+
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+
+The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
 No client, taxpayer, or production-ledger data appears in public examples. Business fixtures are synthetic; dated official-source snapshots are identified separately and do not establish current law. Client data belongs in a controlled local directory, never a public issue, repository, or enquiry email.
 
@@ -456,6 +464,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Xero API scope record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer
 - Workpaper Review Gate design record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design
 - Coal LSL calculator source list: https://duguid.com.au/tools/coal-lsl-levy/#sources
+- LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
+- Website hosting and browser data handling: https://duguid.com.au/privacy/
 - ATO benchmark client-data control: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/README.md#client-data
 - Payday Super local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/README.md#local-file-boundary
 - TheWIPTally local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary
@@ -894,7 +904,7 @@ Source: https://duguid.com.au/evaluate/payday-super-evidence/
 
 Reproduce 4 fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
 
-Published 26 August 2026. Last reviewed 18 September 2026.
+Published 26 August 2026. Last reviewed 22 September 2026. This review adds a current-release qualification. The recorded evaluation and its release pins are unchanged.
 
 ## Accounting problem
 
@@ -909,6 +919,8 @@ This pack is for an accountant, payroll reviewer, or technical evaluator who wan
 The 4 CSV fixtures contain fabricated dates and amounts for a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee, or live payroll data is included.
 
 ## Reproduce
+
+This historical run remains pinned to 0.1.3. Published checker 0.1.6 still treats a receipt date without an amount as full receipt, with a caveat. Check the receipt-amount limitation; these historical outputs do not establish a fix.
 
 Needs Git, and uv with Python 3.12; the commands are the same on Windows, macOS and Linux. Clone the australian-accounting monorepo at tag payday-super-checker/v0.1.3 (commit 8e9bd7235030b2c42bc8f2e7d2e8a60dce627182) and run these commands from packages/payday-super-checker. The first 4 commands write the 4 reports; the final command runs the evaluation contract test.
 
@@ -987,6 +999,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Check the receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - uv: https://docs.astral.sh/uv/
 - tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
@@ -1015,7 +1028,9 @@ Seven maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
 
-Last reviewed 20 September 2026.
+Last reviewed 22 September 2026.
+
+This review updates the announced-measures entry; each rate page keeps its own verification date.
 
 ## Super guarantee rate history
 
@@ -1101,13 +1116,13 @@ FBT years ending 31 March 2018 to 2027.
 
 Primary source Download CSV
 
-## Announced tax measures not yet law
+## Announced tax measures and enacted law
 
-Fifteen Budget and MYEFO measures have no bill named; three are enacted with a 1 July 2027 start. The $1,000 instant deduction and the instant asset write-off are law.
+The ATO summary lists 14 selected measures as TBD and one as Various. The page separates those source statuses from enacted measures, application dates, and transition rules.
 
 Verified
 
-20 September 2026
+22 September 2026
 
 Scope
 
@@ -1134,67 +1149,77 @@ Primary source Download CSV
 - FBT rate and gross-up rates: https://duguid.com.au/rates/fbt-rate/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - Download CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
-- Announced tax measures not yet law: https://duguid.com.au/rates/announced-not-yet-law/
+- Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Primary source: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - Download CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
 
 ---
 
-# Announced tax measures not yet law
+# Announced tax measures and enacted law
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> Tax and super measures the ATO lists as announced but without a bill, and the enacted ones that start later, as at 20 September 2026.
+> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules, and sources checked on 22 September 2026.
 
-# Announced tax measures not yet law
+# Announced tax measures and enacted law
 
-Fifteen tax and super measures from the 2026-27 Budget and the 2025-26 MYEFO have no bill named on the ATO's list, so no calculator or workpaper should apply them. Three more are enacted but start on 1 July 2027. The $1,000 instant deduction, the instant asset write-off and the tax loss carry-back are law and in force.
+Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill, or instrument exists. Check application and transition rules before using a measure.
 
-Read 20 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats what the ATO's Developments column says; a measure the ATO marks TBD has no bill, exposure draft or regulation to point to.
+Read 22 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill, or instrument exists. Various identifies a package whose components may be at different stages.
 
-## Announced, no bill yet
+## ATO development status unresolved
 
-An announcement is not law. Until a bill passes both houses and receives Royal Assent, the existing law applies, and the ATO's guidance on announced measures sets out what happens if a taxpayer anticipates a change that then passes differently or not at all. Fourteen of these rows sat at TBD on the ATO's list when it was read. The MYEFO philanthropy package shows Various instead: several parts at different stages, none with a bill named.
+An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO's guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. Check the measure's Treasury consultation, parliamentary record, and Federal Register entry before assigning a legal status. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
 
-Announced measures without a bill, as listed by the ATO
+Measures with TBD or Various in the ATO summary
 
-Measure | Announced in | Start | ATO status
-Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | No bill yet
-Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | No bill yet
-Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | No bill yet
-Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | No bill yet
-Modernising private health | Budget 2026-27 | 1 April 2027 | No bill yet
-Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | No bill yet
-Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | No bill yet
-Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | No bill yet
-Minimum tax on discretionary trusts | Budget 2026-27 | Various | No bill yet
-Loss refundability reforms for businesses and start-ups (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | No bill yet
-Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | No bill yet
-Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | No bill yet
-OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | No bill yet
-Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | No bill yet
+Measure | Announced in | ATO start date | ATO development status
+Electric car discount: changes to the FBT treatment of electric cars | Budget 2026-27 | 1 April 2027 | TBD
+Global minimum tax (Pillar Two): side-by-side package | Budget 2026-27 | 1 January 2026 | TBD
+Foreign resident CGT regime: transitional arrangements | Budget 2026-27 | First quarter after Royal Assent | TBD
+Foreign investment: extending the ban on foreign purchases of established dwellings | Budget 2026-27 | 1 April 2027 | TBD
+Modernising private health | Budget 2026-27 | 1 April 2027 | TBD
+Supporting philanthropy: deductible gift recipients | Budget 2026-27 | Various | TBD
+Better targeting the R&D Tax Incentive | Budget 2026-27 | 1 July 2028 | TBD
+Expanding venture capital incentives | Budget 2026-27 | 1 July 2027 | TBD
+Minimum tax on discretionary trusts | Budget 2026-27 | Various | TBD
+Loss refundability reforms for businesses and start-ups (beyond the carry-back) | Budget 2026-27 | 1 July 2028 | TBD
+Dynamic PAYG instalments | Budget 2026-27 | 1 July 2027 | TBD
+Law reform to tackle fraud against the tax system | Budget 2026-27 | Royal Assent | TBD
+OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1 January 2027 | TBD
+Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD
 Supporting philanthropy | MYEFO 2025-26 | Various | Various
 
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
-## Enacted, starts later
+## Legislated: later application
 
-These have Royal Assent and a start date after 20 September 2026. They belong in planning, not in a 2026-27 calculation.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income-year application, and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
-Enacted measures with a later start
+ATO-reported legislation with later application
 
-Measure | Announced in | Start | Legislation and assent or registration
+Measure | Announced in | ATO start date | Legislation and assent or registration
 Negative gearing and CGT discount reform | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Working Australians Tax Offset | Budget 2026-27 | 1 July 2027 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
 
-## Enacted and in force
+### Negative gearing: application and acquisition cut-off
 
-Listed because other Australian calculators still describe some of these as announced only. Each is in force: an Act with Royal Assent or a registered legislative instrument, with a start date on or before 20 September 2026.
+Schedule 2 item 5 of the Treasury Laws Amendment (Tax Reform No. 1) Act 2026 applies the amendments from the 2027-28 income year. Schedule 2 commenced on 27 June 2026, the day after Royal Assent. The inserted section 26-155(2)(a) excludes amounts relating to an ownership interest in a residential dwelling last acquired before 7:30 pm ACT legal time on 12 May 2026. For this exception, section 26-155(3) uses the contract date for a dwelling acquired under contract, rather than settlement.
 
-Enacted measures already in force
+Other exceptions cover new residential dwellings and prescribed activities, widely held unit trusts, complying superannuation entities, and amounts relating to fringe benefits: sections 26-155(2), (4), (5), and 26-160. New-dwelling and prescribed-activity conditions depend on legislative instruments; this page does not determine whether a particular property qualifies. A 2026-27 purchase can therefore affect later deductions even though the deduction restriction applies from 2027-28.
 
-Measure | Announced in | Start | Legislation and assent or registration
+### CGT: separate application rules
+
+The negative-gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income-year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event, and applicable transition provisions separately before calculating a gain.
+
+## Legislated: earlier application
+
+For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule, or transitional exception. Read the measure and legislation for the period being calculated.
+
+ATO-reported legislation with earlier application
+
+Measure | Announced in | ATO start date | Legislation and assent or registration
 $1,000 instant tax deduction for work-related expenses | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 1) Act 2026 and Income Tax Rates Amendment (Tax Reform No. 1) Act 2026, Royal Assent 26 June 2026
 Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
 Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
@@ -1205,21 +1230,21 @@ Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amen
 Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
 Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
 
-Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures not yet law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure's status against the ATO page before relying on it; the list changes every sitting.
+Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure's status against the ATO page before relying on it; the list changes every sitting.
 
 ## Common questions
 
 ### Is the $1,000 instant tax deduction law?
 
-Yes. The Treasury Laws Amendment (Tax Reform No. 1) Act 2026 received Royal Assent on 26 June 2026 and the deduction applies from 1 July 2026, as the ATO's list records.
+Yes. Schedule 4 Part 1 item 17 of the Treasury Laws Amendment (Tax Reform No. 1) Act 2026 applies it from the 2026-27 income year. Section 25-130 covers individuals who are Australian residents at some time in the year and derive assessable labour income. The deduction starts at the lesser of $1,000 and that income, then is reduced, to no less than zero, by specified work-related deductions. It is not an extra $1,000 on top of those same expenses. Income protection, personal sickness and accident insurance premiums, and membership of a trade, business or professional association are excluded from the section 8-1 reduction.
 
 ### Is the negative gearing and CGT discount reform law?
 
-Yes, with a later start. The same Tax Reform No. 1 Acts enact it and it starts on 1 July 2027. Nothing changes for the 2026-27 income year.
+Yes. The negative-gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership-interest exception and a contract-date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset.
 
 ### What does TBD mean on the ATO's list?
 
-The ATO's Developments column names the bill, Act or instrument once one exists. TBD means there is none yet: no exposure draft, no bill and no regulation. Treat the measure as an announcement only.
+TBD is the development status reported in the ATO summary. That entry alone does not establish whether a consultation draft, bill, or instrument exists. Check Treasury, Parliament, and the Federal Register for the measure. Various means the package needs component-level checking.
 
 ### How often is this page checked?
 
@@ -1238,12 +1263,15 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. ATO summary and reform provisions reviewed 22 September 2026; other measures retain source-reported status.
 
 ## Links
 
 - latest news on tax and superannuation law and policy: https://www.ato.gov.au/about-ato/new-legislation/latest-news-on-tax-law-and-policy
 - guidance on announced measures: https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures
+- Treasury consultation: https://treasury.gov.au/consultation
+- parliamentary record: https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation
+- Federal Register entry: https://www.legislation.gov.au/
 - Electric car discount: changes to the FBT treatment of electric cars: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/electric-car-discount-more-sustainable-fbt-treatment-of-electric-cars
 - Global minimum tax (Pillar Two): side-by-side package: https://www.ato.gov.au/about-ato/new-legislation/in-detail/international/implementation-of-a-global-minimum-tax-and-a-domestic-minimum-tax
 - Foreign resident CGT regime: transitional arrangements: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/strengthening-the-foreign-resident-cgt-regime
@@ -1254,6 +1282,7 @@ Published 20 September 2026. Last reviewed 20 September 2026.
 - Loss refundability reforms for businesses and start-ups (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
 - Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
+- Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - $1,000 instant tax deduction for work-related expenses: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/standard-deduction-for-work-related-expenses
 - Download the three tables as CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
 - rates register's: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
@@ -1472,6 +1501,8 @@ The 2026 determination repealed it and is written for one year only. Section 6 s
 
 ## How the method works
 
+For business claims, the ATO limits this method to sole traders and partnerships with at least one individual partner, claiming for a car. Private travel does not qualify. This eligibility guidance was checked on 22 September 2026; the historical rate-table review remains dated 14 September 2026.
+
 Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: business kilometres travelled by the car in the income year, multiplied by the rate determined for that year. Four features of it catch people out.
 
 - 5,000 kilometres is a ceiling, not a threshold. If the car travelled 5,085 business kilometres, you claim 5,000 and lose the extra 85. The Act uses that exact example.
@@ -1523,6 +1554,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - 2026 determination (F2026L00785): https://www.legislation.gov.au/F2026L00785/asmade
 - 2024 determination (F2024L00697): https://www.legislation.gov.au/F2024L00697/asmade
 - Download the table as CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
+- ATO limits this method: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
@@ -1701,7 +1733,7 @@ Source: https://duguid.com.au/rates/fbt-rate/
 
 The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
 
-Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The rate is set by the Fringe Benefits Tax Assessment Act 1986.
+Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
 ## Rate and gross-up rates, by FBT year
 
@@ -1755,13 +1787,13 @@ Maintained by Ryan Duguid as part of his open-source Australian computational ac
 - Payroll and super questions
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 22 September 2026. This review corrects the rate-setting Act citation. The historical table was verified on 20 September 2026.
 
 ## Links
 
 - FBT rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-rates-and-thresholds
 - historical rates and thresholds: https://www.ato.gov.au/tax-rates-and-codes/fringe-benefits-tax-historical-rates-and-thresholds
-- Fringe Benefits Tax Assessment Act 1986: https://www.legislation.gov.au/C2004A03280/latest/text
+- Fringe Benefits Tax Act 1986: https://www.legislation.gov.au/C2004A03281/latest/text
 - Download the table as CSV: https://duguid.com.au/rates/fbt-rate/fbt-rates.csv
 - Source and contact: https://github.com/ryanduguid
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
@@ -2336,7 +2368,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
 
-Published 16 September 2026. Last reviewed 20 September 2026.
+Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and links the receipt-amount limitation; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -2356,10 +2388,10 @@ Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-su
 Field | Detail
 Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
-What stays correct | Every verdict. All 6 of them, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. A sound verdict does not make the row's figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
+Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund-receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt-amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row's figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG-charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
 Human step | Update the rate table from the ATO general interest charge rates page rather than passing --allow-stale-gic. Re-run and confirm the caveat is gone before relying on an exposure figure.
-Status | Narrowed in v0.1.6. The extrapolation used to run behind a caveat the reader had to notice, which put an unpublished rate into both exposure totals by default. It is now an opt-in, so a default run either has a published rate for every day of the period or withholds the estimate for that row. The shortfall figure, which is itself correct, is reported either way.
+Status | Narrowed in v0.1.6. The extrapolation used to run behind a caveat the reader had to notice, which put an unpublished rate into both exposure totals by default. It is now an opt-in, so a default run either has a published rate for every day of the period or withholds the estimate for that row. The shortfall figure is reported either way; its reliability still depends on the supplied amounts and matching evidence.
 
 ## Payday Super: the payroll-to-super join degrades in four declared ways
 
@@ -2419,6 +2451,7 @@ This is a register of limitations found and confirmed, not a proof that none rem
 ## Links
 
 - What these tools refuse: https://duguid.com.au/tools/refusals/
+- receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - contact page: https://duguid.com.au/contact/
 - evaluations: https://duguid.com.au/evaluate/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -2604,9 +2637,21 @@ Human decision: Obtain evidence of eligible fund receipt and check the applicabl
 
 This is a fixed example. Nothing to install or upload; these dates do not recalculate. Inspect the exact fixture.
 
+Receipt amount matters. A fund-receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the published-version limitation.
+
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 20 September 2026.
+Published 24 August 2026. Last reviewed 22 September 2026. This review reproduces the receipt-amount cases in releases 0.1.5 and 0.1.6; the fixed evaluation remains pinned to 0.1.3.
+
+## Receipt dates and amounts
+
+The published release 0.1.6 still assumes full receipt when the amount is missing. Reproduced on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns ON_TIME and exit 0. Release 0.1.6 adds a caveat explaining that assumption. The quick trial below uses 0.1.5, which also makes the assumption. Read the 0.1.6 release record.
+
+The development implementation withholds ON_TIME for that missing-amount case. It is unreleased; installing the published package does not give you that change.
+
+matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund-receipt evidence does not establish receipt.
+
+For the $120 obligation in this example, a timely $60 matched receipt returns UNPAID, not full payment. A timely $120 matched receipt returns ON_TIME only on the supplied facts. Late receipt returns LATE; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.
 
 ## Try the CSV without cloning
 
@@ -2616,7 +2661,7 @@ With uv installed, download the synthetic CSV as timely_remittance_no_receipt.cs
 uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.5. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay-period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
@@ -2648,7 +2693,7 @@ The ordinary timing pathway tests fund receipt within 7 business days of payday.
 
 Source on GitHub · Open an issue
 
-Two known limitations are recorded against this tool: an extrapolated general interest charge rate past the end of the published table, and the ways the payroll-to-super join degrades when identifiers do not match. See Known limitations.
+Alongside the receipt-amount limitation, two further limitations are recorded against this tool: an extrapolated general interest charge rate past the end of the published table, and the ways the payroll-to-super join degrades when identifiers do not match. See Known limitations.
 
 Version, file fingerprints, and timing boundary
 
@@ -2671,7 +2716,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Inspect the exact fixture: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv
+- Read the published-version limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
+- Read the 0.1.6 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.6
+- development implementation: https://github.com/ryanduguid/australian-accounting/blob/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/packages/payday-super-checker/paydaysuper/assess.py
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
 - Known limitations: https://duguid.com.au/tools/limitations/
@@ -3364,7 +3412,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 21 September 2026.
+Published 25 August 2026. Last reviewed 22 September 2026. This review clarifies the checker 0.1.6 limitation and network boundaries.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3476,6 +3524,12 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Limits
 
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+
+The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
+
+Published MCP 0.2.4 pins Payday Super Checker 0.1.6. Its receipt date without an amount can return ON_TIME under a full-receipt assumption. Review that limitation before interpreting a result.
+
 Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
 ## Common questions
@@ -3548,6 +3602,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PyPI: https://pypi.org/project/payday-super-checker/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
 - contact page: https://duguid.com.au/contact/
+- LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
+- Website hosting and browser data handling: https://duguid.com.au/privacy/
+- Review that limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

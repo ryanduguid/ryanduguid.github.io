@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+import gzip
+import http.client
 import mimetypes
 import os
 import socket
@@ -42,13 +44,37 @@ def main() -> None:
         assert content_type == "text/javascript", (
             f".mjs must remain executable when the host MIME map is wrong; found {content_type!r}"
         )
+        connection = http.client.HTTPConnection(server_module.HOST, server.server_port, timeout=5)
+        try:
+            connection.connect()
+            original_socket = connection.sock
+            for method, path in (
+                ("GET", "/assets/levy.mjs"),
+                ("HEAD", "/assets/levy.mjs"),
+                ("GET", "/assets/fonts/IBMPlexSans-Regular-Latin1.woff2"),
+            ):
+                connection.request(method, path, headers={"Accept-Encoding": "gzip"})
+                response = connection.getresponse()
+                body = response.read()
+                assert response.status == 200
+                assert response.version == 11, "asset requests must support HTTP/1.1 reuse"
+                assert connection.sock is original_socket, "asset request closed its connection"
+                if method == "HEAD":
+                    assert body == b""
+                    continue
+                assert len(body) == int(response.getheader("Content-Length", "0"))
+                if response.getheader("Content-Encoding") == "gzip":
+                    body = gzip.decompress(body)
+                assert body == (server_module.ROOT / path.lstrip("/")).read_bytes()
+        finally:
+            connection.close()
     finally:
         server.shutdown()
         server.server_close()
         thread.join(timeout=5)
         mimetypes.guess_type = original_guess_type
 
-    print("site server connection queue and MIME tests passed")
+    print("site server connection queue, reuse, response framing and MIME tests passed")
 
 
 if __name__ == "__main__":

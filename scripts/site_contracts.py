@@ -66,8 +66,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-21"
-MCP_VISIBLE_REVIEW_DATE = "21 September 2026"
+MCP_REVIEW_DATE = "2026-09-22"
+MCP_VISIBLE_REVIEW_DATE = "22 September 2026"
 ASSURANCE_ANCHORS = {
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases, and repositories",
@@ -504,7 +504,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ),
             "limitations": ("This evaluation does not provide advice or make an ATO assessment.",),
         },
-        "sitemap_lastmod": "2026-09-18",
+        "sitemap_lastmod": "2026-09-22",
         "llms_section": "Evaluation packs",
     },
 }
@@ -590,7 +590,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ("/rates/maximum-contribution-base/", "Maximum super contribution base"),
             ("/rates/car-limit/", "Car limit for depreciation"),
             ("/rates/fbt-rate/", "FBT rate and gross-up rates"),
-            ("/rates/announced-not-yet-law/", "Announced tax measures not yet law"),
+            ("/rates/announced-not-yet-law/", "Announced tax measures and enacted law"),
         ],
     },
 }

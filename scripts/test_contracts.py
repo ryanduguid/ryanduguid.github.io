@@ -123,8 +123,6 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    review_date = "20 September 2026"
-    modified_date = "2026-09-20"
     homepage_title = "Open-source accounting tools for Australian accountants"
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
@@ -207,10 +205,9 @@ def test_geo_leftovers_surface() -> None:
         "meta-externalagent": ["Disallow: /"],
     }
 
-    # The rates hub records the latest primary-source rate check;
-    # the evaluations hub retains its own editorial review date.
+    # Hub dates record their own editorial review, independently of rate rows.
     hub_dates = {
-        "rates/index.html": (review_date, modified_date),
+        "rates/index.html": ("22 September 2026", "2026-09-22"),
         "evaluate/index.html": ("21 September 2026", "2026-09-21"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
@@ -236,7 +233,9 @@ def test_geo_leftovers_surface() -> None:
     for url in csv_urls:
         assert reference_tables.count(url) == 1
 
-    assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [modified_date]
+    assert core.sitemap_lastmods("https://duguid.com.au/rates/", ROOT) == [
+        hub_dates["rates/index.html"][1]
+    ]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
         "2026-09-20"
     ]
@@ -563,8 +562,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 22 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 22 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -577,8 +576,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 22 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 22 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -673,9 +672,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "21 September 2026", "2026-09-21"),
+        ("index.html", "22 September 2026", "2026-09-22"),
         ("tools/index.html", "21 September 2026", "2026-09-21"),
-        ("evidence/index.html", "21 September 2026", "2026-09-21"),
+        ("evidence/index.html", "22 September 2026", "2026-09-22"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
