@@ -60,7 +60,11 @@ FLAGS = r"(?:(?:-[\w-]+|--[\w-]+(?:[= ][^\s]+)?)\s+)*"
 
 # (registry, pattern, command line only)
 COMMANDS = (
-    ("pypi", re.compile(r"\b(?:python\d?(?: -m)? )?(?:uv )?pip3? install\s+" + FLAGS + TOKEN), False),
+    (
+        "pypi",
+        re.compile(r"\b(?:python\d?(?: -m)? )?(?:uv )?pip3? install\s+" + FLAGS + TOKEN),
+        False,
+    ),
     ("pypi", re.compile(r"\buvx\s+" + FLAGS + r"--from\s+" + TOKEN), False),
     ("pypi", re.compile(r"\bpipx (?:run|install)\s+" + FLAGS + TOKEN), False),
     ("pypi", re.compile(r"\buv tool (?:run|install)\s+" + FLAGS + TOKEN), False),
@@ -188,8 +192,11 @@ def fetch(url: str) -> int:
 def verify_live(root: Path = ROOT) -> int:
     """Report drift between the reviewed record and the public registries."""
     record = load_policy()
-    used = {(registry, package) for path in scanned_files(root)
-            for registry, package, _ in installs(path.read_text(encoding="utf-8"))}
+    used = {
+        (registry, package)
+        for path in scanned_files(root)
+        for registry, package, _ in installs(path.read_text(encoding="utf-8"))
+    }
     drift = 0
     for registry, packages in sorted(record["packages"].items()):
         for package, entry in sorted(packages.items()):

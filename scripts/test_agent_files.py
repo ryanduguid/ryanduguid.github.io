@@ -78,7 +78,7 @@ class NameTests(AgentFileFixture):
 
     def test_a_local_path_names_no_package(self) -> None:
         self.assertEqual(
-            self.findings("cd packages/the-wip-tally\npip install .\npip install -e \".[dev]\"\n"),
+            self.findings('cd packages/the-wip-tally\npip install .\npip install -e ".[dev]"\n'),
             [],
         )
 
@@ -120,7 +120,7 @@ class HiddenTextTests(AgentFileFixture):
         self.assertTrue(findings[0].where.endswith(":3"), findings[0].where)
 
     def test_clean_text_passes(self) -> None:
-        self.assertEqual(self.findings("Plain text with an em rule, a dash and \"quotes\".\n"), [])
+        self.assertEqual(self.findings('Plain text with an em rule, a dash and "quotes".\n'), [])
 
 
 class CommittedFilesTest(unittest.TestCase):
