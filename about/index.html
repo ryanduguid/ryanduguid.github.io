@@ -149,7 +149,7 @@
             <ul>
               <li><strong>Primary sources only.</strong> Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.</li>
               <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.</li>
-              <li><strong>Refusal over guessing.</strong> The tools have explicit refusal and unknown states, with release-specific limits. Published Payday Super Checker 0.1.6 still assumes full receipt from a receipt date without an amount. <a href="/tools/payday-super/#receipt-amount">Check its receipt-amount limitation</a> before relying on a result.</li>
+              <li><strong>Refusal over guessing.</strong> The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. <a href="/tools/payday-super/#receipt-amount">Check the version-specific receipt rules</a> before relying on a result.</li>
               <li><strong>Synthetic data in public.</strong> Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.</li>
               <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
             </ul>

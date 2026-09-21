@@ -95,7 +95,7 @@ class FactCheckTests(unittest.TestCase):
         self.assertIn("Schedule 2 item 5", html)
         self.assertIn("CGT has separate application and transition provisions", html)
 
-    def test_published_receipt_limitation_is_beside_example(self) -> None:
+    def test_receipt_versions_are_beside_example(self) -> None:
         html = read("tools/payday-super/index.html")
         tree = core.parse_structure(html)
         sections = core.element_by_id(tree, "receipt-amount")
@@ -108,7 +108,7 @@ class FactCheckTests(unittest.TestCase):
             "remitted_amount",
             "ON_TIME",
             "UNPAID",
-            "unreleased",
+            "0.1.7",
             "Neither field authenticates",
         ):
             self.assertIn(term, text)
@@ -134,9 +134,9 @@ class FactCheckTests(unittest.TestCase):
             "cloud-backed AI host",
             "tool results and library excerpts",
             "https://duguid.com.au/tools/payday-super/#receipt-amount",
-            "published checker 0.1.6 and quick-trial 0.1.5",
+            "Older checker 0.1.6 and quick-trial 0.1.5",
             "assume full receipt",
-            "unreleased",
+            "0.1.7",
             "outcomes from checker 0.1.3",
         ):
             self.assertIn(qualification, index)
@@ -172,7 +172,7 @@ class FactCheckTests(unittest.TestCase):
         )
         self.assertNotIn("all operate correctly", read("llms.txt"))
 
-    def test_workbook_claims_distinguish_published_and_development(self) -> None:
+    def test_workbook_claims_distinguish_released_versions(self) -> None:
         tree = core.parse_structure(read("tools/payday-super/index.html"))
         section = core.element_by_id(tree, "workbook-versions")[0]
         text = core.element_text(section)
@@ -182,7 +182,7 @@ class FactCheckTests(unittest.TestCase):
             "--allow-stale-gic",
             "0.1.7",
             "Not assessed",
-            "not a published",
+            "a PyPI install does not install the workbook",
             "BLOCKED",
         ):
             self.assertIn(boundary, text)

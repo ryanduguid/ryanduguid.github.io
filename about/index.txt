@@ -68,7 +68,7 @@ I use sources such as the Australian Taxation Office's super guarantee rate tabl
 
 - Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
-- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Published Payday Super Checker 0.1.6 still assumes full receipt from a receipt date without an amount. Check its receipt-amount limitation before relying on a result.
+- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific receipt rules before relying on a result.
 - Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check. Professional judgement and lodgement stay human.
 
@@ -115,4 +115,4 @@ I write and maintain this site in my own time and on my own equipment.
 - Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - rate history: https://duguid.com.au/rates/super-guarantee/
-- Check its receipt-amount limitation: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
