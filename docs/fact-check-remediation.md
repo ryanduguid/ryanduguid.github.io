@@ -2,7 +2,7 @@
 
 Reviewed 22 September 2026 (Australia/Sydney). Website baseline: `20975376daee112d721bbde0fcc56c6075a33d3d`. Accounting development reference: `19a5824af78cf281ccfc6b8f07f7e21b860ae1a7`.
 
-The supported corrections are implemented in an isolated local website worktree. No package, website, commit or pull request was published. The original website checkout and the accounting source checkout were not edited. The handover supplied findings to investigate; its proposed wording and dates were not treated as verified facts.
+This report records verification at the initial local handoff, before publication of the pull request. The supported corrections were implemented in an isolated website worktree. The original website checkout and the accounting source checkout were not edited. The handover supplied findings to investigate; its proposed wording and dates were not treated as verified facts.
 
 ## Finding outcomes
 
@@ -131,6 +131,6 @@ A standalone `check_design.py` invocation against unrendered source reported mis
 | Scoped visual inspection | Reviewed homepage and changed receipt, FBT, reform and privacy sections at 390px and 1440px. No document overflow in the eight scoped captures. Existing wide tables retain their horizontal scrolling region. |
 | Diff, generated output and publication scope | `git diff --check` passed. Design digests changed only for affected content and metadata. Internal report absent from `_site`. Feed and historical evaluation output checks passed. |
 
-Checks not claimed: remote GitHub Actions execution, a Linux CI run, a full accounting-engine suite, fresh historical evaluation results, independent professional review, live issuer authentication of CA ANZ/Xero, and a complete legal search for every proposal or transition. The task did not authorise publication or deployment, and those actions were not performed.
+Checks not claimed at the initial local handoff: remote GitHub Actions execution, a Linux CI run, a full accounting-engine suite, fresh historical evaluation results, independent professional review, live issuer authentication of CA ANZ/Xero, and a complete legal search for every proposal or transition. The initial verification stage did not include publication or deployment; subsequent PR checks and deployment status are recorded on the pull request.
 
 Ponytail full review: reused the site's generators, contract parsers and test runners; added no website dependency or parallel release manifest. No AI Slop review: checked factual scope, release distinctions, Australian English and the limits of each verification. The unresolved factual boundaries remain explicit above.
