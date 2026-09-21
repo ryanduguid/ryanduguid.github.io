@@ -189,19 +189,34 @@ test('release check refuses a missing published tag or missing release links', a
 
 test('release lookup follows pagination and refuses an API failure', async () => {
   const requests = [];
-  const releases = await freshness.fetchReleases('ryanduguid/example', async (url) => {
-    requests.push(url);
-    return new Response(JSON.stringify(requests.length === 1
+  const releases = await freshness.fetchReleases('ryanduguid/example', (command, args, options) => {
+    assert.equal(command, 'gh');
+    assert.equal(options.encoding, 'utf8');
+    assert.equal(options.timeout, 15_000);
+    requests.push(args);
+    return JSON.stringify(requests.length === 1
       ? Array.from({ length: 100 }, () => release('other/v1.0.0'))
-      : [release('tool/v1.1.0')]), { status: 200 });
+      : [release('tool/v1.1.0')]);
   });
+  assert.equal(releases.length, 101);
   assert.equal(releases.at(-1).tag_name, 'tool/v1.1.0');
   assert.deepEqual(requests, [
-    'https://api.github.com/repos/ryanduguid/example/releases?per_page=100&page=1',
-    'https://api.github.com/repos/ryanduguid/example/releases?per_page=100&page=2',
+    ['api', 'repos/ryanduguid/example/releases?per_page=100&page=1',
+      '--jq', 'map({tag_name, draft, prerelease, published_at})'],
+    ['api', 'repos/ryanduguid/example/releases?per_page=100&page=2',
+      '--jq', 'map({tag_name, draft, prerelease, published_at})'],
   ]);
-  await assert.rejects(freshness.fetchReleases('ryanduguid/example', async () =>
-    new Response('Rate limited', { status: 403 })), /GitHub release lookup failed.*403/);
+  for (const message of ['GitHub HTTP 403', 'gh authentication required', 'spawnSync gh ETIMEDOUT']) {
+    await assert.rejects(freshness.fetchReleases('ryanduguid/example', () => {
+      throw new Error(message);
+    }), { message });
+  }
+});
+
+test('release lookup refuses malformed data and accepts an empty release list', async () => {
+  await assert.rejects(freshness.fetchReleases('ryanduguid/example', () => 'not JSON'), SyntaxError);
+  await assert.rejects(freshness.fetchReleases('ryanduguid/example', () => '{}'), /Invalid release list/);
+  assert.deepEqual(await freshness.fetchReleases('ryanduguid/example', () => '[]'), []);
 });
 
 test('release check leaves historical references outside the current table alone', async () => {
