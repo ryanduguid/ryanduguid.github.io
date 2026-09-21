@@ -77,6 +77,14 @@ export function inspectHeaders(path, headers) {
   return failures;
 }
 
+export function inspectRedirect(path, response, expectedLocation) {
+  const location = response.headers.get('location');
+  if (response.status !== 301 || location !== expectedLocation) {
+    return [`${path}: expected 301 to ${expectedLocation}, got HTTP ${response.status} ${location ?? ''}`.trim()];
+  }
+  return [];
+}
+
 async function main() {
   const failures = [];
   const notes = [];
@@ -95,10 +103,13 @@ async function main() {
     notes.push(...result.notes);
   }
   for (const [from, to] of Object.entries(REDIRECTS)) {
-    const response = await fetch(BASE + from, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
-    const location = response.headers.get('location');
-    if (response.status !== 301 || location !== BASE + to) {
-      failures.push(`${from}: expected 301 to ${to}, got HTTP ${response.status} ${location ?? ''}`.trim());
+    const response = await fetch(BASE + from + '?check=encoded%20value', { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+    failures.push(...inspectRedirect(from, response, BASE + to + '?check=encoded%20value'));
+  }
+  for (const path of ['/refusals-test/', '/refusals/child/']) {
+    const response = await fetch(BASE + path, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+    if (response.status !== 404 || response.headers.has('location')) {
+      failures.push(`${path}: expected HTTP 404 without redirect, got HTTP ${response.status} ${response.headers.get('location') ?? ''}`.trim());
     }
   }
   for (const note of notes) console.log(`note: ${note}`);

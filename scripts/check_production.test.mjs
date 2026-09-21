@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { inspectHtml, sitemapPaths } from './check_production.mjs';
+import { inspectHtml, inspectRedirect, sitemapPaths } from './check_production.mjs';
 
 // The address is only a fixture; the checks never hard-code the real one.
 const SOURCE = '<p>Write to <a href="mailto:someone@example.com">someone@example.com</a>.</p>';
@@ -49,4 +49,20 @@ test('sitemapPaths reads the site paths out of the sitemap', () => {
   const xml = '<url><loc>https://duguid.com.au/</loc></url>'
     + '<url><loc>https://duguid.com.au/contact/</loc></url>';
   assert.deepEqual(sitemapPaths(xml), ['/', '/contact/']);
+});
+
+test('redirect validation preserves an encoded query string', () => {
+  const response = new Response(null, {
+    status: 301,
+    headers: { location: 'https://duguid.com.au/tools/refusals/?check=encoded%20value' },
+  });
+  assert.deepEqual(inspectRedirect('/refusals', response, 'https://duguid.com.au/tools/refusals/?check=encoded%20value'), []);
+});
+
+test('redirect validation rejects refusal child paths that redirect', () => {
+  const response = new Response(null, {
+    status: 301,
+    headers: { location: 'https://duguid.com.au/tools/refusals/' },
+  });
+  assert.equal(response.status === 404 && !response.headers.has('location'), false);
 });
