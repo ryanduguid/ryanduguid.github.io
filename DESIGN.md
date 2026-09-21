@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 21 September improvement pass preserves saved question searches at the
+topic hub and removes the redundant single-topic selector. Search labels name
+the current topic. Calculator copy distinguishes automatic storage from local
+scenario downloads, and the machine index qualifies loan precision. Primary
+navigation uses 14px labels and 44px minimum targets on mobile, wrapping below
+480px with a 132px header so all six links remain visible. The Coal LSL
+opening spacing and Payday example's top inset tighten on narrow screens to
+keep their existing first-viewport actions. The palette, calculation code
+and professional boundaries are unchanged.
+
 The 20 September evaluation pass splits the two long tool pages: the 100
 questions now live on 10 topic pages of 10, each with the search box and
 checklist download, and the 9 business calculators each have their own page.

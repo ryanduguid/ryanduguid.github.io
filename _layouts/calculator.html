@@ -53,9 +53,9 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser; inputs are not saved or sent anywhere.</p>
+        <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
         <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "loan" %}; loan estimates allow for calculation precision{% endif %}.</p>
-        <p class="page-meta">Published 20 September 2026. Last reviewed 20 September 2026.</p>
+        <p class="page-meta">Published 20 September 2026. Last reviewed 21 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
@@ -79,7 +79,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-20",
+      "dateModified": "2026-09-21",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

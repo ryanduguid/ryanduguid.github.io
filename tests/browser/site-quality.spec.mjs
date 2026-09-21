@@ -336,7 +336,7 @@ test('all six primary navigation links fit the smallest mobile width', async ({ 
   health.assertHealthy();
 });
 
-test('mobile sticky header preserves the reading viewport', async ({ page }, testInfo) => {
+test('mobile sticky header gives readable navigation two rows', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
@@ -344,7 +344,20 @@ test('mobile sticky header preserves the reading viewport', async ({ page }, tes
   const height = await page.locator('.site-header').evaluate((header) => (
     Math.round(header.getBoundingClientRect().height)
   ));
-  expect(height).toBeLessThanOrEqual(88);
+  expect(height).toBeLessThanOrEqual(132);
+  for (const width of [320, 360, 390, 480, 481, 640]) {
+    await page.setViewportSize({ width, height: 844 });
+    const sizes = await page.locator('.site-nav a').evaluateAll(links => links.map(link => {
+      const rect = link.getBoundingClientRect();
+      return { width: rect.width, height: rect.height, font: parseFloat(getComputedStyle(link).fontSize) };
+    }));
+    for (const size of sizes) {
+      expect(size.width).toBeGreaterThanOrEqual(44);
+      expect(size.height).toBeGreaterThanOrEqual(44);
+      expect(size.font).toBeGreaterThanOrEqual(14);
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  }
 });
 
 test('all homepage starting routes land on their targets', async ({ page }) => {

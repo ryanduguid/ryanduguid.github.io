@@ -72,6 +72,60 @@ test('old hash links land on the page that now holds the content', async ({ page
   await expect(page.locator('#q100')).toHaveAttribute('open', '');
 });
 
+test('saved hub searches retain their query and explain an unknown topic', async ({ page }) => {
+  const term = '<GST> & BAS "cash"';
+  const query = new URLSearchParams({ q: term, topic: 'retired-topic' });
+  await page.goto(`/tools/accounting-questions/?${query}`);
+  const notice = page.locator('#question-search-context');
+  await expect(notice).toContainText(term);
+  await expect(notice).toContainText('not recognised');
+  await expect(notice.locator('*')).toHaveCount(0);
+  const topics = page.locator('.question-group h2 a');
+  await expect(topics).toHaveCount(10);
+  for (const href of await topics.evaluateAll(links => links.map(link => link.href))) {
+    expect(new URL(href).searchParams.get('q')).toBe(term);
+  }
+  await page.goto('/tools/accounting-questions/?q=GST');
+  await expect(notice).toContainText('Saved search: GST.');
+  await page.locator('#gst-bas h2 a').click();
+  await expect(page.getByLabel('Search questions in GST and BAS')).toHaveValue('GST');
+  await page.goto('/tools/accounting-questions/?topic=retired-topic');
+  await expect(notice).toContainText('no longer available');
+});
+
+test('saved topic searches forward while direct question fragments still take priority', async ({ page }) => {
+  await page.goto('/tools/accounting-questions/?topic=gst-bas&q=GST');
+  await expect(page).toHaveURL(/accounting-questions\/gst-bas\/\?q=GST$/);
+  await expect(page.getByLabel('Search questions')).toHaveValue('GST');
+  await page.goto('/tools/accounting-questions/?topic=gst-bas');
+  await expect(page).toHaveURL(/accounting-questions\/gst-bas\/$/);
+  await page.goto('/tools/accounting-questions/?topic=gst-bas&q=GST#q100');
+  await expect(page).toHaveURL(/investments-local\/#q100$/);
+  await expect(page.locator('#q100')).toHaveAttribute('open', '');
+});
+
+test('every topic scopes search, clears it and accepts its old topic parameter', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/tools/accounting-questions/');
+  const links = await page.locator('.question-group h2 a').evaluateAll(nodes =>
+    nodes.map(node => ({ href: node.href, topic: node.closest('section').id, label: node.textContent.trim() })));
+  for (const { href, topic, label } of links) {
+    await page.goto(`${href}?topic=${topic}&q=zznomatchingquestionzz`);
+    const search = page.getByLabel(`Search questions in ${label}`, { exact: true });
+    await expect(search).toHaveValue('zznomatchingquestionzz');
+    await expect(page.locator('#question-topic')).toHaveCount(0);
+    await expect(page.locator('#question-count')).toContainText('No questions match.');
+    await expect(page).not.toHaveURL(/topic=/);
+    await page.getByRole('button', { name: 'Clear filters' }).click();
+    await expect(search).toBeFocused();
+    await expect(search).toHaveValue('');
+    await expect(page.locator('details.question:visible')).toHaveCount(10);
+    await expect(page).toHaveURL(href);
+  }
+  expect(errors).toEqual([]);
+});
+
 test('cash inputs survive a save and reload with dated results', async ({ page }) => {
   await page.goto('/tools/business-calculators/cash/');
   const form = page.locator('#cash form');
