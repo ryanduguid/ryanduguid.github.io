@@ -16,6 +16,22 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+At Ryan's request, external-review invitations, pending notices and the
+response template are removed. The sample pack retains its scenario exercise,
+with no reviewer recruitment or reporting requirement. Its workbook and
+calculated outputs are unchanged.
+
+The later 21 September discovery pass adds Ozzit to the existing task chooser
+and distinguishes the Coal LSL calculator from the 9 planning calculators.
+The homepage links to the integration guide instead of carrying installation
+tabs and version caveats. The guide now owns all 4 installation routes and
+the no-install option. Old homepage links to individual tabs still select
+the corresponding option in the guide. The current design, calculation
+behaviour and review boundaries remain in force.
+
+Installation panels use a single shrinkable grid column so long commands
+scroll within their code block and the Copy button stays on screen.
+
 The 21 September improvement pass preserves saved question searches at the
 topic hub and removes the redundant single-topic selector. Search labels name
 the current topic. Calculator copy distinguishes automatic storage from local
@@ -61,9 +77,7 @@ reader came to do: understand an accounting problem, try a browser calculator,
 evaluate an accounting workflow, inspect or integrate the software. The same 4
 appear above the chooser on Tools, which keeps Extract, Calculate, Control and
 Inspect as the catalogue index below. Each route states its delivery
-requirement before the reader follows it. Evaluations gains a bounded
-independent-review task with a plain-text response template; the independent
-accountant trial remains pending. The header wordmark reads 'tool library'
+requirement before the reader follows it. The header wordmark reads 'tool library'
 rather than 'register'. The palette, type, tokens and restraint rules are
 unchanged.
 
@@ -76,10 +90,7 @@ security processing from what the calculators do with entered figures; the
 route copy says the calculators work the figures out in the browser rather than
 that nothing is sent anywhere. The machine index routes the same 4 tasks to the
 same destinations as the homepage and Tools, and gives the business calculators
-and Monthly Close Controls their own links. The review template asks what a
-reviewer had already seen and gives each figure checked in both scenarios its
-own line, because the published expected results make this a guided
-reproduction rather than a blinded trial. Every tool feedback line now reaches
+and Monthly Close Controls their own links. Every tool feedback line now reaches
 the written-out address through the contact page. The site social card carries
 the tool-library label; it was re-rendered with the pinned Chromium and its
 checksum refreshed, and the other 4 cards rendered byte for byte identical. No

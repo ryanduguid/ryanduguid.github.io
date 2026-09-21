@@ -13,13 +13,13 @@
       "bb2996a08c0fca3a40d0b8ae4aaef4f39d48aed4c17902baeb6d137e95a36ef8"
     ],
     "changelog/index.html": [
-      "497f161a765592c12c686fc9a6eba750b8536f0282043c5fbfd1174452996bad"
+      "07267bcb529e2746689e90e6f3934dd6460b6f03897a7eab52066b303382d338"
     ],
     "contact/index.html": [
-      "9ef797ca146db23d61006e5bf9ab33746488025bf640831c3590c686e6c76dd3"
+      "3971110ad8284917a42a099f7c809109764178a3fea6b0ef1a0f9b95d57aedc2"
     ],
     "evaluate/index.html": [
-      "889e599b4946ac99f4bc26da4ec8ebea35664aaaff5ddbe48a6ba4695417d723"
+      "7e97b9e6e3098e3652fcded0cc22bd836331a1647bd0d22a08ae6f4304d0da9e"
     ],
     "evaluate/manager-review-gate/index.html": [
       "30e4abd730f196656015fd2344c6634dd2366090664b37c42c42843c470b1b7e"
@@ -31,16 +31,16 @@
       "1c87e3e0299f650984fdeb2ba70f33c2f2dc15f79689eec3e136d5df8e836e56"
     ],
     "evidence/index.html": [
-      "1d4cb3cdc10f63dc8eebad7e85086512c5df773506532181d33c8bf5692285d3"
+      "a200dbbf0b88880df495efd3c1504cc09e5e0749ad1ea4e6e33c995a1d09485e"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "2b829a9d8e60bfae21ad714c32fcfbc98098c4deac40356d3fffbaccf5ba69fc"
+      "51ae7597aa5636fb7c0ad1d26808408c3b978ade96bee797f48f19ceee2a39de"
     ],
     "index.html": [
-      "c228dfdf684774727ae9e0a7003dec730009d5e366823a3de6c5c73fc8abf238"
+      "9d71306bf6d891dd0fdd90b2019448c83e8227fd0f5aca6f561e21f63a3b8ec7"
     ],
     "privacy/index.html": [
-      "06e1b0c54bf2586475113b92b55c41847e68fcdd62e49ba8dc1df8a6ada51771"
+      "f3f23f9ae7be4356111b4ce8f848f88c90e66cfb2adac2c1633e537c23c738f2"
     ],
     "rates/cents-per-kilometre/index.html": [
       "6e36fe4668808d276c417fa2b356636f56c3746cf97e8aaf9374308ab7d55d5a"
@@ -61,7 +61,7 @@
       "503e24262367dbf8d22375c1e919978b2809b878659a50a1da564b1430736261"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "f21bfd4de05de1a37b658a95dafb3ec1b4274a875f7d6f396cf5229c9f4bf42b"
+      "09082e2544736875ba05a4c01d1c6d14ab2ef3cd5c6f1d9743ab7fda60942ea3"
     ],
     "tools/business-calculators/index.html": [
       "dde3d3ff7ce3d4c829bf06c596ec2978346f1a604be1d055a91245602ca27779"
@@ -73,7 +73,7 @@
       "fb1e39b6b32f5ac5d11ebe6d84eb857a25aba178816c4fa7e867157f21131e1b"
     ],
     "tools/index.html": [
-      "5826f10b87c5e26ec76bcd7aa3ec4cdd25d0cbeb4c42c8abb76cb208f318502e"
+      "be57eb74ea48662b3dce3486a0566f65775153265be7c01b9aba425b00134d02"
     ],
     "tools/limitations/index.html": [
       "dfb2b0de2183dbe6bb3b087bffa258f9807b197ae5644a25548f2555c06f608b"
@@ -91,7 +91,7 @@
       "3e7c9eb186e1b03077bf687f927a228ede25470c8b3e035184247167efcd723a"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "c34d922f615c941c190021b1097c291867b5e2c3f5b36aec97c00f30d2e7dc4d"
+      "f6d78eabb0f67329b9e74f7d055f28d21405826748aa37a69946cd2c1bee6020"
     ],
     "tools/trust-distributions/index.html": [
       "7f445b49e10d341e9498e6767bafc849363c42de5f6586b27c09324a21cc7c37"
@@ -107,9 +107,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "fa771b5074131f6f86170d92fa028f88e707a76ef7eb24c4a10c5312ac4da51b",
+    "llms.txt": "c6ed593c68380e0daf52017fbeabb84f5b2f40126d2e1905154937022bf4b5c4",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "ac5dfc2cf259c99339e9ba84a032f5d119dacff914f3285fcf281462d28d9474"
+    "sitemap.xml": "8d3ac4a6528c928f033dc22ca0fd18c4fd447f16009431a63272fac404aec8ab"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

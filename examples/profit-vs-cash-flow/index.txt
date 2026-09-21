@@ -14,7 +14,7 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 18 September 2026.
+Published 18 September 2026. Last reviewed 21 September 2026.
 
 ## The business and the question
 
@@ -96,7 +96,7 @@ uv run --locked --extra dev python examples/lumbridge-services/models/generated/
 
 Each run writes the workbook, briefing and schedules to examples/lumbridge-services/output/ and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect quarter_profit_before_tax of 35957.55 in both runs, and minimum_daily_cash of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.
 
-Read the source, assumptions and trial guide at the captured commit, or use the reviewer trial guide to record an independent review.
+Read the source and assumptions at the captured commit.
 
 ## Provenance and verification
 
@@ -158,8 +158,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
-- Read the source, assumptions and trial guide at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- reviewer trial guide: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services/TRIAL.md
+- Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/

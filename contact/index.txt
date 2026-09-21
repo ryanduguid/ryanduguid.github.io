@@ -6,7 +6,7 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email is welcome for feedback on the cash-flow example, a tool result you could not reproduce, or an independent review of the Lumbridge case.
+Email is welcome for feedback on the cash-flow example or a tool result you could not reproduce.
 
 This site is a personal index of open-source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
 
@@ -14,7 +14,7 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
@@ -28,13 +28,11 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 18 September 2026.
+Published 30 August 2026. Last reviewed 21 September 2026.
 
 ## Links
 
 - fictional Newcastle cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
-- response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid

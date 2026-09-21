@@ -53,7 +53,7 @@
         <h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>
         <p class="home-hero__summary short-answer">Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.</p>
         <p class="home-hero__note">A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.</p>
-        <p class="page-meta">Last reviewed 20 September 2026.</p>
+        <p class="page-meta">Last reviewed 21 September 2026.</p>
         <nav class="home-hero__actions" aria-label="Homepage actions">
           <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash-flow example</a>
           <a href="/tools/">Browse tools by accounting task</a>
@@ -63,7 +63,7 @@
         <div>
           <h2 id="cash-case-title">Profit does not pay the next bill.</h2>
           <p>Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.</p>
-          <p class="field-note">Synthetic demonstration. <a href="/evaluate/#independent-review">Review the Lumbridge case yourself</a>.</p>
+          <p class="field-note">Synthetic demonstration.</p>
         </div>
         <figure class="case-preview">
           <a href="/assets/examples/lumbridge/cash-preview.png"><img src="/assets/examples/lumbridge/cash-preview.png" srcset="/assets/examples/lumbridge/cash-preview-640.png 640w, /assets/examples/lumbridge/cash-preview.png 1282w" sizes="(max-width: 40rem) 100vw, 50vw" width="1282" height="639" fetchpriority="high" decoding="async" alt="Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer" /></a>
@@ -155,51 +155,9 @@
           <p>The <a href="/tools/payday-super/#evidence-pack">Payday Super evidence-pack workflow</a> combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.</p>
           <div class="route-actions">
             <div class="install-band">
-              <h3>Five ways to try it</h3>
-              <p>Start with the <a href="/examples/profit-vs-cash-flow/">Excel cash-flow example</a> or <a href="/tools/coal-lsl-levy/">browser calculator</a>. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.</p>
-              <div class="adopt-chooser" role="group" aria-label="Adoption routes">
-                <input class="adopt-input" type="radio" name="adopt-route" id="adopt-none" checked="checked" />
-                <label class="adopt-tab" for="adopt-none">No install</label>
-                <div class="adopt-panel">
-                  <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.</p>
-                  <p>Open the <a href="/examples/profit-vs-cash-flow/">synthetic Excel forecast</a> in desktop Excel, or send a <a href="/evaluate/">reproducible evaluation</a> to whoever manages your systems.</p>
-                </div>
-                <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
-                <label class="adopt-tab" for="adopt-claude">Claude Code</label>
-                <div class="adopt-panel">
-                  <p class="install-needs">Needs uv installed.</p>
-                  <pre tabindex="0" role="region" aria-label="Claude Code install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
-<span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
-                  <p>Full setup and limits: <a href="/tools/australian-tax-ai-agents/#install">Australian tax tools for AI agents</a>.</p>
-                </div>
-                <input class="adopt-input" type="radio" name="adopt-route" id="adopt-codex" />
-                <label class="adopt-tab" for="adopt-codex">Codex</label>
-                <div class="adopt-panel">
-                  <p class="install-needs">Needs uv installed.</p>
-                  <pre tabindex="0" role="region" aria-label="Codex install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
-<span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
-                  <p>Full setup and limits: <a href="/tools/australian-tax-ai-agents/#install">Australian tax tools for AI agents</a>.</p>
-                </div>
-                <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
-                <label class="adopt-tab" for="adopt-skills">Skills</label>
-                <div class="adopt-panel">
-                  <p class="install-needs">Needs Node. Development checkout: installs the default branch, not the tagged release.</p>
-                  <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Public Practice &amp; Tax skills</span>
-<span class="cmd">npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills</span></code></pre>
-                  <p>Full setup and limits: <a href="/tools/australian-tax-ai-agents/#install">Australian tax tools for AI agents</a>.</p>
-                </div>
-                <input class="adopt-input" type="radio" name="adopt-route" id="adopt-github" />
-                <label class="adopt-tab" for="adopt-github">GitHub workflows</label>
-                <div class="adopt-panel">
-                  <p>github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.</p>
-                  <p class="install-needs">Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.</p>
-                  <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
-<span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
-<span class="cmd">cd github-agent-skills</span>
-<span class="cmd">pwsh -File scripts/sync-skills.ps1</span></code></pre>
-                  <p>Full setup and limits: <a href="/tools/australian-tax-ai-agents/#install">Australian tax tools for AI agents</a>.</p>
-                </div>
-              </div>
+              <h3>Install and integrate</h3>
+              <p>The setup guide covers Claude Code, Codex, accounting skills and GitHub workflows, with requirements and version limits.</p>
+              <a class="button button--secondary" href="/tools/australian-tax-ai-agents/#install">Open the setup guide</a>
             </div>
             <div class="adoption-links">
               <a href="/evaluate/manager-review-gate/">
@@ -216,7 +174,7 @@
               </a>
             </div>
           </div>
-          <p class="route-note">The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. The skills command pins the version of the third-party CLI it runs, so a later release of that tool cannot change what the line does. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.</p>
+          <p class="route-note">Check the version and limits in the setup guide before using an installation command.</p>
         </div>
       </section>
 
@@ -243,7 +201,6 @@
           <div class="route-actions verification-links">
             <a class="button button--secondary" href="/evidence/">Open the evidence register</a>
             <a href="/evaluate/">Browse reproducible evaluations</a>
-            <a href="/evaluate/#independent-review">Review the Lumbridge case yourself</a>
           </div>
           <h3>Rates, source work, and release policy</h3>
           <p>The <a href="/about/#grounding">five working rules</a> behind every tool are on the About page.</p>
@@ -286,7 +243,7 @@
         "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-21",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "about": { "@id": "https://duguid.com.au/about/#person" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
@@ -420,7 +377,6 @@
   }
   </script>
   <script type="module" src="/assets/legacy-routes.mjs"></script>
-  <script type="module" src="/assets/copy-commands.mjs"></script>
   <script type="module" src="/assets/home-levy.mjs"></script>
 </body>
 </html>

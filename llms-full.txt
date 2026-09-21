@@ -20,7 +20,7 @@ Inspect cash-flow models, calculations, and workpaper checks, with sources, assu
 
 A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 20 September 2026.
+Last reviewed 21 September 2026.
 
 Explore the cash-flow example Browse tools by accounting task
 
@@ -28,7 +28,7 @@ Explore the cash-flow example Browse tools by accounting task
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration. Review the Lumbridge case yourself.
+Synthetic demonstration.
 
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
@@ -112,63 +112,11 @@ Use the public sample files, all fabricated data, to see what a tool accepts, re
 
 The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
-### Five ways to try it
+### Install and integrate
 
-Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
+The setup guide covers Claude Code, Codex, accounting skills and GitHub workflows, with requirements and version limits.
 
-No install
-
-Open the browser calculator with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.
-
-Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
-
-Claude Code
-
-Needs uv installed.
-
-```
-# Australian Accounting & Tax MCP server for Claude Code
-claude mcp add aus-accounting -- uvx aus-accounting-mcp
-```
-
-Full setup and limits: Australian tax tools for AI agents.
-
-Codex
-
-Needs uv installed.
-
-```
-# Australian Accounting & Tax MCP server for Codex
-codex mcp add aus-accounting -- uvx aus-accounting-mcp
-```
-
-Full setup and limits: Australian tax tools for AI agents.
-
-Skills
-
-Needs Node. Development checkout: installs the default branch, not the tagged release.
-
-```
-# Public Practice & Tax skills
-npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
-```
-
-Full setup and limits: Australian tax tools for AI agents.
-
-GitHub workflows
-
-github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
-
-Needs Git and PowerShell 7. Development checkout: clones the default branch, not a tagged release.
-
-```
-# GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
-git clone https://github.com/ryanduguid/github-agent-skills.git
-cd github-agent-skills
-pwsh -File scripts/sync-skills.ps1
-```
-
-Full setup and limits: Australian tax tools for AI agents.
+Open the setup guide
 
 Manager review gate Reproduce the incomplete-pack checks.
 
@@ -176,7 +124,7 @@ Xero trial balance integrity Reproduce the balanced-export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. The skills command pins the version of the third-party CLI it runs, so a later release of that tool cannot change what the line does. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
+Check the version and limits in the setup guide before using an installation command.
 
 Verify
 
@@ -198,7 +146,7 @@ Practice software
 
 Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
 
-Open the evidence register Browse reproducible evaluations Review the Lumbridge case yourself
+Open the evidence register Browse reproducible evaluations
 
 ### Rates, source work, and release policy
 
@@ -212,7 +160,6 @@ The evidence supports limited claims about the software, not endorsements or cli
 
 - Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browse tools by accounting task: https://duguid.com.au/tools/
-- Review the Lumbridge case yourself: https://duguid.com.au/evaluate/#independent-review
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
@@ -227,10 +174,10 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
-- reproducible evaluation: https://duguid.com.au/evaluate/
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
+- Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - five working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
@@ -372,7 +319,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 18 September 2026.
+Last reviewed 21 September 2026.
 
 ## Identity and credentials
 
@@ -450,9 +397,9 @@ Passing tests proves only the specified behaviour under the tested conditions. I
 
 Human review remains mandatory before posting, payment, lodgement, approval, or period lock. Professional judgement stays with a person. A tool must refuse or escalate missing, contradictory, stale, or out-of-scope facts rather than invent a result. Each product page records its specific inputs, refusal conditions, source-currency limits, and human decision boundary.
 
-## Reproduce the evaluations
+## Published evaluations
 
-Ryan Duguid publishes evaluations of fixed releases at Evaluations. He uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation. Reproduce it yourself. Run one fixed evaluation and record the command, release, expected result, and observed result. Report any mismatch in the site repository.
+Ryan Duguid publishes evaluations of fixed releases at Evaluations. He uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
 Written by Ryan Duguid in his own time and on his own equipment.
 
@@ -465,7 +412,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - View certificate (PDF): https://duguid.com.au/assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
-- Adopt: https://duguid.com.au/#adopt
+- Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - repository: https://github.com/ryanduguid/australian-accounting
@@ -545,7 +492,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
-- Report any mismatch in the site repository.: https://github.com/ryanduguid/ryanduguid.github.io/issues
 
 ---
 
@@ -563,7 +509,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 20 September 2026.
+Last reviewed 21 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -578,22 +524,7 @@ December closing cash | $67,320.00 | $67,320.00
 
 Read the full worked example: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.
 
-This is a maintainer-prepared demonstration. Its calculations have technical verification records. Review the Lumbridge case. No client outcome, forecast accuracy or time saving has been measured.
-
-## Review the Lumbridge case: a bounded task
-
-This is a guided reproduction rather than a blinded trial: the expected figures are published in the table above and repeated in the template, so what it tests is whether the workbook and the instructions produce those figures for someone else. The task takes one workbook, needs desktop Excel and nothing else, and uses fabricated figures only.
-
-- Download the sample pack and open lumbridge.xlsx in desktop Excel with automatic calculation. Note your Excel version and operating system.
-- Record the on-time figures: quarter revenue, profit before income tax, October closing cash, December closing cash, and the lowest daily closing cash with its date.
-- Change Assumptions!B2 from 0 to 45. Record the lowest daily closing cash and its date, the first negative date, October closing cash, December closing cash, and profit before income tax.
-- Compare each observed figure with the on-time and 45-days-late columns above. Record every difference, however small.
-- Restore 0, save a copy, reopen it, and confirm the base figures return.
-- List each step that was unclear, each output you misread, and what you would need before a controlled trial in a workplace.
-
-Download the blank response template (plain text), fill it in, and email it to ryan@duguid.com.au with the subject "Lumbridge review". The template asks which workbook you used and what you had already seen of the case, your environment, the scenario and any input changes, expected against observed results, whether you finished without help, defects, and your permission preferences for any later quotation. The longer 8-step guide, TRIAL.md, is inside the sample pack. The address ryan@duguid.com.au is shown as text and needs no scripts; delivery can rewrite email links, so if one does not work, write to ryan at duguid dot com dot au. Do not include client records, taxpayer identifiers, credentials or confidential files.
-
-Use the synthetic files only. Do not send client records, credentials, or confidential files. Nothing you send is published or quoted without the permission you state in the template; an unselected or contradictory choice is read as no permission. A completed reproduction records whether the workbook and instructions work for someone else. It is not evidence of unaided interpretation and no client outcome is claimed. External review status as at 20 September 2026: pending. No completed response template has been received, so this page reports no completed trial. The next step is the first completed template, which will be recorded here with the reviewer's stated permission.
+This is a maintainer-prepared demonstration. Its calculations have technical verification records. No client outcome, forecast accuracy or time saving has been measured.
 
 ## Choose an example to reproduce
 
@@ -712,9 +643,6 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Tools page: https://duguid.com.au/tools/
 - Choose an example for any tool: https://duguid.com.au/evaluate/#example-routes
 - Read the full worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Review the Lumbridge case: https://duguid.com.au/contact/#example-feedback
-- sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
-- Download the blank response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Xero trial balance CSV export: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/#worked-example
@@ -1854,19 +1782,23 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 18 September 2026.
+Last reviewed 21 September 2026.
 
 ## Start with what you came to do
 
 Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
 
-For quick reference, browse 100 accounting questions or open the business planning calculators.
+For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
 ## Choose the work to complete
 
 - Explain profit and cash differences
 
 Fictional Newcastle cash-flow case Source invoices and payments, Excel forecast and explanation
+
+- Calculate in Excel
+
+Ozzit Excel LAMBDA library Microsoft 365 or Excel 2024 and later
 
 - Payroll and super
 
@@ -2098,8 +2030,9 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
 - Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
-- business planning calculators: https://duguid.com.au/tools/business-calculators/
+- Ozzit Excel LAMBDA library Microsoft 365 or Excel 2024 and later: https://duguid.com.au/tools/ozzit/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Two trial balances and a mapping produce exceptions with evidence. Python.: https://duguid.com.au/tools/monthly-close-controls/#worked-example
@@ -2126,7 +2059,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Try an example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
-- Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/
 - Try an example: https://duguid.com.au/tools/ozzit/#worked-example
 - Source code: https://github.com/ryanduguid/Ozzit
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
@@ -3115,7 +3047,7 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 21 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -3178,7 +3110,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Australian Accounting Skills v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
-- Adopt: https://duguid.com.au/#adopt
+- Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
@@ -3432,7 +3364,7 @@ aus-accounting-mcp runs local Australian accounting checks through the Model Con
 
 Reference release v0.2.4, the current published release, verified 20 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 20 September 2026.
+Published 25 August 2026. Last reviewed 21 September 2026.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3441,7 +3373,7 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
 Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
-Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx skills add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
+Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
 Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax-return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
@@ -3482,19 +3414,61 @@ The transcript's first line shows the source-checkout command, uv run --locked a
 
 ## Adopt
 
+### Five ways to try it
+
+Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
+
+No install
+
+Open the browser calculator with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.
+
+Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
+
+Claude Code
+
 Needs Python 3.10 or later and uv.
 
 ```
 # Australian Accounting & Tax MCP server for Claude Code
 claude mcp add aus-accounting -- uvx aus-accounting-mcp
+```
 
+Codex
+
+Needs Python 3.10 or later and uv.
+
+```
 # Australian Accounting & Tax MCP server for Codex
 codex mcp add aus-accounting -- uvx aus-accounting-mcp
 ```
 
-The commands under Adopt are the maintained install route, including the skills variant; they name the repository and the executable.
+Skills
 
-Each command above is unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
+Needs Node. Development checkout: installs the default branch, not the tagged release.
+
+```
+# Public Practice & Tax skills
+npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
+```
+
+GitHub workflows
+
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
+
+Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
+
+```
+# GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills
+git clone https://github.com/ryanduguid/github-agent-skills.git
+cd github-agent-skills
+python scripts/validate_skills.py --strict
+```
+
+A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
+
+The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.4, and each evaluation keeps the release it was run against.
+
+The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -3565,9 +3539,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
-- Adopt: https://duguid.com.au/#adopt
+- Excel cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- reproducible evaluation: https://duguid.com.au/evaluate/
 - Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
-- evaluation: https://duguid.com.au/evaluate/
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/
@@ -3681,7 +3656,7 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email is welcome for feedback on the cash-flow example, a tool result you could not reproduce, or an independent review of the Lumbridge case.
+Email is welcome for feedback on the cash-flow example or a tool result you could not reproduce.
 
 This site is a personal index of open-source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
 
@@ -3689,7 +3664,7 @@ This site is a personal index of open-source accounting tools I build in my own 
 
 I welcome feedback from accountants and business owners on the fictional Newcastle cash-flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For an independent review, follow the bounded Lumbridge review task and send the completed response template. For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+For a workbook issue, include your Excel version, receipt-delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
@@ -3703,13 +3678,11 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 18 September 2026.
+Published 30 August 2026. Last reviewed 21 September 2026.
 
 ## Links
 
 - fictional Newcastle cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
-- bounded Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
-- response template: https://duguid.com.au/assets/examples/lumbridge/trial-response-template.txt
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
 - linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid
@@ -3731,7 +3704,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-20 September 2026 | Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; the Lumbridge review status carries a dated pending stamp; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.
+20 September 2026 | Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.
 20 September 2026 | The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.
 20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
 14 September 2026 | The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.
@@ -3763,7 +3736,7 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 20 September 2026.
+Published 30 August 2026. Last reviewed 21 September 2026.
 
 ## Links
 
@@ -6714,7 +6687,7 @@ Source: https://duguid.com.au/privacy/
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 20 September 2026.
+Published 12 September 2026. Last reviewed 21 September 2026.
 
 ## Browser calculations
 
@@ -6728,7 +6701,7 @@ The website's own code does not set cookies or include advertising pixels. Its f
 
 No analytics script is delivered. Cloudflare Web Analytics was removed from this site on 20 September 2026, so the site owner receives no page-view reports. GitHub Pages and Cloudflare still process requests to host and protect the site, as the Hosting section below describes.
 
-Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, the machine-readable index and the downloadable review template. The contact page and the Lumbridge review task also spell it out for anyone whose browser does not open an email app.
+Email Address Obfuscation is disabled so email links work without scripts. The address is public in the HTML pages, their plain-text alternates, and the machine-readable index. The contact page also spells it out for anyone whose browser does not open an email app.
 
 Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries the figures you type into the calculators. A prefetched or shared page address can carry question-search terms, because the search places them in the address; do not put confidential information in a search you may share or leave in your history.
 
@@ -6763,7 +6736,6 @@ The website source is available under its MIT licence, which includes its warran
 ## Links
 
 - contact page: https://duguid.com.au/contact/
-- Lumbridge review task: https://duguid.com.au/evaluate/#independent-review
 - Cloudflare's cookie documentation: https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/
 - GitHub Privacy Statement: https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement
 - Cloudflare Privacy Policy: https://www.cloudflare.com/privacypolicy/
@@ -6793,7 +6765,7 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 18 September 2026.
+Published 18 September 2026. Last reviewed 21 September 2026.
 
 ## The business and the question
 
@@ -6875,7 +6847,7 @@ uv run --locked --extra dev python examples/lumbridge-services/models/generated/
 
 Each run writes the workbook, briefing and schedules to examples/lumbridge-services/output/ and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect quarter_profit_before_tax of 35957.55 in both runs, and minimum_daily_cash of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.
 
-Read the source, assumptions and trial guide at the captured commit, or use the reviewer trial guide to record an independent review.
+Read the source and assumptions at the captured commit.
 
 ## Provenance and verification
 
@@ -6937,8 +6909,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
-- Read the source, assumptions and trial guide at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- reviewer trial guide: https://github.com/ryanduguid/au-fpa-pack/blob/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services/TRIAL.md
+- Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/

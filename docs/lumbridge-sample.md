@@ -15,47 +15,14 @@ When updating the sample:
    `README.txt`, plus the source repository's required checks.
 2. Verify the workbook formulas and the 0-to-45-to-0 scenario in desktop Excel.
    Record the version, results and hash of the file being distributed.
-3. Package the workbook, 6 input files, model notes, trial guide, fixed
+3. Package the workbook, 6 input files, model notes, scenario guide, fixed
    briefing and CSV/JSON exports, and the source MIT licence. Adapt relative
    documentation links to the archive layout. Keep the answer key separate.
 4. Update the public sample record and the figures, source link and limits
-   on `/evaluate/#profit-and-cash`. Keep trial feedback distinct from technical
-   verification and client outcomes.
+   on `/evaluate/#profit-and-cash`. Keep technical verification distinct from professional sign-off and client outcomes.
 5. Regenerate the machine indexes and run the website checks in CONTRIBUTING.md.
    Open both downloads from the built page and compare their bytes with the
    source assets.
 
-The public sample includes expected results. A separate review kit can omit
-those exports for an unaided trial, with any prior exposure recorded. No
-independent accountant trial has been completed as at 11 September 2026.
-
-## Human follow-through for the independent review
-
-The public page `/evaluate/#independent-review` and the blank
-`assets/examples/lumbridge/trial-response-template.txt` were added on
-18 September 2026. Preparing them is not a trial.
-
-The public route is a guided reproduction, not a blinded study. The template
-repeats the expected figures, so a completed response shows whether the workbook
-and the instructions reproduce those figures for someone else. It does not show
-unaided interpretation. A study of that kind would need a separate kit with the
-expected results, the management briefing and TRIAL.md removed, and it has not
-been prepared.
-
-Before any claim about external evaluation, a person needs to:
-
-1. Recruit reviewers, send them the sample pack and template only, and keep the
-   prior-exposure answers in section 2 of each response with the response.
-2. Let each reproduction run without coaching. Answer no questions during it;
-   log every request for help as an observation.
-3. Read each response against the expected figures, record differences and
-   defects as issues, and separate usability findings from accounting findings.
-4. Obtain the quotation permission the template asks for before quoting or
-   naming anyone, and keep responses out of the repository. Treat an unselected
-   or contradictory choice as no permission.
-5. Update the "independent accountant trial" sentences on the homepage,
-   `/evaluate/` and `/contact/` only after at least one completed, uncoached
-   response exists, and say how many were run and what changed as a result.
-   Describe them as reproductions, not as unaided trials or client evidence.
-
-Until then the site states that external evaluation is pending.
+The sample documentation was edited on 21 September 2026 to remove external
+review requests. The workbook, model inputs and calculated exports are unchanged.

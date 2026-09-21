@@ -1,13 +1,18 @@
-# Pending Cloudflare redirects
+# Cloudflare redirect record
 
-Prepared 21 September 2026 for findings WI-02 and WI-07. These changes are
-**not deployed by this pull request**. GitHub Pages cannot apply repository
-redirect configuration. The existing Cloudflare rules and their order must
-be inspected by the account owner before applying this plan.
+Deployed through the authorised Cloudflare dashboard on 21 September 2026
+for findings WI-02 and WI-07. GitHub Pages cannot apply these rules from
+repository configuration. The expressions and verification procedure below
+record the deployed settings.
+
+The existing Single Redirect order was `Retired engage route`, then
+`Retired review-ready-gate route`. Both remain unchanged. `Retired refusals
+route` was added third and `WWW to HTTPS apex` fourth. Both use status 301
+and preserve query strings. HTTPS enforcement and HSTS were left unchanged.
 
 ## WI-02: restore the retired refusal address
 
-Add a Single Redirect with this exact match expression:
+The refusal rule uses this exact match expression:
 
 ```text
 (http.host in {"duguid.com.au" "www.duguid.com.au"} and http.request.uri.path in {"/refusals" "/refusals/"})
@@ -20,9 +25,8 @@ Do not match subpaths or change the canonical destination's behaviour.
 
 ## WI-07: send HTTP www directly to HTTPS apex
 
-Update the existing www redirect, or replace it with one Single Redirect,
-matching `http.host eq "www.duguid.com.au"` for both HTTP and HTTPS. Use this
-dynamic target expression:
+The www rule matches `http.host eq "www.duguid.com.au"` for both HTTP and
+HTTPS and uses this dynamic target expression:
 
 ```text
 concat("https://duguid.com.au", http.request.uri.path)
@@ -62,12 +66,23 @@ node scripts/check_production.mjs
 Require a 301 or 308 to the exact HTTPS apex destination, intact path and
 query, final 200 and no loop. Require one redirect for each www example.
 Also check that `/tools/refusals/` still returns 200 and that `/refusals-test/`
-and `/refusals/child/` retain their 404 responses. The existing production
-check protects headers and older redirects; it does not yet enforce these
-pending rules. After successful deployment, add the two refusal paths to its
-`REDIRECTS` map and retain the www hop checks above as deployment evidence.
+and `/refusals/child/` retain their 404 responses. The production check protects
+headers, older redirects and both refusal paths. Retain the www hop checks
+above as deployment evidence.
 
 Record the changed rule names, prior order, timestamp and verified responses
 in the implementation handoff. If verification fails, restore only the rule
 changes from this operation and rerun the existing production check. Neither
 finding is complete until the live responses pass.
+
+## Verified deployment
+
+All 19 live checks passed on 21 September 2026: the twelve refusal variants,
+four www path/query examples, the canonical 200 response and two nonmatching
+404 paths. All sixteen redirect cases used one 301 and ended at the exact
+HTTPS apex target with query strings intact. The production delivery check
+also passed, retaining the existing 55 notes for injected inline scripts
+blocked by the page Content Security Policy.
+
+Rollback removes only `Retired refusals route` and `WWW to HTTPS apex`.
+Leave the two older redirects and the existing HTTPS settings in place.

@@ -9,7 +9,7 @@ test('copy reports pending work and prevents overlapping clipboard requests', as
       }) },
     });
   });
-  await page.goto('/');
+  await page.goto('/tools/australian-tax-ai-agents/#install');
   await page.locator('label[for="adopt-claude"]').click();
   const copy = page.getByRole('button', { name: 'Copy: claude code install command' });
   const status = copy.locator('..').getByRole('status');
@@ -41,7 +41,7 @@ test('install commands report copy success and denial without changing the actio
       },
     });
   });
-  await page.goto('/');
+  await page.goto('/tools/australian-tax-ai-agents/#install');
   await page.locator('label[for="adopt-claude"]').click();
   const command = page.getByRole('region', { name: 'Claude Code install command' });
   const wrap = command.locator('..');
@@ -70,7 +70,7 @@ test('install commands report copy success and denial without changing the actio
 });
 
 test('copy controls remain usable at narrow widths', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/tools/australian-tax-ai-agents/#install');
   await page.locator('label[for="adopt-claude"]').click();
   const copy = page.getByRole('button', { name: 'Copy: claude code install command' });
   for (const width of [320, 390, 768, 1440]) {
@@ -87,7 +87,7 @@ test('install commands stay selectable when the clipboard API is unavailable', a
   await page.addInitScript(() => {
     Object.defineProperty(navigator, 'clipboard', { value: undefined });
   });
-  await page.goto('/');
+  await page.goto('/tools/australian-tax-ai-agents/#install');
   await page.locator('label[for="adopt-claude"]').click();
   const command = page.getByRole('region', { name: 'Claude Code install command' });
   await expect(command).toBeVisible();
