@@ -106,9 +106,17 @@ VALUE_FLAGS = {
     "--subagent",
     "--from",
 }
-# uvx --from PACKAGE EXECUTABLE: the package is the flag's value, and the first
-# positional token is the executable it runs.
-SOURCE_FLAG = "--from"
+# Flags whose value is itself a package: uvx --from PACKAGE EXECUTABLE and
+# uvx --with EXTRA, npx -p PACKAGE COMMAND and npx --package=PACKAGE. When a
+# command carries one, its positional token is the executable being run rather
+# than a package, so only these values are read.
+PACKAGE_FLAGS = ("--from", "--with", "-p", "--package")
+
+# pip reads the packages from a requirements file, and nothing the gate scans
+# lists them. --require-hashes makes pip refuse any file whose bytes differ
+# from the recorded hash, which is what stops a claimed name being served.
+REQUIREMENT_FLAGS = ("-r", "--requirement")
+HASH_PIN = "--require-hashes"
 
 # One command ends where the next begins.
 SEPARATORS = {"&&", "||", "|", ";", "&", "#"}
@@ -168,49 +176,60 @@ def split_version(registry: str, token: str) -> tuple[str, str | None]:
 def packages_in(rest: str, registry: str, *, take_all: bool) -> list[tuple[str, str | None]]:
     """The packages a command's remaining tokens resolve."""
     positional: list[str] = []
-    source: str | None = None
+    named: list[str] = []
     awaiting: str | None = None
     for token in rest.split():
         if token in SEPARATORS:
             break
         if awaiting is not None:
-            if awaiting == SOURCE_FLAG:
-                source = token
+            if awaiting in PACKAGE_FLAGS:
+                named.append(token)
             awaiting = None
             continue
         if token.startswith("-"):
             flag, separator, value = token.partition("=")
-            if flag == SOURCE_FLAG and separator:
-                source = value
-            elif flag in VALUE_FLAGS and not separator:
+            if separator and flag in PACKAGE_FLAGS:
+                named.append(value)
+            elif not separator and flag in VALUE_FLAGS:
                 awaiting = flag
             continue
         positional.append(token)
         if not take_all:
             break
     found = []
-    for token in [source] if source is not None else positional:
+    for token in named or positional:
         name, version = split_version(registry, token)
         if name and not LOCAL.search(name):
             found.append((name, version))
     return found
 
 
+def unhashed_requirements(rest: str) -> bool:
+    """True when a command installs from a requirements file without hashes."""
+    tokens = []
+    for token in rest.split():
+        if token in SEPARATORS:
+            break
+        tokens.append(token)
+    names = [token.partition("=")[0] for token in tokens]
+    return any(flag in names for flag in REQUIREMENT_FLAGS) and HASH_PIN not in names
+
+
 def installs(text: str, prose: bool = True) -> list[Install]:
     """Every package an install or run command in the text resolves.
 
-    A prose file's sentences run on past the package name, so only a line
-    that starts as a command is read as a list of packages. A structured
-    file has no prose, and the agent-skills manifest carries its install
-    command inside a JSON string.
+    A prose file's sentences run on past the package name, so only a line that
+    starts as a command is read as a list of packages. A structured file has no
+    prose, and the agent-skills manifest carries its install command inside a
+    JSON string. A line can hold several commands, so each pattern is read
+    everywhere it appears rather than once.
     """
     found: list[Install] = []
     for line in text.splitlines():
         is_command = not prose or bool(COMMAND_LINE.match(line))
         seen: set[tuple[str, str]] = set()
         for registry, prefix in INSTALLERS:
-            match = prefix.search(line)
-            if match:
+            for match in prefix.finditer(line):
                 for name, version in packages_in(
                     line[match.end() :], registry, take_all=is_command
                 ):
@@ -220,8 +239,7 @@ def installs(text: str, prose: bool = True) -> list[Install]:
         for registry, prefix, command_only in RUNNERS:
             if command_only and not is_command:
                 continue
-            match = prefix.search(line)
-            if match:
+            for match in prefix.finditer(line):
                 for name, version in packages_in(line[match.end() :], registry, take_all=False):
                     if (registry, name) not in seen:
                         seen.add((registry, name))
@@ -238,10 +256,23 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
         text = path.read_text(encoding="utf-8")
         prose = path.suffix != ".json"
         for match in INVISIBLE.finditer(text):
-            line = text[: match.start()].count("\n") + 1
+            number = text[: match.start()].count("\n") + 1
             findings.append(
-                Finding(f"{where}:{line}", f"invisible character U+{ord(match.group()):04X}")
+                Finding(f"{where}:{number}", f"invisible character U+{ord(match.group()):04X}")
             )
+        for line in text.splitlines():
+            for _, prefix in INSTALLERS:
+                for match in prefix.finditer(line):
+                    if unhashed_requirements(line[match.end() :]):
+                        findings.append(
+                            Finding(
+                                where,
+                                "a requirements file is installed without "
+                                + HASH_PIN
+                                + ", so the packages inside it are neither "
+                                "listed here nor fixed by a hash",
+                            )
+                        )
         for install in installs(text, prose=prose):
             registry, package = install.registry, install.package
             version = install.version

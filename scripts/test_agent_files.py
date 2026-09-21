@@ -127,6 +127,36 @@ class NameTests(AgentFileFixture):
         found = self.findings("pip install solomons-sword && echo acme-widgets\n")
         self.assertEqual(found, [])
 
+    def test_a_second_command_after_a_separator_is_read(self) -> None:
+        """A chained line runs both commands, so both are reviewed."""
+        found = self.findings("pip install solomons-sword && pip install acme-widgets\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_a_package_added_to_a_runner_environment_is_read(self) -> None:
+        """uvx --with adds a package to the run, and npx -p names the package."""
+        found = self.findings(
+            "uvx --with acme-extra --from solomons-sword==0.1.7 solomons-sword run\n"
+        )
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-extra", found[0])
+
+    def test_an_npx_package_flag_is_read(self) -> None:
+        found = self.findings("npx -p acme-cli some-command\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("acme-cli", found[0])
+
+    def test_a_requirements_install_must_pin_its_hashes(self) -> None:
+        """Nothing the gate reads lists what a requirements file installs."""
+        found = self.findings("pip install -r requirements.txt\n")
+        self.assertEqual(len(found), 1)
+        self.assertIn("--require-hashes", found[0])
+
+    def test_a_hash_pinned_requirements_install_passes(self) -> None:
+        self.assertEqual(
+            self.findings("python -m pip install --require-hashes -r requirements.lock\n"), []
+        )
+
     def test_a_manifest_an_agent_is_pointed_at_is_scanned(self) -> None:
         """llms.txt links the agent-skills manifest, which carries an npx line."""
         found = self.findings(
