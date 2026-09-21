@@ -1,0 +1,50 @@
+{
+ "schema": 1,
+ "reviewed": "2026-09-21",
+ "notes": [
+  "Reviewed statement of every package an agent can install from this site's machine-readable files.",
+  "An agent reads llms.txt, the per-page text alternates and the README, and runs the install commands in them. A name nobody has published is claimable by anyone, and an unpinned third-party command runs whatever the registry serves at read time.",
+  "owner 'ryanduguid' means the account that publishes this site controls the name, so an unpinned command resolves to his own latest release. Any other owner is third party and must be pinned.",
+  "Refresh with: python scripts/check_agent_files.py --verify-live. Ordinary builds never fetch it.",
+  "local_dependency marks a third-party tool this repository already installs, so an npx line runs the pinned local copy.",
+  "Ryan's own names stay recorded even where no command installs them here, so --verify-live keeps watching that they are still published. A third-party name is recorded only while a command in these files installs it."
+ ],
+ "packages": {
+  "pypi": {
+   "aus-accounting-mcp": {
+    "owner": "ryanduguid"
+   },
+   "ato-benchmark-compare": {
+    "owner": "ryanduguid"
+   },
+   "australian-tax-calculators": {
+    "owner": "ryanduguid"
+   },
+   "div7a-loan-review": {
+    "owner": "ryanduguid"
+   },
+   "payday-super-checker": {
+    "owner": "ryanduguid"
+   },
+   "solomons-sword": {
+    "owner": "ryanduguid"
+   },
+   "the-exchequer-tally": {
+    "owner": "ryanduguid"
+   },
+   "the-wip-tally": {
+    "owner": "ryanduguid"
+   }
+  },
+  "npm": {
+   "skills": {
+    "owner": "vercel-labs"
+   },
+   "playwright": {
+    "owner": "microsoft",
+    "local_dependency": true,
+    "note": "package.json pins it, npm ci installs it, and npx then runs that local copy rather than resolving the registry."
+   }
+  }
+ }
+}

@@ -152,6 +152,35 @@ the version they were run against, and the tests fail if one is quietly upgraded
 A page may document an older release than the published one, but it must say so in
 its own words, naming both versions.
 
+## What an agent can be made to run
+
+`llms.txt`, the per-page text alternates and the README are instruction files: an
+agent reads them and runs what they say. So an install command in them executes on
+a reader's machine, and two things follow.
+
+A package name nobody has published is claimable by anyone, who then serves their
+own code from a command printed in an official file. An unpinned third-party
+command runs whatever that registry serves at read time, so someone else's later
+release changes what this site tells an agent to do. Ryan's own names resolve to
+his own latest release, so those may stay unpinned; anything published by someone
+else names its version.
+
+`scripts/agent_file_policy.json` is the reviewed record of every package those
+files can install, and `scripts/check_agent_files.py` holds the pages to it
+offline. It also refuses invisible and direction-control characters, which a
+reader never sees and a model reads in full.
+
+Refresh the record deliberately:
+
+```bash
+python scripts/check_agent_files.py --verify-live
+```
+
+That asks PyPI and npm whether each recorded name is still published and reports
+drift. It changes nothing. A name of Ryan's that stops being published is the
+finding that matters: the name is then free for someone else to claim while these
+files still tell agents to install it.
+
 ## Visibility benchmark
 
 `docs/visibility-benchmark/` holds the reviewed prompts and any recorded captures,

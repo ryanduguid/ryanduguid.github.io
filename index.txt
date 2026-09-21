@@ -142,7 +142,7 @@ Needs Node. Development checkout: installs the default branch, not the tagged re
 
 ```
 # Public Practice & Tax skills
-npx skills add ryanduguid/australian-accounting-skills
+npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
 ```
 
 Full setup and limits: Australian tax tools for AI agents.
@@ -168,7 +168,7 @@ Xero trial balance integrity Reproduce the balanced-export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
+The MCP commands above are unpinned: they resolve to the current published release, and uvx may reuse a cached environment, so check the resolved version before comparing results. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. The skills command pins the version of the third-party CLI it runs, so a later release of that tool cannot change what the line does. Individual tool pages pin the release their worked example reproduces, and each one names it, so check the version before comparing results.
 
 Verify
 

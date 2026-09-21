@@ -52,7 +52,9 @@ GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
-    r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+    # The CLI version is part of the command: an unpinned npx line runs whatever
+    # npm serves at read time, and an agent reading this page runs it.
+    r"\bnpx\s+--yes\s+skills@1\.5\.22\s+add\s+ryanduguid/australian-accounting-skills\b",
     GITHUB_AGENT_SKILLS_INSTALL_PATTERN,
 )
 RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
