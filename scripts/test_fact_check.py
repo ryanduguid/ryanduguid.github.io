@@ -188,7 +188,7 @@ class FactCheckTests(unittest.TestCase):
             self.assertIn(boundary, text)
         self.assertTrue(
             any(
-                "payday-super-checker/v0.1.6/" in link.attr("href")
+                "payday-super-checker/v0.1.6/" in (link.attr("href") or "")
                 for link in core.descendants(section, "a")
             )
         )
