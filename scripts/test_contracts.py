@@ -11,15 +11,18 @@ import struct
 import subprocess
 import sys
 import tempfile
+import zlib
 from collections.abc import Callable
 from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
 from typing import Any
+from unittest.mock import patch
 from urllib.parse import urlsplit
 
 import check_design
 import extract_xero_badge
+import favicon_render
 import seo_core as core
 import site_contracts as contracts
 
@@ -1725,10 +1728,58 @@ def test_full_text_references() -> None:
     print("full-text citation destinations passed")
 
 
+def test_png_compression() -> None:
+    """Compression changes may pass; image changes and corrupt chunks must fail."""
+    header = struct.pack(">IIBBBBB", 1, 1, 8, 6, 0, 0, 0)
+    pixels = b"\x00\x10\x20\x30\xff"
+
+    def png(data: bytes, level: int) -> bytes:
+        return (
+            favicon_render.PNG_SIGNATURE
+            + favicon_render._chunk(b"IHDR", header)
+            + favicon_render._chunk(b"IDAT", zlib.compress(data, level))
+            + favicon_render._chunk(b"IEND", b"")
+        )
+
+    original = png(pixels, 9)
+    alternate = png(pixels, 0)
+    assert original != alternate
+    assert favicon_render.png_content(original) == favicon_render.png_content(alternate)
+    for changed in (pixels[:-1] + b"\x00", b"\x00\x11\x20\x30\xff"):
+        assert favicon_render.png_content(original) != favicon_render.png_content(png(changed, 9))
+    changed_header = struct.pack(">IIBBBBB", 2, 1, 8, 6, 0, 0, 0)
+    changed_metadata = original.replace(
+        favicon_render._chunk(b"IHDR", header), favicon_render._chunk(b"IHDR", changed_header)
+    )
+    assert favicon_render.png_content(original) != favicon_render.png_content(changed_metadata)
+    for broken in (original[:-1], original[:20] + b"\xff" + original[21:], original + b"extra"):
+        try:
+            favicon_render.png_content(broken)
+        except favicon_render.FaviconError:
+            pass
+        else:
+            raise AssertionError("corrupt PNG passed content comparison")
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        source = root / "certificate.pdf"
+        source.touch()
+        target = root / extract_xero_badge.TARGET
+        target.parent.mkdir(parents=True)
+        target.write_bytes(original)
+        with (
+            patch.object(extract_xero_badge, "ROOT", root),
+            patch.object(extract_xero_badge, "extract", return_value=alternate),
+        ):
+            assert extract_xero_badge.main([str(source)]) == 0
+        assert target.read_bytes() == original
+
+
 def test_xero_badge() -> None:
     """The badge must reproduce the published certificate's pixels and mask."""
     source = ROOT / extract_xero_badge.DEFAULT_SOURCE
-    assert extract_xero_badge.extract(source) == (ROOT / extract_xero_badge.TARGET).read_bytes()
+    rebuilt = extract_xero_badge.extract(source)
+    published = (ROOT / extract_xero_badge.TARGET).read_bytes()
+    assert favicon_render.png_content(rebuilt) == favicon_render.png_content(published)
 
 
 def test_release_record() -> None:
@@ -2234,6 +2285,7 @@ def test_release_record() -> None:
 
 
 def main() -> None:
+    test_png_compression()
     test_xero_badge()
     test_release_record()
     test_full_text_references()

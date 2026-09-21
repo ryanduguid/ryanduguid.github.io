@@ -134,6 +134,34 @@ def _chunk(tag: bytes, payload: bytes) -> bytes:
     )
 
 
+def png_content(png: bytes) -> list[tuple[bytes, bytes]]:
+    """Validate our generated PNGs and compare content across zlib versions."""
+    if not png.startswith(PNG_SIGNATURE):
+        raise FaviconError("invalid PNG signature")
+    chunks = []
+    offset = len(PNG_SIGNATURE)
+    while offset < len(png):
+        if offset + 12 > len(png):
+            raise FaviconError("truncated PNG chunk")
+        length = struct.unpack_from(">I", png, offset)[0]
+        end = offset + 12 + length
+        tag = png[offset + 4 : offset + 8]
+        payload = png[offset + 8 : end - 4]
+        if end > len(png) or png[offset:end] != _chunk(tag, payload):
+            raise FaviconError("invalid PNG chunk length or checksum")
+        if tag == b"IDAT":
+            try:
+                payload = zlib.decompress(payload)
+            except zlib.error as exc:
+                raise FaviconError("invalid PNG image data") from exc
+        chunks.append((tag, payload))
+        offset = end
+    # Both local renderers emit this exact structure with one IDAT chunk.
+    if [tag for tag, _ in chunks] != [b"IHDR", b"IDAT", b"IEND"]:
+        raise FaviconError("unexpected PNG chunk structure")
+    return chunks
+
+
 def png_bytes(seal, size: int) -> bytes:
     pixels = raster(seal, size)
     stride = size * 3
