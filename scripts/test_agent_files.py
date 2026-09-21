@@ -176,6 +176,30 @@ class NameTests(AgentFileFixture):
         self.assertEqual(len(found), 1)
         self.assertIn("acme-widgets", found[0])
 
+    def test_a_checkout_under_an_excluded_directory_name_is_still_scanned(self) -> None:
+        """GitHub Actions checks out under /home/runner/work, which is not ours.
+
+        Matching the exclusions against the absolute path discarded every file
+        the globs found, leaving the gate reading four files and reporting a
+        pass.
+        """
+        checkout = self.root / "work" / "site"
+        (checkout / "tools").mkdir(parents=True)
+        (checkout / "tools" / "index.txt").write_text(
+            "pip install acme-widgets\n", encoding="utf-8"
+        )
+        found = [finding.what for finding in agent.check(checkout, POLICY)]
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_an_excluded_directory_inside_the_checkout_is_skipped(self) -> None:
+        checkout = self.root / "site"
+        (checkout / "node_modules" / "other").mkdir(parents=True)
+        (checkout / "node_modules" / "other" / "README.md").write_text(
+            "npm install some-dependency\n", encoding="utf-8"
+        )
+        self.assertEqual(agent.check(checkout, POLICY), [])
+
 
 class HiddenTextTests(AgentFileFixture):
     def test_a_zero_width_character_is_refused(self) -> None:

@@ -146,7 +146,14 @@ def scanned_files(root: Path) -> list[Path]:
         # None of these are published: _site is this content one build later,
         # and the rest are dependencies, scratch and caches. They exist only in
         # a source checkout, never in the built tree the checks run against.
-        files.extend(path for path in root.glob(pattern) if not UNPUBLISHED & set(path.parts))
+        # Relative to root, because the directory holding the checkout is not
+        # ours to read: GitHub Actions checks out under /home/runner/work, and
+        # matching that would discard every file the globs find.
+        files.extend(
+            path
+            for path in root.glob(pattern)
+            if not UNPUBLISHED & set(path.relative_to(root).parts)
+        )
     unique: dict[Path, None] = {}
     for path in files:
         if path.is_file():
