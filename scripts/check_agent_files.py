@@ -124,8 +124,11 @@ HASH_PIN = "--require-hashes"
 
 # One command ends where the next begins. A line is split on these before
 # anything is read, so each command is judged on its own start rather than on
-# whatever happened to open the line.
-SEPARATOR = re.compile(r"\s(?:&&|\|\||;|\||&)\s|\s#\s")
+# whatever happened to open the line. No whitespace is required around them,
+# because a shell does not require it either: `echo x;pip install a b` is two
+# commands. Splitting too eagerly is safe here, since no package name contains
+# one of these characters and an over-split fragment simply reads as prose.
+SEPARATOR = re.compile(r"&&|\|\||[;&|#]")
 
 # A local path, a requirements file or an editable install names no registry
 # package, so there is nothing for anyone else to claim.

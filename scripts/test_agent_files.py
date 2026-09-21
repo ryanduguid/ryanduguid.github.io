@@ -19,6 +19,7 @@ RIGHT_TO_LEFT = chr(0x202E)
 POP_DIRECTION = chr(0x202C)
 TAG_LETTER = chr(0xE0041)
 ARABIC_LETTER_MARK = chr(0x61C)
+NEWLINE = chr(10)
 
 POLICY = {
     "packages": {
@@ -179,6 +180,21 @@ class NameTests(AgentFileFixture):
         found = self.findings("npx skills@1.5.22 add first && npx skills add second\n")
         self.assertEqual(len(found), 1, found)
         self.assertIn("without a version", found[0])
+
+    def test_a_compact_chain_is_split_too(self) -> None:
+        """A shell needs no spaces around an operator, so neither does this."""
+        found = self.findings("echo preparing;pip install solomons-sword acme-widgets" + NEWLINE)
+        self.assertEqual(len(found), 1, found)
+        self.assertIn("acme-widgets", found[0])
+
+    def test_a_table_row_is_not_a_command(self) -> None:
+        """Splitting on a pipe must not turn a documentation table into commands."""
+        self.assertEqual(
+            self.findings(
+                "Route | skills | Claude Code plugin, or npx skills add | notes" + NEWLINE
+            ),
+            [],
+        )
 
     def test_a_manifest_an_agent_is_pointed_at_is_scanned(self) -> None:
         """llms.txt links the agent-skills manifest, which carries an npx line."""
