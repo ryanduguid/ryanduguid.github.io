@@ -157,6 +157,42 @@ class FactCheckTests(unittest.TestCase):
             read("rates/fbt-rate/index.html"),
         )
 
+    def test_join_qualification_retains_other_evidence_limits(self) -> None:
+        tree = core.parse_structure(read("tools/limitations/index.html"))
+        section = core.element_by_id(tree, "psc-2")[0]
+        text = core.element_text(section)
+        self.assertNotIn("all operate correctly", text)
+        self.assertIn("receipt-amount evidence", text)
+        self.assertIn("calendar and GIC coverage", text)
+        self.assertTrue(
+            any(
+                link.attr("href") == "/tools/payday-super/#receipt-amount"
+                for link in core.descendants(section, "a")
+            )
+        )
+        self.assertNotIn("all operate correctly", read("llms.txt"))
+
+    def test_workbook_claims_distinguish_published_and_development(self) -> None:
+        tree = core.parse_structure(read("tools/payday-super/index.html"))
+        section = core.element_by_id(tree, "workbook-versions")[0]
+        text = core.element_text(section)
+        for boundary in (
+            "0.1.6",
+            "31 December 2026",
+            "--allow-stale-gic",
+            "0.1.7",
+            "Not assessed",
+            "not a published",
+            "BLOCKED",
+        ):
+            self.assertIn(boundary, text)
+        self.assertTrue(
+            any(
+                "payday-super-checker/v0.1.6/" in (link.attr("href") or "")
+                for link in core.descendants(section, "a")
+            )
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

@@ -58,7 +58,7 @@
         <p class="lead-note">
           A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
         </p>
-        <p class="page-meta">Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and links the receipt-amount limitation; the other entries retain their review scope.</p>
+        <p class="page-meta">Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -125,7 +125,7 @@
               <tbody>
                 <tr>
                   <th scope="row">Trigger</th>
-                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with <code>--allow-stale-gic</code>. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure.</td>
+                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with <code>--allow-stale-gic</code>. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG-charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.4, pins checker 0.1.6, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The <a href="/tools/payday-super/#workbook-versions">workbook version note</a> records the development correction and verification scope.</td>
                 </tr>
                 <tr>
                   <th scope="row">Effect</th>
@@ -186,7 +186,7 @@
             </table>
             </div>
             <p>
-              <strong>What stays correct.</strong> The arithmetic on whatever was matched. Deadline computation, business-day handling, receipt testing and the exposure estimate all operate correctly on the rows they were given. The limitation is in the join, not the assessment.
+              <strong>Unaffected by the join itself.</strong> Matching selects the rows and amounts sent to assessment; it does not change the downstream deadline, receipt or exposure rules. Their results still depend on <a href="/tools/payday-super/#receipt-amount">receipt-amount evidence</a>, calendar and GIC coverage, and the other documented limits. Correct arithmetic cannot establish that a payment was matched to the right payday or that the fund received it.
             </p>
             <p>
               <strong>Declared at runtime, on the console only in 0.1.4.</strong> One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as <code>employee matching: by id</code> or <code>by name</code>. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or re-run and read it, before relying on a verdict from a file whose join conditions you have not checked.
