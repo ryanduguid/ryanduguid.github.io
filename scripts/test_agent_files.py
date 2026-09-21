@@ -76,6 +76,11 @@ class NameTests(AgentFileFixture):
             "npx skills@latest add .",
             "npx skills@^1.5.22 add .",
             "npx skills@1.x add .",
+            "npx skills@1.2.3-foo_bar add .",
+            "npx skills@01.2.3 add .",
+            "npx skills@1.2.3-01 add .",
+            "npx skills@1.2.3-alpha..1 add .",
+            "npx skills@1.2.3+build_tag add .",
             "pip install pre-commit==4.*",
         ):
             with self.subTest(command=command):
@@ -84,6 +89,7 @@ class NameTests(AgentFileFixture):
     def test_exact_prereleases_are_pins(self) -> None:
         for command in (
             "npx skills@1.5.22-beta.1 add .",
+            "npx skills@0.0.0-0+build.01 add .",
             "pip install pre-commit==4.0.1rc1",
         ):
             with self.subTest(command=command):

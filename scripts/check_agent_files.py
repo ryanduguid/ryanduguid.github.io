@@ -126,7 +126,11 @@ HASH_PIN = "--require-hashes"
 # Match quoted and escaped arguments before operators. A hash inside a URL is
 # part of that word; a hash at a word boundary starts a shell comment.
 SHELL_BOUNDARY = re.compile(r""""(?:\\.|[^"\\])*"|'[^']*'|\\.|[;&|]+|(?<!\S)\#.*""")
-EXACT_NPM_VERSION = re.compile(r"\d+\.\d+\.\d+(?:-[\w.-]+)?(?:\+[\w.-]+)?")
+EXACT_NPM_VERSION = re.compile(
+    r"(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)"
+    r"(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?"
+    r"(?:\+[0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*)?"
+)
 EXACT_PYTHON_VERSION = re.compile(
     r"(?:\d+!)?\d+(?:\.\d+)*(?:(?:a|b|rc)\d+)?(?:\.post\d+)?(?:\.dev\d+)?"
     r"(?:\+[a-zA-Z0-9]+(?:[._-][a-zA-Z0-9]+)*)?"
@@ -174,6 +178,20 @@ def scanned_files(root: Path) -> list[Path]:
 
 def load_policy(path: Path = POLICY) -> dict[str, Any]:
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+def is_exact_version(registry: str, version: str | None) -> bool:
+    if registry == "pypi":
+        return EXACT_PYTHON_VERSION.fullmatch(version or "") is not None
+    match = EXACT_NPM_VERSION.fullmatch(version or "")
+    if match is None:
+        return False
+    # SemVer forbids leading zeroes in numeric prerelease identifiers, but
+    # permits them in build metadata. Invalid versions can be mutable npm tags.
+    return all(
+        not part.isdigit() or part == "0" or not part.startswith("0")
+        for part in (match.group(1) or "").split(".")
+    )
 
 
 def split_version(registry: str, token: str) -> tuple[str, str | None]:
@@ -345,10 +363,9 @@ def check(root: Path = ROOT, policy: dict[str, Any] | None = None) -> list[Findi
             # npm install of the same name resolves the registry, so it
             # still has to name a version.
             exempt = bool(entry.get("local_dependency")) and install.runs_it and version is None
-            exact_version = EXACT_NPM_VERSION if registry == "npm" else EXACT_PYTHON_VERSION
             if (
                 entry.get("owner") != OWNER
-                and not exact_version.fullmatch(version or "")
+                and not is_exact_version(registry, version)
                 and not exempt
             ):
                 findings.append(
