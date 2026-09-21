@@ -41,6 +41,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
 - the rates register's shape, provenance, ordering and checksums, run with `python scripts/check_rates_register.py` and `python scripts/test_rates_register.py`
 - the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
+- every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `python scripts/check_agent_files.py` and `python scripts/test_agent_files.py`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
 - external links must resolve

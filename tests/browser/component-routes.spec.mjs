@@ -26,22 +26,31 @@ test('current tool routes lead to maintained component source and support', asyn
 
   const install = page.locator('#get-it');
   await expect(install.getByRole('link', { name: 'Adopt', exact: true }))
-    .toHaveAttribute('href', '/#adopt');
+    .toHaveAttribute('href', '/tools/australian-tax-ai-agents/#install');
   await install.getByRole('link', { name: 'Adopt', exact: true }).click();
-  await expect(page.locator('#adopt')).toBeVisible();
+  await expect(page.locator('#install')).toBeVisible();
   // Adopt shows one route at a time: open the Skills route before reading it.
   await page.locator('label[for="adopt-skills"]').click();
   await expect(page.getByRole('region', { name: 'Skills install command' }))
-    .toContainText('npx skills add ryanduguid/australian-accounting-skills');
+    .toContainText('npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills');
 });
 
 test('adoption routes survive sharing, reload and browser history', async ({ page }) => {
   for (const route of ['none', 'claude', 'codex', 'skills', 'github']) {
-    await page.goto(`/#adopt-${route}`);
+    await page.goto(`/?source=shared#adopt-${route}`);
+    await expect(page).toHaveURL(new RegExp(`/tools/australian-tax-ai-agents/\\?source=shared#adopt-${route}$`));
     await expect(page.locator(`#adopt-${route}`)).toBeChecked();
     await expect(page.locator(`#adopt-${route} + label + .adopt-panel`)).toBeVisible();
+    const bounds = await page.evaluate(() => ({
+      pageWidth: document.documentElement.scrollWidth,
+      viewportWidth: innerWidth,
+      copyButtonRight: document.querySelector('.adopt-input:checked + label + .adopt-panel .copy-button')
+        ?.getBoundingClientRect().right ?? 0,
+    }));
+    expect(bounds.pageWidth, `${route} page overflow`).toBeLessThanOrEqual(bounds.viewportWidth);
+    expect(bounds.copyButtonRight, `${route} copy button`).toBeLessThanOrEqual(bounds.viewportWidth);
   }
-  await page.goto('/#adopt');
+  await page.goto('/tools/australian-tax-ai-agents/#install');
   await expect(page.locator('#adopt-none')).toBeChecked();
   // Position each label before clicking so WebKit cannot scroll it between pointer events.
   await page.locator('label[for="adopt-codex"]').evaluate((label) => label.scrollIntoView({ block: 'center', behavior: 'instant' }));
@@ -56,4 +65,23 @@ test('adoption routes survive sharing, reload and browser history', async ({ pag
   await expect(page.locator('#adopt-codex')).toBeChecked();
   await page.goForward();
   await expect(page.locator('#adopt-skills')).toBeChecked();
+});
+
+test('home keeps its adoption overview and links to the installation guide', async ({ page }) => {
+  await page.goto('/#adopt');
+  await expect(page.locator('#adopt')).toBeVisible();
+  await expect(page.locator('#adopt pre')).toHaveCount(0);
+  await page.getByRole('link', { name: 'Open the setup guide', exact: true }).click();
+  await expect(page).toHaveURL(/\/tools\/australian-tax-ai-agents\/#install$/);
+  await expect(page.locator('#adopt-none')).toBeChecked();
+});
+
+test('tool chooser exposes Excel compatibility and both browser calculator routes', async ({ page }) => {
+  await page.goto('/tools/');
+  const excel = page.locator('.work-chooser a[href="/tools/ozzit/"]');
+  await expect(excel).toContainText('Microsoft 365 or Excel 2024 and later');
+  await expect(page.getByRole('link', { name: '9 business planning calculators', exact: true }))
+    .toHaveAttribute('href', '/tools/business-calculators/');
+  await excel.click();
+  await expect(page).toHaveURL(/\/tools\/ozzit\/$/);
 });

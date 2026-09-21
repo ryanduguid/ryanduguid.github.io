@@ -10,7 +10,7 @@ This register links claims to identity records, releases, primary source reviews
 
 Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
 
-Last reviewed 18 September 2026.
+Last reviewed 21 September 2026.
 
 ## Identity and credentials
 
@@ -88,9 +88,9 @@ Passing tests proves only the specified behaviour under the tested conditions. I
 
 Human review remains mandatory before posting, payment, lodgement, approval, or period lock. Professional judgement stays with a person. A tool must refuse or escalate missing, contradictory, stale, or out-of-scope facts rather than invent a result. Each product page records its specific inputs, refusal conditions, source-currency limits, and human decision boundary.
 
-## Reproduce the evaluations
+## Published evaluations
 
-Ryan Duguid publishes evaluations of fixed releases at Evaluations. He uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation. Reproduce it yourself. Run one fixed evaluation and record the command, release, expected result, and observed result. Report any mismatch in the site repository.
+Ryan Duguid publishes evaluations of fixed releases at Evaluations. He uses feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
 Written by Ryan Duguid in his own time and on his own equipment.
 
@@ -103,7 +103,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - View certificate (PDF): https://duguid.com.au/assets/credentials/ryan-duguid-xero-certified-specialist-level-3.pdf
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
-- Adopt: https://duguid.com.au/#adopt
+- Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - repository: https://github.com/ryanduguid/australian-accounting
@@ -183,4 +183,3 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
-- Report any mismatch in the site repository.: https://github.com/ryanduguid/ryanduguid.github.io/issues

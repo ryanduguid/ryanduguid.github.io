@@ -208,7 +208,7 @@ def test_geo_leftovers_surface() -> None:
     # the evaluations hub retains its own editorial review date.
     hub_dates = {
         "rates/index.html": (review_date, modified_date),
-        "evaluate/index.html": ("20 September 2026", "2026-09-20"),
+        "evaluate/index.html": ("21 September 2026", "2026-09-21"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)
@@ -560,22 +560,22 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 20 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 20 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 18 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 18 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -670,9 +670,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "20 September 2026", "2026-09-20"),
-        ("tools/index.html", "18 September 2026", "2026-09-18"),
-        ("evidence/index.html", "18 September 2026", "2026-09-18"),
+        ("index.html", "21 September 2026", "2026-09-21"),
+        ("tools/index.html", "21 September 2026", "2026-09-21"),
+        ("evidence/index.html", "21 September 2026", "2026-09-21"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -827,55 +827,69 @@ def test_public_contracts() -> int:
     assert_clean("page contracts", failures)
     assert_clean("evidence surface", contracts.check_evidence_page(ROOT))
     assert_clean(
-        "public evaluator invitation",
-        contracts.check_public_evaluator_invitation(ROOT),
-    )
-    assert_clean(
         "Xero evaluation summary",
         contracts.check_xero_evaluation_summary(ROOT),
     )
     assert_clean("authority surface", contracts.check_authority_surface(ROOT))
 
+    for label, install_before, install_after, install_failure in (
+        (
+            "homepage install command duplication",
+            "Open the setup guide",
+            "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
+            "index.html: install commands belong in the integration guide",
+        ),
+        (
+            "homepage setup guide route",
+            'href="/tools/australian-tax-ai-agents/#install">Open the setup guide',
+            'href="/tools/australian-tax-ai-agents/">Open the setup guide',
+            "index.html: #adopt must link to the integration guide",
+        ),
+    ):
+        with copied_site() as root:
+            replace_file(root, "index.html", install_before, install_after)
+            expect_failure(label, contracts.check_authority_surface(root), install_failure)
+
     github_agent_skills_route = (
         "https://github.com/ryanduguid/github-agent-skills",
         "git clone https://github.com/ryanduguid/github-agent-skills.git",
         "cd github-agent-skills",
-        "pwsh -File scripts/sync-skills.ps1",
+        "python scripts/validate_skills.py --strict",
         "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
         "workflows this portfolio uses, and keeps the fabricated-data and "
         "human-review boundaries.",
     )
-    home_text = core.visible_text(home)
-    assert "Five ways to try it" in home_text, (
-        "index.html: adoption band must name the five ways to try the tools"
+    install_text = core.visible_text(read_text(ROOT, contracts.MCP_REL))
+    assert "Five ways to try it" in install_text, (
+        f"{contracts.MCP_REL}: adoption band must name the five ways to try the tools"
     )
     for required in github_agent_skills_route:
-        assert required in home_text, (
-            f"index.html: missing github-agent-skills adoption route requirement {required!r}"
+        assert required in install_text, (
+            f"{contracts.MCP_REL}: missing github-agent-skills adoption route requirement {required!r}"
         )
     with copied_site() as root:
         replace_file(
             root,
-            "index.html",
-            "pwsh -File scripts/sync-skills.ps1",
-            "pwsh -File scripts/sync-skills-copy.ps1",
+            contracts.MCP_REL,
+            "python scripts/validate_skills.py --strict",
+            "python scripts/validate_skills.py --missing",
         )
         expect_failure(
             "github-agent-skills bootstrap command",
             contracts.check_authority_surface(root),
-            "index.html: install commands must appear only inside #adopt",
+            f"{contracts.MCP_REL}: install commands must appear exactly once inside #install",
         )
     with copied_site() as root:
         replace_file(
             root,
-            "index.html",
+            contracts.MCP_REL,
             github_agent_skills_route[-1],
             "github-agent-skills changes the maintenance workflow.",
         )
         expect_failure(
             "github-agent-skills boundary",
             contracts.check_authority_surface(root),
-            "index.html: github-agent-skills boundary must be",
+            f"{contracts.MCP_REL}: github-agent-skills boundary must be",
         )
 
     assert_clean("evaluation packs", contracts.check_evaluation_packs(ROOT))
@@ -1072,19 +1086,6 @@ def test_public_contracts() -> int:
             "provider no-reporting assurance",
             contracts.check_privacy_delivery_claims(root),
             "unsupported delivery claim",
-        )
-
-    with copied_site() as root:
-        replace_file(
-            root,
-            "evidence/index.html",
-            "Run one fixed evaluation and record the command, release, expected result, and observed result.",
-            "Run an evaluation and share what happened.",
-        )
-        expect_failure(
-            "public evaluator method",
-            contracts.check_public_evaluator_invitation(root),
-            "evidence/index.html: independent evaluation invitation is incomplete",
         )
 
     with copied_site() as root:
@@ -1571,7 +1572,7 @@ def test_public_contracts() -> int:
             replace_file(root, rel, old, new)
             expect_failure(label, checker(root), expected)
 
-    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 38
+    return len(homepage_mutations) + len(calculator_mutations) + len(module_mutations) + 39
 
 
 def test_current_component_metadata() -> None:
@@ -1823,7 +1824,7 @@ def test_release_record() -> None:
         replace_file(
             root,
             contracts.MCP_REL,
-            "Each command above is unpinned. uvx may reuse a cached environment or an",
+            "The MCP install commands above are unpinned. uvx may reuse a cached environment or an",
             "Each command above installs the latest release every time it runs, and",
         )
         expect_failure(

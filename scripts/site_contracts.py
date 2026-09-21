@@ -34,7 +34,7 @@ AUTHORITY_STATEMENTS = {
     "verify": "Check the source before the result.",
 }
 AUTHORITY_URLS = {
-    "adopt": f"{SITE}/#adopt",
+    "adopt": f"{SITE}/tools/australian-tax-ai-agents/#install",
     "verify": EVIDENCE_URL,
 }
 CODEX_MCP_INSTALL_PATTERN = (
@@ -47,12 +47,14 @@ GITHUB_AGENT_SKILLS_BOUNDARY = (
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
-    r"cd\s+github-agent-skills\s+pwsh\s+-File\s+scripts/sync-skills\.ps1\b"
+    r"cd\s+github-agent-skills\s+python\s+scripts/validate_skills\.py\s+--strict\b"
 )
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
-    r"\bnpx\s+skills\s+add\s+ryanduguid/australian-accounting-skills\b",
+    # The CLI version is part of the command: an unpinned npx line runs whatever
+    # npm serves at read time, and an agent reading this page runs it.
+    r"\bnpx\s+--yes\s+skills@1\.5\.22\s+add\s+ryanduguid/australian-accounting-skills\b",
     GITHUB_AGENT_SKILLS_INSTALL_PATTERN,
 )
 RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
@@ -64,12 +66,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-20"
-MCP_VISIBLE_REVIEW_DATE = "20 September 2026"
-MCP_PAGE_INSTALL_PATTERNS = (
-    r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
-    CODEX_MCP_INSTALL_PATTERN,
-)
+MCP_REVIEW_DATE = "2026-09-21"
+MCP_VISIBLE_REVIEW_DATE = "21 September 2026"
 ASSURANCE_ANCHORS = {
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases, and repositories",
@@ -77,7 +75,7 @@ ASSURANCE_ANCHORS = {
     "data-and-privacy-boundary": "Data and privacy boundary",
     "security-tests-and-release-evidence": "Security, tests, and release evidence",
     "human-accountability-and-refusals": "Human accountability and refusals",
-    "independent-evaluation": "Reproduce the evaluations",
+    "independent-evaluation": "Published evaluations",
 }
 ASSURANCE_HEADINGS = tuple(ASSURANCE_ANCHORS.values())
 AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
@@ -597,12 +595,8 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     },
 }
 
-# The only email routes the Contact page may carry: general feedback and the
-# bounded Lumbridge review. Any other mailto is a consultancy route and fails.
-CONTACT_MAILTO_HREFS = (
-    "mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",
-    "mailto:ryan@duguid.com.au?subject=Lumbridge%20review",
-)
+# Contact accepts general website and tool feedback, not professional engagements.
+CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",)
 HOMEPAGE_HEADING = "Open-source accounting tools for Australian accountants."
 HOMEPAGE_HEADING_MARKUP = (
     '<h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>'
@@ -662,7 +656,6 @@ HOMEPAGE_DESCRIPTION = (
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
     "/examples/profit-vs-cash-flow/",
-    "/evaluate/#independent-review",
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
     "/tools/workpaper-review-gate/",
@@ -1660,28 +1653,6 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
     return failures
 
 
-def check_public_evaluator_invitation(root: Path = core.ROOT) -> list[str]:
-    """Keep the independent reproduction request specific and public."""
-    rel = EVIDENCE_REL
-    path = root / rel
-    if not path.is_file():
-        return [f"{rel}: independent evaluation invitation is incomplete"]
-
-    rendered = core.visible_html(path.read_text(encoding="utf-8"))
-    text = core.visible_text(rendered)
-    hrefs = core.anchor_hrefs(rendered)
-    issue_url = "https://github.com/ryanduguid/ryanduguid.github.io/issues"
-    required = (
-        "Reproduce it yourself",
-        "Run one fixed evaluation and record the command, release, expected result, "
-        "and observed result.",
-        "Report any mismatch in the site repository.",
-    )
-    if any(value not in text for value in required) or hrefs.count(issue_url) != 1:
-        return [f"{rel}: independent evaluation invitation is incomplete"]
-    return []
-
-
 def check_llms_authority_surface(llms: str) -> list[str]:
     """Keep machine-facing routes and the non-practice boundary aligned."""
     failures: list[str] = []
@@ -1810,25 +1781,35 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         )
 
     home_text = core.visible_text(rendered_home)
-    adopt_text = core.visible_text(sections["adopt"])
-    if any(
-        len(re.findall(pattern, home_text, re.I)) != 1
-        or len(re.findall(pattern, adopt_text, re.I)) != 1
-        for pattern in PRIMARY_INSTALL_PATTERNS
-    ):
-        failures.append("index.html: install commands must appear only inside #adopt")
+    if any(re.search(pattern, home_text, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
+        failures.append("index.html: install commands belong in the integration guide")
+    install_route = "/tools/australian-tax-ai-agents/#install"
+    if install_route not in core.anchor_hrefs(sections["adopt"]):
+        failures.append("index.html: #adopt must link to the integration guide")
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, home_text, re.I):
         failures.append("index.html: retired GitHub-source install command")
-    if GITHUB_AGENT_SKILLS_BOUNDARY not in adopt_text:
+
+    install_path = root / MCP_REL
+    install_page = install_path.read_text(encoding="utf-8") if install_path.is_file() else ""
+    install_text = core.visible_text(core.section_html(install_page, "install"))
+    if any(
+        len(re.findall(pattern, core.visible_text(install_page), re.I)) != 1
+        or len(re.findall(pattern, install_text, re.I)) != 1
+        for pattern in PRIMARY_INSTALL_PATTERNS
+    ):
+        failures.append(f"{MCP_REL}: install commands must appear exactly once inside #install")
+    if GITHUB_AGENT_SKILLS_BOUNDARY not in install_text:
         failures.append(
-            f"index.html: github-agent-skills boundary must be {GITHUB_AGENT_SKILLS_BOUNDARY!r}"
+            f"{MCP_REL}: github-agent-skills boundary must be {GITHUB_AGENT_SKILLS_BOUNDARY!r}"
         )
 
     llms_path = root / "llms.txt"
     llms = llms_path.read_text(encoding="utf-8") if llms_path.is_file() else ""
     failures.extend(check_llms_authority_surface(llms))
     if any(re.search(pattern, llms, re.I) for pattern in PRIMARY_INSTALL_PATTERNS):
-        failures.append("llms.txt: supported install commands must link to /#adopt instead")
+        failures.append(
+            f"llms.txt: supported install commands must link to {install_route} instead"
+        )
     if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, llms, re.I):
         failures.append("llms.txt: retired GitHub-source install command")
     if GITHUB_AGENT_SKILLS_URL not in llms or GITHUB_AGENT_SKILLS_BOUNDARY not in llms:
@@ -1846,7 +1827,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             for command in (
                 "git clone https://github.com/ryanduguid/github-agent-skills.git",
                 "cd github-agent-skills",
-                "pwsh -File scripts/sync-skills.ps1",
+                "python scripts/validate_skills.py --strict",
             )
         )
     ):
@@ -1866,24 +1847,11 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             for block in core.json_ld_blocks(page_html, rel, failures)
         )
         indexable_text = f"{page_text} {page_json_ld}"
-        if rel == MCP_REL:
-            # The AI-agent page carries its own two MCP commands, mirroring the
-            # canonical #adopt block, so its highest-intent readers do not have
-            # to navigate back to the homepage.
-            if any(
-                len(re.findall(pattern, page_text, re.I)) != 1
-                for pattern in MCP_PAGE_INSTALL_PATTERNS
-            ):
-                failures.append(f"{rel}: MCP install commands must appear exactly once each")
-            banned_patterns = tuple(
-                pattern
-                for pattern in PRIMARY_INSTALL_PATTERNS
-                if pattern not in MCP_PAGE_INSTALL_PATTERNS
-            )
-        else:
-            banned_patterns = PRIMARY_INSTALL_PATTERNS
+        banned_patterns = () if rel == MCP_REL else PRIMARY_INSTALL_PATTERNS
         if any(re.search(pattern, indexable_text, re.I) for pattern in banned_patterns):
-            failures.append(f"{rel}: supported install commands must link to /#adopt instead")
+            failures.append(
+                f"{rel}: supported install commands must link to {install_route} instead"
+            )
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
 

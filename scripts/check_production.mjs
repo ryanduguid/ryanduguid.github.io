@@ -3,7 +3,7 @@
 // sits in front of GitHub Pages and rewrites what visitors receive.
 //
 // Hard failures are the promises README.md makes about delivery: the five
-// response headers the transform rule adds, the two edge redirects, and
+// response headers the transform rule adds, the retired-route redirects, and
 // mailto links that survive delivery (Email Address Obfuscation rewrites them
 // and strips the address when it is on). Injected inline scripts are reported,
 // not failed, because they are edge settings the page's own Content Security
@@ -38,6 +38,8 @@ export const REQUIRED_HEADERS = {
 export const REDIRECTS = {
   '/engage/': '/',
   '/tools/review-ready-gate/': '/tools/workpaper-review-gate/',
+  '/refusals': '/tools/refusals/',
+  '/refusals/': '/tools/refusals/',
 };
 
 export function sitemapPaths(xml) {
