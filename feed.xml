@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
   <title>duguid.com.au changelog</title>
-  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open-source Australian accounting tools.</subtitle>
+  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open source Australian accounting tools.</subtitle>
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
@@ -80,7 +80,7 @@
   <entry>
     <title>The six webfonts return to IBM's unmodified Latin1 files, the response header...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
-    <id>https://duguid.com.au/changelog/#entry-9afa2945e3d64684</id>
+    <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
     <updated>2026-09-14T00:00:00Z</updated>
     <summary>The six webfonts return to IBM's unmodified Latin1 files, the response header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base pay definition.</summary>
   </entry>
@@ -136,7 +136,7 @@
   <entry>
     <title>Engage parked. The site remains a personal open source tool index, not a prac...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
-    <id>https://duguid.com.au/changelog/#entry-c9bd5bb40984d1a6</id>
+    <id>https://duguid.com.au/changelog/#entry-eb0f892af8afe17a</id>
     <updated>2026-08-31T00:00:00Z</updated>
     <summary>Engage parked. The site remains a personal open source tool index, not a practice, and is not accepting professional engagements through this site.</summary>
   </entry>

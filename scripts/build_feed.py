@@ -42,7 +42,8 @@ MONTHS = {
         start=1,
     )
 }
-ROW_PATTERN = re.compile(r"<tr>(.*?)</tr>", re.S)
+ROW_PATTERN = re.compile(r"<tr\b([^>]*)>(.*?)</tr>", re.S)
+FEED_ID_PATTERN = re.compile(r'\bdata-feed-id="([^"]*)"')
 CELL_PATTERN = re.compile(r"<td>(.*?)</td>", re.S)
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
@@ -53,10 +54,11 @@ def parse_date(text: str) -> date:
     return date(int(year), MONTHS[month], int(day))
 
 
-def entries(html: str) -> list[tuple[date, str, str, str]]:
-    """Return (date, title, summary, link) for every dated changelog row."""
-    found: list[tuple[date, str, str, str]] = []
-    for row in ROW_PATTERN.findall(html):
+def entries(html: str) -> list[tuple[date, str, str, str, str]]:
+    """Return (date, title, summary, link, feed ID) for each dated row."""
+    found: list[tuple[date, str, str, str, str]] = []
+    identifiers: set[str] = set()
+    for attributes, row in ROW_PATTERN.findall(html):
         cells = CELL_PATTERN.findall(row)
         if not cells:
             continue  # header row
@@ -74,7 +76,21 @@ def entries(html: str) -> list[tuple[date, str, str, str]]:
             link = html_lib.unescape(href.group(1)) if href else CHANGELOG_URL + "#tool-releases"
         else:
             raise SystemExit(f"changelog: unexpected row with {len(cells)} cells")
-        found.append((when, title, summary, link))
+        explicit_id = FEED_ID_PATTERN.search(attributes)
+        if "data-feed-id" in attributes and (
+            explicit_id is None or not re.fullmatch(r"[0-9a-f]{16}", explicit_id.group(1))
+        ):
+            raise SystemExit("changelog: data-feed-id must be 16 lowercase hexadecimal characters")
+        # Published entries can keep their original identity when their copy changes.
+        digest = (
+            explicit_id.group(1)
+            if explicit_id
+            else hashlib.sha256(f"{when.isoformat()}|{title}".encode()).hexdigest()[:16]
+        )
+        if digest in identifiers:
+            raise SystemExit(f"changelog: duplicate feed ID {digest}")
+        identifiers.add(digest)
+        found.append((when, title, summary, link, digest))
     found.sort(key=lambda item: item[0], reverse=True)
     return found
 
@@ -88,15 +104,14 @@ def build(html: str) -> str:
         '<?xml version="1.0" encoding="utf-8"?>',
         '<feed xmlns="http://www.w3.org/2005/Atom">',
         "  <title>duguid.com.au changelog</title>",
-        "  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open-source Australian accounting tools.</subtitle>",
+        "  <subtitle>Site changes and tagged tool releases for Ryan Duguid's open source Australian accounting tools.</subtitle>",
         f'  <link href="{SITE}/feed.xml" rel="self" />',
         f'  <link href="{CHANGELOG_URL}" />',
         f"  <id>{CHANGELOG_URL}</id>",
         f"  <updated>{latest}T00:00:00Z</updated>",
         "  <author><name>Ryan Duguid</name></author>",
     ]
-    for when, title, summary, link in items:
-        digest = hashlib.sha256(f"{when.isoformat()}|{title}".encode()).hexdigest()[:16]
+    for when, title, summary, link, digest in items:
         lines += [
             "  <entry>",
             f"    <title>{escape(title)}</title>",
