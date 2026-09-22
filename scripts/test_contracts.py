@@ -450,7 +450,7 @@ def test_design_contracts() -> int:
         (
             "token stylesheet removed",
             "index.html",
-            '<link rel="stylesheet" href="/assets/tokens.css" />',
+            check_design.TOKENS_LINK,
             "",
             "index.html: expected one tokens stylesheet before site stylesheet",
         ),
