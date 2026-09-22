@@ -22,7 +22,7 @@ Income year | Car limit | Read from
 2020-21 | $59,136 | ATO accelerated depreciation page
 2019-20 | $57,581 | ATO accelerated depreciation page
 
-The limit applies in the income year the car is first used or leased, and it applies to the GST-exclusive cost. The ATO no longer publishes an annual determination for it; the figure is indexed and announced on its website each June.
+The limit applies in the income year the car is first used or leased. Before applying it, reduce the car's cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
 Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
@@ -60,7 +60,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Division 7A benchmark interest rate
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 22 September 2026.
 
 ## Links
 

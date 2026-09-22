@@ -41,6 +41,39 @@ def measure_rows(html: str) -> list[list[str]]:
 
 
 class FactCheckTests(unittest.TestCase):
+    def test_car_cost_preserves_unclaimable_gst(self) -> None:
+        tree = core.parse_structure(read("rates/car-limit/index.html"))
+        main = core.element_by_id(tree, "main")[0]
+        text = core.element_text(main)
+        self.assertNotIn("GST-exclusive cost", text)
+        self.assertIn("GST credit you are entitled to claim", text)
+        self.assertIn("GST you cannot claim stays in the cost", text)
+        self.assertIn("including all GST if you are not registered", text)
+
+    def test_div7a_rates_keep_year_end_scope_in_each_format(self) -> None:
+        html = read("rates/div7a-benchmark-rate/index.html")
+        tree = core.parse_structure(html)
+        captions = core.descendants(tree, "caption")
+        self.assertTrue(any("30 June year end" in core.element_text(c) for c in captions))
+        for script in core.descendants(tree, "script"):
+            if script.attr("type") != "application/ld+json":
+                continue
+            graph = json.loads(core.element_text(script))["@graph"]
+            for item in graph:
+                if item["@type"] == "Dataset":
+                    self.assertIn("30 June year end", item["description"])
+                if item["@type"] == "FAQPage":
+                    for question in item["mainEntity"]:
+                        if re.search(r"202[56]-2[67]", question["name"]):
+                            self.assertIn("30 June year end", question["acceptedAnswer"]["text"])
+        rows = csv.DictReader(
+            read("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv").splitlines()
+        )
+        self.assertTrue(all("30 June year end" in row["notes"] for row in rows))
+        index = read("llms.txt")
+        self.assertIn("substituted accounting period", index)
+        self.assertIn("before its own start date", index)
+
     def test_fbt_rate_act_and_citation(self) -> None:
         html = read("rates/fbt-rate/index.html")
         self.assertTrue(fbt_attribution(html))

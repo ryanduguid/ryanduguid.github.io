@@ -8,6 +8,20 @@
   <updated>2026-09-22T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The car limit page now explains which GST credits reduce the cost. Division 7...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-5bd23df290b6c72c</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>The car limit page now explains which GST credits reduce the cost. Division 7A figures are qualified for companies with a 30 June year end, with guidance for substituted accounting periods. Workpaper Review Gate describes its released output safeguard. The machine index, tool source dates, financial year labels and Newcastle spelling were corrected, and generated text copies were refreshed.</summary>
+  </entry>
+  <entry>
+    <title>The homepage now leads with Open source tools for Australian accountants and...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-e18ed7ce661750fb</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>The homepage now leads with Open source tools for Australian accountants and gives clearer starting points for accounting tasks. Mobile links gained larger touch targets and layouts support enlarged text. Pure dark mode remains, with brighter homepage text, a smaller headline, sentence-case labels and simpler dividers. Unnecessary hyphens were removed across the site, stylesheet URLs were refreshed, and all five messaging preview cards were updated.</summary>
+  </entry>
+  <entry>
     <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.5</title>
     <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5" />
     <id>https://duguid.com.au/changelog/#entry-9a927bdda93c4af5</id>

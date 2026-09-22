@@ -12,7 +12,7 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Last reviewed 22 September 2026.
 
-This review updates the announced-measures entry; each rate page keeps its own verification date.
+This review updates the announced-measures entry, Division 7A scope and financial year labels; each rate page keeps its own verification date.
 
 ## Super guarantee rate history
 
@@ -24,13 +24,13 @@ Verified
 
 Scope
 
-General SG percentage from 2002/03 to today.
+General SG percentage from 2002-03 to today.
 
 Primary source Download CSV
 
 ## Division 7A benchmark interest rate
 
-The benchmark rate is 8.77% for 2026/27 and 8.37% for 2025/26.
+For companies with a 30 June year end, the benchmark rate is 8.77% for 2026-27 and 8.37% for 2025-26.
 
 Verified
 
@@ -44,7 +44,7 @@ Primary source Download CSV
 
 ## Cents per kilometre car expense rate
 
-The rate is 91 cents for 2026/27 and applies to the first 5,000 business kilometres per car.
+The rate is 91 cents for 2026-27 and applies to the first 5,000 business kilometres per car.
 
 Verified
 
@@ -66,13 +66,13 @@ Verified
 
 Scope
 
-Annual base from 2026/27 and quarterly bases from 2021/22.
+Annual base from 2026-27 and quarterly bases from 2021-22.
 
 Primary source Download CSV
 
 ## Car limit for depreciation
 
-$69,883 for a car first used or leased in 2026/27, and $69,674 for the two years before it.
+$69,883 for a car first used or leased in 2026-27, and $69,674 for the two years before it.
 
 Verified
 
@@ -80,7 +80,7 @@ Verified
 
 Scope
 
-Income year limits from 2019/20 and the GST credit cap.
+Income year limits from 2019-20 and the GST credit cap.
 
 Primary source Download CSV
 

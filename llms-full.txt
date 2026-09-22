@@ -1055,7 +1055,7 @@ Verify a figure against current guidance before relying on it. Historical and cu
 
 Last reviewed 22 September 2026.
 
-This review updates the announced-measures entry; each rate page keeps its own verification date.
+This review updates the announced-measures entry, Division 7A scope and financial year labels; each rate page keeps its own verification date.
 
 ## Super guarantee rate history
 
@@ -1067,13 +1067,13 @@ Verified
 
 Scope
 
-General SG percentage from 2002/03 to today.
+General SG percentage from 2002-03 to today.
 
 Primary source Download CSV
 
 ## Division 7A benchmark interest rate
 
-The benchmark rate is 8.77% for 2026/27 and 8.37% for 2025/26.
+For companies with a 30 June year end, the benchmark rate is 8.77% for 2026-27 and 8.37% for 2025-26.
 
 Verified
 
@@ -1087,7 +1087,7 @@ Primary source Download CSV
 
 ## Cents per kilometre car expense rate
 
-The rate is 91 cents for 2026/27 and applies to the first 5,000 business kilometres per car.
+The rate is 91 cents for 2026-27 and applies to the first 5,000 business kilometres per car.
 
 Verified
 
@@ -1109,13 +1109,13 @@ Verified
 
 Scope
 
-Annual base from 2026/27 and quarterly bases from 2021/22.
+Annual base from 2026-27 and quarterly bases from 2021-22.
 
 Primary source Download CSV
 
 ## Car limit for depreciation
 
-$69,883 for a car first used or leased in 2026/27, and $69,674 for the two years before it.
+$69,883 for a car first used or leased in 2026-27, and $69,674 for the two years before it.
 
 Verified
 
@@ -1123,7 +1123,7 @@ Verified
 
 Scope
 
-Income year limits from 2019/20 and the GST credit cap.
+Income year limits from 2019-20 and the GST credit cap.
 
 Primary source Download CSV
 
@@ -1407,15 +1407,17 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 
 Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
-> 8.77% for 2026-27, 8.37 for 2025-26. Section 109N(2) ties it to a Reserve Bank series, so the rate can be derived rather than looked up.
+> For companies with a 30 June year end: 8.77% for 2026-27 and 8.37% for 2025-26. How section 109N(2) sets the rate, including for substituted accounting periods.
 
 # Division 7A benchmark interest rate
 
-The benchmark interest rate for the 2026-27 income year is 8.77%. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
 Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026; the earlier rows retain their original review date.
 
 ## The rate, by income year
+
+Companies with a 30 June year end
 
 Income year | Benchmark rate
 2026-27 | 8.77%
@@ -1427,13 +1429,13 @@ Income year | Benchmark rate
 2020-21 | 4.52%
 2019-20 | 5.37%
 
-The table starts at 2019-20. The ATO publishes the same figure for each year on its own site, and that is the one to confirm against for the year you are relying on.
+The table starts at 2019-20 and covers companies with a 30 June year end. Confirm the figure against the ATO table for the year you are relying on. For a substituted accounting period, use the last relevant Reserve Bank rate published before that period starts; these table values may not apply.
 
-Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. The rate for an income year is the May Reserve Bank figure, not the June one.
+Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark interest rate by year [Data set]. https://duguid.com.au/rates/div7a-benchmark-rate/. For a 30 June year end, the rate is the May Reserve Bank figure, not the June one.
 
 ## How to work it out yourself
 
-Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 in the first week after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%.
+Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 in the first week after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%. If the company uses a substituted accounting period, apply the same rule to that period's start date instead of 1 July.
 
 Reading the June figure instead is the usual mistake, and it changes the answer in a normal year. June 2025 sat at 8.27% while May 2025 sat at 8.37%, and 8.37 is the benchmark rate for 2025-26. Section 109N(2) also leaves room for regulations to set the rate a different way, and none currently do.
 
@@ -1449,11 +1451,11 @@ A higher benchmark rate increases the minimum yearly repayment when the unpaid b
 
 ### What is the Division 7A benchmark interest rate for 2026-27?
 
-8.77%. It is the Reserve Bank's indicator lending rate for bank variable housing loans last published before 1 July 2026, which was the May 2026 figure.
+8.77% for companies with a 30 June year end. It is the Reserve Bank's indicator lending rate for bank variable housing loans last published before 1 July 2026, which was the May 2026 figure.
 
 ### What was the benchmark rate for 2025-26?
 
-8.37%, the May 2025 figure. The June 2025 figure of 8.27% was not published until after the income year had started, so it does not apply.
+8.37% for companies with a 30 June year end, using the May 2025 figure. The June 2025 figure of 8.27% was not published until after the income year had started, so it does not apply.
 
 ### Where does the rate come from?
 
@@ -1477,7 +1479,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 22 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -1691,7 +1693,7 @@ Income year | Car limit | Read from
 2020-21 | $59,136 | ATO accelerated depreciation page
 2019-20 | $57,581 | ATO accelerated depreciation page
 
-The limit applies in the income year the car is first used or leased, and it applies to the GST-exclusive cost. The ATO no longer publishes an annual determination for it; the figure is indexed and announced on its website each June.
+The limit applies in the income year the car is first used or leased. Before applying it, reduce the car's cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
 Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
@@ -1729,7 +1731,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 - Division 7A benchmark interest rate
 - About Ryan Duguid
 
-Published 20 September 2026. Last reviewed 20 September 2026.
+Published 20 September 2026. Last reviewed 22 September 2026.
 
 ## Links
 
@@ -1929,7 +1931,7 @@ Calculate
 
 ### Payday Super timing
 
-Classifies supplied receipt evidence against the 7-business-day rule and estimates late-line exposure.
+Classifies supplied receipt evidence against the ordinary deadline of 7 business days and estimates exposure from late contributions.
 
 Delivery
 
@@ -1939,7 +1941,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Try an example Source code Reproduce the evaluation Last commit 21 September 2026
+Try an example Source code Reproduce the evaluation Last commit 22 September 2026
 
 ### ATO benchmark comparison
 
@@ -2043,7 +2045,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Try an example Source code Last commit 21 September 2026
+Try an example Source code Last commit 22 September 2026
 
 Inspect
 
@@ -3660,7 +3662,7 @@ This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCK
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.1.7.
 
-Published 25 August 2026. Last reviewed 18 September 2026.
+Published 25 August 2026. Last reviewed 22 September 2026.
 
 Preparation got cheaper and review did not. Offshore teams, juniors, and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email, and the same error as last period.
 
@@ -3692,7 +3694,7 @@ python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
 ```
 
-The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The tool is gaining a guard that refuses an output inside a checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
+The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The current release, v0.1.7, refuses an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
 
 Source on GitHub
 
@@ -3795,6 +3797,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+22 September 2026 | The car limit page now explains which GST credits reduce the cost. Division 7A figures are qualified for companies with a 30 June year end, with guidance for substituted accounting periods. Workpaper Review Gate describes its released output safeguard. The machine index, tool source dates, financial year labels and Newcastle spelling were corrected, and generated text copies were refreshed.
+22 September 2026 | The homepage now leads with Open source tools for Australian accountants and gives clearer starting points for accounting tasks. Mobile links gained larger touch targets and layouts support enlarged text. Pure dark mode remains, with brighter homepage text, a smaller headline, sentence-case labels and simpler dividers. Unnecessary hyphens were removed across the site, stylesheet URLs were refreshed, and all five messaging preview cards were updated.
 20 September 2026 | Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.
 20 September 2026 | The 100 accounting questions moved to ten topic pages and the nine business calculators to one page each, with the old addresses kept as indexes. Three rates tables added: the maximum super contribution base, the car limit for depreciation, and the FBT rate and gross-up rates. The homepage scope strip and the Tools category links were removed, six page titles lost the site-name suffix, breadcrumbs reached every page, secondary text and form controls grew on small screens, and an Atom feed of this changelog was added.
 20 September 2026 | Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.
@@ -6174,11 +6178,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
-> Ten questions on investments and newcastle for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on investments and Newcastle for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
 
 # Accounting questions: Investments and Newcastle
 
-Practical steps, records and official guidance on investments and newcastle. Select questions to build a checklist.
+Practical steps, records and official guidance on investments and Newcastle. Select questions to build a checklist.
 
 One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
