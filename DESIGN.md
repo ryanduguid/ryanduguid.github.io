@@ -36,8 +36,14 @@ such as open source, cash flow, trial balance and financial year across the
 site. Titles, structured descriptions and generated text follow the visible
 copy. URLs, identifiers, commands, figures, release pins and legal meaning
 remain unchanged. Necessary compounds such as GST-free, gross-up and read-only
-retain their hyphens. The fixed social cards keep their original text and
-matching image descriptions.
+retain their hyphens.
+
+The subsequent social-preview refresh brings all 5 cards into the same visual
+style: sentence-case labels, brighter supporting text and thin neutral rules
+without a decorative left stripe. The site card uses the exact homepage
+headline, and every card names Ryan Duguid. Dated image URLs and matching
+descriptions are used across the site; previous undated images remain available
+for existing links.
 
 The 22 September friend-feedback pass names concrete accounting tasks in the
 homepage summary and the 4 starting routes shared with Tools and the machine

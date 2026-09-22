@@ -67,7 +67,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const expectedOutput = `social-card-${id}.png`;
+    const expectedOutput = `social-card-${id}-20260922.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
     }
