@@ -51,10 +51,10 @@ const currentNavigationCases = [
 const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/'];
 
 const homepagePreviewRoutes = [
-  ['Understand an accounting problem', '/examples/profit-vs-cash-flow/', 'business'],
-  ['Try a browser calculator', '/tools/coal-lsl-levy/', 'calc-form'],
-  ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/', 'accounting-problem'],
-  ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install', 'install'],
+  ['Understand why profit and cash differ', '/examples/profit-vs-cash-flow/', 'business'],
+  ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/', 'calc-form'],
+  ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/', 'accounting-problem'],
+  ['Use accounting functions in Excel', '/tools/ozzit/', 'worked-example'],
 ];
 
 const homeHeightBaseline = {
@@ -210,10 +210,10 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
 
   const categories = page.getByRole('navigation', { name: 'Starting routes' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
-    'Understand an accounting problem',
-    'Try a browser calculator',
-    'Evaluate an accounting workflow',
-    'Inspect or integrate the software',
+    'Understand why profit and cash differ',
+    'Calculate a Coal LSL levy',
+    'Check a BAS pack before manager review',
+    'Use accounting functions in Excel',
   ]);
   expect(await page.evaluate(() => {
     const preview = document.querySelector('.home-tool-preview');

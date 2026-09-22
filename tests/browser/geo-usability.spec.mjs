@@ -11,6 +11,15 @@ test('printing includes the fixed proof without opening its disclosure', async (
   await expect(disclosure.locator('figcaption')).toBeVisible();
 });
 
+test('printing includes the extra accounting tasks while their chooser is closed', async ({ page }) => {
+  await page.goto('/tools/');
+  await page.emulateMedia({ media: 'print' });
+  const chooser = page.locator('.work-chooser details');
+  await expect(chooser).not.toHaveAttribute('open');
+  await expect(chooser.getByRole('link', { name: /Ozzit Excel LAMBDA library/ })).toBeVisible();
+  await expect(chooser.getByRole('link', { name: /Australian tax tools for AI agents/ })).toBeVisible();
+});
+
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {
   await page.goto('/tools/australian-tax-ai-agents/');
   await waitForVisualFonts(page);
@@ -60,6 +69,9 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
   for (const [route, name] of [['/', 'Explore the cash-flow example'], ['/tools/', 'Fictional Newcastle cash-flow case Source invoices and payments, Excel forecast and explanation']]) {
     await page.goto(route);
+    if (route === '/tools/') {
+      await page.locator('.work-chooser summary').click();
+    }
     await page.getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(/\/examples\/profit-vs-cash-flow\/$/);
     await waitForVisualFonts(page);

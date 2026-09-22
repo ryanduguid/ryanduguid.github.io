@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 21 September 2026.
+Last reviewed 22 September 2026.
 
 ## Start with what you came to do
 
-Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+Understand why profit and cash differ A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel Ozzit for GST, financial years, and more. Microsoft 365 or Excel 2024 and later.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
-## Choose the work to complete
+## Browse more accounting tasks
 
 - Explain profit and cash differences
 
@@ -252,13 +252,12 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
-- Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
-- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
-- Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Understand why profit and cash differ A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Calculate a Coal LSL levy Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Check a BAS pack before manager review See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
+- Use accounting functions in Excel Ozzit for GST, financial years, and more. Microsoft 365 or Excel 2024 and later.: https://duguid.com.au/tools/ozzit/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
-- Ozzit Excel LAMBDA library Microsoft 365 or Excel 2024 and later: https://duguid.com.au/tools/ozzit/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Two trial balances and a mapping produce exceptions with evidence. Python.: https://duguid.com.au/tools/monthly-close-controls/#worked-example

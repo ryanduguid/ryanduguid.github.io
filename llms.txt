@@ -14,12 +14,14 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Choose a route
 
-The four starting routes on the homepage and Tools page, by task, plus the standing review invitation:
+The four starting routes on the homepage and Tools page, by accounting task:
 
-- **Understand an accounting problem** (https://duguid.com.au/examples/profit-vs-cash-flow/): the Lumbridge cash-flow case, readable on the page; the Excel workbook is optional.
-- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator, with nothing to install; its own code works out the figures you enter in the browser without sending them to a server. The business planning calculators (https://duguid.com.au/tools/business-calculators/) work the same way.
-- **Evaluate an accounting workflow** (https://duguid.com.au/evaluate/manager-review-gate/): rerun a fabricated BAS pack through the Workpaper Review Gate; needs Python and fabricated files only. Monthly Close Controls (https://duguid.com.au/tools/monthly-close-controls/) reruns a synthetic July close the same way.
-- **Inspect or integrate the software** (https://duguid.com.au/tools/australian-tax-ai-agents/#install): source repositories, install commands, Python packages and the MCP server.
+- **Understand why profit and cash differ** (https://duguid.com.au/examples/profit-vs-cash-flow/): the Lumbridge cash-flow case, readable on the page; the Excel workbook is optional.
+- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator, with nothing to install; its own code works out the figures you enter in the browser without sending them to a server. The business planning calculators (https://duguid.com.au/tools/business-calculators/) work the same way.
+- **Check a BAS pack before manager review** (https://duguid.com.au/evaluate/manager-review-gate/): read the fabricated BAS pack findings in your browser; rerunning the Workpaper Review Gate needs Python and fabricated files only. Monthly Close Controls (https://duguid.com.au/tools/monthly-close-controls/) reruns a synthetic July close the same way.
+- **Use accounting functions in Excel** (https://duguid.com.au/tools/ozzit/): Ozzit functions for GST, financial years, depreciation, and loan schedules; needs Microsoft 365 or Excel 2024 and later.
+
+For Python packages, the MCP server, and agent workflows, use the [installation guide](https://duguid.com.au/tools/australian-tax-ai-agents/#install).
 
 - [Privacy and site use](https://duguid.com.au/privacy/): browser calculations, cookies, hosting, feedback and links to the advice boundaries and software licences.
 

@@ -78,6 +78,7 @@ test('home keeps its adoption overview and links to the installation guide', asy
 
 test('tool chooser exposes Excel compatibility and both browser calculator routes', async ({ page }) => {
   await page.goto('/tools/');
+  await page.getByText('Browse more accounting tasks', { exact: true }).click();
   const excel = page.locator('.work-chooser a[href="/tools/ozzit/"]');
   await expect(excel).toContainText('Microsoft 365 or Excel 2024 and later');
   await expect(page.getByRole('link', { name: '9 business planning calculators', exact: true }))

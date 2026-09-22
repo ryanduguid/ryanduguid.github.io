@@ -16,7 +16,7 @@ Open-source tool library / Australian accounting
 
 # Open-source accounting tools for Australian accountants.
 
-Inspect cash-flow models, calculations, and workpaper checks, with sources, assumptions, and working visible.
+Find gaps in workpaper packs, explore cash-flow shortfalls, and check calculations with the working visible.
 
 A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
@@ -36,31 +36,53 @@ Starting routes / four ways in
 
 ## Start with what you came to do
 
-### Understand an accounting problem
+### Understand why profit and cash differ
 
-Follow the fictional Lumbridge cash-flow case on the page: same quarterly profit, a $25,160 cash gap. The Excel workbook is optional.
+Read the fictional cash-flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
 
 Five-minute accounting cases
 
-### Try a browser calculator
+### Calculate a Coal LSL levy
 
-Nothing to install. The Coal LSL levy calculator and nine business planning calculators work out the figures you enter in this browser; this site's code does not send them to a server.
+Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install; this site's code does not send your figures to a server.
 
 Business planning calculators
 
-### Evaluate an accounting workflow
+### Check a BAS pack before manager review
 
-Rerun a fabricated BAS pack through the Workpaper Review Gate and see exactly why a pack is sent back. Needs Python; uses fabricated files only.
+See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
 Workpaper Review Gate
 
-### Inspect or integrate the software
+### Use accounting functions in Excel
 
-Source repositories, install commands and Python packages, plus an MCP server. That is a standard way to hand an AI assistant a fixed set of tools.
+Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Microsoft 365 or Excel 2024 and later.
 
-Source on GitHub
+See an Excel example
 
 ## Worked proof
+
+Workpaper Review Gate / fabricated BAS pack
+
+### Find missing work before a BAS pack reaches the manager.
+
+A pack can reach review with a missing ledger or an unfinished check. The review gate identifies these gaps so the preparer can address them.
+
+GST control ledger
+
+Missing
+
+Preparer self-review
+
+Incomplete
+
+Blocking item
+
+Unresolved
+
+Summary of the published fabricated example: this pack is not ready for review. The corrected pack passes the configured checks; a manager still decides whether the work may progress.
+
+See the sample findings
 
 Coal LSL / synthetic result
 
@@ -165,20 +187,23 @@ The evidence supports limited claims about the software, not endorsements or cli
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
-- Try a browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
+- Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - Business planning calculators: https://duguid.com.au/tools/business-calculators/
-- Evaluate an accounting workflow: https://duguid.com.au/evaluate/manager-review-gate/
+- Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Inspect or integrate the software: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Source on GitHub: https://github.com/ryanduguid
+- Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
+- See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
+- See the sample findings: https://duguid.com.au/evaluate/manager-review-gate/#controls-triggered
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Check the version-specific rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
+- Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - five working rules: https://duguid.com.au/about/#grounding
@@ -1814,15 +1839,15 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 21 September 2026.
+Last reviewed 22 September 2026.
 
 ## Start with what you came to do
 
-Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional. Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install. Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python. Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.
+Understand why profit and cash differ A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel Ozzit for GST, financial years, and more. Microsoft 365 or Excel 2024 and later.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
-## Choose the work to complete
+## Browse more accounting tasks
 
 - Explain profit and cash differences
 
@@ -2058,13 +2083,12 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
-- Understand an accounting problem The Lumbridge cash-flow case, read on the page. Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Try a browser calculator The Coal LSL levy calculator. Runs here; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
-- Evaluate an accounting workflow A fabricated BAS pack through the review gate. Needs Python.: https://duguid.com.au/evaluate/manager-review-gate/
-- Inspect or integrate the software Source repositories, install commands, Python packages, MCP server.: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Understand why profit and cash differ A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Calculate a Coal LSL levy Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Check a BAS pack before manager review See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
+- Use accounting functions in Excel Ozzit for GST, financial years, and more. Microsoft 365 or Excel 2024 and later.: https://duguid.com.au/tools/ozzit/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
-- Ozzit Excel LAMBDA library Microsoft 365 or Excel 2024 and later: https://duguid.com.au/tools/ozzit/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
 - Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
 - Monthly Close Controls Two trial balances and a mapping produce exceptions with evidence. Python.: https://duguid.com.au/tools/monthly-close-controls/#worked-example

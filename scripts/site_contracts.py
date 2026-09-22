@@ -602,8 +602,8 @@ HOMEPAGE_HEADING_MARKUP = (
     '<h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>'
 )
 HOMEPAGE_SUPPORT = (
-    "Inspect cash-flow models, calculations, and workpaper checks, with sources, "
-    "assumptions, and working visible."
+    "Find gaps in workpaper packs, explore cash-flow shortfalls, and check calculations "
+    "with the working visible."
 )
 HOMEPAGE_ACTIONS = (
     ("/examples/profit-vs-cash-flow/", "Explore the cash-flow example"),
@@ -611,20 +611,20 @@ HOMEPAGE_ACTIONS = (
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
     (
-        "Understand an accounting problem",
+        "Understand why profit and cash differ",
         "/examples/profit-vs-cash-flow/",
         "/evaluate/#five-minute-cases",
     ),
-    ("Try a browser calculator", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
+    ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
     (
-        "Evaluate an accounting workflow",
+        "Check a BAS pack before manager review",
         "/evaluate/manager-review-gate/",
         "/tools/workpaper-review-gate/",
     ),
     (
-        "Inspect or integrate the software",
-        "/tools/australian-tax-ai-agents/#install",
-        "https://github.com/ryanduguid",
+        "Use accounting functions in Excel",
+        "/tools/ozzit/",
+        "/tools/ozzit/#worked-example",
     ),
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")
