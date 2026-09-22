@@ -66,8 +66,23 @@ class FactCheckTests(unittest.TestCase):
                     for question in item["mainEntity"]:
                         if re.search(r"202[56]-2[67]", question["name"]):
                             self.assertIn("30 June year end", question["acceptedAnswer"]["text"])
-        rows = csv.DictReader(
-            read("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv").splitlines()
+        rows = list(
+            csv.DictReader(
+                read("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv").splitlines()
+            )
+        )
+        self.assertEqual(
+            [row["income_year"] for row in rows],
+            [
+                "2019-20",
+                "2020-21",
+                "2021-22",
+                "2022-23",
+                "2023-24",
+                "2024-25",
+                "2025-26",
+                "2026-27",
+            ],
         )
         self.assertTrue(all("30 June year end" in row["notes"] for row in rows))
         index = read("llms.txt")
