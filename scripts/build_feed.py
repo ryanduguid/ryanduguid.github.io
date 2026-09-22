@@ -9,7 +9,6 @@ time-zone database and stays the same on every machine.
 
 from __future__ import annotations
 
-import hashlib
 import html as html_lib
 import re
 import sys
@@ -42,10 +41,21 @@ MONTHS = {
         start=1,
     )
 }
-ROW_PATTERN = re.compile(r"<tr>(.*?)</tr>", re.S)
+ROW_PATTERN = re.compile(r"<tr(?:\s+data-feed-id=\"([^\"]+)\")?>(.*?)</tr>", re.S)
 CELL_PATTERN = re.compile(r"<td>(.*?)</td>", re.S)
+FEED_ID_PATTERN = re.compile(r"^[a-zA-Z0-9._~-]+$")
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
+LEGACY_FEED_IDS = (
+    "81a0da48043bb9ed", "62337d3c750b7d10", "ebd4b0433d3efd2b",
+    "9afa2945e3d64684", "c5f123a0a4511359", "eaa17f5549b11c83",
+    "d194696daf327772", "2ba6f06ab6c1b349", "86ca9fdcc933e430",
+    "93a5cfb198beddc8", "c9bd5bb40984d1a6", "3d180c520c89f4f9",
+    "9eb90fb829d6c019", "267a6196f3a31919", "76ef72fb170e60e1",
+    "9a927bdda93c4af5", "65df8604713dc80d", "684e370a2a97f4b1",
+    "0d69e343b0a47aeb", "9bbc75ff0d30494c", "e5f96b3417bc92e6",
+    "7813c456323c0d75",
+)
 
 
 def parse_date(text: str) -> date:
@@ -53,10 +63,10 @@ def parse_date(text: str) -> date:
     return date(int(year), MONTHS[month], int(day))
 
 
-def entries(html: str) -> list[tuple[date, str, str, str]]:
-    """Return (date, title, summary, link) for every dated changelog row."""
-    found: list[tuple[date, str, str, str]] = []
-    for row in ROW_PATTERN.findall(html):
+def entries(html: str) -> list[tuple[date, str, str, str, str]]:
+    """Return (date, title, summary, link, feed ID) for every dated row."""
+    found: list[tuple[date, str, str, str, str]] = []
+    for row_number, (explicit_id, row) in enumerate(ROW_PATTERN.findall(html)):
         cells = CELL_PATTERN.findall(row)
         if not cells:
             continue  # header row
@@ -74,7 +84,20 @@ def entries(html: str) -> list[tuple[date, str, str, str]]:
             link = html_lib.unescape(href.group(1)) if href else CHANGELOG_URL + "#tool-releases"
         else:
             raise SystemExit(f"changelog: unexpected row with {len(cells)} cells")
-        found.append((when, title, summary, link))
+        if explicit_id and not FEED_ID_PATTERN.fullmatch(explicit_id):
+            raise SystemExit(f"changelog: invalid feed ID {explicit_id!r}")
+        # Keep the historical ID when rows predate explicit IDs; new rows must
+        # use data-feed-id so copy edits cannot change their Atom identity.
+        if not explicit_id:
+            if row_number >= len(LEGACY_FEED_IDS):
+                raise SystemExit("changelog: new row requires data-feed-id")
+            feed_id = LEGACY_FEED_IDS[row_number]
+        else:
+            feed_id = explicit_id
+        found.append((when, title, summary, link, feed_id))
+    ids = [item[4] for item in found]
+    if len(ids) != len(set(ids)):
+        raise SystemExit("changelog: duplicate feed ID")
     found.sort(key=lambda item: item[0], reverse=True)
     return found
 
@@ -95,13 +118,12 @@ def build(html: str) -> str:
         f"  <updated>{latest}T00:00:00Z</updated>",
         "  <author><name>Ryan Duguid</name></author>",
     ]
-    for when, title, summary, link in items:
-        digest = hashlib.sha256(f"{when.isoformat()}|{title}".encode()).hexdigest()[:16]
+    for when, title, summary, link, feed_id in items:
         lines += [
             "  <entry>",
             f"    <title>{escape(title)}</title>",
             f'    <link href="{escape(link)}" />',
-            f"    <id>{CHANGELOG_URL}#entry-{digest}</id>",
+            f"    <id>{CHANGELOG_URL}#entry-{escape(feed_id)}</id>",
             f"    <updated>{when.isoformat()}T00:00:00Z</updated>",
             f"    <summary>{escape(summary)}</summary>",
             "  </entry>",
