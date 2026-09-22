@@ -67,7 +67,9 @@ class FactCheckTests(unittest.TestCase):
                         if re.search(r"202[56]-2[67]", question["name"]):
                             self.assertIn("30 June year end", question["acceptedAnswer"]["text"])
         rows = list(
-            csv.DictReader(read("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv").splitlines())
+            csv.DictReader(
+                read("rates/div7a-benchmark-rate/div7a-benchmark-rates.csv").splitlines()
+            )
         )
         self.assertTrue(rows, "Division 7A CSV must contain rate records")
         self.assertTrue(all("30 June year end" in row["notes"] for row in rows))
