@@ -30,14 +30,14 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared.
 
-1. What will my income-tax bill be?
+1. What will my income tax bill be?
 
-Start with taxable income for the correct income year, then account for levies, offsets, study loans and tax already withheld. A basic tax-bracket result alone is incomplete.
+Start with taxable income for the correct income year, then account for levies, offsets, study loans and tax already withheld. A basic tax bracket result alone is incomplete.
 
 - Gather income statements, investment statements, deductible expenses and PAYG credits.
 - Use the ATO return estimate and reconcile each adjustment before treating it as a budget.
 
-The linked experimental income-tax worksheet excludes levies and offsets; check its supported years.
+The linked experimental income tax worksheet excludes levies and offsets; check its supported years.
 
 Your tax return · Experimental tax worksheets and supported years
 
@@ -48,11 +48,11 @@ Link to question 1
 An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
 
 - List each expense, its purpose, date, amount and reimbursement.
-- Record your work-use calculation and check the ATO category before claiming.
+- Record your work use calculation and check the ATO category before claiming.
 
 A receipt proves spending, but does not by itself establish deductibility.
 
-Deductions you can claim · Business-use apportionment calculator
+Deductions you can claim · Business use apportionment calculator
 
 Link to question 2
 
@@ -121,7 +121,7 @@ ATO income, deductions and records
 
 Link to question 7
 
-8. How long will the tax-return process take?
+8. How long will the tax return process take?
 
 Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.
 
@@ -136,7 +136,7 @@ Link to question 8
 
 9. Where can I submit a completed return?
 
-Individuals can use the lodgement options on the ATO's tax-return page, including myTax where eligible, a registered agent or paper.
+Individuals can use the lodgement options on the ATO's tax return page, including myTax where eligible, a registered agent or paper.
 
 - Choose the route for your circumstances and confirm the income year.
 - Review the declaration and save the lodgement receipt after submission.
@@ -149,7 +149,7 @@ Link to question 9
 
 10. Which tax rules changed during 2025?
 
-A calendar-year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.
+A calendar year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.
 
 - Use the ATO 'Before you prepare your tax return' guidance for each year.
 - Record each changed rate or rule, effective date, source and affected calculation in a change log.
@@ -170,7 +170,7 @@ Link to question 10
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -181,7 +181,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 1: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
 - Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
-- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Business use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Link to question 2: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
 - Link to question 3: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
 - Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number

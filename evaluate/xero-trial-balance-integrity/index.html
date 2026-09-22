@@ -101,7 +101,7 @@
           <section id="accounting-problem">
             <h2>Accounting problem</h2>
             <p>
-              Xero's Trial Balance endpoint returns current-month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
+              Xero's Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
             </p>
             <p>The production tool reads trial balance data directly from Xero's Accounting API Reports endpoint.</p>
           </section>
@@ -166,7 +166,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="controls-triggered">
             <h2>Controls triggered</h2>
             <ul>
-              <li><code>failing_movement.csv</code> breaks only the current-month Debit/Credit pair.</li>
+              <li><code>failing_movement.csv</code> breaks only the current month Debit/Credit pair.</li>
               <li><code>failing_ytd.csv</code> breaks only the YTDDebit/YTDCredit pair.</li>
               <li>The evaluation runner calls the production <code>check_balanced</code> gate before any CSV write.</li>
             </ul>
@@ -205,7 +205,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source-data accuracy, reporting-period suitability, or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+              This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source data accuracy, reporting period suitability, or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
             </p>
           </section>
 

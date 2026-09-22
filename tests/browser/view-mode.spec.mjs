@@ -47,7 +47,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await machine.check();
   const view = page.getByRole('main', { name: 'Machine view' });
   await expect(view).toContainText('Source: https://duguid.com.au/');
-  await expect(view).toContainText('Open-source accounting tools for Australian accountants.');
+  await expect(view).toContainText('Open source tools for Australian accountants');
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
   await expect(view).toContainText('Nothing here is tax, legal, or financial advice.');
   await expect(page.locator('#main')).toBeHidden();

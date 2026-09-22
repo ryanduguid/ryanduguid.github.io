@@ -38,11 +38,11 @@ Verified
 
 Scope
 
-Income-year benchmark rates and the section 109N(2) method.
+Income year benchmark rates and the section 109N(2) method.
 
 Primary source Download CSV
 
-## Cents per kilometre car-expense rate
+## Cents per kilometre car expense rate
 
 The rate is 91 cents for 2026/27 and applies to the first 5,000 business kilometres per car.
 
@@ -52,7 +52,7 @@ Verified
 
 Scope
 
-Income-year rates, determinations, and the 5,000-kilometre cap.
+Income year rates, determinations, and the 5,000-kilometre cap.
 
 Primary source Download CSV
 
@@ -80,7 +80,7 @@ Verified
 
 Scope
 
-Income-year limits from 2019/20 and the GST credit cap.
+Income year limits from 2019/20 and the GST credit cap.
 
 Primary source Download CSV
 
@@ -120,7 +120,7 @@ Primary source Download CSV
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Primary source: https://www.legislation.gov.au/C1936A00027/latest/text
 - Download CSV: https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv
-- Cents per kilometre car-expense rate: https://duguid.com.au/rates/cents-per-kilometre/
+- Cents per kilometre car expense rate: https://duguid.com.au/rates/cents-per-kilometre/
 - Primary source: https://www.legislation.gov.au/F2026L00785/asmade
 - Download CSV: https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv
 - Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/

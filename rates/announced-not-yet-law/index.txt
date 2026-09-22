@@ -37,7 +37,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income-year application, and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application, and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
@@ -54,7 +54,7 @@ Other exceptions cover new residential dwellings and prescribed activities, wide
 
 ### CGT: separate application rules
 
-The negative-gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income-year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event, and applicable transition provisions separately before calculating a gain.
+The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event, and applicable transition provisions separately before calculating a gain.
 
 ## Legislated: earlier application
 
@@ -83,7 +83,7 @@ Yes. Schedule 4 Part 1 item 17 of the Treasury Laws Amendment (Tax Reform No. 1)
 
 ### Is the negative gearing and CGT discount reform law?
 
-Yes. The negative-gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership-interest exception and a contract-date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset.
+Yes. The negative gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership interest exception and a contract date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset.
 
 ### What does TBD mean on the ATO's list?
 
@@ -95,7 +95,7 @@ At the events in the rates register's review cadence: the 1 July rollover, the M
 
 General reference only, not tax, legal, or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
-Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 
 ## Related
 

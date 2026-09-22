@@ -63,7 +63,7 @@ Divide annual costs plus target profit by realistic billable hours.
 - Include the owner's pay target in costs if it must be covered before the stated profit.
 - Allow for leave, administration, marketing and unpaid time when estimating billable hours.
 
-The calculated rate is a cost-recovery target before GST; customers' willingness to pay needs separate evidence.
+The calculated rate is a cost recovery target before GST; customers' willingness to pay needs separate evidence.
 
 Choose a pricing strategy · Hourly pricing calculator
 
@@ -71,7 +71,7 @@ Link to question 73
 
 74. Which customers, jobs or service lines are making money?
 
-Build contribution by customer, job or service line from consistent revenue and direct-cost assignments.
+Build contribution by customer, job or service line from consistent revenue and direct cost assignments.
 
 - Allocate labour using recorded hours and identify material costs, discounts, rework and write-offs.
 - Keep shared overhead allocation visible and compare results before and after that allocation.
@@ -95,7 +95,7 @@ Set up a cash flow statement · Budget variance calculator
 
 Link to question 75
 
-76. Which financial reports should a small-business owner review each month?
+76. Which financial reports should a small business owner review each month?
 
 Review profit, financial position and cash together, with the balances that explain them.
 
@@ -104,11 +104,11 @@ Review profit, financial position and cash together, with the balances that expl
 
 Choose detail that changes a decision; a larger dashboard does not necessarily improve the review.
 
-Set up a cash flow statement · Monthly-close review pack
+Set up a cash flow statement · Monthly close review pack
 
 Link to question 76
 
-77. How do my business expenses compare with ATO small-business benchmarks?
+77. How do my business expenses compare with ATO small business benchmarks?
 
 Choose the ATO industry and turnover range that match your business and reporting period.
 
@@ -141,7 +141,7 @@ Higher sales can coincide with a lower margin when prices, product mix or costs 
 - Compare revenue and direct costs by job or product; check discounts, labour efficiency, rework and cut-off.
 - Use the margin and variance calculators, and review cost-to-complete estimates for construction work.
 
-A total-sales comparison alone cannot identify which driver reduced margin.
+A total sales comparison alone cannot identify which driver reduced margin.
 
 Choose a pricing strategy · Margin and markup calculator
 
@@ -152,11 +152,11 @@ Link to question 79
 Start with reconciled exports and a small set of decisions the report needs to support.
 
 - Define account mappings, periods and measures, then tie totals to Xero before adding charts.
-- Use the existing trial-balance export and close pack, and document refresh and review steps.
+- Use the existing trial balance export and close pack, and document refresh and review steps.
 
 The export tool supplies data; this guide does not install a Power BI connector or grant Xero access.
 
-Record keeping for business · Xero trial-balance export
+Record keeping for business · Xero trial balance export
 
 Link to question 80
 
@@ -170,7 +170,7 @@ Link to question 80
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -188,7 +188,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Link to question 75: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
-- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 76: https://duguid.com.au/tools/accounting-questions/management-reporting/#q76
 - ATO benchmark comparison method: https://duguid.com.au/tools/ato-benchmarks/
 - Link to question 77: https://duguid.com.au/tools/accounting-questions/management-reporting/#q77
@@ -196,7 +196,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
 - Link to question 78: https://duguid.com.au/tools/accounting-questions/management-reporting/#q78
 - Link to question 79: https://duguid.com.au/tools/accounting-questions/management-reporting/#q79
-- Xero trial-balance export: https://duguid.com.au/tools/xero-trial-balance/
+- Xero trial balance export: https://duguid.com.au/tools/xero-trial-balance/
 - Link to question 80: https://duguid.com.au/tools/accounting-questions/management-reporting/#q80
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/

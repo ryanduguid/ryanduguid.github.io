@@ -10,7 +10,7 @@ Download Ozzit from GitHub Try a formula
 
 Needs Microsoft 365 or Excel 2024 and later. Choose ozzit.xlsx under Assets on the release page.
 
-Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial-year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
+Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
 
 Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
@@ -22,7 +22,7 @@ An Excel workbook, not a program. Open it, copy a function into your own model, 
 
 The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
 
-The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial-year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
+The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
 
 ## Who it is for and what it needs
 
@@ -98,8 +98,8 @@ Not tax, legal or financial advice. The functions calculate; a person decides th
 - The GST helpers do 10% arithmetic only. They do not classify a supply, test registration or prepare a BAS.
 - oz.PrimeCostλ and oz.DiminishingValueλ are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
 - The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment, or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
-- The library contains no individual income tax, Medicare levy, Division 7A interest or tax-rate cards.
-- The 13-week cash-flow workbook in the repository's templates folder is a separate template, not a function in this library.
+- The library contains no individual income tax, Medicare levy, Division 7A interest or tax rate cards.
+- The 13-week cash flow workbook in the repository's templates folder is a separate template, not a function in this library.
 - Known defects are listed in the repository's changelog and issues. Check a schedule against an independent calculation before relying on it.
 
 ## Common questions

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evaluate/payday-super-evidence/
 
 Reproduce 4 fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
 
-Published 26 August 2026. Last reviewed 22 September 2026. This review adds a current-release qualification. The recorded evaluation and its release pins are unchanged.
+Published 26 August 2026. Last reviewed 22 September 2026. This review adds a current release qualification. The recorded evaluation and its release pins are unchanged.
 
 ## Accounting problem
 
@@ -50,7 +50,7 @@ uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidenc
 uv run --locked --extra dev pytest tests/test_evidence_pack.py -q
 ```
 
-The evidence-pack command exits 2 and writes 4 files into a new directory. exceptions.json must contain AT_RISK; decision-log.md has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the 4 pinned timing outcomes. They do not establish model performance or renew the legal review date.
+The evidence pack command exits 2 and writes 4 files into a new directory. exceptions.json must contain AT_RISK; decision-log.md has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the 4 pinned timing outcomes. They do not establish model performance or renew the legal review date.
 
 The new command follows review-pack exit meanings: 0 only for all ON_TIME, 2 for any exception, and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.
 

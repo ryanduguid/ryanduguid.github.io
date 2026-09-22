@@ -84,7 +84,7 @@ Link to question 34
 
 35. What information must appear on a valid tax invoice?
 
-Use an invoice checklist matched to the sale and the ATO's tax-invoice requirements.
+Use an invoice checklist matched to the sale and the ATO's tax invoice requirements.
 
 - Check supplier identity and ABN, date, description, price and how the GST amount is shown.
 - Check any buyer-identification requirement and clearly separate taxable and non-taxable items.
@@ -145,7 +145,7 @@ Bridge the BAS calculation to the GST control account at the same date and on th
 - Separate opening balances, payments to the ATO, cash-basis timing and journals.
 - List each reconciling item and clear unexplained differences before signing off.
 
-A control-account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
+A control account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
 
 ATO GST guidance · BAS pack readiness checks
 
@@ -174,7 +174,7 @@ Link to question 40
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

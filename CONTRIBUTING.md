@@ -226,5 +226,11 @@ changelog edit, and regenerate `llms-full.txt` with `python scripts/build_llms_f
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
+Before editing a published changelog row, preserve its Atom ID: copy the
+16-character suffix after `#entry-` from its current `feed.xml` entry into
+`data-feed-id` on that row's `<tr>`. Keep this value when the row moves or its
+wording changes, then regenerate the feed. New rows without an explicit ID
+retain the existing date-and-title hash. The site checks test this behaviour
+and reject invalid or duplicate IDs.
 The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
 For a potential security vulnerability follow [SECURITY.md](SECURITY.md).

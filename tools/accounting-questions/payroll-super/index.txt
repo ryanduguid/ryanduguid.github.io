@@ -47,12 +47,12 @@ Link to question 41
 
 Test receipt at the employee's fund against the applicable deadline.
 
-- Record payday, pathway, amount, remittance date and confirmed fund-receipt date.
+- Record payday, pathway, amount, remittance date and confirmed fund receipt date.
 - Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
 
 The timing tool needs the contribution amount supplied and the correct pathway selected.
 
-Payday Super for employers · Payday Super receipt-evidence example
+Payday Super for employers · Payday Super receipt evidence example
 
 Link to question 42
 
@@ -60,12 +60,12 @@ Link to question 42
 
 Investigate the payment trail and apply the current late-payment process.
 
-- Reconcile payroll, clearing-house status, rejections and fund receipt for each affected employee.
+- Reconcile payroll, clearing house status, rejections and fund receipt for each affected employee.
 - Resolve the cause, record any replacement payment and review the ATO's reporting and charge requirements.
 
 Sending a replacement does not automatically remove a late-payment consequence.
 
-Payday Super for employers · Payday Super receipt-evidence example
+Payday Super for employers · Payday Super receipt evidence example
 
 Link to question 43
 
@@ -86,10 +86,10 @@ Link to question 44
 
 Use the ATO withholding calculation for the payment type and pay period.
 
-- Check the declaration, residency, tax-free threshold choice, study-loan information and any variation.
+- Check the declaration, residency, tax-free threshold choice, study loan information and any variation.
 - Apply the current schedule or calculator and reconcile payroll totals to the withholding liability.
 
-A resident annual income-tax worksheet is not a payroll withholding calculator.
+A resident annual income tax worksheet is not a payroll withholding calculator.
 
 PAYG withholding
 
@@ -104,7 +104,7 @@ Reconcile payroll to the ledger and ATO reporting before making the STP finalisa
 
 An ordinary payroll submission and a finalisation declaration are different steps.
 
-Single Touch Payroll · Monthly-close review pack
+Single Touch Payroll · Monthly close review pack
 
 Link to question 46
 
@@ -115,7 +115,7 @@ Build final pay from the employee's entitlements and the circumstances of depart
 - Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.
 - Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment.
 
-The generic staff-cost calculator cannot determine final-pay entitlements.
+The generic staff cost calculator cannot determine final pay entitlements.
 
 Final pay - Fair Work Ombudsman
 
@@ -136,10 +136,10 @@ Link to question 48
 
 49. Do contractor payments count towards NSW payroll tax?
 
-Contractor payments need a separate payroll-tax review under the NSW relevant-contract rules.
+Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
-- Reconcile reviewed contractor amounts to the payroll-tax workpaper.
+- Reconcile reviewed contractor amounts to the payroll tax workpaper.
 
 An invoice, ABN or GST registration alone does not establish an exclusion.
 
@@ -156,7 +156,7 @@ Add annual wages, super and the other costs you expect to pay, then consider pro
 
 Do not add ordinary paid leave again if it is already included in the annual salary.
 
-Final pay - Fair Work Ombudsman · Staff-cost calculator
+Final pay - Fair Work Ombudsman · Staff cost calculator
 
 Link to question 50
 
@@ -170,7 +170,7 @@ Link to question 50
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -179,21 +179,21 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
-- Payday Super receipt-evidence example: https://duguid.com.au/tools/payday-super/
+- Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/
 - Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
 - Link to question 43: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
 - Link to question 44: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
 - PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
 - Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
-- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
 - Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
 - Link to question 47: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
 - Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
 - Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
-- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Link to question 50: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/

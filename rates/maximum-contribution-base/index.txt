@@ -48,11 +48,11 @@ Concessional contributions cap, multiplied by 100, divided by the super guarante
 
 ### What is the most super guarantee an employer must pay for one employee in 2026-27?
 
-12% of $270,830, which is $32,499.60 for the year, before any salary-sacrifice or additional contributions the employer chooses to make.
+12% of $270,830, which is $32,499.60 for the year, before any salary sacrifice or additional contributions the employer chooses to make.
 
 General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 
 ## Related
 

@@ -15,7 +15,7 @@ Planning estimates in AUD. Confirm tax treatment, liability amounts and dates se
 Published 11 September 2026. Last reviewed 20 September 2026.
 
 - GST calculator Work out GST, the GST-exclusive amount and the GST-inclusive amount for a wholly taxable supply at 10%, rounded once to cents.
-- Business-use share calculator Apportion an eligible cost by a supported business-use percentage. It does not decide deductibility, depreciation or record sufficiency.
+- Business use share calculator Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
 - Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 - Break-even sales calculator Whole units and sales required to cover fixed costs from price and variable cost per unit.
 - Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
@@ -30,7 +30,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Find a question and prepare a checklist: https://duguid.com.au/tools/accounting-questions/
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
-- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Business use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Margin and markup calculator: https://duguid.com.au/tools/business-calculators/margin/
 - Break-even sales calculator: https://duguid.com.au/tools/business-calculators/break-even/
 - Hourly pricing calculator: https://duguid.com.au/tools/business-calculators/hourly/

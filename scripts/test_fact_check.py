@@ -162,7 +162,7 @@ class FactCheckTests(unittest.TestCase):
         section = core.element_by_id(tree, "psc-2")[0]
         text = core.element_text(section)
         self.assertNotIn("all operate correctly", text)
-        self.assertIn("receipt-amount evidence", text)
+        self.assertIn("receipt amount evidence", text)
         self.assertIn("calendar and GIC coverage", text)
         self.assertTrue(
             any(

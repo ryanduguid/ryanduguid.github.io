@@ -30,7 +30,7 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
 
-61. How do I build a 13-week cash-flow forecast?
+61. How do I build a 13-week cash flow forecast?
 
 Forecast cash by the week it is expected to move through the bank.
 
@@ -56,7 +56,7 @@ Profit and cash diverge because income and expenses can be recognised at differe
 
 Loan proceeds and principal repayments affect cash without being ordinary trading revenue and expense.
 
-Set up a cash flow statement · Fictional Newcastle cash-flow workbook
+Set up a cash flow statement · Fictional Newcastle cash flow workbook
 
 Link to question 62
 
@@ -95,7 +95,7 @@ Compare the extra cash costs of hiring with conservative additional receipts and
 
 Annual profitability does not establish that each payroll payment will be affordable.
 
-Set up a cash flow statement · Staff-cost calculator
+Set up a cash flow statement · Staff cost calculator
 
 Link to question 65
 
@@ -117,7 +117,7 @@ Link to question 66
 Find the lowest forecast balance and compare it with the cash buffer you need.
 
 - Include current bank cash, committed payments, realistic receipts and stressed collection dates.
-- Use the forecast funding-gap result as an initial amount to investigate, then review timing and facility terms.
+- Use the forecast funding gap result as an initial amount to investigate, then review timing and facility terms.
 
 A calculated gap is not a credit approval or proof that borrowing is suitable.
 
@@ -174,7 +174,7 @@ Link to question 70
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -184,11 +184,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 61: https://duguid.com.au/tools/accounting-questions/cash-flow/#q61
-- Fictional Newcastle cash-flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
+- Fictional Newcastle cash flow workbook: https://duguid.com.au/evaluate/#profit-and-cash
 - Link to question 62: https://duguid.com.au/tools/accounting-questions/cash-flow/#q62
 - Link to question 63: https://duguid.com.au/tools/accounting-questions/cash-flow/#q63
 - Link to question 64: https://duguid.com.au/tools/accounting-questions/cash-flow/#q64
-- Staff-cost calculator: https://duguid.com.au/tools/business-calculators/staff/
+- Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Link to question 65: https://duguid.com.au/tools/accounting-questions/cash-flow/#q65
 - Monthly loan payment calculator: https://duguid.com.au/tools/business-calculators/loan/
 - Link to question 66: https://duguid.com.au/tools/accounting-questions/cash-flow/#q66

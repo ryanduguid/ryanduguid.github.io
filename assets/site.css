@@ -1072,13 +1072,24 @@ caption {
 .home-hero h1 {
   max-width: min(38ch, 100%);
   color: var(--colour-masthead);
-  font-size: min(var(--text-display), 5rem);
+  font-size: min(var(--text-display), 3.75rem);
   line-height: var(--leading-tight);
   letter-spacing: var(--tracking-display);
 }
 
 .home-hero__summary {
   max-width: 58ch;
+}
+
+.page-home :is(.technical-label, .page-meta, .home-hero__source, .credential-register dt),
+.page-home .site-identity::after {
+  font-family: var(--font-body);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.page-home .route-actions {
+  border-top-width: var(--rule-thin);
 }
 
 .home-hero__actions {
@@ -1367,6 +1378,11 @@ caption {
 
 .route-note.boundary {
   border-left-color: var(--colour-alert);
+}
+
+.page-home .route-note {
+  padding-left: 0;
+  border-left: 0;
 }
 
 /* Notes, captions and the install intro keep the reading measure that the
@@ -1696,13 +1712,11 @@ caption {
   grid-template-columns: minmax(0, 1fr) auto;
   gap: var(--space-3);
   padding: var(--space-2) var(--space-3);
-  border-left: var(--rule-strong) solid transparent;
 }
 
 /* Which formula won is the whole point of the section, so the applied row is
    marked rather than merely listed among the others. */
 .proof-calc__result .is-applied {
-  border-left-color: var(--colour-stamp);
   background: var(--colour-stamp-wash);
 }
 

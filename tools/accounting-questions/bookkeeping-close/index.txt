@@ -39,7 +39,7 @@ Reconcile the bank statement and Xero at the same date before posting a correcti
 
 Do not post a balancing journal while the cause remains unknown.
 
-Record keeping for business · Monthly-close review pack
+Record keeping for business · Monthly close review pack
 
 Link to question 51
 
@@ -48,7 +48,7 @@ Link to question 51
 Identify whether the duplicate is a statement line, an accounting transaction or both.
 
 - Match date, amount, bank reference and source document; distinguish repeated genuine payments.
-- Use the appropriate Xero correction after review, then re-run the bank reconciliation.
+- Use the appropriate Xero correction after review, then rerun the bank reconciliation.
 
 Removing the wrong item can remove a real transaction; retain the correction trail.
 
@@ -104,7 +104,7 @@ Use a chart of accounts that supports reporting and reconciliations at a managea
 
 Do not create a new account for every customer or supplier when the subledger already tracks them.
 
-Record keeping for business · Monthly-close review pack
+Record keeping for business · Monthly close review pack
 
 Link to question 56
 
@@ -143,7 +143,7 @@ Compare the aged report and ledger on the same date with the same filters.
 
 A matching total alone does not establish that individual balances are collectible or payable.
 
-Record keeping for business · Monthly-close review pack
+Record keeping for business · Monthly close review pack
 
 Link to question 59
 
@@ -160,7 +160,7 @@ At 30 September 2026, a fictional bank statement shows $12,000 and the ledger ba
 
 The existing close pack supports review; it does not automatically approve journals or finalise accounts.
 
-Record keeping for business · Monthly-close review pack
+Record keeping for business · Monthly close review pack
 
 Link to question 60
 
@@ -174,7 +174,7 @@ Link to question 60
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -182,7 +182,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
-- Monthly-close review pack: https://github.com/ryanduguid/accounting-review-pipeline
+- Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 51: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q51
 - Link to question 52: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q52
 - Link to question 53: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q53

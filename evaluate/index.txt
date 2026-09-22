@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/evaluate/
 
-> Reproduce 3 fixed accounting-tool evaluations with fabricated inputs, expected results, versioned releases, and explicit limits.
+> Reproduce 3 fixed accounting tool evaluations with fabricated inputs, expected results, versioned releases, and explicit limits.
 
 # Evaluations
 
-Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting-tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.
+Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
 
@@ -43,13 +43,13 @@ Payday Super timing | Pinned package trial | AT_RISK while fund receipt is missi
 ATO benchmark comparison | Pinned source test | 30% cost of sales after excluding the separately mapped wages.
 Coal LSL levy calculator | Browser calculator | Choose Load the synthetic example, then Calculate; compare the inputs and formula with the fixed homepage proof.
 Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
-Company tax and franking checks | Pinned package trial | 25.0% on the declared base-rate-entity inputs, plus an unsupported-year refusal.
+Company tax and franking checks | Pinned package trial | 25.0% on the declared base rate entity inputs, plus an unsupported-year refusal.
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
 Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
 
-The Excel cash-flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
+The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
 ## Five-minute accounting cases
 
@@ -63,8 +63,8 @@ Three findings from the supplied case. The 8 exceptions are not 8 accounting err
 
 Finding | Evidence | Reviewer action
 Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the difference and document its cause.
-Account mapping | Operating Expenses account 6000 has no review-group mapping. | Confirm the mapping and review owner.
-Financial-year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
+Account mapping | Operating Expenses account 6000 has no review group mapping. | Confirm the mapping and review owner.
+Financial year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
 
 Monthly Close Controls guide: inputs, exception report and reproducible command.
 
@@ -102,7 +102,7 @@ Runs 3 fabricated CSV fixtures through the movement and year-to-date balance gat
 
 Fabricated input
 
-Balanced and unbalanced trial-balance CSVs.
+Balanced and unbalanced trial balance CSVs.
 
 Expected result
 
@@ -124,11 +124,11 @@ Reproduces 4 evidence-timing outcomes, including at-risk, on-time, and late clas
 
 Fabricated input
 
-Four contribution and receipt-evidence fixtures.
+Four contribution and receipt evidence fixtures.
 
 Expected result
 
-Exact status and due-date output for each line.
+Exact status and due date output for each line.
 
 Fixed release
 

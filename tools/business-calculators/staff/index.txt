@@ -20,7 +20,7 @@ JavaScript is required for interactive calculations. The formula, assumptions an
 
 Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
 
-Staff-cost checklist
+Staff cost checklist
 
 Staff cost inputs
 
@@ -33,4 +33,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
-- Staff-cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+- Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50

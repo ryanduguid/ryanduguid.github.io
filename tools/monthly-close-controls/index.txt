@@ -34,7 +34,7 @@ The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds 
 Exception | Result | Reviewer action
 Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the reconciling items and document their cause.
 Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
-Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit-and-loss YTD differences as ordinary monthly movements.
+Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
 
 Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
 

@@ -83,7 +83,7 @@ def assert_clean(label: str, failures: list[str]) -> None:
 
 
 def test_parked_consultancy_surface() -> None:
-    """Keep the public site an open-source index with no engagement route."""
+    """Keep the public site an open source index with no engagement route."""
     homepage = read_text(ROOT, "index.html")
     homepage_root = core.parse_structure(homepage)
     homepage_hrefs = core.anchor_hrefs(homepage)
@@ -123,12 +123,12 @@ def test_parked_consultancy_surface() -> None:
 
 def test_geo_leftovers_surface() -> None:
     """Keep the approved GEO pass visible to readers and machine consumers."""
-    homepage_title = "Open-source accounting tools for Australian accountants"
+    homepage_title = "Open source tools for Australian accountants"
     coal_title = "Coal LSL levy calculator and section 3B eligible wages"
     coal_lead = (
         "The coal mining long service leave (Coal LSL) levy is "
-        "2.7% of monthly eligible wages. Section 3B has separate base-rate, annual-salary "
-        "and casual branches. The base-rate branch uses the greater of Formula A and Formula B."
+        "2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary "
+        "and casual branches. The base rate branch uses the greater of Formula A and Formula B."
     )
 
     home = read_text(ROOT, "index.html")
@@ -859,7 +859,7 @@ def test_public_contracts() -> int:
         "python scripts/validate_skills.py --strict",
         "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
         "workflows this portfolio uses, and keeps the fabricated-data and "
-        "human-review boundaries.",
+        "human review boundaries.",
     )
     install_text = core.visible_text(read_text(ROOT, contracts.MCP_REL))
     assert "Five ways to try it" in install_text, (
@@ -960,7 +960,7 @@ def test_public_contracts() -> int:
         not_indexed=contracts.NOT_INDEXED,
         root=ROOT,
     )
-    assert_clean("sitemap and machine-index coverage", sitemap_failures)
+    assert_clean("sitemap and machine index coverage", sitemap_failures)
 
     parse_failures: list[str] = []
     about = read_text(ROOT, "about/index.html")
@@ -1106,7 +1106,7 @@ def test_public_contracts() -> int:
     homepage_mutations = (
         (
             "homepage title",
-            "<title>Open-source accounting tools for Australian accountants</title>",
+            "<title>Open source tools for Australian accountants</title>",
             "<title>Wrong homepage title</title>",
             "index.html: homepage title is",
         ),
@@ -1124,7 +1124,7 @@ def test_public_contracts() -> int:
         ),
         (
             "homepage primary action",
-            "Explore the cash-flow example",
+            "Explore the cash flow example",
             "Browse every tool",
             "index.html: homepage actions are",
         ),
@@ -1202,7 +1202,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter title mirror",
-            '<meta name="twitter:title" content="Open-source accounting tools for Australian accountants" />',
+            '<meta name="twitter:title" content="Open source tools for Australian accountants" />',
             '<meta name="twitter:title" content="Different share title" />',
             "twitter:title is 'Different share title'",
         ),
@@ -1217,7 +1217,7 @@ def test_public_contracts() -> int:
             expected,
         )
 
-    payday_description = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund-receipt decision."
+    payday_description = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund receipt decision."
     short_payday_description = (
         "Check Payday Super timing from payroll exports and estimate the SG charge "
         "for review, with fund receipt status visible."

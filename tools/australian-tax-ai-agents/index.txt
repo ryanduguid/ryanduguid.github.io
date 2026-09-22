@@ -19,16 +19,16 @@ Choose the tool by the work it supports: a calculation on established facts, a s
 Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
 Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
-Walk an agent through a public-practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
-Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax-return preparation. Each worksheet requires established facts and a supported period.
+Walk an agent through a public practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
+Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
 ## What aus-accounting-mcp does
 
-- Lists and searches the shipped ATO small-business benchmark industries.
-- Compares the profit-and-loss buckets you supply to the published ATO ranges. Omitted buckets stay not_supplied; they are not treated as zero.
-- Reviews one Payday Super contribution or a related group for one employer, using payday-super-checker. Missing fund-receipt evidence remains unresolved.
+- Lists and searches the shipped ATO small business benchmark industries.
+- Compares the profit and loss buckets you supply to the published ATO ranges. Omitted buckets stay not_supplied; they are not treated as zero.
+- Reviews one Payday Super contribution or a related group for one employer, using payday-super-checker. Missing fund receipt evidence remains unresolved.
 - Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.
 - Calculates 6 experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
 - Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.
@@ -38,7 +38,7 @@ Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-
 
 The worksheet scope and periods are fixed by australian-tax-calculators 0.1.3, the engine published release 0.2.5 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements.
 
-Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local-library setup. Any retrieved excerpts enter the calling assistant's context.
+Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.
 
 ## Primary sources
 
@@ -62,7 +62,7 @@ The transcript's first line shows the source-checkout command, uv run --locked a
 
 ### Five ways to try it
 
-Start with the Excel cash-flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
+Start with the Excel cash flow example or browser calculator. Firms using Claude Code or Codex can use the commands below. An MCP server gives an AI assistant access to a defined set of tools.
 
 No install
 
@@ -99,7 +99,7 @@ npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
 
 GitHub workflows
 
-github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human-review boundaries.
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human review boundaries.
 
 Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
 
@@ -122,13 +122,13 @@ Unexpected result or question? Open an issue or email with the tool named in the
 
 ## Limits
 
-The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
 
 The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
 Published MCP 0.2.5 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local-library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
+Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
 ## Common questions
 
@@ -191,7 +191,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
 - uv installed: https://docs.astral.sh/uv/
-- Excel cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Excel cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example

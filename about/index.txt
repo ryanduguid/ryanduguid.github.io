@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/about/
 
-> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open-source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
+> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
 
 # About Ryan Duguid
 
-I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open-source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
+I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
 Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.
 
@@ -32,8 +32,8 @@ LinkedIn | linkedin.com/in/ryan-duguid
 
 I build accounting tools that let a second person trace the inputs, calculation, and review decision. Three examples show the work in different forms:
 
-- Cash-flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates, and available cash through an Excel forecast and management briefing.
-- Month-end review. The accounting review pipeline turns trial-balance files into inspectable exceptions, including a creditors difference and a financial-year comparison warning.
+- Cash flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates, and available cash through an Excel forecast and management briefing.
+- Month-end review. The accounting review pipeline turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.
 - Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
 
 These examples use fabricated data. Their evidence covers the supplied cases and stated limits; no client outcome is claimed.
@@ -78,7 +78,7 @@ Nothing here is tax, legal, or financial advice. The tools are review aids for a
 
 ## Site boundary
 
-This is a personal index of open-source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
+This is a personal index of open source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
 
 This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests. Do not post taxpayer information or client files to public repositories.
 

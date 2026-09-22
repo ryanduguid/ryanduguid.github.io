@@ -152,6 +152,15 @@
   --layer-skip: 30;
 }
 
+/* Brighter landing-page copy; fixed captures and other routes keep their palette. */
+@media screen {
+  .page-home {
+    --colour-ink-mid: #e6e6e6;
+    --colour-ink-soft: #dadada;
+    --colour-mode-muted: #dadada;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --motion-fast: 0.01ms;
@@ -159,8 +168,9 @@
   }
 }
 
-@media (prefers-contrast: more) {
-  :root {
+@media screen and (prefers-contrast: more) {
+  :root,
+  .page-home {
     --colour-ink-mid: #f2f2f2;
     --colour-ink-soft: #f2f2f2;
     --colour-rule: #606060;
