@@ -54,24 +54,33 @@ test('the extra task chooser works with keyboard and touch', async ({ page }, te
   await expect(page.getByRole('navigation', { name: 'Start with what you came to do' })).toBeVisible();
 });
 
-test('enlarged mobile text keeps the page in view and navigation reachable', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'Mobile text resizing coverage');
-  for (const route of ['/', '/tools/', '/tools/ozzit/', '/evaluate/manager-review-gate/']) {
-    await page.goto(route);
-    await page.evaluate(() => document.documentElement.style.setProperty('font-size', '200%', 'important'));
-    await page.evaluate(() => document.fonts.ready);
-    expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(390);
-    const contact = page.locator('.site-nav').getByRole('link', { name: 'Contact', exact: true });
-    await contact.evaluate((link) => link.scrollIntoView({ block: 'nearest', inline: 'end', behavior: 'instant' }));
-    await expect.poll(async () => {
-      const position = await contact.boundingBox();
-      return position.x >= 0 && position.x + position.width <= 390;
-    }).toBe(true);
-    const overlap = await page.evaluate(() => {
-      const name = document.querySelector('.site-identity').getBoundingClientRect();
-      const mode = document.querySelector('.view-mode').getBoundingClientRect();
-      return name.right > mode.left && name.bottom > mode.top;
-    });
-    expect(overlap, `${route} site name and view switch overlap`).toBe(false);
-  }
-});
+for (const width of [320, 390]) {
+  test(`enlarged mobile text keeps the page in view and navigation reachable at ${width}px`, async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name !== 'mobile-chromium', 'Mobile text resizing coverage');
+    await page.setViewportSize({ width, height: 844 });
+    for (const route of ['/', '/tools/', '/tools/ozzit/', '/evaluate/manager-review-gate/']) {
+      await page.goto(route);
+      await page.evaluate(() => document.documentElement.style.setProperty('font-size', '200%', 'important'));
+      await page.evaluate(() => document.fonts.ready);
+      expect(await page.evaluate(() => document.documentElement.scrollWidth), route).toBeLessThanOrEqual(width);
+      const contact = page.locator('.site-nav').getByRole('link', { name: 'Contact', exact: true });
+      await contact.evaluate((link) => link.scrollIntoView({ block: 'nearest', inline: 'end', behavior: 'instant' }));
+      await expect.poll(async () => {
+        const position = await contact.boundingBox();
+        return position.x >= 0 && position.x + position.width <= width;
+      }).toBe(true);
+      const geometry = await page.evaluate(() => {
+        const name = document.querySelector('.site-identity').getBoundingClientRect();
+        const mode = document.querySelector('.view-mode').getBoundingClientRect();
+        const nav = document.querySelector('.site-nav').getBoundingClientRect();
+        return {
+          switchOverlap: name.right > mode.left && name.bottom > mode.top,
+          identityBottom: name.bottom,
+          navTop: nav.top,
+        };
+      });
+      expect(geometry.switchOverlap, `${route} site name and view switch overlap`).toBe(false);
+      expect(geometry.identityBottom, `${route} site name overlaps navigation`).toBeLessThanOrEqual(geometry.navTop);
+    }
+  });
+}

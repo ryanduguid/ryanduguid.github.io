@@ -32,7 +32,11 @@ a native disclosure on every screen size so the catalogue follows sooner.
 It needs no JavaScript and supports keyboard and touch input.
 At enlarged text sizes, the 320px page minimum stays fixed and the navigation
 can scroll within its own row without widening the document. The site name
-wraps within half the header to leave room for the view switch.
+wraps within half the header, reserving space for the fixed-size view switch.
+Its heading line height and content-sized row keep enlarged text clear of
+the navigation. The proof calculator's grid can shrink below its usual
+field width on narrow screens with enlarged text.
+Printing includes the extra task list even when its disclosure is closed.
 
 At Ryan's request, external-review invitations, pending notices and the
 response template are removed. The sample pack retains its scenario exercise,
