@@ -70,8 +70,13 @@ test('enlarged mobile text keeps the page in view and navigation reachable', asy
     const overlap = await page.evaluate(() => {
       const name = document.querySelector('.site-identity').getBoundingClientRect();
       const mode = document.querySelector('.view-mode').getBoundingClientRect();
-      return name.right > mode.left && name.bottom > mode.top;
+      const nav = document.querySelector('.site-nav').getBoundingClientRect();
+      return {
+        controls: name.right > mode.left && name.bottom > mode.top,
+        navigation: name.bottom > nav.top,
+      };
     });
-    expect(overlap, `${route} site name and view switch overlap`).toBe(false);
+    expect(overlap.controls, `${route} site name and view switch overlap`).toBe(false);
+    expect(overlap.navigation, `${route} site name and navigation overlap`).toBe(false);
   }
 });

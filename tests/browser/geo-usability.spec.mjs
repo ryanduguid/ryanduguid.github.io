@@ -11,6 +11,15 @@ test('printing includes the fixed proof without opening its disclosure', async (
   await expect(disclosure.locator('figcaption')).toBeVisible();
 });
 
+test('printing includes task chooser links without opening its disclosure', async ({ page }) => {
+  await page.goto('/tools/');
+  await page.emulateMedia({ media: 'print' });
+  const disclosure = page.locator('.work-chooser details');
+  await expect(disclosure).not.toHaveAttribute('open');
+  await expect(disclosure.getByRole('link', { name: /Ozzit Excel LAMBDA library/ })).toBeVisible();
+  await expect(disclosure.getByRole('link', { name: /Coal LSL levy calculator/ })).toBeVisible();
+});
+
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {
   await page.goto('/tools/australian-tax-ai-agents/');
   await waitForVisualFonts(page);
