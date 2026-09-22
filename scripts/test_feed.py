@@ -39,6 +39,15 @@ class FeedTests(unittest.TestCase):
         with self.assertRaisesRegex(SystemExit, "duplicate feed ID"):
             build_feed.build(row + row.replace("Copy", "Different copy"))
 
+    def test_explicit_ids_accept_both_quote_styles(self) -> None:
+        for quote in ('"', "'"):
+            with self.subTest(quote=quote):
+                result = feed_entries(
+                    f"<tr data-feed-id = {quote}0123456789abcdef{quote}>"
+                    "<td>22 September 2026</td><td>Copy</td></tr>"
+                )
+                self.assertIn(f"{build_feed.CHANGELOG_URL}#entry-0123456789abcdef", result)
+
     def test_invalid_ids_are_rejected(self) -> None:
         for attributes in ('data-feed-id=""', 'data-feed-id="wrong"', "data-feed-id='abc'"):
             with (

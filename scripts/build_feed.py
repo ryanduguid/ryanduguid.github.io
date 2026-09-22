@@ -43,7 +43,7 @@ MONTHS = {
     )
 }
 ROW_PATTERN = re.compile(r"<tr\b([^>]*)>(.*?)</tr>", re.S)
-FEED_ID_PATTERN = re.compile(r'\bdata-feed-id="([^"]*)"')
+FEED_ID_PATTERN = re.compile(r"""\bdata-feed-id\s*=\s*(["'])(.*?)\1""")
 CELL_PATTERN = re.compile(r"<td>(.*?)</td>", re.S)
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
@@ -78,12 +78,12 @@ def entries(html: str) -> list[tuple[date, str, str, str, str]]:
             raise SystemExit(f"changelog: unexpected row with {len(cells)} cells")
         explicit_id = FEED_ID_PATTERN.search(attributes)
         if "data-feed-id" in attributes and (
-            explicit_id is None or not re.fullmatch(r"[0-9a-f]{16}", explicit_id.group(1))
+            explicit_id is None or not re.fullmatch(r"[0-9a-f]{16}", explicit_id.group(2))
         ):
             raise SystemExit("changelog: data-feed-id must be 16 lowercase hexadecimal characters")
         # Published entries can keep their original identity when their copy changes.
         digest = (
-            explicit_id.group(1)
+            explicit_id.group(2)
             if explicit_id
             else hashlib.sha256(f"{when.isoformat()}|{title}".encode()).hexdigest()[:16]
         )
