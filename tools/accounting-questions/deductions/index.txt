@@ -39,7 +39,7 @@ Compare the eligible working-from-home methods for the income year using the req
 
 Eligibility, rates and record requirements must be checked for the year; this site does not select the method for you.
 
-Deductions you can claim · Business-use apportionment calculator
+Deductions you can claim · Business use apportionment calculator
 
 Link to question 11
 
@@ -48,7 +48,7 @@ Link to question 11
 Keep evidence of hours and costs that supports the particular working-from-home method you use.
 
 - Record dates and hours throughout the required period and retain bills or receipts.
-- Keep a note of the method, year, work-use basis and costs excluded to prevent double claims.
+- Keep a note of the method, year, work use basis and costs excluded to prevent double claims.
 
 A reconstructed estimate may not meet the ATO's requirements for your method.
 
@@ -71,7 +71,7 @@ Link to question 13
 
 14. How do I keep a valid vehicle logbook?
 
-A useful logbook records each business trip and lets another person check the business-use percentage.
+A useful logbook records each business trip and lets another person check the business use percentage.
 
 - Record the required trip dates, odometer readings, distance and business purpose.
 - Keep opening and closing odometer readings and review whether changed use requires a new logbook.
@@ -84,14 +84,14 @@ Link to question 14
 
 15. How do I calculate the work-related share of phone and internet expenses?
 
-Apply a supported work-use percentage to eligible phone and internet costs.
+Apply a supported work use percentage to eligible phone and internet costs.
 
 - Gather bills and a representative usage record that distinguishes private from work use.
-- Use the business-use calculator and retain the usage calculation with the result.
+- Use the business use calculator and retain the usage calculation with the result.
 
 Do not separately claim costs already covered by your chosen working-from-home method.
 
-Deductions you can claim · Business-use apportionment calculator
+Deductions you can claim · Business use apportionment calculator
 
 Link to question 15
 
@@ -99,7 +99,7 @@ Link to question 15
 
 Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
 
-- Record cost, acquisition date, first use, work-use share and whether the item forms part of a set.
+- Record cost, acquisition date, first use, work use share and whether the item forms part of a set.
 - Check the applicable year's asset rules and retain the calculation in an asset register.
 
 The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
@@ -151,8 +151,8 @@ Link to question 19
 
 Test eligibility against the rules enacted for the asset's relevant year and circumstances.
 
-- Record aggregated turnover, asset cost, acquisition and first-use dates, and business-use share.
-- Check the current ATO small-business depreciation rules, including exclusions and any applicable election.
+- Record aggregated turnover, asset cost, acquisition and first use dates, and business use share.
+- Check the current ATO small business depreciation rules, including exclusions and any applicable election.
 
 The ordinary depreciation worksheet does not determine instant asset write-off eligibility.
 
@@ -170,7 +170,7 @@ Link to question 20
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -178,7 +178,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
-- Business-use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Business use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Link to question 11: https://duguid.com.au/tools/accounting-questions/deductions/#q11
 - Link to question 12: https://duguid.com.au/tools/accounting-questions/deductions/#q12
 - Cents-per-kilometre rate table and method: https://duguid.com.au/rates/cents-per-kilometre/

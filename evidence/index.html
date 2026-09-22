@@ -167,7 +167,7 @@
 
           <section>
             <h2 id="data-and-privacy-boundary">Data and privacy boundary</h2>
-            <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local-library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
+            <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
             <p>The optional <a href="https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter">LodgeiT calculator adapter</a> is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. <a href="/privacy/">Website hosting and browser data handling</a> have their own boundaries.</p>
             <p>
               No client, taxpayer, or production-ledger data appears in public examples.
@@ -177,7 +177,7 @@
               repository, or enquiry email.
             </p>
             <ul>
-              <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/README.md#client-data">ATO benchmark client-data control</a> records the zero-network runtime boundary.</li>
+              <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/README.md#client-data">ATO benchmark client data control</a> records the zero-network runtime boundary.</li>
               <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/README.md#local-file-boundary">Payday Super local file boundary</a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary">TheWIPTally local file boundary</a>, and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#data-boundary">Workpaper Review Gate data boundary</a> state how client files are separated from public fixtures.</li>
               <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/README.md#client-integration">MCP client architecture</a> describes a local stdio process. The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer">Xero scope and credential boundary</a> separately records that product's read-only API and local token controls.</li>
               <li>The <a href="https://github.com/ryanduguid/ryanduguid.github.io">Coal LSL calculator repository</a> makes the browser implementation inspectable.</li>
@@ -240,7 +240,7 @@
               escalate missing, contradictory, stale, or out-of-scope facts rather than invent
               a result.
               Each product page records its specific inputs, refusal conditions,
-              source-currency limits, and human decision boundary.
+              source currency limits, and human decision boundary.
             </p>
           </section>
 

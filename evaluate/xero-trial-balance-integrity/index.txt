@@ -32,7 +32,7 @@ Balance does not prove completeness, classification, or approval.
 
 ## Accounting problem
 
-Xero's Trial Balance endpoint returns current-month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
+Xero's Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
 
 The production tool reads trial balance data directly from Xero's Accounting API Reports endpoint.
 
@@ -68,7 +68,7 @@ failing_ytd.csv | failing_ytd.csv exits 1, identifies the YTD pair, and reports 
 
 ## Controls triggered
 
-- failing_movement.csv breaks only the current-month Debit/Credit pair.
+- failing_movement.csv breaks only the current month Debit/Credit pair.
 - failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.
 - The evaluation runner calls the production check_balanced gate before any CSV write.
 
@@ -96,7 +96,7 @@ The integrity result does not approve the export or replace professional review.
 
 ## Limitations
 
-This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source-data accuracy, reporting-period suitability, or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
+This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source data accuracy, reporting period suitability, or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
 
 ## Related
 

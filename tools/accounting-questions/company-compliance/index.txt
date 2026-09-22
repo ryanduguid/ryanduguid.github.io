@@ -32,10 +32,10 @@ Reviewed 11 September 2026. Use the entity and relevant income or FBT year; link
 
 81. Does my company qualify for the lower company tax rate?
 
-Test the company's income and aggregated-turnover conditions for the relevant year.
+Test the company's income and aggregated turnover conditions for the relevant year.
 
-- Reconcile taxable income, passive-income categories and connected-entity information.
-- Use the existing company-tax example only after the inputs and applicable conditions have been established.
+- Reconcile taxable income, passive income categories and connected entity information.
+- Use the existing company tax example only after the inputs and applicable conditions have been established.
 
 The example does not determine eligibility merely from accounting profit.
 
@@ -71,7 +71,7 @@ Link to question 83
 
 84. How do I calculate the minimum yearly repayment on a complying Division 7A loan?
 
-Use the minimum-yearly-repayment calculation for an established complying loan and the correct year.
+Use the minimum yearly repayment calculation for an established complying loan and the correct year.
 
 - Gather the relevant opening balance, benchmark rate, remaining term and qualifying repayments.
 - Reproduce the existing Division 7A case, then retain the inputs and compare required with actual qualifying repayments.
@@ -87,7 +87,7 @@ Link to question 84
 Review the source, timing and surrounding arrangements for each proposed repayment.
 
 - Trace the payment through bank and loan records and identify any reborrowing or circular movement.
-- Document the section 109R review and qualifying amount before using the minimum-repayment worksheet.
+- Document the section 109R review and qualifying amount before using the minimum repayment worksheet.
 
 A credit to a director loan account is not automatically a qualifying Division 7A repayment.
 
@@ -112,7 +112,7 @@ Link to question 86
 
 Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
 
-- Record any foreign, trust or other adjustments and the relevant holding-period evidence.
+- Record any foreign, trust or other adjustments and the relevant holding period evidence.
 - Use the ATO investment and imputation guidance to determine what appears in the return.
 
 A stated franking credit does not automatically establish entitlement to use the offset.
@@ -134,7 +134,7 @@ Fringe benefits tax (FBT) · Experimental tax worksheets and supported years
 
 Link to question 88
 
-89. What information do I need to prepare an ATO payment-plan proposal?
+89. What information do I need to prepare an ATO payment plan proposal?
 
 Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
@@ -154,7 +154,7 @@ Assess the relationships between businesses against the NSW grouping rules.
 - Prepare an ownership and control diagram, shared-employee details and financial relationships.
 - Document each grouping test and any exclusion application, then reconcile group wages.
 
-Separate company names or accounts do not by themselves prevent payroll-tax grouping.
+Separate company names or accounts do not by themselves prevent payroll tax grouping.
 
 Revenue NSW payroll tax
 
@@ -170,7 +170,7 @@ Link to question 90
 - Management reporting
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>What these accounting tools refuse to do</title>
-  <meta name="description" content="Each refusal the open-source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta name="description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="What these accounting tools refuse to do" />
-  <meta property="og:description" content="Each refusal the open-source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta property="og:description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="What these accounting tools refuse to do" />
-  <meta name="twitter:description" content="Each refusal the open-source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta name="twitter:description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/refusals/" />
@@ -59,7 +59,7 @@
           A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
         </p>
         <p class="lead-note">
-          Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not re-checked against it; the <a href="/changelog/">changelog</a> lists current releases.
+          Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the <a href="/changelog/">changelog</a> lists current releases.
         </p>
         <p class="page-meta">Published 4 September 2026. Last reviewed 20 September 2026.</p>
       </header>
@@ -166,7 +166,7 @@
                 <tr>
                   <th scope="row"><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/fixtures/failing_movement.csv"><code>failing_movement.csv</code></a></th>
                   <td><code>WARNING: movement debits 1,200.00 != credits 1,199.99 (diff 0.01)</code>, then <code>Nothing written</code>, exit 1</td>
-                  <td>Re-run the report from Xero and check the source before anything is written.</td>
+                  <td>Rerun the report from Xero and check the source before anything is written.</td>
                 </tr>
                 <tr>
                   <th scope="row"><a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/fixtures/failing_ytd.csv"><code>failing_ytd.csv</code></a></th>
@@ -181,7 +181,7 @@
           <section id="payday-super">
             <h2>Payday Super timing</h2>
             <p>
-              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fabricated file below has one employee's first contribution to a fund remitted on time but with no fund-receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
+              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fabricated file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
             </p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Fabricated payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
 EMP009,2026-08-06,100.00,2026-08-07,,yes,no,,no
@@ -200,8 +200,8 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
                 <tr>
                   <th scope="row">Row 2, QE day 2026-08-06</th>
                   <td><code>AT_RISK</code></td>
-                  <td>No fund-receipt date supplied; the statutory test is receipt by the fund under SGAA s 18C(1)</td>
-                  <td>Fill the fund-receipt date from the clearing house or fund, then rerun.</td>
+                  <td>No fund receipt date supplied; the statutory test is receipt by the fund under SGAA s 18C(1)</td>
+                  <td>Fill the fund receipt date from the clearing house or fund, then rerun.</td>
                 </tr>
                 <tr>
                   <th scope="row">Row 3, QE day 2026-08-20</th>
@@ -264,7 +264,7 @@ asyncio.run(main())</code></pre>
                 <tr>
                   <th scope="col">ID</th>
                   <th scope="col">Scenario</th>
-                  <th scope="col">Side-effect check</th>
+                  <th scope="col">Side effect check</th>
                 </tr>
               </thead>
               <tbody>
@@ -342,7 +342,7 @@ asyncio.run(main())</code></pre>
           <section id="evidence-note">
             <h2>Evidence note</h2>
             <p>
-              The transcripts below are the outputs of 4 September 2026, pasted as produced. Each package was checked out at its tagged commit and run from its own locked <code>uv</code> environment on Linux with CPython 3.11. Environment-setup lines that <code>uv</code> prints on first use are omitted; the CSV files open with a UTF-8 byte order mark that is not shown. The close-control and payday-super-check runs were started from a fixtures directory outside the checkout with <code>uv run --locked --project &lt;package directory&gt;</code>; the transcripts show the command without that path.
+              The transcripts below are the outputs of 4 September 2026, pasted as produced. Each package was checked out at its tagged commit and run from its own locked <code>uv</code> environment on Linux with CPython 3.11. Environment setup lines that <code>uv</code> prints on first use are omitted; the CSV files open with a UTF-8 byte order mark that is not shown. The close-control and payday-super-check runs were started from a fixtures directory outside the checkout with <code>uv run --locked --project &lt;package directory&gt;</code>; the transcripts show the command without that path.
             </p>
             <h3>Workpaper Review Gate, commit <code>2de565b3ce39</code></h3>
             <pre tabindex="0" role="region" aria-label="Workpaper Review Gate transcript"><code>$ uv run --locked review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/refusals-bas-not-ready
@@ -455,7 +455,7 @@ exit=0</code></pre>
         "@id": "https://duguid.com.au/tools/refusals/#article",
         "url": "https://duguid.com.au/tools/refusals/",
         "headline": "What these tools refuse",
-        "description": "Each refusal the open-source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows.",
+        "description": "Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-04",
         "dateModified": "2026-09-20",

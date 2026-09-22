@@ -34,7 +34,7 @@ Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment
 
 Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
 
-- Gather agent statements, invoices, loan interest, ownership details and rental-availability records.
+- Gather agent statements, invoices, loan interest, ownership details and rental availability records.
 - Apportion costs where required and reconcile the deduction schedule to the supporting documents.
 
 The treatment depends on the expense and property use; a rental label alone does not establish deductibility.
@@ -48,7 +48,7 @@ Link to question 91
 Review what the work did to the property and when the relevant damage or condition arose.
 
 - Keep invoices, scope of work, purchase condition and dates; split distinct components where supported.
-- Assess repair, capital works and depreciating-asset treatment separately and update the relevant schedules.
+- Assess repair, capital works and depreciating asset treatment separately and update the relevant schedules.
 
 Cost alone does not distinguish a repair from an improvement or initial repair.
 
@@ -58,7 +58,7 @@ Link to question 92
 
 93. How do I work out the capital gain when I sell an investment property?
 
-Build the capital-gains calculation from the relevant event, proceeds and adjusted cost base.
+Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
 
 - Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records.
 - Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
@@ -73,8 +73,8 @@ Link to question 93
 
 Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
 
-- Retain trade records, cost-base adjustments, holding periods and carried-forward loss balances.
-- Reconcile the final calculation to the year's CGT schedule and keep the remaining-loss record.
+- Retain trade records, cost base adjustments, holding periods and carried-forward loss balances.
+- Reconcile the final calculation to the year's CGT schedule and keep the remaining loss record.
 
 The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
 
@@ -86,7 +86,7 @@ Link to question 94
 
 Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.
 
-- Export exchange and wallet activity, fees and Australian-dollar values with dates.
+- Export exchange and wallet activity, fees and Australian dollar values with dates.
 - Reconcile transfers between your own wallets separately from transactions that require tax review.
 
 The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.
@@ -100,7 +100,7 @@ Link to question 95
 Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.
 
 - Match cash, reinvestments, capital gains, foreign income and credits to the statement.
-- Record cost-base increases or decreases and carry them into the investment register.
+- Record cost base increases or decreases and carry them into the investment register.
 
 Cash received alone can differ from the amount and components that belong in the tax return.
 
@@ -123,12 +123,12 @@ Link to question 97
 
 98. When does an investment property become liable for land tax in NSW?
 
-Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land-tax year.
+Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
 
 - Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
 - Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence.
 
-Purchase price and one property's value alone do not establish the full land-tax position.
+Purchase price and one property's value alone do not establish the full land tax position.
 
 Land tax
 
@@ -141,18 +141,18 @@ Compare written quotes for the same Newcastle bookkeeping or accounting scope. T
 - Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.
 - Compare inclusions, software, GST, setup fees, review frequency and work charged separately.
 
-This personal open-source site does not quote for professional engagements.
+This personal open source site does not quote for professional engagements.
 
 TPB register of tax and BAS agents
 
 Link to question 99
 
-100. How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting?
+100. How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
 
 Shortlist providers against the work you need and verify the relevant registrations.
 
 - Check the TPB register for tax or BAS services, and ask who prepares and reviews the work.
-- Request a sample reporting pack, Xero experience, cash-forecast process, responsibilities and a written scope.
+- Request a sample reporting pack, Xero experience, cash forecast process, responsibilities and a written scope.
 
 Location or software certification alone does not demonstrate the quality of advice or forecasting.
 
@@ -170,7 +170,7 @@ Link to question 100
 - Management reporting
 - Companies and trusts
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open-source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

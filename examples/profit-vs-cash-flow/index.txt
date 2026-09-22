@@ -111,7 +111,7 @@ Read the source and assumptions at the captured commit.
 This is a fabricated demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.
 
 - The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.
-- Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding-table result.
+- Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.
 - Payroll tax is nil because annualised wages and super of $322,560 sit below the bundled $1.2 million New South Wales threshold for a single ungrouped employer. Grouping and interstate wages need separate assessment.
 - Daily balances net everything dated on the same day. They do not establish intraday liquidity or the order in which payments clear.
 - The output is not a complete forecast statutory balance sheet, and it does not calculate company income tax expense.
@@ -140,14 +140,14 @@ No. Lumbridge Services, its customers, invoices and balances are fabricated. No 
 ## Related
 
 - Ozzit: Excel LAMBDA functions for Australian modelling
-- Browser cash-flow and planning calculators
+- Browser cash flow and planning calculators
 - Monthly Close Controls
 - Reproducible accounting tool evaluations
 - Evidence and Assurance
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
-Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fabricated and no client outcome is claimed.
+Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fabricated and no client outcome is claimed.
 
 ## Links
 
@@ -162,7 +162,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash-flow case [Data set
 - au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
-- Browser cash-flow and planning calculators: https://duguid.com.au/tools/business-calculators/
+- Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - Reproducible accounting tool evaluations: https://duguid.com.au/evaluate/
 - Evidence and Assurance: https://duguid.com.au/evidence/

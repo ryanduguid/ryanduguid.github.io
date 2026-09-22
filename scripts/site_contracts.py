@@ -43,7 +43,7 @@ CODEX_MCP_INSTALL_PATTERN = (
 GITHUB_AGENT_SKILLS_URL = "https://github.com/ryanduguid/github-agent-skills"
 GITHUB_AGENT_SKILLS_BOUNDARY = (
     "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows "
-    "this portfolio uses, and keeps the fabricated-data and human-review boundaries."
+    "this portfolio uses, and keeps the fabricated-data and human review boundaries."
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
@@ -125,13 +125,13 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "australian-accounting-skills": (
         "australian-accounting-skills",
         "https://github.com/ryanduguid/australian-accounting-skills",
-        "Claude Code and Codex skills for Australian public-practice workflows. Not lodgement.",
+        "Claude Code and Codex skills for Australian public practice workflows. Not lodgement.",
     ),
     "workpaper-review-gate": (
         "workpaper-review-gate",
         "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "Stop incomplete workpapers reaching manager review. Deterministic readiness "
-        "gate for Australian public-practice packs. Not advice.",
+        "gate for Australian public practice packs. Not advice.",
     ),
     "australian-accounting-power-bi": (
         "australian-accounting-power-bi",
@@ -142,7 +142,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "monthly-close-controls": (
         "monthly-close-controls",
         "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
-        "Deterministic monthly-close controls for Xero-shaped trial-balance exports, "
+        "Deterministic monthly close controls for Xero-shaped trial balance exports, "
         "exception packs and human review.",
     ),
     "au-tax-legislation-corpus": (
@@ -373,7 +373,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "failing_movement.csv exits 1, identifies the movement pair, and reports "
             "Nothing written.",
             "failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.",
-            "failing_movement.csv breaks only the current-month Debit/Credit pair.",
+            "failing_movement.csv breaks only the current month Debit/Credit pair.",
             "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
             "The evaluation runner calls the production check_balanced gate before any CSV write.",
             "A balanced export passes this integrity control only; a human still "
@@ -381,7 +381,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "for review.",
             "This control does not prove completeness, classification, accounting "
             "treatment, or client approval.",
-            "It does not assess source-data accuracy, reporting-period suitability, or "
+            "It does not assess source data accuracy, reporting period suitability, or "
             "fitness for a particular client review.",
         ),
         "product_evidence_urls": (
@@ -585,7 +585,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
             ),
             (
                 "/rates/cents-per-kilometre/",
-                "Cents per kilometre car-expense rate",
+                "Cents per kilometre car expense rate",
             ),
             ("/rates/maximum-contribution-base/", "Maximum super contribution base"),
             ("/rates/car-limit/", "Car limit for depreciation"),
@@ -597,16 +597,14 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
 
 # Contact accepts general website and tool feedback, not professional engagements.
 CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",)
-HOMEPAGE_HEADING = "Open-source accounting tools for Australian accountants."
-HOMEPAGE_HEADING_MARKUP = (
-    '<h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>'
-)
+HOMEPAGE_HEADING = "Open source tools for Australian accountants"
+HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
 HOMEPAGE_SUPPORT = (
-    "Find gaps in workpaper packs, explore cash-flow shortfalls, and check calculations "
+    "Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations "
     "with the working visible."
 )
 HOMEPAGE_ACTIONS = (
-    ("/examples/profit-vs-cash-flow/", "Explore the cash-flow example"),
+    ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
     ("/tools/", "Browse tools by accounting task"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
@@ -630,7 +628,7 @@ HOMEPAGE_PREVIEW_ENTRIES = (
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
     "I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. "
-    "I build open-source controls for Australian tax, payroll, ledgers, and "
+    "I build open source controls for Australian tax, payroll, ledgers, and "
     "workpapers. They show sources and working, use fabricated examples, and "
     "leave judgement and lodgement with a person."
 )
@@ -648,9 +646,9 @@ HOMEPAGE_REQUIRED_TEXT = [
     "Check the source before the result.",
     "Rates, source work, and release policy",
 ]
-HOMEPAGE_TITLE = "Open-source accounting tools for Australian accountants"
+HOMEPAGE_TITLE = "Open source tools for Australian accountants"
 HOMEPAGE_DESCRIPTION = (
-    "Personal index of open-source Australian accounting tools for payroll, Xero, "
+    "Personal index of open source Australian accounting tools for payroll, Xero, "
     "workpapers, and AI workflows, with sources and working kept visible."
 )
 HOMEPAGE_REQUIRED_HREFS = [
@@ -1665,7 +1663,7 @@ def check_llms_authority_surface(llms: str) -> list[str]:
         for identifier, label in AUTHORITY_PATHS.items()
     )
     required_boundaries = (
-        "personal index of open-source accounting tools",
+        "personal index of open source accounting tools",
         "not a practice",
         "not accepting professional engagements through this site",
     )
@@ -1675,7 +1673,7 @@ def check_llms_authority_surface(llms: str) -> list[str]:
         or has_retired_route
         or any(boundary not in llms for boundary in required_boundaries)
     ):
-        failures.append("llms.txt: open-source route boundary is incomplete")
+        failures.append("llms.txt: open source route boundary is incomplete")
     return failures
 
 

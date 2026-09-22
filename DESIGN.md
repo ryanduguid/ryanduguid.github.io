@@ -16,6 +16,29 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 22 September landing-page refinement retains pure dark mode at Ryan's
+request. The headline is 'Open source tools for Australian accountants'.
+It caps at 60px at the default text size; mobile
+keeps its 32px heading and enlarged text remains supported. Homepage labels
+use sentence case with normal spacing. Supporting copy uses brighter neutral
+tokens on the homepage only, including the footer and view switch. Fixed
+captures and other routes retain their existing palette.
+
+Homepage action groups use thin rules, and notes lose their left border.
+The applied formula keeps its background tint, green text and explicit
+formula announcement without the green edge. Structural section dividers
+remain. The detector also counts neutral dividers as card stripes and applies
+a penalty to dark pages regardless of text contrast, so its score is not an
+accessibility verdict.
+
+The accompanying copy pass removes unnecessary hyphens from familiar phrases
+such as open source, cash flow, trial balance and financial year across the
+site. Titles, structured descriptions and generated text follow the visible
+copy. URLs, identifiers, commands, figures, release pins and legal meaning
+remain unchanged. Necessary compounds such as GST-free, gross-up and read-only
+retain their hyphens. The fixed social cards keep their original text and
+matching image descriptions.
+
 The 22 September friend-feedback pass names concrete accounting tasks in the
 homepage summary and the 4 starting routes shared with Tools and the machine
 index. The fourth route opens Ozzit; the installation guide remains in Adopt.
@@ -360,7 +383,7 @@ and no system preference creates a second branded state.
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
 | Stamp | `#4DFF88` | Links, focus, route state and live evidence | 15.98:1 |
 | Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
-| Stamp wash | `#161616` | Rare evidence emphasis, always beside a stamp rule | n/a |
+| Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
 | Masthead | `#F2F2F2` | Homepage identity statement only | n/a |
 | Code | `#000000` | Code and install background, bounded by its rule | n/a |
@@ -375,6 +398,8 @@ alert. Rules, not fills, separate the header, footer, bands and code blocks.
 No gradient, glow, indigo, violet, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
+On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
+label are `#DADADA`. Increased-contrast and print styles retain their overrides.
 The favicon seal and the social-card template carry the same ink and soft
 ink literals, so their rasters are re-rendered whenever those 2 values
 change.
@@ -624,7 +649,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `C08E87B0885CCD61DFE654606A139C615F256BA9ADE592AC1379CFCF9AE19100`
+- `llms.txt`: SHA-256 `883E5476E24EA902F7620D2CF342A14A6ED6FBA614DB5468574C7E922B7D8079`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 

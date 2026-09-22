@@ -189,13 +189,13 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   await waitForVisualFonts(page);
   await expect(page.getByRole('heading', {
     level: 1,
-    name: 'Open-source accounting tools for Australian accountants.',
+    name: 'Open source tools for Australian accountants',
     exact: true,
   })).toBeVisible();
 
   const actions = page.getByRole('navigation', { name: 'Homepage actions' });
   await expect(actions.getByRole('link')).toHaveText([
-    'Explore the cash-flow example',
+    'Explore the cash flow example',
     'Browse tools by accounting task',
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
@@ -241,7 +241,7 @@ test('the retired Engage hash redirects quietly to the homepage', async ({ page 
   await page.goto('/#engage');
   await expect(page).toHaveURL('/');
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(
-    'Open-source accounting tools for Australian accountants.',
+    'Open source tools for Australian accountants',
   );
   health.assertHealthy();
 });
@@ -274,15 +274,34 @@ test('home proposition and actions fit the initial desktop viewport', async ({ p
       const headingBounds = heading.getBoundingClientRect();
       const actionBounds = actions.getBoundingClientRect();
       return {
+        fontSize: parseFloat(headingStyle.fontSize),
         lineCount: Math.round(headingBounds.height / parseFloat(headingStyle.lineHeight)),
         actionsBottom: actionBounds.bottom,
         viewportHeight: innerHeight,
       };
     });
 
+    expect(geometry.fontSize, `${viewport.width}px long headline`).toBeLessThanOrEqual(60);
     expect(geometry.lineCount, `${viewport.width}px heading lines`).toBeLessThanOrEqual(2);
     expect(geometry.actionsBottom, `${viewport.width}px action position`)
       .toBeLessThanOrEqual(geometry.viewportHeight);
+  }
+});
+
+test('homepage supporting text respects contrast and print overrides while staying dark on screen', async ({ page }) => {
+  await page.goto('/');
+  const note = page.locator('.home-hero__note');
+  for (const colorScheme of ['light', 'dark']) {
+    await page.emulateMedia({ colorScheme });
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(0, 0, 0)');
+    await expect(note).toHaveCSS('color', 'rgb(218, 218, 218)');
+  }
+  await page.emulateMedia({ contrast: 'more' });
+  await expect(note).toHaveCSS('color', 'rgb(242, 242, 242)');
+  for (const contrast of ['no-preference', 'more']) {
+    await page.emulateMedia({ contrast, media: 'print' });
+    await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
+    await expect(note).toHaveCSS('color', 'rgb(0, 0, 0)');
   }
 });
 

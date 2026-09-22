@@ -40,7 +40,7 @@
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-ebd4b0433d3efd2b</id>
     <updated>2026-09-20T00:00:00Z</updated>
-    <summary>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine-index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</summary>
+    <summary>Actions from the 19 September site audits: the Coal LSL calculator now takes a reporting month on every branch, refuses months before July 2023 and exports the exact wage basis and period in its CSV; the Payday and ATO benchmark pages carry their matching-quality and missing-bucket warnings beside the download steps; installation routes are labelled released, pinned or development; the evaluation email copy, franking introduction, cents-per-kilometre and WIP scope notes, privacy wording, machine index super summary, README tool count and changelog caption were corrected; Ozzit joined the evaluation chooser.</summary>
   </entry>
   <entry>
     <title>Workpaper Review Gate review-ready-gate/v0.1.7</title>
@@ -78,11 +78,11 @@
     <summary>Trust distribution checks: release solomons-sword/v0.1.7.</summary>
   </entry>
   <entry>
-    <title>The six webfonts return to IBM's unmodified Latin1 files, the response-header...</title>
+    <title>The six webfonts return to IBM's unmodified Latin1 files, the response header...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
-    <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
+    <id>https://duguid.com.au/changelog/#entry-9afa2945e3d64684</id>
     <updated>2026-09-14T00:00:00Z</updated>
-    <summary>The six webfonts return to IBM's unmodified Latin1 files, the response-header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base-pay definition.</summary>
+    <summary>The six webfonts return to IBM's unmodified Latin1 files, the response header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base pay definition.</summary>
   </entry>
   <entry>
     <title>Company tax and franking checks the-exchequer-tally/v0.1.6</title>
@@ -96,7 +96,7 @@
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-c5f123a0a4511359</id>
     <updated>2026-09-11T00:00:00Z</updated>
-    <summary>Updated MCP capabilities and current release references, added verified trust and company-tax examples, and widened the refusal tables for mobile reading.</summary>
+    <summary>Updated MCP capabilities and current release references, added verified trust and company tax examples, and widened the refusal tables for mobile reading.</summary>
   </entry>
   <entry>
     <title>Subcontract ledger skills v0.2.1</title>
@@ -134,11 +134,11 @@
     <summary>Font preloads and a Content Security Policy on every page, entry headings on the Rates and Evaluations hubs, a no-script notice on the Coal LSL calculator, a security.txt contact file, and repository tooling removed from the published origin.</summary>
   </entry>
   <entry>
-    <title>Engage parked. The site remains a personal open-source tool index, not a prac...</title>
+    <title>Engage parked. The site remains a personal open source tool index, not a prac...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
-    <id>https://duguid.com.au/changelog/#entry-eb0f892af8afe17a</id>
+    <id>https://duguid.com.au/changelog/#entry-c9bd5bb40984d1a6</id>
     <updated>2026-08-31T00:00:00Z</updated>
-    <summary>Engage parked. The site remains a personal open-source tool index, not a practice, and is not accepting professional engagements through this site.</summary>
+    <summary>Engage parked. The site remains a personal open source tool index, not a practice, and is not accepting professional engagements through this site.</summary>
   </entry>
   <entry>
     <title>Navigation, adoption, and accessibility refinements across the register, with...</title>

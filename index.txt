@@ -1,20 +1,20 @@
-# Open-source accounting tools for Australian accountants
+# Open source tools for Australian accountants
 
 Source: https://duguid.com.au/
 
-> Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
+> Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
 
-Open-source tool library / Australian accounting
+Open source tool library / Australian accounting
 
-# Open-source accounting tools for Australian accountants.
+# Open source tools for Australian accountants
 
-Find gaps in workpaper packs, explore cash-flow shortfalls, and check calculations with the working visible.
+Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations with the working visible.
 
-A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
+A personal open source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.
 
 Last reviewed 22 September 2026.
 
-Explore the cash-flow example Browse tools by accounting task
+Explore the cash flow example Browse tools by accounting task
 
 ## Profit does not pay the next bill.
 
@@ -30,7 +30,7 @@ Starting routes / four ways in
 
 ### Understand why profit and cash differ
 
-Read the fictional cash-flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
+Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
 
 Five-minute accounting cases
 
@@ -126,7 +126,7 @@ Use the public sample files, all fabricated data, to see what a tool accepts, re
 
 A receipt date alone does not establish the amount received. Checker 0.1.7 leaves a timely receipt without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific rules.
 
-The Payday Super evidence-pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
+The Payday Super evidence pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
 
 ### Install and integrate
 
@@ -134,9 +134,9 @@ The setup guide covers Claude Code, Codex, accounting skills and GitHub workflow
 
 Open the setup guide
 
-Manager review gate Reproduce the incomplete-pack checks.
+Manager review gate Reproduce the incomplete pack checks.
 
-Xero trial balance integrity Reproduce the balanced-export checks.
+Xero trial balance integrity Reproduce the balanced export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
@@ -146,7 +146,7 @@ Verify
 
 ## Check the source before the result.
 
-Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open-source index in his own time and on his own equipment.
+Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open source index in his own time and on his own equipment.
 
 Source on GitHub
 
@@ -174,7 +174,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 
 ## Links
 
-- Explore the cash-flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
@@ -191,9 +191,9 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Check the version-specific rules: https://duguid.com.au/tools/payday-super/#receipt-amount
-- Payday Super evidence-pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
+- Payday Super evidence pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Xero trial balance integrity Reproduce the balanced-export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Xero trial balance integrity Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification

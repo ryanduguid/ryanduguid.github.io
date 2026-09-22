@@ -52,7 +52,7 @@ The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporti
 
 General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 
 ## Related
 

@@ -8,11 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
-  <title>Open-source accounting tools for Australian accountants</title>
-  <meta name="description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
+  <title>Open source tools for Australian accountants</title>
+  <meta name="description" content="Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Open-source accounting tools for Australian accountants" />
-  <meta property="og:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
+  <meta property="og:title" content="Open source tools for Australian accountants" />
+  <meta property="og:description" content="Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -23,8 +23,8 @@
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Open-source accounting tools for Australian accountants" />
-  <meta name="twitter:description" content="Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
+  <meta name="twitter:title" content="Open source tools for Australian accountants" />
+  <meta name="twitter:description" content="Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site.png" />
   <meta name="twitter:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />
   <link rel="canonical" href="https://duguid.com.au/" />
@@ -43,19 +43,19 @@
   <link rel="stylesheet" href="/assets/tokens.css" />
   <link rel="stylesheet" href="/assets/site.css" />
 </head>
-<body>
+<body class="page-home">
   <a class="skip-link" href="#main">Skip to content</a>
 {% include site-header.html %}
   <main id="main" class="site-main home">
     <section class="home-hero site-shell" aria-labelledby="home-title">
       <div class="home-hero__copy">
-        <p class="technical-label">Open-source tool library / Australian accounting</p>
-        <h1 id="home-title">Open-source accounting tools for Australian accountants.</h1>
-        <p class="home-hero__summary short-answer">Find gaps in workpaper packs, explore cash-flow shortfalls, and check calculations with the working visible.</p>
-        <p class="home-hero__note">A personal open-source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.</p>
+        <p class="technical-label">Open source tool library / Australian accounting</p>
+        <h1 id="home-title">Open source tools for Australian accountants</h1>
+        <p class="home-hero__summary short-answer">Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations with the working visible.</p>
+        <p class="home-hero__note">A personal open source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice: every output is a review aid for a qualified professional.</p>
         <p class="page-meta">Last reviewed 22 September 2026.</p>
         <nav class="home-hero__actions" aria-label="Homepage actions">
-          <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash-flow example</a>
+          <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash flow example</a>
           <a href="/tools/">Browse tools by accounting task</a>
         </nav>
       </div>
@@ -80,7 +80,7 @@
       <nav class="home-tool-preview__list" aria-label="Starting routes">
         <div class="home-tool-preview__entry">
           <h3><a href="/examples/profit-vs-cash-flow/">Understand why profit and cash differ</a></h3>
-          <p>Read the fictional cash-flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.</p>
+          <p>Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.</p>
           <a href="/evaluate/#five-minute-cases">Five-minute accounting cases</a>
         </div>
         <div class="home-tool-preview__entry">
@@ -167,7 +167,7 @@
           <h2 id="adopt-title" class="route-statement">Test it with fabricated data first.</h2>
           <p>Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.</p>
           <p>A receipt date alone does not establish the amount received. Checker 0.1.7 leaves a timely receipt without an amount unknown; older 0.1.6 assumes full receipt. <a href="/tools/payday-super/#receipt-amount">Check the version-specific rules</a>.</p>
-          <p>The <a href="/tools/payday-super/#evidence-pack">Payday Super evidence-pack workflow</a> combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.</p>
+          <p>The <a href="/tools/payday-super/#evidence-pack">Payday Super evidence pack workflow</a> combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.</p>
           <div class="route-actions">
             <div class="install-band">
               <h3>Install and integrate</h3>
@@ -177,11 +177,11 @@
             <div class="adoption-links">
               <a href="/evaluate/manager-review-gate/">
                 <strong>Manager review gate</strong>
-                <span>Reproduce the incomplete-pack checks.</span>
+                <span>Reproduce the incomplete pack checks.</span>
               </a>
               <a href="/evaluate/xero-trial-balance-integrity/">
                 <strong>Xero trial balance integrity</strong>
-                <span>Reproduce the balanced-export checks.</span>
+                <span>Reproduce the balanced export checks.</span>
               </a>
               <a href="/evaluate/payday-super-evidence/">
                 <strong>Payday Super timing</strong>
@@ -197,7 +197,7 @@
         <p class="route-label">Verify</p>
         <div class="route-content">
           <h2 id="verify-title" class="route-statement">Check the source before the result.</h2>
-          <p class="home-hero__byline">Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open-source index in his own time and on his own equipment.</p>
+          <p class="home-hero__byline">Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open source index in his own time and on his own equipment.</p>
           <p class="home-hero__source"><a href="https://github.com/ryanduguid">Source on GitHub</a></p>
           <dl class="credential-register" aria-label="Public credentials and boundaries">
             <div>
@@ -244,7 +244,7 @@
         "url": "https://duguid.com.au/",
         "name": "Ryan Duguid",
         "alternateName": "Ryan Duguid, Australian computational accounting",
-        "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
+        "description": "Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
@@ -254,8 +254,8 @@
         "@type": "WebPage",
         "@id": "https://duguid.com.au/#webpage",
         "url": "https://duguid.com.au/",
-        "name": "Open-source accounting tools for Australian accountants",
-        "description": "Personal index of open-source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
+        "name": "Open source tools for Australian accountants",
+        "description": "Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
         "dateModified": "2026-09-22",
@@ -342,7 +342,7 @@
         "@type": "SoftwareSourceCode",
         "@id": "https://duguid.com.au/#software-australian-accounting-skills",
         "name": "australian-accounting-skills",
-        "description": "Claude Code and Codex skills for Australian public-practice workflows. Not lodgement.",
+        "description": "Claude Code and Codex skills for Australian public practice workflows. Not lodgement.",
         "url": "https://github.com/ryanduguid/australian-accounting-skills",
         "codeRepository": "https://github.com/ryanduguid/australian-accounting-skills",
         "license": "https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE",
@@ -352,7 +352,7 @@
         "@type": "SoftwareSourceCode",
         "@id": "https://duguid.com.au/#software-workpaper-review-gate",
         "name": "workpaper-review-gate",
-        "description": "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public-practice packs. Not advice.",
+        "description": "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public practice packs. Not advice.",
         "url": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/LICENSE",
@@ -372,7 +372,7 @@
         "@type": "SoftwareSourceCode",
         "@id": "https://duguid.com.au/#software-monthly-close-controls",
         "name": "monthly-close-controls",
-        "description": "Deterministic monthly-close controls for Xero-shaped trial-balance exports, exception packs and human review.",
+        "description": "Deterministic monthly close controls for Xero-shaped trial balance exports, exception packs and human review.",
         "url": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
         "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
         "license": "https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/monthly-close-control-plane/LICENSE",

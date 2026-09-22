@@ -1,8 +1,8 @@
-# Open-source Australian accounting tools
+# Open source Australian accounting tools
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 open-source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
 
 # Tools
 
@@ -20,7 +20,7 @@ For browser calculations, choose the Coal LSL levy calculator or the 9 business 
 
 - Explain profit and cash differences
 
-Fictional Newcastle cash-flow case Source invoices and payments, Excel forecast and explanation
+Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation
 
 - Calculate in Excel
 
@@ -80,7 +80,7 @@ Evaluation procedure Source code Last commit 21 September 2026
 
 ### Construction WIP schedule
 
-Calculates cost-to-cost revenue, contract assets or liabilities, and profit-fade flags by contract.
+Calculates cost-to-cost revenue, contract assets or liabilities, and profit fade flags by contract.
 
 Delivery
 
@@ -126,7 +126,7 @@ Try an example Source code Last commit 21 September 2026
 
 ### Coal LSL levy calculator
 
-Shows the section 3B employee branch, eligible-wages formula, and 2.7% monthly levy.
+Shows the section 3B employee branch, eligible wages formula, and 2.7% monthly levy.
 
 Runs on this site now. Nothing to install.
 
@@ -156,7 +156,7 @@ Try an example Source code Last commit 21 September 2026
 
 ### Company tax and franking checks
 
-Applies the base-rate-entity test and keeps franking account movements and deficit tax visible.
+Applies the base rate entity test and keeps franking account movements and deficit tax visible.
 
 Delivery
 
@@ -228,7 +228,7 @@ MCP
 
 Boundary
 
-Human review required. Optional local-library excerpts enter the assistant's context; Division 7A scope stays limited.
+Human review required. Optional local library excerpts enter the assistant's context; Division 7A scope stays limited.
 
 Try an example Source code Last commit 21 September 2026
 

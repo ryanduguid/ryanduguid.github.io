@@ -22,7 +22,7 @@ Weekly closing cash = opening cash + receipts − payments. Each closing balance
 
 business.gov.au: cash flow
 
-The Lumbridge cash-flow case works the same question with a 45-day receipt delay.
+The Lumbridge cash flow case works the same question with a 45-day receipt delay.
 
 13-week cash forecast inputs
 
@@ -63,4 +63,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - nine business calculators: https://duguid.com.au/tools/business-calculators/
 - business.gov.au: cash flow: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
-- Lumbridge cash-flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Lumbridge cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/

@@ -1,12 +1,12 @@
-# Business-use share calculator for apportioning costs
+# Business use share calculator for apportioning costs
 
 Source: https://duguid.com.au/tools/business-calculators/business-use/
 
-> Apportion an eligible cost by a business-use percentage in your browser. It shows the share only; deductibility, depreciation and records are decided separately.
+> Apportion an eligible cost by a business use percentage in your browser. It shows the share only; deductibility, depreciation and records are decided separately.
 
-# Business-use share calculator
+# Business use share calculator
 
-Apportion an eligible cost by a supported business-use percentage. It does not decide deductibility, depreciation or record sufficiency.
+Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
 
@@ -16,15 +16,15 @@ Published 20 September 2026. Last reviewed 21 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
-## Business-use share
+## Business use share
 
-Eligible cost × supported business-use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
+Eligible cost × supported business use percentage / 100. This apportions the amount you supply. It does not determine deductibility, depreciation or record sufficiency.
 
 For car expenses under the cents per kilometre method, the rate by income year is kept as a maintained table on this site.
 
 Phone and internet record checklist
 
-Business-use share inputs
+Business use share inputs
 
 Eligible cost (AUD) Business use (%)
 

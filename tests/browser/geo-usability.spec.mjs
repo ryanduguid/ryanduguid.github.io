@@ -47,7 +47,7 @@ test('mobile visitors can open the cash-flow example from the first screen', asy
   await page.goto('/');
   await waitForVisualFonts(page);
   const link = page.getByRole('navigation', { name: 'Homepage actions' }).getByRole('link', {
-    name: 'Explore the cash-flow example', exact: true,
+    name: 'Explore the cash flow example', exact: true,
   });
   const bounds = await link.boundingBox();
   expect(bounds.y + bounds.height).toBeLessThanOrEqual(844);
@@ -67,7 +67,7 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await page.getByRole('link', { name: 'View full-size chart', exact: true }).click();
   await expect(page).toHaveURL(/\/assets\/examples\/lumbridge\/cash-preview\.png$/);
   await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
-  for (const [route, name] of [['/', 'Explore the cash-flow example'], ['/tools/', 'Fictional Newcastle cash-flow case Source invoices and payments, Excel forecast and explanation']]) {
+  for (const [route, name] of [['/', 'Explore the cash flow example'], ['/tools/', 'Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation']]) {
     await page.goto(route);
     if (route === '/tools/') {
       await page.locator('.work-chooser summary').click();

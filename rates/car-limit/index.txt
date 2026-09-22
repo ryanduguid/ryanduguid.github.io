@@ -50,12 +50,12 @@ Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid
 
 General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 
 ## Related
 
 - Cents per kilometre rate for car expenses
-- Business-use share calculator
+- Business use share calculator
 - Deduction questions
 - Division 7A benchmark interest rate
 - About Ryan Duguid
@@ -72,7 +72,7 @@ Published 20 September 2026. Last reviewed 20 September 2026.
 - motor vehicle purchase guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle
 - Source and contact: https://github.com/ryanduguid
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
-- Business-use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
+- Business use share calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Deduction questions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - About Ryan Duguid: https://duguid.com.au/about/

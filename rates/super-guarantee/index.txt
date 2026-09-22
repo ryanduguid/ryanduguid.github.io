@@ -50,7 +50,7 @@ The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 Ju
 
 General reference only, not tax, legal, or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
 
-Maintained by Ryan Duguid as part of his open-source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
+Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 
 ## Related
 
