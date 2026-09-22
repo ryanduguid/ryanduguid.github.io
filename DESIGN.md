@@ -16,6 +16,24 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 22 September friend-feedback pass names concrete accounting tasks in the
+homepage summary and the 4 starting routes shared with Tools and the machine
+index. The fourth route opens Ozzit; the installation guide remains in Adopt.
+Worked proof begins with a plain-language summary of the published fabricated
+BAS pack findings, its source link, and its human-review boundary. It reuses
+the existing proof and register components. The headline, OLED palette,
+calculator behaviour, and fixed evaluation releases remain unchanged.
+
+The mobile pass gives standalone homepage, catalogue and article navigation
+links at least 44px of target height. Stacked label and description gaps
+tighten, and the BAS preview keeps short finding statuses beside their labels.
+The four starting routes remain visible on Tools; its longer task chooser uses
+a native disclosure on every screen size so the catalogue follows sooner.
+It needs no JavaScript and supports keyboard and touch input.
+At enlarged text sizes, the 320px page minimum stays fixed and the navigation
+can scroll within its own row without widening the document. The site name
+wraps within half the header to leave room for the view switch.
+
 At Ryan's request, external-review invitations, pending notices and the
 response template are removed. The sample pack retains its scenario exercise,
 with no reviewer recruitment or reporting requirement. Its workbook and

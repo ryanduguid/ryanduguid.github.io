@@ -60,6 +60,9 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
   await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
   for (const [route, name] of [['/', 'Explore the cash-flow example'], ['/tools/', 'Fictional Newcastle cash-flow case Source invoices and payments, Excel forecast and explanation']]) {
     await page.goto(route);
+    if (route === '/tools/') {
+      await page.locator('.work-chooser summary').click();
+    }
     await page.getByRole('link', { name, exact: true }).click();
     await expect(page).toHaveURL(/\/examples\/profit-vs-cash-flow\/$/);
     await waitForVisualFonts(page);

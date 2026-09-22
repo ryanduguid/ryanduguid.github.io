@@ -10,7 +10,7 @@
 }
 
 html {
-  min-width: 20rem;
+  min-width: 320px;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--header-height) + var(--space-4));
 }
@@ -840,9 +840,15 @@ caption {
   padding-block: var(--space-5);
 }
 
-.work-chooser h2 {
-  padding-bottom: var(--space-3);
+.work-chooser summary {
+  min-height: 2.75rem;
+  padding-block: var(--space-3);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
+  cursor: pointer;
+}
+
+.work-chooser h2 {
+  display: inline;
 }
 
 .work-chooser ul {
@@ -1630,6 +1636,10 @@ caption {
   gap: var(--space-5);
 }
 
+.proof-feature__copy > p {
+  max-width: var(--reading-width);
+}
+
 .proof-feature__links {
   display: grid;
   justify-items: start;
@@ -2290,6 +2300,7 @@ input[type="checkbox"] {
 
   .site-identity {
     width: fit-content;
+    max-width: 50%;
   }
 
   .site-identity::after {
@@ -2300,7 +2311,7 @@ input[type="checkbox"] {
     flex-wrap: nowrap;
     justify-content: space-between;
     gap: 0 var(--space-2);
-    overflow: visible;
+    overflow-x: auto;
     padding-bottom: 0;
     font-size: 0.875rem;
     letter-spacing: 0;
@@ -2314,6 +2325,22 @@ input[type="checkbox"] {
     flex: 0 0 auto;
     align-items: center;
     padding-inline: var(--space-1);
+  }
+
+  .home-hero__actions a,
+  .home-tool-preview__entry a,
+  .proof-feature__links a,
+  .collection-entry__title,
+  .collection-entry__links a,
+  .article-toc a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  .collection-entry__links {
+    align-items: center;
+    row-gap: var(--space-1);
   }
 
   .home-hero h1 {
@@ -2399,6 +2426,16 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  .adoption-links > a,
+  .credential-register > div {
+    gap: var(--space-2);
+  }
+
+  .proof-feature__copy .credential-register > div {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: baseline;
+  }
+
   /* Stacked, the badge sits above the record instead of beside it. The facts
      keep their two columns on a narrower label, which stays readable at this
      width and holds the record to 4 lines instead of 8. */
@@ -2442,8 +2479,7 @@ input[type="checkbox"] {
   }
 
   .site-footer__links a,
-  .site-footer__nav a,
-  .article-toc a {
+  .site-footer__nav a {
     display: inline-block;
     padding-block: var(--space-2);
   }

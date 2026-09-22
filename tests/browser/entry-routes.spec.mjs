@@ -17,10 +17,10 @@ test('the fabricated workbook sample remains available', async ({ request }) => 
 
 // The four starting routes, as the homepage, Tools and llms.txt all state them.
 const startingRoutes = [
-  ['Understand an accounting problem', '/examples/profit-vs-cash-flow/'],
-  ['Try a browser calculator', '/tools/coal-lsl-levy/'],
-  ['Evaluate an accounting workflow', '/evaluate/manager-review-gate/'],
-  ['Inspect or integrate the software', '/tools/australian-tax-ai-agents/#install'],
+  ['Understand why profit and cash differ', '/examples/profit-vs-cash-flow/'],
+  ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/'],
+  ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/'],
+  ['Use accounting functions in Excel', '/tools/ozzit/'],
 ];
 
 test('starting routes lead to the promised activity on both pages', async ({ page }) => {

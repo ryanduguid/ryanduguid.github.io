@@ -569,8 +569,8 @@ def test_design_contracts() -> int:
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 21 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 21 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 22 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 22 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -673,7 +673,7 @@ def test_design_contracts() -> int:
 
     review_date_paths = (
         ("index.html", "22 September 2026", "2026-09-22"),
-        ("tools/index.html", "21 September 2026", "2026-09-21"),
+        ("tools/index.html", "22 September 2026", "2026-09-22"),
         ("evidence/index.html", "22 September 2026", "2026-09-22"),
     )
     for rel, visible_date, structured_date in review_date_paths:
@@ -1055,8 +1055,8 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "tools/index.html",
-            '<a href="/evaluate/manager-review-gate/"><strong>Evaluate an accounting workflow</strong>',
-            '<a href="/evaluate/#example-routes"><strong>Evaluate an accounting workflow</strong>',
+            '<a href="/evaluate/manager-review-gate/"><strong>Check a BAS pack before manager review</strong>',
+            '<a href="/evaluate/#example-routes"><strong>Check a BAS pack before manager review</strong>',
         )
         expect_failure(
             "tools task route destination",
@@ -1068,13 +1068,13 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "llms.txt",
-            "- **Try a browser calculator** (https://duguid.com.au/tools/coal-lsl-levy/):",
-            "- **Try a browser calculator** (https://duguid.com.au/tools/):",
+            "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/):",
+            "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/):",
         )
         expect_failure(
             "machine route destination",
             contracts.check_task_routes(root),
-            "must route 'Try a browser calculator'",
+            "must route 'Calculate a Coal LSL levy'",
         )
 
     with copied_site() as root:
