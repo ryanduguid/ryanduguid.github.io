@@ -899,6 +899,12 @@ def test_public_contracts() -> int:
     assert_clean("privacy delivery claims", contracts.check_privacy_delivery_claims(ROOT))
     assert_clean("collection hubs", contracts.check_collection_hubs(ROOT))
     assert_clean("social cards", contracts.check_social_cards(ROOT))
+    with patch.object(contracts, "HOMEPAGE_HEADING", "An updated homepage headline"):
+        expect_failure(
+            "homepage headline changed without updating its card",
+            contracts.check_social_cards(ROOT),
+            "site social card must match the homepage headline",
+        )
     assert_clean("robots policy", contracts.check_robots_policy(robots))
     assert_clean("payday receipt boundary", contracts.check_payday_receipt_boundary(payday))
     provenance = json.loads(read_text(ROOT, "tools/payday-super/example-provenance.json"))
@@ -1172,7 +1178,7 @@ def test_public_contracts() -> int:
         ),
         (
             "Twitter field",
-            '  <meta name="twitter:image:alt" content="OLED register card: Open-source accounting tools for Australian accountants." />\n',
+            '  <meta name="twitter:image:alt" content="OLED register card: Open source tools for Australian accountants" />\n',
             "",
             "expected exactly one non-empty twitter:image:alt",
         ),
@@ -1184,9 +1190,9 @@ def test_public_contracts() -> int:
         ),
         (
             "social-card context",
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site.png" />',
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools.png" />',
-            "og:image is 'https://duguid.com.au/assets/social-card-tools.png'",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20260922.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20260922.png'",
         ),
         (
             "referrer policy",
@@ -1450,7 +1456,7 @@ def test_public_contracts() -> int:
                 replace_file(root, rel, before, after)
             expect_failure(label, checker(root), expected)
 
-    site_card_rel = "assets/social-card-site.png"
+    site_card_rel = "assets/social-card-site-20260922.png"
     with copied_site() as root:
         card_path = root / site_card_rel
         card = bytearray(card_path.read_bytes())
@@ -1476,8 +1482,8 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "assets/social-cards.json",
-            "Australian accountants.",
-            "Australia accountants.",
+            "Australian accountants",
+            "Australia accountants",
         )
         expect_failure(
             "social card context copy",
