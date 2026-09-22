@@ -46,7 +46,7 @@
       "dcf7d6a989ca492140a1083d99d1d9bdbe75910901c0f75043de14332598b206"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "240e9aaefd99aa2dbf10a347cc141efcbc18a78f0c67fe16aed46f6b25974440"
+      "8978763682a9407b9cd24db164615da80c784eef27e2232e0e43ec813396b360"
     ],
     "rates/index.html": [
       "7d2fcdeac74cbbfb36fece169471771b8bc2841fffafd2e7d52b097207ae2de8"
@@ -100,16 +100,16 @@
       "7fbca4949e5102852df40fc5c801d8b608a9d78db2948d0642e296eb3e0af613"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "df4ba7c32558d22434ea7a3cac39a7fb04caa9e20e691d10b9ff2e13824efd07"
+      "11afb55012a687db70224d61ff7a19829b3a9ac5dbad7454ff063878ec387bd8"
     ],
     "tools/xero-trial-balance/index.html": [
       "9b7e21718a6c6b2ffe9f5f69bb4382835d9dbfa796e19c4da9a3d32be9c4c86e"
     ]
   },
   "protected_files": {
-    "llms.txt": "883e5476e24ea902f7620d2cf342a14a6ed6fba614db5468574c7e922b7d8079",
+    "llms.txt": "e8c92f8d6a7ccc6e750d8d8e617f98cd4f8a8fc2970db5e36ac6e0084ae62961",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "bb12b935a14b00e56c1041d15427373bb7c2f9fd164bd432a00e294698998239"
+    "sitemap.xml": "2978e409e61cbd5e48d965cb315c4045f202eb00e192be594424c64449bcba78"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -164,7 +164,7 @@
   },
   "protected_main_text": {
     "rates/cents-per-kilometre/index.html": "3197fde93620a60e900170ef435e49f84265ae7ab80c458c94ecb5678c8866af",
-    "rates/div7a-benchmark-rate/index.html": "ed7f9faa5f938616deea1d0f62c3760ca8f526b18557e376a7e1a1dd5fe1b1ea",
+    "rates/div7a-benchmark-rate/index.html": "880eed93736310b4a50dd216e28e4505765c63628d89a8342622aa057fd55e87",
     "rates/super-guarantee/index.html": "ba4273b4274d4a4d2d4c061a0aa83789afd1a7865198edb1f3415e4a5fb1b13c"
   },
   "protected_text": {

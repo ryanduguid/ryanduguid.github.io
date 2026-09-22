@@ -98,7 +98,7 @@ Calculate
 
 ### Payday Super timing
 
-Classifies supplied receipt evidence against the 7-business-day rule and estimates late-line exposure.
+Classifies supplied receipt evidence against the ordinary deadline of 7 business days and estimates exposure from late contributions.
 
 Delivery
 
@@ -108,7 +108,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Try an example Source code Reproduce the evaluation Last commit 21 September 2026
+Try an example Source code Reproduce the evaluation Last commit 22 September 2026
 
 ### ATO benchmark comparison
 
@@ -212,7 +212,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Try an example Source code Last commit 21 September 2026
+Try an example Source code Last commit 22 September 2026
 
 Inspect
 
