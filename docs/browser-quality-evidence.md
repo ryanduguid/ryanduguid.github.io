@@ -19,8 +19,9 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Automated results
 
-- `npm run test:browser` collects 82 tests over its 2 projects, 6 of which
-  are intentional project-specific skips, leaving 76 that run. The 2 capture
+- `npm run test:browser` collects 250 tests over its 2 projects, 11 of which
+  are intentional project-specific skips, leaving 239 that run (counted on
+  23 September 2026). The 2 capture
   specs are not part of that count: they run under a different config and
   project, and are described under Limits. Eleven approved routes passed the
   mobile and desktop page-shell matrix: one visible `h1`, `main#main`, primary

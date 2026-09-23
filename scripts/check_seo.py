@@ -21,7 +21,6 @@ def main() -> int:
                 path,
                 site=contracts.SITE,
                 not_indexed=contracts.NOT_INDEXED,
-                title_exceptions=contracts.TITLE_EXCEPTIONS,
                 warnings=warnings,
                 expected_social_image=social_image,
                 expected_social_alt=social_alt,
