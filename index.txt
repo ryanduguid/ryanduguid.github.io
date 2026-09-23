@@ -10,7 +10,7 @@ Open source tool library / Australian accounting
 
 Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations with the working visible.
 
-A personal open source project by Ryan Duguid, an accountant in Newcastle. Not an accounting practice, and not a registered tax agent or BAS agent: every output is a review aid for a qualified professional.
+A personal open source project by Ryan Duguid, an accountant in Newcastle. This is not an accounting practice. Ryan Duguid is not a registered tax agent or BAS agent. Every output is a review aid for a qualified professional.
 
 Last reviewed 22 September 2026.
 
