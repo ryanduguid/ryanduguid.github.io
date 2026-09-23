@@ -205,7 +205,7 @@ The rendered bytes are never compared with the published bytes. That WebP comes
 from `canvas.toDataURL` in whichever Chromium the runner carries, over a PNG
 whose text the host rasterised, so the same page encodes to a different file on
 a different machine: an earlier proof was 30,050 bytes and a Linux render of
-it came back at 28,078. CI runs the capture on `windows-latest` against a proof
+it came back at 28,078. CI runs the capture on `windows-2025` against a proof
 captured elsewhere, where byte equality cannot pass. The check writes the
 tracked proof only when snapshot-update mode is explicit. It runs under
 `playwright.capture.config.mjs` in the `proof-chromium` project, alongside the
