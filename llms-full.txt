@@ -124,7 +124,7 @@ Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 al
 
 Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
 
-Check the Payday Super version and limits before use.
+Check the Payday Super receipt rules before use.
 
 ### Install and integrate
 
@@ -186,7 +186,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
-- Check the Payday Super version and limits before use: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Check the Payday Super receipt rules before use: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Xero trial balance integrity Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
