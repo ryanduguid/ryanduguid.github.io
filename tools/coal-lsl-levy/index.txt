@@ -10,7 +10,7 @@ The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible w
 
 Rate
 
-2.7% of eligible wages, paid monthly, checked 2 September 2026
+2.7% of eligible wages, paid monthly, checked 18 September 2026
 
 Method
 
@@ -70,7 +70,7 @@ Download CSV before leaving. This table is not saved and clears when you reload 
 
 Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice. Using it creates no adviser relationship.
 
-The levy rate applied is 2.7%, checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
+The levy rate applied is 2.7%, checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
 
 This is not a lodgement channel. Your monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL. Where anything here is inconsistent with the Acts, the Regulations, or the approved form, those prevail.
 
@@ -102,7 +102,7 @@ The Act, the Regulations, and the guidance note publish no rounding rule. This t
 
 ### What levy rate does this calculator use?
 
-2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure.
+2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure.
 
 ### What does the 75% in Formula B apply to?
 

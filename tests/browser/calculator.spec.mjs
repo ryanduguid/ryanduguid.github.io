@@ -471,8 +471,8 @@ test('monthly table explains aggregate rounding and downloads a sourced CSV', as
   expect(csv).toContain('Currency,AUD\n');
   expect(csv).toContain('Levy rate,2.7%\n');
   expect(csv).toContain('Rate applies from,2023-07\n');
-  expect(csv).toContain('Rate reviewed,2026-09-02\n');
-  expect(csv).toContain('Rate source,https://www.legislation.gov.au/F2018L00217/latest/latest/text/original/pdf\n');
+  expect(csv).toContain('Rate reviewed,2026-09-18\n');
+  expect(csv).toContain('Rate source,https://www.legislation.gov.au/F2018L00217/latest/text\n');
   expect(csv).toContain(
     'Eligible wages (exact) is the calculation basis to four decimal places; the displayed two-decimal column is not.\n',
   );
@@ -539,12 +539,12 @@ test('calculator orientation and result render as an inspectable ledger', async 
 
   const method = page.locator('.calculator-method');
   await expect(method).toContainText('2.7%');
-  await expect(method).toContainText('2 September 2026');
+  await expect(method).toContainText('18 September 2026');
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');
 
   const result = page.locator('#result');
-  await expect(result).toContainText('as at 2 September 2026');
+  await expect(result).toContainText('as at 18 September 2026');
   const rows = result.locator('.result-row');
   await expect(rows).toHaveCount(7);
   const now = new Date();
