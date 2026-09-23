@@ -1,5 +1,14 @@
 # Claim maintenance
 
+## Review on 23 September 2026
+
+- Coal LSL levy: `assets/levy.mjs`, the calculator page and its CSV export now carry the
+  18 September 2026 check date and the primary source URL of the `coal-lsl-levy` register
+  row, which records section 6 of the Regulations as read by automated retrieval that day.
+  The calculator review in the 18 September entry below ran separately and kept the
+  2 September date. The rate did not change. `scripts/levy.test.mjs` now fails when the
+  constants and the register row disagree.
+
 ## Review on 20 September 2026
 
 - Aus Accounting MCP: release 0.2.4 was published on 20 September 2026 (AEST) to GitHub, PyPI and the MCP registry, where it is active and latest. It superseded 0.2.3, published earlier the same day. It pins payday-super-checker 0.1.6, ato-benchmark-compare 0.1.8, div7a-loan-review 0.1.4 and australian-tax-calculators 0.1.3, the checker and the Division 7A engine released the same day and the other two pins unchanged. The AI-agents page, its pinned demonstration command, its structured `softwareVersion`, the changelog rows and `scripts/release_record.json` now name 0.2.4. The pinned command was run from a clean directory and its output matched the checked transcript, allowing for the CRLF line endings a Windows console writes.
