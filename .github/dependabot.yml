@@ -4,14 +4,24 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
   - package-ecosystem: npm
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      browser-test-tools:
+        patterns:
+          - "*"
   - package-ecosystem: bundler
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 7
     ignore:
       # GitHub Pages builds and deploys this site with its own pinned Jekyll,
       # and scripts/build_site.py exists to build with that same version. The
