@@ -252,7 +252,6 @@ def page_metadata_failures(root: Path, rel: str) -> list[str]:
         root / rel,
         site=contracts.SITE,
         not_indexed=contracts.NOT_INDEXED,
-        title_exceptions=contracts.TITLE_EXCEPTIONS,
         warnings=[],
         expected_social_image=social_image,
         expected_social_alt=social_alt,

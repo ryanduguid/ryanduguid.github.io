@@ -24,7 +24,6 @@ NOT_INDEXED = {"404.html"}
 PERSON_ID = f"{SITE}/about/#person"
 EVIDENCE_REL = "evidence/index.html"
 EVIDENCE_URL = f"{SITE}/evidence/"
-TITLE_EXCEPTIONS: dict[str, str] = {}
 AUTHORITY_PATHS = {
     "adopt": "Adopt",
     "verify": "Verify",
@@ -192,7 +191,6 @@ TRAINING_CRAWLERS = {
     "FacebookBot",
     "meta-externalagent",
 }
-UNCLASSIFIED_CRAWLERS: set[str] = set()
 CRAWLER_POLICY_COMMENTS = (
     "Search indexing and user-requested citation fetches are allowed.",
     "Open-web archival and training crawl by Common Crawl (CCBot) and Bytespider are allowed.",
@@ -250,17 +248,6 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ("primary-sources", "Primary sources"),
             ("versions", "Versions"),
             ("limitations", "Limitations"),
-        ),
-        "labels": (
-            "Accounting problem",
-            "Fabricated inputs",
-            "Expected result",
-            "Controls triggered",
-            "Human decision",
-            "Reproduce",
-            "Primary sources",
-            "Versions",
-            "Limitations",
         ),
         "version_labels": (
             "Product release v0.1.3",
@@ -327,17 +314,6 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ("versions", "Versions"),
             ("human-decision", "Human decision"),
             ("limitations", "Limitations"),
-        ),
-        "labels": (
-            "Accounting problem",
-            "Fabricated inputs",
-            "Expected result",
-            "Controls triggered",
-            "Human decision",
-            "Reproduce",
-            "Primary sources",
-            "Versions",
-            "Limitations",
         ),
         "version_labels": (
             "Product release v0.1.6",
@@ -423,18 +399,6 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ("versions", "Versions"),
             ("human-decision", "Human decision"),
             ("limitations", "Limitations"),
-        ),
-        "labels": (
-            "Accounting problem",
-            "Intended reviewer",
-            "Fabricated inputs",
-            "Reproduce",
-            "Expected result",
-            "Controls triggered",
-            "Primary sources",
-            "Versions",
-            "Human decision",
-            "Limitations",
         ),
         "version_labels": (
             "Product release v0.1.3",
@@ -2237,9 +2201,6 @@ def check_evaluation_packs(root: Path = core.ROOT) -> list[str]:
         text = core.visible_text(rendered)
         hrefs = core.anchor_hrefs(rendered)
         check_evaluation_structure(rendered, rel, expected, failures)
-        for label in expected["labels"]:
-            if label not in text:
-                failures.append(f"{rel}: missing visible evaluation label {label!r}")
         for label in expected["version_labels"]:
             if label not in text:
                 failures.append(f"{rel}: missing visible version label {label!r}")
@@ -2399,9 +2360,6 @@ def check_robots_policy(robots: str) -> list[str]:
         failures.append(
             f"robots.txt: unclassified crawler groups are not allowed: {', '.join(unexpected)}"
         )
-    for agent in UNCLASSIFIED_CRAWLERS:
-        if agent.casefold() in robots.casefold():
-            failures.append(f"robots.txt: must not mention unclassified crawler {agent}")
     return failures
 
 
