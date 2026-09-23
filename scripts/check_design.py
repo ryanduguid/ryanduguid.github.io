@@ -782,8 +782,8 @@ def check_homepage_refinement(root: Path) -> list[str]:
             failures.append("index.html: expected one " + class_name)
     if not HERO_PREVIEW_ADJACENCY_PATTERN.search(main):
         failures.append("index.html: tool preview must follow home hero")
-    if class_count(main, "technical-label") != 3:
-        failures.append("index.html: expected exactly three evidence-bearing technical labels")
+    if class_count(main, "technical-label") != 1:
+        failures.append("index.html: expected exactly one evidence-bearing technical label")
     label_pattern = re.compile(
         r'<p\b(?=[^>]*class\s*=\s*(["\'])[^"\']*\btechnical-label\b'
         r'[^"\']*\1)[^>]*>(.*?)</p>',

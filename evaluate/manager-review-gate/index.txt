@@ -8,11 +8,11 @@ Source: https://duguid.com.au/evaluate/manager-review-gate/
 
 Reproduce the released review-ready gate against 2 fabricated BAS packs, then inspect the exact expected result and human boundary.
 
-Published 26 August 2026. Last reviewed 11 September 2026.
+Published 26 August 2026. Last reviewed 23 September 2026.
 
 ## Accounting problem
 
-Before a BAS pack reaches a manager, a preparer needs a repeatable check that the configured completeness and blocking-item gates have not tripped.
+Before manager review, the preparer needs repeatable checks for completeness and unresolved blocking items against the configured rules.
 
 ## Fabricated inputs
 
@@ -20,7 +20,7 @@ The evaluation uses the repository fixtures examples/bas-not-ready and examples/
 
 ## Expected result
 
-The incomplete BAS pack exits with code 2 and NOT_READY. The corrected pack exits with code 0 and READY, with no configured findings. These results describe readiness for review; a manager still decides whether the work may progress.
+These results describe readiness for review; a manager still decides whether work may progress.
 
 Pack | Released expectation
 Incomplete BAS | Exit 2 with NOT_READY.

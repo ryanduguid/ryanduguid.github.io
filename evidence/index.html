@@ -55,12 +55,12 @@
         </nav>
         <h1>Evidence behind the tools</h1>
         <p class="lead-note short-answer">This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.</p>
-        <p class="byline" id="accepted-upstream-work">Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; <a href="https://github.com/OpenAccountants/openaccountants/pull/85">pull request 85</a> restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; <a href="https://github.com/meltano/sdk/pull/3727">pull request 3727</a> retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. <a href="/evaluate/">Rerun the tool evaluations</a>.</p>
-        <p class="page-meta">Last reviewed 22 September 2026.</p>
+        <p class="page-meta">Last reviewed 23 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
           <p>On this page</p>
+          <a href="#accepted-upstream-work">Accepted upstream work</a>
           <a href="#identity-and-credentials">Identity and credentials</a>
           <a href="#packages-releases-and-repositories">Packages, releases, and repositories</a>
           <a href="#sources-and-review-dates">Sources and review dates</a>
@@ -70,6 +70,14 @@
           <a href="#independent-evaluation">Published evaluations</a>
         </nav>
         <div class="article-body">
+
+          <section aria-labelledby="accepted-upstream-work">
+            <h2 id="accepted-upstream-work">Accepted upstream work</h2>
+            <p>OpenAccountants and Meltano accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
+            <p><strong>OpenAccountants, tax guides for coding agents.</strong> <a href="https://github.com/OpenAccountants/openaccountants/pull/85">Pull request 85</a> restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Preventing stale sync runs from overwriting guides depends on the exporter calling those checks and on repository controls. That pull request deployed neither.</p>
+            <p><strong>Meltano SDK, a framework for Singer taps and targets.</strong> <a href="https://github.com/meltano/sdk/pull/3727">Pull request 3727</a> retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.</p>
+            <p class="field-note">Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. <a href="/evaluate/">Rerun the tool evaluations</a>.</p>
+          </section>
 
           <section>
             <h2 id="identity-and-credentials">Identity and credentials</h2>
@@ -271,7 +279,7 @@
         "headline": "Evidence and Assurance for Australian accounting tools",
         "description": "Canonical evidence, assurance boundaries, and inspectable records for Australian computational accounting tools.",
         "inLanguage": "en-AU",
-        "dateModified": "2026-09-22",
+        "dateModified": "2026-09-23",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "breadcrumb": { "@id": "https://duguid.com.au/evidence/#breadcrumb" }

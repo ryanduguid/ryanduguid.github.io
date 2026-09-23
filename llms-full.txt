@@ -12,15 +12,13 @@ Source: https://duguid.com.au/
 
 > Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
 
-Open source tool library / Australian accounting
-
 # Open source tools for Australian accountants
 
-Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations with the working visible.
+Check workpaper packs, explore cash shortfalls, and inspect the calculations.
 
 A personal open source project by Ryan Duguid, an accountant in Newcastle who is not a registered tax agent or BAS agent. Not an accounting practice: every output is a review aid for a qualified professional.
 
-Last reviewed 22 September 2026.
+Last reviewed 23 September 2026.
 
 Explore the cash flow example Browse tools by accounting task
 
@@ -28,13 +26,9 @@ Explore the cash flow example Browse tools by accounting task
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Synthetic demonstration.
-
 Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
-Starting routes / four ways in
-
-## Start with what you came to do
+## Choose a task
 
 ### Understand why profit and cash differ
 
@@ -60,13 +54,13 @@ Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Micr
 
 See an Excel example
 
-## Worked proof
+## Worked examples
 
 Workpaper Review Gate / fabricated BAS pack
 
 ### Find missing work before a BAS pack reaches the manager.
 
-A pack can reach review with a missing ledger or an unfinished check. The review gate identifies these gaps so the preparer can address them.
+The review gate flags missing ledgers and unfinished checks so the preparer can address them before manager review.
 
 GST control ledger
 
@@ -80,13 +74,13 @@ Blocking item
 
 Unresolved
 
-Summary of the published fabricated example: this pack is not ready for review. The corrected pack passes the configured checks; a manager still decides whether the work may progress.
+This fabricated pack is not ready for review. The corrected pack passes the configured checks; a manager still decides whether work may progress.
 
 See the sample findings
 
 Coal LSL / synthetic result
 
-### One calculation, with the winning branch left visible.
+### See how the levy is calculated
 
 The browser calculator applies section 3B, names the formula, and rounds only at the final step.
 
@@ -126,15 +120,11 @@ View the fixed calculator example
 
 Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
-Adopt
-
 ## Test it with fabricated data first.
 
-Use the public sample files, all fabricated data, to see what a tool accepts, refuses, and explains before it enters a firm workflow.
+Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
 
-A receipt date alone does not establish the amount received. Checker 0.1.7 leaves a timely receipt without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific rules.
-
-The Payday Super evidence pack workflow combines a report, exceptions and human decision log. It is available in published checker 0.1.4 and MCP 0.2.2. The evaluation retains its original development snapshot.
+Check the Payday Super version and limits before use.
 
 ### Install and integrate
 
@@ -150,11 +140,9 @@ Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
 Check the version and limits in the setup guide before using an installation command.
 
-Verify
-
 ## Check the source before the result.
 
-Ryan Duguid, an accountant in Newcastle, NSW, writes and maintains this personal open source index in his own time and on his own equipment.
+About Ryan Duguid
 
 Source on GitHub
 
@@ -198,11 +186,11 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
-- Check the version-specific rules: https://duguid.com.au/tools/payday-super/#receipt-amount
-- Payday Super evidence pack workflow: https://duguid.com.au/tools/payday-super/#evidence-pack
+- Check the Payday Super version and limits before use: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Xero trial balance integrity Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- About Ryan Duguid: https://duguid.com.au/about/
 - Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
@@ -346,9 +334,17 @@ Source: https://duguid.com.au/evidence/
 
 This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.
 
-Accepted upstream work. OpenAccountants, tax guides for coding agents: the Australian BAS guide needed restoring and a stale sync run could overwrite guides; pull request 85 restored the guide and added stale-sync integrity checks, including detection after a write, merged 11 August 2026, 10 files. Preventing an overwrite depends on the exporter calling those checks and on the repository's own controls, neither of which that pull request deployed. Meltano SDK, a Singer tap and target framework: OAuth refresh tokens returned by a provider were not kept; pull request 3727 retains them in memory for the run, without writing them back to stored configuration, merged 8 August 2026, 2 files. Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. It is not adoption or endorsement of this portfolio, and it does not validate the accounting calculations here. Rerun the tool evaluations.
+Last reviewed 23 September 2026.
 
-Last reviewed 22 September 2026.
+## Accepted upstream work
+
+OpenAccountants and Meltano accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
+
+OpenAccountants, tax guides for coding agents. Pull request 85 restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Preventing stale sync runs from overwriting guides depends on the exporter calling those checks and on repository controls. That pull request deployed neither.
+
+Meltano SDK, a framework for Singer taps and targets. Pull request 3727 retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.
+
+Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. Rerun the tool evaluations.
 
 ## Identity and credentials
 
@@ -438,8 +434,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
-- pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
-- pull request 3727: https://github.com/meltano/sdk/pull/3727
+- Pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
+- Pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Rerun the tool evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
@@ -716,11 +712,11 @@ Source: https://duguid.com.au/evaluate/manager-review-gate/
 
 Reproduce the released review-ready gate against 2 fabricated BAS packs, then inspect the exact expected result and human boundary.
 
-Published 26 August 2026. Last reviewed 11 September 2026.
+Published 26 August 2026. Last reviewed 23 September 2026.
 
 ## Accounting problem
 
-Before a BAS pack reaches a manager, a preparer needs a repeatable check that the configured completeness and blocking-item gates have not tripped.
+Before manager review, the preparer needs repeatable checks for completeness and unresolved blocking items against the configured rules.
 
 ## Fabricated inputs
 
@@ -728,7 +724,7 @@ The evaluation uses the repository fixtures examples/bas-not-ready and examples/
 
 ## Expected result
 
-The incomplete BAS pack exits with code 2 and NOT_READY. The corrected pack exits with code 0 and READY, with no configured findings. These results describe readiness for review; a manager still decides whether the work may progress.
+These results describe readiness for review; a manager still decides whether work may progress.
 
 Pack | Released expectation
 Incomplete BAS | Exit 2 with NOT_READY.
@@ -3753,23 +3749,23 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email is welcome for feedback on the cash flow example or a tool result you could not reproduce.
+Email feedback on the cash flow example or a result you could not reproduce.
 
 I am not a registered tax agent or BAS agent. I do not accept advice, return-preparation, tax-treatment confirmation, or lodgement requests.
 
-This site is a personal index of open source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
+I build these open source accounting tools in my own time, on my own equipment. This is not a practice, and I do not accept professional engagements through this site.
 
 ## Feedback on the cash flow example
 
-I welcome feedback from accountants and business owners on the fictional Newcastle cash flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
+For the fictional Newcastle cash flow case, tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For a workbook issue, include your Excel version, receipt delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+For a workbook issue, include your Excel version, receipt delay setting, the step you took, and what happened. Use the supplied synthetic figures only. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
-Do not post taxpayer information or client files to public repositories or send them by email.
+Do not email taxpayer information, client records, credentials, or confidential files, or post them to public repositories.
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
@@ -3777,7 +3773,7 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 21 September 2026.
+Published 30 August 2026. Last reviewed 23 September 2026.
 
 ## Links
 
@@ -3976,9 +3972,9 @@ Find the records, calculations and steps for Australian tax and business questio
 
 Open the business calculators or try the fictional Newcastle cash flow workbook.
 
-These are 100 researched questions, not a measured Google popularity ranking. Tax guidance must match your year and circumstances.
+These 100 researched questions are not ranked by Google popularity. Tax guidance must match your year and circumstances.
 
-Editorial review: 11 September 2026. Last reviewed 21 September 2026.
+Editorial review: 11 September 2026. Last reviewed 23 September 2026.
 
 ## Tax returns
 

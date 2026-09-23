@@ -94,15 +94,16 @@ def test_parked_consultancy_surface() -> None:
     assert "/#engage" not in homepage_hrefs
     assert "Discuss a workflow" not in core.visible_text(homepage)
 
-    for rel in ("about/index.html", "contact/index.html"):
+    for rel, engagement_boundary in (
+        ("about/index.html", "not accepting professional engagements through this site"),
+        ("contact/index.html", "do not accept professional engagements through this site"),
+    ):
         page = read_text(ROOT, rel)
         page_text = core.visible_text(page)
         if rel == "about/index.html":
             assert "mailto:" not in page.casefold(), f"{rel}: consultancy email route remains"
         assert "not a practice" in page_text.casefold(), f"{rel}: practice boundary missing"
-        assert "not accepting professional engagements through this site" in page_text.casefold(), (
-            f"{rel}: engagement boundary missing"
-        )
+        assert engagement_boundary in page_text.casefold(), f"{rel}: engagement boundary missing"
 
     llms = read_text(ROOT, "llms.txt")
     route_section = core.markdown_section(llms, "Choose a route")
@@ -494,7 +495,7 @@ def test_design_contracts() -> int:
             "index.html",
             "</main>",
             '<p class="technical-label">Extra context</p></main>',
-            "index.html: expected exactly three evidence-bearing technical labels",
+            "index.html: expected exactly one evidence-bearing technical label",
         ),
         (
             "proof loaded eagerly",
@@ -562,8 +563,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 22 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 22 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 23 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 23 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -576,8 +577,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 22 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 22 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 23 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 23 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -672,9 +673,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "22 September 2026", "2026-09-22"),
+        ("index.html", "23 September 2026", "2026-09-23"),
         ("tools/index.html", "22 September 2026", "2026-09-22"),
-        ("evidence/index.html", "22 September 2026", "2026-09-22"),
+        ("evidence/index.html", "23 September 2026", "2026-09-23"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:

@@ -599,10 +599,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
 CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",)
 HOMEPAGE_HEADING = "Open source tools for Australian accountants"
 HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
-HOMEPAGE_SUPPORT = (
-    "Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations "
-    "with the working visible."
-)
+HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls, and inspect the calculations."
 HOMEPAGE_ACTIONS = (
     ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
     ("/tools/", "Browse tools by accounting task"),

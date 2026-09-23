@@ -87,7 +87,10 @@ const representativeHeightBaseline = {
     // the same 234px guard.
     // The 22 September local-engine, AI-host and optional-adapter boundaries
     // add 350px. Measured at 7,704px; retain the existing 234px guard.
-    ['/evidence/', 7938],
+    // On 23 September the upstream details move below the contents into a
+    // named section with normal body text. Navigation arrives sooner; the
+    // page measures 8,062px. Keep the 234px guard for this readable layout.
+    ['/evidence/', 8296],
   ]),
   'desktop-chromium': new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
