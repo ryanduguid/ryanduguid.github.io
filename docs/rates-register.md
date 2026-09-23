@@ -202,6 +202,10 @@ must be marked `unverified`, it cannot be omitted. Every file carries the
 fixed advice statement as data so a consumer that prints a figure can print
 the boundary with it.
 
+The copy below is the schema as proposed. The shipped
+`rates/register/schema/rates-register.schema.json` is authoritative and adds
+the `review` field.
+
 ```json
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
@@ -527,7 +531,9 @@ The manifest that carries the register version:
 }
 ```
 
-Its schema, `schema/register.schema.json`, is as small as the file:
+Its schema, `schema/register.schema.json`, is as small as the file. The copy
+below is the proposal; `rates/register/schema/register.schema.json` is the
+shipped one:
 
 ```json
 {

@@ -72,22 +72,11 @@ def site_url(rel: str, site: str) -> str:
     return f"{site}/{rel}"
 
 
-def title_is_too_long(
-    rel: str,
-    title: str,
-    title_exceptions: dict[str, str],
-) -> bool:
-    """Apply the general title limit and exact configured exceptions."""
-    rendered_title = html_lib.unescape(title)
-    return len(rendered_title) > TITLE_MAX and title_exceptions.get(rel) != rendered_title
-
-
 def check_file_metadata(
     path: Path,
     *,
     site: str,
     not_indexed: set[str],
-    title_exceptions: dict[str, str],
     warnings: list[str],
     expected_social_image: str | None = None,
     expected_social_alt: str | None = None,
@@ -106,8 +95,7 @@ def check_file_metadata(
     titles = re.findall(r"<title>(.*?)</title>", html, re.S)
     if len(titles) != 1 or not titles[0].strip():
         failures.append(f"{rel}: expected exactly one non-empty <title>, found {len(titles)}")
-    elif title_is_too_long(rel, titles[0].strip(), title_exceptions):
-        rendered_title = html_lib.unescape(titles[0].strip())
+    elif len(rendered_title := html_lib.unescape(titles[0].strip())) > TITLE_MAX:
         failures.append(
             f"{rel}: title is {len(rendered_title)} characters, over the {TITLE_MAX} limit"
         )
