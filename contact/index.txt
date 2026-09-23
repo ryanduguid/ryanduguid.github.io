@@ -6,17 +6,17 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email feedback on the cash flow example or a result you could not reproduce.
+Email feedback on any tool, example, or evaluation, including a result you could not reproduce.
 
 I am not a registered tax agent or BAS agent. I do not accept advice, return-preparation, tax-treatment confirmation, or lodgement requests.
 
 I build these open source accounting tools in my own time, on my own equipment. This is not a practice, and I do not accept professional engagements through this site.
 
-## Feedback on the cash flow example
+## Feedback on a tool or example
 
-For the fictional Newcastle cash flow case, tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
+Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output, and the source behind the figure you expected. Use fabricated or supplied synthetic figures only.
 
-For a workbook issue, include your Excel version, receipt delay setting, the step you took, and what happened. Use the supplied synthetic figures only. Email ryan@duguid.com.au.
+For the fictional Newcastle cash flow case, include your Excel version, receipt delay setting and the step you took. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
