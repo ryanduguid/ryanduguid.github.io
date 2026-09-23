@@ -5,7 +5,9 @@ import {
   baseRateWages, annualSalaryWages, casualWages, levyCents,
   assertReportingMonthSupported,
   CASUAL_METHOD_CHANGE_MONTH, LEVY_RATE_FROM_MONTH, MAX_WAGES_CENTS,
+  LEVY_RATE_AS_AT, LEVY_RATE_SOURCE, LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR,
 } from '../assets/levy.mjs';
+import { readFileSync } from 'node:fs';
 import { compute } from '../assets/levy-form.mjs';
 
 const d = toCents; // dollars to cents, for readability below
@@ -454,4 +456,15 @@ test('the supported upper boundary preserves cents and rounds quarter cents corr
     const expected = Number((quarters * 27n + 2000n) / 4000n);
     assert.equal(levyCents(Number(quarters) / 4), expected);
   }
+});
+
+test('the levy constants mirror the latest register row', () => {
+  const series = JSON.parse(readFileSync(
+    new URL('../rates/register/series/coal-lsl-levy.json', import.meta.url), 'utf8'));
+  const row = series.rows.at(-1);
+  assert.equal(row.period_end, null);
+  assert.equal(LEVY_RATE_NUMERATOR * 100 / LEVY_RATE_DENOMINATOR, Number(row.value));
+  assert.equal(LEVY_RATE_FROM_MONTH, row.period_start.slice(0, 7));
+  assert.equal(LEVY_RATE_AS_AT, row.verified_at);
+  assert.equal(LEVY_RATE_SOURCE, row.primary_source.url);
 });
