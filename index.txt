@@ -8,17 +8,17 @@ Source: https://duguid.com.au/
 
 Check workpaper packs, explore cash shortfalls, and inspect the calculations.
 
+Explore the cash flow example Browse tools by accounting task
+
 A personal open source project by Ryan Duguid, an accountant in Newcastle who is not a registered tax agent or BAS agent. Not an accounting practice: every output is a review aid for a qualified professional.
 
 Last reviewed 23 September 2026.
-
-Explore the cash flow example Browse tools by accounting task
 
 ## Profit does not pay the next bill.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
+Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
 
 ## Choose a task
 
@@ -26,19 +26,19 @@ Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000
 
 Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
 
-Five-minute accounting cases
+More five-minute accounting cases
 
 ### Calculate a Coal LSL levy
 
 Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install; this site's code does not send your figures to a server.
 
-Business planning calculators
+More calculators for business planning
 
 ### Check a BAS pack before manager review
 
 See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
-Workpaper Review Gate
+Open the Workpaper Review Gate
 
 ### Use accounting functions in Excel
 
@@ -116,8 +116,6 @@ Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 al
 
 Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
 
-Check the Payday Super receipt rules before use.
-
 ### Install and integrate
 
 The setup guide covers Claude Code, Codex, accounting skills and GitHub workflows, with requirements and version limits.
@@ -130,7 +128,7 @@ Xero trial balance integrity Reproduce the balanced export checks.
 
 Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
-Check the version and limits in the setup guide before using an installation command.
+Before use, check the version and limits in the setup guide, and the Payday Super receipt rules for timing results.
 
 ## Check the source before the result.
 
@@ -166,11 +164,11 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- Five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- More five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
-- Business planning calculators: https://duguid.com.au/tools/business-calculators/
+- More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
-- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
+- Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
 - See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
 - See the sample findings: https://duguid.com.au/evaluate/manager-review-gate/#controls-triggered
@@ -178,10 +176,10 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
-- Check the Payday Super receipt rules before use: https://duguid.com.au/tools/payday-super/#receipt-amount
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Xero trial balance integrity Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Payday Super receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - About Ryan Duguid: https://duguid.com.au/about/
 - Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
