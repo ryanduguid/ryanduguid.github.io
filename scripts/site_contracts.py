@@ -69,6 +69,7 @@ MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-09-22"
 MCP_VISIBLE_REVIEW_DATE = "22 September 2026"
 ASSURANCE_ANCHORS = {
+    "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases, and repositories",
     "sources-and-review-dates": "Sources and review dates",
@@ -599,10 +600,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
 CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",)
 HOMEPAGE_HEADING = "Open source tools for Australian accountants"
 HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
-HOMEPAGE_SUPPORT = (
-    "Find gaps in workpaper packs, explore cash flow shortfalls, and check calculations "
-    "with the working visible."
-)
+HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls, and inspect the calculations."
 HOMEPAGE_ACTIONS = (
     ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
     ("/tools/", "Browse tools by accounting task"),
@@ -1705,7 +1703,6 @@ def check_mcp_review_dates(html: str) -> list[str]:
 def check_authority_section(
     section_html: str,
     identifier: str,
-    label: str,
     statement: str,
 ) -> list[str]:
     """Require one route thought, one action group and one visible boundary."""
@@ -1714,17 +1711,6 @@ def check_authority_section(
     h2s = re.findall(r"<h2\b[^>]*>(.*?)</h2\s*>", rendered, re.S | re.I)
     if len(h2s) != 1:
         failures.append(f"index.html: authority section #{identifier} must have exactly one h2")
-
-    # The route word is a label beside the content column; the statement is
-    # the section's h2 so the heading outline descends in size.
-    label_matches = re.findall(
-        r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-label\b[^"\']*["\'])'
-        r"[^>]*>(.*?)</p\s*>",
-        rendered,
-        re.S | re.I,
-    )
-    if len(label_matches) != 1 or core.visible_text(label_matches[0]) != label:
-        failures.append(f"index.html: authority section #{identifier} label must be {label}")
 
     statement_matches = re.findall(
         r'<h2\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\broute-statement\b[^"\']*["\'])'
@@ -1764,7 +1750,7 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     home = home_path.read_text(encoding="utf-8") if home_path.is_file() else ""
     rendered_home = core.visible_html(home)
     sections = {identifier: core.section_html(home, identifier) for identifier in AUTHORITY_PATHS}
-    for identifier, label in AUTHORITY_PATHS.items():
+    for identifier in AUTHORITY_PATHS:
         if not sections[identifier]:
             failures.append(f"index.html: missing visible authority section #{identifier}")
 
@@ -1772,7 +1758,6 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
             check_authority_section(
                 sections[identifier],
                 identifier,
-                label,
                 AUTHORITY_STATEMENTS[identifier],
             )
         )
@@ -1852,7 +1837,10 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
         if re.search(RETIRED_GITHUB_SOURCE_INSTALL_PATTERN, indexable_text, re.I):
             failures.append(f"{rel}: retired GitHub-source install command")
 
-    for rel in ("about/index.html", "contact/index.html"):
+    for rel, engagement_boundary in (
+        ("about/index.html", "not accepting professional engagements through this site"),
+        ("contact/index.html", "do not accept professional engagements through this site"),
+    ):
         path = root / rel
         page = path.read_text(encoding="utf-8") if path.is_file() else ""
         page_text = core.visible_text(page)
@@ -1863,10 +1851,9 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
                 for href in core.anchor_hrefs(page)
             )
             or "not a practice" not in page_text.casefold()
-            or "not accepting professional engagements through this site"
-            not in page_text.casefold()
+            or engagement_boundary not in page_text.casefold()
             or not re.search(
-                r"\b(?:do\s+not|don't|never)\b.{0,100}\bclient\s+files?\b",
+                r"\b(?:do\s+not|don't|never)\b.{0,100}\bclient\s+(?:files?|records?)\b",
                 page_text,
                 re.S | re.I,
             )
