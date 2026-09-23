@@ -33,6 +33,23 @@ test('an unrelated obfuscation marker cannot hide a missing mailto', () => {
   assert.equal(failures.length, 1);
 });
 
+test('Rocket Loader fails by its loader script or a re-typed page script', () => {
+  for (const delivered of [
+    `${SOURCE}<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" defer></script>`,
+    `${SOURCE}<script type="f08f7cd8f54470ab5e2006e7-module" src="/assets/levy-page.mjs"></script>`,
+    `${SOURCE}<script defer src="/assets/view-mode.mjs" type="f08f7cd8f54470ab5e2006e7-text/javascript"></script>`,
+  ]) {
+    const { failures } = inspectHtml('/tools/coal-lsl-levy/', SOURCE, delivered);
+    assert.equal(failures.length, 1, delivered);
+    assert.match(failures[0], /Rocket Loader/);
+  }
+});
+
+test('module scripts the page ships itself pass', () => {
+  const delivered = `${SOURCE}<script type="module" src="/assets/levy-page.mjs"></script><script type="application/ld+json">{}</script>`;
+  assert.deepEqual(inspectHtml('/tools/coal-lsl-levy/', SOURCE, delivered).failures, []);
+});
+
 test('no message repeats the address itself', () => {
   const { failures } = inspectHtml('/contact/', SOURCE, '<p>Write to us.</p>');
   assert.equal(failures.some((line) => line.includes('someone@example.com')), false);

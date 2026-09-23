@@ -9,6 +9,9 @@
 // not failed, because they are edge settings the page's own Content Security
 // Policy already blocks. An analytics tag fails: the Privacy page states that
 // no analytics script is delivered, so its return would falsify that notice.
+// Rocket Loader fails too: it re-types every script and runs them through its
+// own loader, so visitors would get a page the browser and Lighthouse checks
+// never ran.
 //
 // Run with: node scripts/check_production.mjs [--base https://duguid.com.au]
 
@@ -62,6 +65,9 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
   }
   if (/cloudflareinsights\.com\/beacon/.test(deliveredHtml)) {
     failures.push(`${path}: Cloudflare analytics tag present; the Privacy page says no analytics script is delivered`);
+  }
+  if (/rocket-loader\.min\.js|<script\b[^>]*\btype="[0-9a-f]{16,}-(?:module|text\/javascript)"/.test(deliveredHtml)) {
+    failures.push(`${path}: Cloudflare Rocket Loader rewrites the page's scripts; switch it off under Speed, Optimization`);
   }
   return { failures, notes };
 }

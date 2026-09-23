@@ -135,10 +135,13 @@ Cloudflare Web Analytics was switched off on 20 September 2026, so no analytics
 tag is appended), and answers `301` for the retired `/engage/` and
 `/tools/review-ready-gate/` routes. Email Address
 Obfuscation is disabled so `mailto:` links work without scripts. Keep it off:
-the production check requires those links to arrive intact.
+the production check requires those links to arrive intact. Rocket Loader must
+be off as well: it re-types every script tag and runs the page through
+Cloudflare's loader instead of the markup the browser and Lighthouse checks
+test, and the production check fails while it is on.
 `node scripts/check_production.mjs` fetches the live pages and
-fails when a documented header or redirect is missing or a `mailto:` link no
-longer arrives intact; it runs weekly from `source-freshness.yml`.
+fails when a documented header or redirect is missing, a `mailto:` link no
+longer arrives intact or Rocket Loader rewrites the scripts; it runs weekly from `source-freshness.yml`.
 
 `Content-Security-Policy` is the exception. Browsers honour a policy delivered
 as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
