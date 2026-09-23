@@ -3755,9 +3755,9 @@ I build these open source accounting tools in my own time, on my own equipment. 
 
 ## Feedback on a tool or example
 
-Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output, and the source behind the figure you expected.
+Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output, and the source behind the figure you expected. Use fabricated or supplied synthetic figures only.
 
-For the fictional Newcastle cash flow case, include your Excel version, receipt delay setting and the step you took. Use fabricated or supplied synthetic figures only. Email ryan@duguid.com.au.
+For the fictional Newcastle cash flow case, include your Excel version, receipt delay setting and the step you took. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
