@@ -46,7 +46,7 @@ The output goes outside the clone on purpose. A readiness pack names a client's 
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 

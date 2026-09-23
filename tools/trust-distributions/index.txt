@@ -1,12 +1,14 @@
-# Is this trust distribution in the s100A green zone?
+# Trust distribution worksheets for professional review
 
 Source: https://duguid.com.au/tools/trust-distributions/
 
-> Check a trust distribution against the ATO's section 100A risk zones, and work out Division 6 allocations and section 99B foreign trust amounts.
+> Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result.
 
-# Is this trust distribution inside the section 100A green zone?
+# Trust distribution worksheets for professional review
 
-PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. This tool classifies the facts you supply against the green and red zones, works out Division 6 shares, and calculates a section 99B amount on a foreign trust distribution.
+PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
+
+Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability, or compliance.
 
 Reference release solomons-sword/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is solomons-sword/v0.1.7. pip install solomons-sword fetches it.
 
@@ -68,7 +70,7 @@ Nothing this engine produces is tax, legal, or financial advice, an assessment o
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 

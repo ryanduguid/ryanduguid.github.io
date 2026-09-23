@@ -68,7 +68,7 @@ Download CSV before leaving. This table is not saved and clears when you reload 
 
 ## Disclaimer
 
-Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice, and it is not a tax agent service. Using it creates no adviser relationship.
+Estimate only. This tool applies the payroll levy rate and the eligible wages formulas in the Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992 and the Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018 to figures you enter. It is general information, not legal, tax, accounting, or financial advice. Using it creates no adviser relationship.
 
 The levy rate applied is 2.7%, checked on 2 September 2026. It applies to eligible wages paid on or after 1 July 2023; reporting months before July 2023 are refused because the earlier rate is not implemented. Section 6 of the Payroll Levy Regulations 2018 prescribes that percentage for the purposes of section 5 of the Coal Mining Industry (Long Service Leave) Payroll Levy Act 1992, which imposes the levy. Check the current prescribed percentage on the Federal Register of Legislation before relying on any figure.
 
@@ -124,7 +124,7 @@ Half up to the nearest cent, once, at the final step. The Act, the Regulations, 
 
 No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Sources
 

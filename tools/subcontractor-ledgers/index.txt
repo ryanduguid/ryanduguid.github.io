@@ -42,7 +42,7 @@ Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. T
 
 Source on GitHub
 
-Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
