@@ -1,12 +1,14 @@
-# What company tax rate applies, and is franking OK?
+# Company tax and franking worksheets
 
 Source: https://duguid.com.au/tools/company-tax-franking/
 
-> Test whether a company is a base rate entity, track the franking account, and check distributions against the Division 203 benchmark rule.
+> Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result.
 
-# What company tax rate applies, and is the franking account in order?
+# Company tax and franking worksheets
 
 A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year's test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account, and checks the Division 203 benchmark rule.
+
+Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability, or compliance.
 
 Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.1.6. pip install the-exchequer-tally fetches it.
 
@@ -38,7 +40,7 @@ Published package and release instructions.
 
 Source on GitHub · Primary sources: ATO company tax rates and Division 203 of the Income Tax Assessment Act 1997.
 
-Unexpected result or question? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Fabricated worked example
 

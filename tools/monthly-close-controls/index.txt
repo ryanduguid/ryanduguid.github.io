@@ -59,7 +59,7 @@ Expect exit code 2 and REVIEW; 8 exception(s); 6 client query(ies) drafted. The 
 
 Source on GitHub
 
-Unexpected result or question? Open an issue.
+Software issue using fabricated data? Open an issue.
 
 ## Limits
 
