@@ -27,7 +27,9 @@ export const CASUAL_METHOD_CHANGE_MONTH = '2024-01';
 export const LEVY_RATE_FROM_MONTH = '2023-07';
 
 export function assertReportingMonthSupported(reportingMonth) {
-  if (typeof reportingMonth !== 'string' || !/^\d{4}-\d{2}$/.test(reportingMonth)) {
+  // The month runs 01 to 12: 2026-13 passed the shape and then made the page's
+  // Intl.DateTimeFormat throw on an invalid date.
+  if (typeof reportingMonth !== 'string' || !/^\d{4}-(0[1-9]|1[0-2])$/.test(reportingMonth)) {
     throw new TypeError('reportingMonth must be a YYYY-MM string');
   }
   if (reportingMonth < LEVY_RATE_FROM_MONTH) {
