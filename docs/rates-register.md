@@ -203,8 +203,10 @@ fixed advice statement as data so a consumer that prints a figure can print
 the boundary with it.
 
 The copy below is the schema as proposed. The shipped
-`rates/register/schema/rates-register.schema.json` is authoritative and adds
-the `review` field.
+`rates/register/schema/rates-register.schema.json` is authoritative. It adds a
+top-level `description`, the required row field `review` and the `passage`
+and `compilation` properties of `primary_source`, and it drops the `format`
+keywords shown on the date and URL fields.
 
 ```json
 {
