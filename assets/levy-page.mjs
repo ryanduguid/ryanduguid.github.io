@@ -293,11 +293,22 @@ document.getElementById('add-employee').addEventListener('click', () => {
     return;
   }
   const labelInput = document.getElementById('employeeLabel');
+  // References compare case-insensitively, so EMP-001 and emp-001 are one row.
+  const rowLabelled = (text) => employees.find((emp) => emp.label.toLowerCase() === text.toLowerCase());
   let label = labelInput.value.trim();
   if (!label) {
     let reference = employees.length + 1;
-    while (employees.some((emp) => emp.label === `Reference ${reference}`)) reference += 1;
+    while (rowLabelled(`Reference ${reference}`)) reference += 1;
     label = `Reference ${reference}`;
+  }
+  // Each row is one employee's month, so a repeated reference is almost
+  // always the same person entered twice, which would double their wages in
+  // the employer total. Refuse it and name the row already there.
+  const existing = rowLabelled(label);
+  if (existing) {
+    tableStatus.textContent = `${existing.label} is already in the monthly table. Remove that row to replace it, or enter a different reference. No row was added.`;
+    labelInput.focus();
+    return;
   }
   employees.push({
     label,

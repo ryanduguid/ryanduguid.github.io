@@ -511,6 +511,46 @@ test('monthly table automatic references avoid existing labels after removal', a
   health.assertHealthy();
 });
 
+test('monthly table automatic references skip a typed label in any case', async ({ page }) => {
+  const health = observePageHealth(page);
+  await calculateFormulaB(page);
+  const add = page.getByRole('button', { name: 'Add to monthly table', exact: true });
+  await page.getByLabel('Employee reference', { exact: true }).fill('reference 2');
+  await add.click();
+  await add.click();
+  await expect(page.locator('#employee-rows tr td:first-child')).toHaveText(['reference 2', 'Reference 3']);
+  health.assertHealthy();
+});
+
+test('monthly table refuses a repeated employee reference', async ({ page }) => {
+  const health = observePageHealth(page);
+  await calculateFormulaB(page);
+  const add = page.getByRole('button', { name: 'Add to monthly table', exact: true });
+  const reference = page.getByLabel('Employee reference', { exact: true });
+  await reference.fill('AUDIT-001');
+  await add.click();
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  const wagesAfterFirst = await page.locator('#employee-total-wages').textContent();
+
+  // A different case is still the same reference.
+  await reference.fill('audit-001');
+  await add.click();
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  await expect(page.locator('#employee-total-wages')).toHaveText(wagesAfterFirst);
+  await expect(page.locator('#table-status')).toHaveText(
+    'AUDIT-001 is already in the monthly table. Remove that row to replace it, or enter a different reference. No row was added.',
+  );
+  await expect(reference).toBeFocused();
+  await expect(reference).toHaveValue('audit-001');
+
+  // Removing the row lets the same reference be entered again.
+  await page.getByRole('button', { name: 'Remove AUDIT-001', exact: true }).click();
+  await reference.fill('AUDIT-001');
+  await add.click();
+  await expect(page.locator('#employee-rows tr')).toHaveCount(1);
+  health.assertHealthy();
+});
+
 test('calculates a Formula B levy without browser errors', async ({ page }) => {
   const health = observePageHealth(page);
 
