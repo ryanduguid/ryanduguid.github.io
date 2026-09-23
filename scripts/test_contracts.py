@@ -1833,7 +1833,7 @@ def test_release_record() -> None:
             contracts.MCP_REL,
             '<p class="page-meta">',
             "<p>Release 0.3.0 is the current published release; this page still "
-            'documents 0.2.5.</p>\n    <p class="page-meta">',
+            'documents 0.2.6.</p>\n    <p class="page-meta">',
         )
         failures = release_record.check_record(root, lagging)
         assert not any("without naming the difference" in failure for failure in failures), (
@@ -1878,7 +1878,7 @@ def test_release_record() -> None:
         replace_file(
             root,
             contracts.MCP_REL,
-            '"softwareVersion": "0.2.5"',
+            '"softwareVersion": "0.2.6"',
             '"softwareVersion": "0.2.0"',
         )
         expect_failure(
@@ -1932,13 +1932,13 @@ def test_release_record() -> None:
         replace_file(
             root,
             contracts.MCP_REL,
+            "australian-tax-calculators 0.1.4",
             "australian-tax-calculators 0.1.3",
-            "australian-tax-calculators 0.1.2",
         )
         expect_failure(
             "engine pin drift",
             release_record.check_record(root),
-            "but aus-accounting-mcp 0.2.5 pins 0.1.3",
+            "but aus-accounting-mcp 0.2.6 pins 0.1.4",
         )
 
     # An evaluation's label names its component, so an unrelated number cannot pass.

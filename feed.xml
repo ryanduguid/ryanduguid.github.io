@@ -22,11 +22,25 @@
     <summary>The homepage now leads with Open source tools for Australian accountants and gives clearer starting points for accounting tasks. Mobile links gained larger touch targets and layouts support enlarged text. Pure dark mode remains, with brighter homepage text, a smaller headline, sentence-case labels and simpler dividers. Unnecessary hyphens were removed across the site, stylesheet URLs were refreshed, and all five messaging preview cards were updated.</summary>
   </entry>
   <entry>
-    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.5</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5" />
-    <id>https://duguid.com.au/changelog/#entry-9a927bdda93c4af5</id>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.6</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6" />
+    <id>https://duguid.com.au/changelog/#entry-0ff4b0babeca0f38</id>
     <updated>2026-09-22T00:00:00Z</updated>
-    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.5.</summary>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.6.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.11</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.11" />
+    <id>https://duguid.com.au/changelog/#entry-04ae7e9665c6a3f0</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.11.</summary>
+  </entry>
+  <entry>
+    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.9</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9" />
+    <id>https://duguid.com.au/changelog/#entry-0c99c07dff2a8b7f</id>
+    <updated>2026-09-22T00:00:00Z</updated>
+    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.9.</summary>
   </entry>
   <entry>
     <title>Payday Super timing payday-super-checker/v0.1.7</title>
@@ -62,20 +76,6 @@
     <id>https://duguid.com.au/changelog/#entry-65df8604713dc80d</id>
     <updated>2026-09-20T00:00:00Z</updated>
     <summary>Workpaper Review Gate: release review-ready-gate/v0.1.7.</summary>
-  </entry>
-  <entry>
-    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.9</title>
-    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.9" />
-    <id>https://duguid.com.au/changelog/#entry-684e370a2a97f4b1</id>
-    <updated>2026-09-20T00:00:00Z</updated>
-    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.9.</summary>
-  </entry>
-  <entry>
-    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.8</title>
-    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.8" />
-    <id>https://duguid.com.au/changelog/#entry-0d69e343b0a47aeb</id>
-    <updated>2026-09-20T00:00:00Z</updated>
-    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.8.</summary>
   </entry>
   <entry>
     <title>Division 7A loan review div7a-loan-review/v0.1.4</title>
