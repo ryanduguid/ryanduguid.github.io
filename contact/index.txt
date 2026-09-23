@@ -6,23 +6,23 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email is welcome for feedback on the cash flow example or a tool result you could not reproduce.
+Email feedback on the cash flow example or a result you could not reproduce.
 
 I am not a registered tax agent or BAS agent. I do not accept advice, return-preparation, tax-treatment confirmation, or lodgement requests.
 
-This site is a personal index of open source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
+I build these open source accounting tools in my own time, on my own equipment. This is not a practice, and I do not accept professional engagements through this site.
 
 ## Feedback on the cash flow example
 
-I welcome feedback from accountants and business owners on the fictional Newcastle cash flow case. Tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
+For the fictional Newcastle cash flow case, tell me which decision it helps explain, where the working is unclear, or which result you could not reproduce.
 
-For a workbook issue, include your Excel version, receipt delay setting, the step you took, and what happened. Use the supplied synthetic figures only; do not send client records, credentials, or confidential files. Email ryan@duguid.com.au.
+For a workbook issue, include your Excel version, receipt delay setting, the step you took, and what happened. Use the supplied synthetic figures only. Email ryan@duguid.com.au.
 
 Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
 For source code, releases, and issue trackers, use the linked GitHub repositories.
 
-Do not post taxpayer information or client files to public repositories or send them by email.
+Do not email taxpayer information, client records, credentials, or confidential files, or post them to public repositories.
 
 Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
@@ -30,7 +30,7 @@ GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
 LinkedIn | linkedin.com/in/ryan-duguid
 
-Published 30 August 2026. Last reviewed 21 September 2026.
+Published 30 August 2026. Last reviewed 23 September 2026.
 
 ## Links
 
