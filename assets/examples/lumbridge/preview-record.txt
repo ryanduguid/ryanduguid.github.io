@@ -5,7 +5,7 @@ Workbook SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b84
 Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
 Licence: MIT, as recorded in the sample pack.
 
-Captured 13 September 2026 with desktop Excel 16.0 on Windows.
+Captured 24 September 2026 with desktop Excel 16.0 on Windows.
 The source workbook was opened read-only with links disabled and macros
 disabled. Assumptions!B2 was set to 45 in memory and CalculateFullRebuild ran.
 The first chart on Cash 13 weeks stores a fixed layout that Excel's object
@@ -17,15 +17,24 @@ Excel reads every plotted date and value from those workbook cells.
 
 Formatting applied in memory for the website's true-black canvas: chart fill
 #000000 with a #262626 border; horizontal gridlines only; the category axis
-line drawn at zero; AUD tick labels; fortnightly date labels; the date axis
-extended three weeks past 31 December with those extra labels blanked, to
-leave room for the end labels; the legend replaced by direct labels for the
-lowest week, the final closing cash and the buffer; IBM Plex Sans text from
-the same v6.4.2 family the site serves, installed for the exporting user so
-the chart matches the page. No value, date or series was altered.
+line drawn at zero; AUD tick labels in $20,000 steps, with the value axis
+starting one step below the step under the lowest week, to leave room for
+its label; the date axis extended three weeks past 31 December with those
+extra labels blanked, to leave room for the end labels; the legend replaced
+by direct labels for the lowest week, the final closing cash and the buffer;
+IBM Plex Sans text from the same v6.4.2 family the site serves, installed for
+the exporting user so the chart matches the page. No value, date or series
+was altered.
 
-The chart was exported using Excel Chart.Export as PNG at 957 by 479.5
-points, yielding 1282 by 639 pixels at this display scale.
+Two variants were exported with Excel Chart.Export as PNG at this display
+scale. Their text is sized so the labels render at about 12px or more where
+the pages show them.
+- cash-preview.png: 957 by 479.5 points, 1282 by 639 pixels; 22 point text
+  and title; fortnightly date labels. It is the full-size link and serves
+  wide hero columns and the stacked tablet layout.
+- cash-preview-narrow.png: 640 by 533.5 points, 856 by 711 pixels; 24 point
+  text and title; four-weekly date labels. It serves phones and the tighter
+  two-column widths between 56 and 75rem.
 The source workbook was closed without saving; its hash remained unchanged.
 
 Weekly closing cash values in the exported chart, AUD:
@@ -33,18 +42,13 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-PNG SHA-256: 8210ae4ba3953c8404fba8f493af7fa6a7fa26706f5396e31ad6ac41ee329c40
+cash-preview.png SHA-256: dff71a765fdc7225f7414fb45093ea871fba6b7b90c0db99a807201384cb2c26
+cash-preview-narrow.png SHA-256: f582fc386bcd790a402dd7f05b5f617fcfce91f757e380b758a41999b1110f85
 
-cash-preview-640.png is the narrow-viewport srcset candidate: the PNG above
-converted to RGB, resized to 640 by 319 pixels with Pillow 12.3.0 LANCZOS
-resampling on 14 September 2026, quantised back to 256 colours without
-dithering and saved with optimize=True. No pixel came from any other source.
-Regenerate it from the PNG above whenever that file changes.
-cash-preview-640.png SHA-256: ff54011f7fa6b6f985a364096972e313de580048f8971f664600faf74eff8eda
-
-This is an export of a workbook chart, not a screenshot of the entire
+Each is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.
-Refresh it with scripts/export-cash-chart.ps1, the same native Excel export,
+Refresh both with scripts/export-cash-chart.ps1 -Variant wide and -Variant
+narrow, the same native Excel export,
 when the source workbook, scenario or palette changes, then record the new
 workbook and image hashes here.
 No generated illustration, stock image or hand-drawn chart is used.

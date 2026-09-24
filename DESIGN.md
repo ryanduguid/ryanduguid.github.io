@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 24 September chart pass re-exports the Lumbridge cash chart in two
+variants so its labels render at about 12px or more wherever the page shows
+it. The old export set 10 point text on a 1282-pixel image drawn at about
+560px, so its axis labels rendered near 6px. The wide export keeps its
+1282 by 639 pixels with 22 point text; a narrow 856 by 711 export with 24
+point text serves phones and the two-column hero between 56 and 75rem,
+through a picture source. The value axis gains one $20,000 step below the
+trough so the lowest-week label clears the dates. The 640-pixel resample is
+retired. Values, dates, series and palette are unchanged.
+
 The 24 September homepage pass removes the Workpaper Review Gate worked
 example, which repeated the third task row and the first adoption link, so
 the proof band keeps the one Coal LSL artefact under the heading 'Worked
