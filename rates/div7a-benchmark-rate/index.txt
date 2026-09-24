@@ -58,13 +58,13 @@ Section 109N(2) of the Income Tax Assessment Act 1936 points at the Reserve Bank
 
 ### Does a change in the rate affect loans already on foot?
 
-Yes. The minimum yearly repayment uses that year's benchmark rate, the unpaid balance, and the remaining term. A higher rate increases the repayment when the other 2 inputs are unchanged.
+Yes. The minimum yearly repayment uses that year's benchmark rate, the unpaid balance and the remaining term. A higher rate increases the repayment when the other 2 inputs are unchanged.
 
 ### What is the maximum term for a complying Division 7A loan?
 
 Seven years, or 25 years where the loan is fully secured by a registered mortgage over real property whose value, less prior liabilities, is at least 110% of the loan when it is first made.
 
-General reference only, not tax, legal, or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
+General reference only, not tax, legal or financial advice, and using it creates no professional relationship. These figures are derived from the Reserve Bank series the Act names, on the date above. The ATO publishes the benchmark rate for each year, and a loan agreement is worth checking against a practitioner rather than a table.
 
 ## Related
 

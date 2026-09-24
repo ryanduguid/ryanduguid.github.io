@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>What these accounting tools refuse to do</title>
-  <meta name="description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta name="description" content="Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="What these accounting tools refuse to do" />
-  <meta property="og:description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta property="og:description" content="Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="What these accounting tools refuse to do" />
-  <meta name="twitter:description" content="Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows." />
+  <meta name="twitter:description" content="Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/refusals/" />
@@ -56,7 +56,7 @@
         </nav>
         <h1>What these tools refuse</h1>
         <p class="lead-note">
-          A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
+          A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
         </p>
         <p class="lead-note">
           Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the <a href="/changelog/">changelog</a> lists current releases.
@@ -66,7 +66,7 @@
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
-          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#fabricated-inputs">Fictional inputs</a>
           <a href="#workpaper-review-gate">Workpaper Review Gate</a>
           <a href="#monthly-close-controls">Monthly Close Controls</a>
           <a href="#xero-trial-balance">Xero trial balance CSV export</a>
@@ -78,12 +78,12 @@
         </nav>
         <div class="article-body">
           <section id="fabricated-inputs">
-            <h2>Fabricated inputs</h2>
+            <h2>Fictional inputs</h2>
             <p>
-              Every run below used repository fixtures or a 2-row file written for this page. None of it is client, taxpayer, payroll, or credential data. Each command was run on 4 September 2026 against the tagged release commit named in its section, so the output can be reproduced from that commit.
+              Every run below used repository fixtures or a 2-row file written for this page. None of it is client, taxpayer, payroll or credential data. Each command was run on 4 September 2026 against the tagged release commit named in its section, so the output can be reproduced from that commit.
             </p>
             <p>
-              A refusal never decides the matter. It returns the file, the pack, or the question to a person with the reason attached.
+              A refusal never decides the matter. It returns the file, the pack or the question to a person with the reason attached.
             </p>
           </section>
 
@@ -123,7 +123,7 @@
           <section id="monthly-close-controls">
             <h2>Monthly Close Controls</h2>
             <p>
-              Monthly Close Controls release <code>monthly-close-control-plane/v0.1.3</code> marks a pack <code>BLOCKED</code> when the current trial balance does not balance. The fixture is the repository's <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv">fabricated <code>current_trial_balance.csv</code></a> with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
+              Monthly Close Controls release <code>monthly-close-control-plane/v0.1.3</code> marks a pack <code>BLOCKED</code> when the current trial balance does not balance. The fixture is the repository's <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv">fictional <code>current_trial_balance.csv</code></a> with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
             </p>
             <div class="table-scroll" role="region" aria-label="Monthly Close Controls refusal" tabindex="0">
             <table class="facts tool-table--wide">
@@ -145,7 +145,7 @@
               </tbody>
             </table>
             </div>
-            <p>The 2 <code>BLOCKED</code> rows, one for the movement totals and one for the YTD totals, set the overall status. The other 8 exceptions in the same pack are <code>REVIEW</code> items from the fabricated variances.</p>
+            <p>The 2 <code>BLOCKED</code> rows, one for the movement totals and one for the YTD totals, set the overall status. The other 8 exceptions in the same pack are <code>REVIEW</code> items from the fictional variances.</p>
           </section>
 
           <section id="xero-trial-balance">
@@ -181,9 +181,9 @@
           <section id="payday-super">
             <h2>Payday Super timing</h2>
             <p>
-              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fabricated file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
+              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
             </p>
-            <pre class="copyable" tabindex="0" role="region" aria-label="Fabricated payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
+            <pre class="copyable" tabindex="0" role="region" aria-label="Fictional payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
 EMP009,2026-08-06,100.00,2026-08-07,,yes,no,,no
 EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
             <div class="table-scroll" role="region" aria-label="Payday Super timing refusal" tabindex="0">
@@ -217,7 +217,7 @@ EMP009,2026-08-20,100.00,2026-08-21,2026-09-03,no,no,,no</code></pre>
           <section id="aus-accounting-mcp">
             <h2>Aus Accounting MCP</h2>
             <p>
-              <a href="/tools/australian-tax-ai-agents/">Aus Accounting MCP</a> release <code>aus-accounting-mcp/v0.1.7</code> exposes a <code>refuse_div7a</code> tool for Division 7A matters outside the reviewed loan and minimum yearly repayment scope. The script below calls it in-process with fabricated names and a fabricated principal; it is the same path an MCP client takes.
+              <a href="/tools/australian-tax-ai-agents/">Aus Accounting MCP</a> release <code>aus-accounting-mcp/v0.1.7</code> exposes a <code>refuse_div7a</code> tool for Division 7A matters outside the reviewed loan and minimum yearly repayment scope. The script below calls it in-process with fictional names and a fictional principal; it is the same path an MCP client takes.
             </p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Script that calls the refuse_div7a tool"><code>import asyncio, json
 from aus_accounting_mcp.server import mcp
@@ -427,7 +427,7 @@ exit=0</code></pre>
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct, or that any output is advice, approval, or a lodgement. The site's <a href="/evaluate/">evaluations</a> reproduce the passing cases; <a href="/evidence/">Evidence and Assurance</a> records the boundaries.
+              A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site's <a href="/evaluate/">evaluations</a> reproduce the passing cases; <a href="/evidence/">Evidence and Assurance</a> records the boundaries.
             </p>
           </section>
 
@@ -455,7 +455,7 @@ exit=0</code></pre>
         "@id": "https://duguid.com.au/tools/refusals/#article",
         "url": "https://duguid.com.au/tools/refusals/",
         "headline": "What these tools refuse",
-        "description": "Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows.",
+        "description": "Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-04",
         "dateModified": "2026-09-20",

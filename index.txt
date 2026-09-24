@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/
 
-> Personal index of open source Australian accounting tools for payroll, Xero, workpapers, and AI workflows, with sources and working kept visible.
+> Personal index of open source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.
 
 # Open source tools for Australian accountants
 
-Check workpaper packs, explore cash shortfalls, and inspect the calculations.
+Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
 Explore the cash flow example Browse tools by accounting task
 
@@ -18,19 +18,19 @@ Last reviewed 24 September 2026.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Cash 13 weeks, 45-day delay: lowest weekly cash ($25,160); assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
+13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
 
 ## Choose a task
 
 ### Understand why profit and cash differ
 
-Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
+Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. The Excel workbook is optional.
 
 More short accounting cases
 
 ### Calculate a Coal LSL levy
 
-Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install.
+Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
 
 More calculators for business planning
 
@@ -42,15 +42,15 @@ Open the Workpaper Review Gate
 
 ### Use accounting functions in Excel
 
-Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Microsoft 365 or Excel 2024 and later.
+Use Ozzit for GST, financial years, depreciation and loan schedules. It needs Microsoft 365 or Excel 2024 or later.
 
 See an Excel example
 
 ## See how the Coal LSL levy is calculated
 
-Coal LSL / fabricated result
+Coal LSL / fictional result
 
-The browser calculator applies section 3B, names the formula, and rounds only at the final step.
+The browser calculator applies section 3B, names the formula and rounds only at the final step.
 
 One employee, one month. Enter each amount, including zero, to see which formula applies.
 
@@ -80,7 +80,7 @@ Formula B applies. Levy payable, rounded once at the end
 
 $192.38
 
-Fabricated figures, calculated in your browser. This site's code sends and stores none of them; the Privacy page covers Cloudflare's delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual, and bonus frequency.
+Fictional figures, calculated in your browser. This site's code sends and stores none of them; the Privacy page covers Cloudflare's delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
 Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
 
@@ -88,9 +88,9 @@ View the fixed calculator example
 
 Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
-## Test it with fabricated data first
+## Try each tool with fictional data first
 
-Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
+Use the sample files to check what each tool accepts, refuses and explains before using it in a firm.
 
 ### Install and integrate
 
@@ -98,13 +98,13 @@ The setup guide covers Claude Code, Codex, accounting skills and GitHub workflow
 
 Open the setup guide
 
-Manager review gate Reproduce the incomplete pack checks.
+Manager review gate: Reproduce the incomplete pack checks.
 
-Xero trial balance integrity Reproduce the balanced export checks.
+Xero trial balance integrity: Reproduce the balanced export checks.
 
-Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
+Payday Super timing: Reproduce the on-time, late and at-risk receipt states.
 
-Before use, check the version and limits in the setup guide, and the Payday Super receipt rules for timing results.
+Before you use a tool, check its version and limits in the setup guide. For timing results, also check the Payday Super receipt rules.
 
 ## Check the source before the result
 
@@ -126,9 +126,9 @@ Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2
 
 Open the evidence register Browse reproducible evaluations
 
-### Rates, source work, and release policy
+### Rates, source work and release policy
 
-The 5 working rules behind every tool are on the About page.
+The About page sets out the 5 working rules behind every tool.
 
 Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
 
@@ -152,8 +152,8 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Xero trial balance integrity Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
-- Payday Super timing Reproduce the on-time, late, and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Xero trial balance integrity: Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Payday Super timing: Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Payday Super receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - About Ryan Duguid: https://duguid.com.au/about/
 - Source on GitHub: https://github.com/ryanduguid

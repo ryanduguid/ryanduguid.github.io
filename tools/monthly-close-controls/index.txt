@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/monthly-close-controls/
 
-> Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fabricated example, exact results and source.
+> Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.
 
 # Xero monthly close exception report
 
@@ -29,16 +29,16 @@ PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED
 
 ## Worked example: balanced trial balance, unfinished review
 
-The fabricated example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
+The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
 
 Exception | Result | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the reconciling items and document their cause.
+Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
 Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
 Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
 
 Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
 
-The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fabricated.
+The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
 ## Run the example
 
@@ -59,7 +59,7 @@ Expect exit code 2 and REVIEW; 8 exception(s); 6 client query(ies) drafted. The 
 
 Source on GitHub
 
-Software issue using fabricated data? Open an issue.
+Software issue using fictional data? Open an issue.
 
 ## Limits
 

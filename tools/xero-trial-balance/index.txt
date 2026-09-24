@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/xero-trial-balance/
 
-> Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel, or pandas.
+> Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.
 
 # How to export a Xero trial balance to CSV that balances
 
@@ -12,13 +12,13 @@ Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fix
 
 Published 24 August 2026. Last reviewed 18 September 2026.
 
-This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements, and year-to-date balances.
+This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
 Before anything is written to disk, it runs a balance check: both the current month's movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero's Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
 ## What this tool does
 
-- Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel, or pandas loads without clean-up.
+- Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without clean-up.
 - Refuses to write a file unless both the month's movement and the year-to-date figures balance.
 
 ## Limits
@@ -49,7 +49,7 @@ python export_tb.py --date 2026-06-30
 
 Source on GitHub
 
-Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Synthetic worked example
 
@@ -63,7 +63,7 @@ Unbalanced, CSV refused | Cash (090) has $100.00 movement and YTD debits. Equity
 
 The tagged balanced-output test pins the CSV bytes. The tagged unbalanced-YTD test pins the refusal and warning. Refused means no CSV file output; the diagnostic warning is still printed.
 
-The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns, or lock periods.
+The tool remains read-only and cannot write to a ledger. Its output is a review aid, not advice or a compliance result. It does not post entries, approve work, lodge returns or lock periods.
 
 ## Common questions
 

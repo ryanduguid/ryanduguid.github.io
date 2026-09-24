@@ -56,9 +56,9 @@
         </nav>
         <h1>Known limitations</h1>
         <p class="lead-note">
-          A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct, and the step that settles it.
+          A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
         </p>
-        <p class="page-meta">Published 16 September 2026. Last reviewed 22 September 2026. This review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.</p>
+        <p class="page-meta">Published 16 September 2026. Last reviewed 24 September 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -137,7 +137,7 @@
                 </tr>
                 <tr>
                   <th scope="row">Declared at runtime</th>
-                  <td>Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward, and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of <code>report.csv</code> are empty rather than nil.</td>
+                  <td>Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of <code>report.csv</code> are empty rather than nil.</td>
                 </tr>
                 <tr>
                   <th scope="row">Human step</th>
@@ -199,7 +199,7 @@
           <section id="abc-1">
             <h2>ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other</h2>
             <p>
-              Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>. Release <code>ato-benchmark-compare/v0.1.8</code> (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied, so a bucket no account was mapped to reads <code>not_supplied</code> on both paths, and the key ratio stays the ATO's published one where cost of sales was not supplied. The entry below describes 0.1.7.
+              Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>. Release <code>ato-benchmark-compare/v0.1.8</code> (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied. A bucket no account was mapped to reads <code>not_supplied</code> on both paths, and the key ratio stays the ATO's published one where cost of sales was not supplied. The entry below describes 0.1.7.
             </p>
             <p>
               A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
@@ -277,7 +277,7 @@
           <section id="reporting">
             <h2>Telling me a number is wrong</h2>
             <p>
-              The most useful report carries the command you ran, the output it produced, the figure you expected, and where that expectation comes from. A primary source, a worked example from the regulator, or a second implementation all work. Open an issue on the repository that carries the tool, or use the <a href="/contact/">contact page</a>.
+              The most useful report carries the command you ran, the output it produced, the figure you expected and where that expectation comes from. A primary source, a worked example from the regulator or a second implementation all work. Open an issue on the repository that carries the tool, or use the <a href="/contact/">contact page</a>.
             </p>
             <p>
               Two implementations disagreeing is the cheapest way to find a defect, and the disagreement is worth reporting even when you are not certain which side is right.
@@ -307,7 +307,7 @@
         "description": "Cases where these open source accounting tools return a figure you should not read at face value, with the trigger and what stays correct.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-16",
-        "dateModified": "2026-09-22",
+        "dateModified": "2026-09-24",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

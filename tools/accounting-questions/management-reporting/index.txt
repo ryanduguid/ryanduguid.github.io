@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/management-reporting/
 
 Practical steps, records and official guidance on management reporting. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
 Compare the same reporting period and basis; historical benchmarks retain their published years. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Management reporting
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -30,7 +30,9 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years.
 
-71. How much must I sell each month to break even?
+71.
+
+### How much must I sell each month to break even?
 
 Break-even sales cover fixed costs after variable costs. For one product, divide fixed costs by contribution per unit.
 
@@ -43,7 +45,9 @@ Choose a pricing strategy · Break-even calculator
 
 Link to question 71
 
-72. What is the difference between gross margin and markup?
+72.
+
+### What is the difference between gross margin and markup?
 
 Gross margin divides gross profit by revenue. Markup divides gross profit by cost.
 
@@ -56,7 +60,9 @@ Choose a pricing strategy · Margin and markup calculator
 
 Link to question 72
 
-73. What hourly rate should I charge to cover costs and earn a target profit?
+73.
+
+### What hourly rate should I charge to cover costs and earn a target profit?
 
 Divide annual costs plus target profit by realistic billable hours.
 
@@ -69,7 +75,9 @@ Choose a pricing strategy · Hourly pricing calculator
 
 Link to question 73
 
-74. Which customers, jobs or service lines are making money?
+74.
+
+### Which customers, jobs or service lines are making money?
 
 Build contribution by customer, job or service line from consistent revenue and direct cost assignments.
 
@@ -82,7 +90,9 @@ Choose a pricing strategy · Margin and markup calculator
 
 Link to question 74
 
-75. Why are my actual results different from my budget?
+75.
+
+### Why are my actual results different from my budget?
 
 Compare actual and budget figures for the same period and accounting basis, then explain the drivers.
 
@@ -95,7 +105,9 @@ Set up a cash flow statement · Budget variance calculator
 
 Link to question 75
 
-76. Which financial reports should a small business owner review each month?
+76.
+
+### Which financial reports should a small business owner review each month?
 
 Review profit, financial position and cash together, with the balances that explain them.
 
@@ -108,7 +120,9 @@ Set up a cash flow statement · Monthly close review pack
 
 Link to question 76
 
-77. How do my business expenses compare with ATO small business benchmarks?
+77.
+
+### How do my business expenses compare with ATO small business benchmarks?
 
 Choose the ATO industry and turnover range that match your business and reporting period.
 
@@ -121,7 +135,9 @@ ATO benchmark comparison method
 
 Link to question 77
 
-78. How do I value and report work in progress and unbilled work?
+78.
+
+### How do I value and report work in progress and unbilled work?
 
 Separate the accounting basis for recognising revenue from the amount billed.
 
@@ -134,7 +150,9 @@ Record keeping for business · Construction WIP schedule
 
 Link to question 78
 
-79. Why has my gross margin fallen even though sales have increased?
+79.
+
+### Why has my gross margin fallen even though sales have increased?
 
 Higher sales can coincide with a lower margin when prices, product mix or costs change.
 
@@ -147,7 +165,9 @@ Choose a pricing strategy · Margin and markup calculator
 
 Link to question 79
 
-80. How do I turn Xero data into a useful Excel or Power BI management dashboard?
+80.
+
+### How do I turn Xero data into a useful Excel or Power BI management dashboard?
 
 Start with reconciled exports and a small set of decisions the report needs to support.
 
@@ -170,7 +190,7 @@ Link to question 80
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

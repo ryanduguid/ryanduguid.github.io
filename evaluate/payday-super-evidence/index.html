@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Payday Super timing evidence evaluation</title>
-  <meta name="description" content="Reproduce Payday Super timing outcomes with 4 fabricated fixtures, then inspect the evidence limits and required human decision." />
+  <meta name="description" content="Reproduce Payday Super timing outcomes with 4 fictional fixtures, then inspect the evidence limits and required human decision." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Payday Super timing evidence evaluation" />
-  <meta property="og:description" content="Reproduce Payday Super timing outcomes with 4 fabricated fixtures, then inspect the evidence limits and required human decision." />
+  <meta property="og:description" content="Reproduce Payday Super timing outcomes with 4 fictional fixtures, then inspect the evidence limits and required human decision." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Payday Super timing evidence evaluation" />
-  <meta name="twitter:description" content="Reproduce Payday Super timing outcomes with 4 fabricated fixtures, then inspect the evidence limits and required human decision." />
+  <meta name="twitter:description" content="Reproduce Payday Super timing outcomes with 4 fictional fixtures, then inspect the evidence limits and required human decision." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/payday-super-evidence/" />
@@ -56,7 +56,7 @@
         </nav>
         <h1>Payday Super timing evidence evaluation</h1>
         <p class="lead-note">
-          Reproduce 4 fabricated timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
+          Reproduce 4 fictional timing outcomes, then inspect what remittance evidence can and cannot establish before a human reaches a statutory conclusion.
         </p>
         <p class="page-meta">Published 26 August 2026. Last reviewed 22 September 2026. This review adds a current release qualification. The recorded evaluation and its release pins are unchanged.</p>
       </header>
@@ -65,7 +65,7 @@
           <p>On this page</p>
           <a href="#accounting-problem">Accounting problem</a>
           <a href="#intended-reviewer">Intended reviewer</a>
-          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#fabricated-inputs">Fictional inputs</a>
           <a href="#reproduce">Reproduce</a>
           <a href="#evidence-pack">Development evidence pack</a>
           <a href="#expected-result">Expected result</a>
@@ -86,14 +86,14 @@
           <section id="intended-reviewer">
             <h2>Intended reviewer</h2>
             <p>
-              This pack is for an accountant, payroll reviewer, or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
+              This pack is for an accountant, payroll reviewer or technical evaluator who wants to reproduce the evidence classifications without handling a client payroll export.
             </p>
           </section>
 
           <section id="fabricated-inputs">
-            <h2>Fabricated inputs</h2>
+            <h2>Fictional inputs</h2>
             <p>
-              The 4 CSV fixtures contain fabricated dates and amounts for a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee, or live payroll data is included.
+              The 4 CSV fixtures contain fictional dates and amounts for a supported due date of 17 August 2026 and an as-at date of 20 August 2026. No client, employee or live payroll data is included.
             </p>
           </section>
 
@@ -121,7 +121,7 @@ cd packages/payday-super-checker
 uv run --locked payday-super-check evidence-pack evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv --as-at 2026-08-20 -o evidence-pack
 uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
             <p>The evidence pack command exits 2 and writes 4 files into a new directory. <code>exceptions.json</code> must contain <code>AT_RISK</code>; <code>decision-log.md</code> has blank evidence, decision and sign-off sections. Tests verify deterministic output, identifier omission, SHA-256 binding, existing-directory refusal and the 4 pinned timing outcomes. They do not establish model performance or renew the legal review date.</p>
-            <p>The new command follows review-pack exit meanings: 0 only for all <code>ON_TIME</code>, 2 for any exception, and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.</p>
+            <p>The new command follows review-pack exit meanings: 0 only for all <code>ON_TIME</code>, 2 for any exception and 1 on input or write failure. The existing checker command retains its remittance-confirmation behaviour. Missing fund receipt evidence is never inferred.</p>
           </section>
 
           <section id="expected-result">
@@ -130,7 +130,7 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
             <table class="facts">
               <thead>
                 <tr>
-                  <th scope="col">Fabricated fixture</th>
+                  <th scope="col">Fictional fixture</th>
                   <th scope="col">Expected result</th>
                 </tr>
               </thead>
@@ -155,14 +155,14 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
             </table>
             </div>
             <p>
-              A missing receipt cannot prove on-time, remittance timing can prove late, and timely remittance without receipt remains at-risk. The outcome identifiers are <code>AT_RISK</code>, <code>ON_TIME</code>, and <code>LATE</code>.
+              A missing receipt cannot prove on-time, remittance timing can prove late and timely remittance without receipt remains at-risk. The outcome identifiers are <code>AT_RISK</code>, <code>ON_TIME</code> and <code>LATE</code>.
             </p>
           </section>
 
           <section id="controls-triggered">
             <h2>Controls triggered</h2>
             <p>
-              The production check keeps a missing receipt at <code>AT_RISK</code>, records an on-time receipt as <code>ON_TIME</code>, and classifies a remittance after the deadline or a late receipt as <code>LATE</code>.
+              The production check keeps a missing receipt at <code>AT_RISK</code>, records an on-time receipt as <code>ON_TIME</code> and classifies a remittance after the deadline or a late receipt as <code>LATE</code>.
             </p>
           </section>
 
@@ -192,14 +192,14 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
           <section id="human-decision">
             <h2>Human decision</h2>
             <blockquote>
-              <p>Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation, and the other assessment facts before relying on a statutory conclusion.</p>
+              <p>Remittance evidence can show operational timing but cannot prove on-time; a human must establish eligible fund receipt, allocation and the other assessment facts before relying on a statutory conclusion.</p>
             </blockquote>
           </section>
 
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment. It tests fabricated evidence classifications only. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+              Experimental review aid. Not a compliance determination. This evaluation does not provide advice or make an ATO assessment. It tests fictional evidence classifications only. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
             </p>
           </section>
 
@@ -227,7 +227,7 @@ uv run --locked --extra dev pytest tests/test_evidence_pack.py -q</code></pre>
         "@id": "https://duguid.com.au/evaluate/payday-super-evidence/#article",
         "url": "https://duguid.com.au/evaluate/payday-super-evidence/",
         "headline": "Payday Super timing evidence evaluation",
-        "description": "A reproducible evaluation of Payday Super timing evidence using four fabricated fixtures.",
+        "description": "A reproducible evaluation of Payday Super timing evidence using four fictional fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
         "dateModified": "2026-09-22",

@@ -12,25 +12,25 @@ Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipp
 
 Published 24 August 2026. Last reviewed 21 September 2026.
 
-Each skill encodes the workflow: the steps, the tie-outs, and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
+Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
-For work in progress, the skills assemble the contract CSV. The arithmetic lives in TheWIPTally, which produces a deterministic AASB 15 schedule. Do not ask the agent to invent cost-to-cost progress, constrained variations, or the contract-asset versus contract-liability split.
+For work in progress, the skills assemble the contract CSV. The arithmetic lives in TheWIPTally, which produces a deterministic AASB 15 schedule. Do not ask the agent to invent cost-to-cost progress, constrained variations or the contract-asset versus contract-liability split.
 
 ## What this tool does
 
 - The contracting core: progress claim preparation, retention schedules, work in progress and overbilling and underbilling under AASB 15, and contract cost tracking.
 - Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
-- Paying subcontractors: super guarantee under the extended definition, TPAR, and a shared reference skill for the exports these workflows need.
+- Paying subcontractors: super guarantee under the extended definition, TPAR and a shared reference skill for the exports these workflows need.
 
 ## Limits
 
-These skills prepare and check. They do not serve a payment claim, lodge a return, or sign anything. Contract interpretation, eligibility conclusions, and professional judgement stay with a person. Nothing here is tax, accounting, or legal advice.
+These skills prepare and check. They do not serve a payment claim, lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person. Nothing here is tax, accounting or legal advice.
 
 ## Repeat the agent evaluation procedure
 
-Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded, and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
+Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
 
-Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools, and result; retain the response with the working evidence.
+Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools and result; retain the response with the working evidence.
 
 This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.
 
@@ -42,7 +42,7 @@ Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. T
 
 Source on GitHub
 
-Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -56,7 +56,7 @@ No. Both that conclusion and whether a worker is a contractor or an employee sta
 
 ### Do the skills hard-code rates and thresholds?
 
-Not as working figures. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.
+Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.
 
 ## Related
 

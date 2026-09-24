@@ -88,6 +88,19 @@
   font-weight: 600;
 }
 
+/* Each question is an h3 for heading navigation and answer engines, styled as
+   the summary line it sits in. */
+.question summary h3 {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  letter-spacing: inherit;
+  text-wrap: inherit;
+  color: inherit;
+}
+
 .question-number {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);

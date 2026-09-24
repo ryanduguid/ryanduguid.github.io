@@ -2,27 +2,27 @@
 
 Source: https://duguid.com.au/tools/payday-super/
 
-> See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund receipt decision.
+> See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.
 
 # Payday Super receipt evidence
 
-This fixed, synthetic Payday Super example shows why a remittance record cannot establish timely fund receipt. Review aid, not advice; the reviewer decides whether the evidence supports closing the exception.
+Since 1 July 2026, super must generally reach the fund within 7 business days of payday. This synthetic example shows why proof of sending does not prove timely receipt. It is a review aid, not advice.
 
 ## Synthetic worked example
 
 Employee SYN001. Payday 6 August 2026. Contribution $120.00, supplied by the preparer. Remitted 14 August 2026. Fund received: no date recorded. Review date 20 August 2026. Ordinary timing pathway. First contribution: no. Out-of-cycle: no.
 
-Result: AT_RISK. The pinned engine calculates a deadline of 17 August 2026. Remittance predates it, but no fund receipt date proves timely arrival.
+Result: AT_RISK. The pinned engine calculates a deadline of 17 August 2026. It was sent before then, but no fund receipt date shows it arrived in time.
 
 Human decision: Obtain evidence of eligible fund receipt and check the applicable timing pathway before closing this exception. Sending does not establish receipt.
 
-This is a fixed example. Nothing to install or upload; these dates do not recalculate. Inspect the exact fixture.
+This is a fixed example: there is nothing to install or upload, and the dates do not recalculate. Inspect the exact fixture.
 
 Receipt amount matters. A fund receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. Read the version-specific receipt rules.
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 22 September 2026. This review covers receipt amount cases, published MCP dependencies and workbook version differences; the fixed evaluation remains pinned to 0.1.3.
+Published 24 August 2026. Last reviewed 24 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences. The fixed evaluation stays pinned to 0.1.3.
 
 ## Receipt dates and amounts
 
@@ -62,15 +62,15 @@ The CLI change combines the existing checker and practitioner checklist in one c
 
 From checker 0.1.5 the pack's report carries the structural matching warnings described under Known limitations (PSC-2). Checker 0.1.4 printed them to the console only, so keep its transcript with an older pack. Reconcile affected matches before relying on any verdict.
 
-The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fabricated example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
+The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than ON_TIME enters the queue; the fictional example above remains AT_RISK and exits 2. A remittance-only acknowledgement does not clear that queue.
 
-A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence, and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.
+A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.
 
 The companion MCP tool, build_payday_super_evidence_pack, accepts structured contribution rows and returns the 4 files in memory. It accepts no input or output paths, writes no files and records no decisions. It requires a checker with evidence pack support.
 
 The identifier-free report is for the included checklist. Existing review-pack and PaydaySuper.Report Excel imports require the ordinary checker's 18-column report.
 
-This workflow is included in published checker 0.1.4 and MCP 0.2.2. Checker 0.1.3, used by the historical evaluation, does not include it. Reproduce the recorded development snapshot with fabricated data. No advice, lodgement or ledger write is performed.
+This workflow is included in published checker 0.1.4 and MCP 0.2.2. Checker 0.1.3, used by the historical evaluation, does not include it. Reproduce the recorded development snapshot with fictional data. No advice, lodgement or ledger write is performed.
 
 ## Check the evidence
 
@@ -82,7 +82,7 @@ Source on GitHub · Open an issue
 
 Alongside the receipt amount limitation, two further limitations are recorded against this tool: an extrapolated general interest charge rate past the end of the published table, and the ways the payroll-to-super join degrades when identifiers do not match. See Known limitations.
 
-Version, file fingerprints, and timing boundary
+Version, file fingerprints and timing boundary
 
 Without a fund receipt date, records cannot prove ON_TIME. Remittance timing can still prove LATE, while timely remittance without fund receipt evidence remains AT_RISK.
 
@@ -116,7 +116,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
 - CLI change: https://github.com/ryanduguid/australian-accounting/pull/147
 - companion MCP tool: https://github.com/ryanduguid/australian-accounting/pull/148
-- Reproduce the recorded development snapshot with fabricated data: https://duguid.com.au/evaluate/payday-super-evidence/#evidence-pack
+- Reproduce the recorded development snapshot with fictional data: https://duguid.com.au/evaluate/payday-super-evidence/#evidence-pack
 - Payday Super Checker 0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.3
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001

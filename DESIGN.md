@@ -659,7 +659,8 @@ Every changed visible sentence must pass these 5 principles:
 
 Banned visible language includes: revolutionise, seamless, cutting-edge, leverage, unlock, delves, landscape, tapestry, in today's fast-paced, decorative AI-powered language, generic `Get started`, emojis, em dashes and en dashes.
 
-Use Australian English and Oxford commas in original prose. Preserve exact
+Use Australian English in original prose, with no serial (Oxford) comma unless
+it prevents ambiguity, as the Australian Government Style Manual advises. Preserve exact
 quotations, command output, identifiers, and official titles. Keep the About
 page in the first person. Use Ryan's supplied credential labels exactly:
 'Provisional CA ANZ Member' and 'Xero Certified Specialist, Level 3'. State them
@@ -673,6 +674,8 @@ corresponding prose baselines record these authorised changes; numerical
 facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
+
+The 24 September 2026 copy and GEO pass removes serial commas where they end a simple list, writes 'fictional' for invented data (the old `#fabricated-inputs` anchors stay), abbreviates New South Wales to NSW, puts Evidence in the first person, writes negative amounts with a minus sign and splits the longest sentences. Each accounting question is an `h3` inside its summary, 28 answers open with a figure checked on 24 September 2026 against the ATO, Revenue NSW or Coal LSL (`fact`, `fact_sources` and `facts_checked` in `_data/accounting_questions.json`), and each topic page publishes an FAQPage whose items `check_faq_visible` pairs with the visible `details.question` headings and first answer paragraphs. Question 10 covers the 1 July 2026 changes and question 99 the Coal LSL levy. Card titles in `llms-full.txt` end with a colon, and stripped hidden text no longer leaves a space before a word-ending comma or stop. The FAQ values go through `jsonify`, which the local renderer now also provides. Rates, CSVs, calculator arithmetic and evaluation pins are unchanged.
 
 The 24 September 2026 skills inventory update records that the australian-accounting-skills default branch now carries 60 skills, 41 of them additions to release v0.2.1, after nine new workflows merged (working from home deductions, ATO penalties and interest, Division 293, Division 296, super contribution caps, PAYG instalment variations, termination payments, multi-state payroll tax and car expenses). The subcontractor-ledgers FAQ and the AI agents comparison no longer say the skills never hold a rate: some skills now record figures a person reviewed, with effective dates, as a cross-check against the applicable authoritative source; and the evaluation wording now says no fresh model evaluation covers all the additions. The subcontractor-ledgers JSON-LD digest, the llms.txt digest and the generated machine views record these authorised edits. Release pins, rates pages and disclaimers are unchanged.
 
@@ -709,7 +712,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `0E0DF71276D9C683960C968CFDF1FA9FD4F5DFF3A9457A9B1663A03F5DACAB5E`
+- `llms.txt`: SHA-256 `EA9CD2DCA5C071C80ADC30FA8EE49451E85D793A4D412D4F60D68675B7A60E0E`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
