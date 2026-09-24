@@ -70,10 +70,14 @@ export function collectSources(directories) {
   return new Map([...sources].sort(([a], [b]) => a.localeCompare(b)));
 }
 
-// Firecrawl may echo a requested URL with different percent-encoding.
+// Firecrawl may echo a requested URL with different percent-encoding, and the
+// ATO drops a trailing slash by redirect; neither is a move worth a note.
 export function sameUrl(url) {
   try {
-    return decodeURI(url);
+    const parsed = new URL(url);
+    parsed.hash = '';
+    parsed.pathname = parsed.pathname.replace(/\/$/, '');
+    return decodeURI(parsed.href);
   } catch {
     return url;
   }
@@ -81,7 +85,7 @@ export function sameUrl(url) {
 
 // Sorts one Firecrawl document into a failure, a note or nothing.
 export function classify(url, doc) {
-  if (!doc) return { failure: `${url}: no result from Firecrawl` };
+  if (!doc) return { failure: `${url}: Firecrawl could not read the page` };
   const status = doc.metadata?.statusCode;
   if (!status || status >= 400) return { failure: `${url}: HTTP ${status ?? 'unknown'}` };
   const change = doc.changeTracking?.changeStatus;
@@ -91,7 +95,7 @@ export function classify(url, doc) {
   }
   if (!change) return { failure: `${url}: no change tracking result` };
   const final = doc.metadata?.url;
-  if (final && sameUrl(final.split('#')[0]) !== sameUrl(url)) return { note: `${url}: now resolves to ${final}` };
+  if (final && sameUrl(final) !== sameUrl(url)) return { note: `${url}: now resolves to ${final}` };
   return {};
 }
 
