@@ -38,7 +38,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 51 skills; its 32 additions have no recorded model evaluation. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 60 skills; no fresh model evaluation covers all 41 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -56,7 +56,7 @@ No. Both that conclusion and whether a worker is a contractor or an employee sta
 
 ### Do the skills hard-code rates and thresholds?
 
-No. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state.
+Not as working figures. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.
 
 ## Related
 
