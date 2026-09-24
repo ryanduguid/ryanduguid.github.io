@@ -211,7 +211,7 @@ rendered branch fields share the form rhythm; the work chooser, action rows
 and adoption rows align on the baseline; the hero's boundary note and review
 stamp read as one group; principle cells sit on the shell edge; Tools entry
 titles underline only on hover and focus. The business calculator result
-sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
+sentences stay in the body face with tabular figures, a recorded exception to
 the mono rule for figures because each result is a sentence, not a ledger
 row.
 
@@ -277,7 +277,7 @@ The 12 September 2026 Human/Machine switch follows Ryan's Cloudflare Connect
 reference. Its fixed bottom-centred pill, neutral surface, and blur are explicit
 exceptions to the register shapes below. The selected dot and keyboard focus
 outline use the existing green stamp accent, as Ryan requested in the follow-up.
-The control uses the existing IBM Plex Mono font, native keyboard controls,
+The control uses the site mono face, native keyboard controls,
 44px touch targets, and a saved view preference. Machine displays the current
 page's existing generated text and source links. The unindexed 404 page uses
 its existing text without a download. Page content and review boundaries
@@ -327,8 +327,8 @@ The 31 August 2026 refinement keeps the design read at
   renderer emits static PNGs; the public pages have no renderer dependency and
   the cards contain no portrait.
 
-The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
-Plex Serif as the display face; stamp green as the only accent; square register
+The deliberate brand exceptions remain: a true-black, dark-only canvas;
+Besley as the display face; stamp green as the only accent; square register
 surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
@@ -384,10 +384,10 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 [Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the 3 gold-standard references.
 
 - Borrow: the centred ceremonial masthead, near-black green field, cold luminous title colour, compact mono index labels and fine ruled geometry.
-- Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
+- Translate: the project index becomes a public accounting register, and the display serif (IBM Plex at this pass, Besley since 24 September 2026) is the site's own rather than Pliny's typeface.
 - Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its 3-column project-card grid.
 
-The resulting system combines a cold ledger surface, a harbour-green review stamp, the IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
+The resulting system combines a cold ledger surface, a harbour-green review stamp, one serif, sans and mono type system (IBM Plex at this pass; Besley, Public Sans and Spline Sans Mono since 24 September 2026), tabular evidence chrome and route viewports built around Adopt and Verify.
 
 ## Visual premise
 
@@ -443,30 +443,51 @@ change.
 
 ## Typography and licence
 
-The site uses IBM Plex from the official [IBM Plex repository](https://github.com/IBM/plex).
+On 24 September 2026 Ryan replaced IBM Plex with three families chosen after
+a measured comparison: Plex had come to read as a generic AI-built site. The
+comparison gated each candidate on the weights below, body tabular figures,
+the `unicode-range` characters and command-safe mono shapes, then tested
+the passing pairings on the live pages at 1440, 1280, 390 and 320 pixels.
 
-- IBM Plex Serif Regular and SemiBold: display and section headings. The serif is justified by the statute, ledger and public-record context.
-- IBM Plex Sans Regular, Italic and SemiBold: navigation, body copy, controls and explanatory text.
-- IBM Plex Mono Regular: rates, commands, versions, dates, evidence labels and tabular figures.
+- Besley Regular and SemiBold: display and section headings. Its Clarendon
+  letterforms suit the statute, ledger and public-record context.
+- Public Sans Regular, Italic and SemiBold: navigation, body copy, controls,
+  tables and explanatory text. Its `tnum` feature gives the body-font tables
+  and calculator results aligned figures.
+- Spline Sans Mono Regular: rates, commands, versions, dates, evidence labels
+  and tabular figures. It sets at the width IBM Plex Mono did, and it has no
+  ligatures that would rewrite `--` or `==` in a command.
 - Ozzit's lambda symbol uses Cambria Math, STIX Two Math or DejaVu Serif, with
   the browser's serif fallback last. These native fonts need no download.
   Mark only the symbol with `function-symbol`; keep identifiers as selectable
   text. The font check still rejects unsupported characters outside that
   exact markup and requires its fallback styling and font stack.
 
-IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
+All three families are licensed under the SIL Open Font License 1.1. The
+licence permits use, embedding, modification and redistribution, including
+bundling with commercial software, provided the font is not sold by itself and
+the licence and copyright notice travel with it. The repository self-hosts
+WOFF2 files beside one licence file per family (`assets/fonts/OFL-*.txt`).
+None of the three declares a Reserved Font Name, so the site ships its own
+subsets under the original family names; IBM Plex reserved "Plex", which is why
+its files were never cut.
 
-The 6 files are IBM's unmodified Latin1 splits at tag `v6.4.2`, peeled
-commit `242c4cccd37e87985a5337815c99b960ef13c65c`. The upstream paths, byte
+The 6 files are `pyftsubset` cuts of the upstream static TTFs, limited to the
+characters the pages use. The upstream revisions, the exact command, byte
 counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`; each face
-declares the characters the pages use as its `unicode-range`, which
-`check_design.py` tests against every page. The declared set is 129,872 bytes
-as shipped by IBM, down from 384,756 before the Latin1 splits. The 4 faces used by the
-homepage total 84,268 source bytes before HTTP overhead, down from about
-250 KB transferred, and all 4 are preloaded so `font-display: optional` has
-every face by first paint. Four faces remain deliberate: Serif, Sans and Mono each
-carry a distinct information role, while regular and semi-bold Sans preserve
-the practical control and reading hierarchy without synthesised weight.
+declares the same characters as its `unicode-range`, which `check_design.py`
+tests against every page. The declared set is 102,928 bytes, down from 129,872
+for the Plex Latin1 splits. The 4 faces used by the homepage total 68,732
+source bytes before HTTP overhead, down from 84,268, and all 4 are preloaded
+so `font-display: optional` has every face by first paint. Four faces remain
+deliberate: display, body and mono each carry a distinct information role,
+while regular and semi-bold body weights preserve the practical control and
+reading hierarchy without synthesised weight.
+
+Besley sets about 8 per cent wider than Plex Serif. The homepage H1 keeps two
+lines at 1280 pixels but wraps to three at 390, and some long page titles gain
+a line on phones. The homepage cash chart is still an Excel export set in IBM
+Plex Sans until it is re-exported with Public Sans installed.
 
 Font rules:
 
@@ -539,8 +560,8 @@ The existing advice disclaimer remains exact. It sits above About, GitHub and Ma
 ### Tables
 
 - captions or nearby headings state what the numbers mean
-- headers use IBM Plex Sans SemiBold
-- numerical columns use IBM Plex Mono and tabular numbers
+- headers use Public Sans SemiBold
+- numerical columns use Spline Sans Mono and tabular numbers
 - rules appear between rows, not around every cell
 - the first and current rates receive typographic emphasis, not a coloured progress bar
 - wide tables use labelled horizontal scroll regions at narrow widths

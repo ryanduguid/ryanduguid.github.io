@@ -338,16 +338,16 @@ def test_design_contracts() -> int:
         (
             "display serif preload removed",
             "index.html",
-            check_design.FONT_PRELOADS["IBMPlexSerif-SemiBold"] + "\n",
+            check_design.FONT_PRELOADS["Besley-SemiBold"] + "\n",
             "",
-            "index.html: expected the IBMPlexSerif-SemiBold preload before the tokens stylesheet",
+            "index.html: expected the Besley-SemiBold preload before the tokens stylesheet",
         ),
         (
             "preload discovered after the stylesheets",
             "rates/index.html",
-            check_design.FONT_PRELOADS["IBMPlexSans-SemiBold"] + "\n  " + check_design.TOKENS_LINK,
-            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["IBMPlexSans-SemiBold"],
-            "rates/index.html: expected the IBMPlexSans-SemiBold preload before the tokens stylesheet",
+            check_design.FONT_PRELOADS["PublicSans-SemiBold"] + "\n  " + check_design.TOKENS_LINK,
+            check_design.TOKENS_LINK + "\n  " + check_design.FONT_PRELOADS["PublicSans-SemiBold"],
+            "rates/index.html: expected the PublicSans-SemiBold preload before the tokens stylesheet",
         ),
         (
             "inline script restored",
@@ -527,7 +527,7 @@ def test_design_contracts() -> int:
         (
             "font URL broken",
             "assets/tokens.css",
-            "/assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+            "/assets/fonts/Besley-Regular.woff2",
             "/assets/fonts/Missing.woff2",
             "font face target missing: assets/fonts/Missing.woff2",
         ),
@@ -729,11 +729,11 @@ def test_design_contracts() -> int:
         )
 
     with copied_site() as root:
-        (root / "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2").unlink()
+        (root / "assets/fonts/Besley-Regular.woff2").unlink()
         expect_failure(
             "protected font removed",
             check_design.check_repository(root),
-            "protected font missing: assets/fonts/IBMPlexSerif-Regular-Latin1.woff2",
+            "protected font missing: assets/fonts/Besley-Regular.woff2",
         )
 
     with copied_site() as root:
@@ -1190,9 +1190,9 @@ def test_public_contracts() -> int:
         ),
         (
             "social-card context",
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20260922.png" />',
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />',
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20260922.png'",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20260924.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20260924.png'",
         ),
         (
             "referrer policy",
@@ -1456,7 +1456,7 @@ def test_public_contracts() -> int:
                 replace_file(root, rel, before, after)
             expect_failure(label, checker(root), expected)
 
-    site_card_rel = "assets/social-card-site-20260922.png"
+    site_card_rel = "assets/social-card-site-20260924.png"
     with copied_site() as root:
         card_path = root / site_card_rel
         card = bytearray(card_path.read_bytes())

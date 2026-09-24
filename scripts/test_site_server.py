@@ -51,7 +51,7 @@ def main() -> None:
             for method, path in (
                 ("GET", "/assets/levy.mjs"),
                 ("HEAD", "/assets/levy.mjs"),
-                ("GET", "/assets/fonts/IBMPlexSans-Regular-Latin1.woff2"),
+                ("GET", "/assets/fonts/PublicSans-Regular.woff2"),
             ):
                 connection.request(method, path, headers={"Accept-Encoding": "gzip"})
                 response = connection.getresponse()

@@ -765,13 +765,13 @@ SOCIAL_CARD_CONTEXTS = {
             "Australian accountants",
         ],
         "host": "duguid.com.au",
-        "output": "social-card-site-20260922.png",
+        "output": "social-card-site-20260924.png",
     },
     "tools": {
         "label": "Open source tools",
         "heading": ["Accounting checks that", "show their working."],
         "host": "duguid.com.au/tools/",
-        "output": "social-card-tools-20260922.png",
+        "output": "social-card-tools-20260924.png",
     },
     "evaluations": {
         "label": "Reproducible evaluations",
@@ -781,19 +781,19 @@ SOCIAL_CARD_CONTEXTS = {
             "Visible limits.",
         ],
         "host": "duguid.com.au/evaluate/",
-        "output": "social-card-evaluations-20260922.png",
+        "output": "social-card-evaluations-20260924.png",
     },
     "rates": {
         "label": "Maintained reference tables",
         "heading": ["Australian rates,", "sources, and review dates."],
         "host": "duguid.com.au/rates/",
-        "output": "social-card-rates-20260922.png",
+        "output": "social-card-rates-20260924.png",
     },
     "evidence": {
         "label": "Evidence register",
         "heading": ["Claims linked to sources,", "releases, and tests."],
         "host": "duguid.com.au/evidence/",
-        "output": "social-card-evidence-20260922.png",
+        "output": "social-card-evidence-20260924.png",
     },
 }
 SOCIAL_CARD_DIMENSIONS = (1200, 630)

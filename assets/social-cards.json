@@ -6,7 +6,7 @@
       "Australian accountants"
     ],
     "host": "duguid.com.au",
-    "output": "social-card-site-20260922.png",
+    "output": "social-card-site-20260924.png",
     "alt": "OLED register card: Open source tools for Australian accountants"
   },
   "tools": {
@@ -16,7 +16,7 @@
       "show their working."
     ],
     "host": "duguid.com.au/tools/",
-    "output": "social-card-tools-20260922.png",
+    "output": "social-card-tools-20260924.png",
     "alt": "OLED register card: Accounting checks that show their working."
   },
   "evaluations": {
@@ -27,7 +27,7 @@
       "Visible limits."
     ],
     "host": "duguid.com.au/evaluate/",
-    "output": "social-card-evaluations-20260922.png",
+    "output": "social-card-evaluations-20260924.png",
     "alt": "OLED register card: Fabricated inputs. Expected results. Visible limits."
   },
   "rates": {
@@ -37,7 +37,7 @@
       "sources, and review dates."
     ],
     "host": "duguid.com.au/rates/",
-    "output": "social-card-rates-20260922.png",
+    "output": "social-card-rates-20260924.png",
     "alt": "OLED register card: Australian rates, sources, and review dates."
   },
   "evidence": {
@@ -47,7 +47,7 @@
       "releases, and tests."
     ],
     "host": "duguid.com.au/evidence/",
-    "output": "social-card-evidence-20260922.png",
+    "output": "social-card-evidence-20260924.png",
     "alt": "OLED register card: Claims linked to sources, releases, and tests."
   }
 }
