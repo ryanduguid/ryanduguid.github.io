@@ -2265,8 +2265,11 @@ input[type="checkbox"] {
 
   .site-identity {
     width: fit-content;
-    /* The view switch keeps a fixed pixel size when the page text grows. */
-    max-width: min(50%, calc(100% - 160px));
+    /* The view switch keeps a fixed pixel size when the page text grows. It is
+       placed against the viewport, and below about 19rem the nav grid makes
+       the header wider than the viewport, so the room left for the home link
+       is measured from the viewport too. */
+    max-width: min(50%, calc(100vw - (2 * var(--gutter)) - 160px));
     line-height: var(--leading-heading);
   }
 

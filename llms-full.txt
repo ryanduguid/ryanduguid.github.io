@@ -20,7 +20,7 @@ Explore the cash flow example Browse tools by accounting task
 
 A personal open source project, not an accounting practice. Ryan Duguid is not a registered tax or BAS agent, and every output is a review aid for a qualified professional.
 
-Last reviewed 23 September 2026.
+Last reviewed 24 September 2026.
 
 ## Profit does not pay the next bill.
 

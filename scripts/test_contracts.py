@@ -562,8 +562,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 23 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 23 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 24 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 24 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -672,7 +672,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "23 September 2026", "2026-09-23"),
+        ("index.html", "24 September 2026", "2026-09-24"),
         ("tools/index.html", "22 September 2026", "2026-09-22"),
         ("evidence/index.html", "23 September 2026", "2026-09-23"),
     )
