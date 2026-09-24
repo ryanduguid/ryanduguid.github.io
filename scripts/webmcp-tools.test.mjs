@@ -13,9 +13,9 @@ test('GST tool is read-only and requires only an amount', () => {
 });
 
 test('GST tool returns the same cents as the calculator', async () => {
-  assert.deepEqual(
-    (({ excludingGst, gst, includingGst }) => ({ excludingGst, gst, includingGst }))(await tool.execute({ amount: '1100', inclusive: true })),
-    { excludingGst: '1000.00', gst: '100.00', includingGst: '1100.00' });
+  const inclusive = await tool.execute({ amount: '1100', inclusive: true });
+  assert.deepEqual([inclusive.excludingGst, inclusive.gst, inclusive.includingGst], ['1000.00', '100.00', '1100.00']);
+  // 0.5 cents of GST rounds up, as on the page.
   const exclusive = await tool.execute({ amount: '0.05' });
   assert.deepEqual([exclusive.excludingGst, exclusive.gst, exclusive.includingGst], ['0.05', '0.01', '0.06']);
 });

@@ -805,3 +805,19 @@ test('GST page registers a read-only WebMCP tool only where the browser offers m
   expect(result).toMatchObject({ name: 'calculate_gst', readOnly: true,
     output: { excludingGst: '1000.00', gst: '100.00', includingGst: '1100.00' } });
 });
+
+test('a failing WebMCP registration leaves the GST calculator working', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.addInitScript(() => {
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: () => { window.registrationAttempted = true; throw new TypeError('unsupported'); } },
+    });
+  });
+  await page.goto('/tools/business-calculators/gst/');
+  await page.waitForFunction(() => window.registrationAttempted);
+  await page.getByRole('spinbutton', { name: 'Amount (AUD)' }).fill('110');
+  await page.getByRole('button', { name: 'Calculate' }).click();
+  await expect(page.locator('form[data-calculator="gst"] output')).toContainText('GST: $11.00');
+  expect(errors).toEqual([]);
+});
