@@ -48,7 +48,7 @@ No. Payday Super changed the timing from that date: pay within 7 business days o
 
 The last increase was to 12% on 1 July 2025. Earlier steps were annual each 1 July: 11.5% (2024), 11% (2023), 10.5% (2022), 10% (2021).
 
-General reference only, not tax, legal, or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
+General reference only, not tax, legal or financial advice. Rates here reflect the ATO page as at the verification date above. Check current ATO guidance before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 

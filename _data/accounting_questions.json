@@ -1,5 +1,6 @@
 {
   "reviewed": "2026-09-11",
+  "facts_checked": "2026-09-24",
   "sources": {
     "returns": {
       "label": "Your tax return",
@@ -116,6 +117,98 @@
     "bas-source": {
       "label": "ATO business activity statements",
       "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas"
+    },
+    "ato-rates": {
+      "label": "Tax rates for Australian residents",
+      "url": "https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents"
+    },
+    "ato-lodge": {
+      "label": "Preparing your tax return",
+      "url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/before-you-prepare-your-tax-return/preparing-your-tax-return"
+    },
+    "wfh": {
+      "label": "Working from home fixed rate method",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/working-from-home-expenses/fixed-rate-method"
+    },
+    "cpk": {
+      "label": "Cents per kilometre rates on this site",
+      "url": "/rates/cents-per-kilometre/"
+    },
+    "tools-300": {
+      "label": "Assets costing $300 or less",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/depreciating-assets-you-use-for-work/assets-costing-300-dollars-or-less"
+    },
+    "iawo": {
+      "label": "Instant asset write-off",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off"
+    },
+    "psi-80": {
+      "label": "The PSI 80% rule",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb"
+    },
+    "ncl": {
+      "label": "Non-commercial losses",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss"
+    },
+    "gst-register": {
+      "label": "Registering for GST",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst"
+    },
+    "tax-invoice": {
+      "label": "Tax invoices",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/tax-invoices"
+    },
+    "bas-due": {
+      "label": "Due dates for lodging and paying your BAS",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas"
+    },
+    "gst-method": {
+      "label": "Choosing an accounting method for GST",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/accounting-for-gst-in-your-business/choosing-an-accounting-method"
+    },
+    "sg-rate": {
+      "label": "Super guarantee rate history on this site",
+      "url": "/rates/super-guarantee/"
+    },
+    "stp-final": {
+      "label": "End-of-year finalisation through STP",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp"
+    },
+    "nsw-payroll-rates": {
+      "label": "Payroll tax thresholds and rates, Revenue NSW",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates"
+    },
+    "records-5": {
+      "label": "Overview of record-keeping rules for business",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business"
+    },
+    "company-rate": {
+      "label": "Changes to company tax rates",
+      "url": "https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes"
+    },
+    "div7a-rate": {
+      "label": "Division 7A benchmark interest rate on this site",
+      "url": "/rates/div7a-benchmark-rate/"
+    },
+    "fbt-rate": {
+      "label": "FBT rate and gross-up rates on this site",
+      "url": "/rates/fbt-rate/"
+    },
+    "cgt-calc": {
+      "label": "How to calculate your CGT",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/calculating-your-cgt/how-to-calculate-your-cgt"
+    },
+    "crypto-cgt": {
+      "label": "Crypto asset transactions",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/transactions-acquiring-and-disposing-of-crypto-assets/crypto-asset-transactions"
+    },
+    "land-2026": {
+      "label": "Preparing for the 2026 land tax year, Revenue NSW",
+      "url": "https://www.revenue.nsw.gov.au/news-media-releases/preparing-for-the-2026-land-tax-year"
+    },
+    "coallsl": {
+      "label": "Coal LSL levy returns and payments",
+      "url": "https://coallsl.com.au/employer/administer-lsl/levy"
     }
   },
   "tools": {
@@ -198,6 +291,10 @@
     "wip": {
       "label": "Construction WIP schedule",
       "url": "/tools/wip-schedule/"
+    },
+    "coal": {
+      "label": "Coal LSL levy calculator",
+      "url": "/tools/coal-lsl-levy/"
     }
   },
   "topics": [
@@ -217,13 +314,13 @@
       "id": "business-setup",
       "label": "Starting a business",
       "reviewed": "2026-09-11",
-      "period": "Use the entity, activity, and income year being assessed."
+      "period": "Use the entity, activity and income year being assessed."
     },
     {
       "id": "gst-bas",
       "label": "GST and BAS",
       "reviewed": "2026-09-11",
-      "period": "Use the BAS period, GST accounting basis, and account due date being reviewed."
+      "period": "Use the BAS period, GST accounting basis and account due date being reviewed."
     },
     {
       "id": "payroll-super",
@@ -259,7 +356,7 @@
       "id": "investments-local",
       "label": "Investments and Newcastle",
       "reviewed": "2026-09-11",
-      "period": "Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified."
+      "period": "Use the relevant disposal, income or NSW assessment year. Newcastle fee ranges remain unverified."
     }
   ],
   "questions": [
@@ -274,7 +371,9 @@
       ],
       "boundary": "The linked experimental income tax worksheet excludes levies and offsets; check its supported years.",
       "source": "returns",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "For 2026-27, a resident pays no tax on the first $18,200, 15% from $18,201 to $45,000, 30% to $135,000, 37% to $190,000 and 45% above that, plus the 2% Medicare levy.",
+      "fact_source": "ato-rates"
     },
     {
       "id": 2,
@@ -326,7 +425,9 @@
       ],
       "boundary": "An agent's program or a particular account can have different dates from a general calendar.",
       "source": "returns",
-      "tool": ""
+      "tool": "",
+      "fact": "The income year runs from 1 July to 30 June. A return you lodge yourself is due by 31 October, quarterly BAS is due on 28 October, 28 February, 28 April and 28 July, and STP finalisation is due by 14 July.",
+      "fact_source": "ato-lodge"
     },
     {
       "id": 6,
@@ -383,15 +484,17 @@
     {
       "id": 10,
       "topic": "general-tax",
-      "question": "Which tax rules changed during 2025?",
-      "answer": "A calendar year change can affect different income years. For 2025, separate 2024-25 from 2025-26 before comparing rules.",
+      "question": "Which tax rules changed from 1 July 2026?",
+      "answer": "Most changes start on 1 July, so compare 2025-26 with 2026-27 rather than calendar years.",
       "steps": [
         "Use the ATO 'Before you prepare your tax return' guidance for each year.",
         "Record each changed rate or rule, effective date, source and affected calculation in a change log."
       ],
       "boundary": "An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.",
       "source": "returns",
-      "tool": ""
+      "tool": "",
+      "fact": "From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents.",
+      "fact_source": "ato-rates"
     },
     {
       "id": 11,
@@ -404,7 +507,9 @@
       ],
       "boundary": "Eligibility, rates and record requirements must be checked for the year; this site does not select the method for you.",
       "source": "deductions",
-      "tool": "use"
+      "tool": "use",
+      "fact": "Under the fixed rate method, you claim 70 cents for each hour you work from home in 2024-25 and 2025-26. The actual cost method is the alternative.",
+      "fact_source": "wfh"
     },
     {
       "id": 12,
@@ -430,7 +535,9 @@
       ],
       "boundary": "Vehicle type, ownership and entity structure can change which methods are available.",
       "source": "deductions",
-      "tool": "car"
+      "tool": "car",
+      "fact": "The cents per kilometre rate is 91 cents for 2026-27 (88 cents for 2024-25 and 2025-26), capped at 5,000 business kilometres per car. The logbook method has no kilometre cap but needs a valid logbook.",
+      "fact_source": "cpk"
     },
     {
       "id": 14,
@@ -469,7 +576,9 @@
       ],
       "boundary": "The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.",
       "source": "deductions",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million can write off each eligible asset costing less than $20,000.",
+      "fact_source": "tools-300"
     },
     {
       "id": 17,
@@ -521,7 +630,9 @@
       ],
       "boundary": "The ordinary depreciation worksheet does not determine instant asset write-off eligibility.",
       "source": "business",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "Yes, if your aggregated turnover is under $10 million and you use the simplified depreciation rules. You can deduct the full cost of each eligible asset costing less than $20,000 that is first used or installed ready for use in the year. The $20,000 limit applied in 2025-26 and is permanent from 1 July 2026.",
+      "fact_source": "iawo"
     },
     {
       "id": 21,
@@ -625,7 +736,9 @@
       ],
       "boundary": "An ABN or company structure does not by itself switch off the PSI rules.",
       "source": "business",
-      "tool": ""
+      "tool": "",
+      "fact": "For income that is mainly a reward for your personal effort or skill, the PSI rules apply when 80% or more of it comes from one client and its associates, unless you pass the results test or hold a personal services business determination.",
+      "fact_source": "psi-80"
     },
     {
       "id": 29,
@@ -651,7 +764,9 @@
       ],
       "boundary": "A loss in the accounts does not automatically offset salary in the tax return.",
       "source": "business",
-      "tool": ""
+      "tool": "",
+      "fact": "Only if you meet the non-commercial loss rules: your income for the income requirement must be under $250,000 and you must pass one of 4 tests, such as earning at least $20,000 of assessable income from the business. Otherwise the loss is deferred.",
+      "fact_source": "ncl"
     },
     {
       "id": 31,
@@ -677,7 +792,9 @@
       ],
       "boundary": "Taxi and ride-sourcing rules and other exceptions mean a general turnover threshold is not enough.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "Register within 21 days once your GST turnover reaches $75,000 ($150,000 for a non-profit). Taxi and ride-sourcing drivers must register whatever their turnover.",
+      "fact_source": "gst-register"
     },
     {
       "id": 33,
@@ -716,7 +833,9 @@
       ],
       "boundary": "Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer's identity or ABN.",
+      "fact_source": "tax-invoice"
     },
     {
       "id": 36,
@@ -743,7 +862,9 @@
       ],
       "boundary": "General quarterly dates can differ from the dates that apply to your account.",
       "source": "gst",
-      "tool": "cash"
+      "tool": "cash",
+      "fact": "Quarterly BAS is due on 28 October, 28 February, 28 April and 28 July. Monthly BAS is due on the 21st day of the following month. Payment is due by the same date.",
+      "fact_source": "bas-due"
     },
     {
       "id": 38,
@@ -756,7 +877,9 @@
       ],
       "boundary": "Changing a report setting in Xero does not by itself change the ATO accounting method.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "A business with aggregated turnover under $10 million can choose either the cash or the accrual basis for GST.",
+      "fact_source": "gst-method"
     },
     {
       "id": 39,
@@ -796,7 +919,9 @@
       "boundary": "The old quarterly SG worksheet does not establish current Payday Super entitlement.",
       "source": "super",
       "tool": "",
-      "keywords": "superannuation SG"
+      "keywords": "superannuation SG",
+      "fact": "The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2026 it is worked out on qualifying earnings, up to a maximum contribution base of $270,830 for 2026-27.",
+      "fact_source": "sg-rate"
     },
     {
       "id": 42,
@@ -810,7 +935,8 @@
       "boundary": "The timing tool needs the contribution amount supplied and the correct pathway selected.",
       "source": "super",
       "tool": "payday",
-      "keywords": "superannuation SG"
+      "keywords": "superannuation SG",
+      "fact": "Since 1 July 2026, the fund must receive the contribution within 7 business days of payday, or 20 business days for a first contribution to a new fund."
     },
     {
       "id": 43,
@@ -865,7 +991,9 @@
       "boundary": "An ordinary payroll submission and a finalisation declaration are different steps.",
       "source": "stp",
       "tool": "close",
-      "keywords": "STP"
+      "keywords": "STP",
+      "fact": "Make the STP finalisation declaration by 14 July each year.",
+      "fact_source": "stp-final"
     },
     {
       "id": 47,
@@ -891,7 +1019,9 @@
       ],
       "boundary": "Book payroll expense alone can omit taxable benefits, super or grouped wages.",
       "source": "nsw-payroll",
-      "tool": ""
+      "tool": "",
+      "fact": "For 2026-27, NSW payroll tax applies to taxable wages above $1,200,000 a year, at a rate of 5.45%.",
+      "fact_source": "nsw-payroll-rates"
     },
     {
       "id": 49,
@@ -917,7 +1047,9 @@
       ],
       "boundary": "Do not add ordinary paid leave again if it is already included in the annual salary.",
       "source": "finalpay",
-      "tool": "staff"
+      "tool": "staff",
+      "fact": "Start with wages plus the 12% super guarantee, then add leave, workers compensation, any payroll tax and other on-costs.",
+      "fact_source": "sg-rate"
     },
     {
       "id": 51,
@@ -982,7 +1114,9 @@
       ],
       "boundary": "Do not apply one blanket retention date to every document.",
       "source": "records",
-      "tool": ""
+      "tool": "",
+      "fact": "Keep most business records for 5 years. Keep records for depreciating assets and CGT assets until 5 years after you dispose of the asset.",
+      "fact_source": "records-5"
     },
     {
       "id": 56,
@@ -1049,7 +1183,7 @@
       "boundary": "The existing close pack supports review; it does not automatically approve journals or finalise accounts.",
       "source": "records",
       "tool": "close",
-      "example": "At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner, and the evidence needed to resolve it before completing the close."
+      "example": "At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner and the evidence needed to resolve it before completing the close."
     },
     {
       "id": 61,
@@ -1334,7 +1468,9 @@
       ],
       "boundary": "The example does not determine eligibility merely from accounting profit.",
       "source": "company",
-      "tool": "company-tool"
+      "tool": "company-tool",
+      "fact": "The 25% rate applies to a base rate entity: a company with aggregated turnover under $50 million and no more than 80% of its assessable income from base rate entity passive income. Other companies pay 30%.",
+      "fact_source": "company-rate"
     },
     {
       "id": 82,
@@ -1373,7 +1509,9 @@
       ],
       "boundary": "Eligibility, amalgamation and repayment classification must already have been reviewed.",
       "source": "div7a-source",
-      "tool": "div7a"
+      "tool": "div7a",
+      "fact": "The minimum yearly repayment uses the benchmark interest rate (8.77% for 2026-27 and 8.37% for 2025-26 for a 30 June year end), the unpaid balance and the remaining term. The maximum term is 7 years, or 25 years for a loan fully secured by a registered mortgage over real property.",
+      "fact_source": "div7a-rate"
     },
     {
       "id": 85,
@@ -1425,7 +1563,9 @@
       ],
       "boundary": "The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.",
       "source": "fbt-source",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "It can. A company car available for an employee's private use and payment of an employee's private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
+      "fact_source": "fbt-rate"
     },
     {
       "id": 89,
@@ -1490,7 +1630,9 @@
       ],
       "boundary": "A sale price minus purchase price calculation can omit material tax adjustments.",
       "source": "cgt",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount.",
+      "fact_source": "cgt-calc"
     },
     {
       "id": 94,
@@ -1503,7 +1645,9 @@
       ],
       "boundary": "The bounded worksheet assumes the gains, losses and discount eligibility have already been established.",
       "source": "cgt",
-      "tool": "tax"
+      "tool": "tax",
+      "fact": "Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount.",
+      "fact_source": "cgt-calc"
     },
     {
       "id": 95,
@@ -1516,7 +1660,9 @@
       ],
       "boundary": "The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.",
       "source": "crypto",
-      "tool": ""
+      "tool": "",
+      "fact": "Often, yes. Selling crypto or swapping one crypto asset for another is a CGT event, so a gain can be taxable.",
+      "fact_source": "crypto-cgt"
     },
     {
       "id": 96,
@@ -1555,20 +1701,24 @@
       ],
       "boundary": "Purchase price and one property's value alone do not establish the full land tax position.",
       "source": "land",
-      "tool": ""
+      "tool": "",
+      "fact": "For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000.",
+      "fact_source": "land-2026"
     },
     {
       "id": 99,
       "topic": "investments-local",
-      "question": "How much does an accountant or bookkeeper cost for a small business in Newcastle?",
-      "answer": "Compare written quotes for the same Newcastle bookkeeping or accounting scope. The research did not establish a reliable local fee range.",
+      "question": "Does a Hunter Valley coal mining employer pay the Coal LSL levy?",
+      "answer": "The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee's eligible wages for the month.",
       "steps": [
-        "Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.",
-        "Compare inclusions, software, GST, setup fees, review frequency and work charged separately."
+        "List each employee's role and check it against the Coal LSL eligible employee guidance.",
+        "Work out each eligible employee's eligible wages for the month using the section 3B formula that applies."
       ],
-      "boundary": "This personal open source site does not quote for professional engagements.",
-      "source": "tpb",
-      "tool": ""
+      "boundary": "The calculator does not decide whether an employee is eligible; it calculates the levy on the wages you supply.",
+      "source": "coallsl",
+      "tool": "coal",
+      "fact": "Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee's eligible wages every month.",
+      "keywords": "Newcastle Hunter coal mining long service leave levy"
     },
     {
       "id": 100,
@@ -1581,7 +1731,8 @@
       ],
       "boundary": "Location or software certification alone does not demonstrate the quality of advice or forecasting.",
       "source": "tpb",
-      "tool": ""
+      "tool": "",
+      "fact": "Before engaging anyone for tax work, check that they are listed on the Tax Practitioners Board register."
     }
   ]
 }

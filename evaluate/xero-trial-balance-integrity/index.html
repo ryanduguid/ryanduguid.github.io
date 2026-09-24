@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Xero trial balance integrity evaluation</title>
-  <meta name="description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
+  <meta name="description" content="Reproduce the Xero trial balance export integrity gate with fictional CSV fixtures and inspect the movement, YTD and human review boundaries." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Xero trial balance integrity evaluation" />
-  <meta property="og:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
+  <meta property="og:description" content="Reproduce the Xero trial balance export integrity gate with fictional CSV fixtures and inspect the movement, YTD and human review boundaries." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Xero trial balance integrity evaluation" />
-  <meta name="twitter:description" content="Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries." />
+  <meta name="twitter:description" content="Reproduce the Xero trial balance export integrity gate with fictional CSV fixtures and inspect the movement, YTD and human review boundaries." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260922.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/xero-trial-balance-integrity/" />
@@ -56,7 +56,7 @@
         </nav>
         <h1>Xero trial balance integrity evaluation</h1>
         <p class="lead-note">
-          Reproduce the offline movement and year-to-date integrity gate with 3 fabricated CSV fixtures, then inspect the exact results and human review boundary.
+          Reproduce the offline movement and year-to-date integrity gate with 3 fictional CSV fixtures, then inspect the exact results and human review boundary.
         </p>
         <p class="page-meta">Published 26 August 2026. Last reviewed 18 September 2026.</p>
       </header>
@@ -65,7 +65,7 @@
           <p>On this page</p>
           <a href="#accounting-problem">Accounting problem</a>
           <a href="#intended-reviewer">Intended reviewer</a>
-          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#fabricated-inputs">Fictional inputs</a>
           <a href="#reproduce">Reproduce</a>
           <a href="#expected-result">Expected result</a>
           <a href="#controls-triggered">Controls triggered</a>
@@ -86,7 +86,7 @@
             </div>
             <div>
               <dt>Evidence</dt>
-              <dd>Three fabricated fixtures isolate a passing file, a movement failure, and a YTD failure.</dd>
+              <dd>Three fictional fixtures isolate a passing file, a movement failure and a YTD failure.</dd>
             </div>
             <div>
               <dt>Result</dt>
@@ -94,7 +94,7 @@
             </div>
             <div>
               <dt>Limit</dt>
-              <dd>Balance does not prove completeness, classification, or approval.</dd>
+              <dd>Balance does not prove completeness, classification or approval.</dd>
             </div>
           </dl>
 
@@ -114,16 +114,16 @@
           </section>
 
           <section id="fabricated-inputs">
-            <h2>Fabricated inputs</h2>
+            <h2>Fictional inputs</h2>
             <p>
-              The 3 CSV files are fabricated output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
+              The 3 CSV files are fictional output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
             </p>
           </section>
 
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
             <p>
-              Needs Git and Python 3.10 or newer with pip; the commands are the same on Windows, macOS and Linux. Clone the Accounting Review Pipeline at tag xero-trial-balance-export/v0.1.6 (commit 3ae854911bf36f00bd3cc3eeafd1855848896629) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request, and write no output file.
+              Needs Git and Python 3.10 or newer with pip; the commands are the same on Windows, macOS and Linux. Clone the Accounting Review Pipeline at tag xero-trial-balance-export/v0.1.6 (commit 3ae854911bf36f00bd3cc3eeafd1855848896629) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request and write no output file.
             </p>
             <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>git clone --branch xero-trial-balance-export/v0.1.6 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline/packages/xero-trial-balance-export
@@ -141,7 +141,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
             <table class="facts">
               <thead>
                 <tr>
-                  <th scope="col">Fabricated fixture</th>
+                  <th scope="col">Fictional fixture</th>
                   <th scope="col">Expected result</th>
                 </tr>
               </thead>
@@ -152,11 +152,11 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
                 </tr>
                 <tr>
                   <th scope="row"><code>failing_movement.csv</code></th>
-                  <td>failing_movement.csv exits 1, identifies the movement pair, and reports Nothing written.</td>
+                  <td>failing_movement.csv exits 1, identifies the movement pair and reports Nothing written.</td>
                 </tr>
                 <tr>
                   <th scope="row"><code>failing_ytd.csv</code></th>
-                  <td>failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.</td>
+                  <td>failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing written.</td>
                 </tr>
               </tbody>
             </table>
@@ -197,7 +197,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="human-decision">
             <h2>Human decision</h2>
             <blockquote>
-              <p>A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment, and fitness for review.</p>
+              <p>A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment and fitness for review.</p>
             </blockquote>
             <p>The integrity result does not approve the export or replace professional review.</p>
           </section>
@@ -205,7 +205,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source data accuracy, reporting period suitability, or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+              This control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
             </p>
           </section>
 
@@ -232,7 +232,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
         "@id": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/#article",
         "url": "https://duguid.com.au/evaluate/xero-trial-balance-integrity/",
         "headline": "Xero trial balance integrity evaluation",
-        "description": "A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate using fabricated CSV fixtures.",
+        "description": "A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate using fictional CSV fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
         "dateModified": "2026-09-18",

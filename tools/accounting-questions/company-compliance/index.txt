@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
 Use the entity and relevant income or FBT year; linked tools have separate supported periods. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Companies and trusts
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -30,20 +30,26 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods.
 
-81. Does my company qualify for the lower company tax rate?
+81.
 
-Test the company's income and aggregated turnover conditions for the relevant year.
+### Does my company qualify for the lower company tax rate?
+
+The 25% rate applies to a base rate entity: a company with aggregated turnover under $50 million and no more than 80% of its assessable income from base rate entity passive income. Other companies pay 30%. Test the company's income and aggregated turnover conditions for the relevant year.
 
 - Reconcile taxable income, passive income categories and connected entity information.
 - Use the existing company tax example only after the inputs and applicable conditions have been established.
 
 The example does not determine eligibility merely from accounting profit.
 
-Corporate tax measures and assurance · Company tax and franking example
+Corporate tax measures and assurance · Changes to company tax rates · Company tax and franking example
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 81
 
-82. How should I record money paid to a director as wages, dividends or a loan?
+82.
+
+### How should I record money paid to a director as wages, dividends or a loan?
 
 Record a director payment according to its legal basis and supporting documents.
 
@@ -56,7 +62,9 @@ Corporate tax measures and assurance · Company tax and franking example
 
 Link to question 82
 
-83. Does taking money out of my company create a Division 7A problem?
+83.
+
+### Does taking money out of my company create a Division 7A problem?
 
 Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
@@ -69,20 +77,26 @@ Private company benefits - Division 7A dividends · Division 7A review case and 
 
 Link to question 83
 
-84. How do I calculate the minimum yearly repayment on a complying Division 7A loan?
+84.
 
-Use the minimum yearly repayment calculation for an established complying loan and the correct year.
+### How do I calculate the minimum yearly repayment on a complying Division 7A loan?
+
+The minimum yearly repayment uses the benchmark interest rate (8.77% for 2026-27 and 8.37% for 2025-26 for a 30 June year end), the unpaid balance and the remaining term. The maximum term is 7 years, or 25 years for a loan fully secured by a registered mortgage over real property. Use the minimum yearly repayment calculation for an established complying loan and the correct year.
 
 - Gather the relevant opening balance, benchmark rate, remaining term and qualifying repayments.
 - Reproduce the existing Division 7A case, then retain the inputs and compare required with actual qualifying repayments.
 
 Eligibility, amalgamation and repayment classification must already have been reviewed.
 
-Private company benefits - Division 7A dividends · Division 7A review case and limitations
+Private company benefits - Division 7A dividends · Division 7A benchmark interest rate on this site · Division 7A review case and limitations
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 84
 
-85. Which payments count as repayments of a Division 7A loan?
+85.
+
+### Which payments count as repayments of a Division 7A loan?
 
 Review the source, timing and surrounding arrangements for each proposed repayment.
 
@@ -95,7 +109,9 @@ Private company benefits - Division 7A dividends · Division 7A review case and 
 
 Link to question 85
 
-86. What must a family trust document before distributing income at year-end?
+86.
+
+### What must a family trust document before distributing income at year-end?
 
 Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
 
@@ -108,7 +124,9 @@ Trusts · Trust distributions example
 
 Link to question 86
 
-87. How do dividends and franking credits affect my tax return?
+87.
+
+### How do dividends and franking credits affect my tax return?
 
 Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
 
@@ -121,20 +139,26 @@ Investments and assets
 
 Link to question 87
 
-88. Does providing a company car or paying an employee's private expenses create FBT?
+88.
 
-Identify the benefit, recipient, private use and FBT year before valuing anything.
+### Does providing a company car or paying an employee's private expenses create FBT?
+
+It can. A company car available for an employee's private use and payment of an employee's private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
 
 The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.
 
-Fringe benefits tax (FBT) · Experimental tax worksheets and supported years
+Fringe benefits tax (FBT) · FBT rate and gross-up rates on this site · Experimental tax worksheets and supported years
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 88
 
-89. What information do I need to prepare an ATO payment plan proposal?
+89.
+
+### What information do I need to prepare an ATO payment plan proposal?
 
 Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
@@ -147,7 +171,9 @@ Paying the ATO · 13-week cash forecast
 
 Link to question 89
 
-90. Could my related businesses be grouped together for NSW payroll tax?
+90.
+
+### Could my related businesses be grouped together for NSW payroll tax?
 
 Assess the relationships between businesses against the NSW grouping rules.
 
@@ -170,7 +196,7 @@ Link to question 90
 - Management reporting
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -178,12 +204,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
+- Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
 - Link to question 81: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
 - Link to question 82: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
 - Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 83: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
+- Division 7A benchmark interest rate on this site: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Link to question 84: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
 - Link to question 85: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
 - Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
@@ -192,6 +220,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
 - Link to question 87: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
 - Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
+- FBT rate and gross-up rates on this site: https://duguid.com.au/rates/fbt-rate/
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 88: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato

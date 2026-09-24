@@ -50,7 +50,7 @@ It runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 Ap
 
 The lower Type 2 rate, whether or not the benefit itself was Type 1. The reporting threshold is a taxable value above $2,000, which grosses up to $3,773.
 
-General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 

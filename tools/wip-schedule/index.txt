@@ -12,19 +12,19 @@ Reference release the-wip-tally/v0.1.0, tagged source on GitHub. The worked exam
 
 Published 25 August 2026. Last reviewed 18 September 2026.
 
-Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims, and present each contract as an asset or a liability, never a portfolio net.
+Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
 
-This tool does the arithmetic. Install the Python engine, point it at a contract CSV, and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability, and any onerous-contract provision stay with a person. The subcontractor ledger skills own that workflow: they assemble the file and name this engine rather than inventing the numbers.
+This tool does the arithmetic. Install the Python engine, point it at a contract CSV and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability and any onerous-contract provision stay with a person. The subcontractor ledger skills own that workflow: they assemble the file and name this engine rather than inventing the numbers.
 
 ## What this tool does
 
 - Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin. Whether uninstalled materials qualify for that treatment depends on the applicable paragraph B19 conditions, so check them against the contract before relying on it; the fixed example below contains none.
-- Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.
+- Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice and never treats an uncertified claim as billing or entitlement.
 - Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.
 
 ## Worked example: a $50,000 contract asset
 
-This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.0. The test uses a reasonably measurable outcome, with no variations, waste, or uninstalled materials. All amounts below exclude GST.
+This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.0. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -32,7 +32,7 @@ This synthetic example comes from the cost-to-cost underbilling test in the-wip-
 
 Progress is $400,000 ÷ ($400,000 + $400,000) = 50%. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a $50,000 contract asset and no contract liability.
 
-A person must confirm that the recognition basis, contract terms, and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
+A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
 
 ### Reproduce this exact example
 
@@ -50,7 +50,7 @@ Expected: one passing test and exit 0. The test asserts the figures above. The b
 
 ## Limits
 
-This is an educational tool, not tax, legal, or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion, or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
+This is an educational tool, not tax, legal or financial advice, and using it creates no professional relationship. Outputs are not an accounting opinion, an audit conclusion or an AASB 15 determination. Confirm the operative compilation at standards.aasb.gov.au before citing a paragraph number, and leave sign-off with a registered practitioner.
 
 ## Get it
 
@@ -70,7 +70,7 @@ wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o
 
 Source on GitHub · Use it from the subcontractor workflows
 
-Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -88,7 +88,7 @@ No. Only the constrained slice (unapproved estimate multiplied by the include ra
 
 ### Is this an accounting determination?
 
-No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead.
+No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable and any AASB 137 onerous provision stay with the engagement lead.
 
 ## Related
 

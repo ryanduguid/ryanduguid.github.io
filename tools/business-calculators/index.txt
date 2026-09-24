@@ -19,7 +19,7 @@ Published 11 September 2026. Last reviewed 20 September 2026.
 - Margin and markup calculator Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 - Break-even sales calculator Whole units and sales required to cover fixed costs from price and variable cost per unit.
 - Hourly pricing calculator Required hourly rate before GST from annual costs, target profit and billable hours.
-- Budget variance calculator Actual minus budget, the percentage of absolute budget, and whether the difference is favourable or unfavourable.
+- Budget variance calculator Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 - Monthly loan payment calculator Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.

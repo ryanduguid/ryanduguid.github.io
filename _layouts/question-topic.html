@@ -53,9 +53,9 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p>One of ten topics in the <a href="/tools/accounting-questions/">100 Australian accounting questions</a>. Select questions here to build a checklist for this topic.</p>
+        <p>One of 10 topics in the <a href="/tools/accounting-questions/">100 Australian accounting questions</a>. Select questions here to build a checklist for this topic.</p>
         <p class="field-note">{{ topic.period | escape }} Tax guidance must match your year and circumstances.</p>
-        <p class="page-meta">Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}. Page updated 21 September 2026.</p>
+        <p class="page-meta">Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}. Page updated 24 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <div class="question-controls">
@@ -63,7 +63,7 @@
           <div class="form-grid">
             <label class="field" for="question-search">Search questions in {{ topic.label | escape }}<input type="search" id="question-search" name="q" autocomplete="off" aria-describedby="question-search-help" /></label>
           </div>
-          <p class="field-note" id="question-search-help">Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.</p>
+          <p class="field-note" id="question-search-help">Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.</p>
           <div class="accounting-actions">
             <button type="button" id="clear-filters">Clear filters</button>
             <button type="button" id="download-checklist" class="button" disabled>Download selected checklist</button>
@@ -82,15 +82,17 @@
           {% for question in questions %}
           {% assign source = site.data.accounting_questions.sources[question.source] %}
           {% assign tool = site.data.accounting_questions.tools[question.tool] %}
+          {% assign fact_source = site.data.accounting_questions.sources[question.fact_source] %}
           <details class="question" id="q{{ question.id }}"{% if question.keywords %} data-search-terms="{{ question.keywords | escape }}"{% endif %}>
-            <summary><span class="question-number">{{ question.id }}.</span> {{ question.question | escape }}</summary>
+            <summary><span class="question-number">{{ question.id }}.</span> <h3>{{ question.question | escape }}</h3></summary>
             <div class="question-answer">
-              <p>{{ question.answer | escape }}</p>
+              <p>{% if question.fact %}<strong>{{ question.fact | escape }}</strong> {% endif %}{{ question.answer | escape }}</p>
               <ol>{% for step in question.steps %}<li>{{ step | escape }}</li>{% endfor %}</ol>
               {% if question.example %}<div class="question-example"><p><strong>Fictional worked example</strong></p><p>{{ question.example | escape }}</p></div>{% endif %}
               <p class="question-boundary">{{ question.boundary | escape }}</p>
-              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
+              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if fact_source %} · <a href="{{ fact_source.url | escape }}">{{ fact_source.label | escape }}</a>{% endif %}{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
               <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Add to my checklist, question {{ question.id }}" /> Add to my checklist</label></p>
+              {% if question.fact %}<p class="field-note">The bold answer was checked on {{ site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}.</p>{% endif %}
               <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
             </div>
           </details>
@@ -100,7 +102,7 @@
         <nav class="question-topics" aria-label="Other topics"><ul>{% for other in site.data.accounting_questions.topics %}{% if other.id != topic.id %}
           <li><a href="/tools/accounting-questions/{{ other.id }}/">{{ other.label | escape }}</a></li>{% endif %}{% endfor %}
         </ul></nav>
-        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.</p>
+        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
       </div>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
@@ -122,7 +124,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-21",
+      "dateModified": "2026-09-24",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },
@@ -151,6 +153,21 @@
           "name": "{{ page.heading }}",
           "item": "https://duguid.com.au{{ page.url }}"
         }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au{{ page.url }}#questions",
+      "mainEntity": [{% for question in questions %}
+        {
+          "@type": "Question",
+          "name": "{{ question.question }}",
+          "url": "https://duguid.com.au{{ page.url }}#q{{ question.id }}",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "{% if question.fact %}{{ question.fact }} {% endif %}{{ question.answer }}"
+          }
+        }{% unless forloop.last %},{% endunless %}{% endfor %}
       ]
     }
   ]

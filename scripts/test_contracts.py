@@ -171,8 +171,8 @@ def test_geo_leftovers_surface() -> None:
     assert core.meta(coal, "property", "og:title") == coal_title
     assert core.meta(coal, "name", "twitter:title") == coal_title
     assert web_page(coal, "tools/coal-lsl-levy/index.html").get("name") == coal_title
-    assert web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified") == "2026-09-20"
-    assert "Last reviewed 20 September 2026." in core.visible_text(coal)
+    assert web_page(coal, "tools/coal-lsl-levy/index.html").get("dateModified") == "2026-09-24"
+    assert "Last reviewed 24 September 2026." in core.visible_text(coal)
 
     robots = read_text(ROOT, "robots.txt")
     assert (
@@ -238,7 +238,7 @@ def test_geo_leftovers_surface() -> None:
         hub_dates["rates/index.html"][1]
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/tools/coal-lsl-levy/", ROOT) == [
-        "2026-09-20"
+        "2026-09-24"
     ]
     assert core.sitemap_lastmods("https://duguid.com.au/evaluate/", ROOT) == [
         hub_dates["evaluate/index.html"][1]
@@ -380,7 +380,7 @@ def test_design_contracts() -> int:
         (
             "legal boundary drift",
             "index.html",
-            "Nothing here is tax, legal, or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.",
+            "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.",
             "Nothing here is tax, legal, or financial advice. Outputs need review.",
             "protected text count changed",
         ),
@@ -576,8 +576,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 23 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 23 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 24 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 24 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -674,7 +674,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "24 September 2026", "2026-09-24"),
         ("tools/index.html", "24 September 2026", "2026-09-24"),
-        ("evidence/index.html", "23 September 2026", "2026-09-23"),
+        ("evidence/index.html", "24 September 2026", "2026-09-24"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
@@ -858,7 +858,7 @@ def test_public_contracts() -> int:
         "cd github-agent-skills",
         "python scripts/validate_skills.py --strict",
         "github-agent-skills gives Codex and Claude Code the GitHub maintenance "
-        "workflows this portfolio uses, and keeps the fabricated-data and "
+        "workflows this portfolio uses, and keeps the fictional-data and "
         "human review boundaries.",
     )
     install_text = core.visible_text(read_text(ROOT, contracts.MCP_REL))
@@ -1100,7 +1100,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             "evaluate/xero-trial-balance-integrity/index.html",
-            "Balance does not prove completeness, classification, or approval.",
+            "Balance does not prove completeness, classification or approval.",
             "Balance does not prove every accounting conclusion.",
         )
         expect_failure(
@@ -1223,7 +1223,7 @@ def test_public_contracts() -> int:
             expected,
         )
 
-    payday_description = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result, and fund receipt decision."
+    payday_description = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision."
     short_payday_description = (
         "Check Payday Super timing from payroll exports and estimate the SG charge "
         "for review, with fund receipt status visible."
@@ -1688,7 +1688,27 @@ def test_llms_full_extraction() -> None:
     assert "first tool second tool together." in text, text
     assert "```\npip install thing\n    thing --as-at 2026-09-10\n```" in text, text
     assert "- one\n- two" in text, text
+    card = build_llms_full.main_text(
+        '<main><a href="/e/"><strong>Payday Super timing</strong>\n'
+        "<span>Reproduce the states.</span></a>"
+        '<p><a href="/r/">releases<span class="visually-hidden">, MCP</span></a>, and licence.</p></main>'
+    )
+    assert "Payday Super timing: Reproduce the states." in card, card
+    assert "releases, and licence." in card, card
     print("llms-full extraction passed")
+
+
+def test_question_faq_pairs() -> None:
+    """Question topic pages pair each summary h3 with its first answer paragraph."""
+    html = (
+        '<main><details class="question" id="q1"><summary><span class="question-number">1.</span> '
+        '<h3>When is BAS due?</h3></summary><div class="question-answer">'
+        "<p><strong>28 October.</strong> Use your account date.</p><ol><li>Step</li></ol>"
+        "</div></details></main>"
+    )
+    pairs = core.visible_faq_pairs(html)
+    assert pairs == [("When is BAS due?", "28 October. Use your account date.")], pairs
+    print("question FAQ pairs passed")
 
 
 def test_machine_index_copy() -> None:
@@ -2308,6 +2328,7 @@ def main() -> None:
     test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()
+    test_question_faq_pairs()
     test_consolidation_review_dates()
     test_current_component_metadata()
     test_parked_consultancy_surface()
