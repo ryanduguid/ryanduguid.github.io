@@ -21,6 +21,25 @@ snapshots. Lighthouse records repeat-run medians for the selected public
 journeys. Failure artefacts stay under ignored local output paths; do not
 commit them.
 
+## WebMCP pilot
+
+The GST calculator page offers one WebMCP tool, `calculate_gst`, to a
+browser's built-in agent through the draft
+[WebMCP](https://webmachinelearning.github.io/webmcp/) `modelContext` API.
+`assets/accounting-pages.mjs` imports `assets/webmcp-tools.mjs` only when the
+browser exposes `modelContext`, so other visitors download nothing extra. The
+tool is read-only: it calls the same `gst()` function as the form, reads no
+form state and sends nothing off the page. `scripts/webmcp-tools.test.mjs` and
+the WebMCP test in `tests/browser/calculator.spec.mjs` cover it.
+
+Chrome ships the API behind `chrome://flags/#enable-webmcp-testing` and an
+origin trial. No origin-trial token is committed; registering one is an
+account action for the site owner. Add further calculators to
+`calculatorTools()` only after the pilot has been tried with a real agent.
+Cloudflare's WebMCP toggle is a separate edge-injected bridge and stays off:
+its packs cover image provenance and a same-origin `/mcp` endpoint, and this
+static site has neither.
+
 ## Portable GitHub maintenance workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries. Bootstrap <https://github.com/ryanduguid/github-agent-skills> locally with:
