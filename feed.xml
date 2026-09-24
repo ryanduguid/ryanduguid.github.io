@@ -15,6 +15,20 @@
     <summary>The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.</summary>
   </entry>
   <entry>
+    <title>The Australian tax tools for AI agents page now documents MCP release 0.2.7,...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-0bfd70a9ee1023bd</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.7</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7" />
+    <id>https://duguid.com.au/changelog/#entry-b94c60801ec42616</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.7.</summary>
+  </entry>
+  <entry>
     <title>The car limit page now explains which GST credits reduce the cost. Division 7...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-5bd23df290b6c72c</id>

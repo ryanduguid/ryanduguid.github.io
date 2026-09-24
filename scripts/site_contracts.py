@@ -65,8 +65,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-23"
-MCP_VISIBLE_REVIEW_DATE = "23 September 2026"
+MCP_REVIEW_DATE = "2026-09-24"
+MCP_VISIBLE_REVIEW_DATE = "24 September 2026"
 ASSURANCE_ANCHORS = {
     "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",
@@ -119,7 +119,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
         "Local MCP server for ATO benchmarks, Payday Super timing, limited Division 7A "
-        "review, six bounded tax worksheets, optional local Markdown search, and "
+        "review, seven bounded tax worksheets, optional local Markdown search, and "
         "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (
