@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 September 2026 | Copy edit on Home, About, Tools and Evaluations: repeated disclaimers removed, homepage headings made parallel without full stops, and negative amounts and percentages written one way.
 24 September 2026 | The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.
 22 September 2026 | The car limit page now explains which GST credits reduce the cost. Division 7A figures are qualified for companies with a 30 June year end, with guidance for substituted accounting periods. Workpaper Review Gate describes its released output safeguard. The machine index, tool source dates, financial year labels and Newcastle spelling were corrected, and generated text copies were refreshed.
