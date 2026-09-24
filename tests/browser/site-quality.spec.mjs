@@ -90,7 +90,9 @@ const representativeHeightBaseline = {
     // On 23 September the upstream details move below the contents into a
     // named section with normal body text. Navigation arrives sooner; the
     // page measures 8,062px. Keep the 234px guard for this readable layout.
-    ['/evidence/', 8296],
+    // On 25 September the XeroAPI command-line merge joins accepted upstream
+    // work. Chromium CI run 36020935294 measures 8,372px; keep the 234px guard.
+    ['/evidence/', 8606],
   ]),
   'desktop-chromium': new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -104,7 +106,9 @@ const representativeHeightBaseline = {
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
     // The same scoped privacy explanation measures 5,241px on desktop.
-    ['/evidence/', 5475],
+    // The XeroAPI command-line merge adds a paragraph: 5,563px in Chromium CI
+    // run 36020935294, plus the 234px guard.
+    ['/evidence/', 5797],
   ]),
 };
 
