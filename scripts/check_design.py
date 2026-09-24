@@ -32,8 +32,8 @@ SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
-TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260922" />'
-SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260922" />'
+TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260924" />'
+SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260924" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (

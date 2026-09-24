@@ -21,7 +21,7 @@ test('page content renders while the view script loads and then restores Machine
 });
 
 test('mobile view switch stays inside the header and clear of its links', async ({ page }) => {
-  for (const width of [320, 390]) {
+  for (const width of [288, 320, 390]) {
     await page.setViewportSize({ width, height: 844 });
     await page.goto('/privacy/');
     await page.locator('#browser-data').scrollIntoViewIfNeeded();

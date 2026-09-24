@@ -10,9 +10,9 @@ Check workpaper packs, explore cash shortfalls, and inspect the calculations.
 
 Explore the cash flow example Browse tools by accounting task
 
-A personal open source project by Ryan Duguid, an accountant in Newcastle who is not a registered tax agent or BAS agent. Not an accounting practice: every output is a review aid for a qualified professional.
+A personal open source project, not an accounting practice. Ryan Duguid is not a registered tax or BAS agent, and every output is a review aid for a qualified professional.
 
-Last reviewed 23 September 2026.
+Last reviewed 24 September 2026.
 
 ## Profit does not pay the next bill.
 
@@ -46,29 +46,7 @@ Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Micr
 
 See an Excel example
 
-## Worked examples
-
-Workpaper Review Gate / fabricated BAS pack
-
-### Find missing work before a BAS pack reaches the manager.
-
-The review gate flags missing ledgers and unfinished checks so the preparer can address them before manager review.
-
-GST control ledger
-
-Missing
-
-Preparer self-review
-
-Incomplete
-
-Blocking item
-
-Unresolved
-
-This fabricated pack is not ready for review. The corrected pack passes the configured checks; a manager still decides whether work may progress.
-
-See the sample findings
+## Worked example
 
 Coal LSL / synthetic result
 
@@ -171,7 +149,6 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
 - See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
-- See the sample findings: https://duguid.com.au/evaluate/manager-review-gate/#controls-triggered
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages

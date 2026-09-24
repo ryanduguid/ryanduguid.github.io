@@ -8,6 +8,13 @@
   <updated>2026-09-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The homepage drops a worked example that repeated a task row, lines its secti...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-4c562566b8be3a1f</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.</summary>
+  </entry>
+  <entry>
     <title>The Australian tax tools for AI agents page now documents MCP release 0.2.7,...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-0bfd70a9ee1023bd</id>
