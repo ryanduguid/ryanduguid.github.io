@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-22T00:00:00Z</updated>
+  <updated>2026-09-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The homepage drops a worked example that repeated a task row, lines its secti...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-4c562566b8be3a1f</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.</summary>
+  </entry>
   <entry>
     <title>The car limit page now explains which GST credits reduce the cost. Division 7...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

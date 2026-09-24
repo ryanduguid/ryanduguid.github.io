@@ -16,6 +16,17 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 24 September homepage pass removes the Workpaper Review Gate worked
+example, which repeated the third task row and the first adoption link, so
+the proof band keeps the one Coal LSL artefact under the heading 'Worked
+example'. The route sections drop their empty label column, which no page
+used after the route labels were removed, so every homepage heading starts on
+the shell edge with the hero heading and the task titles. The view switch
+moves from the bottom-right corner into the sticky header at every width,
+where it no longer covers page text while scrolling; above the 56rem collapse
+the header reserves its width beside the navigation. The hero boundary note
+stays in the first viewport and says the same thing in fewer words.
+
 The 22 September landing-page refinement retains pure dark mode at Ryan's
 request. The headline is 'Open source tools for Australian accountants'.
 It caps at 60px at the default text size; mobile
@@ -491,7 +502,7 @@ Motion communicates feedback and location only.
 
 ### Header
 
-The header is sticky, one line and at most 72px tall. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
+The header is sticky, one line and at most 72px tall. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
 
 ### Footer
 

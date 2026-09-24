@@ -1209,27 +1209,11 @@ caption {
   padding-block: var(--space-7);
 }
 
-/* The header shares the entry template so its heading starts on the same
-   column edge as the task descriptions below it. */
+/* Section headings start on the shell edge with the hero heading and the
+   task titles, so the page reads as one grid. */
 .home-tool-preview > header {
-  display: grid;
-  grid-template-columns: minmax(9rem, 0.45fr) minmax(14rem, 1fr) minmax(13rem, 0.8fr);
-  gap: var(--space-3) var(--space-5);
   padding-bottom: var(--space-5);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
-}
-
-.home-tool-preview > header .technical-label {
-  grid-row: 1 / span 2;
-}
-
-.home-tool-preview > header > :not(.technical-label) {
-  grid-column: 2 / -1;
-}
-
-.home-tool-preview > header p:not(.technical-label) {
-  max-width: var(--reading-width);
-  color: var(--colour-ink-soft);
 }
 
 .home-tool-preview__list {
@@ -1270,26 +1254,10 @@ caption {
 
 .route-section {
   display: grid;
-  grid-template-columns: minmax(9rem, 12rem) minmax(0, 1fr);
-  gap: clamp(var(--space-6), 5vw, var(--space-9));
+  gap: var(--space-5);
   align-items: start;
   padding-block: var(--space-6);
   border-top: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-/* The route word is a label for the column, not the section heading; the
-   statement in the content column is the h2 so the outline descends. */
-.route-section > .route-label {
-  color: var(--colour-ink);
-  font-family: var(--font-display);
-  font-size: var(--text-heading-small);
-  font-weight: 600;
-  line-height: var(--leading-heading);
-  letter-spacing: var(--tracking-heading);
-}
-
-.route-section > :not(.route-label) {
-  grid-column: 2;
 }
 
 .route-content {
@@ -2205,9 +2173,16 @@ input[type="checkbox"] {
   .site-header__inner {
     display: grid;
     grid-template-columns: 1fr;
+    grid-template-rows: minmax(2.75rem, auto) auto;
     gap: var(--space-1);
     align-content: center;
     padding-block: var(--space-2);
+  }
+
+  /* The home link keeps its own width so the view switch beside it never
+     sits over its target. */
+  .site-identity {
+    width: fit-content;
   }
 
   .site-nav {
@@ -2255,18 +2230,6 @@ input[type="checkbox"] {
     position: static;
   }
 
-  .home-tool-preview > header {
-    grid-template-columns: 1fr;
-  }
-
-  .home-tool-preview > header .technical-label {
-    grid-row: auto;
-  }
-
-  .home-tool-preview > header > :not(.technical-label) {
-    grid-column: auto;
-  }
-
   .home-tool-preview__entry {
     /* Task labels run to four words, so the first column holds two words a
        line at this width rather than breaking every heading into three. */
@@ -2275,19 +2238,6 @@ input[type="checkbox"] {
 
   .home-tool-preview__entry > a {
     grid-column: 2;
-  }
-
-  .route-section {
-    grid-template-columns: 1fr;
-    gap: var(--space-5);
-  }
-
-  .route-section > :not(.route-label) {
-    grid-column: 1;
-  }
-
-  .route-section > .route-label {
-    white-space: normal;
   }
 
   .more-index__links {
@@ -2446,11 +2396,6 @@ input[type="checkbox"] {
   .adoption-links > a,
   .credential-register > div {
     gap: var(--space-2);
-  }
-
-  .proof-feature__copy .credential-register > div {
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: baseline;
   }
 
   /* Stacked, the badge sits above the record instead of beside it. The facts
@@ -2656,11 +2601,9 @@ input[type="checkbox"] {
   font-size: var(--text-body);
 }
 
-/* Human/Machine view switch, matching the requested Cloudflare Connect control. */
-html[data-view-mode] .site-footer__inner {
-  padding-bottom: calc(80px + env(safe-area-inset-bottom));
-}
-
+/* Human/Machine view switch, matching the requested Cloudflare Connect
+   control. It sits in the sticky header at every width, on the shell's right
+   edge, so it never covers page text while scrolling. */
 .view-mode[hidden],
 .machine-view[hidden],
 .machine-view [hidden] {
@@ -2669,8 +2612,8 @@ html[data-view-mode] .site-footer__inner {
 
 .view-mode {
   position: fixed;
-  right: var(--gutter);
-  bottom: max(20px, env(safe-area-inset-bottom));
+  top: calc((var(--header-height) - 52px) / 2);
+  right: max(var(--gutter), calc((100% - var(--site-width)) / 2));
   z-index: 60;
   display: inline-flex;
   align-items: center;
@@ -2785,10 +2728,17 @@ html[data-view-mode="machine"] body {
   overflow-wrap: anywhere;
 }
 
-@media (max-width: 40rem) {
+/* The 52px switch leaves the nav room beside it in the one-row header. */
+@media (min-width: 56.0625rem) {
+  .site-header__inner {
+    padding-inline-end: calc(168px + var(--space-5));
+  }
+}
+
+/* The two-row header holds a flat 44px switch on the identity row. */
+@media (max-width: 56rem) {
   .view-mode {
-    top: 0;
-    bottom: auto;
+    top: var(--space-2);
     padding: 0;
     border: 0;
     outline: 1px solid var(--colour-mode-rule);
@@ -2801,6 +2751,12 @@ html[data-view-mode="machine"] body {
 
   .skip-link {
     z-index: 70;
+  }
+}
+
+@media (max-width: 40rem) {
+  .view-mode {
+    top: 0;
   }
 }
 
