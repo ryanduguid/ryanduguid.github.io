@@ -49,6 +49,7 @@ CHECKS = (
     ("node", "--test", "scripts/home-levy.test.mjs"),
     ("node", "--test", "scripts/stamp-source-freshness.test.mjs"),
     ("node", "--test", "scripts/check_production.test.mjs"),
+    ("node", "--test", "scripts/check_ato_sources.test.mjs"),
 )
 
 
