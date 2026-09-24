@@ -628,7 +628,7 @@ def _self_check() -> None:
         "https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001",
         403,
     ), "exact ATO LCR 2026/2 HTTP 403 must be an accepted automation denial"
-    assert not is_accepted_automation_denial("https://www.ato.gov.au/about-us/", 403), (
+    assert not is_accepted_automation_denial("https://www.ato.gov.au/about-ato", 403), (
         "an ATO path HTTP 403 must still fail"
     )
     assert not is_accepted_automation_denial("https://www.ato.gov.au/", 404), (
