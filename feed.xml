@@ -8,6 +8,13 @@
   <updated>2026-09-24T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Australian tax tools for AI agents page now documents MCP release 0.2.8,...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-dab587d7d8a82c65</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.</summary>
+  </entry>
+  <entry>
     <title>Copy edit across the site: no serial comma, 'fictional' in place of 'fabricat...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-3aff16a7be076792</id>
@@ -48,6 +55,13 @@
     <id>https://duguid.com.au/changelog/#entry-0bfd70a9ee1023bd</id>
     <updated>2026-09-24T00:00:00Z</updated>
     <summary>The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.8</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8" />
+    <id>https://duguid.com.au/changelog/#entry-ce8eb4efc453c9f9</id>
+    <updated>2026-09-24T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.8.</summary>
   </entry>
   <entry>
     <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.7</title>

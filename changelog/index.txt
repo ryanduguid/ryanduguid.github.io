@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
 24 September 2026 | Copy edit across the site: no serial comma, 'fictional' in place of 'fabricated', NSW in place of New South Wales, Evidence in the first person, minus signs for negative amounts and plainer sentences on Home, About, Evaluations, Privacy and Payday Super.
 24 September 2026 | Each of the 100 accounting questions is now a heading, and 28 answers open with a figure checked on 24 September 2026 at the ATO, Revenue NSW or Coal LSL. Question 10 now covers the 1 July 2026 changes, question 99 covers the Coal LSL levy, and each topic page publishes FAQ structured data.
 24 September 2026 | The cash flow chart on the homepage and the cash flow example was re-exported from the workbook with larger text, plus a narrower version for phones, so its axis labels and callouts are readable at the size the page shows them. The figures are unchanged.
@@ -41,6 +42,7 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
@@ -59,6 +61,7 @@ Published 30 August 2026. Last reviewed 24 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7

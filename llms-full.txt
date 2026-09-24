@@ -3421,9 +3421,9 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.7, the current published release, verified 24 September 2026. Tagged source and release record on GitHub.
+Reference release v0.2.8, the current published release, verified 24 September 2026. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 24 September 2026. This review verifies the 0.2.7 release, which pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5 and adds a PAYG withholding worksheet; network boundaries remain unchanged.
+Published 25 August 2026. Last reviewed 24 September 2026. This review verifies the 0.2.8 release, which keeps the 0.2.8 engine pins (ato-benchmark-compare 0.1.9, australian-tax-calculators 0.1.5), ranks local legislation search results best first and reads long provisions in parts; network boundaries remain unchanged.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3449,7 +3449,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.7 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -3464,12 +3464,12 @@ Each engine's source review and release record state what was checked. Verify cu
 With uv installed, run the published demonstration without configuring an AI client:
 
 ```
-uvx --from aus-accounting-mcp==0.2.7 aus-accounting-mcp-demo
+uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo
 ```
 
 Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent's behaviour.
 
-The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.7 package. Its full output includes the engine's caveats; retain those with any extracted result.
+The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.8 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
 ## Adopt
 
@@ -3525,7 +3525,7 @@ python scripts/validate_skills.py --strict
 
 A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
 
-The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.7, and each evaluation keeps the release it was run against.
+The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
 The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
@@ -3539,7 +3539,7 @@ The calculation engines and MCP server run locally. Installation downloads packa
 
 The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
-Published MCP 0.2.7 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
+Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
 Not tax, legal or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
@@ -3590,7 +3590,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
+- Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3598,7 +3598,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md#supported-periods
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.7/apps/aus-accounting-mcp/README.md#tools
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/README.md#tools
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
@@ -3774,6 +3774,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
 24 September 2026 | Copy edit across the site: no serial comma, 'fictional' in place of 'fabricated', NSW in place of New South Wales, Evidence in the first person, minus signs for negative amounts and plainer sentences on Home, About, Evaluations, Privacy and Payday Super.
 24 September 2026 | Each of the 100 accounting questions is now a heading, and 28 answers open with a figure checked on 24 September 2026 at the ATO, Revenue NSW or Coal LSL. Question 10 now covers the 1 July 2026 changes, question 99 covers the Coal LSL levy, and each topic page publishes FAQ structured data.
 24 September 2026 | The cash flow chart on the homepage and the cash flow example was re-exported from the workbook with larger text, plus a narrower version for phones, so its axis labels and callouts are readable at the size the page shows them. The figures are unchanged.
@@ -3802,6 +3803,7 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
@@ -3820,6 +3822,7 @@ Published 30 August 2026. Last reviewed 24 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
