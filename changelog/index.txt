@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.
 22 September 2026 | The car limit page now explains which GST credits reduce the cost. Division 7A figures are qualified for companies with a 30 June year end, with guidance for substituted accounting periods. Workpaper Review Gate describes its released output safeguard. The machine index, tool source dates, financial year labels and Newcastle spelling were corrected, and generated text copies were refreshed.
 22 September 2026 | The homepage now leads with Open source tools for Australian accountants and gives clearer starting points for accounting tasks. Mobile links gained larger touch targets and layouts support enlarged text. Pure dark mode remains, with brighter homepage text, a smaller headline, sentence-case labels and simpler dividers. Unnecessary hyphens were removed across the site, stylesheet URLs were refreshed, and all five messaging preview cards were updated.
 20 September 2026 | Actions from the 20 September GEO audit: Evaluations joined the primary navigation; the Privacy page states which AI crawlers may fetch and cite and which training crawlers are disallowed; llm-tax-guardrails is labelled an external GitHub guide, not a site tool, on the refusals page and in the machine-readable index; the index review date moved to 20 September and lists the Atom feed, which the homepage now advertises.
@@ -35,6 +36,7 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
 20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 7 September 2026 | Subcontract ledger skills | v0.2.1
@@ -47,11 +49,12 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 22 September 2026.
+Published 30 August 2026. Last reviewed 24 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
