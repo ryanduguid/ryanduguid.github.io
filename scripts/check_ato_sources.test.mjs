@@ -54,13 +54,19 @@ test('error statuses, removed pages and missing results fail', () => {
   const missing = { ...ok('same'), metadata: { statusCode: 404, sourceURL: PAGE } };
   assert.match(classify(PAGE, missing).failure, /HTTP 404/);
   assert.match(classify(PAGE, ok('removed')).failure, /removed/);
-  assert.match(classify(PAGE, undefined).failure, /no result/);
+  assert.match(classify(PAGE, undefined).failure, /could not read/);
   assert.match(classify(PAGE, { metadata: { statusCode: 200 } }).failure, /no change tracking/);
 });
 
 test('a redirect that still resolves is a note, not a failure', () => {
   const moved = { ...ok('same'), metadata: { statusCode: 200, sourceURL: PAGE, url: `${PAGE}-2026` } };
   assert.deepEqual(classify(PAGE, moved), { note: `${PAGE}: now resolves to ${PAGE}-2026` });
+});
+
+test('a redirect that only drops the trailing slash is silent', () => {
+  const slashed = 'https://www.ato.gov.au/tax-rates-and-codes/';
+  const doc = { ...ok('same'), metadata: { statusCode: 200, sourceURL: slashed, url: slashed.slice(0, -1) } };
+  assert.deepEqual(classify(slashed, doc), {});
 });
 
 test('an echoed URL with other encoding still matches', () => {
