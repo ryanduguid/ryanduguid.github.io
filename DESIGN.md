@@ -633,6 +633,8 @@ facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
 
+The 24 September 2026 skills inventory update records that the australian-accounting-skills default branch now carries 55 skills, 36 of them additions to release v0.2.1, after four new workflows merged (working from home deductions, ATO penalties and interest, Division 293 and Division 296). The subcontractor-ledgers FAQ and the AI agents comparison no longer say the skills never hold a rate: some skills now record figures a person reviewed, with effective dates, as a cross-check against the live source. The subcontractor-ledgers JSON-LD digest, the llms.txt digest and the generated machine views record these authorised edits. Release pins, rates pages and disclaimers are unchanged.
+
 The 16 September 2026 Xero credential pass publishes the certificate Xero issued
 to Ryan, with the individual Level 3 badge taken from that certificate, as one
 record under Identity and credentials at `/evidence/#xero-certification`. The
@@ -666,7 +668,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `A98E343E7E0521AD68664C3C0FF8D7E52B9FE00605658C095151C1348898AF8F`
+- `llms.txt`: SHA-256 `A3220736650D45DDF64B54792E745674458E7550A925E7862F2652627DD04396`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
