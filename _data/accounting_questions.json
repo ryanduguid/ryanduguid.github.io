@@ -373,7 +373,9 @@
       "source": "returns",
       "tool": "tax",
       "fact": "For 2026-27, a resident pays no tax on the first $18,200, 15% from $18,201 to $45,000, 30% to $135,000, 37% to $190,000 and 45% above that, plus the 2% Medicare levy.",
-      "fact_source": "ato-rates"
+      "fact_sources": [
+        "ato-rates"
+      ]
     },
     {
       "id": 2,
@@ -427,7 +429,9 @@
       "source": "returns",
       "tool": "",
       "fact": "The income year runs from 1 July to 30 June. A return you lodge yourself is due by 31 October, quarterly BAS is due on 28 October, 28 February, 28 April and 28 July, and STP finalisation is due by 14 July.",
-      "fact_source": "ato-lodge"
+      "fact_sources": [
+        "ato-lodge"
+      ]
     },
     {
       "id": 6,
@@ -494,7 +498,12 @@
       "source": "returns",
       "tool": "",
       "fact": "From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents.",
-      "fact_source": "ato-rates"
+      "fact_sources": [
+        "ato-rates",
+        "super",
+        "iawo",
+        "cpk"
+      ]
     },
     {
       "id": 11,
@@ -509,7 +518,9 @@
       "source": "deductions",
       "tool": "use",
       "fact": "Under the fixed rate method, you claim 70 cents for each hour you work from home in 2024-25 and 2025-26. The actual cost method is the alternative.",
-      "fact_source": "wfh"
+      "fact_sources": [
+        "wfh"
+      ]
     },
     {
       "id": 12,
@@ -537,7 +548,9 @@
       "source": "deductions",
       "tool": "car",
       "fact": "The cents per kilometre rate is 91 cents for 2026-27 (88 cents for 2024-25 and 2025-26), capped at 5,000 business kilometres per car. The logbook method has no kilometre cap but needs a valid logbook.",
-      "fact_source": "cpk"
+      "fact_sources": [
+        "cpk"
+      ]
     },
     {
       "id": 14,
@@ -578,7 +591,10 @@
       "source": "deductions",
       "tool": "tax",
       "fact": "An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million can write off each eligible asset costing less than $20,000.",
-      "fact_source": "tools-300"
+      "fact_sources": [
+        "tools-300",
+        "iawo"
+      ]
     },
     {
       "id": 17,
@@ -632,7 +648,9 @@
       "source": "business",
       "tool": "tax",
       "fact": "Yes, if your aggregated turnover is under $10 million and you use the simplified depreciation rules. You can deduct the full cost of each eligible asset costing less than $20,000 that is first used or installed ready for use in the year. The $20,000 limit applied in 2025-26 and is permanent from 1 July 2026.",
-      "fact_source": "iawo"
+      "fact_sources": [
+        "iawo"
+      ]
     },
     {
       "id": 21,
@@ -738,7 +756,9 @@
       "source": "business",
       "tool": "",
       "fact": "For income that is mainly a reward for your personal effort or skill, the PSI rules apply when 80% or more of it comes from one client and its associates, unless you pass the results test or hold a personal services business determination.",
-      "fact_source": "psi-80"
+      "fact_sources": [
+        "psi-80"
+      ]
     },
     {
       "id": 29,
@@ -766,7 +786,9 @@
       "source": "business",
       "tool": "",
       "fact": "Only if you meet the non-commercial loss rules: your income for the income requirement must be under $250,000 and you must pass one of 4 tests, such as earning at least $20,000 of assessable income from the business. Otherwise the loss is deferred.",
-      "fact_source": "ncl"
+      "fact_sources": [
+        "ncl"
+      ]
     },
     {
       "id": 31,
@@ -794,7 +816,9 @@
       "source": "gst",
       "tool": "",
       "fact": "Register within 21 days once your GST turnover reaches $75,000 ($150,000 for a non-profit). Taxi and ride-sourcing drivers must register whatever their turnover.",
-      "fact_source": "gst-register"
+      "fact_sources": [
+        "gst-register"
+      ]
     },
     {
       "id": 33,
@@ -835,7 +859,9 @@
       "source": "gst",
       "tool": "",
       "fact": "If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer's identity or ABN.",
-      "fact_source": "tax-invoice"
+      "fact_sources": [
+        "tax-invoice"
+      ]
     },
     {
       "id": 36,
@@ -864,7 +890,9 @@
       "source": "gst",
       "tool": "cash",
       "fact": "Quarterly BAS is due on 28 October, 28 February, 28 April and 28 July. Monthly BAS is due on the 21st day of the following month. Payment is due by the same date.",
-      "fact_source": "bas-due"
+      "fact_sources": [
+        "bas-due"
+      ]
     },
     {
       "id": 38,
@@ -879,7 +907,9 @@
       "source": "gst",
       "tool": "",
       "fact": "A business with aggregated turnover under $10 million can choose either the cash or the accrual basis for GST.",
-      "fact_source": "gst-method"
+      "fact_sources": [
+        "gst-method"
+      ]
     },
     {
       "id": 39,
@@ -921,7 +951,9 @@
       "tool": "",
       "keywords": "superannuation SG",
       "fact": "The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2026 it is worked out on qualifying earnings, up to a maximum contribution base of $270,830 for 2026-27.",
-      "fact_source": "sg-rate"
+      "fact_sources": [
+        "sg-rate"
+      ]
     },
     {
       "id": 42,
@@ -993,7 +1025,9 @@
       "tool": "close",
       "keywords": "STP",
       "fact": "Make the STP finalisation declaration by 14 July each year.",
-      "fact_source": "stp-final"
+      "fact_sources": [
+        "stp-final"
+      ]
     },
     {
       "id": 47,
@@ -1021,7 +1055,9 @@
       "source": "nsw-payroll",
       "tool": "",
       "fact": "For 2026-27, NSW payroll tax applies to taxable wages above $1,200,000 a year, at a rate of 5.45%.",
-      "fact_source": "nsw-payroll-rates"
+      "fact_sources": [
+        "nsw-payroll-rates"
+      ]
     },
     {
       "id": 49,
@@ -1049,7 +1085,9 @@
       "source": "finalpay",
       "tool": "staff",
       "fact": "Start with wages plus the 12% super guarantee, then add leave, workers compensation, any payroll tax and other on-costs.",
-      "fact_source": "sg-rate"
+      "fact_sources": [
+        "sg-rate"
+      ]
     },
     {
       "id": 51,
@@ -1116,7 +1154,9 @@
       "source": "records",
       "tool": "",
       "fact": "Keep most business records for 5 years. Keep records for depreciating assets and CGT assets until 5 years after you dispose of the asset.",
-      "fact_source": "records-5"
+      "fact_sources": [
+        "records-5"
+      ]
     },
     {
       "id": 56,
@@ -1470,7 +1510,9 @@
       "source": "company",
       "tool": "company-tool",
       "fact": "The 25% rate applies to a base rate entity: a company with aggregated turnover under $50 million and no more than 80% of its assessable income from base rate entity passive income. Other companies pay 30%.",
-      "fact_source": "company-rate"
+      "fact_sources": [
+        "company-rate"
+      ]
     },
     {
       "id": 82,
@@ -1511,7 +1553,9 @@
       "source": "div7a-source",
       "tool": "div7a",
       "fact": "The minimum yearly repayment uses the benchmark interest rate (8.77% for 2026-27 and 8.37% for 2025-26 for a 30 June year end), the unpaid balance and the remaining term. The maximum term is 7 years, or 25 years for a loan fully secured by a registered mortgage over real property.",
-      "fact_source": "div7a-rate"
+      "fact_sources": [
+        "div7a-rate"
+      ]
     },
     {
       "id": 85,
@@ -1565,7 +1609,9 @@
       "source": "fbt-source",
       "tool": "tax",
       "fact": "It can. A company car available for an employee's private use and payment of an employee's private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
-      "fact_source": "fbt-rate"
+      "fact_sources": [
+        "fbt-rate"
+      ]
     },
     {
       "id": 89,
@@ -1632,7 +1678,9 @@
       "source": "cgt",
       "tool": "tax",
       "fact": "The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount.",
-      "fact_source": "cgt-calc"
+      "fact_sources": [
+        "cgt-calc"
+      ]
     },
     {
       "id": 94,
@@ -1647,7 +1695,9 @@
       "source": "cgt",
       "tool": "tax",
       "fact": "Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount.",
-      "fact_source": "cgt-calc"
+      "fact_sources": [
+        "cgt-calc"
+      ]
     },
     {
       "id": 95,
@@ -1662,7 +1712,9 @@
       "source": "crypto",
       "tool": "",
       "fact": "Often, yes. Selling crypto or swapping one crypto asset for another is a CGT event, so a gain can be taxable.",
-      "fact_source": "crypto-cgt"
+      "fact_sources": [
+        "crypto-cgt"
+      ]
     },
     {
       "id": 96,
@@ -1703,7 +1755,9 @@
       "source": "land",
       "tool": "",
       "fact": "For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000.",
-      "fact_source": "land-2026"
+      "fact_sources": [
+        "land-2026"
+      ]
     },
     {
       "id": 99,

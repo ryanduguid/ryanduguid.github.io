@@ -120,7 +120,7 @@ An employee can deduct the work-related share of an item costing $300 or less st
 
 The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
 
-Deductions you can claim · Assets costing $300 or less · Experimental tax worksheets and supported years
+Deductions you can claim · Assets costing $300 or less · Instant asset write-off · Experimental tax worksheets and supported years
 
 The bold answer was checked on 24 September 2026.
 
@@ -215,6 +215,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
 - Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
 - Assets costing $300 or less: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/depreciating-assets-you-use-for-work/assets-costing-300-dollars-or-less
+- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
 - Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
@@ -222,7 +223,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
-- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/

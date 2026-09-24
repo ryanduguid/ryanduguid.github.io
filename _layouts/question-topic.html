@@ -82,7 +82,6 @@
           {% for question in questions %}
           {% assign source = site.data.accounting_questions.sources[question.source] %}
           {% assign tool = site.data.accounting_questions.tools[question.tool] %}
-          {% assign fact_source = site.data.accounting_questions.sources[question.fact_source] %}
           <details class="question" id="q{{ question.id }}"{% if question.keywords %} data-search-terms="{{ question.keywords | escape }}"{% endif %}>
             <summary><span class="question-number">{{ question.id }}.</span> <h3>{{ question.question | escape }}</h3></summary>
             <div class="question-answer">
@@ -90,7 +89,7 @@
               <ol>{% for step in question.steps %}<li>{{ step | escape }}</li>{% endfor %}</ol>
               {% if question.example %}<div class="question-example"><p><strong>Fictional worked example</strong></p><p>{{ question.example | escape }}</p></div>{% endif %}
               <p class="question-boundary">{{ question.boundary | escape }}</p>
-              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% if fact_source %} · <a href="{{ fact_source.url | escape }}">{{ fact_source.label | escape }}</a>{% endif %}{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
+              <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% for key in question.fact_sources %}{% assign fact_source = site.data.accounting_questions.sources[key] %} · <a href="{{ fact_source.url | escape }}">{{ fact_source.label | escape }}</a>{% endfor %}{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
               <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Add to my checklist, question {{ question.id }}" /> Add to my checklist</label></p>
               {% if question.fact %}<p class="field-note">The bold answer was checked on {{ site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}.</p>{% endif %}
               <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
@@ -161,11 +160,11 @@
       "mainEntity": [{% for question in questions %}
         {
           "@type": "Question",
-          "name": "{{ question.question }}",
+          "name": {{ question.question | jsonify }},
           "url": "https://duguid.com.au{{ page.url }}#q{{ question.id }}",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "{% if question.fact %}{{ question.fact }} {% endif %}{{ question.answer }}"
+            "text": {% if question.fact %}{{ question.fact | append: " " | append: question.answer | jsonify }}{% else %}{{ question.answer | jsonify }}{% endif %}
           }
         }{% unless forloop.last %},{% endunless %}{% endfor %}
       ]

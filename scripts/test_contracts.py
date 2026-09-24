@@ -1691,10 +1691,13 @@ def test_llms_full_extraction() -> None:
     card = build_llms_full.main_text(
         '<main><a href="/e/"><strong>Payday Super timing</strong>\n'
         "<span>Reproduce the states.</span></a>"
-        '<p><a href="/r/">releases<span class="visually-hidden">, MCP</span></a>, and licence.</p></main>'
+        '<p><a href="/r/">releases<span class="visually-hidden">, MCP</span></a>, and licence.</p>'
+        "<p>Copy <code>.claude/skills/</code> for Claude Code.</p></main>"
     )
     assert "Payday Super timing: Reproduce the states." in card, card
+    assert "- Payday Super timing: Reproduce the states.: https://" in card, card
     assert "releases, and licence." in card, card
+    assert "Copy .claude/skills/ for Claude Code." in card, card
     print("llms-full extraction passed")
 
 

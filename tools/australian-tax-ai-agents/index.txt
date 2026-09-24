@@ -110,7 +110,7 @@ cd github-agent-skills
 python scripts/validate_skills.py --strict
 ```
 
-A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy.claude/skills/ for Claude Code or.agents/skills/ for Codex into that project's matching directory.
+A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.7, and each evaluation keeps the release it was run against.
 

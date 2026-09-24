@@ -160,8 +160,8 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Xero trial balance integrity : Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
-- Payday Super timing : Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Xero trial balance integrity: Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Payday Super timing: Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Payday Super receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - About Ryan Duguid: https://duguid.com.au/about/
 - Source on GitHub: https://github.com/ryanduguid
@@ -1814,7 +1814,7 @@ Last reviewed 24 September 2026.
 
 ## Start with what you came to do
 
-Understand why profit and cash differ:A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy:Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review:See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel:Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.
+Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
@@ -2054,10 +2054,10 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 
 ## Links
 
-- Understand why profit and cash differ : A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Calculate a Coal LSL levy : Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
-- Check a BAS pack before manager review : See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- Use accounting functions in Excel : Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
+- Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
+- Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
+- Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
@@ -2155,8 +2155,8 @@ The 2 BLOCKED rows, one for the movement totals and one for the YTD totals, set 
 The Xero trial balance CSV export release xero-trial-balance-export/v0.1.6 refuses to write a file when the month movement or the year-to-date columns do not balance. The evaluation runner calls the same check_balanced gate the exporter uses, against the shared contract fixtures, without a Xero tenant.
 
 Fixture | Output | Human step
-failing_movement.csv | WARNING: movement debits 1,200.00!= credits 1,199.99 (diff 0.01), then Nothing written, exit 1 | Rerun the report from Xero and check the source before anything is written.
-failing_ytd.csv | WARNING: YTD debits 15,234.50!= credits 15,234.49 (diff 0.01), then Nothing written, exit 1 | As above. A one-cent difference is still a refusal.
+failing_movement.csv | WARNING: movement debits 1,200.00 != credits 1,199.99 (diff 0.01), then Nothing written, exit 1 | Rerun the report from Xero and check the source before anything is written.
+failing_ytd.csv | WARNING: YTD debits 15,234.50 != credits 15,234.49 (diff 0.01), then Nothing written, exit 1 | As above. A one-cent difference is still a refusal.
 
 ## Payday Super timing
 
@@ -3521,7 +3521,7 @@ cd github-agent-skills
 python scripts/validate_skills.py --strict
 ```
 
-A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy.claude/skills/ for Claude Code or.agents/skills/ for Codex into that project's matching directory.
+A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy .claude/skills/ for Claude Code or .agents/skills/ for Codex into that project's matching directory.
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.7, and each evaluation keeps the release it was run against.
 
@@ -4453,7 +4453,7 @@ From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally 
 
 An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
 
-Your tax return · Tax rates for Australian residents
+Your tax return · Tax rates for Australian residents · Payday Super for employers · Instant asset write-off · Cents per kilometre rates on this site
 
 The bold answer was checked on 24 September 2026.
 
@@ -4494,6 +4494,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 7: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
 - Link to question 8: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
 - Link to question 9: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
+- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
+- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
+- Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -4629,7 +4632,7 @@ An employee can deduct the work-related share of an item costing $300 or less st
 
 The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
 
-Deductions you can claim · Assets costing $300 or less · Experimental tax worksheets and supported years
+Deductions you can claim · Assets costing $300 or less · Instant asset write-off · Experimental tax worksheets and supported years
 
 The bold answer was checked on 24 September 2026.
 
@@ -4724,6 +4727,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
 - Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
 - Assets costing $300 or less: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/depreciating-assets-you-use-for-work/assets-costing-300-dollars-or-less
+- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
 - Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
@@ -4731,7 +4735,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
-- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/

@@ -40,8 +40,8 @@ The 2 BLOCKED rows, one for the movement totals and one for the YTD totals, set 
 The Xero trial balance CSV export release xero-trial-balance-export/v0.1.6 refuses to write a file when the month movement or the year-to-date columns do not balance. The evaluation runner calls the same check_balanced gate the exporter uses, against the shared contract fixtures, without a Xero tenant.
 
 Fixture | Output | Human step
-failing_movement.csv | WARNING: movement debits 1,200.00!= credits 1,199.99 (diff 0.01), then Nothing written, exit 1 | Rerun the report from Xero and check the source before anything is written.
-failing_ytd.csv | WARNING: YTD debits 15,234.50!= credits 15,234.49 (diff 0.01), then Nothing written, exit 1 | As above. A one-cent difference is still a refusal.
+failing_movement.csv | WARNING: movement debits 1,200.00 != credits 1,199.99 (diff 0.01), then Nothing written, exit 1 | Rerun the report from Xero and check the source before anything is written.
+failing_ytd.csv | WARNING: YTD debits 15,234.50 != credits 15,234.49 (diff 0.01), then Nothing written, exit 1 | As above. A one-cent difference is still a refusal.
 
 ## Payday Super timing
 

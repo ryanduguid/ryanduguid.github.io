@@ -152,8 +152,8 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
 - Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Xero trial balance integrity : Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
-- Payday Super timing : Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
+- Xero trial balance integrity: Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- Payday Super timing: Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
 - Payday Super receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - About Ryan Duguid: https://duguid.com.au/about/
 - Source on GitHub: https://github.com/ryanduguid
