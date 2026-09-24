@@ -440,7 +440,7 @@ test('home proof image loads only when requested and decodes before capture', as
   // The mobile breakpoint serves the 390-CSS-px render at twice the density
   // so the ledger text stays legible; wider viewports keep the desktop asset.
   const expectedNatural = testInfo.project.name === 'mobile-chromium'
-    ? { width: 780, height: 1232 }
+    ? { width: 780, height: 1280 }
     : { width: 868, height: 580 };
   expect(await proof.evaluate((image) => ({
     width: image.naturalWidth,

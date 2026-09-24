@@ -67,7 +67,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const expectedOutput = `social-card-${id}-20260922.png`;
+    const expectedOutput = `social-card-${id}-20260924.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
     }
@@ -138,9 +138,9 @@ async function loadSources() {
   const [template, data, serif, sans, mono] = await Promise.all([
     readFile(TEMPLATE_PATH, 'utf8'),
     readFile(DATA_PATH, 'utf8'),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSerif-SemiBold-Latin1.woff2')),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexSans-Regular-Latin1.woff2')),
-    readFile(path.join(ASSETS, 'fonts', 'IBMPlexMono-Regular-Latin1.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'Besley-SemiBold.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'PublicSans-Regular.woff2')),
+    readFile(path.join(ASSETS, 'fonts', 'SplineSansMono-Regular.woff2')),
   ]);
   return {
     template,
@@ -197,9 +197,9 @@ export async function renderSocialCards(browser, outputDirectory) {
       );
       await page.evaluate(() => document.fonts.ready);
       const fontsReady = await page.evaluate(() => (
-        document.fonts.check('64px "IBM Plex Serif"')
-        && document.fonts.check('28px "IBM Plex Sans"')
-        && document.fonts.check('24px "IBM Plex Mono"')
+        document.fonts.check('60px "Besley"')
+        && document.fonts.check('28px "Public Sans"')
+        && document.fonts.check('24px "Spline Sans Mono"')
       ));
       if (!fontsReady) throw new Error(`${card.id} fonts did not load`);
       const bounds = await page.locator('svg').boundingBox();

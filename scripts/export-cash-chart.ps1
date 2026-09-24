@@ -4,8 +4,8 @@
 # to 45 days in memory, adds a line chart from the stored chart's SERIES
 # formulas, styles it with the site tokens and exports a PNG. The workbook is
 # closed without saving, so its hash never changes. Colours are read from
-# assets/tokens.css so the chart follows the palette. IBM Plex Sans must be
-# installed for the user running Excel.
+# assets/tokens.css so the chart follows the palette. Public Sans (the site
+# body face) must be installed for the user running Excel.
 #
 # Usage, from the repository root with Excel closed, once per variant:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant wide
@@ -32,7 +32,7 @@ $root = Resolve-Path (Join-Path $PSScriptRoot '..')
 $src = Join-Path $root 'assets\examples\lumbridge\lumbridge.xlsx'
 $out = Join-Path $root "assets\examples\lumbridge\$($layout.File)"
 $tokensPath = Join-Path $root 'assets\tokens.css'
-$fontName = 'IBM Plex Sans'
+$fontName = 'Public Sans'
 
 if (Get-Process EXCEL -ErrorAction SilentlyContinue) {
   throw 'Excel is already running; refusing to attach to a live instance.'

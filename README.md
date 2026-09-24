@@ -56,7 +56,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 - every styled page discovers design tokens before component CSS, and every indexable page links to its own plain-text alternate and the machine-readable index
 - every styled page carries the Content Security Policy meta tag and the 4 font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
-- official self-hosted IBM Plex subsets retain their licence, hashes, visible-glyph coverage and byte budget
+- the self-hosted Besley, Public Sans and Spline Sans Mono subsets retain their licences, hashes, visible-glyph coverage and byte budget
 - contextual social cards retain their fixed copy, dimensions, byte budget, deterministic render and recorded provenance
 - the shipped favicon rasters and `favicon.ico` match a fresh render of `assets/favicon.svg`, and every styled page declares the shipped 48px and 96px icons
 
@@ -191,8 +191,9 @@ records the scenario, source and image hashes, renderer, and refresh procedure.
 The 5 contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 The current cards use dated filenames so preview crawlers receive a fresh image
-URL after a redesign. The previous undated PNGs remain available for existing
-links; current page metadata points only to the dated cards. Rebuild the cards
+URL after a redesign. Earlier cards (the undated PNGs and the `-20260922` set)
+remain available for existing links; current page metadata points only to the
+`-20260924` cards. Rebuild the cards
 with `node scripts/render-social-cards.mjs`, inspect all 5 outputs and update
 the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
@@ -202,11 +203,11 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site-20260922.png` | `506ccb1c53e0dbd2f6f5b6cca754a6d3fc1bee9595c304d2ed4cd2fab6f9888d` |
-| `assets/social-card-tools-20260922.png` | `9a3d5851a81190b81982d6ece515b8321b4ce98a004e41c0e4bdcdfd5907dd9c` |
-| `assets/social-card-evaluations-20260922.png` | `9d0acd2b4ae15ec9be0ea475a7cf632c8f7b380e8ae449bfa09bb81393215222` |
-| `assets/social-card-rates-20260922.png` | `91ef2d4ced969cc172022264f6af9a29030512d4bf653e51c55133f313d1cfeb` |
-| `assets/social-card-evidence-20260922.png` | `f5bafedc7b836da7b43286ad3628ddeaa9a05dc8d47ec949fc4e02157793a552` |
+| `assets/social-card-site-20260924.png` | `cd43706d273f3ddd8b3ff990327f4e2928234534e0821a2c56e50746ed4cdf02` |
+| `assets/social-card-tools-20260924.png` | `e3318e6d53d7aca9e7dbc8d2aff5db4da4d50b9f60d50e42d9c4697c77235cfb` |
+| `assets/social-card-evaluations-20260924.png` | `fd39f8c839aff770271403d5fbf94513df697325eb76f2aeb3800ae07267400d` |
+| `assets/social-card-rates-20260924.png` | `14a80b6e29d1fbb1a28b87dddad2e8460509aed28ed68988c1f6bc8ae69ca7bc` |
+| `assets/social-card-evidence-20260924.png` | `9b6f07dcc944c2c1d5b7c22404a5300bf8ce5fec7f7899df6c570289ff217242` |
 
 ## Favicon provenance
 
@@ -242,9 +243,9 @@ note records what evidence a Payroll or Migration badge would need first.
 
 MIT, see [LICENSE](LICENSE), for this repository's own code and text.
 
-The MIT grant does not extend to third-party material published here. The IBM
-Plex subsets under `assets/fonts/` keep the SIL Open Font License 1.1 in
-`assets/fonts/OFL.txt`. The certificate and badge under `assets/credentials/`
+The MIT grant does not extend to third-party material published here. The Besley,
+Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
+Open Font License 1.1 in one `assets/fonts/OFL-*.txt` file per family. The certificate and badge under `assets/credentials/`
 are Xero's document and artwork, published as a factual record of Ryan Duguid's
 own certification under the terms in `assets/credentials/SOURCES.md`, and carry
 no Xero endorsement of this site or its tools.

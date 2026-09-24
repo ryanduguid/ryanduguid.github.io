@@ -51,7 +51,7 @@ the checks described below, not a claim of WCAG conformance.
 
 ## Inspected visual baselines
 
-Each snapshot first loads the bundled IBM Plex faces, then reloads from the
+Each snapshot first loads the bundled webfont faces, then reloads from the
 warm browser cache. This makes the production `font-display: optional` choice
 deterministic on local and hosted Windows runners without changing that choice.
 

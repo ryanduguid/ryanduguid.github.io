@@ -1,12 +1,14 @@
 {
   "fonts": {
-    "assets/fonts/IBMPlexMono-Regular-Latin1.woff2": "10d3c7fa7eaf48e78db24f317b64f008a75e00f63a68bb3c2afc6ef51e58674f",
-    "assets/fonts/IBMPlexSans-Italic-Latin1.woff2": "0a06b98143f3453b81f3c396241a01c6c4cff84c1a77bf0c75b18bd603018506",
-    "assets/fonts/IBMPlexSans-Regular-Latin1.woff2": "b5ad7bd39f996144915f0ad9849a90183b27d8c28ad97ed98af5b1bebc51f6b1",
-    "assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2": "fff0ab3a88b0b4aa0b693e4f0201359a15183b08e3fa5696d1918d8f0ade8ad5",
-    "assets/fonts/IBMPlexSerif-Regular-Latin1.woff2": "6ebe5b7a2bbe864712e0d87a785a77ebde8a58d940d6163c1f03c6ffab1cd9a9",
-    "assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2": "1d34d4612be8d2f06a25858a8bc3c3c3b5c4ec0ee1285501c3a4df2ddace7afa",
-    "assets/fonts/OFL.txt": "d741e57d5f865e294df801f96b7b5161a88b211df65887e4358d271c9fc5fb4f"
+    "assets/fonts/Besley-Regular.woff2": "e1982597e2d86dec08f97d4e9d1a40a97561e6b0a822766160e8694a0c31c251",
+    "assets/fonts/Besley-SemiBold.woff2": "a433942cb02f9fd5bfbb5ae3baa3b3dda7e4e7ea36f606ca985b57227c24c97b",
+    "assets/fonts/OFL-Besley.txt": "9bbf5945da8d86ae19ce9e08a8e5941ec6f892682d15fa9dfa2bfab59e7dffe1",
+    "assets/fonts/OFL-PublicSans.txt": "157a9e77f7580246e97c769490e2e977ae94399f9d30f4556015c41fe8c28bac",
+    "assets/fonts/OFL-SplineSansMono.txt": "4abb88162e4c0c5f9fc6c2f15d7085f7b7e27fd89f541a13488e1bcb829bde3f",
+    "assets/fonts/PublicSans-Italic.woff2": "ebea90dd407072e3b438d94ddf6947d453506be4e081591042d93d77b1010a0d",
+    "assets/fonts/PublicSans-Regular.woff2": "74166ad25684c75ad08a310cf8206a828173672f247c688aa14aa0bf494526c0",
+    "assets/fonts/PublicSans-SemiBold.woff2": "ccba2be7061fd162129c8d8531ce8847a24a8624ed9037130261863f0dc6eb19",
+    "assets/fonts/SplineSansMono-Regular.woff2": "fb46f2156e5c972c585cc2e4086f54b239a5ec4ff470e46210985bd57f8c6570"
   },
   "json_ld": {
     "about/index.html": [

@@ -32,7 +32,7 @@ SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
-TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260924" />'
+TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260924b" />'
 SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260924" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
@@ -49,14 +49,14 @@ CSP_META = (
 )
 FONT_PRELOADS = {
     face: (
-        f'<link rel="preload" href="/assets/fonts/{face}-Latin1.woff2" '
+        f'<link rel="preload" href="/assets/fonts/{face}.woff2" '
         'as="font" type="font/woff2" crossorigin />'
     )
     for face in (
-        "IBMPlexSerif-SemiBold",
-        "IBMPlexSans-Regular",
-        "IBMPlexMono-Regular",
-        "IBMPlexSans-SemiBold",
+        "Besley-SemiBold",
+        "PublicSans-Regular",
+        "SplineSansMono-Regular",
+        "PublicSans-SemiBold",
     )
 }
 SCRIPT_OPEN_PATTERN = re.compile(r"<script\b([^>]*)>", re.I)
@@ -434,7 +434,7 @@ def check_font_delivery(root: Path, tokens_css: str, baseline: dict[str, Any]) -
         raw = path.read_text(encoding="utf-8")
         uses_symbol_font = uses_symbol_font or LAMBDA_MARKUP in raw
         # Only this explicitly styled glyph uses the native maths font.
-        # Unmarked symbols and script-generated text still need Plex coverage.
+        # Unmarked symbols and script-generated text still need webfont coverage.
         rendered_text.append(core.raw_text(raw.replace(LAMBDA_MARKUP, "")))
         rendered_text.extend(script_contents(raw))
     if uses_symbol_font:
