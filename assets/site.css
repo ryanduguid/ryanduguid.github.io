@@ -2517,6 +2517,11 @@ input[type="checkbox"] {
     background: var(--colour-print-paper);
   }
 
+  /* The portrait's light ink would vanish on paper; invert it to dark characters. */
+  .about-portrait {
+    filter: invert(1);
+  }
+
   .skip-link,
   .site-header,
   .site-footer,
