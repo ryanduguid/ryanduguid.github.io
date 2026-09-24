@@ -271,13 +271,15 @@ Last reviewed 25 September 2026.
 
 ## Accepted upstream work
 
-OpenAccountants and Meltano accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
+OpenAccountants, Meltano and XeroAPI accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
 
 OpenAccountants, tax guides for coding agents. Pull request 85 restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.
 
 Meltano SDK, a framework for Singer taps and targets. Pull request 3727 retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.
 
-Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, rerun the evaluations.
+Xero command line, XeroAPI's command-line tool for the Xero Accounting API. Pull request 44 passes the --standard-layout and --payments-only flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so --standard-layout returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.
+
+Merge status and file counts were read from the GitHub API on 25 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, rerun the evaluations.
 
 ## Identity and credentials
 
@@ -371,6 +373,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 - Pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
 - Pull request 3727: https://github.com/meltano/sdk/pull/3727
+- Pull request 44: https://github.com/XeroAPI/xero-command-line/pull/44
 - rerun the evaluations: https://duguid.com.au/evaluate/
 - SAP S/4HANA Financial Accounting Credly badge: https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - SAP S/4HANA Management Accounting Credly badge: https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
@@ -3737,6 +3740,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+25 September 2026 | The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
 24 September 2026 | Copy edit across the site: no serial comma, 'fictional' in place of 'fabricated', NSW in place of New South Wales, Evidence in the first person, minus signs for negative amounts and plainer sentences on Home, About, Evaluations, Privacy and Payday Super.
 24 September 2026 | Each of the 100 accounting questions is now a heading, and 28 answers open with a figure checked on 24 September 2026 at the ATO, Revenue NSW or Coal LSL. Question 10 now covers the 1 July 2026 changes, question 99 covers the Coal LSL levy, and each topic page publishes FAQ structured data.

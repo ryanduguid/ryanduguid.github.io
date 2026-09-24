@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-24T00:00:00Z</updated>
+  <updated>2026-09-25T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The Evidence page adds a third accepted upstream change: XeroAPI merged a fix...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-f432bb56ef950102</id>
+    <updated>2026-09-25T00:00:00Z</updated>
+    <summary>The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.</summary>
+  </entry>
   <entry>
     <title>The Australian tax tools for AI agents page now documents MCP release 0.2.8,...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
