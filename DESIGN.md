@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 24 September About pass adds an ASCII portrait of Ryan to the About page
+header. It is a 200 by 112 character rendering of his own headshot, set in
+light ink on the black canvas, so it is neither stock nor generated imagery.
+From 56.0625rem it takes a right column of at most 26rem beside the statement
+and review line; below that it follows the review line at full column width.
+It ships as an SVG in an `img`, not inline text, so the characters stay out of
+`index.txt`, `llms-full.txt` and the accessibility tree, and the alt text names
+it. An image cannot load the site fonts, so each row is pinned with
+`textLength` and any fallback monospace font keeps the columns aligned.
+
 The 24 September chart pass re-exports the Lumbridge cash chart in two
 variants so its labels render at about 12px or more wherever the page shows
 it. The old export set 10 point text on a 1282-pixel image drawn at about
@@ -315,7 +325,7 @@ The 31 August 2026 refinement keeps the design read at
 - Five tool-led social contexts use one editable OLED register template for the
   site, tools, evaluations, rates and evidence. The development-only Playwright
   renderer emits static PNGs; the public pages have no renderer dependency and
-  the design contains no portrait.
+  the cards contain no portrait.
 
 The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
 Plex Serif as the display face; stamp green as the only accent; square register
