@@ -781,3 +781,27 @@ test('Formula B result matches the mobile visual baseline', async ({ page }, tes
   );
   health.assertHealthy();
 });
+
+test('GST page registers a read-only WebMCP tool only where the browser offers modelContext', async ({ page }) => {
+  const requests = [];
+  page.on('request', request => requests.push(request.url()));
+  await page.goto('/tools/business-calculators/gst/');
+  await expect(page.locator('form[data-calculator="gst"] fieldset')).toBeEnabled();
+  expect(requests.some(url => url.endsWith('/assets/webmcp-tools.mjs'))).toBe(false);
+
+  await page.addInitScript(() => {
+    window.registeredTools = [];
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: async tool => { window.registeredTools.push(tool); } },
+    });
+  });
+  await page.reload();
+  await page.waitForFunction(() => window.registeredTools.length === 1);
+  const result = await page.evaluate(async () => {
+    const [tool] = window.registeredTools;
+    return { name: tool.name, readOnly: tool.annotations.readOnlyHint,
+      output: await tool.execute({ amount: '1100', inclusive: true }) };
+  });
+  expect(result).toMatchObject({ name: 'calculate_gst', readOnly: true,
+    output: { excludingGst: '1000.00', gst: '100.00', includingGst: '1100.00' } });
+});
