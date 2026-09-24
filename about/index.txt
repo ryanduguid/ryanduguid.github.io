@@ -8,7 +8,7 @@ Source: https://duguid.com.au/about/
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.
+Last reviewed 24 September 2026. The 22 September review qualifies the Payday Super claim and checks the linked credential evidence.
 
 ## The short facts
 

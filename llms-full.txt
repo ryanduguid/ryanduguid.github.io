@@ -186,7 +186,7 @@ Source: https://duguid.com.au/about/
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.
+Last reviewed 24 September 2026. The 22 September review qualifies the Payday Super claim and checks the linked credential evidence.
 
 ## The short facts
 
@@ -513,7 +513,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 21 September 2026.
+Last reviewed 24 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -1810,7 +1810,7 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 22 September 2026.
+Last reviewed 24 September 2026.
 
 ## Start with what you came to do
 
@@ -2038,7 +2038,7 @@ Try an example Source code Last commit 21 September 2026
 
 Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fabricated data and keep the stated boundary in view.
 
-Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a figure that is sound only once you know what produced it.
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a result you should not take at face value.
 
 ## Workbooks and source
 

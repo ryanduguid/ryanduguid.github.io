@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 22 September 2026.
+Last reviewed 24 September 2026.
 
 ## Start with what you came to do
 
@@ -236,7 +236,7 @@ Try an example Source code Last commit 21 September 2026
 
 Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fabricated data and keep the stated boundary in view.
 
-Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a figure that is sound only once you know what produced it.
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a result you should not take at face value.
 
 ## Workbooks and source
 

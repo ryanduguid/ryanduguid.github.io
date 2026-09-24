@@ -12,7 +12,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 21 September 2026.
+Last reviewed 24 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
