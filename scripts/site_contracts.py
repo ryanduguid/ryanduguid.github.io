@@ -82,6 +82,7 @@ AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
+    "https://www.openaccountants.com/network/368408e7-bf06-431d-95a6-0b72e168ddeb",
 ]
 PERSON_REQUIRED_FIELDS = {
     "name": "Ryan Duguid",
