@@ -123,7 +123,7 @@ class FactCheckTests(unittest.TestCase):
         self.assertNotIn("No bill yet", html)
         self.assertNotIn("TBD means there is none", html)
         self.assertIn(
-            "does not establish whether a consultation draft, bill, or instrument exists", html
+            "does not establish whether a consultation draft, bill or instrument exists", html
         )
         self.assertIn("planning scenarios", html)
         self.assertNotIn("Nothing changes for the 2026-27", html)

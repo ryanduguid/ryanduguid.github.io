@@ -2,24 +2,24 @@
 
 Source: https://duguid.com.au/tools/workpaper-review-gate/
 
-> Gate a BAS, month-end, or year-end pack before a manager opens it. Incomplete, untied, or unbalanced files are sent back to the preparer.
+> Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.
 
 # Workpaper Review Gate for manager review packs
 
-This tool inspects a folder of workpapers and answers READY, NOT_READY, or BLOCKED. A missing GST control export, an unsigned self-review, or a trial balance that does not balance never reaches the manager.
+This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.1.7.
 
 Published 25 August 2026. Last reviewed 22 September 2026.
 
-Preparation got cheaper and review did not. Offshore teams, juniors, and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email, and the same error as last period.
+Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
 
-Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared, and that the trial balance balances. For a BAS pack, it also checks that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
+Point the CLI at a pack directory. It checks that the required artefacts are present, that the preparer has certified the pack, that blocking open items are cleared and that the trial balance balances. For a BAS pack, it also checks that 1A less 1B ties to the GST control movement. A READY pack may enter manager review. The tool still does not decide that the work is correct.
 
 ## What this tool does
 
-- Gates BAS, month-end, and year-end packs before they reach a reviewer.
-- Writes a cover sheet, a findings CSV, and a hashed JSON pack a manager can archive.
+- Gates BAS, month-end and year-end packs before they reach a reviewer.
+- Writes a cover sheet, a findings CSV and a hashed JSON pack a manager can archive.
 - Flags findings that were still OPEN on the prior pack as repeats.
 
 ## Limits
@@ -30,7 +30,7 @@ MIT-licensed utility code, no warranty. Not affiliated with or endorsed by the A
 
 ## Get it
 
-Run the two fabricated BAS packs and compare the expected findings. The fixed-release evaluation shows the failures to correct before READY, with no client files or Xero connection.
+Run the two fictional BAS packs and compare the expected findings. The fixed-release evaluation shows the failures to correct before READY, with no client files or Xero connection.
 
 Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
 
@@ -46,7 +46,7 @@ The output goes outside the clone on purpose. A readiness pack names a client's 
 
 Source on GitHub
 
-Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Common questions
 
@@ -60,11 +60,11 @@ No. Monthly Close Controls still produces the exception pack once a trial balanc
 
 ### Can it change a client's ledger?
 
-No. It reads local files and writes a readiness pack. It cannot post, pay, lodge, or lock a period.
+No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period.
 
 ## Related
 
-- Fabricated BAS evaluation and expected results
+- Fictional BAS evaluation and expected results
 - How to export a Xero trial balance to CSV that balances
 - Monthly Close Controls
 - What Workpaper Review Gate refuses
@@ -77,7 +77,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
 - review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
-- Run the two fabricated BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
+- Run the two fictional BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/

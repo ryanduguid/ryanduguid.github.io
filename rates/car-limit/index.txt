@@ -48,7 +48,7 @@ Passenger vehicles designed to carry a load of less than one tonne and fewer tha
 
 Generally one-eleventh of the car limit: $6,353 for 2026-27. Luxury car tax paid on the car is not creditable.
 
-General reference only, not tax, legal, or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
+General reference only, not tax, legal or financial advice. Figures here reflect the sources named above as at the verification date. Check current ATO guidance or the legislation before relying on a figure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 

@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Evidence and Assurance for Australian accounting tools</title>
-  <meta name="description" content="Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools." />
+  <meta name="description" content="Canonical evidence, assurance boundaries and inspectable records for Ryan Duguid's Australian computational accounting tools." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Evidence and Assurance for Australian accounting tools" />
-  <meta property="og:description" content="Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools." />
+  <meta property="og:description" content="Canonical evidence, assurance boundaries and inspectable records for Ryan Duguid's Australian computational accounting tools." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Evidence and Assurance for Australian accounting tools" />
-  <meta name="twitter:description" content="Canonical evidence, assurance boundaries, and inspectable records for Ryan Duguid's Australian computational accounting tools." />
+  <meta name="twitter:description" content="Canonical evidence, assurance boundaries and inspectable records for Ryan Duguid's Australian computational accounting tools." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evidence-20260922.png" />
   <meta name="twitter:image:alt" content="OLED register card: Claims linked to sources, releases, and tests." />
   <link rel="canonical" href="https://duguid.com.au/evidence/" />
@@ -54,18 +54,18 @@
           </ol>
         </nav>
         <h1>Evidence behind the tools</h1>
-        <p class="lead-note short-answer">This register links claims to identity records, releases, primary source reviews, repository controls, and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision, or a lodgement.</p>
-        <p class="page-meta">Last reviewed 23 September 2026.</p>
+        <p class="lead-note short-answer">This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.</p>
+        <p class="page-meta">Last reviewed 24 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
           <p>On this page</p>
           <a href="#accepted-upstream-work">Accepted upstream work</a>
           <a href="#identity-and-credentials">Identity and credentials</a>
-          <a href="#packages-releases-and-repositories">Packages, releases, and repositories</a>
+          <a href="#packages-releases-and-repositories">Packages, releases and repositories</a>
           <a href="#sources-and-review-dates">Sources and review dates</a>
           <a href="#data-and-privacy-boundary">Data and privacy boundary</a>
-          <a href="#security-tests-and-release-evidence">Security, tests, and release evidence</a>
+          <a href="#security-tests-and-release-evidence">Security, tests and release evidence</a>
           <a href="#human-accountability-and-refusals">Human accountability and refusals</a>
           <a href="#independent-evaluation">Published evaluations</a>
         </nav>
@@ -74,24 +74,23 @@
           <section aria-labelledby="accepted-upstream-work">
             <h2 id="accepted-upstream-work">Accepted upstream work</h2>
             <p>OpenAccountants and Meltano accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
-            <p><strong>OpenAccountants, tax guides for coding agents.</strong> <a href="https://github.com/OpenAccountants/openaccountants/pull/85">Pull request 85</a> restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Preventing stale sync runs from overwriting guides depends on the exporter calling those checks and on repository controls. That pull request deployed neither.</p>
+            <p><strong>OpenAccountants, tax guides for coding agents.</strong> <a href="https://github.com/OpenAccountants/openaccountants/pull/85">Pull request 85</a> restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.</p>
             <p><strong>Meltano SDK, a framework for Singer taps and targets.</strong> <a href="https://github.com/meltano/sdk/pull/3727">Pull request 3727</a> retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.</p>
-            <p class="field-note">Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. <a href="/evaluate/">Rerun the tool evaluations</a>.</p>
+            <p class="field-note">Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, <a href="/evaluate/">rerun the evaluations</a>.</p>
           </section>
 
           <section>
             <h2 id="identity-and-credentials">Identity and credentials</h2>
             <p>
-              Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
-              His 2 issuer-verifiable credential records are the
+              I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+              Two of my credentials can be verified with their issuer: the
               <a href="https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url">SAP S/4HANA Financial Accounting Credly badge</a>
               and the
-              <a href="https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url">SAP S/4HANA Management Accounting Credly badge</a>,
-              each hosted by the issuer and verifiable there. The Xero certification
-              below has no issuer-hosted verification page, so the certificate Xero
-              issued is published here instead and can be read in full.
+              <a href="https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url">SAP S/4HANA Management Accounting Credly badge</a>.
+              Xero has no public verification page for its certification, so I
+              publish the certificate Xero issued here in full.
               These credentials do not establish regulatory
-              approval, authorisation to provide a regulated service, or a client
+              approval, authorisation to provide a regulated service or a client
               outcome.
             </p>
             <div class="credential-card">
@@ -123,8 +122,8 @@
               </div>
             </div>
             <p>
-              That certificate records Ryan Duguid's own product knowledge for the
-              period shown. It is not a Xero endorsement, certification, or review of
+              The certificate records my own product knowledge for the
+              period shown. It is not a Xero endorsement, certification or review of
               this site or any tool listed here, and it is not a Xero partner status.
               The badge is Xero's artwork, taken from the certificate itself. Both
               files carry their own source and usage record, not this repository's
@@ -133,18 +132,18 @@
           </section>
 
           <section>
-            <h2 id="packages-releases-and-repositories">Packages, releases, and repositories</h2>
+            <h2 id="packages-releases-and-repositories">Packages, releases and repositories</h2>
             <p>
               Install commands are under <a href="/tools/australian-tax-ai-agents/#install">Adopt</a>.
-              The package, release, compatibility, and licence links below point
+              The package, release, compatibility and licence links below point
               to maintained records.
             </p>
             <ul>
-              <li><strong>Aus Accounting MCP:</strong> <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">MCP Registry<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting">repository<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/pyproject.toml">owned engine compatibility source</a>, and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/LICENSE">licence<span class="visually-hidden">, Aus Accounting MCP</span></a>.</li>
-              <li><strong>payday-super-checker:</strong> <a href="https://pypi.org/project/payday-super-checker/">PyPI<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">repository<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/RELEASE_NOTES.md">owned release records</a>, and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/LICENSE">licence<span class="visually-hidden">, payday-super-checker</span></a>.</li>
-              <li><strong>ATO benchmarks, trust distributions, and company tax:</strong> <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">ato-benchmark-compare repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, ato-benchmark-compare</span></a>, and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/LICENSE">licence<span class="visually-hidden">, ato-benchmark-compare</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword">Solomon's Sword repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, Solomon's Sword</span></a>, and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/LICENSE">licence<span class="visually-hidden">, Solomon's Sword</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally">The Exchequer Tally repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, The Exchequer Tally</span></a>, and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/LICENSE">licence<span class="visually-hidden">, The Exchequer Tally</span></a>.</li>
-              <li><strong>Agent skills and construction WIP:</strong> <a href="https://github.com/ryanduguid/australian-accounting-skills">Australian Accounting Skills</a>, <a href="https://github.com/ryanduguid/australian-accounting-skills/releases">releases<span class="visually-hidden">, Australian Accounting Skills</span></a>, and <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE">licence<span class="visually-hidden">, Australian Accounting Skills</span></a>; <a href="https://github.com/ryanduguid/australian-accounting-skills">Hardhat Ledger</a>, <a href="https://github.com/ryanduguid/australian-accounting-skills/releases">releases<span class="visually-hidden">, Hardhat Ledger</span></a>, and <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE">licence<span class="visually-hidden">, Hardhat Ledger</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally">TheWIPTally repository</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/LICENSE">licence<span class="visually-hidden">, TheWIPTally</span></a>.</li>
-              <li><strong>Xero export and Workpaper Review Gate:</strong> <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export">xero-trial-balance-export repository</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases">releases<span class="visually-hidden">, xero-trial-balance-export</span></a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/RELEASE_NOTES.md">owned release and compatibility record</a>, and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/LICENSE">licence<span class="visually-hidden">, xero-trial-balance-export</span></a>; <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Workpaper Review Gate repository</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md">owned release record</a>, and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/LICENSE">licence<span class="visually-hidden">, Workpaper Review Gate</span></a>.</li>
+              <li><strong>Aus Accounting MCP:</strong> <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">MCP Registry<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting">repository<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, Aus Accounting MCP</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/pyproject.toml">engine compatibility source</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/LICENSE">licence<span class="visually-hidden">, Aus Accounting MCP</span></a>.</li>
+              <li><strong>payday-super-checker:</strong> <a href="https://pypi.org/project/payday-super-checker/">PyPI<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">repository<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, payday-super-checker</span></a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/RELEASE_NOTES.md">release records</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/LICENSE">licence<span class="visually-hidden">, payday-super-checker</span></a>.</li>
+              <li><strong>ATO benchmarks, trust distributions and company tax:</strong> <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">ato-benchmark-compare repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, ato-benchmark-compare</span></a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/LICENSE">licence<span class="visually-hidden">, ato-benchmark-compare</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword">Solomon's Sword repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, Solomon's Sword</span></a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/LICENSE">licence<span class="visually-hidden">, Solomon's Sword</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally">The Exchequer Tally repository</a>, <a href="https://github.com/ryanduguid/australian-accounting/releases">releases<span class="visually-hidden">, The Exchequer Tally</span></a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/LICENSE">licence<span class="visually-hidden">, The Exchequer Tally</span></a>.</li>
+              <li><strong>Agent skills and construction WIP:</strong> <a href="https://github.com/ryanduguid/australian-accounting-skills">Australian Accounting Skills</a>, <a href="https://github.com/ryanduguid/australian-accounting-skills/releases">releases<span class="visually-hidden">, Australian Accounting Skills</span></a> and <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE">licence<span class="visually-hidden">, Australian Accounting Skills</span></a>; <a href="https://github.com/ryanduguid/australian-accounting-skills">Hardhat Ledger</a>, <a href="https://github.com/ryanduguid/australian-accounting-skills/releases">releases<span class="visually-hidden">, Hardhat Ledger</span></a> and <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/LICENSE">licence<span class="visually-hidden">, Hardhat Ledger</span></a>; <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally">TheWIPTally repository</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/LICENSE">licence<span class="visually-hidden">, TheWIPTally</span></a>.</li>
+              <li><strong>Xero export and Workpaper Review Gate:</strong> <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export">xero-trial-balance-export repository</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases">releases<span class="visually-hidden">, xero-trial-balance-export</span></a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/RELEASE_NOTES.md">release and compatibility record</a> and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/LICENSE">licence<span class="visually-hidden">, xero-trial-balance-export</span></a>; <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Workpaper Review Gate repository</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/RELEASE_NOTES.md">release record</a> and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/LICENSE">licence<span class="visually-hidden">, Workpaper Review Gate</span></a>.</li>
               <li><strong>Coal LSL calculator and this record:</strong> <a href="https://github.com/ryanduguid/ryanduguid.github.io">site repository<span class="visually-hidden">, Coal LSL calculator and this record</span></a> and <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE">licence<span class="visually-hidden">, Coal LSL calculator and this record</span></a>.</li>
             </ul>
           </section>
@@ -164,38 +163,38 @@
               <li><a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md">Payday Super primary source review</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/docs/ato-source-notes-2026-08-13.md">ATO benchmark source notes</a>.</li>
               <li><a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/RELEASE_NOTES.md">Trust distribution statutory review record</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/RELEASE_NOTES.md">company tax and franking statutory review record</a>.</li>
               <li><a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/source-review-2026-08-15.md">Hardhat Ledger source review</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/docs/aasb-15-source-notes-2026-08-25.md">TheWIPTally AASB 15 source notes</a>.</li>
-              <li><a href="https://github.com/ryanduguid/australian-accounting-skills/tree/main/.claude/skills">Australian Accounting Skills source manifests</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer">Xero API scope record</a>, and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design">Workpaper Review Gate design record</a>.</li>
-              <li>The <a href="/tools/coal-lsl-levy/#sources">Coal LSL calculator source list</a> remains with the calculator so its maintained owner links can be checked directly.</li>
+              <li><a href="https://github.com/ryanduguid/australian-accounting-skills/tree/main/.claude/skills">Australian Accounting Skills source manifests</a>, <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer">Xero API scope record</a> and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design">Workpaper Review Gate design record</a>.</li>
+              <li>The <a href="/tools/coal-lsl-levy/#sources">Coal LSL calculator source list</a> stays on the calculator page, where each source link can be checked directly.</li>
             </ul>
             <p>
-              These records link to maintained owners instead of restating volatile
-              rates, thresholds, package versions, or compatibility matrices here.
+              These records link to the maintained source instead of repeating
+              rates, thresholds, package versions or compatibility tables that change.
             </p>
           </section>
 
           <section>
             <h2 id="data-and-privacy-boundary">Data and privacy boundary</h2>
-            <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
-            <p>The optional <a href="https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter">LodgeiT calculator adapter</a> is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. <a href="/privacy/">Website hosting and browser data handling</a> have their own boundaries.</p>
+            <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
+            <p>The optional <a href="https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter">LodgeiT calculator adapter</a> is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. <a href="/privacy/">Website hosting and browser data handling</a> have their own boundaries.</p>
             <p>
-              No client, taxpayer, or production-ledger data appears in public examples.
+              No client, taxpayer or production-ledger data appears in public examples.
               Business fixtures are synthetic; dated official-source snapshots are
               identified separately and do not establish current law. Client data
               belongs in a controlled local directory, never a public issue,
-              repository, or enquiry email.
+              repository or enquiry email.
             </p>
             <ul>
               <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/README.md#client-data">ATO benchmark client data control</a> records the zero-network runtime boundary.</li>
-              <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/README.md#local-file-boundary">Payday Super local file boundary</a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary">TheWIPTally local file boundary</a>, and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#data-boundary">Workpaper Review Gate data boundary</a> state how client files are separated from public fixtures.</li>
+              <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/README.md#local-file-boundary">Payday Super local file boundary</a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary">TheWIPTally local file boundary</a> and <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#data-boundary">Workpaper Review Gate data boundary</a> state how client files are separated from public fixtures.</li>
               <li>The <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/README.md#client-integration">MCP client architecture</a> describes a local stdio process. The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer">Xero scope and credential boundary</a> separately records that product's read-only API and local token controls.</li>
               <li>The <a href="https://github.com/ryanduguid/ryanduguid.github.io">Coal LSL calculator repository</a> makes the browser implementation inspectable.</li>
             </ul>
           </section>
 
           <section>
-            <h2 id="security-tests-and-release-evidence">Security, tests, and release evidence</h2>
+            <h2 id="security-tests-and-release-evidence">Security, tests and release evidence</h2>
             <p>
-              Ryan Duguid publishes a security policy for the
+              I publish a security policy for the
               <a href="https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md">Aus Accounting MCP<span class="visually-hidden">, security policy</span></a>,
               <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md">Payday Super<span class="visually-hidden">, security policy</span></a>,
               <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md">ATO benchmarks<span class="visually-hidden">, security policy</span></a>,
@@ -205,7 +204,7 @@
               <a href="https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md">TheWIPTally<span class="visually-hidden">, security policy</span></a>,
               <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md">Xero export<span class="visually-hidden">, security policy</span></a>,
               <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md">Workpaper Review Gate<span class="visually-hidden">, security policy</span></a>,
-              <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md">Australian Accounting Skills<span class="visually-hidden">, security policy</span></a>,
+              <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md">Australian Accounting Skills<span class="visually-hidden">, security policy</span></a>
               and <a href="https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md">this site<span class="visually-hidden">, security policy</span></a>.
             </p>
             <p>
@@ -219,7 +218,7 @@
               <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml">TheWIPTally<span class="visually-hidden">, Actions results</span></a>,
               <a href="https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml">Xero export<span class="visually-hidden">, Actions results</span></a>,
               <a href="https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml">Workpaper Review Gate<span class="visually-hidden">, Actions results</span></a>,
-              <a href="https://github.com/ryanduguid/australian-accounting-skills/actions">Australian Accounting Skills<span class="visually-hidden">, Actions results</span></a>,
+              <a href="https://github.com/ryanduguid/australian-accounting-skills/actions">Australian Accounting Skills<span class="visually-hidden">, Actions results</span></a>
               and <a href="https://github.com/ryanduguid/ryanduguid.github.io/actions">this site<span class="visually-hidden">, Actions results</span></a>.
             </p>
             <p>
@@ -243,20 +242,20 @@
           <section>
             <h2 id="human-accountability-and-refusals">Human accountability and refusals</h2>
             <p>
-              Human review remains mandatory before posting, payment, lodgement, approval, or
+              Human review remains mandatory before posting, payment, lodgement, approval or
               period lock. Professional judgement stays with a person. A tool must refuse or
-              escalate missing, contradictory, stale, or out-of-scope facts rather than invent
+              escalate missing, contradictory, stale or out-of-scope facts rather than invent
               a result.
               Each product page records its specific inputs, refusal conditions,
-              source currency limits, and human decision boundary.
+              source currency limits and human decision boundary.
             </p>
           </section>
 
           <section>
             <h2 id="independent-evaluation">Published evaluations</h2>
             <p>
-              Ryan Duguid publishes evaluations of fixed releases at
-              <a href="/evaluate/">Evaluations</a>. He uses feedback only with recorded
+              I publish evaluations of fixed releases on the
+              <a href="/evaluate/">Evaluations</a> page. I use feedback only with recorded
               permission. Each evaluation states its scope and
               method. It is not regulatory approval or evidence beyond that evaluation.
             </p>
@@ -277,9 +276,9 @@
         "@id": "https://duguid.com.au/evidence/#article",
         "url": "https://duguid.com.au/evidence/",
         "headline": "Evidence and Assurance for Australian accounting tools",
-        "description": "Canonical evidence, assurance boundaries, and inspectable records for Australian computational accounting tools.",
+        "description": "Canonical evidence, assurance boundaries and inspectable records for Australian computational accounting tools.",
         "inLanguage": "en-AU",
-        "dateModified": "2026-09-23",
+        "dateModified": "2026-09-24",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "breadcrumb": { "@id": "https://duguid.com.au/evidence/#breadcrumb" }

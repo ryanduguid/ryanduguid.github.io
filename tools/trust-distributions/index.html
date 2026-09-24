@@ -56,9 +56,9 @@
     </nav>
     <h1>Trust distribution worksheets for professional review</h1>
     <p class="lead-note">
-      PCG 2022/2 sorts section 100A arrangements into white, green, and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
+      PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
     </p>
-    <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability, or compliance.</p>
+    <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.</p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3">solomons-sword/v0.1.3</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7">solomons-sword/v0.1.7</a>. <code>pip install solomons-sword</code> fetches it.</p>
     <p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>
       </header>
@@ -103,10 +103,10 @@
     <p><a href="https://pypi.org/project/solomons-sword/0.1.3/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart">release instructions</a>.</p>
     </section>
     <section id="worked-example">
-    <h2>Fabricated worked example</h2>
+    <h2>Fictional worked example</h2>
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run this pinned package directly. No clone or input file is needed.</p>
-    <p>This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000, and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fabricated.</p>
-    <pre tabindex="0" role="region" aria-label="Fabricated trust checker command"><code>uvx --from solomons-sword==0.1.3 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000</code></pre>
+    <p>This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional.</p>
+    <pre tabindex="0" role="region" aria-label="Fictional trust checker command"><code>uvx --from solomons-sword==0.1.3 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000</code></pre>
     <p>Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.</p>
     <pre tabindex="0" role="region" aria-label="Expected trust checker output"><code>Gross Receipt:           $150,000.00
 Corpus Exemption:        $50,000.00
@@ -114,26 +114,26 @@ Assessable under s99B:   $100,000.00</code></pre>
     <h3>Try a refusal</h3>
     <p>Change <code>--corpus 50000</code> to <code>--corpus 160000</code>. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:</p>
     <pre tabindex="0" role="region" aria-label="Expected trust checker refusal"><code>error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount</code></pre>
-    <p>This verifies the published command's behaviour on fabricated inputs. Confirm residence, the character of the corpus, and each exclusion before using the tool with real facts.</p>
+    <p>This verifies the published command's behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
     <blockquote>
       <p>
-        Nothing this engine produces is tax, legal, or financial advice, an
-        assessment or a determination. Outputs are review aids: confirm every allocation, zone, and exemption against the current law, the trust deed, and the entity's facts before acting, and leave lodgement decisions with
+        Nothing this engine produces is tax, legal or financial advice, an
+        assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity's facts before acting, and leave lodgement decisions with
         a registered practitioner.
       </p>
     </blockquote>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword">Source on GitHub</a> · Primary sources: <a href="https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001">ATO PCG 2022/2</a> and the <a href="https://www.legislation.gov.au/C1936A00027/latest/text"><em>Income Tax Assessment Act 1936</em></a>.</p>
-    <p>Software issue using fabricated data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Trust%20distribution%20checks">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
+    <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Trust%20distribution%20checks">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
     <h2>Common questions</h2>
     <div class="faq">
       <h3>Is there a blue zone in PCG 2022/2?</h3>
-      <p>No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green, and red zones only.</p>
+      <p>No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only.</p>
       <h3>What is the white zone?</h3>
       <p>It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.</p>
       <h3>How is each beneficiary's share of trust income worked out?</h3>
@@ -253,7 +253,7 @@ Assessable under s99B:   $100,000.00</code></pre>
             "name": "Is there a blue zone in PCG 2022/2?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green, and red zones only."
+              "text": "No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only."
             }
           },
           {

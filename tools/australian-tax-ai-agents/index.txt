@@ -2,25 +2,25 @@
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Run local ATO benchmark, Payday Super, and limited Division 7A checks, 7 bounded tax worksheets, and optional Markdown search. Includes scope and setup.
+> Run local ATO benchmark, Payday Super and limited Division 7A checks, 7 bounded tax worksheets and optional Markdown search. Includes scope and setup.
 
 # Australian tax MCP server: Aus Accounting MCP
 
-aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review, and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
+aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
 Reference release v0.2.7, the current published release, verified 24 September 2026. Tagged source and release record on GitHub.
 
 Published 25 August 2026. Last reviewed 24 September 2026. This review verifies the 0.2.7 release, which pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5 and adds a PAYG withholding worksheet; network boundaries remain unchanged.
 
-Choose the tool by the work it supports: a calculation on established facts, a source lookup, or an accounting workflow. Ryan Duguid, an accountant in Newcastle, New South Wales, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
+Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
 Job | What to install | Where it runs | What it will not do
-Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
-Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
+Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
+Look up ATO guidance, legislation and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
 Walk an agent through a public practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not treat recorded figures as current rates. Sends the agent to the applicable authoritative source for current figures.
-Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG, or PAYG withholding arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
+Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG or PAYG withholding arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
@@ -36,7 +36,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.7 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26, and 2026-27, before offsets and levies. GST, CGT, depreciation, and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.7 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -54,7 +54,7 @@ With uv installed, run the published demonstration without configuring an AI cli
 uvx --from aus-accounting-mcp==0.2.7 aus-accounting-mcp-demo
 ```
 
-Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fabricated facts. It needs no credentials, performs no lodgement, and does not evaluate an agent's behaviour.
+Expected: exit 0 and a JSON transcript containing generate_synthetic_sbr_fixture and review_div7a_loan. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent's behaviour.
 
 The transcript's first line shows the source-checkout command, uv run --locked aus-accounting-mcp-demo. The command above runs the published 0.2.7 package. Its full output includes the engine's caveats; retain those with any extracted result.
 
@@ -66,7 +66,7 @@ Start with the Excel cash flow example or browser calculator. Firms using Claude
 
 No install
 
-Open the browser calculator with fabricated figures. Nothing to install, and this site's code does not send the figures you enter to a server.
+Open the browser calculator with fictional figures. Nothing to install, and this site's code does not send the figures you enter to a server.
 
 Open the synthetic Excel forecast in desktop Excel, or send a reproducible evaluation to whoever manages your systems.
 
@@ -99,7 +99,7 @@ npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
 
 GitHub workflows
 
-github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fabricated-data and human review boundaries.
+github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.
 
 Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
 
@@ -116,25 +116,25 @@ The MCP install commands above are unpinned. uvx may reuse a cached environment 
 
 The skills command pins its CLI version to 1.5.22. The Skills and GitHub workflow commands install the default branch, a development checkout that can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
-aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI, and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
+aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
-Software issue using fabricated data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
+Software issue using fictional data? Open an issue or email with the tool named in the subject. If the email link does not open, the contact page spells the address out.
 
 ## Limits
 
-The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results, and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
 
-The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL, and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
+The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
 Published MCP 0.2.7 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains UNKNOWN; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. Review the version-specific receipt rules before interpreting a result.
 
-Not tax, legal, or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
+Not tax, legal or financial advice, and using it creates no professional relationship. The tools calculate and refuse. Professional judgement and lodgement stay human. Tool results and any local library excerpts enter the calling assistant's context. Public fixtures use synthetic data only.
 
 ## Common questions
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review, 7 bounded tax worksheets, and optional search of a configured Markdown library. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review, 7 bounded tax worksheets and optional search of a configured Markdown library. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -142,11 +142,11 @@ No. It ships no ATO document library and does not fetch rulings or legislation f
 
 ### Does it calculate Division 7A repayments?
 
-It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements, and distributable surplus.
+It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
 
 ### Does it lodge with the ATO?
 
-No. It does not lodge, declare, or replace a registered agent. SBR payloads it can emit are synthetic test fixtures.
+No. It does not lodge, declare or replace a registered agent. SBR payloads it can emit are synthetic test fixtures.
 
 ### When is a Payday Super contribution on time?
 
@@ -154,7 +154,7 @@ Since 1 July 2026, the fund must receive it within 7 business days of payday, or
 
 ### Who maintains these tools?
 
-Ryan Duguid is an Australian accountant based in Newcastle, New South Wales. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. He is not the US software product executive of the same name.
+Ryan Duguid is an Australian accountant based in Newcastle, NSW. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. He is not the US software product executive of the same name.
 
 ### Where is aus-accounting-mcp available?
 

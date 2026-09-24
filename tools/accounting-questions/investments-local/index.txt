@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
 Practical steps, records and official guidance on investments and Newcastle. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
-Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified. Tax guidance must match your year and circumstances.
+Use the relevant disposal, income or NSW assessment year. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Investments and Newcastle
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -28,9 +28,11 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ## Investments and Newcastle
 
-Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
+Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment year.
 
-91. Which expenses can I claim for a rental property?
+91.
+
+### Which expenses can I claim for a rental property?
 
 Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
 
@@ -43,7 +45,9 @@ Property and land
 
 Link to question 91
 
-92. Is work on my rental property a repair, an improvement or a depreciating asset?
+92.
+
+### Is work on my rental property a repair, an improvement or a depreciating asset?
 
 Review what the work did to the property and when the relevant damage or condition arose.
 
@@ -56,46 +60,60 @@ Property and land
 
 Link to question 92
 
-93. How do I work out the capital gain when I sell an investment property?
+93.
 
-Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
+### How do I work out the capital gain when I sell an investment property?
+
+The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount. Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
 
 - Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records.
 - Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
 
 A sale price minus purchase price calculation can omit material tax adjustments.
 
-Capital gains tax · Experimental tax worksheets and supported years
+Capital gains tax · How to calculate your CGT · Experimental tax worksheets and supported years
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 93
 
-94. How do capital losses and the CGT discount affect tax on shares I sell?
+94.
 
-Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
+### How do capital losses and the CGT discount affect tax on shares I sell?
+
+Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount. Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
 
 - Retain trade records, cost base adjustments, holding periods and carried-forward loss balances.
 - Reconcile the final calculation to the year's CGT schedule and keep the remaining loss record.
 
 The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
 
-Capital gains tax · Experimental tax worksheets and supported years
+Capital gains tax · How to calculate your CGT · Experimental tax worksheets and supported years
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 94
 
-95. Do I owe tax when I sell, swap or spend cryptocurrency?
+95.
 
-Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.
+### Do I owe tax when I sell, swap or spend cryptocurrency?
+
+Often, yes. Selling crypto or swapping one crypto asset for another is a CGT event, so a gain can be taxable. Review each crypto disposal and income event, including swaps and spending, rather than only withdrawals to cash.
 
 - Export exchange and wallet activity, fees and Australian dollar values with dates.
 - Reconcile transfers between your own wallets separately from transactions that require tax review.
 
 The tax treatment depends on the activity and event; this site does not import wallets or classify transactions.
 
-Crypto asset investments
+Crypto asset investments · Crypto asset transactions
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 95
 
-96. How do I report ETF distributions and their tax adjustments?
+96.
+
+### How do I report ETF distributions and their tax adjustments?
 
 Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.
 
@@ -108,7 +126,9 @@ Investments and assets
 
 Link to question 96
 
-97. What records does my accountant need for an SMSF annual return and audit?
+97.
+
+### What records does my accountant need for an SMSF annual return and audit?
 
 Prepare the financial records and trustee evidence needed for both the return and the independent audit.
 
@@ -121,35 +141,45 @@ ATO self-managed super funds
 
 Link to question 97
 
-98. When does an investment property become liable for land tax in NSW?
+98.
 
-Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
+### When does an investment property become liable for land tax in NSW?
+
+For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000. Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
 
 - Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
 - Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence.
 
 Purchase price and one property's value alone do not establish the full land tax position.
 
-Land tax
+Land tax · Preparing for the 2026 land tax year, Revenue NSW
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 98
 
-99. How much does an accountant or bookkeeper cost for a small business in Newcastle?
+99.
 
-Compare written quotes for the same Newcastle bookkeeping or accounting scope. The research did not establish a reliable local fee range.
+### Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 
-- Specify transaction volume, payroll headcount, entities, BAS frequency, cleanup needs and reports.
-- Compare inclusions, software, GST, setup fees, review frequency and work charged separately.
+Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee's eligible wages every month. The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee's eligible wages for the month.
 
-This personal open source site does not quote for professional engagements.
+- List each employee's role and check it against the Coal LSL eligible employee guidance.
+- Work out each eligible employee's eligible wages for the month using the section 3B formula that applies.
 
-TPB register of tax and BAS agents
+The calculator does not decide whether an employee is eligible; it calculates the levy on the wages you supply.
+
+Coal LSL levy returns and payments · Coal LSL levy calculator
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 99
 
-100. How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
+100.
 
-Shortlist providers against the work you need and verify the relevant registrations.
+### How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
+
+Before engaging anyone for tax work, check that they are listed on the Tax Practitioners Board register. Shortlist providers against the work you need and verify the relevant registrations.
 
 - Check the TPB register for tax or BAS services, and ask who prepares and reviews the work.
 - Request a sample reporting pack, Xero experience, cash forecast process, responsibilities and a written scope.
@@ -157,6 +187,8 @@ Shortlist providers against the work you need and verify the relevant registrati
 Location or software certification alone does not demonstrate the quality of advice or forecasting.
 
 TPB register of tax and BAS agents
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 100
 
@@ -170,7 +202,7 @@ Link to question 100
 - Management reporting
 - Companies and trusts
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -181,19 +213,24 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 91: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
 - Link to question 92: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
 - Capital gains tax: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax
+- How to calculate your CGT: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/calculating-your-cgt/how-to-calculate-your-cgt
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 93: https://duguid.com.au/tools/accounting-questions/investments-local/#q93
 - Link to question 94: https://duguid.com.au/tools/accounting-questions/investments-local/#q94
 - Crypto asset investments: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments
+- Crypto asset transactions: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/transactions-acquiring-and-disposing-of-crypto-assets/crypto-asset-transactions
 - Link to question 95: https://duguid.com.au/tools/accounting-questions/investments-local/#q95
 - Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
 - Link to question 96: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
 - ATO self-managed super funds: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf
 - Link to question 97: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
 - Land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax
+- Preparing for the 2026 land tax year, Revenue NSW: https://www.revenue.nsw.gov.au/news-media-releases/preparing-for-the-2026-land-tax-year
 - Link to question 98: https://duguid.com.au/tools/accounting-questions/investments-local/#q98
-- TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
+- Coal LSL levy returns and payments: https://coallsl.com.au/employer/administer-lsl/levy
+- Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - Link to question 99: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
+- TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
 - Link to question 100: https://duguid.com.au/tools/accounting-questions/investments-local/#q100
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/

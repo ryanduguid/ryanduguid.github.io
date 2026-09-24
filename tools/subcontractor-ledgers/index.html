@@ -73,7 +73,7 @@
         </nav>
         <div class="article-body">
     <p>
-      Each skill encodes the workflow: the steps, the tie-outs, and the
+      Each skill encodes the workflow: the steps, the tie-outs and the
       exceptions to chase. Rates and thresholds go stale and differ by state,
       so the skill sends the agent to the primary source for them. Two things
       the skills will not do: decide whether a security of payment Act covers a
@@ -85,7 +85,7 @@
       lives in
       <a href="/tools/wip-schedule/">TheWIPTally</a>,
       which produces a deterministic AASB 15 schedule. Do not ask the agent to
-      invent cost-to-cost progress, constrained variations, or the
+      invent cost-to-cost progress, constrained variations or the
       contract-asset versus contract-liability split.
     </p>
     <section id="what-this-tool-does">
@@ -93,7 +93,7 @@
     <ul>
       <li>The contracting core: progress claim preparation, retention schedules, work in progress and overbilling and underbilling under AASB 15, and contract cost tracking.</li>
       <li>Mining services and earthmoving: fuel tax credit claims, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</li>
-      <li>Paying subcontractors: super guarantee under the extended definition, TPAR, and a shared reference skill for the exports these workflows need.</li>
+      <li>Paying subcontractors: super guarantee under the extended definition, TPAR and a shared reference skill for the exports these workflows need.</li>
     </ul>
     </section>
     <section id="limits">
@@ -101,15 +101,15 @@
     <blockquote>
       <p>
         These skills prepare and check. They do not serve a payment claim,
-        lodge a return, or sign anything. Contract interpretation, eligibility conclusions, and professional judgement stay with a person. Nothing
-        here is tax, accounting, or legal advice.
+        lodge a return or sign anything. Contract interpretation, eligibility conclusions and professional judgement stay with a person. Nothing
+        here is tax, accounting or legal advice.
       </p>
     </blockquote>
     </section>
     <section id="reproduce">
     <h2>Repeat the agent evaluation procedure</h2>
-    <p>Use the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md">evaluation method</a> and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded, and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.</p>
-    <p>Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools, and result; retain the response with the working evidence.</p>
+    <p>Use the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md">evaluation method</a> and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.</p>
+    <p>Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools and result; retain the response with the working evidence.</p>
     <p>This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.</p>
     </section>
     <section id="get-it" class="install-panel">
@@ -117,7 +117,7 @@
     <p class="install-needs">Needs an AI coding agent such as Claude Code or Codex, and Node.</p>
     <p>Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 60 skills; no fresh model evaluation covers all 41 additions. Use <a href="/tools/australian-tax-ai-agents/#install">Adopt</a> for the development install or the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release">installation guide</a> for the tagged release. The contracting workflows are included in this unified pack.</p>
     <p><a href="https://github.com/ryanduguid/australian-accounting-skills">Source on GitHub</a></p>
-    <p>Software issue using fabricated data? <a href="https://github.com/ryanduguid/australian-accounting-skills/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Subcontract%20ledger%20skills">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
+    <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting-skills/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Subcontract%20ledger%20skills">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
@@ -128,7 +128,7 @@
       <h3>Will they tell me whether a contract is covered by a security of payment Act?</h3>
       <p>No. Both that conclusion and whether a worker is a contractor or an employee stay with a person. The skills refuse both.</p>
       <h3>Do the skills hard-code rates and thresholds?</h3>
-      <p>Not as working figures. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.</p>
+      <p>Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only.</p>
     </div>
     </section>
     <section id="related">
@@ -258,7 +258,7 @@
             "name": "Do the skills hard-code rates and thresholds?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Not as working figures. Each skill encodes the workflow, the tie-outs, and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only."
+              "text": "Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only."
             }
           }
         ]

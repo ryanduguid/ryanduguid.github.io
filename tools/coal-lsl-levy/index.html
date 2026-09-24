@@ -73,14 +73,14 @@
         <dd>Estimate only. Check the current prescribed percentage before relying on a figure.</dd>
       </div>
     </dl>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 20 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 24 September 2026.</p>
     </header>
 
     <div class="calculator-workspace site-shell">
     <form id="calc-form" class="calculator-form" novalidate>
       <div class="field calculator-example">
         <button type="button" id="load-example" class="button--secondary" aria-describedby="example-help">Load the synthetic example</button>
-        <p id="example-help" class="field-note">Uses the homepage's fabricated figures and replaces the current inputs. No client data.</p>
+        <p id="example-help" class="field-note">Uses the homepage's fictional figures and replaces the current inputs. No client data.</p>
       </div>
       <fieldset>
         <legend>How is this employee paid?</legend>
@@ -104,8 +104,8 @@
         <label for="sacrificed">Salary sacrificed amount</label>
         <input type="number" step="0.01" min="0" inputmode="decimal" id="sacrificed" name="sacrificed" aria-describedby="money-blank-help sacrificed-help" />
         <p id="sacrificed-help" class="field-note">
-          Applies to base rate of pay, ordinary rate of pay, and annual salary.
-          It does not apply to casual loading, bonuses, overtime, or allowances.
+          Applies to base rate of pay, ordinary rate of pay and annual salary.
+          It does not apply to casual loading, bonuses, overtime or allowances.
         </p>
       </div>
 
@@ -114,8 +114,8 @@
         <div id="bonus-rows"></div>
         <button type="button" id="add-bonus" class="button--secondary">Add a bonus</button>
         <p class="field-note">
-          Only bonuses paid weekly, fortnightly, or monthly count. Quarterly,
-          half-yearly, and annual amounts are excluded, not spread across the year.
+          Only bonuses paid weekly, fortnightly or monthly count. Quarterly,
+          half-yearly and annual amounts are excluded, not spread across the year.
         </p>
       </div>
 
@@ -131,7 +131,7 @@
       <div id="result" role="status" aria-live="polite" aria-atomic="true">
         <div class="calculator-empty">
           <strong>Ready to calculate</strong>
-          <p>Enter this month's figures. The applied branch, formula, and explanation will appear here.</p>
+          <p>Enter this month's figures. The applied branch, formula and explanation will appear here.</p>
         </div>
       </div>
       <p class="print-note">Estimate only. Check the current prescribed percentage before relying on a figure. duguid.com.au/tools/coal-lsl-levy/</p>
@@ -140,7 +140,7 @@
 
     <section class="employee-section site-shell" aria-labelledby="employees-title">
       <h2 id="employees-title" class="section-title">Employee reference table</h2>
-      <p id="employee-reference-help" class="field-note">Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN, or other direct identifier. Calculate first, then add the result and choose Download CSV.</p>
+      <p id="employee-reference-help" class="field-note">Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.</p>
       <p class="field-note">Download CSV before leaving. This table is not saved and clears when you reload or close the page.</p>
       <div id="result-actions" class="result-actions" hidden>
         <button type="button" id="print-working">Print working</button>
@@ -184,7 +184,7 @@
           Estimate only. This tool applies the payroll levy rate and the eligible wages formulas
           in the <a href="https://www.legislation.gov.au/C2004A04352/latest/text"><em>Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992</em></a> and
           the <a href="https://www.legislation.gov.au/F2018L00217/latest/text"><em>Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018</em></a> to figures
-          you enter. It is general information, not legal, tax, accounting, or financial advice.
+          you enter. It is general information, not legal, tax, accounting or financial advice.
           Using it creates no adviser relationship.
         </p>
         <p>
@@ -200,7 +200,7 @@
           This is not a lodgement channel. Your monthly return must be made on the Levy Advice
           form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy
           Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.
-          Where anything here is inconsistent with the Acts, the Regulations, or the approved
+          Where anything here is inconsistent with the Acts, the Regulations or the approved
           form, those prevail.
         </p>
         <p>
@@ -208,7 +208,7 @@
           calculate long service leave accrual or reimbursements, and does not calculate
           additional levy on late payments. The <em>Coal Mining Industry (Long Service Leave)
           Legislation Amendment Act 2026</em>, assented to on 6 July 2026, added an unpaid levy
-          payment arrangement and changed the additional levy for late payment; neither touches
+          payment arrangement and changed the additional levy for late payment. Neither change touches
           section 3B or the 2.7% rate, and this tool calculates neither.
         </p>
         <p>
@@ -217,7 +217,7 @@
         </p>
         <p>
           Ryan Duguid gives no guarantee and accepts no liability for the accuracy,
-          reliability, currency, or completeness of the output. Verify against <a href="https://coallsl.com.au">Coal LSL</a>.
+          reliability, currency or completeness of the output. Verify against <a href="https://coallsl.com.au">Coal LSL</a>.
         </p>
       </div>
 
@@ -230,12 +230,12 @@
         </p>
         <ul>
           <li>Does the levy apply to employer superannuation?</li>
-          <li>Are termination payments (redundancy, payment in lieu of notice, severance, and leave paid out) eligible wages?</li>
+          <li>Are termination payments (redundancy, payment in lieu of notice, severance and leave paid out) eligible wages?</li>
           <li>Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages?</li>
           <li>Is unpaid leave eligible wages? The Levy Advice form has a section for it.</li>
           <li>Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) takes 75% of the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime, penalty rates, and allowances other than expense reimbursements, and does not name shift loading; section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.</li>
-          <li>Do allowances, overtime, and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime, and penalty rates. The branch adds back only incentive-based payments, bonuses, and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.</li>
-          <li>Do allowances count for annual salary employees? Section 3B(2) excludes overtime, penalty rates, and shift loading and does not mention allowances.</li>
+          <li>Do allowances, overtime and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime and penalty rates. The branch adds back only incentive-based payments, bonuses and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.</li>
+          <li>Do allowances count for annual salary employees? Section 3B(2) excludes overtime, penalty rates and shift loading and does not mention allowances.</li>
           <li>Does a fortnightly or weekly bonus satisfy 'paid at least once a month'? This tool assumes it does.</li>
           <li>What does 'can be quantified' mean for a casual loading where an instrument names a percentage but the employee is paid a single all-in rate?</li>
         </ul>
@@ -244,7 +244,7 @@
       <h2 class="section-title">Rounding</h2>
       <div class="rounding-note">
         <p>
-          The Act, the Regulations, and the guidance note publish no rounding rule. This tool
+          The Act, the Regulations and the guidance note publish no rounding rule. This tool
           rounds the levy half up to the nearest cent at the final step only, and shows the
           unrounded figure above whenever it differs from the rounded figure.
         </p>
@@ -263,7 +263,7 @@
         </details>
         <details>
           <summary><h3>Which bonuses count towards eligible wages?</h3></summary>
-          <p>Weekly, fortnightly, and monthly bonuses count. Quarterly, half-yearly, and annual amounts are left out rather than spread across the year.</p>
+          <p>Weekly, fortnightly and monthly bonuses count. Quarterly, half-yearly and annual amounts are left out rather than spread across the year.</p>
         </details>
         <details>
           <summary><h3>Does the levy apply to employer superannuation?</h3></summary>
@@ -271,14 +271,14 @@
         </details>
         <details>
           <summary><h3>How does this tool round the levy?</h3></summary>
-          <p>Half up to the nearest cent, once, at the final step. The Act, the Regulations, and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs.</p>
+          <p>Half up to the nearest cent, once, at the final step. The Act, the Regulations and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs.</p>
         </details>
         <details>
           <summary><h3>Can I lodge my monthly Coal LSL return with this tool?</h3></summary>
           <p>No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL.</p>
         </details>
       </div>
-      <p>Software issue using fabricated data? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Coal%20LSL%20levy%20calculator">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
+      <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/ryanduguid.github.io/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Coal%20LSL%20levy%20calculator">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
       <h2 class="section-title" id="sources">Sources</h2>
       <ul class="sources">
         <li><a href="https://coallsl.com.au/guidance-notes/eligible-wages">Coal LSL, Determining eligible wages guidance note</a></li>
@@ -388,7 +388,7 @@
         "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-24",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -456,7 +456,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-20"
+        "dateModified": "2026-09-24"
       },
       {
         "@type": "FAQPage",
@@ -482,7 +482,7 @@
             "name": "Which bonuses count towards eligible wages?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Weekly, fortnightly, and monthly bonuses count. Quarterly, half-yearly, and annual amounts are left out rather than spread across the year."
+              "text": "Weekly, fortnightly and monthly bonuses count. Quarterly, half-yearly and annual amounts are left out rather than spread across the year."
             }
           },
           {
@@ -498,7 +498,7 @@
             "name": "How does this tool round the levy?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Half up to the nearest cent, once, at the final step. The Act, the Regulations, and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs."
+              "text": "Half up to the nearest cent, once, at the final step. The Act, the Regulations and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs."
             }
           },
           {

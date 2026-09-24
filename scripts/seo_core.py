@@ -648,6 +648,17 @@ def visible_faq_pairs(html: str) -> list[tuple[str, str]]:
                     visible_text(answer.group(1)) if answer else "",
                 )
             )
+    # Question topic pages: each details.question holds one h3 and its answer paragraph.
+    for question in re.findall(
+        r'<details\b(?=[^>]*\bclass\s*=\s*["\']question["\'])[^>]*>(.*?)</details\s*>',
+        rendered,
+        re.S | re.I,
+    ):
+        title = re.search(r"<h3\b[^>]*>(.*?)</h3\s*>", question, re.S | re.I)
+        if not title:
+            continue
+        reply = re.search(r"<p\b[^>]*>(.*?)</p\s*>", question[title.end() :], re.S | re.I)
+        pairs.append((visible_text(title.group(1)), visible_text(reply.group(1)) if reply else ""))
     return pairs
 
 

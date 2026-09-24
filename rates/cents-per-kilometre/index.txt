@@ -36,7 +36,7 @@ Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: busine
 - 5,000 kilometres is a ceiling, not a threshold. If the car travelled 5,085 business kilometres, you claim 5,000 and lose the extra 85. The Act uses that exact example.
 - One rate for every car. Engine size stopped mattering when the old engine capacity bands were replaced by a single determined rate.
 - No substantiation of the car expenses. Section 28-35 removes that requirement for this method, which is not the same as needing no records: the business kilometres still have to be a reasonable estimate you can explain.
-- The rate is meant to cover everything. In setting it, the Commissioner must have regard to average operating costs, which the Act's own note describes as including registration, insurance, and depreciation as well as fuel and maintenance. Claiming those separately on top of the rate is double counting.
+- The rate is meant to cover everything. In setting it, the Commissioner must have regard to average operating costs, which the Act's own note describes as including registration, insurance and depreciation as well as fuel and maintenance. Claiming those separately on top of the rate is double counting.
 
 ## Common questions
 
@@ -50,7 +50,7 @@ Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: busine
 
 ### What rate applies for 2027-28?
 
-Not yet set. Section 6 of the 2026 determination sets 91 cents for the income year commencing on 1 July 2026 only, and it carries no note extending that to later years, so a further determination has to be registered before there is a rate for 2027-28.
+Not yet set. Section 6 of the 2026 determination sets 91 cents for the income year commencing on 1 July 2026 only. It has no note extending that rate to later years, so a further determination must be registered before there is a rate for 2027-28.
 
 ### How many kilometres can I claim under this method?
 
@@ -60,11 +60,11 @@ The first 5,000 business kilometres per car per income year. Kilometres above 5,
 
 No. A single rate applies to every car for the income year. The engine capacity bands belong to an older version of the method.
 
-### Can I claim fuel, registration, and insurance as well as the rate?
+### Can I claim fuel, registration and insurance as well as the rate?
 
-No. The Commissioner sets the rate by having regard to average operating costs, and the Act names registration, insurance, depreciation, fuel, and maintenance as examples of those costs. They are already inside the rate.
+No. The Commissioner sets the rate by having regard to average operating costs, and the Act names registration, insurance, depreciation, fuel and maintenance as examples of those costs. They are already inside the rate.
 
-General reference only, not tax, legal, or financial advice, and using it creates no professional relationship. Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
+General reference only, not tax, legal or financial advice, and using it creates no professional relationship. Rates here were read from the determinations on the date above. Check the current instrument on the Federal Register of Legislation, or current ATO guidance, before relying on a figure.
 
 ## Related
 
@@ -73,7 +73,7 @@ General reference only, not tax, legal, or financial advice, and using it create
 - Australian tax tools for AI agents
 - About Ryan Duguid
 
-Published 24 August 2026. Last reviewed 14 September 2026.
+Published 24 August 2026. Last reviewed 24 September 2026.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
