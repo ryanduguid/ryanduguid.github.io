@@ -28,7 +28,7 @@ Published 24 August 2026. Last reviewed 24 September 2026. The 22 September revi
 
 Checker 0.1.7 requires amount evidence for a timely receipt. Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. Read the 0.1.7 release record.
 
-Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.5 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
+Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.8 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.
 
@@ -106,7 +106,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Read the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - super guarantee rate: https://duguid.com.au/rates/super-guarantee/
 - Read the 0.1.7 release record: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
-- Published MCP 0.2.5: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.5
+- Published MCP 0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - tagged 0.1.6 workbook: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx
 - tagged 0.1.7 workbook: https://github.com/ryanduguid/australian-accounting/tree/payday-super-checker/v0.1.7/packages/payday-super-checker/workbooks
 - verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
