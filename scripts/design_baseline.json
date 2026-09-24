@@ -10,7 +10,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "0de11147f15cc32b8497d9d7f75ec40e5657bfc7470c0f57078a613414f82ce5"
+      "605a8c810ed5df51dabc58ce4c07e29e2304142cf8eedd2467bb062560eb734e"
     ],
     "changelog/index.html": [
       "6930e4e085fb6a03898098695f44e7b8aa72f2a6e7a17057a4dc8061588f2006"
@@ -19,7 +19,7 @@
       "5bf4909c4f7f08191f4c8c6083eca774ba16ec4bed5b95180e50dfc811e9a3a2"
     ],
     "evaluate/index.html": [
-      "3799a53923eae3900945441be260d4b1febbed18943d301644d7ae08980829af"
+      "bd38672c3d30d167afb71fcee385fbd794901dc43faf9e2b4e5c45c16dc4583f"
     ],
     "evaluate/manager-review-gate/index.html": [
       "3fdc756175e85182193147e2e8de58ca5efd7a6cf301574f44307aa7e275169f"
@@ -73,7 +73,7 @@
       "8c83a455a0e28fbc3792d220b51d2e80dd85d1321bdf09be534cb317007e2cce"
     ],
     "tools/index.html": [
-      "19f06d1c8e8de4f037ad8c83f88e154e2b0766523ffe1ef1142a11f7e472887d"
+      "03bc62243ff60b78e59538cc3934de477938eada394db6dee1c946d812960367"
     ],
     "tools/limitations/index.html": [
       "81d0ac6820745f5e5e1b7af29b70d2679fd14b42bdac31c2ff21bbc5d136701b"
@@ -109,7 +109,7 @@
   "protected_files": {
     "llms.txt": "12fd808467177be57c7bba995a9a8c3485d02f8e45b97fff6acf52dde2f1259e",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "eb36b6106fc0540bdbebb4ec14ffa729a23e78dc1d3172e17df7e3e4921c3de8"
+    "sitemap.xml": "4bef7210cb140ebd6217d3046eaeabf96881fd1221025b7cd61a3e93dd3901a5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
