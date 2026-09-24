@@ -117,6 +117,17 @@ if (questions.length) {
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
 if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./field-errors.mjs')]).then(([calculate, fieldErrors]) => {
+  // WebMCP: offer this page's calculator to the browser's agent. The draft spec puts
+  // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
+  const modelContext = document.modelContext ?? navigator.modelContext;
+  // A failed import or registration leaves the form itself untouched; the warning keeps the cause.
+  if (modelContext?.registerTool) import('./webmcp-tools.mjs').then(async ({ calculatorTools }) => {
+    const tools = calculatorTools(calculate);
+    for (const form of forms) {
+      const tool = tools[form.dataset.calculator];
+      if (tool) await modelContext.registerTool(tool);
+    }
+  }).catch(error => console.warn('WebMCP tool registration failed:', error));
   for (const form of forms) {
     form.querySelector('fieldset').disabled = false;
     // Submit and Save inputs validate the same way: the first invalid field
