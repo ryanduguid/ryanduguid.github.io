@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 24 September 2026.
+Last reviewed 25 September 2026.
 
 ## Accepted upstream work
 
@@ -65,6 +65,7 @@ Start with current Commonwealth legislation, such as the Income Tax Assessment A
 - Trust distribution statutory review record and company tax and franking statutory review record.
 - Hardhat Ledger source review and TheWIPTally AASB 15 source notes.
 - Australian Accounting Skills source manifests, Xero API scope record and Workpaper Review Gate design record.
+- The Legislation Corpus collects in-force Commonwealth tax legislation with source and provenance records, and its Tax Radar AU queues changes for review.
 - The Coal LSL calculator source list stays on the calculator page, where each source link can be checked directly.
 
 These records link to the maintained source instead of repeating rates, thresholds, package versions or compatibility tables that change.
@@ -93,6 +94,7 @@ Published products expose release assets through the release pages linked above.
 - australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and company tax
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
 - accounting-review-pipeline (Xero export): attestations; release workflow
+- Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
 
 Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
 
@@ -158,6 +160,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Australian Accounting Skills source manifests: https://github.com/ryanduguid/australian-accounting-skills/tree/main/.claude/skills
 - Xero API scope record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer
 - Workpaper Review Gate design record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design
+- Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
+- Tax Radar AU: https://github.com/ryanduguid/au-tax-legislation-corpus/blob/main/RADAR.md
 - Coal LSL calculator source list: https://duguid.com.au/tools/coal-lsl-levy/#sources
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
@@ -197,3 +201,4 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
+- Release Policy: https://github.com/ryanduguid/release-policy

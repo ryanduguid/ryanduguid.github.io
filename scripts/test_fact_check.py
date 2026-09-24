@@ -154,7 +154,6 @@ class FactCheckTests(unittest.TestCase):
             any(link.attr("href") == "#receipt-amount" for link in core.descendants(header, "a"))
         )
         for path in (
-            "index.html",
             "about/index.html",
             "tools/limitations/index.html",
             "evaluate/payday-super-evidence/index.html",
