@@ -20,7 +20,7 @@ Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed th
 
 Certifications |
 
-SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI, awarded 17 July 2026, valid until 18 July 2027) and Management Accounting (C_TS4CO, awarded 13 July 2026, valid until 14 July 2027), each verifiable on Credly.
+SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO)
 
 I am a Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027. Read the certificate in the evidence register, or explore my Xero trial balance export and review workflow.
 
@@ -90,6 +90,8 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
+- Financial Accounting (FI): https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
+- Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
