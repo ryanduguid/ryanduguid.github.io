@@ -228,6 +228,21 @@ python scripts/favicon_render.py
 
 `scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for; 180 is not a whole-pixel scale of the 64-unit grid, so that file stays outside the render step.
 
+## About portrait provenance
+
+`assets/about-portrait-20260924.svg` is an ASCII rendering of a headshot Ryan
+supplied; the photo itself is not in the repository. ffmpeg cropped the
+1200-pixel square photo to 800 by 900 pixels from (180, 40), scaled it to 200
+by 112 cells with area averaging and applied `unsharp=3:3:0.8`. Each cell's
+grey level, stretched between the 45th and 98th percentiles so the backdrop
+falls to black, picks a character from a 62-character ramp that leaves out
+`< > & " { } %`, so the text needs no HTML escaping and cannot open a Liquid
+tag. Every row is one SVG `text` element pinned to 1200 units with
+`textLength`. SHA-256:
+`5a43bc4966d14140331cfefcb2a36c16da3fea4d478cd8b8e0d3067bca4852f4`.
+
+Advance the dated filename when the artwork changes.
+
 ## Credential documents
 
 `assets/credentials/` holds the certificate Xero issued to Ryan Duguid and the
