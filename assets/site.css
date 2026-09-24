@@ -380,6 +380,23 @@ button:not(.button) {
 .about-portrait {
   width: 100%;
   max-width: 26rem;
+  container-type: inline-size;
+}
+
+/* 200 columns of Spline Sans Mono (0.6em advance) fill the frame, and rows sit
+   two columns apart so each cell keeps the 1:2 aspect the art was drawn for.
+   A fallback font with a narrower advance leaves a small gap on the right.
+   Greyscale stops subpixel antialiasing tinting the tiny glyphs. */
+.about-portrait pre {
+  overflow: hidden;
+  filter: grayscale(1);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--colour-ink);
+  background: none;
+  font-size: calc(100cqi / 120);
+  line-height: 1.2;
 }
 
 @media (min-width: 56.0625rem) {
@@ -1574,8 +1591,8 @@ caption {
   gap: var(--space-2);
 }
 
-/* The same badge at label scale, for the compact treatments that sit inside an
-   existing row rather than carrying a record of their own. */
+/* The same badge inside an existing row rather than a record of its own, at the
+   evidence card's size so the artwork stays legible. */
 .credential-inline {
   display: flex;
   flex-wrap: wrap;
@@ -1585,7 +1602,7 @@ caption {
 
 .credential-inline__badge {
   flex: none;
-  width: 2.75rem;
+  width: 4.5rem;
   height: auto;
 }
 
@@ -2517,9 +2534,9 @@ input[type="checkbox"] {
     background: var(--colour-print-paper);
   }
 
-  /* The portrait's light ink would vanish on paper; invert it to dark characters. */
-  .about-portrait {
-    filter: invert(1);
+  /* The portrait's light ink would vanish on paper; print it in dark characters. */
+  .about-portrait pre {
+    color: var(--colour-print-ink);
   }
 
   .skip-link,
