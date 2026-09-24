@@ -17,7 +17,8 @@ Excel reads every plotted date and value from those workbook cells.
 
 Formatting applied in memory for the website's true-black canvas: chart fill
 #000000 with a #262626 border; horizontal gridlines only; the category axis
-line drawn at zero; AUD tick labels in $20,000 steps, with the value axis
+line drawn at zero; AUD tick labels in $20,000 steps, negatives in
+parentheses as the site writes them, with the value axis
 starting one step below the step under the lowest week, to leave room for
 its label; the date axis extended three weeks past 31 December with those
 extra labels blanked, to leave room for the end labels; the legend replaced
@@ -42,8 +43,8 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-cash-preview.png SHA-256: dff71a765fdc7225f7414fb45093ea871fba6b7b90c0db99a807201384cb2c26
-cash-preview-narrow.png SHA-256: f582fc386bcd790a402dd7f05b5f617fcfce91f757e380b758a41999b1110f85
+cash-preview.png SHA-256: 839923f797c87f372de404fb83c95cc801cd6c19deb3daa6f3263b3c4694d09e
+cash-preview-narrow.png SHA-256: d05ce9243723600a58afc2eecdc5c49d26491e78782c806177c08cf2c87fde71
 
 Each is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.

@@ -18,15 +18,15 @@ Check workpaper packs, explore cash shortfalls, and inspect the calculations.
 
 Explore the cash flow example Browse tools by accounting task
 
-A personal open source project, not an accounting practice. Ryan Duguid is not a registered tax or BAS agent, and every output is a review aid for a qualified professional.
+A personal open source project, not an accounting practice.
 
 Last reviewed 24 September 2026.
 
-## Profit does not pay the next bill.
+## Compare profit with cash flow
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
+Cash 13 weeks, 45-day delay: lowest weekly cash ($25,160); assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
 
 ## Choose a task
 
@@ -34,11 +34,11 @@ Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000
 
 Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
 
-More five-minute accounting cases
+More short accounting cases
 
 ### Calculate a Coal LSL levy
 
-Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install; this site's code does not send your figures to a server.
+Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install.
 
 More calculators for business planning
 
@@ -54,11 +54,9 @@ Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Micr
 
 See an Excel example
 
-## Worked example
+## See how the Coal LSL levy is calculated
 
-Coal LSL / synthetic result
-
-### See how the levy is calculated
+Coal LSL / fabricated result
 
 The browser calculator applies section 3B, names the formula, and rounds only at the final step.
 
@@ -74,7 +72,7 @@ Formula A, base rate plus bonuses
 
 $6,000.00
 
-Formula B, 75 per cent of the aggregate
+Formula B, 75% of the aggregate
 
 $7,125.00
 
@@ -82,7 +80,7 @@ Eligible wages, the greater of the two
 
 $7,125.00
 
-Levy at 2.7 per cent, before rounding
+Levy at 2.7%, before rounding
 
 $192.3750
 
@@ -98,7 +96,7 @@ View the fixed calculator example
 
 Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
-## Test it with fabricated data first.
+## Test it with fabricated data first
 
 Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
 
@@ -116,7 +114,7 @@ Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
 Before use, check the version and limits in the setup guide, and the Payday Super receipt rules for timing results.
 
-## Check the source before the result.
+## Check the source before the result
 
 About Ryan Duguid
 
@@ -138,7 +136,7 @@ Open the evidence register Browse reproducible evaluations
 
 ### Rates, source work, and release policy
 
-The five working rules behind every tool are on the About page.
+The 5 working rules behind every tool are on the About page.
 
 Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
 
@@ -150,7 +148,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- More five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
@@ -169,7 +167,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
-- five working rules: https://duguid.com.au/about/#grounding
+- 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
 - Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
@@ -188,7 +186,7 @@ Source: https://duguid.com.au/about/
 
 I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
 
-Last reviewed 22 September 2026. This review qualifies the Payday Super claim and checks the linked credential evidence.
+Last reviewed 24 September 2026. The 22 September review qualifies the Payday Super claim and checks the linked credential evidence.
 
 ## The short facts
 
@@ -224,7 +222,7 @@ The evidence register links identity, releases, source reviews, repository contr
 
 ## What I build
 
-The tools extract records into a reviewable shape, apply deterministic calculations, or stop incomplete work before it reaches a reviewer. AI workflows call those bounded tools; they do not replace the calculation, invent missing facts, or approve the result.
+The tools extract records into a reviewable shape, apply deterministic calculations, or stop incomplete work before it reaches a reviewer. AI workflows call those fixed-scope tools; they do not replace the calculation, invent missing facts, or approve the result.
 
 - Payday super timing and SG charge exposure, checked against a payroll export.
 - Workpaper Review Gate keeps incomplete packs off the review desk.
@@ -250,7 +248,7 @@ I use sources such as the Australian Taxation Office's super guarantee rate tabl
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
 - Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific receipt rules before relying on a result.
 - Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
-- A person signs off. The tools calculate and check. Professional judgement and lodgement stay human.
+- A person signs off. The tools calculate and check; a person makes the judgement and lodges.
 
 ## Advice and review boundary
 
@@ -258,7 +256,7 @@ I am not a registered tax agent or BAS agent. Nothing here is tax, legal, or fin
 
 ## Site boundary
 
-This is a personal index of open source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
+This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site.
 
 This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests. Do not post taxpayer information or client files to public repositories.
 
@@ -515,7 +513,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 21 September 2026.
+Last reviewed 24 September 2026.
 
 ## Profit of $35,957.55. A cash shortfall of $25,160.
 
@@ -554,7 +552,7 @@ Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check th
 
 The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
-## Five-minute accounting cases
+## Short accounting cases
 
 Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.
 
@@ -1806,13 +1804,13 @@ Published 20 September 2026. Last reviewed 22 September 2026. This review correc
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and fixed-scope AI workflows.
 
 # Tools
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 22 September 2026.
+Last reviewed 24 September 2026.
 
 ## Start with what you came to do
 
@@ -2038,9 +2036,9 @@ Try an example Source code Last commit 21 September 2026
 
 ## Before using a tool
 
-Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. Start with fabricated data and keep the stated boundary in view.
+Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fabricated data and keep the stated boundary in view.
 
-Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a tool answers but the answer rests on something you should be told.
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a result you should not take at face value.
 
 ## Workbooks and source
 
@@ -3775,6 +3773,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 24 September 2026 | The cash flow chart on the homepage and the cash flow example was re-exported from the workbook with larger text, plus a narrower version for phones, so its axis labels and callouts are readable at the size the page shows them. The figures are unchanged.
+24 September 2026 | Copy edit on Home, About, Tools and Evaluations: repeated disclaimers removed, homepage headings made parallel without full stops, and negative amounts and percentages written one way.
 24 September 2026 | The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.
 22 September 2026 | The car limit page now explains which GST credits reduce the cost. Division 7A figures are qualified for companies with a 30 June year end, with guidance for substituted accounting periods. Workpaper Review Gate describes its released output safeguard. The machine index, tool source dates, financial year labels and Newcastle spelling were corrected, and generated text copies were refreshed.

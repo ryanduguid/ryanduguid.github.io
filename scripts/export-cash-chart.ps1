@@ -125,7 +125,8 @@ try {
   $vax.HasMajorGridlines = $true
   $vax.MajorGridlines.Format.Line.ForeColor.RGB = $rule
   $vax.Format.Line.Visible = 0
-  $vax.TickLabels.NumberFormat = '$#,##0;-$#,##0'
+  # Negative amounts in parentheses, as the site writes them.
+  $vax.TickLabels.NumberFormat = '$#,##0;($#,##0)'
   $vax.Crosses = 4
   $vax.CrossesAt = 0
   # A fixed step and one spare step below the trough leave room for the
@@ -158,7 +159,7 @@ try {
 
   $lowPoint = $s1.Points($minIndex + 1)
   $lowPoint.HasDataLabel = $true
-  $lowPoint.DataLabel.Text = 'Lowest cash' + [char]10 + '-$' + ('{0:N0}' -f [math]::Abs($closing[$minIndex]))
+  $lowPoint.DataLabel.Text = 'Lowest cash' + [char]10 + '($' + ('{0:N0}' -f [math]::Abs($closing[$minIndex])) + ')'
   $lowPoint.DataLabel.Position = 1
   $lf = $lowPoint.DataLabel.Format.TextFrame2.TextRange.Font
   $lf.Name = $fontName

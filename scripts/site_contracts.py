@@ -29,8 +29,8 @@ AUTHORITY_PATHS = {
     "verify": "Verify",
 }
 AUTHORITY_STATEMENTS = {
-    "adopt": "Test it with fabricated data first.",
-    "verify": "Check the source before the result.",
+    "adopt": "Test it with fabricated data first",
+    "verify": "Check the source before the result",
 }
 AUTHORITY_URLS = {
     "adopt": f"{SITE}/tools/australian-tax-ai-agents/#install",
@@ -604,8 +604,8 @@ EVIDENCE_OPENING = (
 HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
-    "Test it with fabricated data first.",
-    "Check the source before the result.",
+    "Test it with fabricated data first",
+    "Check the source before the result",
     "Rates, source work, and release policy",
 ]
 HOMEPAGE_TITLE = "Open source tools for Australian accountants"

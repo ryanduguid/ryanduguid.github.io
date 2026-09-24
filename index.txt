@@ -10,15 +10,15 @@ Check workpaper packs, explore cash shortfalls, and inspect the calculations.
 
 Explore the cash flow example Browse tools by accounting task
 
-A personal open source project, not an accounting practice. Ryan Duguid is not a registered tax or BAS agent, and every output is a review aid for a qualified professional.
+A personal open source project, not an accounting practice.
 
 Last reviewed 24 September 2026.
 
-## Profit does not pay the next bill.
+## Compare profit with cash flow
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
+Cash 13 weeks, 45-day delay: lowest weekly cash ($25,160); assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
 
 ## Choose a task
 
@@ -26,11 +26,11 @@ Cash 13 weeks, 45-day delay: lowest weekly cash -$25,160; assumed buffer $15,000
 
 Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. Excel workbook optional.
 
-More five-minute accounting cases
+More short accounting cases
 
 ### Calculate a Coal LSL levy
 
-Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install; this site's code does not send your figures to a server.
+Calculate eligible wages and see which formula applies. Runs in your browser with nothing to install.
 
 More calculators for business planning
 
@@ -46,11 +46,9 @@ Use Ozzit for GST, financial years, depreciation, and loan schedules. Needs Micr
 
 See an Excel example
 
-## Worked example
+## See how the Coal LSL levy is calculated
 
-Coal LSL / synthetic result
-
-### See how the levy is calculated
+Coal LSL / fabricated result
 
 The browser calculator applies section 3B, names the formula, and rounds only at the final step.
 
@@ -66,7 +64,7 @@ Formula A, base rate plus bonuses
 
 $6,000.00
 
-Formula B, 75 per cent of the aggregate
+Formula B, 75% of the aggregate
 
 $7,125.00
 
@@ -74,7 +72,7 @@ Eligible wages, the greater of the two
 
 $7,125.00
 
-Levy at 2.7 per cent, before rounding
+Levy at 2.7%, before rounding
 
 $192.3750
 
@@ -90,7 +88,7 @@ View the fixed calculator example
 
 Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 allowances. This screenshot stays fixed when you edit the figures above.
 
-## Test it with fabricated data first.
+## Test it with fabricated data first
 
 Use the fabricated sample files to check what each tool accepts, refuses, and explains before using it in a firm.
 
@@ -108,7 +106,7 @@ Payday Super timing Reproduce the on-time, late, and at-risk receipt states.
 
 Before use, check the version and limits in the setup guide, and the Payday Super receipt rules for timing results.
 
-## Check the source before the result.
+## Check the source before the result
 
 About Ryan Duguid
 
@@ -130,7 +128,7 @@ Open the evidence register Browse reproducible evaluations
 
 ### Rates, source work, and release policy
 
-The five working rules behind every tool are on the About page.
+The 5 working rules behind every tool are on the About page.
 
 Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
 
@@ -142,7 +140,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
-- More five-minute accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
@@ -161,7 +159,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Source on GitHub: https://github.com/ryanduguid
 - certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
-- five working rules: https://duguid.com.au/about/#grounding
+- 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 - Related resources: https://duguid.com.au/tools/#related-resources
 - Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
