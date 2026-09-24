@@ -26,7 +26,7 @@ Last reviewed 24 September 2026.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter's profit stays the same.
 
-Cash 13 weeks, 45-day delay: lowest weekly cash ($25,160); assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 13 September 2026. Capture record.
+Cash 13 weeks, 45-day delay: lowest weekly cash ($25,160); assumed buffer $15,000; December closing cash $67,320, as it would be without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
 
 ## Choose a task
 
@@ -3772,6 +3772,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+24 September 2026 | The cash flow chart on the homepage and the cash flow example was re-exported from the workbook with larger text, plus a narrower version for phones, so its axis labels and callouts are readable at the size the page shows them. The figures are unchanged.
 24 September 2026 | Copy edit on Home, About, Tools and Evaluations: repeated disclaimers removed, homepage headings made parallel without full stops, and negative amounts and percentages written one way.
 24 September 2026 | The homepage drops a worked example that repeated a task row, lines its section headings up with the main heading, and shortens the note under the hero. The Human and Machine view switch moved into the header, so it no longer covers text while scrolling.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.7, which adds a Schedule 1 PAYG withholding worksheet for regular weekly, fortnightly and monthly pays from 1 July 2026, bringing the bounded tax worksheets to seven.
@@ -6840,7 +6841,7 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 21 September 2026.
+Published 18 September 2026. Last reviewed 24 September 2026.
 
 ## The business and the question
 
@@ -6875,7 +6876,7 @@ The two cases end the quarter with the same cash because the delayed receipt sti
 
 Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
 
-Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 13 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, ($11,960), ($11,960), ($25,160), $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
+Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, ($11,960), ($11,960), ($25,160), $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
 
 ## Why profit did not move
 
