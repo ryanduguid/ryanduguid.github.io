@@ -47,6 +47,17 @@ where it no longer covers page text while scrolling; above the 56rem collapse
 the header reserves its width beside the navigation. The hero boundary note
 stays in the first viewport and says the same thing in fewer words.
 
+The 25 September editorial pass keeps the order understand, try, then
+investigate. The hero, cash case and task chooser are unchanged. The proof
+band keeps its calculator, the calculator button and the evidence link; the
+two Coal LSL source links already sit in the calculator's source list. Adopt
+and Verify each keep one sentence, two links and one note. The credential
+register leaves the homepage because About carries all three records, and
+the header and footer already link GitHub, About, Rates and Related
+resources. The legislation corpus, Tax Radar AU and release policy links move
+to Evidence, under sources and release evidence. Adopt and Verify stay
+separate sections because llms.txt and the authority checks use both routes.
+
 The 22 September landing-page refinement retains pure dark mode at Ryan's
 request. The headline is 'Open source tools for Australian accountants'.
 It caps at 60px at the default text size; mobile

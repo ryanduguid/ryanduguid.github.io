@@ -20,7 +20,7 @@ Explore the cash flow example Browse tools by accounting task
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 24 September 2026.
+Last reviewed 25 September 2026.
 
 ## Compare profit with cash flow
 
@@ -90,7 +90,7 @@ $192.38
 
 Fictional figures, calculated in your browser. This site's code sends and stores none of them; the Privacy page covers Cloudflare's delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
-Open the calculator Review the evidence register Read eligible wages guidance Read governing legislation
+Open the calculator Review the evidence register
 
 View the fixed calculator example
 
@@ -100,45 +100,15 @@ Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 al
 
 Use the sample files to check what each tool accepts, refuses and explains before using it in a firm.
 
-### Install and integrate
+Open the setup guide Browse reproducible evaluations
 
-The setup guide covers Claude Code, Codex, accounting skills and GitHub workflows, with requirements and version limits.
-
-Open the setup guide
-
-Manager review gate: Reproduce the incomplete pack checks.
-
-Xero trial balance integrity: Reproduce the balanced export checks.
-
-Payday Super timing: Reproduce the on-time, late and at-risk receipt states.
-
-Before you use a tool, check its version and limits in the setup guide. For timing results, also check the Payday Super receipt rules.
+Before you use a tool, check its version and limits in the setup guide.
 
 ## Check the source before the result
 
-About Ryan Duguid
+The evidence register links each claim to identity records, releases, primary source reviews and tests. The About page sets out the 5 working rules behind every tool.
 
-Source on GitHub
-
-Professional body
-
-Provisional CA ANZ Member; no CA ANZ endorsement of this site or its tools
-
-Product systems
-
-SAP S/4HANA Financial Accounting and Management Accounting
-
-Practice software
-
-Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027; certificate in the evidence register
-
-Open the evidence register Browse reproducible evaluations
-
-### Rates, source work and release policy
-
-The About page sets out the 5 working rules behind every tool.
-
-Maintained rates Related resources Legislation Corpus Tax Radar AU (in the legislation corpus) Release Policy
+Open the evidence register Maintained rates
 
 The evidence supports limited claims about the software, not endorsements or client outcomes.
 
@@ -157,22 +127,10 @@ The evidence supports limited claims about the software, not endorsements or cli
 - See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
-- Read eligible wages guidance: https://coallsl.com.au/guidance-notes/eligible-wages
-- Read governing legislation: https://coallsl.com.au/about-us/governing-legislation/legislation
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- Xero trial balance integrity: Reproduce the balanced export checks.: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
-- Payday Super timing: Reproduce the on-time, late and at-risk receipt states.: https://duguid.com.au/evaluate/payday-super-evidence/
-- Payday Super receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
-- About Ryan Duguid: https://duguid.com.au/about/
-- Source on GitHub: https://github.com/ryanduguid
-- certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
-- Related resources: https://duguid.com.au/tools/#related-resources
-- Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
-- Tax Radar AU (in the legislation corpus): https://github.com/ryanduguid/au-tax-legislation-corpus/blob/main/RADAR.md
-- Release Policy: https://github.com/ryanduguid/release-policy
 
 ---
 
@@ -368,6 +326,7 @@ Start with current Commonwealth legislation, such as the Income Tax Assessment A
 - Trust distribution statutory review record and company tax and franking statutory review record.
 - Hardhat Ledger source review and TheWIPTally AASB 15 source notes.
 - Australian Accounting Skills source manifests, Xero API scope record and Workpaper Review Gate design record.
+- The Legislation Corpus code builds a keyword-selected set of Commonwealth tax legislation from the Register with source and provenance records, and its Tax Radar AU queues changes for review.
 - The Coal LSL calculator source list stays on the calculator page, where each source link can be checked directly.
 
 These records link to the maintained source instead of repeating rates, thresholds, package versions or compatibility tables that change.
@@ -396,6 +355,7 @@ Published products expose release assets through the release pages linked above.
 - australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and company tax
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
 - accounting-review-pipeline (Xero export): attestations; release workflow
+- Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
 
 Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
 
@@ -462,6 +422,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Australian Accounting Skills source manifests: https://github.com/ryanduguid/australian-accounting-skills/tree/main/.claude/skills
 - Xero API scope record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/README.md#scope-and-disclaimer
 - Workpaper Review Gate design record: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#design
+- Legislation Corpus: https://github.com/ryanduguid/au-tax-legislation-corpus
+- Tax Radar AU: https://github.com/ryanduguid/au-tax-legislation-corpus/blob/main/RADAR.md
 - Coal LSL calculator source list: https://duguid.com.au/tools/coal-lsl-levy/#sources
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
@@ -501,6 +463,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
+- Release Policy: https://github.com/ryanduguid/release-policy
 
 ---
 

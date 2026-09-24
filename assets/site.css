@@ -724,7 +724,6 @@ caption {
 /* Caption-size standalone links keep their layout but gain a 24px-plus
    hit area: the padding is cancelled by an equal negative margin. */
 .article-crumb a,
-.home-hero__source a,
 .release-meta a {
   display: inline-block;
   padding-block: var(--space-2);
@@ -1120,7 +1119,7 @@ caption {
   max-width: 58ch;
 }
 
-.page-home :is(.technical-label, .page-meta, .home-hero__source, .credential-register dt),
+.page-home :is(.technical-label, .page-meta),
 .page-home .site-identity::after {
   font-family: var(--font-body);
   letter-spacing: normal;
@@ -1137,12 +1136,6 @@ caption {
   align-items: center;
   gap: var(--space-3);
   margin-top: var(--space-2);
-}
-
-.home-hero__byline {
-  max-width: 58ch;
-  color: var(--colour-ink-soft);
-  font-size: var(--text-small);
 }
 
 .home-case {
@@ -1233,13 +1226,6 @@ caption {
   max-width: 58ch;
   color: var(--colour-ink-soft);
   font-size: var(--text-small);
-}
-
-.home-hero__source {
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .home-tool-preview {
@@ -1501,32 +1487,6 @@ caption {
 
 .adoption-links {
   display: grid;
-}
-
-.credential-register {
-  margin: 0;
-  border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.credential-register > div {
-  display: grid;
-  grid-template-columns: minmax(9rem, 0.65fr) minmax(0, 1.35fr);
-  gap: var(--space-5);
-  align-items: baseline;
-  padding-block: var(--space-3);
-  border-top: var(--rule-thin) solid var(--colour-rule-strong);
-}
-
-.credential-register dt {
-  color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
-  font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
-}
-
-.credential-register dd {
-  margin: 0;
 }
 
 /* One certification record: the issuer's own badge beside the qualification,
@@ -2430,13 +2390,11 @@ input[type="checkbox"] {
   .route-actions > a,
   .route-actions.route-actions--mail > a,
   .adoption-links > a,
-  .credential-register > div,
   .credential-card {
     grid-template-columns: 1fr;
   }
 
-  .adoption-links > a,
-  .credential-register > div {
+  .adoption-links > a {
     gap: var(--space-2);
   }
 

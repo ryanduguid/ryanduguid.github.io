@@ -607,7 +607,6 @@ HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_SUPPORT,
     "Try each tool with fictional data first",
     "Check the source before the result",
-    "Rates, source work and release policy",
 ]
 HOMEPAGE_TITLE = "Open source tools for Australian accountants"
 HOMEPAGE_DESCRIPTION = (
@@ -620,13 +619,10 @@ HOMEPAGE_REQUIRED_HREFS = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
     "/tools/workpaper-review-gate/",
-    "/evaluate/payday-super-evidence/",
 ]
 HOMEPAGE_PROOF_HREFS = [
     "/tools/coal-lsl-levy/",
     "/evidence/",
-    "https://coallsl.com.au/guidance-notes/eligible-wages",
-    "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 ARTICLE_PATTERN_PAGES = {
     "examples/profit-vs-cash-flow/index.html",
