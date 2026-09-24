@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+25 September 2026 | The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
 24 September 2026 | Copy edit across the site: no serial comma, 'fictional' in place of 'fabricated', NSW in place of New South Wales, Evidence in the first person, minus signs for negative amounts and plainer sentences on Home, About, Evaluations, Privacy and Payday Super.
 24 September 2026 | Each of the 100 accounting questions is now a heading, and 28 answers open with a figure checked on 24 September 2026 at the ATO, Revenue NSW or Coal LSL. Question 10 now covers the 1 July 2026 changes, question 99 covers the Coal LSL levy, and each topic page publishes FAQ structured data.

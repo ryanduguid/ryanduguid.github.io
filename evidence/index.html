@@ -55,7 +55,7 @@
         </nav>
         <h1>Evidence behind the tools</h1>
         <p class="lead-note short-answer">This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.</p>
-        <p class="page-meta">Last reviewed 24 September 2026.</p>
+        <p class="page-meta">Last reviewed 25 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
@@ -73,10 +73,11 @@
 
           <section aria-labelledby="accepted-upstream-work">
             <h2 id="accepted-upstream-work">Accepted upstream work</h2>
-            <p>OpenAccountants and Meltano accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
+            <p>OpenAccountants, Meltano and XeroAPI accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
             <p><strong>OpenAccountants, tax guides for coding agents.</strong> <a href="https://github.com/OpenAccountants/openaccountants/pull/85">Pull request 85</a> restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.</p>
             <p><strong>Meltano SDK, a framework for Singer taps and targets.</strong> <a href="https://github.com/meltano/sdk/pull/3727">Pull request 3727</a> retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.</p>
-            <p class="field-note">Merge status and file counts were read from the GitHub API on 18 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, <a href="/evaluate/">rerun the evaluations</a>.</p>
+            <p><strong>Xero command line, XeroAPI's command-line tool for the Xero Accounting API.</strong> <a href="https://github.com/XeroAPI/xero-command-line/pull/44">Pull request 44</a> passes the <code>--standard-layout</code> and <code>--payments-only</code> flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so <code>--standard-layout</code> returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.</p>
+            <p class="field-note">Merge status and file counts were read from the GitHub API on 25 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, <a href="/evaluate/">rerun the evaluations</a>.</p>
           </section>
 
           <section>
@@ -278,7 +279,7 @@
         "headline": "Evidence and Assurance for Australian accounting tools",
         "description": "Canonical evidence, assurance boundaries and inspectable records for Australian computational accounting tools.",
         "inLanguage": "en-AU",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-25",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "breadcrumb": { "@id": "https://duguid.com.au/evidence/#breadcrumb" }
