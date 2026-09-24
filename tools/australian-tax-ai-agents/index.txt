@@ -20,7 +20,7 @@ Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans, or lodgement.
 Look up ATO guidance, legislation, and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
 Walk an agent through a public practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not hard-code rates. Sends the agent to ato.gov.au for current figures.
-Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
+Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG, or PAYG withholding arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
@@ -30,7 +30,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 - Compares the profit and loss buckets you supply to the published ATO ranges. Omitted buckets stay not_supplied; they are not treated as zero.
 - Reviews one Payday Super contribution or a related group for one employer, using payday-super-checker. Missing fund receipt evidence remains unresolved.
 - Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.
-- Calculates 6 experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
+- Calculates 7 experimental tax worksheets through calculate_tax_worksheet, with explicit scope and period checks.
 - Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.
 - Emits synthetic SBR fixtures for agent tests, labelled synthetic: true.
 

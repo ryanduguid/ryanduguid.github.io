@@ -117,10 +117,10 @@
           <td data-label="What it will not do"><span class="comparison-value">Does not hard-code rates. Sends the agent to ato.gov.au for current figures.</span></td>
         </tr>
         <tr>
-          <td data-label="Job"><span class="comparison-value">Bounded GST, resident tax, CGT, FBT, depreciation, or quarterly SG arithmetic</span></td>
+          <td data-label="Job"><span class="comparison-value">Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG, or PAYG withholding arithmetic</span></td>
           <td data-label="What to install"><span class="comparison-value">Aus Accounting MCP with <a href="https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md">australian-tax-calculators</a></span></td>
           <td data-label="Where it runs"><span class="comparison-value">Local MCP</span></td>
-          <td data-label="What it will not do"><span class="comparison-value">No HELP, Medicare, offsets, PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.</span></td>
+          <td data-label="What it will not do"><span class="comparison-value">No HELP, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.</span></td>
         </tr>
       </tbody>
     </table>
@@ -138,7 +138,7 @@
       <li>Compares the profit and loss buckets you supply to the published ATO ranges. Omitted buckets stay <code>not_supplied</code>; they are not treated as zero.</li>
       <li>Reviews one Payday Super contribution or a related group for one employer, using <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker">payday-super-checker</a>. Missing fund receipt evidence remains unresolved.</li>
       <li>Reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. Division 7A review is experimental and requires human review.</li>
-      <li>Calculates 6 experimental tax worksheets through <code>calculate_tax_worksheet</code>, with explicit scope and period checks.</li>
+      <li>Calculates 7 experimental tax worksheets through <code>calculate_tax_worksheet</code>, with explicit scope and period checks.</li>
       <li>Searches and reads a configured local Markdown library with file and line citations. This is optional; the package includes no library.</li>
       <li>Emits synthetic SBR fixtures for agent tests, labelled <code>synthetic: true</code>.</li>
     </ul>
