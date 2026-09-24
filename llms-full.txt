@@ -324,7 +324,7 @@ Start with current Commonwealth legislation, such as the Income Tax Assessment A
 - Trust distribution statutory review record and company tax and franking statutory review record.
 - Hardhat Ledger source review and TheWIPTally AASB 15 source notes.
 - Australian Accounting Skills source manifests, Xero API scope record and Workpaper Review Gate design record.
-- The Legislation Corpus collects in-force Commonwealth tax legislation with source and provenance records, and its Tax Radar AU queues changes for review.
+- The Legislation Corpus code builds a keyword-selected set of Commonwealth tax legislation from the Register with source and provenance records, and its Tax Radar AU queues changes for review.
 - The Coal LSL calculator source list stays on the calculator page, where each source link can be checked directly.
 
 These records link to the maintained source instead of repeating rates, thresholds, package versions or compatibility tables that change.
