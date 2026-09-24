@@ -125,8 +125,8 @@ register at `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and
   accent. Alert red remains reserved for refusal and warning semantics. Content
   and register surfaces stay square, while controls use the single documented
   2px control radius.
-- IBM Plex Serif remains justified by the statutory-note and public-register
-  identity. The centred homepage masthead remains justified as the ceremonial
+- The display serif (IBM Plex Serif at this review; Besley since 24 September
+  2026) remains justified by the statutory-note and public-register identity. The centred homepage masthead remains justified as the ceremonial
   artefact rather than a generic split hero.
 - The hero has its public-register label, 2-line desktop or three-line mobile
   masthead, concise identity sentence and one Tools action. The trust band is
@@ -163,7 +163,8 @@ register at `DESIGN_VARIANCE: 6`, `MOTION_INTENSITY: 2` and
   zero total blocking time.
 
 The contextual exceptions are deliberate and approved: dark-only delivery and
-true black, IBM Plex Serif, stamp green, sharp ruled geometry, 2px controls, the
+true black, the display serif (IBM Plex Serif at this review, Besley since
+24 September 2026), stamp green, sharp ruled geometry, 2px controls, the
 centred manifesto masthead and one real local proof instead of the skill's
 generated-image default. The measured masthead sizing, tracking, 23rem wide
 route rail and mobile spacing also replace the plan's literal estimates because

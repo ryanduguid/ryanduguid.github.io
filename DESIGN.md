@@ -384,10 +384,10 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 [Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the 3 gold-standard references.
 
 - Borrow: the centred ceremonial masthead, near-black green field, cold luminous title colour, compact mono index labels and fine ruled geometry.
-- Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
+- Translate: the project index becomes a public accounting register, and the display serif (IBM Plex at this pass, Besley since 24 September 2026) is the site's own rather than Pliny's typeface.
 - Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its 3-column project-card grid.
 
-The resulting system combines a cold ledger surface, a harbour-green review stamp, the IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
+The resulting system combines a cold ledger surface, a harbour-green review stamp, one serif, sans and mono type system (IBM Plex at this pass; Besley, Public Sans and Spline Sans Mono since 24 September 2026), tabular evidence chrome and route viewports built around Adopt and Verify.
 
 ## Visual premise
 
