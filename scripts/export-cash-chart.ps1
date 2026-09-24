@@ -7,15 +7,30 @@
 # assets/tokens.css so the chart follows the palette. IBM Plex Sans must be
 # installed for the user running Excel.
 #
-# Usage, from the repository root with Excel closed:
-#   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1
-# Then record the printed PNG hash in assets/examples/lumbridge/preview-record.txt.
+# Usage, from the repository root with Excel closed, once per variant:
+#   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant wide
+#   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant narrow
+# Then record the printed PNG hashes in assets/examples/lumbridge/preview-record.txt.
+#
+# The wide chart serves the full-size link and wide hero columns; the narrow
+# chart serves phones and the tighter two-column widths. Both size their text
+# so the rendered labels stay at about 12px or more where the page shows them.
+
+param(
+  [ValidateSet('wide', 'narrow')]
+  [string]$Variant = 'wide'
+)
 
 $ErrorActionPreference = 'Stop'
 
+$layout = @{
+  wide   = @{ Width = 957; Height = 479.5; Text = 22; Title = 22; DateStep = 14; File = 'cash-preview.png' }
+  narrow = @{ Width = 640; Height = 533.5; Text = 24; Title = 24; DateStep = 28; File = 'cash-preview-narrow.png' }
+}[$Variant]
+
 $root = Resolve-Path (Join-Path $PSScriptRoot '..')
 $src = Join-Path $root 'assets\examples\lumbridge\lumbridge.xlsx'
-$out = Join-Path $root 'assets\examples\lumbridge\cash-preview.png'
+$out = Join-Path $root "assets\examples\lumbridge\$($layout.File)"
 $tokensPath = Join-Path $root 'assets\tokens.css'
 $fontName = 'IBM Plex Sans'
 
@@ -76,9 +91,9 @@ try {
   $minIndex = 0
   for ($i = 1; $i -lt $closing.Count; $i++) { if ($closing[$i] -lt $closing[$minIndex]) { $minIndex = $i } }
 
-  # 957 by 479.5 points export at 1282 by 639 pixels on this display scale,
-  # the intrinsic size index.html and the browser spec pin.
-  $co = $ws.ChartObjects().Add(400, 20, 957, 479.5)
+  # The wide 957 by 479.5 points export at 1282 by 639 pixels on this display
+  # scale, the intrinsic size index.html and the browser spec pin.
+  $co = $ws.ChartObjects().Add(400, 20, $layout.Width, $layout.Height)
   $ch = $co.Chart
   $ch.ChartType = 65
 
@@ -95,14 +110,14 @@ try {
 
   $font = $ch.ChartArea.Format.TextFrame2.TextRange.Font
   $font.Name = $fontName
-  $font.Size = 10
+  $font.Size = $layout.Text
   $font.Fill.ForeColor.RGB = $inkSoft
 
   $ch.HasTitle = $true
   $ch.ChartTitle.Text = 'Lumbridge Services: weekly closing cash after a 45-day receipt delay (AUD)'
   $tf = $ch.ChartTitle.Format.TextFrame2.TextRange.Font
   $tf.Name = $fontName
-  $tf.Size = 12
+  $tf.Size = $layout.Title
   $tf.Bold = 0
   $tf.Fill.ForeColor.RGB = $ink
 
@@ -110,14 +125,19 @@ try {
   $vax.HasMajorGridlines = $true
   $vax.MajorGridlines.Format.Line.ForeColor.RGB = $rule
   $vax.Format.Line.Visible = 0
-  $vax.TickLabels.NumberFormat = '$#,##0;-$#,##0'
+  # Negative amounts in parentheses, as the site writes them.
+  $vax.TickLabels.NumberFormat = '$#,##0;($#,##0)'
   $vax.Crosses = 4
   $vax.CrossesAt = 0
+  # A fixed step and one spare step below the trough leave room for the
+  # two-line lowest-cash label above the date labels. Scale only; no value moves.
+  $vax.MajorUnit = 20000
+  $vax.MinimumScale = [math]::Floor(($closing[$minIndex] - 25000) / 20000) * 20000
 
   $cax = $ch.Axes(1)
   $cax.CategoryType = 2
   $cax.BaseUnit = 0
-  $cax.MajorUnit = 14
+  $cax.MajorUnit = $layout.DateStep
   $cax.MajorUnitScale = 0
   $cax.MaximumScale = $lastDate + 21
   $cax.TickLabelPosition = -4134
@@ -126,24 +146,24 @@ try {
   $cax.HasMajorGridlines = $false
 
   $s1.Format.Line.ForeColor.RGB = $stamp
-  $s1.Format.Line.Weight = 2
+  $s1.Format.Line.Weight = 4
   $s1.MarkerStyle = 8
-  $s1.MarkerSize = 4
+  $s1.MarkerSize = 8
   $s1.MarkerForegroundColor = $stamp
   $s1.MarkerBackgroundColor = $stamp
 
   $s2.Format.Line.ForeColor.RGB = $alert
-  $s2.Format.Line.Weight = 1.5
+  $s2.Format.Line.Weight = 3
   $s2.Format.Line.DashStyle = 4
   $s2.MarkerStyle = -4142
 
   $lowPoint = $s1.Points($minIndex + 1)
   $lowPoint.HasDataLabel = $true
-  $lowPoint.DataLabel.Text = 'Lowest cash -$' + ('{0:N0}' -f [math]::Abs($closing[$minIndex]))
+  $lowPoint.DataLabel.Text = 'Lowest cash' + [char]10 + '($' + ('{0:N0}' -f [math]::Abs($closing[$minIndex])) + ')'
   $lowPoint.DataLabel.Position = 1
   $lf = $lowPoint.DataLabel.Format.TextFrame2.TextRange.Font
   $lf.Name = $fontName
-  $lf.Size = 10
+  $lf.Size = $layout.Text
   $lf.Fill.ForeColor.RGB = $alert
 
   $endPoint = $s1.Points(13)
@@ -152,7 +172,7 @@ try {
   $endPoint.DataLabel.Position = -4152
   $ef = $endPoint.DataLabel.Format.TextFrame2.TextRange.Font
   $ef.Name = $fontName
-  $ef.Size = 10
+  $ef.Size = $layout.Text
   $ef.Fill.ForeColor.RGB = $stamp
 
   $bufPoint = $s2.Points(13)
@@ -161,7 +181,7 @@ try {
   $bufPoint.DataLabel.Position = -4152
   $bf = $bufPoint.DataLabel.Format.TextFrame2.TextRange.Font
   $bf.Name = $fontName
-  $bf.Size = 10
+  $bf.Size = $layout.Text
   $bf.Fill.ForeColor.RGB = $alert
 
   if (Test-Path $out) { Remove-Item $out }
