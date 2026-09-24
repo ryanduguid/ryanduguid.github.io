@@ -29,8 +29,8 @@ AUTHORITY_PATHS = {
     "verify": "Verify",
 }
 AUTHORITY_STATEMENTS = {
-    "adopt": "Test it with fabricated data first.",
-    "verify": "Check the source before the result.",
+    "adopt": "Test it with fabricated data first",
+    "verify": "Check the source before the result",
 }
 AUTHORITY_URLS = {
     "adopt": f"{SITE}/tools/australian-tax-ai-agents/#install",
@@ -82,6 +82,7 @@ AUS_ACCOUNTING_PYPI = "https://pypi.org/project/aus-accounting-mcp/"
 PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
+    "https://www.openaccountants.com/network/368408e7-bf06-431d-95a6-0b72e168ddeb",
 ]
 PERSON_REQUIRED_FIELDS = {
     "name": "Ryan Duguid",
@@ -604,8 +605,8 @@ EVIDENCE_OPENING = (
 HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
-    "Test it with fabricated data first.",
-    "Check the source before the result.",
+    "Test it with fabricated data first",
+    "Check the source before the result",
     "Rates, source work, and release policy",
 ]
 HOMEPAGE_TITLE = "Open source tools for Australian accountants"
