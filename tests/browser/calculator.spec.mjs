@@ -808,7 +808,9 @@ test('GST page registers a read-only WebMCP tool only where the browser offers m
 
 test('a failing WebMCP registration leaves the GST calculator working', async ({ page }) => {
   const errors = [];
+  const warnings = [];
   page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); });
   await page.addInitScript(() => {
     Object.defineProperty(document, 'modelContext', {
       value: { registerTool: () => { window.registrationAttempted = true; throw new TypeError('unsupported'); } },
@@ -820,4 +822,5 @@ test('a failing WebMCP registration leaves the GST calculator working', async ({
   await page.getByRole('button', { name: 'Calculate' }).click();
   await expect(page.locator('form[data-calculator="gst"] output')).toContainText('GST: $11.00');
   expect(errors).toEqual([]);
+  expect(warnings.some(text => text.includes('WebMCP tool registration failed') && text.includes('unsupported'))).toBe(true);
 });
