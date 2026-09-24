@@ -118,7 +118,7 @@
             <p>
               The tools extract records into a reviewable shape, apply deterministic
               calculations, or stop incomplete work before it reaches a reviewer. AI
-              workflows call those bounded tools; they do not replace the calculation,
+              workflows call those fixed-scope tools; they do not replace the calculation,
               invent missing facts, or approve the result.
             </p>
             <ul>
@@ -151,7 +151,7 @@
               <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.</li>
               <li><strong>Refusal over guessing.</strong> The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. <a href="/tools/payday-super/#receipt-amount">Check the version-specific receipt rules</a> before relying on a result.</li>
               <li><strong>Synthetic data in public.</strong> Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.</li>
-              <li><strong>A person signs off.</strong> The tools calculate and check. Professional judgement and lodgement stay human.</li>
+              <li><strong>A person signs off.</strong> The tools calculate and check; a person makes the judgement and lodges.</li>
             </ul>
           </section>
 
@@ -167,9 +167,9 @@
           <section id="contact">
             <h2>Site boundary</h2>
             <p>
-              This is a personal index of open source accounting tools I build in my own
-              time and on my own equipment. It is not a practice, and I am not
-              accepting professional engagements through this site.
+              This is a personal index of open source accounting tools I build. It is
+              not a practice, and I am not accepting professional engagements through
+              this site.
             </p>
             <p>
               This site does not offer tax or BAS agent services and does not accept tax

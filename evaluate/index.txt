@@ -51,7 +51,7 @@ Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check th
 
 The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
-## Five-minute accounting cases
+## Short accounting cases
 
 Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.
 

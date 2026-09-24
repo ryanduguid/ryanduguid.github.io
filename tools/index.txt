@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/
 
-> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and bounded AI workflows.
+> Browse 12 open source accounting controls for payroll, Xero, workpapers, ledgers, tax calculations, and fixed-scope AI workflows.
 
 # Tools
 
@@ -234,9 +234,9 @@ Try an example Source code Last commit 21 September 2026
 
 ## Before using a tool
 
-Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of vetted tools. Start with fabricated data and keep the stated boundary in view.
+Delivery ranges from browser tools to Python packages, an MCP server, and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fabricated data and keep the stated boundary in view.
 
-Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a tool answers but the answer rests on something you should be told.
+Three of the tools carry reproducible evaluations against fixed releases, so a sceptical reviewer can rerun the checks before adopting anything. What these tools refuse lists each send-back and refusal with its exact output, and Known limitations lists the cases where a released tool returns a figure that is sound only once you know what produced it.
 
 ## Workbooks and source
 

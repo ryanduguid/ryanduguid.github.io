@@ -44,7 +44,7 @@ The evidence register links identity, releases, source reviews, repository contr
 
 ## What I build
 
-The tools extract records into a reviewable shape, apply deterministic calculations, or stop incomplete work before it reaches a reviewer. AI workflows call those bounded tools; they do not replace the calculation, invent missing facts, or approve the result.
+The tools extract records into a reviewable shape, apply deterministic calculations, or stop incomplete work before it reaches a reviewer. AI workflows call those fixed-scope tools; they do not replace the calculation, invent missing facts, or approve the result.
 
 - Payday super timing and SG charge exposure, checked against a payroll export.
 - Workpaper Review Gate keeps incomplete packs off the review desk.
@@ -70,7 +70,7 @@ I use sources such as the Australian Taxation Office's super guarantee rate tabl
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
 - Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific receipt rules before relying on a result.
 - Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
-- A person signs off. The tools calculate and check. Professional judgement and lodgement stay human.
+- A person signs off. The tools calculate and check; a person makes the judgement and lodges.
 
 ## Advice and review boundary
 
@@ -78,7 +78,7 @@ I am not a registered tax agent or BAS agent. Nothing here is tax, legal, or fin
 
 ## Site boundary
 
-This is a personal index of open source accounting tools I build in my own time and on my own equipment. It is not a practice, and I am not accepting professional engagements through this site.
+This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site.
 
 This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests. Do not post taxpayer information or client files to public repositories.
 
