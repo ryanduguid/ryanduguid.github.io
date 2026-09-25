@@ -214,10 +214,11 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   const actions = page.getByRole('navigation', { name: 'Homepage actions' });
   await expect(actions.getByRole('link')).toHaveText([
     'Explore the cash flow example',
-    'Browse tools by accounting task',
   ]);
   await expect(actions.getByRole('link').nth(0)).toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
-  await expect(actions.getByRole('link').nth(1)).toHaveAttribute('href', '/tools/');
+  await expect(page.locator('.home-tool-preview a[href="/tools/"]')).toHaveText([
+    'Browse tools by accounting task',
+  ]);
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);
   await expect(page.locator('.home-hero + section')).toHaveClass(/home-tool-preview/);

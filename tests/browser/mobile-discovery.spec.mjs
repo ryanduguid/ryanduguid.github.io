@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('mobile discovery links have room to tap without horizontal scrolling', async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== 'mobile-chromium', 'Mobile layout coverage');
   const routes = [
-    ['/', '.home-hero__actions a, .home-tool-preview__entry a, .proof-feature__links a'],
+    ['/', '.home-hero__actions a, .home-tool-preview a, .proof-feature__links a'],
     ['/tools/', '.task-routes a, .collection-entry__title, .collection-entry__links a'],
     ['/tools/ozzit/', '.article-toc a'],
     ['/evaluate/manager-review-gate/', '.article-toc a'],

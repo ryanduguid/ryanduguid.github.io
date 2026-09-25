@@ -16,7 +16,7 @@ Source: https://duguid.com.au/
 
 Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
-Explore the cash flow example Browse tools by accounting task
+Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
@@ -53,6 +53,8 @@ Open the Workpaper Review Gate
 Use Ozzit for GST, financial years, depreciation and loan schedules. It needs Microsoft 365 or Excel 2024 or later.
 
 See an Excel example
+
+Browse tools by accounting task
 
 ## See how the Coal LSL levy is calculated
 
@@ -115,7 +117,6 @@ The evidence supports limited claims about the software, not endorsements or cli
 ## Links
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
@@ -125,6 +126,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
 - See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
+- Browse tools by accounting task: https://duguid.com.au/tools/
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
@@ -1778,7 +1780,7 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 24 September 2026.
+Last reviewed 25 September 2026.
 
 ## Start with what you came to do
 
@@ -2002,6 +2004,8 @@ Human review required. Optional local library excerpts enter the assistant's con
 
 Try an example Source code Last commit 24 September 2026
 
+Two repositories sit outside this register. llm-tax-guardrails is an external prompt guide; its refusal scenarios are documented here. au-fpa-pack provides the fictional cash flow example and forecasting tools built on openfpa.
+
 ## Before using a tool
 
 Delivery ranges from browser tools to Python packages, an MCP server and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fictional data and keep the stated boundary in view.
@@ -2061,6 +2065,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- its refusal scenarios: https://duguid.com.au/tools/refusals/#drdebits
 - reproducible evaluations: https://duguid.com.au/evaluate/
 - What these tools refuse: https://duguid.com.au/tools/refusals/
 - Known limitations: https://duguid.com.au/tools/limitations/

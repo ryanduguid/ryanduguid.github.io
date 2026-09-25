@@ -566,10 +566,7 @@ CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%2
 HOMEPAGE_HEADING = "Open source tools for Australian accountants"
 HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
 HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls and inspect the calculations."
-HOMEPAGE_ACTIONS = (
-    ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
-    ("/tools/", "Browse tools by accounting task"),
-)
+HOMEPAGE_ACTIONS = (("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),)
 HOMEPAGE_PREVIEW_ENTRIES = (
     (
         "Understand why profit and cash differ",
