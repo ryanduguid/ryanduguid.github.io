@@ -40,6 +40,7 @@ test('current tool routes lead to maintained component source and support', asyn
   await expect(developmentInstall).toBeHidden();
   await page.getByText('Development installation', { exact: true }).focus();
   await page.keyboard.press('Enter');
+  await expect(developmentInstall).toBeVisible();
   await expect(developmentInstall)
     .toContainText('npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills');
 });
