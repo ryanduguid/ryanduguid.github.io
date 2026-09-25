@@ -15,6 +15,7 @@ from build_site import build
 
 ROOT = Path(__file__).resolve().parents[1]
 CHECKS = (
+    (sys.executable, "scripts/test_ozzit_reference.py"),
     (sys.executable, "scripts/test_fact_check.py"),
     (sys.executable, "scripts/test_contracts.py"),
     (sys.executable, "scripts/test_site_server.py"),
@@ -119,6 +120,9 @@ def main() -> int:
     )
     args = parser.parse_args()
     args.offline = args.offline or (args.ci and ci_offline())
+    subprocess.run(
+        [sys.executable, "scripts/build_ozzit_reference.py", "--check"], cwd=ROOT, check=True
+    )
     rendered = build()
     subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
     # Add only the tooling and fixtures the checks need beside the built files.

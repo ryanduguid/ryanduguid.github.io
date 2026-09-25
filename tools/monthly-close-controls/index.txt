@@ -8,9 +8,13 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.
 
+Inspect the eight exceptions Run the example
+
+Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Python and uv.
+
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 
-Published 11 September 2026. Last reviewed 12 September 2026.
+Published 11 September 2026. Last reviewed 25 September 2026.
 
 ## Inputs
 
@@ -93,6 +97,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md

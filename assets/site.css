@@ -377,6 +377,68 @@ button:not(.button) {
   max-width: var(--reading-width);
 }
 
+.article-intro {
+  display: grid;
+  align-content: start;
+  gap: var(--space-4);
+  min-width: 0;
+}
+
+.article-preview {
+  min-width: 0;
+  align-self: center;
+  padding: var(--space-5);
+  border: 1px solid var(--colour-ink-soft);
+}
+
+.article-preview > * + * {
+  margin-top: var(--space-4);
+}
+
+.article-preview h2,
+.preview-result strong {
+  font-size: var(--text-heading-small);
+}
+
+.function-reference {
+  margin-block: var(--space-4);
+}
+
+@media (max-width: 40rem) {
+  .article-preview .copy-wrap pre {
+    padding: calc(2.75rem + var(--space-3)) var(--space-3) var(--space-3);
+  }
+}
+
+.function-reference summary {
+  min-height: 44px;
+}
+
+.function-reference h3 {
+  display: inline;
+}
+
+.function-reference > p,
+.function-reference > pre {
+  margin-block: var(--space-4);
+}
+
+@media (min-width: 56.0625rem) {
+  .article-header--preview {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    column-gap: var(--space-6);
+    align-items: start;
+  }
+
+  .article-header--preview > .article-crumb {
+    grid-column: 1 / -1;
+  }
+
+  .article-header--preview > .case-preview {
+    align-self: center;
+  }
+}
+
 .about-portrait {
   width: 100%;
   max-width: 26rem;
@@ -1209,7 +1271,7 @@ caption {
     border-top: var(--rule-thin) solid var(--colour-rule);
   }
 
-  .case-preview {
+  .home-case > .case-preview {
     grid-column: 2;
     grid-row: 3 / span 5;
     align-self: start;

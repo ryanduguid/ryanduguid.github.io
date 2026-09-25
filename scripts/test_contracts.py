@@ -844,14 +844,14 @@ def test_public_contracts() -> int:
     for label, install_before, install_after, install_failure in (
         (
             "homepage install command duplication",
-            "Open the setup guide",
+            "Set up AI tools",
             "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
             "index.html: install commands belong in the integration guide",
         ),
         (
             "homepage setup guide route",
-            'href="/tools/australian-tax-ai-agents/#install">Open the setup guide',
-            'href="/tools/australian-tax-ai-agents/">Open the setup guide',
+            'href="/tools/australian-tax-ai-agents/#install">Set up AI tools',
+            'href="/tools/australian-tax-ai-agents/">Set up AI tools',
             "index.html: #adopt must link to the integration guide",
         ),
     ):

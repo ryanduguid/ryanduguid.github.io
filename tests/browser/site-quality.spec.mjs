@@ -230,9 +230,10 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   const categories = page.getByRole('navigation', { name: 'Starting routes' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
     'Understand why profit and cash differ',
+    'Use accounting functions in Excel',
+    'Review a month-end close',
     'Calculate a Coal LSL levy',
     'Check a BAS pack before manager review',
-    'Use accounting functions in Excel',
   ]);
   expect(await page.evaluate(() => {
     const preview = document.querySelector('.home-tool-preview');

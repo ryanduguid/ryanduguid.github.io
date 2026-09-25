@@ -29,6 +29,51 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_pinned_release_download_accepts_only_github_asset_hosts(self) -> None:
+        download = "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx"
+        for host in ("release-assets.githubusercontent.com", "objects.githubusercontent.com"):
+            with (
+                self.subTest(host=host),
+                unittest.mock.patch.object(
+                    check_links, "fetch_final_url", return_value=(200, f"https://{host}/asset")
+                ),
+                unittest.mock.patch.object(
+                    check_links, "repository_is_archived", return_value=False
+                ),
+                unittest.mock.patch("builtins.print"),
+            ):
+                self.assertEqual(check_links.check_hrefs("tools/ozzit/index.html", [download]), [])
+        for final in (
+            "http://release-assets.githubusercontent.com/asset",
+            "https://release-assets.githubusercontent.com.example.invalid/asset",
+            "https://example.invalid/asset",
+            "https://github.com/ryanduguid/renamed/releases/download/v3.4.2/ozzit.xlsx",
+        ):
+            with self.subTest(final=final):
+                self.assertFalse(check_links.is_release_asset_redirect(download, final))
+        self.assertFalse(
+            check_links.is_release_asset_redirect(
+                "https://github.com/ryanduguid/Ozzit/blob/main/README.md",
+                "https://release-assets.githubusercontent.com/asset",
+            )
+        )
+
+    def test_unexpected_redirect_omits_the_query_from_diagnostics(self) -> None:
+        with (
+            unittest.mock.patch.object(
+                check_links,
+                "fetch_final_url",
+                return_value=(200, "https://example.invalid/asset?signature=synthetic-value"),
+            ),
+            unittest.mock.patch("builtins.print"),
+        ):
+            failures = check_links.check_hrefs(
+                "tools/ozzit/index.html", ["https://github.com/ryanduguid/Ozzit"]
+            )
+        self.assertEqual(len(failures), 1)
+        self.assertIn("rename redirect", failures[0])
+        self.assertNotIn("synthetic-value", failures[0])
+
     def test_manual_resource_checks_are_exact_and_ci_only(self) -> None:
         manual_urls = [
             "https://www.sbr.gov.au/",
@@ -156,8 +201,11 @@ class FetchFinalUrlTests(unittest.TestCase):
             ):
                 run.return_value.returncode = 0
                 self.assertEqual(check_site.main(), 0)
-            commands = [call.args[0] for call in run.call_args_list[1:]]
+            commands = [call.args[0] for call in run.call_args_list]
             expected = [
+                [check_site.sys.executable, "scripts/build_ozzit_reference.py", "--check"],
+                [check_site.sys.executable, "scripts/test_build_site.py"],
+            ] + [
                 (*command, *arguments) if "scripts/check_links.py" in command else command
                 for command in check_site.CHECKS
             ]

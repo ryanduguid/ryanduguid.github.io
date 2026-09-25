@@ -573,16 +573,17 @@ HOMEPAGE_PREVIEW_ENTRIES = (
         "/examples/profit-vs-cash-flow/",
         "/evaluate/#five-minute-cases",
     ),
+    ("Use accounting functions in Excel", "/tools/ozzit/", "/tools/ozzit/#functions"),
+    (
+        "Review a month-end close",
+        "/tools/monthly-close-controls/",
+        "/tools/monthly-close-controls/#get-it",
+    ),
     ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
     (
         "Check a BAS pack before manager review",
         "/evaluate/manager-review-gate/",
         "/tools/workpaper-review-gate/",
-    ),
-    (
-        "Use accounting functions in Excel",
-        "/tools/ozzit/",
-        "/tools/ozzit/#worked-example",
     ),
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")

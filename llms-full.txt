@@ -36,6 +36,18 @@ Read the fictional cash flow case in your browser: one delayed receipt creates a
 
 More short accounting cases
 
+### Use accounting functions in Excel
+
+Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
+
+Browse ten worked formulas
+
+### Review a month-end close
+
+Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read it in your browser; use Python and uv to rerun it.
+
+Reproduce the sample report
+
 ### Calculate a Coal LSL levy
 
 Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
@@ -47,12 +59,6 @@ More calculators for business planning
 See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
 Open the Workpaper Review Gate
-
-### Use accounting functions in Excel
-
-Use Ozzit for GST, financial years, depreciation and loan schedules. It needs Microsoft 365 or Excel 2024 or later.
-
-See an Excel example
 
 Browse tools by accounting task
 
@@ -102,7 +108,7 @@ Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 al
 
 Use the sample files to check what each tool accepts, refuses and explains before using it in a firm.
 
-Open the setup guide Browse reproducible evaluations
+Set up AI tools Browse reproducible evaluations
 
 Before you use a tool, check its version and limits in the setup guide.
 
@@ -120,16 +126,18 @@ The evidence supports limited claims about the software, not endorsements or cli
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
+- Browse ten worked formulas: https://duguid.com.au/tools/ozzit/#functions
+- Review a month-end close: https://duguid.com.au/tools/monthly-close-controls/
+- Reproduce the sample report: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
-- See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
-- Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
@@ -1784,7 +1792,7 @@ Last reviewed 25 September 2026.
 
 ## Start with what you came to do
 
-Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.
+Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Python and uv to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
@@ -2027,9 +2035,10 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 ## Links
 
 - Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
+- Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Python and uv to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
@@ -2061,7 +2070,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Try an example: https://duguid.com.au/tools/ozzit/#worked-example
 - Source code: https://github.com/ryanduguid/Ozzit
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
-- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
@@ -3105,7 +3113,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 60 skills; no fresh model evaluation covers all 41 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 61 skills; no fresh model evaluation covers all 42 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -3826,9 +3834,13 @@ Source: https://duguid.com.au/tools/monthly-close-controls/
 
 Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.
 
+Inspect the eight exceptions Run the example
+
+Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Python and uv.
+
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 
-Published 11 September 2026. Last reviewed 12 September 2026.
+Published 11 September 2026. Last reviewed 25 September 2026.
 
 ## Inputs
 
@@ -3911,6 +3923,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
+- Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
@@ -7108,7 +7122,9 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 24 September 2026.
+Published 18 September 2026. Last reviewed 25 September 2026.
+
+One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. Compare both cases. Exported from Excel on 24 September 2026; capture record.
 
 ## The business and the question
 
@@ -7247,7 +7263,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
-- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
@@ -7271,15 +7287,29 @@ Source: https://duguid.com.au/tools/ozzit/
 
 # Ozzit: Excel LAMBDA functions for Australian financial modelling
 
-Download Ozzit from GitHub Try a formula
+133 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
 
-Needs Microsoft 365 or Excel 2024 or later. Choose ozzit.xlsx under Assets on the release page.
+Download Ozzit v3.4.2 Browse worked formulas
 
-Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
+XLSX, 439,097 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
 
 Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 24 September 2026.
+Published 18 September 2026. Last reviewed 25 September 2026.
+
+## Extract GST from $1,100
+
+Assume the whole amount is taxable and GST-inclusive at 10%.
+
+```
+=oz.GSTExtractλ(1100)
+```
+
+100.00 displayed to two decimal places
+
+Checked in desktop Excel against v3.4.2 on 25 September 2026. Formula and result record.
+
+The reviewer decides whether the supply is taxable and a credit can be claimed. Read the workings and limits.
 
 ## What Ozzit is
 
@@ -7301,23 +7331,173 @@ Contains | No VBA, no macros, no add-in and no external link
 Licence | MIT, covering the workbook, the formula source and the function index
 Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
 
-## Selected functions
+## Ten worked formulas
 
-Ten of the 133, with their published signatures. The full index is in functions.csv.
+Open an example for its arguments, formula, expected display and limits. These examples describe v3.4.2 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
 
-Selected functions from the v3.4.2 index. Scroll sideways on small screens.
+All ten were evaluated in Excel 16.0 build 20430 on 25 September 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
 
-Function | Signature | What it returns
-oz.GSTExtractλ | (Amounts, [Rate]) | The GST contained in GST-inclusive amounts
-oz.GSTAddλ | (Amounts, [Rate]) | GST added to GST-exclusive amounts
-oz.FinancialYearλ | (Dates, [StartMonth]) | The Australian financial year a date falls in, starting 1 July
-oz.PrimeCostλ | (Cost, Life) | A straight-line depreciation schedule in whole years
-oz.DiminishingValueλ | (Cost, Life) | A diminishing-balance schedule at 200% of the straight-line rate
-oz.Amortiseλ | (Principals, APRs, Terms, StartDates, [Timeline]) | A corkscrew amortisation schedule
-oz.LeaseLiabilityλ | (Payments, Rate, [InAdvance]) | Present value of lease payments unpaid at commencement
-oz.PeriodRateλ | (AnnualRate, [PeriodsPerYear]) | An effective annual rate converted to a rate per period
-oz.DayCountRateλ | (Timeline, APR, [Convention], [EndDates]) | A period rate under 30/360, Actual/360, Actual/365 or Actual/Actual
-oz.IRRλ | (Values, Dates) | IRR corrected for a first investment outside the first period
+Download the full v3.4.2 function index (CSV), or read it on GitHub.
+
+### Extract GST from an inclusive amount
+
+oz.GSTExtractλ: Returns the GST contained in one or more GST-inclusive amounts.
+
+Signature: GSTExtractλ(Amounts, [Rate]). Square brackets mark optional arguments.
+
+```
+=oz.GSTExtractλ(1100)
+```
+
+Expected display: 100.00, displayed to two decimal places.
+
+Limits: Assumes the whole amount is taxable at 10%. The function returns an unrounded binary floating-point result. Use ROUND(...,2) where cent rounding is required; the reviewer decides the treatment.
+
+Link to this example · Released formula source
+
+### Add GST to an exclusive amount
+
+oz.GSTAddλ: Adds GST to one or more GST-exclusive amounts.
+
+Signature: GSTAddλ(Amounts, [Rate]). Square brackets mark optional arguments.
+
+```
+=oz.GSTAddλ(1000)
+```
+
+Expected display: 1,100.00, displayed to two decimal places.
+
+Limits: Assumes a wholly taxable amount and the default 10% rate. This does not classify a supply or establish a credit entitlement.
+
+Link to this example · Released formula source
+
+### Label an Australian financial year
+
+oz.FinancialYearλ: Labels dates with their Australian financial year, which starts on 1 July
+
+Signature: FinancialYearλ(Dates, [StartMonth]). Square brackets mark optional arguments.
+
+```
+=oz.FinancialYearλ(DATE(2026,8,15))
+```
+
+Expected display: FY2027.
+
+Limits: The default start month is July. Supply StartMonth for another year end; the function labels a date and does not determine a reporting obligation.
+
+Link to this example · Released formula source
+
+### Build a straight-line modelling schedule
+
+oz.PrimeCostλ: Straight-line depreciation schedule for one asset or asset class, in whole years. A modelling schedule, not a tax calculation.
+
+Signature: PrimeCostλ(Cost, Life). Square brackets mark optional arguments.
+
+```
+=oz.PrimeCostλ(1000,5)
+```
+
+Expected display: 200.00 in each of five columns; total 1,000.00.
+
+Limits: Cost and life are supplied assumptions. This is a modelling schedule, not an ATO Division 40 tax calculation.
+
+Link to this example · Released formula source
+
+### Build a diminishing-balance modelling schedule
+
+oz.DiminishingValueλ: Diminishing-balance depreciation schedule at 200% of the straight-line rate, writing the residual off in the final period. A modelling schedule, not a tax calculation.
+
+Signature: DiminishingValueλ(Cost, Life). Square brackets mark optional arguments.
+
+```
+=oz.DiminishingValueλ(1000,5)
+```
+
+Expected display: 400.00, 240.00, 144.00, 86.40 and 129.60; total 1,000.00.
+
+Limits: Uses 200% of the straight-line rate and writes off the remaining balance in the final year. It does not establish a tax deduction.
+
+Link to this example · Released formula source
+
+### Inspect the first month of a loan schedule
+
+oz.Amortiseλ: Creates a corkscrew amortisation schedule
+
+Signature: Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline]). Square brackets mark optional arguments.
+
+```
+=TAKE(oz.Amortiseλ(100000,0.05,60,DATE(2026,7,1)),,1)
+```
+
+Expected display: Debt issued 100,000.00; opening 100,000.00; interest 416.67; payment -1,887.12; closing 98,529.54; principal repaid 1,470.46. Each figure is displayed to two decimals.
+
+Limits: A 100,000 loan at 5% over 60 monthly payments. TAKE selects the first column of the six-row schedule. Remove TAKE to spill the full schedule; confirm the loan terms and timing separately.
+
+Link to this example · Released formula source
+
+### Discount three unpaid lease payments
+
+oz.LeaseLiabilityλ: Present value of the lease payments that are not paid at the commencement date
+
+Signature: LeaseLiabilityλ(Payments, Rate, [InAdvance]). Square brackets mark optional arguments.
+
+```
+=oz.LeaseLiabilityλ({100,100,100},0.05)
+```
+
+Expected display: 272.32, displayed to two decimal places.
+
+Limits: The 5% rate is per payment period and the payments are in arrears. The reviewer establishes the lease term, included payments and applicable discount rate.
+
+Link to this example · Released formula source
+
+### Convert an effective annual rate
+
+oz.PeriodRateλ: Converts an effective annual rate to the equivalent rate per period, the rate the lease functions take
+
+Signature: PeriodRateλ(AnnualRate, [PeriodsPerYear]). Square brackets mark optional arguments.
+
+```
+=oz.PeriodRateλ(0.05,12)
+```
+
+Expected display: Approximately 0.4074% per month.
+
+Limits: The input is a 5% effective annual rate. This conversion is not the same as dividing a nominal annual rate by 12.
+
+Link to this example · Released formula source
+
+### Calculate rates for dated periods
+
+oz.DayCountRateλ: Interest rate for each period of a timeline under a day count convention: 30/360, Actual/360, Actual/365 or Actual/Actual
+
+Signature: DayCountRateλ(Timeline, APR, [Convention], [EndDates]). Square brackets mark optional arguments.
+
+```
+=oz.DayCountRateλ(EDATE(DATE(2026,7,1),{0,1,2}),0.073)
+```
+
+Expected display: 0.0062, 0.0062 and 0.0060 for the three periods.
+
+Limits: The default is Actual/365. Supply the required convention and check how the final period is inferred; the function does not choose a contractual day count basis.
+
+Link to this example · Released formula source
+
+### Calculate an annual return from dated cash flows
+
+oz.IRRλ: Calculates IRR, correcting for when the first investment is not in the first period
+
+Signature: IRRλ( Values, Dates). Square brackets mark optional arguments.
+
+```
+=oz.IRRλ({-1000,1100},HSTACK(DATE(2026,7,1),DATE(2027,7,1)))
+```
+
+Expected display: 10.00%, displayed to two decimal places.
+
+Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Other cash flow patterns may have multiple or no solutions; inspect the inputs and validate the result.
+
+Link to this example · Released formula source
 
 ## One worked example
 
@@ -7333,13 +7513,13 @@ That is the whole of the function's contribution: 10% arithmetic on an amount yo
 
 Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
 
-The repository records a native Excel capture of this example, including the formula read back from the cell and the returned value. That capture was taken in release v3.2.0, an earlier and different workbook file, so it certifies the example in v3.2.0 rather than in v3.4.2. The v3.4.2 gate results below are the record for the current file.
+The 25 September 2026 native Excel record evaluates this formula against the exact v3.4.2 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
 
 ## Download and use it
 
 Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
-- Open the v3.4.2 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
+- Download the v3.4.2 workbook. The release page also publishes SHA256SUMS and a provenance record.
 - Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
@@ -7397,9 +7577,26 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Download Ozzit from GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
-- Try a formula: https://duguid.com.au/tools/ozzit/#worked-example
-- functions.csv: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
+- Download Ozzit v3.4.2: https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx
+- Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
+- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
+- Formula and result record: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
+- Read the workings and limits: https://duguid.com.au/tools/ozzit/#worked-example
+- Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
+- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-financialyear
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Dates.txt
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-primecost
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-diminishingvalue
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-amortise
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-leaseliability
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-periodrate
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-daycountrate
+- Link to this example: https://duguid.com.au/tools/ozzit/#fn-irr
+- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/native-gst-capture.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
 - guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/workbook-use.md
 - the v3.4.2 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff

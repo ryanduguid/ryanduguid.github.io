@@ -16,12 +16,13 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 ## Choose a route
 
-The four starting routes on the homepage and Tools page, by accounting task:
+The five starting routes on the homepage and Tools page, by accounting task:
 
-- **Understand why profit and cash differ** (https://duguid.com.au/examples/profit-vs-cash-flow/): the Lumbridge cash flow case, readable on the page; the Excel workbook is optional.
-- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/): the Coal LSL levy calculator, with nothing to install; its own code works out the figures you enter in the browser without sending them to a server. The business planning calculators (https://duguid.com.au/tools/business-calculators/) work the same way.
-- **Check a BAS pack before manager review** (https://duguid.com.au/evaluate/manager-review-gate/): read the fictional BAS pack findings in your browser; rerunning the Workpaper Review Gate needs Python and fictional files only. Monthly Close Controls (https://duguid.com.au/tools/monthly-close-controls/) reruns a synthetic July close the same way.
-- **Use accounting functions in Excel** (https://duguid.com.au/tools/ozzit/): Ozzit functions for GST, financial years, depreciation and loan schedules; needs Microsoft 365 or Excel 2024 or later.
+- **Understand why profit and cash differ** (https://duguid.com.au/examples/profit-vs-cash-flow/): Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. The Excel workbook is optional.
+- **Use accounting functions in Excel** (https://duguid.com.au/tools/ozzit/): Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
+- **Review a month-end close** (https://duguid.com.au/tools/monthly-close-controls/): Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read the report in your browser; rerunning it needs Python and uv.
+- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/): Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
+- **Check a BAS pack before manager review** (https://duguid.com.au/evaluate/manager-review-gate/): See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
 For Python packages, the MCP server and agent workflows, use the [installation guide](https://duguid.com.au/tools/australian-tax-ai-agents/#install).
 
@@ -138,7 +139,7 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 
 - [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
 - [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands and licence.
-- [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): release v0.2.1 contains 19 workflows: 9 public practice and 10 construction and mining subcontractor workflows. The default branch prepares v0.3.0 with 60 skills; no fresh model evaluation covers all 41 additions. Use Adopt for installation. The contracting workflows are included in this unified pack.
+- [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): release v0.2.1 contains 19 workflows: 9 public practice and 10 construction and mining subcontractor workflows. The default branch prepares v0.3.0 with 61 skills; no fresh model evaluation covers all 42 additions. Use Adopt for installation. The contracting workflows are included in this unified pack.
 - [llm-tax-guardrails](https://github.com/ryanduguid/llm-tax-guardrails): external guide repository, not in the site tool register and with no page on this site. It holds the DrDebits prompt guide, APES 110 and TPB guardrails, refusal scenarios and recorded model evaluations. An authorised human remains responsible for professional judgements and actions.
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
 - [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance and Commonwealth legislation sources this work depends on or sits beside.

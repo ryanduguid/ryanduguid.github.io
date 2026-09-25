@@ -536,6 +536,17 @@ def check_file(path: Path, *, offline: bool = False) -> list[str]:
     return failures
 
 
+def is_release_asset_redirect(href: str, final: str) -> bool:
+    """Accept GitHub's file delivery hosts for a pinned release download only."""
+    destination = urlsplit(final)
+    return bool(
+        re.fullmatch(r"https://github\.com/ryanduguid/[^/]+/releases/download/[^/]+/[^/?#]+", href)
+        and destination.scheme == "https"
+        and destination.netloc
+        in {"release-assets.githubusercontent.com", "objects.githubusercontent.com"}
+    )
+
+
 def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[str]:
     """Resolve every link from one file and classify its own-repository targets."""
     failures: list[str] = []
@@ -595,9 +606,11 @@ def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[st
         name = own_repository(href)
         if name is not None:
             final_name = own_repository(final)
-            if final_name != name:
+            if final_name != name and not is_release_asset_redirect(href, final):
+                # Signed download query strings do not belong in public check logs.
+                destination = urlsplit(final)._replace(query="", fragment="").geturl()
                 failures.append(
-                    f"{rel}: {href} redirected to {final} (rename redirect, repoint the link)"
+                    f"{rel}: {href} redirected to {destination} (rename redirect, repoint the link)"
                 )
                 continue
             resolved_own_hrefs.append(href)

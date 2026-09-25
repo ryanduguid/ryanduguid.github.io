@@ -71,7 +71,7 @@ test('home keeps its adoption overview and links to the installation guide', asy
   await page.goto('/#adopt');
   await expect(page.locator('#adopt')).toBeVisible();
   await expect(page.locator('#adopt pre')).toHaveCount(0);
-  await page.getByRole('link', { name: 'Open the setup guide', exact: true }).click();
+  await page.getByRole('link', { name: 'Set up AI tools', exact: true }).click();
   await expect(page).toHaveURL(/\/tools\/australian-tax-ai-agents\/#install$/);
   await expect(page.locator('#adopt-none')).toBeChecked();
 });
