@@ -15,6 +15,11 @@ on:
   schedule:
     - cron: "0 6 * * 1"
   workflow_dispatch:
+    inputs:
+      releases_only:
+        description: Check release references without refreshing dates or checking external sources
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -49,6 +54,7 @@ jobs:
   # HTML and add headers the repository never sees. This job fetches the live
   # pages and holds them to the delivery promises README.md records.
   production:
+    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
     timeout-minutes: 10
     runs-on: ubuntu-24.04
     permissions:
@@ -68,6 +74,7 @@ jobs:
   # cited here and in four sibling repositories through Firecrawl and fails
   # when one is broken, removed or changed since the previous weekly run.
   ato-sources:
+    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     permissions:
@@ -91,6 +98,7 @@ jobs:
         run: node scripts/check_ato_sources.mjs . "$RUNNER_TEMP"/sources/*
 
   stamp:
+    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     steps:

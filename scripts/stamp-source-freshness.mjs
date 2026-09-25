@@ -164,6 +164,7 @@ export async function checkReleases(html, lookup = fetchReleases) {
   const section = /<section aria-labelledby="tool-releases">([\s\S]*?)<\/section>/.exec(html)?.[1] ?? '';
   const links = [...section.matchAll(/<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/g)];
   if (!links.length) return ['no release links found in changelog/index.html'];
+  const recorded = new Set(links.map(([, repository, tag]) => `${repository}/${tag}`));
   const failures = [];
   const repositories = new Map();
   for (const [, repository, tag] of links) {
@@ -179,7 +180,7 @@ export async function checkReleases(html, lookup = fetchReleases) {
     const tags = published.map((release) => release.tag_name).filter((name) =>
       name.startsWith(prefix) && /^\d+\.\d+\.\d+$/.test(name.slice(prefix.length)));
     const latest = tags.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).at(-1);
-    if (latest !== tag) {
+    if (!recorded.has(`${repository}/${latest}`)) {
       failures.push(`${repository}: ${tag} is behind ${latest}; review changelog/index.html and capability descriptions`);
     }
   }

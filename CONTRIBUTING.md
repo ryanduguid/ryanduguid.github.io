@@ -61,6 +61,11 @@ knows which version they get. `scripts/release_record.json` (below) is the
 reviewed statement for the components it lists; this weekly read covers the
 tool pages outside it.
 
+For a release-only verification after a fix, dispatch `source-freshness.yml`
+with `releases_only=true`. This runs the release check without the date-refresh,
+production or ATO-source jobs. Scheduled runs and manual runs with the default
+input still run every job.
+
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
 Cloudflare response headers, the two edge redirects, and `mailto:` links that
@@ -180,6 +185,9 @@ covers together. A newer release does not change a preserved evaluation: those k
 the version they were run against, and the tests fail if one is quietly upgraded.
 A page may document an older release than the published one, but it must say so in
 its own words, naming both versions.
+For a component with engine pins, an older guide must also record its release's
+pins in `documented.pinned_engines`. The checker validates the guide against those
+pins; the component's `pinned_engines` still describes the published release.
 
 ## What an agent can be made to run
 

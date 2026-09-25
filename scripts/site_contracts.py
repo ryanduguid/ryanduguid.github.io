@@ -65,8 +65,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-24"
-MCP_VISIBLE_REVIEW_DATE = "24 September 2026"
+MCP_REVIEW_DATE = "2026-09-25"
+MCP_VISIBLE_REVIEW_DATE = "25 September 2026"
 ASSURANCE_ANCHORS = {
     "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",

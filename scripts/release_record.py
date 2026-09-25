@@ -166,23 +166,24 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
                 f"the release this page documents"
             )
 
-    # The recorded pins belong to the published release. A page that documents an
-    # older release states that release's pins, so the check applies only when the
-    # page documents the published one.
-    engines = (
-        component.get("pinned_engines") or {}
-        if documented_version in (None, published["version"])
-        else {}
-    )
-    for engine, version in engines.items():
+    # Validate the pins of the release the page documents, including older guides.
+    engines = component.get("pinned_engines") or {}
+    if documented_version not in (None, published["version"]):
+        engines = documented.get("pinned_engines") or {}
+    for engine in (component.get("pinned_engines") or {}) | engines:
         # Only engines the page names: it need not list every dependency, but a
         # version it does state must be the one that release pins.
         if engine in visible:
             stated = set(re.findall(rf"{re.escape(engine)}\s+(\d+\.\d+\.\d+)", visible))
-            if stated and stated != {version}:
+            if stated and engine not in engines:
+                failures.append(
+                    f"{rel}: missing engine pin for {engine} in documented release "
+                    f"{documented_version or published['version']}"
+                )
+            elif stated and stated != {engines[engine]}:
                 failures.append(
                     f"{rel}: names {engine} {sorted(stated)} but {name} "
-                    f"{published['version']} pins {version}"
+                    f"{documented_version or published['version']} pins {engines[engine]}"
                 )
 
     for command in component.get("pinned_commands", []):
