@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/ato-benchmarks/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
   <meta name="twitter:description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -34,12 +34,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/ato-benchmarks/index.txt" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260924" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260925a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,10 +56,10 @@
     </nav>
     <h1>How does this business compare to the ATO small business benchmarks?</h1>
     <p class="lead-note">
-      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions, and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9">ato-benchmark-compare/v0.1.9</a>.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 20 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 24 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -75,7 +75,7 @@
     <p>
       Checking a business against the benchmarks before lodgement is a useful
       review step, and it is usually done by hand: find the industry page, work
-      out which turnover band applies, add up the right accounts, and divide.
+      out which turnover band applies, add up the right accounts and divide.
     </p>
     <p>
       This tool does that on your own machine, with no network call in the
@@ -95,7 +95,7 @@
     <h2>What this tool does</h2>
     <ul>
       <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
-      <li>Applies the ATO's own narrow definitions of turnover, cost of sales, and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
+      <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
       <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.</li>
     </ul>
     </section>
@@ -108,7 +108,7 @@
       <li>Wages recorded within cost of sales, mapped separately: $10,000.</li>
     </ul>
     <p>The cost of sales ratio is $30,000 ÷ $100,000 = <strong>30%</strong>. The $10,000 of wages remains in reported total expenses, which are $40,000 in this example.</p>
-    <p>A person must review the mapping and select the relevant industry, year, and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.</p>
+    <p>A person must review the mapping and select the relevant industry, year and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.</p>
     <h3>Reproduce this exact example</h3>
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
     <pre tabindex="0" role="region" aria-label="Pinned ato-benchmark-compare example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
@@ -134,8 +134,8 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
-    <p>One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it <code>not_supplied</code>; the two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads <code>not_supplied</code> on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See <a href="/tools/limitations/">Known limitations</a>.</p>
-    <p>Software issue using fabricated data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=ATO%20benchmark%20comparison">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
+    <p>One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it <code>not_supplied</code>. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads <code>not_supplied</code> on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See <a href="/tools/limitations/">Known limitations</a>.</p>
+    <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=ATO%20benchmark%20comparison">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
@@ -182,7 +182,7 @@ pip install .</code></pre>
         "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-20",
+        "dateModified": "2026-09-24",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -250,7 +250,7 @@ pip install .</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-20"
+        "dateModified": "2026-09-24"
       },
       {
         "@type": "FAQPage",

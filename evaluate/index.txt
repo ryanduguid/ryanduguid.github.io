@@ -2,27 +2,27 @@
 
 Source: https://duguid.com.au/evaluate/
 
-> Reproduce 3 fixed accounting tool evaluations with fabricated inputs, expected results, versioned releases, and explicit limits.
+> Reproduce 3 fixed accounting tool evaluations with fictional inputs, expected results, versioned releases and explicit limits.
 
 # Evaluations
 
-Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting tool evaluations at fixed releases using fabricated inputs and hand-recorded expected results.
+Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting tool evaluations at fixed releases using fictional inputs and hand-recorded expected results.
 
-An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability, or a professional conclusion.
+An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability or a professional conclusion.
 
-For identity, source, and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
+For identity, source and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
 Last reviewed 24 September 2026.
 
-## Profit of $35,957.55. A cash shortfall of $25,160.
+## $35,957.55 profit, yet a $25,160 cash shortfall
 
-Lumbridge Services is a fictional maintenance business in Newcastle, NSW. Moving one $44,000 customer receipt from 14 October to 28 November 2026 leaves quarterly profit before income tax unchanged at $35,957.55 while daily cash falls to ($25,160.00) on 6 November. All amounts are AUD and every figure is fabricated.
+Lumbridge Services is a fictional maintenance business in Newcastle, NSW. Moving one $44,000 customer receipt from 14 October to 28 November 2026 leaves quarterly profit before income tax unchanged at $35,957.55 while the daily cash balance falls to −$25,160.00 on 6 November. All amounts are AUD and every figure is fictional.
 
 Summary of the worked example. Scroll sideways on small screens.
 
 Forecast measure | On time | 45 days late
 Profit before income tax | $35,957.55 | $35,957.55
-Lowest daily closing cash | $16,800.00 on 7 October | ($25,160.00) on 6 November
+Lowest daily closing cash | $16,800.00 on 7 October | −$25,160.00 on 6 November
 December closing cash | $67,320.00 | $67,320.00
 
 Read the full worked example: the business, the assumptions, the working behind both cases, the workbook download, reproduction commands and limits.
@@ -31,9 +31,9 @@ This is a maintainer-prepared demonstration. Its calculations have technical ver
 
 ## Choose an example to reproduce
 
-Each route names its inputs, command or browser steps, expected result, and review limits. The three fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
+Each example names its inputs, the command or browser steps, the expected result and the review limits. The 3 fixed-release evaluations below retain their original versions. Package trials and source tests are labelled separately so a newer installation is not mistaken for the recorded run.
 
-Examples for each tool. All inputs are fabricated. Scroll sideways on small screens.
+Examples for each tool. All inputs are fictional. Scroll sideways on small screens.
 
 Tool | Reproduction route | What to check
 Xero trial balance CSV export | Fixed-release evaluation | One accepted export and two refusals.
@@ -45,15 +45,15 @@ Coal LSL levy calculator | Browser calculator | Choose Load the synthetic exampl
 Trust distribution checks | Pinned package trial | $100,000 on the declared section 99B assumptions, plus a refusal case.
 Company tax and franking checks | Pinned package trial | 25.0% on the declared base rate entity inputs, plus an unsupported-year refusal.
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
-Monthly Close Controls | Pinned source case | REVIEW with eight exceptions in the supplied July close.
+Monthly Close Controls | Pinned source case | REVIEW with 8 exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
-Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check the published SHA-256, and confirm one LAMBDA result in desktop Excel.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
 
-The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools, and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
+The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
 ## Short accounting cases
 
-Start with a review question and inspect the synthetic inputs, command, and output. These are maintainer-prepared examples, not independent firm evaluations.
+Start with a review question and inspect the synthetic inputs, command and output. These are maintainer-prepared examples, not independent firm evaluations.
 
 ### Balanced trial balance, unfinished review
 
@@ -62,13 +62,13 @@ The synthetic July close returns REVIEW: 8 exceptions, none blocked. Three findi
 Three findings from the supplied case. The 8 exceptions are not 8 accounting errors.
 
 Finding | Evidence | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: ($250). | Trace the difference and document its cause.
+Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the difference and document its cause.
 Account mapping | Operating Expenses account 6000 has no review group mapping. | Confirm the mapping and review owner.
 Financial year reset | The comparison crosses from June to July. | Use a suitable period comparison for P&L YTD movements.
 
 Monthly Close Controls guide: inputs, exception report and reproducible command.
 
-Inspect the case, files, and reproduction command at the captured source commit. The source records reproduction on 6 September 2026. A person must resolve the evidence before signing off.
+Inspect the case, files and reproduction command at the captured source commit. The source records reproduction on 6 September 2026. A person must resolve the evidence before signing off.
 
 - Payday Super: sent before the deadline, received when? A remittance record and a fund receipt support different conclusions.
 - Division 7A: does the repayment count? Inspect a $10,000 change in the repayment assertion without treating the arithmetic as repayment classification.
@@ -76,9 +76,9 @@ Inspect the case, files, and reproduction command at the captured source commit.
 
 ## Manager review gate evaluation
 
-Runs 2 fabricated BAS packs through Workpaper Review Gate, corrects the stated failures, and reproduces READY.
+This evaluation runs 2 fictional BAS packs through Workpaper Review Gate, fixes the stated failures and reproduces the READY result.
 
-Fabricated input
+Fictional input
 
 Two BAS workpaper packs.
 
@@ -98,9 +98,9 @@ Evaluation source · Primary source: Australian Taxation Office, Business activi
 
 ## Xero trial balance integrity evaluation
 
-Runs 3 fabricated CSV fixtures through the movement and year-to-date balance gate without a Xero tenant.
+This evaluation runs 3 fictional CSV files through the movement and year-to-date balance checks without connecting to Xero.
 
-Fabricated input
+Fictional input
 
 Balanced and unbalanced trial balance CSVs.
 
@@ -114,15 +114,15 @@ Xero trial balance export xero-trial-balance-export/v0.1.6.
 
 Limitation
 
-No tenant credentials, live tenant data, or API availability test.
+No tenant credentials, live tenant data or API availability test.
 
 Evaluation source · Primary source: Xero, Accounting API Reports
 
 ## Payday Super timing evidence evaluation
 
-Reproduces 4 evidence-timing outcomes, including at-risk, on-time, and late classifications.
+This evaluation reproduces 4 evidence-timing outcomes, including at-risk, on-time and late results.
 
-Fabricated input
+Fictional input
 
 Four contribution and receipt evidence fixtures.
 
@@ -160,7 +160,7 @@ Evaluation source · Primary source: Superannuation Guarantee (Administration) A
 - Ozzit Excel LAMBDA library: https://duguid.com.au/tools/ozzit/#download
 - browser planning calculators: https://duguid.com.au/tools/business-calculators/
 - Monthly Close Controls guide: inputs, exception report and reproducible command: https://duguid.com.au/tools/monthly-close-controls/
-- Inspect the case, files, and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
+- Inspect the case, files and reproduction command at the captured source commit: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Payday Super: sent before the deadline, received when?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/payday-super-checker/docs/manager-case-study.md
 - Division 7A: does the repayment count?: https://github.com/ryanduguid/australian-accounting/blob/f10086d0c99c77bb3dabd3a0fc08b9e5ab1b939a/packages/div7a-loan-review/docs/manager-case-study.md
 - Evaluation source: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate

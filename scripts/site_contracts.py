@@ -29,7 +29,7 @@ AUTHORITY_PATHS = {
     "verify": "Verify",
 }
 AUTHORITY_STATEMENTS = {
-    "adopt": "Test it with fabricated data first",
+    "adopt": "Try each tool with fictional data first",
     "verify": "Check the source before the result",
 }
 AUTHORITY_URLS = {
@@ -42,7 +42,7 @@ CODEX_MCP_INSTALL_PATTERN = (
 GITHUB_AGENT_SKILLS_URL = "https://github.com/ryanduguid/github-agent-skills"
 GITHUB_AGENT_SKILLS_BOUNDARY = (
     "github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows "
-    "this portfolio uses, and keeps the fabricated-data and human review boundaries."
+    "this portfolio uses, and keeps the fictional-data and human review boundaries."
 )
 GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
@@ -62,7 +62,7 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"aus-accounting-mcp\b"
 )
 CA_ANZ_NON_ENDORSEMENT = (
-    "Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
+    "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-09-24"
@@ -70,10 +70,10 @@ MCP_VISIBLE_REVIEW_DATE = "24 September 2026"
 ASSURANCE_ANCHORS = {
     "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",
-    "packages-releases-and-repositories": "Packages, releases, and repositories",
+    "packages-releases-and-repositories": "Packages, releases and repositories",
     "sources-and-review-dates": "Sources and review dates",
     "data-and-privacy-boundary": "Data and privacy boundary",
-    "security-tests-and-release-evidence": "Security, tests, and release evidence",
+    "security-tests-and-release-evidence": "Security, tests and release evidence",
     "human-accountability-and-refusals": "Human accountability and refusals",
     "independent-evaluation": "Published evaluations",
 }
@@ -120,7 +120,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
         "Local MCP server for ATO benchmarks, Payday Super timing, limited Division 7A "
-        "review, seven bounded tax worksheets, optional local Markdown search, and "
+        "review, seven bounded tax worksheets, optional local Markdown search and "
         "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (
@@ -241,7 +241,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
         "permanent_commit": "2de565b3ce3916afe718b2b895d5474930030aee",
         "sections": (
             ("accounting-problem", "Accounting problem"),
-            ("fabricated-inputs", "Fabricated inputs"),
+            ("fabricated-inputs", "Fictional inputs"),
             ("expected-result", "Expected result"),
             ("controls-triggered", "Controls triggered"),
             ("human-decision", "Human decision"),
@@ -272,7 +272,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "SELF_REVIEW_INCOMPLETE",
             "OPEN_ITEM_BLOCKING",
             "Exit 0 with READY and no configured findings",
-            "READY means no configured gate tripped; it is not approval, advice, or "
+            "READY means no configured gate tripped; it is not approval, advice or "
             "lodgement authority.",
         ),
         "product_evidence_urls": (
@@ -307,7 +307,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
         "sections": (
             ("accounting-problem", "Accounting problem"),
             ("intended-reviewer", "Intended reviewer"),
-            ("fabricated-inputs", "Fabricated inputs"),
+            ("fabricated-inputs", "Fictional inputs"),
             ("reproduce", "Reproduce"),
             ("expected-result", "Expected result"),
             ("controls-triggered", "Controls triggered"),
@@ -340,26 +340,26 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "Accounting API Reports endpoint.",
             "This pack is for a reviewer who wants to reproduce the offline integrity "
             "gate without connecting to Xero or handling client data.",
-            "The 3 CSV files are fabricated output-shape fixtures.",
+            "The 3 CSV files are fictional output-shape fixtures.",
             "They are not Xero API responses or client records, and no OAuth flow runs "
             "in this evaluation.",
             "No Xero tenant credentials or tenant data are used.",
             "Dependency installation may download the hash-locked packages.",
             "Once dependencies are installed, the 3 evaluation runner commands "
-            "are fully offline, make no network request, and write no output file.",
+            "are fully offline, make no network request and write no output file.",
             "passing.csv exits 0 and reports that movement and YTD balance.",
-            "failing_movement.csv exits 1, identifies the movement pair, and reports "
+            "failing_movement.csv exits 1, identifies the movement pair and reports "
             "Nothing written.",
-            "failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.",
+            "failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing written.",
             "failing_movement.csv breaks only the current month Debit/Credit pair.",
             "failing_ytd.csv breaks only the YTDDebit/YTDCredit pair.",
             "The evaluation runner calls the production check_balanced gate before any CSV write.",
             "A balanced export passes this integrity control only; a human still "
-            "decides completeness, classification, accounting treatment, and fitness "
+            "decides completeness, classification, accounting treatment and fitness "
             "for review.",
             "This control does not prove completeness, classification, accounting "
-            "treatment, or client approval.",
-            "It does not assess source data accuracy, reporting period suitability, or "
+            "treatment or client approval.",
+            "It does not assess source data accuracy, reporting period suitability or "
             "fitness for a particular client review.",
         ),
         "product_evidence_urls": (
@@ -391,7 +391,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
         "sections": (
             ("accounting-problem", "Accounting problem"),
             ("intended-reviewer", "Intended reviewer"),
-            ("fabricated-inputs", "Fabricated inputs"),
+            ("fabricated-inputs", "Fictional inputs"),
             ("reproduce", "Reproduce"),
             ("evidence-pack", "Recorded development evidence pack"),
             ("expected-result", "Expected result"),
@@ -425,17 +425,17 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -q",
         ),
         "contract_text": (
-            "No client, employee, or live payroll data is included.",
+            "No client, employee or live payroll data is included.",
             "17 August 2026",
             "20 August 2026",
             "timely_remittance_no_receipt.csv exits 2 with AT_RISK",
             "late_remittance_no_receipt.csv exits 2 with LATE",
             "receipt_on_due_date.csv exits 0 with ON_TIME",
             "receipt_after_due_date.csv exits 2 with LATE",
-            "A missing receipt cannot prove on-time, remittance timing can prove late, "
+            "A missing receipt cannot prove on-time, remittance timing can prove late "
             "and timely remittance without receipt remains at-risk.",
             "Remittance evidence can show operational timing but cannot prove on-time; "
-            "a human must establish eligible fund receipt, allocation, and the other "
+            "a human must establish eligible fund receipt, allocation and the other "
             "assessment facts before relying on a statutory conclusion.",
             "Experimental review aid. Not a compliance determination.",
             "the first to contain the evaluation directory",
@@ -565,7 +565,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
 CONTACT_MAILTO_HREFS = ("mailto:ryan@duguid.com.au?subject=Website%20or%20tool%20feedback",)
 HOMEPAGE_HEADING = "Open source tools for Australian accountants"
 HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
-HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls, and inspect the calculations."
+HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls and inspect the calculations."
 HOMEPAGE_ACTIONS = (
     ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
     ("/tools/", "Browse tools by accounting task"),
@@ -590,29 +590,28 @@ HOMEPAGE_PREVIEW_ENTRIES = (
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
-    "I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. "
-    "I build open source controls for Australian tax, payroll, ledgers, and "
-    "workpapers. They show sources and working, use fabricated examples, and "
-    "leave judgement and lodgement with a person."
+    "I'm Ryan Duguid, an accountant in Newcastle, NSW. "
+    "I build open source tools that check Australian tax, payroll, ledgers and "
+    "workpapers. Each tool shows its sources and working, uses fictional examples and "
+    "leaves the judgement and lodgement to a person."
 )
 EVIDENCE_HEADING = "Evidence behind the tools"
 EVIDENCE_OPENING = (
     "This register links claims to identity records, releases, primary source "
-    "reviews, repository controls, and reproducible tests. It supports limited "
-    "software claims. An output is not advice, approval, a compliance decision, "
+    "reviews, repository controls and reproducible tests. It supports limited "
+    "software claims. An output is not advice, approval, a compliance decision "
     "or a lodgement."
 )
 HOMEPAGE_REQUIRED_TEXT = [
     HOMEPAGE_HEADING,
     HOMEPAGE_SUPPORT,
-    "Test it with fabricated data first",
+    "Try each tool with fictional data first",
     "Check the source before the result",
-    "Rates, source work, and release policy",
 ]
 HOMEPAGE_TITLE = "Open source tools for Australian accountants"
 HOMEPAGE_DESCRIPTION = (
     "Personal index of open source Australian accounting tools for payroll, Xero, "
-    "workpapers, and AI workflows, with sources and working kept visible."
+    "workpapers and AI workflows, with sources and working kept visible."
 )
 HOMEPAGE_REQUIRED_HREFS = [
     "/evidence/",
@@ -620,13 +619,10 @@ HOMEPAGE_REQUIRED_HREFS = [
     "/tools/australian-tax-ai-agents/#install",
     "/tools/coal-lsl-levy/",
     "/tools/workpaper-review-gate/",
-    "/evaluate/payday-super-evidence/",
 ]
 HOMEPAGE_PROOF_HREFS = [
     "/tools/coal-lsl-levy/",
     "/evidence/",
-    "https://coallsl.com.au/guidance-notes/eligible-wages",
-    "https://coallsl.com.au/about-us/governing-legislation/legislation",
 ]
 ARTICLE_PATTERN_PAGES = {
     "examples/profit-vs-cash-flow/index.html",
@@ -742,7 +738,7 @@ CALCULATOR_BLANK_RESULT_EXPLANATION = (
 )
 CALCULATOR_PRIVACY_WARNING = (
     "Use an internal payroll reference such as EMP-001. Do not enter an employee "
-    "name, TFN, or other direct identifier."
+    "name, TFN or other direct identifier."
 )
 CALCULATOR_NUMBER_INPUT_IDS = (
     "sacrificed",
@@ -765,13 +761,13 @@ SOCIAL_CARD_CONTEXTS = {
             "Australian accountants",
         ],
         "host": "duguid.com.au",
-        "output": "social-card-site-20260922.png",
+        "output": "social-card-site-20260924.png",
     },
     "tools": {
         "label": "Open source tools",
         "heading": ["Accounting checks that", "show their working."],
         "host": "duguid.com.au/tools/",
-        "output": "social-card-tools-20260922.png",
+        "output": "social-card-tools-20260924.png",
     },
     "evaluations": {
         "label": "Reproducible evaluations",
@@ -781,19 +777,19 @@ SOCIAL_CARD_CONTEXTS = {
             "Visible limits.",
         ],
         "host": "duguid.com.au/evaluate/",
-        "output": "social-card-evaluations-20260922.png",
+        "output": "social-card-evaluations-20260924.png",
     },
     "rates": {
         "label": "Maintained reference tables",
         "heading": ["Australian rates,", "sources, and review dates."],
         "host": "duguid.com.au/rates/",
-        "output": "social-card-rates-20260922.png",
+        "output": "social-card-rates-20260924.png",
     },
     "evidence": {
         "label": "Evidence register",
         "heading": ["Claims linked to sources,", "releases, and tests."],
         "host": "duguid.com.au/evidence/",
-        "output": "social-card-evidence-20260922.png",
+        "output": "social-card-evidence-20260924.png",
     },
 }
 SOCIAL_CARD_DIMENSIONS = (1200, 630)
@@ -1946,7 +1942,7 @@ def check_payday_receipt_boundary(html: str) -> list[str]:
     ):
         failures.append(
             "tools/payday-super/index.html: no visible paragraph says missing receipt "
-            "cannot prove on-time, remittance timing can prove late, and timely remittance "
+            "cannot prove on-time, remittance timing can prove late and timely remittance "
             "without receipt remains at-risk"
         )
     return failures
@@ -2327,10 +2323,10 @@ def check_xero_evaluation_summary(root: Path = core.ROOT) -> list[str]:
     required = (
         "Problem An automated trial balance export can look tidy while one balance pair is wrong.",
         "Control Check movement and year-to-date debits against credits before any CSV write.",
-        "Evidence Three fabricated fixtures isolate a passing file, a movement "
-        "failure, and a YTD failure.",
+        "Evidence Three fictional fixtures isolate a passing file, a movement "
+        "failure and a YTD failure.",
         "Result One run exits 0. Two runs exit 1 and report that nothing was written.",
-        "Limit Balance does not prove completeness, classification, or approval.",
+        "Limit Balance does not prove completeness, classification or approval.",
     )
     if len(summaries) != 1:
         return [f"{rel}: evaluation summary is incomplete"]

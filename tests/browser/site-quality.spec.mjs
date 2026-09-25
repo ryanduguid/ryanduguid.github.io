@@ -64,13 +64,17 @@ const homeHeightBaseline = {
   // renders at 9,489px and keeps the 234px guard the adoption route documented.
   // Desktop renders at 6,360px, under the ceilings main already had, so those
   // stay as they are rather than being loosened to fit.
-  'mobile-chromium': 9723,
-  'desktop-chromium': 6630,
+  // On 25 September the Adopt and Verify routes shrank to one sentence, two
+  // links and a note each. Home measures 5,945px mobile and 4,411px desktop;
+  // both ceilings drop to that plus the 234px guard so the page stays short.
+  'mobile-chromium': 6179,
+  'desktop-chromium': 4645,
 };
 
 const representativeHeightBaseline = {
   'mobile-chromium': new Map([
-    ['/', 9723],
+    // Shortened homepage, 25 September: 5,945px plus the 234px guard.
+    ['/', 6179],
     // The four starting routes (heading plus four two-line rows) replaced the
     // direct example links on 18 September 2026, and the Ozzit entry joined
     // the Calculate group the same day. Tools measures 8,978px at 390px wide
@@ -90,13 +94,19 @@ const representativeHeightBaseline = {
     // On 23 September the upstream details move below the contents into a
     // named section with normal body text. Navigation arrives sooner; the
     // page measures 8,062px. Keep the 234px guard for this readable layout.
-    ['/evidence/', 8296],
+    // On 25 September the XeroAPI command-line merge joins accepted upstream
+    // work. Chromium CI run 36020935294 measures 8,372px; keep the 234px guard.
+    // The corpus and release policy links moved here from the homepage on
+    // 25 September. With both changes the page measures 8,595px; keep the
+    // 234px guard.
+    ['/evidence/', 8829],
   ]),
   'desktop-chromium': new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
     // input-scoped description on 18 September 2026, which wraps to a third
     // line. Home measures 6,535px at 1440px wide, plus the 234px guard.
-    ['/', 6769],
+    // Shortened homepage, 25 September: 4,411px plus the 234px guard.
+    ['/', 4645],
     // Tools renders at 5,386px in Chromium CI run 35598730192 after the
     // Excel chooser row and calculator shortcut. Retain the 234px guard.
     ['/tools/', 5620],
@@ -104,7 +114,12 @@ const representativeHeightBaseline = {
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
     // The same scoped privacy explanation measures 5,241px on desktop.
-    ['/evidence/', 5475],
+    // The XeroAPI command-line merge adds a paragraph: 5,563px in Chromium CI
+    // run 36020935294, plus the 234px guard.
+    // With the corpus and release policy links from the homepage (25
+    // September) and the XeroAPI paragraph it measures 5,724px. Keep the
+    // 234px guard.
+    ['/evidence/', 5958],
   ]),
 };
 
@@ -440,7 +455,7 @@ test('home proof image loads only when requested and decodes before capture', as
   // The mobile breakpoint serves the 390-CSS-px render at twice the density
   // so the ledger text stays legible; wider viewports keep the desktop asset.
   const expectedNatural = testInfo.project.name === 'mobile-chromium'
-    ? { width: 780, height: 1232 }
+    ? { width: 780, height: 1280 }
     : { width: 868, height: 580 };
   expect(await proof.evaluate((image) => ({
     width: image.naturalWidth,

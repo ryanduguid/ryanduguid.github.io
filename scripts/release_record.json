@@ -18,19 +18,19 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.7",
-        "released_utc": "2026-09-24T01:45:17Z",
+        "version": "0.2.8",
+        "released_utc": "2026-09-24T12:48:28Z",
         "verified": "2026-09-24",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.2.7",
-        "visible_label": "Reference release v0.2.7",
-        "software_version": "0.2.7"
+        "version": "0.2.8",
+        "visible_label": "Reference release v0.2.8",
+        "software_version": "0.2.8"
       },
       "pinned_engines": {
         "payday-super-checker": "0.1.7",
@@ -39,7 +39,7 @@
         "australian-tax-calculators": "0.1.5"
       },
       "pinned_commands": [
-        "uvx --from aus-accounting-mcp==0.2.7 aus-accounting-mcp-demo"
+        "uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo"
       ],
       "tracking_commands": [
         "claude mcp add aus-accounting -- uvx aus-accounting-mcp",

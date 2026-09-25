@@ -8,13 +8,13 @@ Source: https://duguid.com.au/tools/ozzit/
 
 Download Ozzit from GitHub Try a formula
 
-Needs Microsoft 365 or Excel 2024 and later. Choose ozzit.xlsx under Assets on the release page.
+Needs Microsoft 365 or Excel 2024 or later. Choose ozzit.xlsx under Assets on the release page.
 
 Ozzit is a single Excel workbook holding 133 native LAMBDA functions and 5 named help tables, all under the oz. prefix. It covers amortisation, depreciation, ratios, AASB 16 lessee schedules and Australian GST and financial year helpers. There is no add-in, no macro and no external dependency: the functions are ordinary defined names you can read and copy.
 
 Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 20 September 2026.
+Published 18 September 2026. Last reviewed 24 September 2026.
 
 ## What Ozzit is
 
@@ -30,7 +30,7 @@ It suits an accountant or analyst who builds models in Excel and wants the worki
 
 What the workbook needs. Scroll sideways on small screens.
 
-Requires | Microsoft 365 or Excel 2024 and later, with LAMBDA and dynamic arrays
+Requires | Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays
 Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
 Contains | No VBA, no macros, no add-in and no external link
 Licence | MIT, covering the workbook, the formula source and the function index
@@ -72,7 +72,7 @@ The repository records a native Excel capture of this example, including the for
 
 ## Download and use it
 
-Needs Microsoft 365 or Excel 2024 and later. Nothing is installed.
+Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
 - Open the v3.4.2 release page and download ozzit.xlsx from its assets. The release also publishes SHA256SUMS and a provenance record.
 - Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f.
@@ -97,7 +97,7 @@ Not tax, legal or financial advice. The functions calculate; a person decides th
 
 - The GST helpers do 10% arithmetic only. They do not classify a supply, test registration or prepare a BAS.
 - oz.PrimeCostλ and oz.DiminishingValueλ are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
-- The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment, or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
+- The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
 - The library contains no individual income tax, Medicare levy, Division 7A interest or tax rate cards.
 - The 13-week cash flow workbook in the repository's templates folder is a separate template, not a function in this library.
 - Known defects are listed in the repository's changelog and issues. Check a schedule against an independent calculation before relying on it.
@@ -110,7 +110,7 @@ An Excel workbook containing 133 native LAMBDA functions and 5 help tables for f
 
 ### Which Excel versions can run it?
 
-Microsoft 365 or Excel 2024 and later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
+Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions.
 
 ### Does Ozzit calculate Australian tax?
 

@@ -2,25 +2,25 @@
 
 Source: https://duguid.com.au/about/
 
-> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools, am a Provisional CA ANZ Member, and am a Xero Certified Specialist, Level 3.
+> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source accounting tools. I'm a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3.
 
 # About Ryan Duguid
 
-I'm Ryan Duguid, an accountant in Newcastle, New South Wales, Australia. I build open source controls for Australian tax, payroll, ledgers, and workpapers. They show sources and working, use fabricated examples, and leave judgement and lodgement with a person.
+I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
-Last reviewed 24 September 2026. The 22 September review qualifies the Payday Super claim and checks the linked credential evidence.
+Last reviewed 24 September 2026.
 
 ## The short facts
 
-Name | Ryan Duguid, accountant in Newcastle, NSW
-Based in | Newcastle, New South Wales, Australia
-Not the same person | I am not the US software product executive of the same name.
-Field | Accounting, Australian taxation, payroll, and statutory compliance
+Name | Ryan Duguid
+Based in | Newcastle, NSW, Australia
+Not to be confused with | The US software product executive of the same name
+Field | Accounting, Australian taxation, payroll and statutory compliance
 Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 Certifications |
 
-SAP Certified, SAP S/4HANA Cloud Private Edition, Financial Accounting (C_TS4FI, awarded 17 July 2026, valid until 18 July 2027) and Management Accounting (C_TS4CO, awarded 13 July 2026, valid until 14 July 2027), each verifiable on Credly.
+SAP S/4HANA certified in Financial Accounting (FI) and Management Accounting (CO)
 
 I am a Xero Certified Specialist, Level 3, awarded 1 July 2026 and valid until 1 July 2027. Read the certificate in the evidence register, or explore my Xero trial balance export and review workflow.
 
@@ -30,57 +30,57 @@ LinkedIn | linkedin.com/in/ryan-duguid
 
 ## What my public work demonstrates
 
-I build accounting tools that let a second person trace the inputs, calculation, and review decision. Three examples show the work in different forms:
+I build accounting tools that let a second person trace the inputs, calculation and review decision. Three examples show the work in different forms:
 
-- Cash flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates, and available cash through an Excel forecast and management briefing.
+- Cash flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates and available cash through an Excel forecast and management briefing.
 - Month-end review. The accounting review pipeline turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.
 - Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
 
-These examples use fabricated data. Their evidence covers the supplied cases and stated limits; no client outcome is claimed.
+These examples use fictional data. Their evidence covers only the supplied cases and stated limits, and claims no client outcome.
 
-The tools cite legislation, regulator guidance, or an accounting standard and refuse a result when the supplied facts do not settle the test.
+The tools cite legislation, regulator guidance or an accounting standard and refuse a result when the supplied facts do not settle the test.
 
-The evidence register links identity, releases, source reviews, repository controls, and reproducible tests. It also states what those records cannot establish.
+The evidence register links identity, releases, source reviews, repository controls and reproducible tests. It also states what those records cannot establish.
 
 ## What I build
 
-The tools extract records into a reviewable shape, apply deterministic calculations, or stop incomplete work before it reaches a reviewer. AI workflows call those fixed-scope tools; they do not replace the calculation, invent missing facts, or approve the result.
+The tools extract records into a reviewable shape, apply deterministic calculations or stop incomplete work before it reaches a reviewer. AI workflows call those fixed-scope tools; they do not replace the calculation, invent missing facts or approve the result.
 
-- Payday super timing and SG charge exposure, checked against a payroll export.
-- Workpaper Review Gate keeps incomplete packs off the review desk.
-- A Xero trial balance export that has to balance.
-- ATO small business benchmark comparison, run on your own machine.
-- Coal LSL levy calculator, the eligible wages test under section 3B, running in the browser.
-- Construction WIP schedule under AASB 15.
-- Construction and mining subcontract ledger skills.
-- Section 100A risk zones and Division 6 allocation.
-- Base rate entity test and franking account checks.
-- Australian tax tools for AI agents: local computational MCP versus document lookup.
+- Payday Super checker: tests super timing and SG charge exposure against a payroll export.
+- Workpaper Review Gate: keeps incomplete packs off the review desk.
+- Xero trial balance export: produces a CSV that has to balance.
+- ATO benchmark comparison: compares a small business with the ATO benchmarks on your own machine.
+- Coal LSL levy calculator: applies the section 3B eligible wages test in your browser.
+- Construction WIP schedule: calculates work in progress under AASB 15.
+- Subcontract ledger skills: agent workflows for construction and mining ledgers.
+- Trust distribution checks: classifies section 100A risk zones and allocates income under Division 6.
+- Company tax and franking checks: runs the base rate entity test and tracks the franking account.
+- Australian tax tools for AI agents: compares a local calculation server with document lookup.
 
-## Selected distributions
+## Published packages
 
 - payday-super-checker, with its PyPI distribution.
 - Aus Accounting MCP, listed on Glama and in the official MCP Registry.
 
 ## How the work is grounded
 
-I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates, and review boundary.
+I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates and review limits.
 
-- Primary sources only. Rates, thresholds, and tests come from Commonwealth legislation, the regulator's published guidance, or the accounting standard, never from a summary of one.
+- Primary sources only. Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
-- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 leaves a timely receipt date without an amount unknown; older 0.1.6 assumes full receipt. Check the version-specific receipt rules before relying on a result.
-- Synthetic data in public. Every public fixture, test, and example uses fabricated data. Client information stays out of public repositories entirely.
+- Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 marks a receipt as unknown when it has an on-time date but no amount. Version 0.1.6 assumed the full amount arrived. Check the version-specific receipt rules before relying on a result.
+- Synthetic data in public. Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.
 - A person signs off. The tools calculate and check; a person makes the judgement and lodges.
 
 ## Advice and review boundary
 
-I am not a registered tax agent or BAS agent. Nothing here is tax, legal, or financial advice. The tools are review aids for a qualified professional, not compliance determinations.
+I am not a registered tax agent or BAS agent. Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.
 
 ## Site boundary
 
 This is a personal index of open source accounting tools I build. It is not a practice, and I am not accepting professional engagements through this site.
 
-This site does not offer tax or BAS agent services and does not accept tax advice or lodgement requests. Do not post taxpayer information or client files to public repositories.
+This site does not offer tax or BAS agent services or take requests for tax advice or lodgement. Do not post taxpayer information or client files to public repositories.
 
 ## Citing this work
 
@@ -90,6 +90,8 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
+- Financial Accounting (FI): https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
+- Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification
 - Xero trial balance export and review workflow: https://duguid.com.au/tools/xero-trial-balance/
 - github.com/ryanduguid: https://github.com/ryanduguid
@@ -98,14 +100,14 @@ I write and maintain this site in my own time and on my own equipment.
 - accounting review pipeline: https://duguid.com.au/evaluate/#month-end-preview
 - Ozzit: https://github.com/ryanduguid/Ozzit
 - evidence register: https://duguid.com.au/evidence/
-- Payday super timing and SG charge exposure: https://duguid.com.au/tools/payday-super/
-- Workpaper Review Gate keeps incomplete packs off the review desk: https://duguid.com.au/tools/workpaper-review-gate/
-- ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
+- Payday Super checker: https://duguid.com.au/tools/payday-super/
+- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
+- ATO benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
-- Construction WIP schedule under AASB 15: https://duguid.com.au/tools/wip-schedule/
-- Construction and mining subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
-- Section 100A risk zones and Division 6 allocation: https://duguid.com.au/tools/trust-distributions/
-- Base rate entity test and franking account checks: https://duguid.com.au/tools/company-tax-franking/
+- Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- Trust distribution checks: https://duguid.com.au/tools/trust-distributions/
+- Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - PyPI distribution: https://pypi.org/project/payday-super-checker/

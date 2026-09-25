@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
 Practical steps, records and official guidance on bookkeeping and close. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
 Use the same reporting date and accounting basis for all reconciliations. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Bookkeeping and close
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -30,7 +30,9 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations.
 
-51. Why does my Xero bank balance differ from my bank statement?
+51.
+
+### Why does my Xero bank balance differ from my bank statement?
 
 Reconcile the bank statement and Xero at the same date before posting a correction.
 
@@ -43,7 +45,9 @@ Record keeping for business · Monthly close review pack
 
 Link to question 51
 
-52. How do I identify and fix duplicate bank transactions in Xero?
+52.
+
+### How do I identify and fix duplicate bank transactions in Xero?
 
 Identify whether the duplicate is a statement line, an accounting transaction or both.
 
@@ -56,7 +60,9 @@ Record keeping for business
 
 Link to question 52
 
-53. How do I correct a customer payment matched to the wrong invoice?
+53.
+
+### How do I correct a customer payment matched to the wrong invoice?
 
 Trace the payment and both customer invoices before changing the match.
 
@@ -69,7 +75,9 @@ Record keeping for business
 
 Link to question 53
 
-54. How do I record a personal purchase paid from the business account?
+54.
+
+### How do I record a personal purchase paid from the business account?
 
 Code the private payment according to the entity and the person's relationship to it.
 
@@ -82,20 +90,26 @@ Record keeping for business · Division 7A review case and limitations
 
 Link to question 54
 
-55. Which business records should I keep, and for how long?
+55.
 
-Keep records that let someone trace transactions, calculations and decisions for the required retention period.
+### Which business records should I keep, and for how long?
+
+Keep most business records for 5 years. Keep records for depreciating assets and CGT assets until 5 years after you dispose of the asset. Keep records that let someone trace transactions, calculations and decisions for the required retention period.
 
 - Create a register covering tax, payroll, assets, loans, contracts and entity records.
 - Assign retention dates using the relevant ATO and other legal requirements, including longer periods for continuing assets or disputes.
 
 Do not apply one blanket retention date to every document.
 
-Record keeping for business
+Record keeping for business · Overview of record-keeping rules for business
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 55
 
-56. How should I organise my chart of accounts?
+56.
+
+### How should I organise my chart of accounts?
 
 Use a chart of accounts that supports reporting and reconciliations at a manageable level of detail.
 
@@ -108,7 +122,9 @@ Record keeping for business · Monthly close review pack
 
 Link to question 56
 
-57. How do I split a loan repayment between principal and interest?
+57.
+
+### How do I split a loan repayment between principal and interest?
 
 Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.
 
@@ -121,7 +137,9 @@ Set up a cash flow statement · Monthly loan payment calculator
 
 Link to question 57
 
-58. Should a purchase be recorded as an asset or an expense?
+58.
+
+### Should a purchase be recorded as an asset or an expense?
 
 Apply your accounting policy to the nature, use and expected benefit of the purchase, then assess tax separately.
 
@@ -134,7 +152,9 @@ Record keeping for business · Experimental tax worksheets and supported years
 
 Link to question 58
 
-59. Why do my aged receivables or payables differ from the general ledger?
+59.
+
+### Why do my aged receivables or payables differ from the general ledger?
 
 Compare the aged report and ledger on the same date with the same filters.
 
@@ -147,7 +167,9 @@ Record keeping for business · Monthly close review pack
 
 Link to question 59
 
-60. What should I reconcile and check before closing the month or financial year?
+60.
+
+### What should I reconcile and check before closing the month or financial year?
 
 Close from reconciled balances and documented review decisions.
 
@@ -156,7 +178,7 @@ Close from reconciled balances and documented review decisions.
 
 Fictional worked example
 
-At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner, and the evidence needed to resolve it before completing the close.
+At 30 September 2026, a fictional bank statement shows $12,000 and the ledger bank account shows $11,700. A $300 customer receipt is on the statement but missing from the ledger. After confirming the invoice and posting the missing receipt, both bank balances are $12,000. The aged receivables report still shows $9,500 against a $10,000 control account. Record that separate $500 exception, its owner and the evidence needed to resolve it before completing the close.
 
 The existing close pack supports review; it does not automatically approve journals or finalise accounts.
 
@@ -174,7 +196,7 @@ Link to question 60
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -188,6 +210,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 53: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q53
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 54: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
+- Overview of record-keeping rules for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business
 - Link to question 55: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
 - Link to question 56: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement

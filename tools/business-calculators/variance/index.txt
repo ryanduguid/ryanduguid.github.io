@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/tools/business-calculators/variance/
 
-> Compare actual to budget for an income or cost line in your browser: the difference, its percentage of absolute budget, and whether it is favourable or unfavourable.
+> Compare actual to budget for an income or cost line in your browser: the difference, its percentage of absolute budget and whether it is favourable or unfavourable.
 
 # Budget variance calculator
 
-Actual minus budget, the percentage of absolute budget, and whether the difference is favourable or unfavourable.
+Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
 

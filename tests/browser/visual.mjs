@@ -1,9 +1,9 @@
 const visualFonts = [
-  '400 16px "IBM Plex Sans"',
-  '600 16px "IBM Plex Sans"',
-  '400 16px "IBM Plex Mono"',
-  '400 32px "IBM Plex Serif"',
-  '600 32px "IBM Plex Serif"',
+  '400 16px "Public Sans"',
+  '600 16px "Public Sans"',
+  '400 16px "Spline Sans Mono"',
+  '400 32px "Besley"',
+  '600 32px "Besley"',
 ];
 
 export async function waitForVisualFonts(page) {

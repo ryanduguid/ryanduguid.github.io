@@ -8,24 +8,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
-  <title>Manager review gate evaluation with fabricated BAS packs</title>
-  <meta name="description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fabricated BAS packs, inspect the controls triggered, and retain the human decision boundary." />
+  <title>Manager review gate evaluation with fictional BAS packs</title>
+  <meta name="description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fictional BAS packs, inspect the controls triggered and retain the human decision boundary." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <meta property="og:title" content="Manager review gate evaluation with fabricated BAS packs" />
-  <meta property="og:description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fabricated BAS packs, inspect the controls triggered, and retain the human decision boundary." />
+  <meta property="og:title" content="Manager review gate evaluation with fictional BAS packs" />
+  <meta property="og:description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fictional BAS packs, inspect the controls triggered and retain the human decision boundary." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/evaluate/manager-review-gate/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-evaluations-20260922.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-evaluations-20260924.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Manager review gate evaluation with fabricated BAS packs" />
-  <meta name="twitter:description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fabricated BAS packs, inspect the controls triggered, and retain the human decision boundary." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260922.png" />
+  <meta name="twitter:title" content="Manager review gate evaluation with fictional BAS packs" />
+  <meta name="twitter:description" content="Reproduce the review-ready-gate v0.1.3 result for 2 fictional BAS packs, inspect the controls triggered and retain the human decision boundary." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/evaluate/manager-review-gate/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -34,12 +34,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/evaluate/manager-review-gate/index.txt" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260924" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260925a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,7 +56,7 @@
         </nav>
         <h1>Manager review gate evaluation</h1>
         <p class="lead-note">
-          Reproduce the released review-ready gate against 2 fabricated BAS packs, then inspect the exact expected result and human boundary.
+          Reproduce the released review-ready gate against 2 fictional BAS packs, then inspect the exact expected result and human boundary.
         </p>
         <p class="page-meta">Published 26 August 2026. Last reviewed 23 September 2026.</p>
       </header>
@@ -64,7 +64,7 @@
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#accounting-problem">Accounting problem</a>
-          <a href="#fabricated-inputs">Fabricated inputs</a>
+          <a href="#fabricated-inputs">Fictional inputs</a>
           <a href="#expected-result">Expected result</a>
           <a href="#controls-triggered">Controls triggered</a>
           <a href="#human-decision">Human decision</a>
@@ -82,7 +82,7 @@
           </section>
 
           <section id="fabricated-inputs">
-            <h2>Fabricated inputs</h2>
+            <h2>Fictional inputs</h2>
             <p>
               The evaluation uses the repository fixtures <code>examples/bas-not-ready</code> and <code>examples/bas-ready</code>. They contain no client data.
             </p>
@@ -125,9 +125,9 @@
           <section id="human-decision">
             <h2>Human decision</h2>
             <blockquote>
-              <p>READY means no configured gate tripped; it is not approval, advice, or lodgement authority.</p>
+              <p>READY means no configured gate tripped; it is not approval, advice or lodgement authority.</p>
             </blockquote>
-            <p>A manager still judges correctness, risk, materiality, client impact, and whether the pack may progress.</p>
+            <p>A manager still judges correctness, risk, materiality, client impact and whether the pack may progress.</p>
           </section>
 
           <section id="reproduce" class="install-panel">
@@ -152,7 +152,7 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
             <h2>Versions</h2>
             <p>Product release v0.1.3; fixture version 1; source reviewed 2026-08-26.</p>
             <p>
-              review-ready-gate/v0.1.3 is the first release from the Accounting Review Pipeline monorepo. Its runtime behaviour and fabricated fixtures are unchanged from v0.1.1, and the evaluation artefacts are fixed to that release's commit.
+              review-ready-gate/v0.1.3 is the first release from the Accounting Review Pipeline monorepo. Its runtime behaviour and fictional fixtures are unchanged from v0.1.1, and the evaluation artefacts are fixed to that release's commit.
             </p>
             <ul class="sources">
               <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3">Immutable review-ready-gate/v0.1.3 GitHub Release</a></li>
@@ -165,7 +165,7 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              This evaluates configured gates against fabricated inputs. It does not establish that a pack is correct, approve work, provide advice, or authorise lodgement. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
+              This evaluates configured gates against fictional inputs. It does not establish that a pack is correct, approve work, provide advice or authorise lodgement. See <a href="/evidence/">Evidence and Assurance</a> for the common assurance record and boundaries.
             </p>
           </section>
 
@@ -191,8 +191,8 @@ uv run pytest tests/test_evaluation_pack.py -q</code></pre>
         "@type": "TechArticle",
         "@id": "https://duguid.com.au/evaluate/manager-review-gate/#article",
         "url": "https://duguid.com.au/evaluate/manager-review-gate/",
-        "headline": "Manager review gate evaluation with fabricated BAS packs",
-        "description": "A reproducible evaluation of the review-ready-gate v0.1.3 contract against two fabricated BAS packs.",
+        "headline": "Manager review gate evaluation with fictional BAS packs",
+        "description": "A reproducible evaluation of the review-ready-gate v0.1.3 contract against two fictional BAS packs.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
         "dateModified": "2026-09-23",

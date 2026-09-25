@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 
-> Reproduce the Xero trial balance export integrity gate with fabricated CSV fixtures and inspect the movement, YTD, and human review boundaries.
+> Reproduce the Xero trial balance export integrity gate with fictional CSV fixtures and inspect the movement, YTD and human review boundaries.
 
 # Xero trial balance integrity evaluation
 
-Reproduce the offline movement and year-to-date integrity gate with 3 fabricated CSV fixtures, then inspect the exact results and human review boundary.
+Reproduce the offline movement and year-to-date integrity gate with 3 fictional CSV fixtures, then inspect the exact results and human review boundary.
 
 Published 26 August 2026. Last reviewed 18 September 2026.
 
@@ -20,7 +20,7 @@ Check movement and year-to-date debits against credits before any CSV write.
 
 Evidence
 
-Three fabricated fixtures isolate a passing file, a movement failure, and a YTD failure.
+Three fictional fixtures isolate a passing file, a movement failure and a YTD failure.
 
 Result
 
@@ -28,7 +28,7 @@ One run exits 0. Two runs exit 1 and report that nothing was written.
 
 Limit
 
-Balance does not prove completeness, classification, or approval.
+Balance does not prove completeness, classification or approval.
 
 ## Accounting problem
 
@@ -40,13 +40,13 @@ The production tool reads trial balance data directly from Xero's Accounting API
 
 This pack is for a reviewer who wants to reproduce the offline integrity gate without connecting to Xero or handling client data.
 
-## Fabricated inputs
+## Fictional inputs
 
-The 3 CSV files are fabricated output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
+The 3 CSV files are fictional output-shape fixtures. They are not Xero API responses or client records, and no OAuth flow runs in this evaluation. No Xero tenant credentials or tenant data are used.
 
 ## Reproduce
 
-Needs Git and Python 3.10 or newer with pip; the commands are the same on Windows, macOS and Linux. Clone the Accounting Review Pipeline at tag xero-trial-balance-export/v0.1.6 (commit 3ae854911bf36f00bd3cc3eeafd1855848896629) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request, and write no output file.
+Needs Git and Python 3.10 or newer with pip; the commands are the same on Windows, macOS and Linux. Clone the Accounting Review Pipeline at tag xero-trial-balance-export/v0.1.6 (commit 3ae854911bf36f00bd3cc3eeafd1855848896629) and run these commands from packages/xero-trial-balance-export. Dependency installation may download the hash-locked packages. Once dependencies are installed, the 3 evaluation runner commands are fully offline, make no network request and write no output file.
 
 ```
 git clone --branch xero-trial-balance-export/v0.1.6 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -61,10 +61,10 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
 
 ## Expected result
 
-Fabricated fixture | Expected result
+Fictional fixture | Expected result
 passing.csv | passing.csv exits 0 and reports that movement and YTD balance.
-failing_movement.csv | failing_movement.csv exits 1, identifies the movement pair, and reports Nothing written.
-failing_ytd.csv | failing_ytd.csv exits 1, identifies the YTD pair, and reports Nothing written.
+failing_movement.csv | failing_movement.csv exits 1, identifies the movement pair and reports Nothing written.
+failing_ytd.csv | failing_ytd.csv exits 1, identifies the YTD pair and reports Nothing written.
 
 ## Controls triggered
 
@@ -90,13 +90,13 @@ xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this e
 
 ## Human decision
 
-A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment, and fitness for review.
+A balanced export passes this integrity control only; a human still decides completeness, classification, accounting treatment and fitness for review.
 
 The integrity result does not approve the export or replace professional review.
 
 ## Limitations
 
-This control does not prove completeness, classification, accounting treatment, or client approval. It does not assess source data accuracy, reporting period suitability, or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
+This control does not prove completeness, classification, accounting treatment or client approval. It does not assess source data accuracy, reporting period suitability or fitness for a particular client review. See Evidence and Assurance for the common assurance record and boundaries.
 
 ## Related
 

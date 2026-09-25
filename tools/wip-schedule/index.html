@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/tools/wip-schedule/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
   <meta property="og:image:width" content="1200" />
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Construction WIP under AASB 15: over- or under-billed?" />
   <meta name="twitter:description" content="AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260922.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/wip-schedule/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -34,12 +34,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/wip-schedule/index.txt" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260924" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260925a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -80,12 +80,12 @@
       Construction month-end turns on the WIP schedule. The formula is easy.
       Applying it the same way every month is the work: strip waste from
       percentage complete without dropping it from margin, book uninstalled
-      materials at cost, constrain unapproved claims, and present each contract
+      materials at cost, constrain unapproved claims and present each contract
       as an asset or a liability, never a portfolio net.
     </p>
     <p>
       This tool does the arithmetic. Install the Python engine, point it at a
-      contract CSV, and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability, and any
+      contract CSV and keep the schedule beside the review pack. Recognition over time versus at a point in time, contract combination, claim enforceability and any
       onerous-contract provision stay with a person.
       The <a href="/tools/subcontractor-ledgers/">subcontractor ledger skills</a>
       own that workflow: they assemble the file and name this engine rather
@@ -95,20 +95,20 @@
     <h2>What this tool does</h2>
     <ul>
       <li>Measures cost-to-cost progress after AASB 15 para B19 exclusions: waste does not accelerate percentage complete; uninstalled materials are recognised at cost with zero margin. Whether uninstalled materials qualify for that treatment depends on the applicable paragraph B19 conditions, so check them against the contract before relying on it; the fixed example below contains none.</li>
-      <li>Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice, and never treats an uncertified claim as billing or entitlement.</li>
+      <li>Constrains unapproved variation estimates by the include ratio you supply, flags the excluded slice and never treats an uncertified claim as billing or entitlement.</li>
       <li>Classifies each contract as a contract asset or a contract liability, flags profit fade of 1.00 percentage point or more, and flags a stale estimate to complete after material extra spend.</li>
     </ul>
     </section>
     <section id="worked-example">
     <h2>Worked example: a $50,000 contract asset</h2>
-    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.0</a>. The test uses a reasonably measurable outcome, with no variations, waste, or uninstalled materials. All amounts below exclude GST.</p>
+    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.0</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
     <ul>
       <li>Transaction price: $1,000,000.</li>
       <li>Costs incurred: $400,000. Estimated cost to complete: $400,000.</li>
       <li>Certified billings: $450,000.</li>
     </ul>
     <p>Progress is $400,000 ÷ ($400,000 + $400,000) = <strong>50%</strong>. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a <strong>$50,000 contract asset</strong> and no contract liability.</p>
-    <p>A person must confirm that the recognition basis, contract terms, and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.</p>
+    <p>A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.</p>
     <h3>Reproduce this exact example</h3>
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
     <pre tabindex="0" role="region" aria-label="Pinned the-wip-tally example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
@@ -122,9 +122,9 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test
     <h2>Limits</h2>
     <blockquote>
       <p>
-        This is an educational tool, not tax, legal, or financial advice, and
+        This is an educational tool, not tax, legal or financial advice, and
         using it creates no professional relationship. Outputs are not an
-        accounting opinion, an audit conclusion, or an AASB 15 determination.
+        accounting opinion, an audit conclusion or an AASB 15 determination.
         Confirm the operative compilation at standards.aasb.gov.au before
         citing a paragraph number, and leave sign-off with a registered
         practitioner.
@@ -144,7 +144,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
     <pre tabindex="0" role="region" aria-label="Review pack command"><code>wip-tally review-pack wip-schedule.csv --source examples/sample_contracts.csv -o practitioner-review.md</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally">Source on GitHub</a>
        · <a href="/tools/subcontractor-ledgers/">Use it from the subcontractor workflows</a></p>
-    <p>Software issue using fabricated data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Construction%20WIP%20schedule">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
+    <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Construction%20WIP%20schedule">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
     </section>
     <section id="common-questions" class="faq-section">
@@ -157,7 +157,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
       <h3>Are unapproved variations booked in full?</h3>
       <p>No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%.</p>
       <h3>Is this an accounting determination?</h3>
-      <p>No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead.</p>
+      <p>No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable and any AASB 137 onerous provision stay with the engagement lead.</p>
     </div>
     </section>
     <section id="related">
@@ -295,7 +295,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
             "name": "Is this an accounting determination?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable, and any AASB 137 onerous provision stay with the engagement lead."
+              "text": "No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable and any AASB 137 onerous provision stay with the engagement lead."
             }
           }
         ]

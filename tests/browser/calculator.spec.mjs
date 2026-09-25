@@ -426,7 +426,7 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('[data-result-kind="formula-b"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="eligible-wages"]')).toBeVisible();
   await expect(page.locator('[data-result-kind="levy"]')).toBeVisible();
-  await expect(page.getByText('Published 24 August 2026. Last reviewed 20 September 2026.'))
+  await expect(page.getByText('Published 24 August 2026. Last reviewed 24 September 2026.'))
     .toBeVisible();
   await expect(page.locator('.calculator-method')).toContainText('Boundary');
   await expect(page.locator('.site-header')).toBeHidden();
@@ -780,4 +780,47 @@ test('Formula B result matches the mobile visual baseline', async ({ page }, tes
     },
   );
   health.assertHealthy();
+});
+
+test('GST page registers a read-only WebMCP tool only where the browser offers modelContext', async ({ page }) => {
+  const requests = [];
+  page.on('request', request => requests.push(request.url()));
+  await page.goto('/tools/business-calculators/gst/');
+  await expect(page.locator('form[data-calculator="gst"] fieldset')).toBeEnabled();
+  expect(requests.some(url => url.endsWith('/assets/webmcp-tools.mjs'))).toBe(false);
+
+  await page.addInitScript(() => {
+    window.registeredTools = [];
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: async tool => { window.registeredTools.push(tool); } },
+    });
+  });
+  await page.reload();
+  await page.waitForFunction(() => window.registeredTools.length === 1);
+  const result = await page.evaluate(async () => {
+    const [tool] = window.registeredTools;
+    return { name: tool.name, readOnly: tool.annotations.readOnlyHint,
+      output: await tool.execute({ amount: '1100', inclusive: true }) };
+  });
+  expect(result).toMatchObject({ name: 'calculate_gst', readOnly: true,
+    output: { excludingGst: '1000.00', gst: '100.00', includingGst: '1100.00' } });
+});
+
+test('a failing WebMCP registration leaves the GST calculator working', async ({ page }) => {
+  const errors = [];
+  const warnings = [];
+  page.on('pageerror', error => errors.push(error.message));
+  page.on('console', message => { if (message.type() === 'warning') warnings.push(message.text()); });
+  await page.addInitScript(() => {
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: () => { window.registrationAttempted = true; throw new TypeError('unsupported'); } },
+    });
+  });
+  await page.goto('/tools/business-calculators/gst/');
+  await page.waitForFunction(() => window.registrationAttempted);
+  await page.getByRole('spinbutton', { name: 'Amount (AUD)' }).fill('110');
+  await page.getByRole('button', { name: 'Calculate' }).click();
+  await expect(page.locator('form[data-calculator="gst"] output')).toContainText('GST: $11.00');
+  expect(errors).toEqual([]);
+  expect(warnings.some(text => text.includes('WebMCP tool registration failed') && text.includes('unsupported'))).toBe(true);
 });

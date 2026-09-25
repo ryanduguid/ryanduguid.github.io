@@ -156,7 +156,7 @@
         },
         {
           "id": "F13-compat",
-          "fact": "It needs Microsoft 365 or Excel 2024 and later; LibreOffice and earlier Excel cannot evaluate the functions.",
+          "fact": "It needs Microsoft 365 or Excel 2024 or later; LibreOffice and earlier Excel cannot evaluate the functions.",
           "source": "https://duguid.com.au/tools/ozzit/"
         },
         {

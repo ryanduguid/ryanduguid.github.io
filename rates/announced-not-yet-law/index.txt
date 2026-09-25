@@ -2,17 +2,17 @@
 
 Source: https://duguid.com.au/rates/announced-not-yet-law/
 
-> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules, and sources checked on 22 September 2026.
+> ATO development statuses for selected tax and super measures, with enacted-law application dates, transition rules and sources checked on 22 September 2026.
 
 # Announced tax measures and enacted law
 
-Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill, or instrument exists. Check application and transition rules before using a measure.
+Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read 22 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill, or instrument exists. Various identifies a package whose components may be at different stages.
+Read 22 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## ATO development status unresolved
 
-An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO's guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. Check the measure's Treasury consultation, parliamentary record, and Federal Register entry before assigning a legal status. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
+An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO's guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. Check the measure's Treasury consultation, parliamentary record and Federal Register entry before assigning a legal status. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
 
 Measures with TBD or Various in the ATO summary
 
@@ -37,7 +37,7 @@ Left out on purpose: the Budget and MYEFO rows that fund administration rather t
 
 ## Legislated: later application
 
-The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application, and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
+The ATO summary names Acts for these 3 measures and lists 1 July 2027 as their start. Commencement, income year application and transaction cut-offs are different. Earlier acquisitions can affect later treatment, as the reform provisions below show.
 
 ATO-reported legislation with later application
 
@@ -50,15 +50,15 @@ Boosting the Low Income Superannuation Tax Offset | MYEFO 2025-26 | 1 July 2027 
 
 Schedule 2 item 5 of the Treasury Laws Amendment (Tax Reform No. 1) Act 2026 applies the amendments from the 2027-28 income year. Schedule 2 commenced on 27 June 2026, the day after Royal Assent. The inserted section 26-155(2)(a) excludes amounts relating to an ownership interest in a residential dwelling last acquired before 7:30 pm ACT legal time on 12 May 2026. For this exception, section 26-155(3) uses the contract date for a dwelling acquired under contract, rather than settlement.
 
-Other exceptions cover new residential dwellings and prescribed activities, widely held unit trusts, complying superannuation entities, and amounts relating to fringe benefits: sections 26-155(2), (4), (5), and 26-160. New-dwelling and prescribed-activity conditions depend on legislative instruments; this page does not determine whether a particular property qualifies. A 2026-27 purchase can therefore affect later deductions even though the deduction restriction applies from 2027-28.
+Other exceptions cover new residential dwellings and prescribed activities, widely held unit trusts, complying superannuation entities and amounts relating to fringe benefits: sections 26-155(2), (4), (5) and 26-160. New-dwelling and prescribed-activity conditions depend on legislative instruments; this page does not determine whether a particular property qualifies. A 2026-27 purchase can therefore affect later deductions even though the deduction restriction applies from 2027-28.
 
 ### CGT: separate application rules
 
-The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event, and applicable transition provisions separately before calculating a gain.
+The negative gearing acquisition cut-off is not a general CGT grandfathering rule. Schedule 1 has separate rules: items 82 to 84 address income year and CGT-event application, and item 60 inserts transitional section 119-1 for the minimum tax on gains from CGT events on or after 1 July 2027. Check the asset, event and applicable transition provisions separately before calculating a gain.
 
 ## Legislated: earlier application
 
-For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule, or transitional exception. Read the measure and legislation for the period being calculated.
+For these 9 measures the ATO summary names an Act or instrument and an application date on or before 22 September 2026. This table reproduces that summary; it does not independently establish every eligibility condition, application rule or transitional exception. Read the measure and legislation for the period being calculated.
 
 ATO-reported legislation with earlier application
 
@@ -87,13 +87,13 @@ Yes. The negative gearing amendments apply from 2027-28, but an earlier acquisit
 
 ### What does TBD mean on the ATO's list?
 
-TBD is the development status reported in the ATO summary. That entry alone does not establish whether a consultation draft, bill, or instrument exists. Check Treasury, Parliament, and the Federal Register for the measure. Various means the package needs component-level checking.
+TBD is the development status reported in the ATO summary. That entry alone does not establish whether a consultation draft, bill or instrument exists. Check Treasury, Parliament and the Federal Register for the measure. Various means the package needs component-level checking.
 
 ### How often is this page checked?
 
 At the events in the rates register's review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
 
-General reference only, not tax, legal, or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
+General reference only, not tax, legal or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
 Maintained by Ryan Duguid as part of his open source Australian computational accounting tools. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source and contact.
 

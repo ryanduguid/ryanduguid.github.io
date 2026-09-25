@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
 Practical steps, records and official guidance on starting a business. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
-Use the entity, activity, and income year being assessed. Tax guidance must match your year and circumstances.
+Use the entity, activity and income year being assessed. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Starting a business
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -28,9 +28,11 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ## Starting a business
 
-Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
+Reviewed 11 September 2026. Use the entity, activity and income year being assessed.
 
-21. Do I need an ABN for freelance or contracting work?
+21.
+
+### Do I need an ABN for freelance or contracting work?
 
 ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.
 
@@ -43,7 +45,9 @@ ABR ABN application and entitlement
 
 Link to question 21
 
-22. How do I apply for an ABN, and what information do I need?
+22.
+
+### How do I apply for an ABN, and what information do I need?
 
 Apply through the official ABR route after checking entitlement.
 
@@ -56,7 +60,9 @@ ABR ABN application and entitlement
 
 Link to question 22
 
-23. Is my activity a hobby or a business for tax purposes?
+23.
+
+### Is my activity a hobby or a business for tax purposes?
 
 Assess the pattern of activity, commercial purpose and how the activity is organised.
 
@@ -69,7 +75,9 @@ Starting, registering or closing a business
 
 Link to question 23
 
-24. Should I operate as a sole trader or a company?
+24.
+
+### Should I operate as a sole trader or a company?
 
 Compare liability, ownership, administration, tax and how profits will reach the owners.
 
@@ -82,7 +90,9 @@ Starting, registering or closing a business · 13-week cash forecast
 
 Link to question 24
 
-25. How much should I set aside for income tax as a sole trader?
+25.
+
+### How much should I set aside for income tax as a sole trader?
 
 Reserve cash against an estimate of your annual personal tax position and instalments already paid.
 
@@ -95,7 +105,9 @@ Your tax return · 13-week cash forecast
 
 Link to question 25
 
-26. Do I need a separate business bank account?
+26.
+
+### Do I need a separate business bank account?
 
 A separate account makes business transactions easier to trace. The requirements also depend on the entity.
 
@@ -108,7 +120,9 @@ Starting, registering or closing a business
 
 Link to question 26
 
-27. How do I pay myself and record drawings as a sole trader?
+27.
+
+### How do I pay myself and record drawings as a sole trader?
 
 Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.
 
@@ -121,20 +135,26 @@ Starting, registering or closing a business · 13-week cash forecast
 
 Link to question 27
 
-28. Do the personal services income rules apply to my contracting income?
+28.
 
-Review whether the income is mainly a reward for personal effort or skill, then work through the applicable PSI tests.
+### Do the personal services income rules apply to my contracting income?
+
+For income that is mainly a reward for your personal effort or skill, the PSI rules apply when 80% or more of it comes from one client and its associates, unless you pass the results test or hold a personal services business determination. Review whether the income is mainly a reward for personal effort or skill, then work through the applicable PSI tests.
 
 - Keep contracts, invoices, working arrangements and evidence for any test relied on.
 - Record the income streams separately and review personal-services-business conditions with your adviser.
 
 An ABN or company structure does not by itself switch off the PSI rules.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · The PSI 80% rule
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 28
 
-29. How do I report income from a side hustle, delivery work or online sales?
+29.
+
+### How do I report income from a side hustle, delivery work or online sales?
 
 Reconcile gross platform activity to payouts before deciding how to report it.
 
@@ -147,16 +167,20 @@ Starting, registering or closing a business
 
 Link to question 29
 
-30. Can I offset a business loss against my salary or other income?
+30.
 
-A business loss needs a separate review before it can reduce other income.
+### Can I offset a business loss against my salary or other income?
+
+Only if you meet the non-commercial loss rules: your income for the income requirement must be under $250,000 and you must pass one of 4 tests, such as earning at least $20,000 of assessable income from the business. Otherwise the loss is deferred. A business loss needs a separate review before it can reduce other income.
 
 - Keep the loss calculation, activity history and records relevant to the non-commercial loss tests.
 - Record whether an exception, test or discretion applies, or whether the loss must be deferred.
 
 A loss in the accounts does not automatically offset salary in the tax return.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Non-commercial losses
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 30
 
@@ -170,7 +194,7 @@ Link to question 30
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -188,8 +212,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 25: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
 - Link to question 26: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
 - Link to question 27: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
+- The PSI 80% rule: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb
 - Link to question 28: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
 - Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
+- Non-commercial losses: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss
 - Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/

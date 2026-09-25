@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
 
 Practical steps, records and official guidance on GST and BAS. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
-Use the BAS period, GST accounting basis, and account due date being reviewed. Tax guidance must match your year and circumstances.
+Use the BAS period, GST accounting basis and account due date being reviewed. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in GST and BAS
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -28,9 +28,11 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ## GST and BAS
 
-Reviewed 11 September 2026. Use the BAS period, GST accounting basis, and account due date being reviewed.
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis and account due date being reviewed.
 
-31. How do I add GST to a price or extract GST from an inclusive amount?
+31.
+
+### How do I add GST to a price or extract GST from an inclusive amount?
 
 For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.
 
@@ -43,20 +45,26 @@ ATO GST guidance · GST calculator
 
 Link to question 31
 
-32. When must my business register for GST?
+32.
 
-Check current and projected GST turnover and any compulsory-registration rule for your activity.
+### When must my business register for GST?
+
+Register within 21 days once your GST turnover reaches $75,000 ($150,000 for a non-profit). Taxi and ride-sourcing drivers must register whatever their turnover. Check current and projected GST turnover and any compulsory-registration rule for your activity.
 
 - Build a monthly turnover schedule and review what counts towards GST turnover.
 - Use the ATO registration guidance to determine the trigger and registration date.
 
 Taxi and ride-sourcing rules and other exceptions mean a general turnover threshold is not enough.
 
-ATO GST guidance
+ATO GST guidance · Registering for GST
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 32
 
-33. What is the difference between GST-free and input-taxed sales?
+33.
+
+### What is the difference between GST-free and input-taxed sales?
 
 GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.
 
@@ -69,7 +77,9 @@ ATO GST guidance
 
 Link to question 33
 
-34. Do I charge GST when selling to overseas customers?
+34.
+
+### Do I charge GST when selling to overseas customers?
 
 An overseas customer does not automatically make a sale GST-free.
 
@@ -82,20 +92,26 @@ ATO GST guidance
 
 Link to question 34
 
-35. What information must appear on a valid tax invoice?
+35.
 
-Use an invoice checklist matched to the sale and the ATO's tax invoice requirements.
+### What information must appear on a valid tax invoice?
+
+If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer's identity or ABN. Use an invoice checklist matched to the sale and the ATO's tax invoice requirements.
 
 - Check supplier identity and ABN, date, description, price and how the GST amount is shown.
 - Check any buyer-identification requirement and clearly separate taxable and non-taxable items.
 
 Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.
 
-ATO GST guidance
+ATO GST guidance · Tax invoices
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 35
 
-36. How do I prepare a BAS from my accounting records?
+36.
+
+### How do I prepare a BAS from my accounting records?
 
 Reconcile source records to each BAS label before approval.
 
@@ -112,33 +128,43 @@ ATO business activity statements · BAS pack readiness checks
 
 Link to question 36
 
-37. When is my BAS due, and when must I pay it?
+37.
 
-Use the period and due date shown for your BAS account.
+### When is my BAS due, and when must I pay it?
+
+Quarterly BAS is due on 28 October, 28 February, 28 April and 28 July. Monthly BAS is due on the 21st day of the following month. Payment is due by the same date. Use the period and due date shown for your BAS account.
 
 - Record both lodgement and payment deadlines and any approved concession.
 - Put the cash payment in the forecast and assign someone to retain the receipt.
 
 General quarterly dates can differ from the dates that apply to your account.
 
-ATO GST guidance · 13-week cash forecast
+ATO GST guidance · Due dates for lodging and paying your BAS · 13-week cash forecast
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 37
 
-38. Should I account for GST on a cash or accrual basis?
+38.
 
-Compare the timing of receipts and payments under the methods your business is allowed to use.
+### Should I account for GST on a cash or accrual basis?
+
+A business with aggregated turnover under $10 million can choose either the cash or the accrual basis for GST. Compare the timing of receipts and payments under the methods your business is allowed to use.
 
 - Check eligibility and the method currently recorded with the ATO.
 - Model the effect on unpaid invoices and bills before changing method, and document transition adjustments.
 
 Changing a report setting in Xero does not by itself change the ATO accounting method.
 
-ATO GST guidance
+ATO GST guidance · Choosing an accounting method for GST
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 38
 
-39. Why does my BAS GST figure differ from the GST balance in Xero?
+39.
+
+### Why does my BAS GST figure differ from the GST balance in Xero?
 
 Bridge the BAS calculation to the GST control account at the same date and on the same basis.
 
@@ -151,7 +177,9 @@ ATO GST guidance · BAS pack readiness checks
 
 Link to question 39
 
-40. How do I correct a mistake in a BAS I have already lodged?
+40.
+
+### How do I correct a mistake in a BAS I have already lodged?
 
 Work out whether the error can be corrected on a later BAS or requires a revision.
 
@@ -174,7 +202,7 @@ Link to question 40
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -184,15 +212,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - Link to question 31: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
+- Registering for GST: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst
 - Link to question 32: https://duguid.com.au/tools/accounting-questions/gst-bas/#q32
 - Link to question 33: https://duguid.com.au/tools/accounting-questions/gst-bas/#q33
 - Link to question 34: https://duguid.com.au/tools/accounting-questions/gst-bas/#q34
+- Tax invoices: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/tax-invoices
 - Link to question 35: https://duguid.com.au/tools/accounting-questions/gst-bas/#q35
 - ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
 - BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
 - Link to question 36: https://duguid.com.au/tools/accounting-questions/gst-bas/#q36
+- Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 37: https://duguid.com.au/tools/accounting-questions/gst-bas/#q37
+- Choosing an accounting method for GST: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/accounting-for-gst-in-your-business/choosing-an-accounting-method
 - Link to question 38: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
 - Link to question 39: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
 - Link to question 40: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
