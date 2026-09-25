@@ -12,7 +12,7 @@ Last reviewed 25 September 2026.
 
 ## Start with what you came to do
 
-Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun. Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.
+Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Python and uv to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
 
@@ -255,9 +255,10 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 ## Links
 
 - Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional.: https://duguid.com.au/examples/profit-vs-cash-flow/
+- Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
+- Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Python and uv to rerun.: https://duguid.com.au/tools/monthly-close-controls/
 - Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install.: https://duguid.com.au/tools/coal-lsl-levy/
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
-- Use accounting functions in Excel: Ozzit for GST, financial years and more. Microsoft 365 or Excel 2024 or later.: https://duguid.com.au/tools/ozzit/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Payday Super timing Python: https://duguid.com.au/tools/payday-super/
@@ -289,7 +290,6 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Try an example: https://duguid.com.au/tools/ozzit/#worked-example
 - Source code: https://github.com/ryanduguid/Ozzit
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
-- Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp

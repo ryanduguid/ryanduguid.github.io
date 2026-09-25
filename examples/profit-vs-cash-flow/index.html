@@ -39,20 +39,21 @@
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260925a" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260925b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 {% include site-header.html %}
   <main id="main" class="site-main">
     <article class="article">
-      <header class="article-header site-shell">
+      <header class="article-header article-header--preview site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb">
           <ol>
             <li><a href="/">Home</a></li>
             <li aria-current="page">Profit vs cash flow</li>
           </ol>
         </nav>
+        <div class="article-intro">
         <h1>Profit vs cash flow: an Australian Excel worked example</h1>
         <p class="short-answer">How can a business report a profit and still run short of cash? Because profit records the sale and cash records the day the money arrives. This worked example moves one receipt by 45 days: quarterly profit stays at $35,957.55 and the bank account falls $25,160 below zero.</p>
         <div class="article-actions">
@@ -61,7 +62,12 @@
         </div>
         <p class="field-note">XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.</p>
         <p class="byline">Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.</p>
-        <p class="page-meta">Published 18 September 2026. Last reviewed 24 September 2026.</p>
+        <p class="page-meta">Published 18 September 2026. Last reviewed 25 September 2026.</p>
+        </div>
+        <figure class="case-preview">
+              <a href="/assets/examples/lumbridge/cash-preview.png"><picture><source media="(max-width: 40rem)" srcset="/assets/examples/lumbridge/cash-preview-narrow.png" width="856" height="711" /><img src="/assets/examples/lumbridge/cash-preview.png" width="1282" height="639" fetchpriority="high" decoding="async" alt="Line chart of 13 weekly closing cash balances in the late case, falling to minus $25,160 before recovering above the $15,000 buffer" /></picture></a>
+              <figcaption>One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. <a href="#results">Compare both cases</a>. Exported from Excel on 24 September 2026; <a href="/assets/examples/lumbridge/preview-record.txt">capture record</a>.</figcaption>
+            </figure>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -119,10 +125,7 @@
             </div>
             <p>The two cases end the quarter with the same cash because the delayed receipt still arrives, on 28 November. That later recovery cannot pay the wages, supplier invoices and GST that fall due in late October and early November.</p>
             <p>Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.</p>
-            <figure class="case-preview">
-              <a href="/assets/examples/lumbridge/cash-preview.png"><picture><source media="(max-width: 40rem)" srcset="/assets/examples/lumbridge/cash-preview-narrow.png" width="856" height="711" /><img src="/assets/examples/lumbridge/cash-preview.png" width="1282" height="639" loading="lazy" decoding="async" alt="Line chart of 13 weekly closing cash balances in the late case, falling to minus $25,160 before recovering above the $15,000 buffer" /></picture></a>
-              <figcaption>Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</figcaption>
-            </figure>
+            <p class="field-note">Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</p>
           </section>
 
           <section id="working">
@@ -246,7 +249,7 @@
         "description": "A fictional Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-25",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -264,7 +267,7 @@
         "description": "A fictional Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-25",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },

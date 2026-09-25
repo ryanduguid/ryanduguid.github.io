@@ -1,0 +1,132 @@
+[
+  {
+    "function": "oz.GSTExtractλ",
+    "id": "gstextract",
+    "title": "Extract GST from an inclusive amount",
+    "formula": "=oz.GSTExtractλ(1100)",
+    "expected": "100.00, displayed to two decimal places.",
+    "note": "Assumes the whole amount is taxable at 10%. The function returns an unrounded binary floating-point result. Use ROUND(...,2) where cent rounding is required; the reviewer decides the treatment.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "{0:,.2f}, displayed to two decimal places."
+  },
+  {
+    "function": "oz.GSTAddλ",
+    "id": "gstadd",
+    "title": "Add GST to an exclusive amount",
+    "formula": "=oz.GSTAddλ(1000)",
+    "expected": "1,100.00, displayed to two decimal places.",
+    "note": "Assumes a wholly taxable amount and the default 10% rate. This does not classify a supply or establish a credit entitlement.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "{0:,.2f}, displayed to two decimal places."
+  },
+  {
+    "function": "oz.FinancialYearλ",
+    "id": "financialyear",
+    "title": "Label an Australian financial year",
+    "formula": "=oz.FinancialYearλ(DATE(2026,8,15))",
+    "expected": "FY2027.",
+    "note": "The default start month is July. Supply StartMonth for another year end; the function labels a date and does not determine a reporting obligation.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "{0}."
+  },
+  {
+    "function": "oz.PrimeCostλ",
+    "id": "primecost",
+    "title": "Build a straight-line modelling schedule",
+    "formula": "=oz.PrimeCostλ(1000,5)",
+    "expected": "200.00, 200.00, 200.00, 200.00 and 200.00; total 1,000.00.",
+    "note": "Cost and life are supplied assumptions. This is a modelling schedule, not an ATO Division 40 tax calculation.",
+    "result_shape": [
+      1,
+      5
+    ],
+    "expected_template": "{0:,.2f}, {1:,.2f}, {2:,.2f}, {3:,.2f} and {4:,.2f}; total {total:,.2f}."
+  },
+  {
+    "function": "oz.DiminishingValueλ",
+    "id": "diminishingvalue",
+    "title": "Build a diminishing-balance modelling schedule",
+    "formula": "=oz.DiminishingValueλ(1000,5)",
+    "expected": "400.00, 240.00, 144.00, 86.40 and 129.60; total 1,000.00.",
+    "note": "Uses 200% of the straight-line rate and writes off the remaining balance in the final year. It does not establish a tax deduction.",
+    "result_shape": [
+      1,
+      5
+    ],
+    "expected_template": "{0:,.2f}, {1:,.2f}, {2:,.2f}, {3:,.2f} and {4:,.2f}; total {total:,.2f}."
+  },
+  {
+    "function": "oz.Amortiseλ",
+    "id": "amortise",
+    "title": "Inspect the first month of a loan schedule",
+    "formula": "=TAKE(oz.Amortiseλ(100000,0.05,60,DATE(2026,7,1)),,1)",
+    "expected": "Debt issued 100,000.00; opening 100,000.00; interest 416.67; payment -1,887.12; closing 98,529.54; principal repaid 1,470.46. Each figure is displayed to two decimals.",
+    "note": "A 100,000 loan at 5% over 60 monthly payments. TAKE selects the first column of the six-row schedule. Remove TAKE to spill the full schedule; confirm the loan terms and timing separately.",
+    "result_shape": [
+      6,
+      1
+    ],
+    "expected_template": "Debt issued {0:,.2f}; opening {1:,.2f}; interest {2:,.2f}; payment {3:,.2f}; closing {4:,.2f}; principal repaid {5:,.2f}. Each figure is displayed to two decimals."
+  },
+  {
+    "function": "oz.LeaseLiabilityλ",
+    "id": "leaseliability",
+    "title": "Discount three unpaid lease payments",
+    "formula": "=oz.LeaseLiabilityλ({100,100,100},0.05)",
+    "expected": "272.32, displayed to two decimal places.",
+    "note": "The 5% rate is per payment period and the payments are in arrears. The reviewer establishes the lease term, included payments and applicable discount rate.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "{0:,.2f}, displayed to two decimal places."
+  },
+  {
+    "function": "oz.PeriodRateλ",
+    "id": "periodrate",
+    "title": "Convert an effective annual rate",
+    "formula": "=oz.PeriodRateλ(0.05,12)",
+    "expected": "Approximately 0.4074% per month.",
+    "note": "The input is a 5% effective annual rate. This conversion is not the same as dividing a nominal annual rate by 12.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "Approximately {0:.4%} per month."
+  },
+  {
+    "function": "oz.DayCountRateλ",
+    "id": "daycountrate",
+    "title": "Calculate rates for dated periods",
+    "formula": "=oz.DayCountRateλ(EDATE(DATE(2026,7,1),{0,1,2}),0.073)",
+    "expected": "0.0062, 0.0062 and 0.0060 for the three periods.",
+    "note": "The default is Actual/365. Supply the required convention and check how the final period is inferred; the function does not choose a contractual day count basis.",
+    "result_shape": [
+      1,
+      3
+    ],
+    "expected_template": "{0:.4f}, {1:.4f} and {2:.4f} for the three periods."
+  },
+  {
+    "function": "oz.IRRλ",
+    "id": "irr",
+    "title": "Calculate an annual return from dated cash flows",
+    "formula": "=oz.IRRλ({-1000,1100},HSTACK(DATE(2026,7,1),DATE(2027,7,1)))",
+    "expected": "10.00%, displayed to two decimal places.",
+    "note": "One outflow of 1,000 followed by an inflow of 1,100 one year later. Other cash flow patterns may have multiple or no solutions; inspect the inputs and validate the result.",
+    "result_shape": [
+      1,
+      1
+    ],
+    "expected_template": "{0:.2%}, displayed to two decimal places."
+  }
+]

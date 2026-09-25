@@ -89,6 +89,25 @@ rates pages and every page's JSON-LD. After a content edit, run
 `python scripts/check_design.py --update-baseline` and check that the diff
 touches only the pages you changed.
 
+## Ozzit reference examples
+
+The ten examples use the MIT-licensed Ozzit v3.4.2 function index in
+`assets/ozzit-functions-v3.4.2.csv`. Edit the reviewed examples in
+`scripts/ozzit_reference_examples.json`, then run
+`python scripts/build_ozzit_reference.py --write`. The ordinary site checks
+require the generated include to match both inputs. They also require every
+formula to match the native Excel inputs and results in
+`assets/ozzit-reference-v3.4.2.json`. Each example records its result shape and a
+Python format template. The generator formats every recorded result and requires
+that display to equal the reviewed expected text, including array values and totals.
+
+Changing a formula requires a new native Excel check against the named release;
+editing an expected display also requires checking it against the raw result.
+The workbook remains the authority. The 25 September 2026 record used Ozzit's
+existing `tools/excel_eval_formulas.ps1`, opened the exact release workbook
+read-only and confirmed its SHA-256 was unchanged after closing it without saving.
+The results establish arithmetic for these examples, not an accounting treatment.
+
 ## Ruby Sass in the locked chain
 
 `Gemfile.lock` resolves Jekyll 3.10.0 to jekyll-sass-converter 1.5.2 and Ruby

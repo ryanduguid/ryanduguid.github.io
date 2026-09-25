@@ -14,7 +14,9 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 24 September 2026.
+Published 18 September 2026. Last reviewed 25 September 2026.
+
+One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. Compare both cases. Exported from Excel on 24 September 2026; capture record.
 
 ## The business and the question
 
@@ -153,7 +155,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
-- Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa

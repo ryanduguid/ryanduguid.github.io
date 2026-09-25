@@ -15,12 +15,13 @@ test('the fabricated workbook sample remains available', async ({ request }) => 
   expect((await pack.body()).byteLength).toBeGreaterThan(10000);
 });
 
-// The four starting routes, as the homepage, Tools and llms.txt all state them.
+// The five starting routes, as the homepage, Tools and llms.txt all state them.
 const startingRoutes = [
-  ['Understand why profit and cash differ', '/examples/profit-vs-cash-flow/'],
-  ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/'],
-  ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/'],
-  ['Use accounting functions in Excel', '/tools/ozzit/'],
+  ["Understand why profit and cash differ", "/examples/profit-vs-cash-flow/"],
+  ["Use accounting functions in Excel", "/tools/ozzit/"],
+  ["Review a month-end close", "/tools/monthly-close-controls/"],
+  ["Calculate a Coal LSL levy", "/tools/coal-lsl-levy/"],
+  ["Check a BAS pack before manager review", "/evaluate/manager-review-gate/"],
 ];
 
 test('starting routes lead to the promised activity on both pages', async ({ page }) => {

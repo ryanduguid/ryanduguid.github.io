@@ -48,9 +48,18 @@ GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
     r"cd\s+github-agent-skills\s+python\s+scripts/validate_skills\.py\s+--strict\b"
 )
+STABLE_SKILLS_INSTALL_PATTERN = (
+    r"\bgit\s+clone\s+https://github\.com/ryanduguid/australian-accounting-skills\.git\s+"
+    r"accounting-skills-release\s+git\s+-C\s+accounting-skills-release\s+checkout\s+"
+    r"--detach\s+527b0a22c8be5ce10855f12f052cd3bda7b7b827\s+"
+    r"npx\s+--yes\s+skills@1\.5\.22\s+add\s+"
+    r"\./accounting-skills-release\s+--agent\s+codex\s+claude-code\s+"
+    r"--skill\s+'\*'\s+--yes\s+--copy\b"
+)
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
+    STABLE_SKILLS_INSTALL_PATTERN,
     # The CLI version is part of the command: an unpinned npx line runs whatever
     # npm serves at read time, and an agent reading this page runs it.
     r"\bnpx\s+--yes\s+skills@1\.5\.22\s+add\s+ryanduguid/australian-accounting-skills\b",
@@ -573,16 +582,17 @@ HOMEPAGE_PREVIEW_ENTRIES = (
         "/examples/profit-vs-cash-flow/",
         "/evaluate/#five-minute-cases",
     ),
+    ("Use accounting functions in Excel", "/tools/ozzit/", "/tools/ozzit/#functions"),
+    (
+        "Review a month-end close",
+        "/tools/monthly-close-controls/",
+        "/tools/monthly-close-controls/#get-it",
+    ),
     ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
     (
         "Check a BAS pack before manager review",
         "/evaluate/manager-review-gate/",
         "/tools/workpaper-review-gate/",
-    ),
-    (
-        "Use accounting functions in Excel",
-        "/tools/ozzit/",
-        "/tools/ozzit/#worked-example",
     ),
 )
 HOMEPAGE_ANCHORS = ("adopt", "verify")

@@ -28,6 +28,18 @@ Read the fictional cash flow case in your browser: one delayed receipt creates a
 
 More short accounting cases
 
+### Use accounting functions in Excel
+
+Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
+
+Browse ten worked formulas
+
+### Review a month-end close
+
+Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read it in your browser; use Python and uv to rerun it.
+
+Reproduce the sample report
+
 ### Calculate a Coal LSL levy
 
 Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
@@ -39,12 +51,6 @@ More calculators for business planning
 See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
 Open the Workpaper Review Gate
-
-### Use accounting functions in Excel
-
-Use Ozzit for GST, financial years, depreciation and loan schedules. It needs Microsoft 365 or Excel 2024 or later.
-
-See an Excel example
 
 Browse tools by accounting task
 
@@ -94,7 +100,7 @@ Default synthetic example: $6,000 base pay, $3,000 overtime and penalty, $500 al
 
 Use the sample files to check what each tool accepts, refuses and explains before using it in a firm.
 
-Open the setup guide Browse reproducible evaluations
+Set up AI tools Browse reproducible evaluations
 
 Before you use a tool, check its version and limits in the setup guide.
 
@@ -112,16 +118,18 @@ The evidence supports limited claims about the software, not endorsements or cli
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
+- Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
+- Browse ten worked formulas: https://duguid.com.au/tools/ozzit/#functions
+- Review a month-end close: https://duguid.com.au/tools/monthly-close-controls/
+- Reproduce the sample report: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
 - More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
-- Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
-- See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
-- Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/

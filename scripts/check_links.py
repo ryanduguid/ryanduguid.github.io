@@ -433,7 +433,7 @@ _ARCHIVED_VERDICTS: dict[str, bool | Exception] = {}
 
 
 def fetch_repository_archived(name: str, *, opener: object = urllib.request.urlopen) -> bool:
-    """Ask the GitHub REST API whether ryanduguid/<name> is archived.
+    """Verify the canonical repository identity and read its archived flag.
 
     Retries transient transport failures, HTTP 429 and 5xx like fetch_final_url.
     GITHUB_TOKEN, when present, lifts the unauthenticated rate limit; CI
@@ -461,6 +461,11 @@ def fetch_repository_archived(name: str, *, opener: object = urllib.request.urlo
             if attempt == MAX_FETCH_ATTEMPTS:
                 raise
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: {exc}")
+    full_name = payload.get("full_name")
+    if not isinstance(full_name, str):
+        raise ValueError(f"GitHub API returned no canonical repository name for {name}")
+    if full_name.casefold() != f"ryanduguid/{name}".casefold():
+        raise ValueError(f"ryanduguid/{name} was renamed or transferred to {full_name}")
     archived = payload.get("archived")
     if not isinstance(archived, bool):
         raise ValueError(f"GitHub API returned no archived flag for {name}")
@@ -487,7 +492,7 @@ def own_repository(href: str) -> str | None:
 
 
 def archived_target_failures(rel: str, hrefs: list[str], *, lookup=None) -> list[str]:
-    """Fail every own-repository link whose target repository is archived.
+    """Verify repository identity and fail unapproved archived targets.
 
     ``hrefs`` should hold only links that already resolved and passed the
     rename-redirect check, so a broken link is reported once, by the fetch.
@@ -498,14 +503,14 @@ def archived_target_failures(rel: str, hrefs: list[str], *, lookup=None) -> list
     failures: list[str] = []
     for href in hrefs:
         name = own_repository(href)
-        if name is None or name in allowed:
+        if name is None:
             continue
         try:
             archived = lookup(name)
         except Exception as exc:  # noqa: BLE001 - report every failure mode
             failures.append(f"{rel}: {href} -> archived lookup failed: {exc}")
             continue
-        if archived:
+        if archived and name not in allowed:
             failures.append(
                 f"{rel}: {href} -> ryanduguid/{name} is archived "
                 "(repoint the link to the maintained repository)"
@@ -534,6 +539,17 @@ def check_file(path: Path, *, offline: bool = False) -> list[str]:
 
     failures.extend(check_hrefs(rel, parser.hrefs, offline=offline))
     return failures
+
+
+def is_release_asset_redirect(href: str, final: str) -> bool:
+    """Accept GitHub's file delivery hosts for a pinned release download only."""
+    destination = urlsplit(final)
+    return bool(
+        re.fullmatch(r"https://github\.com/ryanduguid/[^/]+/releases/download/[^/]+/[^/?#]+", href)
+        and destination.scheme == "https"
+        and destination.netloc
+        in {"release-assets.githubusercontent.com", "objects.githubusercontent.com"}
+    )
 
 
 def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[str]:
@@ -595,9 +611,11 @@ def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[st
         name = own_repository(href)
         if name is not None:
             final_name = own_repository(final)
-            if final_name != name:
+            if final_name != name and not is_release_asset_redirect(href, final):
+                # Signed download query strings do not belong in public check logs.
+                destination = urlsplit(final)._replace(query="", fragment="").geturl()
                 failures.append(
-                    f"{rel}: {href} redirected to {final} (rename redirect, repoint the link)"
+                    f"{rel}: {href} redirected to {destination} (rename redirect, repoint the link)"
                 )
                 continue
             resolved_own_hrefs.append(href)

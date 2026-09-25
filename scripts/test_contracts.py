@@ -844,14 +844,14 @@ def test_public_contracts() -> int:
     for label, install_before, install_after, install_failure in (
         (
             "homepage install command duplication",
-            "Open the setup guide",
+            "Set up AI tools",
             "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
             "index.html: install commands belong in the integration guide",
         ),
         (
             "homepage setup guide route",
-            'href="/tools/australian-tax-ai-agents/#install">Open the setup guide',
-            'href="/tools/australian-tax-ai-agents/">Open the setup guide',
+            'href="/tools/australian-tax-ai-agents/#install">Set up AI tools',
+            'href="/tools/australian-tax-ai-agents/">Set up AI tools',
             "index.html: #adopt must link to the integration guide",
         ),
     ):
@@ -872,6 +872,18 @@ def test_public_contracts() -> int:
     assert "Five ways to try it" in install_text, (
         f"{contracts.MCP_REL}: adoption band must name the five ways to try the tools"
     )
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827",
+            "checkout v0.2.1",
+        )
+        expect_failure(
+            "stable skills release pin",
+            contracts.check_authority_surface(root),
+            f"{contracts.MCP_REL}: install commands must appear exactly once inside #install",
+        )
     for required in github_agent_skills_route:
         assert required in install_text, (
             f"{contracts.MCP_REL}: missing github-agent-skills adoption route requirement {required!r}"
@@ -1878,6 +1890,13 @@ def test_release_record() -> None:
         lagging = copy.deepcopy(record)
         component = lagging["components"]["aus-accounting-mcp"]
         component["published"]["version"] = "0.3.0"
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            '<p class="page-meta">',
+            "<p>A different component has current published release 0.3.0.</p>\n"
+            '<p class="page-meta">',
+        )
         expect_failure(
             "unlabelled release lag",
             release_record.check_record(root, lagging),

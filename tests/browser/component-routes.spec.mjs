@@ -31,7 +31,17 @@ test('current tool routes lead to maintained component source and support', asyn
   await expect(page.locator('#install')).toBeVisible();
   // Adopt shows one route at a time: open the Skills route before reading it.
   await page.locator('label[for="adopt-skills"]').click();
-  await expect(page.getByRole('region', { name: 'Skills install command' }))
+  const stableInstall = page.getByRole('region', { name: 'Skills install command', exact: true });
+  await expect(stableInstall)
+    .toContainText('checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827');
+  await expect(stableInstall)
+    .toContainText("npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy");
+  const developmentInstall = page.getByRole('region', { name: 'Development skills install command', exact: true });
+  await expect(developmentInstall).toBeHidden();
+  await page.getByText('Development installation', { exact: true }).focus();
+  await page.keyboard.press('Enter');
+  await expect(developmentInstall).toBeVisible();
+  await expect(developmentInstall)
     .toContainText('npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills');
 });
 
@@ -71,7 +81,7 @@ test('home keeps its adoption overview and links to the installation guide', asy
   await page.goto('/#adopt');
   await expect(page.locator('#adopt')).toBeVisible();
   await expect(page.locator('#adopt pre')).toHaveCount(0);
-  await page.getByRole('link', { name: 'Open the setup guide', exact: true }).click();
+  await page.getByRole('link', { name: 'Set up AI tools', exact: true }).click();
   await expect(page).toHaveURL(/\/tools\/australian-tax-ai-agents\/#install$/);
   await expect(page.locator('#adopt-none')).toBeChecked();
 });

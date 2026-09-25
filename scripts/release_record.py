@@ -130,10 +130,13 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
     if documented_version is not None and documented_version != published["version"]:
         # A documented release may legitimately lag. The gap must be explicit, and
         # the page must actually name the release the record says it documents.
-        named = (
-            GAP_MARKER in visible
-            and published["version"] in visible
-            and documented_version in visible
+        # Keep the two versions with their explanation. An unrelated component's
+        # version elsewhere on a comparison page cannot explain this release lag.
+        paragraphs = re.findall(r"<p\b[^>]*>.*?</p>", core.visible_html(html), re.S | re.I)
+        named = any(
+            GAP_MARKER in text and published["version"] in text and documented_version in text
+            for paragraph in paragraphs
+            for text in (core.visible_text(paragraph),)
         )
         if not named:
             failures.append(
