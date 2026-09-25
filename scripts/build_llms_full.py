@@ -80,6 +80,9 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
         return f"\n\nPREFORMATTED-{len(pres) - 1}\n\n"
 
     body = PRE_PATTERN.sub(hold_pre, body)
+    # A card's bold title and its description read as one sentence without a
+    # separator, so the title gets a colon: "Payday Super timing: Reproduce ...".
+    body = re.sub(r"</strong>(\s*)<span\b", r":</strong>\1<span", body)
     links: dict[str, str] = {}
     for anchor in core.descendants(core.parse_structure(body), "a"):
         href = anchor.attr("href")
@@ -98,6 +101,9 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
     body = re.sub(r"(</[a-zA-Z0-9]+>)(<[a-zA-Z])", r"\1 \2", body)
     body = html_lib.unescape(TAG_PATTERN.sub("", body))
     blocks = [re.sub(r"\s+", " ", block).strip() for block in re.split(r"\n\s*\n", body)]
+    # Removing hidden link context can strand a space before the next comma or stop.
+    # Only punctuation that ends a word counts, so ".claude/skills/" keeps its space.
+    blocks = [re.sub(r"\s+([,.;:!?])(?=\s|$)", r"\1", block) for block in blocks]
     text = ""
     previous = "text"
     for block in filter(None, blocks):

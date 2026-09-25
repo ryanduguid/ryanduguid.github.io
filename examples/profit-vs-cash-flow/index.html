@@ -17,7 +17,7 @@
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
   <meta property="og:url" content="https://duguid.com.au/examples/profit-vs-cash-flow/" />
-  <meta property="og:image" content="https://duguid.com.au/assets/social-card-evaluations-20260922.png" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-evaluations-20260924.png" />
   <meta property="og:image:type" content="image/png" />
   <meta property="og:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <meta property="og:image:width" content="1200" />
@@ -25,7 +25,7 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Profit vs cash flow: an Australian Excel worked example" />
   <meta name="twitter:description" content="A fictional Newcastle business holds quarterly profit at $35,957.55 AUD while one late $44,000 receipt leaves cash $25,160 short. Workbook, figures and limits." />
-  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260922.png" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-evaluations-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Fabricated inputs. Expected results. Visible limits." />
   <link rel="canonical" href="https://duguid.com.au/examples/profit-vs-cash-flow/" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -34,12 +34,12 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
   <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
   <link rel="alternate" type="text/plain" href="https://duguid.com.au/examples/profit-vs-cash-flow/index.txt" />
-  <link rel="preload" href="/assets/fonts/IBMPlexSerif-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexMono-Regular-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/assets/fonts/IBMPlexSans-SemiBold-Latin1.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260924" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260925a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -60,7 +60,7 @@
           <a href="#results">Compare the two cases</a>
         </div>
         <p class="field-note">XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.</p>
-        <p class="byline">Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fabricated, and all amounts are Australian dollars (AUD). No client outcome is described.</p>
+        <p class="byline">Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.</p>
         <p class="page-meta">Published 18 September 2026. Last reviewed 24 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
@@ -82,15 +82,15 @@
 
           <section id="business">
             <h2>The business and the question</h2>
-            <p>Lumbridge Services is a fictional maintenance business in Newcastle, New South Wales. It bills two service lines, Varrock maintenance and Falador repairs, and invoices $60,000 of work each month: $40,000 Varrock and $20,000 Falador, before GST. The forecast covers the quarter from 1 October to 31 December 2026.</p>
+            <p>Lumbridge Services is a fictional maintenance business in Newcastle, NSW. It bills two service lines, Varrock maintenance and Falador repairs, and invoices $60,000 of work each month: $40,000 Varrock and $20,000 Falador, before GST. The forecast covers the quarter from 1 October to 31 December 2026.</p>
             <p>The owner wants to buy equipment. The quarter shows a profit, so the money looks available. The question is whether the bank account can carry the business to the end of December if one customer pays late.</p>
-            <p>The model holds every other assumption still. Monthly materials are $12,000 and overhead $6,000. Gross wages are $24,000 a month, with $19,000 paid to employees, $5,000 of PAYG withholding and $2,880 of super. The opening bank balance, receivables, payables, GST, loan and tax instalment all come from fabricated 30 September 2026 balances. The owner's policy is to keep $15,000 in the bank.</p>
+            <p>The model holds every other assumption still. Monthly materials are $12,000 and overhead $6,000. Gross wages are $24,000 a month, with $19,000 paid to employees, $5,000 of PAYG withholding and $2,880 of super. The opening bank balance, receivables, payables, GST, loan and tax instalment all come from fictional 30 September 2026 balances. The owner's policy is to keep $15,000 in the bank.</p>
           </section>
 
           <section id="scenario">
             <h2>The one change: a 45-day delay</h2>
             <p>Invoice OPEN-V is September work for the Varrock line: $40,000 plus $4,000 GST, so $44,000 is banked. The baseline case receives it on 14 October 2026. The late case receives the same $44,000 on 28 November 2026, 45 calendar days later.</p>
-            <p>Nothing else changes. The work was performed in September either way, the invoice was issued either way, and the customer pays in full either way. Only the day the money lands moves.</p>
+            <p>Nothing else changes. The work was performed in September either way, the invoice was issued either way and the customer pays in full either way. Only the day the money lands moves.</p>
             <p>The workbook exposes that single control. <code>Assumptions!B2</code> holds the delay in whole calendar days and accepts 0 to 120. Every figure below is the model's own output at 0 and at 45.</p>
           </section>
 
@@ -110,9 +110,9 @@
                   <tr><th scope="row">Quarter revenue</th><td>$180,000.00</td><td>$180,000.00</td></tr>
                   <tr><th scope="row">Profit before income tax</th><td>$35,957.55</td><td>$35,957.55</td></tr>
                   <tr><th scope="row">October customer receipts</th><td>$66,000.00</td><td>$22,000.00</td></tr>
-                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td>($11,960.00)</td></tr>
+                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td>−$11,960.00</td></tr>
                   <tr><th scope="row">First day the bank account is negative</th><td>None in the quarter</td><td>28 October 2026</td></tr>
-                  <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td>($25,160.00) on 6 November</td></tr>
+                  <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td>−$25,160.00 on 6 November</td></tr>
                   <tr><th scope="row">December closing cash</th><td>$67,320.00</td><td>$67,320.00</td></tr>
                 </tbody>
               </table>
@@ -121,14 +121,14 @@
             <p>Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.</p>
             <figure class="case-preview">
               <a href="/assets/examples/lumbridge/cash-preview.png"><picture><source media="(max-width: 40rem)" srcset="/assets/examples/lumbridge/cash-preview-narrow.png" width="856" height="711" /><img src="/assets/examples/lumbridge/cash-preview.png" width="1282" height="639" loading="lazy" decoding="async" alt="Line chart of 13 weekly closing cash balances in the late case, falling to minus $25,160 before recovering above the $15,000 buffer" /></picture></a>
-              <figcaption>Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, ($11,960), ($11,960), ($25,160), $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</figcaption>
+              <figcaption>Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</figcaption>
             </figure>
           </section>
 
           <section id="working">
             <h2>Why profit did not move</h2>
             <p>Profit is measured on the accrual basis. Lumbridge earned the OPEN-V revenue when it performed the work in September, so the sale sits in the September accounts in both cases. Moving the receipt changes the debtor balance, not the revenue, and no expense changes either. Quarterly profit before income tax is $11,985.85 a month in both cases, or $35,957.55 for the quarter.</p>
-            <p>Cash is measured on the day money moves. The payments the business owes do not wait for a customer. In the late case October receipts fall from $66,000 to $22,000, while the same $63,960 of payments still leaves the account, including materials on 7 October, the September-quarter GST of $12,600 and a $3,000 income tax instalment on 28 October, and net wages and super on 28 October.</p>
+            <p>Cash is measured on the day money moves. The payments the business owes do not wait for a customer. In the late case, October receipts fall from $66,000 to $22,000, while the same $63,960 of payments still leaves the account. Those payments include materials on 7 October, the September-quarter GST of $12,600 and a $3,000 income tax instalment on 28 October, and net wages and super on 28 October.</p>
             <p>The model states the bridge between the two. It starts from profit, adds back depreciation of $200 a month and the non-cash leave provision of $2,254.15 a month, adjusts for the movement in gross receivables and the GST liability, then subtracts the $1,000 monthly loan principal and the tax instalment. A separate direct cash schedule ties to that bridge exactly: the model's reconciliation difference is $0.00 in every month of both cases.</p>
             <p>Three obligations are still outstanding at 31 December in both cases: $12,600 of GST, $5,000 of PAYG withholding and $13,200 of supplier invoices. The $67,320 closing balance is not spendable surplus.</p>
           </section>
@@ -184,12 +184,12 @@
           <section id="limits">
             <h2>Limits</h2>
             <blockquote>
-              <p>This is a fabricated demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.</p>
+              <p>This is a fictional demonstration, not advice and not a client result. No forecast accuracy, client outcome or time saving has been measured.</p>
             </blockquote>
             <ul>
               <li>The only supported scenario is the receipt delay, from 0 to 120 whole calendar days. Revenue, wages and operating assumptions are fixed.</li>
               <li>Payment dates, PAYG withholding, workers compensation, the tax instalment and the loan terms are supplied scenario assumptions, not statutory calculations. PAYG withholding is a flat $5,000 a month, not a withholding table result.</li>
-              <li>Payroll tax is nil because annualised wages and super of $322,560 sit below the bundled $1.2 million New South Wales threshold for a single ungrouped employer. Grouping and interstate wages need separate assessment.</li>
+              <li>Payroll tax is nil because annualised wages and super of $322,560 sit below the bundled $1.2 million NSW threshold for a single ungrouped employer. Grouping and interstate wages need separate assessment.</li>
               <li>Daily balances net everything dated on the same day. They do not establish intraday liquidity or the order in which payments clear.</li>
               <li>The output is not a complete forecast statutory balance sheet, and it does not calculate company income tax expense.</li>
               <li>The example does not test when a super fund receives a contribution. <a href="/tools/payday-super/">Payday Super timing</a> covers that question.</li>
@@ -207,7 +207,7 @@
               <h3>Why do both cases end December with the same cash?</h3>
               <p>The delayed receipt still arrives inside the quarter, on 28 November, so both cases close December at $67,320. The recovery is too late to fund the payments due in late October and early November, which is why the daily view matters more than the closing balance.</p>
               <h3>Is this a real client case?</h3>
-              <p>No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed.</p>
+              <p>No. Lumbridge Services, its customers, invoices and balances are fictional. No client outcome, forecast accuracy or time saving is claimed.</p>
             </div>
           </section>
 
@@ -227,7 +227,7 @@
             He is a Provisional CA ANZ Member.
             CA ANZ has not endorsed this site or its tools.
           </p>
-          <p>Cite as Duguid, R. (2026). <em>Lumbridge Services synthetic cash flow case</em> [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fabricated and no client outcome is claimed.</p>
+          <p>Cite as Duguid, R. (2026). <em>Lumbridge Services synthetic cash flow case</em> [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fictional and no client outcome is claimed.</p>
         </div>
       </div>
     </article>
@@ -243,7 +243,7 @@
         "url": "https://duguid.com.au/examples/profit-vs-cash-flow/",
         "headline": "Profit vs cash flow: an Australian Excel worked example",
         "name": "Profit vs cash flow: an Australian Excel worked example",
-        "description": "A fabricated Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
+        "description": "A fictional Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
         "dateModified": "2026-09-24",
@@ -261,7 +261,7 @@
         "@id": "https://duguid.com.au/examples/profit-vs-cash-flow/#webpage",
         "url": "https://duguid.com.au/examples/profit-vs-cash-flow/",
         "name": "Profit vs cash flow: an Australian Excel worked example",
-        "description": "A fabricated Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
+        "description": "A fictional Newcastle maintenance business holds quarterly profit at $35,957.55 AUD while one receipt delayed 45 days leaves daily cash $25,160 below zero.",
         "inLanguage": "en-AU",
         "datePublished": "2026-09-18",
         "dateModified": "2026-09-24",
@@ -311,7 +311,7 @@
           {
             "@type": "Question",
             "name": "Is this a real client case?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Lumbridge Services, its customers, invoices and balances are fabricated. No client outcome, forecast accuracy or time saving is claimed." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Lumbridge Services, its customers, invoices and balances are fictional. No client outcome, forecast accuracy or time saving is claimed." }
           }
         ]
       }

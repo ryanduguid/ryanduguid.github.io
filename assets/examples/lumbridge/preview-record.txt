@@ -23,8 +23,10 @@ starting one step below the step under the lowest week, to leave room for
 its label; the date axis extended three weeks past 31 December with those
 extra labels blanked, to leave room for the end labels; the legend replaced
 by direct labels for the lowest week, the final closing cash and the buffer;
-IBM Plex Sans text from the same v6.4.2 family the site serves, installed for
-the exporting user so the chart matches the page. No value, date or series
+IBM Plex Sans text from the same v6.4.2 family the site served at export,
+installed for the exporting user so the chart matched the page. The site body
+face became Public Sans on 24 September 2026 and the export script now sets
+Public Sans; these PNGs predate that change and still carry Plex text. No value, date or series
 was altered.
 
 Two variants were exported with Excel Chart.Export as PNG at this display

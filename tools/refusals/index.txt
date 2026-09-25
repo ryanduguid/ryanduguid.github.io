@@ -2,21 +2,21 @@
 
 Source: https://duguid.com.au/tools/refusals/
 
-> Each refusal the open source accounting tools give, with exact command output from fabricated fixtures where a command exists, and the human step that follows.
+> Each refusal the open source accounting tools give, with exact command output from fictional fixtures where a command exists, and the human step that follows.
 
 # What these tools refuse
 
-A refusal is an output too. This page lists each one the tools give, the fabricated input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
+A refusal is an output too. This page lists each one the tools give, the fictional input that triggers it, the exact text and exit code where a command exists, and the human step that follows. One section quotes the refusal scenarios from llm-tax-guardrails, an external prompt guide on GitHub that is not one of the tools on this site.
 
 Each refusal below is recorded against the release named beside it. Where a newer release exists, the refusal was not rechecked against it; the changelog lists current releases.
 
 Published 4 September 2026. Last reviewed 20 September 2026.
 
-## Fabricated inputs
+## Fictional inputs
 
-Every run below used repository fixtures or a 2-row file written for this page. None of it is client, taxpayer, payroll, or credential data. Each command was run on 4 September 2026 against the tagged release commit named in its section, so the output can be reproduced from that commit.
+Every run below used repository fixtures or a 2-row file written for this page. None of it is client, taxpayer, payroll or credential data. Each command was run on 4 September 2026 against the tagged release commit named in its section, so the output can be reproduced from that commit.
 
-A refusal never decides the matter. It returns the file, the pack, or the question to a person with the reason attached.
+A refusal never decides the matter. It returns the file, the pack or the question to a person with the reason attached.
 
 ## Workpaper Review Gate
 
@@ -28,12 +28,12 @@ examples/bas-blocked | review-ready: BLOCKED; 1 finding(s), exit 2 | TB_UNBALANC
 
 ## Monthly Close Controls
 
-Monthly Close Controls release monthly-close-control-plane/v0.1.3 marks a pack BLOCKED when the current trial balance does not balance. The fixture is the repository's fabricated current_trial_balance.csv with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
+Monthly Close Controls release monthly-close-control-plane/v0.1.3 marks a pack BLOCKED when the current trial balance does not balance. The fixture is the repository's fictional current_trial_balance.csv with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
 
 Control | Status line | Reason | Human step
 trial_balance_integrity | close-control: BLOCKED; 10 exception(s), exit 2 | Current movement totals 47100.00 against 47000.00 and YTD totals 375100.00 against 375000.00 do not balance | Correct or re-export the source trial balance before relying on any review result.
 
-The 2 BLOCKED rows, one for the movement totals and one for the YTD totals, set the overall status. The other 8 exceptions in the same pack are REVIEW items from the fabricated variances.
+The 2 BLOCKED rows, one for the movement totals and one for the YTD totals, set the overall status. The other 8 exceptions in the same pack are REVIEW items from the fictional variances.
 
 ## Xero trial balance CSV export
 
@@ -45,7 +45,7 @@ failing_ytd.csv | WARNING: YTD debits 15,234.50 != credits 15,234.49 (diff 0.01)
 
 ## Payday Super timing
 
-Payday Super timing release payday-super-checker/v0.1.3 returns UNKNOWN rather than a verdict when the supplied facts do not settle the deadline. The fabricated file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
+Payday Super timing release payday-super-checker/v0.1.3 returns UNKNOWN rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
 
 ```
 employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
@@ -59,7 +59,7 @@ Row 3, QE day 2026-08-20 | UNKNOWN, between LATE or ON_TIME | An earlier row cou
 
 ## Aus Accounting MCP
 
-Aus Accounting MCP release aus-accounting-mcp/v0.1.7 exposes a refuse_div7a tool for Division 7A matters outside the reviewed loan and minimum yearly repayment scope. The script below calls it in-process with fabricated names and a fabricated principal; it is the same path an MCP client takes.
+Aus Accounting MCP release aus-accounting-mcp/v0.1.7 exposes a refuse_div7a tool for Division 7A matters outside the reviewed loan and minimum yearly repayment scope. The script below calls it in-process with fictional names and a fictional principal; it is the same path an MCP client takes.
 
 ```
 import asyncio, json
@@ -206,7 +206,7 @@ exit=0
 
 ## Limitations
 
-A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct, or that any output is advice, approval, or a lodgement. The site's evaluations reproduce the passing cases; Evidence and Assurance records the boundaries.
+A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site's evaluations reproduce the passing cases; Evidence and Assurance records the boundaries.
 
 ## Related
 
@@ -222,7 +222,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - examples/bas-not-ready: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/examples/bas-not-ready
 - examples/bas-blocked: https://github.com/ryanduguid/accounting-review-pipeline/tree/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/examples/bas-blocked
-- fabricated current_trial_balance.csv: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv
+- fictional current_trial_balance.csv: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv
 - Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - failing_movement.csv: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/fixtures/failing_movement.csv
 - failing_ytd.csv: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/fixtures/failing_ytd.csv

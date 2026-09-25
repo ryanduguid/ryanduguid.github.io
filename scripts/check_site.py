@@ -46,6 +46,7 @@ CHECKS = (
     ("node", "--test", "scripts/levy.test.mjs"),
     ("node", "--test", "scripts/business-calculators.test.mjs"),
     ("node", "--test", "scripts/field-errors.test.mjs"),
+    ("node", "--test", "scripts/webmcp-tools.test.mjs"),
     ("node", "--test", "scripts/home-levy.test.mjs"),
     ("node", "--test", "scripts/stamp-source-freshness.test.mjs"),
     ("node", "--test", "scripts/check_production.test.mjs"),

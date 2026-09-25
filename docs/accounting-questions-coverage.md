@@ -13,7 +13,7 @@ All 100 research questions have a static guide with 2 preparation steps, a limit
 | [7](../tools/accounting-questions/index.html#q7) | Which earnings are taxable? | [ATO income, deductions and records](https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records) |
 | [8](../tools/accounting-questions/index.html#q8) | How long will the tax-return process take? | [Your tax return](https://www.ato.gov.au/individuals-and-families/your-tax-return) |
 | [9](../tools/accounting-questions/index.html#q9) | Where can I submit a completed return? | [Your tax return](https://www.ato.gov.au/individuals-and-families/your-tax-return) |
-| [10](../tools/accounting-questions/index.html#q10) | Which tax rules changed during 2025? | [Your tax return](https://www.ato.gov.au/individuals-and-families/your-tax-return) |
+| [10](../tools/accounting-questions/index.html#q10) | Which tax rules changed from 1 July 2026? | [Your tax return](https://www.ato.gov.au/individuals-and-families/your-tax-return) |
 | [11](../tools/accounting-questions/index.html#q11) | How do I calculate my working-from-home deduction? | [Business-use apportionment calculator](https://duguid.com.au/tools/business-calculators/#business-use) |
 | [12](../tools/accounting-questions/index.html#q12) | What records do I need to support my working-from-home claim? | [Deductions you can claim](https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim) |
 | [13](../tools/accounting-questions/index.html#q13) | Should I use the cents-per-kilometre or logbook method for car expenses? | [Cents-per-kilometre rate table and method](https://duguid.com.au/rates/cents-per-kilometre/) |
@@ -102,5 +102,5 @@ All 100 research questions have a static guide with 2 preparation steps, a limit
 | [96](../tools/accounting-questions/index.html#q96) | How do I report ETF distributions and their tax adjustments? | [Investments and assets](https://www.ato.gov.au/individuals-and-families/investments-and-assets) |
 | [97](../tools/accounting-questions/index.html#q97) | What records does my accountant need for an SMSF annual return and audit? | [ATO self-managed super funds](https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf) |
 | [98](../tools/accounting-questions/index.html#q98) | When does an investment property become liable for land tax in NSW? | [Land tax](https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax) |
-| [99](../tools/accounting-questions/index.html#q99) | How much does an accountant or bookkeeper cost for a small business in Newcastle? | [TPB register of tax and BAS agents](https://www.tpb.gov.au/public-register) |
+| [99](../tools/accounting-questions/index.html#q99) | Does a Hunter Valley coal mining employer pay the Coal LSL levy? | [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/) |
 | [100](../tools/accounting-questions/index.html#q100) | How do I choose a Newcastle accountant who can help with Xero and cash-flow reporting? | [TPB register of tax and BAS agents](https://www.tpb.gov.au/public-register) |

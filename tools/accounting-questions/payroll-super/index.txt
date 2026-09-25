@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 Practical steps, records and official guidance on payroll and super. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
 Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Payroll and super
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -30,22 +30,28 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
 
-41. How much super must I pay, and which earnings count towards it?
+41.
 
-Identify the applicable super regime and eligible earnings for the pay date before calculating a contribution.
+### How much super must I pay, and which earnings count towards it?
+
+The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2026 it is worked out on qualifying earnings, up to a maximum contribution base of $270,830 for 2026-27. Identify the applicable super regime and eligible earnings for the pay date before calculating a contribution.
 
 - From July 2026, use the ATO Payday Super guidance and map each pay component to the relevant earnings definition.
 - Check worker eligibility, limits and payroll settings; retain the calculation and contribution evidence.
 
 The old quarterly SG worksheet does not establish current Payday Super entitlement.
 
-Payday Super for employers
+Payday Super for employers · Super guarantee rate history on this site
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 41
 
-42. By what date must a super contribution reach the employee's fund?
+42.
 
-Test receipt at the employee's fund against the applicable deadline.
+### By what date must a super contribution reach the employee's fund?
+
+Since 1 July 2026, the fund must receive the contribution within 7 business days of payday, or 20 business days for a first contribution to a new fund. Test receipt at the employee's fund against the applicable deadline.
 
 - Record payday, pathway, amount, remittance date and confirmed fund receipt date.
 - Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
@@ -54,9 +60,13 @@ The timing tool needs the contribution amount supplied and the correct pathway s
 
 Payday Super for employers · Payday Super receipt evidence example
 
+The bold answer was checked on 24 September 2026.
+
 Link to question 42
 
-43. What should I do if a super payment is late, rejected or missing?
+43.
+
+### What should I do if a super payment is late, rejected or missing?
 
 Investigate the payment trail and apply the current late-payment process.
 
@@ -69,7 +79,9 @@ Payday Super for employers · Payday Super receipt evidence example
 
 Link to question 43
 
-44. Do I have to pay super for a contractor who invoices through an ABN?
+44.
+
+### Do I have to pay super for a contractor who invoices through an ABN?
 
 Review the actual contract and working arrangement against the ATO's super eligibility guidance.
 
@@ -82,7 +94,9 @@ Payday Super for employers
 
 Link to question 44
 
-45. How much PAYG tax should I withhold from an employee's pay?
+45.
+
+### How much PAYG tax should I withhold from an employee's pay?
 
 Use the ATO withholding calculation for the payment type and pay period.
 
@@ -95,20 +109,26 @@ PAYG withholding
 
 Link to question 45
 
-46. How do I finalise Single Touch Payroll at year-end?
+46.
 
-Reconcile payroll to the ledger and ATO reporting before making the STP finalisation declaration.
+### How do I finalise Single Touch Payroll at year-end?
+
+Make the STP finalisation declaration by 14 July each year. Reconcile payroll to the ledger and ATO reporting before making the STP finalisation declaration.
 
 - Check year-to-date wages, withholding, super and adjustments by employee.
 - Resolve discrepancies, confirm the applicable deadline and retain the finalisation evidence.
 
 An ordinary payroll submission and a finalisation declaration are different steps.
 
-Single Touch Payroll · Monthly close review pack
+Single Touch Payroll · End-of-year finalisation through STP · Monthly close review pack
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 46
 
-47. How do I calculate an employee's final pay, including unused leave?
+47.
+
+### How do I calculate an employee's final pay, including unused leave?
 
 Build final pay from the employee's entitlements and the circumstances of departure.
 
@@ -121,20 +141,26 @@ Final pay - Fair Work Ombudsman
 
 Link to question 47
 
-48. When does my business become liable for payroll tax in NSW?
+48.
 
-Review Australian taxable wages, NSW connection, grouping and the applicable threshold.
+### When does my business become liable for payroll tax in NSW?
+
+For 2026-27, NSW payroll tax applies to taxable wages above $1,200,000 a year, at a rate of 5.45%. Review Australian taxable wages, NSW connection, grouping and the applicable threshold.
 
 - Prepare a wages reconciliation that includes the categories Revenue NSW requires.
 - Check the monthly registration trigger and annual reconciliation requirements for the relevant year.
 
 Book payroll expense alone can omit taxable benefits, super or grouped wages.
 
-Revenue NSW payroll tax
+Revenue NSW payroll tax · Payroll tax thresholds and rates, Revenue NSW
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 48
 
-49. Do contractor payments count towards NSW payroll tax?
+49.
+
+### Do contractor payments count towards NSW payroll tax?
 
 Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
@@ -147,16 +173,20 @@ Revenue NSW payroll tax
 
 Link to question 49
 
-50. What does an employee cost after super, leave, insurance and other on-costs?
+50.
 
-Add annual wages, super and the other costs you expect to pay, then consider productive capacity separately.
+### What does an employee cost after super, leave, insurance and other on-costs?
+
+Start with wages plus the 12% super guarantee, then add leave, workers compensation, any payroll tax and other on-costs. Add annual wages, super and the other costs you expect to pay, then consider productive capacity separately.
 
 - Enter the annual super amount and other costs such as insurance, payroll tax, recruitment and equipment.
 - Allow for paid leave when estimating productive hours, and add relief staff costs only where expected.
 
 Do not add ordinary paid leave again if it is already included in the annual salary.
 
-Final pay - Fair Work Ombudsman · Staff cost calculator
+Final pay - Fair Work Ombudsman · Super guarantee rate history on this site · Staff cost calculator
+
+The bold answer was checked on 24 September 2026.
 
 Link to question 50
 
@@ -170,7 +200,7 @@ Link to question 50
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -178,6 +208,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
+- Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
 - Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/
 - Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
@@ -186,11 +217,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
 - Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
+- End-of-year finalisation through STP: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp
 - Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
 - Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
 - Link to question 47: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- Payroll tax thresholds and rates, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates
 - Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
 - Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/

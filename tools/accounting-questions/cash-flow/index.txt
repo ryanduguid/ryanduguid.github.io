@@ -8,15 +8,15 @@ Source: https://duguid.com.au/tools/accounting-questions/cash-flow/
 
 Practical steps, records and official guidance on cash flow. Select questions to build a checklist.
 
-One of ten topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
 
 Planning method for the dates entered. Include obligations in their expected payment weeks. Tax guidance must match your year and circumstances.
 
-Source review: 11 September 2026. Page updated 21 September 2026.
+Source review: 11 September 2026. Page updated 24 September 2026.
 
 Search questions in Cash flow
 
-Search these ten questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
+Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
 Clear filters Download selected checklist Print selected checklist Clear selection
 
@@ -30,7 +30,9 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
 
-61. How do I build a 13-week cash flow forecast?
+61.
+
+### How do I build a 13-week cash flow forecast?
 
 Forecast cash by the week it is expected to move through the bank.
 
@@ -47,7 +49,9 @@ Set up a cash flow statement · 13-week cash forecast
 
 Link to question 61
 
-62. Why is my business profitable but short of cash?
+62.
+
+### Why is my business profitable but short of cash?
 
 Profit and cash diverge because income and expenses can be recognised at different times from receipts and payments.
 
@@ -60,7 +64,9 @@ Set up a cash flow statement · Fictional Newcastle cash flow workbook
 
 Link to question 62
 
-63. How much cash should I reserve for BAS, payroll and super payments?
+63.
+
+### How much cash should I reserve for BAS, payroll and super payments?
 
 Schedule the actual expected liabilities and payment dates, then choose a buffer.
 
@@ -73,7 +79,9 @@ Set up a cash flow statement · 13-week cash forecast
 
 Link to question 63
 
-64. What happens to my cash balance if a major customer pays 30 or 60 days late?
+64.
+
+### What happens to my cash balance if a major customer pays 30 or 60 days late?
 
 Move the expected receipt to its revised date and compare the lowest cash balance.
 
@@ -86,7 +94,9 @@ Set up a cash flow statement · 13-week cash forecast
 
 Link to question 64
 
-65. Can my business afford another employee?
+65.
+
+### Can my business afford another employee?
 
 Compare the extra cash costs of hiring with conservative additional receipts and available cash.
 
@@ -99,7 +109,9 @@ Set up a cash flow statement · Staff cost calculator
 
 Link to question 65
 
-66. What would buying equipment outright versus financing it do to my cash flow?
+66.
+
+### What would buying equipment outright versus financing it do to my cash flow?
 
 Compare the timing and total payments of outright purchase and finance.
 
@@ -112,7 +124,9 @@ Set up a cash flow statement · Monthly loan payment calculator
 
 Link to question 66
 
-67. How much working capital or overdraft capacity will I need next quarter?
+67.
+
+### How much working capital or overdraft capacity will I need next quarter?
 
 Find the lowest forecast balance and compare it with the cash buffer you need.
 
@@ -125,7 +139,9 @@ Set up a cash flow statement · 13-week cash forecast
 
 Link to question 67
 
-68. How can I reduce overdue customer balances and get paid sooner?
+68.
+
+### How can I reduce overdue customer balances and get paid sooner?
 
 Prioritise overdue balances by amount, age, dispute and likelihood of collection.
 
@@ -138,7 +154,9 @@ Set up a cash flow statement
 
 Link to question 68
 
-69. How do I plan for seasonal cash shortages?
+69.
+
+### How do I plan for seasonal cash shortages?
 
 Plan from the seasonal payment and receipt pattern, including the costs incurred before sales arrive.
 
@@ -151,7 +169,9 @@ Set up a cash flow statement · 13-week cash forecast
 
 Link to question 69
 
-70. How do I update my forecast each month using actual results?
+70.
+
+### How do I update my forecast each month using actual results?
 
 Replace completed periods with reconciled actuals and explain the difference before rolling the forecast forward.
 
@@ -174,7 +194,7 @@ Link to question 70
 - Companies and trusts
 - Investments and Newcastle
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

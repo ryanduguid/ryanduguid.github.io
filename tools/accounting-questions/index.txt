@@ -6,13 +6,13 @@ Source: https://duguid.com.au/tools/accounting-questions/
 
 # 100 Australian accounting questions
 
-Find the records, calculations and steps for Australian tax and business questions. Each topic page carries ten answers, a search box and a checklist download.
+Find the records, calculations and steps for Australian tax and business questions. Each topic page carries 10 answers, a search box and a checklist download.
 
 Open the business calculators or try the fictional Newcastle cash flow workbook.
 
-These 100 researched questions are not ranked by Google popularity. Tax guidance must match your year and circumstances.
+The questions are grouped by topic, not ranked by search volume. Tax guidance must match your year and circumstances.
 
-Editorial review: 11 September 2026. Last reviewed 23 September 2026.
+Editorial review: 11 September 2026. Last reviewed 24 September 2026.
 
 ## Tax returns
 
@@ -27,7 +27,7 @@ Reviewed 11 September 2026. Use the income year and residency facts for the retu
 - Which earnings are taxable?
 - How long will the tax return process take?
 - Where can I submit a completed return?
-- Which tax rules changed during 2025?
+- Which tax rules changed from 1 July 2026?
 
 ## Deductions
 
@@ -46,7 +46,7 @@ Reviewed 11 September 2026. Check eligibility and record requirements for the in
 
 ## Starting a business
 
-Reviewed 11 September 2026. Use the entity, activity, and income year being assessed.
+Reviewed 11 September 2026. Use the entity, activity and income year being assessed.
 
 - Do I need an ABN for freelance or contracting work?
 - How do I apply for an ABN, and what information do I need?
@@ -61,7 +61,7 @@ Reviewed 11 September 2026. Use the entity, activity, and income year being asse
 
 ## GST and BAS
 
-Reviewed 11 September 2026. Use the BAS period, GST accounting basis, and account due date being reviewed.
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis and account due date being reviewed.
 
 - How do I add GST to a price or extract GST from an inclusive amount?
 - When must my business register for GST?
@@ -151,7 +151,7 @@ Reviewed 11 September 2026. Use the entity and relevant income or FBT year; link
 
 ## Investments and Newcastle
 
-Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment year. Newcastle fee ranges remain unverified.
+Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment year.
 
 - Which expenses can I claim for a rental property?
 - Is work on my rental property a repair, an improvement or a depreciating asset?
@@ -161,10 +161,10 @@ Reviewed 11 September 2026. Use the relevant disposal, income, or NSW assessment
 - How do I report ETF distributions and their tax adjustments?
 - What records does my accountant need for an SMSF annual return and audit?
 - When does an investment property become liable for land tax in NSW?
-- How much does an accountant or bookkeeper cost for a small business in Newcastle?
+- Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 - How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?
 
-The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. This personal open source site does not accept professional engagements.
+The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
@@ -182,7 +182,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Which earnings are taxable?: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
 - How long will the tax return process take?: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
 - Where can I submit a completed return?: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
-- Which tax rules changed during 2025?: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
+- Which tax rules changed from 1 July 2026?: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - How do I calculate my working-from-home deduction?: https://duguid.com.au/tools/accounting-questions/deductions/#q11
 - What records do I need to support my working-from-home claim?: https://duguid.com.au/tools/accounting-questions/deductions/#q12
@@ -280,5 +280,5 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - How do I report ETF distributions and their tax adjustments?: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
 - What records does my accountant need for an SMSF annual return and audit?: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
 - When does an investment property become liable for land tax in NSW?: https://duguid.com.au/tools/accounting-questions/investments-local/#q98
-- How much does an accountant or bookkeeper cost for a small business in Newcastle?: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
+- Does a Hunter Valley coal mining employer pay the Coal LSL levy?: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
 - How do I choose a Newcastle accountant who can help with Xero and cash flow reporting?: https://duguid.com.au/tools/accounting-questions/investments-local/#q100

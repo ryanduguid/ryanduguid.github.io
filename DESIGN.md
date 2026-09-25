@@ -16,6 +16,16 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 24 September About pass adds an ASCII portrait of Ryan to the About page
+header. It is a 200 by 112 character rendering of his own headshot, set in
+light ink on the black canvas, so it is neither stock nor generated imagery.
+From 56.0625rem it takes a right column of at most 26rem beside the statement
+and review line; below that it follows the review line at full column width.
+It ships as an SVG in an `img`, not inline text, so the characters stay out of
+`index.txt`, `llms-full.txt` and the accessibility tree, and the alt text names
+it. An image cannot load the site fonts, so each row is pinned with
+`textLength` and any fallback monospace font keeps the columns aligned.
+
 The 24 September chart pass re-exports the Lumbridge cash chart in two
 variants so its labels render at about 12px or more wherever the page shows
 it. The old export set 10 point text on a 1282-pixel image drawn at about
@@ -36,6 +46,17 @@ moves from the bottom-right corner into the sticky header at every width,
 where it no longer covers page text while scrolling; above the 56rem collapse
 the header reserves its width beside the navigation. The hero boundary note
 stays in the first viewport and says the same thing in fewer words.
+
+The 25 September editorial pass keeps the order understand, try, then
+investigate. The hero, cash case and task chooser are unchanged. The proof
+band keeps its calculator, the calculator button and the evidence link; the
+two Coal LSL source links already sit in the calculator's source list. Adopt
+and Verify each keep one sentence, two links and one note. The credential
+register leaves the homepage because About carries all three records, and
+the header and footer already link GitHub, About, Rates and Related
+resources. The legislation corpus, Tax Radar AU and release policy links move
+to Evidence, under sources and release evidence. Adopt and Verify stay
+separate sections because llms.txt and the authority checks use both routes.
 
 The 22 September landing-page refinement retains pure dark mode at Ryan's
 request. The headline is 'Open source tools for Australian accountants'.
@@ -201,7 +222,7 @@ rendered branch fields share the form rhythm; the work chooser, action rows
 and adoption rows align on the baseline; the hero's boundary note and review
 stamp read as one group; principle cells sit on the shell edge; Tools entry
 titles underline only on hover and focus. The business calculator result
-sentences stay in IBM Plex Sans with tabular figures, a recorded exception to
+sentences stay in the body face with tabular figures, a recorded exception to
 the mono rule for figures because each result is a sentence, not a ledger
 row.
 
@@ -267,7 +288,7 @@ The 12 September 2026 Human/Machine switch follows Ryan's Cloudflare Connect
 reference. Its fixed bottom-centred pill, neutral surface, and blur are explicit
 exceptions to the register shapes below. The selected dot and keyboard focus
 outline use the existing green stamp accent, as Ryan requested in the follow-up.
-The control uses the existing IBM Plex Mono font, native keyboard controls,
+The control uses the site mono face, native keyboard controls,
 44px touch targets, and a saved view preference. Machine displays the current
 page's existing generated text and source links. The unindexed 404 page uses
 its existing text without a download. Page content and review boundaries
@@ -315,10 +336,10 @@ The 31 August 2026 refinement keeps the design read at
 - Five tool-led social contexts use one editable OLED register template for the
   site, tools, evaluations, rates and evidence. The development-only Playwright
   renderer emits static PNGs; the public pages have no renderer dependency and
-  the design contains no portrait.
+  the cards contain no portrait.
 
-The deliberate brand exceptions remain: a true-black, dark-only canvas; IBM
-Plex Serif as the display face; stamp green as the only accent; square register
+The deliberate brand exceptions remain: a true-black, dark-only canvas;
+Besley as the display face; stamp green as the only accent; square register
 surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
@@ -374,10 +395,10 @@ Ten Refero styles and their live sites were fetched on 28 August 2026.
 [Pliny](https://pliny.gg/) adds one useful aesthetic layer without replacing the 3 gold-standard references.
 
 - Borrow: the centred ceremonial masthead, near-black green field, cold luminous title colour, compact mono index labels and fine ruled geometry.
-- Translate: the project index becomes a public accounting register, and the display serif stays IBM Plex rather than copying Pliny's typeface.
+- Translate: the project index becomes a public accounting register, and the display serif (IBM Plex at this pass, Besley since 24 September 2026) is the site's own rather than Pliny's typeface.
 - Refuse: gradient lettering, scanlines, constellation ornament, hacker glyph substitutions, novelty motion and its 3-column project-card grid.
 
-The resulting system combines a cold ledger surface, a harbour-green review stamp, the IBM Plex type family, tabular evidence chrome and route viewports built around Adopt and Verify.
+The resulting system combines a cold ledger surface, a harbour-green review stamp, one serif, sans and mono type system (IBM Plex at this pass; Besley, Public Sans and Spline Sans Mono since 24 September 2026), tabular evidence chrome and route viewports built around Adopt and Verify.
 
 ## Visual premise
 
@@ -433,30 +454,51 @@ change.
 
 ## Typography and licence
 
-The site uses IBM Plex from the official [IBM Plex repository](https://github.com/IBM/plex).
+On 24 September 2026 Ryan replaced IBM Plex with three families chosen after
+a measured comparison: Plex had come to read as a generic AI-built site. The
+comparison gated each candidate on the weights below, body tabular figures,
+the `unicode-range` characters and command-safe mono shapes, then tested
+the passing pairings on the live pages at 1440, 1280, 390 and 320 pixels.
 
-- IBM Plex Serif Regular and SemiBold: display and section headings. The serif is justified by the statute, ledger and public-record context.
-- IBM Plex Sans Regular, Italic and SemiBold: navigation, body copy, controls and explanatory text.
-- IBM Plex Mono Regular: rates, commands, versions, dates, evidence labels and tabular figures.
+- Besley Regular and SemiBold: display and section headings. Its Clarendon
+  letterforms suit the statute, ledger and public-record context.
+- Public Sans Regular, Italic and SemiBold: navigation, body copy, controls,
+  tables and explanatory text. Its `tnum` feature gives the body-font tables
+  and calculator results aligned figures.
+- Spline Sans Mono Regular: rates, commands, versions, dates, evidence labels
+  and tabular figures. It sets at the width IBM Plex Mono did, and it has no
+  ligatures that would rewrite `--` or `==` in a command.
 - Ozzit's lambda symbol uses Cambria Math, STIX Two Math or DejaVu Serif, with
   the browser's serif fallback last. These native fonts need no download.
   Mark only the symbol with `function-symbol`; keep identifiers as selectable
   text. The font check still rejects unsupported characters outside that
   exact markup and requires its fallback styling and font stack.
 
-IBM Plex is licensed under the SIL Open Font License 1.1. The licence permits use, embedding, modification and redistribution, including bundling with commercial software, provided the font is not sold by itself and the licence and copyright notice travel with it. The repository self-hosts WOFF2 files and includes `assets/fonts/OFL.txt`.
+All three families are licensed under the SIL Open Font License 1.1. The
+licence permits use, embedding, modification and redistribution, including
+bundling with commercial software, provided the font is not sold by itself and
+the licence and copyright notice travel with it. The repository self-hosts
+WOFF2 files beside one licence file per family (`assets/fonts/OFL-*.txt`).
+None of the three declares a Reserved Font Name, so the site ships its own
+subsets under the original family names; IBM Plex reserved "Plex", which is why
+its files were never cut.
 
-The 6 files are IBM's unmodified Latin1 splits at tag `v6.4.2`, peeled
-commit `242c4cccd37e87985a5337815c99b960ef13c65c`. The upstream paths, byte
+The 6 files are `pyftsubset` cuts of the upstream static TTFs, limited to the
+characters the pages use. The upstream revisions, the exact command, byte
 counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`; each face
-declares the characters the pages use as its `unicode-range`, which
-`check_design.py` tests against every page. The declared set is 129,872 bytes
-as shipped by IBM, down from 384,756 before the Latin1 splits. The 4 faces used by the
-homepage total 84,268 source bytes before HTTP overhead, down from about
-250 KB transferred, and all 4 are preloaded so `font-display: optional` has
-every face by first paint. Four faces remain deliberate: Serif, Sans and Mono each
-carry a distinct information role, while regular and semi-bold Sans preserve
-the practical control and reading hierarchy without synthesised weight.
+declares the same characters as its `unicode-range`, which `check_design.py`
+tests against every page. The declared set is 102,928 bytes, down from 129,872
+for the Plex Latin1 splits. The 4 faces used by the homepage total 68,732
+source bytes before HTTP overhead, down from 84,268, and all 4 are preloaded
+so `font-display: optional` has every face by first paint. Four faces remain
+deliberate: display, body and mono each carry a distinct information role,
+while regular and semi-bold body weights preserve the practical control and
+reading hierarchy without synthesised weight.
+
+Besley sets about 8 per cent wider than Plex Serif. The homepage H1 keeps two
+lines at 1280 pixels but wraps to three at 390, and some long page titles gain
+a line on phones. The homepage cash chart is still an Excel export set in IBM
+Plex Sans until it is re-exported with Public Sans installed.
 
 Font rules:
 
@@ -529,8 +571,8 @@ The existing advice disclaimer remains exact. It sits above About, GitHub and Ma
 ### Tables
 
 - captions or nearby headings state what the numbers mean
-- headers use IBM Plex Sans SemiBold
-- numerical columns use IBM Plex Mono and tabular numbers
+- headers use Public Sans SemiBold
+- numerical columns use Spline Sans Mono and tabular numbers
 - rules appear between rows, not around every cell
 - the first and current rates receive typographic emphasis, not a coloured progress bar
 - wide tables use labelled horizontal scroll regions at narrow widths
@@ -628,7 +670,8 @@ Every changed visible sentence must pass these 5 principles:
 
 Banned visible language includes: revolutionise, seamless, cutting-edge, leverage, unlock, delves, landscape, tapestry, in today's fast-paced, decorative AI-powered language, generic `Get started`, emojis, em dashes and en dashes.
 
-Use Australian English and Oxford commas in original prose. Preserve exact
+Use Australian English in original prose, with no serial (Oxford) comma unless
+it prevents ambiguity, as the Australian Government Style Manual advises. Preserve exact
 quotations, command output, identifiers, and official titles. Keep the About
 page in the first person. Use Ryan's supplied credential labels exactly:
 'Provisional CA ANZ Member' and 'Xero Certified Specialist, Level 3'. State them
@@ -642,6 +685,8 @@ corresponding prose baselines record these authorised changes; numerical
 facts, dates, links, quotations, and calculator behaviour remain unchanged.
 
 ## Protected contracts
+
+The 24 September 2026 copy and GEO pass removes serial commas where they end a simple list, writes 'fictional' for invented data (the old `#fabricated-inputs` anchors stay), abbreviates New South Wales to NSW, puts Evidence in the first person, writes negative amounts with a minus sign and splits the longest sentences. Each accounting question is an `h3` inside its summary, 28 answers open with a figure checked on 24 September 2026 against the ATO, Revenue NSW or Coal LSL (`fact`, `fact_sources` and `facts_checked` in `_data/accounting_questions.json`), and each topic page publishes an FAQPage whose items `check_faq_visible` pairs with the visible `details.question` headings and first answer paragraphs. Question 10 covers the 1 July 2026 changes and question 99 the Coal LSL levy. Card titles in `llms-full.txt` end with a colon, and stripped hidden text no longer leaves a space before a word-ending comma or stop. The FAQ values go through `jsonify`, which the local renderer now also provides. Rates, CSVs, calculator arithmetic and evaluation pins are unchanged.
 
 The 24 September 2026 skills inventory update records that the australian-accounting-skills default branch now carries 60 skills, 41 of them additions to release v0.2.1, after nine new workflows merged (working from home deductions, ATO penalties and interest, Division 293, Division 296, super contribution caps, PAYG instalment variations, termination payments, multi-state payroll tax and car expenses). The subcontractor-ledgers FAQ and the AI agents comparison no longer say the skills never hold a rate: some skills now record figures a person reviewed, with effective dates, as a cross-check against the applicable authoritative source; and the evaluation wording now says no fresh model evaluation covers all the additions. The subcontractor-ledgers JSON-LD digest, the llms.txt digest and the generated machine views record these authorised edits. Release pins, rates pages and disclaimers are unchanged.
 
@@ -678,7 +723,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `0E0DF71276D9C683960C968CFDF1FA9FD4F5DFF3A9457A9B1663A03F5DACAB5E`
+- `llms.txt`: SHA-256 `EA9CD2DCA5C071C80ADC30FA8EE49451E85D793A4D412D4F60D68675B7A60E0E`
 - `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
