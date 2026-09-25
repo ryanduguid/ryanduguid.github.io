@@ -201,6 +201,7 @@
 <span class="cmd">git -C accounting-skills-release checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827</span>
 <span class="cmd">npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy</span></code></pre>
           <p>This copies the released skills into the current project's Codex and Claude Code directories. An agent runtime is still required.</p>
+          <p>Clone once per project. To repeat or retry from that directory, rerun only the checkout and install commands.</p>
           <details>
             <summary>Development installation</summary>
             <p>As at 25 September 2026, the default branch contains 61 workflows preparing v0.3.0. This command installs that development inventory.</p>
