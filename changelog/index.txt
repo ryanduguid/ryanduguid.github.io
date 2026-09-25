@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+25 September 2026 | The MCP guide names published release 0.2.9 and its two added worksheets, while retaining the v0.2.8 worked example. The release freshness check accepts historical entries when the current release is also listed.
 25 September 2026 | The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
 24 September 2026 | Copy edit across the site: no serial comma, 'fictional' in place of 'fabricated', NSW in place of New South Wales, Evidence in the first person, minus signs for negative amounts and plainer sentences on Home, About, Evaluations, Privacy and Payday Super.
@@ -43,6 +44,7 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+25 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.9
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
@@ -57,11 +59,12 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 24 September 2026.
+Published 30 August 2026. Last reviewed 25 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.9: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9
 - aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6

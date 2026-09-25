@@ -8,9 +8,11 @@ Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
 aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
-Reference release v0.2.8, the current published release, verified 24 September 2026. Tagged source and release record on GitHub.
+Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-Published 25 August 2026. Last reviewed 24 September 2026. This review verifies the 0.2.8 release, which keeps the 0.2.8 engine pins (ato-benchmark-compare 0.1.9, australian-tax-calculators 0.1.5), ranks local legislation search results best first and reads long provisions in parts; network boundaries remain unchanged.
+The current published release is aus-accounting-mcp/v0.2.9, verified on GitHub and PyPI on 25 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide's v0.2.8 worked example.
+
+Published 25 August 2026. Last reviewed 25 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -36,7 +38,7 @@ Those other projects are named so an agent can tell them apart. This page does n
 
 Payday Super and ATO benchmarks are delegated to reviewed engines, payday-super-checker and ato-benchmark-compare. The MCP server does not reimplement the law.
 
-The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
+The worksheet scope and periods are fixed by australian-tax-calculators 0.1.5, the engine reference release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.
 
 Read aus-accounting://scope before confirming worksheet inputs. Keep the exclusions returned with each result. The release instructions also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.
 
@@ -178,6 +180,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
+- aus-accounting-mcp/v0.2.9: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills

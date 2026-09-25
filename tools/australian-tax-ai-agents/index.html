@@ -61,8 +61,9 @@
       limited Division 7A review and 7 bounded tax worksheets. It can also
       search a Markdown folder you configure. Outputs need human review.
     </p>
-    <p class="release-meta">Reference release v0.2.8, the current published release, verified 24 September 2026. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8">Tagged source and release record on GitHub</a>.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 24 September 2026. This review verifies the 0.2.8 release, which keeps the 0.2.8 engine pins (ato-benchmark-compare 0.1.9, australian-tax-calculators 0.1.5), ranks local legislation search results best first and reads long provisions in parts; network boundaries remain unchanged.</p>
+    <p class="release-meta">Reference release v0.2.8. This guide and its worked example describe that release. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8">Tagged source and release record on GitHub</a>.</p>
+    <p>The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9">aus-accounting-mcp/v0.2.9</a>, verified on GitHub and PyPI on 25 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide's v0.2.8 worked example.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 25 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -149,7 +150,7 @@
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">ato-benchmark-compare</a>.
       The MCP server does not reimplement the law.
     </p>
-    <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md#supported-periods">worksheet scope and periods</a> are fixed by australian-tax-calculators 0.1.5, the engine published release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.</p>
+    <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md#supported-periods">worksheet scope and periods</a> are fixed by australian-tax-calculators 0.1.5, the engine reference release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.</p>
     <p>Read <code>aus-accounting://scope</code> before confirming worksheet inputs. Keep the exclusions returned with each result. The <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/README.md#tools">release instructions</a> also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.</p>
 
     </section>
@@ -306,7 +307,7 @@
         "description": "Run local ATO benchmark, Payday Super and limited Division 7A checks, seven bounded tax worksheets and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-25",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -324,7 +325,7 @@
         "description": "Run local ATO benchmark, Payday Super and limited Division 7A checks, seven bounded tax worksheets and optional Markdown search. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-25",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
@@ -380,7 +381,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-09-24"
+        "dateModified": "2026-09-25"
       },
       {
         "@type": "FAQPage",

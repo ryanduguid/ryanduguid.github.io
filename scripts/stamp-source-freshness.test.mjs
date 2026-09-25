@@ -178,6 +178,39 @@ test('release check accepts current plain tags and ignores unrelated packages', 
   assert.deepEqual(failures, []);
 });
 
+test('release history passes when each package includes its latest stable tag', async () => {
+  const lookup = async () => [
+    release('tool/v0.1.9'), release('tool/v0.1.10'), release('other/v1.0.0'),
+  ];
+  for (const tags of [
+    ['tool/v0.1.9', 'other/v1.0.0', 'tool/v0.1.10'],
+    ['tool/v0.1.10', 'other/v1.0.0', 'tool/v0.1.9'],
+  ]) {
+    assert.deepEqual(await freshness.checkReleases(releaseTable(...tags), lookup), []);
+  }
+});
+
+test('release history cannot hide a missing stable tag or another package drifting', async () => {
+  const failures = await freshness.checkReleases(
+    releaseTable('tool/v0.1.8', 'tool/v0.1.10', 'other/v1.0.0'),
+    async () => [release('tool/v0.1.10'), release('other/v1.0.0'), release('other/v1.1.0')],
+  );
+  assert.deepEqual(failures, [
+    'ryanduguid/example: tool/v0.1.8 is not a published stable release',
+    'ryanduguid/example: other/v1.0.0 is behind other/v1.1.0; review changelog/index.html and capability descriptions',
+  ]);
+});
+
+test('a current tag in another repository cannot satisfy release freshness', async () => {
+  const html = releaseTable('tool/v1.0.0').replace('</section>',
+    '<a href="https://github.com/ryanduguid/another/releases/tag/tool/v1.1.0">tool/v1.1.0</a></section>');
+  assert.deepEqual(await freshness.checkReleases(html, async () => [
+    release('tool/v1.0.0'), release('tool/v1.1.0'),
+  ]), [
+    'ryanduguid/example: tool/v1.0.0 is behind tool/v1.1.0; review changelog/index.html and capability descriptions',
+  ]);
+});
+
 test('release check refuses a missing published tag or missing release links', async () => {
   assert.deepEqual(await freshness.checkReleases(releaseTable('tool/v1.0.0'), async () => []), [
     'ryanduguid/example: tool/v1.0.0 is not a published stable release',

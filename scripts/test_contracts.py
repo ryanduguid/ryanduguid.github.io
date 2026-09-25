@@ -1951,8 +1951,17 @@ def test_release_record() -> None:
             "does not link the published release record",
         )
 
-    # A page that names a pinned engine must name the version the release pins.
+    # When the documented release is current, its engine pins must agree.
     with copied_site() as root:
+        current = copy.deepcopy(record)
+        component = current["components"]["aus-accounting-mcp"]
+        component["published"]["version"] = "0.2.8"
+        component["published"]["release_url"] = (
+            "https://github.com/ryanduguid/australian-accounting/releases/tag/"
+            "aus-accounting-mcp/v0.2.8"
+        )
+        component["pinned_engines"]["australian-tax-calculators"] = "0.1.5"
+        assert_clean("matching engine pins", release_record.check_record(root, current))
         replace_file(
             root,
             contracts.MCP_REL,
@@ -1961,7 +1970,7 @@ def test_release_record() -> None:
         )
         expect_failure(
             "engine pin drift",
-            release_record.check_record(root),
+            release_record.check_record(root, current),
             "but aus-accounting-mcp 0.2.8 pins 0.1.5",
         )
 

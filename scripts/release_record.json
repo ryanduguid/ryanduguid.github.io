@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-24",
+  "reviewed": "2026-09-25",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,10 +18,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.8",
-        "released_utc": "2026-09-24T12:48:28Z",
-        "verified": "2026-09-24",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8",
+        "version": "0.2.9",
+        "released_utc": "2026-09-24T14:44:47Z",
+        "verified": "2026-09-25",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -36,7 +36,7 @@
         "payday-super-checker": "0.1.7",
         "ato-benchmark-compare": "0.1.9",
         "div7a-loan-review": "0.1.4",
-        "australian-tax-calculators": "0.1.5"
+        "australian-tax-calculators": "0.1.6"
       },
       "pinned_commands": [
         "uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo"
@@ -44,6 +44,10 @@
       "tracking_commands": [
         "claude mcp add aus-accounting -- uvx aus-accounting-mcp",
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
+      ],
+      "notes": [
+        "GitHub and PyPI publish 0.2.9. On 25 September 2026 the MCP registry still reports 0.2.8 as active and latest; live verification must continue to report that drift.",
+        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.9."
       ]
     },
     "ozzit": {

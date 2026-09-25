@@ -8,11 +8,25 @@
   <updated>2026-09-25T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The MCP guide names published release 0.2.9 and its two added worksheets, whi...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-921950f77caa798d</id>
+    <updated>2026-09-25T00:00:00Z</updated>
+    <summary>The MCP guide names published release 0.2.9 and its two added worksheets, while retaining the v0.2.8 worked example. The release freshness check accepts historical entries when the current release is also listed.</summary>
+  </entry>
+  <entry>
     <title>The Evidence page adds a third accepted upstream change: XeroAPI merged a fix...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-f432bb56ef950102</id>
     <updated>2026-09-25T00:00:00Z</updated>
     <summary>The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.9</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9" />
+    <id>https://duguid.com.au/changelog/#entry-69222e00a6893bd9</id>
+    <updated>2026-09-25T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.9.</summary>
   </entry>
   <entry>
     <title>The Australian tax tools for AI agents page now documents MCP release 0.2.8,...</title>
