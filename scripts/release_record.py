@@ -170,19 +170,20 @@ def check_component(root: Path, name: str, component: dict[str, Any]) -> list[st
     engines = component.get("pinned_engines") or {}
     if documented_version not in (None, published["version"]):
         engines = documented.get("pinned_engines") or {}
-        if component.get("pinned_engines") and not engines:
-            failures.append(
-                f"{rel}: missing engine pins for documented release {documented_version}"
-            )
-    for engine, version in engines.items():
+    for engine in (component.get("pinned_engines") or {}) | engines:
         # Only engines the page names: it need not list every dependency, but a
         # version it does state must be the one that release pins.
         if engine in visible:
             stated = set(re.findall(rf"{re.escape(engine)}\s+(\d+\.\d+\.\d+)", visible))
-            if stated and stated != {version}:
+            if stated and engine not in engines:
+                failures.append(
+                    f"{rel}: missing engine pin for {engine} in documented release "
+                    f"{documented_version or published['version']}"
+                )
+            elif stated and stated != {engines[engine]}:
                 failures.append(
                     f"{rel}: names {engine} {sorted(stated)} but {name} "
-                    f"{documented_version or published['version']} pins {version}"
+                    f"{documented_version or published['version']} pins {engines[engine]}"
                 )
 
     for command in component.get("pinned_commands", []):

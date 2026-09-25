@@ -1841,14 +1841,26 @@ def test_documented_engine_pins() -> None:
             release_record.check_record(root, record),
             "but aus-accounting-mcp 0.2.8 pins 0.1.5",
         )
+        partial = copy.deepcopy(record)
+        del partial["components"]["aus-accounting-mcp"]["documented"]["pinned_engines"][
+            "australian-tax-calculators"
+        ]
+        expect_failure(
+            "omitted historical engine pin",
+            release_record.check_record(root, partial),
+            "missing engine pin for australian-tax-calculators",
+        )
 
     missing = copy.deepcopy(record)
     missing["components"]["aus-accounting-mcp"]["documented"].pop("pinned_engines", None)
     expect_failure(
         "missing historical engine pins",
         release_record.check_record(ROOT, missing),
-        "missing engine pins for documented release 0.2.8",
+        "missing engine pin for australian-tax-calculators",
     )
+    newer = copy.deepcopy(record)
+    newer["components"]["aus-accounting-mcp"]["pinned_engines"]["new-engine"] = "1.0.0"
+    assert_clean("new engine absent from older guide", release_record.check_record(ROOT, newer))
 
 
 def test_release_record() -> None:
