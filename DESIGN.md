@@ -16,6 +16,12 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 25 September navigation follow-up keeps the cash flow example as the
+hero's only action. Browse tools moves below the four starting routes and
+uses the existing secondary-button style to retain a 44px tap target. The
+Tools register keeps 12 entries and points readers to the external prompt
+guide's refusal scenarios and au-fpa-pack's fictional cash flow example.
+
 The 24 September About pass adds an ASCII portrait of Ryan to the About page
 header. It is a 200 by 112 character rendering of his own headshot, set in
 light ink on the black canvas, so it is neither stock nor generated imagery.
@@ -616,7 +622,8 @@ The first viewport centres one tool-led proposition above a ruled 3-part boundar
 - Sources and calculation working stay visible.
 - The tools are review aids, not judgement or lodgement.
 
-The primary action opens the cash-flow case; the secondary action opens Tools.
+The hero action opens the cash flow case. The secondary Tools action follows
+the four starting routes in Choose a task.
 The workbook chart sits beside the proposition on desktop widths and directly
 below it on mobile; the 4-task preview and real Coal LSL artefact follow. The
 site states that it is a personal open-source index, not a practice, and does
@@ -632,7 +639,7 @@ Pain first: a rate or AI answer without a source and review boundary cannot be r
 
 ### Collection registers
 
-The homepage previews 4 review tasks. The full `/tools/` register groups the 11 controls by the work they stop or check:
+The homepage previews 4 review tasks. The full `/tools/` register groups the 12 controls by the work they stop or check:
 
 - Extract records into reviewable shape.
 - Calculate without hiding the branch, formula or rounding.
@@ -664,7 +671,7 @@ Every changed visible sentence must pass these 5 principles:
 
 1. One reading pass. A visitor can finish the claim without rereading it.
 2. Pain first. Name the incomplete pack, late contribution, unbalanced trial balance or unsupported AI answer before the solution.
-3. One ask per screen. The hero opens Tools; the remaining homepage routes are Adopt and Verify.
+3. One ask per screen. The hero opens the cash flow case; Choose a task, Adopt and Verify follow.
 4. One viewport, one thought. Hero identifies; each route explains one action; catalogue indexes.
 5. Visualise in the line. Prefer `READY is not sign-off` and `fund receipt within seven business days` to abstract quality claims.
 

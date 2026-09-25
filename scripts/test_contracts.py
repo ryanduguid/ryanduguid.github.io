@@ -476,7 +476,7 @@ def test_design_contracts() -> int:
             "index.html: expected one visible machine-readable index link",
         ),
         (
-            "hero action drift",
+            "Tools browse link drift",
             "index.html",
             'href="/tools/">Browse tools by accounting task',
             'href="/missing-tools/">Browse tools by accounting task',
