@@ -61,6 +61,11 @@ knows which version they get. `scripts/release_record.json` (below) is the
 reviewed statement for the components it lists; this weekly read covers the
 tool pages outside it.
 
+For a release-only verification after a fix, dispatch `source-freshness.yml`
+with `releases_only=true`. This runs the release check without the date-refresh,
+production or ATO-source jobs. Scheduled runs and manual runs with the default
+input still run every job.
+
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
 live pages and holds them to the delivery promises in the README: the five
 Cloudflare response headers, the two edge redirects, and `mailto:` links that
