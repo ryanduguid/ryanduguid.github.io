@@ -10,7 +10,7 @@ Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs
 
 Inspect the eight exceptions Run the example
 
-Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Python and uv.
+Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.
 
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 

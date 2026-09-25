@@ -36,7 +36,7 @@ Browse ten worked formulas
 
 ### Review a month-end close
 
-Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read it in your browser; use Python and uv to rerun it.
+Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read it in your browser; use Git and Python to rerun it.
 
 Reproduce the sample report
 
