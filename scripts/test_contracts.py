@@ -1823,6 +1823,34 @@ def test_xero_badge() -> None:
     assert favicon_render.png_content(rebuilt) == favicon_render.png_content(published)
 
 
+def test_documented_engine_pins() -> None:
+    import copy
+
+    import release_record
+
+    record = release_record.load()
+    with copied_site() as root:
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            "australian-tax-calculators 0.1.5",
+            "australian-tax-calculators 0.1.4",
+        )
+        expect_failure(
+            "historical engine pin drift",
+            release_record.check_record(root, record),
+            "but aus-accounting-mcp 0.2.8 pins 0.1.5",
+        )
+
+    missing = copy.deepcopy(record)
+    missing["components"]["aus-accounting-mcp"]["documented"].pop("pinned_engines", None)
+    expect_failure(
+        "missing historical engine pins",
+        release_record.check_record(ROOT, missing),
+        "missing engine pins for documented release 0.2.8",
+    )
+
+
 def test_release_record() -> None:
     """Current release claims, labelled historical ones and unreleased versions."""
     import copy
@@ -2338,6 +2366,7 @@ def main() -> None:
     test_png_compression()
     test_xero_badge()
     test_release_record()
+    test_documented_engine_pins()
     test_full_text_references()
     test_machine_index_copy()
     test_llms_full_extraction()

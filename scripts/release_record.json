@@ -30,7 +30,13 @@
         "page": "tools/australian-tax-ai-agents/index.html",
         "version": "0.2.8",
         "visible_label": "Reference release v0.2.8",
-        "software_version": "0.2.8"
+        "software_version": "0.2.8",
+        "pinned_engines": {
+          "payday-super-checker": "0.1.7",
+          "ato-benchmark-compare": "0.1.9",
+          "div7a-loan-review": "0.1.4",
+          "australian-tax-calculators": "0.1.5"
+        }
       },
       "pinned_engines": {
         "payday-super-checker": "0.1.7",
