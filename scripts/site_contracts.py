@@ -48,9 +48,17 @@ GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/github-agent-skills\.git\s+"
     r"cd\s+github-agent-skills\s+python\s+scripts/validate_skills\.py\s+--strict\b"
 )
+STABLE_SKILLS_INSTALL_PATTERN = (
+    r"\bgit\s+clone\s+--branch\s+v0\.2\.1\s+--depth\s+1\s+"
+    r"https://github\.com/ryanduguid/australian-accounting-skills\.git\s+"
+    r"accounting-skills-release\s+npx\s+--yes\s+skills@1\.5\.22\s+add\s+"
+    r"\./accounting-skills-release\s+--agent\s+codex\s+claude-code\s+"
+    r"--skill\s+'\*'\s+--yes\s+--copy\b"
+)
 PRIMARY_INSTALL_PATTERNS = (
     r"\bclaude\s+mcp\s+add\s+aus-accounting\s+--\s+uvx\s+aus-accounting-mcp\b",
     CODEX_MCP_INSTALL_PATTERN,
+    STABLE_SKILLS_INSTALL_PATTERN,
     # The CLI version is part of the command: an unpinned npx line runs whatever
     # npm serves at read time, and an agent reading this page runs it.
     r"\bnpx\s+--yes\s+skills@1\.5\.22\s+add\s+ryanduguid/australian-accounting-skills\b",

@@ -97,7 +97,9 @@ The ten examples use the MIT-licensed Ozzit v3.4.2 function index in
 `python scripts/build_ozzit_reference.py --write`. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.4.2.json`.
+`assets/ozzit-reference-v3.4.2.json`. Each example records its result shape and a
+Python format template. The generator formats every recorded result and requires
+that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.

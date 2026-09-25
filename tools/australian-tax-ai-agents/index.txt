@@ -92,10 +92,21 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Skills
 
-Needs Node. Development checkout: installs the default branch, not the tagged release.
+Needs Git and Node. Start with the 19 workflows in the published v0.2.1 release.
 
 ```
-# Public Practice & Tax skills
+# Run from the project where you want the released skills
+git clone --branch v0.2.1 --depth 1 https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release
+npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy
+```
+
+This copies the released skills into the current project's Codex and Claude Code directories. An agent runtime is still required.
+
+Development installation
+
+As at 25 September 2026, the default branch contains 61 workflows preparing v0.3.0. This command installs that development inventory.
+
+```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
 ```
 

@@ -872,6 +872,15 @@ def test_public_contracts() -> int:
     assert "Five ways to try it" in install_text, (
         f"{contracts.MCP_REL}: adoption band must name the five ways to try the tools"
     )
+    with copied_site() as root:
+        replace_file(
+            root, contracts.MCP_REL, "git clone --branch v0.2.1", "git clone --branch main"
+        )
+        expect_failure(
+            "stable skills release pin",
+            contracts.check_authority_surface(root),
+            f"{contracts.MCP_REL}: install commands must appear exactly once inside #install",
+        )
     for required in github_agent_skills_route:
         assert required in install_text, (
             f"{contracts.MCP_REL}: missing github-agent-skills adoption route requirement {required!r}"
@@ -1878,6 +1887,13 @@ def test_release_record() -> None:
         lagging = copy.deepcopy(record)
         component = lagging["components"]["aus-accounting-mcp"]
         component["published"]["version"] = "0.3.0"
+        replace_file(
+            root,
+            contracts.MCP_REL,
+            '<p class="page-meta">',
+            "<p>A different component has current published release 0.3.0.</p>\n"
+            '<p class="page-meta">',
+        )
         expect_failure(
             "unlabelled release lag",
             release_record.check_record(root, lagging),

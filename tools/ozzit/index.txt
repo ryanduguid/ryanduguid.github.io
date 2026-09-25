@@ -116,7 +116,7 @@ Signature: PrimeCostλ(Cost, Life). Square brackets mark optional arguments.
 =oz.PrimeCostλ(1000,5)
 ```
 
-Expected display: 200.00 in each of five columns; total 1,000.00.
+Expected display: 200.00, 200.00, 200.00, 200.00 and 200.00; total 1,000.00.
 
 Limits: Cost and life are supplied assumptions. This is a modelling schedule, not an ATO Division 40 tax calculation.
 

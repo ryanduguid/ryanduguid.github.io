@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import email.message
 import email.utils
+import json
 import tempfile
 import time
 import unittest
@@ -29,6 +30,35 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_release_download_checks_canonical_repository_identity(self) -> None:
+        download = "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx"
+        for full_name in ("ryanduguid/renamed", "another-owner/Ozzit", None, "RYANDUGUID/ozzit"):
+            with self.subTest(full_name=full_name):
+                response = unittest.mock.MagicMock()
+                response.__enter__.return_value.read.return_value = json.dumps(
+                    {"full_name": full_name, "archived": False}
+                ).encode()
+                opener = unittest.mock.Mock(return_value=response)
+
+                def lookup(name: str) -> bool:
+                    return check_links.fetch_repository_archived(name, opener=opener)
+
+                with (
+                    unittest.mock.patch.object(
+                        check_links,
+                        "fetch_final_url",
+                        return_value=(200, "https://release-assets.githubusercontent.com/asset"),
+                    ),
+                    unittest.mock.patch.object(check_links, "repository_is_archived", lookup),
+                    unittest.mock.patch("builtins.print"),
+                ):
+                    failures = check_links.check_hrefs("tools/ozzit/index.html", [download])
+                if full_name == "RYANDUGUID/ozzit":
+                    self.assertEqual(failures, [])
+                else:
+                    self.assertEqual(len(failures), 1)
+                    self.assertIn("lookup failed", failures[0])
+
     def test_pinned_release_download_accepts_only_github_asset_hosts(self) -> None:
         download = "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx"
         for host in ("release-assets.githubusercontent.com", "objects.githubusercontent.com"):
@@ -111,7 +141,7 @@ class FetchFinalUrlTests(unittest.TestCase):
     def test_rate_limit_retry_headers_and_fallback_for_both_fetchers(self) -> None:
         class ApiResponse(FakeResponse):
             def read(self) -> bytes:
-                return b'{"archived": false}'
+                return b'{"full_name": "ryanduguid/Ozzit", "archived": false}'
 
         now = 1_700_000_000
         cases = [
@@ -137,7 +167,12 @@ class FetchFinalUrlTests(unittest.TestCase):
                         unittest.mock.patch.object(time, "sleep") as sleep,
                         unittest.mock.patch.object(time, "time", return_value=now),
                     ):
-                        fetch("https://example.com", opener=opener)
+                        target = (
+                            "Ozzit"
+                            if fetch is check_links.fetch_repository_archived
+                            else "https://example.com"
+                        )
+                        fetch(target, opener=opener)
                     self.assertEqual(opener.call_count, 2)
                     sleep.assert_called_once_with(delay)
 
