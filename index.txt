@@ -8,7 +8,7 @@ Source: https://duguid.com.au/
 
 Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
-Explore the cash flow example Browse tools by accounting task
+Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
@@ -45,6 +45,8 @@ Open the Workpaper Review Gate
 Use Ozzit for GST, financial years, depreciation and loan schedules. It needs Microsoft 365 or Excel 2024 or later.
 
 See an Excel example
+
+Browse tools by accounting task
 
 ## See how the Coal LSL levy is calculated
 
@@ -107,7 +109,6 @@ The evidence supports limited claims about the software, not endorsements or cli
 ## Links
 
 - Explore the cash flow example: https://duguid.com.au/examples/profit-vs-cash-flow/
-- Browse tools by accounting task: https://duguid.com.au/tools/
 - View full-size chart: https://duguid.com.au/assets/examples/lumbridge/cash-preview.png
 - Capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - More short accounting cases: https://duguid.com.au/evaluate/#five-minute-cases
@@ -117,6 +118,7 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Use accounting functions in Excel: https://duguid.com.au/tools/ozzit/
 - See an Excel example: https://duguid.com.au/tools/ozzit/#worked-example
+- Browse tools by accounting task: https://duguid.com.au/tools/
 - Privacy page: https://duguid.com.au/privacy/
 - Review the evidence register: https://duguid.com.au/evidence/
 - Open the setup guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install

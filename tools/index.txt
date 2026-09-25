@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 24 September 2026.
+Last reviewed 25 September 2026.
 
 ## Start with what you came to do
 
@@ -232,6 +232,8 @@ Human review required. Optional local library excerpts enter the assistant's con
 
 Try an example Source code Last commit 24 September 2026
 
+Two repositories are deliberately not listed here. llm-tax-guardrails (earlier name DrDebits) is an external prompt guide, not a site tool; its refusals are documented on the Refusals page. au-fpa-pack (earlier name FireFalcon) holds financial planning and analysis tools built for the openfpa project and has no tool page on this site.
+
 ## Before using a tool
 
 Delivery ranges from browser tools to Python packages, an MCP server and agent skills. An MCP server is a standard way to hand an AI assistant a fixed set of tools. Start with fictional data and keep the stated boundary in view.
@@ -291,8 +293,8 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
+- the Refusals page: https://duguid.com.au/tools/refusals/
 - reproducible evaluations: https://duguid.com.au/evaluate/
-- What these tools refuse: https://duguid.com.au/tools/refusals/
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Download Ozzit (Excel workbook): https://github.com/ryanduguid/Ozzit/releases/latest
 - Power Query and VBA ledger toolkit: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/adapters/accounting-excel-toolkit

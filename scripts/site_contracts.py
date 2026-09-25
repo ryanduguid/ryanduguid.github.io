@@ -568,7 +568,6 @@ HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian 
 HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls and inspect the calculations."
 HOMEPAGE_ACTIONS = (
     ("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),
-    ("/tools/", "Browse tools by accounting task"),
 )
 HOMEPAGE_PREVIEW_ENTRIES = (
     (

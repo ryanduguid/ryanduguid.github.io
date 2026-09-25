@@ -763,10 +763,8 @@ def check_homepage_refinement(root: Path) -> list[str]:
                 + target
                 + " homepage action"
             )
-        if action_links.count(target) != 1:
-            failures.append(
-                "index.html: expected exactly one " + target + " action in home-hero__actions"
-            )
+    if len(action_links) != 1:
+        failures.append("index.html: expected exactly one action in home-hero__actions")
     for identifier in HOMEPAGE_ANCHOR_IDS:
         count = len(
             re.findall(

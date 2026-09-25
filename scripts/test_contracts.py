@@ -483,6 +483,13 @@ def test_design_contracts() -> int:
             "index.html: expected exactly one /tools/ homepage action",
         ),
         (
+            "second hero action returns",
+            "index.html",
+            '<a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash flow example</a>',
+            '<a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash flow example</a><a href="/evaluate/">Evaluations</a>',
+            "index.html: expected exactly one action in home-hero__actions",
+        ),
+        (
             "category preview removed",
             "index.html",
             "home-tool-preview",
@@ -569,8 +576,8 @@ def test_design_contracts() -> int:
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 24 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 24 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 25 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 25 September 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -673,7 +680,7 @@ def test_design_contracts() -> int:
 
     review_date_paths = (
         ("index.html", "25 September 2026", "2026-09-25"),
-        ("tools/index.html", "24 September 2026", "2026-09-24"),
+        ("tools/index.html", "25 September 2026", "2026-09-25"),
         ("evidence/index.html", "25 September 2026", "2026-09-25"),
     )
     for rel, visible_date, structured_date in review_date_paths:
