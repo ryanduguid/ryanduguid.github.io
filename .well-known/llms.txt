@@ -20,7 +20,7 @@ The five starting routes on the homepage and Tools page, by accounting task:
 
 - **Understand why profit and cash differ** (https://duguid.com.au/examples/profit-vs-cash-flow/): Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. The Excel workbook is optional.
 - **Use accounting functions in Excel** (https://duguid.com.au/tools/ozzit/): Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
-- **Review a month-end close** (https://duguid.com.au/tools/monthly-close-controls/): Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read the report in your browser; rerunning it needs Python and uv.
+- **Review a month-end close** (https://duguid.com.au/tools/monthly-close-controls/): Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read the report in your browser; rerunning it needs Git and Python.
 - **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/): Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
 - **Check a BAS pack before manager review** (https://duguid.com.au/evaluate/manager-review-gate/): See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
