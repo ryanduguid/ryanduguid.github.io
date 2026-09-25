@@ -874,7 +874,10 @@ def test_public_contracts() -> int:
     )
     with copied_site() as root:
         replace_file(
-            root, contracts.MCP_REL, "git clone --branch v0.2.1", "git clone --branch main"
+            root,
+            contracts.MCP_REL,
+            "checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827",
+            "checkout v0.2.1",
         )
         expect_failure(
             "stable skills release pin",
