@@ -14,7 +14,7 @@ The current published release is aus-accounting-mcp/v0.2.9, verified on GitHub a
 
 Published 25 August 2026. Last reviewed 26 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
-Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
+Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
 ## The split, in one table
 
@@ -154,7 +154,7 @@ A local Model Context Protocol server for ATO benchmark comparison, Payday Super
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
-No. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context.
+No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context.
 
 ### Does it calculate Division 7A repayments?
 
