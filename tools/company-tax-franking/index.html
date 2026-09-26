@@ -59,8 +59,8 @@
       A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
     </p>
     <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.</p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3">the-exchequer-tally/v0.1.3</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6">the-exchequer-tally/v0.1.6</a>. <code>pip install the-exchequer-tally</code> fetches it.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 24 September 2026.</p>
+    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7">the-exchequer-tally/v0.1.7</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which <code>pip install the-exchequer-tally</code> fetches.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -110,8 +110,8 @@
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.10 or later. Install the reference release in your Python environment.</p>
-    <pre tabindex="0" role="region" aria-label="Company tax checker installation command"><code>python -m pip install "the-exchequer-tally==0.1.3"</code></pre>
-    <p><a href="https://pypi.org/project/the-exchequer-tally/0.1.3/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.3/packages/the-exchequer-tally/README.md#quickstart">release instructions</a>.</p>
+    <pre tabindex="0" role="region" aria-label="Company tax checker installation command"><code>python -m pip install "the-exchequer-tally==0.1.7"</code></pre>
+    <p><a href="https://pypi.org/project/the-exchequer-tally/0.1.7/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart">release instructions</a>.</p>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally">Source on GitHub</a> · Primary sources: <a href="https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates">ATO company tax rates</a> and <a href="https://www.legislation.gov.au/C2004A05138/latest/text">Division 203 of the <em>Income Tax Assessment Act 1997</em></a>.</p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Company%20tax%20and%20franking%20checks">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
@@ -120,13 +120,13 @@
     <h2>Fictional worked example</h2>
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run this pinned package directly. No clone or input file is needed.</p>
     <p>For the income year ending in 2025, use fictional aggregated turnover of $4,500,000, assessable income of $800,000 and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.</p>
-    <pre tabindex="0" role="region" aria-label="Fictional company tax checker command"><code>uvx --from the-exchequer-tally==0.1.3 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000</code></pre>
-    <p>Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.</p>
+    <pre tabindex="0" role="region" aria-label="Fictional company tax checker command"><code>uvx --from the-exchequer-tally==0.1.7 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000</code></pre>
+    <p>Selected output from release 0.1.7, verified on 26 September 2026. The command exits 0 and also prints its statutory basis and review boundary.</p>
     <pre tabindex="0" role="region" aria-label="Expected company tax checker output"><code>Passive Income Ratio:    15.00% (&lt;= 80%: True)
 Base Rate Entity:        True
 Applicable Tax Rate:     25.0%</code></pre>
     <h3>Try a refusal</h3>
-    <p>Change <code>--fy 2025</code> to <code>--fy 2017</code>. Release 0.1.3 has no bundled rate table for that year. It exits 2 and returns no rate.</p>
+    <p>Change <code>--fy 2025</code> to <code>--fy 2017</code>. Release 0.1.7 has no bundled rate table for that year. It exits 2 and returns no rate.</p>
     <p>This verifies the published command’s behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company’s circumstances.</p>
     </section>
     <section id="common-questions" class="faq-section">
@@ -172,7 +172,7 @@ Applicable Tax Rate:     25.0%</code></pre>
         "description": "Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-24",
+        "dateModified": "2026-09-26",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -240,7 +240,7 @@ Applicable Tax Rate:     25.0%</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-24"
+        "dateModified": "2026-09-26"
       },
       {
         "@type": "FAQPage",

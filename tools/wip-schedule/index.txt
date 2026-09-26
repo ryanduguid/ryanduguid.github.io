@@ -8,9 +8,9 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.0, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-wip-tally/v0.1.1.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release.
 
-Published 25 August 2026. Last reviewed 18 September 2026.
+Published 25 August 2026. Last reviewed 26 September 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
 
@@ -24,7 +24,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.0. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -41,12 +41,12 @@ In a fresh folder, with Git and uv installed, run the test at the release used a
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
-git checkout the-wip-tally/v0.1.0
+git checkout the-wip-tally/v0.1.2
 cd packages/the-wip-tally
 uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
 ```
 
-Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.0 so its figures stay reproducible.
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.2 so its figures stay reproducible.
 
 ## Limits
 
@@ -102,10 +102,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- the-wip-tally/v0.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.0
-- the-wip-tally/v0.1.1: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.1
+- the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
-- cost-to-cost underbilling test in the-wip-tally v0.1.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py
+- cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues

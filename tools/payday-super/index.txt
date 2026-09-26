@@ -22,13 +22,13 @@ Receipt amount matters. A fund receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 24 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences. The fixed evaluation stays pinned to 0.1.3.
+Published 24 August 2026. Last reviewed 26 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences. The fixed evaluation stays pinned to 0.1.3.
 
 ## Receipt dates and amounts
 
 Checker 0.1.7 requires amount evidence for a timely receipt. Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. Read the 0.1.7 release record.
 
-Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.8 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
+Older checkers 0.1.5 and 0.1.6 assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.8 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.
 
@@ -45,16 +45,16 @@ The tagged 0.1.7 workbook fixes both cases. Its Summary shows Not assessed for r
 With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
 
 ```
-uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
+uvx --from payday-super-checker==0.1.7 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-Quick trial release 0.1.5; the current published release is 0.1.7. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.7, the current published release. The command downloads checker 0.1.7 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report’s caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
 Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
 
-The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation’s revision and commands to reproduce the historical run. This quick trial uses release 0.1.5 and leaves the fund receipt decision with the reviewer.
+The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation’s revision and commands to reproduce the historical run. This quick trial uses release 0.1.7 and leaves the fund receipt decision with the reviewer.
 
 ## Evidence pack workflow
 
