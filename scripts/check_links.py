@@ -285,6 +285,11 @@ HTTP_403_AUTOMATION_DENIAL_URLS = frozenset(
             "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
             "tax-reform-loss-refundability-reforms-for-businesses-and-start-ups"
         ),
+        # Run 36254994352 returned 403; Firecrawl read the page on 27 September 2026.
+        (
+            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
+            "tax-reform-tax-loss-carry-back"
+        ),
         (
             "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/"
             "dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses"
