@@ -15,7 +15,7 @@
       "fb2fbb1930acfdda3e6c55e0b6ab4993fc6bf971fc9cb43d356f0211abaf2dae"
     ],
     "changelog/index.html": [
-      "b10192cce7b7b08651ab651c5004f4259a2aac6ba090e706a7926d24cab0684c"
+      "ab94eea60b82ad21e8d94932145b596796cfe1cfd9ec507873677a4e8a38fb26"
     ],
     "contact/index.html": [
       "a2577d922c46739b519bf00ba60b5beecb7bb46f89d4d1a3b4b876e0b501cdf5"
@@ -72,7 +72,7 @@
       "9801bfedccc0b0fb312f0a70bf716ec11203037e937e8fe49c0c82a99225368f"
     ],
     "tools/company-tax-franking/index.html": [
-      "d6026d723a2d65ffc6f1de04f2c91bf14aefbf877668b23cedc74cce7c649025"
+      "9e3dced33e9c9ad906cf36fd0699ba0307c6ae09cfca2897d0b39d234b0b1822"
     ],
     "tools/index.html": [
       "abb95fd80ac2bd7e117b6e0919077e925943ea7149f105c77b9ebe13c0dd6122"
@@ -87,7 +87,7 @@
       "da1b906eb73bbcd1020987bcfa9cfb1c2c377b3a87ff30bf71b665b73571a4ee"
     ],
     "tools/payday-super/index.html": [
-      "4324e7d9a9fa6b0aca51e65549b127c75529a11f051920b7fd83350299a36a8c"
+      "20edbce52524805313371e7a38268ccad4839096496317bf7283ad9102f36814"
     ],
     "tools/refusals/index.html": [
       "9fc7802698f179808f2c1e0a444d2cb2c1b4c2e6fc624ec08a84a6dd6d327f5f"
@@ -96,10 +96,10 @@
       "411352ff3b1fba83f0c788ef227857e3b2aacd9571529b5152bb497db988a564"
     ],
     "tools/trust-distributions/index.html": [
-      "fe8c025ba89d1fb97ed6001fbd607bce4e3356af7dc07f7adc5f65376fdfa105"
+      "562d26dc976e94a9ad7ce4dfab51854a3ba6cbb13e56acd6983fcbbe656a1c8d"
     ],
     "tools/wip-schedule/index.html": [
-      "ad8c76536c3a205366e3f11a141b5fd8c0902bb7d40664c091a524c61df4f6a1"
+      "b6d82cab30f1bec6ee2426d8cf8baa36317fb460981d09b1f27e685d285981b8"
     ],
     "tools/workpaper-review-gate/index.html": [
       "60e5ab8d34a26cdddbae7cbcd4299b1cbff81ab38c38136dd5eace5e321f0668"
@@ -109,9 +109,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "7d45eae2d00ebb4b088577a1ab26d661b607e120e4a215ffa7a30b067fee2c85",
+    "llms.txt": "c9ed7bd782c1073db1c3aad3bab18f9e3f702b6d112739fa4317b9f1ba4b72f6",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "3c5f80e2bd828944bf4348ba00a3204112f3eaaa76519be01a2a7ec0f776318c"
+    "sitemap.xml": "73efb78a57d56021c14f0dfbffe78f7d736e3a85bf37d5246b8b9840a992fc02"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

@@ -1,5 +1,18 @@
 # Claim maintenance
 
+## Review on 26 September 2026
+
+- Engine pins: solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2
+  were published on 26 September 2026. The trust distribution, company tax and
+  construction WIP pages now pin their worked examples to those releases. Each command
+  was rerun from PyPI, and the WIP test at the `the-wip-tally/v0.1.2` tag; the figures
+  are unchanged. The trust example states residency with `--resident-during-year`, which
+  0.1.8 requires. The changelog records the three releases.
+- Payday Super: the tool page's quick trial now pins 0.1.7. The command was rerun on the
+  synthetic CSV the site serves and still reports one `AT_RISK` row due 17 August 2026
+  with exit 0. `scripts/release_record.json` and `llms.txt` follow the page, and the
+  historical evaluation stays on 0.1.3.
+
 ## Review on 23 September 2026
 
 - Coal LSL levy: `assets/levy.mjs`, the calculator page and its CSV export now carry the

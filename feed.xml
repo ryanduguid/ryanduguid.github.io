@@ -5,8 +5,36 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-25T00:00:00Z</updated>
+  <updated>2026-09-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The trust distribution, company tax and construction WIP pages now pin their...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-691bbea739e67db8</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-b36861579727ed8d</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>Company tax and franking checks the-exchequer-tally/v0.1.7</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7" />
+    <id>https://duguid.com.au/changelog/#entry-ebdab0e7a754a711</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>Company tax and franking checks: release the-exchequer-tally/v0.1.7.</summary>
+  </entry>
+  <entry>
+    <title>Construction WIP schedule the-wip-tally/v0.1.2</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2" />
+    <id>https://duguid.com.au/changelog/#entry-b10849c83decb127</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>Construction WIP schedule: release the-wip-tally/v0.1.2.</summary>
+  </entry>
   <entry>
     <title>The MCP guide names published release 0.2.9 and its two added worksheets, whi...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

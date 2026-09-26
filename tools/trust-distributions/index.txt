@@ -10,9 +10,9 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is solomons-sword/v0.1.7. pip install solomons-sword fetches it.
+Reference release solomons-sword/v0.1.8, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install solomons-sword fetches.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 26 September 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary's own rate. The ATO's finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -31,7 +31,7 @@ Where the tool does not implement a rule, such as streamed capital gains and fra
 Needs Python 3.10 or later. Install the reference release in your Python environment.
 
 ```
-python -m pip install "solomons-sword==0.1.3"
+python -m pip install "solomons-sword==0.1.8"
 ```
 
 Published package and release instructions.
@@ -40,13 +40,13 @@ Published package and release instructions.
 
 With uv installed, run this pinned package directly. No clone or input file is needed.
 
-This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional.
+This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with --resident-during-year because release 0.1.8 refuses a run that states neither residency flag.
 
 ```
-uvx --from solomons-sword==0.1.3 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000
+uvx --from solomons-sword==0.1.8 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
 ```
 
-Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.
+Selected output from release 0.1.8, verified on 26 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.
 
 ```
 Gross Receipt:           $150,000.00
@@ -102,11 +102,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- solomons-sword/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3
-- solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
+- solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
-- Published package: https://pypi.org/project/solomons-sword/0.1.3/
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart
+- Published package: https://pypi.org/project/solomons-sword/0.1.8/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.8/packages/solomons-sword/README.md#quickstart
 - uv installed: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text

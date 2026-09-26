@@ -2621,13 +2621,13 @@ Receipt amount matters. A fund receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 24 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences. The fixed evaluation stays pinned to 0.1.3.
+Published 24 August 2026. Last reviewed 26 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences. The fixed evaluation stays pinned to 0.1.3.
 
 ## Receipt dates and amounts
 
 Checker 0.1.7 requires amount evidence for a timely receipt. Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither matched_amount nor remitted_amount returns UNKNOWN and exit 2. A late receipt without an amount remains LATE, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. Read the 0.1.7 release record.
 
-Older checker 0.1.6 and the quick trial below, pinned to 0.1.5, assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.8 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
+Older checkers 0.1.5 and 0.1.6 assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. Published MCP 0.2.8 pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.
 
 matched_amount is the supplied amount associated with the payday. It takes precedence over remitted_amount, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.
 
@@ -2644,16 +2644,16 @@ The tagged 0.1.7 workbook fixes both cases. Its Summary shows Not assessed for r
 With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
 
 ```
-uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
+uvx --from payday-super-checker==0.1.7 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-Quick trial release 0.1.5; the current published release is 0.1.7. The command downloads checker 0.1.5 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.7, the current published release. The command downloads checker 0.1.7 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report's caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
 Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
 
-The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.5 and leaves the fund receipt decision with the reviewer.
+The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation's revision and commands to reproduce the historical run. This quick trial uses release 0.1.7 and leaves the fund receipt decision with the reviewer.
 
 ## Evidence pack workflow
 
@@ -2854,9 +2854,9 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is solomons-sword/v0.1.7. pip install solomons-sword fetches it.
+Reference release solomons-sword/v0.1.8, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install solomons-sword fetches.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 26 September 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary's own rate. The ATO's finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -2875,7 +2875,7 @@ Where the tool does not implement a rule, such as streamed capital gains and fra
 Needs Python 3.10 or later. Install the reference release in your Python environment.
 
 ```
-python -m pip install "solomons-sword==0.1.3"
+python -m pip install "solomons-sword==0.1.8"
 ```
 
 Published package and release instructions.
@@ -2884,13 +2884,13 @@ Published package and release instructions.
 
 With uv installed, run this pinned package directly. No clone or input file is needed.
 
-This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional.
+This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with --resident-during-year because release 0.1.8 refuses a run that states neither residency flag.
 
 ```
-uvx --from solomons-sword==0.1.3 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000
+uvx --from solomons-sword==0.1.8 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
 ```
 
-Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundaries.
+Selected output from release 0.1.8, verified on 26 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.
 
 ```
 Gross Receipt:           $150,000.00
@@ -2946,11 +2946,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- solomons-sword/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.3
-- solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
+- solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
-- Published package: https://pypi.org/project/solomons-sword/0.1.3/
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.3/packages/solomons-sword/README.md#quickstart
+- Published package: https://pypi.org/project/solomons-sword/0.1.8/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.8/packages/solomons-sword/README.md#quickstart
 - uv installed: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
@@ -2976,9 +2975,9 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release the-exchequer-tally/v0.1.3, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.1.6. pip install the-exchequer-tally fetches it.
+Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install the-exchequer-tally fetches.
 
-Published 24 August 2026. Last reviewed 24 September 2026.
+Published 24 August 2026. Last reviewed 26 September 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
@@ -2999,7 +2998,7 @@ Nothing this engine produces is tax, legal or financial advice, an assessment or
 Needs Python 3.10 or later. Install the reference release in your Python environment.
 
 ```
-python -m pip install "the-exchequer-tally==0.1.3"
+python -m pip install "the-exchequer-tally==0.1.7"
 ```
 
 Published package and release instructions.
@@ -3015,10 +3014,10 @@ With uv installed, run this pinned package directly. No clone or input file is n
 For the income year ending in 2025, use fictional aggregated turnover of $4,500,000, assessable income of $800,000 and base rate entity passive income of $120,000. The caller must establish those classifications before running the test.
 
 ```
-uvx --from the-exchequer-tally==0.1.3 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
+uvx --from the-exchequer-tally==0.1.7 the-exchequer-tally bre-test --fy 2025 --turnover 4500000 --assessable 800000 --passive 120000
 ```
 
-Selected output from release 0.1.3, verified on 11 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
+Selected output from release 0.1.7, verified on 26 September 2026. The command exits 0 and also prints its statutory basis and review boundary.
 
 ```
 Passive Income Ratio:    15.00% (<= 80%: True)
@@ -3028,7 +3027,7 @@ Applicable Tax Rate:     25.0%
 
 ### Try a refusal
 
-Change --fy 2025 to --fy 2017. Release 0.1.3 has no bundled rate table for that year. It exits 2 and returns no rate.
+Change --fy 2025 to --fy 2017. Release 0.1.7 has no bundled rate table for that year. It exits 2 and returns no rate.
 
 This verifies the published command's behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.
 
@@ -3058,10 +3057,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- the-exchequer-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.3
-- the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
-- Published package: https://pypi.org/project/the-exchequer-tally/0.1.3/
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.3/packages/the-exchequer-tally/README.md#quickstart
+- the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
+- Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
@@ -3173,9 +3171,9 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.0, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-wip-tally/v0.1.1.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release.
 
-Published 25 August 2026. Last reviewed 18 September 2026.
+Published 25 August 2026. Last reviewed 26 September 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
 
@@ -3189,7 +3187,7 @@ This tool does the arithmetic. Install the Python engine, point it at a contract
 
 ## Worked example: a $50,000 contract asset
 
-This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.0. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
+This synthetic example comes from the cost-to-cost underbilling test in the-wip-tally v0.1.2. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.
 
 - Transaction price: $1,000,000.
 - Costs incurred: $400,000. Estimated cost to complete: $400,000.
@@ -3206,12 +3204,12 @@ In a fresh folder, with Git and uv installed, run the test at the release used a
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
-git checkout the-wip-tally/v0.1.0
+git checkout the-wip-tally/v0.1.2
 cd packages/the-wip-tally
 uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling
 ```
 
-Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.0 so its figures stay reproducible.
+Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.2 so its figures stay reproducible.
 
 ## Limits
 
@@ -3267,10 +3265,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- the-wip-tally/v0.1.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.0
-- the-wip-tally/v0.1.1: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.1
+- the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
-- cost-to-cost underbilling test in the-wip-tally v0.1.0: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py
+- cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
@@ -3780,6 +3777,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 September 2026 | The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.
 25 September 2026 | The MCP guide names published release 0.2.9 and its two added worksheets, while retaining the v0.2.8 worked example. The release freshness check accepts historical entries when the current release is also listed.
 25 September 2026 | The Evidence page adds a third accepted upstream change: XeroAPI merged a fix to its command-line tool that had swapped the balance sheet and profit and loss --standard-layout and --payments-only flags. Merge states were read again on 25 September 2026.
 24 September 2026 | The Australian tax tools for AI agents page now documents MCP release 0.2.8, which ranks local legislation search results best first and reads provisions longer than 12,000 characters in parts; engine pins are unchanged.
@@ -3811,6 +3809,9 @@ Date | Change
 Selected tool releases: each row names a tool's current tagged release at the date shown. Earlier tags stay visible on each repository's releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+26 September 2026 | Trust distribution checks | solomons-sword/v0.1.8
+26 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.7
+26 September 2026 | Construction WIP schedule | the-wip-tally/v0.1.2
 25 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.9
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
@@ -3826,11 +3827,14 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 25 September 2026.
+Published 30 August 2026. Last reviewed 26 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
+- the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
+- the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
 - aus-accounting-mcp/v0.2.9: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9
 - aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
