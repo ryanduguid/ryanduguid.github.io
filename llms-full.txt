@@ -20,7 +20,7 @@ Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 25 September 2026.
+Last reviewed 26 September 2026.
 
 ## Compare profit with cash flow
 
@@ -3401,17 +3401,17 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Run local ATO benchmark, Payday Super and limited Division 7A checks, 7 bounded tax worksheets and optional Markdown search. Includes scope and setup.
+> Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.9 has 9 worksheets. Includes scope and setup.
 
 # Australian tax MCP server: Aus Accounting MCP
 
-aus-accounting-mcp runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
+Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting checks through the Model Context Protocol. It covers ATO benchmarks, Payday Super timing, limited Division 7A review and 7 bounded tax worksheets. It can also search a Markdown folder you configure. Outputs need human review.
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.9, verified on GitHub and PyPI on 25 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide's v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.2.9, verified on GitHub and PyPI on 26 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide's v0.2.8 worked example.
 
-Published 25 August 2026. Last reviewed 25 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
+Published 25 August 2026. Last reviewed 26 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3549,7 +3549,7 @@ Not tax, legal or financial advice, and using it creates no professional relatio
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review, 7 bounded tax worksheets and optional search of a configured Markdown library. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide's v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 

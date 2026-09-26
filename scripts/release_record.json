@@ -20,7 +20,7 @@
       "published": {
         "version": "0.2.9",
         "released_utc": "2026-09-24T14:44:47Z",
-        "verified": "2026-09-25",
+        "verified": "2026-09-26",
         "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
@@ -52,7 +52,7 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub and PyPI publish 0.2.9. On 25 September 2026 the MCP registry still reports 0.2.8 as active and latest; live verification must continue to report that drift.",
+        "GitHub, PyPI and the MCP registry publish 0.2.9. Verified on 26 September 2026; the registry marks it active and latest.",
         "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.9."
       ]
     },

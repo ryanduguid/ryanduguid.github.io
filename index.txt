@@ -12,7 +12,7 @@ Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 25 September 2026.
+Last reviewed 26 September 2026.
 
 ## Compare profit with cash flow
 
