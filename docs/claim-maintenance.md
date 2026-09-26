@@ -1,5 +1,14 @@
 # Claim maintenance
 
+## Review on 27 September 2026
+
+- Engine pin: solomons-sword 0.1.9 was published on 27 September 2026. It adds the deed
+  deadline and streaming-use facts to trust resolutions, refuses trust capital gains and
+  franked dividends whether or not they are streamed, and moves section 100A zoning onto
+  PCG 2022/2's own scenarios. The trust distribution page pins its section 99B worked
+  example to 0.1.9; the command and its refusal were rerun from PyPI and the figures are
+  unchanged. The page's Division 6E wording follows the new refusal.
+
 ## Review on 26 September 2026
 
 - Engine pins: solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2
