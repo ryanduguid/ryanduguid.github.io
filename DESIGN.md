@@ -733,7 +733,7 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 The following whole-file values are protected after normalising only platform line endings:
 
 - `llms.txt`: SHA-256 `EA9CD2DCA5C071C80ADC30FA8EE49451E85D793A4D412D4F60D68675B7A60E0E`
-- `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
+- `robots.txt`: SHA-256 `730880181CD8BCC72A810CBE64675104CB7AD95C2FE8BECC5B05B4DA6CC0708B`
 - `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
 
 Rate main text is protected by a semantic visible-text digest so shared head and

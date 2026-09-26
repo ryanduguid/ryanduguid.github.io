@@ -3,41 +3,58 @@
 # The named closed-lab and other training crawlers below remain blocked.
 # Unnamed agents must not silently redefine this policy; named rows state the intended treatment.
 # Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.
+# Content-Signal in each allowed group permits search and AI input; training stays with the named rows, so ai-train is not stated.
 # Canonical machine index: https://duguid.com.au/llms.txt
 # Full page text: https://duguid.com.au/llms-full.txt
 User-agent: *
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 User-agent: Googlebot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Bingbot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: OAI-SearchBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: ChatGPT-User
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Claude-User
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Claude-Search
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Claude-SearchBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: PerplexityBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Applebot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: YouBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: anthropic-ai
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Claude-Web
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Google-Extended
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 User-agent: CCBot
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 User-agent: Bytespider
+Content-Signal: search=yes, ai-input=yes
 Allow: /
 
 User-agent: GPTBot
