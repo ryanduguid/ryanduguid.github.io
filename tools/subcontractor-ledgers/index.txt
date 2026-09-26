@@ -10,7 +10,7 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 21 September 2026.
+Published 24 August 2026. Last reviewed 27 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -38,7 +38,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 61 skills; no fresh model evaluation covers all 42 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 62 skills; no fresh model evaluation covers all 43 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 

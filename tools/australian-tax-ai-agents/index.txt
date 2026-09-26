@@ -12,7 +12,7 @@ Reference release v0.2.8. This guide and its worked example describe that releas
 
 The current published release is aus-accounting-mcp/v0.2.9, verified on GitHub and PyPI on 26 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide’s v0.2.8 worked example.
 
-Published 25 August 2026. Last reviewed 26 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
+Published 25 August 2026. Last reviewed 27 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -107,7 +107,7 @@ Clone once per project. To repeat or retry from that directory, rerun only the c
 
 Development installation
 
-As at 25 September 2026, the default branch contains 61 workflows preparing v0.3.0. This command installs that development inventory.
+As at 27 September 2026, the default branch contains 62 workflows preparing v0.3.0. This command installs that development inventory.
 
 ```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
