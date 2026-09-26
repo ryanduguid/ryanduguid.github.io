@@ -55,6 +55,18 @@ test('question search finds abbreviations and words in the guidance', async ({ p
   expect(requests.some(url => url.endsWith('/assets/business-calculators.mjs'))).toBe(false);
 });
 
+test('a cached older script still leaves Clear filters usable', async ({ page }) => {
+  // Cloudflare can serve the previous module with new HTML; that module only
+  // enabled the controls, so the markup must not disable the button itself.
+  await page.route('**/assets/accounting-pages.mjs', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: "document.querySelector('.question-controls fieldset').disabled = false;",
+  }));
+  await page.goto('/tools/accounting-questions/gst-bas/');
+  await page.getByText('Search or build a checklist').click();
+  await expect(page.getByRole('button', { name: 'Clear filters' })).toBeEnabled();
+});
+
 test('the questions hub links every question to its topic page', async ({ page }) => {
   await page.goto('/tools/accounting-questions/');
   await expect(page.locator('ol.question-index li')).toHaveCount(100);

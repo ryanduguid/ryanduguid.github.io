@@ -28,6 +28,8 @@ if (questions.length) {
   const tools = document.querySelector('.question-tools');
   const clearFilters = document.querySelector('#clear-filters');
   document.querySelector('.question-controls fieldset').disabled = false;
+  // The script owns this state, so a cached older copy of it still leaves the button usable.
+  clearFilters.disabled = !search.value;
   // A saved search opens the tools so the filter that hid questions is in view.
   if (search.value) tools.open = true;
   document.querySelectorAll('.question-select').forEach(node => { node.hidden = false; });
