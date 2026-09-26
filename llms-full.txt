@@ -1252,6 +1252,7 @@ Published 20 September 2026. ATO summary and reform provisions reviewed 22 Septe
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - $1,000 instant tax deduction for work-related expenses: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/standard-deduction-for-work-related-expenses
+- Tax loss carry-back: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back
 - Download the three tables as CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
 - rates register’s: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
 - Source and contact: https://github.com/ryanduguid
