@@ -135,7 +135,7 @@ function casual(pay, reportingMonth) {
   // Refusing anyway produced a 400 whose stated reason, that the levy cannot
   // be calculated until both are established, was untrue for those inputs.
   const unresolved = [];
-  if (pay.instrumentSpecifiesLoading === 'unknown') {
+  if (pay.instrumentSpecifiesLoading === 'unknown' && pay.loadingQuantifiable !== false) {
     unresolved.push(['instrumentSpecifiesLoading', 'pay.instrument_specifies_loading']);
   } else if (pay.instrumentSpecifiesLoading === true && pay.loadingQuantifiable === 'unknown') {
     unresolved.push(['loadingQuantifiable', 'pay.loading_quantifiable']);

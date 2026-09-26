@@ -118,3 +118,33 @@ test('casual salary sacrifice grosses onto the component the branch reads', () =
   assert.equal(b.body.eligible_wages, '2350.00');
   assert.equal(b.body.workings.salary_sacrifice_grossed_onto, 'pay.ordinary_rate_of_pay');
 });
+
+test('an unknown loading answer does not block a branch a false fact has already settled', () => {
+  // s 3B(3)(a) needs a specified AND a quantifiable loading, so a known false
+  // on either side fixes the branch at s 3B(3)(b) whatever the other answer is.
+  // Only an unknown that can still flip the branch may refuse.
+  const settled = run({
+    reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },
+    pay: { instrument_specifies_loading: 'unknown', loading_quantifiable: false, base_rate_of_pay: '0.00', casual_loading: '0.00', ordinary_rate_of_pay: '2250.00', salary_sacrificed: '0.00', bonuses: [] },
+  });
+  assert.equal(settled.status, 200, JSON.stringify(settled.body));
+  assert.equal(settled.body.branch.code, 's 3B(3)(b)');
+  assert.equal(settled.body.eligible_wages, '2250.00');
+
+  const mirror = run({
+    reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },
+    pay: { instrument_specifies_loading: false, loading_quantifiable: 'unknown', base_rate_of_pay: '0.00', casual_loading: '0.00', ordinary_rate_of_pay: '2250.00', salary_sacrificed: '0.00', bonuses: [] },
+  });
+  assert.equal(mirror.status, 200, JSON.stringify(mirror.body));
+  assert.equal(mirror.body.branch.code, 's 3B(3)(b)');
+
+  for (const loadingQuantifiable of ['unknown', true]) {
+    const open = run({
+      reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },
+      pay: { instrument_specifies_loading: 'unknown', loading_quantifiable: loadingQuantifiable, base_rate_of_pay: '1800.00', casual_loading: '450.00', ordinary_rate_of_pay: '0.00', salary_sacrificed: '0.00', bonuses: [] },
+    });
+    assert.equal(open.status, 400, JSON.stringify(open.body));
+    assert.equal(open.body.refusal_class, 'insufficient_facts');
+    assert.equal(open.body.field, 'pay.instrument_specifies_loading');
+  }
+});
