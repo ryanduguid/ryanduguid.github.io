@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 September 2026 | The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.
 26 September 2026 | The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.
 26 September 2026 | A live check of every page led to these fixes: calculators and question topics open on their inputs and questions, the phone header scrolls away with the page, reading lines are shorter, standalone links are 44px tall on phones, the cash flow example’s tables fit a phone and each evaluation opens with its result. The review gate keeps one name, page dates read in sentence case, apostrophes are typographic and the investments topic is renamed Investments and NSW.
 25 September 2026 | The MCP guide names published release 0.2.9 and its two added worksheets, while retaining the v0.2.8 worked example. The release freshness check accepts historical entries when the current release is also listed.
@@ -46,6 +47,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+27 September 2026 | Trust distribution checks | solomons-sword/v0.1.9
 26 September 2026 | Trust distribution checks | solomons-sword/v0.1.8
 26 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.7
 26 September 2026 | Construction WIP schedule | the-wip-tally/v0.1.2
@@ -64,11 +66,12 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 26 September 2026.
+Published 30 August 2026. Last reviewed 27 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
 - solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2

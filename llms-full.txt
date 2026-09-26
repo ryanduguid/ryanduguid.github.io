@@ -2847,15 +2847,15 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.8, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install solomons-sword fetches.
+Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install solomons-sword fetches.
 
-Published 24 August 2026. Last reviewed 26 September 2026.
+Published 24 August 2026. Last reviewed 27 September 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
 
 The white zone, for income years ending before 1 July 2014, is out of scope because the tool does not take an income year. Division 6 shares follow the High Court’s decision in Bamford.
 
-Where the tool does not implement a rule, such as streamed capital gains and franked dividends under the Division 6E carve-out, it refuses the input rather than returning a number it cannot stand behind.
+Where the tool does not implement a rule, such as trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out, it refuses the input rather than returning a number it cannot stand behind.
 
 ## What this tool does
 
@@ -2868,7 +2868,7 @@ Where the tool does not implement a rule, such as streamed capital gains and fra
 Needs Python 3.10 or later. Install the reference release in your Python environment.
 
 ```
-python -m pip install "solomons-sword==0.1.8"
+python -m pip install "solomons-sword==0.1.9"
 ```
 
 Published package and release instructions.
@@ -2877,13 +2877,13 @@ Published package and release instructions.
 
 With uv installed, run this pinned package directly. No clone or input file is needed.
 
-This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with --resident-during-year because release 0.1.8 refuses a run that states neither residency flag.
+This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with --resident-during-year because release 0.1.9 refuses a run that states neither residency flag.
 
 ```
-uvx --from solomons-sword==0.1.8 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
+uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year
 ```
 
-Selected output from release 0.1.8, verified on 26 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.
+Selected output from release 0.1.9, verified on 27 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.
 
 ```
 Gross Receipt:           $150,000.00
@@ -2925,7 +2925,7 @@ Proportionately, following the High Court’s decision in Bamford: a beneficiary
 
 ### What will this tool refuse to calculate?
 
-Anything it does not implement, including streamed capital gains and franked dividends under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind.
+Anything it does not implement, including trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind.
 
 ## Related
 
@@ -2939,10 +2939,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
+- solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
-- Published package: https://pypi.org/project/solomons-sword/0.1.8/
-- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.8/packages/solomons-sword/README.md#quickstart
+- Published package: https://pypi.org/project/solomons-sword/0.1.9/
+- release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
 - uv installed: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - Income Tax Assessment Act 1936: https://www.legislation.gov.au/C1936A00027/latest/text
@@ -3768,6 +3768,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 September 2026 | The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.
 26 September 2026 | The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.
 26 September 2026 | A live check of every page led to these fixes: calculators and question topics open on their inputs and questions, the phone header scrolls away with the page, reading lines are shorter, standalone links are 44px tall on phones, the cash flow example’s tables fit a phone and each evaluation opens with its result. The review gate keeps one name, page dates read in sentence case, apostrophes are typographic and the investments topic is renamed Investments and NSW.
 25 September 2026 | The MCP guide names published release 0.2.9 and its two added worksheets, while retaining the v0.2.8 worked example. The release freshness check accepts historical entries when the current release is also listed.
@@ -3801,6 +3802,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+27 September 2026 | Trust distribution checks | solomons-sword/v0.1.9
 26 September 2026 | Trust distribution checks | solomons-sword/v0.1.8
 26 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.7
 26 September 2026 | Construction WIP schedule | the-wip-tally/v0.1.2
@@ -3819,11 +3821,12 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 26 September 2026.
+Published 30 August 2026. Last reviewed 27 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
 - solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
