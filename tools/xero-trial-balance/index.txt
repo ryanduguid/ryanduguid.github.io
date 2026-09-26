@@ -6,20 +6,20 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 # How to export a Xero trial balance to CSV that balances
 
-This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
 Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is xero-trial-balance-export/v0.1.11.
 
 Published 24 August 2026. Last reviewed 26 September 2026.
 
-This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
+This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
-Before anything is written to disk, it runs a balance check: both the current month's movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero's Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
+Before anything is written to disk, it runs a balance check: both the current month’s movement and the year-to-date figures must balance, or no file is written. One limit: --date is an as-at date, not a range. Xero’s Trial Balance endpoint accepts only a date, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range: the current month.
 
 ## What this tool does
 
-- Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without clean-up.
-- Refuses to write a file unless both the month's movement and the year-to-date figures balance.
+- Pulls a trial balance from Xero’s own reporting API into a tidy CSV that Power BI, Excel or pandas loads without clean-up.
+- Refuses to write a file unless both the month’s movement and the year-to-date figures balance.
 
 Related work: XeroAPI accepted my correction to its command-line report flags. It maps --standard-layout and --payments-only to the matching SDK parameters for balance sheet and profit and loss reports. That contribution concerns a separate tool; it does not validate this exporter. Read the accepted-work record.
 
@@ -31,7 +31,7 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.10 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero's free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.10 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -57,7 +57,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 
 Reproduce the Xero trial balance integrity evaluation
 
-These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and synthetic account rows. They do not contain a live organisation's data.
+These release xero-trial-balance-export/v0.1.6 tests use mocked Xero API behaviour and synthetic account rows. They do not contain a live organisation’s data.
 
 Outcome | Synthetic facts | Test-backed result
 Balanced, CSV written | Business Bank Account (090) has a $1,200.00 movement debit and $15,234.50 YTD debit. Trade Debtors (610) has equal credits. | Both pairs balance and the exact expected CSV bytes are written.
@@ -71,7 +71,7 @@ The tool remains read-only and cannot write to a ledger. Its output is a review 
 
 ### Can it export a trial balance for a date range?
 
-No. Xero's Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month.
+No. Xero’s Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month.
 
 ### Can this tool change my Xero data?
 
@@ -79,7 +79,7 @@ No. It requests the accounting.reports.trialbalance.read scope, which is read-on
 
 ### What happens if the trial balance does not balance?
 
-No file is written. The balance check runs before anything reaches disk, and both the month's movement and the year-to-date figures have to balance for the export to proceed.
+No file is written. The balance check runs before anything reaches disk, and both the month’s movement and the year-to-date figures have to balance for the export to proceed.
 
 ## Related
 

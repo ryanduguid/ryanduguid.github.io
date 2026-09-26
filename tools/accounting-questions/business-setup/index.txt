@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
-> Ten questions on starting a business for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on starting a business for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Starting a business
 
-Practical steps, records and official guidance on starting a business. Select questions to build a checklist.
+Practical steps, records and official guidance on starting a business.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the entity, activity and income year being assessed. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Starting a business
 
@@ -28,13 +26,11 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ## Starting a business
 
-Reviewed 11 September 2026. Use the entity, activity and income year being assessed.
-
 21.
 
 ### Do I need an ABN for freelance or contracting work?
 
-ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.
+ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.
 
 - Record the work arrangement, independence, activity and evidence that the enterprise has started.
 - Read the ABR entitlement guidance before applying.
@@ -124,12 +120,12 @@ Link to question 26
 
 ### How do I pay myself and record drawings as a sole trader?
 
-Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.
+Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.
 
-- Record the transfer against drawings or the owner's equity account in your agreed chart.
+- Record the transfer against drawings or the owner’s equity account in your agreed chart.
 - Keep drawings visible in the cash forecast so the business can meet upcoming obligations.
 
-A sole trader's drawings do not set the amount of taxable business profit.
+A sole trader’s drawings do not set the amount of taxable business profit.
 
 Starting, registering or closing a business · 13-week cash forecast
 
@@ -184,6 +180,10 @@ The bold answer was checked on 24 September 2026.
 
 Link to question 30
 
+Reviewed 11 September 2026. Use the entity, activity and income year being assessed. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - GST and BAS
@@ -192,7 +192,7 @@ Link to question 30
 - Cash flow
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -200,7 +200,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
 - Link to question 21: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
 - Link to question 22: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
@@ -217,6 +216,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
 - Non-commercial losses: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss
 - Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
@@ -225,4 +225,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

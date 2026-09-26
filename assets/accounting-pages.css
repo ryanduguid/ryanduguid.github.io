@@ -59,6 +59,28 @@
   margin-bottom: var(--space-3);
 }
 
+/* The questions come first, so the tools and the group heading sit close to the header. */
+.question-controls.question-tools {
+  margin-block: var(--space-3) 0;
+  padding-top: var(--space-2);
+}
+
+.question-tools ~ .question-group {
+  margin-top: var(--space-5);
+}
+
+.question-tools > summary {
+  display: list-item;
+  min-height: 2.75rem;
+  padding-block: var(--space-3);
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.byline p + p {
+  margin-top: var(--space-3);
+}
+
 .accounting-actions {
   display: flex;
   flex-wrap: wrap;

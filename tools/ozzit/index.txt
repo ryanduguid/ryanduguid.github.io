@@ -1,10 +1,10 @@
-# Ozzit: Excel LAMBDA functions for Australian financial modelling
+# Ozzit: Excel LAMBDA functions for Australian modelling
 
 Source: https://duguid.com.au/tools/ozzit/
 
 > A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
 
-# Ozzit: Excel LAMBDA functions for Australian financial modelling
+# Ozzit: Excel LAMBDA functions for Australian modelling
 
 133 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
 
@@ -14,7 +14,7 @@ XLSX, 439,097 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or ma
 
 Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 25 September 2026.
+Published 18 September 2026. Last reviewed 26 September 2026.
 
 ## Extract GST from $1,100
 
@@ -34,7 +34,7 @@ The reviewer decides whether the supply is taxable and a credit can be claimed. 
 
 An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
 
-The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository's src/ folder and indexed in functions.csv.
+The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
 
 The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
 
@@ -228,7 +228,7 @@ Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter
 
 The result is 100.00. Check: 1100 / 11 = 100.00.
 
-That is the whole of the function's contribution: 10% arithmetic on an amount you supply.
+That is the whole of the function’s contribution: 10% arithmetic on an amount you supply.
 
 Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
 
@@ -242,14 +242,14 @@ Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 - Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook's name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.2 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.2 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
 Release v3.4.2 was built from a signed tag and gated before publication. On 20 September 2026, in Excel 16.0 build 20430:
 
 - 1,129 formulas recalculated with 0 in error.
-- 905 assertions ran with 0 failures: 603 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook's own help.
+- 905 assertions ran with 0 failures: 603 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook’s own help.
 - 19,444 cached values were confirmed to equal what their formulas produce.
 - 246 unit tests passed, and the published formula source reproduced all 138 named formulas.
 
@@ -263,8 +263,8 @@ Not tax, legal or financial advice. The functions calculate; a person decides th
 - oz.PrimeCostλ and oz.DiminishingValueλ are modelling schedules. They are not ATO Division 40 methods and they do not implement immediate write-off or low-value pools.
 - The AASB 16 functions are lessee arithmetic. They do not decide the lease term, what counts as a lease payment or whether an arrangement contains a lease, and they do not cover lessor accounting or the short-term and low-value exemptions.
 - The library contains no individual income tax, Medicare levy, Division 7A interest or tax rate cards.
-- The 13-week cash flow workbook in the repository's templates folder is a separate template, not a function in this library.
-- Known defects are listed in the repository's changelog and issues. Check a schedule against an independent calculation before relying on it.
+- The 13-week cash flow workbook in the repository’s templates folder is a separate template, not a function in this library.
+- Known defects are listed in the repository’s changelog and issues. Check a schedule against an independent calculation before relying on it.
 
 ## Common questions
 
@@ -282,7 +282,7 @@ No. It performs 10% GST arithmetic and labels Australian financial years, and it
 
 ### Where do I get the current release?
 
-Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file's SHA-256 with the published value before use.
+Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use.
 
 ## Related
 

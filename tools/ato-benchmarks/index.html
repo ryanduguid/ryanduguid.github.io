@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>How does this business compare to ATO benchmarks?</title>
-  <meta name="description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="How does this business compare to ATO benchmarks?" />
-  <meta property="og:description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta property="og:description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
-  <meta name="twitter:description" content="Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="twitter:description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,7 +56,7 @@
     </nav>
     <h1>How does this business compare to the ATO small business benchmarks?</h1>
     <p class="lead-note">
-      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
     </p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9">ato-benchmark-compare/v0.1.9</a>.</p>
     <p class="page-meta">Published 24 August 2026. Last reviewed 24 September 2026.</p>
@@ -80,7 +80,7 @@
     <p>
       This tool does that on your own machine, with no network call in the
       runtime, and it records which account went into which figure so a second
-      reviewer can check your working later. It applies the ATO's own narrow
+      reviewer can check your working later. It applies the ATO’s own narrow
       definitions rather than a rough 'expenses over income': wages sitting
       inside cost of sales come out of that ratio, and payments to associated
       persons come out of total expenses before the division.
@@ -94,9 +94,9 @@
     <section id="what-this-tool-does">
     <h2>What this tool does</h2>
     <ul>
-      <li>Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.</li>
-      <li>Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
-      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.</li>
+      <li>Reads a profit and loss and maps each account to the ATO’s benchmark categories, with a person reviewing that mapping before anything is compared.</li>
+      <li>Applies the ATO’s own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.</li>
+      <li>Prints the figures behind each ratio and shows whether it sits inside or outside the ATO’s published range.</li>
     </ul>
     </section>
     <section id="worked-example">
@@ -133,7 +133,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .</code></pre>
-    <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
+    <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>
     <p>One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it <code>not_supplied</code>. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads <code>not_supplied</code> on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See <a href="/tools/limitations/">Known limitations</a>.</p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/australian-accounting/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=ATO%20benchmark%20comparison">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
@@ -148,7 +148,7 @@ pip install .</code></pre>
       <h3>Does this tool send my client data anywhere?</h3>
       <p>No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later.</p>
       <h3>Why does a person have to review the account mapping?</h3>
-      <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
+      <p>Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.</p>
     </div>
     </section>
     <section id="related">
@@ -179,7 +179,7 @@ pip install .</code></pre>
         "@id": "https://duguid.com.au/tools/ato-benchmarks/#webpage",
         "url": "https://duguid.com.au/tools/ato-benchmarks/",
         "name": "How does this business compare to ATO benchmarks?",
-        "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
+        "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
         "dateModified": "2026-09-24",
@@ -231,7 +231,7 @@ pip install .</code></pre>
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "ATO small business benchmark comparison tool",
-        "description": "Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.",
+        "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Windows, macOS, Linux",
         "url": "https://duguid.com.au/tools/ato-benchmarks/",
@@ -285,7 +285,7 @@ pip install .</code></pre>
             "name": "Why does a person have to review the account mapping?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared."
+              "text": "Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared."
             }
           }
         ]

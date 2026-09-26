@@ -2,25 +2,15 @@
 
 Source: https://duguid.com.au/tools/business-calculators/margin/
 
-> Work out gross profit, margin and markup from sales and direct cost in your browser, on a consistent GST basis. A zero denominator leaves that percentage undefined.
+> Gross profit, margin and markup from sales and direct cost in your browser, on a consistent GST basis. A zero denominator leaves that percentage undefined.
 
 # Margin and markup calculator
 
 Gross profit, margin and markup from sales and direct cost, on a consistent GST basis and matching period.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Published 20 September 2026. Last reviewed 21 September 2026.
+Published 20 September 2026. Last reviewed 26 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-## Margin and markup
-
-Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
-
-business.gov.au: pricing
 
 Margin and markup inputs
 
@@ -28,9 +18,19 @@ Sales (AUD) Direct cost (AUD)
 
 Calculate Enter the inputs and calculate.
 
+## How it works
+
+Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Markup = gross profit / direct cost × 100. Use a consistent GST basis and matching period. A zero denominator leaves that percentage undefined.
+
+business.gov.au: pricing
+
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
 - business.gov.au: pricing: https://business.gov.au/products-and-services/pricing
+- nine business calculators: https://duguid.com.au/tools/business-calculators/

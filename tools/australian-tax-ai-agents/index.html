@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -62,7 +62,7 @@
       search a Markdown folder you configure. Outputs need human review.
     </p>
     <p class="release-meta">Reference release v0.2.8. This guide and its worked example describe that release. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8">Tagged source and release record on GitHub</a>.</p>
-    <p>The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9">aus-accounting-mcp/v0.2.9</a>, verified on GitHub and PyPI on 26 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide's v0.2.8 worked example.</p>
+    <p>The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.9">aus-accounting-mcp/v0.2.9</a>, verified on GitHub and PyPI on 26 September 2026. It adds contribution cap and account-based pension minimum worksheets, bringing the total to 9. Those additions are outside this guide’s v0.2.8 worked example.</p>
     <p class="page-meta">Published 25 August 2026. Last reviewed 26 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.</p>
       </header>
       <div class="article-layout site-shell">
@@ -152,20 +152,20 @@
       The MCP server does not reimplement the law.
     </p>
     <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md#supported-periods">worksheet scope and periods</a> are fixed by australian-tax-calculators 0.1.5, the engine reference release 0.2.8 pins. Resident basic tax covers full-year resident ordinary income for 2024-25, 2025-26 and 2026-27, before offsets and levies. GST, CGT, depreciation and quarterly SG cover bounded 2025-26 cases; FBT covers the year ended 31 March 2026. The quarterly SG worksheet does not calculate post-June 2026 Payday Super entitlements. PAYG withholding covers one regular weekly, fortnightly or monthly pay from 1 July 2026 on Schedule 1 scale 1, 2, 3, 5 or 6, before tax offsets and Medicare levy adjustments.</p>
-    <p>Read <code>aus-accounting://scope</code> before confirming worksheet inputs. Keep the exclusions returned with each result. The <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/README.md#tools">release instructions</a> also explain optional local library setup. Any retrieved excerpts enter the calling assistant's context.</p>
+    <p>Read <code>aus-accounting://scope</code> before confirming worksheet inputs. Keep the exclusions returned with each result. The <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.2.8/apps/aus-accounting-mcp/README.md#tools">release instructions</a> also explain optional local library setup. Any retrieved excerpts enter the calling assistant’s context.</p>
 
     </section>
     <section id="primary-sources">
     <h2>Primary sources</h2>
-    <p>Payday Super timing draws on the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a> and <a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Australian Taxation Office, LCR 2026/2</a>. Benchmark comparisons use the ATO's <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>. The limited Division 7A review applies sections 109N and 109E of the <a href="https://www.legislation.gov.au/C1936A00027/latest/text"><em>Income Tax Assessment Act 1936</em></a>.</p>
-    <p>Each engine's source review and release record state what was checked. Verify current sources and the supplied facts before using an output.</p>
+    <p>Payday Super timing draws on the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a> and <a href="https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001">Australian Taxation Office, LCR 2026/2</a>. Benchmark comparisons use the ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>. The limited Division 7A review applies sections 109N and 109E of the <a href="https://www.legislation.gov.au/C1936A00027/latest/text"><em>Income Tax Assessment Act 1936</em></a>.</p>
+    <p>Each engine’s source review and release record state what was checked. Verify current sources and the supplied facts before using an output.</p>
     </section>
     <section id="try-example">
     <h2>Try two synthetic tool calls</h2>
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run the published demonstration without configuring an AI client:</p>
     <pre tabindex="0" role="region" aria-label="Pinned MCP demonstration command"><code>uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo</code></pre>
-    <p>Expected: exit 0 and a JSON transcript containing <code>generate_synthetic_sbr_fixture</code> and <code>review_div7a_loan</code>. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent's behaviour.</p>
-    <p>The transcript's first line shows the source-checkout command, <code>uv run --locked aus-accounting-mcp-demo</code>. The command above runs the published 0.2.8 package. Its full output includes the engine's caveats; retain those with any extracted result.</p>
+    <p>Expected: exit 0 and a JSON transcript containing <code>generate_synthetic_sbr_fixture</code> and <code>review_div7a_loan</code>. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent’s behaviour.</p>
+    <p>The transcript’s first line shows the source-checkout command, <code>uv run --locked aus-accounting-mcp-demo</code>. The command above runs the published 0.2.8 package. Its full output includes the engine’s caveats; retain those with any extracted result.</p>
     </section>
     <section id="install" class="install-panel">
     <h2>Adopt</h2>
@@ -176,7 +176,7 @@
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-none" checked="checked" />
         <label class="adopt-tab" for="adopt-none">No install</label>
         <div class="adopt-panel">
-          <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fictional figures. Nothing to install, and this site's code does not send the figures you enter to a server.</p>
+          <p>Open the <a href="/tools/coal-lsl-levy/">browser calculator</a> with fictional figures. Nothing to install, and this site’s code does not send the figures you enter to a server.</p>
           <p>Open the <a href="/examples/profit-vs-cash-flow/">synthetic Excel forecast</a> in desktop Excel, or send a <a href="/evaluate/">reproducible evaluation</a> to whoever manages your systems.</p>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
@@ -201,7 +201,7 @@
 <span class="cmd">git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release</span>
 <span class="cmd">git -C accounting-skills-release checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827</span>
 <span class="cmd">npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy</span></code></pre>
-          <p>This copies the released skills into the current project's Codex and Claude Code directories. An agent runtime is still required.</p>
+          <p>This copies the released skills into the current project’s Codex and Claude Code directories. An agent runtime is still required.</p>
           <p>Clone once per project. To repeat or retry from that directory, rerun only the checkout and install commands.</p>
           <details>
             <summary>Development installation</summary>
@@ -218,7 +218,7 @@
 <span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
 <span class="cmd">cd github-agent-skills</span>
 <span class="cmd">python scripts/validate_skills.py --strict</span></code></pre>
-          <p>A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy <code>.claude/skills/</code> for Claude Code or <code>.agents/skills/</code> for Codex into that project's matching directory.</p>
+          <p>A fresh clone includes both runtime copies and needs no synchronisation. For another project, copy <code>.claude/skills/</code> for Claude Code or <code>.agents/skills/</code> for Codex into that project’s matching directory.</p>
         </div>
       </div>
     </div>
@@ -235,10 +235,10 @@
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp">Source on GitHub</a>,
-      <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI</a> and
+      <a href="https://pypi.org/project/aus-accounting-mcp/">PyPI<span class="visually-hidden">, aus-accounting-mcp</span></a> and
       <a href="https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest">registry record</a>.
       payday-super-checker is already on
-      <a href="https://pypi.org/project/payday-super-checker/">PyPI</a>.
+      <a href="https://pypi.org/project/payday-super-checker/">PyPI<span class="visually-hidden">, payday-super-checker</span></a>.
       The official Model Context Protocol registry lists this server as
       <code>io.github.ryanduguid/aus-accounting</code>.
     </p>
@@ -247,7 +247,7 @@
     </section>
     <section id="limits">
     <h2>Limits</h2>
-    <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.</p>
+    <p>The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host’s model provider. Check the host’s configuration and data handling before supplying information.</p>
             <p>The optional <a href="https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter">LodgeiT calculator adapter</a> is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. <a href="/privacy/">Website hosting and browser data handling</a> have their own boundaries.</p>
     <p>Published MCP 0.2.8 pins Payday Super Checker 0.1.7. A timely receipt date without an amount remains <code>UNKNOWN</code>; a late receipt without an amount cannot reduce the shortfall. Older MCP 0.2.4 pins checker 0.1.6 and retains its full-receipt assumption. <a href="/tools/payday-super/#receipt-amount">Review the version-specific receipt rules</a> before interpreting a result.</p>
     <blockquote>
@@ -255,7 +255,7 @@
         Not tax, legal or financial advice, and using it creates no professional
         relationship. The tools calculate and refuse. Professional judgement
         and lodgement stay human. Tool results and any local library excerpts
-        enter the calling assistant's context.
+        enter the calling assistant’s context.
         Public fixtures use synthetic data only.
       </p>
     </blockquote>
@@ -265,9 +265,9 @@
     <h2>Common questions</h2>
     <div class="faq">
       <h3>What is aus-accounting-mcp?</h3>
-      <p>A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide's v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review.</p>
+      <p>A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review.</p>
       <h3>Is aus-accounting-mcp a hosted ATO document library?</h3>
-      <p>No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context.</p>
+      <p>No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant’s context.</p>
       <h3>Does it calculate Division 7A repayments?</h3>
       <p>It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.</p>
       <h3>Does it lodge with the ATO?</h3>
@@ -371,7 +371,7 @@
         "@id": "https://duguid.com.au/tools/australian-tax-ai-agents/#software",
         "name": "Aus Accounting MCP",
         "alternateName": "aus-accounting-mcp",
-        "description": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide's v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review.",
+        "description": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Linux, macOS, Windows",
         "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
@@ -400,12 +400,12 @@
           {
             "@type": "Question",
             "name": "What is aus-accounting-mcp?",
-            "acceptedAnswer": { "@type": "Answer", "text": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide's v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review." }
+            "acceptedAnswer": { "@type": "Answer", "text": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.9 has 9. Outputs need human review." }
           },
           {
             "@type": "Question",
             "name": "Is aus-accounting-mcp a hosted ATO document library?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant's context." }
+            "acceptedAnswer": { "@type": "Answer", "text": "No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant’s context." }
           },
           {
             "@type": "Question",

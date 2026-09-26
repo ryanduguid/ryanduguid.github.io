@@ -12,7 +12,7 @@ Open the business calculators or try the fictional Newcastle cash flow workbook.
 
 The questions are grouped by topic, not ranked by search volume. Tax guidance must match your year and circumstances.
 
-Editorial review: 11 September 2026. Last reviewed 24 September 2026.
+Editorial review: 11 September 2026. Last reviewed 26 September 2026.
 
 ## Tax returns
 
@@ -79,12 +79,12 @@ Reviewed 11 September 2026. Use the BAS period, GST accounting basis and account
 Reviewed 11 September 2026. Use the pay date and applicable payroll rules. Super questions distinguish the regime from July 2026.
 
 - How much super must I pay, and which earnings count towards it?
-- By what date must a super contribution reach the employee's fund?
+- By what date must a super contribution reach the employee’s fund?
 - What should I do if a super payment is late, rejected or missing?
 - Do I have to pay super for a contractor who invoices through an ABN?
-- How much PAYG tax should I withhold from an employee's pay?
+- How much PAYG tax should I withhold from an employee’s pay?
 - How do I finalise Single Touch Payroll at year-end?
-- How do I calculate an employee's final pay, including unused leave?
+- How do I calculate an employee’s final pay, including unused leave?
 - When does my business become liable for payroll tax in NSW?
 - Do contractor payments count towards NSW payroll tax?
 - What does an employee cost after super, leave, insurance and other on-costs?
@@ -145,11 +145,11 @@ Reviewed 11 September 2026. Use the entity and relevant income or FBT year; link
 - Which payments count as repayments of a Division 7A loan?
 - What must a family trust document before distributing income at year-end?
 - How do dividends and franking credits affect my tax return?
-- Does providing a company car or paying an employee's private expenses create FBT?
+- Does providing a company car or paying an employee’s private expenses create FBT?
 - What information do I need to prepare an ATO payment plan proposal?
 - Could my related businesses be grouped together for NSW payroll tax?
 
-## Investments and Newcastle
+## Investments and NSW
 
 Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment year.
 
@@ -218,12 +218,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - How do I correct a mistake in a BAS I have already lodged?: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
 - Payroll and super: https://duguid.com.au/tools/accounting-questions/payroll-super/
 - How much super must I pay, and which earnings count towards it?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
-- By what date must a super contribution reach the employee's fund?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- By what date must a super contribution reach the employee’s fund?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
 - What should I do if a super payment is late, rejected or missing?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
 - Do I have to pay super for a contractor who invoices through an ABN?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
-- How much PAYG tax should I withhold from an employee's pay?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
+- How much PAYG tax should I withhold from an employee’s pay?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - How do I finalise Single Touch Payroll at year-end?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
-- How do I calculate an employee's final pay, including unused leave?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
+- How do I calculate an employee’s final pay, including unused leave?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q47
 - When does my business become liable for payroll tax in NSW?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
 - Do contractor payments count towards NSW payroll tax?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
 - What does an employee cost after super, leave, insurance and other on-costs?: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
@@ -268,10 +268,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Which payments count as repayments of a Division 7A loan?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
 - What must a family trust document before distributing income at year-end?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
 - How do dividends and franking credits affect my tax return?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
-- Does providing a company car or paying an employee's private expenses create FBT?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
+- Does providing a company car or paying an employee’s private expenses create FBT?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
 - What information do I need to prepare an ATO payment plan proposal?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
 - Could my related businesses be grouped together for NSW payroll tax?: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/
 - Which expenses can I claim for a rental property?: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
 - Is work on my rental property a repair, an improvement or a depreciating asset?: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
 - How do I work out the capital gain when I sell an investment property?: https://duguid.com.au/tools/accounting-questions/investments-local/#q93

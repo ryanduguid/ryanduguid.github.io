@@ -24,7 +24,7 @@ Lumbridge Services is a fictional maintenance business in Newcastle, NSW. It bil
 
 The owner wants to buy equipment. The quarter shows a profit, so the money looks available. The question is whether the bank account can carry the business to the end of December if one customer pays late.
 
-The model holds every other assumption still. Monthly materials are $12,000 and overhead $6,000. Gross wages are $24,000 a month, with $19,000 paid to employees, $5,000 of PAYG withholding and $2,880 of super. The opening bank balance, receivables, payables, GST, loan and tax instalment all come from fictional 30 September 2026 balances. The owner's policy is to keep $15,000 in the bank.
+The model holds every other assumption still. Monthly materials are $12,000 and overhead $6,000. Gross wages are $24,000 a month, with $19,000 paid to employees, $5,000 of PAYG withholding and $2,880 of super. The opening bank balance, receivables, payables, GST, loan and tax instalment all come from fictional 30 September 2026 balances. The owner’s policy is to keep $15,000 in the bank.
 
 ## The one change: a 45-day delay
 
@@ -36,7 +36,7 @@ The workbook exposes that single control. Assumptions!B2 holds the delay in whol
 
 ## Both cases, side by side
 
-Same work, same customer, different receipt date. All amounts AUD. Scroll sideways on small screens.
+Same work, same customer, different receipt date. All amounts AUD.
 
 Forecast measure | Receipt on time | Receipt 45 days late
 Quarter revenue | $180,000.00 | $180,000.00
@@ -49,7 +49,7 @@ December closing cash | $67,320.00 | $67,320.00
 
 The two cases end the quarter with the same cash because the delayed receipt still arrives, on 28 November. That later recovery cannot pay the wages, supplier invoices and GST that fall due in late October and early November.
 
-Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
+Against the owner’s $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
 
 Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
 
@@ -57,7 +57,7 @@ Weekly closing cash in the late case, exported from the distributed workbook in 
 
 A 15-day delay is enough to put this fictional business below zero for one day. Longer delays can also extend the time below zero without changing the lowest balance. These five runs move only the $44,000 OPEN-V receipt from its original 14 October date.
 
-Daily closing cash at five receipt delays. All amounts AUD; all dates are in 2026. Scroll sideways on small screens.
+Daily closing cash at five receipt delays. All amounts AUD; all dates are in 2026.
 
 Delay in days | Receipt date | Lowest cash | First date at that low | Days below zero
 0 | 14 October | $16,800.00 | 7 October | 0
@@ -78,7 +78,7 @@ Profit is measured on the accrual basis. Lumbridge earned the OPEN-V revenue whe
 
 Cash is measured on the day money moves. The payments the business owes do not wait for a customer. In the late case, October receipts fall from $66,000 to $22,000, while the same $63,960 of payments still leaves the account. Those payments include materials on 7 October, the September-quarter GST of $12,600 and a $3,000 income tax instalment on 28 October, and net wages and super on 28 October.
 
-The model states the bridge between the two. It starts from profit, adds back depreciation of $200 a month and the non-cash leave provision of $2,254.15 a month, adjusts for the movement in gross receivables and the GST liability, then subtracts the $1,000 monthly loan principal and the tax instalment. A separate direct cash schedule ties to that bridge exactly: the model's reconciliation difference is $0.00 in every month of both cases.
+The model states the bridge between the two. It starts from profit, adds back depreciation of $200 a month and the non-cash leave provision of $2,254.15 a month, adjusts for the movement in gross receivables and the GST liability, then subtracts the $1,000 monthly loan principal and the tax instalment. A separate direct cash schedule ties to that bridge exactly: the model’s reconciliation difference is $0.00 in every month of both cases.
 
 Three obligations are still outstanding at 31 December in both cases: $12,600 of GST, $5,000 of PAYG withholding and $13,200 of supplier invoices. The $67,320 closing balance is not spendable surplus.
 
@@ -107,7 +107,7 @@ Only the workbook recalculates. The briefing, the CSV exports and the JSON summa
 
 ## Rebuild it from source
 
-The example lives in the au-fpa-pack repository, an Australian extension of Jeff Brines / Guiderail's openfpa. From a checkout of the captured commit, with Python 3.11 and uv:
+The example lives in the au-fpa-pack repository, an Australian extension of Jeff Brines / Guiderail’s openfpa. From a checkout of the captured commit, with Python 3.11 and uv:
 
 ```
 uv sync --locked --extra dev
@@ -125,7 +125,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 - Source. au-fpa-pack at commit 386c7ff. The example is part of that repository, not of the published au-fpa-pack v0.1.1 distribution, so the commit rather than the release identifies it.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
-- Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository's offline suite passed.
+- Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
 - Maintainer trial. On 14 September 2026 Ryan Duguid reported that the workbook worked in Microsoft 365 Excel, including the 0 to 45 to 0 sequence and saving and reopening. The exact Excel build and individual figures were not recorded in that report.
 
@@ -180,7 +180,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 - Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
-- Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa
+- Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
 - au-fpa-pack v0.1.1: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.1

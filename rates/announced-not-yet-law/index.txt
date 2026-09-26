@@ -8,11 +8,11 @@ Source: https://duguid.com.au/rates/announced-not-yet-law/
 
 Of the 27 selected Budget and MYEFO measures below, the ATO summary lists 14 as TBD and one as Various. It names legislation for the other 12: 3 with later application dates and 9 with earlier dates. These are source-reported categories, not a finding that no draft, bill or instrument exists. Check application and transition rules before using a measure.
 
-Read 22 September 2026 from the ATO's latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
+Read 22 September 2026 from the ATO’s latest news on tax and superannuation law and policy (QC43473, which the ATO last updated 18 September 2026). The status column repeats the ATO summary. TBD alone does not establish whether a consultation draft, bill or instrument exists. Various identifies a package whose components may be at different stages.
 
 ## ATO development status unresolved
 
-An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO's guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. Check the measure's Treasury consultation, parliamentary record and Federal Register entry before assigning a legal status. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
+An announcement does not amend the law. Do not automatically apply a proposal in a current-law calculation. Clearly labelled planning scenarios may model proposed changes. The ATO’s guidance on announced measures explains options and consequences for taxpayers who follow existing law or anticipate a change. Check the measure’s Treasury consultation, parliamentary record and Federal Register entry before assigning a legal status. Fourteen selected rows show TBD; the MYEFO philanthropy package shows Various and needs component-level checking.
 
 Measures with TBD or Various in the ATO summary
 
@@ -73,7 +73,7 @@ Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amen
 Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
 Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
 
-Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure's status against the ATO page before relying on it; the list changes every sitting.
+Download the three tables as CSV. Cite as Duguid, R. (2026). Announced Australian tax measures and enacted law [Data set]. https://duguid.com.au/rates/announced-not-yet-law/. Verify a measure’s status against the ATO page before relying on it; the list changes every sitting.
 
 ## Common questions
 
@@ -85,13 +85,13 @@ Yes. Schedule 4 Part 1 item 17 of the Treasury Laws Amendment (Tax Reform No. 1)
 
 Yes. The negative gearing amendments apply from 2027-28, but an earlier acquisition can affect later treatment. Section 26-155 has a pre-7:30 pm ACT legal time, 12 May 2026 ownership interest exception and a contract date rule. CGT has separate application and transition provisions; do not apply that acquisition cut-off to every CGT asset.
 
-### What does TBD mean on the ATO's list?
+### What does TBD mean on the ATO’s list?
 
 TBD is the development status reported in the ATO summary. That entry alone does not establish whether a consultation draft, bill or instrument exists. Check Treasury, Parliament and the Federal Register for the measure. Various means the package needs component-level checking.
 
 ### How often is this page checked?
 
-At the events in the rates register's review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
+At the events in the rates register’s review cadence: the 1 July rollover, the May Budget, the December MYEFO and each sitting of Parliament, plus any reader report.
 
 General reference only, not tax, legal or financial advice. Statuses repeat the ATO page as at the date above. Check the ATO page and the Federal Register before relying on a measure.
 
@@ -128,7 +128,7 @@ Published 20 September 2026. ATO summary and reform provisions reviewed 22 Septe
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - $1,000 instant tax deduction for work-related expenses: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/standard-deduction-for-work-related-expenses
 - Download the three tables as CSV: https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv
-- rates register's: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
+- rates register’s: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/rates/register/README.md
 - Source and contact: https://github.com/ryanduguid
 - Rates: https://duguid.com.au/rates/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/

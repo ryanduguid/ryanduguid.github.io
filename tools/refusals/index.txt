@@ -28,7 +28,7 @@ examples/bas-blocked | review-ready: BLOCKED; 1 finding(s), exit 2 | TB_UNBALANC
 
 ## Monthly Close Controls
 
-Monthly Close Controls release monthly-close-control-plane/v0.1.3 marks a pack BLOCKED when the current trial balance does not balance. The fixture is the repository's fictional current_trial_balance.csv with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
+Monthly Close Controls release monthly-close-control-plane/v0.1.3 marks a pack BLOCKED when the current trial balance does not balance. The fixture is the repository’s fictional current_trial_balance.csv with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
 
 Control | Status line | Reason | Human step
 trial_balance_integrity | close-control: BLOCKED; 10 exception(s), exit 2 | Current movement totals 47100.00 against 47000.00 and YTD totals 375100.00 against 375000.00 do not balance | Correct or re-export the source trial balance before relying on any review result.
@@ -45,7 +45,7 @@ failing_ytd.csv | WARNING: YTD debits 15,234.50 != credits 15,234.49 (diff 0.01)
 
 ## Payday Super timing
 
-Payday Super timing release payday-super-checker/v0.1.3 returns UNKNOWN rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
+Payday Super timing release payday-super-checker/v0.1.3 returns UNKNOWN rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee’s first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
 
 ```
 employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
@@ -79,7 +79,7 @@ asyncio.run(main())
 ```
 
 Tool | Result | Human step
-refuse_div7a | ok: false, available: false, code: ERR_POLICY_DIV7A_SCOPE_REFUSED, with a reason naming the matters that remain refused: forming amalgamated loans, s 109R repayment classification, unpaid present entitlements, distributable surplus, interposed entities, debt forgiveness and the Commissioner's discretion | The matter goes to a person. The server returns no figure and no view.
+refuse_div7a | ok: false, available: false, code: ERR_POLICY_DIV7A_SCOPE_REFUSED, with a reason naming the matters that remain refused: forming amalgamated loans, s 109R repayment classification, unpaid present entitlements, distributable surplus, interposed entities, debt forgiveness and the Commissioner’s discretion | The matter goes to a person. The server returns no figure and no view.
 
 ## External guide: llm-tax-guardrails (DrDebits)
 
@@ -206,7 +206,7 @@ exit=0
 
 ## Limitations
 
-A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site's evaluations reproduce the passing cases; Evidence and Assurance records the boundaries.
+A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site’s evaluations reproduce the passing cases; Evidence and Assurance records the boundaries.
 
 ## Related
 

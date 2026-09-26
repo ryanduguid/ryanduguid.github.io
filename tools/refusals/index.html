@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -67,11 +67,11 @@
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
           <a href="#fabricated-inputs">Fictional inputs</a>
-          <a href="#workpaper-review-gate">Workpaper Review Gate</a>
+          <a href="#workpaper-review-gate">Workpaper Review Gate<span class="visually-hidden"> refusals</span></a>
           <a href="#monthly-close-controls">Monthly Close Controls</a>
-          <a href="#xero-trial-balance">Xero trial balance CSV export</a>
-          <a href="#payday-super">Payday Super timing</a>
-          <a href="#aus-accounting-mcp">Aus Accounting MCP</a>
+          <a href="#xero-trial-balance">Xero trial balance CSV export<span class="visually-hidden"> refusals</span></a>
+          <a href="#payday-super">Payday Super timing<span class="visually-hidden"> refusals</span></a>
+          <a href="#aus-accounting-mcp">Aus Accounting MCP<span class="visually-hidden"> refusals</span></a>
           <a href="#drdebits">External guide: llm-tax-guardrails</a>
           <a href="#evidence-note">Evidence note</a>
           <a href="#limitations">Limitations</a>
@@ -123,7 +123,7 @@
           <section id="monthly-close-controls">
             <h2>Monthly Close Controls</h2>
             <p>
-              Monthly Close Controls release <code>monthly-close-control-plane/v0.1.3</code> marks a pack <code>BLOCKED</code> when the current trial balance does not balance. The fixture is the repository's <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv">fictional <code>current_trial_balance.csv</code></a> with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
+              Monthly Close Controls release <code>monthly-close-control-plane/v0.1.3</code> marks a pack <code>BLOCKED</code> when the current trial balance does not balance. The fixture is the repository’s <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/monthly-close-control-plane/examples/current_trial_balance.csv">fictional <code>current_trial_balance.csv</code></a> with the Operating Bank debit raised from 15000.00 to 15100.00 and its YTD debit from 120000.00 to 120100.00, so the file is out by 100.00 on both measures.
             </p>
             <div class="table-scroll" role="region" aria-label="Monthly Close Controls refusal" tabindex="0">
             <table class="facts tool-table--wide">
@@ -181,7 +181,7 @@
           <section id="payday-super">
             <h2>Payday Super timing</h2>
             <p>
-              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee's first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
+              <a href="/tools/payday-super/">Payday Super timing</a> release <code>payday-super-checker/v0.1.3</code> returns <code>UNKNOWN</code> rather than a verdict when the supplied facts do not settle the deadline. The fictional file below has one employee’s first contribution to a fund remitted on time but with no fund receipt date, followed by a later payday whose deadline could only be extended if that first contribution were proved received and allocated.
             </p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Fictional payday super fixture"><code>employee_id,payment_date,sg_amount,remitted_date,fund_received_date,first_contribution_to_fund,out_of_cycle,next_standard_payday,defined_benefit
 EMP009,2026-08-06,100.00,2026-08-07,,yes,no,,no
@@ -245,7 +245,7 @@ asyncio.run(main())</code></pre>
               <tbody>
                 <tr>
                   <th scope="row"><a href="https://github.com/ryanduguid/australian-accounting/blob/6c64b76d8aa485aa4dc3ed66849304f6bf400af9/apps/aus-accounting-mcp/aus_accounting_mcp/server.py"><code>refuse_div7a</code></a></th>
-                  <td><code>ok: false</code>, <code>available: false</code>, <code>code: ERR_POLICY_DIV7A_SCOPE_REFUSED</code>, with a reason naming the matters that remain refused: forming amalgamated loans, s 109R repayment classification, unpaid present entitlements, distributable surplus, interposed entities, debt forgiveness and the Commissioner's discretion</td>
+                  <td><code>ok: false</code>, <code>available: false</code>, <code>code: ERR_POLICY_DIV7A_SCOPE_REFUSED</code>, with a reason naming the matters that remain refused: forming amalgamated loans, s 109R repayment classification, unpaid present entitlements, distributable surplus, interposed entities, debt forgiveness and the Commissioner’s discretion</td>
                   <td>The matter goes to a person. The server returns no figure and no view.</td>
                 </tr>
               </tbody>
@@ -427,7 +427,7 @@ exit=0</code></pre>
           <section id="limitations">
             <h2>Limitations</h2>
             <p>
-              A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site's <a href="/evaluate/">evaluations</a> reproduce the passing cases; <a href="/evidence/">Evidence and Assurance</a> records the boundaries.
+              A refusal shows that a configured gate tripped on the supplied input. It does not show that the tool would catch every defective input, that a pack which passes is correct or that any output is advice, approval or a lodgement. The site’s <a href="/evaluate/">evaluations</a> reproduce the passing cases; <a href="/evidence/">Evidence and Assurance</a> records the boundaries.
             </p>
           </section>
 

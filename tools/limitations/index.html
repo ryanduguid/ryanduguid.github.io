@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -125,19 +125,19 @@
               <tbody>
                 <tr>
                   <th scope="row">Trigger</th>
-                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool's general interest charge table, and the run was started with <code>--allow-stale-gic</code>. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.8, pins checker 0.1.7, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The <a href="/tools/payday-super/#workbook-versions">workbook version note</a> records the 0.1.7 correction and verification scope.</td>
+                  <td>Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with <code>--allow-stale-gic</code>. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.8, pins checker 0.1.7, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The <a href="/tools/payday-super/#workbook-versions">workbook version note</a> records the 0.1.7 correction and verification scope.</td>
                 </tr>
                 <tr>
                   <th scope="row">Effect</th>
-                  <td>With the flag, the last known quarterly rate is carried forward, so the notional earnings component under <em>SGAA 1992</em> s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate's <em>uplift component</em> is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.</td>
+                  <td>With the flag, the last known quarterly rate is carried forward, so the notional earnings component under <em>SGAA 1992</em> s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate’s <em>uplift component</em> is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.</td>
                 </tr>
                 <tr>
                   <th scope="row">Unaffected by this rate issue</th>
-                  <td>The verdict calculation does not use the GIC table. All 6 verdicts, <code>ON_TIME</code>, <code>AT_RISK</code>, <code>LATE</code>, <code>UNPAID</code>, <code>UNKNOWN</code> and <code>SKIPPED</code>, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the <a href="/tools/payday-super/#receipt-amount">receipt amount limitation</a> and the matching limitations below can affect a verdict. A sound verdict does not make the row's figures sound: a <code>LATE</code> or <code>UNPAID</code> row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a <code>SKIPPED</code> row has no estimate to qualify.</td>
+                  <td>The verdict calculation does not use the GIC table. All 6 verdicts, <code>ON_TIME</code>, <code>AT_RISK</code>, <code>LATE</code>, <code>UNPAID</code>, <code>UNKNOWN</code> and <code>SKIPPED</code>, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the <a href="/tools/payday-super/#receipt-amount">receipt amount limitation</a> and the matching limitations below can affect a verdict. A sound verdict does not make the row’s figures sound: a <code>LATE</code> or <code>UNPAID</code> row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a <code>SKIPPED</code> row has no estimate to qualify.</td>
                 </tr>
                 <tr>
                   <th scope="row">Declared at runtime</th>
-                  <td>Asking for the estimate is the first signal. A caveat on the result then names the table's end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of <code>report.csv</code> are empty rather than nil.</td>
+                  <td>Asking for the estimate is the first signal. A caveat on the result then names the table’s end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of <code>report.csv</code> are empty rather than nil.</td>
                 </tr>
                 <tr>
                   <th scope="row">Human step</th>
@@ -155,7 +155,7 @@
           <section id="psc-2">
             <h2>Payday Super: the payroll-to-super join degrades in four declared ways</h2>
             <p>
-              Recorded as PSC-2 against release <code>payday-super-checker/v0.1.4</code>. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong. Release <code>payday-super-checker/v0.1.5</code> (20 September 2026) carries each warning into the report's <code>caveats</code> column and the evidence pack; the four conditions are unchanged.
+              Recorded as PSC-2 against release <code>payday-super-checker/v0.1.4</code>. Each condition weakens the join that every verdict rests on, so a verdict can be wrong without any arithmetic being wrong. Release <code>payday-super-checker/v0.1.5</code> (20 September 2026) carries each warning into the report’s <code>caveats</code> column and the evidence pack; the four conditions are unchanged.
             </p>
             <div class="table-scroll" role="region" aria-label="PSC-2 conditions" tabindex="0">
             <table class="facts tool-table--wide">
@@ -176,7 +176,7 @@
                 </tr>
                 <tr>
                   <th scope="row">The super file has only one of pay period start or end</th>
-                  <td>A payment's coverage collapses to a single day and can miss the payday it actually settled.</td>
+                  <td>A payment’s coverage collapses to a single day and can miss the payday it actually settled.</td>
                 </tr>
                 <tr>
                   <th scope="row">The super file has no pay period columns at all</th>
@@ -189,7 +189,7 @@
               <strong>Unaffected by the join itself.</strong> Matching selects the rows and amounts sent to assessment; it does not change the downstream deadline, receipt or exposure rules. Their results still depend on <a href="/tools/payday-super/#receipt-amount">receipt amount evidence</a>, calendar and GIC coverage, and the other documented limits. Correct arithmetic cannot establish that a payment was matched to the right payday or that the fund received it.
             </p>
             <p>
-              <strong>Declared at runtime, on the console only in 0.1.4.</strong> One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as <code>employee matching: by id</code> or <code>by name</code>. The CSV carries each row's caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or rerun and read it, before relying on a verdict from a file whose join conditions you have not checked.
+              <strong>Declared at runtime, on the console only in 0.1.4.</strong> One structural warning per condition, printed ahead of every row-level warning and never truncated, because these govern whether the whole join can be trusted. The report header also states the key in use as <code>employee matching: by id</code> or <code>by name</code>. The CSV carries each row’s caveats and notes and a trailing provenance note, not these warnings, so anything downstream of the file, including a spreadsheet built from it, can present an affected verdict without them. Keep the console output with the pack, or rerun and read it, before relying on a verdict from a file whose join conditions you have not checked.
             </p>
             <p>
               <strong>Human step.</strong> Re-export with an employee id column on both files, a pay-period-end column on the payroll file, and pay period start and end columns on the super file. All three are needed: fixing only the ids still leaves the payday fallback and the coverage collapse in place. Where a re-export is not available, reconcile the affected employees by hand before relying on their verdicts.
@@ -199,10 +199,10 @@
           <section id="abc-1">
             <h2>ATO benchmarks: an unmapped bucket reads as a nil in one output and as withheld in the other</h2>
             <p>
-              Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>. Release <code>ato-benchmark-compare/v0.1.8</code> (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied. A bucket no account was mapped to reads <code>not_supplied</code> on both paths, and the key ratio stays the ATO's published one where cost of sales was not supplied. The entry below describes 0.1.7.
+              Recorded as ABC-1 against release <code>ato-benchmark-compare/v0.1.7</code>. Release <code>ato-benchmark-compare/v0.1.8</code> (20 September 2026) gates the command line text, JSON and exit code on the buckets the mapping supplied. A bucket no account was mapped to reads <code>not_supplied</code> on both paths, and the key ratio stays the ATO’s published one where cost of sales was not supplied. The entry below describes 0.1.7.
             </p>
             <p>
-              A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type's key ratio is cost of sales to turnover, the ATO's own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
+              A bucket a ratio needs is absent from the supplied totals, and reaches the comparison as exactly the nil that a genuine zero produces. Where that bucket is cost of sales and the business type’s key ratio is cost of sales to turnover, the ATO’s own fallback to total expenses triggers on that nil, so the effect also reaches which ratio is marked key. The two output paths resolve this differently, on purpose, for the same comparison.
             </p>
             <p>
               This is not the same as a profit and loss account with no mapping entry. The tool raises a mapping error listing the first 20 unmapped rows and a count of any beyond that, and the command line exits before any comparison happens, so that input reaches neither output path. The trigger here is a bucket that no account was mapped <em>to</em>: the mapping is complete, the bucket simply has nothing in it.
@@ -225,7 +225,7 @@
                 <tr>
                   <th scope="row">The key ratio when cost of sales is unmapped</th>
                   <td>Carries the ATO fallback to total expenses to turnover, with the fallback note present.</td>
-                  <td>Reverts to the business type's published key ratio, with the per-row key flag reverting alongside it.</td>
+                  <td>Reverts to the business type’s published key ratio, with the per-row key flag reverting alongside it.</td>
                 </tr>
               </tbody>
             </table>
@@ -237,7 +237,7 @@
               <strong>What stays correct.</strong> The comparison behind both. Each path renders one comparison built from one mapping, so turnover, the turnover basis and every computed figure are the same on both sides.
             </p>
             <p>
-              Parity at the row level is narrower, and needs two conditions together. First, the ratio's own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once <code>w1</code> is supplied, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
+              Parity at the row level is narrower, and needs two conditions together. First, the ratio’s own buckets are supplied: total expenses to turnover needs every expense bucket, labour to turnover needs the labour set plus payments to associated persons once <code>w1</code> is supplied, and the rest need their own field. Second, <em>both</em> income fields are supplied, turnover and other income together. Without both, even a ratio holding all of its own buckets is emitted by the command line and withheld by the library. Where both conditions hold, the row carries the same value in both against the same published range.
             </p>
             <p>
               Three things diverge independently, and running them together overstates the effect.
@@ -252,11 +252,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <th scope="row">A ratio's value</th>
+                  <th scope="row">A ratio’s value</th>
                   <td>Its own buckets are absent, or an income field is. The library withholds it as <code>not_supplied</code>; the command line emits a figure.</td>
                 </tr>
                 <tr>
-                  <th scope="row">A ratio's benchmark range</th>
+                  <th scope="row">A ratio’s benchmark range</th>
                   <td>Only when an income field is absent. With both income fields supplied the range is retained, even on a row whose value is withheld.</td>
                 </tr>
                 <tr>
@@ -270,7 +270,7 @@
               Do not read the two payloads as interchangeable.
             </p>
             <p>
-              <strong>Human step.</strong> Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a <code>not_supplied</code> status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO's own behaviour and the result stands.
+              <strong>Human step.</strong> Map an account to every bucket the ratios you intend to read require, including a deliberate nil where the business genuinely has none. Where a figure must not be shown unless it was established, read the library payload: a <code>not_supplied</code> status is the honest answer that a command line 0.0000 cannot give. Where a business genuinely has no cost of sales, the fallback is the ATO’s own behaviour and the result stands.
             </p>
           </section>
 

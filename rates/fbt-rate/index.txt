@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/fbt-rate/
 
-> 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for every FBT year ending 31 March 2018 to 31 March 2027, from the ATO's current and historical tables.
+> 47% with Type 1 gross-up 2.0802 and Type 2 gross-up 1.8868 for FBT years ending 31 March 2018 to 31 March 2027, from the ATO’s current and historical tables.
 
 # FBT rate and gross-up rates
 
 The fringe benefits tax rate is 47% for the FBT year ending 31 March 2027, as it has been for every year since the one ending 31 March 2018. The Type 1 gross-up rate is 2.0802 and the Type 2 rate is 1.8868. The FBT year runs from 1 April to 31 March.
 
-Verified 20 September 2026 against the ATO's FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
+Verified 20 September 2026 against the ATO’s FBT rates and thresholds page (last updated 20 May 2026) for the years ending 31 March 2023 to 2027, and its historical rates and thresholds page (last updated 1 April 2026) for the years ending 31 March 2018 to 2022. The 47% rate is set by section 6 of the Fringe Benefits Tax Act 1986, checked 22 September 2026. This citation check does not renew the historical table review.
 
 ## Rate and gross-up rates, by FBT year
 
@@ -24,7 +24,7 @@ FBT year ending | FBT rate | Type 1 gross-up | Type 2 gross-up
 31 March 2019 | 47% | 2.0802 | 1.8868
 31 March 2018 | 47% | 2.0802 | 1.8868
 
-Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee's income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
+Type 1 applies where the provider is entitled to a GST credit for providing the benefit; Type 2 applies where it is not. Reportable fringe benefits on an employee’s income statement are always grossed up at the Type 2 rate. For the years ending 31 March 2023 to 2027 the reporting threshold is a taxable value above $2,000, a grossed-up minimum of $3,773.
 
 Download the table as CSV. Cite as Duguid, R. (2026). FBT rate and gross-up rates by FBT year [Data set]. https://duguid.com.au/rates/fbt-rate/. Verify against current ATO guidance before relying on a figure.
 

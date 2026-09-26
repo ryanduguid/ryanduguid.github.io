@@ -16,6 +16,8 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 26 September evaluation pass applies a live audit of all 55 pages at 320, 360, 768 and 1280px. Calculator forms now come before their method, sources and notes, and each question topic lists its questions before a 'Search or build a checklist' disclosure, so the working control starts inside the first screen at 360, 390 and 1280px. On phones the header is no longer sticky: at two or three rows it covered a sixth of the screen. The view switch follows the header in the markup, inside a named region, and scrolls away with it; Machine view pins it again. The reading token drops from 68ch to 56ch because `ch` is the width of the zero, so 68ch gave 88 to 92 characters of body text a line. Text-only rows in an action register take the ordinary link cue, standalone links reach 44px on phones, page dates and the wordmark suffix leave the uppercase mono label register, field notes are 16px on phones, and the Lumbridge comparison tables fit a phone (the five-run table stacks per run, with explicit table roles). The homepage lists the four routes after the hero, which already opens the cash case; Tools and llms.txt keep all five. Each evaluation opens with its recorded result. The browser suite now runs axe on every sitemap page and fails on any impact, and `template-budgets.spec.mjs` holds the first-control, header and line-length budgets.
+
 The 26 September GEO implementation adds early work-sample links on About and Contact, an active LinkedIn contact route and a contextual accepted-contribution link on the Xero exporter page. The cash case gains a sourced five-scenario receipt-delay comparison. The shared header can wrap when enlarged text needs more space; narrow navigation tracks shrink and labels wrap within their cells. The existing view script measures the header when modes change and observes later size changes, with a window-resize fallback when ResizeObserver is unavailable. The About portrait uses at most 40% of the desktop columns, so enlarged text retains a readable column. Existing routes, the portrait, the dark palette and the single primary home action remain in place.
 
 The 25 September navigation follow-up keeps the cash flow example as the
@@ -539,7 +541,7 @@ Display tracking is modestly negative except for the uppercase homepage masthead
 - Base unit: 4px.
 - Main sequence: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128px.
 - Wide shell: at most 1360px with fluid gutters.
-- Reading shell: at most 68ch.
+- Reading shell: at most 56ch (about 74 characters of body text).
 - Header: at most 72px on desktop.
 - Default radius: 0.
 - Controls and code blocks: 2px.
@@ -562,7 +564,7 @@ Motion communicates feedback and location only.
 
 ### Header
 
-At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
+At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Up to 40rem it is not sticky, so its two or three rows scroll away with the page. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
 
 ### Footer
 
@@ -660,7 +662,7 @@ About, Evidence, tool guides, evaluation packs and rate pages share one article 
 
 - large page statement followed by one short answer
 - sticky local contents on wide screens when it has at least 3 useful destinations
-- 68ch reading column
+- 56ch reading column
 - source and date metadata beside the relevant claim
 - full-width table or code artefact where the content needs it
 - footer boundary in the same position on every page

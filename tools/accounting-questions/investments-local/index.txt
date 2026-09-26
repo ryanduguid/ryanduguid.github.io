@@ -1,20 +1,18 @@
-# Investments and Newcastle: 10 Australian accounting questions
+# Investments and NSW: 10 Australian accounting questions
 
 Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
-> Ten questions on investments and Newcastle for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on investments and NSW matters, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Investments and Newcastle
+# Accounting questions: Investments and NSW
 
-Practical steps, records and official guidance on investments and Newcastle. Select questions to build a checklist.
+Practical steps, records and official guidance on investments and NSW matters.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the relevant disposal, income or NSW assessment year. Tax guidance must match your year and circumstances.
+Search or build a checklist
 
-Source review: 11 September 2026. Page updated 24 September 2026.
-
-Search questions in Investments and Newcastle
+Search questions in Investments and NSW
 
 Search these 10 questions by keyword. The search is kept in the page address, so a filtered view can be shared or reloaded. Your browser history keeps that address, and a referrer can carry it within this site; other sites receive only the domain. Do not enter names, taxpayer identifiers or client details.
 
@@ -26,9 +24,7 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Investments and Newcastle
-
-Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment year.
+## Investments and NSW
 
 91.
 
@@ -84,7 +80,7 @@ Link to question 93
 Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount. Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
 
 - Retain trade records, cost base adjustments, holding periods and carried-forward loss balances.
-- Reconcile the final calculation to the year's CGT schedule and keep the remaining loss record.
+- Reconcile the final calculation to the year’s CGT schedule and keep the remaining loss record.
 
 The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
 
@@ -115,7 +111,7 @@ Link to question 95
 
 ### How do I report ETF distributions and their tax adjustments?
 
-Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.
+Use the fund’s annual tax statement and any AMMA statement to reconcile the distribution components.
 
 - Match cash, reinvestments, capital gains, foreign income and credits to the statement.
 - Record cost base increases or decreases and carry them into the investment register.
@@ -133,7 +129,7 @@ Link to question 96
 Prepare the financial records and trustee evidence needed for both the return and the independent audit.
 
 - Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.
-- Reconcile opening and closing balances and resolve the auditor's record requests before finalising the return.
+- Reconcile opening and closing balances and resolve the auditor’s record requests before finalising the return.
 
 This checklist does not perform an SMSF audit or certify compliance.
 
@@ -148,9 +144,9 @@ Link to question 97
 For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000. Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.
 
 - Reconcile all relevant NSW landholdings, ownership interests and valuation notices.
-- Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence.
+- Use Revenue NSW’s current assessment guidance and retain the calculation and exemption evidence.
 
-Purchase price and one property's value alone do not establish the full land tax position.
+Purchase price and one property’s value alone do not establish the full land tax position.
 
 Land tax · Preparing for the 2026 land tax year, Revenue NSW
 
@@ -162,10 +158,10 @@ Link to question 98
 
 ### Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 
-Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee's eligible wages every month. The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee's eligible wages for the month.
+Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee’s eligible wages every month. The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee’s eligible wages for the month.
 
-- List each employee's role and check it against the Coal LSL eligible employee guidance.
-- Work out each eligible employee's eligible wages for the month using the section 3B formula that applies.
+- List each employee’s role and check it against the Coal LSL eligible employee guidance.
+- Work out each eligible employee’s eligible wages for the month using the section 3B formula that applies.
 
 The calculator does not decide whether an employee is eligible; it calculates the levy on the wages you supply.
 
@@ -192,6 +188,10 @@ The bold answer was checked on 24 September 2026.
 
 Link to question 100
 
+Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment year. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - Starting a business
@@ -208,7 +208,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Property and land: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land
 - Link to question 91: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
 - Link to question 92: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
@@ -232,6 +231,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 99: https://duguid.com.au/tools/accounting-questions/investments-local/#q99
 - TPB register of tax and BAS agents: https://www.tpb.gov.au/public-register
 - Link to question 100: https://duguid.com.au/tools/accounting-questions/investments-local/#q100
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/

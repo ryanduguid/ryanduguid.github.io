@@ -209,7 +209,7 @@ def test_geo_leftovers_surface() -> None:
     # Hub dates record their own editorial review, independently of rate rows.
     hub_dates = {
         "rates/index.html": ("22 September 2026", "2026-09-22"),
-        "evaluate/index.html": ("24 September 2026", "2026-09-24"),
+        "evaluate/index.html": ("26 September 2026", "2026-09-26"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
         html = read_text(ROOT, rel)

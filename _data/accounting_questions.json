@@ -354,7 +354,7 @@
     },
     {
       "id": "investments-local",
-      "label": "Investments and Newcastle",
+      "label": "Investments and NSW",
       "reviewed": "2026-09-11",
       "period": "Use the relevant disposal, income or NSW assessment year."
     }
@@ -394,7 +394,7 @@
       "id": 3,
       "topic": "general-tax",
       "question": "What steps are involved in completing a return?",
-      "answer": "Collect the year's records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.",
+      "answer": "Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.",
       "steps": [
         "Check income statements are ready and account for income missing from pre-fill.",
         "Keep a copy of the reviewed return, declaration and lodgement receipt."
@@ -407,7 +407,7 @@
       "id": 4,
       "topic": "general-tax",
       "question": "Where can I obtain or recover my TFN?",
-      "answer": "Use the ATO's TFN application or lost-TFN route. The right application process depends on residency and circumstances.",
+      "answer": "Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.",
       "steps": [
         "If you already have a TFN, use the ATO recovery instructions before applying again.",
         "Complete any identity checks directly with the official service."
@@ -425,7 +425,7 @@
         "Record the period, lodgement date, payment date and responsible person for each obligation.",
         "Confirm the dates in your ATO account or with your registered agent; record any approved extension."
       ],
-      "boundary": "An agent's program or a particular account can have different dates from a general calendar.",
+      "boundary": "An agent’s program or a particular account can have different dates from a general calendar.",
       "source": "returns",
       "tool": "",
       "fact": "The income year runs from 1 July to 30 June. A return you lodge yourself is due by 31 October, quarterly BAS is due on 28 October, 28 February, 28 April and 28 July, and STP finalisation is due by 14 July.",
@@ -450,7 +450,7 @@
       "id": 7,
       "topic": "general-tax",
       "question": "Which earnings are taxable?",
-      "answer": "Check each source of income against the ATO's categories. Amounts missing from pre-fill still need review.",
+      "answer": "Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.",
       "steps": [
         "Reconcile employment, business, investment, government and foreign income records.",
         "List unusual receipts separately and record why they are included or excluded."
@@ -463,7 +463,7 @@
       "id": 8,
       "topic": "general-tax",
       "question": "How long will the tax return process take?",
-      "answer": "Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.",
+      "answer": "Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.",
       "steps": [
         "Complete the record checklist before setting a preparation deadline.",
         "After lodgement, use the official progress service and respond to any information request."
@@ -476,7 +476,7 @@
       "id": 9,
       "topic": "general-tax",
       "question": "Where can I submit a completed return?",
-      "answer": "Individuals can use the lodgement options on the ATO's tax return page, including myTax where eligible, a registered agent or paper.",
+      "answer": "Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.",
       "steps": [
         "Choose the route for your circumstances and confirm the income year.",
         "Review the declaration and save the lodgement receipt after submission."
@@ -531,7 +531,7 @@
         "Record dates and hours throughout the required period and retain bills or receipts.",
         "Keep a note of the method, year, work use basis and costs excluded to prevent double claims."
       ],
-      "boundary": "A reconstructed estimate may not meet the ATO's requirements for your method.",
+      "boundary": "A reconstructed estimate may not meet the ATO’s requirements for your method.",
       "source": "deductions",
       "tool": ""
     },
@@ -541,7 +541,7 @@
       "question": "Should I use the cents-per-kilometre or logbook method for car expenses?",
       "answer": "Compare the methods you are eligible to use, using the same car and income year.",
       "steps": [
-        "For cents per kilometre, document eligible kilometres and check the year's rate and cap.",
+        "For cents per kilometre, document eligible kilometres and check the year’s rate and cap.",
         "For the logbook method, gather a valid logbook, odometer readings and actual running costs."
       ],
       "boundary": "Vehicle type, ownership and entity structure can change which methods are available.",
@@ -561,7 +561,7 @@
         "Record the required trip dates, odometer readings, distance and business purpose.",
         "Keep opening and closing odometer readings and review whether changed use requires a new logbook."
       ],
-      "boundary": "Check the ATO's required recording period and validity conditions before relying on the logbook.",
+      "boundary": "Check the ATO’s required recording period and validity conditions before relying on the logbook.",
       "source": "deductions",
       "tool": "car"
     },
@@ -585,7 +585,7 @@
       "answer": "Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.",
       "steps": [
         "Record cost, acquisition date, first use, work use share and whether the item forms part of a set.",
-        "Check the applicable year's asset rules and retain the calculation in an asset register."
+        "Check the applicable year’s asset rules and retain the calculation in an asset register."
       ],
       "boundary": "The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.",
       "source": "deductions",
@@ -639,7 +639,7 @@
       "id": 20,
       "topic": "deductions",
       "question": "Does my business qualify for the instant asset write-off this financial year?",
-      "answer": "Test eligibility against the rules enacted for the asset's relevant year and circumstances.",
+      "answer": "Test eligibility against the rules enacted for the asset’s relevant year and circumstances.",
       "steps": [
         "Record aggregated turnover, asset cost, acquisition and first use dates, and business use share.",
         "Check the current ATO small business depreciation rules, including exclusions and any applicable election."
@@ -656,7 +656,7 @@
       "id": 21,
       "topic": "business-setup",
       "question": "Do I need an ABN for freelance or contracting work?",
-      "answer": "ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client's request alone does not establish it.",
+      "answer": "ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.",
       "steps": [
         "Record the work arrangement, independence, activity and evidence that the enterprise has started.",
         "Read the ABR entitlement guidance before applying."
@@ -734,12 +734,12 @@
       "id": 27,
       "topic": "business-setup",
       "question": "How do I pay myself and record drawings as a sole trader?",
-      "answer": "Sole-trader drawings transfer the owner's money out of the business; they are recorded separately from operating expenses.",
+      "answer": "Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.",
       "steps": [
-        "Record the transfer against drawings or the owner's equity account in your agreed chart.",
+        "Record the transfer against drawings or the owner’s equity account in your agreed chart.",
         "Keep drawings visible in the cash forecast so the business can meet upcoming obligations."
       ],
-      "boundary": "A sole trader's drawings do not set the amount of taxable business profit.",
+      "boundary": "A sole trader’s drawings do not set the amount of taxable business profit.",
       "source": "business",
       "tool": "cash"
     },
@@ -850,7 +850,7 @@
       "id": 35,
       "topic": "gst-bas",
       "question": "What information must appear on a valid tax invoice?",
-      "answer": "Use an invoice checklist matched to the sale and the ATO's tax invoice requirements.",
+      "answer": "Use an invoice checklist matched to the sale and the ATO’s tax invoice requirements.",
       "steps": [
         "Check supplier identity and ABN, date, description, price and how the GST amount is shown.",
         "Check any buyer-identification requirement and clearly separate taxable and non-taxable items."
@@ -858,7 +858,7 @@
       "boundary": "Requirements depend on the amount and nature of the sale; a heading alone does not make an invoice valid.",
       "source": "gst",
       "tool": "",
-      "fact": "If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer's identity or ABN.",
+      "fact": "If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer’s identity or ABN.",
       "fact_sources": [
         "tax-invoice"
       ]
@@ -931,7 +931,7 @@
       "answer": "Work out whether the error can be corrected on a later BAS or requires a revision.",
       "steps": [
         "Record the original period, error type, amount, discovery date and supporting transactions.",
-        "Apply the ATO's correction conditions and retain the approved amendment or later-period adjustment."
+        "Apply the ATO’s correction conditions and retain the approved amendment or later-period adjustment."
       ],
       "boundary": "Do not choose a later-period correction without checking time and value limits.",
       "source": "gst",
@@ -958,8 +958,8 @@
     {
       "id": 42,
       "topic": "payroll-super",
-      "question": "By what date must a super contribution reach the employee's fund?",
-      "answer": "Test receipt at the employee's fund against the applicable deadline.",
+      "question": "By what date must a super contribution reach the employee’s fund?",
+      "answer": "Test receipt at the employee’s fund against the applicable deadline.",
       "steps": [
         "Record payday, pathway, amount, remittance date and confirmed fund receipt date.",
         "Use the existing timing example to distinguish timely remittance from evidence of timely receipt."
@@ -977,7 +977,7 @@
       "answer": "Investigate the payment trail and apply the current late-payment process.",
       "steps": [
         "Reconcile payroll, clearing house status, rejections and fund receipt for each affected employee.",
-        "Resolve the cause, record any replacement payment and review the ATO's reporting and charge requirements."
+        "Resolve the cause, record any replacement payment and review the ATO’s reporting and charge requirements."
       ],
       "boundary": "Sending a replacement does not automatically remove a late-payment consequence.",
       "source": "super",
@@ -988,10 +988,10 @@
       "id": 44,
       "topic": "payroll-super",
       "question": "Do I have to pay super for a contractor who invoices through an ABN?",
-      "answer": "Review the actual contract and working arrangement against the ATO's super eligibility guidance.",
+      "answer": "Review the actual contract and working arrangement against the ATO’s super eligibility guidance.",
       "steps": [
         "Record who performs the work, how they are paid and whether the contract is for their labour.",
-        "Retain the eligibility conclusion separately from the supplier's ABN and invoice."
+        "Retain the eligibility conclusion separately from the supplier’s ABN and invoice."
       ],
       "boundary": "An ABN is not proof that super is unnecessary.",
       "source": "super",
@@ -1001,7 +1001,7 @@
     {
       "id": 45,
       "topic": "payroll-super",
-      "question": "How much PAYG tax should I withhold from an employee's pay?",
+      "question": "How much PAYG tax should I withhold from an employee’s pay?",
       "answer": "Use the ATO withholding calculation for the payment type and pay period.",
       "steps": [
         "Check the declaration, residency, tax-free threshold choice, study loan information and any variation.",
@@ -1032,8 +1032,8 @@
     {
       "id": 47,
       "topic": "payroll-super",
-      "question": "How do I calculate an employee's final pay, including unused leave?",
-      "answer": "Build final pay from the employee's entitlements and the circumstances of departure.",
+      "question": "How do I calculate an employee’s final pay, including unused leave?",
+      "answer": "Build final pay from the employee’s entitlements and the circumstances of departure.",
       "steps": [
         "Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.",
         "Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment."
@@ -1122,7 +1122,7 @@
       "answer": "Trace the payment and both customer invoices before changing the match.",
       "steps": [
         "Save the original allocation details and check whether the invoice or period is locked.",
-        "Correct the allocation through Xero's supported workflow and recheck both customer balances and the bank reconciliation."
+        "Correct the allocation through Xero’s supported workflow and recheck both customer balances and the bank reconciliation."
       ],
       "boundary": "A different bank receipt should not be created merely to fix an allocation.",
       "source": "records",
@@ -1132,7 +1132,7 @@
       "id": 54,
       "topic": "bookkeeping-close",
       "question": "How do I record a personal purchase paid from the business account?",
-      "answer": "Code the private payment according to the entity and the person's relationship to it.",
+      "answer": "Code the private payment according to the entity and the person’s relationship to it.",
       "steps": [
         "Keep the receipt, purpose and repayment evidence, and separate any business portion.",
         "For a sole trader, review drawings; for a company, review the director or shareholder account and tax consequences."
@@ -1178,7 +1178,7 @@
       "answer": "Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.",
       "steps": [
         "Reconcile opening principal, advances, principal repayments and closing principal.",
-        "Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender's statement."
+        "Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender’s statement."
       ],
       "boundary": "Fees, daily interest, variable rates and balloons need the actual lender schedule.",
       "source": "cash",
@@ -1274,7 +1274,7 @@
       "question": "What happens to my cash balance if a major customer pays 30 or 60 days late?",
       "answer": "Move the expected receipt to its revised date and compare the lowest cash balance.",
       "steps": [
-        "Use the weekly forecast's delayed-receipt controls and retain both scenarios.",
+        "Use the weekly forecast’s delayed-receipt controls and retain both scenarios.",
         "For an exact 30- or 60-day delay, use the existing dated workbook and record any receipt outside its horizon."
       ],
       "boundary": "The browser scenario accepts whole weeks, so it is not an exact day-based simulation.",
@@ -1347,7 +1347,7 @@
         "Compare prior periods with current orders, staffing and supplier commitments.",
         "Stress-test the low season and put any agreed funding or cost changes into the forecast."
       ],
-      "boundary": "A straight average month can conceal the quarter's lowest cash balance.",
+      "boundary": "A straight average month can conceal the quarter’s lowest cash balance.",
       "source": "cash",
       "tool": "cash",
       "keywords": "cashflow"
@@ -1398,10 +1398,10 @@
       "question": "What hourly rate should I charge to cover costs and earn a target profit?",
       "answer": "Divide annual costs plus target profit by realistic billable hours.",
       "steps": [
-        "Include the owner's pay target in costs if it must be covered before the stated profit.",
+        "Include the owner’s pay target in costs if it must be covered before the stated profit.",
         "Allow for leave, administration, marketing and unpaid time when estimating billable hours."
       ],
-      "boundary": "The calculated rate is a cost recovery target before GST; customers' willingness to pay needs separate evidence.",
+      "boundary": "The calculated rate is a cost recovery target before GST; customers’ willingness to pay needs separate evidence.",
       "source": "pricing",
       "tool": "hourly"
     },
@@ -1501,7 +1501,7 @@
       "id": 81,
       "topic": "company-compliance",
       "question": "Does my company qualify for the lower company tax rate?",
-      "answer": "Test the company's income and aggregated turnover conditions for the relevant year.",
+      "answer": "Test the company’s income and aggregated turnover conditions for the relevant year.",
       "steps": [
         "Reconcile taxable income, passive income categories and connected entity information.",
         "Use the existing company tax example only after the inputs and applicable conditions have been established."
@@ -1533,7 +1533,7 @@
       "question": "Does taking money out of my company create a Division 7A problem?",
       "answer": "Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.",
       "steps": [
-        "Reconcile the person's account and gather agreements, dates and repayment evidence.",
+        "Reconcile the person’s account and gather agreements, dates and repayment evidence.",
         "Use the existing review case to organise the evidence and identify unresolved legal questions."
       ],
       "boundary": "The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.",
@@ -1599,7 +1599,7 @@
     {
       "id": 88,
       "topic": "company-compliance",
-      "question": "Does providing a company car or paying an employee's private expenses create FBT?",
+      "question": "Does providing a company car or paying an employee’s private expenses create FBT?",
       "answer": "Identify the benefit, recipient, private use and FBT year before valuing anything.",
       "steps": [
         "Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.",
@@ -1608,7 +1608,7 @@
       "boundary": "The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.",
       "source": "fbt-source",
       "tool": "tax",
-      "fact": "It can. A company car available for an employee's private use and payment of an employee's private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
+      "fact": "It can. A company car available for an employee’s private use and payment of an employee’s private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
       "fact_sources": [
         "fbt-rate"
       ]
@@ -1689,7 +1689,7 @@
       "answer": "Calculate each gain or loss, apply eligible capital losses, then consider any available discount.",
       "steps": [
         "Retain trade records, cost base adjustments, holding periods and carried-forward loss balances.",
-        "Reconcile the final calculation to the year's CGT schedule and keep the remaining loss record."
+        "Reconcile the final calculation to the year’s CGT schedule and keep the remaining loss record."
       ],
       "boundary": "The bounded worksheet assumes the gains, losses and discount eligibility have already been established.",
       "source": "cgt",
@@ -1720,7 +1720,7 @@
       "id": 96,
       "topic": "investments-local",
       "question": "How do I report ETF distributions and their tax adjustments?",
-      "answer": "Use the fund's annual tax statement and any AMMA statement to reconcile the distribution components.",
+      "answer": "Use the fund’s annual tax statement and any AMMA statement to reconcile the distribution components.",
       "steps": [
         "Match cash, reinvestments, capital gains, foreign income and credits to the statement.",
         "Record cost base increases or decreases and carry them into the investment register."
@@ -1736,7 +1736,7 @@
       "answer": "Prepare the financial records and trustee evidence needed for both the return and the independent audit.",
       "steps": [
         "Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.",
-        "Reconcile opening and closing balances and resolve the auditor's record requests before finalising the return."
+        "Reconcile opening and closing balances and resolve the auditor’s record requests before finalising the return."
       ],
       "boundary": "This checklist does not perform an SMSF audit or certify compliance.",
       "source": "smsf-source",
@@ -1749,9 +1749,9 @@
       "answer": "Check ownership, land values, exemptions and any surcharge conditions for the relevant NSW land tax year.",
       "steps": [
         "Reconcile all relevant NSW landholdings, ownership interests and valuation notices.",
-        "Use Revenue NSW's current assessment guidance and retain the calculation and exemption evidence."
+        "Use Revenue NSW’s current assessment guidance and retain the calculation and exemption evidence."
       ],
-      "boundary": "Purchase price and one property's value alone do not establish the full land tax position.",
+      "boundary": "Purchase price and one property’s value alone do not establish the full land tax position.",
       "source": "land",
       "tool": "",
       "fact": "For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000.",
@@ -1763,15 +1763,15 @@
       "id": 99,
       "topic": "investments-local",
       "question": "Does a Hunter Valley coal mining employer pay the Coal LSL levy?",
-      "answer": "The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee's eligible wages for the month.",
+      "answer": "The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee’s eligible wages for the month.",
       "steps": [
-        "List each employee's role and check it against the Coal LSL eligible employee guidance.",
-        "Work out each eligible employee's eligible wages for the month using the section 3B formula that applies."
+        "List each employee’s role and check it against the Coal LSL eligible employee guidance.",
+        "Work out each eligible employee’s eligible wages for the month using the section 3B formula that applies."
       ],
       "boundary": "The calculator does not decide whether an employee is eligible; it calculates the levy on the wages you supply.",
       "source": "coallsl",
       "tool": "coal",
-      "fact": "Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee's eligible wages every month.",
+      "fact": "Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee’s eligible wages every month.",
       "keywords": "Newcastle Hunter coal mining long service leave levy"
     },
     {

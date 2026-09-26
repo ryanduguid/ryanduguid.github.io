@@ -30,7 +30,7 @@ These skills prepare and check. They do not serve a payment claim, lodge a retur
 
 Use the evaluation method and its linked validation cards at the same revision. Install that revision, start a fresh session with the target skills loaded and supply the selected card unchanged. Keep the deliberately missing evidence unavailable.
 
-Check the full response against the card's required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools and result; retain the response with the working evidence.
+Check the full response against the card’s required checks and prohibitions. Any missed prohibition fails the card. Record the exact model, runtime, source revision, available tools and result; retain the response with the working evidence.
 
 This method measures adherence to visible instructions. It does not test independent error discovery or promise identical wording between runs. Model results require human confirmation before publication; static validation alone does not establish agent behaviour.
 

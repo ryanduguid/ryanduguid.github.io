@@ -228,7 +228,7 @@ MCP
 
 Boundary
 
-Human review required. Optional local library excerpts enter the assistant's context; Division 7A scope stays limited.
+Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
 Try an example Source code Last commit 24 September 2026
 

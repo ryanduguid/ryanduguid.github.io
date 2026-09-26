@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/management-reporting/
 
-> Ten questions on management reporting for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on management reporting for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Management reporting
 
-Practical steps, records and official guidance on management reporting. Select questions to build a checklist.
+Practical steps, records and official guidance on management reporting.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Compare the same reporting period and basis; historical benchmarks retain their published years. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Management reporting
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Management reporting
-
-Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years.
 
 71.
 
@@ -66,10 +62,10 @@ Link to question 72
 
 Divide annual costs plus target profit by realistic billable hours.
 
-- Include the owner's pay target in costs if it must be covered before the stated profit.
+- Include the owner’s pay target in costs if it must be covered before the stated profit.
 - Allow for leave, administration, marketing and unpaid time when estimating billable hours.
 
-The calculated rate is a cost recovery target before GST; customers' willingness to pay needs separate evidence.
+The calculated rate is a cost recovery target before GST; customers’ willingness to pay needs separate evidence.
 
 Choose a pricing strategy · Hourly pricing calculator
 
@@ -180,6 +176,10 @@ Record keeping for business · Xero trial balance export
 
 Link to question 80
 
+Reviewed 11 September 2026. Compare the same reporting period and basis; historical benchmarks retain their published years. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - Starting a business
@@ -188,7 +188,7 @@ Link to question 80
 - Bookkeeping and close
 - Cash flow
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -196,7 +196,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Choose a pricing strategy: https://business.gov.au/products-and-services/choose-a-pricing-strategy
 - Break-even calculator: https://duguid.com.au/tools/business-calculators/break-even/
 - Link to question 71: https://duguid.com.au/tools/accounting-questions/management-reporting/#q71
@@ -218,6 +217,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 79: https://duguid.com.au/tools/accounting-questions/management-reporting/#q79
 - Xero trial balance export: https://duguid.com.au/tools/xero-trial-balance/
 - Link to question 80: https://duguid.com.au/tools/accounting-questions/management-reporting/#q80
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -226,4 +226,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

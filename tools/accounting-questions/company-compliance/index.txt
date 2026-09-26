@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
-> Ten questions on companies and trusts for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on companies and trusts for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Companies and trusts
 
-Practical steps, records and official guidance on companies and trusts. Select questions to build a checklist.
+Practical steps, records and official guidance on companies and trusts.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the entity and relevant income or FBT year; linked tools have separate supported periods. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Companies and trusts
 
@@ -28,13 +26,11 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ## Companies and trusts
 
-Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods.
-
 81.
 
 ### Does my company qualify for the lower company tax rate?
 
-The 25% rate applies to a base rate entity: a company with aggregated turnover under $50 million and no more than 80% of its assessable income from base rate entity passive income. Other companies pay 30%. Test the company's income and aggregated turnover conditions for the relevant year.
+The 25% rate applies to a base rate entity: a company with aggregated turnover under $50 million and no more than 80% of its assessable income from base rate entity passive income. Other companies pay 30%. Test the company’s income and aggregated turnover conditions for the relevant year.
 
 - Reconcile taxable income, passive income categories and connected entity information.
 - Use the existing company tax example only after the inputs and applicable conditions have been established.
@@ -68,7 +64,7 @@ Link to question 82
 
 Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
-- Reconcile the person's account and gather agreements, dates and repayment evidence.
+- Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
 
 The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.
@@ -141,9 +137,9 @@ Link to question 87
 
 88.
 
-### Does providing a company car or paying an employee's private expenses create FBT?
+### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. A company car available for an employee's private use and payment of an employee's private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+It can. A company car available for an employee’s private use and payment of an employee’s private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
@@ -186,6 +182,10 @@ Revenue NSW payroll tax
 
 Link to question 90
 
+Reviewed 11 September 2026. Use the entity and relevant income or FBT year; linked tools have separate supported periods. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - Starting a business
@@ -194,7 +194,7 @@ Link to question 90
 - Bookkeeping and close
 - Cash flow
 - Management reporting
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -202,7 +202,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Corporate tax measures and assurance: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance
 - Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
@@ -228,6 +227,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 89: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
 - Link to question 90: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -236,4 +236,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/
