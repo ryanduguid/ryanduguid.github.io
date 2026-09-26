@@ -5,8 +5,22 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-26T00:00:00Z</updated>
+  <updated>2026-09-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The trust distribution page pins its worked example to solomons-sword 0.1.9,...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-05d2f140dbbd059c</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v0.1.9</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9" />
+    <id>https://duguid.com.au/changelog/#entry-b8de2e98481979e6</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.1.9.</summary>
+  </entry>
   <entry>
     <title>The trust distribution, company tax and construction WIP pages now pin their...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
