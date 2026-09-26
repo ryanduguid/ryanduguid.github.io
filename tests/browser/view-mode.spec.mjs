@@ -59,6 +59,26 @@ test('view mode defaults to Human and preserves the page when switching back', a
   health.assertHealthy();
 });
 
+test('view controls remain usable without ResizeObserver', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.addInitScript(() => {
+    delete window.ResizeObserver;
+    localStorage.setItem('duguid-view-mode', 'machine');
+  });
+  await page.goto('/about/');
+  await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('About Ryan Duguid');
+  await page.getByRole('radio', { name: 'Human', exact: true }).check();
+  await expect(page.getByRole('heading', { name: 'About Ryan Duguid', exact: true })).toBeVisible();
+  await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+  await page.setViewportSize({ width: 320, height: 1000 });
+  await page.getByRole('link', { name: 'See my accounting work samples' }).click();
+  await expect.poll(() => page.evaluate(() => {
+    const target = document.querySelector('#work-samples').getBoundingClientRect();
+    return target.top >= document.querySelector('.site-header').getBoundingClientRect().bottom;
+  })).toBe(true);
+  health.assertHealthy();
+});
+
 test('enlarged header text keeps navigation clear of the view switch', async ({ page }) => {
   for (const width of [320, 390, 640, 960, 1280]) {
     await page.setViewportSize({ width, height: 1000 });

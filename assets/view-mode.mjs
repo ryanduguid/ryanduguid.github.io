@@ -10,9 +10,11 @@
   document.addEventListener('DOMContentLoaded', () => {
     const header = document.querySelector('.site-header');
     // Anchor destinations must clear the header after text or viewport resizing.
-    new ResizeObserver(() => {
+    const measureHeader = () => {
       root.style.setProperty('--measured-header-height', `${header.getBoundingClientRect().height}px`);
-    }).observe(header);
+    };
+    if (typeof ResizeObserver === 'function') new ResizeObserver(measureHeader).observe(header);
+    else window.addEventListener('resize', measureHeader);
     const toggle = document.querySelector('.view-mode');
     const view = document.querySelector('#machine-view');
     const text = view.querySelector('.machine-view__text');
@@ -54,6 +56,7 @@
       for (const element of human) element.inert = mode === 'machine';
       for (const radio of toggle.querySelectorAll('input')) radio.checked = radio.value === mode;
       if (mode === 'machine') loadText();
+      measureHeader();
     }
 
     toggle.addEventListener('change', event => {

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/contact/
 
 Email feedback on any tool, example or evaluation, including a result you could not reproduce.
 
-For professional connections, find me on LinkedIn. You can also review my accounting work samples.
+Review my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
 I am not a registered tax agent or BAS agent. I do not take requests for advice, return preparation, confirmation of tax treatment or lodgement.
 
@@ -30,14 +30,14 @@ Email feedback | ryan@duguid.com.au
 Website issues | Report a website issue on GitHub
 GitHub | github.com/ryanduguid
 Based in | Newcastle, NSW, Australia
-LinkedIn | linkedin.com/in/ryan-duguid
+LinkedIn identity | linkedin.com/in/ryan-duguid (hibernated, for identity only)
 
 Published 30 August 2026. Last reviewed 26 September 2026.
 
 ## Links
 
-- find me on LinkedIn: https://www.linkedin.com/in/ryan-duguid
-- review my accounting work samples: https://duguid.com.au/about/#work-samples
+- Review my accounting work samples: https://duguid.com.au/about/#work-samples
 - fictional Newcastle cash flow case: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Report a website issue on GitHub: https://github.com/ryanduguid/ryanduguid.github.io/issues
 - github.com/ryanduguid: https://github.com/ryanduguid
+- linkedin.com/in/ryan-duguid: https://www.linkedin.com/in/ryan-duguid

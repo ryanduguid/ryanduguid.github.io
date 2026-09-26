@@ -16,7 +16,7 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
-The 26 September GEO implementation adds an early work-sample link on About, a professional LinkedIn route on Contact and a contextual accepted-contribution link on the Xero exporter page. The cash case gains a sourced five-scenario receipt-delay comparison. The shared header can wrap when enlarged text needs more space; narrow navigation tracks shrink and labels wrap within their cells. A ResizeObserver in the existing view script keeps anchor destinations below the header's actual height. The About portrait uses at most 40% of the desktop columns, so enlarged text retains a readable column. Existing routes, the portrait, the dark palette and the single primary home action remain in place.
+The 26 September GEO implementation adds early work-sample links on About and Contact and a contextual accepted-contribution link on the Xero exporter page. Contact labels the hibernated LinkedIn account as an identity link. The cash case gains a sourced five-scenario receipt-delay comparison. The shared header can wrap when enlarged text needs more space; narrow navigation tracks shrink and labels wrap within their cells. The existing view script measures the header when modes change and observes later size changes, with a window-resize fallback when ResizeObserver is unavailable. The About portrait uses at most 40% of the desktop columns, so enlarged text retains a readable column. Existing routes, the portrait, the dark palette and the single primary home action remain in place.
 
 The 25 September navigation follow-up keeps the cash flow example as the
 hero's only action. Browse tools moves below the four starting routes and
