@@ -62,8 +62,8 @@
       contract liability per job. Assets and liabilities are never netted.
       Review aid, not a determination.
     </p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.0">the-wip-tally/v0.1.0</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.1">the-wip-tally/v0.1.1</a>.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 18 September 2026.</p>
+    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2">the-wip-tally/v0.1.2</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 26 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -101,7 +101,7 @@
     </section>
     <section id="worked-example">
     <h2>Worked example: a $50,000 contract asset</h2>
-    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.0/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.0</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
+    <p>This synthetic example comes from the <a href="https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py">cost-to-cost underbilling test in the-wip-tally v0.1.2</a>. The test uses a reasonably measurable outcome, with no variations, waste or uninstalled materials. All amounts below exclude GST.</p>
     <ul>
       <li>Transaction price: $1,000,000.</li>
       <li>Costs incurred: $400,000. Estimated cost to complete: $400,000.</li>
@@ -113,10 +113,10 @@
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
     <pre tabindex="0" role="region" aria-label="Pinned the-wip-tally example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
-git checkout the-wip-tally/v0.1.0
+git checkout the-wip-tally/v0.1.2
 cd packages/the-wip-tally
 uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test_clean_cost_to_cost_underbilling</code></pre>
-    <p>Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.0 so its figures stay reproducible.</p>
+    <p>Expected: one passing test and exit 0. The test asserts the figures above. The broader sample under Get it contains different inputs. The test is pinned to the-wip-tally/v0.1.2 so its figures stay reproducible.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
@@ -192,7 +192,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-26",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -260,7 +260,7 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-09-18"
+        "dateModified": "2026-09-26"
       },
       {
         "@type": "FAQPage",
