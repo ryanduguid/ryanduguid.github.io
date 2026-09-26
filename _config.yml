@@ -21,6 +21,7 @@ exclude:
   - pyproject.toml
   - SECURITY.md
   - scripts
+  - service
   - tests
   - assets/social-card-template.svg
   - assets/social-cards.json

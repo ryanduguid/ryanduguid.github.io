@@ -72,6 +72,7 @@ def check_site_selection(root: Path | None = None) -> None:
         (".well-known/security.txt", True),
         (".git/config", False),
         ("scripts/test_build_site.py", False),
+        ("service/coal-lsl-levy/src/server.mjs", False),
         ("vendor/bundle/gem.css", False),
         ("_site/index.html", False),
         ("assets/work/report.css", True),
