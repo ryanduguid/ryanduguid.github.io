@@ -43,6 +43,8 @@ different measurement. Use a fresh session for each prompt and say so in the
 capture. Record the search-enabled state, because an answer composed without
 retrieval says nothing about whether a page is reachable.
 
+Keep a copy of `prompts.json` beside each round and record the repository commit in `run_notes`. The template records `answer_key_sha256`, a fingerprint of the exact prompts, sourced facts and error definitions. A changed or missing fingerprint blocks real summaries. To review a historical round, use its retained answer key with the repository revision that recorded it; do not replace the fingerprint to force a pass. Fixtures remain labelled test data and are exempt from this historical-key check.
+
 Keep the answer itself. `answer_evidence` points at a retained transcript or
 screenshot; a summary written from memory is not evidence. The validator checks
 only that the reference is not blank. It does not open the file, confirm the file

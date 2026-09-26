@@ -14,7 +14,7 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 25 September 2026.
+Published 18 September 2026. Last reviewed 26 September 2026.
 
 One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. Compare both cases. Exported from Excel on 24 September 2026; capture record.
 
@@ -32,7 +32,7 @@ Invoice OPEN-V is September work for the Varrock line: $40,000 plus $4,000 GST, 
 
 Nothing else changes. The work was performed in September either way, the invoice was issued either way and the customer pays in full either way. Only the day the money lands moves.
 
-The workbook exposes that single control. Assumptions!B2 holds the delay in whole calendar days and accepts 0 to 120. Every figure below is the model's own output at 0 and at 45.
+The workbook exposes that single control. Assumptions!B2 holds the delay in whole calendar days and accepts 0 to 120. The main comparison uses 0 and 45 days; the sensitivity table also checks 15, 30 and 60 days.
 
 ## Both cases, side by side
 
@@ -52,6 +52,25 @@ The two cases end the quarter with the same cash because the delayed receipt sti
 Against the owner's $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
 
 Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
+
+## Compare five receipt delays
+
+A 15-day delay is enough to put this fictional business below zero for one day. Longer delays can also extend the time below zero without changing the lowest balance. These five runs move only the $44,000 OPEN-V receipt from its original 14 October date.
+
+Daily closing cash at five receipt delays. All amounts AUD; all dates are in 2026. Scroll sideways on small screens.
+
+Delay in days | Receipt date | Lowest cash | First date at that low | Days below zero
+0 | 14 October | $16,800.00 | 7 October | 0
+15 | 29 October | −$11,960.00 | 28 October | 1
+30 | 13 November | −$25,160.00 | 6 November | 16
+45 | 28 November | −$25,160.00 | 6 November | 16
+60 | 13 December | −$25,160.00 | 6 November | 22
+
+Quarterly profit before income tax stays at $35,957.55 and December closing cash at $67,320 in every run. Another scheduled customer receipt on 13 November explains why the 30- and 45-day cases have the same 16 days below zero. The 60-day case includes a further negative period later in November.
+
+Days below zero counts all negative daily closing balances, including separate periods. It does not measure intraday liquidity. The comparison tests five selected delays, not every possible receipt date, and assumes no funding facility.
+
+Calculated on 26 September 2026 with the Python model at the same captured source commit, 386c7ff. All 455 daily balances across the five runs were independently reconciled to the dated source receipts and payments; each monthly cash reconciliation was $0.00. This is a Python calculation record, not a new Excel verification. Read the results, definitions and source hashes (JSON).
 
 ## Why profit did not move
 
@@ -99,6 +118,8 @@ uv run --locked --extra dev python examples/lumbridge-services/models/generated/
 Each run writes the workbook, briefing and schedules to examples/lumbridge-services/output/ and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect quarter_profit_before_tax of 35957.55 in both runs, and minimum_daily_cash of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.
 
 Read the source and assumptions at the captured commit.
+
+To reproduce the additional sensitivity rows, run the same command with --delay-days 15, --delay-days 30 and --delay-days 60. Each run replaces the output files, so retain its results before starting the next one. Count values below zero in the resulting daily-cash.csv ending-cash column to reproduce days below zero.
 
 ## Provenance and verification
 
@@ -156,6 +177,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
 - capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
+- Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
 - Read the sample record: https://duguid.com.au/assets/examples/lumbridge/README.txt
 - Jeff Brines / Guiderail's openfpa: https://github.com/JeffBrines/openfpa

@@ -8,6 +8,11 @@
   root.dataset.viewMode = mode;
 
   document.addEventListener('DOMContentLoaded', () => {
+    const header = document.querySelector('.site-header');
+    // Anchor destinations must clear the header after text or viewport resizing.
+    new ResizeObserver(() => {
+      root.style.setProperty('--measured-header-height', `${header.getBoundingClientRect().height}px`);
+    }).observe(header);
     const toggle = document.querySelector('.view-mode');
     const view = document.querySelector('#machine-view');
     const text = view.querySelector('.machine-view__text');

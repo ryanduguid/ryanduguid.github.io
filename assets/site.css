@@ -12,7 +12,7 @@
 html {
   min-width: 320px;
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + var(--space-4));
+  scroll-padding-top: calc(var(--measured-header-height, var(--header-height)) + var(--space-4));
 }
 
 body {
@@ -223,6 +223,7 @@ pre code {
 
 .site-header__inner {
   display: flex;
+  flex-wrap: wrap;
   min-height: var(--header-height);
   align-items: center;
   justify-content: space-between;
@@ -251,6 +252,7 @@ pre code {
 
 .site-nav {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: clamp(var(--space-3), 1.8vw, var(--space-6));
   font-family: var(--font-mono);
@@ -463,7 +465,7 @@ button:not(.button) {
 
 @media (min-width: 56.0625rem) {
   .about-header {
-    grid-template-columns: minmax(0, 1fr) minmax(16rem, 26rem);
+    grid-template-columns: minmax(0, 1fr) minmax(0, min(40%, 26rem));
     column-gap: var(--space-7);
   }
 
@@ -473,7 +475,7 @@ button:not(.button) {
 
   .about-header > .about-portrait {
     grid-column: 2;
-    grid-row: 1 / span 4;
+    grid-row: 1 / span 5;
     align-self: end;
   }
 }
@@ -701,6 +703,25 @@ caption {
 
 .facts th {
   width: 13rem;
+}
+
+.facts--kv th {
+  overflow-wrap: anywhere;
+}
+
+.receipt-sensitivity td {
+  white-space: nowrap;
+}
+
+.receipt-sensitivity td:nth-child(3),
+.receipt-sensitivity td:last-child {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.receipt-sensitivity th:nth-child(3),
+.receipt-sensitivity th:last-child {
+  text-align: right;
 }
 
 .faq h3 {
@@ -2339,7 +2360,7 @@ input[type="checkbox"] {
   }
 
   .site-nav {
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     justify-content: space-between;
     gap: 0 var(--space-2);
     overflow-x: auto;
@@ -2868,7 +2889,13 @@ html[data-view-mode="machine"] body {
 
   .site-nav {
     display: grid;
-    grid-template-columns: repeat(3, max-content);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .site-nav a {
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: anywhere;
   }
 
   /* Keep the worked examples in the first viewport below the taller header. */

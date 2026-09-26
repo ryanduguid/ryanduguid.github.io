@@ -12,13 +12,13 @@
   },
   "json_ld": {
     "about/index.html": [
-      "0e4ec3bbce62279e157947e1f58ce79503c496b73652820a50ff459735cb0708"
+      "fb2fbb1930acfdda3e6c55e0b6ab4993fc6bf971fc9cb43d356f0211abaf2dae"
     ],
     "changelog/index.html": [
       "b10192cce7b7b08651ab651c5004f4259a2aac6ba090e706a7926d24cab0684c"
     ],
     "contact/index.html": [
-      "6934c382ea1b10a81c2dde7eb4eb74982a5149d37f9502e4470623f27d6dbf82"
+      "a2577d922c46739b519bf00ba60b5beecb7bb46f89d4d1a3b4b876e0b501cdf5"
     ],
     "evaluate/index.html": [
       "53c9945126b0a67b6082dbf3d79c2c0c65168075be71f658ca1aed374548bbc2"
@@ -36,7 +36,7 @@
       "c773c18391f0ff6a3b378167c63cb31b647f874697211ebf0784c13eb21ccfd5"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "ff18d45c93fd16f0f7f2d5e789a9d5ba48fb313a5da3ad092d0f6650c2df7111"
+      "d3e6977412b040c43b0ab3a5097a9b14c31781473400906eafa7ca94bdc44ad6"
     ],
     "index.html": [
       "74a769914657cb0cb8186e79c71730bf3ddbe58cb90b834cc443f0eed6af7aca"
@@ -105,13 +105,13 @@
       "60e5ab8d34a26cdddbae7cbcd4299b1cbff81ab38c38136dd5eace5e321f0668"
     ],
     "tools/xero-trial-balance/index.html": [
-      "b5579051f8168a6e74f9a1b6c515030fc1bb4e8507a825ca8d868058936710f8"
+      "6a8f2b7ca86abb64d678f25da276cea6b1084ca34846d7d5e72225fe160e266e"
     ]
   },
   "protected_files": {
     "llms.txt": "cd6ea2ca510a5f1d5455c1da12a4f395008b2a6199d3c1bad5205c02e9b61719",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "e478f131b70310dd4617e36894689ef4ca6b2cd3f64b78f97612af2bc0e237b7"
+    "sitemap.xml": "5667edf89cd75d323de8c709fdb7618bf0b9030ae8dbe7f7f558efa6e54f33a5"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

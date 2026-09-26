@@ -50,6 +50,7 @@ def base_capture() -> dict:
     return {
         "schema": 1,
         "fixture": False,
+        "answer_key_sha256": benchmark.answer_key_sha256(PROMPTS),
         "recorded_by": "test",
         "observations": [complete_observation()],
     }
@@ -475,6 +476,16 @@ def test_template_covers_every_prompt() -> None:
         assert observation["prompt_sent"] == PROMPTS[observation["prompt_id"]]["prompt"]
 
 
+def test_changed_facts_cannot_silently_regrade_a_capture() -> None:
+    capture = base_capture()
+    revised = json.loads(json.dumps(PROMPTS))
+    revised[BRANDED_ID]["expected_facts"][0]["fact"] = "A revised source claim."
+    failures = benchmark.check_capture_data("historical round", capture, revised)
+    expect_failure("changed answer key", failures, "answer_key_sha256 does not match")
+    capture.pop("answer_key_sha256")
+    expect_failure("missing answer key", failures_for(capture), "answer_key_sha256 does not match")
+
+
 def test_every_prompt_declares_sourced_facts_and_errors() -> None:
     for prompt_id, prompt in PROMPTS.items():
         assert prompt["prompt"].strip(), prompt_id
@@ -485,6 +496,21 @@ def test_every_prompt_declares_sourced_facts_and_errors() -> None:
             assert fact["source"].startswith("https://"), prompt_id
         ids = [error["id"] for error in prompt["common_errors"]]
         assert len(ids) == len(set(ids)), f"{prompt_id}: duplicate error ids"
+
+
+def test_release_based_facts_require_review_after_a_release() -> None:
+    releases = json.loads(
+        (benchmark.ROOT / "scripts/release_record.json").read_text(encoding="utf-8")
+    )
+    for prompt in PROMPTS.values():
+        for fact in prompt["expected_facts"]:
+            if "release_basis" in fact:
+                basis = fact["release_basis"]
+                current = releases["components"][basis["component"]]["published"]["version"]
+                assert basis["version"] == current, (
+                    f"{fact['id']}: review the fact for release {current}"
+                )
+                assert f"v{current}" in fact["fact"], f"{fact['id']}: state the release in the fact"
 
 
 def main() -> None:

@@ -1,0 +1,74 @@
+{
+  "captured": "2026-09-26",
+  "fictional": true,
+  "currency": "AUD",
+  "source_commit": "386c7ff31f7989b86445ef37d83a912fcb02bb47",
+  "source": "https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services",
+  "method": "Python forecast(delay_days=N), independently reconciled to dated source receipts and payments for every daily balance. No workbook was changed or recalculated in Excel for this capture.",
+  "definition": "days_negative counts daily closing balances below zero across 2 October to 31 December 2026. Separate negative periods are added together. No bank flows occur on 1 October. Same-day flows are netted; intraday liquidity is not measured.",
+  "inputs_sha256": {
+    "assumptions.json": "c90f2025aa3169c52189495bda92766dde6230825afaca789299e87a1a7a801a",
+    "invoices.csv": "61e4d8a038402b09581f7e268de403f038c6c7ea8bfa7172b1818682e900c277",
+    "payments.csv": "d7e2eb08bb3a064e16195a4731c8ecd8729f3406a6dee3b54a441f8ac93c46c8",
+    "payroll.csv": "64c0f200ce8693abd507b9545a5ca426b61231727ce2ff82eda51e1e161919da",
+    "xero_bs.csv": "06b62602bf915baf4879f40bff9dd3bfb75acb6057619dfd9d776b0be65cac04",
+    "xero_pl.csv": "73f49156bef21b1e514f805dcaab62a500d43b1535a965709699c1abb7526baa"
+  },
+  "results": [
+    {
+      "delay_days": 0,
+      "receipt_date": "2026-10-14",
+      "quarter_profit_before_tax": 35957.55,
+      "minimum_daily_cash": 16800.0,
+      "minimum_date": "2026-10-07",
+      "first_negative_date": null,
+      "days_negative": 0,
+      "december_closing_cash": 67320.0,
+      "max_cash_reconciliation": 0.0
+    },
+    {
+      "delay_days": 15,
+      "receipt_date": "2026-10-29",
+      "quarter_profit_before_tax": 35957.55,
+      "minimum_daily_cash": -11960.0,
+      "minimum_date": "2026-10-28",
+      "first_negative_date": "2026-10-28",
+      "days_negative": 1,
+      "december_closing_cash": 67320.0,
+      "max_cash_reconciliation": 0.0
+    },
+    {
+      "delay_days": 30,
+      "receipt_date": "2026-11-13",
+      "quarter_profit_before_tax": 35957.55,
+      "minimum_daily_cash": -25160.0,
+      "minimum_date": "2026-11-06",
+      "first_negative_date": "2026-10-28",
+      "days_negative": 16,
+      "december_closing_cash": 67320.0,
+      "max_cash_reconciliation": 0.0
+    },
+    {
+      "delay_days": 45,
+      "receipt_date": "2026-11-28",
+      "quarter_profit_before_tax": 35957.55,
+      "minimum_daily_cash": -25160.0,
+      "minimum_date": "2026-11-06",
+      "first_negative_date": "2026-10-28",
+      "days_negative": 16,
+      "december_closing_cash": 67320.0,
+      "max_cash_reconciliation": 0.0
+    },
+    {
+      "delay_days": 60,
+      "receipt_date": "2026-12-13",
+      "quarter_profit_before_tax": 35957.55,
+      "minimum_daily_cash": -25160.0,
+      "minimum_date": "2026-11-06",
+      "first_negative_date": "2026-10-28",
+      "days_negative": 22,
+      "december_closing_cash": 67320.0,
+      "max_cash_reconciliation": 0.0
+    }
+  ]
+}
