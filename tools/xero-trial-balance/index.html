@@ -39,7 +39,7 @@
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260925b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -59,7 +59,7 @@
       This tool pulls the trial balance from Xero's own reporting API and refuses to write the CSV unless both the month's movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">xero-trial-balance-export/v0.1.6</a>, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.11">xero-trial-balance-export/v0.1.11</a>.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -93,6 +93,7 @@
       <li>Refuses to write a file unless both the month's movement and the year-to-date figures balance.</li>
     </ul>
     </section>
+    <p>Related work: <a href="https://github.com/XeroAPI/xero-command-line/pull/44">XeroAPI accepted my correction to its command-line report flags</a>. It maps <code>--standard-layout</code> and <code>--payments-only</code> to the matching SDK parameters for balance sheet and profit and loss reports. That contribution concerns a separate tool; it does not validate this exporter. <a href="/evidence/#accepted-upstream-work">Read the accepted-work record</a>.</p>
     <section id="limits">
     <h2>Limits</h2>
     <blockquote>
@@ -211,7 +212,7 @@
         "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-26",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
         },
@@ -279,7 +280,7 @@
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-09-18"
+        "dateModified": "2026-09-26"
       },
       {
         "@type": "FAQPage",

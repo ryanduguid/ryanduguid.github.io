@@ -8,7 +8,9 @@ Source: https://duguid.com.au/about/
 
 I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
-Last reviewed 24 September 2026.
+See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
+
+Last reviewed 26 September 2026.
 
 ## The short facts
 
@@ -90,6 +92,7 @@ I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
+- See my accounting work samples: https://duguid.com.au/about/#work-samples
 - Financial Accounting (FI): https://www.credly.com/badges/750e7557-ab6d-4b28-a241-8252c263613a/public_url
 - Management Accounting (CO): https://www.credly.com/badges/0f753c71-5f49-41be-8519-51e81030a8f1/public_url
 - Read the certificate in the evidence register: https://duguid.com.au/evidence/#xero-certification

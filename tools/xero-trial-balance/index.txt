@@ -10,7 +10,7 @@ This tool pulls the trial balance from Xero's own reporting API and refuses to w
 
 Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is xero-trial-balance-export/v0.1.11.
 
-Published 24 August 2026. Last reviewed 18 September 2026.
+Published 24 August 2026. Last reviewed 26 September 2026.
 
 This tool reads the trial balance from Xero's reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
@@ -20,6 +20,8 @@ Before anything is written to disk, it runs a balance check: both the current mo
 
 - Pulls a trial balance from Xero's own reporting API into a tidy CSV that Power BI, Excel or pandas loads without clean-up.
 - Refuses to write a file unless both the month's movement and the year-to-date figures balance.
+
+Related work: XeroAPI accepted my correction to its command-line report flags. It maps --standard-layout and --payments-only to the matching SDK parameters for balance sheet and profit and loss reports. That contribution concerns a separate tool; it does not validate this exporter. Read the accepted-work record.
 
 ## Limits
 
@@ -94,6 +96,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
 - xero-trial-balance-export/v0.1.11: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.11
+- XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
+- Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/

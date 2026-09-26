@@ -59,6 +59,61 @@ test('view mode defaults to Human and preserves the page when switching back', a
   health.assertHealthy();
 });
 
+test('view controls remain usable without ResizeObserver', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.addInitScript(() => {
+    delete window.ResizeObserver;
+    localStorage.setItem('duguid-view-mode', 'machine');
+  });
+  await page.goto('/about/');
+  await expect(page.getByRole('main', { name: 'Machine view' })).toContainText('About Ryan Duguid');
+  await page.getByRole('radio', { name: 'Human', exact: true }).check();
+  await expect(page.getByRole('heading', { name: 'About Ryan Duguid', exact: true })).toBeVisible();
+  await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+  await page.setViewportSize({ width: 320, height: 1000 });
+  await page.getByRole('link', { name: 'See my accounting work samples' }).click();
+  await expect.poll(() => page.evaluate(() => {
+    const target = document.querySelector('#work-samples').getBoundingClientRect();
+    return target.top >= document.querySelector('.site-header').getBoundingClientRect().bottom;
+  })).toBe(true);
+  health.assertHealthy();
+});
+
+test('enlarged header text keeps navigation clear of the view switch', async ({ page }) => {
+  for (const width of [320, 390, 640, 960, 1280]) {
+    await page.setViewportSize({ width, height: 1000 });
+    await page.goto('/about/');
+    await page.evaluate(() => { document.documentElement.style.fontSize = '200%'; });
+    await page.evaluate(() => document.fonts.ready);
+    const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
+    const links = await page.locator('.site-header a').evaluateAll(elements => elements.map(element => {
+      const rect = element.getBoundingClientRect();
+      return { label: element.textContent, x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+    }));
+    for (const link of links) {
+      const overlaps = link.x < toggle.x + toggle.width && link.x + link.width > toggle.x
+        && link.y < toggle.y + toggle.height && link.y + link.height > toggle.y;
+      expect(overlaps, `${width}px: ${link.label}`).toBe(false);
+      expect(link.x + link.width, `${width}px: ${link.label}`).toBeLessThanOrEqual(width + 1);
+    }
+    const nav = page.getByRole('navigation', { name: 'Primary' });
+    expect(await nav.evaluate(element => element.scrollWidth <= element.clientWidth + 1)).toBe(true);
+    await page.getByRole('radio', { name: 'Machine', exact: true }).check();
+    await expect(page.getByRole('main', { name: 'Machine view' })).toBeVisible();
+    await page.getByRole('radio', { name: 'Human', exact: true }).check();
+    await expect(nav).toBeVisible();
+    await page.getByRole('link', { name: 'See my accounting work samples' }).click();
+    await expect.poll(() => page.evaluate(() => {
+      const target = document.querySelector('#work-samples').getBoundingClientRect();
+      const padding = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop);
+      return target.top >= document.querySelector('.site-header').getBoundingClientRect().bottom
+        && Math.abs(target.top - padding) < 2;
+    })).toBe(true);
+    expect(await page.locator('.about-header > .lead-note').evaluate(element => element.clientWidth)).toBeGreaterThan(150);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width + 1);
+  }
+});
+
 test('saved Machine mode follows the current page and synchronises other tabs', async ({ page, context }) => {
   await page.goto('/');
   await page.getByRole('radio', { name: 'Machine', exact: true }).check();

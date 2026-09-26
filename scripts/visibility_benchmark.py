@@ -26,6 +26,7 @@ failure, never a silent omission.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import sys
 from collections import defaultdict
@@ -71,6 +72,12 @@ def load_capture(path: Path) -> dict[str, Any]:
         raise ValueError(f"is a {type(capture).__name__}, expected an object")
     result: dict[str, Any] = capture
     return result
+
+
+def answer_key_sha256(prompts: dict[str, dict[str, Any]]) -> str:
+    """Identify the exact prompts, sourced facts and errors used for a round."""
+    encoded = json.dumps(prompts, sort_keys=True, ensure_ascii=False).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def is_text(value: object) -> bool:
@@ -247,6 +254,13 @@ def check_capture_data(
         failures.append(f"{label}: must declare fixture true or false")
     if not is_text(capture.get("recorded_by")):
         failures.append(f"{label}: must name who recorded it")
+    if capture.get("fixture") is False and capture.get("answer_key_sha256") != answer_key_sha256(
+        prompts
+    ):
+        failures.append(
+            f"{label}: answer_key_sha256 does not match the reviewed prompts; "
+            "use the retained answer key and repository revision for this round"
+        )
 
     observations = capture.get("observations")
     if not isinstance(observations, list) or not observations:
@@ -411,6 +425,7 @@ def template(prompts: dict[str, dict[str, Any]]) -> str:
     capture = {
         "schema": 1,
         "fixture": False,
+        "answer_key_sha256": answer_key_sha256(prompts),
         "recorded_by": "",
         "run_notes": "One file per system per round. Keep answer evidence beside it.",
         "observations": [

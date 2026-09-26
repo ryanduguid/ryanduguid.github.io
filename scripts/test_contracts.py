@@ -1415,8 +1415,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 18 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),

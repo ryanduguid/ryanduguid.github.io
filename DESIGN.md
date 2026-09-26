@@ -16,6 +16,8 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+The 26 September GEO implementation adds early work-sample links on About and Contact, an active LinkedIn contact route and a contextual accepted-contribution link on the Xero exporter page. The cash case gains a sourced five-scenario receipt-delay comparison. The shared header can wrap when enlarged text needs more space; narrow navigation tracks shrink and labels wrap within their cells. The existing view script measures the header when modes change and observes later size changes, with a window-resize fallback when ResizeObserver is unavailable. The About portrait uses at most 40% of the desktop columns, so enlarged text retains a readable column. Existing routes, the portrait, the dark palette and the single primary home action remain in place.
+
 The 25 September navigation follow-up keeps the cash flow example as the
 hero's only action. Browse tools moves below the four starting routes and
 uses the existing secondary-button style to retain a 44px tap target. The
@@ -560,7 +562,7 @@ Motion communicates feedback and location only.
 
 ### Header
 
-The header is sticky, one line and at most 72px tall. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
+At the default desktop text size, the header is sticky, one line and at most 72px tall. It reflows when enlarged text or a narrow viewport needs more room. Ryan Duguid appears as a text identity at left. Existing navigation labels and destinations remain exact. The Human and Machine view switch sits at the right end of the header at every width. The header uses paper transparency only if contrast remains solid; no blur or glass treatment is allowed.
 
 ### Footer
 

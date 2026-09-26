@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-18",
+  "reviewed": "2026-09-26",
   "notes": [
     "Stable prompt identifiers. Never reword a prompt under an existing id: retire it and add a new id, so a later run stays comparable.",
     "branded prompts name Ryan Duguid or one of his products. Non-branded prompts describe a need. Keep the two groups apart in every summary.",
@@ -58,8 +58,12 @@
         },
         {
           "id": "F5-tools",
-          "fact": "Covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, 6 bounded tax worksheets and optional search of a local Markdown library.",
-          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+          "fact": "The current published release, v0.2.9, covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, 9 bounded tax worksheets and optional search of a local Markdown library. The guide's reproducible v0.2.8 example has 7 worksheets.",
+          "source": "https://duguid.com.au/tools/australian-tax-ai-agents/",
+          "release_basis": {
+            "component": "aus-accounting-mcp",
+            "version": "0.2.9"
+          }
         },
         {
           "id": "F6-review",
@@ -74,7 +78,7 @@
         },
         {
           "id": "E5-version",
-          "error": "Names a version other than the current published release recorded in scripts/release_record.json."
+          "error": "Presents a version other than the current published release in scripts/release_record.json as current. A correctly labelled historical example is not an error."
         },
         {
           "id": "E6-lodgement",
