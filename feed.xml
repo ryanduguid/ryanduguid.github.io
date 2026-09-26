@@ -15,6 +15,13 @@
     <summary>The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.</summary>
   </entry>
   <entry>
+    <title>A live check of every page led to these fixes: calculators and question topic...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-049ac31b54b5c3bb</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>A live check of every page led to these fixes: calculators and question topics open on their inputs and questions, the phone header scrolls away with the page, reading lines are shorter, standalone links are 44px tall on phones, the cash flow example’s tables fit a phone and each evaluation opens with its result. The review gate keeps one name, page dates read in sentence case, apostrophes are typographic and the investments topic is renamed Investments and NSW.</summary>
+  </entry>
+  <entry>
     <title>Trust distribution checks solomons-sword/v0.1.8</title>
     <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8" />
     <id>https://duguid.com.au/changelog/#entry-b36861579727ed8d</id>
@@ -204,11 +211,11 @@
     <summary>Trust distribution checks: release solomons-sword/v0.1.7.</summary>
   </entry>
   <entry>
-    <title>The six webfonts return to IBM's unmodified Latin1 files, the response header...</title>
+    <title>The six webfonts return to IBM’s unmodified Latin1 files, the response header...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-3218d72411b9fdd7</id>
     <updated>2026-09-14T00:00:00Z</updated>
-    <summary>The six webfonts return to IBM's unmodified Latin1 files, the response header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base pay definition.</summary>
+    <summary>The six webfonts return to IBM’s unmodified Latin1 files, the response header notes separate the GitHub Pages origin from the Cloudflare edge, the cash forecast names the dates it accepts, and the Coal LSL page explains the incorporated base pay definition.</summary>
   </entry>
   <entry>
     <title>Company tax and franking checks the-exchequer-tally/v0.1.6</title>
@@ -250,7 +257,7 @@
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-86ca9fdcc933e430</id>
     <updated>2026-09-02T00:00:00Z</updated>
-    <summary>Copy edit across the tool, rate, and evaluation pages, About, Contact, and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site's per cent style.</summary>
+    <summary>Copy edit across the tool, rate, and evaluation pages, About, Contact, and Evidence: duplicated paragraphs removed, stray adverbs and rhetorical contrasts cut, disclaimers and bylines put in the active voice, and the super guarantee page moved to the site’s per cent style.</summary>
   </entry>
   <entry>
     <title>Font preloads and a Content Security Policy on every page, entry headings on...</title>

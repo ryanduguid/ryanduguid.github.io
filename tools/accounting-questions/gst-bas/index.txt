@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
 
-> Ten questions on GST and BAS for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on GST and BAS for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: GST and BAS
 
-Practical steps, records and official guidance on GST and BAS. Select questions to build a checklist.
+Practical steps, records and official guidance on GST and BAS.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the BAS period, GST accounting basis and account due date being reviewed. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in GST and BAS
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## GST and BAS
-
-Reviewed 11 September 2026. Use the BAS period, GST accounting basis and account due date being reviewed.
 
 31.
 
@@ -96,7 +92,7 @@ Link to question 34
 
 ### What information must appear on a valid tax invoice?
 
-If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer's identity or ABN. Use an invoice checklist matched to the sale and the ATO's tax invoice requirements.
+If a customer asks, you must issue a tax invoice within 28 days for any sale over $82.50 including GST. It must show that it is a tax invoice, your identity and ABN, the date, what was sold with quantity and price, the GST amount and how much of each sale is taxable. Sales of $1,000 or more must also show the buyer’s identity or ABN. Use an invoice checklist matched to the sale and the ATO’s tax invoice requirements.
 
 - Check supplier identity and ABN, date, description, price and how the GST amount is shown.
 - Check any buyer-identification requirement and clearly separate taxable and non-taxable items.
@@ -184,13 +180,17 @@ Link to question 39
 Work out whether the error can be corrected on a later BAS or requires a revision.
 
 - Record the original period, error type, amount, discovery date and supporting transactions.
-- Apply the ATO's correction conditions and retain the approved amendment or later-period adjustment.
+- Apply the ATO’s correction conditions and retain the approved amendment or later-period adjustment.
 
 Do not choose a later-period correction without checking time and value limits.
 
 ATO GST guidance
 
 Link to question 40
+
+Reviewed 11 September 2026. Use the BAS period, GST accounting basis and account due date being reviewed. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
 
 - Tax returns
 - Deductions
@@ -200,7 +200,7 @@ Link to question 40
 - Cash flow
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -208,7 +208,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - Link to question 31: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
@@ -228,6 +227,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 38: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
 - Link to question 39: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
 - Link to question 40: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -236,4 +236,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

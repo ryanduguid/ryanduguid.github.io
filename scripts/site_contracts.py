@@ -345,7 +345,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "../../contracts/xero-trial-balance-v1/fixtures/failing_ytd.csv",
         ),
         "contract_text": (
-            "The production tool reads trial balance data directly from Xero's "
+            "The production tool reads trial balance data directly from Xero’s "
             "Accounting API Reports endpoint.",
             "This pack is for a reviewer who wants to reproduce the offline integrity "
             "gate without connecting to Xero or handling client data.",
@@ -448,7 +448,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             "assessment facts before relying on a statutory conclusion.",
             "Experimental review aid. Not a compliance determination.",
             "the first to contain the evaluation directory",
-            "evaluation artefacts are fixed to that release's commit",
+            "evaluation artefacts are fixed to that release’s commit",
         ),
         "product_evidence_urls": (
             "https://github.com/ryanduguid/australian-accounting/releases/tag/"
@@ -479,7 +479,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ),
             "limitations": ("This evaluation does not provide advice or make an ATO assessment.",),
         },
-        "sitemap_lastmod": "2026-09-22",
+        "sitemap_lastmod": "2026-09-26",
         "llms_section": "Evaluation packs",
     },
 }
@@ -539,7 +539,7 @@ COLLECTION_HUBS: dict[str, dict[str, Any]] = {
     "evaluate/index.html": {
         "h1": "Evaluations",
         "entries": [
-            ("/evaluate/manager-review-gate/", "Manager review gate evaluation"),
+            ("/evaluate/manager-review-gate/", "Workpaper Review Gate evaluation"),
             (
                 "/evaluate/xero-trial-balance-integrity/",
                 "Xero trial balance integrity evaluation",
@@ -576,12 +576,9 @@ HOMEPAGE_HEADING = "Open source tools for Australian accountants"
 HOMEPAGE_HEADING_MARKUP = '<h1 id="home-title">Open source tools for Australian accountants</h1>'
 HOMEPAGE_SUPPORT = "Check workpaper packs, explore cash shortfalls and inspect the calculations."
 HOMEPAGE_ACTIONS = (("/examples/profit-vs-cash-flow/", "Explore the cash flow example"),)
+# The hero already opens the cash case, so the homepage lists the four routes
+# after it; Tools and llms.txt keep all five.
 HOMEPAGE_PREVIEW_ENTRIES = (
-    (
-        "Understand why profit and cash differ",
-        "/examples/profit-vs-cash-flow/",
-        "/evaluate/#five-minute-cases",
-    ),
     ("Use accounting functions in Excel", "/tools/ozzit/", "/tools/ozzit/#functions"),
     (
         "Review a month-end close",
@@ -595,9 +592,17 @@ HOMEPAGE_PREVIEW_ENTRIES = (
         "/tools/workpaper-review-gate/",
     ),
 )
+TASK_ROUTE_ENTRIES = (
+    (
+        "Understand why profit and cash differ",
+        "/examples/profit-vs-cash-flow/",
+        "/evaluate/#five-minute-cases",
+    ),
+    *HOMEPAGE_PREVIEW_ENTRIES,
+)
 HOMEPAGE_ANCHORS = ("adopt", "verify")
 ABOUT_OPENING = (
-    "I'm Ryan Duguid, an accountant in Newcastle, NSW. "
+    "I’m Ryan Duguid, an accountant in Newcastle, NSW. "
     "I build open source tools that check Australian tax, payroll, ledgers and "
     "workpapers. Each tool shows its sources and working, uses fictional examples and "
     "leaves the judgement and lodgement to a person."
@@ -2792,9 +2797,9 @@ def check_canonical_identity_urls(paths: list[Path]) -> list[str]:
 
 
 def check_task_routes(root: Path = core.ROOT) -> list[str]:
-    """Keep the four starting routes identical for readers and for engines."""
+    """Keep the five starting routes identical for readers and for engines."""
     failures: list[str] = []
-    expected = [(label, primary) for label, primary, _ in HOMEPAGE_PREVIEW_ENTRIES]
+    expected = [(label, primary) for label, primary, _ in TASK_ROUTE_ENTRIES]
 
     tools_path = root / TASK_ROUTES_REL
     tools_html = tools_path.read_text(encoding="utf-8") if tools_path.is_file() else ""
@@ -2838,7 +2843,9 @@ def check_task_routes(root: Path = core.ROOT) -> list[str]:
         if isinstance(item, dict)
     ]
     failures.extend(parse_failures)
-    if listed != [(label, f"{SITE}{primary}") for label, primary in expected]:
+    # The homepage lists the routes after its hero, which already opens the cash case.
+    home_expected = [(label, f"{SITE}{primary}") for label, primary, _ in HOMEPAGE_PREVIEW_ENTRIES]
+    if listed != home_expected:
         failures.append(f"index.html: starting-route ItemList is {listed!r}")
     return failures
 

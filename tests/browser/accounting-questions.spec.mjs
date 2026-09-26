@@ -45,6 +45,7 @@ test('question search finds abbreviations and words in the guidance', async ({ p
   const requests = [];
   page.on('request', request => requests.push(request.url()));
   await page.goto('/tools/accounting-questions/payroll-super/');
+  await page.getByText('Search or build a checklist').click();
   for (const [term, id] of [['STP', 46], ['superannuation', 41]]) {
     await page.getByLabel('Search questions').fill(term);
     await expect(page.locator(`#q${id}`)).toBeVisible();
@@ -52,6 +53,18 @@ test('question search finds abbreviations and words in the guidance', async ({ p
   await page.getByLabel('Search questions').fill('STP');
   await expect(page.locator('details.question:visible')).toHaveCount(1);
   expect(requests.some(url => url.endsWith('/assets/business-calculators.mjs'))).toBe(false);
+});
+
+test('a cached older script still leaves Clear filters usable', async ({ page }) => {
+  // Cloudflare can serve the previous module with new HTML; that module only
+  // enabled the controls, so the markup must not disable the button itself.
+  await page.route('**/assets/accounting-pages.mjs', (route) => route.fulfill({
+    contentType: 'text/javascript',
+    body: "document.querySelector('.question-controls fieldset').disabled = false;",
+  }));
+  await page.goto('/tools/accounting-questions/gst-bas/');
+  await page.getByText('Search or build a checklist').click();
+  await expect(page.getByRole('button', { name: 'Clear filters' })).toBeEnabled();
 });
 
 test('the questions hub links every question to its topic page', async ({ page }) => {
@@ -179,6 +192,7 @@ test('all 100 questions remain readable without JavaScript', async ({ browser })
   await expect(page.locator('ol.question-index li')).toHaveCount(100);
   await page.goto('/tools/accounting-questions/investments-local/');
   await expect(page.locator('details.question')).toHaveCount(10);
+  await page.getByText('Search or build a checklist').click();
   await expect(page.getByLabel('Search questions')).toBeVisible();
   await expect(page.getByLabel('Search questions')).toBeDisabled();
   await page.locator('#q100 summary').click();
@@ -189,7 +203,10 @@ test('all 100 questions remain readable without JavaScript', async ({ browser })
 
 test('search, topic selection and a direct link can reveal the last question', async ({ page }) => {
   await page.goto('/tools/accounting-questions/investments-local/');
+  await expect(page.locator('#clear-filters')).toBeDisabled();
+  await page.getByText('Search or build a checklist').click();
   await page.getByLabel('Search questions').fill('Newcastle');
+  await expect(page.locator('#clear-filters')).toBeEnabled();
   await expect(page.locator('details.question:visible')).toHaveCount(2);
   await expect(page.locator('#q99')).toBeVisible();
   await page.getByLabel('Search questions').fill('payroll tax');

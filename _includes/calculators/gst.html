@@ -1,16 +1,17 @@
 <section class="business-calculator" id="gst">
-<h2>GST</h2><p>For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.</p><p><a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a></p>
 <form data-calculator="gst">
 <fieldset disabled><legend>GST inputs</legend><div class="form-grid"><label class="field" for="gst-amount">Amount (AUD)<input id="gst-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="" required /></label>
 <label class="check-field"><input type="checkbox" name="inclusive" /> Amount includes GST</label></div>
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
 <div class="sources-applied" hidden>
-<h3>Sources applied</h3>
+<h2>Sources applied</h2>
 <ul class="sources">
 <li>Rate: GST is 10% of the GST-exclusive value, so the GST in a GST-inclusive amount is one-eleventh of it. <a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a>, read 20 September 2026; <a href="https://www.legislation.gov.au/C2004A00446/latest/text">A New Tax System (Goods and Services Tax) Act 1999</a>.</li>
 <li><span data-when="exclusive">Applied to your figure as a GST-exclusive amount: GST = amount / 10, rounded once to cents.</span><span data-when="inclusive" hidden>Applied to your figure as a GST-inclusive amount: GST = amount / 11, rounded once to cents.</span></li>
 <li>Supplied by you: the amount, whether it includes GST and that the supply is wholly taxable. Mixed, GST-free and input-taxed supplies are not classified here.</li>
 </ul>
 </div>
-</form></section>
+</form>
+<h2>How it works</h2><p>For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusive amount / 11 gives its GST component. Each result rounds once to cents. Mixed, GST-free and input-taxed supplies need classification first.</p><p><a href="https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works">ATO: How GST works</a></p>
+</section>

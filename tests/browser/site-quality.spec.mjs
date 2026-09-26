@@ -1,29 +1,15 @@
+import { readFileSync } from 'node:fs';
+
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
 
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
 
+// Every page in the sitemap, plus the not-found page, gets the shell and axe checks.
 const routes = [
-  ['home', '/'],
-  ['about', '/about/'],
-  ['privacy and site use', '/privacy/'],
-  ['evidence', '/evidence/'],
-  ['tools', '/tools/'],
-  ['monthly close controls', '/tools/monthly-close-controls/'],
-  ['evaluations', '/evaluate/'],
-  ['payday evidence evaluation', '/evaluate/payday-super-evidence/'],
-  ['rates', '/rates/'],
-  ['super guarantee rate', '/rates/super-guarantee/'],
-  ['FBT rate', '/rates/fbt-rate/'],
-  ['cents per kilometre', '/rates/cents-per-kilometre/'],
-  ['announced measures and enacted law', '/rates/announced-not-yet-law/'],
-  ['payday receipt evidence', '/tools/payday-super/'],
-  ['known limitations', '/tools/limitations/'],
-  ['Australian tax AI agents', '/tools/australian-tax-ai-agents/'],
-  ['profit versus cash flow', '/examples/profit-vs-cash-flow/'],
-  ['Ozzit Excel LAMBDA library', '/tools/ozzit/'],
-  ['Coal LSL calculator', '/tools/coal-lsl-levy/'],
+  ...[...readFileSync('sitemap.xml', 'utf8').matchAll(/<loc>https:\/\/duguid\.com\.au([^<]+)<\/loc>/g)]
+    .map(([, path]) => [path, path]),
   ['not-found page', '/404.html'],
 ];
 
@@ -51,7 +37,6 @@ const currentNavigationCases = [
 const noCurrentNavigationRoutes = ['/examples/profit-vs-cash-flow/'];
 
 const homepagePreviewRoutes = [
-  ['Understand why profit and cash differ', '/examples/profit-vs-cash-flow/', 'business'],
   ['Calculate a Coal LSL levy', '/tools/coal-lsl-levy/', 'calc-form'],
   ['Check a BAS pack before manager review', '/evaluate/manager-review-gate/', 'accounting-problem'],
   ['Use accounting functions in Excel', '/tools/ozzit/', 'worked-example'],
@@ -119,7 +104,9 @@ const representativeHeightBaseline = {
     // With the corpus and release policy links from the homepage (25
     // September) and the XeroAPI paragraph it measures 5,724px. Keep the
     // 234px guard.
-    ['/evidence/', 5958],
+    // The 56ch reading measure of 26 September wraps its prose sooner: 6,451px
+    // locally, plus the 234px guard.
+    ['/evidence/', 6685],
   ]),
 };
 
@@ -157,11 +144,11 @@ for (const [label, route] of routes) {
     }));
     expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.clientWidth);
 
+    // Moderate and best-practice findings fail too: the 26 September audit found
+    // a landmark gap that a serious-or-critical filter let through on every page.
     const scan = await new AxeBuilder({ page }).analyze();
-    const severe = scan.violations.filter(
-      ({ impact }) => impact === 'serious' || impact === 'critical',
-    );
-    expect(severe, `${route} has serious or critical axe violations`).toEqual([]);
+    const violations = scan.violations.map(({ id, impact, nodes }) => `${id} (${impact}): ${nodes[0]?.target}`);
+    expect(violations, `${route} has axe violations`).toEqual([]);
     health.assertHealthy();
   });
 }
@@ -229,7 +216,6 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
 
   const categories = page.getByRole('navigation', { name: 'Starting routes' });
   await expect(categories.getByRole('heading', { level: 3 })).toHaveText([
-    'Understand why profit and cash differ',
     'Use accounting functions in Excel',
     'Review a month-end close',
     'Calculate a Coal LSL levy',

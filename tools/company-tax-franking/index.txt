@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/tools/company-tax-franking/
 
-> Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result.
+> Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result.
 
 # Company tax and franking worksheets
 
-A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year's test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
+A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
@@ -26,7 +26,7 @@ It builds the statement fields a dividend distribution statement needs, too. Tha
 
 ## Limits
 
-Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity's facts before acting, and leave lodgement decisions with a registered practitioner.
+Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the entity’s facts before acting, and leave lodgement decisions with a registered practitioner.
 
 ## Get it
 
@@ -64,13 +64,13 @@ Applicable Tax Rate:     25.0%
 
 Change --fy 2025 to --fy 2017. Release 0.1.7 has no bundled rate table for that year. It exits 2 and returns no rate.
 
-This verifies the published command's behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.
+This verifies the published command’s behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company’s circumstances.
 
 ## Common questions
 
 ### What makes a company a base rate entity?
 
-Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80% of assessable income being base rate entity passive income.
+Two tests, both of which must hold for the income year: aggregated turnover below that year’s threshold, and no more than 80% of assessable income being base rate entity passive income.
 
 ### What is franking deficit tax?
 

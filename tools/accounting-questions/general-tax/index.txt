@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
-> Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Tax returns
 
-Practical steps, records and official guidance on tax returns. Select questions to build a checklist.
+Practical steps, records and official guidance on tax returns.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the income year and residency facts for the return being prepared. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Tax returns
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Tax returns
-
-Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared.
 
 1.
 
@@ -66,7 +62,7 @@ Link to question 2
 
 ### What steps are involved in completing a return?
 
-Collect the year's records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
+Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
 
 - Check income statements are ready and account for income missing from pre-fill.
 - Keep a copy of the reviewed return, declaration and lodgement receipt.
@@ -81,7 +77,7 @@ Link to question 3
 
 ### Where can I obtain or recover my TFN?
 
-Use the ATO's TFN application or lost-TFN route. The right application process depends on residency and circumstances.
+Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.
 
 - If you already have a TFN, use the ATO recovery instructions before applying again.
 - Complete any identity checks directly with the official service.
@@ -101,7 +97,7 @@ The income year runs from 1 July to 30 June. A return you lodge yourself is due 
 - Record the period, lodgement date, payment date and responsible person for each obligation.
 - Confirm the dates in your ATO account or with your registered agent; record any approved extension.
 
-An agent's program or a particular account can have different dates from a general calendar.
+An agent’s program or a particular account can have different dates from a general calendar.
 
 Your tax return · Preparing your tax return
 
@@ -128,7 +124,7 @@ Link to question 6
 
 ### Which earnings are taxable?
 
-Check each source of income against the ATO's categories. Amounts missing from pre-fill still need review.
+Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.
 
 - Reconcile employment, business, investment, government and foreign income records.
 - List unusual receipts separately and record why they are included or excluded.
@@ -143,7 +139,7 @@ Link to question 7
 
 ### How long will the tax return process take?
 
-Separate your preparation time from the ATO's processing time. Missing records, amendments and reviews can extend the overall process.
+Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
 
 - Complete the record checklist before setting a preparation deadline.
 - After lodgement, use the official progress service and respond to any information request.
@@ -158,7 +154,7 @@ Link to question 8
 
 ### Where can I submit a completed return?
 
-Individuals can use the lodgement options on the ATO's tax return page, including myTax where eligible, a registered agent or paper.
+Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.
 
 - Choose the route for your circumstances and confirm the income year.
 - Review the declaration and save the lodgement receipt after submission.
@@ -186,6 +182,10 @@ The bold answer was checked on 24 September 2026.
 
 Link to question 10
 
+Reviewed 11 September 2026. Use the income year and residency facts for the return being prepared. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Deductions
 - Starting a business
 - GST and BAS
@@ -194,7 +194,7 @@ Link to question 10
 - Cash flow
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -202,7 +202,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
 - Tax rates for Australian residents: https://www.ato.gov.au/tax-rates-and-codes/tax-rates-australian-residents
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
@@ -225,6 +224,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
 - GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
@@ -233,4 +233,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

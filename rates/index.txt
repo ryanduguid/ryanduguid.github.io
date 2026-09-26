@@ -2,13 +2,13 @@
 
 Source: https://duguid.com.au/rates/
 
-> Open maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT references with verified dates and primary sources.
+> Maintained Australian super guarantee, contribution base, Division 7A, cents-per-kilometre, car limit and FBT rates with verified dates and primary sources.
 
 # Rates
 
 Seven maintained Australian reference tables with the current value, source-reviewed date and primary material kept together.
 
-Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page's editorial check.
+Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.
 
 Last reviewed 22 September 2026.
 
@@ -108,7 +108,7 @@ Verified
 
 Scope
 
-Tax and super measures on the ATO's Budget 2026-27 and MYEFO 2025-26 lists, by status.
+Tax and super measures on the ATO’s Budget 2026-27 and MYEFO 2025-26 lists, by status.
 
 Primary source Download CSV
 

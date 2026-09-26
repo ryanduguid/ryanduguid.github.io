@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/evidence/
 
-> Canonical evidence, assurance boundaries and inspectable records for Ryan Duguid's Australian computational accounting tools.
+> Canonical evidence, assurance boundaries and inspectable records for Ryan Duguid’s Australian computational accounting tools.
 
 # Evidence behind the tools
 
@@ -18,7 +18,7 @@ OpenAccountants, tax guides for coding agents. Pull request 85 restored the Aust
 
 Meltano SDK, a framework for Singer taps and targets. Pull request 3727 retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.
 
-Xero command line, XeroAPI's command-line tool for the Xero Accounting API. Pull request 44 passes the --standard-layout and --payments-only flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so --standard-layout returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.
+Xero command line, XeroAPI’s command-line tool for the Xero Accounting API. Pull request 44 passes the --standard-layout and --payments-only flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so --standard-layout returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.
 
 Merge status and file counts were read from the GitHub API on 25 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, rerun the evaluations.
 
@@ -46,7 +46,7 @@ Valid until
 
 View certificate (PDF) Xero trial balance export and review workflow
 
-The certificate records my own product knowledge for the period shown. It is not a Xero endorsement, certification or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero's artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository's software licence.
+The certificate records my own product knowledge for the period shown. It is not a Xero endorsement, certification or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
 
 ## Packages, releases and repositories
 
@@ -54,7 +54,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 
 - Aus Accounting MCP: MCP Registry, PyPI, repository, releases, engine compatibility source and licence.
 - payday-super-checker: PyPI, repository, releases, release records and licence.
-- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and licence; Solomon's Sword repository, releases and licence; The Exchequer Tally repository, releases and licence.
+- ATO benchmarks, trust distributions and company tax: ato-benchmark-compare repository, releases and licence; Solomon’s Sword repository, releases and licence; The Exchequer Tally repository, releases and licence.
 - Agent skills and construction WIP: Australian Accounting Skills, releases and licence; Hardhat Ledger, releases and licence; TheWIPTally repository and licence.
 - Xero export and Workpaper Review Gate: xero-trial-balance-export repository, releases, release and compatibility record and licence; Workpaper Review Gate repository, release record and licence.
 - Coal LSL calculator and this record: site repository and licence.
@@ -74,7 +74,7 @@ These records link to the maintained source instead of repeating rates, threshol
 
 ## Data and privacy boundary
 
-The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host's model provider. Check the host's configuration and data handling before supplying information.
+The calculation engines and MCP server run locally. Installation downloads packages. If you use a cloud-backed AI host, supplied arguments, tool results and local library excerpts may be sent to that host’s model provider. Check the host’s configuration and data handling before supplying information.
 
 The optional LodgeiT calculator adapter is separate, unreleased development code and off by default. It makes network calls only with explicit enablement, a configured base URL and an allowed host. The standard MCP server does not use it as a fallback. Website hosting and browser data handling have their own boundaries.
 
@@ -82,7 +82,7 @@ No client, taxpayer or production-ledger data appears in public examples. Busine
 
 - The ATO benchmark client data control records the zero-network runtime boundary.
 - The Payday Super local file boundary, TheWIPTally local file boundary and Workpaper Review Gate data boundary state how client files are separated from public fixtures.
-- The MCP client architecture describes a local stdio process. The Xero scope and credential boundary separately records that product's read-only API and local token controls.
+- The MCP client architecture describes a local stdio process. The Xero scope and credential boundary separately records that product’s read-only API and local token controls.
 - The Coal LSL calculator repository makes the browser implementation inspectable.
 
 ## Security, tests and release evidence
@@ -91,7 +91,7 @@ I publish a security policy for the Aus Accounting MCP, Payday Super, ATO benchm
 
 Each repository shows its current GitHub Actions results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills and this site.
 
-Published products expose release assets through the release pages linked above. Each repository's attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
+Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 
 - australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and company tax
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
@@ -133,7 +133,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/LICENSE
 - ato-benchmark-compare repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/LICENSE
-- Solomon's Sword repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Solomon’s Sword repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
 - licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/LICENSE
 - The Exchequer Tally repository: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - licence: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/LICENSE

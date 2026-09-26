@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Company tax and franking worksheets</title>
-  <meta name="description" content="Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result." />
+  <meta name="description" content="Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Company tax and franking worksheets" />
-  <meta property="og:description" content="Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result." />
+  <meta property="og:description" content="Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Company tax and franking worksheets" />
-  <meta name="twitter:description" content="Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result." />
+  <meta name="twitter:description" content="Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/company-tax-franking/" />
@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,7 +56,7 @@
     </nav>
     <h1>Company tax and franking worksheets</h1>
     <p class="lead-note">
-      A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year's threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year's test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
+      A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
     </p>
     <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.</p>
     <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7">the-exchequer-tally/v0.1.7</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which <code>pip install the-exchequer-tally</code> fetches.</p>
@@ -102,7 +102,7 @@
       <p>
         Nothing this engine produces is tax, legal or financial advice, an
         assessment or a determination. Outputs are review aids: confirm every rate, threshold and consequence against the current law and the
-        entity's facts before acting, and leave lodgement decisions with a
+        entity’s facts before acting, and leave lodgement decisions with a
         registered practitioner.
       </p>
     </blockquote>
@@ -127,13 +127,13 @@ Base Rate Entity:        True
 Applicable Tax Rate:     25.0%</code></pre>
     <h3>Try a refusal</h3>
     <p>Change <code>--fy 2025</code> to <code>--fy 2017</code>. Release 0.1.7 has no bundled rate table for that year. It exits 2 and returns no rate.</p>
-    <p>This verifies the published command's behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company's circumstances.</p>
+    <p>This verifies the published command’s behaviour on fictional inputs. It does not determine the maximum franking rate, which uses prior-year facts, or replace review of the company’s circumstances.</p>
     </section>
     <section id="common-questions" class="faq-section">
     <h2>Common questions</h2>
     <div class="faq">
       <h3>What makes a company a base rate entity?</h3>
-      <p>Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80% of assessable income being base rate entity passive income.</p>
+      <p>Two tests, both of which must hold for the income year: aggregated turnover below that year’s threshold, and no more than 80% of assessable income being base rate entity passive income.</p>
       <h3>What is franking deficit tax?</h3>
       <p>Tax payable where a franking account ends the year in deficit. Where the deficit exceeds 10% of the credits arising in the year, the offset may be reduced by 30%, but only for the part of the liability that relates to franking debits arising under the provisions listed in section 205-70(8). Check the debit types and any exceptions before applying the reduction.</p>
       <h3>What is the benchmark rule?</h3>
@@ -169,7 +169,7 @@ Applicable Tax Rate:     25.0%</code></pre>
         "@id": "https://duguid.com.au/tools/company-tax-franking/#webpage",
         "url": "https://duguid.com.au/tools/company-tax-franking/",
         "name": "Company tax and franking worksheets",
-        "description": "Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result.",
+        "description": "Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
         "dateModified": "2026-09-26",
@@ -221,7 +221,7 @@ Applicable Tax Rate:     25.0%</code></pre>
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Company tax rate and franking account checker",
-        "description": "Inspect conditional company tax and franking worksheets using operator-established facts. Have a registered tax agent review the company's tax position before relying on a result.",
+        "description": "Inspect company tax and franking worksheets from operator-established facts. Have a registered tax agent review the tax position before relying on a result.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Windows, macOS, Linux",
         "url": "https://duguid.com.au/tools/company-tax-franking/",
@@ -251,7 +251,7 @@ Applicable Tax Rate:     25.0%</code></pre>
             "name": "What makes a company a base rate entity?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Two tests, both of which must hold for the income year: aggregated turnover below that year's threshold, and no more than 80% of assessable income being base rate entity passive income."
+              "text": "Two tests, both of which must hold for the income year: aggregated turnover below that year’s threshold, and no more than 80% of assessable income being base rate entity passive income."
             }
           },
           {

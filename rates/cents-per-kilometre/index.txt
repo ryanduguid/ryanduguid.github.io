@@ -36,7 +36,7 @@ Section 28-25 of the Income Tax Assessment Act 1997 sets the calculation: busine
 - 5,000 kilometres is a ceiling, not a threshold. If the car travelled 5,085 business kilometres, you claim 5,000 and lose the extra 85. The Act uses that exact example.
 - One rate for every car. Engine size stopped mattering when the old engine capacity bands were replaced by a single determined rate.
 - No substantiation of the car expenses. Section 28-35 removes that requirement for this method, which is not the same as needing no records: the business kilometres still have to be a reasonable estimate you can explain.
-- The rate is meant to cover everything. In setting it, the Commissioner must have regard to average operating costs, which the Act's own note describes as including registration, insurance and depreciation as well as fuel and maintenance. Claiming those separately on top of the rate is double counting.
+- The rate is meant to cover everything. In setting it, the Commissioner must have regard to average operating costs, which the Act’s own note describes as including registration, insurance and depreciation as well as fuel and maintenance. Claiming those separately on top of the rate is double counting.
 
 ## Common questions
 
@@ -56,7 +56,7 @@ Not yet set. Section 6 of the 2026 determination sets 91 cents for the income ye
 
 The first 5,000 business kilometres per car per income year. Kilometres above 5,000 are discarded rather than paid at a lower rate, so a car that travelled 5,085 business kilometres claims 5,000.
 
-### Does the rate depend on the size of the car's engine?
+### Does the rate depend on the size of the car’s engine?
 
 No. A single rate applies to every car for the income year. The engine capacity bands belong to an older version of the method.
 

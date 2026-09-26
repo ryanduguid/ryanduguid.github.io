@@ -36,8 +36,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 
   <link rel="stylesheet" href="/assets/accounting-pages.css" />
   <script type="module" src="/assets/accounting-pages.mjs"></script>
@@ -53,12 +53,11 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p>One of 10 topics in the <a href="/tools/accounting-questions/">100 Australian accounting questions</a>. Select questions here to build a checklist for this topic.</p>
-        <p class="field-note">{{ topic.period | escape }} Tax guidance must match your year and circumstances.</p>
-        <p class="page-meta">Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}. Page updated 24 September 2026.</p>
+        <p class="page-meta">Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}. Page updated 26 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
-        <div class="question-controls">
+        <details class="question-controls question-tools">
+          <summary>Search or build a checklist</summary>
           <fieldset disabled><legend class="visually-hidden">Question filters and checklist</legend>
           <div class="form-grid">
             <label class="field" for="question-search">Search questions in {{ topic.label | escape }}<input type="search" id="question-search" name="q" autocomplete="off" aria-describedby="question-search-help" /></label>
@@ -73,12 +72,11 @@
           <p id="question-count" role="status">{{ questions | size }} questions. 0 selected.</p>
           <p class="field-note">Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.</p>
           </fieldset>
-        </div>
+        </details>
         <noscript><p>All {{ questions | size }} answers are available below. JavaScript adds search, selection and checklist downloads.</p></noscript>
         {% capture question_sections %}
         <section class="question-group" id="{{ topic.id }}" data-topic="{{ topic.id }}">
           <h2>{{ topic.label | escape }}</h2>
-          <p class="topic-review field-note">Reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}. {{ topic.period | escape }}</p>
           {% for question in questions %}
           {% assign source = site.data.accounting_questions.sources[question.source] %}
           {% assign tool = site.data.accounting_questions.tools[question.tool] %}
@@ -96,18 +94,20 @@
             </div>
           </details>
           {% endfor %}
+          <p class="topic-review field-note">Reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}. {{ topic.period | escape }} Tax guidance must match your year and circumstances.</p>
         </section>
         {% endcapture %}{{ question_sections | normalize_whitespace }}
+        <p>One of 10 topics in the <a href="/tools/accounting-questions/">100 Australian accounting questions</a>.</p>
         <nav class="question-topics" aria-label="Other topics"><ul>{% for other in site.data.accounting_questions.topics %}{% if other.id != topic.id %}
           <li><a href="/tools/accounting-questions/{{ other.id }}/">{{ other.label | escape }}</a></li>{% endif %}{% endfor %}
         </ul></nav>
-        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
       </div>
-      <p class="byline">
-        Written by Ryan Duguid in his own time and on his own equipment.
+      <div class="byline">
+        <p>The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
+        <p>Written by Ryan Duguid in his own time and on his own equipment.
         He is a Provisional CA ANZ Member.
-        CA ANZ has not endorsed this site or its tools.
-      </p>
+        CA ANZ has not endorsed this site or its tools.</p>
+      </div>
     </article>
   </main>
 {% include site-footer.html %}
@@ -123,7 +123,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-24",
+      "dateModified": "2026-09-26",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

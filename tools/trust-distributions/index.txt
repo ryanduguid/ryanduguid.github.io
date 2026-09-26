@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/tools/trust-distributions/
 
-> Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result.
+> Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.
 
 # Trust distribution worksheets for professional review
 
@@ -14,16 +14,16 @@ Reference release solomons-sword/v0.1.8, tagged source on GitHub. The worked exa
 
 Published 24 August 2026. Last reviewed 26 September 2026.
 
-Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary's own rate. The ATO's finalised guideline PCG 2022/2 says where the risk sits.
+Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
 
-The white zone, for income years ending before 1 July 2014, is out of scope because the tool does not take an income year. Division 6 shares follow the High Court's decision in Bamford.
+The white zone, for income years ending before 1 July 2014, is out of scope because the tool does not take an income year. Division 6 shares follow the High Court’s decision in Bamford.
 
 Where the tool does not implement a rule, such as streamed capital gains and franked dividends under the Division 6E carve-out, it refuses the input rather than returning a number it cannot stand behind.
 
 ## What this tool does
 
-- Classifies a trust distribution against the ATO's section 100A green and red risk zones under PCG 2022/2, from facts you supply.
-- Works out each beneficiary's proportionate share of trust income under Division 6, following the Bamford case.
+- Classifies a trust distribution against the ATO’s section 100A green and red risk zones under PCG 2022/2, from facts you supply.
+- Works out each beneficiary’s proportionate share of trust income under Division 6, following the Bamford case.
 - Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.
 
 ## Get it
@@ -62,11 +62,11 @@ Change --corpus 50000 to --corpus 160000. The exemptions now exceed the gross re
 error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount
 ```
 
-This verifies the published command's behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.
+This verifies the published command’s behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.
 
 ## Limits
 
-Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity's facts before acting, and leave lodgement decisions with a registered practitioner.
+Nothing this engine produces is tax, legal or financial advice, an assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, and leave lodgement decisions with a registered practitioner.
 
 Source on GitHub · Primary sources: ATO PCG 2022/2 and the Income Tax Assessment Act 1936.
 
@@ -82,9 +82,9 @@ No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 202
 
 It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
 
-### How is each beneficiary's share of trust income worked out?
+### How is each beneficiary’s share of trust income worked out?
 
-Proportionately, following the High Court's decision in Bamford: a beneficiary's share of trust income sets the proportion of the trust's taxable income assessed to them.
+Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them.
 
 ### What will this tool refuse to calculate?
 

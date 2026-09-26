@@ -25,7 +25,13 @@ if (questions.length) {
   const groups = [...document.querySelectorAll('.question-group')];
   const normalise = text => text.toLocaleLowerCase('en-AU').replace(/[^a-z0-9]+/g, ' ');
   const text = new Map(questions.map(q => [q, normalise(`${q.textContent} ${q.dataset.searchTerms || ''}`)]));
+  const tools = document.querySelector('.question-tools');
+  const clearFilters = document.querySelector('#clear-filters');
   document.querySelector('.question-controls fieldset').disabled = false;
+  // The script owns this state, so a cached older copy of it still leaves the button usable.
+  clearFilters.disabled = !search.value;
+  // A saved search opens the tools so the filter that hid questions is in view.
+  if (search.value) tools.open = true;
   document.querySelectorAll('.question-select').forEach(node => { node.hidden = false; });
 
   function filter() {
@@ -46,6 +52,9 @@ if (questions.length) {
     for (const id of ['download-checklist', 'print-checklist', 'clear-selection']) {
       document.getElementById(id).disabled = count === 0;
     }
+    clearFilters.disabled = !search.value;
+    // The first selection opens the tools, so the download and print actions are in reach.
+    if (count && !tools.open) tools.open = true;
     // The filters live in the URL so a filtered view can be shared or reloaded.
     const query = new URLSearchParams();
     if (search.value) query.set('q', search.value);
@@ -55,7 +64,7 @@ if (questions.length) {
   search.addEventListener('input', filter);
   for (const q of questions) checkbox.get(q).addEventListener('change', filter);
   if (search.value || params.has('topic')) filter();
-  document.querySelector('#clear-filters').addEventListener('click', () => {
+  clearFilters.addEventListener('click', () => {
     search.value = '';
     filter();
     search.focus();

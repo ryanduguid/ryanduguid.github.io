@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Trust distribution worksheets for professional review</title>
-  <meta name="description" content="Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result." />
+  <meta name="description" content="Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Trust distribution worksheets for professional review" />
-  <meta property="og:description" content="Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result." />
+  <meta property="og:description" content="Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Trust distribution worksheets for professional review" />
-  <meta name="twitter:description" content="Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result." />
+  <meta name="twitter:description" content="Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/trust-distributions/" />
@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -75,13 +75,13 @@
         <div class="article-body">
     <p>
       Section 100A can treat a trust distribution as a reimbursement agreement
-      and tax it at the top rate instead of the beneficiary's own rate. The
-      ATO's finalised <a href="https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001">guideline PCG 2022/2</a> says where the risk sits.
+      and tax it at the top rate instead of the beneficiary’s own rate. The
+      ATO’s finalised <a href="https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001">guideline PCG 2022/2</a> says where the risk sits.
     </p>
     <p>
       The white zone, for income years ending before 1 July 2014, is out of
       scope because the tool does not take an income year. Division 6 shares
-      follow the High Court's decision in <em>Bamford</em>.
+      follow the High Court’s decision in <em>Bamford</em>.
     </p>
     <p>
       Where the tool does not implement a rule, such as streamed capital gains
@@ -91,8 +91,8 @@
     <section id="what-this-tool-does">
     <h2>What this tool does</h2>
     <ul>
-      <li>Classifies a trust distribution against the ATO's section 100A green and red risk zones under PCG 2022/2, from facts you supply.</li>
-      <li>Works out each beneficiary's proportionate share of trust income under Division 6, following the Bamford case.</li>
+      <li>Classifies a trust distribution against the ATO’s section 100A green and red risk zones under PCG 2022/2, from facts you supply.</li>
+      <li>Works out each beneficiary’s proportionate share of trust income under Division 6, following the Bamford case.</li>
       <li>Calculates the assessable amount on a foreign trust distribution under section 99B, after corpus and previously taxed income deductions.</li>
     </ul>
     </section>
@@ -114,14 +114,14 @@ Assessable under s99B:   $100,000.00</code></pre>
     <h3>Try a refusal</h3>
     <p>Change <code>--corpus 50000</code> to <code>--corpus 160000</code>. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:</p>
     <pre tabindex="0" role="region" aria-label="Expected trust checker refusal"><code>error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount</code></pre>
-    <p>This verifies the published command's behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.</p>
+    <p>This verifies the published command’s behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.</p>
     </section>
     <section id="limits">
     <h2>Limits</h2>
     <blockquote>
       <p>
         Nothing this engine produces is tax, legal or financial advice, an
-        assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity's facts before acting, and leave lodgement decisions with
+        assessment or a determination. Outputs are review aids: confirm every allocation, zone and exemption against the current law, the trust deed and the entity’s facts before acting, and leave lodgement decisions with
         a registered practitioner.
       </p>
     </blockquote>
@@ -136,8 +136,8 @@ Assessable under s99B:   $100,000.00</code></pre>
       <p>No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only.</p>
       <h3>What is the white zone?</h3>
       <p>It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.</p>
-      <h3>How is each beneficiary's share of trust income worked out?</h3>
-      <p>Proportionately, following the High Court's decision in Bamford: a beneficiary's share of trust income sets the proportion of the trust's taxable income assessed to them.</p>
+      <h3>How is each beneficiary’s share of trust income worked out?</h3>
+      <p>Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them.</p>
       <h3>What will this tool refuse to calculate?</h3>
       <p>Anything it does not implement, including streamed capital gains and franked dividends under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind.</p>
     </div>
@@ -171,7 +171,7 @@ Assessable under s99B:   $100,000.00</code></pre>
         "@id": "https://duguid.com.au/tools/trust-distributions/#webpage",
         "url": "https://duguid.com.au/tools/trust-distributions/",
         "name": "Trust distribution worksheets for professional review",
-        "description": "Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result.",
+        "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
         "dateModified": "2026-09-26",
@@ -223,7 +223,7 @@ Assessable under s99B:   $100,000.00</code></pre>
         "@context": "https://schema.org",
         "@type": "SoftwareApplication",
         "name": "Section 100A trust distribution checker",
-        "description": "Inspect conditional section 100A, Division 6 and section 99B worksheets using supplied facts. Have a registered tax agent review the actual arrangement before relying on a result.",
+        "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Windows, macOS, Linux",
         "url": "https://duguid.com.au/tools/trust-distributions/",
@@ -266,10 +266,10 @@ Assessable under s99B:   $100,000.00</code></pre>
           },
           {
             "@type": "Question",
-            "name": "How is each beneficiary's share of trust income worked out?",
+            "name": "How is each beneficiary’s share of trust income worked out?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Proportionately, following the High Court's decision in Bamford: a beneficiary's share of trust income sets the proportion of the trust's taxable income assessed to them."
+              "text": "Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them."
             }
           },
           {

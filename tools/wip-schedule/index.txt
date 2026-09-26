@@ -32,7 +32,7 @@ This synthetic example comes from the cost-to-cost underbilling test in the-wip-
 
 Progress is $400,000 ÷ ($400,000 + $400,000) = 50%. Revenue to date is 50% × $1,000,000 = $500,000. Deducting $450,000 of certified billings leaves a $50,000 contract asset and no contract liability.
 
-A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test's conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
+A person must confirm that the recognition basis, contract terms and estimates support this calculation. The test’s conditional retention does not change this revenue-minus-billings result; retention classification and final sign-off still need review.
 
 ### Reproduce this exact example
 

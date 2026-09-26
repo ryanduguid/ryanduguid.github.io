@@ -8,19 +8,9 @@ Source: https://duguid.com.au/tools/business-calculators/loan/
 
 Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
-
-Published 20 September 2026. Last reviewed 21 September 2026.
+Published 20 September 2026. Last reviewed 26 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-## Monthly loan payments
-
-For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
-
-Loan reconciliation checklist
 
 Monthly loan payments inputs
 
@@ -28,9 +18,19 @@ Loan principal (AUD) Annual nominal interest rate (%) Number of monthly payments
 
 Calculate Enter the inputs and calculate.
 
+## How it works
+
+For fixed monthly interest r and n payments: payment = principal × r / (1 − (1 + r) raised to −n). At zero interest, payment = principal / n. Payments are in arrears, with no fees or balloon. Interest is estimated from unrounded payments; lender rounding and daily accrual can differ.
+
+Loan reconciliation checklist
+
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Loan reconciliation checklist: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q57
+- nine business calculators: https://duguid.com.au/tools/business-calculators/
