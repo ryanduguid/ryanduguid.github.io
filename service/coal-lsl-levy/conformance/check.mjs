@@ -16,6 +16,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { createApp } from '../src/server.mjs';
+import { declaredScalesHold } from './declared-scales.mjs';
 import assert from 'node:assert/strict';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -101,12 +102,6 @@ async function run(base) {
   const headline = ['eligible_wages', 'levy', 'levy_before_rounding', 'rate.value_percent'];
   const valueAt = (node, path) => path.split('.').reduce((value, key) => value?.[key], node);
   const patternAt = (path) => valueAt(resultSchema, `properties.${path.split('.').join('.properties.')}`)?.pattern;
-  const declaredScalesHold = (schema, value) => {
-    if (value === undefined) return true;
-    if (typeof schema?.pattern === 'string') return typeof value === 'string' && new RegExp(schema.pattern).test(value);
-    if (schema?.items && Array.isArray(value)) return value.every((item) => declaredScalesHold(schema.items, item));
-    return Object.entries(schema?.properties ?? {}).every(([key, child]) => declaredScalesHold(child, value?.[key]));
-  };
   let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;

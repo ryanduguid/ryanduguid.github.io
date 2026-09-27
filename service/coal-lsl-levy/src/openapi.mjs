@@ -59,15 +59,17 @@ const decimalAt = (scale, description) => ({
   description: `${description} Decimal string at a fixed scale of ${scale} decimal places.`,
 });
 // Bonus entries as the workings and the excluded list report them.
-const bonusEntries = (description) => ({
+const bonusEntries = (description, extra = {}) => ({
   type: 'array',
   description,
   items: {
     type: 'object',
+    required: ['component', 'amount', 'frequency', ...Object.keys(extra)],
     properties: {
       component: { type: 'string' },
       amount: decimalAt(SCALE.money, 'Bonus amount.'),
       frequency: { type: 'string', enum: [...BONUS_FREQUENCIES] },
+      ...extra,
     },
   },
 });
@@ -288,7 +290,9 @@ export function buildOpenApi(config, register) {
                 },
               },
             },
-            excluded: bonusEntries('Bonuses paid less often than monthly, which do not count, each with its reason.'),
+            excluded: bonusEntries('Bonuses paid less often than monthly, which do not count.', {
+              reason: { type: 'string', description: 'Why the bonus does not count, citing s 3B(4)(c) and (d).' },
+            }),
             rounding: { type: 'object' },
             manifest: {
               type: 'object',
