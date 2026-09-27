@@ -4,13 +4,14 @@ import { fieldErrorMessage } from '../assets/field-errors.mjs';
 
 // A minimal stand-in for an <input>: the message logic reads only type, the
 // inputmode attribute, min, max, step and the validity flags.
-function control({ type = 'number', inputmode, min, max, step, ...validity }) {
+function control({ type = 'number', inputmode, min, max, step, value = '', ...validity }) {
   return {
     type,
+    value,
     min,
     max,
     step,
-    getAttribute: name => (name === 'inputmode' ? inputmode ?? null : null),
+    getAttribute: name => (name === 'inputmode' ? inputmode ?? null : name === 'type' ? type : null),
     validity: {
       valueMissing: false,
       badInput: false,
@@ -29,6 +30,20 @@ test('date limits read as dates, not numbers', () => {
   const late = control({ type: 'date', min: '1900-01-01', max: '9999-10-02', rangeOverflow: true });
   assert.equal(fieldErrorMessage(late), 'Enter 2 October 9999 or earlier.');
   assert.equal(fieldErrorMessage(control({ type: 'date', valueMissing: true })), 'Enter a date.');
+});
+
+test('a date outside its limits is a range error even when the browser calls it valid', () => {
+  // A browser without date inputs leaves rangeUnderflow and rangeOverflow false.
+  const early = control({ type: 'date', min: '1900-01-01', max: '9999-10-02', value: '1899-12-31' });
+  assert.equal(fieldErrorMessage(early), 'Enter 1 January 1900 or later.');
+  const late = control({ type: 'date', min: '1900-01-01', max: '9999-10-02', value: '9999-10-03' });
+  assert.equal(fieldErrorMessage(late), 'Enter 2 October 9999 or earlier.');
+  const inside = control({ type: 'date', min: '1900-01-01', max: '9999-10-02', value: '2026-09-27' });
+  assert.equal(fieldErrorMessage(inside), 'browser text');
+  // The same input degraded to a text field keeps the date wording and limits.
+  const degraded = control({ type: 'text', min: '1900-01-01', max: '9999-10-02', value: '1899-12-31' });
+  degraded.getAttribute = name => (name === 'type' ? 'date' : null);
+  assert.equal(fieldErrorMessage(degraded), 'Enter 1 January 1900 or later.');
 });
 
 test('money and plain number limits keep their formats', () => {
