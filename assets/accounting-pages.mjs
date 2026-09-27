@@ -129,6 +129,12 @@ if (questions.length) {
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
 if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./field-errors.mjs')]).then(([calculate, fieldErrors]) => {
+  // WebKit restores an <output> across the retry reload below, so a failure
+  // message left from the previous load is cleared once the calculators load.
+  for (const form of forms) {
+    const output = form.querySelector('output');
+    if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
+  }
   // WebMCP: offer this page's calculator to the browser's agent. The draft spec puts
   // modelContext on document; early Chrome builds used navigator. Other browsers skip the import.
   const modelContext = document.modelContext ?? navigator.modelContext;

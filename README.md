@@ -90,7 +90,7 @@ npx playwright install webkit
 npm run test:browser:webkit
 ```
 
-The first pass, on 27 September 2026, reported 8 failing tests. They are named under Runs at a glance in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md); compare a rerun's failing tests with that list by name, because a matching count alone does not show that the same tests failed.
+The first pass, on 27 September 2026, reported 8 failing tests; after the same day's fixes it reports 4. They are named under Runs at a glance in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md); compare a rerun's failing tests with that list by name, because a matching count alone does not show that the same tests failed.
 
 Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 
