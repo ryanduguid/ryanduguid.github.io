@@ -293,13 +293,32 @@ class RatesDatasetTests(unittest.TestCase):
             with self.subTest(record=name):
                 self.assertEqual(Decimal(shown), Decimal(str(self.value[name])))
 
+    def test_rate_pages_show_the_dataset_values(self) -> None:
+        # Each page's table is written by hand beside its CSV, so check what visitors see too.
+        shown = {
+            "car-limit-2026-27": ("car-limit", "2026-27"),
+            "cents-per-km-2026-27": ("cents-per-kilometre", "2026-27"),
+            "div7a-benchmark-rate-2026-27": ("div7a-benchmark-rate", "2026-27"),
+            "fbt-rate": ("fbt-rate", "31 March 2027"),
+            "super-guarantee-rate-2026-27": ("super-guarantee", "1 July 2025 onwards"),
+        }
+        for name, (page, label) in shown.items():
+            with self.subTest(record=name):
+                rows = {row[0]: row[1] for row in measure_rows(read(f"rates/{page}/index.html"))}
+                self.assertEqual(
+                    Decimal(re.sub(r"[$,%]", "", rows[label])), Decimal(str(self.value[name]))
+                )
+
     def test_question_facts_state_the_dataset_values(self) -> None:
         def figures(text: str) -> set[str]:
             return set(re.findall(r"\$\d{1,3}(?:,\d{3})*|\d+(?:\.\d+)?%", text))
 
-        # The page states each bracket's upper threshold and each marginal rate.
+        # The page states where tax starts, each bracket's upper threshold and each
+        # marginal rate.
         brackets = self.value["resident-tax-rates-2026-27"]
-        scale = {f"${bracket['to']:,}" for bracket in brackets if bracket["to"]}
+        first_taxed = next(bracket for bracket in brackets if bracket["marginal_rate"])
+        scale = {f"${first_taxed['from']:,}"}
+        scale |= {f"${bracket['to']:,}" for bracket in brackets if bracket["to"]}
         scale |= {
             f"{bracket['marginal_rate']}%" for bracket in brackets if bracket["marginal_rate"]
         }
