@@ -22,9 +22,10 @@ import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const API = 'https://api.firecrawl.dev/v2/batch/scrape';
-// Ryan approved a weekly sweep of up to 200 pages on 24 September 2026.
+// Ryan approved a weekly sweep of up to 200 pages on 24 September 2026 and
+// raised the cap to 225 on 27 September 2026 for the question-page sources.
 // Raising this is a new approval, not a code change.
-export const MAX_URLS = 200;
+export const MAX_URLS = 225;
 const TAG = 'ato-sources-weekly';
 const POLL_MS = 10_000;
 const DEADLINE_MS = 20 * 60_000;
