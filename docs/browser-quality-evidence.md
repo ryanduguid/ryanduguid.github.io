@@ -5,6 +5,52 @@ automated gates were inspected and rerun on 31 August 2026. This record
 supplements the repeatable Playwright and Lighthouse checks. It is evidence of
 the checks described below, not a claim of WCAG conformance.
 
+## Runs at a glance
+
+Each row is one dated run. Later rows do not rerun earlier ones: the Lighthouse
+medians below are the 28 August figures, and the layout details in the August
+sections describe that build. Where a later row contradicts an earlier section,
+the later row is current.
+
+| Date | Build | What ran | Result |
+| --- | --- | --- | --- |
+| 28 August 2026 | refinement release | Hands-on keyboard, 200% zoom and forced-colours review; 3-pass Lighthouse medians for 4 routes; the design preflight | Recorded in the sections below; Lighthouse performance 0.98 on each route |
+| 31 August 2026 | refined baselines | Visual baselines inspected and the automated gates rerun | Passed |
+| 10 September 2026 | proof capture | Coal LSL proof rendered at 2 sizes under `playwright.capture.config.mjs` | Both renders within the 80,000-byte limit; see Limits |
+| 23 September 2026 | main | `npm run test:browser` counted | 250 tests over 2 projects, 11 project-specific skips |
+| 24 September 2026 | PR 266 | Typefaces switched to Besley, Public Sans and Spline Sans Mono; homepage and calculator baselines re-rendered | Passed |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, over the specs that do not branch on the Chromium project names or compare screenshots | 82 passed, 4 skipped, 5 failed; the differences are listed below |
+
+Since the 24 September build the mobile primary navigation wraps to 2 rows at
+390 CSS pixels instead of scrolling as one row, and the full-page homepage
+baselines are 1440 by 3815 and 390 by 5211 pixels, so the row and height
+descriptions in the August sections are historical.
+
+### WebKit differences, 27 September 2026
+
+The first WebKit pass reported these 5 failures. Each names the test so a rerun
+can tell a known difference from a new one. None has been checked in Safari on
+a physical device yet.
+
+1. `printing includes the fixed proof without opening its disclosure` and
+   `printing includes the extra accounting tasks while their chooser is closed`
+   (geo-usability): the print rules use `::details-content` to expose closed
+   disclosures, and WebKit kept both closed, so a Safari print omits the fixed
+   proof and the extra tasks unless the reader opens them first.
+2. `cash inputs survive a save and reload with dated results`
+   (accounting-questions): a start date of 31 December 1899 produced no field
+   error, so WebKit did not report `rangeUnderflow` against the date input's
+   `min`, and the forecast accepted the date.
+3. `calculator load failure explains recovery and reload retries the module`
+   (accounting-questions): with the calculator module request aborted, the
+   "Calculators could not load." recovery text never appeared and the test timed
+   out after 30 seconds.
+4. `fixed Payday example reaches a reviewer without installation`
+   (payday-example): the "Human decision:" line ends 841 CSS pixels down the
+   page, below the iPhone 13 viewport height of 664 pixels that the device
+   profile applies; the Chromium mobile project uses 844 pixels, where it fits.
+
 ## Test environment
 
 - Windows 11 and Google Chrome 152.0.0.0 for the hands-on review.

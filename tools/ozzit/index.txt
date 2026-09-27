@@ -18,17 +18,13 @@ Published 18 September 2026. Last reviewed 26 September 2026.
 
 ## Extract GST from $1,100
 
-Assume the whole amount is taxable and GST-inclusive at 10%.
-
 ```
 =oz.GSTExtractλ(1100)
 ```
 
 100.00 displayed to two decimal places
 
-Checked in desktop Excel against v3.4.2 on 25 September 2026. Formula and result record.
-
-The reviewer decides whether the supply is taxable and a credit can be claimed. Read the workings and limits.
+Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Excel check and the limits.
 
 ## What Ozzit is
 
@@ -299,8 +295,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Download Ozzit v3.4.2: https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
-- Formula and result record: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
-- Read the workings and limits: https://duguid.com.au/tools/ozzit/#worked-example
+- Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
+- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
 - Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
 - read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract

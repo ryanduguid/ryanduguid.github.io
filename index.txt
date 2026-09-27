@@ -54,7 +54,7 @@ Coal LSL / fictional result
 
 The browser calculator applies section 3B, names the formula and rounds only at the final step.
 
-One employee, one month. Enter each amount, including zero, to see which formula applies.
+One employee, one month. Enter each amount, including zero, to see which formula applies. The full calculator treats a blank amount as $0.00.
 
 Base rate of pay
 

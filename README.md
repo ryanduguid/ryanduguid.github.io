@@ -83,6 +83,15 @@ Run the adoption path, collection hubs, navigation, overflow, accessibility and 
 npm run test:browser
 ```
 
+Run the same journeys in mobile WebKit, the closest local stand-in for iOS Safari, after a layout or form change. The pass leaves out the screenshot comparisons and the specs that branch on the Chromium project names, and CI does not run it:
+
+```bash
+npx playwright install webkit
+npm run test:browser:webkit
+```
+
+The first pass, on 27 September 2026, reported 5 WebKit differences. They are listed under Runs at a glance in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md), so a rerun that reports the same 5 has found nothing new.
+
 Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 
 ```bash

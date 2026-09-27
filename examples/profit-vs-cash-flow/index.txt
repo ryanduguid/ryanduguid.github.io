@@ -10,6 +10,8 @@ How can a business report a profit and still run short of cash? Because profit r
 
 Download the Excel example Compare the two cases
 
+To run the experiment, open the workbook, change Assumptions!B2 from 0 to 45 and compare quarterly profit with the lowest daily cash balance. Read the full steps.
+
 XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
@@ -176,6 +178,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
+- Read the full steps: https://duguid.com.au/examples/profit-vs-cash-flow/#try
 - capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip

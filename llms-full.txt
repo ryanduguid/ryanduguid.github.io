@@ -62,7 +62,7 @@ Coal LSL / fictional result
 
 The browser calculator applies section 3B, names the formula and rounds only at the final step.
 
-One employee, one month. Enter each amount, including zero, to see which formula applies.
+One employee, one month. Enter each amount, including zero, to see which formula applies. The full calculator treats a blank amount as $0.00.
 
 Base rate of pay
 
@@ -7306,6 +7306,8 @@ How can a business report a profit and still run short of cash? Because profit r
 
 Download the Excel example Compare the two cases
 
+To run the experiment, open the workbook, change Assumptions!B2 from 0 to 45 and compare quarterly profit with the lowest daily cash balance. Read the full steps.
+
 XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanation and results below can be read without Excel.
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
@@ -7472,6 +7474,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 
 - Download the Excel example: https://duguid.com.au/assets/examples/lumbridge/lumbridge.xlsx
 - Compare the two cases: https://duguid.com.au/examples/profit-vs-cash-flow/#results
+- Read the full steps: https://duguid.com.au/examples/profit-vs-cash-flow/#try
 - capture record: https://duguid.com.au/assets/examples/lumbridge/preview-record.txt
 - Read the results, definitions and source hashes (JSON): https://duguid.com.au/assets/examples/lumbridge/sensitivity.json
 - Download the sample pack: https://duguid.com.au/assets/examples/lumbridge/lumbridge-sample-pack.zip
@@ -7509,17 +7512,13 @@ Published 18 September 2026. Last reviewed 26 September 2026.
 
 ## Extract GST from $1,100
 
-Assume the whole amount is taxable and GST-inclusive at 10%.
-
 ```
 =oz.GSTExtractλ(1100)
 ```
 
 100.00 displayed to two decimal places
 
-Checked in desktop Excel against v3.4.2 on 25 September 2026. Formula and result record.
-
-The reviewer decides whether the supply is taxable and a credit can be claimed. Read the workings and limits.
+Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Excel check and the limits.
 
 ## What Ozzit is
 
@@ -7790,8 +7789,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Download Ozzit v3.4.2: https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
 - Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
-- Formula and result record: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
-- Read the workings and limits: https://duguid.com.au/tools/ozzit/#worked-example
+- Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
+- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
 - Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
 - read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
