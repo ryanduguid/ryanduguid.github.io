@@ -3108,7 +3108,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 62 skills; no fresh model evaluation covers all 43 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 63 skills; no fresh model evaluation covers all 44 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -3416,6 +3416,8 @@ Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG or PAYG withhold
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
+The table leaves out one job: researching a technical question across rulings, cases and legislation. For that, start from the ATO Legal Database and the Federal Register of Legislation. Treat an AI tool’s citations as leads and open each source before relying on it.
+
 ## What aus-accounting-mcp does
 
 - Lists and searches the shipped ATO small business benchmark industries.
@@ -3497,7 +3499,7 @@ Clone once per project. To repeat or retry from that directory, rerun only the c
 
 Development installation
 
-As at 27 September 2026, the default branch contains 62 workflows preparing v0.3.0. This command installs that development inventory.
+As at 27 September 2026, the default branch contains 63 workflows preparing v0.3.0. This command installs that development inventory.
 
 ```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
@@ -3589,6 +3591,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
 - australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md
+- ATO Legal Database: https://www.ato.gov.au/law/
+- Federal Register of Legislation: https://www.legislation.gov.au/
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - worksheet scope and periods: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md#supported-periods
