@@ -583,6 +583,12 @@ test('calculator orientation and result render as an inspectable ledger', async 
   await expect(method).toContainText('18 September 2026');
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');
+  // Below the result, the method list keeps the shell's left edge, as the form does.
+  const [methodBox, formBox] = await Promise.all([
+    method.boundingBox(),
+    page.locator('#calc-form').boundingBox(),
+  ]);
+  expect(Math.abs(methodBox.x - formBox.x)).toBeLessThanOrEqual(1);
 
   const result = page.locator('#result');
   await expect(result).toContainText('as at 18 September 2026');

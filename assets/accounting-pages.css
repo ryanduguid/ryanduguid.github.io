@@ -237,9 +237,8 @@
 
 /* Phones: the first control of a calculator or question page has to land inside
    an iPhone's 664px first screen, so the space above it tightens here. */
-@media (max-width: 40rem) {
+@media screen and (max-width: 40rem) {
   .business-calculator {
-    padding-top: var(--space-3);
     margin-block-start: var(--space-4);
   }
 

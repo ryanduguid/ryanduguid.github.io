@@ -18,6 +18,7 @@ test('calculator and question pages open on their working control', async ({ pag
     await page.goto(path);
     const selector = calculators.includes(path) ? 'form[data-calculator] input' : 'details.question summary';
     const box = await page.locator(selector).first().boundingBox();
+    expect(box, path).not.toBeNull();
     // The whole control, not only its first 44 pixels, ends inside the first screen.
     expect(box.y + box.height, path).toBeLessThanOrEqual(firstScreen(page));
   }

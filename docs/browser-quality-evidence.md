@@ -41,9 +41,10 @@ against its `min` and `max` attributes, which also serves any browser without
 date inputs. The 320 px navigation test's Tab traversal is a Chromium check,
 because WebKit, like Safari, leaves links out of the Tab order by default.
 
-The phone first-screen budget is now 664 CSS pixels, the iPhone 13 Safari
-viewport, for every calculator, the Coal LSL example button and the Payday
-decision line (`tests/browser/project-kind.mjs`, `firstScreen`). The third pass
+The phone first-screen budget is now a fixed 664 CSS pixels, taken from the
+iPhone 13 emulation used on 27 September 2026, for every calculator, the Coal
+LSL example button and the Payday decision line (`tests/browser/project-kind.mjs`,
+`firstScreen`). The third pass
 reports these failing tests. Compare a rerun's failing tests with these names,
 not with the count. None has been checked in Safari on a physical device yet.
 
@@ -57,9 +58,9 @@ not with the count. None has been checked in Safari on a physical device yet.
 2. First-screen budgets: resolved. The 9 calculators, the Coal LSL example
    button, the Payday decision line and the first question of all 10 topic
    pages end inside 664 pixels at 390 pixels wide in both browsers. The topic
-   headings dropped their "Accounting questions:" prefix (the breadcrumb and
-   the hub page carry it; page titles keep the phrase), which took the longest
-   headings from 4 lines to 1 or 2.
+   headings dropped their "Accounting questions:" prefix (the hub page and
+   each page title keep the phrase; the breadcrumb leaf follows the heading),
+   which took the longest headings from 4 lines to 1 or 2.
 
 ## Test environment
 
