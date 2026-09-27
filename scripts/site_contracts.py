@@ -674,6 +674,20 @@ RATE_PAGES = {
     "rates/announced-not-yet-law/index.html",
 }
 CALCULATOR_REL = "tools/coal-lsl-levy/index.html"
+# Tax and compliance answers open with a rule checked at its source; the cash flow,
+# close and reporting topics are process questions without one general rule.
+REGULATORY_QUESTION_PAGES = {
+    f"tools/accounting-questions/{topic}/index.html"
+    for topic in (
+        "general-tax",
+        "deductions",
+        "business-setup",
+        "gst-bas",
+        "payroll-super",
+        "company-compliance",
+        "investments-local",
+    )
+}
 FORMULA_B_QUESTION = "What does the 75% in Formula B apply to?"
 # The complete Formula B answer has to name the branch it applies to, exclude
 # expense reimbursements, and carry both figures, or a reader of the answer
@@ -2618,6 +2632,26 @@ def check_collection_hubs(root: Path = core.ROOT) -> list[str]:
     return failures
 
 
+def check_question_answers(html: str, rel: str, failures: list[str]) -> None:
+    """Open every tax and compliance answer with its checked fact and sources."""
+    # An unrendered source stub carries no questions until its layout runs.
+    if rel not in REGULATORY_QUESTION_PAGES or html.startswith("---"):
+        return
+    blocks = re.findall(r'<details class="question" id="q(\d+)"[^>]*>(.*?)</details>', html, re.S)
+    if not blocks:
+        failures.append(f"{rel}: no questions found")
+    for number, block in blocks:
+        answer = re.search(r'<div class="question-answer">\s*<p>(.*?)</p>', block, re.S)
+        if (
+            answer is None
+            or not answer.group(1).startswith("<strong>")
+            or "The bold answer was checked on" not in block
+        ):
+            failures.append(f"{rel}: question {number} must open with a checked answer")
+        if 'href=""' in block:
+            failures.append(f"{rel}: question {number} links a source missing from the data")
+
+
 def check_file_contracts(path: Path) -> list[str]:
     """Check contracts specific to this site's shell and content."""
     failures: list[str] = []
@@ -2636,6 +2670,7 @@ def check_file_contracts(path: Path) -> list[str]:
     check_approved_page_opening(html, rel, failures)
     check_header_review_date(html, rel, failures)
     check_collection_breadcrumb(html, rel, failures)
+    check_question_answers(html, rel, failures)
 
     return failures
 

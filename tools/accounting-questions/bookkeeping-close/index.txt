@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
 Practical steps, records and official guidance on bookkeeping and close.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+1 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -97,9 +97,9 @@ Keep most business records for 5 years. Keep records for depreciating assets and
 
 Do not apply one blanket retention date to every document.
 
-Record keeping for business · Overview of record-keeping rules for business
+Record keeping for business · Overview of record-keeping rules for business · Records you need to keep for longer than five years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 55
 
@@ -210,6 +210,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 54: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
 - Overview of record-keeping rules for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business
+- Records you need to keep for longer than five years: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business/records-to-keep-longer-than-five-years
 - Link to question 55: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
 - Link to question 56: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 Practical steps, records and official guidance on payroll and super.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -39,7 +39,7 @@ The old quarterly SG worksheet does not establish current Payday Super entitleme
 
 Payday Super for employers · Super guarantee rate history on this site
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 41
 
@@ -47,16 +47,16 @@ Link to question 41
 
 ### By what date must a super contribution reach the employee’s fund?
 
-Since 1 July 2026, the fund must receive the contribution within 7 business days of payday, or 20 business days for a first contribution to a new fund. Test receipt at the employee’s fund against the applicable deadline.
+Since 1 July 2026, the fund must receive the contribution within 7 business days after payday, or within 20 business days for the first contribution for a new employee or to a new fund. Test receipt at the employee’s fund against the applicable deadline.
 
 - Record payday, pathway, amount, remittance date and confirmed fund receipt date.
 - Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
 
 The timing tool needs the contribution amount supplied and the correct pathway selected.
 
-Payday Super for employers · Payday Super receipt evidence example
+Payday Super for employers · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 42
 
@@ -64,14 +64,16 @@ Link to question 42
 
 ### What should I do if a super payment is late, rejected or missing?
 
-Investigate the payment trail and apply the current late-payment process.
+Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund makes you liable to the super guarantee charge, which the ATO assesses. The charge includes notional earnings and may include an administrative uplift of up to 60%; paying the fund what you owe as soon as possible, even in part, reduces it. Investigate the payment trail and apply the current late-payment process.
 
 - Reconcile payroll, clearing house status, rejections and fund receipt for each affected employee.
 - Resolve the cause, record any replacement payment and review the ATO’s reporting and charge requirements.
 
 Sending a replacement does not automatically remove a late-payment consequence.
 
-Payday Super for employers · Payday Super receipt evidence example
+Payday Super for employers · What to do if you miss a Payday Super contribution · Payday Super receipt evidence example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 43
 
@@ -79,14 +81,16 @@ Link to question 43
 
 ### Do I have to pay super for a contractor who invoices through an ABN?
 
-Review the actual contract and working arrangement against the ATO’s super eligibility guidance.
+If you pay a contractor under a contract that is mainly for their labour, meaning more than half its dollar value, they are an employee for super guarantee purposes and you may need to pay super for them. An ABN makes no difference. Review the actual contract and working arrangement against the ATO’s super eligibility guidance.
 
 - Record who performs the work, how they are paid and whether the contract is for their labour.
 - Retain the eligibility conclusion separately from the supplier’s ABN and invoice.
 
 An ABN is not proof that super is unnecessary.
 
-Payday Super for employers
+Payday Super for employers · Super for independent contractors
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 44
 
@@ -94,14 +98,16 @@ Link to question 44
 
 ### How much PAYG tax should I withhold from an employee’s pay?
 
-Use the ATO withholding calculation for the payment type and pay period.
+Use the ATO tax withheld calculator or tax tables for the pay period, whether weekly, fortnightly or monthly. The employee’s TFN declaration or withholding declaration tells you whether to withhold extra for a study or training support loan. Use the ATO withholding calculation for the payment type and pay period.
 
 - Check the declaration, residency, tax-free threshold choice, study loan information and any variation.
 - Apply the current schedule or calculator and reconcile payroll totals to the withholding liability.
 
 A resident annual income tax worksheet is not a payroll withholding calculator.
 
-PAYG withholding
+PAYG withholding · Tax withheld calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 45
 
@@ -116,9 +122,9 @@ Make the STP finalisation declaration by 14 July each year. Reconcile payroll to
 
 An ordinary payroll submission and a finalisation declaration are different steps.
 
-Single Touch Payroll · End-of-year finalisation through STP · Monthly close review pack
+Single Touch Payroll · End-of-year finalisation through STP · Finalise your STP data by 14 July · Monthly close review pack
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 46
 
@@ -126,7 +132,7 @@ Link to question 46
 
 ### How do I calculate an employee’s final pay, including unused leave?
 
-Build final pay from the employee’s entitlements and the circumstances of departure.
+Final pay is the wages owing, including penalty rates and allowances, plus any unused annual leave with loading if it would have been paid during employment; it can also include accrued or pro rata long service leave. Sick and carer’s leave isn’t paid out, and most awards require final pay within 7 days after the last day of employment. Build final pay from the employee’s entitlements and the circumstances of departure.
 
 - Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.
 - Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment.
@@ -134,6 +140,8 @@ Build final pay from the employee’s entitlements and the circumstances of depa
 The generic staff cost calculator cannot determine final pay entitlements.
 
 Final pay - Fair Work Ombudsman
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 47
 
@@ -150,7 +158,7 @@ Book payroll expense alone can omit taxable benefits, super or grouped wages.
 
 Revenue NSW payroll tax · Payroll tax thresholds and rates, Revenue NSW
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 48
 
@@ -158,14 +166,16 @@ Link to question 48
 
 ### Do contractor payments count towards NSW payroll tax?
 
-Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
+Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
 - Reconcile reviewed contractor amounts to the payroll tax workpaper.
 
 An invoice, ABN or GST registration alone does not establish an exclusion.
 
-Revenue NSW payroll tax
+Revenue NSW payroll tax · Contractors, Revenue NSW
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 49
 
@@ -182,7 +192,7 @@ Do not add ordinary paid leave again if it is already included in the annual sal
 
 Final pay - Fair Work Ombudsman · Super guarantee rate history on this site · Staff cost calculator
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 50
 
@@ -209,14 +219,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
+- Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/
 - Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- What to do if you miss a Payday Super contribution: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-to-do-if-you-miss-a-payday-super-contribution
 - Link to question 43: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
+- Super for independent contractors: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors
 - Link to question 44: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
 - PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
+- Tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
 - Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
 - End-of-year finalisation through STP: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp
+- Finalise your STP data by 14 July: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july
 - Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
 - Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
@@ -224,6 +239,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
 - Payroll tax thresholds and rates, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates
 - Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
+- Contractors, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/taxable-wages/contractors
 - Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Link to question 50: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50

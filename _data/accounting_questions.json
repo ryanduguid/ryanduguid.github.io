@@ -1,6 +1,6 @@
 {
   "reviewed": "2026-09-11",
-  "facts_checked": "2026-09-24",
+  "facts_checked": "2026-09-27",
   "sources": {
     "returns": {
       "label": "Your tax return",
@@ -209,6 +209,210 @@
     "coallsl": {
       "label": "Coal LSL levy returns and payments",
       "url": "https://coallsl.com.au/employer/administer-lsl/levy"
+    },
+    "claiming-deductions": {
+      "label": "Claiming deductions",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/claiming-deductions"
+    },
+    "standard-deduction": {
+      "label": "Standard deduction for work-related expenses",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/standard-deduction-for-work-related-expenses"
+    },
+    "prefill": {
+      "label": "Pre-fill availability",
+      "url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability"
+    },
+    "tfn-apply": {
+      "label": "Apply for a TFN",
+      "url": "https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn"
+    },
+    "tfn-lost": {
+      "label": "Lost or stolen TFN",
+      "url": "https://www.ato.gov.au/individuals-and-families/tax-file-number/lost-or-stolen-tfn"
+    },
+    "how-to-pay": {
+      "label": "How to pay",
+      "url": "https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay"
+    },
+    "income-declare": {
+      "label": "Income you must declare",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare"
+    },
+    "return-progress": {
+      "label": "Check the progress of your tax return",
+      "url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/check-the-progress-of-your-tax-return"
+    },
+    "how-to-lodge": {
+      "label": "How to lodge your tax return",
+      "url": "https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return"
+    },
+    "logbook": {
+      "label": "Logbook method",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/cars-transport-and-travel/motor-vehicle-and-car-expenses/expenses-for-a-car-you-own-or-lease/logbook-method"
+    },
+    "phone": {
+      "label": "Mobile phone, mobile internet and other devices",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/mobile-phone-mobile-internet-and-other-devices"
+    },
+    "clothing": {
+      "label": "Clothing, laundry and dry-cleaning expenses",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/clothes-and-items-you-wear-at-work/clothing-laundry-and-dry-cleaning-expenses"
+    },
+    "self-education": {
+      "label": "Self-education expenses",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/education-training-and-seminars/self-education-expenses"
+    },
+    "records-keep": {
+      "label": "Records you need to keep",
+      "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/records-you-need-to-keep"
+    },
+    "abn-entitlement": {
+      "label": "ABN entitlement, ABR",
+      "url": "https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement"
+    },
+    "in-business": {
+      "label": "Are you in business?",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business/starting-your-own-business/are-you-in-business"
+    },
+    "structures": {
+      "label": "Difference between a sole trader and a company, business.gov.au",
+      "url": "https://business.gov.au/planning/business-structures-and-types/business-structures/difference-between-a-sole-trader-and-a-company"
+    },
+    "payg-instalments": {
+      "label": "Starting PAYG instalments",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/starting-payg-instalments"
+    },
+    "bank-account": {
+      "label": "Set up your business bank account, business.gov.au",
+      "url": "https://business.gov.au/finance/set-up-your-finances/set-up-your-business-bank-account"
+    },
+    "business-money": {
+      "label": "Using business money and assets",
+      "url": "https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets"
+    },
+    "sharing-economy": {
+      "label": "Types of activities in the sharing economy",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/sharing-economy-and-tax/types-of-activities-in-the-sharing-economy"
+    },
+    "how-gst-works": {
+      "label": "How GST works",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works"
+    },
+    "bas-worksheet": {
+      "label": "Calculating sales using the calculation worksheet",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/complete-your-bas/step-2-calculating-sales-using-the-calculation-worksheet"
+    },
+    "gst-free": {
+      "label": "GST-free sales",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/gst-free-sales"
+    },
+    "input-taxed": {
+      "label": "Input-taxed sales",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/input-taxed-sales"
+    },
+    "gst-reporting": {
+      "label": "GST reporting methods",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/gst-reporting-methods"
+    },
+    "simpler-bas": {
+      "label": "Simpler BAS GST bookkeeping guide",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide"
+    },
+    "gst-errors": {
+      "label": "How to correct GST errors",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/how-to-correct-gst-errors"
+    },
+    "gst-errors-limits": {
+      "label": "GST errors that can’t be corrected on a later BAS",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/gst-errors-that-cannot-be-corrected-on-a-later-bas"
+    },
+    "payday-late": {
+      "label": "What to do if you miss a Payday Super contribution",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-to-do-if-you-miss-a-payday-super-contribution"
+    },
+    "payday-deadlines": {
+      "label": "Payment deadlines for Payday Super",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super"
+    },
+    "contractor-super": {
+      "label": "Super for independent contractors",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors"
+    },
+    "tax-withheld": {
+      "label": "Tax withheld calculator",
+      "url": "https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator"
+    },
+    "nsw-contractors": {
+      "label": "Contractors, Revenue NSW",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/taxable-wages/contractors"
+    },
+    "director-payg": {
+      "label": "Types of payments to employees",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/payments-to-employees/types-of-payments-to-employees"
+    },
+    "div7a-loans": {
+      "label": "Loans by private companies",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans"
+    },
+    "div7a-myths": {
+      "label": "Division 7A myths debunked",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-myths-debunked"
+    },
+    "trust-resolutions": {
+      "label": "Trustee resolutions",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist"
+    },
+    "franking-refund": {
+      "label": "Refund of franking credits for individuals",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals"
+    },
+    "payment-plans": {
+      "label": "Payment plans",
+      "url": "https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans"
+    },
+    "nsw-grouping": {
+      "label": "What is payroll tax grouping?, Revenue NSW",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/grouping/what-is-payroll-tax-grouping"
+    },
+    "rental-claim": {
+      "label": "How to claim rental expenses",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/how-to-claim-rental-expenses"
+    },
+    "rental-repairs": {
+      "label": "Repair and maintenance expenses",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/repair-and-maintenance-expenses"
+    },
+    "etf": {
+      "label": "Exchange traded funds",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/exchange-traded-funds"
+    },
+    "mit": {
+      "label": "Managed investment trusts",
+      "url": "https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/managed-investment-trusts"
+    },
+    "smsf-auditor": {
+      "label": "Your SMSF auditor",
+      "url": "https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-administration-and-reporting/your-smsf-auditor"
+    },
+    "iawo-law": {
+      "label": "$20,000 instant asset write-off, new legislation",
+      "url": "https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off"
+    },
+    "stp-14-july": {
+      "label": "Finalise your STP data by 14 July",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july"
+    },
+    "records-longer": {
+      "label": "Records you need to keep for longer than five years",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business/records-to-keep-longer-than-five-years"
+    },
+    "fbt-cars": {
+      "label": "How FBT applies to cars",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/how-fbt-applies-to-cars"
+    },
+    "fbt-expense": {
+      "label": "Expense payment fringe benefits",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/expense-payment-fringe-benefits"
     }
   },
   "tools": {
@@ -388,7 +592,12 @@
       ],
       "boundary": "A receipt proves spending, but does not by itself establish deductibility.",
       "source": "deductions",
-      "tool": "use"
+      "tool": "use",
+      "fact": "To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers.",
+      "fact_sources": [
+        "claiming-deductions",
+        "standard-deduction"
+      ]
     },
     {
       "id": 3,
@@ -401,7 +610,12 @@
       ],
       "boundary": "The checklist prepares your records; lodgement happens with the ATO or your registered agent.",
       "source": "returns",
-      "tool": ""
+      "tool": "",
+      "fact": "Most pre-fill data from employers, banks, health funds and government agencies is finalised by the end of July; check that it includes all your income before you lodge. If you lodge your own return, it is due by 31 October; to use a registered tax agent’s later dates, engage them before then.",
+      "fact_sources": [
+        "prefill",
+        "ato-lodge"
+      ]
     },
     {
       "id": 4,
@@ -414,7 +628,12 @@
       ],
       "boundary": "Do not put a TFN or identity documents into this website or a public issue.",
       "source": "tfn",
-      "tool": ""
+      "tool": "",
+      "fact": "Applying for a TFN is free, online or on paper depending on your residency and circumstances. If you have a TFN but can’t remember it, find it in ATO online services through myGov, or phone the ATO.",
+      "fact_sources": [
+        "tfn-apply",
+        "tfn-lost"
+      ]
     },
     {
       "id": 5,
@@ -430,7 +649,9 @@
       "tool": "",
       "fact": "The income year runs from 1 July to 30 June. A return you lodge yourself is due by 31 October, quarterly BAS is due on 28 October, 28 February, 28 April and 28 July, and STP finalisation is due by 14 July.",
       "fact_sources": [
-        "ato-lodge"
+        "ato-lodge",
+        "bas-due",
+        "stp-14-july"
       ]
     },
     {
@@ -444,7 +665,11 @@
       ],
       "boundary": "This website does not collect payments or supply bank details.",
       "source": "pay",
-      "tool": ""
+      "tool": "",
+      "fact": "You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter.",
+      "fact_sources": [
+        "how-to-pay"
+      ]
     },
     {
       "id": 7,
@@ -457,7 +682,11 @@
       ],
       "boundary": "A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.",
       "source": "income",
-      "tool": ""
+      "tool": "",
+      "fact": "You must declare employment income, government payments and allowances, investment income such as interest, dividends, rent and capital gains, business, partnership and trust income, super pensions and annuities, and foreign income. Some compensation and insurance payments, scholarships, prizes and awards are also taxable.",
+      "fact_sources": [
+        "income-declare"
+      ]
     },
     {
       "id": 8,
@@ -470,7 +699,12 @@
       ],
       "boundary": "No refund date or processing outcome is guaranteed here.",
       "source": "returns",
-      "tool": ""
+      "tool": "",
+      "fact": "Most returns lodged online are processed within 12 business days. For a paper return, most refunds are issued within 50 business days.",
+      "fact_sources": [
+        "return-progress",
+        "how-to-lodge"
+      ]
     },
     {
       "id": 9,
@@ -483,7 +717,11 @@
       ],
       "boundary": "The site supplies preparation guidance and does not submit returns.",
       "source": "returns",
-      "tool": ""
+      "tool": "",
+      "fact": "You can lodge online with myTax, through a registered tax agent or on paper by mail. Registered tax agents are the only people who can charge a fee to prepare and lodge your return.",
+      "fact_sources": [
+        "how-to-lodge"
+      ]
     },
     {
       "id": 10,
@@ -500,8 +738,8 @@
       "fact": "From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally requires contributions to reach the fund within 7 business days of payday, the $20,000 instant asset write-off became permanent for small businesses and the cents per kilometre rate rose to 91 cents.",
       "fact_sources": [
         "ato-rates",
-        "super",
-        "iawo",
+        "payday-deadlines",
+        "iawo-law",
         "cpk"
       ]
     },
@@ -533,7 +771,11 @@
       ],
       "boundary": "A reconstructed estimate may not meet the ATO’s requirements for your method.",
       "source": "deductions",
-      "tool": ""
+      "tool": "",
+      "fact": "For the fixed rate method, keep a record of the actual hours you work from home for the whole year, such as a timesheet, roster or diary, because estimates are not accepted. Also keep at least one record, such as a bill, for each running expense the rate covers.",
+      "fact_sources": [
+        "wfh"
+      ]
     },
     {
       "id": 13,
@@ -563,7 +805,11 @@
       ],
       "boundary": "Check the ATO’s required recording period and validity conditions before relying on the logbook.",
       "source": "deductions",
-      "tool": "car"
+      "tool": "car",
+      "fact": "A logbook must cover at least 12 continuous weeks and be broadly representative of your travel. It stays valid for 5 years, but you need a new 12-week logbook if your circumstances change.",
+      "fact_sources": [
+        "logbook"
+      ]
     },
     {
       "id": 15,
@@ -576,7 +822,11 @@
       ],
       "boundary": "Do not separately claim costs already covered by your chosen working-from-home method.",
       "source": "deductions",
-      "tool": "use"
+      "tool": "use",
+      "fact": "Work out your work use percentage on a reasonable basis over a continuous 4-week period, using an itemised bill or your own record of work and private calls and internet use, then apply it to the whole income year.",
+      "fact_sources": [
+        "phone"
+      ]
     },
     {
       "id": 16,
@@ -607,7 +857,11 @@
       ],
       "boundary": "Check the ATO category and evidence requirements before adding an amount to the return.",
       "source": "deductions",
-      "tool": ""
+      "tool": "",
+      "fact": "You can claim clothing that is protective, a compulsory uniform, a registered non-compulsory uniform, or occupation-specific and not conventional. Laundry can be worked out at $1 a load of work clothing only, or 50 cents a load if mixed, and a laundry claim of $150 or less needs no written evidence.",
+      "fact_sources": [
+        "clothing"
+      ]
     },
     {
       "id": 18,
@@ -620,7 +874,11 @@
       ],
       "boundary": "A professional label or employer recommendation alone does not settle the tax treatment.",
       "source": "deductions",
-      "tool": ""
+      "tool": "",
+      "fact": "Self-education is deductible when it maintains or improves the specific skills or knowledge you need for your current employment, or is likely to increase your income from it.",
+      "fact_sources": [
+        "self-education"
+      ]
     },
     {
       "id": 19,
@@ -633,7 +891,11 @@
       ],
       "boundary": "A bank statement or a general receipt exception does not automatically support every claim.",
       "source": "income",
-      "tool": ""
+      "tool": "",
+      "fact": "If your total work-related expense claim is $300 or less, you can claim it without written evidence, but you must be able to show how you worked it out. Keep any written evidence for 5 years from the date you lodge your return.",
+      "fact_sources": [
+        "records-keep"
+      ]
     },
     {
       "id": 20,
@@ -649,7 +911,8 @@
       "tool": "tax",
       "fact": "Yes, if your aggregated turnover is under $10 million and you use the simplified depreciation rules. You can deduct the full cost of each eligible asset costing less than $20,000 that is first used or installed ready for use in the year. The $20,000 limit applied in 2025-26 and is permanent from 1 July 2026.",
       "fact_sources": [
-        "iawo"
+        "iawo",
+        "iawo-law"
       ]
     },
     {
@@ -663,7 +926,11 @@
       ],
       "boundary": "An ABN does not decide whether a worker is an employee for tax, super or workplace law.",
       "source": "abn",
-      "tool": ""
+      "tool": "",
+      "fact": "You’re entitled to an ABN if you’re carrying on or starting an enterprise in Australia. You’re not entitled to one for work you do as an employee, even if you or your employer calls it contracting.",
+      "fact_sources": [
+        "abn-entitlement"
+      ]
     },
     {
       "id": 22,
@@ -676,7 +943,8 @@
       ],
       "boundary": "This site neither applies for an ABN nor handles identity documents.",
       "source": "abn",
-      "tool": ""
+      "tool": "",
+      "fact": "Apply online through the ABR. Details such as your TFN help the ABR identify you and process the application faster; if it needs to check details, it aims to review the application within 20 business days."
     },
     {
       "id": 23,
@@ -689,7 +957,11 @@
       ],
       "boundary": "There is no single revenue figure in this guide that classifies every activity.",
       "source": "business",
-      "tool": ""
+      "tool": "",
+      "fact": "Generally, a business involves continuous and repeated activities done to make a profit. The ATO asks whether you intend to and have a prospect of making a profit, whether the scale is enough to make one, and whether the activities are repeated and continuous; a hobby you don’t seek to profit from is not a business.",
+      "fact_sources": [
+        "in-business"
+      ]
     },
     {
       "id": 24,
@@ -702,7 +974,12 @@
       ],
       "boundary": "A lower company tax rate alone does not establish a lower total cost or a suitable structure.",
       "source": "business",
-      "tool": "cash"
+      "tool": "cash",
+      "fact": "A sole trader reports business income as their own and is personally liable for the business’s debts. A company is a separate legal entity with higher set-up and running costs and an annual ASIC review; it pays tax at 25% or 30%, and it pays directors wages or fees rather than drawings.",
+      "fact_sources": [
+        "structures",
+        "company-rate"
+      ]
     },
     {
       "id": 25,
@@ -715,7 +992,11 @@
       ],
       "boundary": "A fixed percentage of sales can miss deductions, other income and tax already paid.",
       "source": "returns",
-      "tool": "cash"
+      "tool": "cash",
+      "fact": "The ATO automatically enters an individual, including a sole trader, into PAYG instalments when their latest return shows instalment income of $4,000 or more, tax payable of $1,000 or more and estimated tax of $500 or more. You can also enter voluntarily.",
+      "fact_sources": [
+        "payg-instalments"
+      ]
     },
     {
       "id": 26,
@@ -728,7 +1009,11 @@
       ],
       "boundary": "Check the account requirements for your structure before opening or changing banking arrangements.",
       "source": "business",
-      "tool": ""
+      "tool": "",
+      "fact": "A sole trader doesn’t have to have a business bank account, although it’s a good idea. A partnership, company or trust must have a separate bank account for tax purposes.",
+      "fact_sources": [
+        "bank-account"
+      ]
     },
     {
       "id": 27,
@@ -741,7 +1026,11 @@
       ],
       "boundary": "A sole trader’s drawings do not set the amount of taxable business profit.",
       "source": "business",
-      "tool": "cash"
+      "tool": "cash",
+      "fact": "What you draw doesn’t change what a sole trader reports: all your business income goes in your individual tax return, whatever amounts you transfer to your personal account.",
+      "fact_sources": [
+        "business-money"
+      ]
     },
     {
       "id": 28,
@@ -771,7 +1060,11 @@
       ],
       "boundary": "Net bank deposits can omit fees and gross receipts that need separate reporting.",
       "source": "business",
-      "tool": ""
+      "tool": "",
+      "fact": "Income from providing services or assets for a fee through a sharing economy platform, such as ride-sourcing, renting out a room or sharing assets, is taxable, and GST can apply. Platform operators report these transactions to the ATO.",
+      "fact_sources": [
+        "sharing-economy"
+      ]
     },
     {
       "id": 30,
@@ -794,14 +1087,19 @@
       "id": 31,
       "topic": "gst-bas",
       "question": "How do I add GST to a price or extract GST from an inclusive amount?",
-      "answer": "For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.",
+      "answer": "The calculation applies to a wholly taxable sale; classify GST-free, input-taxed and mixed sales first.",
       "steps": [
         "Choose whether your amount already includes GST, then calculate the components.",
         "Keep the source invoice and confirm that the whole amount is subject to GST."
       ],
       "boundary": "The calculator does not classify GST-free, input-taxed or mixed supplies.",
       "source": "gst",
-      "tool": "gst"
+      "tool": "gst",
+      "fact": "GST is 10% of the GST-exclusive price. To find the GST included in a GST-inclusive price, divide it by 11: $110 includes $10 of GST.",
+      "fact_sources": [
+        "how-gst-works",
+        "bas-worksheet"
+      ]
     },
     {
       "id": 32,
@@ -824,14 +1122,19 @@
       "id": 33,
       "topic": "gst-bas",
       "question": "What is the difference between GST-free and input-taxed sales?",
-      "answer": "GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.",
+      "answer": "Classify each sale before coding it, because the category decides whether GST credits on related purchases can be claimed.",
       "steps": [
         "Classify each income stream using the ATO guidance and retain the basis for the classification.",
         "Review purchase credits and any apportionment separately for input-taxed activities."
       ],
       "boundary": "Do not give both categories the same purchase-credit treatment just because no GST appears on the sale.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "Neither includes GST in the price. You can claim GST credits for purchases you use to make GST-free sales, but not for purchases that relate to input-taxed sales, such as financial supplies and selling or renting out residential premises.",
+      "fact_sources": [
+        "gst-free",
+        "input-taxed"
+      ]
     },
     {
       "id": 34,
@@ -844,7 +1147,11 @@
       ],
       "boundary": "Export conditions and evidence requirements differ between goods and services.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "Exported goods are GST-free if they are exported within 60 days of the earlier of receiving any payment or issuing an invoice for them. Some other supplies for consumption outside Australia, such as certain services, can also be GST-free.",
+      "fact_sources": [
+        "gst-free"
+      ]
     },
     {
       "id": 35,
@@ -875,7 +1182,12 @@
       "boundary": "The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.",
       "source": "bas-source",
       "tool": "bas",
-      "example": "For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly."
+      "example": "For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligible GST credits at label 1B are $1,800. The GST component payable is $1,200. Keep the sales and purchase reconciliations with the BAS workpaper, then reconcile other applicable BAS obligations separately. This example assumes the supplied GST amounts are already classified correctly.",
+      "fact": "If your GST turnover is under $10 million, you generally report GST using Simpler BAS: total sales at G1, GST on sales at 1A and GST on purchases at 1B.",
+      "fact_sources": [
+        "gst-reporting",
+        "simpler-bas"
+      ]
     },
     {
       "id": 37,
@@ -922,7 +1234,11 @@
       ],
       "boundary": "A control account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.",
       "source": "gst",
-      "tool": "bas"
+      "tool": "bas",
+      "fact": "On the cash basis, you account for GST on the BAS covering the period in which you receive or make payment for your sales and purchases.",
+      "fact_sources": [
+        "gst-method"
+      ]
     },
     {
       "id": 40,
@@ -933,9 +1249,14 @@
         "Record the original period, error type, amount, discovery date and supporting transactions.",
         "Apply the ATO’s correction conditions and retain the approved amendment or later-period adjustment."
       ],
-      "boundary": "Do not choose a later-period correction without checking time and value limits.",
+      "boundary": "Do not choose a later-period correction without checking the period of review and the 4-year credit time limit.",
       "source": "gst",
-      "tool": ""
+      "tool": "",
+      "fact": "You can generally correct a GST error on a later BAS lodged within the period of review for the period of the error, but not to claim GST credits after the 4-year time limit, and not more than once. Revising the earlier BAS instead can attract penalties or general interest charge.",
+      "fact_sources": [
+        "gst-errors",
+        "gst-errors-limits"
+      ]
     },
     {
       "id": 41,
@@ -968,7 +1289,10 @@
       "source": "super",
       "tool": "payday",
       "keywords": "superannuation SG",
-      "fact": "Since 1 July 2026, the fund must receive the contribution within 7 business days of payday, or 20 business days for a first contribution to a new fund."
+      "fact": "Since 1 July 2026, the fund must receive the contribution within 7 business days after payday, or within 20 business days for the first contribution for a new employee or to a new fund.",
+      "fact_sources": [
+        "payday-deadlines"
+      ]
     },
     {
       "id": 43,
@@ -982,7 +1306,11 @@
       "boundary": "Sending a replacement does not automatically remove a late-payment consequence.",
       "source": "super",
       "tool": "payday",
-      "keywords": "superannuation SG"
+      "keywords": "superannuation SG",
+      "fact": "Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund makes you liable to the super guarantee charge, which the ATO assesses. The charge includes notional earnings and may include an administrative uplift of up to 60%; paying the fund what you owe as soon as possible, even in part, reduces it.",
+      "fact_sources": [
+        "payday-late"
+      ]
     },
     {
       "id": 44,
@@ -996,7 +1324,11 @@
       "boundary": "An ABN is not proof that super is unnecessary.",
       "source": "super",
       "tool": "",
-      "keywords": "superannuation SG"
+      "keywords": "superannuation SG",
+      "fact": "If you pay a contractor under a contract that is mainly for their labour, meaning more than half its dollar value, they are an employee for super guarantee purposes and you may need to pay super for them. An ABN makes no difference.",
+      "fact_sources": [
+        "contractor-super"
+      ]
     },
     {
       "id": 45,
@@ -1009,7 +1341,11 @@
       ],
       "boundary": "A resident annual income tax worksheet is not a payroll withholding calculator.",
       "source": "payg",
-      "tool": ""
+      "tool": "",
+      "fact": "Use the ATO tax withheld calculator or tax tables for the pay period, whether weekly, fortnightly or monthly. The employee’s TFN declaration or withholding declaration tells you whether to withhold extra for a study or training support loan.",
+      "fact_sources": [
+        "tax-withheld"
+      ]
     },
     {
       "id": 46,
@@ -1026,7 +1362,8 @@
       "keywords": "STP",
       "fact": "Make the STP finalisation declaration by 14 July each year.",
       "fact_sources": [
-        "stp-final"
+        "stp-final",
+        "stp-14-july"
       ]
     },
     {
@@ -1040,7 +1377,8 @@
       ],
       "boundary": "The generic staff cost calculator cannot determine final pay entitlements.",
       "source": "finalpay",
-      "tool": ""
+      "tool": "",
+      "fact": "Final pay is the wages owing, including penalty rates and allowances, plus any unused annual leave with loading if it would have been paid during employment; it can also include accrued or pro rata long service leave. Sick and carer’s leave isn’t paid out, and most awards require final pay within 7 days after the last day of employment."
     },
     {
       "id": 48,
@@ -1070,7 +1408,11 @@
       ],
       "boundary": "An invoice, ABN or GST registration alone does not establish an exclusion.",
       "source": "nsw-payroll",
-      "tool": ""
+      "tool": "",
+      "fact": "Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public.",
+      "fact_sources": [
+        "nsw-contractors"
+      ]
     },
     {
       "id": 50,
@@ -1155,7 +1497,8 @@
       "tool": "",
       "fact": "Keep most business records for 5 years. Keep records for depreciating assets and CGT assets until 5 years after you dispose of the asset.",
       "fact_sources": [
-        "records-5"
+        "records-5",
+        "records-longer"
       ]
     },
     {
@@ -1525,7 +1868,13 @@
       ],
       "boundary": "Changing the ledger label does not change the underlying transaction.",
       "source": "company",
-      "tool": "company-tool"
+      "tool": "company-tool",
+      "fact": "Wages and director’s fees are assessable income to you, and the company must withhold PAYG from them. A loan to a shareholder or their associate can be treated as a dividend under Division 7A unless it is repaid, or put under a complying written agreement, before the company’s lodgment day.",
+      "fact_sources": [
+        "business-money",
+        "director-payg",
+        "div7a-loans"
+      ]
     },
     {
       "id": 83,
@@ -1538,7 +1887,11 @@
       ],
       "boundary": "The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.",
       "source": "div7a-source",
-      "tool": "div7a"
+      "tool": "div7a",
+      "fact": "It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day.",
+      "fact_sources": [
+        "div7a-loans"
+      ]
     },
     {
       "id": 84,
@@ -1568,7 +1921,11 @@
       ],
       "boundary": "A credit to a director loan account is not automatically a qualifying Division 7A repayment.",
       "source": "div7a-source",
-      "tool": "div7a"
+      "tool": "div7a",
+      "fact": "A repayment may not count if you reborrow a similar or larger amount from the company afterwards, or use money borrowed from the company to make it. A dividend can be set off against a minimum yearly repayment only if both exist and the offset is agreed by the end of the income year, usually 30 June.",
+      "fact_sources": [
+        "div7a-myths"
+      ]
     },
     {
       "id": 86,
@@ -1581,7 +1938,11 @@
       ],
       "boundary": "The tool cannot validate a deed or cure a late or ineffective trustee decision.",
       "source": "trust-source",
-      "tool": "trust"
+      "tool": "trust",
+      "fact": "A resolution making beneficiaries presently entitled to trust income is only effective for tax if it is made by 30 June, or earlier if the deed requires. If it isn’t effective, the trustee or other beneficiaries may be assessed instead, and a trustee may be taxed at the top rate.",
+      "fact_sources": [
+        "trust-resolutions"
+      ]
     },
     {
       "id": 87,
@@ -1594,7 +1955,11 @@
       ],
       "boundary": "A stated franking credit does not automatically establish entitlement to use the offset.",
       "source": "investments",
-      "tool": ""
+      "tool": "",
+      "fact": "A franking credit is tax the company has already paid on the dividend. Include the dividend and franking credit in your return; the credit reduces your tax, and an eligible individual gets any excess refunded. If your franking credits for the year total $5,000 or more, you must have held the shares at risk for at least 45 days (90 for preference shares).",
+      "fact_sources": [
+        "franking-refund"
+      ]
     },
     {
       "id": 88,
@@ -1608,9 +1973,11 @@
       "boundary": "The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.",
       "source": "fbt-source",
       "tool": "tax",
-      "fact": "It can. A company car available for an employee’s private use and payment of an employee’s private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
+      "fact": "It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March.",
       "fact_sources": [
-        "fbt-rate"
+        "fbt-rate",
+        "fbt-cars",
+        "fbt-expense"
       ]
     },
     {
@@ -1624,7 +1991,11 @@
       ],
       "boundary": "A forecast does not establish acceptance, interest relief or removal of other obligations.",
       "source": "pay",
-      "tool": "cash"
+      "tool": "cash",
+      "fact": "A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans.",
+      "fact_sources": [
+        "payment-plans"
+      ]
     },
     {
       "id": 90,
@@ -1637,7 +2008,11 @@
       ],
       "boundary": "Separate company names or accounts do not by themselves prevent payroll tax grouping.",
       "source": "nsw-payroll",
-      "tool": ""
+      "tool": "",
+      "fact": "Businesses can be grouped for NSW payroll tax through related corporations, common employees, common control, tracing of interests, phoenix operators or subsuming smaller groups. Only one group member claims the tax-free threshold, against the group’s combined wages.",
+      "fact_sources": [
+        "nsw-grouping"
+      ]
     },
     {
       "id": 91,
@@ -1650,7 +2025,11 @@
       ],
       "boundary": "The treatment depends on the expense and property use; a rental label alone does not establish deductibility.",
       "source": "property",
-      "tool": ""
+      "tool": "",
+      "fact": "You can claim some rental expenses in the year you incur them, such as loan interest, council rates, repairs and maintenance, and depreciating assets costing $300 or less. Capital works, borrowing expenses and dearer depreciating assets are claimed over several years, and expenses are apportioned if you also use the property privately.",
+      "fact_sources": [
+        "rental-claim"
+      ]
     },
     {
       "id": 92,
@@ -1663,7 +2042,11 @@
       ],
       "boundary": "Cost alone does not distinguish a repair from an improvement or initial repair.",
       "source": "property",
-      "tool": ""
+      "tool": "",
+      "fact": "Repairs and maintenance are deductible in the year you incur them. Initial repairs for defects that existed when you acquired the property, improvements and replacing an entire unit of property are capital and are claimed over several years.",
+      "fact_sources": [
+        "rental-repairs"
+      ]
     },
     {
       "id": 93,
@@ -1727,7 +2110,12 @@
       ],
       "boundary": "Cash received alone can differ from the amount and components that belong in the tax return.",
       "source": "investments",
-      "tool": ""
+      "tool": "",
+      "fact": "Declare ETF distributions, including amounts reinvested through a distribution reinvestment plan. Your ETF tax statement, such as an AMMA statement, shows the amounts to report and where, and non-assessable amounts mostly adjust the cost base of your units.",
+      "fact_sources": [
+        "etf",
+        "mit"
+      ]
     },
     {
       "id": 97,
@@ -1740,7 +2128,11 @@
       ],
       "boundary": "This checklist does not perform an SMSF audit or certify compliance.",
       "source": "smsf-source",
-      "tool": ""
+      "tool": "",
+      "fact": "Trustees must appoint an approved SMSF auditor each year, at least 45 days before the SMSF annual return is due. The auditor needs a statement of financial position and an operating statement before starting, and any requested information within 14 days; the audit must be finished before the return is lodged.",
+      "fact_sources": [
+        "smsf-auditor"
+      ]
     },
     {
       "id": 98,
@@ -1771,7 +2163,7 @@
       "boundary": "The calculator does not decide whether an employee is eligible; it calculates the levy on the wages you supply.",
       "source": "coallsl",
       "tool": "coal",
-      "fact": "Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee’s eligible wages every month.",
+      "fact": "Yes, for eligible employees in the black coal mining industry. The employer reports and pays the levy monthly, currently 2.7% of each eligible employee’s eligible wages.",
       "keywords": "Newcastle Hunter coal mining long service leave levy"
     },
     {

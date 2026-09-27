@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -39,7 +39,7 @@ The example does not determine eligibility merely from accounting profit.
 
 Corporate tax measures and assurance · Changes to company tax rates · Company tax and franking example
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 81
 
@@ -47,14 +47,16 @@ Link to question 81
 
 ### How should I record money paid to a director as wages, dividends or a loan?
 
-Record a director payment according to its legal basis and supporting documents.
+Wages and director’s fees are assessable income to you, and the company must withhold PAYG from them. A loan to a shareholder or their associate can be treated as a dividend under Division 7A unless it is repaid, or put under a complying written agreement, before the company’s lodgment day. Record a director payment according to its legal basis and supporting documents.
 
 - Gather payroll records, dividend documents or loan terms and trace each payment.
 - Review withholding, super, franking and Division 7A consequences before posting or reclassifying it.
 
 Changing the ledger label does not change the underlying transaction.
 
-Corporate tax measures and assurance · Company tax and franking example
+Corporate tax measures and assurance · Using business money and assets · Types of payments to employees · Loans by private companies · Company tax and franking example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 82
 
@@ -62,14 +64,16 @@ Link to question 82
 
 ### Does taking money out of my company create a Division 7A problem?
 
-Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
 - Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
 
 The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.
 
-Private company benefits - Division 7A dividends · Division 7A review case and limitations
+Private company benefits - Division 7A dividends · Loans by private companies · Division 7A review case and limitations
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 83
 
@@ -86,7 +90,7 @@ Eligibility, amalgamation and repayment classification must already have been re
 
 Private company benefits - Division 7A dividends · Division 7A benchmark interest rate on this site · Division 7A review case and limitations
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 84
 
@@ -94,14 +98,16 @@ Link to question 84
 
 ### Which payments count as repayments of a Division 7A loan?
 
-Review the source, timing and surrounding arrangements for each proposed repayment.
+A repayment may not count if you reborrow a similar or larger amount from the company afterwards, or use money borrowed from the company to make it. A dividend can be set off against a minimum yearly repayment only if both exist and the offset is agreed by the end of the income year, usually 30 June. Review the source, timing and surrounding arrangements for each proposed repayment.
 
 - Trace the payment through bank and loan records and identify any reborrowing or circular movement.
 - Document the section 109R review and qualifying amount before using the minimum repayment worksheet.
 
 A credit to a director loan account is not automatically a qualifying Division 7A repayment.
 
-Private company benefits - Division 7A dividends · Division 7A review case and limitations
+Private company benefits - Division 7A dividends · Division 7A myths debunked · Division 7A review case and limitations
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 85
 
@@ -109,14 +115,16 @@ Link to question 85
 
 ### What must a family trust document before distributing income at year-end?
 
-Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
+A resolution making beneficiaries presently entitled to trust income is only effective for tax if it is made by 30 June, or earlier if the deed requires. If it isn’t effective, the trustee or other beneficiaries may be assessed instead, and a trustee may be taxed at the top rate. Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
 
 - Check the deed and timing requirements, prepare the relevant income and distribution schedules, and retain resolutions.
 - Use the existing trust example to separate arithmetic from missing documents and unresolved entitlement.
 
 The tool cannot validate a deed or cure a late or ineffective trustee decision.
 
-Trusts · Trust distributions example
+Trusts · Trustee resolutions · Trust distributions example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 86
 
@@ -124,14 +132,16 @@ Link to question 86
 
 ### How do dividends and franking credits affect my tax return?
 
-Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
+A franking credit is tax the company has already paid on the dividend. Include the dividend and franking credit in your return; the credit reduces your tax, and an eligible individual gets any excess refunded. If your franking credits for the year total $5,000 or more, you must have held the shares at risk for at least 45 days (90 for preference shares). Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
 
 - Record any foreign, trust or other adjustments and the relevant holding period evidence.
 - Use the ATO investment and imputation guidance to determine what appears in the return.
 
 A stated franking credit does not automatically establish entitlement to use the offset.
 
-Investments and assets
+Investments and assets · Refund of franking credits for individuals
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 87
 
@@ -139,16 +149,16 @@ Link to question 87
 
 ### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. A company car available for an employee’s private use and payment of an employee’s private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
 
 The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.
 
-Fringe benefits tax (FBT) · FBT rate and gross-up rates on this site · Experimental tax worksheets and supported years
+Fringe benefits tax (FBT) · FBT rate and gross-up rates on this site · How FBT applies to cars · Expense payment fringe benefits · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 88
 
@@ -156,14 +166,16 @@ Link to question 88
 
 ### What information do I need to prepare an ATO payment plan proposal?
 
-Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
 - Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
 - Use the ATO support route to discuss terms and retain any accepted arrangement.
 
 A forecast does not establish acceptance, interest relief or removal of other obligations.
 
-Paying the ATO · 13-week cash forecast
+Paying the ATO · Payment plans · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 89
 
@@ -171,14 +183,16 @@ Link to question 89
 
 ### Could my related businesses be grouped together for NSW payroll tax?
 
-Assess the relationships between businesses against the NSW grouping rules.
+Businesses can be grouped for NSW payroll tax through related corporations, common employees, common control, tracing of interests, phoenix operators or subsuming smaller groups. Only one group member claims the tax-free threshold, against the group’s combined wages. Assess the relationships between businesses against the NSW grouping rules.
 
 - Prepare an ownership and control diagram, shared-employee details and financial relationships.
 - Document each grouping test and any exclusion application, then reconcile group wages.
 
 Separate company names or accounts do not by themselves prevent payroll tax grouping.
 
-Revenue NSW payroll tax
+Revenue NSW payroll tax · What is payroll tax grouping?, Revenue NSW
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 90
 
@@ -206,26 +220,36 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
 - Link to question 81: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
+- Using business money and assets: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets
+- Types of payments to employees: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/payments-to-employees/types-of-payments-to-employees
+- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - Link to question 82: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
 - Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 83: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
 - Division 7A benchmark interest rate on this site: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Link to question 84: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
+- Division 7A myths debunked: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-myths-debunked
 - Link to question 85: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
 - Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
+- Trustee resolutions: https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist
 - Trust distributions example: https://duguid.com.au/tools/trust-distributions/
 - Link to question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
 - Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Refund of franking credits for individuals: https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals
 - Link to question 87: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
 - Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
 - FBT rate and gross-up rates on this site: https://duguid.com.au/rates/fbt-rate/
+- How FBT applies to cars: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/how-fbt-applies-to-cars
+- Expense payment fringe benefits: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/expense-payment-fringe-benefits
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 88: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- Payment plans: https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 89: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- What is payroll tax grouping?, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/grouping/what-is-payroll-tax-grouping
 - Link to question 90: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/

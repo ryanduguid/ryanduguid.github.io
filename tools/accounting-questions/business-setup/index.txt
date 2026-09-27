@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
 Practical steps, records and official guidance on starting a business.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -30,14 +30,16 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ### Do I need an ABN for freelance or contracting work?
 
-ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.
+You’re entitled to an ABN if you’re carrying on or starting an enterprise in Australia. You’re not entitled to one for work you do as an employee, even if you or your employer calls it contracting. ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.
 
 - Record the work arrangement, independence, activity and evidence that the enterprise has started.
 - Read the ABR entitlement guidance before applying.
 
 An ABN does not decide whether a worker is an employee for tax, super or workplace law.
 
-ABR ABN application and entitlement
+ABR ABN application and entitlement · ABN entitlement, ABR
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 21
 
@@ -45,7 +47,7 @@ Link to question 21
 
 ### How do I apply for an ABN, and what information do I need?
 
-Apply through the official ABR route after checking entitlement.
+Apply online through the ABR. Details such as your TFN help the ABR identify you and process the application faster; if it needs to check details, it aims to review the application within 20 business days. Apply through the official ABR route after checking entitlement.
 
 - Gather the entity structure, business activity, start date and contact information required by the ABR.
 - Enter identity information directly into the official application and save its confirmation.
@@ -54,20 +56,24 @@ This site neither applies for an ABN nor handles identity documents.
 
 ABR ABN application and entitlement
 
+The bold answer was checked on 27 September 2026.
+
 Link to question 22
 
 23.
 
 ### Is my activity a hobby or a business for tax purposes?
 
-Assess the pattern of activity, commercial purpose and how the activity is organised.
+Generally, a business involves continuous and repeated activities done to make a profit. The ATO asks whether you intend to and have a prospect of making a profit, whether the scale is enough to make one, and whether the activities are repeated and continuous; a hobby you don’t seek to profit from is not a business. Assess the pattern of activity, commercial purpose and how the activity is organised.
 
 - Document your intention, pricing, repetition, scale, records and plan to make a profit.
 - Keep the conclusion and supporting facts, and reassess when the activity changes.
 
 There is no single revenue figure in this guide that classifies every activity.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Are you in business?
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 23
 
@@ -75,14 +81,16 @@ Link to question 23
 
 ### Should I operate as a sole trader or a company?
 
-Compare liability, ownership, administration, tax and how profits will reach the owners.
+A sole trader reports business income as their own and is personally liable for the business’s debts. A company is a separate legal entity with higher set-up and running costs and an annual ASIC review; it pays tax at 25% or 30%, and it pays directors wages or fees rather than drawings. Compare liability, ownership, administration, tax and how profits will reach the owners.
 
 - Prepare the same forecast under each structure, including compliance costs and money taken out.
 - Discuss asset protection, existing contracts and restructuring costs with the relevant advisers before choosing.
 
 A lower company tax rate alone does not establish a lower total cost or a suitable structure.
 
-Starting, registering or closing a business · 13-week cash forecast
+Starting, registering or closing a business · Difference between a sole trader and a company, business.gov.au · Changes to company tax rates · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 24
 
@@ -90,14 +98,16 @@ Link to question 24
 
 ### How much should I set aside for income tax as a sole trader?
 
-Reserve cash against an estimate of your annual personal tax position and instalments already paid.
+The ATO automatically enters an individual, including a sole trader, into PAYG instalments when their latest return shows instalment income of $4,000 or more, tax payable of $1,000 or more and estimated tax of $500 or more. You can also enter voluntarily. Reserve cash against an estimate of your annual personal tax position and instalments already paid.
 
 - Forecast business profit alongside salary and other personal income, deductions and credits.
 - Place expected instalments and the remaining tax payment into the cash forecast on their due dates.
 
 A fixed percentage of sales can miss deductions, other income and tax already paid.
 
-Your tax return · 13-week cash forecast
+Your tax return · Starting PAYG instalments · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 25
 
@@ -105,14 +115,16 @@ Link to question 25
 
 ### Do I need a separate business bank account?
 
-A separate account makes business transactions easier to trace. The requirements also depend on the entity.
+A sole trader doesn’t have to have a business bank account, although it’s a good idea. A partnership, company or trust must have a separate bank account for tax purposes. A separate account makes business transactions easier to trace. The requirements also depend on the entity.
 
 - Record which accounts hold business money and reconcile each to its statement.
 - For a company or trust, keep entity funds and private funds clearly identified and correctly recorded.
 
 Check the account requirements for your structure before opening or changing banking arrangements.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Set up your business bank account, business.gov.au
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 26
 
@@ -120,14 +132,16 @@ Link to question 26
 
 ### How do I pay myself and record drawings as a sole trader?
 
-Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.
+What you draw doesn’t change what a sole trader reports: all your business income goes in your individual tax return, whatever amounts you transfer to your personal account. Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.
 
 - Record the transfer against drawings or the owner’s equity account in your agreed chart.
 - Keep drawings visible in the cash forecast so the business can meet upcoming obligations.
 
 A sole trader’s drawings do not set the amount of taxable business profit.
 
-Starting, registering or closing a business · 13-week cash forecast
+Starting, registering or closing a business · Using business money and assets · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 27
 
@@ -144,7 +158,7 @@ An ABN or company structure does not by itself switch off the PSI rules.
 
 Starting, registering or closing a business · The PSI 80% rule
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 28
 
@@ -152,14 +166,16 @@ Link to question 28
 
 ### How do I report income from a side hustle, delivery work or online sales?
 
-Reconcile gross platform activity to payouts before deciding how to report it.
+Income from providing services or assets for a fee through a sharing economy platform, such as ride-sourcing, renting out a room or sharing assets, is taxable, and GST can apply. Platform operators report these transactions to the ATO. Reconcile gross platform activity to payouts before deciding how to report it.
 
 - Export sales, fees, refunds and activity records for the income year.
 - Document whether the activity is business, employment or another income category and check GST separately.
 
 Net bank deposits can omit fees and gross receipts that need separate reporting.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Types of activities in the sharing economy
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 29
 
@@ -176,7 +192,7 @@ A loss in the accounts does not automatically offset salary in the tax return.
 
 Starting, registering or closing a business · Non-commercial losses
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 30
 
@@ -201,18 +217,26 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
+- ABN entitlement, ABR: https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement
 - Link to question 21: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
 - Link to question 22: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Are you in business?: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business/starting-your-own-business/are-you-in-business
 - Link to question 23: https://duguid.com.au/tools/accounting-questions/business-setup/#q23
+- Difference between a sole trader and a company, business.gov.au: https://business.gov.au/planning/business-structures-and-types/business-structures/difference-between-a-sole-trader-and-a-company
+- Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 24: https://duguid.com.au/tools/accounting-questions/business-setup/#q24
 - Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Starting PAYG instalments: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/starting-payg-instalments
 - Link to question 25: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
+- Set up your business bank account, business.gov.au: https://business.gov.au/finance/set-up-your-finances/set-up-your-business-bank-account
 - Link to question 26: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
+- Using business money and assets: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets
 - Link to question 27: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
 - The PSI 80% rule: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb
 - Link to question 28: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
+- Types of activities in the sharing economy: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/sharing-economy-and-tax/types-of-activities-in-the-sharing-economy
 - Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
 - Non-commercial losses: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss
 - Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
