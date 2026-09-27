@@ -8,18 +8,6 @@ Source: https://duguid.com.au/tools/coal-lsl-levy/
 
 The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.
 
-Rate
-
-2.7% of eligible wages, paid monthly, checked 18 September 2026
-
-Method
-
-Section 3B branch test
-
-Boundary
-
-Estimate only. Check the current prescribed percentage before relying on a figure.
-
 Published 24 August 2026. Last reviewed 24 September 2026.
 
 Load the synthetic example
@@ -59,6 +47,18 @@ Ready to calculate
 Enter this month’s figures. The applied branch, formula and explanation will appear here.
 
 Estimate only. Check the current prescribed percentage before relying on a figure. duguid.com.au/tools/coal-lsl-levy/
+
+Rate
+
+2.7% of eligible wages, paid monthly, checked 18 September 2026
+
+Method
+
+Section 3B branch test
+
+Boundary
+
+Estimate only. Check the current prescribed percentage before relying on a figure.
 
 ## Employee reference table
 

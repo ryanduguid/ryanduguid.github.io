@@ -4,7 +4,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 > Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Tax returns
+# Tax returns
 
 Practical steps, records and official guidance on tax returns.
 

@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
-import { projectKind } from './project-kind.mjs';
+import { firstScreen, projectKind } from './project-kind.mjs';
 
 async function calculateFormulaB(page, { visualSnapshot = false } = {}) {
   if (visualSnapshot) {
@@ -583,6 +583,12 @@ test('calculator orientation and result render as an inspectable ledger', async 
   await expect(method).toContainText('18 September 2026');
   await expect(method).toContainText('Section 3B branch test');
   await expect(method).toContainText('Estimate only');
+  // Below the result, the method list keeps the shell's left edge, as the form does.
+  const [methodBox, formBox] = await Promise.all([
+    method.boundingBox(),
+    page.locator('#calc-form').boundingBox(),
+  ]);
+  expect(Math.abs(methodBox.x - formBox.x)).toBeLessThanOrEqual(1);
 
   const result = page.locator('#result');
   await expect(result).toContainText('as at 18 September 2026');
@@ -627,7 +633,7 @@ test('calculator example is available within the initial mobile viewport', async
   const viewport = page.viewportSize();
   expect(example).not.toBeNull();
   expect(viewport).not.toBeNull();
-  expect(example.y + example.height).toBeLessThanOrEqual(viewport.height);
+  expect(example.y + example.height).toBeLessThanOrEqual(firstScreen(page));
   health.assertHealthy();
 });
 

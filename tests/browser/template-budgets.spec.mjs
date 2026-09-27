@@ -1,7 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
-import { projectKind } from './project-kind.mjs';
+import { firstScreen, projectKind } from './project-kind.mjs';
 
 // Budgets for the failures the 26 September 2026 live audit found: the working
 // control below the first screen, a phone header that covered a sixth of the
@@ -18,7 +18,9 @@ test('calculator and question pages open on their working control', async ({ pag
     await page.goto(path);
     const selector = calculators.includes(path) ? 'form[data-calculator] input' : 'details.question summary';
     const box = await page.locator(selector).first().boundingBox();
-    expect(box.y + Math.min(box.height, 44), path).toBeLessThanOrEqual(page.viewportSize().height);
+    expect(box, path).not.toBeNull();
+    // The whole control, not only its first 44 pixels, ends inside the first screen.
+    expect(box.y + box.height, path).toBeLessThanOrEqual(firstScreen(page));
   }
 });
 

@@ -234,3 +234,19 @@
 .question-index li + li {
   margin-top: 0;
 }
+
+/* Phones: the first control of a calculator or question page has to land inside
+   an iPhone's 664px first screen, so the space above it tightens here. */
+@media screen and (max-width: 40rem) {
+  .business-calculator {
+    margin-block-start: var(--space-4);
+  }
+
+  .question-controls.question-tools {
+    margin-block-start: var(--space-1);
+  }
+
+  .question-tools ~ .question-group {
+    margin-top: var(--space-3);
+  }
+}

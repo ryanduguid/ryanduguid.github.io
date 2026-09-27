@@ -4,7 +4,7 @@ Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
 > Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Bookkeeping and close
+# Bookkeeping and close
 
 Practical steps, records and official guidance on bookkeeping and close.
 

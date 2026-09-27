@@ -6,7 +6,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 # Business use share calculator
 
-Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
+Apportion an eligible cost by its business use share. It does not decide deductibility, depreciation or records.
 
 Published 20 September 2026. Last reviewed 27 September 2026.
 

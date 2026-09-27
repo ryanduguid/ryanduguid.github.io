@@ -24,7 +24,10 @@ function close() {
   opened = [];
 }
 
+const onPrintChange = (event) => (event.matches ? open() : close());
 addEventListener('beforeprint', open);
 addEventListener('afterprint', close);
-printMedia.addEventListener('change', (event) => (event.matches ? open() : close()));
+// Older Safari exposes only addListener on a MediaQueryList.
+if (typeof printMedia.addEventListener === 'function') printMedia.addEventListener('change', onPrintChange);
+else printMedia.addListener(onPrintChange);
 if (printMedia.matches) open();
