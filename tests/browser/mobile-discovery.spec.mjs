@@ -1,7 +1,8 @@
 import { test, expect } from '@playwright/test';
+import { projectKind } from './project-kind.mjs';
 
 test('mobile discovery links have room to tap without horizontal scrolling', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'Mobile layout coverage');
+  test.skip(projectKind(testInfo) !== 'mobile', 'Mobile layout coverage');
   const routes = [
     ['/', '.home-hero__actions a, .home-tool-preview a, .proof-feature__links a'],
     ['/tools/', '.task-routes a, .collection-entry__title, .collection-entry__links a'],
@@ -41,7 +42,7 @@ test('the extra task chooser works with keyboard and touch', async ({ page }, te
   await expect(excel).toBeVisible();
   await page.keyboard.press('Space');
   await expect(excel).not.toBeVisible();
-  if (testInfo.project.name === 'mobile-chromium') {
+  if (projectKind(testInfo) === 'mobile') {
     await summary.tap();
     await excel.tap();
   } else {
@@ -56,7 +57,7 @@ test('the extra task chooser works with keyboard and touch', async ({ page }, te
 
 for (const width of [320, 390]) {
   test(`enlarged mobile text keeps the page in view and navigation reachable at ${width}px`, async ({ page }, testInfo) => {
-    test.skip(testInfo.project.name !== 'mobile-chromium', 'Mobile text resizing coverage');
+    test.skip(projectKind(testInfo) !== 'mobile', 'Mobile text resizing coverage');
     await page.setViewportSize({ width, height: 844 });
     for (const route of ['/', '/tools/', '/tools/ozzit/', '/evaluate/manager-review-gate/']) {
       await page.goto(route);

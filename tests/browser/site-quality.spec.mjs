@@ -5,6 +5,7 @@ import { expect, test } from '@playwright/test';
 
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
+import { projectKind } from './project-kind.mjs';
 
 // Every page in the sitemap, plus the not-found page, gets the shell and axe checks.
 const routes = [
@@ -52,12 +53,12 @@ const homeHeightBaseline = {
   // On 25 September the Adopt and Verify routes shrank to one sentence, two
   // links and a note each. Home measures 5,945px mobile and 4,411px desktop;
   // both ceilings drop to that plus the 234px guard so the page stays short.
-  'mobile-chromium': 6179,
-  'desktop-chromium': 4645,
+  mobile: 6179,
+  desktop: 4645,
 };
 
 const representativeHeightBaseline = {
-  'mobile-chromium': new Map([
+  mobile: new Map([
     // Shortened homepage, 25 September: 5,945px plus the 234px guard.
     ['/', 6179],
     // The four starting routes (heading plus four two-line rows) replaced the
@@ -86,7 +87,7 @@ const representativeHeightBaseline = {
     // 234px guard.
     ['/evidence/', 8829],
   ]),
-  'desktop-chromium': new Map([
+  desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
     // input-scoped description on 18 September 2026, which wraps to a third
     // line. Home measures 6,535px at 1440px wide, plus the 234px guard.
@@ -154,7 +155,7 @@ for (const [label, route] of routes) {
 }
 
 test('a focused and hovered skip link keeps its contrast', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'hover needs a pointer');
+  test.skip(projectKind(testInfo) !== 'desktop', 'hover needs a pointer');
   await page.goto('/');
   const skip = page.locator('.skip-link');
   // Read the settled colours, not a frame of the link colour transition:
@@ -230,7 +231,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
 
   await expect(page.locator('main > section, main > aside').first()).toHaveClass(/home-hero/);
   await expect(page.locator('.home-hero + section')).toHaveClass(/home-tool-preview/);
-  if (testInfo.project.name === 'mobile-chromium') {
+  if (projectKind(testInfo) === 'mobile') {
     const primaryAction = await actions.getByRole('link').first().boundingBox();
     expect(primaryAction.y + primaryAction.height).toBeLessThan(page.viewportSize().height);
   }
@@ -257,7 +258,7 @@ test('home leads with adoption actions and a shorter tool preview', async ({ pag
   )).toEqual(['0px', '0px', '0px']);
   await decodedHomeProof(page);
   expect(await page.evaluate(() => document.documentElement.scrollHeight))
-    .toBeLessThan(homeHeightBaseline[testInfo.project.name]);
+    .toBeLessThan(homeHeightBaseline[projectKind(testInfo)]);
   health.assertHealthy();
 });
 
@@ -274,7 +275,7 @@ test('the retired Engage hash redirects quietly to the homepage', async ({ page 
 });
 
 test('representative routes stay within their height limits', async ({ page }, testInfo) => {
-  for (const [route, baseline] of representativeHeightBaseline[testInfo.project.name]) {
+  for (const [route, baseline] of representativeHeightBaseline[projectKind(testInfo)]) {
     await page.goto(route);
     await waitForVisualFonts(page);
     if (route === '/') await decodedHomeProof(page);
@@ -284,7 +285,7 @@ test('representative routes stay within their height limits', async ({ page }, t
 });
 
 test('home proposition and actions fit the initial desktop viewport', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'desktop viewport matrix runs once');
+  test.skip(projectKind(testInfo) !== 'desktop', 'desktop viewport matrix runs once');
 
   for (const viewport of [
     { width: 1280, height: 720 },
@@ -356,7 +357,7 @@ test('primary navigation order and current states match the collection hierarchy
 });
 
 test('all six primary navigation links fit the smallest mobile width', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
+  test.skip(projectKind(testInfo) !== 'mobile', 'mobile contract only');
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto('/');
@@ -394,7 +395,7 @@ test('all six primary navigation links fit the smallest mobile width', async ({ 
 });
 
 test('mobile sticky header gives readable navigation two rows', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
+  test.skip(projectKind(testInfo) !== 'mobile', 'mobile contract only');
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto('/');
 
@@ -435,7 +436,7 @@ test('all homepage starting routes land on their targets', async ({ page }) => {
 });
 
 test('public pages do not overflow at refinement acceptance widths', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'width matrix runs once');
+  test.skip(projectKind(testInfo) !== 'desktop', 'width matrix runs once');
   const health = observePageHealth(page);
   for (const width of [320, 390, 768, 1440]) {
     await page.setViewportSize({ width, height: 844 });
@@ -463,7 +464,7 @@ test('home proof image loads only when requested and decodes before capture', as
   await decodedHomeProof(page);
   // The mobile breakpoint serves the 390-CSS-px render at twice the density
   // so the ledger text stays legible; wider viewports keep the desktop asset.
-  const expectedNatural = testInfo.project.name === 'mobile-chromium'
+  const expectedNatural = projectKind(testInfo) === 'mobile'
     ? { width: 780, height: 1280 }
     : { width: 868, height: 580 };
   expect(await proof.evaluate((image) => ({
@@ -487,7 +488,7 @@ test('home proof uses practical inspection width without page overflow', async (
       scrollWidth: document.documentElement.scrollWidth,
     };
   });
-  const minimumProofWidth = testInfo.project.name === 'mobile-chromium'
+  const minimumProofWidth = projectKind(testInfo) === 'mobile'
     ? 380
     : 680;
 
@@ -502,7 +503,8 @@ test('home proof uses practical inspection width without page overflow', async (
   health.assertHealthy();
 });
 
-test('home matches its viewport visual baseline', async ({ page }, testInfo) => {
+test('home matches its viewport visual baseline', async ({ page, browserName }, testInfo) => {
+  test.skip(browserName !== 'chromium', 'the committed baselines are Chromium renders');
   const health = observePageHealth(page);
   await gotoForVisualSnapshot(page, '/');
   // This baseline shows the disclosure closed. The proof tests above cover
@@ -510,7 +512,7 @@ test('home matches its viewport visual baseline', async ({ page }, testInfo) => 
   await expect(page.locator('.proof-capture')).not.toHaveAttribute('open');
   await page.evaluate(() => scrollTo(0, 0));
 
-  const viewport = testInfo.project.name === 'mobile-chromium'
+  const viewport = projectKind(testInfo) === 'mobile'
     ? 'mobile'
     : 'desktop';
   await expect(page).toHaveScreenshot(`homepage-${viewport}.png`, {

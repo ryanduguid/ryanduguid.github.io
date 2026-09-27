@@ -20,7 +20,7 @@ the later row is current.
 | 23 September 2026 | main | `npm run test:browser` counted | 250 tests over 2 projects, 11 project-specific skips |
 | 24 September 2026 | PR 266 | Typefaces switched to Besley, Public Sans and Spline Sans Mono; homepage and calculator baselines re-rendered | Passed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
-| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, over the specs that do not branch on the Chromium project names or compare screenshots | 82 passed, 4 skipped, 5 failed; the differences are listed below |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; only the 2 screenshot comparisons skip | 157 passed, 6 skipped, 8 failed; the differences are listed below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
@@ -29,7 +29,7 @@ descriptions in the August sections are historical.
 
 ### WebKit differences, 27 September 2026
 
-The first WebKit pass reported these 5 failures. Each names the test so a rerun
+The first WebKit pass reported these 8 failures. Each names the test so a rerun
 can tell a known difference from a new one. None has been checked in Safari on
 a physical device yet.
 
@@ -46,10 +46,21 @@ a physical device yet.
    (accounting-questions): with the calculator module request aborted, the
    "Calculators could not load." recovery text never appeared and the test timed
    out after 30 seconds.
-4. `fixed Payday example reaches a reviewer without installation`
-   (payday-example): the "Human decision:" line ends 841 CSS pixels down the
-   page, below the iPhone 13 viewport height of 664 pixels that the device
-   profile applies; the Chromium mobile project uses 844 pixels, where it fits.
+4. First-screen budgets against the iPhone 13 viewport, 3 tests: `fixed Payday
+   example reaches a reviewer without installation` (payday-example, the
+   "Human decision:" line ends 841 CSS pixels down), `calculator example is
+   available within the initial mobile viewport` (calculator, the Load the
+   synthetic example button ends at 836 pixels) and `calculator and question
+   pages open on their working control` (template-budgets, the business-use
+   calculator's first input ends at 676 pixels; the other 18 pages fit). The
+   device profile gives 664 pixels of viewport height where the Chromium
+   mobile project uses 844, so these are first-screen observations for an
+   iPhone-sized Safari window rather than rendering differences.
+5. `all six primary navigation links fit the smallest mobile width`
+   (site-quality): the geometry passed at 320 pixels, but the Tab sequence did
+   not reach Contact. WebKit, like Safari, leaves links out of the Tab order by
+   default (Safari users press Option and Tab), so the keyboard half of that
+   test is Chromium-specific.
 
 ## Test environment
 
