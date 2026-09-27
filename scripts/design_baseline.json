@@ -39,40 +39,40 @@
       "44b8c96c41dcf291ef57c14996f5e42fa93dd7fa048dd9228ed1a5de7bb72ded"
     ],
     "index.html": [
-      "d2dcd4be5762d986f3cf4680202bba51882fe3419a258e5a20f49245dbca7872"
+      "bf79aadbc063fc28a31b3432bd96b394f37788154b18d55c5efd2ee71e941f60"
     ],
     "privacy/index.html": [
       "abf813fe607b852d3d6518bed929ba2850e660233f1a6a99fd267126661c19d0"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "b1ec902fa6bcd91b193ee719ec68c645f315b8057461e3bcae89ffc1ad63bd11"
+      "98d1bd2330259541f0cd49d532f661b5ccd615b66ad1e4b5c087777037be4e94"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "7ac51d2a26560bd0516d2a1bbcff080f7c6f91d00655d4b73369a0f373c3962b"
+      "44e4304c8e41dcb3e54e345f90fe527d83bd62ed70f02004ca6fdd7229fbe223"
     ],
     "rates/index.html": [
       "7486543eb98a92290b7b5118aea5eb217ca945279113acbabebbfa3362e53e57"
     ],
     "rates/super-guarantee/index.html": [
-      "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
+      "4c2ef6c169c8cabe288bbdf1a0a8f957ccacf49a1b51eeb13ffe817fca09883d"
     ],
     "tools/accounting-questions/index.html": [
       "a1344c95e2d5c671b55fb0e3b84ee7789ad6b15251d4a1dc9088f08629ec4606"
     ],
     "tools/ato-benchmarks/index.html": [
-      "c9fb7bd71c10358efdb5c83ef380e709503ce987791b061b0d846020f39a754a"
+      "4a8cc5397fa467957de48a5a0580fa6e49698335c510f581034a033e51b4dcf3"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "0b671040d3ebf2958462926ef3f72bcc210f0ac1e1e8181a058d1cd0bd7ff149"
+      "fa78b67f423e0ef10f19551c027ffc96293330bbaaa9556bb97f104b1036f16c"
     ],
     "tools/business-calculators/index.html": [
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "de3c1ae1257438e9a69984411fca890b06ba0f573f72405da774427170407ae1"
+      "3a241b0ac51a1c543aaa9d6dd19907c5f96c8f4031327edee8a47e41b9fb3290"
     ],
     "tools/company-tax-franking/index.html": [
-      "2a9247305fd04ef41831f43cd155e39eca927e9f7c30837f4e235b460a561164"
+      "ee1b9ccda634e054350d1dbd08a37381e4f42fd27a607a86fc03948df0717ebe"
     ],
     "tools/index.html": [
       "8773b9203fb9f922219e107feb35dae46cf6c8c673a39df3ad643993b76e2ae1"
@@ -81,31 +81,31 @@
       "8210e1bbda96828b9041186b3bb5d783d15ed041901a01df635f15b1536cab17"
     ],
     "tools/monthly-close-controls/index.html": [
-      "f13bc2aa8cb7f697f356d72e00ff6c0db2be452724c5888e95f9304677637649"
+      "4c3ea34e80e0618be6653f8843b35ce4cb36fe60e4ee5d76cce9cabd60a32ee9"
     ],
     "tools/ozzit/index.html": [
-      "76ed783c03845571b3d875ac23c26548e699881879859aed79a1ea246d5345cd"
+      "015e4d0eaa3ec8541750b3975c2e494aa6bf9a56fe54fd2a8ef838efdd936a12"
     ],
     "tools/payday-super/index.html": [
-      "7ac54fc20de7ca4023af8cac081e6db4f07f7e8c89998b169988acdeccb1abc6"
+      "8c735bb1eba50b1307ca80bd20751c1f816901bc2951c89512bfbb21e48d7b7c"
     ],
     "tools/refusals/index.html": [
       "b318535d0bcb89e7d3aa11ce6bded7a9360b3e52efcbd8436a01c0424ec2a156"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "da5e1be23f3eefe29a78ac00bd80b08f19732240c8d94ebf2ebd1d51cbc68b98"
+      "2496118ae5e21532b1646f895ddff0a2853341a8bdf48c1316079b6f5a38bddb"
     ],
     "tools/trust-distributions/index.html": [
-      "6571b001a6f9bfc541cd765bb625a58d688b731e37623d0fa121d69f3b408d5d"
+      "f46ab9f3f0d04c35bd36a9c5a5ad1277c0c9a8a3cb5e2f12283a087d8d07bcbf"
     ],
     "tools/wip-schedule/index.html": [
-      "1c6b54e4de9c8bbc7f7cfc1cabf3d94b978a2f2c986d75ba5a8d24102c256111"
+      "666b02100ba49f8bb0cb383350530d3311ad2b6dcc2f137bf3d279bdc46977b9"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "f65cdea1697fa56f4cedeb32876047b0acb30986744693802fdefaca78c93575"
+      "9c91ea8f1adf5d6b96c9a52ad1aec93140bd48d87917ee4154c192b699954356"
     ],
     "tools/xero-trial-balance/index.html": [
-      "ad41d785799d5b692c18aaddead029c10888a3f0ad0ffa8ad085e1ca5c0a40e3"
+      "4b34d78a9b600a8d198a0a55d53fefb3b5108441a9e7fd2d76f679d012af8789"
     ]
   },
   "protected_files": {
