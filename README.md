@@ -240,19 +240,32 @@ python scripts/favicon_render.py
 ## About portrait provenance
 
 The portrait at the top of `about/index.html` is an ASCII rendering of a
-headshot Ryan supplied; the photo itself is not in the repository. ffmpeg
-cropped the 1200-pixel square photo to 800 by 900 pixels from (180, 40), scaled
-it to 200 by 112 cells with area averaging and applied `unsharp=3:3:0.8`. Each
-cell's grey level, stretched between the 45th and 98th percentiles so the
-backdrop falls to black, picks a character from a 62-character ramp that leaves
-out `< > & " { } %`, so the text needs no HTML escaping and cannot open a Liquid
-tag.
+headshot Ryan supplied; the photo itself is not in the repository.
+`scripts/render_about_portrait.py` draws it and rewrites the `pre` in place:
 
-The 112 rows are real text in a `pre`, with trailing spaces trimmed. A
+```bash
+uv run --script scripts/render_about_portrait.py path/to/headshot.jpg
+```
+
+The script declares its own pinned dependencies (OpenCV, NumPy, Pillow and
+fontTools), so uv installs them for that run only. GrabCut separates Ryan from
+the studio backdrop, which becomes empty space. The crop centres his head
+between the ears, keeps the hair and collar, and fades the shoulders out at the
+bottom and lower corners rather than ending on the photo's edges. The tone
+gets gentle local contrast, an edge boost for the eyes, brows and beard line,
+and a faint floor inside the silhouette so the dark suit still reads. Each cell
+of the 120-column grid then gets its own glyph: every candidate's ink is
+measured from the site's own Spline Sans Mono in the 0.6em by 1em cell the page
+draws, in three rows by two columns of zones, and the closest glyph wins, with
+a light ordered dither so large even areas do not form blocks. The glyphs are
+23 symbols and the space, none of which needs HTML escaping or can open a
+Liquid tag. Running it again on the same photo reproduces the same text.
+
+The 75 rows are real text in a `pre`, with trailing spaces trimmed. A
 `role="img"` wrapper carries the accessible name and the `pre` is
 `aria-hidden`, so screen readers and the text mirrors skip the characters.
-`.about-portrait pre` in `assets/site.css` sizes the font so 200 columns fill
-the frame.
+`.about-portrait pre` in `assets/site.css` sizes the font so 120 columns fill
+the frame and sets each row one em tall, the cell the art was sampled for.
 
 ## Credential documents
 

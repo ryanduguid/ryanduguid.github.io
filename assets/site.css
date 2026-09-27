@@ -455,13 +455,14 @@ main p {
 .about-portrait {
   width: 100%;
   max-width: 26rem;
+  margin-inline: auto;
   container-type: inline-size;
 }
 
-/* 200 columns of Spline Sans Mono (0.6em advance) fill the frame, and rows sit
-   two columns apart so each cell keeps the 1:2 aspect the art was drawn for.
-   A fallback font with a narrower advance leaves a small gap on the right.
-   Greyscale stops subpixel antialiasing tinting the tiny glyphs. */
+/* 120 columns of Spline Sans Mono (0.6em advance) fill the frame, and each
+   row is one em tall, the 0.6 by 1 cell the art was sampled for. A fallback
+   font with a narrower advance leaves a small gap on the right. Greyscale
+   stops subpixel antialiasing tinting the tiny glyphs. */
 .about-portrait pre {
   overflow: hidden;
   filter: grayscale(1);
@@ -470,8 +471,8 @@ main p {
   border-radius: 0;
   color: var(--colour-ink);
   background: none;
-  font-size: calc(100cqi / 120);
-  line-height: 1.2;
+  font-size: calc(100cqi / 72);
+  line-height: 1;
 }
 
 @media (min-width: 56.0625rem) {
@@ -895,22 +896,24 @@ caption {
   border-top: 0;
 }
 
-.collection-group {
-  scroll-margin-top: calc(var(--header-height) + var(--space-5));
-}
-
 .collection-group + .collection-group {
   margin-top: var(--space-7);
   border-top: var(--rule-strong) solid var(--colour-ink);
 }
 
+/* The group header takes the entry grid's tracks and column gap, so the group
+   heading starts on the same edge as the entry descriptions below it. */
 .collection-group > header {
   display: grid;
-  grid-template-columns: minmax(8rem, 12rem) minmax(0, 1fr);
-  gap: var(--space-5);
+  grid-template-columns: minmax(10rem, 0.7fr) minmax(14rem, 1.1fr) minmax(14rem, 0.9fr);
+  gap: var(--space-4) var(--space-6);
   align-items: baseline;
   padding-block: var(--space-4);
   border-bottom: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.collection-group > header > h2 {
+  grid-column: 2 / -1;
 }
 
 .collection-entry {
@@ -1217,7 +1220,27 @@ caption {
 }
 
 .site-footer__inner > p {
+  grid-column: 1;
   max-width: var(--reading-width);
+}
+
+/* The motto and the ABN line close the footer as one sign-off, so the space
+   sits above the pair, not inside it. Screen readers get the hidden copy, in
+   mixed case with its meaning; the tracked capitals and the tooltip belong to
+   the visible copy only. */
+.site-footer__motto {
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+}
+
+.site-footer__motto-mark {
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+}
+
+.site-footer__motto + p {
+  margin-top: 0;
 }
 
 .site-footer__links {
@@ -2291,7 +2314,9 @@ input[type="checkbox"] {
   font-size: var(--text-display);
 }
 
-.page-404 p,
+/* Scoped to main: the page class sits on body, and the footer keeps its own
+   paragraph spacing. */
+.page-404 main p,
 .page-404 .links {
   margin-top: var(--space-5);
 }
@@ -2341,15 +2366,24 @@ input[type="checkbox"] {
   }
 
   /* The home link keeps its own width so the view switch beside it never
-     sits over its target. */
+     sits over its target. Its line height makes the 44px target; flex would
+     drop the space before its suffix. */
   .site-identity {
     width: fit-content;
+    line-height: 2.75rem;
   }
 
+  /* Touch tablets get the same 44px link targets as phones; the taller links
+     replace the nav's bottom padding, so the header keeps its 7rem. */
   .site-nav {
     max-width: 100%;
     overflow-x: auto;
-    padding-bottom: var(--space-2);
+  }
+
+  .site-nav a {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
   }
 
   .article-layout {
@@ -2373,6 +2407,7 @@ input[type="checkbox"] {
     gap: var(--space-6);
   }
 
+  .collection-group > header,
   .collection-entry {
     grid-template-columns: minmax(10rem, 0.7fr) minmax(0, 1.3fr);
   }
@@ -2413,10 +2448,6 @@ input[type="checkbox"] {
 
   html {
     scroll-padding-top: var(--space-4);
-  }
-
-  .collection-group {
-    scroll-margin-top: var(--space-4);
   }
 
   .site-header {
@@ -2481,11 +2512,17 @@ input[type="checkbox"] {
   .business-calculator > p > a,
   .question-group h2 a,
   .question-index a,
+  .site-footer__nav a,
+  .site-footer__links a,
   tbody :is(td, th) > a {
     display: inline-flex;
     min-width: 2.75rem;
     min-height: 2.75rem;
     align-items: center;
+  }
+
+  .site-footer__links a {
+    justify-self: start;
   }
 
   /* The 44px target overlaps the plain text above and below it, so the crumb
@@ -2561,6 +2598,7 @@ input[type="checkbox"] {
     grid-template-columns: 1fr;
   }
 
+  .collection-group > header > h2,
   .collection-entry dl,
   .collection-entry__note,
   .collection-entry__links {
@@ -2639,7 +2677,6 @@ input[type="checkbox"] {
 
   .site-footer__links a,
   .site-footer__nav a {
-    display: inline-block;
     padding-block: var(--space-2);
   }
 }
@@ -2962,6 +2999,33 @@ html[data-view-mode="machine"] body {
   .view-mode {
     position: absolute;
     top: 0;
+  }
+
+  [data-view-mode="machine"] .view-mode {
+    position: fixed;
+  }
+}
+
+/* A landscape phone is too short for sticky chrome: two header rows would
+   hold a third of the screen. There the header and switch scroll away as they
+   do on phones, and the contents rail and calculator result stay in the flow
+   rather than sticking under a header that is no longer there. */
+@media screen and (orientation: landscape) and (max-height: 30rem) {
+  html {
+    scroll-padding-top: var(--space-4);
+  }
+
+  .site-header {
+    position: relative;
+  }
+
+  .article-toc,
+  .calculator-result {
+    position: static;
+  }
+
+  .view-mode {
+    position: absolute;
   }
 
   [data-view-mode="machine"] .view-mode {

@@ -1,7 +1,9 @@
 # Tool configuration only. This repository is a static site whose checks are
 # standard-library Python scripts under scripts/: nothing here is installed or
 # built. The Search Console tool under .agents/ declares its own inline script
-# metadata and runs through uv, so it is not part of this configuration.
+# metadata and runs through uv, so it is not part of this configuration. The
+# About portrait renderer, scripts/render_about_portrait.py, also declares its
+# own dependencies and runs through uv; it builds an image, not a check.
 
 [tool.ruff]
 line-length = 100

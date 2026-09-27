@@ -36,6 +36,21 @@ It ships as an SVG in an `img`, not inline text, so the characters stay out of
 it. An image cannot load the site fonts, so each row is pinned with
 `textLength` and any fallback monospace font keeps the columns aligned.
 
+The 28 September portrait pass redraws it as 120 columns by 75 rows of real
+text in a `pre` (it moved from the SVG to text on 24 September), drawn by
+`scripts/render_about_portrait.py` as the README describes. The backdrop is
+empty space, the head is centred in the frame and the shoulders fade out
+instead of ending on hard edges. Each row is one em tall, which shrinks the
+scanline gaps of the old 1.2 line height. Below 56.0625rem the portrait is
+centred in the column rather than left-aligned. The same pass lets the header
+scroll away on landscape phones (`orientation: landscape` and at most 30rem
+tall), where two sticky rows held a third of the screen; the contents rail and
+calculator result stop sticking there too. On `/tools/` the group headers take
+the entry grid's tracks at all three widths, so each group heading starts on
+the entry descriptions' edge, and the root scroll padding alone now clears the
+header for their anchors, which had reserved it twice and landed 112px low.
+Footer links on phones and header links up to 56rem get 44px targets.
+
 The 24 September chart pass re-exports the Lumbridge cash chart in two
 variants so its labels render at about 12px or more wherever the page shows
 it. The old export set 10 point text on a 1282-pixel image drawn at about
@@ -568,7 +583,7 @@ At the default desktop text size, the header is sticky, one line and at most 72p
 
 ### Footer
 
-The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom. An ABN line, `Ryan Duguid, ABN 59 834 031 764`, closes the footer below the disclaimer.
+The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom. An ABN line, `Ryan Duguid, ABN 59 834 031 764`, closes the footer below the disclaimer. Directly above it sits the motto, Ex fide fiducia, set in tracked mono capitals. The visible copy is hidden from assistive technology and carries the English meaning (from faith comes confidence) as a native `title` tooltip, which keyboard and touch users cannot open; a visually hidden copy gives screen readers the Latin, marked `lang="la"` and in mixed case so it is spoken as words, followed by that meaning. Machine view leaves the motto out of the footer notes it appends.
 
 ### Buttons and links
 
