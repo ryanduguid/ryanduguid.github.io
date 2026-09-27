@@ -4,7 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
-import { projectKind } from './project-kind.mjs';
+import { firstScreen, projectKind } from './project-kind.mjs';
 
 async function calculateFormulaB(page, { visualSnapshot = false } = {}) {
   if (visualSnapshot) {
@@ -627,7 +627,7 @@ test('calculator example is available within the initial mobile viewport', async
   const viewport = page.viewportSize();
   expect(example).not.toBeNull();
   expect(viewport).not.toBeNull();
-  expect(example.y + example.height).toBeLessThanOrEqual(viewport.height);
+  expect(example.y + example.height).toBeLessThanOrEqual(firstScreen(page));
   health.assertHealthy();
 });
 

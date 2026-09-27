@@ -36,7 +36,7 @@ TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />'
 SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260927b" />'
 # The calculator and question pages add a third stylesheet with the same key, so a
 # stylesheet change reaches returning visitors instead of waiting out the CSS cache.
-ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927b" />'
+ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927c" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (

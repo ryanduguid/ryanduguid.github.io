@@ -22,6 +22,7 @@ the later row is current.
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
 | 27 September 2026 | main 3e6a08a plus the WebKit fixes | `npm run test:browser:webkit` again after the print, date-field and Tab-order fixes below; `npm run test:browser` unchanged at 329 passed | 161 passed, 6 skipped, 4 failed; the 4 tests are named below |
+| 27 September 2026 | main 419f1ad plus the phone first-screen change | `npm run test:browser` and `npm run test:browser:webkit` after the 664 px first-screen budget: the Coal LSL method list moved below the result, the Payday facts moved below the decision, a shorter business-use lead and tighter phone spacing above the working control | Chromium 329 passed, 13 skipped, 0 failed; WebKit 163 passed, 6 skipped, 2 failed; the tests still failing are named below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
@@ -40,9 +41,11 @@ against its `min` and `max` attributes, which also serves any browser without
 date inputs. The 320 px navigation test's Tab traversal is a Chromium check,
 because WebKit, like Safari, leaves links out of the Tab order by default.
 
-The second pass reports these 4 failing tests. Compare a rerun's failing tests
-with these names, not with the count. None has been checked in Safari on a
-physical device yet.
+The phone first-screen budget is now 664 CSS pixels, the iPhone 13 Safari
+viewport, for every calculator, the Coal LSL example button and the Payday
+decision line (`tests/browser/project-kind.mjs`, `firstScreen`). The third pass
+reports these failing tests. Compare a rerun's failing tests with these names,
+not with the count. None has been checked in Safari on a physical device yet.
 
 1. `calculator load failure explains recovery and reload retries the module`
    (accounting-questions): after the retry reload, this WebKit build serves the
@@ -51,16 +54,15 @@ physical device yet.
    within a second and the reload restores the calculator; the stale "could not
    load" text that WebKit restored into the `<output>` is now cleared when the
    calculators load.
-2. First-screen budgets against the iPhone 13 viewport, 3 tests: `fixed Payday
-   example reaches a reviewer without installation` (payday-example, the
-   "Human decision:" line ends 841 CSS pixels down), `calculator example is
-   available within the initial mobile viewport` (calculator, the Load the
-   synthetic example button ends at 836 pixels) and `calculator and question
-   pages open on their working control` (template-budgets, the business-use
-   calculator's first input ends at 676 pixels; the other 18 pages fit). The
-   device profile gives 664 pixels of viewport height where the Chromium
-   mobile project uses 844, so these are first-screen observations for an
-   iPhone-sized Safari window rather than rendering differences.
+2. `calculator and question pages open on their working control`
+   (template-budgets), WebKit only: the 9 calculators now fit the 664 pixel
+   first screen in both browsers, and Chromium's mobile project keeps its
+   844 pixel viewport as the topic-page budget. In the iPhone 13 project the
+   question topics whose headings run to 3 or 4 lines at 390 pixels still
+   start their first question below 664 pixels: business setup at 674,
+   management reporting, companies and trusts, and investments and NSW
+   property further down. Shorter topic headings are the remaining fix and
+   are a wording decision.
 
 ## Test environment
 
