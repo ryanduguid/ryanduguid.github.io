@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import csv
+import html
 import json
 import re
 import unittest
 from collections import Counter
+from decimal import Decimal
 from pathlib import Path
+from typing import Any
 
 import seo_core as core
 
@@ -228,6 +231,87 @@ class FactCheckTests(unittest.TestCase):
                 for link in core.descendants(section, "a")
             )
         )
+
+
+class RatesDatasetTests(unittest.TestCase):
+    """The 2026-27 rate tables and question facts state the dataset's values.
+
+    ryanduguid/au-tax-rates-data is the single home for dated figures. The site
+    keeps a digest-pinned extract of the records it relies on
+    (scripts/pin_rates_dataset.py writes it), and these checks fail when a page
+    or the extract moves without the other.
+    """
+
+    value: dict[str, Any]
+
+    @classmethod
+    def setUpClass(cls) -> None:
+        extract = json.loads(read("scripts/rates_dataset_extract.json"))
+        assert re.fullmatch(r"[0-9a-f]{40}", extract["commit"]), extract["commit"]
+        for name, record in extract["records"].items():
+            assert re.fullmatch(r"[0-9a-f]{64}", record["sha256"]), name
+        cls.value = {name: record["value"] for name, record in extract["records"].items()}
+
+    @staticmethod
+    def fact(question: int, topic: str) -> str:
+        """The bold checked answer as the built topic page renders it."""
+        page = read(f"tools/accounting-questions/{topic}/index.html")
+        match = re.search(
+            rf'<details class="question" id="q{question}".*?<strong>(.*?)</strong>', page, re.S
+        )
+        assert match is not None, question
+        return html.unescape(match.group(1))
+
+    @staticmethod
+    def rows(path: str) -> list[dict[str, str]]:
+        return list(csv.DictReader(read(path).splitlines()))
+
+    def test_rate_tables_state_the_dataset_values(self) -> None:
+        def by_year(path: str) -> dict[str, dict[str, str]]:
+            return {row["income_year"]: row for row in self.rows(path)}
+
+        fbt = {row["fbt_year_ending"]: row for row in self.rows("rates/fbt-rate/fbt-rates.csv")}
+        # The rate in force on 1 July 2026; the table's current row has an open end.
+        (sg,) = [
+            row
+            for row in self.rows("rates/super-guarantee/super-guarantee-rates.csv")
+            if row["period_start"] <= "2026-07-01"
+            and (not row["period_end"] or "2026-07-01" <= row["period_end"])
+        ]
+        pairs = {
+            "car-limit-2026-27": by_year("rates/car-limit/car-limit.csv")["2026-27"]["car_limit"],
+            "cents-per-km-2026-27": by_year(
+                "rates/cents-per-kilometre/cents-per-kilometre-rates.csv"
+            )["2026-27"]["cents_per_km"],
+            "div7a-benchmark-rate-2026-27": by_year(
+                "rates/div7a-benchmark-rate/div7a-benchmark-rates.csv"
+            )["2026-27"]["benchmark_rate_percent"],
+            "fbt-rate": fbt["2027-03-31"]["fbt_rate_percent"],
+            "super-guarantee-rate-2026-27": sg["general_sg_rate_percent"],
+        }
+        for name, shown in pairs.items():
+            with self.subTest(record=name):
+                self.assertEqual(Decimal(shown), Decimal(str(self.value[name])))
+
+    def test_question_facts_state_the_dataset_values(self) -> None:
+        def figures(text: str) -> set[str]:
+            return set(re.findall(r"\$\d{1,3}(?:,\d{3})*|\d+(?:\.\d+)?%", text))
+
+        # The page states each bracket's upper threshold and each marginal rate.
+        brackets = self.value["resident-tax-rates-2026-27"]
+        scale = {f"${bracket['to']:,}" for bracket in brackets if bracket["to"]}
+        scale |= {
+            f"{bracket['marginal_rate']}%" for bracket in brackets if bracket["marginal_rate"]
+        }
+        expected = {
+            (1, "general-tax"): scale | {f"{self.value['medicare-levy-rate']}%"},
+            (20, "deductions"): {f"${self.value['instant-asset-write-off-threshold']:,}"},
+            (32, "gst-bas"): {f"${self.value['gst-registration-threshold']:,}"},
+            (84, "company-compliance"): {f"{self.value['div7a-benchmark-rate-2026-27']}%"},
+        }
+        for (question, topic), wanted in expected.items():
+            with self.subTest(question=question):
+                self.assertLessEqual(wanted, figures(self.fact(question, topic)))
 
 
 if __name__ == "__main__":
