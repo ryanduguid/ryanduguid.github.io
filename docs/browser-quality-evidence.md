@@ -22,7 +22,7 @@ the later row is current.
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
 | 27 September 2026 | main 3e6a08a plus the WebKit fixes | `npm run test:browser:webkit` again after the print, date-field and Tab-order fixes below; `npm run test:browser` unchanged at 329 passed | 161 passed, 6 skipped, 4 failed; the 4 tests are named below |
-| 27 September 2026 | main 419f1ad plus the phone first-screen change | `npm run test:browser` and `npm run test:browser:webkit` after the 664 px first-screen budget: the Coal LSL method list moved below the result, the Payday facts moved below the decision, a shorter business-use lead and tighter phone spacing above the working control | Chromium 329 passed, 13 skipped, 0 failed; WebKit 163 passed, 6 skipped, 2 failed; the tests still failing are named below |
+| 27 September 2026 | main 419f1ad plus the phone first-screen change | `npm run test:browser` and `npm run test:browser:webkit` after the 664 px first-screen budget: the Coal LSL method list moved below the result, the Payday facts moved below the decision, a shorter business-use lead, tighter phone spacing above the working control and topic headings without the Accounting questions prefix | Chromium 329 passed, 13 skipped, 0 failed; WebKit 164 passed, 6 skipped, 1 failed; the one test still failing is named below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
@@ -54,15 +54,12 @@ not with the count. None has been checked in Safari on a physical device yet.
    within a second and the reload restores the calculator; the stale "could not
    load" text that WebKit restored into the `<output>` is now cleared when the
    calculators load.
-2. `calculator and question pages open on their working control`
-   (template-budgets), WebKit only: the 9 calculators now fit the 664 pixel
-   first screen in both browsers, and Chromium's mobile project keeps its
-   844 pixel viewport as the topic-page budget. In the iPhone 13 project the
-   question topics whose headings run to 3 or 4 lines at 390 pixels still
-   start their first question below 664 pixels: business setup at 674,
-   management reporting, companies and trusts, and investments and NSW
-   property further down. Shorter topic headings are the remaining fix and
-   are a wording decision.
+2. First-screen budgets: resolved. The 9 calculators, the Coal LSL example
+   button, the Payday decision line and the first question of all 10 topic
+   pages end inside 664 pixels at 390 pixels wide in both browsers. The topic
+   headings dropped their "Accounting questions:" prefix (the breadcrumb and
+   the hub page carry it; page titles keep the phrase), which took the longest
+   headings from 4 lines to 1 or 2.
 
 ## Test environment
 

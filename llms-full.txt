@@ -4319,7 +4319,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 > Ten questions on tax returns for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Tax returns
+# Tax returns
 
 Practical steps, records and official guidance on tax returns.
 
@@ -4583,7 +4583,7 @@ Source: https://duguid.com.au/tools/accounting-questions/deductions/
 
 > Ten questions on deductions for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Deductions
+# Deductions
 
 Practical steps, records and official guidance on deductions.
 
@@ -4839,7 +4839,7 @@ Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
 > Ten questions on starting a business for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Starting a business
+# Starting a business
 
 Practical steps, records and official guidance on starting a business.
 
@@ -5094,7 +5094,7 @@ Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
 
 > Ten questions on GST and BAS for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: GST and BAS
+# GST and BAS
 
 Practical steps, records and official guidance on GST and BAS.
 
@@ -5356,7 +5356,7 @@ Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 > Ten questions on payroll and super for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Payroll and super
+# Payroll and super
 
 Practical steps, records and official guidance on payroll and super.
 
@@ -5614,7 +5614,7 @@ Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
 > Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Bookkeeping and close
+# Bookkeeping and close
 
 Practical steps, records and official guidance on bookkeeping and close.
 
@@ -5849,11 +5849,11 @@ Source: https://duguid.com.au/tools/accounting-questions/cash-flow/
 
 > Ten questions on cash flow for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Cash flow
+# Cash flow
 
 Practical steps, records and official guidance on cash flow.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+Source review: 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -6080,11 +6080,11 @@ Source: https://duguid.com.au/tools/accounting-questions/management-reporting/
 
 > Ten questions on management reporting for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Management reporting
+# Management reporting
 
 Practical steps, records and official guidance on management reporting.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+Source review: 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -6312,7 +6312,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 > Ten questions on companies and trusts for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Companies and trusts
+# Companies and trusts
 
 Practical steps, records and official guidance on companies and trusts.
 
@@ -6578,7 +6578,7 @@ Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
 > Ten questions on investments and NSW matters, each with practical steps, a record checklist, official guidance and any linked calculator.
 
-# Accounting questions: Investments and NSW
+# Investments and NSW
 
 Practical steps, records and official guidance on investments and NSW matters.
 

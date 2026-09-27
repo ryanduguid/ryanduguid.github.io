@@ -18,10 +18,7 @@ test('calculator and question pages open on their working control', async ({ pag
     await page.goto(path);
     const selector = calculators.includes(path) ? 'form[data-calculator] input' : 'details.question summary';
     const box = await page.locator(selector).first().boundingBox();
-    // Calculators fit the phone first screen. Topic pages keep the project
-    // viewport until their 3-to-4-line headings are shortened; see the quality record.
-    const budget = calculators.includes(path) ? firstScreen(page) : page.viewportSize().height;
-    expect(box.y + Math.min(box.height, 44), path).toBeLessThanOrEqual(budget);
+    expect(box.y + Math.min(box.height, 44), path).toBeLessThanOrEqual(firstScreen(page));
   }
 });
 
