@@ -50,6 +50,19 @@ test('module scripts the page ships itself pass', () => {
   assert.deepEqual(inspectHtml('/tools/coal-lsl-levy/', SOURCE, delivered).failures, []);
 });
 
+test('a script the site does not ship fails, same-origin or not', () => {
+  for (const src of [
+    'https://duguid.com.au/.webmcp/bridge.js',
+    '/.webmcp/bridge.js',
+    'https://cdn.example.net/tag.js',
+  ]) {
+    const delivered = `${SOURCE}<script type="module" src="${src}" data-packs="c2pa"></script>`;
+    const { failures } = inspectHtml('/tools/', SOURCE, delivered);
+    assert.equal(failures.length, 1, src);
+    assert.match(failures[0], /a script the site does not ship/);
+  }
+});
+
 test('no message repeats the address itself', () => {
   const { failures } = inspectHtml('/contact/', SOURCE, '<p>Write to us.</p>');
   assert.equal(failures.some((line) => line.includes('someone@example.com')), false);

@@ -209,6 +209,8 @@ pre code {
 
 .skip-link:focus {
   translate: 0;
+  /* a:hover outranks .skip-link, so a hovered focus turned the text stamp green on ink. */
+  color: var(--colour-paper);
 }
 
 .site-header {

@@ -11,7 +11,13 @@
 // no analytics script is delivered, so its return would falsify that notice.
 // Rocket Loader fails too: it re-types every script and runs them through its
 // own loader, so visitors would get a page the browser and Lighthouse checks
-// never ran.
+// never ran. So does any script source other than the site's own /assets/
+// modules: Cloudflare's WebMCP setting injected /.webmcp/bridge.js into every
+// page, same-origin and executed, and nothing here saw it.
+//
+// Some paths must stay absent. GitHub Pages' legacy build turned the Markdown
+// files without front matter into themed pages the repository's own build never
+// makes, with a theme stylesheet; _config.yml now switches that off.
 //
 // Run with: node scripts/check_production.mjs [--base https://duguid.com.au]
 
@@ -45,6 +51,17 @@ export const REDIRECTS = {
   '/refusals/': '/tools/refusals/',
 };
 
+export const EXPECTED_ABSENT = [
+  '/rates/register/',
+  '/rates/register/CHANGELOG.html',
+  '/assets/credentials/SOURCES.html',
+  '/assets/css/style.css',
+];
+
+// The site's own modules. /cdn-cgi/ sources belong to Cloudflare and are left to
+// the Rocket Loader rule, so a Rocket Loader page is reported once.
+const SITE_SCRIPT = /^\/assets\/[\w./-]+\.m?js(?:\?[\w.=&-]*)?$/;
+
 export function sitemapPaths(xml) {
   return [...xml.matchAll(/<loc>https:\/\/duguid\.com\.au([^<]*)<\/loc>/g)].map((match) => match[1]);
 }
@@ -68,6 +85,11 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
   }
   if (/rocket-loader\.min\.js|<script\b[^>]*\btype="[0-9a-f]{16,}-(?:module|text\/javascript)"/.test(deliveredHtml)) {
     failures.push(`${path}: Cloudflare Rocket Loader rewrites the page's scripts; switch it off under Speed, Optimization`);
+  }
+  for (const [, src] of deliveredHtml.matchAll(/<script\b[^>]*\bsrc="([^"]+)"/g)) {
+    if (!src.startsWith('/cdn-cgi/') && !SITE_SCRIPT.test(src)) {
+      failures.push(`${path}: delivers a script the site does not ship: ${src}`);
+    }
   }
   return { failures, notes };
 }
@@ -105,6 +127,12 @@ async function main() {
     const location = response.headers.get('location');
     if (response.status !== 301 || location !== BASE + to) {
       failures.push(`${from}: expected 301 to ${to}, got HTTP ${response.status} ${location ?? ''}`.trim());
+    }
+  }
+  for (const path of EXPECTED_ABSENT) {
+    const response = await fetch(BASE + path, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+    if (response.status !== 404) {
+      failures.push(`${path}: expected HTTP 404, got ${response.status}; the Pages build published a page the site never made`);
     }
   }
   for (const note of notes) console.log(`note: ${note}`);
