@@ -104,6 +104,14 @@ test('cash delay creates a temporary gap, preserving the end balance on receipt'
   assert.equal(result.deferred, 0);
 });
 
+test('cash funding counts the opening balance when every week rises', () => {
+  // The lowest point is the opening balance itself, before any week's receipts.
+  const rows = Array.from({ length: 13 }, () => ({ receipts: '50', payments: '0' }));
+  const result = cashForecast('20', rows, '100');
+  assert.equal(result.minimum, 20);
+  assert.equal(result.funding, 80);
+});
+
 test('cash keeps out-of-horizon receipts visible and includes opening deficits', () => {
   const rows = Array.from({ length: 13 }, () => ({ receipts: '0', payments: '0' }));
   rows[12].receipts = '1000';

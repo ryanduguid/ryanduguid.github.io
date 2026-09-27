@@ -1,5 +1,16 @@
 # GitHub Pages and local checks build the shared header and footer with Jekyll.
 # Dot-directories are excluded by default, so .well-known is included by name.
+#
+# The legacy Pages build adds plugins the local build does not run. They turned
+# the Markdown files without front matter (rates/register/README.md and
+# CHANGELOG.md, assets/credentials/SOURCES.md) into themed pages with the
+# default Primer stylesheet, which the site never made or tested. These three
+# switches keep those files raw; scripts/check_production.mjs checks the pages
+# stay absent.
+require_front_matter: true
+readme_index:
+  enabled: false
+theme: null
 include:
   - .well-known
 exclude:

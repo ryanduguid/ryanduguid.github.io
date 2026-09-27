@@ -153,6 +153,27 @@ for (const [label, route] of routes) {
   });
 }
 
+test('a focused and hovered skip link keeps its contrast', async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== 'desktop-chromium', 'hover needs a pointer');
+  await page.goto('/');
+  const skip = page.locator('.skip-link');
+  // Read the settled colours, not a frame of the link colour transition:
+  // a:hover used to turn the text stamp green on ink (1.17:1). The page CSP
+  // refuses an injected stylesheet, so the transition is switched off through
+  // the element's own style object.
+  await skip.evaluate((element) => { element.style.transition = 'none'; });
+  await page.keyboard.press('Tab');
+  await expect(skip).toBeFocused();
+  await skip.hover();
+  const colours = await skip.evaluate((element) => {
+    const style = getComputedStyle(element);
+    return { color: style.color, background: style.backgroundColor };
+  });
+  expect(colours).toEqual({ color: 'rgb(0, 0, 0)', background: 'rgb(242, 242, 242)' });
+  const scan = await new AxeBuilder({ page }).include('.skip-link').withRules(['color-contrast']).analyze();
+  expect(scan.violations).toEqual([]);
+});
+
 test('refusal tables keep prose readable and scroll with the keyboard', async ({ page }) => {
   await page.goto('/tools/refusals/');
   await waitForVisualFonts(page);
