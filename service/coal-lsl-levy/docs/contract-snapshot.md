@@ -1,7 +1,8 @@
 # Publishing contract and source checks
 
 Checked on 26 September 2026 against
-[LodgeiT's publishing page](https://lodgeit.org/publish.html).
+[LodgeiT's publishing page](https://lodgeit.org/publish.html), and again on
+27 September 2026 against its draft v2.
 This implementation record is not an external conformance certificate.
 
 | Requirement | Implementation |
@@ -9,7 +10,7 @@ This implementation record is not an external conformance certificate.
 | Discovery | Calculator and module URNs, module filter, schema reference and invocation path |
 | HTTP contract | OpenAPI 3.1, liveness, 422 field errors, 400 factual refusals and 404 unknown identifiers |
 | Evidence | Exact served rate and method bytes, SHA-256 hashes and statutory citations |
-| Numbers | Decimal strings, quarter-cent intermediates and final half-up rounding |
+| Numbers | Decimal strings, quarter-cent intermediates and final half-up rounding; the manifest's `rounding_policy` names the rounding and the advisory states which rounding rules apply |
 | Reproducibility | Expected fixture values and repeated raw response bytes |
 | Access and limits | No key, 16 KiB body cap, platform limiter and Retry-After |
 | Cost boundary | Free account quota; paid use needs a separate spending decision |

@@ -3,7 +3,7 @@
 // checks every property the document declares is one the validator reads.
 
 import { BONUS_FREQUENCIES, BRANCHES, MAX_BONUSES } from './schema.mjs';
-import { REFUSAL_CLASSES } from './calculate.mjs';
+import { REFUSAL_CLASSES, ROUNDING_POLICY } from './calculate.mjs';
 import { centsToString } from './money.mjs';
 import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
@@ -162,7 +162,7 @@ export function buildOpenApi(config, register) {
         'Same arithmetic as https://duguid.com.au/tools/coal-lsl-levy/ (assets/levy.mjs). Money in and out is decimal strings.',
         'Refusals are a feature: 422 names a malformed or missing field, 400 carries a refusal_class, 404 names the calculator or period URNs this service accepts.',
         `Refusal classes: ${Object.entries(REFUSAL_CLASSES).map(([key, text]) => `${key} (${text})`).join(' ')}`,
-        'Rounding: half up to the cent at the final step only; levy_before_rounding is exact. Not advice; review aid only.',
+        `Rounding: half up to the cent at the final step only, named in each manifest as rounding_policy "${ROUNDING_POLICY}"; levy_before_rounding is exact. Not advice; review aid only.`,
         'No external conformance approval or practitioner attestation is claimed.',
       ].join('\n\n'),
       license: { name: 'MIT' },
@@ -246,7 +246,18 @@ export function buildOpenApi(config, register) {
             workings: { type: 'object' },
             excluded: { type: 'array', items: { type: 'object' } },
             rounding: { type: 'object' },
-            manifest: { type: 'object', description: 'calculator, period, schema, engine, method and rate_table_uris with SHA-256 content hashes.' },
+            manifest: {
+              type: 'object',
+              description: 'calculator, period, schema, engine, method, rate_table_uris with SHA-256 content hashes, rounding_policy and citation.',
+              required: ['rounding_policy'],
+              properties: {
+                rounding_policy: {
+                  type: 'string',
+                  const: ROUNDING_POLICY,
+                  description: 'Stable identifier of the rounding in force: the levy is rounded once, half up (ties away from zero) to the cent, at the final step; levy_before_rounding is exact.',
+                },
+              },
+            },
             advisory: { type: 'object', properties: { figure_type: { type: 'string' }, notes: { type: 'array', items: { type: 'string' } } } },
           },
         },

@@ -25,6 +25,11 @@ export const REFUSAL_CLASSES = Object.freeze({
   components_not_read_by_branch: 'Pay was supplied that the selected branch does not read; it would otherwise be discarded silently.',
 });
 
+// Stable identifier for the rounding levyCents applies: half up to the cent,
+// once, at the final step. Every manifest names it beside the rate-table
+// hashes, as LodgeiT's publishing standard asks. Change it only with the rounding.
+export const ROUNDING_POLICY = 'half_up_cent_final_step';
+
 const AT_LEAST_MONTHLY = new Set(['weekly', 'fortnightly', 'monthly']);
 
 const CASUAL_FIELD_NAMES = {
@@ -270,6 +275,7 @@ export function calculate(request, register, config) {
         citation: method.citation,
       },
       rate_table_uris: [{ uri: rateUri, sha256: register.rateSha256, row_id: rateRow.row_id }],
+      rounding_policy: ROUNDING_POLICY,
       citation: 'Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992, s 3B; Coal Mining Industry (Long Service Leave) Payroll Levy Regulations 2018, s 6',
     },
     advisory: {
@@ -279,6 +285,7 @@ export function calculate(request, register, config) {
         'Eligibility under s 4 of the Coal Mining Industry (Long Service Leave) Administration Act 1992 is asserted by the caller, not tested here.',
         'Eligible wages are built from the supplied components only; the caller has separated expense reimbursements, insurer-paid amounts and pay outside the payroll weeks ending in the month.',
         'Rounding is the calculator\'s choice, not a statutory rule. Reconcile the monthly return to payroll before relying on this figure.',
+        'LodgeiT publishing standard, section 4 rounding rules: rule 3 applies to the levy, which is rounded once to cents, ties away from zero. Rules 5, 6 and 7 do not apply: no rounded lines are totalled, nothing is apportioned into posted periods and no schedule is produced.',
         `Rate row ${rateRow.row_id} carries review status "${rateRow.review}". A source-check date does not establish currency after that date.`,
       ],
     },

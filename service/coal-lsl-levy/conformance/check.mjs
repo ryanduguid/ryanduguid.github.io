@@ -98,6 +98,8 @@ async function run(base) {
   let decimalStrings = true;
   let manifestComplete = true;
   let advisoryPresent = true;
+  const documentedPolicy = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties?.manifest?.properties?.rounding_policy?.const;
+  let roundingNamed = typeof documentedPolicy === 'string' && documentedPolicy.length > 0;
   for (const fixture of fixtures.cases) {
     const periodUrn = fixture.period_urn ?? `${fixtures.period_urn_prefix}${fixture.request.reporting_month}`;
     const { response, body, bytes } = await post(periodUrn, fixture.request);
@@ -122,6 +124,7 @@ async function run(base) {
       if (manifest.calculator !== CALC || manifest.period !== periodUrn
         || manifest.rate_table_uris?.[0]?.sha256 !== rates.body?.entries?.[0]?.content_hash
         || manifest.method?.sha256 !== rates.body?.entries?.[1]?.content_hash) manifestComplete = false;
+      if (manifest.rounding_policy !== documentedPolicy) roundingNamed = false;
       if (!(body.advisory?.figure_type && Array.isArray(body.advisory?.notes) && body.advisory.notes.length)) advisoryPresent = false;
       const repeat = await post(periodUrn, fixture.request);
       if (repeat.response.status !== 200 || !repeat.bytes.equals(bytes)) {
@@ -145,6 +148,7 @@ async function run(base) {
     `${computed} computed, ${refusals} refused, ${validations} rejected, ${notFound} not found`);
   check('4 numbers', 'money and rates are decimal strings, never JSON numbers', decimalStrings);
   check('3 manifest', 'every 200 carries a complete manifest', manifestComplete);
+  check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', roundingNamed, documentedPolicy ?? 'undocumented');
   check('3 manifest', 'every 200 carries an advisory block', advisoryPresent);
 
   // 6. Access and cost: limits are declared and enforced.
