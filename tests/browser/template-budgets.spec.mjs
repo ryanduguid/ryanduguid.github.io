@@ -1,6 +1,7 @@
 import { readFileSync } from 'node:fs';
 
 import { expect, test } from '@playwright/test';
+import { projectKind } from './project-kind.mjs';
 
 // Budgets for the failures the 26 September 2026 live audit found: the working
 // control below the first screen, a phone header that covered a sixth of the
@@ -27,7 +28,7 @@ test('the header scrolls away on phones and stays one sticky line on wide screen
     position: getComputedStyle(element).position,
     height: element.getBoundingClientRect().height,
   }));
-  if (testInfo.project.name === 'mobile-chromium') {
+  if (projectKind(testInfo) === 'mobile') {
     expect(header.position).not.toBe('sticky');
     await page.evaluate(() => window.scrollTo(0, 1200));
     const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
@@ -40,7 +41,7 @@ test('the header scrolls away on phones and stays one sticky line on wide screen
 });
 
 test('reading paragraphs stay within about 75 characters a line', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'desktop-chromium', 'line length is a wide-screen measure');
+  test.skip(projectKind(testInfo) !== 'desktop', 'line length is a wide-screen measure');
   for (const path of paths) {
     await page.goto(path);
     await page.evaluate(() => document.fonts.ready);

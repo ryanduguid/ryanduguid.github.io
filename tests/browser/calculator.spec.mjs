@@ -4,6 +4,7 @@ import AxeBuilder from '@axe-core/playwright';
 import { COAL_LSL_PROOF } from '../../scripts/coal-lsl-proof-fixture.mjs';
 import { observePageHealth } from './health.mjs';
 import { gotoForVisualSnapshot, waitForVisualFonts } from './visual.mjs';
+import { projectKind } from './project-kind.mjs';
 
 async function calculateFormulaB(page, { visualSnapshot = false } = {}) {
   if (visualSnapshot) {
@@ -618,7 +619,7 @@ test('calculator orientation and result render as an inspectable ledger', async 
 });
 
 test('calculator example is available within the initial mobile viewport', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile contract only');
+  test.skip(projectKind(testInfo) !== 'mobile', 'mobile contract only');
   const health = observePageHealth(page);
   await page.goto('/tools/coal-lsl-levy/');
   await waitForVisualFonts(page);
@@ -714,7 +715,7 @@ test('monthly table removal keeps focus in the remaining work', async ({ page })
 });
 
 test('mobile calculations move keyboard focus to the result', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'stacked result only');
+  test.skip(projectKind(testInfo) !== 'mobile', 'stacked result only');
   await calculateFormulaB(page);
   await expect(page.getByRole('heading', { name: 'Result', exact: true })).toBeFocused();
   await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).press('Enter');
@@ -722,7 +723,7 @@ test('mobile calculations move keyboard focus to the result', async ({ page }, t
 });
 
 test('mobile result scrolling keeps touch targets clear of the sticky header', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'stacked result only');
+  test.skip(projectKind(testInfo) !== 'mobile', 'stacked result only');
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 844 });
     await calculateFormulaB(page);
@@ -762,8 +763,8 @@ test('calculator result and employee table do not overflow at 320 CSS pixels', a
   health.assertHealthy();
 });
 
-test('Formula B result matches the mobile visual baseline', async ({ page }, testInfo) => {
-  test.skip(testInfo.project.name !== 'mobile-chromium', 'mobile baseline only');
+test('Formula B result matches the mobile visual baseline', async ({ page, browserName }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'mobile' || browserName !== 'chromium', 'the committed baseline is a mobile Chromium render');
   const health = observePageHealth(page);
 
   await calculateFormulaB(page, { visualSnapshot: true });

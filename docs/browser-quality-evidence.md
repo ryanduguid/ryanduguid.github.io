@@ -5,6 +5,63 @@ automated gates were inspected and rerun on 31 August 2026. This record
 supplements the repeatable Playwright and Lighthouse checks. It is evidence of
 the checks described below, not a claim of WCAG conformance.
 
+## Runs at a glance
+
+Each row is one dated run. Later rows do not rerun earlier ones: the Lighthouse
+medians below are the 28 August figures, and the layout details in the August
+sections describe that build. Where a later row contradicts an earlier section,
+the later row is current.
+
+| Date | Build | What ran | Result |
+| --- | --- | --- | --- |
+| 28 August 2026 | refinement release | Hands-on keyboard, 200% zoom and forced-colours review; 3-pass Lighthouse medians for 4 routes; the design preflight | Recorded in the sections below; Lighthouse performance 0.98 on each route |
+| 31 August 2026 | refined baselines | Visual baselines inspected and the automated gates rerun | Passed |
+| 10 September 2026 | proof capture | Coal LSL proof rendered at 2 sizes under `playwright.capture.config.mjs` | Both renders within the 80,000-byte limit; see Limits |
+| 23 September 2026 | main | `npm run test:browser` counted | 250 tests over 2 projects, 11 project-specific skips |
+| 24 September 2026 | PR 266 | Typefaces switched to Besley, Public Sans and Spline Sans Mono; homepage and calculator baselines re-rendered | Passed |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
+
+Since the 24 September build the mobile primary navigation wraps to 2 rows at
+390 CSS pixels instead of scrolling as one row, and the full-page homepage
+baselines are 1440 by 3815 and 390 by 5211 pixels, so the row and height
+descriptions in the August sections are historical.
+
+### WebKit differences, 27 September 2026
+
+The first WebKit pass reported these 8 failing tests, grouped by cause. Compare a
+rerun's failing tests with these names, not with the count. None has been checked
+in Safari on a physical device yet.
+
+1. `printing includes the fixed proof without opening its disclosure` and
+   `printing includes the extra accounting tasks while their chooser is closed`
+   (geo-usability): the print rules use `::details-content` to expose closed
+   disclosures, and WebKit kept both closed, so a Safari print omits the fixed
+   proof and the extra tasks unless the reader opens them first.
+2. `cash inputs survive a save and reload with dated results`
+   (accounting-questions): a start date of 31 December 1899 produced no field
+   error, so WebKit did not report `rangeUnderflow` against the date input's
+   `min`, and the forecast accepted the date.
+3. `calculator load failure explains recovery and reload retries the module`
+   (accounting-questions): with the calculator module request aborted, the
+   "Calculators could not load." recovery text never appeared and the test timed
+   out after 30 seconds.
+4. First-screen budgets against the iPhone 13 viewport, 3 tests: `fixed Payday
+   example reaches a reviewer without installation` (payday-example, the
+   "Human decision:" line ends 841 CSS pixels down), `calculator example is
+   available within the initial mobile viewport` (calculator, the Load the
+   synthetic example button ends at 836 pixels) and `calculator and question
+   pages open on their working control` (template-budgets, the business-use
+   calculator's first input ends at 676 pixels; the other 18 pages fit). The
+   device profile gives 664 pixels of viewport height where the Chromium
+   mobile project uses 844, so these are first-screen observations for an
+   iPhone-sized Safari window rather than rendering differences.
+5. `all six primary navigation links fit the smallest mobile width`
+   (site-quality): the geometry passed at 320 pixels, but the Tab sequence did
+   not reach Contact. WebKit, like Safari, leaves links out of the Tab order by
+   default (Safari users press Option and Tab), so the keyboard half of that
+   test is Chromium-specific.
+
 ## Test environment
 
 - Windows 11 and Google Chrome 152.0.0.0 for the hands-on review.

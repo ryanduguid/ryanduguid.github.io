@@ -83,6 +83,15 @@ Run the adoption path, collection hubs, navigation, overflow, accessibility and 
 npm run test:browser
 ```
 
+Run the same journeys in mobile WebKit, the closest local stand-in for iOS Safari, after a layout or form change. Every spec runs in one iPhone-sized project, so the 4 desktop-only checks skip as they do in mobile Chromium, and the 2 screenshot comparisons skip because their committed baselines are Chromium renders. CI does not run this pass:
+
+```bash
+npx playwright install webkit
+npm run test:browser:webkit
+```
+
+The first pass, on 27 September 2026, reported 8 failing tests. They are named under Runs at a glance in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md); compare a rerun's failing tests with that list by name, because a matching count alone does not show that the same tests failed.
+
 Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 
 ```bash

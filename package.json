@@ -5,6 +5,7 @@
   "scripts": {
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
+    "test:browser:webkit": "playwright test --config=playwright.webkit.config.mjs",
     "test:capture": "playwright test --config=playwright.capture.config.mjs",
     "capture:coal-lsl-proof": "playwright test --config=playwright.capture.config.mjs --update-snapshots=all",
     "pretest:lighthouse": "node scripts/clean-lighthouse-output.mjs",
