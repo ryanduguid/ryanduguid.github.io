@@ -176,9 +176,20 @@ export function casualWages({
 // Rounding is a CHOICE, not a rule. Neither the Act, the Regulations nor the
 // guidance note states one, and real inputs land on half a cent. Half up at the
 // final step only. The page states this openly.
+//
+// The rounding runs on exact integers, never on a float quotient. Eligible
+// wages are a whole number of quarter cents, so the levy in cents is
+// quarters * 27 / 4000, and adding half the divisor before the one integer
+// division rounds half up. Wages are never negative, so half up is also ties
+// away from zero; a negative total is refused rather than rounded.
 export function levyCents(eligibleWagesCents) {
-  if (!Number.isSafeInteger(eligibleWagesCents * 4) || Math.abs(eligibleWagesCents) > MAX_WAGES_CENTS) {
+  const quarters = eligibleWagesCents * 4;
+  if (!Number.isSafeInteger(quarters) || Math.abs(eligibleWagesCents) > MAX_WAGES_CENTS) {
     throw new RangeError('The total is too large to calculate accurately. Reduce the amounts.');
   }
-  return Math.round((eligibleWagesCents * LEVY_RATE_NUMERATOR) / LEVY_RATE_DENOMINATOR);
+  if (quarters < 0) {
+    throw new RangeError('Eligible wages cannot be negative.');
+  }
+  const divisor = 4n * BigInt(LEVY_RATE_DENOMINATOR);
+  return Number((BigInt(quarters) * BigInt(LEVY_RATE_NUMERATOR) + divisor / 2n) / divisor);
 }

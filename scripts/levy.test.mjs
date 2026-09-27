@@ -460,7 +460,8 @@ test('the supported upper boundary preserves cents and rounds quarter cents corr
   // Compare every fractional rounding position near the limit with exact integers.
   for (let offset = 0n; offset < 4000n; offset += 1n) {
     const quarters = limit - offset;
-    const expected = Number((quarters * 27n + 2000n) / 4000n);
+    const scaled = quarters * 27n;
+    const expected = Number(scaled / 4000n + (scaled % 4000n >= 2000n ? 1n : 0n));
     assert.equal(levyCents(Number(quarters) / 4), expected);
   }
 });
@@ -474,4 +475,20 @@ test('the levy constants mirror the latest register row', () => {
   assert.equal(LEVY_RATE_FROM_MONTH, row.period_start.slice(0, 7));
   assert.equal(LEVY_RATE_AS_AT, row.verified_at);
   assert.equal(LEVY_RATE_SOURCE, row.primary_source.url);
+});
+
+test('levyCents prices only non-negative whole quarter cents up to the ceiling', () => {
+  // Half up is ties away from zero only for non-negative wages, and the
+  // integer division truncates toward zero, so a negative total is not priced.
+  assert.throws(() => levyCents(-1), RangeError);
+  assert.throws(() => levyCents(-0.25), RangeError);
+  assert.ok(Object.is(levyCents(-0), 0));
+  assert.equal(levyCents(0), 0);
+  assert.equal(levyCents(0.25), 0);
+  assert.throws(() => levyCents(0.1), RangeError, 'not a whole quarter cent');
+  assert.throws(() => levyCents(Number.NaN), RangeError);
+  assert.throws(() => levyCents(Infinity), RangeError);
+  // The ceiling is inclusive; one quarter cent more is refused.
+  assert.equal(levyCents(MAX_WAGES_CENTS), Number((BigInt(MAX_WAGES_CENTS) * 27n + 500n) / 1000n));
+  assert.throws(() => levyCents(MAX_WAGES_CENTS + 0.25), RangeError);
 });

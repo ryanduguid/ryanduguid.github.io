@@ -55,12 +55,16 @@ Money and rates are decimal strings. Every amount is required, including
 unknown fields are rejected. Unknown facts needed for the selected branch and
 pay components it would discard are refused.
 
-Formula B retains quarter cents. `levy_before_rounding` is exact; the final
-levy rounds half up to cents. That rounding is the calculator's documented
-choice, not a statutory rule. Each manifest names it as `rounding_policy`
-`half_up_cent_final_step`, and the advisory states which rounding rules of
-LodgeiT's publishing standard apply. Each amount is capped at
-`833999930994.53`, with an aggregate limit checked separately.
+Response figures have fixed scales, which the OpenAPI document publishes as
+patterns. Money has 2 decimal places and rates and factors have 4 (`"2.7000"`,
+`"0.7500"`). Eligible wages and Formula B have 4 because they keep exact
+quarter cents, and `levy_before_rounding` is exact at 8. The final levy rounds
+once, half up to cents, from that exact value in integer arithmetic. That
+rounding is the calculator's documented choice, not a statutory rule. Each
+manifest names it as `rounding_policy` `half_up_cent_final_step`, and the
+advisory states which rounding rules of LodgeiT's publishing standard apply.
+Each amount is capped at `833999930994.53`, with an aggregate limit checked
+separately.
 
 ## Evidence and coverage
 

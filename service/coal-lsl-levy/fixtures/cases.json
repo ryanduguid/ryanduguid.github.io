@@ -26,16 +26,22 @@
         "branch": {
           "code": "s 3B(1)"
         },
-        "eligible_wages": "6000.00",
+        "eligible_wages": "6000.0000",
         "levy": "162.00",
-        "levy_before_rounding": "162.00",
+        "levy_before_rounding": "162.00000000",
         "workings": {
           "formula_a": "6000.00",
-          "formula_b": "4500.00",
-          "winner": "formula_a"
+          "formula_b": "4500.0000",
+          "winner": "formula_a",
+          "formula_b_basis": {
+            "factor": "0.7500"
+          }
         },
         "rounding": {
           "differs": false
+        },
+        "rate": {
+          "value_percent": "2.7000"
         }
       },
       "derivation": "Formula A = 6000.00. Formula B = 0.75 x 6000.00 = 4500.00. Greater is 6000.00. Levy = 6000.00 x 2.7% = 162.00 exactly."
@@ -62,12 +68,12 @@
         "branch": {
           "code": "s 3B(1)"
         },
-        "eligible_wages": "7125.00",
+        "eligible_wages": "7125.0000",
         "levy": "192.38",
-        "levy_before_rounding": "192.375",
+        "levy_before_rounding": "192.37500000",
         "workings": {
           "formula_a": "6000.00",
-          "formula_b": "7125.00",
+          "formula_b": "7125.0000",
           "winner": "formula_b"
         },
         "rounding": {
@@ -100,9 +106,9 @@
         "branch": {
           "code": "s 3B(2)"
         },
-        "eligible_wages": "10200.00",
+        "eligible_wages": "10200.0000",
         "levy": "275.40",
-        "levy_before_rounding": "275.40",
+        "levy_before_rounding": "275.40000000",
         "excluded": []
       },
       "derivation": "s 3B(2): 10000.00 + 200.00 (monthly bonus counts) = 10200.00. Levy = 10200.00 x 0.027 = 275.40 exactly."
@@ -130,9 +136,9 @@
         "branch": {
           "code": "s 3B(3)(a)"
         },
-        "eligible_wages": "2250.00",
+        "eligible_wages": "2250.0000",
         "levy": "60.75",
-        "levy_before_rounding": "60.75"
+        "levy_before_rounding": "60.75000000"
       },
       "derivation": "s 3B(3)(a): 1800.00 base + 450.00 loading = 2250.00. Levy = 2250.00 x 0.027 = 60.75 exactly."
     },
@@ -159,9 +165,9 @@
         "branch": {
           "code": "s 3B(3)(b)"
         },
-        "eligible_wages": "2250.00",
+        "eligible_wages": "2250.0000",
         "levy": "60.75",
-        "levy_before_rounding": "60.75"
+        "levy_before_rounding": "60.75000000"
       },
       "derivation": "s 3B(3)(b): ordinary rate of pay 2250.00, loading already inside it and not added again. Levy = 60.75 exactly."
     },
@@ -200,13 +206,13 @@
         "branch": {
           "code": "s 3B(1)"
         },
-        "eligible_wages": "6400.00",
+        "eligible_wages": "6400.0000",
         "levy": "172.80",
-        "levy_before_rounding": "172.80",
+        "levy_before_rounding": "172.80000000",
         "workings": {
           "base_rate_of_pay_grossed_up": "6000.00",
           "formula_a": "6400.00",
-          "formula_b": "4800.00",
+          "formula_b": "4800.0000",
           "winner": "formula_a"
         },
         "excluded_components": [
@@ -237,7 +243,7 @@
       "expected": {
         "eligible_wages": "300.0225",
         "levy": "8.10",
-        "levy_before_rounding": "8.1006075",
+        "levy_before_rounding": "8.10060750",
         "workings": {
           "formula_b": "300.0225",
           "winner": "formula_b"
@@ -267,11 +273,11 @@
       },
       "expected_status": 200,
       "expected": {
-        "eligible_wages": "6000.00",
+        "eligible_wages": "6000.0000",
         "levy": "162.00",
         "workings": {
           "formula_a": "6000.00",
-          "formula_b": "6000.00",
+          "formula_b": "6000.0000",
           "winner": "formula_a"
         }
       },

@@ -10,6 +10,7 @@
 
 import { createHash } from 'node:crypto';
 import { LEVY_RATE_NUMERATOR, LEVY_RATE_DENOMINATOR } from '../../../assets/levy.mjs';
+import { LEVY_RATE_PERCENT } from './money.mjs';
 
 const sha256 = (bytes) => createHash('sha256').update(bytes).digest('hex');
 
@@ -128,7 +129,7 @@ export function createRegister({ rateBytes, methodBytes, engineBytes }) {
       row_id: row.row_id,
       value: row.value,
       period_start: row.period_start,
-      engine_rate_percent: `${(LEVY_RATE_NUMERATOR * 100) / LEVY_RATE_DENOMINATOR}`,
+      engine_rate_percent: LEVY_RATE_PERCENT,
     }))),
     rateSeries,
     rateBytes,

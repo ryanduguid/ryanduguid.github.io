@@ -6,7 +6,15 @@
 // render integer cents, quarter cents and levy fractions back to decimal
 // strings by exact integer division.
 
-import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
+import { LEVY_RATE_DENOMINATOR, LEVY_RATE_NUMERATOR, MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
+
+// Fixed output scales in decimal places. The OpenAPI document publishes each
+// one as a pattern, so the declared scale and the rendered figure share one
+// source. Whole-cent money has 2 and rates and factors 4, as rule 3 of the
+// LodgeiT publishing standard asks. Eligible wages and Formula B keep exact
+// quarter cents at 4. levy_before_rounding is exact at 8; its value never
+// needs more than 7 (2.7% of a quarter cent is 0.0000675 dollars).
+export const SCALE = Object.freeze({ money: 2, rate: 4, quarterCents: 4, levyBeforeRounding: 8 });
 
 export class MoneyError extends Error {
   constructor(field, code, message) {
@@ -82,6 +90,16 @@ export function exactDecimal(numerator, denominator, { minScale = 2, maxScale = 
   return digits ? `${whole}.${digits}` : String(whole);
 }
 
+// numerator / denominator at exactly `scale` decimal places, trailing zeros
+// kept. Throws where the value needs more places than the scale allows.
+export function atScale(numerator, denominator, scale) {
+  return exactDecimal(numerator, denominator, { minScale: scale, maxScale: scale });
+}
+
+// The engine's rate as a percentage at the rate scale: "2.7000".
+export const LEVY_RATE_PERCENT = atScale(
+  BigInt(LEVY_RATE_NUMERATOR) * 100n, BigInt(LEVY_RATE_DENOMINATOR), SCALE.rate);
+
 // Eligible wages arrive from the engine as a Number of cents that may carry
 // quarter cents (Formula B is three quarters of an aggregate). Convert to an
 // exact BigInt count of quarter cents. The engine guarantees the value is a
@@ -94,7 +112,7 @@ export function toQuarterCents(cents) {
   return BigInt(quarters);
 }
 
-// Quarter cents to a dollar string with as many decimals as needed (2 to 4).
+// Quarter cents to a dollar string at the quarter-cent scale: "7125.0000".
 export function quarterCentsToString(quarters) {
-  return exactDecimal(quarters, 400n, { minScale: 2, maxScale: 4 });
+  return atScale(quarters, 400n, SCALE.quarterCents);
 }

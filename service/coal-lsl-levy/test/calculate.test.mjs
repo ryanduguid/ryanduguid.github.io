@@ -87,13 +87,16 @@ test('the manifest binds the result to its inputs and evidence', () => {
   assert.ok(body.advisory.notes.some((note) => note.includes('rule 3 applies') && note.includes('Rules 5, 6 and 7 do not apply')));
 });
 
-test('levy rounding agrees with exact BigInt half-up across quarter-cent positions', () => {
-  // Independent check of the engine's Number arithmetic against integer
-  // arithmetic for every quarter-cent residue near several magnitudes.
+test('levy rounding agrees with a quotient-and-remainder oracle for every residue', () => {
+  // 27 and 4000 are coprime, so 4000 consecutive quarter counts reach every
+  // remainder of 27q mod 4000, exact ties included. The oracle rounds up when
+  // the remainder is at least half the divisor, a different form from the
+  // engine's add-half-then-divide.
   for (const base of [0n, 100n, 123457n, 99999999n, BigInt(MAX_WAGES_CENTS) * 4n - 4000n]) {
-    for (let offset = 0n; offset < 400n; offset += 1n) {
+    for (let offset = 0n; offset < 4000n; offset += 1n) {
       const quarters = base + offset;
-      const expected = Number((quarters * 27n + 2000n) / 4000n);
+      const scaled = quarters * 27n;
+      const expected = Number(scaled / 4000n + (scaled % 4000n >= 2000n ? 1n : 0n));
       assert.equal(levyCents(Number(quarters) / 4), expected, `quarters=${quarters}`);
     }
   }
@@ -115,13 +118,13 @@ test('casual salary sacrifice grosses onto the component the branch reads', () =
     pay: { instrument_specifies_loading: true, loading_quantifiable: true, base_rate_of_pay: '1800.00', casual_loading: '450.00', ordinary_rate_of_pay: '0.00', salary_sacrificed: '100.00', bonuses: [] },
   });
   assert.equal(a.status, 200);
-  assert.equal(a.body.eligible_wages, '2350.00');
+  assert.equal(a.body.eligible_wages, '2350.0000');
   assert.equal(a.body.workings.salary_sacrifice_grossed_onto, 'pay.base_rate_of_pay');
   const b = run({
     reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },
     pay: { instrument_specifies_loading: false, loading_quantifiable: false, base_rate_of_pay: '0.00', casual_loading: '0.00', ordinary_rate_of_pay: '2250.00', salary_sacrificed: '100.00', bonuses: [] },
   });
-  assert.equal(b.body.eligible_wages, '2350.00');
+  assert.equal(b.body.eligible_wages, '2350.0000');
   assert.equal(b.body.workings.salary_sacrifice_grossed_onto, 'pay.ordinary_rate_of_pay');
 });
 
@@ -135,7 +138,7 @@ test('an unknown loading answer does not block a branch a false fact has already
   });
   assert.equal(settled.status, 200, JSON.stringify(settled.body));
   assert.equal(settled.body.branch.code, 's 3B(3)(b)');
-  assert.equal(settled.body.eligible_wages, '2250.00');
+  assert.equal(settled.body.eligible_wages, '2250.0000');
 
   const mirror = run({
     reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },

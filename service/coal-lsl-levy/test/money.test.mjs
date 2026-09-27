@@ -1,7 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { centsToString, exactDecimal, MoneyError, parseMoney, quarterCentsToString, toQuarterCents } from '../src/money.mjs';
+import {
+  atScale, centsToString, exactDecimal, LEVY_RATE_PERCENT, MoneyError, parseMoney, quarterCentsToString, toQuarterCents,
+} from '../src/money.mjs';
 import { MAX_WAGES_CENTS, toCents } from '../../../assets/levy.mjs';
 
 test('decimal strings parse to exact cents without a float in between', () => {
@@ -38,12 +40,17 @@ test('rendering is exact and terminates', () => {
   assert.equal(centsToString(0), '0.00');
   assert.equal(centsToString(5), '0.05');
   assert.equal(centsToString(19238), '192.38');
-  assert.equal(quarterCentsToString(toQuarterCents(712500)), '7125.00');
+  assert.equal(quarterCentsToString(toQuarterCents(712500)), '7125.0000');
   assert.equal(quarterCentsToString(toQuarterCents(75002.25)), '750.0225');
-  assert.equal(quarterCentsToString(toQuarterCents(0.5)), '0.005');
+  assert.equal(quarterCentsToString(toQuarterCents(0.5)), '0.0050');
   assert.equal(exactDecimal(3240243n, 400000n, { maxScale: 8 }), '8.1006075');
   assert.equal(exactDecimal(16200n, 100n), '162.00');
   assert.throws(() => exactDecimal(1n, 3n), RangeError);
+  // Fixed scales keep trailing zeros and refuse to round a digit away.
+  assert.equal(atScale(3n, 4n, 4), '0.7500');
+  assert.equal(atScale(0n, 1n, 8), '0.00000000');
+  assert.throws(() => atScale(1n, 8n, 2), RangeError);
+  assert.equal(LEVY_RATE_PERCENT, '2.7000');
   assert.throws(() => toQuarterCents(0.3), RangeError);
 });
 

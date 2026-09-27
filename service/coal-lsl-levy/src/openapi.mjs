@@ -4,7 +4,7 @@
 
 import { BONUS_FREQUENCIES, BRANCHES, MAX_BONUSES } from './schema.mjs';
 import { REFUSAL_CLASSES, ROUNDING_POLICY } from './calculate.mjs';
-import { centsToString } from './money.mjs';
+import { centsToString, SCALE } from './money.mjs';
 import { MAX_WAGES_CENTS } from '../../../assets/levy.mjs';
 
 const MAX_AMOUNT = centsToString(MAX_WAGES_CENTS);
@@ -51,6 +51,27 @@ const money = (description) => ({
   type: 'string',
   pattern: atMostPattern(MAX_AMOUNT),
   description: `${description} AUD as a decimal string with at most 2 decimal places, for example "6000.00", and at most ${MAX_AMOUNT} (the limits.max_amount the discovery listing publishes). JSON numbers are rejected. Send "0.00" for nil; a missing amount is not nil.`,
+});
+// A response figure at its fixed, declared scale (see SCALE in money.mjs).
+const decimalAt = (scale, description) => ({
+  type: 'string',
+  pattern: `^(0|[1-9][0-9]*)\\.[0-9]{${scale}}$`,
+  description: `${description} Decimal string at a fixed scale of ${scale} decimal places.`,
+});
+// Bonus entries as the workings and the excluded list report them.
+const bonusEntries = (description, extra = {}) => ({
+  type: 'array',
+  description,
+  items: {
+    type: 'object',
+    required: ['component', 'amount', 'frequency', ...Object.keys(extra)],
+    properties: {
+      component: { type: 'string' },
+      amount: decimalAt(SCALE.money, 'Bonus amount.'),
+      frequency: { type: 'string', enum: [...BONUS_FREQUENCIES] },
+      ...extra,
+    },
+  },
 });
 const tristate = (description) => ({
   description: `${description} true, false or the string "unknown". An unknown fact is refused when it is needed to settle the selected branch.`,
@@ -162,7 +183,7 @@ export function buildOpenApi(config, register) {
         'Same arithmetic as https://duguid.com.au/tools/coal-lsl-levy/ (assets/levy.mjs). Money in and out is decimal strings.',
         'Refusals are a feature: 422 names a malformed or missing field, 400 carries a refusal_class, 404 names the calculator or period URNs this service accepts.',
         `Refusal classes: ${Object.entries(REFUSAL_CLASSES).map(([key, text]) => `${key} (${text})`).join(' ')}`,
-        `Rounding: half up to the cent at the final step only, named in each manifest as rounding_policy "${ROUNDING_POLICY}"; levy_before_rounding is exact. Not advice; review aid only.`,
+        `Rounding: half up to the cent at the final step only, from the exact integer value, named in each manifest as rounding_policy "${ROUNDING_POLICY}". Output scales are fixed and published as patterns: money ${SCALE.money} decimal places, rates and factors ${SCALE.rate}, eligible wages and Formula B ${SCALE.quarterCents} (exact quarter cents) and levy_before_rounding ${SCALE.levyBeforeRounding} (exact). Not advice; review aid only.`,
         'No external conformance approval or practitioner attestation is claimed.',
       ].join('\n\n'),
       license: { name: 'MIT' },
@@ -239,12 +260,39 @@ export function buildOpenApi(config, register) {
             period: { type: 'string' },
             reporting_month: { type: 'string' },
             branch: { type: 'object', properties: { code: { type: 'string' }, label: { type: 'string' } } },
-            eligible_wages: { type: 'string', description: 'Decimal string, 2 to 4 decimal places (Formula B keeps quarter cents).' },
-            levy: { type: 'string', description: 'Decimal string, 2 decimal places, rounded half up.' },
-            levy_before_rounding: { type: 'string', description: 'Exact decimal string before the final rounding.' },
-            rate: { type: 'object' },
-            workings: { type: 'object' },
-            excluded: { type: 'array', items: { type: 'object' } },
+            eligible_wages: decimalAt(SCALE.quarterCents, 'Eligible wages, exact to the quarter cent (Formula B is three quarters of an aggregate).'),
+            levy: decimalAt(SCALE.money, 'The levy, rounded once, half up, to the cent.'),
+            levy_before_rounding: decimalAt(SCALE.levyBeforeRounding, 'The exact levy before the final rounding. The value never needs more than 7 places, so no digit is rounded away.'),
+            rate: {
+              type: 'object',
+              required: ['value_percent', 'as_fraction'],
+              properties: {
+                value_percent: decimalAt(SCALE.rate, 'The prescribed percentage the engine applies.'),
+                as_fraction: { type: 'string', description: 'The same rate as an exact fraction, for example "27/1000".' },
+              },
+            },
+            workings: {
+              type: 'object',
+              description: `Branch-specific workings. Money has ${SCALE.money} decimal places, quarter-cent figures ${SCALE.quarterCents} and factors ${SCALE.rate}.`,
+              properties: {
+                base_rate_of_pay_grossed_up: decimalAt(SCALE.money, 'Base rate of pay with the salary sacrifice added back.'),
+                annual_salary_paid_grossed_up: decimalAt(SCALE.money, 'Annual salary paid with the salary sacrifice added back.'),
+                bonuses_counted: bonusEntries('Bonuses paid at least monthly, which count.'),
+                formula_a: decimalAt(SCALE.money, 'Formula A.'),
+                formula_b: decimalAt(SCALE.quarterCents, 'Formula B, exact to the quarter cent.'),
+                formula_b_basis: {
+                  type: 'object',
+                  required: ['aggregate', 'factor'],
+                  properties: {
+                    aggregate: decimalAt(SCALE.money, 'The aggregate Formula B takes three quarters of.'),
+                    factor: decimalAt(SCALE.rate, 'The Formula B factor.'),
+                  },
+                },
+              },
+            },
+            excluded: bonusEntries('Bonuses paid less often than monthly, which do not count.', {
+              reason: { type: 'string', description: 'Why the bonus does not count, citing s 3B(4)(c) and (d).' },
+            }),
             rounding: { type: 'object' },
             manifest: {
               type: 'object',
@@ -254,7 +302,7 @@ export function buildOpenApi(config, register) {
                 rounding_policy: {
                   type: 'string',
                   const: ROUNDING_POLICY,
-                  description: 'Stable identifier of the rounding in force: the levy is rounded once, half up (ties away from zero) to the cent, at the final step; levy_before_rounding is exact.',
+                  description: 'Stable identifier of the rounding in force: the levy is rounded once, half up (ties away from zero) to the cent, at the final step, in exact integer arithmetic from the exact levy_before_rounding.',
                 },
               },
             },

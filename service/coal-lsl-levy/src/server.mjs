@@ -17,7 +17,7 @@ import { ValidationError, validateRequest } from './schema.mjs';
 export const DEFAULTS = Object.freeze({
   host: '127.0.0.1',
   port: 8787,
-  version: '0.3.0',
+  version: '0.4.0',
   calculatorUrn: 'urn:sbrm:calculator:coal-lsl:levy',
   calculatorUrnAliases: ['urn:sbrm:calc:coal-lsl-levy', 'urn:sbrm:calculator:coal-lsl-levy'],
   moduleUrn: 'urn:sbrm:module:coal-lsl',
