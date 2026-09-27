@@ -63,6 +63,26 @@ test('a script the site does not ship fails, same-origin or not', () => {
   }
 });
 
+test('a script is read however its tag is written and resolved before it is judged', () => {
+  for (const tag of [
+    "<script src='/.webmcp/bridge.js'>",
+    '<script src=/.webmcp/bridge.js>',
+    '<SCRIPT SRC="/.webmcp/bridge.js">',
+    '<script data-note="a>b" src="/.webmcp/bridge.js">',
+    '<script src="/assets/../evil.js">',
+    '<script src="/assets/%2e%2e/evil.js">',
+    '<script src="/cdn-cgi/../evil.js">',
+    '<script src="/assets/not-shipped.mjs">',
+    '<script src="http://[">',
+  ]) {
+    const { failures } = inspectHtml('/tools/', SOURCE, `${SOURCE}${tag}</script>`);
+    assert.equal(failures.length, 1, tag);
+    assert.match(failures[0], /a script the site does not ship/, tag);
+  }
+  const shipped = `${SOURCE}<script type=module src='https://duguid.com.au/assets/levy-page.mjs?v=1'></script>`;
+  assert.deepEqual(inspectHtml('/tools/', SOURCE, shipped).failures, []);
+});
+
 test('no message repeats the address itself', () => {
   const { failures } = inspectHtml('/contact/', SOURCE, '<p>Write to us.</p>');
   assert.equal(failures.some((line) => line.includes('someone@example.com')), false);
