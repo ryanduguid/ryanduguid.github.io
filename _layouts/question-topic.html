@@ -47,13 +47,14 @@
 {% include site-header.html %}
 {% assign topic = site.data.accounting_questions.topics | where: "id", page.topic | first %}
 {% assign questions = site.data.accounting_questions.questions | where: "topic", page.topic %}
+{% assign checked = 0 %}{% for question in questions %}{% if question.fact %}{% assign checked = checked | plus: 1 %}{% endif %}{% endfor %}
   <main id="main" class="site-main accounting-page">
     <article class="article">
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}. Page updated 26 September 2026.</p>
+        <p class="page-meta">{% if checked > 0 %}{{ checked }} of {{ questions | size }} answers checked {{ site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}. Other guidance reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% else %}Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% endif %} Page updated {{ page.updated | date: "%e %B %Y" | strip }}.</p>
       </header>
       <div class="site-shell accounting-content">
         <details class="question-controls question-tools">
@@ -123,7 +124,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-26",
+      "dateModified": "{{ page.updated | date: "%Y-%m-%d" }}",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

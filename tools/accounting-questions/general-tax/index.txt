@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -39,7 +39,7 @@ The linked experimental income tax worksheet excludes levies and offsets; check 
 
 Your tax return · Tax rates for Australian residents · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 1
 
@@ -47,14 +47,16 @@ Link to question 1
 
 ### Which expenses reduce my taxable income?
 
-An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
 
 - List each expense, its purpose, date, amount and reimbursement.
 - Record your work use calculation and check the ATO category before claiming.
 
 A receipt proves spending, but does not by itself establish deductibility.
 
-Deductions you can claim · Business use apportionment calculator
+Deductions you can claim · Claiming deductions · Standard deduction for work-related expenses · Business use apportionment calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 2
 
@@ -62,14 +64,16 @@ Link to question 2
 
 ### What steps are involved in completing a return?
 
-Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
+Most pre-fill data from employers, banks, health funds and government agencies is finalised by the end of July; check that it includes all your income before you lodge. If you lodge your own return, it is due by 31 October; to use a registered tax agent’s later dates, engage them before then. Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
 
 - Check income statements are ready and account for income missing from pre-fill.
 - Keep a copy of the reviewed return, declaration and lodgement receipt.
 
 The checklist prepares your records; lodgement happens with the ATO or your registered agent.
 
-Your tax return
+Your tax return · Pre-fill availability · Preparing your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 3
 
@@ -77,14 +81,16 @@ Link to question 3
 
 ### Where can I obtain or recover my TFN?
 
-Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.
+Applying for a TFN is free, online or on paper depending on your residency and circumstances. If you have a TFN but can’t remember it, find it in ATO online services through myGov, or phone the ATO. Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.
 
 - If you already have a TFN, use the ATO recovery instructions before applying again.
 - Complete any identity checks directly with the official service.
 
 Do not put a TFN or identity documents into this website or a public issue.
 
-Tax file number
+Tax file number · Apply for a TFN · Lost or stolen TFN
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 4
 
@@ -99,9 +105,9 @@ The income year runs from 1 July to 30 June. A return you lodge yourself is due 
 
 An agent’s program or a particular account can have different dates from a general calendar.
 
-Your tax return · Preparing your tax return
+Your tax return · Preparing your tax return · Due dates for lodging and paying your BAS · Finalise your STP data by 14 July
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 5
 
@@ -109,14 +115,16 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO
+Paying the ATO · How to pay
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 6
 
@@ -124,14 +132,16 @@ Link to question 6
 
 ### Which earnings are taxable?
 
-Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.
+You must declare employment income, government payments and allowances, investment income such as interest, dividends, rent and capital gains, business, partnership and trust income, super pensions and annuities, and foreign income. Some compensation and insurance payments, scholarships, prizes and awards are also taxable. Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.
 
 - Reconcile employment, business, investment, government and foreign income records.
 - List unusual receipts separately and record why they are included or excluded.
 
 A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.
 
-ATO income, deductions and records
+ATO income, deductions and records · Income you must declare
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 7
 
@@ -139,14 +149,16 @@ Link to question 7
 
 ### How long will the tax return process take?
 
-Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
+Most returns lodged online are processed within 12 business days. For a paper return, most refunds are issued within 50 business days. Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
 
 - Complete the record checklist before setting a preparation deadline.
 - After lodgement, use the official progress service and respond to any information request.
 
 No refund date or processing outcome is guaranteed here.
 
-Your tax return
+Your tax return · Check the progress of your tax return · How to lodge your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 8
 
@@ -154,14 +166,16 @@ Link to question 8
 
 ### Where can I submit a completed return?
 
-Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.
+You can lodge online with myTax, through a registered tax agent or on paper by mail. Registered tax agents are the only people who can charge a fee to prepare and lodge your return. Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.
 
 - Choose the route for your circumstances and confirm the income year.
 - Review the declaration and save the lodgement receipt after submission.
 
 The site supplies preparation guidance and does not submit returns.
 
-Your tax return
+Your tax return · How to lodge your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 9
 
@@ -176,9 +190,9 @@ From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally 
 
 An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
 
-Your tax return · Tax rates for Australian residents · Payday Super for employers · Instant asset write-off · Cents per kilometre rates on this site
+Your tax return · Tax rates for Australian residents · Payment deadlines for Payday Super · $20,000 instant asset write-off, new legislation · Cents per kilometre rates on this site
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 10
 
@@ -207,21 +221,32 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 1: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
 - Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Claiming deductions: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/claiming-deductions
+- Standard deduction for work-related expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/standard-deduction-for-work-related-expenses
 - Business use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Link to question 2: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
+- Pre-fill availability: https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability
+- Preparing your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/before-you-prepare-your-tax-return/preparing-your-tax-return
 - Link to question 3: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
 - Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
+- Apply for a TFN: https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn
+- Lost or stolen TFN: https://www.ato.gov.au/individuals-and-families/tax-file-number/lost-or-stolen-tfn
 - Link to question 4: https://duguid.com.au/tools/accounting-questions/general-tax/#q4
-- Preparing your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/before-you-prepare-your-tax-return/preparing-your-tax-return
+- Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
+- Finalise your STP data by 14 July: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare
 - Link to question 7: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
+- Check the progress of your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/check-the-progress-of-your-tax-return
+- How to lodge your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return
 - Link to question 8: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
 - Link to question 9: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
-- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
-- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
+- Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
+- $20,000 instant asset write-off, new legislation: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/

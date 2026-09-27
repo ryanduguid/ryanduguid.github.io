@@ -73,6 +73,6 @@ test('an echoed URL with other encoding still matches', () => {
   assert.equal(sameUrl('https://www.ato.gov.au/a?docid=%22x%22'), sameUrl('https://www.ato.gov.au/a?docid="x"'));
 });
 
-test('the approved cap stays at 200 pages', () => {
-  assert.equal(MAX_URLS, 200);
+test('the approved cap stays at 225 pages', () => {
+  assert.equal(MAX_URLS, 225);
 });

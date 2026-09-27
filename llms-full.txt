@@ -4323,7 +4323,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -4354,7 +4354,7 @@ The linked experimental income tax worksheet excludes levies and offsets; check 
 
 Your tax return · Tax rates for Australian residents · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 1
 
@@ -4362,14 +4362,16 @@ Link to question 1
 
 ### Which expenses reduce my taxable income?
 
-An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
+To claim a work-related expense, you must have paid it yourself without reimbursement, it must directly relate to earning your income, and you need a record to prove it, usually a receipt. From 2026-27, eligible taxpayers can claim a standard deduction of up to $1,000 for work-related expenses without records; it is reduced by any work-related expenses they claim that it covers. An expense needs a connection to assessable income and the evidence required for that type of claim. Private spending and reimbursed amounts need separate treatment.
 
 - List each expense, its purpose, date, amount and reimbursement.
 - Record your work use calculation and check the ATO category before claiming.
 
 A receipt proves spending, but does not by itself establish deductibility.
 
-Deductions you can claim · Business use apportionment calculator
+Deductions you can claim · Claiming deductions · Standard deduction for work-related expenses · Business use apportionment calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 2
 
@@ -4377,14 +4379,16 @@ Link to question 2
 
 ### What steps are involved in completing a return?
 
-Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
+Most pre-fill data from employers, banks, health funds and government agencies is finalised by the end of July; check that it includes all your income before you lodge. If you lodge your own return, it is due by 31 October; to use a registered tax agent’s later dates, engage them before then. Collect the year’s records, reconcile them with pre-fill information, calculate supported claims, then review and lodge through an authorised channel.
 
 - Check income statements are ready and account for income missing from pre-fill.
 - Keep a copy of the reviewed return, declaration and lodgement receipt.
 
 The checklist prepares your records; lodgement happens with the ATO or your registered agent.
 
-Your tax return
+Your tax return · Pre-fill availability · Preparing your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 3
 
@@ -4392,14 +4396,16 @@ Link to question 3
 
 ### Where can I obtain or recover my TFN?
 
-Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.
+Applying for a TFN is free, online or on paper depending on your residency and circumstances. If you have a TFN but can’t remember it, find it in ATO online services through myGov, or phone the ATO. Use the ATO’s TFN application or lost-TFN route. The right application process depends on residency and circumstances.
 
 - If you already have a TFN, use the ATO recovery instructions before applying again.
 - Complete any identity checks directly with the official service.
 
 Do not put a TFN or identity documents into this website or a public issue.
 
-Tax file number
+Tax file number · Apply for a TFN · Lost or stolen TFN
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 4
 
@@ -4414,9 +4420,9 @@ The income year runs from 1 July to 30 June. A return you lodge yourself is due 
 
 An agent’s program or a particular account can have different dates from a general calendar.
 
-Your tax return · Preparing your tax return
+Your tax return · Preparing your tax return · Due dates for lodging and paying your BAS · Finalise your STP data by 14 July
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 5
 
@@ -4424,14 +4430,16 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO
+Paying the ATO · How to pay
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 6
 
@@ -4439,14 +4447,16 @@ Link to question 6
 
 ### Which earnings are taxable?
 
-Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.
+You must declare employment income, government payments and allowances, investment income such as interest, dividends, rent and capital gains, business, partnership and trust income, super pensions and annuities, and foreign income. Some compensation and insurance payments, scholarships, prizes and awards are also taxable. Check each source of income against the ATO’s categories. Amounts missing from pre-fill still need review.
 
 - Reconcile employment, business, investment, government and foreign income records.
 - List unusual receipts separately and record why they are included or excluded.
 
 A bank deposit is not automatically taxable income, and taxable income is not limited to deposits.
 
-ATO income, deductions and records
+ATO income, deductions and records · Income you must declare
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 7
 
@@ -4454,14 +4464,16 @@ Link to question 7
 
 ### How long will the tax return process take?
 
-Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
+Most returns lodged online are processed within 12 business days. For a paper return, most refunds are issued within 50 business days. Separate your preparation time from the ATO’s processing time. Missing records, amendments and reviews can extend the overall process.
 
 - Complete the record checklist before setting a preparation deadline.
 - After lodgement, use the official progress service and respond to any information request.
 
 No refund date or processing outcome is guaranteed here.
 
-Your tax return
+Your tax return · Check the progress of your tax return · How to lodge your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 8
 
@@ -4469,14 +4481,16 @@ Link to question 8
 
 ### Where can I submit a completed return?
 
-Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.
+You can lodge online with myTax, through a registered tax agent or on paper by mail. Registered tax agents are the only people who can charge a fee to prepare and lodge your return. Individuals can use the lodgement options on the ATO’s tax return page, including myTax where eligible, a registered agent or paper.
 
 - Choose the route for your circumstances and confirm the income year.
 - Review the declaration and save the lodgement receipt after submission.
 
 The site supplies preparation guidance and does not submit returns.
 
-Your tax return
+Your tax return · How to lodge your tax return
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 9
 
@@ -4491,9 +4505,9 @@ From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally 
 
 An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
 
-Your tax return · Tax rates for Australian residents · Payday Super for employers · Instant asset write-off · Cents per kilometre rates on this site
+Your tax return · Tax rates for Australian residents · Payment deadlines for Payday Super · $20,000 instant asset write-off, new legislation · Cents per kilometre rates on this site
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 10
 
@@ -4522,21 +4536,32 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 1: https://duguid.com.au/tools/accounting-questions/general-tax/#q1
 - Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
+- Claiming deductions: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/claiming-deductions
+- Standard deduction for work-related expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/standard-deduction-for-work-related-expenses
 - Business use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
 - Link to question 2: https://duguid.com.au/tools/accounting-questions/general-tax/#q2
+- Pre-fill availability: https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return/lodge-your-tax-return-online-with-mytax/pre-fill-availability
+- Preparing your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/before-you-prepare-your-tax-return/preparing-your-tax-return
 - Link to question 3: https://duguid.com.au/tools/accounting-questions/general-tax/#q3
 - Tax file number: https://www.ato.gov.au/individuals-and-families/tax-file-number
+- Apply for a TFN: https://www.ato.gov.au/individuals-and-families/tax-file-number/apply-for-a-tfn
+- Lost or stolen TFN: https://www.ato.gov.au/individuals-and-families/tax-file-number/lost-or-stolen-tfn
 - Link to question 4: https://duguid.com.au/tools/accounting-questions/general-tax/#q4
-- Preparing your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/before-you-prepare-your-tax-return/preparing-your-tax-return
+- Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
+- Finalise your STP data by 14 July: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare
 - Link to question 7: https://duguid.com.au/tools/accounting-questions/general-tax/#q7
+- Check the progress of your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/check-the-progress-of-your-tax-return
+- How to lodge your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return/how-to-lodge-your-tax-return
 - Link to question 8: https://duguid.com.au/tools/accounting-questions/general-tax/#q8
 - Link to question 9: https://duguid.com.au/tools/accounting-questions/general-tax/#q9
-- Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
-- Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
+- Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
+- $20,000 instant asset write-off, new legislation: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
@@ -4562,7 +4587,7 @@ Source: https://duguid.com.au/tools/accounting-questions/deductions/
 
 Practical steps, records and official guidance on deductions.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -4593,7 +4618,7 @@ Eligibility, rates and record requirements must be checked for the year; this si
 
 Deductions you can claim · Working from home fixed rate method · Business use apportionment calculator
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 11
 
@@ -4601,14 +4626,16 @@ Link to question 11
 
 ### What records do I need to support my working-from-home claim?
 
-Keep evidence of hours and costs that supports the particular working-from-home method you use.
+For the fixed rate method, keep a record of the actual hours you work from home for the whole year, such as a timesheet, roster or diary, because estimates are not accepted. Also keep at least one record, such as a bill, for each running expense the rate covers. Keep evidence of hours and costs that supports the particular working-from-home method you use.
 
 - Record dates and hours throughout the required period and retain bills or receipts.
 - Keep a note of the method, year, work use basis and costs excluded to prevent double claims.
 
 A reconstructed estimate may not meet the ATO’s requirements for your method.
 
-Deductions you can claim
+Deductions you can claim · Working from home fixed rate method
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 12
 
@@ -4625,7 +4652,7 @@ Vehicle type, ownership and entity structure can change which methods are availa
 
 Deductions you can claim · Cents per kilometre rates on this site · Cents-per-kilometre rate table and method
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 13
 
@@ -4633,14 +4660,16 @@ Link to question 13
 
 ### How do I keep a valid vehicle logbook?
 
-A useful logbook records each business trip and lets another person check the business use percentage.
+A logbook must cover at least 12 continuous weeks and be broadly representative of your travel. It stays valid for 5 years, but you need a new 12-week logbook if your circumstances change. A useful logbook records each business trip and lets another person check the business use percentage.
 
 - Record the required trip dates, odometer readings, distance and business purpose.
 - Keep opening and closing odometer readings and review whether changed use requires a new logbook.
 
 Check the ATO’s required recording period and validity conditions before relying on the logbook.
 
-Deductions you can claim · Cents-per-kilometre rate table and method
+Deductions you can claim · Logbook method · Cents-per-kilometre rate table and method
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 14
 
@@ -4648,14 +4677,16 @@ Link to question 14
 
 ### How do I calculate the work-related share of phone and internet expenses?
 
-Apply a supported work use percentage to eligible phone and internet costs.
+Work out your work use percentage on a reasonable basis over a continuous 4-week period, using an itemised bill or your own record of work and private calls and internet use, then apply it to the whole income year. Apply a supported work use percentage to eligible phone and internet costs.
 
 - Gather bills and a representative usage record that distinguishes private from work use.
 - Use the business use calculator and retain the usage calculation with the result.
 
 Do not separately claim costs already covered by your chosen working-from-home method.
 
-Deductions you can claim · Business use apportionment calculator
+Deductions you can claim · Mobile phone, mobile internet and other devices · Business use apportionment calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 15
 
@@ -4672,7 +4703,7 @@ The depreciation worksheet covers a bounded ordinary first-year method; it does 
 
 Deductions you can claim · Assets costing $300 or less · Instant asset write-off · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 16
 
@@ -4680,14 +4711,16 @@ Link to question 16
 
 ### Which work clothing, uniforms and laundry expenses can I claim?
 
-Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
+You can claim clothing that is protective, a compulsory uniform, a registered non-compulsory uniform, or occupation-specific and not conventional. Laundry can be worked out at $1 a load of work clothing only, or 50 cents a load if mixed, and a laundry claim of $150 or less needs no written evidence. Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
 
 - Separate protective clothing, qualifying uniforms, occupation-specific clothing and ordinary items.
 - Retain purchases and a supportable laundry calculation, with any reimbursement recorded.
 
 Check the ATO category and evidence requirements before adding an amount to the return.
 
-Deductions you can claim
+Deductions you can claim · Clothing, laundry and dry-cleaning expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 17
 
@@ -4695,14 +4728,16 @@ Link to question 17
 
 ### Can I claim course fees, professional memberships and self-education expenses?
 
-Check how the course or membership relates to your current income-earning activities.
+Self-education is deductible when it maintains or improves the specific skills or knowledge you need for your current employment, or is likely to increase your income from it. Check how the course or membership relates to your current income-earning activities.
 
 - Keep invoices, course details, the work connection and any employer reimbursement.
 - Split private components and costs of gaining a new occupation from costs relevant to current work for review.
 
 A professional label or employer recommendation alone does not settle the tax treatment.
 
-Deductions you can claim
+Deductions you can claim · Self-education expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 18
 
@@ -4710,14 +4745,16 @@ Link to question 18
 
 ### What can I claim if I have lost the receipt?
 
-Try to replace missing evidence before deciding whether a claim can be supported.
+If your total work-related expense claim is $300 or less, you can claim it without written evidence, but you must be able to show how you worked it out. Keep any written evidence for 5 years from the date you lodge your return. Try to replace missing evidence before deciding whether a claim can be supported.
 
 - Request duplicate invoices or download supplier records and match them to payment evidence.
 - Write down the expense, work purpose, missing record and the ATO evidence rule you relied on.
 
 A bank statement or a general receipt exception does not automatically support every claim.
 
-ATO income, deductions and records
+ATO income, deductions and records · Records you need to keep
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 19
 
@@ -4732,9 +4769,9 @@ Yes, if your aggregated turnover is under $10 million and you use the simplified
 
 The ordinary depreciation worksheet does not determine instant asset write-off eligibility.
 
-Starting, registering or closing a business · Instant asset write-off · Experimental tax worksheets and supported years
+Starting, registering or closing a business · Instant asset write-off · $20,000 instant asset write-off, new legislation · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 20
 
@@ -4765,17 +4802,23 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 12: https://duguid.com.au/tools/accounting-questions/deductions/#q12
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 13: https://duguid.com.au/tools/accounting-questions/deductions/#q13
+- Logbook method: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/cars-transport-and-travel/motor-vehicle-and-car-expenses/expenses-for-a-car-you-own-or-lease/logbook-method
 - Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
+- Mobile phone, mobile internet and other devices: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/mobile-phone-mobile-internet-and-other-devices
 - Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
 - Assets costing $300 or less: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/depreciating-assets-you-use-for-work/assets-costing-300-dollars-or-less
 - Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
+- Clothing, laundry and dry-cleaning expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/clothes-and-items-you-wear-at-work/clothing-laundry-and-dry-cleaning-expenses
 - Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
+- Self-education expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/education-training-and-seminars/self-education-expenses
 - Link to question 18: https://duguid.com.au/tools/accounting-questions/deductions/#q18
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Records you need to keep: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/records-you-need-to-keep
 - Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- $20,000 instant asset write-off, new legislation: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off
 - Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -4800,7 +4843,7 @@ Source: https://duguid.com.au/tools/accounting-questions/business-setup/
 
 Practical steps, records and official guidance on starting a business.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -4822,14 +4865,16 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ### Do I need an ABN for freelance or contracting work?
 
-ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.
+You’re entitled to an ABN if you’re carrying on or starting an enterprise in Australia. You’re not entitled to one for work you do as an employee, even if you or your employer calls it contracting. ABN entitlement depends on carrying on or starting an enterprise. An invoice or a client’s request alone does not establish it.
 
 - Record the work arrangement, independence, activity and evidence that the enterprise has started.
 - Read the ABR entitlement guidance before applying.
 
 An ABN does not decide whether a worker is an employee for tax, super or workplace law.
 
-ABR ABN application and entitlement
+ABR ABN application and entitlement · ABN entitlement, ABR
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 21
 
@@ -4837,7 +4882,7 @@ Link to question 21
 
 ### How do I apply for an ABN, and what information do I need?
 
-Apply through the official ABR route after checking entitlement.
+Apply online through the ABR. Details such as your TFN help the ABR identify you and process the application faster; if it needs to check details, it aims to review the application within 20 business days. Apply through the official ABR route after checking entitlement.
 
 - Gather the entity structure, business activity, start date and contact information required by the ABR.
 - Enter identity information directly into the official application and save its confirmation.
@@ -4846,20 +4891,24 @@ This site neither applies for an ABN nor handles identity documents.
 
 ABR ABN application and entitlement
 
+The bold answer was checked on 27 September 2026.
+
 Link to question 22
 
 23.
 
 ### Is my activity a hobby or a business for tax purposes?
 
-Assess the pattern of activity, commercial purpose and how the activity is organised.
+Generally, a business involves continuous and repeated activities done to make a profit. The ATO asks whether you intend to and have a prospect of making a profit, whether the scale is enough to make one, and whether the activities are repeated and continuous; a hobby you don’t seek to profit from is not a business. Assess the pattern of activity, commercial purpose and how the activity is organised.
 
 - Document your intention, pricing, repetition, scale, records and plan to make a profit.
 - Keep the conclusion and supporting facts, and reassess when the activity changes.
 
 There is no single revenue figure in this guide that classifies every activity.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Are you in business?
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 23
 
@@ -4867,14 +4916,16 @@ Link to question 23
 
 ### Should I operate as a sole trader or a company?
 
-Compare liability, ownership, administration, tax and how profits will reach the owners.
+A sole trader reports business income as their own and is personally liable for the business’s debts. A company is a separate legal entity with higher set-up and running costs and an annual ASIC review; it pays tax at 25% or 30%, and it pays directors wages or fees rather than drawings. Compare liability, ownership, administration, tax and how profits will reach the owners.
 
 - Prepare the same forecast under each structure, including compliance costs and money taken out.
 - Discuss asset protection, existing contracts and restructuring costs with the relevant advisers before choosing.
 
 A lower company tax rate alone does not establish a lower total cost or a suitable structure.
 
-Starting, registering or closing a business · 13-week cash forecast
+Starting, registering or closing a business · Difference between a sole trader and a company, business.gov.au · Changes to company tax rates · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 24
 
@@ -4882,14 +4933,16 @@ Link to question 24
 
 ### How much should I set aside for income tax as a sole trader?
 
-Reserve cash against an estimate of your annual personal tax position and instalments already paid.
+The ATO automatically enters an individual, including a sole trader, into PAYG instalments when their latest return shows instalment income of $4,000 or more, tax payable of $1,000 or more and estimated tax of $500 or more. You can also enter voluntarily. Reserve cash against an estimate of your annual personal tax position and instalments already paid.
 
 - Forecast business profit alongside salary and other personal income, deductions and credits.
 - Place expected instalments and the remaining tax payment into the cash forecast on their due dates.
 
 A fixed percentage of sales can miss deductions, other income and tax already paid.
 
-Your tax return · 13-week cash forecast
+Your tax return · Starting PAYG instalments · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 25
 
@@ -4897,14 +4950,16 @@ Link to question 25
 
 ### Do I need a separate business bank account?
 
-A separate account makes business transactions easier to trace. The requirements also depend on the entity.
+A sole trader doesn’t have to have a business bank account, although it’s a good idea. A partnership, company or trust must have a separate bank account for tax purposes. A separate account makes business transactions easier to trace. The requirements also depend on the entity.
 
 - Record which accounts hold business money and reconcile each to its statement.
 - For a company or trust, keep entity funds and private funds clearly identified and correctly recorded.
 
 Check the account requirements for your structure before opening or changing banking arrangements.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Set up your business bank account, business.gov.au
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 26
 
@@ -4912,14 +4967,16 @@ Link to question 26
 
 ### How do I pay myself and record drawings as a sole trader?
 
-Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.
+What you draw doesn’t change what a sole trader reports: all your business income goes in your individual tax return, whatever amounts you transfer to your personal account. Sole-trader drawings transfer the owner’s money out of the business; they are recorded separately from operating expenses.
 
 - Record the transfer against drawings or the owner’s equity account in your agreed chart.
 - Keep drawings visible in the cash forecast so the business can meet upcoming obligations.
 
 A sole trader’s drawings do not set the amount of taxable business profit.
 
-Starting, registering or closing a business · 13-week cash forecast
+Starting, registering or closing a business · Using business money and assets · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 27
 
@@ -4936,7 +4993,7 @@ An ABN or company structure does not by itself switch off the PSI rules.
 
 Starting, registering or closing a business · The PSI 80% rule
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 28
 
@@ -4944,14 +5001,16 @@ Link to question 28
 
 ### How do I report income from a side hustle, delivery work or online sales?
 
-Reconcile gross platform activity to payouts before deciding how to report it.
+Income from providing services or assets for a fee through a sharing economy platform, such as ride-sourcing, renting out a room or sharing assets, is taxable, and GST can apply. Platform operators report these transactions to the ATO. Reconcile gross platform activity to payouts before deciding how to report it.
 
 - Export sales, fees, refunds and activity records for the income year.
 - Document whether the activity is business, employment or another income category and check GST separately.
 
 Net bank deposits can omit fees and gross receipts that need separate reporting.
 
-Starting, registering or closing a business
+Starting, registering or closing a business · Types of activities in the sharing economy
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 29
 
@@ -4968,7 +5027,7 @@ A loss in the accounts does not automatically offset salary in the tax return.
 
 Starting, registering or closing a business · Non-commercial losses
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 30
 
@@ -4993,18 +5052,26 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ABR ABN application and entitlement: https://www.abr.gov.au/business-super-funds-charities/applying-abn
+- ABN entitlement, ABR: https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement
 - Link to question 21: https://duguid.com.au/tools/accounting-questions/business-setup/#q21
 - Link to question 22: https://duguid.com.au/tools/accounting-questions/business-setup/#q22
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- Are you in business?: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business/starting-your-own-business/are-you-in-business
 - Link to question 23: https://duguid.com.au/tools/accounting-questions/business-setup/#q23
+- Difference between a sole trader and a company, business.gov.au: https://business.gov.au/planning/business-structures-and-types/business-structures/difference-between-a-sole-trader-and-a-company
+- Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 24: https://duguid.com.au/tools/accounting-questions/business-setup/#q24
 - Your tax return: https://www.ato.gov.au/individuals-and-families/your-tax-return
+- Starting PAYG instalments: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/payg-instalments/starting-payg-instalments
 - Link to question 25: https://duguid.com.au/tools/accounting-questions/business-setup/#q25
+- Set up your business bank account, business.gov.au: https://business.gov.au/finance/set-up-your-finances/set-up-your-business-bank-account
 - Link to question 26: https://duguid.com.au/tools/accounting-questions/business-setup/#q26
+- Using business money and assets: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets
 - Link to question 27: https://duguid.com.au/tools/accounting-questions/business-setup/#q27
 - The PSI 80% rule: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/personal-services-income/working-out-if-the-psi-rules-apply/self-assessing-as-a-psb
 - Link to question 28: https://duguid.com.au/tools/accounting-questions/business-setup/#q28
+- Types of activities in the sharing economy: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/sharing-economy-and-tax/types-of-activities-in-the-sharing-economy
 - Link to question 29: https://duguid.com.au/tools/accounting-questions/business-setup/#q29
 - Non-commercial losses: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/losses/non-commercial-losses/what-is-a-non-commercial-loss
 - Link to question 30: https://duguid.com.au/tools/accounting-questions/business-setup/#q30
@@ -5031,7 +5098,7 @@ Source: https://duguid.com.au/tools/accounting-questions/gst-bas/
 
 Practical steps, records and official guidance on GST and BAS.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -5053,14 +5120,16 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ### How do I add GST to a price or extract GST from an inclusive amount?
 
-For a wholly taxable sale at 10%, GST is one tenth of the exclusive price or one eleventh of the inclusive price.
+GST is 10% of the GST-exclusive price. To find the GST included in a GST-inclusive price, divide it by 11: $110 includes $10 of GST. The calculation applies to a wholly taxable sale; classify GST-free, input-taxed and mixed sales first.
 
 - Choose whether your amount already includes GST, then calculate the components.
 - Keep the source invoice and confirm that the whole amount is subject to GST.
 
 The calculator does not classify GST-free, input-taxed or mixed supplies.
 
-ATO GST guidance · GST calculator
+ATO GST guidance · How GST works · Calculating sales using the calculation worksheet · GST calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 31
 
@@ -5077,7 +5146,7 @@ Taxi and ride-sourcing rules and other exceptions mean a general turnover thresh
 
 ATO GST guidance · Registering for GST
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 32
 
@@ -5085,14 +5154,16 @@ Link to question 32
 
 ### What is the difference between GST-free and input-taxed sales?
 
-GST-free and input-taxed sales both differ from taxable sales, but their credit treatment can differ.
+Neither includes GST in the price. You can claim GST credits for purchases you use to make GST-free sales, but not for purchases that relate to input-taxed sales, such as financial supplies and selling or renting out residential premises. Classify each sale before coding it, because the category decides whether GST credits on related purchases can be claimed.
 
 - Classify each income stream using the ATO guidance and retain the basis for the classification.
 - Review purchase credits and any apportionment separately for input-taxed activities.
 
 Do not give both categories the same purchase-credit treatment just because no GST appears on the sale.
 
-ATO GST guidance
+ATO GST guidance · GST-free sales · Input-taxed sales
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 33
 
@@ -5100,14 +5171,16 @@ Link to question 33
 
 ### Do I charge GST when selling to overseas customers?
 
-An overseas customer does not automatically make a sale GST-free.
+Exported goods are GST-free if they are exported within 60 days of the earlier of receiving any payment or issuing an invoice for them. Some other supplies for consumption outside Australia, such as certain services, can also be GST-free. An overseas customer does not automatically make a sale GST-free.
 
 - Record what you sold, where it is supplied or used, customer circumstances and any export evidence.
 - Check the relevant goods or services rule before choosing the GST code.
 
 Export conditions and evidence requirements differ between goods and services.
 
-ATO GST guidance
+ATO GST guidance · GST-free sales
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 34
 
@@ -5124,7 +5197,7 @@ Requirements depend on the amount and nature of the sale; a heading alone does n
 
 ATO GST guidance · Tax invoices
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 35
 
@@ -5132,7 +5205,7 @@ Link to question 35
 
 ### How do I prepare a BAS from my accounting records?
 
-Reconcile source records to each BAS label before approval.
+If your GST turnover is under $10 million, you generally report GST using Simpler BAS: total sales at G1, GST on sales at 1A and GST on purchases at 1B. Reconcile source records to each BAS label before approval.
 
 - Check reporting period and GST basis, reconcile tax-coded transactions and investigate exceptions.
 - Reconcile PAYG and other labels, retain the workpaper and obtain approval before lodgement.
@@ -5143,7 +5216,9 @@ For a fictional quarter, reconciled GST on sales at label 1A is $3,000 and eligi
 
 The linked readiness gate checks a prepared pack. It does not prepare the BAS, decide tax treatment or authorise lodgement.
 
-ATO business activity statements · BAS pack readiness checks
+ATO business activity statements · GST reporting methods · Simpler BAS GST bookkeeping guide · BAS pack readiness checks
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 36
 
@@ -5160,7 +5235,7 @@ General quarterly dates can differ from the dates that apply to your account.
 
 ATO GST guidance · Due dates for lodging and paying your BAS · 13-week cash forecast
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 37
 
@@ -5177,7 +5252,7 @@ Changing a report setting in Xero does not by itself change the ATO accounting m
 
 ATO GST guidance · Choosing an accounting method for GST
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 38
 
@@ -5185,14 +5260,16 @@ Link to question 38
 
 ### Why does my BAS GST figure differ from the GST balance in Xero?
 
-Bridge the BAS calculation to the GST control account at the same date and on the same basis.
+On the cash basis, you account for GST on the BAS covering the period in which you receive or make payment for your sales and purchases. Bridge the BAS calculation to the GST control account at the same date and on the same basis.
 
 - Separate opening balances, payments to the ATO, cash-basis timing and journals.
 - List each reconciling item and clear unexplained differences before signing off.
 
 A control account balance is not automatically the GST payable for one BAS period. The linked gate tests supplied tie-outs; it does not investigate reconciling items.
 
-ATO GST guidance · BAS pack readiness checks
+ATO GST guidance · Choosing an accounting method for GST · BAS pack readiness checks
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 39
 
@@ -5200,14 +5277,16 @@ Link to question 39
 
 ### How do I correct a mistake in a BAS I have already lodged?
 
-Work out whether the error can be corrected on a later BAS or requires a revision.
+You can generally correct a GST error on a later BAS lodged within the period of review for the period of the error, but not to claim GST credits after the 4-year time limit, and not more than once. Revising the earlier BAS instead can attract penalties or general interest charge. Work out whether the error can be corrected on a later BAS or requires a revision.
 
 - Record the original period, error type, amount, discovery date and supporting transactions.
 - Apply the ATO’s correction conditions and retain the approved amendment or later-period adjustment.
 
-Do not choose a later-period correction without checking time and value limits.
+Do not choose a later-period correction without checking the period of review and the 4-year credit time limit.
 
-ATO GST guidance
+ATO GST guidance · How to correct GST errors · GST errors that can’t be corrected on a later BAS
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 40
 
@@ -5232,15 +5311,21 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ATO GST guidance: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst
+- How GST works: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works
+- Calculating sales using the calculation worksheet: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/complete-your-bas/step-2-calculating-sales-using-the-calculation-worksheet
 - GST calculator: https://duguid.com.au/tools/business-calculators/gst/
 - Link to question 31: https://duguid.com.au/tools/accounting-questions/gst-bas/#q31
 - Registering for GST: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst
 - Link to question 32: https://duguid.com.au/tools/accounting-questions/gst-bas/#q32
+- GST-free sales: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/gst-free-sales
+- Input-taxed sales: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/input-taxed-sales
 - Link to question 33: https://duguid.com.au/tools/accounting-questions/gst-bas/#q33
 - Link to question 34: https://duguid.com.au/tools/accounting-questions/gst-bas/#q34
 - Tax invoices: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/tax-invoices
 - Link to question 35: https://duguid.com.au/tools/accounting-questions/gst-bas/#q35
 - ATO business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
+- GST reporting methods: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/gst-reporting-methods
+- Simpler BAS GST bookkeeping guide: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/goods-and-services-tax-gst/simpler-bas-gst-bookkeeping-guide
 - BAS pack readiness checks: https://duguid.com.au/tools/workpaper-review-gate/
 - Link to question 36: https://duguid.com.au/tools/accounting-questions/gst-bas/#q36
 - Due dates for lodging and paying your BAS: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas/due-dates-for-lodging-and-paying-your-bas
@@ -5249,6 +5334,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Choosing an accounting method for GST: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/accounting-for-gst-in-your-business/choosing-an-accounting-method
 - Link to question 38: https://duguid.com.au/tools/accounting-questions/gst-bas/#q38
 - Link to question 39: https://duguid.com.au/tools/accounting-questions/gst-bas/#q39
+- How to correct GST errors: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/how-to-correct-gst-errors
+- GST errors that can’t be corrected on a later BAS: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/gst-errors-that-cannot-be-corrected-on-a-later-bas
 - Link to question 40: https://duguid.com.au/tools/accounting-questions/gst-bas/#q40
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -5273,7 +5360,7 @@ Source: https://duguid.com.au/tools/accounting-questions/payroll-super/
 
 Practical steps, records and official guidance on payroll and super.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -5304,7 +5391,7 @@ The old quarterly SG worksheet does not establish current Payday Super entitleme
 
 Payday Super for employers · Super guarantee rate history on this site
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 41
 
@@ -5312,16 +5399,16 @@ Link to question 41
 
 ### By what date must a super contribution reach the employee’s fund?
 
-Since 1 July 2026, the fund must receive the contribution within 7 business days of payday, or 20 business days for a first contribution to a new fund. Test receipt at the employee’s fund against the applicable deadline.
+Since 1 July 2026, the fund must receive the contribution within 7 business days after payday, or within 20 business days for the first contribution for a new employee or to a new fund. Test receipt at the employee’s fund against the applicable deadline.
 
 - Record payday, pathway, amount, remittance date and confirmed fund receipt date.
 - Use the existing timing example to distinguish timely remittance from evidence of timely receipt.
 
 The timing tool needs the contribution amount supplied and the correct pathway selected.
 
-Payday Super for employers · Payday Super receipt evidence example
+Payday Super for employers · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 42
 
@@ -5329,14 +5416,16 @@ Link to question 42
 
 ### What should I do if a super payment is late, rejected or missing?
 
-Investigate the payment trail and apply the current late-payment process.
+Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund makes you liable to the super guarantee charge, which the ATO assesses. The charge includes notional earnings and may include an administrative uplift of up to 60%; paying the fund what you owe as soon as possible, even in part, reduces it. Investigate the payment trail and apply the current late-payment process.
 
 - Reconcile payroll, clearing house status, rejections and fund receipt for each affected employee.
 - Resolve the cause, record any replacement payment and review the ATO’s reporting and charge requirements.
 
 Sending a replacement does not automatically remove a late-payment consequence.
 
-Payday Super for employers · Payday Super receipt evidence example
+Payday Super for employers · What to do if you miss a Payday Super contribution · Payday Super receipt evidence example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 43
 
@@ -5344,14 +5433,16 @@ Link to question 43
 
 ### Do I have to pay super for a contractor who invoices through an ABN?
 
-Review the actual contract and working arrangement against the ATO’s super eligibility guidance.
+If you pay a contractor under a contract that is mainly for their labour, meaning more than half its dollar value, they are an employee for super guarantee purposes and you may need to pay super for them. An ABN makes no difference. Review the actual contract and working arrangement against the ATO’s super eligibility guidance.
 
 - Record who performs the work, how they are paid and whether the contract is for their labour.
 - Retain the eligibility conclusion separately from the supplier’s ABN and invoice.
 
 An ABN is not proof that super is unnecessary.
 
-Payday Super for employers
+Payday Super for employers · Super for independent contractors
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 44
 
@@ -5359,14 +5450,16 @@ Link to question 44
 
 ### How much PAYG tax should I withhold from an employee’s pay?
 
-Use the ATO withholding calculation for the payment type and pay period.
+Use the ATO tax withheld calculator or tax tables for the pay period, whether weekly, fortnightly or monthly. The employee’s TFN declaration or withholding declaration tells you whether to withhold extra for a study or training support loan. Use the ATO withholding calculation for the payment type and pay period.
 
 - Check the declaration, residency, tax-free threshold choice, study loan information and any variation.
 - Apply the current schedule or calculator and reconcile payroll totals to the withholding liability.
 
 A resident annual income tax worksheet is not a payroll withholding calculator.
 
-PAYG withholding
+PAYG withholding · Tax withheld calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 45
 
@@ -5381,9 +5474,9 @@ Make the STP finalisation declaration by 14 July each year. Reconcile payroll to
 
 An ordinary payroll submission and a finalisation declaration are different steps.
 
-Single Touch Payroll · End-of-year finalisation through STP · Monthly close review pack
+Single Touch Payroll · End-of-year finalisation through STP · Finalise your STP data by 14 July · Monthly close review pack
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 46
 
@@ -5391,7 +5484,7 @@ Link to question 46
 
 ### How do I calculate an employee’s final pay, including unused leave?
 
-Build final pay from the employee’s entitlements and the circumstances of departure.
+Final pay is the wages owing, including penalty rates and allowances, plus any unused annual leave with loading if it would have been paid during employment; it can also include accrued or pro rata long service leave. Sick and carer’s leave isn’t paid out, and most awards require final pay within 7 days after the last day of employment. Build final pay from the employee’s entitlements and the circumstances of departure.
 
 - Gather the award or agreement, termination date, unpaid hours, leave balances and notice details.
 - Check leave loading, redundancy and long service leave where applicable, then apply the relevant tax treatment.
@@ -5399,6 +5492,8 @@ Build final pay from the employee’s entitlements and the circumstances of depa
 The generic staff cost calculator cannot determine final pay entitlements.
 
 Final pay - Fair Work Ombudsman
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 47
 
@@ -5415,7 +5510,7 @@ Book payroll expense alone can omit taxable benefits, super or grouped wages.
 
 Revenue NSW payroll tax · Payroll tax thresholds and rates, Revenue NSW
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 48
 
@@ -5423,14 +5518,16 @@ Link to question 48
 
 ### Do contractor payments count towards NSW payroll tax?
 
-Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
+Payments to a contractor who provides the services of a worker under a relevant contract are liable for NSW payroll tax unless an exemption applies, such as for some services provided for 90 days or less in a financial year, or services the contractor provides to the public. Contractor payments need a separate payroll tax review under the NSW relevant-contract rules.
 
 - Keep the contract, services, days worked and evidence for any exclusion claimed.
 - Reconcile reviewed contractor amounts to the payroll tax workpaper.
 
 An invoice, ABN or GST registration alone does not establish an exclusion.
 
-Revenue NSW payroll tax
+Revenue NSW payroll tax · Contractors, Revenue NSW
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 49
 
@@ -5447,7 +5544,7 @@ Do not add ordinary paid leave again if it is already included in the annual sal
 
 Final pay - Fair Work Ombudsman · Super guarantee rate history on this site · Staff cost calculator
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 50
 
@@ -5474,14 +5571,19 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
+- Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/
 - Link to question 42: https://duguid.com.au/tools/accounting-questions/payroll-super/#q42
+- What to do if you miss a Payday Super contribution: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/missed-or-late-payday-super-payments/what-to-do-if-you-miss-a-payday-super-contribution
 - Link to question 43: https://duguid.com.au/tools/accounting-questions/payroll-super/#q43
+- Super for independent contractors: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/work-out-if-you-have-to-pay-super/super-for-independent-contractors
 - Link to question 44: https://duguid.com.au/tools/accounting-questions/payroll-super/#q44
 - PAYG withholding: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding
+- Tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
 - Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
 - End-of-year finalisation through STP: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp
+- Finalise your STP data by 14 July: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july
 - Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
 - Final pay - Fair Work Ombudsman: https://www.fairwork.gov.au/ending-employment/final-pay
@@ -5489,6 +5591,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
 - Payroll tax thresholds and rates, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates
 - Link to question 48: https://duguid.com.au/tools/accounting-questions/payroll-super/#q48
+- Contractors, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/taxable-wages/contractors
 - Link to question 49: https://duguid.com.au/tools/accounting-questions/payroll-super/#q49
 - Staff cost calculator: https://duguid.com.au/tools/business-calculators/staff/
 - Link to question 50: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
@@ -5515,7 +5618,7 @@ Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
 Practical steps, records and official guidance on bookkeeping and close.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+1 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -5604,9 +5707,9 @@ Keep most business records for 5 years. Keep records for depreciating assets and
 
 Do not apply one blanket retention date to every document.
 
-Record keeping for business · Overview of record-keeping rules for business
+Record keeping for business · Overview of record-keeping rules for business · Records you need to keep for longer than five years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 55
 
@@ -5717,6 +5820,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 54: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q54
 - Overview of record-keeping rules for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business
+- Records you need to keep for longer than five years: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business/overview-of-record-keeping-rules-for-business/records-to-keep-longer-than-five-years
 - Link to question 55: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q55
 - Link to question 56: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q56
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
@@ -6212,7 +6316,7 @@ Source: https://duguid.com.au/tools/accounting-questions/company-compliance/
 
 Practical steps, records and official guidance on companies and trusts.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -6243,7 +6347,7 @@ The example does not determine eligibility merely from accounting profit.
 
 Corporate tax measures and assurance · Changes to company tax rates · Company tax and franking example
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 81
 
@@ -6251,14 +6355,16 @@ Link to question 81
 
 ### How should I record money paid to a director as wages, dividends or a loan?
 
-Record a director payment according to its legal basis and supporting documents.
+Wages and director’s fees are assessable income to you, and the company must withhold PAYG from them. A loan to a shareholder or their associate can be treated as a dividend under Division 7A unless it is repaid, or put under a complying written agreement, before the company’s lodgment day. Record a director payment according to its legal basis and supporting documents.
 
 - Gather payroll records, dividend documents or loan terms and trace each payment.
 - Review withholding, super, franking and Division 7A consequences before posting or reclassifying it.
 
 Changing the ledger label does not change the underlying transaction.
 
-Corporate tax measures and assurance · Company tax and franking example
+Corporate tax measures and assurance · Using business money and assets · Types of payments to employees · Loans by private companies · Company tax and franking example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 82
 
@@ -6266,14 +6372,16 @@ Link to question 82
 
 ### Does taking money out of my company create a Division 7A problem?
 
-Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
+It can. A payment, loan or forgiven debt from a private company to a shareholder or their associate can be treated as a dividend under Division 7A, generally unfranked. A loan avoids this if it is fully repaid, or put under a complying written agreement, before the company’s lodgment day. Review company payments, loans and debt forgiveness involving shareholders or associates under Division 7A.
 
 - Reconcile the person’s account and gather agreements, dates and repayment evidence.
 - Use the existing review case to organise the evidence and identify unresolved legal questions.
 
 The repayment worksheet does not decide whether a loan is complying or whether a deemed dividend arises.
 
-Private company benefits - Division 7A dividends · Division 7A review case and limitations
+Private company benefits - Division 7A dividends · Loans by private companies · Division 7A review case and limitations
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 83
 
@@ -6290,7 +6398,7 @@ Eligibility, amalgamation and repayment classification must already have been re
 
 Private company benefits - Division 7A dividends · Division 7A benchmark interest rate on this site · Division 7A review case and limitations
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 84
 
@@ -6298,14 +6406,16 @@ Link to question 84
 
 ### Which payments count as repayments of a Division 7A loan?
 
-Review the source, timing and surrounding arrangements for each proposed repayment.
+A repayment may not count if you reborrow a similar or larger amount from the company afterwards, or use money borrowed from the company to make it. A dividend can be set off against a minimum yearly repayment only if both exist and the offset is agreed by the end of the income year, usually 30 June. Review the source, timing and surrounding arrangements for each proposed repayment.
 
 - Trace the payment through bank and loan records and identify any reborrowing or circular movement.
 - Document the section 109R review and qualifying amount before using the minimum repayment worksheet.
 
 A credit to a director loan account is not automatically a qualifying Division 7A repayment.
 
-Private company benefits - Division 7A dividends · Division 7A review case and limitations
+Private company benefits - Division 7A dividends · Division 7A myths debunked · Division 7A review case and limitations
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 85
 
@@ -6313,14 +6423,16 @@ Link to question 85
 
 ### What must a family trust document before distributing income at year-end?
 
-Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
+A resolution making beneficiaries presently entitled to trust income is only effective for tax if it is made by 30 June, or earlier if the deed requires. If it isn’t effective, the trustee or other beneficiaries may be assessed instead, and a trustee may be taxed at the top rate. Build the distribution file from the deed, beneficiary position, income calculation and trustee decision.
 
 - Check the deed and timing requirements, prepare the relevant income and distribution schedules, and retain resolutions.
 - Use the existing trust example to separate arithmetic from missing documents and unresolved entitlement.
 
 The tool cannot validate a deed or cure a late or ineffective trustee decision.
 
-Trusts · Trust distributions example
+Trusts · Trustee resolutions · Trust distributions example
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 86
 
@@ -6328,14 +6440,16 @@ Link to question 86
 
 ### How do dividends and franking credits affect my tax return?
 
-Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
+A franking credit is tax the company has already paid on the dividend. Include the dividend and franking credit in your return; the credit reduces your tax, and an eligible individual gets any excess refunded. If your franking credits for the year total $5,000 or more, you must have held the shares at risk for at least 45 days (90 for preference shares). Reconcile the dividend statement to cash received, the franked or unfranked amount and franking credits.
 
 - Record any foreign, trust or other adjustments and the relevant holding period evidence.
 - Use the ATO investment and imputation guidance to determine what appears in the return.
 
 A stated franking credit does not automatically establish entitlement to use the offset.
 
-Investments and assets
+Investments and assets · Refund of franking credits for individuals
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 87
 
@@ -6343,16 +6457,16 @@ Link to question 87
 
 ### Does providing a company car or paying an employee’s private expenses create FBT?
 
-It can. A company car available for an employee’s private use and payment of an employee’s private expenses are both fringe benefits. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
+It can. FBT applies if a company car is used or available for an employee’s private use, and reimbursing or paying for an expense an employee incurs can be an expense payment fringe benefit. FBT is 47% of the grossed-up taxable value for FBT years ending 31 March. Identify the benefit, recipient, private use and FBT year before valuing anything.
 
 - Gather vehicle records or expense invoices, employee contributions and any claimed exemption evidence.
 - Apply the appropriate valuation method and reconcile the resulting taxable value to the FBT workpaper.
 
 The existing worksheet grosses up supplied taxable values; it does not decide whether a benefit or exemption exists.
 
-Fringe benefits tax (FBT) · FBT rate and gross-up rates on this site · Experimental tax worksheets and supported years
+Fringe benefits tax (FBT) · FBT rate and gross-up rates on this site · How FBT applies to cars · Expense payment fringe benefits · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 88
 
@@ -6360,14 +6474,16 @@ Link to question 88
 
 ### What information do I need to prepare an ATO payment plan proposal?
 
-Prepare a proposal that shows how the debt and ongoing obligations could be paid.
+A payment plan must clear the debt in the shortest possible fixed period, with weekly, fortnightly or monthly instalments. General interest charge keeps accruing daily, you must pay new tax debts on time, and income tax and activity statement debts need separate plans. Prepare a proposal that shows how the debt and ongoing obligations could be paid.
 
 - Reconcile the ATO debt, outstanding lodgements and available cash, and prepare a realistic payment forecast.
 - Use the ATO support route to discuss terms and retain any accepted arrangement.
 
 A forecast does not establish acceptance, interest relief or removal of other obligations.
 
-Paying the ATO · 13-week cash forecast
+Paying the ATO · Payment plans · 13-week cash forecast
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 89
 
@@ -6375,14 +6491,16 @@ Link to question 89
 
 ### Could my related businesses be grouped together for NSW payroll tax?
 
-Assess the relationships between businesses against the NSW grouping rules.
+Businesses can be grouped for NSW payroll tax through related corporations, common employees, common control, tracing of interests, phoenix operators or subsuming smaller groups. Only one group member claims the tax-free threshold, against the group’s combined wages. Assess the relationships between businesses against the NSW grouping rules.
 
 - Prepare an ownership and control diagram, shared-employee details and financial relationships.
 - Document each grouping test and any exclusion application, then reconcile group wages.
 
 Separate company names or accounts do not by themselves prevent payroll tax grouping.
 
-Revenue NSW payroll tax
+Revenue NSW payroll tax · What is payroll tax grouping?, Revenue NSW
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 90
 
@@ -6410,26 +6528,36 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Changes to company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rate-changes
 - Company tax and franking example: https://duguid.com.au/tools/company-tax-franking/
 - Link to question 81: https://duguid.com.au/tools/accounting-questions/company-compliance/#q81
+- Using business money and assets: https://www.ato.gov.au/tax-and-super-professionals/for-tax-professionals/prepare-and-lodge/tax-time/tax-time-toolkits/tax-time-toolkit-small-business/small-business-guides/using-business-money-and-assets
+- Types of payments to employees: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/payg-withholding/payments-you-need-to-withhold-from/payments-to-employees/types-of-payments-to-employees
+- Loans by private companies: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-loans
 - Link to question 82: https://duguid.com.au/tools/accounting-questions/company-compliance/#q82
 - Private company benefits - Division 7A dividends: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends
 - Division 7A review case and limitations: https://github.com/ryanduguid/australian-accounting/blob/cb1aaf45198fc7e8083936b398de7b4cf052d992/packages/div7a-loan-review/docs/manager-case-study.md
 - Link to question 83: https://duguid.com.au/tools/accounting-questions/company-compliance/#q83
 - Division 7A benchmark interest rate on this site: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Link to question 84: https://duguid.com.au/tools/accounting-questions/company-compliance/#q84
+- Division 7A myths debunked: https://www.ato.gov.au/businesses-and-organisations/corporate-tax-measures-and-assurance/private-company-benefits-division-7a-dividends/in-detail/division-7a-myths-debunked
 - Link to question 85: https://duguid.com.au/tools/accounting-questions/company-compliance/#q85
 - Trusts: https://www.ato.gov.au/businesses-and-organisations/trusts
+- Trustee resolutions: https://www.ato.gov.au/businesses-and-organisations/trusts/trust-income-losses-and-capital-gains/resolutions-checklist
 - Trust distributions example: https://duguid.com.au/tools/trust-distributions/
 - Link to question 86: https://duguid.com.au/tools/accounting-questions/company-compliance/#q86
 - Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Refund of franking credits for individuals: https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/investing-in-shares/refund-of-franking-credits-for-individuals
 - Link to question 87: https://duguid.com.au/tools/accounting-questions/company-compliance/#q87
 - Fringe benefits tax (FBT): https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax
 - FBT rate and gross-up rates on this site: https://duguid.com.au/rates/fbt-rate/
+- How FBT applies to cars: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/fbt-on-cars-other-vehicles-parking-and-tolls/cars-and-fbt/how-fbt-applies-to-cars
+- Expense payment fringe benefits: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax/types-of-fringe-benefits/expense-payment-fringe-benefits
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 88: https://duguid.com.au/tools/accounting-questions/company-compliance/#q88
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
+- Payment plans: https://www.ato.gov.au/individuals-and-families/paying-the-ato/help-with-paying/payment-plans
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 89: https://duguid.com.au/tools/accounting-questions/company-compliance/#q89
 - Revenue NSW payroll tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax
+- What is payroll tax grouping?, Revenue NSW: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/grouping/what-is-payroll-tax-grouping
 - Link to question 90: https://duguid.com.au/tools/accounting-questions/company-compliance/#q90
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
@@ -6454,7 +6582,7 @@ Source: https://duguid.com.au/tools/accounting-questions/investments-local/
 
 Practical steps, records and official guidance on investments and NSW matters.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -6476,14 +6604,16 @@ All 10 answers are available below. JavaScript adds search, selection and checkl
 
 ### Which expenses can I claim for a rental property?
 
-Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
+You can claim some rental expenses in the year you incur them, such as loan interest, council rates, repairs and maintenance, and depreciating assets costing $300 or less. Capital works, borrowing expenses and dearer depreciating assets are claimed over several years, and expenses are apportioned if you also use the property privately. Separate rental income, private use, borrowing costs, repairs and capital items before claiming expenses.
 
 - Gather agent statements, invoices, loan interest, ownership details and rental availability records.
 - Apportion costs where required and reconcile the deduction schedule to the supporting documents.
 
 The treatment depends on the expense and property use; a rental label alone does not establish deductibility.
 
-Property and land
+Property and land · How to claim rental expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 91
 
@@ -6491,14 +6621,16 @@ Link to question 91
 
 ### Is work on my rental property a repair, an improvement or a depreciating asset?
 
-Review what the work did to the property and when the relevant damage or condition arose.
+Repairs and maintenance are deductible in the year you incur them. Initial repairs for defects that existed when you acquired the property, improvements and replacing an entire unit of property are capital and are claimed over several years. Review what the work did to the property and when the relevant damage or condition arose.
 
 - Keep invoices, scope of work, purchase condition and dates; split distinct components where supported.
 - Assess repair, capital works and depreciating asset treatment separately and update the relevant schedules.
 
 Cost alone does not distinguish a repair from an improvement or initial repair.
 
-Property and land
+Property and land · Repair and maintenance expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 92
 
@@ -6515,7 +6647,7 @@ A sale price minus purchase price calculation can omit material tax adjustments.
 
 Capital gains tax · How to calculate your CGT · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 93
 
@@ -6532,7 +6664,7 @@ The bounded worksheet assumes the gains, losses and discount eligibility have al
 
 Capital gains tax · How to calculate your CGT · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 94
 
@@ -6549,7 +6681,7 @@ The tax treatment depends on the activity and event; this site does not import w
 
 Crypto asset investments · Crypto asset transactions
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 95
 
@@ -6557,14 +6689,16 @@ Link to question 95
 
 ### How do I report ETF distributions and their tax adjustments?
 
-Use the fund’s annual tax statement and any AMMA statement to reconcile the distribution components.
+Declare ETF distributions, including amounts reinvested through a distribution reinvestment plan. Your ETF tax statement, such as an AMMA statement, shows the amounts to report and where, and non-assessable amounts mostly adjust the cost base of your units. Use the fund’s annual tax statement and any AMMA statement to reconcile the distribution components.
 
 - Match cash, reinvestments, capital gains, foreign income and credits to the statement.
 - Record cost base increases or decreases and carry them into the investment register.
 
 Cash received alone can differ from the amount and components that belong in the tax return.
 
-Investments and assets
+Investments and assets · Exchange traded funds · Managed investment trusts
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 96
 
@@ -6572,14 +6706,16 @@ Link to question 96
 
 ### What records does my accountant need for an SMSF annual return and audit?
 
-Prepare the financial records and trustee evidence needed for both the return and the independent audit.
+Trustees must appoint an approved SMSF auditor each year, at least 45 days before the SMSF annual return is due. The auditor needs a statement of financial position and an operating statement before starting, and any requested information within 14 days; the audit must be finished before the return is lodged. Prepare the financial records and trustee evidence needed for both the return and the independent audit.
 
 - Gather bank and investment records, valuations, contributions, pensions, minutes, member balances and supporting agreements.
 - Reconcile opening and closing balances and resolve the auditor’s record requests before finalising the return.
 
 This checklist does not perform an SMSF audit or certify compliance.
 
-ATO self-managed super funds
+ATO self-managed super funds · Your SMSF auditor
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 97
 
@@ -6596,7 +6732,7 @@ Purchase price and one property’s value alone do not establish the full land t
 
 Land tax · Preparing for the 2026 land tax year, Revenue NSW
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 98
 
@@ -6604,7 +6740,7 @@ Link to question 98
 
 ### Does a Hunter Valley coal mining employer pay the Coal LSL levy?
 
-Yes, for eligible employees in the black coal mining industry. Since 1 July 2023, the employer pays Coal LSL 2.7% of each eligible employee’s eligible wages every month. The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee’s eligible wages for the month.
+Yes, for eligible employees in the black coal mining industry. The employer reports and pays the levy monthly, currently 2.7% of each eligible employee’s eligible wages. The levy depends on whether each employee is an eligible employee in the black coal mining industry, then on that employee’s eligible wages for the month.
 
 - List each employee’s role and check it against the Coal LSL eligible employee guidance.
 - Work out each eligible employee’s eligible wages for the month using the section 3B formula that applies.
@@ -6613,7 +6749,7 @@ The calculator does not decide whether an employee is eligible; it calculates th
 
 Coal LSL levy returns and payments · Coal LSL levy calculator
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 99
 
@@ -6630,7 +6766,7 @@ Location or software certification alone does not demonstrate the quality of adv
 
 TPB register of tax and BAS agents
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 100
 
@@ -6655,7 +6791,9 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Property and land: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land
+- How to claim rental expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/how-to-claim-rental-expenses
 - Link to question 91: https://duguid.com.au/tools/accounting-questions/investments-local/#q91
+- Repair and maintenance expenses: https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land/residential-rental-properties/rental-expenses/repair-and-maintenance-expenses
 - Link to question 92: https://duguid.com.au/tools/accounting-questions/investments-local/#q92
 - Capital gains tax: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax
 - How to calculate your CGT: https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/calculating-your-cgt/how-to-calculate-your-cgt
@@ -6666,8 +6804,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Crypto asset transactions: https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/transactions-acquiring-and-disposing-of-crypto-assets/crypto-asset-transactions
 - Link to question 95: https://duguid.com.au/tools/accounting-questions/investments-local/#q95
 - Investments and assets: https://www.ato.gov.au/individuals-and-families/investments-and-assets
+- Exchange traded funds: https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/exchange-traded-funds
+- Managed investment trusts: https://www.ato.gov.au/individuals-and-families/investments-and-assets/shares-funds-and-trusts/managed-investment-trusts
 - Link to question 96: https://duguid.com.au/tools/accounting-questions/investments-local/#q96
 - ATO self-managed super funds: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf
+- Your SMSF auditor: https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-administration-and-reporting/your-smsf-auditor
 - Link to question 97: https://duguid.com.au/tools/accounting-questions/investments-local/#q97
 - Land tax: https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax
 - Preparing for the 2026 land tax year, Revenue NSW: https://www.revenue.nsw.gov.au/news-media-releases/preparing-for-the-2026-land-tax-year

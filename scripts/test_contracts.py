@@ -1780,6 +1780,44 @@ def test_question_faq_pairs() -> None:
     print("question FAQ pairs passed")
 
 
+def test_question_answers() -> None:
+    """Tax and compliance answers open with a checked fact; process topics need none."""
+    rel = "tools/accounting-questions/gst-bas/index.html"
+    checked = (
+        '<main><details class="question" id="q37"><summary><h3>When is BAS due?</h3></summary>'
+        '<div class="question-answer"> <p><strong>Quarterly BAS is due on 28 October.</strong> '
+        'Use your account date.</p><p class="question-links"><a href="https://www.ato.gov.au/">'
+        'ATO</a></p><p class="field-note">The bold answer was checked on 27 September 2026.</p>'
+        "</div></details></main>"
+    )
+    unchecked = changed_text(checked, "<strong>Quarterly BAS is due on 28 October.</strong> ", "")
+    unlinked = changed_text(checked, 'href="https://www.ato.gov.au/"', 'href=""')
+    cases = {
+        "checked answer": (checked, rel, None),
+        "answer without a checked fact": (
+            unchecked,
+            rel,
+            f"{rel}: question 37 must open with a checked answer",
+        ),
+        "fact source missing from the data": (
+            unlinked,
+            rel,
+            f"{rel}: question 37 links a source missing from the data",
+        ),
+        "rendered page without questions": ("<main></main>", rel, f"{rel}: no questions found"),
+        "unrendered source stub": ("---\nlayout: question-topic\n---\n", rel, None),
+        "process topic": (unchecked, "tools/accounting-questions/cash-flow/index.html", None),
+    }
+    for label, (html, page, expected) in cases.items():
+        failures: list[str] = []
+        contracts.check_question_answers(html, page, failures)
+        if expected is None:
+            assert_clean(label, failures)
+        else:
+            expect_failure(label, failures, expected)
+    print("question answers passed")
+
+
 def test_machine_index_copy() -> None:
     """The normal build refreshes the alias and detects missing or stale copies."""
     with copied_site() as root:
@@ -2456,6 +2494,7 @@ def main() -> None:
     test_machine_index_copy()
     test_llms_full_extraction()
     test_question_faq_pairs()
+    test_question_answers()
     test_consolidation_review_dates()
     test_current_component_metadata()
     test_parked_consultancy_surface()

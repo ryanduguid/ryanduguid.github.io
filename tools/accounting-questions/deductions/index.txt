@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/deductions/
 
 Practical steps, records and official guidance on deductions.
 
-Source review: 11 September 2026. Page updated 26 September 2026.
+10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
 
 Search or build a checklist
 
@@ -39,7 +39,7 @@ Eligibility, rates and record requirements must be checked for the year; this si
 
 Deductions you can claim · Working from home fixed rate method · Business use apportionment calculator
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 11
 
@@ -47,14 +47,16 @@ Link to question 11
 
 ### What records do I need to support my working-from-home claim?
 
-Keep evidence of hours and costs that supports the particular working-from-home method you use.
+For the fixed rate method, keep a record of the actual hours you work from home for the whole year, such as a timesheet, roster or diary, because estimates are not accepted. Also keep at least one record, such as a bill, for each running expense the rate covers. Keep evidence of hours and costs that supports the particular working-from-home method you use.
 
 - Record dates and hours throughout the required period and retain bills or receipts.
 - Keep a note of the method, year, work use basis and costs excluded to prevent double claims.
 
 A reconstructed estimate may not meet the ATO’s requirements for your method.
 
-Deductions you can claim
+Deductions you can claim · Working from home fixed rate method
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 12
 
@@ -71,7 +73,7 @@ Vehicle type, ownership and entity structure can change which methods are availa
 
 Deductions you can claim · Cents per kilometre rates on this site · Cents-per-kilometre rate table and method
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 13
 
@@ -79,14 +81,16 @@ Link to question 13
 
 ### How do I keep a valid vehicle logbook?
 
-A useful logbook records each business trip and lets another person check the business use percentage.
+A logbook must cover at least 12 continuous weeks and be broadly representative of your travel. It stays valid for 5 years, but you need a new 12-week logbook if your circumstances change. A useful logbook records each business trip and lets another person check the business use percentage.
 
 - Record the required trip dates, odometer readings, distance and business purpose.
 - Keep opening and closing odometer readings and review whether changed use requires a new logbook.
 
 Check the ATO’s required recording period and validity conditions before relying on the logbook.
 
-Deductions you can claim · Cents-per-kilometre rate table and method
+Deductions you can claim · Logbook method · Cents-per-kilometre rate table and method
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 14
 
@@ -94,14 +98,16 @@ Link to question 14
 
 ### How do I calculate the work-related share of phone and internet expenses?
 
-Apply a supported work use percentage to eligible phone and internet costs.
+Work out your work use percentage on a reasonable basis over a continuous 4-week period, using an itemised bill or your own record of work and private calls and internet use, then apply it to the whole income year. Apply a supported work use percentage to eligible phone and internet costs.
 
 - Gather bills and a representative usage record that distinguishes private from work use.
 - Use the business use calculator and retain the usage calculation with the result.
 
 Do not separately claim costs already covered by your chosen working-from-home method.
 
-Deductions you can claim · Business use apportionment calculator
+Deductions you can claim · Mobile phone, mobile internet and other devices · Business use apportionment calculator
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 15
 
@@ -118,7 +124,7 @@ The depreciation worksheet covers a bounded ordinary first-year method; it does 
 
 Deductions you can claim · Assets costing $300 or less · Instant asset write-off · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 16
 
@@ -126,14 +132,16 @@ Link to question 16
 
 ### Which work clothing, uniforms and laundry expenses can I claim?
 
-Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
+You can claim clothing that is protective, a compulsory uniform, a registered non-compulsory uniform, or occupation-specific and not conventional. Laundry can be worked out at $1 a load of work clothing only, or 50 cents a load if mixed, and a laundry claim of $150 or less needs no written evidence. Work clothing claims depend on the type of clothing and its connection to your work. Wearing ordinary clothes at work does not establish a claim.
 
 - Separate protective clothing, qualifying uniforms, occupation-specific clothing and ordinary items.
 - Retain purchases and a supportable laundry calculation, with any reimbursement recorded.
 
 Check the ATO category and evidence requirements before adding an amount to the return.
 
-Deductions you can claim
+Deductions you can claim · Clothing, laundry and dry-cleaning expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 17
 
@@ -141,14 +149,16 @@ Link to question 17
 
 ### Can I claim course fees, professional memberships and self-education expenses?
 
-Check how the course or membership relates to your current income-earning activities.
+Self-education is deductible when it maintains or improves the specific skills or knowledge you need for your current employment, or is likely to increase your income from it. Check how the course or membership relates to your current income-earning activities.
 
 - Keep invoices, course details, the work connection and any employer reimbursement.
 - Split private components and costs of gaining a new occupation from costs relevant to current work for review.
 
 A professional label or employer recommendation alone does not settle the tax treatment.
 
-Deductions you can claim
+Deductions you can claim · Self-education expenses
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 18
 
@@ -156,14 +166,16 @@ Link to question 18
 
 ### What can I claim if I have lost the receipt?
 
-Try to replace missing evidence before deciding whether a claim can be supported.
+If your total work-related expense claim is $300 or less, you can claim it without written evidence, but you must be able to show how you worked it out. Keep any written evidence for 5 years from the date you lodge your return. Try to replace missing evidence before deciding whether a claim can be supported.
 
 - Request duplicate invoices or download supplier records and match them to payment evidence.
 - Write down the expense, work purpose, missing record and the ATO evidence rule you relied on.
 
 A bank statement or a general receipt exception does not automatically support every claim.
 
-ATO income, deductions and records
+ATO income, deductions and records · Records you need to keep
+
+The bold answer was checked on 27 September 2026.
 
 Link to question 19
 
@@ -178,9 +190,9 @@ Yes, if your aggregated turnover is under $10 million and you use the simplified
 
 The ordinary depreciation worksheet does not determine instant asset write-off eligibility.
 
-Starting, registering or closing a business · Instant asset write-off · Experimental tax worksheets and supported years
+Starting, registering or closing a business · Instant asset write-off · $20,000 instant asset write-off, new legislation · Experimental tax worksheets and supported years
 
-The bold answer was checked on 24 September 2026.
+The bold answer was checked on 27 September 2026.
 
 Link to question 20
 
@@ -211,17 +223,23 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 12: https://duguid.com.au/tools/accounting-questions/deductions/#q12
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
 - Link to question 13: https://duguid.com.au/tools/accounting-questions/deductions/#q13
+- Logbook method: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/cars-transport-and-travel/motor-vehicle-and-car-expenses/expenses-for-a-car-you-own-or-lease/logbook-method
 - Link to question 14: https://duguid.com.au/tools/accounting-questions/deductions/#q14
+- Mobile phone, mobile internet and other devices: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/mobile-phone-mobile-internet-and-other-devices
 - Link to question 15: https://duguid.com.au/tools/accounting-questions/deductions/#q15
 - Assets costing $300 or less: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/tools-computers-and-items-you-use-for-work/depreciating-assets-you-use-for-work/assets-costing-300-dollars-or-less
 - Instant asset write-off: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/depreciation-and-capital-expenses-and-allowances/simpler-depreciation-for-small-business/instant-asset-write-off
 - Experimental tax worksheets and supported years: https://github.com/ryanduguid/australian-accounting/tree/main/packages/australian-tax-calculators
 - Link to question 16: https://duguid.com.au/tools/accounting-questions/deductions/#q16
+- Clothing, laundry and dry-cleaning expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/clothes-and-items-you-wear-at-work/clothing-laundry-and-dry-cleaning-expenses
 - Link to question 17: https://duguid.com.au/tools/accounting-questions/deductions/#q17
+- Self-education expenses: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/education-training-and-seminars/self-education-expenses
 - Link to question 18: https://duguid.com.au/tools/accounting-questions/deductions/#q18
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
+- Records you need to keep: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/records-you-need-to-keep
 - Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
+- $20,000 instant asset write-off, new legislation: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off
 - Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
