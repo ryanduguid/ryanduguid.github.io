@@ -1,0 +1,73 @@
+{
+  "source": "ryanduguid/au-tax-rates-data",
+  "commit": "a715e4cdc846a0b774f466fd4dac71cb91155f22",
+  "records": {
+    "car-limit-2026-27": {
+      "sha256": "e0c586e018948ca5a8f6fd743c6e8d2c798d8b8c538ef3cd0f656f5d14c36dd2",
+      "value": 69883
+    },
+    "cents-per-km-2026-27": {
+      "sha256": "1a8a743c04d55695a905092ea2216d4f658b25150d31db7bece76e87f40f5236",
+      "value": 91
+    },
+    "div7a-benchmark-rate-2026-27": {
+      "sha256": "15d3e8975e22679f11cf537633b161c016c6651421b092d353ec325990a31394",
+      "value": 8.77
+    },
+    "fbt-rate": {
+      "sha256": "d30236f535adeb4693881faff1c551086475398d0273320cd417e5a4120fad1d",
+      "value": 47
+    },
+    "gst-registration-threshold": {
+      "sha256": "049d502ef497f8ae80934ada1dad7c86aac3401a028c0410e5831b37fa47111d",
+      "value": 75000
+    },
+    "instant-asset-write-off-threshold": {
+      "sha256": "97bcd00c181d87b7e3c46cd35888867f4a5a917b023736b65d545abdd082ee3b",
+      "value": 20000
+    },
+    "medicare-levy-rate": {
+      "sha256": "7b861a3d4a4449d5d6a7696d2d3fbd2ae8bf717152e98b73f45b36f2d67ff599",
+      "value": 2
+    },
+    "resident-tax-rates-2026-27": {
+      "sha256": "bcc76e318103a96ab9fd7bca71025cb9441567f436e2324038ced564bfad5abc",
+      "value": [
+        {
+          "from": 0,
+          "to": 18200,
+          "base_tax": 0,
+          "marginal_rate": 0
+        },
+        {
+          "from": 18201,
+          "to": 45000,
+          "base_tax": 0,
+          "marginal_rate": 15
+        },
+        {
+          "from": 45001,
+          "to": 135000,
+          "base_tax": 4020,
+          "marginal_rate": 30
+        },
+        {
+          "from": 135001,
+          "to": 190000,
+          "base_tax": 31020,
+          "marginal_rate": 37
+        },
+        {
+          "from": 190001,
+          "to": null,
+          "base_tax": 51370,
+          "marginal_rate": 45
+        }
+      ]
+    },
+    "super-guarantee-rate-2026-27": {
+      "sha256": "0d0b3653fa8c3917e4557162843142148e212df59f08a48bfa4315af257959f1",
+      "value": 12
+    }
+  }
+}
