@@ -115,7 +115,6 @@ SOURCE_FLAGS = ("--from", "-p", "--package")
 # uvx --with EXTRA adds a package to the run beside the one it executes, so
 # both are installed and both are read.
 EXTRA_FLAGS = ("--with",)
-PACKAGE_FLAGS = SOURCE_FLAGS + EXTRA_FLAGS
 
 # pip reads the packages from a requirements file, and nothing the gate scans
 # lists them. --require-hashes makes pip refuse any file whose bytes differ

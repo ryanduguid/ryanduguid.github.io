@@ -2909,6 +2909,7 @@ def check_site_contracts(paths: list[Path]) -> list[str]:
     failures.extend(check_authority_surface())
     failures.extend(check_worked_examples())
     failures.extend(check_evaluation_packs())
+    failures.extend(check_xero_evaluation_summary())
     failures.extend(check_task_routes())
     failures.extend(check_privacy_delivery_claims())
     failures.extend(check_collection_hubs())
