@@ -2265,8 +2265,13 @@ input[type="checkbox"] {
   table-layout: fixed;
 }
 
-.comparison-table td:first-child {
-  white-space: normal;
+/* Row headers name each row for screen readers; in these tables they keep the
+   body text style rather than the mono column-caption style. */
+.comparison-table tbody th,
+.outcome-table tbody th {
+  color: var(--colour-ink);
+  font: inherit;
+  letter-spacing: normal;
 }
 
 .comparison-table .comparison-value {

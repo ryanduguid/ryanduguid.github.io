@@ -1,11 +1,8 @@
 <section class="business-calculator" id="cash">
 <form data-calculator="cash">
 <fieldset disabled><legend>13-week cash forecast inputs</legend>
-<div class="form-grid"><label class="field" for="cash-start">First day of week 1<input id="cash-start" name="start-date" type="date" min="1900-01-01" max="9999-10-02" required /></label>
-<label class="field" for="load-cash">Load inputs (replaces the current forecast)<input id="load-cash" type="file" accept=".json,application/json" /></label></div>
-<p class="field-note">Save inputs to a file on your device and load it to continue later. File contents are processed in your browser. A valid file replaces all forecast inputs; an invalid file leaves them intact. Each week covers 7 days from the start date.</p>
-<button type="button" id="save-cash">Save inputs</button>
-<p id="cash-file-status" role="status"></p>
+<div class="form-grid"><label class="field" for="cash-start">First day of week 1<input id="cash-start" name="start-date" type="date" min="1900-01-01" max="9999-10-02" required /></label></div>
+<p class="field-note">Each week covers 7 days from the start date.</p>
 <div class="form-grid"><label class="field" for="cash-opening">Opening bank balance (AUD)<input id="cash-opening" name="opening" type="number" inputmode="decimal" min="-1000000000" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="cash-buffer">Minimum cash buffer (AUD)<input id="cash-buffer" name="buffer" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="cash-week">Original receipt week<input id="cash-week" name="week" type="number" min="1" max="13" step="1" value="1" required /></label>
@@ -40,6 +37,12 @@
 <p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon’s closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
+<fieldset class="cash-files" disabled><legend>Save or load inputs</legend>
+<p class="field-note">Save inputs to a file on this device and load it later to continue. The file is read in your browser, and an invalid file changes nothing.</p>
+<button type="button" id="save-cash">Save inputs</button>
+<label class="field" for="load-cash">Load inputs (replaces the current forecast)<input id="load-cash" type="file" accept=".json,application/json" /></label>
+<p id="cash-file-status" role="status"></p>
+</fieldset>
 </form>
 <h2>How it works</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
 <p>The <a href="/examples/profit-vs-cash-flow/">Lumbridge cash flow case</a> works the same question with a 45-day receipt delay.</p>

@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+27 September 2026 | Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.
 27 September 2026 | The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.
 26 September 2026 | The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.
 26 September 2026 | A live check of every page led to these fixes: calculators and question topics open on their inputs and questions, the phone header scrolls away with the page, reading lines are shorter, standalone links are 44px tall on phones, the cash flow example’s tables fit a phone and each evaluation opens with its result. The review gate keeps one name, page dates read in sentence case, apostrophes are typographic and the investments topic is renamed Investments and NSW.
@@ -47,7 +48,15 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+27 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.10
+27 September 2026 | Payday Super timing | payday-super-checker/v0.1.8
+27 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.10
+27 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.9
+27 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.13
+27 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.5
 27 September 2026 | Trust distribution checks | solomons-sword/v0.1.9
+26 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.8
+26 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.12
 26 September 2026 | Trust distribution checks | solomons-sword/v0.1.8
 26 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.7
 26 September 2026 | Construction WIP schedule | the-wip-tally/v0.1.2
@@ -71,7 +80,15 @@ Published 30 August 2026. Last reviewed 27 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.10: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10
+- payday-super-checker/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.8
+- ato-benchmark-compare/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.10
+- review-ready-gate/v0.1.9: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.9
+- xero-trial-balance-export/v0.1.13: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.13
+- div7a-loan-review/v0.1.5: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.5
 - solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
+- review-ready-gate/v0.1.8: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.8
+- xero-trial-balance-export/v0.1.12: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.12
 - solomons-sword/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.8
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2

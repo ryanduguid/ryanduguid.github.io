@@ -55,9 +55,13 @@ export function fieldErrorMessage(control) {
   if (validity.rangeUnderflow) return rangeMessage(control, control.min, 'min');
   if (validity.rangeOverflow) return rangeMessage(control, control.max, 'max');
   if (validity.stepMismatch) {
-    return Number(control.step) === 0.01
-      ? 'Use no more than two decimal places.'
-      : `Use a multiple of ${control.step}.`;
+    if (Number(control.step) === 1) return 'Enter a whole number.';
+    // A step of 0.01 or .0001 limits decimal places; say how many in words.
+    const places = /^0?\.(0*1)$/.exec(control.step)?.[1].length;
+    const words = ['', 'one', 'two', 'three', 'four'];
+    if (places === 1) return 'Use no more than one decimal place.';
+    if (places) return `Use no more than ${words[places] ?? places} decimal places.`;
+    return `Use a multiple of ${control.step}.`;
   }
   return control.validationMessage;
 }

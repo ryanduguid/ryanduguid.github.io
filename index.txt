@@ -12,7 +12,7 @@ Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 26 September 2026.
+Last reviewed 27 September 2026.
 
 ## Compare profit with cash flow
 
@@ -38,7 +38,7 @@ Reproduce the sample report
 
 Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
 
-More calculators for business planning
+Open the Coal LSL calculator
 
 ### Check a BAS pack before manager review
 
@@ -84,7 +84,7 @@ $192.38
 
 Fictional figures, calculated in your browser. This site’s code sends and stores none of them; the Privacy page covers Cloudflare’s delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
-Open the calculator Review the evidence register
+Open the Coal LSL calculator Open the evidence register
 
 View the fixed calculator example
 
@@ -116,12 +116,11 @@ The evidence supports limited claims about the software, not endorsements or cli
 - Review a month-end close: https://duguid.com.au/tools/monthly-close-controls/
 - Reproduce the sample report: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - Calculate a Coal LSL levy: https://duguid.com.au/tools/coal-lsl-levy/
-- More calculators for business planning: https://duguid.com.au/tools/business-calculators/
 - Check a BAS pack before manager review: https://duguid.com.au/evaluate/manager-review-gate/
 - Open the Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Browse tools by accounting task: https://duguid.com.au/tools/
 - Privacy page: https://duguid.com.au/privacy/
-- Review the evidence register: https://duguid.com.au/evidence/
+- Open the evidence register: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - 5 working rules: https://duguid.com.au/about/#grounding

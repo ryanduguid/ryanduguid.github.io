@@ -171,7 +171,7 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(page.locator('#cash-results tbody tr').first()).toContainText(/28 Sept? 2026/);
   await expect(page.locator('#cash-results tbody tr').nth(1)).toContainText('5 Oct 2026');
-  await expect(page.locator('#cash-results tbody tr').first()).toContainText('-$100.00');
+  await expect(page.locator('#cash-results tbody tr').first()).toContainText('−$100.00');
   const csvDownload = page.waitForEvent('download');
   await form.getByRole('button', { name: 'Download forecast CSV' }).click();
   const csv = await readFile(await (await csvDownload).path(), 'utf8');
@@ -183,6 +183,26 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await expect(page.locator('#cash-file-status')).toContainText('13 weeks');
   await expect(form.getByLabel('Week 1 receipts', { exact: true })).toHaveValue('1000');
   await expect(form.getByRole('button', { name: 'Download forecast CSV' })).toBeEnabled();
+});
+
+test('a cash file load locks saving and loading until the read finishes', async ({ page }) => {
+  await page.goto('/tools/business-calculators/cash/');
+  const locked = page.locator('#cash fieldset:disabled');
+  await expect(locked).toHaveCount(0);
+  // Slow the read so the in-flight state can be observed.
+  await page.evaluate(() => {
+    const read = File.prototype.text;
+    File.prototype.text = function slowText() {
+      return new Promise(resolve => setTimeout(() => resolve(read.call(this)), 1000));
+    };
+  });
+  await page.getByLabel('Load inputs (replaces the current forecast)').setInputFiles({
+    name: 'empty.json', mimeType: 'application/json', buffer: Buffer.from('{}'),
+  });
+  await expect(locked).toHaveCount(2);
+  await expect(page.getByRole('button', { name: 'Save inputs' })).toBeDisabled();
+  await expect(locked).toHaveCount(0);
+  await expect(page.locator('#cash-file-status')).not.toHaveText('Loading saved inputs…');
 });
 
 test('all 100 questions remain readable without JavaScript', async ({ browser }) => {

@@ -26,7 +26,7 @@ test('AI tool comparison keeps all four columns readable', async ({ page }) => {
   const table = page.locator('.comparison-table');
   const geometry = await table.evaluate((element) => ({
     height: element.getBoundingClientRect().height,
-    widths: [...element.querySelectorAll('tbody tr:first-child td')]
+    widths: [...element.querySelectorAll('tbody tr:first-child :is(th, td)')]
       .map((cell) => cell.getBoundingClientRect().width),
   }));
   expect(geometry.widths).toHaveLength(4);

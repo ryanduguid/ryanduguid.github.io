@@ -1,8 +1,11 @@
 const currencyFormat = new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD' });
-const aud = value => currencyFormat.format(value);
+// Page copy writes negatives with the minus sign, U+2212; the CSV keeps ASCII.
+const minus = text => text.replace(/^-/, '−');
+const aud = value => minus(currencyFormat.format(value));
 const dateFormat = new Intl.DateTimeFormat('en-AU', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' });
 const calendarDate = value => dateFormat.format(new Date(`${value}T00:00:00Z`));
-const percent = value => value === null ? 'undefined (zero base)' : `${value.toFixed(2)}%`;
+const percent = value => value === null ? 'undefined (zero base)' : minus(`${value.toFixed(2)}%`);
+const count = (text, noun) => `${Number(text).toLocaleString('en-AU', { maximumFractionDigits: 2 })} ${noun}${Number(text) === 1 ? '' : 's'}`;
 
 function download(text, name, type) {
   const url = URL.createObjectURL(new Blob([text], { type }));
@@ -138,7 +141,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
     }
   }).catch(error => console.warn('WebMCP tool registration failed:', error));
   for (const form of forms) {
-    form.querySelector('fieldset').disabled = false;
+    for (const fieldset of form.querySelectorAll('fieldset')) fieldset.disabled = false;
     // Submit and Save inputs validate the same way: the first invalid field
     // gets an inline message in the page's words and takes focus, instead of
     // the browser bubble that closes on the next tap.
@@ -173,8 +176,9 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
         const file = event.target.files[0];
         if (!file) return;
         // Prevent edits while the file is read; apply only a fully validated scenario.
-        const fieldset = form.querySelector('fieldset');
-        fieldset.disabled = true;
+        // Both fieldsets lock, so a second load or a save cannot run while this file is read.
+        const fieldsets = [...form.querySelectorAll('fieldset')];
+        for (const fieldset of fieldsets) fieldset.disabled = true;
         fileStatus.textContent = 'Loading saved inputs…';
         try {
           if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
@@ -188,7 +192,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
           invalidate();
           fileStatus.textContent = 'Inputs loaded. Calculate to refresh the results.';
         } catch (error) { fileStatus.textContent = error.message; }
-        finally { fieldset.disabled = false; event.target.value = ''; }
+        finally { for (const fieldset of fieldsets) fieldset.disabled = false; event.target.value = ''; }
       });
     }
 
@@ -234,7 +238,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
             break;
           }
           case 'hourly':
-            message = `Inputs: annual costs ${money('cost')}, target profit ${money('profit')}, ${value('hours')} billable hours. Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
+            message = `Inputs: annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}. Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
             break;
           case 'variance': {
             const r = calculate.variance(value('actual'), value('budget'), value('kind'));
@@ -243,7 +247,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
           }
           case 'loan': {
             const r = calculate.loan(value('principal'), value('rate'), value('months'));
-            message = `Inputs: principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${value('months')} monthly payments. Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
+            message = `Inputs: principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}. Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
             break;
           }
           case 'staff': {
@@ -255,7 +259,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
             const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
             const dates = calculate.cashWeekDates(value('start-date'));
             const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
-            message = `Inputs: week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${value('delay')} weeks. Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
+            message = `Inputs: week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${count(value('delay'), 'week')}. Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
             const body = form.querySelector('#cash-results tbody');
             body.replaceChildren();
             for (const row of r.rows) {

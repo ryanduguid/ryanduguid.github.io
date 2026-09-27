@@ -33,7 +33,10 @@ FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />'
-SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260927" />'
+SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260927b" />'
+# The calculator and question pages add a third stylesheet with the same key, so a
+# stylesheet change reaches returning visitors instead of waiting out the CSS cache.
+ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927b" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (
@@ -819,6 +822,12 @@ def check_document_delivery(root: Path, baseline: dict[str, Any]) -> list[str]:
             or token_at > site_at
         ):
             failures.append(f"{rel}: expected one tokens stylesheet before site stylesheet")
+        if "/assets/accounting-pages.css" in raw and (
+            raw.count(ACCOUNTING_LINK) != 1 or head.count(ACCOUNTING_LINK) != 1
+        ):
+            failures.append(
+                f"{rel}: expected one versioned accounting stylesheet: {ACCOUNTING_LINK}"
+            )
         if raw.count(LLMS_VISIBLE) != 1 or footer.count(LLMS_VISIBLE) != 1:
             failures.append(f"{rel}: expected one visible machine-readable index link")
         alternate = (

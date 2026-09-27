@@ -1,6 +1,9 @@
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
 function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {}) {
   const text = typeof value === 'string' ? value.trim() : '';
+  // A number field accepts exponent notation such as 1e3; ask for digits instead
+  // of blaming decimal places the entry does not have.
+  if (!/^-?\d+(?:\.\d+)?$/.test(text)) throw new Error('Enter a number using digits only.');
   if (!new RegExp(`^-?\\d+(?:\\.\\d{1,${places}})?$`).test(text)) {
     throw new Error(`Enter a number with no more than ${places} decimal places.`);
   }
@@ -48,8 +51,11 @@ export function breakEven(fixed, price, variable) {
 }
 
 export function hourlyRate(cost, profit, hours) {
-  const time = Math.round(number(hours, { min: 0.01, max: 8784 }) * 100);
-  return { rate: ratioMoney(BigInt(cents(cost) + cents(profit)) * 100n, BigInt(time)) };
+  const time = BigInt(Math.round(number(hours, { min: 0.01, max: 8784 }) * 100));
+  // A required rate rounds up to the cent, as break-even rounds units up, so the
+  // rate times the hours always covers costs plus profit.
+  const numerator = BigInt(cents(cost) + cents(profit)) * 100n;
+  return { rate: Number((numerator + time - 1n) / time) / 100 };
 }
 
 export function variance(actual, budget, kind) {

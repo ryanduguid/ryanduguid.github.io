@@ -73,6 +73,18 @@ test('hourly pricing uses billable hours and annual target profit', () => {
   assert.throws(() => hourlyRate('80000', '20000', '0'));
 });
 
+test('a required hourly rate rounds up so the hours cover costs and profit', () => {
+  // $100 over 3 hours is 33.333...: the nearest cent, 33.33, would recover $99.99.
+  assert.equal(hourlyRate('100', '0', '3').rate, 33.34);
+  assert.equal(hourlyRate('100000', '0', '2999').rate, 33.35);
+  assert.ok(hourlyRate('100000', '0', '2999').rate * 2999 >= 100000);
+});
+
+test('exponent notation asks for digits rather than blaming decimal places', () => {
+  assert.throws(() => hourlyRate('1e3', '0', '10'), /Enter a number using digits only\./);
+  assert.throws(() => hourlyRate('100.005', '0', '10'), /no more than 2 decimal places/);
+});
+
 test('variance changes favourability for costs and keeps zero budget undefined', () => {
   assert.deepEqual(variance('120', '100', 'income'), { difference: 20, percent: 20, effect: 'Favourable' });
   assert.equal(variance('120', '100', 'cost').effect, 'Unfavourable');

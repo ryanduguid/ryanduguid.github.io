@@ -195,6 +195,31 @@ def check_sitemap(
     if len(listed) != len(set(listed)):
         failures.append("sitemap.xml: duplicate <loc> entries")
 
+    # Search engines use lastmod only while it proves accurate, so every indexable
+    # page's lastmod must equal the one dateModified its structured data declares.
+    for path in paths:
+        rel = path.relative_to(root).as_posix()
+        if rel in not_indexed:
+            continue
+        url = site_url(rel, site)
+        html = path.read_text(encoding="utf-8")
+        # An unrendered Jekyll page takes its structured data from a layout at build
+        # time, so only the built site carries a date to compare for it.
+        if html.startswith("---") and "application/ld+json" not in html:
+            continue
+        modified = {
+            str(node["dateModified"])
+            for block in json_ld_blocks(html, rel, [])
+            for node in nodes(block)
+            if "dateModified" in node
+        }
+        lastmods = sitemap_lastmods(url, root)
+        if len(modified) != 1 or lastmods != sorted(modified):
+            failures.append(
+                f"sitemap.xml: {url} lastmod {lastmods!r} does not match "
+                f"its dateModified {sorted(modified)!r}"
+            )
+
     llms = (root / "llms.txt").read_text(encoding="utf-8")
     for url in sorted(expected_llms):
         if url not in llms:
