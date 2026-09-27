@@ -77,8 +77,14 @@ test('the manifest binds the result to its inputs and evidence', () => {
   assert.equal(body.manifest.rate_table_uris.length, 1);
   assert.equal(body.manifest.rate_table_uris[0].sha256, register.rateSha256);
   assert.equal(body.manifest.method.sha256, register.methodsSha256);
+  // LodgeiT's publishing standard asks for the rounding policy beside the
+  // rate-table hashes, and for the advisory to say which rounding rules apply.
+  const keys = Object.keys(body.manifest);
+  assert.equal(body.manifest.rounding_policy, 'half_up_cent_final_step');
+  assert.equal(keys.indexOf('rounding_policy'), keys.indexOf('rate_table_uris') + 1);
   assert.equal(body.rate.review, 'automated-retrieval');
   assert.ok(body.advisory.notes.some((note) => note.includes('not a lodgement figure')));
+  assert.ok(body.advisory.notes.some((note) => note.includes('rule 3 applies') && note.includes('Rules 5, 6 and 7 do not apply')));
 });
 
 test('levy rounding agrees with exact BigInt half-up across quarter-cent positions', () => {

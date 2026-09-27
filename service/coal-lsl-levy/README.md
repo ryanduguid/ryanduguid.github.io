@@ -57,8 +57,10 @@ pay components it would discard are refused.
 
 Formula B retains quarter cents. `levy_before_rounding` is exact; the final
 levy rounds half up to cents. That rounding is the calculator's documented
-choice, not a statutory rule. Each amount is capped at `833999930994.53`, with
-an aggregate limit checked separately.
+choice, not a statutory rule. Each manifest names it as `rounding_policy`
+`half_up_cent_final_step`, and the advisory states which rounding rules of
+LodgeiT's publishing standard apply. Each amount is capped at
+`833999930994.53`, with an aggregate limit checked separately.
 
 ## Evidence and coverage
 
