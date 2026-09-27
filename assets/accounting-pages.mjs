@@ -176,8 +176,9 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
         const file = event.target.files[0];
         if (!file) return;
         // Prevent edits while the file is read; apply only a fully validated scenario.
-        const fieldset = form.querySelector('fieldset');
-        fieldset.disabled = true;
+        // Both fieldsets lock, so a second load or a save cannot run while this file is read.
+        const fieldsets = [...form.querySelectorAll('fieldset')];
+        for (const fieldset of fieldsets) fieldset.disabled = true;
         fileStatus.textContent = 'Loading saved inputs…';
         try {
           if (file.size > 65536) throw new Error('Choose a scenario file under 64 KB.');
@@ -191,7 +192,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
           invalidate();
           fileStatus.textContent = 'Inputs loaded. Calculate to refresh the results.';
         } catch (error) { fileStatus.textContent = error.message; }
-        finally { fieldset.disabled = false; event.target.value = ''; }
+        finally { for (const fieldset of fieldsets) fieldset.disabled = false; event.target.value = ''; }
       });
     }
 

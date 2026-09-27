@@ -202,9 +202,14 @@ def check_sitemap(
         if rel in not_indexed:
             continue
         url = site_url(rel, site)
+        html = path.read_text(encoding="utf-8")
+        # An unrendered Jekyll page takes its structured data from a layout at build
+        # time, so only the built site carries a date to compare for it.
+        if html.startswith("---") and "application/ld+json" not in html:
+            continue
         modified = {
             str(node["dateModified"])
-            for block in json_ld_blocks(path.read_text(encoding="utf-8"), rel, [])
+            for block in json_ld_blocks(html, rel, [])
             for node in nodes(block)
             if "dateModified" in node
         }

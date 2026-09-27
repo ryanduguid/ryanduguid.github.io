@@ -1560,6 +1560,36 @@ def test_public_contracts() -> int:
             f"sitemap.xml: {url} lastmod ['2000-01-01'] does not match its dateModified",
         )
 
+    # Source and rendered inputs together: an unrendered Jekyll page has no structured
+    # data until its layout runs, so only the rendered page's dates are compared.
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        site = contracts.SITE
+        stub = root / "stub/index.html"
+        page = root / "page/index.html"
+        stub.parent.mkdir()
+        page.parent.mkdir()
+        stub.write_text("---\nlayout: calculator\n---\n", encoding="utf-8")
+        page.write_text(
+            '<script type="application/ld+json">'
+            '{"@context": "https://schema.org", "dateModified": "2026-09-25"}</script>',
+            encoding="utf-8",
+        )
+        (root / "sitemap.xml").write_text(
+            f"<urlset><url><loc>{site}/stub/</loc>\n    <lastmod>2026-09-01</lastmod></url>"
+            f"<url><loc>{site}/page/</loc>\n    <lastmod>2026-09-12</lastmod></url></urlset>",
+            encoding="utf-8",
+        )
+        (root / "llms.txt").write_text(
+            f"{site}/stub/ {site}/page/ {site}/llms.txt", encoding="utf-8"
+        )
+        (root / "robots.txt").write_text(f"Sitemap: {site}/sitemap.xml", encoding="utf-8")
+        failures, _ = core.check_sitemap([stub, page], site=site, not_indexed=set(), root=root)
+        assert failures == [
+            f"sitemap.xml: {site}/page/ lastmod ['2026-09-12'] does not match "
+            "its dateModified ['2026-09-25']"
+        ], failures
+
     invalid_receipt = '<p>Without a fund receipt date, a line can only be "at risk".</p>'
     expect_failure(
         "categorical missing-receipt claim",
