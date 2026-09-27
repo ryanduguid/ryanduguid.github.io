@@ -4,6 +4,8 @@ Canonical machine index: https://duguid.com.au/llms.txt
 
 Last reviewed 27 September 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
+Licence: the site's own text, data and source code are MIT (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
+
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
 > Ryan Duguid is an accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.

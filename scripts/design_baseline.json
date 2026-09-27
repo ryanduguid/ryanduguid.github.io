@@ -12,106 +12,106 @@
   },
   "json_ld": {
     "about/index.html": [
-      "c0707c2dcf2c0829ddc97bf3c3bd5c9e30fdeedd45b08ef2229cbe11457ab4a5"
+      "12e3f7313095630e23de5beeee7afc0f07393e8cd90a78566557d6d5f7ea44aa"
     ],
     "changelog/index.html": [
-      "9e102364148d1e94ccdfe5b002c642c77f0b99db1746b0475df5ffe0bb871218"
+      "ce7a03f5303c0fa4f836ceebb4bac51d7a6db9a6eb6830fcad9e0094488c63aa"
     ],
     "contact/index.html": [
-      "e9a7d8f9ac30fda01087197d8741a504a67572e87c6a93fd963d4cb36e62ee1d"
+      "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
     ],
     "evaluate/index.html": [
-      "cc0753aae7e4a8a8a59ce62f0cacdd27693b8db08ac79277e804cefa6bb1904e"
+      "c9788b74b2f3a99c9c686dfea2be8ea81147268efbdf5f7e882723b402f0d733"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "b710d6e131b4a20f258a7b74b8702005ca928a29edb71a016fca24e23c49c186"
+      "eee7e0a69b2ae15694180751a3a7ad8a7205a1cca1c1fb0c786d7d215a1b9828"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "6f9c9e2e28c2a43dbe09313e5fcd0fb6397f2a7d3e35faf1a7e8e8410f670f69"
+      "38037b63f0e565f88291371ed7ae1e0252e97c59464bedb4845b473dbe6aed57"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
-      "022fc4506c1392525f2463f6a76a9707e560c4c0e0ef8356ea7bf3402ff040a9"
+      "cb8cf4e29c90907c05ebde77331f741bbf424c2fc04a157cb4fdd5602e7dbbb7"
     ],
     "evidence/index.html": [
-      "c773c18391f0ff6a3b378167c63cb31b647f874697211ebf0784c13eb21ccfd5"
+      "7a625dc78e4356e6993d28e121be954d85928fde26112af29f7bdce555d3e495"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "9db6fac7f366d5b4fbce52cb8b931e14a95885ca8a799c136db8c3121827567d"
+      "44b8c96c41dcf291ef57c14996f5e42fa93dd7fa048dd9228ed1a5de7bb72ded"
     ],
     "index.html": [
-      "d2dcd4be5762d986f3cf4680202bba51882fe3419a258e5a20f49245dbca7872"
+      "bf79aadbc063fc28a31b3432bd96b394f37788154b18d55c5efd2ee71e941f60"
     ],
     "privacy/index.html": [
-      "33fdaef174c0eafb9e55adf9db24a721a3ef704b3ecf09940c2c25f4eccf3afd"
+      "abf813fe607b852d3d6518bed929ba2850e660233f1a6a99fd267126661c19d0"
     ],
     "rates/cents-per-kilometre/index.html": [
-      "b1ec902fa6bcd91b193ee719ec68c645f315b8057461e3bcae89ffc1ad63bd11"
+      "98d1bd2330259541f0cd49d532f661b5ccd615b66ad1e4b5c087777037be4e94"
     ],
     "rates/div7a-benchmark-rate/index.html": [
-      "7ac51d2a26560bd0516d2a1bbcff080f7c6f91d00655d4b73369a0f373c3962b"
+      "44e4304c8e41dcb3e54e345f90fe527d83bd62ed70f02004ca6fdd7229fbe223"
     ],
     "rates/index.html": [
-      "1d3060d9252808157db526a791360ca1ca9ffc1f042c869362a0dcf701a702f5"
+      "7486543eb98a92290b7b5118aea5eb217ca945279113acbabebbfa3362e53e57"
     ],
     "rates/super-guarantee/index.html": [
-      "79d5913c88e7a6edae638c3e4465d31569bae37db7e7f3aa6a6ff61b42a246e6"
+      "4c2ef6c169c8cabe288bbdf1a0a8f957ccacf49a1b51eeb13ffe817fca09883d"
     ],
     "tools/accounting-questions/index.html": [
-      "96bb8083b600346a3bfe8321bd3d235c0f0a81fb43838c793a7276b33639d240"
+      "a1344c95e2d5c671b55fb0e3b84ee7789ad6b15251d4a1dc9088f08629ec4606"
     ],
     "tools/ato-benchmarks/index.html": [
-      "bc72fc7f0b5e8be9b2bb842dac536690ccf4282d0f4408f3d161dda292ba51be"
+      "4a8cc5397fa467957de48a5a0580fa6e49698335c510f581034a033e51b4dcf3"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "0b671040d3ebf2958462926ef3f72bcc210f0ac1e1e8181a058d1cd0bd7ff149"
+      "fa78b67f423e0ef10f19551c027ffc96293330bbaaa9556bb97f104b1036f16c"
     ],
     "tools/business-calculators/index.html": [
-      "141cfab500953f6952d38b426ae4dec4daa04502291972f899b931c213667a7d"
+      "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
     ],
     "tools/coal-lsl-levy/index.html": [
-      "9801bfedccc0b0fb312f0a70bf716ec11203037e937e8fe49c0c82a99225368f"
+      "3a241b0ac51a1c543aaa9d6dd19907c5f96c8f4031327edee8a47e41b9fb3290"
     ],
     "tools/company-tax-franking/index.html": [
-      "767b8c3a8dd30b526239299a9c32c184d9a54915b17757b270bdbf274763803a"
+      "ee1b9ccda634e054350d1dbd08a37381e4f42fd27a607a86fc03948df0717ebe"
     ],
     "tools/index.html": [
-      "abb95fd80ac2bd7e117b6e0919077e925943ea7149f105c77b9ebe13c0dd6122"
+      "8773b9203fb9f922219e107feb35dae46cf6c8c673a39df3ad643993b76e2ae1"
     ],
     "tools/limitations/index.html": [
-      "7199f20e36a6bf0d3947252d44659194477072f7a882d8a00fd310d5f3963782"
+      "8210e1bbda96828b9041186b3bb5d783d15ed041901a01df635f15b1536cab17"
     ],
     "tools/monthly-close-controls/index.html": [
-      "d6461ab9488c6b1c8e411e1d28f68942e2682debd796db177ceac1789b05725d"
+      "4c3ea34e80e0618be6653f8843b35ce4cb36fe60e4ee5d76cce9cabd60a32ee9"
     ],
     "tools/ozzit/index.html": [
-      "76ed783c03845571b3d875ac23c26548e699881879859aed79a1ea246d5345cd"
+      "015e4d0eaa3ec8541750b3975c2e494aa6bf9a56fe54fd2a8ef838efdd936a12"
     ],
     "tools/payday-super/index.html": [
-      "3d4891d5248ec66dc7cba2823bda8bd30bb36bb12de701f5f963edff66d6163e"
+      "8c735bb1eba50b1307ca80bd20751c1f816901bc2951c89512bfbb21e48d7b7c"
     ],
     "tools/refusals/index.html": [
-      "9fc7802698f179808f2c1e0a444d2cb2c1b4c2e6fc624ec08a84a6dd6d327f5f"
+      "b318535d0bcb89e7d3aa11ce6bded7a9360b3e52efcbd8436a01c0424ec2a156"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "7e772fca8ed13ad2399c4b6a0665291e20f9368668952e1005c4692292963c5f"
+      "2496118ae5e21532b1646f895ddff0a2853341a8bdf48c1316079b6f5a38bddb"
     ],
     "tools/trust-distributions/index.html": [
-      "f817df5be973416c1304252d34d5bb75edcb2fab11488a73464aa21410e50509"
+      "f46ab9f3f0d04c35bd36a9c5a5ad1277c0c9a8a3cb5e2f12283a087d8d07bcbf"
     ],
     "tools/wip-schedule/index.html": [
-      "b6d82cab30f1bec6ee2426d8cf8baa36317fb460981d09b1f27e685d285981b8"
+      "666b02100ba49f8bb0cb383350530d3311ad2b6dcc2f137bf3d279bdc46977b9"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "a5b94389c7cd5b35521bbc718a6a5be6c1035431d60b2eb139bff98ebdf7247a"
+      "9c91ea8f1adf5d6b96c9a52ad1aec93140bd48d87917ee4154c192b699954356"
     ],
     "tools/xero-trial-balance/index.html": [
-      "c44c0cba13aa8f11d6293e3580ce9515ba91021c622bd24883be0c8e9f83ec33"
+      "4b34d78a9b600a8d198a0a55d53fefb3b5108441a9e7fd2d76f679d012af8789"
     ]
   },
   "protected_files": {
-    "llms.txt": "7930cd551e7432406ecd93e168c1c2cb0e369508e2f23426be7439d405717b91",
+    "llms.txt": "5af894ae129d23aa0637e8901ae7617b7c3d6476a18d2c4cda041046d71409f8",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "911ffa6048273ab91be998e811cbc7f8579659e68a8357c8327112a6e06936dc"
+    "sitemap.xml": "e47ef20205d5cae479c14d2185aff14aa753d3427b96bc211d2224b6ca4e2a72"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
