@@ -44,7 +44,8 @@ MONTHS = {
 }
 ROW_PATTERN = re.compile(r"<tr\b([^>]*)>(.*?)</tr>", re.S)
 FEED_ID_PATTERN = re.compile(r"""\bdata-feed-id\s*=\s*(["'])(.*?)\1""")
-CELL_PATTERN = re.compile(r"<td>(.*?)</td>", re.S)
+# A dated row names its date in a row header or, in older rows, a plain cell.
+CELL_PATTERN = re.compile(r'<(?:td|th scope="row")>(.*?)</t[dh]>', re.S)
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
 

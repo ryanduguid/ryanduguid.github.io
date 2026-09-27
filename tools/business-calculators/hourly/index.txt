@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/hourly/
 
 Required hourly rate before GST from annual costs, target profit and billable hours.
 
-Published 20 September 2026. Last reviewed 26 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
@@ -20,13 +20,13 @@ Calculate Enter the inputs and calculate.
 
 ## How it works
 
-Required hourly rate = (annual costs + target annual profit) / annual billable hours. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
+Required hourly rate = (annual costs + target annual profit) / annual billable hours, rounded up to the next cent so the hours cover the total. Include owner remuneration in costs if it must be covered before profit. Exclude non-billable time from hours. The result is before GST.
 
 business.gov.au: pricing
 
 One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 

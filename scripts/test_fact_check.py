@@ -170,7 +170,7 @@ class FactCheckTests(unittest.TestCase):
             "tool results and library excerpts",
             "https://duguid.com.au/tools/payday-super/#receipt-amount",
             "Older checkers 0.1.5 and 0.1.6",
-            "the quick trial uses 0.1.7",
+            "the quick trial uses 0.1.8",
             "assume full receipt",
             "0.1.7",
             "outcomes from checker 0.1.3",

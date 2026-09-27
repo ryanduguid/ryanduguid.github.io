@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/break-even/
 
 Whole units and sales required to cover fixed costs from price and variable cost per unit.
 
-Published 20 September 2026. Last reviewed 26 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

@@ -128,7 +128,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.2.9 for ATO benchmarks, Payday Super timing, limited Division 7A "
+        "Local MCP server v0.2.10 for ATO benchmarks, Payday Super timing, limited Division 7A "
         "review, 9 bounded tax worksheets, optional local Markdown search and "
         "synthetic SBR fixtures. Not advice.",
     ),
@@ -585,7 +585,7 @@ HOMEPAGE_PREVIEW_ENTRIES = (
         "/tools/monthly-close-controls/",
         "/tools/monthly-close-controls/#get-it",
     ),
-    ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/", "/tools/business-calculators/"),
+    ("Calculate a Coal LSL levy", "/tools/coal-lsl-levy/", "/tools/coal-lsl-levy/"),
     (
         "Check a BAS pack before manager review",
         "/evaluate/manager-review-gate/",

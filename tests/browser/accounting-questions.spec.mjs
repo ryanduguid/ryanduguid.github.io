@@ -171,7 +171,7 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await form.getByRole('button', { name: 'Calculate', exact: true }).click();
   await expect(page.locator('#cash-results tbody tr').first()).toContainText(/28 Sept? 2026/);
   await expect(page.locator('#cash-results tbody tr').nth(1)).toContainText('5 Oct 2026');
-  await expect(page.locator('#cash-results tbody tr').first()).toContainText('-$100.00');
+  await expect(page.locator('#cash-results tbody tr').first()).toContainText('−$100.00');
   const csvDownload = page.waitForEvent('download');
   await form.getByRole('button', { name: 'Download forecast CSV' }).click();
   const csv = await readFile(await (await csvDownload).path(), 'utf8');

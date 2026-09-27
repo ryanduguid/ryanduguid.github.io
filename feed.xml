@@ -8,11 +8,60 @@
   <updated>2026-09-27T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Tool pages name the releases published by 27 September 2026 with the date che...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-4ba9b722cdd66fef</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.</summary>
+  </entry>
+  <entry>
     <title>The trust distribution page pins its worked example to solomons-sword 0.1.9,...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-05d2f140dbbd059c</id>
     <updated>2026-09-27T00:00:00Z</updated>
     <summary>The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.10</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10" />
+    <id>https://duguid.com.au/changelog/#entry-1e4720727b1d6577</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.10.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-c03739ea588071a5</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.10</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.10" />
+    <id>https://duguid.com.au/changelog/#entry-b9354e4df0ed53a6</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.10.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.1.9</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.9" />
+    <id>https://duguid.com.au/changelog/#entry-4c8e966bfb523095</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.9.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.13</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.13" />
+    <id>https://duguid.com.au/changelog/#entry-34bc57061c0c8c54</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.13.</summary>
+  </entry>
+  <entry>
+    <title>Division 7A loan review div7a-loan-review/v0.1.5</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.5" />
+    <id>https://duguid.com.au/changelog/#entry-2874b3819c24c5f5</id>
+    <updated>2026-09-27T00:00:00Z</updated>
+    <summary>Division 7A loan review: release div7a-loan-review/v0.1.5.</summary>
   </entry>
   <entry>
     <title>Trust distribution checks solomons-sword/v0.1.9</title>
@@ -34,6 +83,20 @@
     <id>https://duguid.com.au/changelog/#entry-049ac31b54b5c3bb</id>
     <updated>2026-09-26T00:00:00Z</updated>
     <summary>A live check of every page led to these fixes: calculators and question topics open on their inputs and questions, the phone header scrolls away with the page, reading lines are shorter, standalone links are 44px tall on phones, the cash flow example’s tables fit a phone and each evaluation opens with its result. The review gate keeps one name, page dates read in sentence case, apostrophes are typographic and the investments topic is renamed Investments and NSW.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-fed8b8e3c016633c</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.12</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.12" />
+    <id>https://duguid.com.au/changelog/#entry-3ea2ed71c75288f7</id>
+    <updated>2026-09-26T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.12.</summary>
   </entry>
   <entry>
     <title>Trust distribution checks solomons-sword/v0.1.8</title>

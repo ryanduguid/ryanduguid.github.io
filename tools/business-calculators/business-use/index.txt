@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/business-calculators/business-use/
 
 Apportion an eligible cost by a supported business use percentage. It does not decide deductibility, depreciation or record sufficiency.
 
-Published 20 September 2026. Last reviewed 26 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 

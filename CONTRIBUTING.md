@@ -33,9 +33,9 @@ The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 
 Stylesheet links carry a shared `v` query value because Cloudflare caches CSS
-for four hours. When changing `assets/tokens.css` or `assets/site.css`, update
-that value in the HTML pages, layouts and `scripts/check_design.py` so the new
-HTML requests fresh CSS. Use the release date, adding a suffix for another
+for four hours. When changing `assets/tokens.css`, `assets/site.css` or
+`assets/accounting-pages.css`, update that value in the HTML pages, layouts and
+`scripts/check_design.py` so the new HTML requests fresh CSS. Use the release date, adding a suffix for another
 release on the same day.
 
 The browser job also runs `npm audit --audit-level=high`, including development

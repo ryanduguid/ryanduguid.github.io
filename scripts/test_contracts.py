@@ -569,8 +569,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 26 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 26 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 27 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 27 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -679,7 +679,7 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "26 September 2026", "2026-09-26"),
+        ("index.html", "27 September 2026", "2026-09-27"),
         ("tools/index.html", "25 September 2026", "2026-09-25"),
         ("evidence/index.html", "25 September 2026", "2026-09-25"),
     )
@@ -1167,8 +1167,8 @@ def test_public_contracts() -> int:
         ),
         (
             "proof evidence route",
-            '<a href="/evidence/">Review the evidence register</a>',
-            '<a href="/missing-evidence/">Review the evidence register</a>',
+            '<a href="/evidence/">Open the evidence register</a>',
+            '<a href="/missing-evidence/">Open the evidence register</a>',
             "proof feature is missing required link /evidence/",
         ),
     )
@@ -1415,8 +1415,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 26 September 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 27 September 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 27 September 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
@@ -1535,6 +1535,29 @@ def test_public_contracts() -> int:
             "machine index in XML sitemap",
             failures,
             "sitemap.xml: lists https://duguid.com.au/llms.txt",
+        )
+
+    with copied_site() as root:
+        # Every page is compared, not a hand-kept list: a page no other test pins
+        # still fails when its lastmod drifts from its dateModified.
+        url = f"{contracts.SITE}/tools/monthly-close-controls/"
+        (lastmod,) = core.sitemap_lastmods(url, root)
+        replace_file(
+            root,
+            "sitemap.xml",
+            f"<loc>{url}</loc>\n    <lastmod>{lastmod}</lastmod>",
+            f"<loc>{url}</loc>\n    <lastmod>2000-01-01</lastmod>",
+        )
+        failures, _ = core.check_sitemap(
+            core.html_files(root),
+            site=contracts.SITE,
+            not_indexed=contracts.NOT_INDEXED,
+            root=root,
+        )
+        expect_failure(
+            "sitemap lastmod drift",
+            failures,
+            f"sitemap.xml: {url} lastmod ['2000-01-01'] does not match its dateModified",
         )
 
     invalid_receipt = '<p>Without a fund receipt date, a line can only be "at risk".</p>'
@@ -2019,7 +2042,8 @@ def test_release_record() -> None:
             "https://github.com/ryanduguid/australian-accounting/releases/tag/"
             "aus-accounting-mcp/v0.2.8"
         )
-        component["pinned_engines"]["australian-tax-calculators"] = "0.1.5"
+        # Simulate 0.2.8 being current: the published pins become the ones it recorded.
+        component["pinned_engines"] = dict(component["documented"]["pinned_engines"])
         assert_clean("matching engine pins", release_record.check_record(root, current))
         replace_file(
             root,

@@ -40,6 +40,13 @@ test('money and plain number limits keep their formats', () => {
   assert.equal(fieldErrorMessage(weeks), 'Enter 12 or less.');
 });
 
+test('step messages name decimal places or whole numbers', () => {
+  assert.equal(fieldErrorMessage(control({ step: '.01', stepMismatch: true })), 'Use no more than two decimal places.');
+  assert.equal(fieldErrorMessage(control({ step: '.0001', stepMismatch: true })), 'Use no more than four decimal places.');
+  assert.equal(fieldErrorMessage(control({ step: '0.1', stepMismatch: true })), 'Use no more than one decimal place.');
+  assert.equal(fieldErrorMessage(control({ step: '1', stepMismatch: true })), 'Enter a whole number.');
+});
+
 test('step and fallback messages are unchanged', () => {
   assert.equal(fieldErrorMessage(control({ step: '0.01', stepMismatch: true })), 'Use no more than two decimal places.');
   assert.equal(fieldErrorMessage(control({ step: '5', stepMismatch: true })), 'Use a multiple of 5.');

@@ -55,6 +55,14 @@
   margin-block: var(--space-6);
 }
 
+/* The header's strong rule already closes it, so the first section needs no
+   second rule a few pixels below, which read as a missing row. */
+.article-header + .accounting-content > .business-calculator:first-of-type,
+.article-header + .accounting-content > .question-controls:first-of-type {
+  border-top: 0;
+  padding-top: 0;
+}
+
 .business-calculator h2 {
   margin-bottom: var(--space-3);
 }
@@ -176,8 +184,13 @@
 
 .cash-scroll table {
   width: 100%;
-  min-width: 30rem;
   font-variant-numeric: tabular-nums;
+}
+
+/* Only the six-column results table needs a scroll width. The three-column
+   input table fits a phone, so every weekly input stays on screen. */
+#cash-results {
+  min-width: 30rem;
 }
 
 .cash-scroll th,
@@ -203,7 +216,7 @@
     display: none;
   }
   .question-answer { padding-inline: 0; }
-  .cash-scroll table { min-width: 0; }
+  #cash-results { min-width: 0; }
 }
 
 .question-index,

@@ -8,17 +8,15 @@ Source: https://duguid.com.au/tools/business-calculators/cash/
 
 Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Published 20 September 2026. Last reviewed 26 September 2026.
+Published 20 September 2026. Last reviewed 27 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
 
 13-week cash forecast inputs
 
-First day of week 1 Load inputs (replaces the current forecast)
+First day of week 1
 
-Save inputs to a file on your device and load it to continue later. File contents are processed in your browser. A valid file replaces all forecast inputs; an invalid file leaves them intact. Each week covers 7 days from the start date.
-
-Save inputs
+Each week covers 7 days from the start date.
 
 Opening bank balance (AUD) Minimum cash buffer (AUD) Original receipt week Receipt to delay (AUD) Delay in whole weeks
 
@@ -43,7 +41,11 @@ Calculate Enter the inputs and calculate.
 
 Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon’s closing balance. To compare scenarios, download each before changing the delay.
 
-Download forecast CSV
+Download forecast CSV Save or load inputs
+
+Save inputs to a file on this device and load it later to continue. The file is read in your browser, and an invalid file changes nothing.
+
+Save inputs Load inputs (replaces the current forecast)
 
 ## How it works
 

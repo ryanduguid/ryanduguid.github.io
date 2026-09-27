@@ -39,9 +39,9 @@
   <link rel="modulepreload" href="/assets/business-calculators.mjs" />
   <link rel="modulepreload" href="/assets/field-errors.mjs" />
   <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260927" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260927b" />
 
-  <link rel="stylesheet" href="/assets/accounting-pages.css" />
+  <link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927b" />
   <script type="module" src="/assets/accounting-pages.mjs"></script>
 </head>
 <body>
@@ -53,13 +53,13 @@
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">Published 20 September 2026. Last reviewed 26 September 2026.</p>
+        <p class="page-meta">Published 20 September 2026. Last reviewed 27 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <noscript><p>JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.</p></noscript>
 {% include calculators/{{ page.calculator }}.html %}
         <p>One of the <a href="/tools/business-calculators/">nine business calculators</a>. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.{% if page.calculator == "cash" %} Use Save inputs to download a local scenario file, then Load inputs to resume it.{% endif %}</p>
-        <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "loan" %}; loan estimates allow for calculation precision{% endif %}.</p>
+        <p class="field-note">Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up{% if page.calculator == "loan" %}; loan estimates allow for calculation precision{% endif %}{% if page.calculator == "hourly" %}; the required hourly rate rounds up to the next cent{% endif %}.</p>
       <p class="byline">
         Written by Ryan Duguid in his own time and on his own equipment.
         He is a Provisional CA ANZ Member.
@@ -79,7 +79,7 @@
       "description": "{{ page.description }}",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-20",
-      "dateModified": "2026-09-26",
+      "dateModified": "2026-09-27",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },
