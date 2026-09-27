@@ -95,15 +95,18 @@ async function run(base) {
   let refusals = 0;
   let validations = 0;
   let notFound = 0;
-  // 4. Each figure must match the fixed-scale pattern the OpenAPI declares.
-  const result = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties ?? {};
-  const scaled = [
-    ['eligible_wages', result.eligible_wages?.pattern],
-    ['levy', result.levy?.pattern],
-    ['levy_before_rounding', result.levy_before_rounding?.pattern],
-    ['rate.value_percent', result.rate?.properties?.value_percent?.pattern],
-  ];
-  let decimalStrings = scaled.every(([, pattern]) => typeof pattern === 'string');
+  // 4. Every figure a response carries must match the fixed-scale pattern the
+  // served OpenAPI declares for it, and the four headline figures must exist.
+  const resultSchema = openapi.body?.components?.schemas?.CoalLslLevyResult;
+  const headline = ['eligible_wages', 'levy', 'levy_before_rounding', 'rate.value_percent'];
+  const valueAt = (node, path) => path.split('.').reduce((value, key) => value?.[key], node);
+  const patternAt = (path) => valueAt(resultSchema, `properties.${path.split('.').join('.properties.')}`)?.pattern;
+  const declaredScalesHold = (schema, value) => {
+    if (value === undefined) return true;
+    if (typeof schema?.pattern === 'string') return typeof value === 'string' && new RegExp(schema.pattern).test(value);
+    return Object.entries(schema?.properties ?? {}).every(([key, child]) => declaredScalesHold(child, value?.[key]));
+  };
+  let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;
   const documentedPolicy = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties?.manifest?.properties?.rounding_policy?.const;
@@ -122,9 +125,8 @@ async function run(base) {
     }
     if (response.status === 200) {
       computed += 1;
-      for (const [path, pattern] of scaled) {
-        const value = path.split('.').reduce((node, key) => node?.[key], body);
-        if (typeof value !== 'string' || typeof pattern !== 'string' || !new RegExp(pattern).test(value)) decimalStrings = false;
+      if (!headline.every((path) => typeof valueAt(body, path) === 'string') || !declaredScalesHold(resultSchema, body)) {
+        decimalStrings = false;
       }
       const manifest = body.manifest ?? {};
       if (!(manifest.calculator && manifest.period && manifest.engine?.version && Array.isArray(manifest.rate_table_uris)
