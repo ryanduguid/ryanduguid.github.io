@@ -76,7 +76,7 @@ def render() -> str:
         parts.append(f"  <p><strong>Expected display:</strong> {html.escape(display)}</p>")
         parts.append(f"  <p><strong>Limits:</strong> {html.escape(example['note'])}</p>")
         parts.append(
-            f'  <p><a href="#fn-{anchor}">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/{html.escape(row["module"], quote=True)}.txt">Released formula source</a></p>'
+            f'  <p><a href="#fn-{anchor}">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/{html.escape(row["module"], quote=True)}.txt">Released formula source<span class="visually-hidden">, {html.escape(example["title"])}</span></a></p>'
         )
         parts.append("</details>")
     return "\n".join(parts) + "\n"

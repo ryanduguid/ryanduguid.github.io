@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/cash-flow/
 
-> Ten questions on cash flow for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on cash flow for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Cash flow
 
-Practical steps, records and official guidance on cash flow. Select questions to build a checklist.
+Practical steps, records and official guidance on cash flow.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Planning method for the dates entered. Include obligations in their expected payment weeks. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Cash flow
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Cash flow
-
-Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks.
 
 61.
 
@@ -85,7 +81,7 @@ Link to question 63
 
 Move the expected receipt to its revised date and compare the lowest cash balance.
 
-- Use the weekly forecast's delayed-receipt controls and retain both scenarios.
+- Use the weekly forecast’s delayed-receipt controls and retain both scenarios.
 - For an exact 30- or 60-day delay, use the existing dated workbook and record any receipt outside its horizon.
 
 The browser scenario accepts whole weeks, so it is not an exact day-based simulation.
@@ -163,7 +159,7 @@ Plan from the seasonal payment and receipt pattern, including the costs incurred
 - Compare prior periods with current orders, staffing and supplier commitments.
 - Stress-test the low season and put any agreed funding or cost changes into the forecast.
 
-A straight average month can conceal the quarter's lowest cash balance.
+A straight average month can conceal the quarter’s lowest cash balance.
 
 Set up a cash flow statement · 13-week cash forecast
 
@@ -184,6 +180,10 @@ Set up a cash flow statement · Budget variance calculator
 
 Link to question 70
 
+Reviewed 11 September 2026. Planning method for the dates entered. Include obligations in their expected payment weeks. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - Starting a business
@@ -192,7 +192,7 @@ Link to question 70
 - Bookkeeping and close
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -200,7 +200,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Set up a cash flow statement: https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement
 - 13-week cash forecast: https://duguid.com.au/tools/business-calculators/cash/
 - Link to question 61: https://duguid.com.au/tools/accounting-questions/cash-flow/#q61
@@ -217,6 +216,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 69: https://duguid.com.au/tools/accounting-questions/cash-flow/#q69
 - Budget variance calculator: https://duguid.com.au/tools/business-calculators/variance/
 - Link to question 70: https://duguid.com.au/tools/accounting-questions/cash-flow/#q70
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -225,4 +225,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Bookkeeping and close: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

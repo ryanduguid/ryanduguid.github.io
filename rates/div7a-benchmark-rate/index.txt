@@ -6,7 +6,7 @@ Source: https://duguid.com.au/rates/div7a-benchmark-rate/
 
 # Division 7A benchmark interest rate
 
-The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
+The benchmark interest rate for the 2026-27 income year is 8.77% for companies with a 30 June year end. Section 109N(2) of the Income Tax Assessment Act 1936 does not name a figure: it points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the income year starts. That makes the rate something you can derive and check yourself.
 
 Rates below are derived from section 109N(2) of the Income Tax Assessment Act 1936 and the Reserve Bank of Australia statistical table F5, Indicator Lending Rates, series FILRHLBVS, Lending rates; Housing loans; Banks; Variable; Standard; Owner-occupier, read 28 August 2026. The May 2026 series value is 8.77% and the May 2025 value is 8.37%. The rates for 2021-22 to 2026-27 were rechecked against the ATO benchmark rate table on 14 September 2026; the earlier rows retain their original review date.
 
@@ -30,15 +30,15 @@ Download the table as CSV. Cite as Duguid, R. (2026). Division 7A benchmark inte
 
 ## How to work it out yourself
 
-Take the Reserve Bank's F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 in the first week after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%. If the company uses a substituted accounting period, apply the same rule to that period's start date instead of 1 July.
+Take the Reserve Bank’s F5 Indicator Lending Rates table and read the bank variable housing loans series for owner-occupiers. The rate for an income year is the last figure published before that year began. The Reserve Bank publishes F5 in the first week after the month it covers, so the last figure published before 1 July is the one for May. For the year that started on 1 July 2026, that is May 2026, which was 8.77%. If the company uses a substituted accounting period, apply the same rule to that period’s start date instead of 1 July.
 
 Reading the June figure instead is the usual mistake, and it changes the answer in a normal year. June 2025 sat at 8.27% while May 2025 sat at 8.37%, and 8.37 is the benchmark rate for 2025-26. Section 109N(2) also leaves room for regulations to set the rate a different way, and none currently do.
 
-The data is at the Reserve Bank's statistical tables, table F5.
+The data is at the Reserve Bank’s statistical tables, table F5.
 
 ## What the rate is for
 
-A loan from a private company to a shareholder or an associate that is still unpaid at the company's lodgment day for the year the loan was made is treated as a dividend unless an exclusion applies. For a loan not otherwise excluded, two relevant paths avoid that result: repaying the loan in full before the lodgment day, or a written agreement made before that day that satisfies section 109N. Section 109N(1) asks for 3 things: a written agreement, a rate of interest for years after the year the loan was made that equals or exceeds that year's benchmark rate, and a term inside the maximum. The minimum yearly repayment is then calculated using the current year's benchmark rate under section 109E. The maximum term is 7 years, or 25 years where the loan is fully secured by a registered mortgage over real property and the property's value, net of prior liabilities, is at least 110% of the loan.
+A loan from a private company to a shareholder or an associate that is still unpaid at the company’s lodgment day for the year the loan was made is treated as a dividend unless an exclusion applies. For a loan not otherwise excluded, two relevant paths avoid that result: repaying the loan in full before the lodgment day, or a written agreement made before that day that satisfies section 109N. Section 109N(1) asks for 3 things: a written agreement, a rate of interest for years after the year the loan was made that equals or exceeds that year’s benchmark rate, and a term inside the maximum. The minimum yearly repayment is then calculated using the current year’s benchmark rate under section 109E. The maximum term is 7 years, or 25 years where the loan is fully secured by a registered mortgage over real property and the property’s value, net of prior liabilities, is at least 110% of the loan.
 
 A higher benchmark rate increases the minimum yearly repayment when the unpaid balance and remaining term are unchanged.
 
@@ -46,7 +46,7 @@ A higher benchmark rate increases the minimum yearly repayment when the unpaid b
 
 ### What is the Division 7A benchmark interest rate for 2026-27?
 
-8.77% for companies with a 30 June year end. It is the Reserve Bank's indicator lending rate for bank variable housing loans last published before 1 July 2026, which was the May 2026 figure.
+8.77% for companies with a 30 June year end. It is the Reserve Bank’s indicator lending rate for bank variable housing loans last published before 1 July 2026, which was the May 2026 figure.
 
 ### What was the benchmark rate for 2025-26?
 
@@ -54,11 +54,11 @@ A higher benchmark rate increases the minimum yearly repayment when the unpaid b
 
 ### Where does the rate come from?
 
-Section 109N(2) of the Income Tax Assessment Act 1936 points at the Reserve Bank's indicator lending rate for bank variable housing loans, the last one published before the start of the income year, unless regulations provide another method. None currently do.
+Section 109N(2) of the Income Tax Assessment Act 1936 points at the Reserve Bank’s indicator lending rate for bank variable housing loans, the last one published before the start of the income year, unless regulations provide another method. None currently do.
 
 ### Does a change in the rate affect loans already on foot?
 
-Yes. The minimum yearly repayment uses that year's benchmark rate, the unpaid balance and the remaining term. A higher rate increases the repayment when the other 2 inputs are unchanged.
+Yes. The minimum yearly repayment uses that year’s benchmark rate, the unpaid balance and the remaining term. A higher rate increases the repayment when the other 2 inputs are unchanged.
 
 ### What is the maximum term for a complying Division 7A loan?
 

@@ -2,7 +2,7 @@
 
 Source: https://duguid.com.au/contact/
 
-> Project links for Ryan Duguid's independently built open source accounting tools. This personal index is not an accounting practice.
+> Project links for Ryan Duguid’s independently built open source accounting tools. This personal index is not an accounting practice.
 
 # Contact
 
@@ -19,8 +19,6 @@ I build these open source accounting tools in my own time, on my own equipment. 
 Tell me which tool or page you used, what you expected and what happened, or where the working is unclear. A useful report names the input, the output and the source behind the figure you expected. Use fictional or supplied synthetic figures only.
 
 For the fictional Newcastle cash flow case, include your Excel version, receipt delay setting and the step you took. Email ryan@duguid.com.au.
-
-Email links work without scripts. If a link does not open your email app, write to ryan at duguid dot com dot au.
 
 For source code, releases and issue trackers, use the linked GitHub repositories.
 

@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/about/
 
-> I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source accounting tools. I'm a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3.
+> I’m Ryan Duguid, a Newcastle, NSW accountant building open source accounting tools. I’m a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3.
 
 # About Ryan Duguid
 
-I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
+I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
@@ -34,7 +34,7 @@ LinkedIn | linkedin.com/in/ryan-duguid
 
 I build accounting tools that let a second person trace the inputs, calculation and review decision. Three examples show the work in different forms:
 
-- Cash flow modelling. The Lumbridge case connects a fictional business's profit, receipt dates and available cash through an Excel forecast and management briefing.
+- Cash flow modelling. The Lumbridge case connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.
 - Month-end review. The accounting review pipeline turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.
 - Excel implementation. Ozzit provides native LAMBDA functions with editable examples and visible arithmetic.
 
@@ -66,9 +66,9 @@ The tools extract records into a reviewable shape, apply deterministic calculati
 
 ## How the work is grounded
 
-I use sources such as the Australian Taxation Office's super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates and review limits.
+I use sources such as the Australian Taxation Office’s super guarantee rate table and the Superannuation Guarantee (Administration) Act 1992. The rate history records the figures, source dates and review limits.
 
-- Primary sources only. Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance or the accounting standard, never from a summary of one.
+- Primary sources only. Rates, thresholds and tests come from Commonwealth legislation, the regulator’s published guidance or the accounting standard, never from a summary of one.
 - Exact currency arithmetic. Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.
 - Refusal over guessing. The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 marks a receipt as unknown when it has an on-time date but no amount. Version 0.1.6 assumed the full amount arrived. Check the version-specific receipt rules before relying on a result.
 - Synthetic data in public. Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.
@@ -117,7 +117,7 @@ I write and maintain this site in my own time and on my own equipment.
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - Glama: https://glama.ai/mcp/servers/ryanduguid/australian-accounting
 - official MCP Registry: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
-- Australian Taxation Office's super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
+- Australian Taxation Office’s super guarantee rate table: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - rate history: https://duguid.com.au/rates/super-guarantee/
 - Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount

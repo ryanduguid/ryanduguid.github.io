@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -105,7 +105,7 @@ git -C accounting-review-pipeline checkout review-ready-gate/v0.1.3
 cd accounting-review-pipeline/packages/review-ready-gate
 python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready</code></pre>
-    <p>The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The current release, v0.1.7, refuses an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point <code>--output</code> at a directory outside that one instead.</p>
+    <p>The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The current release, v0.1.7, refuses an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point <code>--output</code> at a directory outside that one instead.</p>
     <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate">Source on GitHub</a></p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Workpaper%20Review%20Gate">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     </section>
@@ -116,7 +116,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
       <p>No. READY means no configured gate tripped on the files that were present. A human still decides whether the file can be signed or lodged.</p>
       <h3>Does this replace monthly close review?</h3>
       <p>No. Monthly Close Controls still produces the exception pack once a trial balance is allowed onto the desk. This tool sits upstream of that.</p>
-      <h3>Can it change a client's ledger?</h3>
+      <h3>Can it change a client’s ledger?</h3>
       <p>No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period.</p>
     </div>
     </section>
@@ -241,7 +241,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
           },
           {
             "@type": "Question",
-            "name": "Can it change a client's ledger?",
+            "name": "Can it change a client’s ledger?",
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period."

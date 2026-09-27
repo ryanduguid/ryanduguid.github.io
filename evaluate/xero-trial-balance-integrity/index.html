@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -56,9 +56,9 @@
         </nav>
         <h1>Xero trial balance integrity evaluation</h1>
         <p class="lead-note">
-          Reproduce the offline movement and year-to-date integrity gate with 3 fictional CSV fixtures, then inspect the exact results and human review boundary.
+          Result: of 3 fictional CSV fixtures, the balanced file exports and the movement and year-to-date failures stop with nothing written. Reproduce the offline integrity gate below, then inspect the human review boundary.
         </p>
-        <p class="page-meta">Published 26 August 2026. Last reviewed 18 September 2026.</p>
+        <p class="page-meta">Published 26 August 2026. Last reviewed 26 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -101,9 +101,9 @@
           <section id="accounting-problem">
             <h2>Accounting problem</h2>
             <p>
-              Xero's Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
+              Xero’s Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
             </p>
-            <p>The production tool reads trial balance data directly from Xero's Accounting API Reports endpoint.</p>
+            <p>The production tool reads trial balance data directly from Xero’s Accounting API Reports endpoint.</p>
           </section>
 
           <section id="intended-reviewer">
@@ -184,7 +184,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
             <h2>Versions</h2>
             <p>Product release v0.1.6; fixture version 1; source reviewed 2026-08-26.</p>
             <p>
-              xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this evaluation and the shared contract it exercises. The export behaviour is unchanged from v0.1.4, and the evaluation artefacts are fixed to that release's commit.
+              xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this evaluation and the shared contract it exercises. The export behaviour is unchanged from v0.1.4, and the evaluation artefacts are fixed to that release’s commit.
             </p>
             <ul class="sources">
               <li><a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">Immutable xero-trial-balance-export/v0.1.6 GitHub Release</a></li>
@@ -235,7 +235,7 @@ python evaluation/xero_tb_integrity/run.py ../../contracts/xero-trial-balance-v1
         "description": "A reproducible offline evaluation of the Xero trial balance movement and YTD integrity gate using fictional CSV fixtures.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-26",
-        "dateModified": "2026-09-18",
+        "dateModified": "2026-09-26",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "publisher": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

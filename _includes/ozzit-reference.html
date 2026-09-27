@@ -6,7 +6,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Extract GST from an inclusive amount formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
   <p><strong>Expected display:</strong> 100.00, displayed to two decimal places.</p>
   <p><strong>Limits:</strong> Assumes the whole amount is taxable at 10%. The function returns an unrounded binary floating-point result. Use ROUND(...,2) where cent rounding is required; the reviewer decides the treatment.</p>
-  <p><a href="#fn-gstextract">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-gstextract">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Extract GST from an inclusive amount</span></a></p>
 </details>
 <details class="function-reference" id="fn-gstadd">
   <summary><h3>Add GST to an exclusive amount</h3></summary>
@@ -15,7 +15,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Add GST to an exclusive amount formula"><code>=oz.GSTAdd<span class="function-symbol">λ</span>(1000)</code></pre>
   <p><strong>Expected display:</strong> 1,100.00, displayed to two decimal places.</p>
   <p><strong>Limits:</strong> Assumes a wholly taxable amount and the default 10% rate. This does not classify a supply or establish a credit entitlement.</p>
-  <p><a href="#fn-gstadd">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-gstadd">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Add GST to an exclusive amount</span></a></p>
 </details>
 <details class="function-reference" id="fn-financialyear">
   <summary><h3>Label an Australian financial year</h3></summary>
@@ -24,7 +24,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Label an Australian financial year formula"><code>=oz.FinancialYear<span class="function-symbol">λ</span>(DATE(2026,8,15))</code></pre>
   <p><strong>Expected display:</strong> FY2027.</p>
   <p><strong>Limits:</strong> The default start month is July. Supply StartMonth for another year end; the function labels a date and does not determine a reporting obligation.</p>
-  <p><a href="#fn-financialyear">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Dates.txt">Released formula source</a></p>
+  <p><a href="#fn-financialyear">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Dates.txt">Released formula source<span class="visually-hidden">, Label an Australian financial year</span></a></p>
 </details>
 <details class="function-reference" id="fn-primecost">
   <summary><h3>Build a straight-line modelling schedule</h3></summary>
@@ -33,7 +33,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Build a straight-line modelling schedule formula"><code>=oz.PrimeCost<span class="function-symbol">λ</span>(1000,5)</code></pre>
   <p><strong>Expected display:</strong> 200.00, 200.00, 200.00, 200.00 and 200.00; total 1,000.00.</p>
   <p><strong>Limits:</strong> Cost and life are supplied assumptions. This is a modelling schedule, not an ATO Division 40 tax calculation.</p>
-  <p><a href="#fn-primecost">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-primecost">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Build a straight-line modelling schedule</span></a></p>
 </details>
 <details class="function-reference" id="fn-diminishingvalue">
   <summary><h3>Build a diminishing-balance modelling schedule</h3></summary>
@@ -42,7 +42,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Build a diminishing-balance modelling schedule formula"><code>=oz.DiminishingValue<span class="function-symbol">λ</span>(1000,5)</code></pre>
   <p><strong>Expected display:</strong> 400.00, 240.00, 144.00, 86.40 and 129.60; total 1,000.00.</p>
   <p><strong>Limits:</strong> Uses 200% of the straight-line rate and writes off the remaining balance in the final year. It does not establish a tax deduction.</p>
-  <p><a href="#fn-diminishingvalue">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-diminishingvalue">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Build a diminishing-balance modelling schedule</span></a></p>
 </details>
 <details class="function-reference" id="fn-amortise">
   <summary><h3>Inspect the first month of a loan schedule</h3></summary>
@@ -51,7 +51,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Inspect the first month of a loan schedule formula"><code>=TAKE(oz.Amortise<span class="function-symbol">λ</span>(100000,0.05,60,DATE(2026,7,1)),,1)</code></pre>
   <p><strong>Expected display:</strong> Debt issued 100,000.00; opening 100,000.00; interest 416.67; payment -1,887.12; closing 98,529.54; principal repaid 1,470.46. Each figure is displayed to two decimals.</p>
   <p><strong>Limits:</strong> A 100,000 loan at 5% over 60 monthly payments. TAKE selects the first column of the six-row schedule. Remove TAKE to spill the full schedule; confirm the loan terms and timing separately.</p>
-  <p><a href="#fn-amortise">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-amortise">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Inspect the first month of a loan schedule</span></a></p>
 </details>
 <details class="function-reference" id="fn-leaseliability">
   <summary><h3>Discount three unpaid lease payments</h3></summary>
@@ -60,7 +60,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Discount three unpaid lease payments formula"><code>=oz.LeaseLiability<span class="function-symbol">λ</span>({100,100,100},0.05)</code></pre>
   <p><strong>Expected display:</strong> 272.32, displayed to two decimal places.</p>
   <p><strong>Limits:</strong> The 5% rate is per payment period and the payments are in arrears. The reviewer establishes the lease term, included payments and applicable discount rate.</p>
-  <p><a href="#fn-leaseliability">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-leaseliability">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Discount three unpaid lease payments</span></a></p>
 </details>
 <details class="function-reference" id="fn-periodrate">
   <summary><h3>Convert an effective annual rate</h3></summary>
@@ -69,7 +69,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Convert an effective annual rate formula"><code>=oz.PeriodRate<span class="function-symbol">λ</span>(0.05,12)</code></pre>
   <p><strong>Expected display:</strong> Approximately 0.4074% per month.</p>
   <p><strong>Limits:</strong> The input is a 5% effective annual rate. This conversion is not the same as dividing a nominal annual rate by 12.</p>
-  <p><a href="#fn-periodrate">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-periodrate">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Convert an effective annual rate</span></a></p>
 </details>
 <details class="function-reference" id="fn-daycountrate">
   <summary><h3>Calculate rates for dated periods</h3></summary>
@@ -78,7 +78,7 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Calculate rates for dated periods formula"><code>=oz.DayCountRate<span class="function-symbol">λ</span>(EDATE(DATE(2026,7,1),{0,1,2}),0.073)</code></pre>
   <p><strong>Expected display:</strong> 0.0062, 0.0062 and 0.0060 for the three periods.</p>
   <p><strong>Limits:</strong> The default is Actual/365. Supply the required convention and check how the final period is inferred; the function does not choose a contractual day count basis.</p>
-  <p><a href="#fn-daycountrate">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-daycountrate">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Calculate rates for dated periods</span></a></p>
 </details>
 <details class="function-reference" id="fn-irr">
   <summary><h3>Calculate an annual return from dated cash flows</h3></summary>
@@ -87,5 +87,5 @@
   <pre class="copyable" tabindex="0" role="region" aria-label="Calculate an annual return from dated cash flows formula"><code>=oz.IRR<span class="function-symbol">λ</span>({-1000,1100},HSTACK(DATE(2026,7,1),DATE(2027,7,1)))</code></pre>
   <p><strong>Expected display:</strong> 10.00%, displayed to two decimal places.</p>
   <p><strong>Limits:</strong> One outflow of 1,000 followed by an inflow of 1,100 one year later. Other cash flow patterns may have multiple or no solutions; inspect the inputs and validate the result.</p>
-  <p><a href="#fn-irr">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source</a></p>
+  <p><a href="#fn-irr">Link to this example</a> · <a href="https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt">Released formula source<span class="visually-hidden">, Calculate an annual return from dated cash flows</span></a></p>
 </details>

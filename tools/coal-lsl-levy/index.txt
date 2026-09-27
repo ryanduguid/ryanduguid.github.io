@@ -24,7 +24,7 @@ Published 24 August 2026. Last reviewed 24 September 2026.
 
 Load the synthetic example
 
-Uses the homepage's fictional figures and replaces the current inputs. No client data.
+Uses the homepage’s fictional figures and replaces the current inputs. No client data.
 
 How is this employee paid?
 
@@ -56,7 +56,7 @@ This calculator needs JavaScript to run in your browser. With scripts off, Calcu
 
 Ready to calculate
 
-Enter this month's figures. The applied branch, formula and explanation will appear here.
+Enter this month’s figures. The applied branch, formula and explanation will appear here.
 
 Estimate only. Check the current prescribed percentage before relying on a figure. duguid.com.au/tools/coal-lsl-levy/
 
@@ -86,7 +86,7 @@ The notes below distinguish rules in the Act from questions this tool does not r
 
 - Does the levy apply to employer superannuation?
 - Are termination payments (redundancy, payment in lieu of notice, severance and leave paid out) eligible wages?
-- Is paid leave (annual, personal or carer's, public holidays, and long service leave taken) eligible wages?
+- Is paid leave (annual, personal or carer’s, public holidays, and long service leave taken) eligible wages?
 - Is unpaid leave eligible wages? The Levy Advice form has a section for it.
 - Does shift loading count for base rate and casual employees? Section 3 takes 'base rate of pay' from section 16 of the Fair Work Act 2009, which excludes loadings, so shift loading sits outside the base rate in section 3B(1)(a) and section 3B(3)(a). Section 3B(2)(b) excludes it expressly for annual salary employees. Section 3B(1)(b) takes 75% of the base rate of pay together with at-least-monthly incentive payments and bonuses, overtime, penalty rates, and allowances other than expense reimbursements, and does not name shift loading; section 3B(3)(b) uses an 'ordinary rate of pay' that the Act does not define, so those 2 formulas do not say.
 - Do allowances, overtime and penalty rates count for casual employees? For a casual with a quantifiable casual loading, section 3B(3)(a) starts from the base rate of pay, and the incorporated Fair Work Act definition excludes monetary allowances, overtime and penalty rates. The branch adds back only incentive-based payments, bonuses and the casual loading, so those amounts sit outside eligible wages there. For a casual without a quantifiable loading, section 3B(3)(b) uses the ordinary rate of pay and does not say.

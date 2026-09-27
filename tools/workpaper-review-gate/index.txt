@@ -42,7 +42,7 @@ python -m pip install -e ".[dev]"
 review-ready gate --profile bas --pack examples/bas-ready --output ../../../review-ready-demo/bas-ready
 ```
 
-The output goes outside the clone on purpose. A readiness pack names a client's file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The current release, v0.1.7, refuses an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
+The output goes outside the clone on purpose. A readiness pack names a client’s file and its open findings, so it belongs outside version control rather than behind an ignore entry the next commit can waive. The current release, v0.1.7, refuses an output inside a version control checkout. The path above leaves the clone, which is what you want when you run these commands from an ordinary directory. If you are already inside another checkout, point --output at a directory outside that one instead.
 
 Source on GitHub
 
@@ -58,7 +58,7 @@ No. READY means no configured gate tripped on the files that were present. A hum
 
 No. Monthly Close Controls still produces the exception pack once a trial balance is allowed onto the desk. This tool sits upstream of that.
 
-### Can it change a client's ledger?
+### Can it change a client’s ledger?
 
 No. It reads local files and writes a readiness pack. It cannot post, pay, lodge or lock a period.
 

@@ -6,9 +6,9 @@ Source: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 
 # Xero trial balance integrity evaluation
 
-Reproduce the offline movement and year-to-date integrity gate with 3 fictional CSV fixtures, then inspect the exact results and human review boundary.
+Result: of 3 fictional CSV fixtures, the balanced file exports and the movement and year-to-date failures stop with nothing written. Reproduce the offline integrity gate below, then inspect the human review boundary.
 
-Published 26 August 2026. Last reviewed 18 September 2026.
+Published 26 August 2026. Last reviewed 26 September 2026.
 
 Problem
 
@@ -32,9 +32,9 @@ Balance does not prove completeness, classification or approval.
 
 ## Accounting problem
 
-Xero's Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
+Xero’s Trial Balance endpoint returns current month movement and year-to-date values. Before any CSV write, the exporter independently checks both debit and credit pairs, so an imbalance in either pair stops the export.
 
-The production tool reads trial balance data directly from Xero's Accounting API Reports endpoint.
+The production tool reads trial balance data directly from Xero’s Accounting API Reports endpoint.
 
 ## Intended reviewer
 
@@ -81,7 +81,7 @@ failing_ytd.csv | failing_ytd.csv exits 1, identifies the YTD pair and reports N
 
 Product release v0.1.6; fixture version 1; source reviewed 2026-08-26.
 
-xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this evaluation and the shared contract it exercises. The export behaviour is unchanged from v0.1.4, and the evaluation artefacts are fixed to that release's commit.
+xero-trial-balance-export/v0.1.6 is the first monorepo release to contain this evaluation and the shared contract it exercises. The export behaviour is unchanged from v0.1.4, and the evaluation artefacts are fixed to that release’s commit.
 
 - Immutable xero-trial-balance-export/v0.1.6 GitHub Release
 - Evaluation pack

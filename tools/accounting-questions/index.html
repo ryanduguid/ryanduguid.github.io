@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 
   <link rel="stylesheet" href="/assets/accounting-pages.css" />
   <script type="module" src="/assets/hub-routes.mjs"></script>
@@ -56,7 +56,7 @@
         <p class="lead-note">Find the records, calculations and steps for Australian tax and business questions. Each topic page carries 10 answers, a search box and a checklist download.</p>
         <p><a href="/tools/business-calculators/">Open the business calculators</a> or <a href="/examples/profit-vs-cash-flow/">try the fictional Newcastle cash flow workbook</a>.</p>
         <p class="field-note">The questions are grouped by topic, not ranked by search volume. Tax guidance must match your year and circumstances.</p>
-        <p class="page-meta">Editorial review: {{ site.data.accounting_questions.reviewed | date: "%e %B %Y" | strip }}. Last reviewed 24 September 2026.</p>
+        <p class="page-meta">Editorial review: {{ site.data.accounting_questions.reviewed | date: "%e %B %Y" | strip }}. Last reviewed 26 September 2026.</p>
       </header>
       <div class="site-shell accounting-content">
         <p id="question-search-context" class="field-note" hidden></p>
@@ -70,13 +70,13 @@
           </ol>
         </section>
         {% endfor %}
-        <p class="field-note">The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
       </div>
-      <p class="byline">
-        Written by Ryan Duguid in his own time and on his own equipment.
+      <div class="byline">
+        <p>The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
+        <p>Written by Ryan Duguid in his own time and on his own equipment.
         He is a Provisional CA ANZ Member.
-        CA ANZ has not endorsed this site or its tools.
-      </p>
+        CA ANZ has not endorsed this site or its tools.</p>
+      </div>
     </article>
   </main>
 {% include site-footer.html %}
@@ -92,7 +92,7 @@
       "description": "Find practical steps, record checklists, calculators and official guidance for 100 Australian accounting questions, including NSW and Newcastle topics.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-24",
+      "dateModified": "2026-09-26",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
       },

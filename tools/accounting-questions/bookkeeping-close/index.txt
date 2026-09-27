@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/
 
-> Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on bookkeeping and close for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Bookkeeping and close
 
-Practical steps, records and official guidance on bookkeeping and close. Select questions to build a checklist.
+Practical steps, records and official guidance on bookkeeping and close.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Use the same reporting date and accounting basis for all reconciliations. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Bookkeeping and close
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Bookkeeping and close
-
-Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations.
 
 51.
 
@@ -67,7 +63,7 @@ Link to question 52
 Trace the payment and both customer invoices before changing the match.
 
 - Save the original allocation details and check whether the invoice or period is locked.
-- Correct the allocation through Xero's supported workflow and recheck both customer balances and the bank reconciliation.
+- Correct the allocation through Xero’s supported workflow and recheck both customer balances and the bank reconciliation.
 
 A different bank receipt should not be created merely to fix an allocation.
 
@@ -79,7 +75,7 @@ Link to question 53
 
 ### How do I record a personal purchase paid from the business account?
 
-Code the private payment according to the entity and the person's relationship to it.
+Code the private payment according to the entity and the person’s relationship to it.
 
 - Keep the receipt, purpose and repayment evidence, and separate any business portion.
 - For a sole trader, review drawings; for a company, review the director or shareholder account and tax consequences.
@@ -129,7 +125,7 @@ Link to question 56
 Split each repayment using the loan statement and the agreement. Interest is a finance cost; principal reduces the loan balance.
 
 - Reconcile opening principal, advances, principal repayments and closing principal.
-- Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender's statement.
+- Use the loan calculator to sense-check a fixed-rate monthly schedule, then compare with the lender’s statement.
 
 Fees, daily interest, variable rates and balloons need the actual lender schedule.
 
@@ -186,6 +182,10 @@ Record keeping for business · Monthly close review pack
 
 Link to question 60
 
+Reviewed 11 September 2026. Use the same reporting date and accounting basis for all reconciliations. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Deductions
 - Starting a business
@@ -194,7 +194,7 @@ Link to question 60
 - Cash flow
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -202,7 +202,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Record keeping for business: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/record-keeping-for-business
 - Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 51: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q51
@@ -220,6 +219,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 58: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q58
 - Link to question 59: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q59
 - Link to question 60: https://duguid.com.au/tools/accounting-questions/bookkeeping-close/#q60
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
@@ -228,4 +228,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

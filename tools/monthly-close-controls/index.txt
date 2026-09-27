@@ -37,7 +37,7 @@ The fictional example compares 31 July 2026 with 30 June 2026. With thresholds o
 
 Exception | Result | Reviewer action
 Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
-Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account's review group.
+Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account’s review group.
 Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
 
 Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
@@ -46,7 +46,7 @@ The captured manager case study explains the selected exceptions. The command be
 
 ## Run the example
 
-Needs Git and Python 3.10 or later. The pinned source command uses Python's standard library. It needs no Xero account, API access or client files.
+Needs Git and Python 3.10 or later. The pinned source command uses Python’s standard library. It needs no Xero account, API access or client files.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
@@ -69,7 +69,7 @@ Software issue using fictional data? Open an issue.
 
 A balanced trial balance can still contain omissions, misclassifications or unsupported transactions. These checks use the files, mappings and thresholds you supply. They do not establish that the source records are complete or that an accounting treatment is correct.
 
-The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm's workpaper process.
+The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm’s workpaper process.
 
 ## Common questions
 
