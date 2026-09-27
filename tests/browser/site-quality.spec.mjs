@@ -356,7 +356,7 @@ test('primary navigation order and current states match the collection hierarchy
   health.assertHealthy();
 });
 
-test('all six primary navigation links fit the smallest mobile width', async ({ page }, testInfo) => {
+test('all six primary navigation links fit the smallest mobile width', async ({ page, browserName }, testInfo) => {
   test.skip(projectKind(testInfo) !== 'mobile', 'mobile contract only');
   const health = observePageHealth(page);
   await page.setViewportSize({ width: 320, height: 844 });
@@ -385,12 +385,16 @@ test('all six primary navigation links fit the smallest mobile width', async ({ 
   for (const link of geometry.links) {
     expect(link.fullyVisible, `${link.label} is clipped`).toBe(true);
   }
-  const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
-  await primary.getByRole('link', { name: 'Tools' }).focus();
-  for (let index = 0; index < 5; index += 1) {
-    await page.keyboard.press('Tab');
+  // WebKit, like Safari, leaves links out of the Tab order by default, so the
+  // keyboard traversal is a Chromium check.
+  if (browserName === 'chromium') {
+    const lastPrimaryLink = primary.getByRole('link', { name: 'Contact' });
+    await primary.getByRole('link', { name: 'Tools' }).focus();
+    for (let index = 0; index < 5; index += 1) {
+      await page.keyboard.press('Tab');
+    }
+    await expect(lastPrimaryLink).toBeFocused();
   }
-  await expect(lastPrimaryLink).toBeFocused();
   health.assertHealthy();
 });
 

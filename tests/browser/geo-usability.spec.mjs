@@ -2,22 +2,33 @@ import { expect, test } from '@playwright/test';
 
 import { waitForVisualFonts } from './visual.mjs';
 
-test('printing includes the fixed proof without opening its disclosure', async ({ page }) => {
+test('printing opens the fixed proof and closes it again afterwards', async ({ page }) => {
   await page.goto('/');
-  await page.emulateMedia({ media: 'print' });
   const disclosure = page.locator('.proof-capture');
   await expect(disclosure).not.toHaveAttribute('open');
+  // A print session fires beforeprint as well as the media change.
+  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
+  await page.emulateMedia({ media: 'print' });
+  await expect(disclosure).toHaveAttribute('open', '');
   await expect(disclosure.locator('figure')).toBeVisible();
   await expect(disclosure.locator('figcaption')).toBeVisible();
+  await page.evaluate(() => dispatchEvent(new Event('afterprint')));
+  await page.emulateMedia({ media: null });
+  await expect(disclosure).not.toHaveAttribute('open');
 });
 
-test('printing includes the extra accounting tasks while their chooser is closed', async ({ page }) => {
+test('printing opens the extra accounting tasks and closes their chooser again afterwards', async ({ page }) => {
   await page.goto('/tools/');
-  await page.emulateMedia({ media: 'print' });
   const chooser = page.locator('.work-chooser details');
   await expect(chooser).not.toHaveAttribute('open');
+  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
+  await page.emulateMedia({ media: 'print' });
+  await expect(chooser).toHaveAttribute('open', '');
   await expect(chooser.getByRole('link', { name: /Ozzit Excel LAMBDA library/ })).toBeVisible();
   await expect(chooser.getByRole('link', { name: /Australian tax tools for AI agents/ })).toBeVisible();
+  await page.evaluate(() => dispatchEvent(new Event('afterprint')));
+  await page.emulateMedia({ media: null });
+  await expect(chooser).not.toHaveAttribute('open');
 });
 
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {

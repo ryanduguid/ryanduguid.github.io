@@ -21,6 +21,7 @@ the later row is current.
 | 24 September 2026 | PR 266 | Typefaces switched to Besley, Public Sans and Spline Sans Mono; homepage and calculator baselines re-rendered | Passed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
+| 27 September 2026 | main 3e6a08a plus the WebKit fixes | `npm run test:browser:webkit` again after the print, date-field and Tab-order fixes below; `npm run test:browser` unchanged at 329 passed | 161 passed, 6 skipped, 4 failed; the 4 tests are named below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
@@ -29,24 +30,28 @@ descriptions in the August sections are historical.
 
 ### WebKit differences, 27 September 2026
 
-The first WebKit pass reported these 8 failing tests, grouped by cause. Compare a
-rerun's failing tests with these names, not with the count. None has been checked
-in Safari on a physical device yet.
+The first full WebKit pass reported 8 failing tests. Three causes were fixed the
+same day. The print styles expose closed disclosures through `::details-content`,
+which WebKit accepts but does not apply, so `assets/print-disclosures.mjs` now
+opens the fixed proof and the extra accounting tasks for print media and closes
+them afterwards. Playwright's Windows WebKit build has no date input (the control
+reports type `text`), so `assets/field-errors.mjs` now range-checks an ISO date
+against its `min` and `max` attributes, which also serves any browser without
+date inputs. The 320 px navigation test's Tab traversal is a Chromium check,
+because WebKit, like Safari, leaves links out of the Tab order by default.
 
-1. `printing includes the fixed proof without opening its disclosure` and
-   `printing includes the extra accounting tasks while their chooser is closed`
-   (geo-usability): the print rules use `::details-content` to expose closed
-   disclosures, and WebKit kept both closed, so a Safari print omits the fixed
-   proof and the extra tasks unless the reader opens them first.
-2. `cash inputs survive a save and reload with dated results`
-   (accounting-questions): a start date of 31 December 1899 produced no field
-   error, so WebKit did not report `rangeUnderflow` against the date input's
-   `min`, and the forecast accepted the date.
-3. `calculator load failure explains recovery and reload retries the module`
-   (accounting-questions): with the calculator module request aborted, the
-   "Calculators could not load." recovery text never appeared and the test timed
-   out after 30 seconds.
-4. First-screen budgets against the iPhone 13 viewport, 3 tests: `fixed Payday
+The second pass reports these 4 failing tests. Compare a rerun's failing tests
+with these names, not with the count. None has been checked in Safari on a
+physical device yet.
+
+1. `calculator load failure explains recovery and reload retries the module`
+   (accounting-questions): after the retry reload, this WebKit build serves the
+   aborted module again, so the fallback reappears and the test times out.
+   Against the live site in a fresh WebKit context the recovery text appears
+   within a second and the reload restores the calculator; the stale "could not
+   load" text that WebKit restored into the `<output>` is now cleared when the
+   calculators load.
+2. First-screen budgets against the iPhone 13 viewport, 3 tests: `fixed Payday
    example reaches a reviewer without installation` (payday-example, the
    "Human decision:" line ends 841 CSS pixels down), `calculator example is
    available within the initial mobile viewport` (calculator, the Load the
@@ -56,11 +61,6 @@ in Safari on a physical device yet.
    device profile gives 664 pixels of viewport height where the Chromium
    mobile project uses 844, so these are first-screen observations for an
    iPhone-sized Safari window rather than rendering differences.
-5. `all six primary navigation links fit the smallest mobile width`
-   (site-quality): the geometry passed at 320 pixels, but the Tab sequence did
-   not reach Contact. WebKit, like Safari, leaves links out of the Tab order by
-   default (Safari users press Option and Tab), so the keyboard half of that
-   test is Chromium-specific.
 
 ## Test environment
 
