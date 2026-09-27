@@ -53,6 +53,7 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(view).toContainText('Open source tools for Australian accountants');
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
   await expect(view).toContainText('Nothing here is tax, legal or financial advice.');
+  await expect(view).toContainText('Ryan Duguid, ABN 59 834 031 764');
   await expect(page.locator('#main')).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
   await human.check();

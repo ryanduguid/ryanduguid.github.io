@@ -22,7 +22,10 @@
     const human = document.querySelectorAll('.site-header, #main, .site-footer, .skip-link');
     const canonical = document.querySelector('link[rel="canonical"]')?.href;
     const source = canonical || new URL(location.pathname, 'https://duguid.com.au').href;
-    const disclaimer = document.querySelector('.site-footer__inner > p').textContent;
+    // Every footer paragraph travels with the text: the advice boundary and the ABN line.
+    const footerNotes = [...document.querySelectorAll('.site-footer__inner > p')]
+      .map((paragraph) => paragraph.textContent.trim())
+      .join('\n\n');
     let loaded = false;
 
     async function loadText() {
@@ -41,7 +44,7 @@
         }
         // The unindexed 404 page has no entry in llms-full.txt.
         const content = section || `# ${document.title}\n\nSource: ${source}\n\n${document.querySelector('#main').textContent.trim()}`;
-        text.textContent = `${content.trim()}\n\n${disclaimer}`;
+        text.textContent = `${content.trim()}\n\n${footerNotes}`;
       } catch {
         loaded = false;
         text.hidden = true;
