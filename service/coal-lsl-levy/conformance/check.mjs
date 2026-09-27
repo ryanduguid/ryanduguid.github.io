@@ -95,7 +95,15 @@ async function run(base) {
   let refusals = 0;
   let validations = 0;
   let notFound = 0;
-  let decimalStrings = true;
+  // 4. Each figure must match the fixed-scale pattern the OpenAPI declares.
+  const result = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties ?? {};
+  const scaled = [
+    ['eligible_wages', result.eligible_wages?.pattern],
+    ['levy', result.levy?.pattern],
+    ['levy_before_rounding', result.levy_before_rounding?.pattern],
+    ['rate.value_percent', result.rate?.properties?.value_percent?.pattern],
+  ];
+  let decimalStrings = scaled.every(([, pattern]) => typeof pattern === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;
   const documentedPolicy = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties?.manifest?.properties?.rounding_policy?.const;
@@ -114,10 +122,10 @@ async function run(base) {
     }
     if (response.status === 200) {
       computed += 1;
-      for (const key of ['eligible_wages', 'levy', 'levy_before_rounding']) {
-        if (typeof body[key] !== 'string' || !/^[0-9]+\.[0-9]+$/.test(body[key])) decimalStrings = false;
+      for (const [path, pattern] of scaled) {
+        const value = path.split('.').reduce((node, key) => node?.[key], body);
+        if (typeof value !== 'string' || typeof pattern !== 'string' || !new RegExp(pattern).test(value)) decimalStrings = false;
       }
-      if (typeof body.rate?.value_percent !== 'string') decimalStrings = false;
       const manifest = body.manifest ?? {};
       if (!(manifest.calculator && manifest.period && manifest.engine?.version && Array.isArray(manifest.rate_table_uris)
         && manifest.rate_table_uris.every((item) => /^[0-9a-f]{64}$/.test(item.sha256 ?? '')) && manifest.citation)) manifestComplete = false;
@@ -146,7 +154,7 @@ async function run(base) {
   check('2 refusals', `the fixture set exercises 200, 400, 422 and 404`,
     computed > 0 && refusals > 0 && validations > 0 && notFound > 0,
     `${computed} computed, ${refusals} refused, ${validations} rejected, ${notFound} not found`);
-  check('4 numbers', 'money and rates are decimal strings, never JSON numbers', decimalStrings);
+  check('4 numbers', 'money and rates are decimal strings at the scales the OpenAPI declares, never JSON numbers', decimalStrings);
   check('3 manifest', 'every 200 carries a complete manifest', manifestComplete);
   check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', roundingNamed, documentedPolicy ?? 'undocumented');
   check('3 manifest', 'every 200 carries an advisory block', advisoryPresent);

@@ -38,9 +38,9 @@ test('rendering is exact and terminates', () => {
   assert.equal(centsToString(0), '0.00');
   assert.equal(centsToString(5), '0.05');
   assert.equal(centsToString(19238), '192.38');
-  assert.equal(quarterCentsToString(toQuarterCents(712500)), '7125.00');
+  assert.equal(quarterCentsToString(toQuarterCents(712500)), '7125.0000');
   assert.equal(quarterCentsToString(toQuarterCents(75002.25)), '750.0225');
-  assert.equal(quarterCentsToString(toQuarterCents(0.5)), '0.005');
+  assert.equal(quarterCentsToString(toQuarterCents(0.5)), '0.0050');
   assert.equal(exactDecimal(3240243n, 400000n, { maxScale: 8 }), '8.1006075');
   assert.equal(exactDecimal(16200n, 100n), '162.00');
   assert.throws(() => exactDecimal(1n, 3n), RangeError);

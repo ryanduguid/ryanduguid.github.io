@@ -475,3 +475,12 @@ test('the levy constants mirror the latest register row', () => {
   assert.equal(LEVY_RATE_AS_AT, row.verified_at);
   assert.equal(LEVY_RATE_SOURCE, row.primary_source.url);
 });
+
+test('levyCents refuses a negative total instead of rounding it', () => {
+  // Half up is ties away from zero only for non-negative wages, and the
+  // integer division truncates toward zero, so a negative total is not priced.
+  assert.throws(() => levyCents(-1), RangeError);
+  assert.throws(() => levyCents(-0.25), RangeError);
+  assert.equal(levyCents(0), 0);
+  assert.equal(levyCents(0.25), 0);
+});

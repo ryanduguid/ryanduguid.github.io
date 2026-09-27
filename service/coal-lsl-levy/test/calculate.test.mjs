@@ -88,8 +88,8 @@ test('the manifest binds the result to its inputs and evidence', () => {
 });
 
 test('levy rounding agrees with exact BigInt half-up across quarter-cent positions', () => {
-  // Independent check of the engine's Number arithmetic against integer
-  // arithmetic for every quarter-cent residue near several magnitudes.
+  // Independent check of the engine's integer rounding against a separate
+  // BigInt formula for every quarter-cent residue near several magnitudes.
   for (const base of [0n, 100n, 123457n, 99999999n, BigInt(MAX_WAGES_CENTS) * 4n - 4000n]) {
     for (let offset = 0n; offset < 400n; offset += 1n) {
       const quarters = base + offset;
@@ -115,13 +115,13 @@ test('casual salary sacrifice grosses onto the component the branch reads', () =
     pay: { instrument_specifies_loading: true, loading_quantifiable: true, base_rate_of_pay: '1800.00', casual_loading: '450.00', ordinary_rate_of_pay: '0.00', salary_sacrificed: '100.00', bonuses: [] },
   });
   assert.equal(a.status, 200);
-  assert.equal(a.body.eligible_wages, '2350.00');
+  assert.equal(a.body.eligible_wages, '2350.0000');
   assert.equal(a.body.workings.salary_sacrifice_grossed_onto, 'pay.base_rate_of_pay');
   const b = run({
     reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },
     pay: { instrument_specifies_loading: false, loading_quantifiable: false, base_rate_of_pay: '0.00', casual_loading: '0.00', ordinary_rate_of_pay: '2250.00', salary_sacrificed: '100.00', bonuses: [] },
   });
-  assert.equal(b.body.eligible_wages, '2350.00');
+  assert.equal(b.body.eligible_wages, '2350.0000');
   assert.equal(b.body.workings.salary_sacrifice_grossed_onto, 'pay.ordinary_rate_of_pay');
 });
 
@@ -135,7 +135,7 @@ test('an unknown loading answer does not block a branch a false fact has already
   });
   assert.equal(settled.status, 200, JSON.stringify(settled.body));
   assert.equal(settled.body.branch.code, 's 3B(3)(b)');
-  assert.equal(settled.body.eligible_wages, '2250.00');
+  assert.equal(settled.body.eligible_wages, '2250.0000');
 
   const mirror = run({
     reporting_month: '2026-08', branch: 'casual', employee: { eligible_employee: true },

@@ -98,7 +98,7 @@ test('a verified row the engine does not implement is recorded and never served'
     register.unimplementedRows.map((item) => [item.row_id, item.value]),
     [['2026-07-01', '3.1']],
   );
-  assert.equal(register.unimplementedRows[0].engine_rate_percent, '2.7');
+  assert.equal(register.unimplementedRows[0].engine_rate_percent, '2.7000');
   // The months the engine still matches stay served.
   assert.equal(register.isSupported('2026-06'), true);
 });
