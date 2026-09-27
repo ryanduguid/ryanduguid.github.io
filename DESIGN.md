@@ -568,7 +568,7 @@ At the default desktop text size, the header is sticky, one line and at most 72p
 
 ### Footer
 
-The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom.
+The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom. An ABN line, `Ryan Duguid, ABN 59 834 031 764`, closes the footer below the disclaimer.
 
 ### Buttons and links
 
