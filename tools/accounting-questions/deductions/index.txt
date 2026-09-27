@@ -2,17 +2,15 @@
 
 Source: https://duguid.com.au/tools/accounting-questions/deductions/
 
-> Ten questions on deductions for Australian businesses, each with practical steps, a record checklist, the official guidance and any linked calculator.
+> Ten questions on deductions for Australian businesses, each with practical steps, a record checklist, official guidance and any linked calculator.
 
 # Accounting questions: Deductions
 
-Practical steps, records and official guidance on deductions. Select questions to build a checklist.
+Practical steps, records and official guidance on deductions.
 
-One of 10 topics in the 100 Australian accounting questions. Select questions here to build a checklist for this topic.
+Source review: 11 September 2026. Page updated 26 September 2026.
 
-Check eligibility and record requirements for the income year of the expense. Tax guidance must match your year and circumstances.
-
-Source review: 11 September 2026. Page updated 24 September 2026.
+Search or build a checklist
 
 Search questions in Deductions
 
@@ -27,8 +25,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
 ## Deductions
-
-Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense.
 
 11.
 
@@ -56,7 +52,7 @@ Keep evidence of hours and costs that supports the particular working-from-home 
 - Record dates and hours throughout the required period and retain bills or receipts.
 - Keep a note of the method, year, work use basis and costs excluded to prevent double claims.
 
-A reconstructed estimate may not meet the ATO's requirements for your method.
+A reconstructed estimate may not meet the ATO’s requirements for your method.
 
 Deductions you can claim
 
@@ -68,7 +64,7 @@ Link to question 12
 
 The cents per kilometre rate is 91 cents for 2026-27 (88 cents for 2024-25 and 2025-26), capped at 5,000 business kilometres per car. The logbook method has no kilometre cap but needs a valid logbook. Compare the methods you are eligible to use, using the same car and income year.
 
-- For cents per kilometre, document eligible kilometres and check the year's rate and cap.
+- For cents per kilometre, document eligible kilometres and check the year’s rate and cap.
 - For the logbook method, gather a valid logbook, odometer readings and actual running costs.
 
 Vehicle type, ownership and entity structure can change which methods are available.
@@ -88,7 +84,7 @@ A useful logbook records each business trip and lets another person check the bu
 - Record the required trip dates, odometer readings, distance and business purpose.
 - Keep opening and closing odometer readings and review whether changed use requires a new logbook.
 
-Check the ATO's required recording period and validity conditions before relying on the logbook.
+Check the ATO’s required recording period and validity conditions before relying on the logbook.
 
 Deductions you can claim · Cents-per-kilometre rate table and method
 
@@ -116,7 +112,7 @@ Link to question 15
 An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million can write off each eligible asset costing less than $20,000. Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
 
 - Record cost, acquisition date, first use, work use share and whether the item forms part of a set.
-- Check the applicable year's asset rules and retain the calculation in an asset register.
+- Check the applicable year’s asset rules and retain the calculation in an asset register.
 
 The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.
 
@@ -175,7 +171,7 @@ Link to question 19
 
 ### Does my business qualify for the instant asset write-off this financial year?
 
-Yes, if your aggregated turnover is under $10 million and you use the simplified depreciation rules. You can deduct the full cost of each eligible asset costing less than $20,000 that is first used or installed ready for use in the year. The $20,000 limit applied in 2025-26 and is permanent from 1 July 2026. Test eligibility against the rules enacted for the asset's relevant year and circumstances.
+Yes, if your aggregated turnover is under $10 million and you use the simplified depreciation rules. You can deduct the full cost of each eligible asset costing less than $20,000 that is first used or installed ready for use in the year. The $20,000 limit applied in 2025-26 and is permanent from 1 July 2026. Test eligibility against the rules enacted for the asset’s relevant year and circumstances.
 
 - Record aggregated turnover, asset cost, acquisition and first use dates, and business use share.
 - Check the current ATO small business depreciation rules, including exclusions and any applicable election.
@@ -188,6 +184,10 @@ The bold answer was checked on 24 September 2026.
 
 Link to question 20
 
+Reviewed 11 September 2026. Check eligibility and record requirements for the income year of the expense. Tax guidance must match your year and circumstances.
+
+One of 10 topics in the 100 Australian accounting questions.
+
 - Tax returns
 - Starting a business
 - GST and BAS
@@ -196,7 +196,7 @@ Link to question 20
 - Cash flow
 - Management reporting
 - Companies and trusts
-- Investments and Newcastle
+- Investments and NSW
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
@@ -204,7 +204,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Deductions you can claim: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim
 - Working from home fixed rate method: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/deductions-you-can-claim/work-related-deductions/working-from-home-expenses/fixed-rate-method
 - Business use apportionment calculator: https://duguid.com.au/tools/business-calculators/business-use/
@@ -224,6 +223,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 19: https://duguid.com.au/tools/accounting-questions/deductions/#q19
 - Starting, registering or closing a business: https://www.ato.gov.au/businesses-and-organisations/starting-registering-or-closing-a-business
 - Link to question 20: https://duguid.com.au/tools/accounting-questions/deductions/#q20
+- 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Tax returns: https://duguid.com.au/tools/accounting-questions/general-tax/
 - Starting a business: https://duguid.com.au/tools/accounting-questions/business-setup/
 - GST and BAS: https://duguid.com.au/tools/accounting-questions/gst-bas/
@@ -232,4 +232,4 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Cash flow: https://duguid.com.au/tools/accounting-questions/cash-flow/
 - Management reporting: https://duguid.com.au/tools/accounting-questions/management-reporting/
 - Companies and trusts: https://duguid.com.au/tools/accounting-questions/company-compliance/
-- Investments and Newcastle: https://duguid.com.au/tools/accounting-questions/investments-local/
+- Investments and NSW: https://duguid.com.au/tools/accounting-questions/investments-local/

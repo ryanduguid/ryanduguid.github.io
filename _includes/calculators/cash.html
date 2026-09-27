@@ -1,6 +1,4 @@
 <section class="business-calculator" id="cash">
-<h2>13-week cash forecast</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
-<p>The <a href="/examples/profit-vs-cash-flow/">Lumbridge cash flow case</a> works the same question with a 45-day receipt delay.</p>
 <form data-calculator="cash">
 <fieldset disabled><legend>13-week cash forecast inputs</legend>
 <div class="form-grid"><label class="field" for="cash-start">First day of week 1<input id="cash-start" name="start-date" type="date" min="1900-01-01" max="9999-10-02" required /></label>
@@ -14,7 +12,7 @@
 <label class="field" for="cash-amount">Receipt to delay (AUD)<input id="cash-amount" name="amount" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label>
 <label class="field" for="cash-delay">Delay in whole weeks<input id="cash-delay" name="delay" type="number" min="0" max="13" step="1" value="0" required /></label>
 </div>
-<p>Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week's total.</p>
+<p>Enter bank receipts and payments for each week, including GST where cash includes it. Include BAS, payroll, super, loan payments, capital purchases and drawings in their expected payment weeks. The initial zeros are empty planning amounts. A delayed receipt must already be included in the original week’s total.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Weekly cash inputs" tabindex="0"><table><thead><tr><th scope="col">Week</th><th scope="col">Receipts (AUD)</th><th scope="col">Payments (AUD)</th></tr></thead><tbody>
 <tr><th scope="row">1</th><td><label class="field"><span class="visually-hidden">Week 1 receipts</span><input name="receipts-1" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 1 payments</span><input name="payments-1" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
 <tr><th scope="row">2</th><td><label class="field"><span class="visually-hidden">Week 2 receipts</span><input name="receipts-2" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td><td><label class="field"><span class="visually-hidden">Week 2 payments</span><input name="payments-2" type="number" inputmode="decimal" min="0" max="1000000000" step=".01" value="0" required /></label></td></tr>
@@ -33,13 +31,16 @@
 <button type="submit" class="button">Calculate</button></fieldset>
 <output aria-live="polite">Enter the inputs and calculate.</output>
 <div class="sources-applied" hidden>
-<h3>Sources applied</h3>
+<h2>Sources applied</h2>
 <ul class="sources">
 <li>Formulas: weekly closing cash = opening cash + receipts − payments, each closing balance opening the next week; funding gap = minimum buffer − lowest opening or weekly closing cash, floored at zero.</li>
 <li>Figures: supplied by you. No statutory rate or threshold is applied. The layout follows <a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a>. A receipt delayed beyond week 13 is reported separately and does not enter the closing balance.</li>
 </ul>
 </div>
-<p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon's closing balance. To compare scenarios, download each before changing the delay.</p>
+<p>Receipts delayed beyond week 13 appear separately in the result and CSV. They do not enter this horizon’s closing balance. To compare scenarios, download each before changing the delay.</p>
 <div class="table-scroll cash-scroll" role="region" aria-label="Forecast results" tabindex="0" hidden><table id="cash-results"><caption>Calculated cash scenario (AUD)</caption><thead><tr><th scope="col">Week</th><th scope="col">Dates</th><th scope="col">Opening</th><th scope="col">Receipts</th><th scope="col">Payments</th><th scope="col">Closing</th></tr></thead><tbody></tbody></table></div>
 <button type="button" id="download-cash" disabled>Download forecast CSV</button>
-</form></section>
+</form>
+<h2>How it works</h2><p>Weekly closing cash = opening cash + receipts − payments. Each closing balance opens the next week. Funding gap = minimum buffer − lowest opening or weekly closing cash, with a floor of zero. It is a planning gap, not a lending decision. Weekly totals can hide a shortage within the week.</p><p><a href="https://business.gov.au/finance/cash-flow/set-up-a-cash-flow-statement">business.gov.au: cash flow</a></p>
+<p>The <a href="/examples/profit-vs-cash-flow/">Lumbridge cash flow case</a> works the same question with a 45-day receipt delay.</p>
+</section>

@@ -22,19 +22,19 @@ Income year | Car limit | Read from
 2020-21 | $59,136 | ATO accelerated depreciation page
 2019-20 | $57,581 | ATO accelerated depreciation page
 
-The limit applies in the income year the car is first used or leased. Before applying it, reduce the car's cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
+The limit applies in the income year the car is first used or leased. Before applying it, reduce the car’s cost by any GST credit you are entitled to claim. GST you cannot claim stays in the cost, including all GST if you are not registered. The ATO no longer publishes an annual determination for the limit; the figure is indexed and announced on its website each June.
 
 Download the table as CSV. Cite as Duguid, R. (2026). Car limit for depreciation by income year [Data set]. https://duguid.com.au/rates/car-limit/. Verify against current ATO guidance before relying on a figure.
 
 ## GST credit and luxury car tax
 
-When a car costs more than the limit, the GST credit is generally capped at one-eleventh of the limit: $6,353 for 2026-27, per the ATO's motor vehicle purchase guidance. Luxury car tax paid on the purchase is never creditable. The luxury car tax thresholds are separate figures, $91,661 for fuel-efficient vehicles and $80,809 for other vehicles in 2026-27, and are not maintained here.
+When a car costs more than the limit, the GST credit is generally capped at one-eleventh of the limit: $6,353 for 2026-27, per the ATO’s motor vehicle purchase guidance. Luxury car tax paid on the purchase is never creditable. The luxury car tax thresholds are separate figures, $91,661 for fuel-efficient vehicles and $80,809 for other vehicles in 2026-27, and are not maintained here.
 
 ## Common questions
 
 ### What is the car limit for 2026-27?
 
-$69,883 for a car first used or leased in the 2026-27 income year, per the ATO's car thresholds notice of 9 June 2026.
+$69,883 for a car first used or leased in the 2026-27 income year, per the ATO’s car thresholds notice of 9 June 2026.
 
 ### Did the car limit change for 2025-26?
 

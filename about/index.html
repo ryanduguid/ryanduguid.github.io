@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>About Ryan Duguid, accountant in Newcastle, NSW</title>
-  <meta name="description" content="I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source accounting tools. I'm a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
+  <meta name="description" content="I’m Ryan Duguid, a Newcastle, NSW accountant building open source accounting tools. I’m a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="About Ryan Duguid, accountant in Newcastle, NSW" />
-  <meta property="og:description" content="I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source accounting tools. I'm a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
+  <meta property="og:description" content="I’m Ryan Duguid, a Newcastle, NSW accountant building open source accounting tools. I’m a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
   <meta property="og:type" content="profile" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About Ryan Duguid, accountant in Newcastle, NSW" />
-  <meta name="twitter:description" content="I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source accounting tools. I'm a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
+  <meta name="twitter:description" content="I’m Ryan Duguid, a Newcastle, NSW accountant building open source accounting tools. I’m a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-site-20260924.png" />
   <meta name="twitter:image:alt" content="OLED register card: Open source tools for Australian accountants" />
   <link rel="canonical" href="https://duguid.com.au/about/" />
@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -54,7 +54,7 @@
           </ol>
         </nav>
         <h1>About Ryan Duguid</h1>
-        <p class="lead-note">I'm Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.</p>
+        <p class="lead-note">I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.</p>
         <p><a href="#work-samples">See my accounting work samples</a>, including a cash forecast, month-end checks and Excel functions.</p>
         <p class="page-meta">Last reviewed 26 September 2026.</p>
         <div class="about-portrait" role="img" aria-label="ASCII portrait of Ryan Duguid"><pre aria-hidden="true">
@@ -209,7 +209,7 @@
             <h2>What my public work demonstrates</h2>
             <p>I build accounting tools that let a second person trace the inputs, calculation and review decision. Three examples show the work in different forms:</p>
             <ul>
-              <li><strong>Cash flow modelling.</strong> The <a href="/examples/profit-vs-cash-flow/">Lumbridge case</a> connects a fictional business's profit, receipt dates and available cash through an Excel forecast and management briefing.</li>
+              <li><strong>Cash flow modelling.</strong> The <a href="/examples/profit-vs-cash-flow/">Lumbridge case</a> connects a fictional business’s profit, receipt dates and available cash through an Excel forecast and management briefing.</li>
               <li><strong>Month-end review.</strong> The <a href="/evaluate/#month-end-preview">accounting review pipeline</a> turns trial balance files into inspectable exceptions, including a creditors difference and a financial year comparison warning.</li>
               <li><strong>Excel implementation.</strong> <a href="https://github.com/ryanduguid/Ozzit">Ozzit</a> provides native LAMBDA functions with editable examples and visible arithmetic.</li>
             </ul>
@@ -258,9 +258,9 @@
 
           <section id="grounding">
             <h2>How the work is grounded</h2>
-            <p>I use sources such as the <a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee">Australian Taxation Office's super guarantee rate table</a> and the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a>. The <a href="/rates/super-guarantee/">rate history</a> records the figures, source dates and review limits.</p>
+            <p>I use sources such as the <a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee">Australian Taxation Office’s super guarantee rate table</a> and the <a href="https://www.legislation.gov.au/C2004A04402/latest/text"><em>Superannuation Guarantee (Administration) Act 1992</em></a>. The <a href="/rates/super-guarantee/">rate history</a> records the figures, source dates and review limits.</p>
             <ul>
-              <li><strong>Primary sources only.</strong> Rates, thresholds and tests come from Commonwealth legislation, the regulator's published guidance or the accounting standard, never from a summary of one.</li>
+              <li><strong>Primary sources only.</strong> Rates, thresholds and tests come from Commonwealth legislation, the regulator’s published guidance or the accounting standard, never from a summary of one.</li>
               <li><strong>Exact currency arithmetic.</strong> Currency calculations in the statutory engines use fixed-point decimals, so binary floating-point drift never reaches a figure someone might lodge.</li>
               <li><strong>Refusal over guessing.</strong> The tools have explicit refusal and unknown states, with release-specific limits. Payday Super Checker 0.1.7 marks a receipt as unknown when it has an on-time date but no amount. Version 0.1.6 assumed the full amount arrived. <a href="/tools/payday-super/#receipt-amount">Check the version-specific receipt rules</a> before relying on a result.</li>
               <li><strong>Synthetic data in public.</strong> Every public fixture, test and example uses fictional data. Client information stays out of public repositories entirely.</li>
@@ -318,7 +318,7 @@
         "@id": "https://duguid.com.au/about/#webpage",
         "url": "https://duguid.com.au/about/",
         "name": "About Ryan Duguid, accountant in Newcastle, NSW",
-        "description": "I'm Ryan Duguid, an accountant in Newcastle, NSW, Australia. I build open source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools.",
+        "description": "I’m Ryan Duguid, an accountant in Newcastle, NSW, Australia. I build open source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
         "dateModified": "2026-09-26",
@@ -346,7 +346,7 @@
         "jobTitle": "Accountant",
         "alternateName": "Ryan Duguid, accountant in Newcastle, NSW",
         "disambiguatingDescription": "Australian accountant in Newcastle, NSW and author of aus-accounting-mcp. Distinct from the US software product executive of the same name.",
-        "description": "I'm Ryan Duguid, an accountant in Newcastle, NSW, Australia. I build open source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools.",
+        "description": "I’m Ryan Duguid, an accountant in Newcastle, NSW, Australia. I build open source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3. CA ANZ has not endorsed this site or its tools.",
         "knowsLanguage": "en-AU",
         "nationality": { "@type": "Country", "name": "Australia" },
         "address": {

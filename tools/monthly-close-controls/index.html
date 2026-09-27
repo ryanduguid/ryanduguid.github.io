@@ -38,8 +38,8 @@
   <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="stylesheet" href="/assets/tokens.css?v=20260924c" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260926a" />
+  <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260926b" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -99,7 +99,7 @@
                 <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
                 <tbody>
                   <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: −$250.</td><td>Trace the reconciling items and document their cause.</td></tr>
-                  <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account's review group.</td></tr>
+                  <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account’s review group.</td></tr>
                   <tr><th scope="row">Financial year reset</th><td>The comparison crosses 1 July.</td><td>Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.</td></tr>
                 </tbody>
               </table>
@@ -109,7 +109,7 @@
           </section>
           <section id="get-it" class="install-panel">
             <h2>Run the example</h2>
-            <p class="install-needs">Needs Git and Python 3.10 or later. The pinned source command uses Python's standard library. It needs no Xero account, API access or client files.</p>
+            <p class="install-needs">Needs Git and Python 3.10 or later. The pinned source command uses Python’s standard library. It needs no Xero account, API access or client files.</p>
             <pre tabindex="0" role="region" aria-label="Get the pinned monthly close example"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
 <span class="cmd">cd accounting-review-pipeline</span>
 <span class="cmd">git checkout ae88966fc416f6f2ad618652779c50d0e348949d</span>
@@ -122,7 +122,7 @@
           <section id="limits">
             <h2>Limits</h2>
             <p>A balanced trial balance can still contain omissions, misclassifications or unsupported transactions. These checks use the files, mappings and thresholds you supply. They do not establish that the source records are complete or that an accounting treatment is correct.</p>
-            <p>The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm's workpaper process.</p>
+            <p>The tool cannot post journals, make payments, lodge returns, lock a period or approve a close. It does not send the draft client queries. A reviewer must investigate the exceptions and record the decision through the firm’s workpaper process.</p>
           </section>
           <section id="common-questions" class="faq-section">
             <h2>Common questions</h2>

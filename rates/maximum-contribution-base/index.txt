@@ -8,7 +8,7 @@ Source: https://duguid.com.au/rates/maximum-contribution-base/
 
 The maximum contribution base is $270,830 for 2026-27. It is now an annual figure that applies to each employer separately: once the qualifying earnings an employer has paid an employee for the year pass it, that employer can stop paying super guarantee for that employee for the rest of the year. For quarters up to 30 June 2026 the base was set per quarter, $62,500 for 2025-26.
 
-Verified 20 September 2026 against the ATO's super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
+Verified 20 September 2026 against the ATO’s super guarantee rates and thresholds page (Tables 23 and 24, last updated 17 April 2026), read with the Superannuation Guarantee (Administration) Act 1992 as amended by the Treasury Laws Amendment (Payday Superannuation) Act 2025.
 
 ## Current base
 
@@ -19,7 +19,7 @@ Income year | Maximum contribution base (annual)
 
 ## Quarterly bases to 30 June 2026
 
-For quarters ending on or before 30 June 2026 the base was a quarterly earnings amount and applied to ordinary time earnings. The ATO publishes the base and the super guarantee it implies at that year's percentage.
+For quarters ending on or before 30 June 2026 the base was a quarterly earnings amount and applied to ordinary time earnings. The ATO publishes the base and the super guarantee it implies at that year’s percentage.
 
 Income year | Base per quarter | Maximum SG per quarter
 2025-26 | $62,500 | $7,500.00
@@ -44,7 +44,7 @@ Annual from 1 July 2026, when Payday Super started, and applied per employer. Fo
 
 ### How is the base worked out?
 
-Concessional contributions cap, multiplied by 100, divided by the super guarantee charge percentage, rounded down to the nearest $10. That is the ATO's published formula.
+Concessional contributions cap, multiplied by 100, divided by the super guarantee charge percentage, rounded down to the nearest $10. That is the ATO’s published formula.
 
 ### What is the most super guarantee an employer must pay for one employee in 2026-27?
 

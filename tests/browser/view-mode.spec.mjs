@@ -43,6 +43,9 @@ test('view mode defaults to Human and preserves the page when switching back', a
   const machine = page.getByRole('radio', { name: 'Machine', exact: true });
   await expect(human).toBeChecked();
   await page.locator('#adopt').scrollIntoViewIfNeeded();
+  // On phones the switch scrolls away with the header, so a reader switches from
+  // wherever the switch is in view; that position is the one that must survive.
+  await machine.scrollIntoViewIfNeeded();
   const originalScroll = await page.evaluate(() => scrollY);
   await machine.check();
   const view = page.getByRole('main', { name: 'Machine view' });

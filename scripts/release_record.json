@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-25",
+  "reviewed": "2026-09-26",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -112,14 +112,14 @@
       },
       "documented": {
         "page": "tools/payday-super/index.html",
-        "version": "0.1.5",
-        "visible_label": "Quick trial release 0.1.5"
+        "version": "0.1.7",
+        "visible_label": "Quick trial release 0.1.7"
       },
       "pinned_commands": [
-        "uvx --from payday-super-checker==0.1.5 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv"
+        "uvx --from payday-super-checker==0.1.7 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv"
       ],
       "notes": [
-        "Published checker 0.1.7 leaves a timely receipt date without either amount UNKNOWN. A late receipt without an amount cannot reduce the shortfall. Older 0.1.6 and the deliberate 0.1.5 quick trial retain the full-receipt assumption. Historical evaluation remains 0.1.3."
+        "Published checker 0.1.7 leaves a timely receipt date without either amount UNKNOWN. A late receipt without an amount cannot reduce the shortfall. Older 0.1.5 and 0.1.6 retain the full-receipt assumption; the quick trial uses 0.1.7. Historical evaluation remains 0.1.3."
       ]
     }
   },

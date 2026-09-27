@@ -8,19 +8,9 @@ Source: https://duguid.com.au/tools/business-calculators/staff/
 
 Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Published 20 September 2026. Last reviewed 21 September 2026.
+Published 20 September 2026. Last reviewed 26 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-## Staff cost
-
-Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
-
-Staff cost checklist
 
 Staff cost inputs
 
@@ -28,9 +18,19 @@ Annual wages (AUD) Annual super amount (AUD) Other annual costs (AUD)
 
 Calculate Enter the inputs and calculate.
 
+## How it works
+
+Annual cost = wages + supplied super amount + other annual costs. Monthly average = annual cost / 12. Include expected insurance, payroll tax, recruitment, relief staff and equipment in other costs. Paid leave already within salary must not be added again.
+
+Staff cost checklist
+
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Staff cost checklist: https://duguid.com.au/tools/accounting-questions/payroll-super/#q50
+- nine business calculators: https://duguid.com.au/tools/business-calculators/

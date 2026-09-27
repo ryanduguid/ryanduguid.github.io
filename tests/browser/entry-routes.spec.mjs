@@ -15,7 +15,8 @@ test('the fabricated workbook sample remains available', async ({ request }) => 
   expect((await pack.body()).byteLength).toBeGreaterThan(10000);
 });
 
-// The five starting routes, as the homepage, Tools and llms.txt all state them.
+// The five starting routes, as Tools and llms.txt state them. The homepage
+// hero already opens the cash case, so its task list starts at the second route.
 const startingRoutes = [
   ["Understand why profit and cash differ", "/examples/profit-vs-cash-flow/"],
   ["Use accounting functions in Excel", "/tools/ozzit/"],
@@ -25,10 +26,14 @@ const startingRoutes = [
 ];
 
 test('starting routes lead to the promised activity on both pages', async ({ page }) => {
-  for (const [source, container] of [['/', 'Starting routes'], ['/tools/', 'Start with what you came to do']]) {
+  for (const [source, container, routes] of [
+    ['/', 'Starting routes', startingRoutes.slice(1)],
+    ['/tools/', 'Start with what you came to do', startingRoutes],
+  ]) {
     await page.goto(source);
     const nav = page.getByRole('navigation', { name: container });
-    for (const [label, href] of startingRoutes) {
+    await expect(nav.getByRole('link', { name: /^Understand why profit and cash differ/ })).toHaveCount(source === '/' ? 0 : 1);
+    for (const [label, href] of routes) {
       await expect(nav.getByRole('link', { name: new RegExp(`^${label}`) }))
         .toHaveAttribute('href', href);
     }

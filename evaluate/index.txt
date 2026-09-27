@@ -12,7 +12,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 24 September 2026.
+Last reviewed 26 September 2026.
 
 ## $35,957.55 profit, yet a $25,160 cash shortfall
 
@@ -74,7 +74,7 @@ Inspect the case, files and reproduction command at the captured source commit. 
 - Division 7A: does the repayment count? Inspect a $10,000 change in the repayment assertion without treating the arithmetic as repayment classification.
 - Month-end close: balanced trial balance, unfinished review. Trace a $250 creditors difference and the June-to-July comparison warning.
 
-## Manager review gate evaluation
+## Workpaper Review Gate evaluation
 
 This evaluation runs 2 fictional BAS packs through Workpaper Review Gate, fixes the stated failures and reproduces the READY result.
 

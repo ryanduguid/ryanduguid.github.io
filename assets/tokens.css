@@ -135,7 +135,7 @@
   --space-10: 8rem;
 
   --site-width: 85rem;
-  --reading-width: 68ch;
+  --reading-width: 56ch;
   --gutter: clamp(1rem, 3.4vw, 4rem);
   --header-height: 4.5rem;
 

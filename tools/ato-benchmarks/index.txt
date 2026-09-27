@@ -2,11 +2,11 @@
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
 
-> Compare a profit and loss against the ATO's own published small business benchmark ranges, on your own machine, with the working shown.
+> Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.
 
 # How does this business compare to the ATO small business benchmarks?
 
-The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO's own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
 Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is ato-benchmark-compare/v0.1.9.
 
@@ -14,15 +14,15 @@ Published 24 August 2026. Last reviewed 24 September 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
-This tool does that on your own machine, with no network call in the runtime, and it records which account went into which figure so a second reviewer can check your working later. It applies the ATO's own narrow definitions rather than a rough 'expenses over income': wages sitting inside cost of sales come out of that ratio, and payments to associated persons come out of total expenses before the division.
+This tool does that on your own machine, with no network call in the runtime, and it records which account went into which figure so a second reviewer can check your working later. It applies the ATO’s own narrow definitions rather than a rough 'expenses over income': wages sitting inside cost of sales come out of that ratio, and payments to associated persons come out of total expenses before the division.
 
 The workflow is 2 steps on purpose. First, the tool drafts a mapping from the profit and loss, suggesting a bucket for each account from its name alone. Then a person reviews and corrects that mapping, because no account name on its own tells you whether wages went to an associate.
 
 ## What this tool does
 
-- Reads a profit and loss and maps each account to the ATO's benchmark categories, with a person reviewing that mapping before anything is compared.
-- Applies the ATO's own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.
-- Prints the figures behind each ratio and shows whether it sits inside or outside the ATO's published range.
+- Reads a profit and loss and maps each account to the ATO’s benchmark categories, with a person reviewing that mapping before anything is compared.
+- Applies the ATO’s own narrow definitions of turnover, cost of sales and total expenses, for example excluding wages inside cost of sales from that ratio and deducting payments to associated persons from total expenses.
+- Prints the figures behind each ratio and shows whether it sits inside or outside the ATO’s published range.
 
 ## Worked example: cost of sales excluding wages
 
@@ -64,7 +64,7 @@ cd australian-accounting/packages/ato-benchmark-compare
 pip install .
 ```
 
-Source on GitHub · Primary source: the ATO's small business benchmarks.
+Source on GitHub · Primary source: the ATO’s small business benchmarks.
 
 One known limitation is recorded against this tool. When a bucket a ratio needs is absent from the supplied totals, it reaches the command-line comparison as exactly the nil that a genuine zero produces, while the Python library marks it not_supplied. The two output paths differ in releases up to 0.1.7. Release 0.1.8 gates the command line on the same presence rules as the library, so a bucket no account was mapped to reads not_supplied on both. That is separate from a profit and loss account with no mapping entry, which stops the comparison with a mapping error before any ratio is produced. Check the required buckets, including income fields, before relying on a ratio. See Known limitations.
 
@@ -86,7 +86,7 @@ No. It runs on your own machine with no network call in the runtime, and it reco
 
 ### Why does a person have to review the account mapping?
 
-Because no account name on its own tells you whether wages went to an associated person, and the ATO's definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.
+Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared.
 
 ## Related
 

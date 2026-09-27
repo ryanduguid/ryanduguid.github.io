@@ -2,27 +2,15 @@
 
 Source: https://duguid.com.au/tools/business-calculators/variance/
 
-> Compare actual to budget for an income or cost line in your browser: the difference, its percentage of absolute budget and whether it is favourable or unfavourable.
+> Compare actual to budget for an income or cost line: the difference, its percentage of absolute budget and whether it is favourable or unfavourable.
 
 # Budget variance calculator
 
 Actual minus budget, the percentage of absolute budget and whether the difference is favourable or unfavourable.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
-
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
-
-Published 20 September 2026. Last reviewed 21 September 2026.
+Published 20 September 2026. Last reviewed 26 September 2026.
 
 JavaScript is required for interactive calculations. The formula, assumptions and source links remain available below.
-
-## Budget variance
-
-Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
-
-Budget explanation checklist
-
-Monthly Close Controls compares trial balance CSVs and lists material movements for review.
 
 Budget variance inputs
 
@@ -32,10 +20,22 @@ Figure type Income Cost
 
 Calculate Enter the inputs and calculate.
 
+## How it works
+
+Difference = actual − budget. Percentage = difference / absolute budget × 100. A zero budget has no percentage comparison. Positive income differences are favourable; positive cost differences are unfavourable. Explain causes from the records.
+
+Budget explanation checklist
+
+Monthly Close Controls compares trial balance CSVs and lists material movements for review.
+
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
+
 Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 ## Links
 
-- nine business calculators: https://duguid.com.au/tools/business-calculators/
 - Budget explanation checklist: https://duguid.com.au/tools/accounting-questions/management-reporting/#q75
 - Monthly Close Controls: https://duguid.com.au/tools/monthly-close-controls/
+- nine business calculators: https://duguid.com.au/tools/business-calculators/

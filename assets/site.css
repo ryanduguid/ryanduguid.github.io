@@ -144,7 +144,6 @@ strong {
 code,
 pre,
 .technical-label,
-.page-meta,
 .article-crumb,
 .comparison-value {
   font-family: var(--font-mono);
@@ -243,11 +242,9 @@ pre code {
 .site-identity::after {
   content: " / tool library";
   color: var(--colour-ink-soft);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   font-weight: 400;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .site-nav {
@@ -344,13 +341,25 @@ button:not(.button) {
 }
 
 .technical-label,
-.article-crumb,
-.page-meta {
+.article-crumb {
   color: var(--colour-ink-soft);
   font-size: var(--text-caption);
   letter-spacing: var(--tracking-label);
   line-height: 1.5;
   text-transform: uppercase;
+}
+
+/* Dates read as a sentence, so they keep the body face and sentence case. */
+.page-meta {
+  color: var(--colour-ink-soft);
+  font-size: var(--text-caption);
+  line-height: 1.5;
+}
+
+/* Every paragraph keeps the reading measure at its own type size, so notes
+   and prose in wide sections stay within about 75 characters a line. */
+main p {
+  max-width: var(--reading-width);
 }
 
 .lead,
@@ -722,6 +731,60 @@ caption {
 .receipt-sensitivity th:nth-child(3),
 .receipt-sensitivity th:last-child {
   text-align: right;
+}
+
+/* On phones both Lumbridge comparisons show every figure without sideways
+   scrolling: the three-column comparison fits the width, and the five-run
+   table reads as one labelled block per run. */
+@media (max-width: 40rem) {
+  table.case-comparison,
+  table.receipt-sensitivity {
+    min-width: 0;
+  }
+
+  .case-comparison th[scope="row"] {
+    width: 34%;
+  }
+
+  .case-comparison :is(th, td) {
+    padding-inline: var(--space-1);
+    font-size: var(--text-small);
+    overflow-wrap: anywhere;
+  }
+
+  .receipt-sensitivity thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .receipt-sensitivity tr {
+    display: block;
+    padding-block: var(--space-2);
+    border-bottom: var(--rule-thin) solid var(--colour-rule);
+  }
+
+  .receipt-sensitivity :is(th, td) {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-3);
+    padding: var(--space-1) 0;
+    border: 0;
+    white-space: normal;
+    text-align: right;
+  }
+
+  .receipt-sensitivity :is(th, td)::before {
+    content: attr(data-label);
+    color: var(--colour-ink-soft);
+    font-family: var(--font-body);
+    font-size: var(--text-small);
+    font-weight: 400;
+    text-align: left;
+  }
 }
 
 .faq h3 {
@@ -1202,8 +1265,7 @@ caption {
   max-width: 58ch;
 }
 
-.page-home :is(.technical-label, .page-meta),
-.page-home .site-identity::after {
+.page-home .technical-label {
   font-family: var(--font-body);
   letter-spacing: normal;
   text-transform: none;
@@ -1437,6 +1499,16 @@ caption {
   text-decoration: underline;
   text-decoration-thickness: from-font;
   text-underline-offset: var(--space-2);
+}
+
+/* A row with no title element is a plain secondary link, so it takes the
+   ordinary link cue rather than relying on hover, which touch never shows. */
+.route-actions > a:not(.button):not(:has(> *)) {
+  display: block;
+  color: var(--colour-stamp-strong);
+  text-decoration: underline;
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
 }
 
 .route-actions > a span,
@@ -2332,7 +2404,16 @@ input[type="checkbox"] {
     --header-height: 5.5rem;
   }
 
+  html {
+    scroll-padding-top: var(--space-4);
+  }
+
+  .collection-group {
+    scroll-margin-top: var(--space-4);
+  }
+
   .site-header {
+    position: relative;
     border-bottom: 0;
     outline: var(--rule-thin) solid var(--colour-rule-strong);
     outline-offset: -1px;
@@ -2384,10 +2465,36 @@ input[type="checkbox"] {
   .proof-feature__links a,
   .collection-entry__title,
   .collection-entry__links a,
-  .article-toc a {
+  .article-toc a,
+  .site-identity,
+  .related > li > a,
+  .article-body .sources > li > a,
+  .legal-content .sources > li > a,
+  .install-panel > p > a,
+  .business-calculator > p > a,
+  .question-group h2 a,
+  .question-index a,
+  tbody :is(td, th) > a {
     display: inline-flex;
+    min-width: 2.75rem;
     min-height: 2.75rem;
     align-items: center;
+  }
+
+  /* The 44px target overlaps the plain text above and below it, so the crumb
+     line keeps its height and the page below does not move. */
+  .article-crumb a {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    margin-block: calc((1.5em - 2.75rem) / 2);
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Notes carry instructions and privacy terms, so they keep body size. */
+  .field-note {
+    font-size: 1rem;
   }
 
   .collection-entry__links {
@@ -2843,8 +2950,15 @@ html[data-view-mode="machine"] body {
 }
 
 @media (max-width: 40rem) {
+  /* The header scrolls away on phones, so the switch scrolls with it. Machine
+     view fills the viewport, so there the switch is pinned again. */
   .view-mode {
+    position: absolute;
     top: 0;
+  }
+
+  [data-view-mode="machine"] .view-mode {
+    position: fixed;
   }
 }
 
