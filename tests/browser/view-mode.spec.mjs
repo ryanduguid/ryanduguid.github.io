@@ -54,6 +54,8 @@ test('view mode defaults to Human and preserves the page when switching back', a
   await expect(view).toContainText('https://duguid.com.au/examples/profit-vs-cash-flow/');
   await expect(view).toContainText('Nothing here is tax, legal or financial advice.');
   await expect(view).toContainText('Ryan Duguid, ABN 59 834 031 764');
+  // The motto is a sign-off, not a footer note, so the page text leaves it out.
+  await expect(view).not.toContainText(/fide fiducia/i);
   await expect(page.locator('#main')).toBeHidden();
   await expect(page.getByRole('navigation', { name: 'Primary' })).toBeHidden();
   await human.check();

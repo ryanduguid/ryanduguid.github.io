@@ -22,8 +22,8 @@
     const human = document.querySelectorAll('.site-header, #main, .site-footer, .skip-link');
     const canonical = document.querySelector('link[rel="canonical"]')?.href;
     const source = canonical || new URL(location.pathname, 'https://duguid.com.au').href;
-    // Every footer paragraph travels with the text: the advice boundary and the ABN line.
-    const footerNotes = [...document.querySelectorAll('.site-footer__inner > p')]
+    // The footer notes travel with the text: the advice boundary and the ABN line, not the motto.
+    const footerNotes = [...document.querySelectorAll('.site-footer__inner > p:not(.site-footer__motto)')]
       .map((paragraph) => paragraph.textContent.trim())
       .join('\n\n');
     let loaded = false;

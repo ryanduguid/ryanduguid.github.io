@@ -529,3 +529,127 @@ test('home matches its viewport visual baseline', async ({ page, browserName }, 
   });
   health.assertHealthy();
 });
+
+test('the footer signs off with the motto above the ABN line', async ({ page }) => {
+  const health = observePageHealth(page);
+  await page.goto('/');
+  const motto = page.locator('.site-footer__motto');
+  // The visible copy is decoration for assistive technology; the hidden copy
+  // carries the Latin, spoken as words, and its meaning.
+  await expect(motto.locator('.site-footer__motto-mark')).toHaveAttribute('aria-hidden', 'true');
+  await expect(motto.locator('.site-footer__motto-mark')).toHaveAttribute('title', 'From faith comes confidence');
+  await expect(motto.locator('.site-footer__motto-mark')).toHaveText('EX FIDE FIDUCIA', { useInnerText: true });
+  await expect(motto.locator('.visually-hidden')).toHaveText('Ex fide fiducia, Latin for from faith comes confidence');
+  await expect(motto.locator('.visually-hidden [lang="la"]')).toHaveText('Ex fide fiducia');
+  const geometry = await page.evaluate(() => {
+    const inner = document.querySelector('.site-footer__inner');
+    const box = (element) => element.getBoundingClientRect();
+    const [disclaimer] = inner.querySelectorAll(':scope > p');
+    return {
+      last: inner.lastElementChild.textContent,
+      disclaimerLeft: box(disclaimer).left,
+      mottoLeft: box(inner.querySelector('.site-footer__motto')).left,
+      mottoBottom: box(inner.querySelector('.site-footer__motto')).bottom,
+      abnLeft: box(inner.lastElementChild).left,
+      abnTop: box(inner.lastElementChild).top,
+    };
+  });
+  expect(geometry.last).toBe('Ryan Duguid, ABN 59 834 031 764');
+  expect(geometry.mottoLeft).toBe(geometry.disclaimerLeft);
+  expect(geometry.abnLeft).toBe(geometry.disclaimerLeft);
+  expect(geometry.abnTop).toBeGreaterThan(geometry.mottoBottom);
+  health.assertHealthy();
+});
+
+test('Tools group headings start on the entry descriptions edge', async ({ page }) => {
+  await page.goto('/tools/');
+  await waitForVisualFonts(page);
+  const edges = await page.evaluate(() => [...document.querySelectorAll('.collection-group')].map((group) => ({
+    id: group.id,
+    heading: group.querySelector(':scope > header > h2').getBoundingClientRect().left,
+    description: group.querySelector('.collection-entry > p').getBoundingClientRect().left,
+  })));
+  expect(edges.length).toBeGreaterThan(0);
+  for (const { id, heading, description } of edges) {
+    expect(Math.abs(heading - description), id).toBeLessThanOrEqual(1);
+  }
+});
+
+test('Tools group anchors land just below the header', async ({ page }) => {
+  await page.goto('/tools/');
+  await waitForVisualFonts(page);
+  const gap = await page.evaluate(async () => {
+    const group = document.querySelector('#calculate-tools');
+    group.scrollIntoView({ behavior: 'instant', block: 'start' });
+    await new Promise((resolve) => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+    const header = document.querySelector('.site-header').getBoundingClientRect();
+    return group.getBoundingClientRect().top - Math.max(0, header.bottom);
+  });
+  // The root scroll padding is the one owner of header clearance.
+  expect(gap).toBeGreaterThanOrEqual(0);
+  expect(gap).toBeLessThanOrEqual(24);
+});
+
+test('the About portrait is centred and fits its frame', async ({ page }) => {
+  // At tablet width the portrait stacks under the statement but is narrower
+  // than the column, so this is where an uncentred frame shows.
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto('/about/');
+  await waitForVisualFonts(page);
+  const geometry = await page.evaluate(() => {
+    const frame = document.querySelector('.about-portrait');
+    const pre = frame.querySelector('pre');
+    const column = frame.parentElement.getBoundingClientRect();
+    const box = frame.getBoundingClientRect();
+    return {
+      stacked: getComputedStyle(frame).gridColumnStart !== '2',
+      offCentre: (box.left - column.left) - (column.right - box.right),
+      overflow: pre.scrollWidth - pre.clientWidth,
+      rows: pre.textContent.trim().split('\n').length,
+      longest: Math.max(...pre.textContent.split('\n').map((line) => line.length)),
+    };
+  });
+  expect(geometry.stacked).toBe(true);
+  expect(Math.abs(geometry.offCentre)).toBeLessThanOrEqual(1);
+  expect(geometry.overflow).toBeLessThanOrEqual(0);
+  expect(geometry.rows).toBeGreaterThan(40);
+  // The stylesheet sizes the type for 120 columns.
+  expect(geometry.longest).toBeLessThanOrEqual(120);
+});
+
+test('on a landscape phone the header and view switch scroll away', async ({ page }) => {
+  // 812 wide is the two-row tablet header; 932 wide is above the 56rem
+  // collapse, where the contents rail and calculator result would otherwise stick.
+  for (const viewport of [{ width: 812, height: 375 }, { width: 932, height: 430 }]) {
+    await page.setViewportSize(viewport);
+    for (const route of ['/about/', '/tools/coal-lsl-levy/']) {
+      await page.goto(route);
+      await waitForVisualFonts(page);
+      await page.evaluate(() => scrollTo({ top: 600, behavior: 'instant' }));
+      const geometry = await page.evaluate(() => ({
+        scrolled: scrollY,
+        header: document.querySelector('.site-header').getBoundingClientRect().bottom,
+        toggle: document.querySelector('.view-mode').getBoundingClientRect().bottom,
+        rail: getComputedStyle(document.querySelector('.article-toc, .calculator-result')).position,
+      }));
+      const label = `${route} ${viewport.width}x${viewport.height}`;
+      expect(geometry.scrolled, label).toBeGreaterThan(0);
+      expect(geometry.header, label).toBeLessThanOrEqual(0);
+      expect(geometry.toggle, label).toBeLessThanOrEqual(0);
+      expect(geometry.rail, label).toBe('static');
+    }
+  }
+  // Machine view fills the viewport, so there the switch stays pinned in view
+  // even when the page underneath was left scrolled.
+  await page.addInitScript(() => localStorage.setItem('duguid-view-mode', 'machine'));
+  for (const viewport of [{ width: 812, height: 375 }, { width: 932, height: 430 }]) {
+    await page.setViewportSize(viewport);
+    await page.goto('/about/');
+    await expect(page.getByRole('main', { name: 'Machine view' })).toBeVisible();
+    await page.evaluate(() => scrollTo({ top: 600, behavior: 'instant' }));
+    await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(0);
+    const toggle = page.locator('.view-mode');
+    await expect(toggle).toHaveCSS('position', 'fixed');
+    await expect(toggle).toBeInViewport({ ratio: 1 });
+  }
+});
