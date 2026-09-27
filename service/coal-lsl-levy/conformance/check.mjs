@@ -104,6 +104,7 @@ async function run(base) {
   const declaredScalesHold = (schema, value) => {
     if (value === undefined) return true;
     if (typeof schema?.pattern === 'string') return typeof value === 'string' && new RegExp(schema.pattern).test(value);
+    if (schema?.items && Array.isArray(value)) return value.every((item) => declaredScalesHold(schema.items, item));
     return Object.entries(schema?.properties ?? {}).every(([key, child]) => declaredScalesHold(child, value?.[key]));
   };
   let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');

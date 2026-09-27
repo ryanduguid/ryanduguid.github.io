@@ -58,6 +58,19 @@ const decimalAt = (scale, description) => ({
   pattern: `^(0|[1-9][0-9]*)\\.[0-9]{${scale}}$`,
   description: `${description} Decimal string at a fixed scale of ${scale} decimal places.`,
 });
+// Bonus entries as the workings and the excluded list report them.
+const bonusEntries = (description) => ({
+  type: 'array',
+  description,
+  items: {
+    type: 'object',
+    properties: {
+      component: { type: 'string' },
+      amount: decimalAt(SCALE.money, 'Bonus amount.'),
+      frequency: { type: 'string', enum: [...BONUS_FREQUENCIES] },
+    },
+  },
+});
 const tristate = (description) => ({
   description: `${description} true, false or the string "unknown". An unknown fact is refused when it is needed to settle the selected branch.`,
   oneOf: [{ type: 'boolean' }, { type: 'string', enum: ['unknown'] }],
@@ -260,10 +273,14 @@ export function buildOpenApi(config, register) {
               type: 'object',
               description: `Branch-specific workings. Money has ${SCALE.money} decimal places, quarter-cent figures ${SCALE.quarterCents} and factors ${SCALE.rate}.`,
               properties: {
+                base_rate_of_pay_grossed_up: decimalAt(SCALE.money, 'Base rate of pay with the salary sacrifice added back.'),
+                annual_salary_paid_grossed_up: decimalAt(SCALE.money, 'Annual salary paid with the salary sacrifice added back.'),
+                bonuses_counted: bonusEntries('Bonuses paid at least monthly, which count.'),
                 formula_a: decimalAt(SCALE.money, 'Formula A.'),
                 formula_b: decimalAt(SCALE.quarterCents, 'Formula B, exact to the quarter cent.'),
                 formula_b_basis: {
                   type: 'object',
+                  required: ['aggregate', 'factor'],
                   properties: {
                     aggregate: decimalAt(SCALE.money, 'The aggregate Formula B takes three quarters of.'),
                     factor: decimalAt(SCALE.rate, 'The Formula B factor.'),
@@ -271,7 +288,7 @@ export function buildOpenApi(config, register) {
                 },
               },
             },
-            excluded: { type: 'array', items: { type: 'object' } },
+            excluded: bonusEntries('Bonuses paid less often than monthly, which do not count, each with its reason.'),
             rounding: { type: 'object' },
             manifest: {
               type: 'object',

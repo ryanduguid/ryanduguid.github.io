@@ -87,13 +87,16 @@ test('the manifest binds the result to its inputs and evidence', () => {
   assert.ok(body.advisory.notes.some((note) => note.includes('rule 3 applies') && note.includes('Rules 5, 6 and 7 do not apply')));
 });
 
-test('levy rounding agrees with exact BigInt half-up across quarter-cent positions', () => {
-  // Independent check of the engine's integer rounding against a separate
-  // BigInt formula for every quarter-cent residue near several magnitudes.
+test('levy rounding agrees with a quotient-and-remainder oracle for every residue', () => {
+  // 27 and 4000 are coprime, so 4000 consecutive quarter counts reach every
+  // remainder of 27q mod 4000, exact ties included. The oracle rounds up when
+  // the remainder is at least half the divisor, a different form from the
+  // engine's add-half-then-divide.
   for (const base of [0n, 100n, 123457n, 99999999n, BigInt(MAX_WAGES_CENTS) * 4n - 4000n]) {
-    for (let offset = 0n; offset < 400n; offset += 1n) {
+    for (let offset = 0n; offset < 4000n; offset += 1n) {
       const quarters = base + offset;
-      const expected = Number((quarters * 27n + 2000n) / 4000n);
+      const scaled = quarters * 27n;
+      const expected = Number(scaled / 4000n + (scaled % 4000n >= 2000n ? 1n : 0n));
       assert.equal(levyCents(Number(quarters) / 4), expected, `quarters=${quarters}`);
     }
   }
