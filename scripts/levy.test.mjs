@@ -39,6 +39,13 @@ function casualForm(typed) {
   };
 }
 
+test('toCents rounds a float product to the nearest cent, never down', () => {
+  // 0.29 * 100 is 28.999999999999996 in binary floating point, so truncating
+  // made $0.29 and $1,234.29 a cent short.
+  assert.equal(toCents(0.29), 29);
+  assert.equal(toCents(1234.29), 123429);
+});
+
 test('D1 base rate: Formula A wins when there is nothing else', () => {
   const r = baseRateWages({ baseRateCents: d(6000) });
   assert.equal(r.formulaA, 600000);

@@ -11,11 +11,17 @@
 // no analytics script is delivered, so its return would falsify that notice.
 // Rocket Loader fails too: it re-types every script and runs them through its
 // own loader, so visitors would get a page the browser and Lighthouse checks
-// never ran.
+// never ran. So does any script source other than the site's own /assets/
+// modules: Cloudflare's WebMCP setting injected /.webmcp/bridge.js into every
+// page, same-origin and executed, and nothing here saw it.
+//
+// Some paths must stay absent. GitHub Pages' legacy build turned the Markdown
+// files without front matter into themed pages the repository's own build never
+// makes, with a theme stylesheet; _config.yml now switches that off.
 //
 // Run with: node scripts/check_production.mjs [--base https://duguid.com.au]
 
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
@@ -45,6 +51,37 @@ export const REDIRECTS = {
   '/refusals/': '/tools/refusals/',
 };
 
+export const EXPECTED_ABSENT = [
+  '/rates/register/',
+  '/rates/register/CHANGELOG.html',
+  '/assets/credentials/SOURCES.html',
+  '/assets/css/style.css',
+];
+
+// A script tag read attribute by attribute, quoted either way or not at all, so
+// a ">" inside another attribute's value does not end the tag early.
+const SCRIPT_TAG = /<script\b((?:\s+[^\s"'>/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s"'=<>`]+))?)*)\s*\/?>/gi;
+const ATTRIBUTE = /([^\s"'>/=]+)(?:\s*=\s*(?:"([^"]*)"|'([^']*)'|([^\s"'=<>`]+)))?/g;
+
+// Every script source on a page, resolved as a browser would fetch it, so
+// "/assets/../x.js" is read as "/x.js". An unparseable source comes back null.
+export function scriptSources(html, pageUrl) {
+  const sources = [];
+  for (const [, attributes] of html.matchAll(SCRIPT_TAG)) {
+    for (const [, name, double, single, bare] of attributes.matchAll(ATTRIBUTE)) {
+      if (name.toLowerCase() === 'src') sources.push(URL.parse(double ?? single ?? bare ?? '', pageUrl));
+    }
+  }
+  return sources;
+}
+
+// A same-origin script the repository ships under assets/. Cloudflare's own
+// /cdn-cgi/ scripts get no exemption: the site ships none of them.
+function allowedScript(url) {
+  return url !== null && url.origin === new URL(BASE).origin
+    && /^\/assets\/.+\.m?js$/.test(url.pathname) && existsSync(join(root, url.pathname));
+}
+
 export function sitemapPaths(xml) {
   return [...xml.matchAll(/<loc>https:\/\/duguid\.com\.au([^<]*)<\/loc>/g)].map((match) => match[1]);
 }
@@ -68,6 +105,11 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
   }
   if (/rocket-loader\.min\.js|<script\b[^>]*\btype="[0-9a-f]{16,}-(?:module|text\/javascript)"/.test(deliveredHtml)) {
     failures.push(`${path}: Cloudflare Rocket Loader rewrites the page's scripts; switch it off under Speed, Optimization`);
+  }
+  for (const url of scriptSources(deliveredHtml, new URL(path, BASE))) {
+    if (!allowedScript(url)) {
+      failures.push(`${path}: delivers a script the site does not ship: ${url?.href ?? 'an unparseable source'}`);
+    }
   }
   return { failures, notes };
 }
@@ -105,6 +147,12 @@ async function main() {
     const location = response.headers.get('location');
     if (response.status !== 301 || location !== BASE + to) {
       failures.push(`${from}: expected 301 to ${to}, got HTTP ${response.status} ${location ?? ''}`.trim());
+    }
+  }
+  for (const path of EXPECTED_ABSENT) {
+    const response = await fetch(BASE + path, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
+    if (response.status !== 404) {
+      failures.push(`${path}: expected HTTP 404, got ${response.status}; the Pages build published a page the site never made`);
     }
   }
   for (const note of notes) console.log(`note: ${note}`);
