@@ -20,7 +20,7 @@ the later row is current.
 | 23 September 2026 | main | `npm run test:browser` counted | 250 tests over 2 projects, 11 project-specific skips |
 | 24 September 2026 | PR 266 | Typefaces switched to Besley, Public Sans and Spline Sans Mono; homepage and calculator baselines re-rendered | Passed |
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser`, mobile and desktop Chromium, Playwright 1.63.0 | 329 passed, 13 skipped, 0 failed |
-| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; only the 2 screenshot comparisons skip | 157 passed, 6 skipped, 8 failed; the differences are listed below |
+| 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
@@ -29,9 +29,9 @@ descriptions in the August sections are historical.
 
 ### WebKit differences, 27 September 2026
 
-The first WebKit pass reported these 8 failures. Each names the test so a rerun
-can tell a known difference from a new one. None has been checked in Safari on
-a physical device yet.
+The first WebKit pass reported these 8 failing tests, grouped by cause. Compare a
+rerun's failing tests with these names, not with the count. None has been checked
+in Safari on a physical device yet.
 
 1. `printing includes the fixed proof without opening its disclosure` and
    `printing includes the extra accounting tasks while their chooser is closed`
