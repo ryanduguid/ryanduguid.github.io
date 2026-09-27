@@ -15,7 +15,7 @@ import {
   LEVY_RATE_NUMERATOR,
   LEVY_RATE_DENOMINATOR,
 } from '../../../assets/levy.mjs';
-import { centsToString, exactDecimal, quarterCentsToString, toQuarterCents } from './money.mjs';
+import { atScale, centsToString, LEVY_RATE_PERCENT, quarterCentsToString, SCALE, toQuarterCents } from './money.mjs';
 import { ValidationError } from './schema.mjs';
 
 export const REFUSAL_CLASSES = Object.freeze({
@@ -108,7 +108,7 @@ function baseRate(pay) {
         // way; only one of them keeps a float out of it.
         aggregate: centsToString(grossed + pay.overtimeAndPenaltyCents + pay.allowancesCents
           + countedBonusCents(pay.bonuses)),
-        factor: '0.75',
+        factor: '0.7500',
       },
       winner: result.winner === 'A' ? 'formula_a' : 'formula_b',
       tie_rule: 'An exact tie resolves to Formula A.',
@@ -227,9 +227,9 @@ export function calculate(request, register, config) {
     throw issue;
   }
   const quarters = toQuarterCents(selected.eligibleWagesCents);
-  // Levy in dollars before rounding = quarters * 27 / (4 * 1000 * 100).
-  const before = exactDecimal(quarters * BigInt(LEVY_RATE_NUMERATOR), 4n * BigInt(LEVY_RATE_DENOMINATOR) * 100n,
-    { minScale: 2, maxScale: 8 });
+  // Levy before rounding = quarters * 27 / 4000 cents, or / 400000 dollars.
+  const exactLevy = quarters * BigInt(LEVY_RATE_NUMERATOR);
+  const before = atScale(exactLevy, 400n * BigInt(LEVY_RATE_DENOMINATOR), SCALE.levyBeforeRounding);
   const after = centsToString(roundedCents);
   const periodUrn = `${config.periodUrnPrefix}${reportingMonth}`;
   const rateUri = `${config.rateUrnPrefix}${reportingMonth}:levy-rate`;
@@ -244,7 +244,7 @@ export function calculate(request, register, config) {
     levy_before_rounding: before,
     rate: {
       uri: rateUri,
-      value_percent: rateRow.value,
+      value_percent: LEVY_RATE_PERCENT,
       as_fraction: `${LEVY_RATE_NUMERATOR}/${LEVY_RATE_DENOMINATOR}`,
       effective_from: rateRow.period_start,
       source_checked: rateRow.verified_at,
@@ -253,9 +253,9 @@ export function calculate(request, register, config) {
     workings: selected.workings,
     excluded: selected.excluded,
     rounding: {
-      rule: 'Half up to the nearest cent at the final step only. The Act, the Regulations and the guidance note publish no rounding rule; this is the calculator\'s documented choice.',
-      intermediates: 'Eligible wages keep exact quarter cents (Formula B is three quarters of an aggregate); levy_before_rounding is exact.',
-      differs: before !== after,
+      rule: 'Half up to the nearest cent at the final step only, in exact integer arithmetic. The Act, the Regulations and the guidance note publish no rounding rule; this is the calculator\'s documented choice.',
+      intermediates: 'Eligible wages keep exact quarter cents at 4 decimal places (Formula B is three quarters of an aggregate); levy_before_rounding is exact at 8.',
+      differs: exactLevy !== BigInt(roundedCents) * 4n * BigInt(LEVY_RATE_DENOMINATOR),
     },
     manifest: {
       calculator: config.calculatorUrn,
@@ -285,7 +285,7 @@ export function calculate(request, register, config) {
         'Eligibility under s 4 of the Coal Mining Industry (Long Service Leave) Administration Act 1992 is asserted by the caller, not tested here.',
         'Eligible wages are built from the supplied components only; the caller has separated expense reimbursements, insurer-paid amounts and pay outside the payroll weeks ending in the month.',
         'Rounding is the calculator\'s choice, not a statutory rule. Reconcile the monthly return to payroll before relying on this figure.',
-        'LodgeiT publishing standard, section 4 rounding rules: rule 3 applies to the levy, which is rounded once to cents, ties away from zero. Rules 5, 6 and 7 do not apply: no rounded lines are totalled, nothing is apportioned into posted periods and no schedule is produced.',
+        'LodgeiT publishing standard, section 4 rounding rules: rule 3 applies to the levy, which is rounded once to cents, ties away from zero, from its exact integer value. Rates and factors carry 4 decimal places; eligible_wages (4) and levy_before_rounding (8) are exact working figures at the scales the OpenAPI declares. Rules 5, 6 and 7 do not apply: no rounded lines are totalled, nothing is apportioned into posted periods and no schedule is produced.',
         `Rate row ${rateRow.row_id} carries review status "${rateRow.review}". A source-check date does not establish currency after that date.`,
       ],
     },

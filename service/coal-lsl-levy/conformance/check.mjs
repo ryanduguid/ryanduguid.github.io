@@ -16,6 +16,7 @@ import { createHash } from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { createApp } from '../src/server.mjs';
+import { declaredScalesHold } from './declared-scales.mjs';
 import assert from 'node:assert/strict';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -95,7 +96,13 @@ async function run(base) {
   let refusals = 0;
   let validations = 0;
   let notFound = 0;
-  let decimalStrings = true;
+  // 4. Every figure a response carries must match the fixed-scale pattern the
+  // served OpenAPI declares for it, and the four headline figures must exist.
+  const resultSchema = openapi.body?.components?.schemas?.CoalLslLevyResult;
+  const headline = ['eligible_wages', 'levy', 'levy_before_rounding', 'rate.value_percent'];
+  const valueAt = (node, path) => path.split('.').reduce((value, key) => value?.[key], node);
+  const patternAt = (path) => valueAt(resultSchema, `properties.${path.split('.').join('.properties.')}`)?.pattern;
+  let decimalStrings = headline.every((path) => typeof patternAt(path) === 'string');
   let manifestComplete = true;
   let advisoryPresent = true;
   const documentedPolicy = openapi.body?.components?.schemas?.CoalLslLevyResult?.properties?.manifest?.properties?.rounding_policy?.const;
@@ -114,10 +121,9 @@ async function run(base) {
     }
     if (response.status === 200) {
       computed += 1;
-      for (const key of ['eligible_wages', 'levy', 'levy_before_rounding']) {
-        if (typeof body[key] !== 'string' || !/^[0-9]+\.[0-9]+$/.test(body[key])) decimalStrings = false;
+      if (!headline.every((path) => typeof valueAt(body, path) === 'string') || !declaredScalesHold(resultSchema, body)) {
+        decimalStrings = false;
       }
-      if (typeof body.rate?.value_percent !== 'string') decimalStrings = false;
       const manifest = body.manifest ?? {};
       if (!(manifest.calculator && manifest.period && manifest.engine?.version && Array.isArray(manifest.rate_table_uris)
         && manifest.rate_table_uris.every((item) => /^[0-9a-f]{64}$/.test(item.sha256 ?? '')) && manifest.citation)) manifestComplete = false;
@@ -146,7 +152,7 @@ async function run(base) {
   check('2 refusals', `the fixture set exercises 200, 400, 422 and 404`,
     computed > 0 && refusals > 0 && validations > 0 && notFound > 0,
     `${computed} computed, ${refusals} refused, ${validations} rejected, ${notFound} not found`);
-  check('4 numbers', 'money and rates are decimal strings, never JSON numbers', decimalStrings);
+  check('4 numbers', 'money and rates are decimal strings at the scales the OpenAPI declares, never JSON numbers', decimalStrings);
   check('3 manifest', 'every 200 carries a complete manifest', manifestComplete);
   check('3 manifest', 'every 200 names the rounding policy its OpenAPI documents', roundingNamed, documentedPolicy ?? 'undocumented');
   check('3 manifest', 'every 200 carries an advisory block', advisoryPresent);
