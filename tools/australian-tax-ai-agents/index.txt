@@ -109,7 +109,7 @@ Clone once per project. To repeat or retry from that directory, rerun only the c
 
 Development installation
 
-As at 27 September 2026, the default branch contains 62 workflows preparing v0.3.0. This command installs that development inventory.
+As at 27 September 2026, the default branch contains 63 workflows preparing v0.3.0. This command installs that development inventory.
 
 ```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
