@@ -267,7 +267,7 @@ note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE), for this repository's own code and text.
+MIT, see [LICENSE](LICENSE), for this repository's own code, text and data. The Privacy page states the same grant for readers, and every page's JSON-LD carries it as `license`.
 
 The MIT grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL

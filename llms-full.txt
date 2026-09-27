@@ -7232,7 +7232,7 @@ Source: https://duguid.com.au/privacy/
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 24 September 2026.
+Published 12 September 2026. Last reviewed 27 September 2026.
 
 ## Browser calculations
 
@@ -7276,7 +7276,7 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
-The website source is available under its MIT licence, which includes its warranty terms. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+The website's own text, data and source code are available under its MIT licence, which includes its warranty terms; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
 
 ## Links
 
