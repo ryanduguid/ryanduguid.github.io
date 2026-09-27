@@ -75,13 +75,11 @@ export function scriptSources(html, pageUrl) {
   return sources;
 }
 
-// A same-origin script the repository ships under assets/. /cdn-cgi/ sources
-// belong to Cloudflare and are left to the Rocket Loader rule, so a Rocket
-// Loader page is reported once.
+// A same-origin script the repository ships under assets/. Cloudflare's own
+// /cdn-cgi/ scripts get no exemption: the site ships none of them.
 function allowedScript(url) {
-  if (url === null || url.origin !== new URL(BASE).origin) return false;
-  if (url.pathname.startsWith('/cdn-cgi/')) return true;
-  return /^\/assets\/.+\.m?js$/.test(url.pathname) && existsSync(join(root, url.pathname));
+  return url !== null && url.origin === new URL(BASE).origin
+    && /^\/assets\/.+\.m?js$/.test(url.pathname) && existsSync(join(root, url.pathname));
 }
 
 export function sitemapPaths(xml) {

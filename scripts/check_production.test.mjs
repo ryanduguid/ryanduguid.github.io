@@ -34,13 +34,14 @@ test('an unrelated obfuscation marker cannot hide a missing mailto', () => {
 });
 
 test('Rocket Loader fails by its loader script or a re-typed page script', () => {
-  for (const delivered of [
-    `${SOURCE}<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" defer></script>`,
-    `${SOURCE}<script type="f08f7cd8f54470ab5e2006e7-module" src="/assets/levy-page.mjs"></script>`,
-    `${SOURCE}<script defer src="/assets/view-mode.mjs" type="f08f7cd8f54470ab5e2006e7-text/javascript"></script>`,
+  // The loader is also a script the site does not ship, so it fails both rules.
+  for (const [delivered, count] of [
+    [`${SOURCE}<script src="/cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" defer></script>`, 2],
+    [`${SOURCE}<script type="f08f7cd8f54470ab5e2006e7-module" src="/assets/levy-page.mjs"></script>`, 1],
+    [`${SOURCE}<script defer src="/assets/view-mode.mjs" type="f08f7cd8f54470ab5e2006e7-text/javascript"></script>`, 1],
   ]) {
     const { failures } = inspectHtml('/tools/coal-lsl-levy/', SOURCE, delivered);
-    assert.equal(failures.length, 1, delivered);
+    assert.equal(failures.length, count, delivered);
     assert.match(failures[0], /Rocket Loader/);
   }
 });
@@ -72,6 +73,7 @@ test('a script is read however its tag is written and resolved before it is judg
     '<script src="/assets/../evil.js">',
     '<script src="/assets/%2e%2e/evil.js">',
     '<script src="/cdn-cgi/../evil.js">',
+    '<script src="/cdn-cgi/challenge-platform/scripts/jsd/main.js">',
     '<script src="/assets/not-shipped.mjs">',
     '<script src="http://[">',
   ]) {
