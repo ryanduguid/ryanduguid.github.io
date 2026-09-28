@@ -288,7 +288,7 @@ PyXero, a Python client for the Xero accounting API. Pull request 440 adds clien
 
 Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 6 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
 
-ERPNext, open-source ERP software. I reported outdated and misspelt account names in its Australian chart of accounts in issue 59498. A maintainer opened pull request 59499 incorporating my commit and merged it on 27 September 2026. It changed 1 file.
+ERPNext, open source ERP software. I reported outdated and misspelt account names in its Australian chart of accounts in issue 59498. A maintainer opened pull request 59499 incorporating my commit and merged it on 27 September 2026. It changed 1 file.
 
 ERPNext Australian Localisation, BAS, ABA payment file and BAI2 bank file extensions for ERPNext. Pull request 194 stops ABA payment files truncating ten-digit account numbers to nine digits. It now rejects the number and names the party or bank account. It merged on 7 September 2026 and changed 2 files.
 
