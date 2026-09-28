@@ -55,7 +55,7 @@
         </nav>
         <h1>Evidence behind the tools</h1>
         <p class="lead-note short-answer">This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.</p>
-        <p class="page-meta">Last reviewed 25 September 2026.</p>
+        <p class="page-meta">Last reviewed 28 September 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
@@ -73,11 +73,17 @@
 
           <section aria-labelledby="accepted-upstream-work">
             <h2 id="accepted-upstream-work">Accepted upstream work</h2>
-            <p>OpenAccountants, Meltano and XeroAPI accepted the changes below. These merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
+            <p>Maintainers of the projects below merged these specific changes. The merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.</p>
             <p><strong>OpenAccountants, tax guides for coding agents.</strong> <a href="https://github.com/OpenAccountants/openaccountants/pull/85">Pull request 85</a> restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.</p>
             <p><strong>Meltano SDK, a framework for Singer taps and targets.</strong> <a href="https://github.com/meltano/sdk/pull/3727">Pull request 3727</a> retains previously discarded OAuth refresh tokens in memory for the run without writing them to stored configuration. It merged on 8 August 2026 and changed 2 files.</p>
             <p><strong>Xero command line, XeroAPI’s command-line tool for the Xero Accounting API.</strong> <a href="https://github.com/XeroAPI/xero-command-line/pull/44">Pull request 44</a> passes the <code>--standard-layout</code> and <code>--payments-only</code> flags of the balance sheet and profit and loss reports to the matching Xero SDK parameters. The two had been swapped, so <code>--standard-layout</code> returned a cash-basis report with different amounts. It merged on 17 September 2026, changed 3 files and added regression tests for both reports.</p>
-            <p class="field-note">Merge status and file counts were read from the GitHub API on 25 September 2026. Each merge shows a maintainer accepting one specific change. To test the tools themselves, <a href="/evaluate/">rerun the evaluations</a>.</p>
+            <p><strong>PyXero, a Python client for the Xero accounting API.</strong> <a href="https://github.com/freakboy3742/pyxero/pull/440">Pull request 440</a> adds client-credentials authentication for Xero custom connections. It merged on 10 September 2026 and changed 4 files. <a href="https://github.com/freakboy3742/pyxero/pull/439">Pull request 439</a> raises an error when Xero answers a JSON request with a non-JSON page and a 200 status, which the client had passed back to callers as raw bytes. It merged on 9 September 2026 and changed 5 files.</p>
+            <p><strong>Odoo Community Association, accounting modules for Odoo.</strong> Three pull requests for Odoo 19 merged after review. <a href="https://github.com/OCA/account-financial-reporting/pull/1565">Pull request 1565</a> stops the financial report module's link hook acting on other reports and on frames that have not loaded. <a href="https://github.com/OCA/bank-statement-import/pull/1003">Pull request 1003</a> fixes three online bank statement import tests that failed in the first hour after midnight UTC. <a href="https://github.com/OCA/account-reconcile/pull/1029">Pull request 1029</a> adds regression coverage for automatic reconciliation of an existing statement line. The three merged between 31 August and 6 September 2026.</p>
+            <p><strong>ERPNext, open-source ERP software.</strong> I reported outdated and misspelt account names in its Australian chart of accounts in <a href="https://github.com/frappe/erpnext/issues/59498">issue 59498</a>. A maintainer opened <a href="https://github.com/frappe/erpnext/pull/59499">pull request 59499</a> incorporating my commit and merged it on 27 September 2026. It changed 1 file.</p>
+            <p><strong>ERPNext Australian Localisation, BAS, ABA payment file and BAI2 bank file extensions for ERPNext.</strong> <a href="https://github.com/Arus-Info/ERPNext-Australian-Localisation/pull/194">Pull request 194</a> stops ABA payment files truncating ten-digit account numbers to nine digits. It now rejects the number and names the party or bank account. It merged on 7 September 2026 and changed 2 files.</p>
+            <p><strong>LedgerSMB, double-entry accounting software.</strong> <a href="https://github.com/ledgersmb/LedgerSMB/pull/9842">Pull request 9842</a> makes existing GIFI codes (Canadian tax-reporting account codes) read-only while their descriptions stay editable, with tests for both. It merged on 6 September 2026 and changed 3 files.</p>
+            <p><strong>requests-cache, a persistent HTTP cache for Python.</strong> <a href="https://github.com/requests-cache/requests-cache/pull/1187">Pull request 1187</a> adds a <code>has_content_changed</code> attribute that reports whether a refreshed response differs from the cached copy. It compares JSON without regard to formatting or key order and reports no result when no comparison was made. It merged on 14 September 2026 and changed 7 files.</p>
+            <p class="field-note">Merge status and file counts were read from the GitHub API on 28 September 2026. By then 65 pull requests I had opened in other projects had merged: 46 to OpenAccountants and 19 across 17 other repositories. This section is a selection. To test the tools themselves, <a href="/evaluate/">rerun the evaluations</a>.</p>
           </section>
 
           <section>
@@ -281,7 +287,7 @@
         "headline": "Evidence and Assurance for Australian accounting tools",
         "description": "Canonical evidence, assurance boundaries and inspectable records for Australian computational accounting tools.",
         "inLanguage": "en-AU",
-        "dateModified": "2026-09-25",
+        "dateModified": "2026-09-28",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },

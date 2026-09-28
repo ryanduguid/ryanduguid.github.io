@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-27T00:00:00Z</updated>
+  <updated>2026-09-28T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The Evidence page adds six more merged upstream changes: PyXero, three Odoo C...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-6eeba65eefa9195c</id>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary>The Evidence page adds six more merged upstream changes: PyXero, three Odoo Community Association modules, ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.</summary>
+  </entry>
   <entry>
     <title>Tool pages name the releases published by 27 September 2026 with the date che...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
