@@ -185,6 +185,27 @@ test('cash inputs survive a save and reload with dated results', async ({ page }
   await expect(form.getByRole('button', { name: 'Download forecast CSV' })).toBeEnabled();
 });
 
+test('cash imports keep accepted amounts with surrounding whitespace', async ({ page }) => {
+  await page.goto('/tools/business-calculators/cash/');
+  const data = { version: 1, currency: 'AUD', startDate: '2026-09-28', opening: ' \t200.00\n\u00a0', buffer: ' 100 ',
+    week: ' 1 ', amount: ' 100 ', delay: ' 2 ', weeks: Array.from({ length: 13 }, () => ({ receipts: ' 1000 ', payments: ' 300 ' })) };
+  await page.getByLabel('Load inputs (replaces the current forecast)').setInputFiles({
+    name: 'spaced-inputs.json', mimeType: 'application/json', buffer: Buffer.from(JSON.stringify(data)),
+  });
+  await expect(page.locator('#cash-file-status')).toHaveText('Inputs loaded. Calculate to refresh the results.');
+  const form = page.locator('#cash form');
+  for (const [name, value] of [['opening', '200.00'], ['buffer', '100'], ['week', '1'], ['amount', '100'], ['delay', '2']]) {
+    await expect(form.locator(`[name="${name}"]`)).toHaveValue(value);
+  }
+  for (let week = 1; week <= 13; week++) {
+    await expect(form.locator(`[name="receipts-${week}"]`)).toHaveValue('1000');
+    await expect(form.locator(`[name="payments-${week}"]`)).toHaveValue('300');
+  }
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(form.locator('output')).toContainText('Closing cash: $9,300.00.');
+  await expect(form.getByRole('button', { name: 'Download forecast CSV' })).toBeEnabled();
+});
+
 test('a cash file load locks saving and loading until the read finishes', async ({ page }) => {
   await page.goto('/tools/business-calculators/cash/');
   const locked = page.locator('#cash fieldset:disabled');
