@@ -198,6 +198,63 @@ test('refusal tables keep prose readable and scroll with the keyboard', async ({
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
 });
 
+// Prose keeps the 56ch measure, but a wide table's scroll box may take the free
+// content column, so every column shows once that column has room, from about
+// 1065px (a regression of the 26 September measure change). Narrower columns,
+// beside the contents rail or on phones, may still scroll.
+const wideTablePages = [
+  '/evaluate/',
+  '/examples/profit-vs-cash-flow/',
+  '/tools/australian-tax-ai-agents/',
+  '/tools/limitations/',
+  '/tools/monthly-close-controls/',
+  '/tools/ozzit/',
+  '/tools/refusals/',
+  '/tools/xero-trial-balance/',
+];
+
+test('wide tables show every column where the content column has room', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'phones keep the 44rem table minimum and scroll sideways');
+  for (const width of [1080, 1280, 1440]) {
+    await page.setViewportSize({ width, height: 1000 });
+    for (const path of wideTablePages) {
+      await page.goto(path);
+      await waitForVisualFonts(page);
+      const boxes = await page
+        .locator('main .table-scroll:has(> .tool-table--wide, > .rate-table--wide)')
+        .evaluateAll((elements) => elements.map((element) => ({
+          label: element.getAttribute('aria-label'),
+          hidden: element.scrollWidth - element.clientWidth,
+          pastShell: Math.round(element.getBoundingClientRect().right - element.closest('.site-shell').getBoundingClientRect().right),
+        })));
+      expect(boxes.length, `${path} wide tables`).toBeGreaterThan(0);
+      for (const box of boxes) {
+        expect(box.hidden, `${path} ${box.label} at ${width}px`).toBeLessThanOrEqual(1);
+        expect(box.pastShell, `${path} ${box.label} at ${width}px`).toBeLessThanOrEqual(0);
+      }
+      expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(width);
+    }
+  }
+  // The article grid is a size container now; its contents rail must still stick.
+  await page.goto('/tools/ozzit/');
+  await page.evaluate(() => window.scrollTo({ top: 2400, behavior: 'instant' }));
+  const rail = await page.evaluate(() => ({
+    top: document.querySelector('.article-toc').getBoundingClientRect().top,
+    header: document.querySelector('.site-header').getBoundingClientRect().bottom,
+  }));
+  expect(rail.top).toBeGreaterThanOrEqual(rail.header);
+  expect(rail.top).toBeLessThanOrEqual(rail.header + 48);
+});
+
+test('homepage levy inputs share one top edge when a label wraps', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'mobile', 'the overtime label wraps only at phone width');
+  await page.goto('/');
+  await waitForVisualFonts(page);
+  const tops = await page.locator('.proof-calc__fields input').evaluateAll((inputs) => inputs
+    .map((input) => Math.round(input.getBoundingClientRect().top + window.scrollY)));
+  expect(Math.abs(tops[0] - tops[1])).toBeLessThanOrEqual(1);
+});
+
 test('health collector catches a non-success response', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/definitely-missing-agent-test');

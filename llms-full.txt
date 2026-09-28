@@ -20,13 +20,13 @@ Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 27 September 2026.
+Last reviewed 28 September 2026.
 
 ## Compare profit with cash flow
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.
 
-13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 24 September 2026. Capture record.
+13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 28 September 2026. Capture record.
 
 ## Choose a task
 
@@ -3795,6 +3795,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+28 September 2026 | On eight pages, 18 wide tables show every column again on screens about 1065px wide or wider; since the reading measure narrowed on 26 September they had scrolled sideways even on wide screens. The Ozzit page lists all 138 named formulas with their released signatures, by module. The cash flow chart is re-exported in Public Sans, and the homepage Coal LSL inputs line up on phones.
 28 September 2026 | The Evidence page lists nine more merged upstream pull requests in six entries: two for PyXero, three for Odoo Community Association modules, and one each for ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
 27 September 2026 | Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.
 27 September 2026 | The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.
@@ -7335,9 +7336,9 @@ XLSX, 23,506 bytes. Needs desktop Excel with automatic calculation. The explanat
 
 Lumbridge Services is fictional. Every business, customer, invoice, balance and date here is fictional, and all amounts are Australian dollars (AUD). No client outcome is described.
 
-Published 18 September 2026. Last reviewed 27 September 2026.
+Published 18 September 2026. Last reviewed 28 September 2026.
 
-One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. Compare both cases. Exported from Excel on 24 September 2026; capture record.
+One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. Compare both cases. Exported from Excel on 28 September 2026; capture record.
 
 ## The business and the question
 
@@ -7372,7 +7373,7 @@ The two cases end the quarter with the same cash because the delayed receipt sti
 
 Against the owner’s $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.
 
-Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 24 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
+Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 28 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. Capture record.
 
 ## Compare five receipt delays
 
@@ -7531,7 +7532,7 @@ XLSX, 439,097 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or ma
 
 Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 26 September 2026.
+Published 18 September 2026. Last reviewed 28 September 2026.
 
 ## Extract GST from $1,100
 
@@ -7568,8 +7569,6 @@ Author | Ryan Duguid. Built from scratch, with provenance recorded in the reposi
 Open an example for its arguments, formula, expected display and limits. These examples describe v3.4.2 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
 
 All ten were evaluated in Excel 16.0 build 20430 on 25 September 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
-
-Download the full v3.4.2 function index (CSV), or read it on GitHub.
 
 ### Extract GST from an inclusive amount
 
@@ -7731,6 +7730,180 @@ Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Othe
 
 Link to this example · Released formula source
 
+## All 138 named formulas
+
+Each module below lists the names its source file defines in the v3.4.2 workbook, with the released signature of each. Square brackets mark optional arguments.
+
+Download the full v3.4.2 function index (CSV) for a one-line description of each, or read it on GitHub.
+
+### Financial, 46 named formulas
+
+- oz.AboutFinancialλ
+- oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
+- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline])
+- oz.AmortiseλDV
+- oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
+- oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
+- oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
+- oz.CorkscrewλDV
+- oz.Cumulativeλ( Totals, [OpeningBalance])
+- oz.DBλ(Cost, Salvage, Life, [Months])
+- oz.DDBλ(Cost, Salvage, Life, [Factor])
+- oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
+- oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
+- oz.DepreciateλDV
+- oz.DiminishingValueλ(Cost, Life)
+- oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
+- oz.GSTAddλ(Amounts, [Rate])
+- oz.GSTExtractλ(Amounts, [Rate])
+- oz.IRRλ( Values, Dates)
+- oz.IntOnIntλ( Principal, Rate)
+- oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
+- oz.LabelDepreciateλ( AssetNames)
+- oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
+- oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
+- oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
+- oz.Movementλ( [BeginningValues], Values)
+- oz.PeriodDiffλ(StartDate, EndDate, Interval)
+- oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
+- oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
+- oz.PrimeCostλ(Cost, Life)
+- oz.ROUScheduleλ(Cost, Periods)
+- oz.RangeToDAλ( Cell, [Rows], [Columns])
+- oz.Reversalλ( [OpeningValue], RowToReverse)
+- oz.RollingAvgλ( Values, Size)
+- oz.RollingMaxλ( Values, Size)
+- oz.RollingMinλ( Values, Size)
+- oz.RollingSumλ( Values, Size)
+- oz.SLNλ(Cost, Salvage, Life)
+- oz.SYDλ(Cost, Salvage, Life)
+- oz.SumAmortiseλ(AmortisationSchedule)
+- oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
+- oz.SumDepreciateλ(DepreciationSchedule)
+- oz.SumPeriodsλ( Values, Dates, PeriodStarts)
+- oz.TimelineOffsetλ(Date, Timeline)
+- oz.TimelinePositionλ(Array, Timeline, Offset)
+- oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
+
+Released Financial source
+
+### Ratios, 39 named formulas
+
+- oz.AboutRatiosλ
+- oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
+- oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
+- oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
+- oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
+- oz.CashRatioλ( Cash, Liabilities)
+- oz.CurrentRatioλ( Assets, Liabilities)
+- oz.DPRλ( DividendsPaid, NetIncome )
+- oz.DSCRλ( NetOperatingIncome, TotalDebtService)
+- oz.DSIλ( AverageInventory, CostOfGoodsSold)
+- oz.DebtRatioλ( TotalDebt, TotalAssets)
+- oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
+- oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
+- oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
+- oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
+- oz.EBITDAMarginλ( EBITDA, TotalRevenue)
+- oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
+- oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
+- oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
+- oz.GrossMarginλ( GrossProfit, NetSales)
+- oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
+- oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
+- oz.NetProfitMarginλ( NetIncome, Revenue)
+- oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
+- oz.OperatingMarginλ( OperatingEarnings, Revenue)
+- oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
+- oz.PretaxMarginλ( PretaxEarnings, Revenue)
+- oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
+- oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
+- oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
+- oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
+- oz.QuickRatioλ( QuickAssets, Liabilities)
+- oz.ROAλ( NetIncome, TotalAssets)
+- oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
+- oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
+- oz.ROIλ( NetReturnonInvestment, CostofInvestment)
+- oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
+- oz.RetentionRatioλ( RetainedEarnings, NetIncome )
+- oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
+
+Released Ratios source
+
+### Essentials, 17 named formulas
+
+- oz.AboutEssentialsλ
+- oz.AvgColsλ( Array)
+- oz.AvgRowsλ( Array)
+- oz.CountAColsλ( Array )
+- oz.CountARowsλ( Array)
+- oz.CountColsλ( Array)
+- oz.CountCλ( Text, Characters)
+- oz.CountRowsλ( Array)
+- oz.IsBetweenEλ( Value, Low, Hi, [Inclusive])
+- oz.IsInListλ( Value, List)
+- oz.MaxColsλ( Array)
+- oz.MaxRowsλ( Array)
+- oz.MinColsλ( Array)
+- oz.MinRowsλ( Array)
+- oz.RangeToDAEλ(Range, [Rows], [Columns])
+- oz.SumColsλ( Array)
+- oz.SumRowsλ( Array)
+
+Released Essentials source
+
+### Utilities, 17 named formulas
+
+- oz.AboutUtilitiesλ
+- oz.AvgColsUλ( Array)
+- oz.AvgRowsUλ( Array)
+- oz.CountAColsUλ( Array )
+- oz.CountARowsUλ( Array)
+- oz.CountCUλ( Text, Characters)
+- oz.CountColsUλ( Array)
+- oz.CountRowsUλ( Array)
+- oz.IsBetweenUλ( Value, Low, Hi, [Inclusive])
+- oz.IsInListUλ( Value, List)
+- oz.MaxColsUλ( Array)
+- oz.MaxRowsUλ( Array)
+- oz.MinColsUλ( Array)
+- oz.MinRowsUλ( Array)
+- oz.RangeToDAUλ(Range, [Rows], [Columns])
+- oz.SumColsUλ( Array)
+- oz.SumRowsUλ( Array)
+
+Released Utilities source
+
+### Dates, 14 named formulas
+
+- oz.AboutDatesλ
+- oz.CountDOWλ(Starts, Ends, DayOfWeek)
+- oz.DateDifλ(StartDate, EndDate, [Unit])
+- oz.FinancialYearλ(Dates, [StartMonth])
+- oz.IsBetweenλ(Values, Low, High, [Inclusive])
+- oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
+- oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
+- oz.PeriodLabelλ(Date, [Interval])
+- oz.Periodsλ(Starts, Ends, [Intervals])
+- oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
+- oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
+- oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
+- oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
+- oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
+
+Released Dates source
+
+### Debt, 5 named formulas
+
+- oz.AmortiseBλ(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])
+- oz.DebtSculptFixedλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod])
+- oz.DebtSculptVariableLRVλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+- oz.DebtSculptVariableλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+- oz.InterestLRVλ(CFADS, DSCR, Principal, InterestRate)
+
+Released Debt source
+
 ## One worked example
 
 Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter this formula in a cell of the Ozzit workbook:
@@ -7814,8 +7987,6 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
 - Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
-- Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
-- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
 - Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
@@ -7828,6 +7999,12 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-periodrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-daycountrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-irr
+- Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
+- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
+- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Ratios.txt
+- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Essentials.txt
+- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Utilities.txt
+- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Debt.txt
 - historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/native-gst-capture.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
 - guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/workbook-use.md
