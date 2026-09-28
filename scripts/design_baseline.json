@@ -36,10 +36,10 @@
       "0f097f13ada65d96910645a5dd43d67c87a111e8a5fac63cc2f2f70e69bcf19d"
     ],
     "examples/profit-vs-cash-flow/index.html": [
-      "44b8c96c41dcf291ef57c14996f5e42fa93dd7fa048dd9228ed1a5de7bb72ded"
+      "8bf1e47bc9f934cdeca4305fa62d4de764e2d46d5aebcbb2ac6a6219bc788856"
     ],
     "index.html": [
-      "bf79aadbc063fc28a31b3432bd96b394f37788154b18d55c5efd2ee71e941f60"
+      "43b8399457516023eb098cf41696ac83ad37d97b64d6e64c6f3ce58170a443e1"
     ],
     "privacy/index.html": [
       "abf813fe607b852d3d6518bed929ba2850e660233f1a6a99fd267126661c19d0"
@@ -84,7 +84,7 @@
       "4c3ea34e80e0618be6653f8843b35ce4cb36fe60e4ee5d76cce9cabd60a32ee9"
     ],
     "tools/ozzit/index.html": [
-      "015e4d0eaa3ec8541750b3975c2e494aa6bf9a56fe54fd2a8ef838efdd936a12"
+      "b946bde6fd04e42f72484183b4977180d3a7e6ff9377eb7ea6eff3f00ff963dd"
     ],
     "tools/payday-super/index.html": [
       "8c735bb1eba50b1307ca80bd20751c1f816901bc2951c89512bfbb21e48d7b7c"
@@ -111,7 +111,7 @@
   "protected_files": {
     "llms.txt": "5af894ae129d23aa0637e8901ae7617b7c3d6476a18d2c4cda041046d71409f8",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "d6eb09b0e3fe4d2c7a5949cfdc1a32f48842f3e7b274679dd1f2cda135a12794"
+    "sitemap.xml": "3fd9f70d54169a1f785794d86ab1f1149aca00ff43a852f272c2c0d8ab913608"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

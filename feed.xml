@@ -8,6 +8,13 @@
   <updated>2026-09-28T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>On eight pages, 18 wide tables show every column again on screens about 1065p...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-98aa70b00f9cae66</id>
+    <updated>2026-09-28T00:00:00Z</updated>
+    <summary>On eight pages, 18 wide tables show every column again on screens about 1065px wide or wider; since the reading measure narrowed on 26 September they had scrolled sideways even on wide screens. The Ozzit page lists all 138 named formulas with their released signatures, by module. The cash flow chart is re-exported in Public Sans, and the homepage Coal LSL inputs line up on phones.</summary>
+  </entry>
+  <entry>
     <title>The Evidence page lists nine more merged upstream pull requests in six entrie...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-62ee136393332c0d</id>

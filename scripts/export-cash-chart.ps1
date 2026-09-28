@@ -24,7 +24,7 @@ param(
 $ErrorActionPreference = 'Stop'
 
 $layout = @{
-  wide   = @{ Width = 957; Height = 479.5; Text = 22; Title = 22; DateStep = 14; File = 'cash-preview.png' }
+  wide   = @{ Width = 957; Height = 479.5; Text = 22; Title = 21; DateStep = 14; File = 'cash-preview.png' }
   narrow = @{ Width = 640; Height = 533.5; Text = 24; Title = 24; DateStep = 28; File = 'cash-preview-narrow.png' }
 }[$Variant]
 

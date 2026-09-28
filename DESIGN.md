@@ -51,6 +51,20 @@ the entry descriptions' edge, and the root scroll padding alone now clears the
 header for their anchors, which had reserved it twice and landed 112px low.
 Footer links on phones and header links up to 56rem get 44px targets.
 
+The 28 September table and reference pass restores the width wide tables had
+beside the 68ch measure; the 56ch change had cut off 18 of them across 8
+pages. Prose keeps 56ch, but the scroll box of a `rate-table--wide` or
+`tool-table--wide` table may take up to 47rem of the free content column, so
+every column shows wherever that column has room. The article grid and a shell
+holding an article body are size containers, so the box never passes the
+column edge. The tables keep their 44rem minimum and still scroll where the
+column is narrower: below about 760px, and beside the contents rail between
+900 and about 1065px. The Ozzit page gains a generated index of all 138 named
+formulas, one closed disclosure per module listing each released signature;
+the release CSV keeps the one-line descriptions, two of which use a word the
+copy check bans. The cash chart is re-exported in Public Sans, and the
+homepage levy inputs share one top edge on phones when a label wraps.
+
 The 24 September chart pass re-exports the Lumbridge cash chart in two
 variants so its labels render at about 12px or more wherever the page shows
 it. The old export set 10 point text on a 1282-pixel image drawn at about
@@ -522,8 +536,9 @@ reading hierarchy without synthesised weight.
 
 Besley sets about 8 per cent wider than Plex Serif. The homepage H1 keeps two
 lines at 1280 pixels but wraps to three at 390, and some long page titles gain
-a line on phones. The homepage cash chart is still an Excel export set in IBM
-Plex Sans until it is re-exported with Public Sans installed.
+a line on phones. The homepage cash chart was re-exported from Excel in
+Public Sans on 28 September 2026; the wide variant's title drops to 21 points
+so it stays on one line.
 
 Font rules:
 
