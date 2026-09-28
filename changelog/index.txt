@@ -13,7 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-28 September 2026 | The Evidence page adds six more merged upstream changes: PyXero, three Odoo Community Association modules, ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
+28 September 2026 | The Evidence page lists nine more merged upstream pull requests in six entries: two for PyXero, three for Odoo Community Association modules, and one each for ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
 27 September 2026 | Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.
 27 September 2026 | The trust distribution page pins its worked example to solomons-sword 0.1.9, rerun on 27 September 2026 with unchanged figures. It now says the tool refuses trust capital gains and franked dividends whether or not they are streamed, as 0.1.9 does.
 26 September 2026 | The trust distribution, company tax and construction WIP pages now pin their worked examples to the current releases, solomons-sword 0.1.8, the-exchequer-tally 0.1.7 and the-wip-tally 0.1.2, each rerun on 26 September 2026 with unchanged figures. The trust example states residency with --resident-during-year, which 0.1.8 requires. The Payday Super quick trial moves from checker 0.1.5 to 0.1.7 with the same result.

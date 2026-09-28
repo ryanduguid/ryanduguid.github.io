@@ -86,8 +86,8 @@ const representativeHeightBaseline = {
     // 25 September. With both changes the page measures 8,595px; keep the
     // 234px guard.
     // On 28 September six more merged upstream changes join the section.
-    // Measured at 10,195px; keep the 234px guard.
-    ['/evidence/', 10429],
+    // Measured at 10,221px; keep the 234px guard.
+    ['/evidence/', 10455],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -109,9 +109,9 @@ const representativeHeightBaseline = {
     // 234px guard.
     // The 56ch reading measure of 26 September wraps its prose sooner: 6,451px
     // locally, plus the 234px guard.
-    // Six more merged upstream changes on 28 September: 7,653px locally,
+    // Six more merged upstream changes on 28 September: 7,682px locally,
     // plus the 234px guard.
-    ['/evidence/', 7887],
+    ['/evidence/', 7916],
   ]),
 };
 
