@@ -85,7 +85,9 @@ const representativeHeightBaseline = {
     // The corpus and release policy links moved here from the homepage on
     // 25 September. With both changes the page measures 8,595px; keep the
     // 234px guard.
-    ['/evidence/', 8829],
+    // On 28 September six more merged upstream changes join the section.
+    // Measured at 10,221px; keep the 234px guard.
+    ['/evidence/', 10455],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -107,7 +109,9 @@ const representativeHeightBaseline = {
     // 234px guard.
     // The 56ch reading measure of 26 September wraps its prose sooner: 6,451px
     // locally, plus the 234px guard.
-    ['/evidence/', 6685],
+    // Six more merged upstream changes on 28 September: 7,682px locally,
+    // plus the 234px guard.
+    ['/evidence/', 7916],
   ]),
 };
 
