@@ -347,10 +347,6 @@ HTTP_403_AUTOMATION_DENIAL_URLS = frozenset(
             "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/"
             "tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax"
         ),
-        (
-            "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/"
-            "standard-deduction-for-work-related-expenses"
-        ),
     }
 )
 
