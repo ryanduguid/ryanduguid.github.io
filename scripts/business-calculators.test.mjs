@@ -44,6 +44,18 @@ test('cash file validation rejects an invalid scenario before accepting inputs',
   assert.throws(() => calculations.parseCashScenario(' '.repeat(65537)));
 });
 
+test('accepted cash amounts are ready for number fields after loading', () => {
+  const data = { version: 1, currency: 'AUD', startDate: '2026-09-28', opening: '-200.00', buffer: '100',
+    week: '1', amount: '100', delay: '2', weeks: Array.from({ length: 13 }, () => ({ receipts: '1000', payments: '300' })) };
+  const padded = structuredClone(data);
+  for (const key of ['opening', 'buffer', 'week', 'amount', 'delay']) padded[key] = ` \t${data[key]}\n\u00a0`;
+  for (const row of padded.weeks) {
+    row.receipts = ` \t${row.receipts}\n\u00a0`;
+    row.payments = ` \t${row.payments}\n\u00a0`;
+  }
+  assert.deepEqual(calculations.parseCashScenario(JSON.stringify(padded)), data);
+});
+
 test('GST extracts a component instead of adding another ten per cent', () => {
   assert.deepEqual(gst('110.00', true), { net: 100, gst: 10, gross: 110 });
   assert.deepEqual(gst('100.05', false), { net: 100.05, gst: 10.01, gross: 110.06 });

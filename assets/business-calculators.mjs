@@ -110,9 +110,10 @@ export function parseCashScenario(text) {
   if (!data || data.version !== 1 || data.currency !== 'AUD') throw new Error('Choose a version 1 AUD cash scenario.');
   cashWeekDates(data.startDate);
   cashForecast(data.opening, data.weeks, data.buffer, { week: data.week, amount: data.amount, delay: data.delay });
-  return { version: 1, currency: 'AUD', startDate: data.startDate, opening: data.opening, buffer: data.buffer,
-    week: String(data.week), amount: data.amount, delay: String(data.delay),
-    weeks: data.weeks.map(row => ({ receipts: row.receipts, payments: row.payments })) };
+  // Number inputs discard surrounding whitespace that numeric validation accepts.
+  return { version: 1, currency: 'AUD', startDate: data.startDate, opening: data.opening.trim(), buffer: data.buffer.trim(),
+    week: String(data.week).trim(), amount: data.amount.trim(), delay: String(data.delay).trim(),
+    weeks: data.weeks.map(row => ({ receipts: row.receipts.trim(), payments: row.payments.trim() })) };
 }
 
 export function cashForecast(opening, weeks, buffer, scenario = { week: 1, amount: '0', delay: 0 }) {
