@@ -154,10 +154,16 @@ Both returned HTTP 200 locally on 10 September 2026. In
 the runner also timed out on [applying for an ABN](https://www.abr.gov.au/business-super-funds-charities/applying-abn),
 [final pay](https://www.fairwork.gov.au/ending-employment/final-pay) and the
 [TPB register](https://www.tpb.gov.au/public-register). These 3 URLs returned
-HTTP 200 locally on 11 September 2026. The link checker reports all 5 exact
-URLs as requiring manual verification in GitHub Actions. Run
-`python scripts/check_links.py` locally before changing any of them; local runs
-still fetch all 5. Remove the CI exceptions when runner access works again.
+HTTP 200 locally on 11 September 2026. In
+[run 36531719107](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/36531719107)
+it timed out on the National AI Centre's
+[implementation guidance](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance)
+and [AI systems register](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register)
+pages, which returned HTTP 200 locally on 29 September 2026. The link checker
+reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
+GitHub Actions. Run `python scripts/check_links.py` locally before changing any
+of them; local runs still fetch them all. Remove the CI exceptions when runner
+access works again.
 
 That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
 locally on 11 September 2026. They are listed individually in
