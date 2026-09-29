@@ -50,6 +50,19 @@ test('a changed page fails and carries its diff', () => {
   assert.equal(result.diff, '-7.17%\n+7.42%');
 });
 
+test('the legal database home may change, but other law pages may not', () => {
+  const home = 'https://www.ato.gov.au/law/';
+  const doc = (changeStatus, statusCode = 200) => ({
+    metadata: { statusCode, sourceURL: home, url: home },
+    changeTracking: { changeStatus, previousScrapeAt: '2026-09-21T06:00:00Z' },
+  });
+  assert.deepEqual(classify(home, doc('changed')), {});
+  assert.match(classify(home, doc('removed')).failure, /removed/);
+  assert.match(classify(home, doc('same', 404)).failure, /HTTP 404/);
+  const ruling = 'https://www.ato.gov.au/law/view/document?DocID=DPC/PCG2026D3/NAT/ATO/00001';
+  assert.match(classify(ruling, { ...ok('changed'), metadata: { statusCode: 200, sourceURL: ruling, url: ruling } }).failure, /changed since/);
+});
+
 test('error statuses, removed pages and missing results fail', () => {
   const missing = { ...ok('same'), metadata: { statusCode: 404, sourceURL: PAGE } };
   assert.match(classify(PAGE, missing).failure, /HTTP 404/);
