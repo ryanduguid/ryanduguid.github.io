@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-27",
+  "reviewed": "2026-09-29",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,10 +18,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.10",
-        "released_utc": "2026-09-27T05:23:29Z",
-        "verified": "2026-09-27",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10",
+        "version": "0.2.11",
+        "released_utc": "2026-09-29T04:08:38Z",
+        "verified": "2026-09-29",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -40,9 +40,9 @@
       },
       "pinned_engines": {
         "payday-super-checker": "0.1.8",
-        "ato-benchmark-compare": "0.1.10",
+        "ato-benchmark-compare": "0.1.11",
         "div7a-loan-review": "0.1.5",
-        "australian-tax-calculators": "0.1.7"
+        "australian-tax-calculators": "0.1.8"
       },
       "pinned_commands": [
         "uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo"
@@ -52,8 +52,8 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub and PyPI publish 0.2.10, verified on 27 September 2026. Its MCP registry publish was waiting for the owner's approval that day, so until it lands the registry still marks 0.2.9 latest and --verify-live reports that as drift.",
-        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.10."
+        "GitHub, PyPI and the MCP registry publish 0.2.11, verified on 29 September 2026.",
+        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.11."
       ]
     },
     "ozzit": {

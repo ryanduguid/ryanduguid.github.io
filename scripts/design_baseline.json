@@ -39,7 +39,7 @@
       "8bf1e47bc9f934cdeca4305fa62d4de764e2d46d5aebcbb2ac6a6219bc788856"
     ],
     "index.html": [
-      "43b8399457516023eb098cf41696ac83ad37d97b64d6e64c6f3ce58170a443e1"
+      "da0897e089e5c1a2748bf12f467fd2afa993b1b75b6d64da7946fc4577c76f04"
     ],
     "privacy/index.html": [
       "abf813fe607b852d3d6518bed929ba2850e660233f1a6a99fd267126661c19d0"
@@ -60,10 +60,10 @@
       "a1344c95e2d5c671b55fb0e3b84ee7789ad6b15251d4a1dc9088f08629ec4606"
     ],
     "tools/ato-benchmarks/index.html": [
-      "4a8cc5397fa467957de48a5a0580fa6e49698335c510f581034a033e51b4dcf3"
+      "04bc6caa02320118f202cb64d2bebd30c9fda06df6d7670240280469ff8ead1e"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "fa78b67f423e0ef10f19551c027ffc96293330bbaaa9556bb97f104b1036f16c"
+      "bec1643a24bba0e515de01600eba36bbdd4b5065723b511ee8f5aced4cce6b52"
     ],
     "tools/business-calculators/index.html": [
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
@@ -109,9 +109,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "478ae2a827ed2224eb468e715db9e7c6c8d75462747cd8109ca9bc7b1604c569",
+    "llms.txt": "a7da701fff0c7b0d1fa2707715bf6e349b12af81a23f2b59afb25590167ebaac",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "b0c024cd0b11c99d65df642ec3a36e02068f5929d6880635f6529202b7e4e984"
+    "sitemap.xml": "068a3c71585629420a69d8215a3fee60ab7fa62bbca1a0f568f068f4fc0b138c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

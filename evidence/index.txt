@@ -114,7 +114,7 @@ Passing tests proves only the specified behaviour under the tested conditions. I
 
 ## Supplier information for AI registers
 
-The National AI Centre’s Guidance for AI Adoption recommends that organisations using AI keep an AI register and assess AI risk. For each component that works with an AI assistant, I publish the supplier’s side of that record: what it is, the data it handles, where a person decides, its known limits and failure modes, how it is tested and how to report a problem. The firm adds its own owner, use, risk assessment and review dates. Each repository has a test that holds its record to the version or published release it describes.
+The National AI Centre’s Guidance for AI Adoption recommends that organisations using AI keep an AI register and assess AI risk. For each component that works with an AI assistant, I publish the supplier’s side of that record: what it is, the data it handles, where a person decides, its known limits and failure modes, how it is tested and how to report a problem. Each record’s first seven rows follow the columns of the National AI Centre’s AI register template. The firm adds its own owner, use, risk assessment and review dates. Each repository has a test that holds its record to the version or published release it describes.
 
 - Aus Accounting MCP, with answers to the questions firms put to tax-research tools
 - evatt, the Xero Ledger Review Gate and the Workpaper Review Gate
