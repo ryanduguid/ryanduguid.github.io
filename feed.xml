@@ -15,11 +15,25 @@
     <summary>The Evidence page links the supplier information each component that works with an AI assistant publishes for a firm’s AI register and risk assessment, and says how it relates to ISO/IEC 42001, making no claim of certification, approval or conformity.</summary>
   </entry>
   <entry>
+    <title>Australian Accounting Skills v0.3.0 is the recommended skills release: the Ad...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-f07ef0a61857e267</id>
+    <updated>2026-09-29T00:00:00Z</updated>
+    <summary>Australian Accounting Skills v0.3.0 is the recommended skills release: the Adopt route, the subcontract ledger page, the agent skills manifest and llms.txt move from the 19 workflows of v0.2.1 to the 63 of v0.3.0, whose 70 validation cards have confirmed results from a whole-card model run.</summary>
+  </entry>
+  <entry>
     <title>The MCP guide names published release 0.2.11, which adds a study and training...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-c65e787a1f92c908</id>
     <updated>2026-09-29T00:00:00Z</updated>
     <summary>The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on the ATO’s industry pages.</summary>
+  </entry>
+  <entry>
+    <title>Subcontract ledger skills v0.3.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0" />
+    <id>https://duguid.com.au/changelog/#entry-3d9a9651e144bdd7</id>
+    <updated>2026-09-29T00:00:00Z</updated>
+    <summary>Subcontract ledger skills: release v0.3.0.</summary>
   </entry>
   <entry>
     <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.11</title>
