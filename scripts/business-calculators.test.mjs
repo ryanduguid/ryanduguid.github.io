@@ -21,6 +21,45 @@ test('positive-interest loan agrees with an independently calculated amortising 
   });
 });
 
+// Two-payment cases use P = B(1+r)^2/(2+r); longer terms use independent
+// high-precision sums of discounted payments. Each result rounds separately.
+for (const [inputs, expected] of [
+  [['1000000000', '2.4788', '2'], {
+    payment: 501549782.82, firstInterest: 2065666.67, firstPrincipal: 499484116.16, totalInterest: 3099565.64,
+  }],
+  [['1000000000', '2.4789', '2'], {
+    payment: 501549845.36, firstInterest: 2065750, firstPrincipal: 499484095.36, totalInterest: 3099690.73,
+  }],
+  [['18.76', '1.28', '2'], {
+    payment: 9.40, firstInterest: 0.02, firstPrincipal: 9.38, totalInterest: 0.03,
+  }],
+  [['100.50', '12', '2'], {
+    payment: 51.01, firstInterest: 1.01, firstPrincipal: 50, totalInterest: 1.51,
+  }],
+  [['893155987.49', '51.2498', '498'], {
+    payment: 38145054.81, firstInterest: 38145054.77, firstPrincipal: 0.03, totalInterest: 18103081306.61,
+  }],
+  [['827222772.08', '56.9526', '297'], {
+    payment: 39260447.40, firstInterest: 39260406.37, firstPrincipal: 41.03, totalInterest: 10833130106.16,
+  }],
+  [['1000000000', '0.0001', '600'], {
+    payment: 1666708.40, firstInterest: 83.33, firstPrincipal: 1666625.07, totalInterest: 25041.87,
+  }],
+  [['1000000000', '100', '600'], {
+    payment: 83333333.33, firstInterest: 83333333.33, firstPrincipal: 0, totalInterest: 49000000000,
+  }],
+  [['0.01', '100', '600'], {
+    payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0.49,
+  }],
+  [['0', '100', '600'], {
+    payment: 0, firstInterest: 0, firstPrincipal: 0, totalInterest: 0,
+  }],
+]) {
+  test(`loan rounds each result to the nearest cent for ${inputs.join(' / ')}`, () => {
+    assert.deepEqual(loan(...inputs), expected);
+  });
+}
+
 test('cash calendar uses complete weeks across leap days and year boundaries', () => {
   const dates = calculations.cashWeekDates('2028-02-28');
   assert.equal(dates.length, 13);

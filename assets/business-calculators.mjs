@@ -17,8 +17,6 @@ function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {})
 const cents = (value, min = 0) => Math.round(number(value, { min }) * 100);
 // Non-negative ratios in cents round half up. BigInt keeps large products exact.
 const ratioMoney = (numerator, denominator) => Number((2n * numerator + denominator) / (2n * denominator)) / 100;
-// Only the amortising loan formula is approximate; allow for its floating-point error.
-const loanMoney = value => Math.round(value * 100 + Math.abs(value * 100) * Number.EPSILON * 4) / 100;
 
 export function gst(amount, inclusive = false) {
   const value = cents(amount);
@@ -67,22 +65,23 @@ export function variance(actual, budget, kind) {
 }
 
 export function loan(principal, annualRate, months) {
-  const balanceCents = cents(principal);
-  const balance = balanceCents / 100;
-  const rateUnits = Math.round(number(annualRate, { max: 100, places: 4 }) * 10000);
-  const rate = rateUnits / 12000000;
-  const term = number(months, { min: 1, max: 600, integer: true });
-  const firstInterest = ratioMoney(BigInt(balanceCents) * BigInt(rateUnits), 12000000n);
-  if (!rate) {
-    const payment = ratioMoney(BigInt(balanceCents), BigInt(term));
+  const balanceCents = BigInt(cents(principal));
+  const rateUnits = BigInt(Math.round(number(annualRate, { max: 100, places: 4 }) * 10000));
+  const term = BigInt(number(months, { min: 1, max: 600, integer: true }));
+  const rateScale = 12000000n;
+  const firstInterest = ratioMoney(balanceCents * rateUnits, rateScale);
+  if (rateUnits === 0n) {
+    const payment = ratioMoney(balanceCents, term);
     return { payment, firstInterest: 0, firstPrincipal: payment, totalInterest: 0 };
   }
-  if (term === 1) return { payment: ratioMoney(BigInt(balanceCents) * BigInt(12000000 + rateUnits), 12000000n),
-    firstInterest, firstPrincipal: balance, totalInterest: firstInterest };
-  // log1p/expm1 retain precision for very small positive rates.
-  const payment = balance * rate / -Math.expm1(-term * Math.log1p(rate));
-  return { payment: loanMoney(payment), firstInterest,
-    firstPrincipal: loanMoney(payment - balance * rate), totalInterest: loanMoney(payment * term - balance) };
+  // Multiply through by rateScale ** term to keep the amortisation fractions exact.
+  const growth = (rateScale + rateUnits) ** term;
+  const scale = rateScale ** term;
+  const denominator = rateScale * (growth - scale);
+  const paymentNumerator = balanceCents * rateUnits * growth;
+  return { payment: ratioMoney(paymentNumerator, denominator), firstInterest,
+    firstPrincipal: ratioMoney(balanceCents * rateUnits * scale, denominator),
+    totalInterest: ratioMoney(paymentNumerator * term - balanceCents * denominator, denominator) };
 }
 
 export function staffCost(wages, superAmount, other) {
