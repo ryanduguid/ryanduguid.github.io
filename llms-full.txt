@@ -3118,9 +3118,9 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.2.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
+Released pack: Australian Accounting Skills v0.3.0. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 27 September 2026.
+Published 24 August 2026. Last reviewed 29 September 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -3148,7 +3148,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.2.1 contains 19 skills, including these 10 subcontractor workflows. The default branch prepares v0.3.0 with 63 skills; no fresh model evaluation covers all 44 additions. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.3.0 contains 63 skills, including these 10 subcontractor workflows, and all 70 of its validation cards have confirmed results from a whole-card model run. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -3180,11 +3180,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Australian Accounting Skills v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
+- Australian Accounting Skills v0.3.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/ee91a6cc110e852bd0a61aef4ee57edf06ae3bc0/docs/installation.md#tagged-nineteen-workflow-release
+- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/1776cc31c7041b7263a6c475bd6c2f0bc05984e7/docs/installation.md#tagged-63-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
@@ -3524,12 +3524,12 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Skills
 
-Needs Git and Node. Start with the 19 workflows at the recorded v0.2.1 release commit.
+Needs Git and Node. Start with the 63 workflows at the recorded v0.3.0 release commit.
 
 ```
 # Run from the project where you want the released skills
 git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release
-git -C accounting-skills-release checkout --detach 527b0a22c8be5ce10855f12f052cd3bda7b7b827
+git -C accounting-skills-release checkout --detach 1776cc31c7041b7263a6c475bd6c2f0bc05984e7
 npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy
 ```
 
@@ -3539,7 +3539,7 @@ Clone once per project. To repeat or retry from that directory, rerun only the c
 
 Development installation
 
-As at 27 September 2026, the default branch contains 63 workflows preparing v0.3.0. This command installs that development inventory.
+This command installs the default branch, which can be ahead of the v0.3.0 release.
 
 ```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
@@ -3814,6 +3814,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 29 September 2026 | The Evidence page links the supplier information each component that works with an AI assistant publishes for a firm’s AI register and risk assessment, and says how it relates to ISO/IEC 42001, making no claim of certification, approval or conformity.
+29 September 2026 | Australian Accounting Skills v0.3.0 is the recommended skills release: the Adopt route, the subcontract ledger page, the agent skills manifest and llms.txt move from the 19 workflows of v0.2.1 to the 63 of v0.3.0, whose 70 validation cards have confirmed results from a whole-card model run.
 29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on the ATO’s industry pages.
 28 September 2026 | On eight pages, 18 wide tables show every column again on screens about 1065px wide or wider; since the reading measure narrowed on 26 September they had scrolled sideways even on wide screens. The Ozzit page lists all 138 named formulas with their released signatures, by module. The cash flow chart is re-exported in Public Sans, and the homepage Coal LSL inputs line up on phones.
 28 September 2026 | The Evidence page lists nine more merged upstream pull requests in six entries: two for PyXero, three for Odoo Community Association modules, and one each for ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
@@ -3852,6 +3853,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+29 September 2026 | Subcontract ledger skills | v0.3.0
 29 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.11
 29 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.11
 27 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.10
@@ -3886,6 +3888,7 @@ Published 30 August 2026. Last reviewed 29 September 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- v0.3.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0
 - aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
 - ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11
 - aus-accounting-mcp/v0.2.10: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10

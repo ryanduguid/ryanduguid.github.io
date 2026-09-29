@@ -51,7 +51,7 @@ GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
 STABLE_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/australian-accounting-skills\.git\s+"
     r"accounting-skills-release\s+git\s+-C\s+accounting-skills-release\s+checkout\s+"
-    r"--detach\s+527b0a22c8be5ce10855f12f052cd3bda7b7b827\s+"
+    r"--detach\s+1776cc31c7041b7263a6c475bd6c2f0bc05984e7\s+"
     r"npx\s+--yes\s+skills@1\.5\.22\s+add\s+"
     r"\./accounting-skills-release\s+--agent\s+codex\s+claude-code\s+"
     r"--skill\s+'\*'\s+--yes\s+--copy\b"
