@@ -22,8 +22,7 @@ on:
         default: false
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: source-freshness
@@ -101,8 +100,16 @@ jobs:
     if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
     timeout-minutes: 30
     runs-on: ubuntu-24.04
+    # The only job that writes: it pushes the stamp branch and opens the pull request.
+    permissions:
+      contents: write
+      pull-requests: write
     steps:
+      # No stored credentials: the gems, npm packages and scripts that run
+      # before the push never see the token. The push step authenticates itself.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
       - uses: ruby/setup-ruby@a0102e0972be65f351c307e2d64b9314a57c8073
         with:
           ruby-version: "3.3"
@@ -152,6 +159,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
           git commit -am "Refresh source freshness stamps"
+          gh auth setup-git
           git push --force origin "$BRANCH"
           if ! gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then
             gh pr create \
