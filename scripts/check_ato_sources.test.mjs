@@ -1,10 +1,12 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-import { baselineFile, classify, collectSources, extractUrls, lineDiff, readPages, sameUrl, tidy } from './check_ato_sources.mjs';
+import { baselineFile, classify, collectSources, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy } from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -149,4 +151,35 @@ test('readPages reads a failed page again, treats any .pdf as a PDF and reports 
   assert.deepEqual(pdfCalls, [lawPdf]);
   assert.equal(pages.get(flaky).status, 200);
   assert.equal(pages.get(broken).error, 'timed out');
+});
+
+test('saveResults saves the report before it moves any baseline', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'ato-save-'));
+  const baseline = join(dir, 'baseline');
+  const kept = join(baseline, 'page.txt');
+  const blocker = join(dir, 'not-a-folder');
+  mkdirSync(baseline);
+  writeFileSync(kept, 'old text');
+  writeFileSync(blocker, '');
+  const save = (out) => saveResults({ out, baseline, date: '2026-10-05', report: ['# report', ''], keep: new Map([[kept, 'new text']]) });
+  assert.throws(() => save(join(blocker, 'reports')));
+  assert.equal(readFileSync(kept, 'utf8'), 'old text');
+  save(join(dir, 'reports'));
+  assert.equal(readFileSync(kept, 'utf8'), 'new text');
+});
+
+test('saveResults adds a same-day rerun to the earlier report', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'ato-rerun-'));
+  const save = (report) => saveResults({ out: dir, baseline: join(dir, 'baseline'), date: '2026-10-05', report, keep: new Map() });
+  save(['# first', '- old line', '']);
+  save(['# second', 'None.', '']);
+  assert.equal(readFileSync(join(dir, 'ato-sources-check-2026-10-05.md'), 'utf8'), '# first\n- old line\n\n---\n\n# second\nNone.\n');
+});
+
+test('a live run without --out is refused before any page is read', () => {
+  const script = fileURLToPath(new URL('./check_ato_sources.mjs', import.meta.url));
+  const empty = mkdtempSync(join(tmpdir(), 'ato-empty-'));
+  const run = spawnSync(process.execPath, [script, '--baseline', join(empty, 'baseline'), empty], { encoding: 'utf8' });
+  assert.equal(run.status, 1);
+  assert.match(run.stderr, /--out DIR/);
 });

@@ -11,13 +11,14 @@
 // page that still resolves is a note.
 //
 // ponytail: every run overwrites the baseline, so a change fails one run and
-// the next run compares against the changed page. The report is the record;
-// keep the baseline folder in git if a longer history is wanted.
+// the next run compares against the changed page. The report is the record, so
+// it is saved first and a rerun the same day adds to it; keep the baseline
+// folder in git if a longer history is wanted.
 //
 // Run with: node scripts/check_ato_sources.mjs [--list] [--baseline DIR] [--out DIR] [directory ...]
 // Directories default to this repository. --list prints the URLs and the files
 // citing them without opening a browser. A live run needs --baseline, the folder
-// holding one text file per page, and --out adds a dated Markdown report there.
+// holding one text file per page, and --out, the folder for the dated Markdown report.
 
 import { spawnSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -212,6 +213,17 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
   return pages;
 }
 
+// The report is the only record of a change, so it is saved before any baseline
+// moves: a failed write leaves the old baselines to report the change again. A
+// rerun the same day adds to that day's report instead of replacing it.
+export function saveResults({ out, baseline, date, report, keep }) {
+  mkdirSync(out, { recursive: true });
+  const file = join(out, `ato-sources-check-${date}.md`);
+  writeFileSync(file, `${existsSync(file) ? '\n---\n\n' : ''}${report.join('\n')}`, { flag: 'a' });
+  mkdirSync(baseline, { recursive: true });
+  for (const [path, text] of keep) writeFileSync(path, text);
+}
+
 async function main() {
   const { values, positionals } = parseArgs({
     options: { list: { type: 'boolean' }, baseline: { type: 'string' }, out: { type: 'string' } },
@@ -223,8 +235,8 @@ async function main() {
     console.log(`${sources.size} ATO URLs`);
     return 0;
   }
-  if (!values.baseline) {
-    console.error('--baseline DIR is required for a live run');
+  if (!values.baseline || !values.out) {
+    console.error('--baseline DIR and --out DIR are required for a live run');
     return 1;
   }
   if (sources.size > MAX_URLS) {
@@ -249,15 +261,10 @@ async function main() {
     review.push(`### ${url}\n\n${failure}. Cited in: ${files.map((path) => `\`${path}\``).join(', ')}\n`);
     if (diff) review.push('```diff', diff, '```', '');
   }
-  mkdirSync(values.baseline, { recursive: true });
-  for (const [file, text] of keep) writeFileSync(file, text);
-  if (values.out) {
-    const date = new Date().toLocaleDateString('en-CA');
-    const report = [`# ATO sources check ${date}`, '', `${sources.size} pages read, ${seeded} new to the baseline.`, '', '## To review', '', ...(review.length ? review : ['None.', ''])];
-    if (notes.length) report.push('## Notes', '', ...notes.map((note) => `- ${note}`), '');
-    mkdirSync(values.out, { recursive: true });
-    writeFileSync(join(values.out, `ato-sources-check-${date}.md`), report.join('\n'));
-  }
+  const date = new Date().toLocaleDateString('en-CA');
+  const report = [`# ATO sources check ${date}`, '', `${sources.size} pages read, ${seeded} new to the baseline.`, '', '## To review', '', ...(review.length ? review : ['None.', ''])];
+  if (notes.length) report.push('## Notes', '', ...notes.map((note) => `- ${note}`), '');
+  saveResults({ out: values.out, baseline: values.baseline, date, report, keep });
   for (const note of notes) console.log(`note: ${note}`);
   for (const failure of failures) console.error(failure);
   if (failures.length) return 1;
