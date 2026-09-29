@@ -239,6 +239,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
 - Release Policy: https://github.com/ryanduguid/release-policy
+- Guidance for AI Adoption: https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance
+- AI register template: https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/docs/firm-assessment.md
 - evatt, the Xero Ledger Review Gate and the Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/docs/ai-register-entries.md
 - Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/ai-register-entry.md
