@@ -83,6 +83,7 @@ ASSURANCE_ANCHORS = {
     "sources-and-review-dates": "Sources and review dates",
     "data-and-privacy-boundary": "Data and privacy boundary",
     "security-tests-and-release-evidence": "Security, tests and release evidence",
+    "supplier-information-for-ai-registers": "Supplier information for AI registers",
     "human-accountability-and-refusals": "Human accountability and refusals",
     "independent-evaluation": "Published evaluations",
 }

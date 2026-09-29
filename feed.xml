@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-28T00:00:00Z</updated>
+  <updated>2026-09-29T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The Evidence page links the supplier information each component that works wi...</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-6b90ddfe0fb8c741</id>
+    <updated>2026-09-29T00:00:00Z</updated>
+    <summary>The Evidence page links the supplier information each component that works with an AI assistant publishes for a firm’s AI register and risk assessment, and says how it relates to ISO/IEC 42001, making no claim of certification, approval or conformity.</summary>
+  </entry>
   <entry>
     <title>On eight pages, 18 wide tables show every column again on screens about 1065p...</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

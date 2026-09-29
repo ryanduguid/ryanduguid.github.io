@@ -32,7 +32,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 
 - **Profit and cash** (https://duguid.com.au/examples/profit-vs-cash-flow/): the canonical worked example. A fictional Newcastle service-business forecast in AUD, with a downloadable Excel workbook and synthetic source files. Delaying one $44,000 receipt by 45 days creates a $25,160 daily cash shortfall on 6 November 2026 while quarterly profit before income tax stays $35,957.55. A summary with the same figures remains at https://duguid.com.au/evaluate/#profit-and-cash. No client outcome or time saving is claimed.
 - **Adopt** (https://duguid.com.au/tools/australian-tax-ai-agents/#install): use the supported install commands and evaluate tools with fictional data.
-- **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; human accountability and refusals; and reproducible evaluations.
+- **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; supplier information for AI registers; human accountability and refusals; and reproducible evaluations.
 
 ## For AI agents
 

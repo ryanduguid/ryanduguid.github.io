@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 28 September 2026.
+Last reviewed 29 September 2026.
 
 ## Accepted upstream work
 
@@ -111,6 +111,18 @@ Published products expose release assets through the release pages linked above.
 - Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
 
 Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
+
+## Supplier information for AI registers
+
+The National AI Centre’s Guidance for AI Adoption recommends that organisations using AI keep an AI register and assess AI risk. For each component that works with an AI assistant, I publish the supplier’s side of that record: what it is, the data it handles, where a person decides, its known limits and failure modes, how it is tested and how to report a problem. The firm adds its own owner, use, risk assessment and review dates. Each repository has a test that holds its record to the version or published release it describes.
+
+- Aus Accounting MCP, with answers to the questions firms put to tax-research tools
+- evatt, the Xero Ledger Review Gate and the Workpaper Review Gate
+- Australian Accounting Skills
+- au-fpa-pack
+- llm-tax-guardrails, the external prompt guide
+
+AS ISO/IEC 42001:2023 is the Australian identical adoption of ISO/IEC 42001:2023, a management system standard for organisations that provide or use AI systems. Certification against it is voluntary and is carried out by external certification bodies, not by ISO. These records are supplier information, not a certification, an audit or a conformity assessment, and they do not establish that any organisation’s AI management system conforms to, or is certified against, the standard.
 
 ## Human accountability and refusals
 
@@ -227,3 +239,8 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
 - release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
 - Release Policy: https://github.com/ryanduguid/release-policy
+- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/docs/firm-assessment.md
+- evatt, the Xero Ledger Review Gate and the Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/docs/ai-register-entries.md
+- Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/blob/main/docs/ai-register-entry.md
+- au-fpa-pack: https://github.com/ryanduguid/au-fpa-pack/blob/main/docs/ai-register-entry.md
+- llm-tax-guardrails: https://github.com/ryanduguid/llm-tax-guardrails/blob/main/docs/ai-register-entry.md
