@@ -23,13 +23,15 @@ the later row is current.
 | 27 September 2026 | main 6007bfe plus this change | `npm run test:browser:webkit`, mobile WebKit 26.6 (Playwright build 2359) as iPhone 13, every spec; the 4 desktop-only checks skip as in mobile Chromium and the 2 screenshot comparisons skip off Chromium | 157 passed, 6 skipped, 8 failed; the 8 tests are named below |
 | 27 September 2026 | main 3e6a08a plus the WebKit fixes | `npm run test:browser:webkit` again after the print, date-field and Tab-order fixes below; `npm run test:browser` unchanged at 329 passed | 161 passed, 6 skipped, 4 failed; the 4 tests are named below |
 | 27 September 2026 | main 419f1ad plus the phone first-screen change | `npm run test:browser` and `npm run test:browser:webkit` after the 664 px first-screen budget: the Coal LSL method list moved below the result, the Payday facts moved below the decision, a shorter business-use lead, tighter phone spacing above the working control and topic headings without the Accounting questions prefix | Chromium 329 passed, 13 skipped, 0 failed; WebKit 164 passed, 6 skipped, 1 failed; the one test still failing is named below |
+| 29 September 2026 | loan rounding change | Node 24.21.0, Playwright 1.63.0; `npm run test:browser -- --workers=2`, including large-principal rounding and maximum-term loan submissions | 347 passed, 15 skipped, 0 failed |
+| 29 September 2026 | loan rounding change | `npm run test:browser:webkit -- --workers=2`, every spec; both new loan cases passed | 173 passed, 7 skipped, 1 failed: `calculator load failure explains recovery and reload retries the module`, matching the remaining failure documented below |
 
 Since the 24 September build the mobile primary navigation wraps to 2 rows at
 390 CSS pixels instead of scrolling as one row, and the full-page homepage
 baselines are 1440 by 3815 and 390 by 5211 pixels, so the row and height
 descriptions in the August sections are historical.
 
-### WebKit differences, 27 September 2026
+### WebKit differences, 27 and 29 September 2026
 
 The first full WebKit pass reported 8 failing tests. Three causes were fixed the
 same day. The print styles expose closed disclosures through `::details-content`,
@@ -44,8 +46,8 @@ because WebKit, like Safari, leaves links out of the Tab order by default.
 The phone first-screen budget is now a fixed 664 CSS pixels, taken from the
 iPhone 13 emulation used on 27 September 2026, for every calculator, the Coal
 LSL example button and the Payday decision line (`tests/browser/project-kind.mjs`,
-`firstScreen`). The third pass
-reports these failing tests. Compare a rerun's failing tests with these names,
+`firstScreen`). The third pass and the 29 September rerun
+report this remaining failure. Compare a rerun's failing tests with these names,
 not with the count. None has been checked in Safari on a physical device yet.
 
 1. `calculator load failure explains recovery and reload retries the module`
