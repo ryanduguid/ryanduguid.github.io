@@ -213,9 +213,7 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
   return pages;
 }
 
-// The report is the only record of a change, so it is saved before any baseline
-// moves: a failed write leaves the old baselines to report the change again. A
-// rerun the same day adds to that day's report instead of replacing it.
+// Save the report before any baseline moves: it is the only record of a change, so never replace an earlier one.
 export function saveResults({ out, baseline, date, report, keep }) {
   mkdirSync(out, { recursive: true });
   const file = join(out, `ato-sources-check-${date}.md`);
