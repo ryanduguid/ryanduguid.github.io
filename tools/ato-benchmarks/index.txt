@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from each industry’s ATO page as a guide that never sets the key ratio.
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio.
 
 Published 24 August 2026. Last reviewed 29 September 2026.
 

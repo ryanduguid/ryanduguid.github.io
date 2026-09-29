@@ -2750,7 +2750,7 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from each industry’s ATO page as a guide that never sets the key ratio.
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio.
 
 Published 24 August 2026. Last reviewed 29 September 2026.
 
@@ -3421,7 +3421,7 @@ Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting che
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from each industry’s ATO page, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
 
 Published 25 August 2026. Last reviewed 29 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
@@ -3794,7 +3794,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on each industry’s ATO page.
+29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on the ATO’s industry pages.
 28 September 2026 | On eight pages, 18 wide tables show every column again on screens about 1065px wide or wider; since the reading measure narrowed on 26 September they had scrolled sideways even on wide screens. The Ozzit page lists all 138 named formulas with their released signatures, by module. The cash flow chart is re-exported in Public Sans, and the homepage Coal LSL inputs line up on phones.
 28 September 2026 | The Evidence page lists nine more merged upstream pull requests in six entries: two for PyXero, three for Odoo Community Association modules, and one each for ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
 27 September 2026 | Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.

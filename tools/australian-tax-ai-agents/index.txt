@@ -10,7 +10,7 @@ Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting che
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from each industry’s ATO page, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
 
 Published 25 August 2026. Last reviewed 29 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
