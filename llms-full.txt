@@ -20,7 +20,7 @@ Explore the cash flow example
 
 A personal open source project, not an accounting practice.
 
-Last reviewed 28 September 2026.
+Last reviewed 29 September 2026.
 
 ## Compare profit with cash flow
 
@@ -2750,9 +2750,9 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 27 September 2026 is ato-benchmark-compare/v0.1.10.
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from each industry’s ATO page as a guide that never sets the key ratio.
 
-Published 24 August 2026. Last reviewed 27 September 2026.
+Published 24 August 2026. Last reviewed 29 September 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
@@ -2842,7 +2842,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
-- ato-benchmark-compare/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.10
+- ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
@@ -3413,7 +3413,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.10 has 9 worksheets. Includes scope and setup.
+> Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.11 has 10 worksheets. Includes scope and setup.
 
 # Australian tax MCP server: Aus Accounting MCP
 
@@ -3421,9 +3421,9 @@ Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting che
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.10, verified on GitHub and PyPI on 27 September 2026. Since v0.2.8 it has added contribution cap and account-based pension minimum worksheets, bringing the total to 9, and pins newer engine releases. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from each industry’s ATO page, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
 
-Published 25 August 2026. Last reviewed 27 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
+Published 25 August 2026. Last reviewed 29 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3433,7 +3433,7 @@ Job | What to install | Where it runs | What it will not do
 Apply a statutory test to your own figures | Aus Accounting MCP | Local stdio MCP: Claude Code, Cursor, Claude Desktop, Codex | No hosted ATO corpus, formation of Division 7A amalgamated loans or lodgement.
 Look up ATO guidance, legislation and public rulings | A document-retrieval MCP such as ato-mcp | Typically a hosted remote MCP | Not a reviewed calculator for Payday Super timing or ATO benchmark ratios
 Walk an agent through a public practice workflow | australian-accounting-skills | Claude Code / Codex plugin, or npx --yes skills@1.5.22 add | Does not treat recorded figures as current rates. Sends the agent to the applicable authoritative source for current figures.
-Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG or PAYG withholding arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
+Bounded GST, resident tax, CGT, FBT, depreciation, quarterly SG or PAYG withholding arithmetic | Aus Accounting MCP with australian-tax-calculators | Local MCP | No HELP before v0.2.11, Medicare, offsets, scale 4 or irregular-pay PAYG withholding, or full tax return preparation. Each worksheet requires established facts and a supported period.
 
 Those other projects are named so an agent can tell them apart. This page does not review them, and it does not speak for their authors.
 
@@ -3563,7 +3563,7 @@ Not tax, legal or financial advice, and using it creates no professional relatio
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.10 has 9. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.11 has 10. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -3607,7 +3607,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
-- aus-accounting-mcp/v0.2.10: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10
+- aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3794,6 +3794,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on each industry’s ATO page.
 28 September 2026 | On eight pages, 18 wide tables show every column again on screens about 1065px wide or wider; since the reading measure narrowed on 26 September they had scrolled sideways even on wide screens. The Ozzit page lists all 138 named formulas with their released signatures, by module. The cash flow chart is re-exported in Public Sans, and the homepage Coal LSL inputs line up on phones.
 28 September 2026 | The Evidence page lists nine more merged upstream pull requests in six entries: two for PyXero, three for Odoo Community Association modules, and one each for ERPNext, ERPNext Australian Localisation, LedgerSMB and requests-cache. Merge states were read on 28 September 2026.
 27 September 2026 | Tool pages name the releases published by 27 September 2026 with the date checked, and the Payday Super quick trial moves to checker 0.1.8 with the same result. Calculators show negative amounts with a minus sign, round the required hourly rate up to the next cent and fit the 13-week forecast inputs on a phone. Every sitemap date now matches its page, and the changelog dates are row headers.
@@ -3831,6 +3832,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+29 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.11
+29 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.11
 27 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.10
 27 September 2026 | Payday Super timing | payday-super-checker/v0.1.8
 27 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.10
@@ -3858,11 +3861,13 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
 
-Published 30 August 2026. Last reviewed 28 September 2026.
+Published 30 August 2026. Last reviewed 29 September 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
+- ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11
 - aus-accounting-mcp/v0.2.10: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.10
 - payday-super-checker/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.8
 - ato-benchmark-compare/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.10

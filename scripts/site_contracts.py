@@ -74,8 +74,8 @@ CA_ANZ_NON_ENDORSEMENT = (
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
 )
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
-MCP_REVIEW_DATE = "2026-09-27"
-MCP_VISIBLE_REVIEW_DATE = "27 September 2026"
+MCP_REVIEW_DATE = "2026-09-29"
+MCP_VISIBLE_REVIEW_DATE = "29 September 2026"
 ASSURANCE_ANCHORS = {
     "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",
@@ -128,8 +128,8 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.2.10 for ATO benchmarks, Payday Super timing, limited Division 7A "
-        "review, 9 bounded tax worksheets, optional local Markdown search and "
+        "Local MCP server v0.2.11 for ATO benchmarks, Payday Super timing, limited Division 7A "
+        "review, 10 bounded tax worksheets, optional local Markdown search and "
         "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (
