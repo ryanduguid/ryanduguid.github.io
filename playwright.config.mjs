@@ -1,5 +1,21 @@
 import { defineConfig } from '@playwright/test';
 
+// On Windows 11 22H2 and later, Chromium 141+ gives each connection a random local
+// port, and a collision fails the connect at once with net::ERR_NO_BUFFER_SPACE
+// (crbug.com/40744069). Chromium keeps only the last --disable-features switch, so
+// Playwright's own list is replaced whole (microsoft/playwright#22186);
+// tests/browser/launch-options.spec.mjs fails if an upgrade changes that list.
+const playwrightDisabledFeatures =
+  '--disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,' +
+  'DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,' +
+  'PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,' +
+  'Translate,AutoDeElevate,OptimizationHints,msForceBrowserSignIn,' +
+  'msEdgeUpdateLaunchServicesPreferredVersion';
+const launchOptions = {
+  ignoreDefaultArgs: [playwrightDisabledFeatures],
+  args: [`${playwrightDisabledFeatures},TcpPortRandomizationWin`],
+};
+
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
@@ -26,6 +42,7 @@ export default defineConfig({
         deviceScaleFactor: 1,
         isMobile: true,
         hasTouch: true,
+        launchOptions,
       },
     },
     {
@@ -33,6 +50,7 @@ export default defineConfig({
       use: {
         browserName: 'chromium',
         viewport: { width: 1440, height: 1000 },
+        launchOptions,
       },
     },
   ],
