@@ -328,6 +328,21 @@ for (const [id, inputs, expected] of [
   });
 }
 
+for (const [rate, months, expected] of [
+  ['2.4789', '2', ['Monthly payment: $501,549,845.36.', 'First payment principal: $499,484,095.36.']],
+  ['100', '600', ['Monthly payment: $83,333,333.33.', 'Estimated total interest: $49,000,000,000.00.']],
+]) {
+  test(`loan handles the maximum principal with ${rate}% over ${months} payments`, async ({ page }) => {
+    await page.goto('/tools/business-calculators/loan/');
+    const form = page.locator('#loan form');
+    await form.locator('[name="principal"]').fill('1000000000');
+    await form.locator('[name="rate"]').fill(rate);
+    await form.locator('[name="months"]').fill(months);
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    for (const text of expected) await expect(form.locator('output')).toContainText(text);
+  });
+}
+
 test('printing includes selected questions hidden by a filter and restores the screen', async ({ page }) => {
   await page.goto('/tools/accounting-questions/investments-local/#q100');
   await page.getByLabel('Add to my checklist, question 100', { exact: true }).check();
