@@ -4,7 +4,8 @@
 // snapshot it kept from the previous weekly run.
 //
 // Failures: a page that returns an error status, a page Firecrawl reports as
-// removed, and a page whose text changed since the last run. A changed page
+// removed, and a page whose text changed since the last run, other than the
+// legal database home (CHANGE_EXEMPT). A changed page
 // needs editorial review of every file that cites it; the diff goes to the job
 // summary. A moved page that still resolves is printed as a note.
 //
@@ -84,6 +85,11 @@ export function sameUrl(url) {
   }
 }
 
+// The legal database home lists the week's new documents, so its text changes
+// every week (the failed runs of 24 and 28 September 2026), and the portfolio
+// cites it only as the way into the database. Its status and removal still count.
+const CHANGE_EXEMPT = new Set([sameUrl('https://www.ato.gov.au/law/')]);
+
 // Sorts one Firecrawl document into a failure, a note or nothing.
 export function classify(url, doc) {
   if (!doc) return { failure: `${url}: Firecrawl could not read the page` };
@@ -91,7 +97,7 @@ export function classify(url, doc) {
   if (!status || status >= 400) return { failure: `${url}: HTTP ${status ?? 'unknown'}` };
   const change = doc.changeTracking?.changeStatus;
   if (change === 'removed') return { failure: `${url}: removed` };
-  if (change === 'changed') {
+  if (change === 'changed' && !CHANGE_EXEMPT.has(sameUrl(url))) {
     return { failure: `${url}: changed since ${doc.changeTracking.previousScrapeAt}`, diff: doc.changeTracking.diff?.text ?? '' };
   }
   if (!change) return { failure: `${url}: no change tracking result` };
