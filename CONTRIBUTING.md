@@ -62,8 +62,8 @@ reviewed statement for the components it lists; this weekly read covers the
 tool pages outside it.
 
 For a release-only verification after a fix, dispatch `source-freshness.yml`
-with `releases_only=true`. This runs the release check without the date-refresh,
-production or ATO-source jobs. Scheduled runs and manual runs with the default
+with `releases_only=true`. This runs the release check without the date-refresh or
+production jobs. Scheduled runs and manual runs with the default
 input still run every job.
 
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
@@ -72,17 +72,19 @@ Cloudflare response headers, the two edge redirects, and `mailto:` links that
 arrive intact. Injected inline scripts and the analytics tag are printed as
 notes because the page's Content Security Policy blocks them.
 
-The same workflow runs `node scripts/check_ato_sources.mjs`, which reads every
-ATO page cited in this repository and in accounting-review-pipeline, au-fpa-pack,
-australian-accounting and australian-accounting-skills through Firecrawl. The ATO
-refuses GitHub runners, so this is the only automated read of those pages. A page
-that returns an error status, is removed or has changed since the previous weekly
-run fails the job, and the run summary shows each diff with the files citing that
-page. Review those files against the changed page; the next run compares against
-the new text, so the failed run is the record. The job needs the
-`FIRECRAWL_API_KEY` repository secret, and the script refuses more than 200 URLs,
-the approved weekly cap. `node scripts/check_ato_sources.mjs --list` prints the
-URLs and citing files offline, and its tests run through the site check command.
+The ATO refuses GitHub runners, so a scheduled task on the maintainer's machine
+reads its pages every week instead of this workflow. The script
+`scripts/check_ato_sources.mjs` reads every ATO page cited in this repository and
+in accounting-review-pipeline, au-fpa-pack, australian-accounting and
+australian-accounting-skills through a local Chrome (`nodriver batch`), compares
+each page's text with the copy in its `--baseline` folder and writes a dated
+Markdown report to its `--out` folder. A page that returns an error status or no
+text, or whose text has changed since the previous run, fails the run and appears
+in the report with its diff and the files citing it. Review those files against
+the changed page; the next run compares against the new text, so the report is
+the record. The script refuses more than 500 URLs, and
+`node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
+offline. Its tests run through the site check command.
 
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
