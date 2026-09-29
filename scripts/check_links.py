@@ -99,6 +99,10 @@ CI_MANUAL_URLS = frozenset(
         "https://www.tpb.gov.au/public-register",
         # Timed out in run 36303885721; Camofox read the page on 27 September 2026.
         "https://www.abr.gov.au/business-super-funds-charities/applying-abn/abn-entitlement",
+        # Timed out in run 36531719107; HTTP 200 locally and nodriver read both pages
+        # on 29 September 2026.
+        "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance",
+        "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register",
     }
 )
 

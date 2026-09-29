@@ -87,7 +87,9 @@ const representativeHeightBaseline = {
     // 234px guard.
     // On 28 September six more merged upstream changes join the section.
     // Measured at 10,221px; keep the 234px guard.
-    ['/evidence/', 10455],
+    // Supplier information for AI registers, 29 September: 11,335px, plus the
+    // 234px guard.
+    ['/evidence/', 11569],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -111,7 +113,9 @@ const representativeHeightBaseline = {
     // locally, plus the 234px guard.
     // Six more merged upstream changes on 28 September: 7,682px locally,
     // plus the 234px guard.
-    ['/evidence/', 7916],
+    // Supplier information for AI registers, 29 September: 8,534px locally,
+    // plus the 234px guard.
+    ['/evidence/', 8768],
   ]),
 };
 
