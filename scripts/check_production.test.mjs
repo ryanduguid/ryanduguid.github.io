@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 
-import { inspectHtml, sitemapPaths } from './check_production.mjs';
+import { headerNotes, inspectHtml, sitemapPaths } from './check_production.mjs';
 
 // The address is only a fixture; the checks never hard-code the real one.
 const SOURCE = '<p>Write to <a href="mailto:someone@example.com">someone@example.com</a>.</p>';
@@ -101,4 +101,11 @@ test('sitemapPaths reads the site paths out of the sitemap', () => {
   const xml = '<url><loc>https://duguid.com.au/</loc></url>'
     + '<url><loc>https://duguid.com.au/contact/</loc></url>';
   assert.deepEqual(sitemapPaths(xml), ['/', '/contact/']);
+});
+
+test('a sampled report-only policy is a note, and its absence says nothing', () => {
+  const policy = "script-src 'unsafe-inline' 'unsafe-eval'; connect-src 'none'";
+  const sampled = new Headers({ 'content-security-policy-report-only': policy });
+  assert.deepEqual(headerNotes('/changelog/', sampled), [`/changelog/: report-only CSP delivered: ${policy}`]);
+  assert.deepEqual(headerNotes('/changelog/', new Headers()), []);
 });

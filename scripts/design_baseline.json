@@ -15,7 +15,7 @@
       "12e3f7313095630e23de5beeee7afc0f07393e8cd90a78566557d6d5f7ea44aa"
     ],
     "changelog/index.html": [
-      "91730ae3ba5e3a07d36467839655b159da676e9d620688310571ab63e0574721"
+      "5f7b0d15e22e90bb008deed1c7587f0e9091e9401fc6cf6b639620ac79bf69ce"
     ],
     "contact/index.html": [
       "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
@@ -24,25 +24,25 @@
       "c9788b74b2f3a99c9c686dfea2be8ea81147268efbdf5f7e882723b402f0d733"
     ],
     "evaluate/manager-review-gate/index.html": [
-      "eee7e0a69b2ae15694180751a3a7ad8a7205a1cca1c1fb0c786d7d215a1b9828"
+      "e1483327b65db09a51e71ff5657499066ec8c466e97a7e905cf7adc8dc3415bc"
     ],
     "evaluate/payday-super-evidence/index.html": [
-      "38037b63f0e565f88291371ed7ae1e0252e97c59464bedb4845b473dbe6aed57"
+      "f8780718dea9d8d106c00c5514164ef8582eb46a4075c2d3bbf00b5cd8ea5f34"
     ],
     "evaluate/xero-trial-balance-integrity/index.html": [
-      "cb8cf4e29c90907c05ebde77331f741bbf424c2fc04a157cb4fdd5602e7dbbb7"
+      "e40570467181e5094c319e1d6d130823e8a1e73dea0545034e14c8d35df9f86e"
     ],
     "evidence/index.html": [
-      "2d2d438d2c965c8a52c5a909d5de3a8c3a5887dd099eaabdb3f2c84ae47abd69"
+      "b87eff1dd3840948a377ccc37e2d3ff02fa291d8ab2c48e8c53c73eaf63be4fd"
     ],
     "examples/profit-vs-cash-flow/index.html": [
       "8bf1e47bc9f934cdeca4305fa62d4de764e2d46d5aebcbb2ac6a6219bc788856"
     ],
     "index.html": [
-      "da0897e089e5c1a2748bf12f467fd2afa993b1b75b6d64da7946fc4577c76f04"
+      "eb2ed83df5a6b6701170a98d89f6dbab3a578cc83438eee3b7e2301268959af9"
     ],
     "privacy/index.html": [
-      "abf813fe607b852d3d6518bed929ba2850e660233f1a6a99fd267126661c19d0"
+      "c5e78b536e9df640a33ded0fd7a7910d82c97421460001a097d9ed0c80a25d36"
     ],
     "rates/cents-per-kilometre/index.html": [
       "98d1bd2330259541f0cd49d532f661b5ccd615b66ad1e4b5c087777037be4e94"
@@ -78,7 +78,7 @@
       "8773b9203fb9f922219e107feb35dae46cf6c8c673a39df3ad643993b76e2ae1"
     ],
     "tools/limitations/index.html": [
-      "8210e1bbda96828b9041186b3bb5d783d15ed041901a01df635f15b1536cab17"
+      "a15ffd540af27281c64bd588928af0ac5b6844ef87b54d209a9b96faf35709a1"
     ],
     "tools/monthly-close-controls/index.html": [
       "4c3ea34e80e0618be6653f8843b35ce4cb36fe60e4ee5d76cce9cabd60a32ee9"
@@ -111,7 +111,7 @@
   "protected_files": {
     "llms.txt": "9e69263799a0222b001dd9740d40ac9eba2046aa7ebe63a8bdf8d68d85f4a330",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "eabd631763fdd22407739935d66523475ef927f279eb088441499933a9d56265"
+    "sitemap.xml": "94adb623f80c925e1020556e5b582ffe68a013dd37aa18a3b5ff3ea6de11371c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -156,6 +156,7 @@
       "/rates/super-guarantee/super-guarantee-rates.csv",
       "https://github.com/ryanduguid",
       "/tools/payday-super/",
+      "/rates/maximum-contribution-base/",
       "/tools/australian-tax-ai-agents/",
       "/rates/div7a-benchmark-rate/",
       "/rates/cents-per-kilometre/",
@@ -167,7 +168,7 @@
   "protected_main_text": {
     "rates/cents-per-kilometre/index.html": "c5ed4da0da341bf547e9709a1d255688db3f86296cb5ba1d316ce4980b47975d",
     "rates/div7a-benchmark-rate/index.html": "b9c27c5ff036b9b70ee852d887d744da1775ad2b842b4e70fada015816902bdc",
-    "rates/super-guarantee/index.html": "9106be7db040ca78710a024239c630dd55cde1b74acb2b718811e672e05b4523"
+    "rates/super-guarantee/index.html": "be668dade44b31ee31e371afaabdb8b268d5e40570716cc1d2c45dfccc1a5597"
   },
   "protected_text": {
     "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,

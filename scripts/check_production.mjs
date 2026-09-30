@@ -114,6 +114,14 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
   return { failures, notes };
 }
 
+// Cloudflare's client-side resource monitoring adds a report-only policy to a
+// sample of page loads. It blocks nothing, so it is a note, not a failure; the
+// Privacy page describes it.
+export function headerNotes(path, headers) {
+  const reportOnly = headers.get('content-security-policy-report-only');
+  return reportOnly ? [`${path}: report-only CSP delivered: ${reportOnly}`] : [];
+}
+
 export function inspectHeaders(path, headers) {
   const failures = [];
   for (const [name, expected] of Object.entries(REQUIRED_HEADERS)) {
@@ -136,6 +144,7 @@ async function main() {
       continue;
     }
     failures.push(...inspectHeaders(path, response.headers));
+    notes.push(...headerNotes(path, response.headers));
     const delivered = await response.text();
     const sourcePath = join(root, path === '/' ? 'index.html' : path.replace(/^\//, '') + 'index.html');
     const result = inspectHtml(path, readFileSync(sourcePath, 'utf8'), delivered);

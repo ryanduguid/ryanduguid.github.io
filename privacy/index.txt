@@ -8,7 +8,7 @@ Source: https://duguid.com.au/privacy/
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 27 September 2026.
+Published 12 September 2026. Last reviewed 30 September 2026.
 
 ## Browser calculations
 
@@ -26,7 +26,7 @@ Email Address Obfuscation is disabled so email links work without scripts. The a
 
 Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries the figures you type into the calculators. A prefetched or shared page address can carry question-search terms, because the search places them in the address; do not put confidential information in a search you may share or leave in your history.
 
-Cloudflare also adds visitor-verification code when it delivers a page. Cloudflare makes these additions after the files leave this website’s source, and serves them from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see Cloudflare’s cookie documentation. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.
+On a sample of page loads, Cloudflare adds a report-only security policy header, which asks your browser to tell Cloudflare which scripts the page loads and which connections it makes. It blocks nothing. A report includes the page address, which can hold question-search terms, but not the figures you type into the calculators. If Cloudflare treats a request as suspicious, it can answer with its own verification page, which runs Cloudflare’s code and may set a security cookie; see Cloudflare’s cookie documentation. Cloudflare makes these additions itself; they are not part of this website’s source. The calculators work out their figures in your browser without sending them to a server.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site’s browser storage.
 
@@ -53,6 +53,12 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
 The website's own text, data and source code are available under its MIT licence, which includes its warranty terms; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+
+## Accessibility
+
+I aim for this site to meet WCAG 2.2 level AA. Automated checks run on every change: axe scans each page at phone and desktop widths, and other tests cover the skip link, keyboard focus, one main heading per page and pages that fit those widths without scrolling sideways.
+
+Automated checks find only some barriers. I have not tested the site with screen readers or on physical phones and tablets. If something stops you using a page, tell me through the contact page, naming the page and what happened.
 
 ## Links
 

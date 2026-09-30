@@ -569,8 +569,8 @@ def test_design_contracts() -> int:
         (
             "homepage opening review date moved",
             "index.html",
-            '<p class="page-meta">Last reviewed 29 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 29 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 30 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 September 2026.</p>',
             "index.html: expected exactly one opening page-meta",
         ),
         (
@@ -583,8 +583,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 29 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 29 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 30 September 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 30 September 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -679,9 +679,9 @@ def test_design_contracts() -> int:
             expect_failure(label, check_design.check_repository(root), expected)
 
     review_date_paths = (
-        ("index.html", "29 September 2026", "2026-09-29"),
+        ("index.html", "30 September 2026", "2026-09-30"),
         ("tools/index.html", "25 September 2026", "2026-09-25"),
-        ("evidence/index.html", "29 September 2026", "2026-09-29"),
+        ("evidence/index.html", "30 September 2026", "2026-09-30"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:

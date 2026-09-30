@@ -1295,6 +1295,13 @@ caption {
   text-align: right;
 }
 
+/* WCAG 2.2 target size: these secondary links stay at least 24px tall at every
+   width; the phone rules below raise them to 44px. */
+.collection-entry__links a,
+.site-footer__links a {
+  min-block-size: 1.5rem;
+}
+
 /* Homepage register */
 
 .home-hero {
