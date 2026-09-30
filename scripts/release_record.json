@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-09-29",
+  "reviewed": "2026-10-01",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,10 +18,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.11",
-        "released_utc": "2026-09-29T04:08:38Z",
-        "verified": "2026-09-29",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11",
+        "version": "0.2.12",
+        "released_utc": "2026-09-30T19:31:53Z",
+        "verified": "2026-10-01",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -39,9 +39,9 @@
         }
       },
       "pinned_engines": {
-        "payday-super-checker": "0.1.8",
+        "payday-super-checker": "0.1.9",
         "ato-benchmark-compare": "0.1.11",
-        "div7a-loan-review": "0.1.5",
+        "div7a-loan-review": "0.1.6",
         "australian-tax-calculators": "0.1.8"
       },
       "pinned_commands": [
@@ -52,8 +52,8 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.2.11, verified on 29 September 2026.",
-        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.11."
+        "GitHub, PyPI and the MCP registry publish 0.2.12, verified on 1 October 2026.",
+        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.12."
       ]
     },
     "ozzit": {
@@ -104,22 +104,22 @@
       "distribution": "payday-super-checker",
       "repository": "https://github.com/ryanduguid/australian-accounting",
       "published": {
-        "version": "0.1.8",
-        "released_utc": "2026-09-27T04:38:40Z",
-        "verified": "2026-09-27",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.8",
+        "version": "0.1.9",
+        "released_utc": "2026-09-30T11:11:09Z",
+        "verified": "2026-10-01",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9",
         "pypi_url": "https://pypi.org/project/payday-super-checker/"
       },
       "documented": {
         "page": "tools/payday-super/index.html",
-        "version": "0.1.8",
-        "visible_label": "Quick trial release 0.1.8"
+        "version": "0.1.9",
+        "visible_label": "Quick trial release 0.1.9"
       },
       "pinned_commands": [
-        "uvx --from payday-super-checker==0.1.8 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv"
+        "uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv"
       ],
       "notes": [
-        "Published checkers 0.1.7 and 0.1.8 leave a timely receipt date without either amount UNKNOWN (rechecked for 0.1.8 on 27 September 2026). A late receipt without an amount cannot reduce the shortfall. Older 0.1.5 and 0.1.6 retain the full-receipt assumption; the quick trial uses 0.1.8, which gives the same result as 0.1.7 for its file. Historical evaluation remains 0.1.3."
+        "Published checkers 0.1.7 and 0.1.8 leave a timely receipt date without either amount UNKNOWN (rechecked for 0.1.8 on 27 September 2026). A late receipt without an amount cannot reduce the shortfall. Older 0.1.5 and 0.1.6 retain the full-receipt assumption; the quick trial used 0.1.8, which gives the same result as 0.1.7 for its file, and from 1 October 2026 uses 0.1.9, whose report matched 0.1.8 on that file apart from its version line (AT_RISK, due 2026-08-17, exit 0 with the acknowledgement and 2 without). Historical evaluation remains 0.1.3."
       ]
     }
   },
