@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evaluate/manager-review-gate/
 
 Result: release v0.1.3 of the Workpaper Review Gate stops the incomplete fictional BAS pack with NOT_READY and passes the corrected pack as READY. Reproduce both runs below; a manager still decides whether the work may progress.
 
-Published 26 August 2026. Last reviewed 26 September 2026.
+Published 26 August 2026. Last reviewed 30 September 2026. Newer releases exist; the Workpaper Review Gate page names the current one.
 
 ## Accounting problem
 
@@ -78,6 +78,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Workpaper Review Gate page: https://duguid.com.au/tools/workpaper-review-gate/
 - Australian Taxation Office, Business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
 - Australian Taxation Office, Monthly GST reporting: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting
 - Immutable review-ready-gate/v0.1.3 GitHub Release: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
@@ -85,5 +86,4 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Expected results contract: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate/expected_results.json
 - Evaluation contract test: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/tests/test_evaluation_pack.py
 - Evidence and Assurance: https://duguid.com.au/evidence/
-- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - All evaluations: https://duguid.com.au/evaluate/

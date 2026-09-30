@@ -13,6 +13,11 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+30 September 2026 | The homepage names its author and explains its demo when JavaScript is off.
+30 September 2026 | The Coal LSL calculator’s month check reads ‘Enter July 2023 or later.’ for an earlier month, where it had shown ‘Enter NaN or more.’
+30 September 2026 | The Privacy page describes the report-only security header Cloudflare adds to some page loads, drops a sentence about verification code Cloudflare no longer delivers and adds an Accessibility section.
+30 September 2026 | The Evidence page gives merge dates in Australian Eastern time and lists security policies and test results in one table. The three evaluations and the Limitations page point to the current releases.
+30 September 2026 | Negative amounts stay on one line on narrow screens, secondary links are at least 24 pixels tall, related rate pages link to each other and feed titles end on a whole word.
 29 September 2026 | The Evidence page links the supplier information each component that works with an AI assistant publishes for a firm’s AI register and risk assessment, and says how it relates to ISO/IEC 42001, making no claim of certification, approval or conformity.
 29 September 2026 | Australian Accounting Skills v0.3.0 is the recommended skills release: the Adopt route, the subcontract ledger page, the agent skills manifest and llms.txt move from the 19 workflows of v0.2.1 to the 63 of v0.3.0, whose 70 validation cards have confirmed results from a whole-card model run.
 29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on the ATO’s industry pages.
@@ -72,18 +77,18 @@ Date | Tool | Release
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
-20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
-7 September 2026 | Subcontract ledger skills | v0.2.1
 22 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.11
 22 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.9
 22 September 2026 | Payday Super timing | payday-super-checker/v0.1.7
+20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 20 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.4
 20 September 2026 | Trust distribution checks | solomons-sword/v0.1.7
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
+7 September 2026 | Subcontract ledger skills | v0.2.1
 
-Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
+Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 29 September 2026.
+Published 30 August 2026. Last reviewed 30 September 2026.
 
 ## Links
 
@@ -107,13 +112,13 @@ Published 30 August 2026. Last reviewed 29 September 2026.
 - aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6
-- review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
-- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.11: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.11
 - ato-benchmark-compare/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9
 - payday-super-checker/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
+- review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
 - solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
+- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - evaluations: https://duguid.com.au/evaluate/
 - evidence register: https://duguid.com.au/evidence/

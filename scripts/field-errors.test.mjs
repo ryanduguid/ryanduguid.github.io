@@ -46,6 +46,27 @@ test('a date outside its limits is a range error even when the browser calls it 
   assert.equal(fieldErrorMessage(degraded), 'Enter 1 January 1900 or later.');
 });
 
+test('month limits read as a month and year', () => {
+  const month = (fields) => control({ type: 'month', min: '2023-07', max: '2026-12', ...fields });
+  assert.equal(fieldErrorMessage(month({ value: '2023-06', rangeUnderflow: true })), 'Enter July 2023 or later.');
+  assert.equal(fieldErrorMessage(month({ value: '2027-01', rangeOverflow: true })), 'Enter December 2026 or earlier.');
+  assert.equal(fieldErrorMessage(month({ value: '2023-07' })), 'browser text');
+  assert.equal(fieldErrorMessage(month({ value: '2026-09' })), 'browser text');
+  assert.equal(fieldErrorMessage(month({ valueMissing: true })), 'Enter a month.');
+  // A browser without month inputs reports type 'text' and enforces no limit.
+  const degraded = control({ type: 'text', min: '2023-07', value: '2023-06' });
+  degraded.getAttribute = name => (name === 'type' ? 'month' : null);
+  assert.equal(fieldErrorMessage(degraded), 'Enter July 2023 or later.');
+  degraded.value = '2023-07';
+  assert.equal(fieldErrorMessage(degraded), 'browser text');
+  const late = control({ type: 'text', min: '2023-07', max: '2026-12', value: '2027-01' });
+  late.getAttribute = name => (name === 'type' ? 'month' : null);
+  assert.equal(fieldErrorMessage(late), 'Enter December 2026 or earlier.');
+  const blank = control({ type: 'text', valueMissing: true });
+  blank.getAttribute = name => (name === 'type' ? 'month' : null);
+  assert.equal(fieldErrorMessage(blank), 'Enter a month.');
+});
+
 test('money and plain number limits keep their formats', () => {
   const money = control({ inputmode: 'decimal', min: '0', max: '1000000000', rangeUnderflow: true });
   assert.equal(fieldErrorMessage(money), 'Enter $0.00 or more.');

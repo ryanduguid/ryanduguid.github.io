@@ -39,7 +39,7 @@
   <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
   <link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />
-  <link rel="stylesheet" href="/assets/site.css?v=20260928b" />
+  <link rel="stylesheet" href="/assets/site.css?v=20260930a" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -67,7 +67,7 @@
         </div>
         <figure class="case-preview">
               <a href="/assets/examples/lumbridge/cash-preview.png"><picture><source media="(max-width: 40rem)" srcset="/assets/examples/lumbridge/cash-preview-narrow.png" width="856" height="711" /><img src="/assets/examples/lumbridge/cash-preview.png" width="1282" height="639" fetchpriority="high" decoding="async" alt="Line chart of 13 weekly closing cash balances in the late case, falling to minus $25,160 before recovering above the $15,000 buffer" /></picture></a>
-              <figcaption>One receipt arrives 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer. <a href="#results">Compare both cases</a>. Exported from Excel on 28 September 2026; <a href="/assets/examples/lumbridge/preview-record.txt">capture record</a>.</figcaption>
+              <figcaption>One receipt arrives 45 days late. Weekly closing cash falls to <span class="nowrap">−$25,160</span> against a $15,000 buffer. <a href="#results">Compare both cases</a>. Exported from Excel on 28 September 2026; <a href="/assets/examples/lumbridge/preview-record.txt">capture record</a>.</figcaption>
             </figure>
       </header>
       <div class="article-layout site-shell">
@@ -118,16 +118,16 @@
                   <tr><th scope="row">Quarter revenue</th><td>$180,000.00</td><td>$180,000.00</td></tr>
                   <tr><th scope="row">Profit before income tax</th><td>$35,957.55</td><td>$35,957.55</td></tr>
                   <tr><th scope="row">October customer receipts</th><td>$66,000.00</td><td>$22,000.00</td></tr>
-                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td>−$11,960.00</td></tr>
+                  <tr><th scope="row">October closing cash</th><td>$32,040.00</td><td><span class="nowrap">−$11,960.00</span></td></tr>
                   <tr><th scope="row">First day the bank account is negative</th><td>None in the quarter</td><td>28 October 2026</td></tr>
-                  <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td>−$25,160.00 on 6 November</td></tr>
+                  <tr><th scope="row">Lowest daily closing cash</th><td>$16,800.00 on 7 October</td><td><span class="nowrap">−$25,160.00</span> on 6 November</td></tr>
                   <tr><th scope="row">December closing cash</th><td>$67,320.00</td><td>$67,320.00</td></tr>
                 </tbody>
               </table>
             </div>
             <p>The two cases end the quarter with the same cash because the delayed receipt still arrives, on 28 November. That later recovery cannot pay the wages, supplier invoices and GST that fall due in late October and early November.</p>
             <p>Against the owner’s $15,000 buffer, the late case is $40,160 short at its worst day. A reader looking only at December closing cash, or only at profit, sees neither the shortfall nor its date.</p>
-            <p class="field-note">Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 28 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, −$11,960, −$11,960, −$25,160, $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</p>
+            <p class="field-note">Weekly closing cash in the late case, exported from the distributed workbook in Excel 16.0 on 28 September 2026. The 13 plotted values are $16,800, $15,600, $25,520, <span class="nowrap">−$11,960,</span> <span class="nowrap">−$11,960,</span> <span class="nowrap">−$25,160,</span> $17,640, $27,560, $49,680, $36,480, $79,280, $67,320 and $67,320, against the assumed $15,000 buffer. <a href="/assets/examples/lumbridge/preview-record.txt">Capture record</a>.</p>
           </section>
 
           <section id="receipt-delay">
@@ -139,10 +139,10 @@
                 <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Delay in days</th><th scope="col" role="columnheader">Receipt date</th><th scope="col" role="columnheader">Lowest cash</th><th scope="col" role="columnheader">First date at that low</th><th scope="col" role="columnheader">Days below zero</th></tr></thead>
                 <tbody role="rowgroup">
                   <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">0</th><td role="cell" data-label="Receipt date">14 October</td><td role="cell" data-label="Lowest cash">$16,800.00</td><td role="cell" data-label="First date at that low">7 October</td><td role="cell" data-label="Days below zero">0</td></tr>
-                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">15</th><td role="cell" data-label="Receipt date">29 October</td><td role="cell" data-label="Lowest cash">−$11,960.00</td><td role="cell" data-label="First date at that low">28 October</td><td role="cell" data-label="Days below zero">1</td></tr>
-                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">30</th><td role="cell" data-label="Receipt date">13 November</td><td role="cell" data-label="Lowest cash">−$25,160.00</td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
-                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">45</th><td role="cell" data-label="Receipt date">28 November</td><td role="cell" data-label="Lowest cash">−$25,160.00</td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
-                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">60</th><td role="cell" data-label="Receipt date">13 December</td><td role="cell" data-label="Lowest cash">−$25,160.00</td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">22</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">15</th><td role="cell" data-label="Receipt date">29 October</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$11,960.00</span></td><td role="cell" data-label="First date at that low">28 October</td><td role="cell" data-label="Days below zero">1</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">30</th><td role="cell" data-label="Receipt date">13 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">45</th><td role="cell" data-label="Receipt date">28 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">60</th><td role="cell" data-label="Receipt date">13 December</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">22</td></tr>
                 </tbody>
               </table>
             </div>
