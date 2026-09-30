@@ -56,7 +56,10 @@ def parse_date(text: str) -> date:
 
 
 def headline(summary: str) -> str:
-    """Return the summary, or as many whole words as fit in 80 characters."""
+    """Return the summary, or as many whole words as fit in 80 characters.
+
+    A first word longer than 79 characters is cut, since no whole word fits.
+    """
     if len(summary) <= 80:
         return summary
     cut = summary[:79] if summary[79] == " " else summary[:79].rsplit(" ", 1)[0]

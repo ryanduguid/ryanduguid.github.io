@@ -73,6 +73,11 @@ class FeedTests(unittest.TestCase):
         digest = hashlib.sha256(f"2026-09-29|{launch_title}".encode()).hexdigest()[:16]
         self.assertEqual(identifier, f"{build_feed.CHANGELOG_URL}#entry-{digest}")
 
+    def test_a_first_word_too_long_for_the_title_is_cut(self) -> None:
+        self.assertEqual(build_feed.headline("x" * 79 + " next"), "x" * 79 + "…")
+        self.assertEqual(build_feed.headline("x" * 80 + " next"), "x" * 79 + "…")
+        self.assertEqual(build_feed.headline("x" * 81), "x" * 79 + "…")
+
     def test_edited_site_entries_retain_their_original_ids(self) -> None:
         result = feed_entries(build_feed.SOURCE.read_text(encoding="utf-8"))
         for digest in ("3218d72411b9fdd7", "eb0f892af8afe17a"):

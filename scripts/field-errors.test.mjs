@@ -59,6 +59,12 @@ test('month limits read as a month and year', () => {
   assert.equal(fieldErrorMessage(degraded), 'Enter July 2023 or later.');
   degraded.value = '2023-07';
   assert.equal(fieldErrorMessage(degraded), 'browser text');
+  const late = control({ type: 'text', min: '2023-07', max: '2026-12', value: '2027-01' });
+  late.getAttribute = name => (name === 'type' ? 'month' : null);
+  assert.equal(fieldErrorMessage(late), 'Enter December 2026 or earlier.');
+  const blank = control({ type: 'text', valueMissing: true });
+  blank.getAttribute = name => (name === 'type' ? 'month' : null);
+  assert.equal(fieldErrorMessage(blank), 'Enter a month.');
 });
 
 test('money and plain number limits keep their formats', () => {
