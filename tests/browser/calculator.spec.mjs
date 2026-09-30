@@ -314,6 +314,7 @@ test('reporting month is required on every branch and refuses pre-July-2023 mont
   expect(errorId).toBeTruthy();
   await expect(page.locator(`#${errorId}`)).toHaveAttribute('role', 'alert');
   await expect(page.locator(`#${errorId}`)).toBeVisible();
+  await expect(page.locator(`#${errorId}`)).toHaveText('Enter a month.');
 
   // The casual branch exposes the same shared field, not its own copy.
   await page.getByRole('radio', {
@@ -337,6 +338,8 @@ test('reporting month is required on every branch and refuses pre-July-2023 mont
   const juneErrorId = juneDescribedBy.find((id) => id.endsWith('-error'));
   expect(juneErrorId).toBeTruthy();
   await expect(page.locator(`#${juneErrorId}`)).toBeVisible();
+  // The limit reads as a month; it once read 'Enter NaN or more.'
+  await expect(page.locator(`#${juneErrorId}`)).toHaveText('Enter July 2023 or later.');
   await expect(page.locator('[data-result-kind="levy"]')).toHaveCount(0);
 
   // The boundary month itself is supported and prices at 2.7%.

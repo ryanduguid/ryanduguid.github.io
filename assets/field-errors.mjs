@@ -18,19 +18,25 @@ export function describedByTokens(control) {
   return new Set((control.getAttribute('aria-describedby') || '').split(/\s+/).filter(Boolean));
 }
 
-// Date fields carry ISO limits; money fields carry inputmode="decimal"; other
-// numbers (percentages, months, hours) read as plain figures.
-// A browser without date inputs reports type 'text' for <input type="date">, so
-// the attribute decides, and the ISO value is then range-checked below.
-function isDateField(control) {
-  return control.type === 'date' || control.getAttribute('type') === 'date';
+// Date and month fields carry ISO limits; money fields carry inputmode="decimal";
+// other numbers (percentages, months, hours) read as plain figures.
+// A browser without date or month inputs reports type 'text' for them, so the
+// attribute decides, and the ISO value is then range-checked below.
+const CALENDAR_VALUES = { date: /^\d{4}-\d{2}-\d{2}$/, month: /^\d{4}-\d{2}$/ };
+
+function calendarType(control) {
+  return Object.keys(CALENDAR_VALUES).find(
+    (type) => control.type === type || control.getAttribute('type') === type
+  );
 }
 
 function formatBound(control, bound) {
-  if (isDateField(control)) {
-    const [year, month, day] = bound.split('-').map(Number);
+  const calendar = calendarType(control);
+  if (calendar) {
+    const [year, month, day = 1] = bound.split('-').map(Number);
+    const parts = calendar === 'date' ? { day: 'numeric' } : {};
     return new Date(year, month - 1, day).toLocaleDateString('en-AU', {
-      day: 'numeric', month: 'long', year: 'numeric',
+      ...parts, month: 'long', year: 'numeric',
     });
   }
   const value = Number(bound);
@@ -40,18 +46,19 @@ function formatBound(control, bound) {
   return value.toLocaleString('en-AU');
 }
 
-// Dates read "or later" and "or earlier"; amounts read "or more" and "or less".
+// Dates and months read "or later" and "or earlier"; amounts read "or more" and "or less".
 function rangeMessage(control, bound, direction) {
   const dateWords = { min: 'later', max: 'earlier' };
   const numberWords = { min: 'more', max: 'less' };
-  const word = (isDateField(control) ? dateWords : numberWords)[direction];
+  const word = (calendarType(control) ? dateWords : numberWords)[direction];
   return `Enter ${formatBound(control, bound)} or ${word}.`;
 }
 
-// A browser without date inputs enforces neither min nor max, so an ISO value
-// is compared with the attributes here as well. Returns 'min', 'max' or null.
+// A browser without date or month inputs enforces neither min nor max, so an ISO
+// value is compared with the attributes here as well. Returns 'min', 'max' or null.
 export function dateOutOfRange(control) {
-  if (!isDateField(control) || !/^\d{4}-\d{2}-\d{2}$/.test(control.value)) return null;
+  const calendar = calendarType(control);
+  if (!calendar || !CALENDAR_VALUES[calendar].test(control.value)) return null;
   if (control.min && control.value < control.min) return 'min';
   if (control.max && control.value > control.max) return 'max';
   return null;
@@ -62,8 +69,8 @@ export function dateOutOfRange(control) {
 export function fieldErrorMessage(control) {
   const validity = control.validity;
   if (validity.valueMissing) {
-    if (isDateField(control)) return 'Enter a date.';
-    if (control.type === 'month') return 'Enter a month.';
+    const calendar = calendarType(control);
+    if (calendar) return `Enter a ${calendar}.`;
     return control.type === 'number' ? 'Enter an amount.' : 'Enter a value.';
   }
   if (validity.badInput) return 'Enter a number using digits only.';

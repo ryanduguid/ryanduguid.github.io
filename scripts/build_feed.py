@@ -55,6 +55,14 @@ def parse_date(text: str) -> date:
     return date(int(year), MONTHS[month], int(day))
 
 
+def headline(summary: str) -> str:
+    """Return the summary, or as many whole words as fit in 80 characters."""
+    if len(summary) <= 80:
+        return summary
+    cut = summary[:79] if summary[79] == " " else summary[:79].rsplit(" ", 1)[0]
+    return cut.rstrip(" ,;:") + "…"
+
+
 def entries(html: str) -> list[tuple[date, str, str, str, str]]:
     """Return (date, title, summary, link, feed ID) for each dated row."""
     found: list[tuple[date, str, str, str, str]] = []
@@ -66,13 +74,15 @@ def entries(html: str) -> list[tuple[date, str, str, str, str]]:
         when = parse_date(html_lib.unescape(TAG_PATTERN.sub("", cells[0])).strip())
         if len(cells) == 2:
             summary = html_lib.unescape(TAG_PATTERN.sub("", cells[1])).strip()
-            title = summary if len(summary) <= 80 else summary[:77].rstrip() + "..."
+            title = headline(summary)
+            # IDs hash the title rule the feed launched with, so no published entry changes identity.
+            id_title = summary if len(summary) <= 80 else summary[:77].rstrip() + "..."
             link = CHANGELOG_URL + "#site-changes"
         elif len(cells) == 3:
             tool = html_lib.unescape(TAG_PATTERN.sub("", cells[1])).strip()
             release = html_lib.unescape(TAG_PATTERN.sub("", cells[2])).strip()
             href = HREF_PATTERN.search(cells[2])
-            title = f"{tool} {release}"
+            title = id_title = f"{tool} {release}"
             summary = f"{tool}: release {release}."
             link = html_lib.unescape(href.group(1)) if href else CHANGELOG_URL + "#tool-releases"
         else:
@@ -86,7 +96,7 @@ def entries(html: str) -> list[tuple[date, str, str, str, str]]:
         digest = (
             explicit_id.group(2)
             if explicit_id
-            else hashlib.sha256(f"{when.isoformat()}|{title}".encode()).hexdigest()[:16]
+            else hashlib.sha256(f"{when.isoformat()}|{id_title}".encode()).hexdigest()[:16]
         )
         if digest in identifiers:
             raise SystemExit(f"changelog: duplicate feed ID {digest}")
