@@ -55,6 +55,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 ## Related
 
 - When is payday super due
+- Maximum super contribution base
 - Australian tax tools for AI agents
 - Division 7A benchmark interest rate
 - Cents per kilometre rate for car expenses
@@ -72,6 +73,7 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 - Download the table as CSV: https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv
 - Source and contact: https://github.com/ryanduguid
 - When is payday super due: https://duguid.com.au/tools/payday-super/
+- Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/

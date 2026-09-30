@@ -89,7 +89,10 @@ const representativeHeightBaseline = {
     // Measured at 10,221px; keep the 234px guard.
     // Supplier information for AI registers, 29 September: 11,335px, plus the
     // 234px guard.
-    ['/evidence/', 11569],
+    // The security policy and Actions table of 30 September replaces two
+    // link-chain sentences; its 44px phone targets make it 12,031px. Keep
+    // the 234px guard.
+    ['/evidence/', 12265],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -115,7 +118,9 @@ const representativeHeightBaseline = {
     // plus the 234px guard.
     // Supplier information for AI registers, 29 September: 8,534px locally,
     // plus the 234px guard.
-    ['/evidence/', 8768],
+    // The security policy and Actions table, 30 September: 8,986px locally,
+    // plus the 234px guard.
+    ['/evidence/', 9220],
   ]),
 };
 

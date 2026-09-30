@@ -37,7 +37,7 @@ The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2
 
 The old quarterly SG worksheet does not establish current Payday Super entitlement.
 
-Payday Super for employers · Super guarantee rate history on this site
+Payday Super for employers · Super guarantee rate history on this site · Maximum super contribution base by year
 
 The bold answer was checked on 27 September 2026.
 
@@ -218,6 +218,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
+- Maximum super contribution base by year: https://duguid.com.au/rates/maximum-contribution-base/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/

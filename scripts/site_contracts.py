@@ -480,7 +480,7 @@ EVALUATION_PACKS: dict[str, dict[str, Any]] = {
             ),
             "limitations": ("This evaluation does not provide advice or make an ATO assessment.",),
         },
-        "sitemap_lastmod": "2026-09-26",
+        "sitemap_lastmod": "2026-09-30",
         "llms_section": "Evaluation packs",
     },
 }

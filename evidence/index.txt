@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 29 September 2026.
+Last reviewed 30 September 2026.
 
 ## Accepted upstream work
 
@@ -22,17 +22,17 @@ Xero command line, XeroAPI’s command-line tool for the Xero Accounting API. Pu
 
 PyXero, a Python client for the Xero accounting API. Pull request 440 adds client-credentials authentication for Xero custom connections. It merged on 10 September 2026 and changed 4 files. Pull request 439 raises an error when a Xero call expecting JSON receives a non-JSON page with a 200 status, which the client had passed back to callers as raw bytes. It merged on 9 September 2026 and changed 5 files.
 
-Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 6 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
+Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 7 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
 
 ERPNext, open source ERP software. I reported outdated and misspelt account names in its Australian chart of accounts in issue 59498. A maintainer opened pull request 59499 incorporating my commit and merged it on 27 September 2026. It changed 1 file.
 
 ERPNext Australian Localisation, BAS, ABA payment file and BAI2 bank file extensions for ERPNext. Pull request 194 stops ABA payment files truncating ten-digit account numbers to nine digits. It now rejects the number and names the party or bank account. It merged on 7 September 2026 and changed 2 files.
 
-LedgerSMB, double-entry accounting software. Pull request 9842 makes existing GIFI codes (Canadian tax-reporting account codes) read-only while their descriptions stay editable, with tests for both. It merged on 6 September 2026 and changed 3 files.
+LedgerSMB, double-entry accounting software. Pull request 9842 makes existing GIFI codes (Canadian tax-reporting account codes) read-only while their descriptions stay editable, with tests for both. It merged on 7 September 2026 and changed 3 files.
 
-requests-cache, a persistent HTTP cache for Python. Pull request 1187 adds a has_content_changed attribute that reports whether a refreshed response differs from the cached copy. It compares JSON without regard to formatting or key order and reports no result when no comparison was made. It merged on 14 September 2026 and changed 7 files.
+requests-cache, a persistent HTTP cache for Python. Pull request 1187 adds a has_content_changed attribute that reports whether a refreshed response differs from the cached copy. It compares JSON without regard to formatting or key order and reports no result when no comparison was made. It merged on 15 September 2026 and changed 7 files.
 
-Merge status and file counts were read from the GitHub API on 28 September 2026. By then 65 pull requests I had opened in other projects had merged: 46 to OpenAccountants and 19 across 17 other repositories. This section is a selection. To test the tools themselves, rerun the evaluations.
+Merge dates are in Australian Eastern time. Merge status and file counts were read from the GitHub API on 28 September 2026. By then 65 pull requests I had opened in other projects had merged: 46 to OpenAccountants and 19 across 17 other repositories. This section is a selection. To test the tools themselves, rerun the evaluations.
 
 ## Identity and credentials
 
@@ -99,9 +99,20 @@ No client, taxpayer or production-ledger data appears in public examples. Busine
 
 ## Security, tests and release evidence
 
-I publish a security policy for the Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills and this site.
+Each component publishes a security policy, and its repository shows the current GitHub Actions results.
 
-Each repository shows its current GitHub Actions results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills and this site.
+Component | Security policy | Test results
+Aus Accounting MCP | SECURITY.md | GitHub Actions
+Payday Super | SECURITY.md | GitHub Actions
+ATO benchmarks | SECURITY.md | GitHub Actions
+Trust distributions | SECURITY.md | GitHub Actions
+Company tax | SECURITY.md | GitHub Actions
+Hardhat Ledger | SECURITY.md | GitHub Actions
+TheWIPTally | SECURITY.md | GitHub Actions
+Xero export | SECURITY.md | GitHub Actions
+Workpaper Review Gate | SECURITY.md | GitHub Actions
+Australian Accounting Skills | SECURITY.md | GitHub Actions
+This site | SECURITY.md | GitHub Actions
 
 Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 
@@ -207,27 +218,27 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - TheWIPTally local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary
 - Workpaper Review Gate data boundary: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#data-boundary
 - MCP client architecture: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/README.md#client-integration
-- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md
-- Payday Super: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md
-- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md
-- trust distributions: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/SECURITY.md
-- company tax: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/SECURITY.md
-- Hardhat Ledger: https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md
-- TheWIPTally: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md
-- Xero export: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md
-- Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md
-- this site: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
-- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions
-- Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-payday-super-checker.yml
-- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-ato-benchmark-compare.yml
-- trust distributions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-solomons-sword.yml
-- company tax: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-exchequer-tally.yml
-- Hardhat Ledger: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/verify.yml
-- TheWIPTally: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml
-- Xero export: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml
-- Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
-- Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/actions
-- this site: https://github.com/ryanduguid/ryanduguid.github.io/actions
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-payday-super-checker.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-ato-benchmark-compare.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-solomons-sword.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-exchequer-tally.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/verify.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml
+- SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml
+- SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions
+- SECURITY.md: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
 - Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml

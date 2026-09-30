@@ -18,9 +18,9 @@ Check workpaper packs, explore cash shortfalls and inspect the calculations.
 
 Explore the cash flow example
 
-A personal open source project, not an accounting practice.
+Built by Ryan Duguid, an accountant in Newcastle, NSW. A personal open source project, not an accounting practice.
 
-Last reviewed 29 September 2026.
+Last reviewed 30 September 2026.
 
 ## Compare profit with cash flow
 
@@ -70,6 +70,8 @@ Overtime and penalty
 
 Allowances
 
+This example needs JavaScript to recalculate. With scripts off, the result shows the fictional amounts above.
+
 Formula A, base rate plus bonuses
 
 $6,000.00
@@ -90,7 +92,7 @@ Formula B applies. Levy payable, rounded once at the end
 
 $192.38
 
-Fictional figures, calculated in your browser. This site’s code sends and stores none of them; the Privacy page covers Cloudflare’s delivery script. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
+Fictional figures, calculated in your browser. This site’s code sends and stores none of them; the Privacy page covers what Cloudflare adds when it delivers pages. This is the section 3B(1) base rate branch without bonuses, so use the full calculator for annual salary, casual and bonus frequency.
 
 Open the Coal LSL calculator Open the evidence register
 
@@ -272,7 +274,7 @@ Source: https://duguid.com.au/evidence/
 
 This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 29 September 2026.
+Last reviewed 30 September 2026.
 
 ## Accepted upstream work
 
@@ -286,17 +288,17 @@ Xero command line, XeroAPI’s command-line tool for the Xero Accounting API. Pu
 
 PyXero, a Python client for the Xero accounting API. Pull request 440 adds client-credentials authentication for Xero custom connections. It merged on 10 September 2026 and changed 4 files. Pull request 439 raises an error when a Xero call expecting JSON receives a non-JSON page with a 200 status, which the client had passed back to callers as raw bytes. It merged on 9 September 2026 and changed 5 files.
 
-Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 6 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
+Odoo Community Association, accounting modules for Odoo. Three pull requests for Odoo 19 merged after review. Pull request 1565 stops the financial report module's link hook acting on other reports and on frames that have not loaded. It merged on 7 September 2026 and changed 2 files. Pull request 1003 fixes three online bank statement import tests that failed in the first hour after midnight UTC. It merged on 31 August 2026 and changed 1 file. Pull request 1029 adds regression coverage for automatic reconciliation of an existing statement line. It merged on 31 August 2026 and changed 1 file.
 
 ERPNext, open source ERP software. I reported outdated and misspelt account names in its Australian chart of accounts in issue 59498. A maintainer opened pull request 59499 incorporating my commit and merged it on 27 September 2026. It changed 1 file.
 
 ERPNext Australian Localisation, BAS, ABA payment file and BAI2 bank file extensions for ERPNext. Pull request 194 stops ABA payment files truncating ten-digit account numbers to nine digits. It now rejects the number and names the party or bank account. It merged on 7 September 2026 and changed 2 files.
 
-LedgerSMB, double-entry accounting software. Pull request 9842 makes existing GIFI codes (Canadian tax-reporting account codes) read-only while their descriptions stay editable, with tests for both. It merged on 6 September 2026 and changed 3 files.
+LedgerSMB, double-entry accounting software. Pull request 9842 makes existing GIFI codes (Canadian tax-reporting account codes) read-only while their descriptions stay editable, with tests for both. It merged on 7 September 2026 and changed 3 files.
 
-requests-cache, a persistent HTTP cache for Python. Pull request 1187 adds a has_content_changed attribute that reports whether a refreshed response differs from the cached copy. It compares JSON without regard to formatting or key order and reports no result when no comparison was made. It merged on 14 September 2026 and changed 7 files.
+requests-cache, a persistent HTTP cache for Python. Pull request 1187 adds a has_content_changed attribute that reports whether a refreshed response differs from the cached copy. It compares JSON without regard to formatting or key order and reports no result when no comparison was made. It merged on 15 September 2026 and changed 7 files.
 
-Merge status and file counts were read from the GitHub API on 28 September 2026. By then 65 pull requests I had opened in other projects had merged: 46 to OpenAccountants and 19 across 17 other repositories. This section is a selection. To test the tools themselves, rerun the evaluations.
+Merge dates are in Australian Eastern time. Merge status and file counts were read from the GitHub API on 28 September 2026. By then 65 pull requests I had opened in other projects had merged: 46 to OpenAccountants and 19 across 17 other repositories. This section is a selection. To test the tools themselves, rerun the evaluations.
 
 ## Identity and credentials
 
@@ -363,9 +365,20 @@ No client, taxpayer or production-ledger data appears in public examples. Busine
 
 ## Security, tests and release evidence
 
-I publish a security policy for the Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills and this site.
+Each component publishes a security policy, and its repository shows the current GitHub Actions results.
 
-Each repository shows its current GitHub Actions results: Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions, company tax, Hardhat Ledger, TheWIPTally, Xero export, Workpaper Review Gate, Australian Accounting Skills and this site.
+Component | Security policy | Test results
+Aus Accounting MCP | SECURITY.md | GitHub Actions
+Payday Super | SECURITY.md | GitHub Actions
+ATO benchmarks | SECURITY.md | GitHub Actions
+Trust distributions | SECURITY.md | GitHub Actions
+Company tax | SECURITY.md | GitHub Actions
+Hardhat Ledger | SECURITY.md | GitHub Actions
+TheWIPTally | SECURITY.md | GitHub Actions
+Xero export | SECURITY.md | GitHub Actions
+Workpaper Review Gate | SECURITY.md | GitHub Actions
+Australian Accounting Skills | SECURITY.md | GitHub Actions
+This site | SECURITY.md | GitHub Actions
 
 Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 
@@ -471,27 +484,27 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - TheWIPTally local file boundary: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/README.md#local-file-boundary
 - Workpaper Review Gate data boundary: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/README.md#data-boundary
 - MCP client architecture: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/README.md#client-integration
-- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md
-- Payday Super: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md
-- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md
-- trust distributions: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/SECURITY.md
-- company tax: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/SECURITY.md
-- Hardhat Ledger: https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md
-- TheWIPTally: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md
-- Xero export: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md
-- Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md
-- this site: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
-- Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions
-- Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-payday-super-checker.yml
-- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-ato-benchmark-compare.yml
-- trust distributions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-solomons-sword.yml
-- company tax: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-exchequer-tally.yml
-- Hardhat Ledger: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/verify.yml
-- TheWIPTally: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml
-- Xero export: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml
-- Workpaper Review Gate: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
-- Australian Accounting Skills: https://github.com/ryanduguid/australian-accounting-skills/actions
-- this site: https://github.com/ryanduguid/ryanduguid.github.io/actions
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-payday-super-checker.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-ato-benchmark-compare.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-solomons-sword.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-exchequer-tally.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/verify.yml
+- SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml
+- SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml
+- SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions
+- SECURITY.md: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
+- GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
 - Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml
@@ -699,7 +712,7 @@ Source: https://duguid.com.au/evaluate/manager-review-gate/
 
 Result: release v0.1.3 of the Workpaper Review Gate stops the incomplete fictional BAS pack with NOT_READY and passes the corrected pack as READY. Reproduce both runs below; a manager still decides whether the work may progress.
 
-Published 26 August 2026. Last reviewed 26 September 2026.
+Published 26 August 2026. Last reviewed 30 September 2026. Newer releases exist; the Workpaper Review Gate page names the current one.
 
 ## Accounting problem
 
@@ -769,6 +782,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Workpaper Review Gate page: https://duguid.com.au/tools/workpaper-review-gate/
 - Australian Taxation Office, Business activity statements: https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas
 - Australian Taxation Office, Monthly GST reporting: https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting
 - Immutable review-ready-gate/v0.1.3 GitHub Release: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
@@ -776,7 +790,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Expected results contract: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/evaluation/manager_review_gate/expected_results.json
 - Evaluation contract test: https://github.com/ryanduguid/accounting-review-pipeline/blob/2de565b3ce3916afe718b2b895d5474930030aee/packages/review-ready-gate/tests/test_evaluation_pack.py
 - Evidence and Assurance: https://duguid.com.au/evidence/
-- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - All evaluations: https://duguid.com.au/evaluate/
 
 ---
@@ -791,7 +804,7 @@ Source: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 
 Result: of 3 fictional CSV fixtures, the balanced file exports and the movement and year-to-date failures stop with nothing written. Reproduce the offline integrity gate below, then inspect the human review boundary.
 
-Published 26 August 2026. Last reviewed 26 September 2026.
+Published 26 August 2026. Last reviewed 30 September 2026. Newer releases exist; the Xero trial balance export page names the current one.
 
 Problem
 
@@ -890,6 +903,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Xero trial balance export page: https://duguid.com.au/tools/xero-trial-balance/
 - Xero, Accounting API Reports: https://developer.xero.com/documentation/api/accounting/reports
 - Xero, OAuth scopes: https://developer.xero.com/documentation/guides/oauth2/scopes/
 - Immutable xero-trial-balance-export/v0.1.6 GitHub Release: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
@@ -897,7 +911,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Expected results contract: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/contracts/xero-trial-balance-v1/expected_results.json
 - Evaluation contract test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_evaluation_pack.py
 - Evidence and Assurance: https://duguid.com.au/evidence/
-- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - All evaluations: https://duguid.com.au/evaluate/
 
 ---
@@ -912,7 +925,7 @@ Source: https://duguid.com.au/evaluate/payday-super-evidence/
 
 Result: the 4 fictional fixtures return AT_RISK for a timely remittance with no fund receipt, LATE for a late remittance or a late receipt, and ON_TIME only for a receipt on the due date. Reproduce them below, then inspect what remittance evidence cannot establish.
 
-Published 26 August 2026. Last reviewed 26 September 2026. This review puts the recorded result first. The recorded evaluation and its release pins are unchanged.
+Published 26 August 2026. Last reviewed 30 September 2026. This review puts the recorded result first. The recorded evaluation and its release pins are unchanged. Newer releases exist; the Payday Super page names the current one.
 
 ## Accounting problem
 
@@ -944,7 +957,7 @@ uv run --locked --extra dev --python 3.12 pytest tests/test_evaluation_pack.py -
 
 ## Recorded development evidence pack
 
-The tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2. These commands preserve the original development snapshot for comparison. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.
+The tool page describes the workflow introduced in checker 0.1.4 and MCP 0.2.2. These commands preserve the original development snapshot for comparison. From the monorepo root, fetch CLI PR 147 and select the exact development revision below before entering the checker directory. The published v0.1.3 checkout used above does not contain this command.
 
 ```
 git fetch origin pull/147/head
@@ -1007,9 +1020,10 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Payday Super page: https://duguid.com.au/tools/payday-super/
 - Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
 - uv: https://docs.astral.sh/uv/
-- tool page describes the workflow now available in checker 0.1.4 and MCP 0.2.2: https://duguid.com.au/tools/payday-super/#evidence-pack
+- tool page describes the workflow introduced in checker 0.1.4 and MCP 0.2.2: https://duguid.com.au/tools/payday-super/#evidence-pack
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - Australian Taxation Office, LCR 2026/2: https://www.ato.gov.au/law/view/document?DocID=COG%2FLCR20262%2FNAT%2FATO%2F00001
 - Primary source review: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md
@@ -1018,7 +1032,6 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - Expected results contract: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/expected_results.json
 - Evaluation contract test: https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/tests/test_evaluation_pack.py
 - Evidence and Assurance: https://duguid.com.au/evidence/
-- Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - All evaluations: https://duguid.com.au/evaluate/
 
@@ -1360,6 +1373,7 @@ Maintained by Ryan Duguid as part of his open source Australian computational ac
 ## Related
 
 - When is payday super due
+- Maximum super contribution base
 - Australian tax tools for AI agents
 - Division 7A benchmark interest rate
 - Cents per kilometre rate for car expenses
@@ -1377,6 +1391,7 @@ Published 24 August 2026. Last reviewed 18 September 2026.
 - Download the table as CSV: https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv
 - Source and contact: https://github.com/ryanduguid
 - When is payday super due: https://duguid.com.au/tools/payday-super/
+- Maximum super contribution base: https://duguid.com.au/rates/maximum-contribution-base/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Division 7A benchmark interest rate: https://duguid.com.au/rates/div7a-benchmark-rate/
 - Cents per kilometre rate for car expenses: https://duguid.com.au/rates/cents-per-kilometre/
@@ -2380,7 +2395,7 @@ Source: https://duguid.com.au/tools/limitations/
 
 A refusal is a question handed back. A limitation is an answer you should not read at face value. This page lists the second kind: cases where a released tool returns a figure that is sound only once you know what produced it. Each entry names the trigger, what it affects, what stays correct and the step that settles it.
 
-Published 16 September 2026. Last reviewed 24 September 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
+Published 16 September 2026. Last reviewed 30 September 2026. The 22 September review qualifies PSC-1 and PSC-2 and records the published workbook difference; the other entries retain their review scope.
 
 ## What belongs here
 
@@ -2398,7 +2413,7 @@ Every entry below is declared at runtime by the tool that carries it, so a reade
 Recorded as PSC-1 against release payday-super-checker/v0.1.4. Release payday-super-checker/v0.1.6 (20 September 2026) makes the extrapolation an opt-in: a default run withholds the estimate for the row instead.
 
 Field | Detail
-Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.8, pins checker 0.1.7, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
+Trigger | Any day in the notional earnings period falls after the last quarter recorded in the tool’s general interest charge table, and the run was started with --allow-stale-gic. Without that flag the row keeps its verdict, its days late and its shortfall and carries no SG charge estimate at all, with a caveat naming the day, the last quarter on record and the file to update. The MCP server has no equivalent option. The published server, aus-accounting-mcp 0.2.11, pins checker 0.1.8, so a result it returns never carries an extrapolated figure. The tagged 0.1.6 Excel workbook differs: it extrapolates after 31 December 2026. The workbook version note records the 0.1.7 correction and verification scope.
 Effect | With the flag, the last known quarterly rate is carried forward, so the notional earnings component under SGAA 1992 s 19A compounds at a rate the ATO has not published for that quarter. The administrative uplift under s 19B(1) is a percentage of shortfalls plus notional earnings, so every scenario with a non-zero uplift moves with the extrapolated figure. The percentage is not fixed: it spans 0% for the low estimate (clean 24-month history with a voluntary disclosure inside 30 days) to 60% for the high estimate (prior history, no disclosure). Both exposure totals move, including the low one: the notional earnings are added into each total before the uplift, so only the low estimate’s uplift component is unmoved, because 0% of a larger base is still nil. Do not read the low estimate as a rate-independent floor.
 Unaffected by this rate issue | The verdict calculation does not use the GIC table. All 6 verdicts, ON_TIME, AT_RISK, LATE, UNPAID, UNKNOWN and SKIPPED, are decided by the deadline and fund receipt tests, which never read the rate table. Deadlines, business-day arithmetic, matched and remitted amounts, and the SG shortfall itself are unaffected. The exposure estimate is the only consumer of the rate. Separately, the receipt amount limitation and the matching limitations below can affect a verdict. A sound verdict does not make the row’s figures sound: a LATE or UNPAID row carries the exposure estimate this entry qualifies when the run asked for it, and shows none on a default run past the table; a SKIPPED row has no estimate to qualify.
 Declared at runtime | Asking for the estimate is the first signal. A caveat on the result then names the table’s end date, the rate carried forward and the file to update. On a default run the caveat instead says the notional earnings and the SG charge estimate were not assessed for that row, and the five charge columns of report.csv are empty rather than nil.
@@ -3813,6 +3828,11 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+30 September 2026 | The homepage names its author and explains its demo when JavaScript is off.
+30 September 2026 | The Coal LSL calculator’s month check reads ‘Enter July 2023 or later.’ for an earlier month, where it had shown ‘Enter NaN or more.’
+30 September 2026 | The Privacy page describes the report-only security header Cloudflare adds to some page loads, drops a sentence about verification code Cloudflare no longer delivers and adds an Accessibility section.
+30 September 2026 | The Evidence page gives merge dates in Australian Eastern time and lists security policies and test results in one table. The three evaluations and the Limitations page point to the current releases.
+30 September 2026 | Negative amounts stay on one line on narrow screens, secondary links are at least 24 pixels tall, related rate pages link to each other and feed titles end on a whole word.
 29 September 2026 | The Evidence page links the supplier information each component that works with an AI assistant publishes for a firm’s AI register and risk assessment, and says how it relates to ISO/IEC 42001, making no claim of certification, approval or conformity.
 29 September 2026 | Australian Accounting Skills v0.3.0 is the recommended skills release: the Adopt route, the subcontract ledger page, the agent skills manifest and llms.txt move from the 19 workflows of v0.2.1 to the 63 of v0.3.0, whose 70 validation cards have confirmed results from a whole-card model run.
 29 September 2026 | The MCP guide names published release 0.2.11, which adds a study and training support loan repayment worksheet, ATO rulings search and benchmark ranges from the ATO’s industry pages, while retaining the v0.2.8 worked example. The ATO benchmarks page names ato-benchmark-compare 0.1.11, which compares labour, rent and motor vehicle expenses with the ranges on the ATO’s industry pages.
@@ -3872,18 +3892,18 @@ Date | Tool | Release
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.8
 24 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.7
 22 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.6
-20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
-7 September 2026 | Subcontract ledger skills | v0.2.1
 22 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.11
 22 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.9
 22 September 2026 | Payday Super timing | payday-super-checker/v0.1.7
+20 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.7
 20 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.4
 20 September 2026 | Trust distribution checks | solomons-sword/v0.1.7
 13 September 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.6
+7 September 2026 | Subcontract ledger skills | v0.2.1
 
-Each release links its tagged source. The evaluations record which releases were tested against fabricated inputs, and the evidence register records identity, source, and release assurance.
+Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 29 September 2026.
+Published 30 August 2026. Last reviewed 30 September 2026.
 
 ## Links
 
@@ -3907,14 +3927,14 @@ Published 30 August 2026. Last reviewed 29 September 2026.
 - aus-accounting-mcp/v0.2.8: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
 - aus-accounting-mcp/v0.2.7: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.7
 - aus-accounting-mcp/v0.2.6: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.6
-- review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
-- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - xero-trial-balance-export/v0.1.11: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.11
 - ato-benchmark-compare/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.9
 - payday-super-checker/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7
+- review-ready-gate/v0.1.7: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.7
 - div7a-loan-review/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.4
 - solomons-sword/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.7
 - the-exchequer-tally/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.6
+- v0.2.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.2.1
 - evaluations: https://duguid.com.au/evaluate/
 - evidence register: https://duguid.com.au/evidence/
 
@@ -4556,7 +4576,7 @@ From 1 July 2026, the 16% personal tax rate fell to 15%, Payday Super generally 
 
 An announcement is not evidence that a measure applied to your transaction. This is a review procedure, not an exhaustive legislative history.
 
-Your tax return · Tax rates for Australian residents · Payment deadlines for Payday Super · $20,000 instant asset write-off, new legislation · Cents per kilometre rates on this site
+Your tax return · Tax rates for Australian residents · Payment deadlines for Payday Super · $20,000 instant asset write-off, new legislation · Cents per kilometre rates on this site · Announced tax measures and enacted law
 
 The bold answer was checked on 27 September 2026.
 
@@ -4614,6 +4634,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - $20,000 instant asset write-off, new legislation: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/20000-dollars-instant-asset-write-off
 - Cents per kilometre rates on this site: https://duguid.com.au/rates/cents-per-kilometre/
+- Announced tax measures and enacted law: https://duguid.com.au/rates/announced-not-yet-law/
 - Link to question 10: https://duguid.com.au/tools/accounting-questions/general-tax/#q10
 - 100 Australian accounting questions: https://duguid.com.au/tools/accounting-questions/
 - Deductions: https://duguid.com.au/tools/accounting-questions/deductions/
@@ -5440,7 +5461,7 @@ The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2
 
 The old quarterly SG worksheet does not establish current Payday Super entitlement.
 
-Payday Super for employers · Super guarantee rate history on this site
+Payday Super for employers · Super guarantee rate history on this site · Maximum super contribution base by year
 
 The bold answer was checked on 27 September 2026.
 
@@ -5621,6 +5642,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
+- Maximum super contribution base by year: https://duguid.com.au/rates/maximum-contribution-base/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
 - Payday Super receipt evidence example: https://duguid.com.au/tools/payday-super/
@@ -7283,7 +7305,7 @@ Source: https://duguid.com.au/privacy/
 
 This notice explains how this website handles browser calculations, hosting and feedback.
 
-Published 12 September 2026. Last reviewed 27 September 2026.
+Published 12 September 2026. Last reviewed 30 September 2026.
 
 ## Browser calculations
 
@@ -7301,7 +7323,7 @@ Email Address Obfuscation is disabled so email links work without scripts. The a
 
 Cloudflare also asks browsers to report network errors to Cloudflare for seven days and to prefetch pages you are likely to open next (the nel, report-to and speculation-rules response headers). Neither carries the figures you type into the calculators. A prefetched or shared page address can carry question-search terms, because the search places them in the address; do not put confidential information in a search you may share or leave in your history.
 
-Cloudflare also adds visitor-verification code when it delivers a page. Cloudflare makes these additions after the files leave this website’s source, and serves them from this domain. Cloudflare may process technical request and browser-verification information and may set its own security cookies; see Cloudflare’s cookie documentation. That processing is separate from the figures the calculators handle, which their own code works out in your browser without sending them to a server.
+On a sample of page loads, Cloudflare adds a report-only security policy header, which asks your browser to tell Cloudflare which scripts the page loads and which connections it makes. It blocks nothing. A report includes the page address, which can hold question-search terms, but not the figures you type into the calculators. If Cloudflare treats a request as suspicious, it can answer with its own verification page, which runs Cloudflare’s code and may set a security cookie; see Cloudflare’s cookie documentation. Cloudflare makes these additions itself; they are not part of this website’s source. The calculators work out their figures in your browser without sending them to a server.
 
 When you select Human or Machine view, your browser saves that display preference on this device. The preference is not sent to a server. You can change it with the view switch or remove it by clearing this site’s browser storage.
 
@@ -7328,6 +7350,12 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
 The website's own text, data and source code are available under its MIT licence, which includes its warranty terms; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+
+## Accessibility
+
+I aim for this site to meet WCAG 2.2 level AA. Automated checks run on every change: axe scans each page at phone and desktop widths, and other tests cover the skip link, keyboard focus, one main heading per page and layouts that do not scroll sideways.
+
+Automated checks find only some barriers. I have not tested the site with screen readers or on physical phones and tablets. If something stops you using a page, tell me through the contact page, naming the page and what happened.
 
 ## Links
 
