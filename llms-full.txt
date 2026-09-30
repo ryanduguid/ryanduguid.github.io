@@ -2669,7 +2669,7 @@ Receipt amount matters. A fund receipt date alone does not establish full paymen
 
 The contribution amount this check tests is set by the super guarantee rate, kept as a maintained table on this site.
 
-Published 24 August 2026. Last reviewed 27 September 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences; on 27 September the quick trial moved to checker 0.1.8, which gives the same result. The fixed evaluation stays pinned to 0.1.3.
+Published 24 August 2026. Last reviewed 1 October 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences; the quick trial moved to checker 0.1.8 on 27 September and to 0.1.9 on 1 October, each giving the same result. The fixed evaluation stays pinned to 0.1.3.
 
 ## Receipt dates and amounts
 
@@ -2692,16 +2692,16 @@ The tagged 0.1.7 workbook fixes both cases. Its Summary shows Not assessed for r
 With uv installed, download the synthetic CSV as timely_remittance_no_receipt.csv. Open a terminal in that folder and run:
 
 ```
-uvx --from payday-super-checker==0.1.8 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
+uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv
 ```
 
-Quick trial release 0.1.8, the current published release on 27 September 2026. The command downloads checker 0.1.8 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
+Quick trial release 0.1.9, the current published release on 1 October 2026. The command downloads checker 0.1.9 from PyPI and writes payday-report.csv, replacing that file if it exists. Open it to find one AT_RISK contribution with due date 2026-08-17.
 
 Check the matching evidence before relying on the exported file. If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report’s caveats column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled ON_TIME is not reliable evidence of the match itself. See Known limitations (PSC-2).
 
 Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit --confirm-remittance-only to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.
 
-The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation’s revision and commands to reproduce the historical run. This quick trial uses release 0.1.8 and leaves the fund receipt decision with the reviewer.
+The fixed example above and the recorded public evaluation use release 0.1.3. Follow that evaluation’s revision and commands to reproduce the historical run. This quick trial uses release 0.1.9 and leaves the fund receipt decision with the reviewer.
 
 ## Evidence pack workflow
 
@@ -2759,7 +2759,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - verification record: https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md
 - uv installed: https://docs.astral.sh/uv/
 - download the synthetic CSV: https://duguid.com.au/assets/examples/payday/timely_remittance_no_receipt.csv
-- 0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.8
+- 0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
 - Known limitations: https://duguid.com.au/tools/limitations/
 - recorded public evaluation: https://duguid.com.au/evaluate/payday-super-evidence/#reproduce
 - CLI change: https://github.com/ryanduguid/australian-accounting/pull/147
@@ -2903,9 +2903,9 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install solomons-sword fetches.
+Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is solomons-sword/v0.1.10, which pip install solomons-sword fetches.
 
-Published 24 August 2026. Last reviewed 27 September 2026.
+Published 24 August 2026. Last reviewed 1 October 2026.
 
 Section 100A can treat a trust distribution as a reimbursement agreement and tax it at the top rate instead of the beneficiary’s own rate. The ATO’s finalised guideline PCG 2022/2 says where the risk sits.
 
@@ -2996,6 +2996,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
+- solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
@@ -3220,9 +3221,9 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is the-wip-tally/v0.1.3.
 
-Published 25 August 2026. Last reviewed 26 September 2026.
+Published 25 August 2026. Last reviewed 1 October 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
 
@@ -3315,6 +3316,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
+- the-wip-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.3
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
@@ -3338,9 +3340,9 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 27 September 2026 is xero-trial-balance-export/v0.1.13.
+Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is xero-trial-balance-export/v0.1.14.
 
-Published 24 August 2026. Last reviewed 27 September 2026.
+Published 24 August 2026. Last reviewed 1 October 2026.
 
 This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
@@ -3425,7 +3427,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
-- xero-trial-balance-export/v0.1.13: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.13
+- xero-trial-balance-export/v0.1.14: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.14
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -3447,7 +3449,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.11 has 10 worksheets. Includes scope and setup.
+> Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup.
 
 # Australian tax MCP server: Aus Accounting MCP
 
@@ -3455,9 +3457,9 @@ Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting che
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.11, verified on GitHub, PyPI and the MCP registry on 29 September 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.2.12, verified on GitHub, PyPI and the MCP registry on 1 October 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases; v0.2.12 moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
 
-Published 25 August 2026. Last reviewed 29 September 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
+Published 25 August 2026. Last reviewed 1 October 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -3641,7 +3643,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
-- aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
+- aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3688,9 +3690,9 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 27 September 2026 is review-ready-gate/v0.1.9.
+Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is review-ready-gate/v0.1.10.
 
-Published 25 August 2026. Last reviewed 27 September 2026.
+Published 25 August 2026. Last reviewed 1 October 2026.
 
 Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
 
@@ -3756,7 +3758,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
-- review-ready-gate/v0.1.9: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.9
+- review-ready-gate/v0.1.10: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.10
 - Run the two fictional BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
@@ -3828,6 +3830,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+1 October 2026 | The MCP guide names published release 0.2.12, which moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. The Payday Super quick trial now uses checker 0.1.9, which gives the same result, and the trust distribution, construction WIP, workpaper review gate and Xero trial balance pages name the releases published on 30 September.
 30 September 2026 | The homepage names its author and explains its demo when JavaScript is off.
 30 September 2026 | The Coal LSL calculator’s month check reads ‘Enter July 2023 or later.’ for an earlier month, where it had shown ‘Enter NaN or more.’
 30 September 2026 | The Privacy page describes the report-only security header Cloudflare adds to some page loads, drops a sentence about verification code Cloudflare no longer delivers and adds an Accessibility section.
@@ -3873,6 +3876,13 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+1 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.12
+30 September 2026 | Payday Super timing | payday-super-checker/v0.1.9
+30 September 2026 | Trust distribution checks | solomons-sword/v0.1.10
+30 September 2026 | Construction WIP schedule | the-wip-tally/v0.1.3
+30 September 2026 | Division 7A loan review | div7a-loan-review/v0.1.6
+30 September 2026 | Workpaper Review Gate | review-ready-gate/v0.1.10
+30 September 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.14
 29 September 2026 | Subcontract ledger skills | v0.3.0
 29 September 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.11
 29 September 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.11
@@ -3903,11 +3913,18 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 30 September 2026.
+Published 30 August 2026. Last reviewed 1 October 2026.
 
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
+- payday-super-checker/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
+- solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
+- the-wip-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.3
+- div7a-loan-review/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.6
+- review-ready-gate/v0.1.10: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.10
+- xero-trial-balance-export/v0.1.14: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.14
 - v0.3.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0
 - aus-accounting-mcp/v0.2.11: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.11
 - ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11

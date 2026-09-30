@@ -5,8 +5,22 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-09-30T00:00:00Z</updated>
+  <updated>2026-10-01T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The MCP guide names published release 0.2.12, which moves Payday Super to…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-8d37cf580cc91099</id>
+    <updated>2026-10-01T00:00:00Z</updated>
+    <summary>The MCP guide names published release 0.2.12, which moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. The Payday Super quick trial now uses checker 0.1.9, which gives the same result, and the trust distribution, construction WIP, workpaper review gate and Xero trial balance pages name the releases published on 30 September.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.2.12</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12" />
+    <id>https://duguid.com.au/changelog/#entry-a65a685e1b208655</id>
+    <updated>2026-10-01T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.2.12.</summary>
+  </entry>
   <entry>
     <title>The homepage names its author and explains its demo when JavaScript is off.</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
@@ -41,6 +55,48 @@
     <id>https://duguid.com.au/changelog/#entry-aceb28958a7f0582</id>
     <updated>2026-09-30T00:00:00Z</updated>
     <summary>Negative amounts stay on one line on narrow screens, secondary links are at least 24 pixels tall, related rate pages link to each other and feed titles end on a whole word.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.9</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9" />
+    <id>https://duguid.com.au/changelog/#entry-6b4dc7af428880df</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.9.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v0.1.10</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10" />
+    <id>https://duguid.com.au/changelog/#entry-e1bac4287d7912fd</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.1.10.</summary>
+  </entry>
+  <entry>
+    <title>Construction WIP schedule the-wip-tally/v0.1.3</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.3" />
+    <id>https://duguid.com.au/changelog/#entry-36749169a5f05bab</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Construction WIP schedule: release the-wip-tally/v0.1.3.</summary>
+  </entry>
+  <entry>
+    <title>Division 7A loan review div7a-loan-review/v0.1.6</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.1.6" />
+    <id>https://duguid.com.au/changelog/#entry-1f1c1aaf09767149</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Division 7A loan review: release div7a-loan-review/v0.1.6.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.1.10</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.10" />
+    <id>https://duguid.com.au/changelog/#entry-fd137ab9f27f2a67</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.1.10.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.14</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.14" />
+    <id>https://duguid.com.au/changelog/#entry-4a63a8099e54dd8b</id>
+    <updated>2026-09-30T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.14.</summary>
   </entry>
   <entry>
     <title>The Evidence page links the supplier information each component that works with…</title>
