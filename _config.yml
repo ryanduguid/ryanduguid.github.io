@@ -15,6 +15,7 @@ include:
   - .well-known
 exclude:
   - AGENTS.md
+  - CLAUDE.md
   - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock
