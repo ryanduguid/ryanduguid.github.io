@@ -152,7 +152,7 @@ Not tax, legal or financial advice, and using it creates no professional relatio
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.11 has 10. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.12 has 10. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
