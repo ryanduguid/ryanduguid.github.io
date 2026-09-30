@@ -89,7 +89,10 @@ const representativeHeightBaseline = {
     // Measured at 10,221px; keep the 234px guard.
     // Supplier information for AI registers, 29 September: 11,335px, plus the
     // 234px guard.
-    ['/evidence/', 11569],
+    // The security policy and Actions table of 30 September replaces two
+    // link-chain sentences; its 44px phone targets make it 12,031px. Keep
+    // the 234px guard.
+    ['/evidence/', 12265],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -115,7 +118,9 @@ const representativeHeightBaseline = {
     // plus the 234px guard.
     // Supplier information for AI registers, 29 September: 8,534px locally,
     // plus the 234px guard.
-    ['/evidence/', 8768],
+    // The security policy and Actions table, 30 September: 8,986px locally,
+    // plus the 234px guard.
+    ['/evidence/', 9220],
   ]),
 };
 
@@ -716,5 +721,50 @@ test('on a landscape phone the header and view switch scroll away', async ({ pag
     const toggle = page.locator('.view-mode');
     await expect(toggle).toHaveCSS('position', 'fixed');
     await expect(toggle).toBeInViewport({ ratio: 1 });
+  }
+});
+
+// WCAG 2.2 target size: these links measured 22px at 768px on 30 September
+// 2026. Phones already get the 44px rule, so the tablet width is the one to hold.
+test('secondary entry and footer links stay at least 24px tall at tablet width', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'phones use the 44px rule');
+  await page.setViewportSize({ width: 768, height: 1024 });
+  await page.goto('/tools/');
+  await waitForVisualFonts(page);
+  const links = await page.locator('.collection-entry__links a, .site-footer__links a').evaluateAll((elements) =>
+    elements
+      .filter((element) => element.getClientRects().length)
+      .map((element) => ({ text: element.textContent.trim(), height: element.getBoundingClientRect().height })));
+  expect(links.length).toBeGreaterThan(0);
+  for (const { text, height } of links) expect(height, text).toBeGreaterThanOrEqual(24);
+});
+
+// A line may break between U+2212 and "$", which stranded the minus sign at
+// 320px until each negative amount was wrapped in .nowrap.
+test('a minus sign stays on the line of its amount at 320px', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'mobile', 'narrow-screen wrapping');
+  await page.setViewportSize({ width: 320, height: 800 });
+  for (const path of ['/', '/examples/profit-vs-cash-flow/', '/evaluate/', '/tools/monthly-close-controls/']) {
+    await page.goto(path);
+    await waitForVisualFonts(page);
+    const split = await page.evaluate(() => {
+      const found = [];
+      const letter = (node, index) => {
+        const range = document.createRange();
+        range.setStart(node, index);
+        range.setEnd(node, index + 1);
+        return range.getClientRects()[0];
+      };
+      const walker = document.createTreeWalker(document.querySelector('main'), NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        for (let i = node.data.indexOf('−$'); i >= 0; i = node.data.indexOf('−$', i + 1)) {
+          const minus = letter(node, i);
+          const dollar = letter(node, i + 1);
+          if (minus && dollar && Math.abs(minus.top - dollar.top) > 2) found.push(node.data.slice(i, i + 12));
+        }
+      }
+      return found;
+    });
+    expect(split, path).toEqual([]);
   }
 });

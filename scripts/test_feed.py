@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import unittest
 from xml.etree import ElementTree
 
@@ -55,6 +56,27 @@ class FeedTests(unittest.TestCase):
                 self.assertRaisesRegex(SystemExit, "data-feed-id must be"),
             ):
                 build_feed.build(f"<tr {attributes}><td>22 September 2026</td><td>Copy</td></tr>")
+
+    def test_long_titles_end_on_a_whole_word_and_keep_their_ids(self) -> None:
+        summary = (
+            "The Evidence page links the supplier information each component that works "
+            "with an AI register needs."
+        )
+        ((identifier, title),) = feed_entries(
+            f"<tr><td>29 September 2026</td><td>{summary}</td></tr>"
+        ).items()
+        self.assertEqual(
+            title,
+            "The Evidence page links the supplier information each component that works with…",
+        )
+        launch_title = summary[:77].rstrip() + "..."
+        digest = hashlib.sha256(f"2026-09-29|{launch_title}".encode()).hexdigest()[:16]
+        self.assertEqual(identifier, f"{build_feed.CHANGELOG_URL}#entry-{digest}")
+
+    def test_a_first_word_too_long_for_the_title_is_cut(self) -> None:
+        self.assertEqual(build_feed.headline("x" * 79 + " next"), "x" * 79 + "…")
+        self.assertEqual(build_feed.headline("x" * 80 + " next"), "x" * 79 + "…")
+        self.assertEqual(build_feed.headline("x" * 81), "x" * 79 + "…")
 
     def test_edited_site_entries_retain_their_original_ids(self) -> None:
         result = feed_entries(build_feed.SOURCE.read_text(encoding="utf-8"))
