@@ -11,8 +11,12 @@ for (const link of document.querySelectorAll('.case-preview > a[href$=".png"]'))
   link.after(dialog);
 
   close.addEventListener('click', () => dialog.close());
+  dialog.addEventListener('close', () => link.focus());
   dialog.addEventListener('click', (event) => {
-    if (event.target === dialog) dialog.close();
+    if (event.target !== dialog) return;
+    const bounds = dialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right
+        || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.close();
   });
   link.addEventListener('click', (event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;

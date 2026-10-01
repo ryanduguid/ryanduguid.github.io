@@ -2,6 +2,49 @@ import { expect, test } from '@playwright/test';
 
 import { waitForVisualFonts } from './visual.mjs';
 
+test('chart dialogs keep interior clicks open and restore focus after dismissal', async ({ page }) => {
+  for (const route of ['/', '/examples/profit-vs-cash-flow/']) {
+    await page.goto(route);
+    const chart = page.locator('.case-preview > a');
+    const dialog = page.getByRole('dialog', { name: 'Full-size chart' });
+    for (const dismissal of ['button', 'backdrop', 'Escape']) {
+      await chart.click();
+      await expect(dialog).toBeVisible();
+      const bounds = await dialog.boundingBox();
+      await page.mouse.click(bounds.x + 4, bounds.y + 4);
+      expect(await dialog.isVisible()).toBe(true);
+      await dialog.getByRole('img').click();
+      await expect(dialog).toBeVisible();
+      if (dismissal === 'button') {
+        await dialog.getByRole('button', { name: 'Close' }).click();
+      } else if (dismissal === 'backdrop') {
+        await page.mouse.click(1, 1);
+      } else {
+        await page.keyboard.press('Escape');
+      }
+      await expect(dialog).toBeHidden();
+      await expect(chart).toBeFocused();
+    }
+  }
+});
+
+test('printing hides an open chart viewer and restores it afterwards', async ({ page }) => {
+  for (const route of ['/', '/examples/profit-vs-cash-flow/']) {
+    await page.goto(route);
+    await page.locator('.case-preview > a').click();
+    const dialog = page.locator('.chart-dialog');
+    await expect(dialog).toBeVisible();
+    await page.emulateMedia({ media: 'print' });
+    await expect(dialog).toBeHidden();
+    await expect(dialog).toHaveAttribute('open', '');
+    await page.emulateMedia({ media: null });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: 'Close' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(page.locator('.case-preview > a')).toBeFocused();
+  }
+});
+
 test('printing opens the fixed proof and closes it again afterwards', async ({ page }) => {
   await page.goto('/');
   const disclosure = page.locator('.proof-capture');

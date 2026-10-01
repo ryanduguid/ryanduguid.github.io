@@ -2823,6 +2823,8 @@ input[type="checkbox"] {
   }
 
   .skip-link,
+  .chart-dialog,
+  .chart-dialog::backdrop,
   .site-header,
   .site-footer,
   .article-crumb,
