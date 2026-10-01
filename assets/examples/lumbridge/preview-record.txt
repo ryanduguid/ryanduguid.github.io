@@ -5,7 +5,7 @@ Workbook SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b84
 Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
 Licence: MIT, as recorded in the sample pack.
 
-Captured 28 September 2026 with desktop Excel 16.0 on Windows.
+Captured 1 October 2026 with desktop Excel 16.0 on Windows.
 The source workbook was opened read-only with links disabled and macros
 disabled. Assumptions!B2 was set to 45 in memory and CalculateFullRebuild ran.
 The first chart on Cash 13 weeks stores a fixed layout that Excel's object
@@ -16,7 +16,8 @@ sheet from that chart's two SERIES formulas:
 Excel reads every plotted date and value from those workbook cells.
 
 Formatting applied in memory for the website's true-black canvas: chart fill
-#000000 with a #262626 border; horizontal gridlines only; the category axis
+#000000 with a #262626 border; title and axis text in the site's ivory
+ink, #FFFFF0, since 1 October 2026 (the 28 September exports used #F2F2F2); horizontal gridlines only; the category axis
 line drawn at zero; AUD tick labels in $20,000 steps, negatives in
 parentheses as the site writes them, with the value axis
 starting one step below the step under the lowest week, to leave room for
@@ -45,8 +46,8 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-cash-preview.png SHA-256: 1e58342710603bcfcdcad4ccda89810d7993392d76c17336d3856207ce19ba5c
-cash-preview-narrow.png SHA-256: d11378801020afabe1a66b154c85beef00e57fe6b8c18c37e60d166011f48938
+cash-preview.png SHA-256: 2f9a42c64b87d7018c15bb0ba6cea427350c510edb1d0e502f3aa689c4aee96b
+cash-preview-narrow.png SHA-256: ea3af1472d41ac804fbf37996a349003d4fad7e1bbb6d1fa56f9876bac07fa38
 
 Each is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.

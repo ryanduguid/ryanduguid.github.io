@@ -346,7 +346,8 @@ chooser rows use smaller gaps while retaining 44px links and the page-height cap
 This updates the homepage ordering in the earlier refinement record below.
 
 The approved refinement puts the workbook download immediately after the case
-introduction. The chart links to its full-size image and states the cash trough
+introduction. Selecting the chart opens its full-size image in an overlay (the link
+opens the image itself without JavaScript) and the caption states the cash trough
 and assumed buffer in text. About states traceability and fabricated-data scope
 once near its work samples, with the existing review boundaries retained.
 
@@ -463,7 +464,7 @@ and no system preference creates a second branded state.
 | Canvas | `#000000` | Browser edge and dominant page ground | n/a |
 | Paper | `#000000` | Grouped surfaces, separated by rules alone | n/a |
 | Paper raised | `#0A0A0A` | Fields and the proof panel | n/a |
-| Ink | `#F2F2F2` | Main reading text | 18.76:1 |
+| Ink | `#FFFFF0` (ivory) | Main reading text | 20.81:1 |
 | Ink mid | `#C8C8C8` | Lead and route paragraphs | 12.55:1 |
 | Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
 | Rule | `#262626` | Hairlines and table rows | n/a |
@@ -472,16 +473,17 @@ and no system preference creates a second branded state.
 | Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
-| Masthead | `#F2F2F2` | Homepage identity statement only | n/a |
+| Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
 | Code | `#000000` | Code and install background, bounded by its rule | n/a |
-| Code ink | `#F2F2F2` | Code text | n/a |
+| Code ink | `#FFFFF0` (ivory) | Code text | n/a |
 | Code comment | `#9A9A9A` | Secondary annotation inside code blocks | n/a |
 
 True black is intentional: large canvas areas let OLED pixels switch off. This
 overrides the earlier pure-black prohibition. From 13 September 2026 the
 surfaces are true black rather than green-tinted near-black and the greys
 carry no hue, so stamp green is the only colour on the page besides the
-alert. Rules, not fills, separate the header, footer, bands and code blocks.
+alert. From 1 October 2026 the main ink is ivory (`#FFFFF0`) rather than
+near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, not fills, separate the header, footer, bands and code blocks.
 No gradient, glow, indigo, violet, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.

@@ -2,6 +2,49 @@ import { expect, test } from '@playwright/test';
 
 import { waitForVisualFonts } from './visual.mjs';
 
+test('chart dialogs keep interior clicks open and restore focus after dismissal', async ({ page }) => {
+  for (const route of ['/', '/examples/profit-vs-cash-flow/']) {
+    await page.goto(route);
+    const chart = page.locator('.case-preview > a');
+    const dialog = page.getByRole('dialog', { name: 'Full-size chart' });
+    for (const dismissal of ['button', 'backdrop', 'Escape']) {
+      await chart.click();
+      await expect(dialog).toBeVisible();
+      const bounds = await dialog.boundingBox();
+      await page.mouse.click(bounds.x + 4, bounds.y + 4);
+      expect(await dialog.isVisible()).toBe(true);
+      await dialog.getByRole('img').click();
+      await expect(dialog).toBeVisible();
+      if (dismissal === 'button') {
+        await dialog.getByRole('button', { name: 'Close' }).click();
+      } else if (dismissal === 'backdrop') {
+        await page.mouse.click(1, 1);
+      } else {
+        await page.keyboard.press('Escape');
+      }
+      await expect(dialog).toBeHidden();
+      await expect(chart).toBeFocused();
+    }
+  }
+});
+
+test('printing hides an open chart viewer and restores it afterwards', async ({ page }) => {
+  for (const route of ['/', '/examples/profit-vs-cash-flow/']) {
+    await page.goto(route);
+    await page.locator('.case-preview > a').click();
+    const dialog = page.locator('.chart-dialog');
+    await expect(dialog).toBeVisible();
+    await page.emulateMedia({ media: 'print' });
+    await expect(dialog).toBeHidden();
+    await expect(dialog).toHaveAttribute('open', '');
+    await page.emulateMedia({ media: null });
+    await expect(dialog).toBeVisible();
+    await dialog.getByRole('button', { name: 'Close' }).click();
+    await expect(dialog).toBeHidden();
+    await expect(page.locator('.case-preview > a')).toBeFocused();
+  }
+});
+
 test('printing opens the fixed proof and closes it again afterwards', async ({ page }) => {
   await page.goto('/');
   const disclosure = page.locator('.proof-capture');
@@ -73,18 +116,17 @@ test('mobile visitors can open the cash-flow example from the first screen', asy
   await expect(disclosure).not.toHaveAttribute('open');
 });
 
-test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page, browserName }) => {
-  for (const action of ['image', 'text', 'keyboard']) {
+test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page, browserName, isMobile }) => {
+  for (const action of ['image', 'keyboard']) {
     await page.goto('/');
     const figure = page.locator('.case-preview');
     const chart = figure.getByRole('link', { name: /View full-size chart$/ });
     await expect(figure.locator('a[href="/assets/examples/lumbridge/cash-preview.png"]')).toHaveCount(1);
+    await expect(chart.getByText('View full-size chart', { exact: true })).not.toBeInViewport();
     await expect(chart.getByRole('img')).toHaveAttribute('alt',
       'Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer');
     if (action === 'image') {
       await chart.getByRole('img').click();
-    } else if (action === 'text') {
-      await chart.getByText('View full-size chart', { exact: true }).click();
     } else {
       await chart.focus();
       if (browserName === 'chromium') {
@@ -95,8 +137,19 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
       }
       await page.keyboard.press('Enter');
     }
-    await expect(page).toHaveURL(/\/assets\/examples\/lumbridge\/cash-preview\.png$/);
-    await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
+    const dialog = page.getByRole('dialog', { name: 'Full-size chart' });
+    await expect(dialog).toBeVisible();
+    await expect(page).toHaveURL(/\/$/);
+    await expect.poll(() => dialog.getByRole('img').evaluate((image) => image.naturalWidth)).toBe(isMobile ? 856 : 1282);
+    await expect(dialog.getByRole('button', { name: 'Close' })).toBeFocused();
+    if (action === 'image') {
+      await dialog.getByRole('button', { name: 'Close' }).click();
+      await expect(dialog).toBeHidden();
+    } else {
+      await page.keyboard.press('Escape');
+      await expect(dialog).toBeHidden();
+      await expect(chart).toBeFocused();
+    }
   }
   for (const [route, name] of [['/', 'Explore the cash flow example'], ['/tools/', 'Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation']]) {
     await page.goto(route);
