@@ -18,7 +18,9 @@ Last reviewed 30 September 2026.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.
 
-13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 28 September 2026. Capture record.
+View full-size chart
+
+13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 28 September 2026. Capture record.
 
 ## Choose a task
 

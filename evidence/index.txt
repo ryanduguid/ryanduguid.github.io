@@ -6,7 +6,7 @@ Source: https://duguid.com.au/evidence/
 
 # Evidence behind the tools
 
-This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
+Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
 Last reviewed 30 September 2026.
 

@@ -53,14 +53,16 @@ const homeHeightBaseline = {
   // On 25 September the Adopt and Verify routes shrank to one sentence, two
   // links and a note each. Home measures 5,945px mobile and 4,411px desktop;
   // both ceilings drop to that plus the 234px guard so the page stays short.
-  mobile: 6179,
-  desktop: 4645,
+  // The single chart action of 1 October adds a measured 35px mobile and
+  // 36px desktop. Keep the previous headroom above the new content height.
+  mobile: 6214,
+  desktop: 4681,
 };
 
 const representativeHeightBaseline = {
   mobile: new Map([
     // Shortened homepage, 25 September: 5,945px plus the 234px guard.
-    ['/', 6179],
+    ['/', homeHeightBaseline.mobile],
     // The four starting routes (heading plus four two-line rows) replaced the
     // direct example links on 18 September 2026, and the Ozzit entry joined
     // the Calculate group the same day. Tools measures 8,978px at 390px wide
@@ -99,7 +101,7 @@ const representativeHeightBaseline = {
     // input-scoped description on 18 September 2026, which wraps to a third
     // line. Home measures 6,535px at 1440px wide, plus the 234px guard.
     // Shortened homepage, 25 September: 4,411px plus the 234px guard.
-    ['/', 4645],
+    ['/', homeHeightBaseline.desktop],
     // Tools renders at 5,386px in Chromium CI run 35598730192 after the
     // Excel chooser row and calculator shortcut. Retain the 234px guard.
     ['/tools/', 5620],

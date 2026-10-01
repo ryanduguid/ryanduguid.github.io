@@ -10,7 +10,6 @@
 }
 
 html {
-  min-width: 320px;
   scroll-behavior: smooth;
   scroll-padding-top: calc(var(--measured-header-height, var(--header-height)) + var(--space-4));
 }
@@ -1385,6 +1384,16 @@ caption {
   height: auto;
 }
 
+.case-preview > a {
+  display: block;
+  font-size: var(--text-small);
+}
+
+.case-preview > a > span {
+  display: block;
+  margin-top: var(--space-3);
+}
+
 .case-preview figcaption {
   margin-top: var(--space-3);
   color: var(--colour-ink-soft);
@@ -2055,6 +2064,7 @@ caption {
 
 .calculator-form {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
 }
 
@@ -2062,6 +2072,7 @@ caption {
    the same rhythm as the form around it. */
 #branch-fields {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-5);
 }
 
@@ -2085,6 +2096,7 @@ input[type="number"]::-webkit-outer-spin-button {
 
 fieldset {
   display: grid;
+  min-width: 0;
   gap: var(--space-3);
   margin: 0;
   padding: var(--space-5);
@@ -2116,6 +2128,7 @@ input[type="checkbox"] {
 
 .field {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: var(--space-2);
 }
 
@@ -3119,7 +3132,7 @@ html[data-view-mode="machine"] body {
   }
 }
 
-/* Give the six mobile links two rows before their labels become cramped. */
+/* Let narrow navigation trade columns for rows as text grows. */
 @media (max-width: 30rem) {
   :root {
     --header-height: 8.25rem;
@@ -3131,7 +3144,7 @@ html[data-view-mode="machine"] body {
 
   .site-nav {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 6.25rem), 1fr));
   }
 
   .site-nav a {

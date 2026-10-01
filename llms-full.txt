@@ -26,7 +26,9 @@ Last reviewed 30 September 2026.
 
 Lumbridge Services is a fictional Newcastle maintenance business. Delay one customer receipt by 45 days and inspect the cash gap in its Excel forecast. The quarter’s profit stays the same.
 
-13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. View full-size chart. Exported from the supplied workbook in Excel 16.0 on 28 September 2026. Capture record.
+View full-size chart
+
+13-week forecast with one receipt paid 45 days late. Weekly closing cash falls to −$25,160 against a $15,000 buffer, then recovers to $67,320 by December, the same as without the delay. Exported from the supplied workbook in Excel 16.0 on 28 September 2026. Capture record.
 
 ## Choose a task
 
@@ -272,7 +274,7 @@ Source: https://duguid.com.au/evidence/
 
 # Evidence behind the tools
 
-This register links claims to identity records, releases, primary source reviews, repository controls and reproducible tests. It supports limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
+Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
 Last reviewed 30 September 2026.
 
@@ -534,7 +536,7 @@ Source: https://duguid.com.au/evaluate/
 
 # Evaluations
 
-Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting tool evaluations at fixed releases using fictional inputs and hand-recorded expected results.
+Explore a profit-and-cash workbook built with fictional data. Then reproduce 3 accounting tool evaluations at fixed releases, using fictional inputs and expected results recorded by hand.
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability or a professional conclusion.
 

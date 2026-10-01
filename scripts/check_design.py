@@ -33,7 +33,7 @@ FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20260926b" />'
-SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20260930a" />'
+SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20261001a" />'
 # The calculator and question pages add a third stylesheet with the same key, so a
 # stylesheet change reaches returning visitors instead of waiting out the CSS cache.
 ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927c" />'

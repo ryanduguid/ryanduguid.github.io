@@ -73,11 +73,31 @@ test('mobile visitors can open the cash-flow example from the first screen', asy
   await expect(disclosure).not.toHaveAttribute('open');
 });
 
-test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page }) => {
-  await page.goto('/');
-  await page.getByRole('link', { name: 'View full-size chart', exact: true }).click();
-  await expect(page).toHaveURL(/\/assets\/examples\/lumbridge\/cash-preview\.png$/);
-  await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
+test('cash-flow entry points reach the workbook and About reaches review evidence', async ({ page, browserName }) => {
+  for (const action of ['image', 'text', 'keyboard']) {
+    await page.goto('/');
+    const figure = page.locator('.case-preview');
+    const chart = figure.getByRole('link', { name: /View full-size chart$/ });
+    await expect(figure.locator('a[href="/assets/examples/lumbridge/cash-preview.png"]')).toHaveCount(1);
+    await expect(chart.getByRole('img')).toHaveAttribute('alt',
+      'Excel chart of weekly closing cash after a 45-day receipt delay, showing the cash gap against the assumed buffer');
+    if (action === 'image') {
+      await chart.getByRole('img').click();
+    } else if (action === 'text') {
+      await chart.getByText('View full-size chart', { exact: true }).click();
+    } else {
+      await chart.focus();
+      if (browserName === 'chromium') {
+        await page.keyboard.press('Tab');
+        await expect(figure.getByRole('link', { name: 'Capture record', exact: true })).toBeFocused();
+        await page.keyboard.press('Shift+Tab');
+        await expect(chart).toBeFocused();
+      }
+      await page.keyboard.press('Enter');
+    }
+    await expect(page).toHaveURL(/\/assets\/examples\/lumbridge\/cash-preview\.png$/);
+    await expect.poll(() => page.locator('img').evaluate((image) => image.naturalWidth)).toBe(1282);
+  }
   for (const [route, name] of [['/', 'Explore the cash flow example'], ['/tools/', 'Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation']]) {
     await page.goto(route);
     if (route === '/tools/') {
