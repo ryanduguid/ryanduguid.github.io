@@ -45,6 +45,33 @@ test('narrow pages reflow inside a traditional scrollbar gutter', async ({ page 
         expect(link.right, link.label).toBeLessThanOrEqual(geometry.available);
         expect(link.lines, link.label).toBe(1);
       }
+      if (route === '/tools/coal-lsl-levy/') {
+        const checkControls = async (state, selector) => {
+          const available = await page.evaluate(() => document.documentElement.clientWidth);
+          expect(await page.evaluate(() => document.documentElement.scrollWidth), `${state} at ${size}`)
+            .toBeLessThanOrEqual(available);
+          const bounds = await page.locator(selector).evaluateAll((elements) => elements.map((element) => {
+            const rect = element.getBoundingClientRect();
+            return { label: element.id || element.textContent, left: rect.left, right: rect.right };
+          }));
+          expect(bounds.length).toBeGreaterThan(0);
+          for (const control of bounds) {
+            expect(control.left, control.label).toBeGreaterThanOrEqual(0);
+            expect(control.right, control.label).toBeLessThanOrEqual(available);
+          }
+        };
+        await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+        await expect(page.locator('#result-actions')).toBeVisible();
+        await checkControls('Synthetic result', '#result-actions input, #result-actions button');
+        await page.getByRole('button', { name: 'Print working', exact: true }).focus();
+        await page.keyboard.press('Tab');
+        await expect(page.getByLabel('Employee reference', { exact: true })).toBeFocused();
+        await page.keyboard.press('Tab');
+        await expect(page.getByRole('button', { name: 'Add to monthly table', exact: true })).toBeFocused();
+        await page.getByRole('button', { name: 'Add a bonus', exact: true }).click();
+        await expect(page.locator('.bonus-amount')).toBeFocused();
+        await checkControls('Added bonus', '.bonus-row input, .bonus-row select, .bonus-row button');
+      }
     }
   }
 });
