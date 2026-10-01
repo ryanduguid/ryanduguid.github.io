@@ -7,10 +7,7 @@ for (const link of document.querySelectorAll('.case-preview > a[href$=".png"]'))
   const close = document.createElement('button');
   close.type = 'button';
   close.textContent = 'Close';
-  // The same responsive sources as the page, so narrow screens get the narrow chart.
-  const picture = link.querySelector('picture').cloneNode(true);
-  picture.querySelector('img').removeAttribute('fetchpriority');
-  dialog.append(close, picture);
+  dialog.append(close);
   link.after(dialog);
 
   close.addEventListener('click', () => dialog.close());
@@ -20,6 +17,14 @@ for (const link of document.querySelectorAll('.case-preview > a[href$=".png"]'))
   link.addEventListener('click', (event) => {
     if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
     event.preventDefault();
+    // The same responsive sources as the page, so narrow screens get the
+    // narrow chart. Added on first open: a hidden copy fails Lighthouse's
+    // image-aspect-ratio audit.
+    if (!dialog.querySelector('picture')) {
+      const picture = link.querySelector('picture').cloneNode(true);
+      picture.querySelector('img').removeAttribute('fetchpriority');
+      dialog.append(picture);
+    }
     dialog.showModal();
   });
 }
