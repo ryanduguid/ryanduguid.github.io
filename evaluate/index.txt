@@ -6,7 +6,7 @@ Source: https://duguid.com.au/evaluate/
 
 # Evaluations
 
-Explore a synthetic profit-and-cash workbook, then reproduce 3 accounting tool evaluations at fixed releases using fictional inputs and hand-recorded expected results.
+Explore a profit-and-cash workbook built with fictional data. Then reproduce 3 accounting tool evaluations at fixed releases, using fictional inputs and expected results recorded by hand.
 
 An evaluation shows what one version did on declared fixtures. It does not prove completeness, suitability or a professional conclusion.
 

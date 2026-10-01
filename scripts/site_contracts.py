@@ -610,8 +610,8 @@ ABOUT_OPENING = (
 )
 EVIDENCE_HEADING = "Evidence behind the tools"
 EVIDENCE_OPENING = (
-    "This register links claims to identity records, releases, primary source "
-    "reviews, repository controls and reproducible tests. It supports limited "
+    "Check the records behind the tools: identity records, releases, primary source "
+    "reviews, repository controls and tests you can reproduce. These records support limited "
     "software claims. An output is not advice, approval, a compliance decision "
     "or a lodgement."
 )
