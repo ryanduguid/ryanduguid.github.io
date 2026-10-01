@@ -185,7 +185,7 @@ test('a focused and hovered skip link keeps its contrast', async ({ page }, test
     const style = getComputedStyle(element);
     return { color: style.color, background: style.backgroundColor };
   });
-  expect(colours).toEqual({ color: 'rgb(0, 0, 0)', background: 'rgb(242, 242, 242)' });
+  expect(colours).toEqual({ color: 'rgb(0, 0, 0)', background: 'rgb(255, 255, 240)' });
   const scan = await new AxeBuilder({ page }).include('.skip-link').withRules(['color-contrast']).analyze();
   expect(scan.violations).toEqual([]);
 });
@@ -397,7 +397,7 @@ test('homepage supporting text respects contrast and print overrides while stayi
     await expect(note).toHaveCSS('color', 'rgb(218, 218, 218)');
   }
   await page.emulateMedia({ contrast: 'more' });
-  await expect(note).toHaveCSS('color', 'rgb(242, 242, 242)');
+  await expect(note).toHaveCSS('color', 'rgb(255, 255, 240)');
   for (const contrast of ['no-preference', 'more']) {
     await page.emulateMedia({ contrast, media: 'print' });
     await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
