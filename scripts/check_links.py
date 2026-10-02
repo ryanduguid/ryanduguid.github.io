@@ -378,31 +378,31 @@ class LinkCollector(HTMLParser):
                     self.hrefs.append(value)
 
 
-def retry_http_error(exc: urllib.error.HTTPError, attempt: int, waited: float) -> float:
-    """Retry transient HTTP failures without exceeding the wait budget."""
-    if (exc.code != 429 and not 500 <= exc.code < 600) or attempt == MAX_FETCH_ATTEMPTS:
-        raise exc
-    if exc.code == 429:
-        delay = float(2 ** (attempt - 1))
-        retry_after = exc.headers.get("Retry-After", "").strip()
-        if re.fullmatch(r"[0-9]+", retry_after):
-            delay = float(retry_after)
-        elif retry_after:
-            try:
-                retry_at = parsedate_to_datetime(retry_after)
-                if retry_at.tzinfo is None:
-                    retry_at = retry_at.replace(tzinfo=timezone.utc)
-                delay = max(0.0, retry_at.timestamp() - time.time())
-            except (ValueError, TypeError, OverflowError):
-                pass
-        if waited + delay > MAX_RETRY_WAIT_SECONDS:
+def retry_error(exc: urllib.error.URLError | TimeoutError, attempt: int, waited: float) -> float:
+    """Bound accumulated sleeps; each request retains its separate 30-second timeout."""
+    retry_after = ""
+    if isinstance(exc, urllib.error.HTTPError):
+        retry_after = exc.headers.get("Retry-After", "").strip() if exc.headers is not None else ""
+        exc.close()
+        if exc.code != 429 and not 500 <= exc.code < 600:
             raise exc
-        exc.close()
-        time.sleep(delay)
-        waited += delay
-    else:
-        exc.close()
-    return waited
+    if attempt == MAX_FETCH_ATTEMPTS:
+        raise exc
+    delay = float(2 ** (attempt - 1))
+    if re.fullmatch(r"[0-9]+", retry_after):
+        delay = float(retry_after)
+    elif retry_after:
+        try:
+            retry_at = parsedate_to_datetime(retry_after)
+            if retry_at.tzinfo is None:
+                retry_at = retry_at.replace(tzinfo=timezone.utc)
+            delay = max(0.0, retry_at.timestamp() - time.time())
+        except (ValueError, TypeError, OverflowError):
+            pass
+    if waited + delay > MAX_RETRY_WAIT_SECONDS:
+        raise exc
+    time.sleep(delay)
+    return waited + delay
 
 
 @functools.lru_cache(maxsize=None)
@@ -413,12 +413,8 @@ def fetch_final_url(url: str, *, opener: object = urllib.request.urlopen) -> tup
         try:
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
                 return resp.status, resp.geturl()
-        except urllib.error.HTTPError as exc:
-            waited = retry_http_error(exc, attempt, waited)
-            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: HTTP {exc.code}")
         except (urllib.error.URLError, TimeoutError) as exc:
-            if attempt == MAX_FETCH_ATTEMPTS:
-                raise
+            waited = retry_error(exc, attempt, waited)
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: {exc}")
     raise AssertionError("unreachable")
 
@@ -508,12 +504,8 @@ def fetch_repository_archived(name: str, *, opener: object = urllib.request.urlo
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
                 payload = json.loads(resp.read().decode("utf-8"))
             break
-        except urllib.error.HTTPError as exc:
-            waited = retry_http_error(exc, attempt, waited)
-            print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: HTTP {exc.code}")
         except (urllib.error.URLError, TimeoutError) as exc:
-            if attempt == MAX_FETCH_ATTEMPTS:
-                raise
+            waited = retry_error(exc, attempt, waited)
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {name}: {exc}")
     full_name = payload.get("full_name")
     if not isinstance(full_name, str):

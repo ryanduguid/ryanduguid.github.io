@@ -14,6 +14,9 @@ from pathlib import Path
 from build_site import build
 
 ROOT = Path(__file__).resolve().parents[1]
+METADATA_ROOT_PATHS = frozenset(
+    {"AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "DESIGN.md", "README.md", "SECURITY.md"}
+)
 CHECKS = (
     (sys.executable, "scripts/test_ozzit_reference.py"),
     (sys.executable, "scripts/test_fact_check.py"),
@@ -22,6 +25,7 @@ CHECKS = (
     (sys.executable, "scripts/check_design.py"),
     (sys.executable, "scripts/test_check_links.py"),
     (sys.executable, "scripts/test_ci_link_selection.py"),
+    (sys.executable, "scripts/test_ci_metadata_selection.py"),
     (sys.executable, "scripts/test_search_console.py"),
     (
         "uv",
@@ -112,18 +116,77 @@ def ci_offline() -> bool:
     return can_skip_live_links("pull_request", paths, diff)
 
 
+def is_metadata_only(event: str, paths: list[str]) -> bool:
+    """Only unpublished documents may omit browser execution."""
+    if event != "pull_request" or not paths:
+        return False
+    return all(
+        not any(ord(char) < 32 or char == "\\" for char in path)
+        and not any(part in {"", ".", ".."} for part in path.split("/"))
+        and (path in METADATA_ROOT_PATHS or path.startswith("docs/"))
+        for path in paths
+    )
+
+
+def ci_metadata_only() -> bool:
+    if os.environ.get("CI_EVENT") != "pull_request":
+        return False
+    try:
+        # Fixed arguments and intentional runner Git lookup for reviewed repository code.
+        commit = subprocess.run(  # nosec B603, B607
+            ["git", "cat-file", "-p", "HEAD"],
+            cwd=ROOT,
+            capture_output=True,
+            encoding="utf-8",
+            check=True,
+            timeout=30,
+        ).stdout
+        if sum(line.startswith("parent ") for line in commit.split("\n\n", 1)[0].splitlines()) != 2:
+            return False
+        # Fixed arguments and intentional runner Git lookup for reviewed repository code.
+        output = subprocess.run(  # nosec B603, B607
+            ["git", "diff", "--name-only", "--no-renames", "-z", "HEAD^1", "HEAD", "--"],
+            cwd=ROOT,
+            capture_output=True,
+            encoding="utf-8",
+            check=True,
+            timeout=30,
+        ).stdout
+    except (OSError, UnicodeError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+        return False
+    if not output.endswith("\0"):
+        return False
+    return is_metadata_only("pull_request", output[:-1].split("\0"))
+
+
+def check_metadata_excluded(rendered: Path) -> None:
+    """Fail when a build change invalidates the metadata-only CI boundary."""
+    for path in (*METADATA_ROOT_PATHS, "docs"):
+        if (rendered / path).exists():
+            raise RuntimeError(f"CI metadata path reached the rendered site: {path}")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--offline", action="store_true", help="skip live external-link checks")
     parser.add_argument(
         "--ci", action="store_true", help="select live checks from the pull-request diff"
     )
+    parser.add_argument(
+        "--ci-metadata-only", action="store_true", help="print the browser CI selection only"
+    )
     args = parser.parse_args()
-    args.offline = args.offline or (args.ci and ci_offline())
+    if args.ci_metadata_only:
+        if args.offline or args.ci:
+            parser.error("--ci-metadata-only cannot be combined with site-check modes")
+        print("true" if ci_metadata_only() else "false")
+        return 0
+    args.offline = args.offline or (args.ci and (ci_metadata_only() or ci_offline()))
     subprocess.run(
         [sys.executable, "scripts/build_ozzit_reference.py", "--check"], cwd=ROOT, check=True
     )
     rendered = build()
+    check_metadata_excluded(rendered)
     subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
     # Add only the tooling and fixtures the checks need beside the built files.
     # Copying public source files here would hide omissions from Jekyll's output.

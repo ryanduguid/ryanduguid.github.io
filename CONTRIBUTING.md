@@ -24,10 +24,19 @@ pull requests whose changed files contain no links, templates or front matter
 use offline checks. Potential link, template, script or configuration changes
 keep live checks. Pushes, scheduled
 runs and manual runs keep live checks too. An unavailable merge comparison runs
-the live checks. HTTP 429
-retries honour
-`Retry-After`, with a 5-attempt limit and at most 30 seconds of waiting per
-fetch. An unresolved rate limit still fails the live check.
+the live checks. PRs changing only the six excluded root documents (`AGENTS.md`,
+`CLAUDE.md`, `CONTRIBUTING.md`, `DESIGN.md`, `README.md`, `SECURITY.md`) or `docs/`
+use offline site checks and omit browser and Lighthouse execution. Lint, site
+validation, type checking, dependency audit and the aggregate gate still run.
+The selector requires an actual two-parent PR merge comparison; unknown or
+mixed changes keep the full checks. Site validation verifies that the allowed
+paths stay excluded from publication.
+
+Transient HTTP 5xx and transport failures wait 1, 2, 4 and 8 seconds between
+attempts. HTTP 429 and 5xx `Retry-After` headers take precedence. Each fetch
+allows five attempts and at most 30 seconds of accumulated waiting; this is
+separate from each request's 30-second timeout. Exhausted retries and permanent
+HTTP errors still fail the live check.
 
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
