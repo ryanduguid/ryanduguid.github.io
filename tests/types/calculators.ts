@@ -20,7 +20,7 @@ calculate.cashForecast('0', [{ receipts: '100' }], '50');
 calculate.cashForecast('0', weeks, '50', { week: 1, amount: 10, delay: 2 });
 
 const tool = calculatorTools(calculate).gst;
-tool.execute({ amount: '110.00', inclusive: true });
+void tool.execute({ amount: '110.00', inclusive: true });
 // @ts-expect-error The WebMCP descriptor needs the calculator's numeric result contract.
 calculatorTools({ gst: () => ({ net: '100', gst: '10', gross: '110' }) });
 void tax;
