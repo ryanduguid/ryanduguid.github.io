@@ -28,6 +28,7 @@ exclude:
   - lighthouserc.cjs
   - package.json
   - package-lock.json
+  - tsconfig.json
   - playwright.capture.config.mjs
   - playwright.config.mjs
   - playwright.webkit.config.mjs

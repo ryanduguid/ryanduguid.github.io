@@ -1,4 +1,14 @@
 // Planning arithmetic. Rates, eligibility and classifications belong to the caller.
+// Money inputs are decimal strings in AUD; monetary results are numeric AUD.
+/**
+ * @typedef {{receipts: string, payments: string}} CashWeek
+ * @typedef {{week: number | string, amount: string, delay: number | string}} CashDeferral
+ * @typedef {{version: 1, currency: 'AUD', startDate: string, opening: string,
+ *   buffer: string, week: string, amount: string, delay: string, weeks: CashWeek[]}} CashScenario
+ */
+
+/** @param {unknown} value
+ * @param {{min?: number, max?: number, places?: number, integer?: boolean}} [options] */
 function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {}) {
   const text = typeof value === 'string' ? value.trim() : '';
   // A number field accepts exponent notation such as 1e3; ask for digits instead
@@ -14,10 +24,13 @@ function number(value, { min = 0, max = 1e9, places = 2, integer = false } = {})
   return result;
 }
 
+/** @param {string} value @param {number} [min] */
 const cents = (value, min = 0) => Math.round(number(value, { min }) * 100);
 // Non-negative ratios in cents round half up. BigInt keeps large products exact.
+/** @param {bigint} numerator @param {bigint} denominator */
 const ratioMoney = (numerator, denominator) => Number((2n * numerator + denominator) / (2n * denominator)) / 100;
 
+/** @param {string} amount @param {boolean} [inclusive] */
 export function gst(amount, inclusive = false) {
   const value = cents(amount);
   const tax = Math.round(value / (inclusive ? 11 : 10));
@@ -25,11 +38,13 @@ export function gst(amount, inclusive = false) {
     gross: (inclusive ? value : value + tax) / 100 };
 }
 
+/** @param {string} cost @param {string} percent */
 export function businessUse(cost, percent) {
   const share = Math.round(number(percent, { max: 100 }) * 100);
   return { share: ratioMoney(BigInt(cents(cost)) * BigInt(share), 10000n) };
 }
 
+/** @param {string} sales @param {string} cost */
 export function margin(sales, cost) {
   const revenue = number(sales);
   const expense = number(cost);
@@ -38,6 +53,7 @@ export function margin(sales, cost) {
     markup: expense ? profit * 100 / expense : null };
 }
 
+/** @param {string} fixed @param {string} price @param {string} variable */
 export function breakEven(fixed, price, variable) {
   const cost = cents(fixed);
   const selling = cents(price);
@@ -48,6 +64,7 @@ export function breakEven(fixed, price, variable) {
   return { contribution: contribution / 100, units, sales: units * selling / 100 };
 }
 
+/** @param {string} cost @param {string} profit @param {string} hours */
 export function hourlyRate(cost, profit, hours) {
   const time = BigInt(Math.round(number(hours, { min: 0.01, max: 8784 }) * 100));
   // A required rate rounds up to the cent, as break-even rounds units up, so the
@@ -56,6 +73,7 @@ export function hourlyRate(cost, profit, hours) {
   return { rate: Number((numerator + time - 1n) / time) / 100 };
 }
 
+/** @param {string} actual @param {string} budget @param {'income' | 'cost'} kind */
 export function variance(actual, budget, kind) {
   if (!['income', 'cost'].includes(kind)) throw new Error('Choose income or cost.');
   const base = number(budget, { min: -1e9 });
@@ -64,6 +82,7 @@ export function variance(actual, budget, kind) {
     effect: difference === 0 ? 'On budget' : (difference * (kind === 'income' ? 1 : -1) > 0 ? 'Favourable' : 'Unfavourable') };
 }
 
+/** @param {string} principal @param {string} annualRate @param {string} months */
 export function loan(principal, annualRate, months) {
   const balanceCents = BigInt(cents(principal));
   const rateUnits = BigInt(Math.round(number(annualRate, { max: 100, places: 4 }) * 10000));
@@ -84,11 +103,13 @@ export function loan(principal, annualRate, months) {
     totalInterest: ratioMoney(paymentNumerator * term - balanceCents * denominator, denominator) };
 }
 
+/** @param {string} wages @param {string} superAmount @param {string} other */
 export function staffCost(wages, superAmount, other) {
   const annual = (cents(wages) + cents(superAmount) + cents(other)) / 100;
   return { annual, monthly: ratioMoney(BigInt(cents(wages) + cents(superAmount) + cents(other)), 12n) };
 }
 
+/** @param {string} startDate */
 export function cashWeekDates(startDate) {
   const date = new Date(`${startDate}T00:00:00Z`);
   if (typeof startDate !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(startDate)
@@ -102,6 +123,7 @@ export function cashWeekDates(startDate) {
   return dates;
 }
 
+/** @param {unknown} text @returns {CashScenario} */
 export function parseCashScenario(text) {
   if (typeof text !== 'string' || text.length > 65536) throw new Error('Choose a scenario file under 64 KB.');
   let data;
@@ -112,9 +134,11 @@ export function parseCashScenario(text) {
   // Number inputs discard surrounding whitespace that numeric validation accepts.
   return { version: 1, currency: 'AUD', startDate: data.startDate, opening: data.opening.trim(), buffer: data.buffer.trim(),
     week: String(data.week).trim(), amount: data.amount.trim(), delay: String(data.delay).trim(),
-    weeks: data.weeks.map(row => ({ receipts: row.receipts.trim(), payments: row.payments.trim() })) };
+    weeks: data.weeks.map(/** @param {CashWeek} row */ row => ({ receipts: row.receipts.trim(), payments: row.payments.trim() })) };
 }
 
+/** @param {string} opening @param {readonly CashWeek[]} weeks @param {string} buffer
+ * @param {CashDeferral} [scenario] */
 export function cashForecast(opening, weeks, buffer, scenario = { week: 1, amount: '0', delay: 0 }) {
   if (!Array.isArray(weeks) || weeks.length !== 13) throw new Error('Enter all 13 weeks.');
   let balance = cents(opening, -1e9);

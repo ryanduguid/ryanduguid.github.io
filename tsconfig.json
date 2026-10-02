@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "noEmit": true,
+    "strict": true,
+    "target": "ES2022",
+    "module": "NodeNext",
+    "types": []
+  },
+  "files": [
+    "assets/business-calculators.mjs",
+    "assets/webmcp-tools.mjs",
+    "tests/types/calculators.ts"
+  ]
+}
