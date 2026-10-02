@@ -129,7 +129,7 @@ for existing links.
 The 22 September friend-feedback pass names concrete accounting tasks in the
 homepage summary and the 4 starting routes shared with Tools and the machine
 index. The fourth route opens Ozzit; the installation guide remains in Adopt.
-Worked proof begins with a plain-language summary of the published fabricated
+Worked proof begins with a plain language summary of the published fabricated
 BAS pack findings, its source link, and its human-review boundary. It reuses
 the existing proof and register components. The headline, OLED palette,
 calculator behaviour, and fixed evaluation releases remain unchanged.
@@ -356,7 +356,7 @@ The 31 August 2026 refinement keeps the design read at
 
 - The homepage leads with browsing the tools, then a 4-task preview, worked
   proof and the Adopt and Verify sections. It is explicitly a personal
-  open-source index, not a practice.
+  open source index, not a practice.
 - The task preview immediately follows the hero; the unchanged scope strip
   follows the preview. At 390 by 844 pixels, mobile hero spacing keeps the
   first named tool link in the first viewport. The live proof requires explicit
@@ -654,7 +654,7 @@ The homepage uses stacked one-thought viewports and does not use scroll snapping
 
 The first viewport centres one tool-led proposition above a ruled 3-part boundary register and answers 3 questions within 5 seconds:
 
-- The site provides open-source accounting review controls.
+- The site provides open source accounting review controls.
 - Sources and calculation working stay visible.
 - The tools are review aids, not judgement or lodgement.
 
@@ -662,7 +662,7 @@ The hero action opens the cash flow case. The secondary Tools action follows
 the four starting routes in Choose a task.
 The workbook chart sits beside the proposition on desktop widths and directly
 below it on mobile; the 4-task preview and real Coal LSL artefact follow. The
-site states that it is a personal open-source index, not a practice, and does
+site states that it is a personal open source index, not a practice, and does
 not accept professional engagements.
 
 ### Adopt viewport

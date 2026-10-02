@@ -278,7 +278,7 @@ Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pr
 ## Pull requests
 
 Suggested resources should support Australian accounting work, have clear
-documentation and current maintenance where applicable, and be open-source
+documentation and current maintenance where applicable, and be open source
 software, official public resources or free developer interfaces.
 
 Keep every link to a live target, keep marketing vocabulary out of visible
