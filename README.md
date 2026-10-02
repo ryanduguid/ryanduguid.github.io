@@ -1,6 +1,6 @@
 # ryanduguid.github.io
 
-Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
+Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
 ## Site structure
 
@@ -12,7 +12,7 @@ Source for [duguid.com.au](https://duguid.com.au/), the open-source accounting t
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
 - `/feed.xml` is an Atom feed built from the changelog tables by `scripts/build_feed.py`.
 
-The homepage is a short adoption path into those registers. The site is a personal open-source index, not a practice, and does not accept professional engagements.
+The homepage is a short adoption path into those registers. The site is a personal open source index, not a practice, and does not accept professional engagements.
 
 ## Local preview
 
