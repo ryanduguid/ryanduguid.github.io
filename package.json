@@ -18,6 +18,7 @@
   },
   "overrides": {
     "@puppeteer/browsers": "3.2.2",
+    "basic-ftp": "6.2.1",
     "qs": "6.16.0",
     "tmp": "0.2.7",
     "uuid": "11.1.1"
