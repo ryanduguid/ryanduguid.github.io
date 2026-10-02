@@ -151,6 +151,13 @@ The `qs` override pins Lighthouse CI's query parser to 6.16.0, which fixes
 Remove it when Express allows a fixed release without the override. Run the browser,
 capture, and Lighthouse checks when changing it.
 
+The `basic-ftp` override pins Lighthouse CI's FTP client to 6.2.1, which fixes a
+[directory-listing denial-of-service issue](https://github.com/advisories/GHSA-c475-qrg2-pj4r)
+in every release up to 6.2.0. `get-uri` 6.0.5 asks for `^5.0.2`, but it calls only
+`Client`, `access`, `lastMod`, `downloadTo`, `list` and `close`, which 6.2.1 keeps.
+Remove it when `get-uri` accepts a fixed release. Run the browser, capture, and
+Lighthouse checks when changing it.
+
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
 Both returned HTTP 200 locally on 10 September 2026. In
