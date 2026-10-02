@@ -32,6 +32,11 @@ fetch. An unresolved rate limit still fails the live check.
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them.
 
+Run `npm run typecheck` after `npm ci` to check the calculator and WebMCP
+contracts. TypeScript checks the existing JavaScript without emitting files.
+The compiler cases in `tests/types/calculators.ts` must reject invalid input
+and result types; the Node tests still check validation and rounding.
+
 Stylesheet links carry a shared `v` query value because Cloudflare caches CSS
 for four hours. When changing `assets/tokens.css`, `assets/site.css` or
 `assets/accounting-pages.css`, update that value in the HTML pages, layouts and

@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "typecheck": "tsc --project tsconfig.json",
     "test:browser": "playwright test",
     "test:browser:update": "playwright test --update-snapshots",
     "test:browser:webkit": "playwright test --config=playwright.webkit.config.mjs",
@@ -14,7 +15,8 @@
   "devDependencies": {
     "@axe-core/playwright": "4.13.0",
     "@lhci/cli": "0.15.1",
-    "@playwright/test": "1.63.0"
+    "@playwright/test": "1.63.0",
+    "typescript": "7.0.2"
   },
   "overrides": {
     "@puppeteer/browsers": "3.2.2",

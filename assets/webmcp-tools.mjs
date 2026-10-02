@@ -3,6 +3,7 @@
 // https://webmachinelearning.github.io/webmcp/
 const AMOUNT = '^\\d{1,9}(?:\\.\\d{1,2})?$';
 
+/** @param {Pick<typeof import('./business-calculators.mjs'), 'gst'>} calculate */
 export function calculatorTools(calculate) {
   return {
     gst: {
@@ -21,6 +22,7 @@ export function calculatorTools(calculate) {
         additionalProperties: false,
       },
       annotations: { readOnlyHint: true },
+      /** @param {{amount?: unknown, inclusive?: unknown}} [input] */
       async execute({ amount, inclusive = false } = {}) {
         if (typeof inclusive !== 'boolean') throw new Error('inclusive must be true or false.');
         const r = calculate.gst(String(amount), inclusive);
