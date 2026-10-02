@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import email.message
 import email.utils
+import io
 import json
 import tempfile
 import time
@@ -30,6 +31,50 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_http_errors_and_successful_responses_close(self) -> None:
+        for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
+            target = (
+                "Ozzit" if fetch is check_links.fetch_repository_archived else "https://example.com"
+            )
+            for status, attempts in ((403, 1), (504, 5), (999, 1)):
+                bodies = [io.BytesIO(b"error") for _ in range(attempts)]
+                errors = [
+                    urllib.error.HTTPError(target, status, "Error", email.message.Message(), body)
+                    for body in bodies
+                ]
+                opener = unittest.mock.Mock(side_effect=errors)
+                with (
+                    unittest.mock.patch.object(time, "sleep"),
+                    self.assertRaises(urllib.error.HTTPError) as raised,
+                ):
+                    fetch(target, opener=opener)
+                self.assertIs(raised.exception, errors[-1])
+                self.assertEqual(raised.exception.code, status)
+                self.assertTrue(all(body.closed for body in bodies))
+            response = unittest.mock.MagicMock()
+            response.__enter__.return_value.status = 200
+            response.__enter__.return_value.geturl.return_value = "https://example.com/final"
+            response.__enter__.return_value.read.return_value = (
+                b'{"full_name":"ryanduguid/Ozzit","archived":false}'
+            )
+            opener = unittest.mock.Mock(return_value=response)
+            with unittest.mock.patch.object(time, "sleep") as sleep:
+                fetch(target, opener=opener)
+            self.assertEqual(opener.call_count, 1)
+            sleep.assert_not_called()
+            response.__exit__.assert_called_once()
+        response = unittest.mock.MagicMock()
+        response.__enter__.return_value.read.return_value = b"invalid json"
+        opener = unittest.mock.Mock(return_value=response)
+        with (
+            unittest.mock.patch.object(time, "sleep") as sleep,
+            self.assertRaises(json.JSONDecodeError),
+        ):
+            check_links.fetch_repository_archived("Ozzit", opener=opener)
+        self.assertEqual(opener.call_count, 1)
+        sleep.assert_not_called()
+        response.__exit__.assert_called_once()
+
     def test_release_download_checks_canonical_repository_identity(self) -> None:
         download = "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx"
         for full_name in ("ryanduguid/renamed", "another-owner/Ozzit", None, "RYANDUGUID/ozzit"):
@@ -205,6 +250,64 @@ class FetchFinalUrlTests(unittest.TestCase):
             )
         )
 
+    def test_transient_failures_wait_for_both_fetchers(self) -> None:
+        class ApiResponse(FakeResponse):
+            def read(self) -> bytes:
+                return b'{"full_name": "ryanduguid/Ozzit", "archived": false}'
+
+        for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
+            for error in (
+                urllib.error.HTTPError(
+                    "https://example.com", 503, "Unavailable", email.message.Message(), None
+                ),
+                urllib.error.URLError("temporary transport failure"),
+                TimeoutError("temporary timeout"),
+            ):
+                with self.subTest(fetch=fetch.__name__, error=error):
+                    opener = unittest.mock.Mock(side_effect=[error, error, ApiResponse()])
+                    with unittest.mock.patch.object(time, "sleep") as sleep:
+                        result = fetch(
+                            "Ozzit"
+                            if fetch is check_links.fetch_repository_archived
+                            else "https://example.com",
+                            opener=opener,
+                        )
+                    self.assertEqual(opener.call_count, 3)
+                    self.assertEqual(
+                        sleep.call_args_list, [unittest.mock.call(1), unittest.mock.call(2)]
+                    )
+                    self.assertEqual(
+                        result,
+                        False
+                        if fetch is check_links.fetch_repository_archived
+                        else (200, "https://example.com/final"),
+                    )
+
+    def test_transient_exhaustion_keeps_failure_with_bounded_waits(self) -> None:
+        for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
+            for error in (
+                urllib.error.HTTPError(
+                    "https://example.com", 504, "Unavailable", email.message.Message(), None
+                ),
+                urllib.error.URLError("still unavailable"),
+                TimeoutError("still unavailable"),
+            ):
+                with self.subTest(fetch=fetch.__name__, error=error):
+                    opener = unittest.mock.Mock(side_effect=error)
+                    with unittest.mock.patch.object(time, "sleep") as sleep:
+                        with self.assertRaises(type(error)) as raised:
+                            fetch(
+                                "Ozzit"
+                                if fetch is check_links.fetch_repository_archived
+                                else "https://example.com",
+                                opener=opener,
+                            )
+                    self.assertIs(raised.exception, error)
+                    self.assertEqual(opener.call_count, 5)
+                    self.assertEqual(
+                        sleep.call_args_list, [unittest.mock.call(x) for x in (1, 2, 4, 8)]
+                    )
+
     def test_offline_mode_still_checks_local_links_without_external_requests(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -321,7 +424,8 @@ class FetchFinalUrlTests(unittest.TestCase):
                 raise urllib.error.URLError("temporary TLS failure")
             return FakeResponse()
 
-        result = check_links.fetch_final_url("https://example.com/start", opener=flaky_opener)
+        with unittest.mock.patch.object(time, "sleep"):
+            result = check_links.fetch_final_url("https://example.com/start", opener=flaky_opener)
 
         self.assertEqual(result, (200, "https://example.com/final"))
         self.assertEqual(attempts, 3)
@@ -342,9 +446,10 @@ class FetchFinalUrlTests(unittest.TestCase):
                 )
             return FakeResponse()
 
-        result = check_links.fetch_final_url(
-            "https://example.com/server-error", opener=flaky_opener
-        )
+        with unittest.mock.patch.object(time, "sleep"):
+            result = check_links.fetch_final_url(
+                "https://example.com/server-error", opener=flaky_opener
+            )
 
         self.assertEqual(result, (200, "https://example.com/final"))
         self.assertEqual(attempts, 3)
@@ -492,7 +597,8 @@ class FetchFinalUrlTests(unittest.TestCase):
                 )
             return ApiResponse()
 
-        result = check_links.fetch_repository_archived("hardhat-ledger", opener=opener)
+        with unittest.mock.patch.object(time, "sleep"):
+            result = check_links.fetch_repository_archived("hardhat-ledger", opener=opener)
 
         self.assertTrue(result)
         self.assertEqual(attempts, 2)
@@ -505,7 +611,7 @@ class FetchFinalUrlTests(unittest.TestCase):
             attempts += 1
             raise urllib.error.URLError("still unavailable")
 
-        with self.assertRaises(urllib.error.URLError):
+        with unittest.mock.patch.object(time, "sleep"), self.assertRaises(urllib.error.URLError):
             check_links.fetch_final_url("https://example.com/unavailable", opener=unavailable)
 
         self.assertEqual(attempts, 5)

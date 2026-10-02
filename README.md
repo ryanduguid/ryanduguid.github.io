@@ -190,8 +190,9 @@ repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
 npm manifests, the Playwright and Lighthouse configuration, `DESIGN.md` and this
 README) and includes `.well-known/` so that `security.txt` is served despite
 Jekyll's default exclusion of dot-directories.
-The Search Console verification file, `LICENSE`, `SECURITY.md` and the font
-licence remain published.
+The Search Console verification file, `LICENSE` and the font licence remain
+published. `SECURITY.md` is excluded; `.well-known/security.txt` supplies the
+public security contact.
 
 ## Social-card provenance
 
