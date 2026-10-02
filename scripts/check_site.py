@@ -132,7 +132,8 @@ def ci_metadata_only() -> bool:
     if os.environ.get("CI_EVENT") != "pull_request":
         return False
     try:
-        commit = subprocess.run(
+        # Fixed arguments and intentional runner Git lookup for reviewed repository code.
+        commit = subprocess.run(  # nosec B603, B607
             ["git", "cat-file", "-p", "HEAD"],
             cwd=ROOT,
             capture_output=True,
@@ -142,7 +143,8 @@ def ci_metadata_only() -> bool:
         ).stdout
         if sum(line.startswith("parent ") for line in commit.split("\n\n", 1)[0].splitlines()) != 2:
             return False
-        output = subprocess.run(
+        # Fixed arguments and intentional runner Git lookup for reviewed repository code.
+        output = subprocess.run(  # nosec B603, B607
             ["git", "diff", "--name-only", "--no-renames", "-z", "HEAD^1", "HEAD", "--"],
             cwd=ROOT,
             capture_output=True,

@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import contextlib
 import io
-import subprocess
+
+# Uses result objects and the audited temporary Git fixture below.
+import subprocess  # nosec B404
 import tempfile
 import unittest
 from pathlib import Path
@@ -61,7 +63,10 @@ class MetadataSelectionTests(unittest.TestCase):
         merge = "tree abc\nparent first\nparent second\n\nmessage\n"
         for output in ("", "README.md", "README.md\0\0", "docs/a.md\0index.html\0"):
             results = [
+                # These constructors create mock results and never launch a process.
+                # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit.dangerous-subprocess-use-audit
                 subprocess.CompletedProcess([], 0, merge),
+                # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit.dangerous-subprocess-use-audit
                 subprocess.CompletedProcess([], 0, output),
             ]
             with (
@@ -87,6 +92,8 @@ class MetadataSelectionTests(unittest.TestCase):
                 patch.object(
                     check_site.subprocess,
                     "run",
+                    # This constructor creates a mock result and never launches a process.
+                    # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit.dangerous-subprocess-use-audit
                     return_value=subprocess.CompletedProcess([], 0, commit),
                 ) as run,
             ):
@@ -98,7 +105,8 @@ class MetadataSelectionTests(unittest.TestCase):
             root = Path(directory)
 
             def git(*arguments: str) -> str:
-                return subprocess.run(
+                # Intentional Git lookup; arguments are fixture data or its commit ID, without a shell.
+                return subprocess.run(  # nosec B603, B607
                     ["git", *arguments], cwd=root, check=True, capture_output=True, encoding="utf-8"
                 ).stdout.strip()
 
