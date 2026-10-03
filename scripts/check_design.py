@@ -199,6 +199,9 @@ BANNED_VISIBLE_PATTERNS = (
     ("at its core", r"\bat its core\b"),
     ("Get started", r"\bget started\b"),
 )
+BANNED_VISIBLE_PATTERN = re.compile(
+    "|".join(f"(?:{pattern})" for _, pattern in BANNED_VISIBLE_PATTERNS), re.I
+)
 COPY_TEXT_FILES = ("llms.txt",)
 META_CONTENT_PATTERN = re.compile(r'<meta\b[^>]*\bcontent\s*=\s*"([^"]*)"', re.I)
 OPENING_REVIEW_DATE_CONTEXTS = {
@@ -456,7 +459,7 @@ def check_font_delivery(root: Path, tokens_css: str, baseline: dict[str, Any]) -
         path.read_text(encoding="utf-8") for path in sorted((root / "assets").rglob("*.mjs"))
     )
     visible = " ".join(rendered_text)
-    required = sorted({ord(character) for character in visible if ord(character) > 31})
+    required = sorted(ord(character) for character in set(visible) if ord(character) > 31)
     for index, face in enumerate(faces, start=1):
         ranges = unicode_ranges(face)
         if not ranges:
@@ -665,9 +668,10 @@ def check_copy(root: Path) -> list[str]:
         documents.append((rel, [("text", path.read_text(encoding="utf-8"))]))
     for rel, surfaces in documents:
         for surface, text in surfaces:
-            for label, pattern in BANNED_VISIBLE_PATTERNS:
-                if re.search(pattern, text, re.I):
-                    failures.append(f"{rel}: banned {surface} phrase {label!r}")
+            if BANNED_VISIBLE_PATTERN.search(text):
+                for label, pattern in BANNED_VISIBLE_PATTERNS:
+                    if re.search(pattern, text, re.I):
+                        failures.append(f"{rel}: banned {surface} phrase {label!r}")
             if surface == "visible" and EMOJI_PATTERN.search(text):
                 failures.append(f"{rel}: decorative emoji is not permitted")
     return failures
