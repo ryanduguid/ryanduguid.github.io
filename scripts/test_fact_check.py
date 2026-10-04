@@ -264,24 +264,12 @@ class QuarterCloseCaseTests(unittest.TestCase):
                 report = json.loads(raw)
                 self.assertEqual(report["schema_version"], "forecast-reader-report.v1")
                 self.assertEqual(report["currency"], "AUD")
-                self.assertEqual(
-                    (
-                        report["states"]["calculation"],
-                        report["states"]["close"],
-                        report["states"]["receipt_review"],
-                        report["review_record"]["decision"],
-                        report["states"]["source"],
-                        report["authority"],
-                    ),
-                    (
-                        "RECONCILED",
-                        "REVIEW",
-                        "UNREVIEWED",
-                        "request_changes",
-                        "provisional",
-                        "none",
-                    ),
-                )
+                self.assertEqual(report["states"]["calculation"], "RECONCILED")
+                self.assertEqual(report["states"]["close"], "REVIEW")
+                self.assertEqual(report["states"]["receipt_review"], "UNREVIEWED")
+                self.assertEqual(report["review_record"]["decision"], "request_changes")
+                self.assertEqual(report["states"]["source"], "provisional")
+                self.assertEqual(report["authority"], "none")
                 expected = []
                 for period, values in report["current_values"].items():
                     comparison = report["comparison"]["periods"][period]
