@@ -26,7 +26,7 @@ For car expenses under the cents per kilometre method, the rate by income year i
 
 Phone and internet record checklist
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 

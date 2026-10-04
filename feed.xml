@@ -5,8 +5,29 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-01T00:00:00Z</updated>
+  <updated>2026-10-04T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Each business calculator offers Print working once it shows a result, and a…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-6a3264e86cd2f55a</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.</summary>
+  </entry>
+  <entry>
+    <title>Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-f99a7f8e3c37fcbd</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.</summary>
+  </entry>
+  <entry>
+    <title>The calculator pages explain how to check that figures stay in the browser…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-c15f21866e28995b</id>
+    <updated>2026-10-04T00:00:00Z</updated>
+    <summary>The calculator pages explain how to check that figures stay in the browser: disconnect from the internet once the page has loaded, then calculate.</summary>
+  </entry>
   <entry>
     <title>The MCP guide names published release 0.2.12, which moves Payday Super to…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

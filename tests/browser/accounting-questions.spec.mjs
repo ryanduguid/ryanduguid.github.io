@@ -281,9 +281,11 @@ test('calculators show working, invalidate edited results and reject empty input
   await expect(form.getByLabel('Amount (AUD)')).toBeFocused();
 });
 
-test('cash scenario exports delayed receipts and reports the funding gap', async ({ page }) => {
+test('cash scenario exports delayed receipts and reports the funding gap offline', async ({ page, context }) => {
   await page.goto('/tools/business-calculators/cash/');
   const form = page.locator('#cash form');
+  await expect(form.locator('fieldset').first()).toBeEnabled();
+  await context.setOffline(true);
   await form.getByLabel('First day of week 1').fill('2026-09-28');
   await form.getByLabel('Opening bank balance (AUD)').fill('200');
   await form.getByLabel('Minimum cash buffer (AUD)').fill('100');
@@ -306,7 +308,46 @@ test('cash scenario exports delayed receipts and reports the funding gap', async
   await expect(page.getByRole('button', { name: 'Download forecast CSV' })).toBeDisabled();
 });
 
+test('business calculators print only a current result', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.__printCalls = 0;
+    window.print = () => { window.__printCalls += 1; };
+  });
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  const print = form.getByRole('button', { name: 'Print working', exact: true });
+  await expect(print).toBeHidden();
+  await form.getByLabel('Amount (AUD)').fill('110');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await print.click();
+  expect(await page.evaluate(() => window.__printCalls)).toBe(1);
+  await form.getByLabel('Amount (AUD)').fill('220');
+  await expect(print).toBeHidden();
+});
+
+test('printed business calculator working keeps the boundary and a blank sign-off', async ({ page }) => {
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  await form.getByLabel('Amount (AUD)').fill('110');
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await page.emulateMedia({ media: 'print' });
+  await expect(form.locator('output')).toContainText('GST: $11.00');
+  const [boundary, abn] = [page.locator('.site-footer__inner > p').first(), page.locator('.site-footer__inner > p').last()];
+  await expect(boundary).toBeVisible();
+  await expect(boundary).toContainText('not a registered tax agent');
+  await expect(abn).toHaveText('Ryan Duguid, ABN 59 834 031 764');
+  for (const chrome of ['.site-footer__nav', '.site-footer__links', '.site-footer__motto']) {
+    await expect(page.locator(chrome)).toBeHidden();
+  }
+  await expect(page.locator('button:visible')).toHaveCount(0);
+  expect(await page.locator('.site-footer__inner').evaluate((element) =>
+    getComputedStyle(element, '::after').content)).toContain('Reviewer:');
+});
+
+// The calculator pages invite readers to disconnect once the page has loaded,
+// so every calculation here runs with the browser offline.
 for (const [id, inputs, expected] of [
+  ['gst', { amount: '100' }, 'GST: $10.00'],
   ['business-use', { cost: '20.15', percent: '50' }, '$10.08'],
   ['margin', { sales: '150', cost: '100' }, 'Margin: 33.33%'],
   ['break-even', { fixed: '1000', price: '30', variable: '18' }, '84 whole units'],
@@ -315,9 +356,11 @@ for (const [id, inputs, expected] of [
   ['loan', { principal: '1000', rate: '12', months: '1' }, '$1,010.00'],
   ['staff', { wages: '80000', super: '9600', other: '4000' }, '$93,600.00'],
 ]) {
-  test(`${id} sends the entered values to its calculation`, async ({ page }) => {
+  test(`${id} sends the entered values to its calculation offline`, async ({ page, context }) => {
     await page.goto(`/tools/business-calculators/${id}/`);
     const form = page.locator(`#${id} form`);
+    await expect(form.locator('fieldset').first()).toBeEnabled();
+    await context.setOffline(true);
     for (const [name, value] of Object.entries(inputs)) {
       const field = form.locator(`[name="${name}"]`);
       if (name === 'kind') await field.selectOption(value);

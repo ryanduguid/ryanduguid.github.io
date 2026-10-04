@@ -157,6 +157,15 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
     });
     const output = form.querySelector('output');
     const applied = form.querySelector('.sources-applied');
+    if (applied) {
+      // The button shows and hides with the sources, so an edit that clears the
+      // result also removes the way to print it.
+      const print = document.createElement('button');
+      print.type = 'button';
+      print.textContent = 'Print working';
+      print.addEventListener('click', () => window.print());
+      applied.append(print);
+    }
     let csv = '';
     const cashDownload = form.querySelector('#download-cash');
     const value = name => form.elements.namedItem(name).value;

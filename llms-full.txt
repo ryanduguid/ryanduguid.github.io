@@ -2547,6 +2547,10 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
+Privacy
+
+Your figures are not sent to a server. To check, disconnect from the internet once the page has loaded, then calculate.
+
 ## Employee reference table
 
 Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.
@@ -3829,6 +3833,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+4 October 2026 | Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.
+4 October 2026 | Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.
+4 October 2026 | The calculator pages explain how to check that figures stay in the browser: disconnect from the internet once the page has loaded, then calculate.
 1 October 2026 | The MCP guide names published release 0.2.12, which moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. The Payday Super quick trial now uses checker 0.1.9, which gives the same result, and the trust distribution, construction WIP, workpaper review gate and Xero trial balance pages name the releases published on 30 September.
 30 September 2026 | The homepage names its author and explains its demo when JavaScript is off.
 30 September 2026 | The Coal LSL calculator’s month check reads ‘Enter July 2023 or later.’ for an earlier month, where it had shown ‘Enter NaN or more.’
@@ -3912,7 +3919,7 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 1 October 2026.
+Published 30 August 2026. Last reviewed 4 October 2026.
 
 ## Links
 
@@ -6946,7 +6953,7 @@ For a wholly taxable amount at 10% GST, exclusive amount / 10 gives GST; inclusi
 
 ATO: How GST works
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -6987,7 +6994,7 @@ For car expenses under the cents per kilometre method, the rate by income year i
 
 Phone and internet record checklist
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7027,7 +7034,7 @@ Gross profit = sales − direct cost. Margin = gross profit / sales × 100. Mark
 
 business.gov.au: pricing
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7066,7 +7073,7 @@ Contribution per unit = price − variable cost per unit. Required units = fixed
 
 business.gov.au: pricing
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7105,7 +7112,7 @@ Required hourly rate = (annual costs + target annual profit) / annual billable h
 
 business.gov.au: pricing
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
@@ -7148,7 +7155,7 @@ Budget explanation checklist
 
 Monthly Close Controls compares trial balance CSVs and lists material movements for review.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7188,7 +7195,7 @@ For fixed monthly interest r and n payments: payment = principal × r / (1 − (
 
 Loan reconciliation checklist
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7227,7 +7234,7 @@ Annual cost = wages + supplied super amount + other annual costs. Monthly averag
 
 Staff cost checklist
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
@@ -7297,7 +7304,7 @@ business.gov.au: cash flow
 
 The Lumbridge cash flow case works the same question with a 45-day receipt delay.
 
-One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. Use Save inputs to download a local scenario file, then Load inputs to resume it.
+One of the nine business calculators. Calculations run in this browser. The calculator code does not send your inputs to a server or save them automatically. To check, disconnect from the internet once the page has loaded, then calculate. Use Save inputs to download a local scenario file, then Load inputs to resume it.
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 

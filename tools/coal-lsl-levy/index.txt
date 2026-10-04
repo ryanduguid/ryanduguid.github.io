@@ -60,6 +60,10 @@ Boundary
 
 Estimate only. Check the current prescribed percentage before relying on a figure.
 
+Privacy
+
+Your figures are not sent to a server. To check, disconnect from the internet once the page has loaded, then calculate.
+
 ## Employee reference table
 
 Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.

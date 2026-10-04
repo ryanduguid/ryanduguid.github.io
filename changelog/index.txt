@@ -13,6 +13,9 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+4 October 2026 | Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.
+4 October 2026 | Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.
+4 October 2026 | The calculator pages explain how to check that figures stay in the browser: disconnect from the internet once the page has loaded, then calculate.
 1 October 2026 | The MCP guide names published release 0.2.12, which moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. The Payday Super quick trial now uses checker 0.1.9, which gives the same result, and the trust distribution, construction WIP, workpaper review gate and Xero trial balance pages name the releases published on 30 September.
 30 September 2026 | The homepage names its author and explains its demo when JavaScript is off.
 30 September 2026 | The Coal LSL calculator’s month check reads ‘Enter July 2023 or later.’ for an earlier month, where it had shown ‘Enter NaN or more.’
@@ -96,7 +99,7 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 1 October 2026.
+Published 30 August 2026. Last reviewed 4 October 2026.
 
 ## Links
 
