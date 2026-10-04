@@ -1,5 +1,11 @@
 # Rates register proposal
 
+**Status, 4 October 2026.** The sourced dataset of dated figures now lives in
+`packages/au-tax-rates-data` in `ryanduguid/australian-accounting`, beside the
+engines whose copies a root test holds to it, and `scripts/pin_rates_dataset.py`
+pins the records the site states from there. That settles the register home in
+section 2.8 for those figures. `rates/register/` is unchanged.
+
 **Status, 18 September 2026.** Section 2 is partly built. `rates/register/`
 now holds the manifest, both schemas, `SHA256SUMS`, a changelog and one series
 (`coal-lsl-levy`), checked by `scripts/check_rates_register.py` in the site

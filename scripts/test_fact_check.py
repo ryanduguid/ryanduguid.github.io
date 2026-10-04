@@ -236,8 +236,9 @@ class FactCheckTests(unittest.TestCase):
 class RatesDatasetTests(unittest.TestCase):
     """The 2026-27 rate tables and question facts state the dataset's values.
 
-    ryanduguid/au-tax-rates-data is the single home for dated figures. The site
-    keeps a digest-pinned extract of the records it relies on
+    packages/au-tax-rates-data in ryanduguid/australian-accounting is the single
+    home for dated figures. The site keeps a digest-pinned extract of the records
+    it relies on
     (scripts/pin_rates_dataset.py writes it), and these checks fail when a page
     or the extract moves without the other.
     """

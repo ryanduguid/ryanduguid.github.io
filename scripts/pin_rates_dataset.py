@@ -1,11 +1,12 @@
-"""Write scripts/rates_dataset_extract.json from a checkout of ryanduguid/au-tax-rates-data.
+"""Write scripts/rates_dataset_extract.json from a checkout of ryanduguid/australian-accounting.
 
-Usage: python scripts/pin_rates_dataset.py <path to an au-tax-rates-data checkout>
+Usage: python scripts/pin_rates_dataset.py <path to an australian-accounting checkout>
 
-The dataset is the single home for dated figures. The site copies only the values its
-pages state, each pinned to the SHA-256 of its record file at the checkout's HEAD, and
-test_fact_check.py holds the rate tables and question facts to those values. Rerun this
-after a record changes, then fix whatever page the tests name.
+The dataset in that repository's packages/au-tax-rates-data is the single home for dated
+figures. The site copies only the values its pages state, each pinned to the SHA-256 of
+its record file at the checkout's HEAD, and test_fact_check.py holds the rate tables and
+question facts to those values. Rerun this after a record changes, then fix whatever page
+the tests name.
 """
 
 from __future__ import annotations
@@ -17,6 +18,7 @@ import sys
 from pathlib import Path
 
 OUTPUT = Path(__file__).resolve().parent / "rates_dataset_extract.json"
+DATASET_PATH = "packages/au-tax-rates-data"
 RECORDS = (
     "car-limit-2026-27",
     "cents-per-km-2026-27",
@@ -40,17 +42,27 @@ def main(argv: list[str]) -> int:
     if len(argv) != 1:
         print(__doc__.split("\n\n")[1], file=sys.stderr)
         return 2
-    dataset = Path(argv[0])
-    commit = git(dataset, "rev-parse", "HEAD").decode().strip()
+    checkout = Path(argv[0])
+    commit = git(checkout, "rev-parse", "HEAD").decode().strip()
     records = {}
     for name in RECORDS:
-        # The committed blob, not the working copy, so line endings cannot move the digest.
-        raw = git(dataset, "show", f"{commit}:data/{name}.json")
+        record = f"{DATASET_PATH}/data/{name}.json"
+        try:
+            # The committed blob, not the working copy, so line endings cannot move the digest.
+            raw = git(checkout, "show", f"{commit}:{record}")
+        except subprocess.CalledProcessError:
+            print(f"{checkout} has no {record} at {commit[:12]}", file=sys.stderr)
+            return 1
         records[name] = {
             "sha256": hashlib.sha256(raw).hexdigest(),
             "value": json.loads(raw)["value"],
         }
-    document = {"source": "ryanduguid/au-tax-rates-data", "commit": commit, "records": records}
+    document = {
+        "source": "ryanduguid/australian-accounting",
+        "path": DATASET_PATH,
+        "commit": commit,
+        "records": records,
+    }
     OUTPUT.write_text(json.dumps(document, indent=2) + "\n", encoding="utf-8", newline="\n")
     print(f"pinned {len(records)} records at {commit[:12]}")
     return 0
