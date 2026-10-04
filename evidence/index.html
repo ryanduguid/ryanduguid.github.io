@@ -60,6 +60,7 @@
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
           <p>On this page</p>
+          <a href="#quarter-close-to-forecast">From monthly close to a cash forecast</a>
           <a href="#accepted-upstream-work">Accepted upstream work</a>
           <a href="#identity-and-credentials">Identity and credentials</a>
           <a href="#packages-releases-and-repositories">Packages, releases and repositories</a>
@@ -71,6 +72,31 @@
           <a href="#independent-evaluation">Published evaluations</a>
         </nav>
         <div class="article-body">
+
+          <section aria-labelledby="quarter-close-to-forecast">
+            <h2 id="quarter-close-to-forecast">From monthly close to a cash forecast</h2>
+            <p class="field-note">Fabricated October to December 2026 case. Verified locally on 4 October 2026.</p>
+            <p>October closes with $22,000 cash against a $24,000 budget. The arithmetic reconciles, but close exceptions remain and a fabricated reviewer requests changes.</p>
+            <h3>Closed-month cash against the original budget</h3>
+            <div class="table-scroll" role="region" aria-label="Quarter cash results in Australian dollars" tabindex="0">
+              <table class="tool-table tool-table--wide">
+                <caption>Each row is the closed month at its own checkpoint. All amounts are AUD.</caption>
+                <thead><tr><th scope="col">Closed month</th><th scope="col">Cash</th><th scope="col">Original cash budget</th><th scope="col">Actual less budget</th><th scope="col">Close</th></tr></thead>
+                <tbody><tr><th scope="row">October</th><td class="nowrap">$22,000.00</td><td class="nowrap">$24,000.00</td><td class="nowrap">-$2,000.00</td><td class="nowrap">REVIEW</td></tr><tr><th scope="row">November</th><td class="nowrap">$24,500.00</td><td class="nowrap">$24,000.00</td><td class="nowrap">$500.00</td><td class="nowrap">REVIEW</td></tr><tr><th scope="row">December</th><td class="nowrap">$29,500.00</td><td class="nowrap">$24,000.00</td><td class="nowrap">$5,500.00</td><td class="nowrap">REVIEW</td></tr></tbody>
+              </table>
+            </div>
+            <h3>Accounting judgement</h3>
+            <p>October cash rises from $20,000 to $22,000 while finishing $2,000 below budget. These are different comparisons: movement between closed balances and actual cash against the original budget. Revenue exceeds its zero budget by $4,000 and net income by $1,500. Selected transactions explain arithmetic contributions; the cash shortfall remains unattributed. Those contributions and the cash bridge do not establish a business cause or clear a close finding.</p>
+            <p>I separate calculation, close and review decisions. All three checkpoints have a RECONCILED calculation, a close marked REVIEW and an original receipt marked UNREVIEWED. A later fabricated reviewer requests changes. The source remains provisional and grants no action authority.</p>
+            <p>The workflow preserves the original budget, freezes closed months and revises the remaining forecast as each month closes. It includes known invoices only; future sales, purchases, tax and funding are excluded.</p>
+            <h3>What was verified</h3>
+            <p>Three forecast packs and reader reports recomputed from retained fabricated evidence. An altered receipt was rejected. A separate native Power BI view matched all 9 monthly rows and 135 supplied value and state fields. Amounts remain exact decimal text, with no financial formulas or aggregation. The full producer workflow was reused from its recorded run.</p>
+            <p>This verifies local import and displayed values. Integration with the existing financial dashboard, source or reviewer authenticity, live business accuracy, statutory currency and client suitability remain unverified.</p>
+            <h3>Inspect the evidence</h3>
+            <p>The CSV contains all nine checkpoint/month rows and their review states, with amounts in AUD. Months recur as the forecast changes; compare within a checkpoint and do not sum across checkpoints. The JSON reports also retain the cash bridge, close exceptions and source digests. All business data, transactions and reviewers are fabricated.</p>
+            <ul><li><a href="/assets/examples/quarter-close-to-forecast/quarter-monthly.csv" download>Monthly values and review states (CSV, AUD)</a></li><li><a href="/assets/examples/quarter-close-to-forecast/2026-10-31.json" download>October reader report (JSON)</a></li><li><a href="/assets/examples/quarter-close-to-forecast/2026-11-30.json" download>November reader report (JSON)</a></li><li><a href="/assets/examples/quarter-close-to-forecast/2026-12-31.json" download>December reader report (JSON)</a></li><li><a href="/assets/examples/quarter-close-to-forecast/native-verification.json" download>Native Power BI verification (JSON)</a></li><li><a href="/assets/examples/quarter-close-to-forecast/SHA256SUMS.txt" download>File checksums (SHA-256)</a></li></ul>
+            <p class="field-note">This is a local software case. It is not tax, legal or financial advice, accounting approval, a posting instruction or a compliance determination.</p>
+          </section>
 
           <section aria-labelledby="accepted-upstream-work">
             <h2 id="accepted-upstream-work">Accepted upstream work</h2>

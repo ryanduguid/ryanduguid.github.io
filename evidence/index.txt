@@ -10,6 +10,48 @@ Check the records behind the tools: identity records, releases, primary source r
 
 Last reviewed 30 September 2026.
 
+## From monthly close to a cash forecast
+
+Fabricated October to December 2026 case. Verified locally on 4 October 2026.
+
+October closes with $22,000 cash against a $24,000 budget. The arithmetic reconciles, but close exceptions remain and a fabricated reviewer requests changes.
+
+### Closed-month cash against the original budget
+
+Each row is the closed month at its own checkpoint. All amounts are AUD.
+
+Closed month | Cash | Original cash budget | Actual less budget | Close
+October | $22,000.00 | $24,000.00 | -$2,000.00 | REVIEW
+November | $24,500.00 | $24,000.00 | $500.00 | REVIEW
+December | $29,500.00 | $24,000.00 | $5,500.00 | REVIEW
+
+### Accounting judgement
+
+October cash rises from $20,000 to $22,000 while finishing $2,000 below budget. These are different comparisons: movement between closed balances and actual cash against the original budget. Revenue exceeds its zero budget by $4,000 and net income by $1,500. Selected transactions explain arithmetic contributions; the cash shortfall remains unattributed. Those contributions and the cash bridge do not establish a business cause or clear a close finding.
+
+I separate calculation, close and review decisions. All three checkpoints have a RECONCILED calculation, a close marked REVIEW and an original receipt marked UNREVIEWED. A later fabricated reviewer requests changes. The source remains provisional and grants no action authority.
+
+The workflow preserves the original budget, freezes closed months and revises the remaining forecast as each month closes. It includes known invoices only; future sales, purchases, tax and funding are excluded.
+
+### What was verified
+
+Three forecast packs and reader reports recomputed from retained fabricated evidence. An altered receipt was rejected. A separate native Power BI view matched all 9 monthly rows and 135 supplied value and state fields. Amounts remain exact decimal text, with no financial formulas or aggregation. The full producer workflow was reused from its recorded run.
+
+This verifies local import and displayed values. Integration with the existing financial dashboard, source or reviewer authenticity, live business accuracy, statutory currency and client suitability remain unverified.
+
+### Inspect the evidence
+
+The CSV contains all nine checkpoint/month rows and their review states, with amounts in AUD. Months recur as the forecast changes; compare within a checkpoint and do not sum across checkpoints. The JSON reports also retain the cash bridge, close exceptions and source digests. All business data, transactions and reviewers are fabricated.
+
+- Monthly values and review states (CSV, AUD)
+- October reader report (JSON)
+- November reader report (JSON)
+- December reader report (JSON)
+- Native Power BI verification (JSON)
+- File checksums (SHA-256)
+
+This is a local software case. It is not tax, legal or financial advice, accounting approval, a posting instruction or a compliance determination.
+
 ## Accepted upstream work
 
 Maintainers of the projects below merged these specific changes. The merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
@@ -147,6 +189,12 @@ Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
+- Monthly values and review states (CSV, AUD): https://duguid.com.au/assets/examples/quarter-close-to-forecast/quarter-monthly.csv
+- October reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-10-31.json
+- November reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-11-30.json
+- December reader report (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/2026-12-31.json
+- Native Power BI verification (JSON): https://duguid.com.au/assets/examples/quarter-close-to-forecast/native-verification.json
+- File checksums (SHA-256): https://duguid.com.au/assets/examples/quarter-close-to-forecast/SHA256SUMS.txt
 - Pull request 85: https://github.com/OpenAccountants/openaccountants/pull/85
 - Pull request 3727: https://github.com/meltano/sdk/pull/3727
 - Pull request 44: https://github.com/XeroAPI/xero-command-line/pull/44
