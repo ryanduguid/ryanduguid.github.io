@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import csv
+import hashlib
 import html
 import json
 import re
@@ -231,6 +232,150 @@ class FactCheckTests(unittest.TestCase):
                 for link in core.descendants(section, "a")
             )
         )
+
+
+class QuarterCloseCaseTests(unittest.TestCase):
+    """Keep the fabricated case consistent with its retained native evidence."""
+
+    case = "assets/examples/quarter-close-to-forecast"
+
+    def test_csv_matches_all_native_values_and_states(self) -> None:
+        receipt = json.loads(read(f"{self.case}/native-verification.json"))
+        rows = list(csv.DictReader(read(f"{self.case}/quarter-monthly.csv").splitlines()))
+        observed = [row for table in receipt["observed"].values() for row in table]
+        self.assertEqual(receipt["status"], "passed")
+        self.assertEqual(receipt["native_rows"], 9)
+        self.assertEqual(receipt["exact_fields"], 135)
+        self.assertEqual(len(rows), 9)
+        self.assertEqual(sum(len(row) for row in rows), 135)
+        self.assertCountEqual(rows, observed)
+
+    def test_reader_reports_match_native_inputs_and_projection(self) -> None:
+        receipt = json.loads(read(f"{self.case}/native-verification.json"))
+        self.assertCountEqual(receipt["observed"], ("October", "November", "December"))
+        for month, observed in receipt["observed"].items():
+            with self.subTest(checkpoint=month):
+                cutoffs = {row["Cutoff"] for row in observed}
+                self.assertEqual(len(cutoffs), 1)
+                name = f"{next(iter(cutoffs))}.json"
+                self.assertIn(name, ("2026-10-31.json", "2026-11-30.json", "2026-12-31.json"))
+                raw = (ROOT / self.case / name).read_bytes()
+                self.assertEqual(hashlib.sha256(raw).hexdigest(), receipt["source_hashes"][name])
+                report = json.loads(raw)
+                self.assertEqual(report["schema_version"], "forecast-reader-report.v1")
+                self.assertEqual(report["currency"], "AUD")
+                self.assertEqual(
+                    (
+                        report["states"]["calculation"],
+                        report["states"]["close"],
+                        report["states"]["receipt_review"],
+                        report["review_record"]["decision"],
+                        report["states"]["source"],
+                        report["authority"],
+                    ),
+                    (
+                        "RECONCILED",
+                        "REVIEW",
+                        "UNREVIEWED",
+                        "request_changes",
+                        "provisional",
+                        "none",
+                    ),
+                )
+                expected = []
+                for period, values in report["current_values"].items():
+                    comparison = report["comparison"]["periods"][period]
+                    difference = comparison.get(
+                        "actual_less_budget", comparison.get("forecast_less_budget")
+                    )
+                    expected.append(
+                        {
+                            "Cutoff": report["cutoff"],
+                            "Period": period,
+                            "Basis": comparison["basis"],
+                            "CurrentCash": values["ending_cash"],
+                            "OriginalCash": report["budget_values"][period]["ending_cash"],
+                            "CashDifference": difference["ending_cash"],
+                            "Revenue": values["revenue"],
+                            "NetIncome": values["net_income"],
+                            "CloseState": report["states"]["close"],
+                            "CalculationState": report["states"]["calculation"],
+                            "ReceiptReview": report["states"]["receipt_review"],
+                            "LaterReview": report["review_record"]["decision"],
+                            "SourceState": report["states"]["source"],
+                            "Authority": report["authority"],
+                            "ReceiptSHA256": report["receipt_sha256"],
+                        }
+                    )
+                self.assertCountEqual(observed, expected)
+
+    def test_visible_cash_rows_and_evidence_boundaries(self) -> None:
+        tree = core.parse_structure(read("evidence/index.html"))
+        sections = [
+            section
+            for section in core.descendants(tree, "section", rendered_only=True)
+            if section.attr("aria-labelledby") == "quarter-close-to-forecast"
+        ]
+        self.assertEqual(len(sections), 1)
+        section = sections[0]
+        visible = [
+            [core.element_text(cell) for cell in core.descendants(row) if cell.tag in {"th", "td"}]
+            for row in core.descendants(section, "tr")
+            if core.descendants(row, "td")
+        ]
+        receipt = json.loads(read(f"{self.case}/native-verification.json"))
+
+        def money(value: str) -> str:
+            amount = Decimal(value)
+            return f"{'-' if amount < 0 else ''}${abs(amount):,.2f}"
+
+        expected = []
+        for month in ("October", "November", "December"):
+            closed = [
+                row for row in receipt["observed"][month] if row["Period"] == row["Cutoff"][:7]
+            ]
+            self.assertEqual(len(closed), 1)
+            row = closed[0]
+            self.assertEqual(row["Basis"], "EVIDENCED_ACTUAL")
+            expected.append(
+                [
+                    month,
+                    money(row["CurrentCash"]),
+                    money(row["OriginalCash"]),
+                    money(row["CashDifference"]),
+                    row["CloseState"],
+                ]
+            )
+        self.assertEqual(visible, expected)
+        text = core.element_text(section)
+        for boundary in (
+            "All business data, transactions and reviewers are fabricated",
+            "compare within a checkpoint and do not sum across checkpoints",
+            "cash shortfall remains unattributed",
+            "close marked REVIEW",
+            "original receipt marked UNREVIEWED",
+            "grants no action authority",
+            "not tax, legal or financial advice",
+        ):
+            with self.subTest(boundary=boundary):
+                self.assertIn(boundary, text)
+
+    def test_download_checksums_cover_all_five_evidence_files(self) -> None:
+        expected = {
+            "2026-10-31.json",
+            "2026-11-30.json",
+            "2026-12-31.json",
+            "native-verification.json",
+            "quarter-monthly.csv",
+        }
+        entries = [line.split("  ", 1) for line in read(f"{self.case}/SHA256SUMS.txt").splitlines()]
+        self.assertCountEqual([name for _, name in entries], expected)
+        for digest, name in entries:
+            with self.subTest(file=name):
+                self.assertRegex(digest, r"^[0-9a-f]{64}$")
+                self.assertEqual(
+                    hashlib.sha256((ROOT / self.case / name).read_bytes()).hexdigest(), digest
+                )
 
 
 class RatesDatasetTests(unittest.TestCase):
