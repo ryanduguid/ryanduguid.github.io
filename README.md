@@ -67,6 +67,7 @@ python scripts/check_site.py
 ```
 
 This builds with Jekyll, checks the build and preview with a small fixture,
+tests CI check selection against the source pages,
 then runs the existing checks against generated HTML in a temporary copy
 containing the repository's test fixtures. The preview serves only `_site/`.
 

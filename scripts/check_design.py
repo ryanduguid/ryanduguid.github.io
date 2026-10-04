@@ -32,8 +32,6 @@ SOURCE_URL_PATTERN = re.compile(r'url\(\s*["\']?([^)"\']+)', re.I)
 FONT_FACE_PATTERN = re.compile(r"@font-face\s*\{(.*?)\}", re.S | re.I)
 LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
-TOKENS_LINK = '<link rel="stylesheet" href="/assets/tokens.css?v=20261001a" />'
-SITE_LINK = '<link rel="stylesheet" href="/assets/site.css?v=20261001c" />'
 # The calculator and question pages add a third stylesheet with the same key, so a
 # stylesheet change reaches returning visitors instead of waiting out the CSS cache.
 ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927c" />'
@@ -801,7 +799,38 @@ def check_homepage_refinement(root: Path) -> list[str]:
     return failures
 
 
+def stylesheet_links(root: Path) -> tuple[str, str]:
+    """Read the quoted release-date version shared by the rendered CSS links."""
+    config = root / JEKYLL_CONFIG
+    if not config.is_file():
+        raise ValueError(f"{JEKYLL_CONFIG}: asset_version configuration is missing")
+    lines = re.findall(r"^asset_version:.*$", config.read_text(encoding="utf-8"), re.M)
+    match = (
+        re.fullmatch(r"asset_version: ([\"'])([0-9]{8}[a-z]*)\1", lines[0])
+        if len(lines) == 1
+        else None
+    )
+    if match is None:
+        raise ValueError(
+            f"{JEKYLL_CONFIG}: expected one quoted asset_version as YYYYMMDD "
+            "with an optional lowercase suffix"
+        )
+    version = match.group(2)
+    try:
+        datetime.strptime(version[:8], "%Y%m%d")
+    except ValueError as error:
+        raise ValueError(f"{JEKYLL_CONFIG}: asset_version must start with a valid date") from error
+    return (
+        f'<link rel="stylesheet" href="/assets/tokens.css?v={version}" />',
+        f'<link rel="stylesheet" href="/assets/site.css?v={version}" />',
+    )
+
+
 def check_document_delivery(root: Path, baseline: dict[str, Any]) -> list[str]:
+    try:
+        tokens_link, site_link = stylesheet_links(root)
+    except ValueError as error:
+        return [str(error)]
     failures: list[str] = []
     indexable = set(baseline.get("json_ld", {}))
     styled = indexable | {"404.html"}
@@ -816,13 +845,13 @@ def check_document_delivery(root: Path, baseline: dict[str, Any]) -> list[str]:
         footer_regions = FOOTER_PATTERN.findall(raw)
         head = active_markup(head_regions[0]) if len(head_regions) == 1 else ""
         footer = active_markup(footer_regions[0]) if len(footer_regions) == 1 else ""
-        token_at = head.find(TOKENS_LINK)
-        site_at = head.find(SITE_LINK)
+        token_at = head.find(tokens_link)
+        site_at = head.find(site_link)
         if (
-            raw.count(TOKENS_LINK) != 1
-            or raw.count(SITE_LINK) != 1
-            or head.count(TOKENS_LINK) != 1
-            or head.count(SITE_LINK) != 1
+            raw.count(tokens_link) != 1
+            or raw.count(site_link) != 1
+            or head.count(tokens_link) != 1
+            or head.count(site_link) != 1
             or token_at > site_at
         ):
             failures.append(f"{rel}: expected one tokens stylesheet before site stylesheet")

@@ -10,11 +10,13 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def build(source: Path = ROOT) -> Path:
+    source = source.resolve()
     destination = source / "_site"
     subprocess.run(
         [
             shutil.which("bundle") or "bundle",
             "exec",
+            f"--gemfile={ROOT / 'Gemfile'}",
             "jekyll",
             "build",
             "--source",
@@ -22,7 +24,7 @@ def build(source: Path = ROOT) -> Path:
             "--destination",
             str(destination),
         ],
-        cwd=ROOT,
+        cwd=source,
         check=True,
     )
     return destination

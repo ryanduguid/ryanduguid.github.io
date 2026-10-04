@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import gzip
+import os
 import tempfile
 import threading
 from http.client import HTTPConnection
@@ -119,20 +120,42 @@ def main() -> None:
         root = Path(directory)
         (root / "_includes").mkdir()
         (root / "_layouts").mkdir()
+        (root / "_layouts/fixture.html").write_text(
+            '<html><head><link rel="modulepreload" href="/assets/fixture.mjs" />'
+            '<link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />'
+            '<link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" /></head>'
+            "<body>{{ content }}</body></html>",
+            encoding="utf-8",
+        )
+        (root / "Gemfile").write_text(
+            'raise "The fixture Gemfile must not replace the repository lock"\n',
+            encoding="utf-8",
+        )
         (root / "_includes/nav.html").write_text(
             '<nav><a href="/"{% if page.url == "/" %} aria-current="page"'
             "{% endif %}>Home</a></nav>",
             encoding="utf-8",
         )
         (root / "index.html").write_text(
-            '---\n---\n{% include nav.html %}<main id="main">Café</main>',
+            '---\nlayout: fixture\n---\n{% include nav.html %}<main id="main">Café</main>',
             encoding="utf-8",
         )
         (root / "robots.txt").write_text("User-agent: *\n", encoding="utf-8")
+        config = 'asset_version: "20300101"\n'
+        (root / "_config.yml").write_text(config, encoding="utf-8")
         rendered = build_site.build(root)
-        expected = '<nav><a href="/" aria-current="page">Home</a></nav>'
-        expected += '<main id="main">Café</main>'
+        expected = '<html><head><link rel="modulepreload" href="/assets/fixture.mjs" />'
+        expected += '<link rel="stylesheet" href="/assets/tokens.css?v=20300101" />'
+        expected += '<link rel="stylesheet" href="/assets/site.css?v=20300101" /></head>'
+        expected += '<body><nav><a href="/" aria-current="page">Home</a></nav>'
+        expected += '<main id="main">Café</main></body></html>'
         assert (rendered / "index.html").read_text(encoding="utf-8") == expected
+        (root / "_config.yml").write_text(config.replace("20300101", "20300102"), encoding="utf-8")
+        expected = expected.replace("20300101", "20300102")
+        relative_rendered = build_site.build(Path(os.path.relpath(root)))
+        # Test assertions; the site checks never run Python with optimisation.
+        assert relative_rendered == root / "_site"  # nosec B101
+        assert (relative_rendered / "index.html").read_text(encoding="utf-8") == expected  # nosec B101
         assert (rendered / "robots.txt").read_text(encoding="utf-8") == "User-agent: *\n"
         assert not (rendered / "_includes").exists()
         server = serve_site.create_server(directory=rendered, port=0)
