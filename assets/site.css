@@ -314,10 +314,12 @@ button {
     border-color var(--motion-standard) var(--ease-standard);
 }
 
+/* The fill does not change on hover, so the border carries the hover cue. */
 @media (hover: hover) {
   .button:hover,
   .link-button:hover,
   button:hover {
+    border-color: var(--colour-ink);
     color: var(--colour-ink);
     background: var(--colour-stamp);
   }
@@ -1598,6 +1600,7 @@ caption {
 
 @media (hover: hover) {
   .route-actions > .button:hover {
+    border-color: var(--colour-ink);
     color: var(--colour-ink);
     background: var(--colour-stamp-strong);
   }
