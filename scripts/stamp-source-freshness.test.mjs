@@ -220,6 +220,13 @@ test('release check refuses a missing published tag or missing release links', a
   ]);
 });
 
+test('release check finds the links in the committed changelog', async () => {
+  const html = readFileSync(join(root, 'changelog', 'index.html'), 'utf8');
+  const failures = await freshness.checkReleases(html, async () => []);
+  assert.ok(failures.length > 0);
+  assert.ok(!failures.includes('no release links found in changelog/index.html'));
+});
+
 test('release lookup follows pagination and refuses an API failure', async () => {
   const requests = [];
   const releases = await freshness.fetchReleases('ryanduguid/example', (command, args, options) => {

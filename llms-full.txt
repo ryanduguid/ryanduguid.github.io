@@ -3185,9 +3185,9 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.3.0. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
+Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
 
-Published 24 August 2026. Last reviewed 29 September 2026.
+Published 24 August 2026. Last reviewed 5 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -3215,7 +3215,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.0 contains 63 skills, including these 10 subcontractor workflows, and all 70 of its validation cards have confirmed results from a whole-card model run. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -3247,11 +3247,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Australian Accounting Skills v0.3.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.0
+- Australian Accounting Skills v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/1776cc31c7041b7263a6c475bd6c2f0bc05984e7/docs/installation.md#tagged-63-workflow-release
+- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
@@ -3592,12 +3592,12 @@ codex mcp add aus-accounting -- uvx aus-accounting-mcp
 
 Skills
 
-Needs Git and Node. Start with the 63 workflows at the recorded v0.3.0 release commit.
+Needs Git and Node. Start with the 65 workflows at the recorded v0.3.1 release commit.
 
 ```
 # Run from the project where you want the released skills
 git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release
-git -C accounting-skills-release checkout --detach 1776cc31c7041b7263a6c475bd6c2f0bc05984e7
+git -C accounting-skills-release checkout --detach 2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034
 npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy
 ```
 
@@ -3607,7 +3607,7 @@ Clone once per project. To repeat or retry from that directory, rerun only the c
 
 Development installation
 
-This command installs the default branch, which can be ahead of the v0.3.0 release.
+This command installs the default branch, which can be ahead of the v0.3.1 release.
 
 ```
 npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills
@@ -3630,7 +3630,7 @@ A fresh clone includes both runtime copies and needs no synchronisation. For ano
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
-The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the recorded v0.3.0 commit. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
+The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the recorded v0.3.1 commit. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -3882,6 +3882,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 5 October 2026 | Wrapped tool and rate titles keep their underline clear of the next line, and on phones the changelog dates wrap so each change has room. Contact and Evaluations keep the usual gap below the page header, and figures in the cash flow comparison tables line up on the right.
+5 October 2026 | Australian Accounting Skills v0.3.1 is the recommended skills release: the Adopt route, the subcontract ledger page, the agent skills manifest and llms.txt move from the 63 workflows of v0.3.0 to the 65 of v0.3.1, which adds client acceptance and working holiday maker workflows. Of its 76 validation cards, 72 have confirmed results from a whole-card model run.
 5 October 2026 | Calculator results show each figure on its own row, beside the inputs on wide screens. Links have a thicker underline, buttons and table headers use the body typeface and touch tablets get 44px link targets. Below about 900px wide the homepage chart spans the page.
 4 October 2026 | Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.
 4 October 2026 | Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.
@@ -3932,6 +3933,7 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+4 October 2026 | Subcontract ledger skills | v0.3.1
 1 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.12
 30 September 2026 | Payday Super timing | payday-super-checker/v0.1.9
 30 September 2026 | Trust distribution checks | solomons-sword/v0.1.10
@@ -3974,6 +3976,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
 - aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
 - payday-super-checker/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
 - solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
