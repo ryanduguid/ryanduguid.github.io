@@ -586,6 +586,12 @@ main p {
   margin-top: 0;
 }
 
+/* A page whose body opens with a heading straight after the header rule
+   (Contact, Evaluations) takes the 32px gap the other pages have there. */
+.article-header + .site-shell > .article-body > h2:first-child {
+  margin-top: var(--space-6);
+}
+
 .evaluation-summary {
   display: grid;
   margin: 0;
@@ -720,6 +726,15 @@ td {
   white-space: nowrap;
 }
 
+/* On phones a one-line date took half the table and left each change about
+   18 characters a line, so the date wraps in a narrow track there. */
+@media (max-width: 40rem) {
+  .changelog-section tbody th {
+    width: 5.5rem;
+    white-space: normal;
+  }
+}
+
 .rate-figures td:nth-child(2),
 .rate-figures th:nth-child(2) {
   text-align: right;
@@ -783,6 +798,12 @@ caption {
 
 .facts--kv th {
   overflow-wrap: anywhere;
+}
+
+/* Tables that compare figures across columns right-align every value column,
+   so cents and thousands line up down each column. */
+.facts--figures :is(th, td):not(:first-child) {
+  text-align: right;
 }
 
 /* A page date after a facts table stands clear of its last rule and of the footer. */
@@ -995,7 +1016,9 @@ caption {
 }
 
 /* Entry titles are heading links. The underline stays at rest so the row's
-   main control reads as one without hovering. */
+   main control reads as one without hovering. At the tight heading leading an
+   8px offset ran through the next line of a wrapped title, so the offset
+   scales with the type and stays inside the gap between lines. */
 .collection-entry__title {
   color: var(--colour-ink);
   font-family: var(--font-display);
@@ -1003,7 +1026,7 @@ caption {
   line-height: var(--leading-heading);
   text-decoration: underline;
   text-decoration-thickness: from-font;
-  text-underline-offset: var(--space-2);
+  text-underline-offset: 0.14em;
 }
 
 /* Entry titles are headings for structure only; they keep the title link's

@@ -4,6 +4,8 @@ import { projectKind } from './project-kind.mjs';
 // Guards for the 5 October 2026 visual refinement pass: result rows that still
 // read as the old sentence, the split calculator view, thicker link underlines,
 // no synthesised bold, and the spacing, alignment and target fixes it made.
+// The same day's review of the live result added the title underline, figure
+// table and phone changelog checks.
 
 const results = [
   ['gst', { amount: '1100', inclusive: true }, 1,
@@ -124,19 +126,59 @@ test('page edges and gaps that the visual evaluation found touching', async ({ p
   expect(routesGap).toBeGreaterThanOrEqual(16);
 
   await page.goto('/changelog/');
-  // A row is as tall as its longest cell, so count the date's own text lines.
-  const dateLines = await page.locator('.changelog-section tbody th').evaluateAll((cells) => cells.slice(0, 5).map((cell) => {
-    const range = document.createRange();
-    range.selectNodeContents(cell);
-    return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
-  }));
-  expect(dateLines).toEqual([1, 1, 1, 1, 1]);
+  if (projectKind(testInfo) === 'desktop') {
+    // A row is as tall as its longest cell, so count the date's own text lines.
+    const dateLines = await page.locator('.changelog-section tbody th').evaluateAll((cells) => cells.slice(0, 5).map((cell) => {
+      const range = document.createRange();
+      range.selectNodeContents(cell);
+      return new Set([...range.getClientRects()].map((rect) => Math.round(rect.top))).size;
+    }));
+    expect(dateLines).toEqual([1, 1, 1, 1, 1]);
+  } else {
+    // On a phone a one-line date had squeezed the change into about 18
+    // characters a line; the date wraps instead and the change keeps most of the row.
+    const share = await page.locator('.changelog-section tbody tr').first().evaluate((row) => (
+      row.querySelector('td').getBoundingClientRect().width / row.getBoundingClientRect().width));
+    expect(share).toBeGreaterThanOrEqual(0.6);
+  }
 
   // The address is in the first screen of an ordinary 1280 by 800 laptop.
   if (projectKind(testInfo) === 'desktop') {
     await page.goto('/contact/');
     const mail = await page.locator('main a[href^="mailto:"]').first().boundingBox();
     expect(mail.y + mail.height).toBeLessThanOrEqual(800);
+  }
+});
+
+// Register titles are underlined at rest and wrap in narrow columns. At the
+// 1.08 heading leading an 8px offset ran through the next line's letters, so
+// the offset plus a 2px stroke must fit between this line's baseline and the
+// next line's ascenders, about 0.8em below the next baseline in Besley.
+test('register title underlines stay clear of the next line', async ({ page }) => {
+  for (const path of ['/tools/', '/rates/', '/evaluate/']) {
+    await page.goto(path);
+    const crowded = await page.locator('.collection-entry__title').evaluateAll((titles) => titles.map((title) => {
+      const style = getComputedStyle(title);
+      const fontSize = parseFloat(style.fontSize);
+      const room = parseFloat(style.lineHeight) - 0.8 * fontSize;
+      return { text: title.textContent.trim(), clear: parseFloat(style.textUnderlineOffset) + 2 <= room };
+    }).filter(({ clear }) => !clear).map(({ text }) => text));
+    expect(crowded, path).toEqual([]);
+  }
+});
+
+// Tables that compare figures right-align every value column so the cents and
+// thousands line up; dates after an amount stay on one line.
+test('figure comparison tables right-align their values', async ({ page }) => {
+  for (const path of ['/examples/profit-vs-cash-flow/', '/evaluate/']) {
+    await page.goto(path);
+    const table = page.locator('table.facts--figures');
+    await expect(table).toHaveCount(1);
+    const misaligned = await table.evaluate((element) => [...element.querySelectorAll('th, td')]
+      .filter((cell) => cell.cellIndex > 0 && getComputedStyle(cell).textAlign !== 'right')
+      .map((cell) => cell.textContent.trim()));
+    expect(misaligned, path).toEqual([]);
+    await expect(table.locator('.nowrap', { hasText: '7 October' })).toHaveCount(1);
   }
 });
 

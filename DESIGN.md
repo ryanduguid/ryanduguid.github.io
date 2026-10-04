@@ -16,6 +16,14 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+Later on 5 October 2026 a review of the live result fixed four slips. Register
+titles take a 0.14em underline offset: at the 1.08 heading leading, an 8px
+offset ran through the next line of a wrapped title. Below 40rem Changelog
+dates wrap in a 5.5rem track, where a one-line date had left each change about
+18 characters a line. A page body that opens with a heading straight after the
+header rule takes the standard 32px gap. Tables that compare figures across
+columns (`facts--figures`) right-align their value columns.
+
 On 5 October 2026 a visual pass applied the evaluation of 4 October. Calculator
 results show each figure as a Coal LSL result row, with tabular mono figures,
 under a 3px accent rule; their text still reads as one sentence for the live

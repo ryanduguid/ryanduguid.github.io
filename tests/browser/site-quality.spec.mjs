@@ -169,6 +169,19 @@ for (const [label, route] of routes) {
     }));
     expect(viewport.scrollWidth).toBeLessThanOrEqual(viewport.clientWidth);
 
+    // A body that opens with a heading keeps the standard gap below the header
+    // rule; on 5 October 2026 Contact and Evaluations had theirs flush against it.
+    const headingGap = await page.evaluate(() => {
+      const header = document.querySelector('main .article-header');
+      if (!header) return null;
+      const bottom = header.getBoundingClientRect().bottom;
+      const first = [...header.closest('main').querySelectorAll('h2, h3, p, li, dl, table, summary, figure, nav')]
+        .filter((element) => !header.contains(element) && element.getBoundingClientRect().height > 0)
+        .find((element) => element.getBoundingClientRect().top >= bottom - 1);
+      return first && /^H[23]$/.test(first.tagName) ? first.getBoundingClientRect().top - bottom : null;
+    });
+    if (headingGap !== null) expect(headingGap, `${route} heading below the header rule`).toBeGreaterThanOrEqual(24);
+
     // Moderate and best-practice findings fail too: the 26 September audit found
     // a landmark gap that a serious-or-critical filter let through on every page.
     const scan = await new AxeBuilder({ page }).analyze();

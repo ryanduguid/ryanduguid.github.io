@@ -8,6 +8,13 @@
   <updated>2026-10-05T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Wrapped tool and rate titles keep their underline clear of the next line, and…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-550e215dcdafdecc</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Wrapped tool and rate titles keep their underline clear of the next line, and on phones the changelog dates wrap so each change has room. Contact and Evaluations keep the usual gap below the page header, and figures in the cash flow comparison tables line up on the right.</summary>
+  </entry>
+  <entry>
     <title>Calculator results show each figure on its own row, beside the inputs on wide…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-cd758ad5cd7323c6</id>

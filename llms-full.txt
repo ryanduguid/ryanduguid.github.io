@@ -3881,6 +3881,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+5 October 2026 | Wrapped tool and rate titles keep their underline clear of the next line, and on phones the changelog dates wrap so each change has room. Contact and Evaluations keep the usual gap below the page header, and figures in the cash flow comparison tables line up on the right.
 5 October 2026 | Calculator results show each figure on its own row, beside the inputs on wide screens. Links have a thicker underline, buttons and table headers use the body typeface and touch tablets get 44px link targets. Below about 900px wide the homepage chart spans the page.
 4 October 2026 | Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.
 4 October 2026 | Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.
