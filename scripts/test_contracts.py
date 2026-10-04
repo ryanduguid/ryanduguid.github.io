@@ -359,23 +359,26 @@ def test_font_repetitive_text() -> None:
     print("repeated font text, controls and script glyph checks passed")
 
 
+STYLESHEET_PAGES = (
+    "index.html",
+    "404.html",
+    "tools/business-calculators/gst/index.html",
+    "tools/accounting-questions/bookkeeping-close/index.html",
+)
+STYLESHEET_BASELINE = {
+    "json_ld": dict.fromkeys(rel for rel in STYLESHEET_PAGES if rel != "404.html")
+}
+
+
 def test_stylesheet_version() -> None:
     """Reject invalid versions and stale CSS links in plain and layout pages."""
-    pages = (
-        "index.html",
-        "404.html",
-        "tools/business-calculators/gst/index.html",
-        "tools/accounting-questions/bookkeeping-close/index.html",
-    )
-    baseline = {"json_ld": dict.fromkeys(rel for rel in pages if rel != "404.html")}
     config = read_text(ROOT, "_config.yml")
     version_line = re.search(r"(?m)^asset_version:.*$", config)
     assert version_line is not None
-    tokens_link, site_link = check_design.stylesheet_links(ROOT)
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         for rel in (
-            *pages,
+            *STYLESHEET_PAGES,
             "_config.yml",
             check_design.PROOF_ASSET,
             check_design.PROOF_MOBILE_ASSET,
@@ -384,76 +387,86 @@ def test_stylesheet_version() -> None:
             target.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(ROOT / rel, target)
         assert_clean(
-            "current stylesheet delivery", check_design.check_document_delivery(root, baseline)
+            "current stylesheet delivery",
+            check_design.check_document_delivery(root, STYLESHEET_BASELINE),
         )
-        for invalid in (
-            "",
-            'asset_version: ""',
-            'asset_version: "20300101A"',
-            'asset_version: "20300101&extra=1"',
-            "asset_version: 20300101",
-            "asset_version: \"20300101'",
-            'asset_version: "20300101"\nasset_version: "20300102"',
-            'asset_version: "20300230"',
-        ):
-            (root / "_config.yml").write_text(
-                changed_text(config, version_line.group(0), invalid), encoding="utf-8"
-            )
-            expect_failure(
-                "invalid stylesheet version",
-                check_design.check_document_delivery(root, baseline),
-                "_config.yml:",
-            )
-        (root / "_config.yml").unlink()
-        expect_failure(
-            "missing stylesheet configuration",
-            check_design.check_document_delivery(root, baseline),
-            "asset_version configuration is missing",
-        )
-        (root / "_config.yml").write_text(config.replace('"', "'"), encoding="utf-8")
-        assert_clean("single-quoted version", check_design.check_document_delivery(root, baseline))
-        (root / "_config.yml").write_text(config, encoding="utf-8")
-        for rel, link in zip(pages, (tokens_link, site_link, tokens_link, site_link), strict=True):
-            original = read_text(root, rel)
-            replace_file(root, rel, link, link.replace("?v=", "?v=stale-"))
-            expect_failure(
-                f"{rel} has a stale stylesheet version",
-                check_design.check_document_delivery(root, baseline),
-                f"{rel}: expected one tokens stylesheet before site stylesheet",
-            )
-            (root / rel).write_text(original, encoding="utf-8")
-        for rel in ("index.html", "tools/business-calculators/gst/index.html"):
-            original = read_text(root, rel)
-            replace_file(
-                root,
-                rel,
-                tokens_link + "\n  " + site_link,
-                site_link + "\n  " + tokens_link,
-            )
-            expect_failure(
-                f"{rel} has reversed stylesheets",
-                check_design.check_document_delivery(root, baseline),
-                f"{rel}: expected one tokens stylesheet before site stylesheet",
-            )
-            (root / rel).write_text(original, encoding="utf-8")
-        (root / "_config.yml").write_text(
-            changed_text(config, version_line.group(0), 'asset_version: "20300101a"'),
-            encoding="utf-8",
-        )
-        expect_failure(
-            "configuration bumped without the rendered pages",
-            check_design.check_document_delivery(root, baseline),
-            "index.html: expected one tokens stylesheet before site stylesheet",
-        )
-        for rel in pages:
-            for old, new in zip(
-                (tokens_link, site_link), check_design.stylesheet_links(root), strict=True
-            ):
-                replace_file(root, rel, old, new)
-        assert_clean(
-            "new configured CSS version", check_design.check_document_delivery(root, baseline)
-        )
+        check_stylesheet_configuration(root, config, version_line.group(0))
+        check_stylesheet_pages(root, config, version_line.group(0))
     print("stylesheet configuration, URL version and ordering checks passed")
+
+
+def check_stylesheet_configuration(root: Path, config: str, version_line: str) -> None:
+    """Reject a missing or malformed asset_version and accept a single-quoted one."""
+    for invalid in (
+        "",
+        'asset_version: ""',
+        'asset_version: "20300101A"',
+        'asset_version: "20300101&extra=1"',
+        "asset_version: 20300101",
+        "asset_version: \"20300101'",
+        'asset_version: "20300101"\nasset_version: "20300102"',
+        'asset_version: "20300230"',
+    ):
+        (root / "_config.yml").write_text(
+            changed_text(config, version_line, invalid), encoding="utf-8"
+        )
+        expect_failure(
+            "invalid stylesheet version",
+            check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+            "_config.yml:",
+        )
+    (root / "_config.yml").unlink()
+    expect_failure(
+        "missing stylesheet configuration",
+        check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+        "asset_version configuration is missing",
+    )
+    (root / "_config.yml").write_text(config.replace('"', "'"), encoding="utf-8")
+    assert_clean(
+        "single-quoted version", check_design.check_document_delivery(root, STYLESHEET_BASELINE)
+    )
+    (root / "_config.yml").write_text(config, encoding="utf-8")
+
+
+def check_stylesheet_pages(root: Path, config: str, version_line: str) -> None:
+    """Reject stale or reversed rendered links and a version bump without fresh pages."""
+    tokens_link, site_link = check_design.stylesheet_links(root)
+    links = (tokens_link, site_link, tokens_link, site_link)
+    for rel, link in zip(STYLESHEET_PAGES, links, strict=True):
+        original = read_text(root, rel)
+        replace_file(root, rel, link, link.replace("?v=", "?v=stale-"))
+        expect_failure(
+            f"{rel} has a stale stylesheet version",
+            check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+            f"{rel}: expected one tokens stylesheet before site stylesheet",
+        )
+        (root / rel).write_text(original, encoding="utf-8")
+    for rel in ("index.html", "tools/business-calculators/gst/index.html"):
+        original = read_text(root, rel)
+        replace_file(root, rel, tokens_link + "\n  " + site_link, site_link + "\n  " + tokens_link)
+        expect_failure(
+            f"{rel} has reversed stylesheets",
+            check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+            f"{rel}: expected one tokens stylesheet before site stylesheet",
+        )
+        (root / rel).write_text(original, encoding="utf-8")
+    (root / "_config.yml").write_text(
+        changed_text(config, version_line, 'asset_version: "20300101a"'), encoding="utf-8"
+    )
+    expect_failure(
+        "configuration bumped without the rendered pages",
+        check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+        "index.html: expected one tokens stylesheet before site stylesheet",
+    )
+    for rel in STYLESHEET_PAGES:
+        for old, new in zip(
+            (tokens_link, site_link), check_design.stylesheet_links(root), strict=True
+        ):
+            replace_file(root, rel, old, new)
+    assert_clean(
+        "new configured CSS version",
+        check_design.check_document_delivery(root, STYLESHEET_BASELINE),
+    )
 
 
 def test_design_contracts() -> int:

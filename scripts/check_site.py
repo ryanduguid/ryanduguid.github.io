@@ -86,6 +86,50 @@ def can_skip_live_links(event: str, paths: list[str], diff: str) -> bool:
     return LINK_MARKERS.search(diff) is None
 
 
+class ParagraphParser(HTMLParser):
+    """Record spans of literal text directly inside paragraphs within plain containers."""
+
+    CONTAINERS = frozenset(
+        {"html", "body", "main", "section", "article", "div", "aside", "header", "footer", "nav"}
+    )
+
+    def __init__(self, source: str) -> None:
+        super().__init__(convert_charrefs=False)
+        self.source = source
+        self.stack: list[str] = []
+        self.spans: list[tuple[int, int]] = []
+        self.offsets = [0, *(match.end() for match in re.finditer("\n", source))]
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag == "p" and "p" in self.stack:
+            raise ValueError("nested paragraph")
+        if tag not in VOID_ELEMENTS:
+            self.stack.append(tag)
+
+    def handle_endtag(self, tag: str) -> None:
+        if not self.stack or self.stack.pop() != tag:
+            raise ValueError("unbalanced tags")
+
+    def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag not in VOID_ELEMENTS:
+            raise ValueError("self-closing non-void tag")
+
+    def handle_data(self, data: str) -> None:
+        if (
+            not self.stack
+            or self.stack[-1] != "p"
+            or not set(self.stack[:-1]) <= self.CONTAINERS
+            or LINK_MARKERS.search(data)
+            or re.search(r"[<>{}\[\]=]", data)
+        ):
+            return
+        line, column = self.getpos()
+        start = self.offsets[line - 1] + column
+        if self.source[start : start + len(data)] != data:
+            raise ValueError("data position mismatch")
+        self.spans.append((start, start + len(data)))
+
+
 def paragraph_structure(source: str) -> str | None:
     """Mask only literal paragraph data, retaining every other source character."""
     prefix = ""
@@ -107,57 +151,8 @@ def paragraph_structure(source: str) -> str | None:
     )
     if re.search(r"\{[{%]|\x00", templates):
         return None
-
-    class ParagraphParser(HTMLParser):
-        def __init__(self) -> None:
-            super().__init__(convert_charrefs=False)
-            self.stack: list[str] = []
-            self.spans: list[tuple[int, int]] = []
-            self.offsets = [0, *(match.end() for match in re.finditer("\n", source))]
-
-        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-            if tag == "p" and "p" in self.stack:
-                raise ValueError("nested paragraph")
-            if tag not in VOID_ELEMENTS:
-                self.stack.append(tag)
-
-        def handle_endtag(self, tag: str) -> None:
-            if not self.stack or self.stack.pop() != tag:
-                raise ValueError("unbalanced tags")
-
-        def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-            if tag not in VOID_ELEMENTS:
-                raise ValueError("self-closing non-void tag")
-
-        def handle_data(self, data: str) -> None:
-            containers = {
-                "html",
-                "body",
-                "main",
-                "section",
-                "article",
-                "div",
-                "aside",
-                "header",
-                "footer",
-                "nav",
-            }
-            if (
-                not self.stack
-                or self.stack[-1] != "p"
-                or not set(self.stack[:-1]) <= containers
-                or LINK_MARKERS.search(data)
-                or re.search(r"[<>{}\[\]=]", data)
-            ):
-                return
-            line, column = self.getpos()
-            start = self.offsets[line - 1] + column
-            if source[start : start + len(data)] != data:
-                raise ValueError("data position mismatch")
-            self.spans.append((start, start + len(data)))
-
     # ponytail: recognise direct paragraph text only; widen for an evidenced prose case.
-    parser = ParagraphParser()
+    parser = ParagraphParser(source)
     try:
         parser.feed(source)
         parser.close()
@@ -295,9 +290,11 @@ def main() -> int:
     )
     rendered = build()
     check_metadata_excluded(rendered)
-    # These read source files: CI selects link checks from source pages, not rendered ones.
-    for test in ("scripts/test_build_site.py", "scripts/test_ci_link_selection.py"):
-        subprocess.run([sys.executable, test], cwd=ROOT, check=True)
+    subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
+    # CI selects link checks from source pages, so this test reads source, not rendered, files.
+    # Fixed arguments: the current interpreter runs a repository test.
+    # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit.dangerous-subprocess-use-audit
+    subprocess.run([sys.executable, "scripts/test_ci_link_selection.py"], cwd=ROOT, check=True)  # nosec B603
     # Add only the tooling and fixtures the checks need beside the built files.
     # Copying public source files here would hide omissions from Jekyll's output.
     with tempfile.TemporaryDirectory() as directory:

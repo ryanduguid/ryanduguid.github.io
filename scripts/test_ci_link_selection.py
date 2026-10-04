@@ -8,6 +8,87 @@ from unittest.mock import patch
 
 import check_site
 
+# Each candidate can change a rendered link, template or front matter value.
+LINK_CHANGING_MERGES = (
+    (
+        "index.html",
+        '<a href="https://example.com/old">Source</a>',
+        '<a href="https://example.com/new">Source</a>',
+    ),
+    ("index.html", '<a href="\nold\n">Source</a>', '<a href="\nnew\n">Source</a>'),
+    (
+        "assets/site.css",
+        "body { background: url(\nold\n); }",
+        "body { background: url(\nnew\n); }",
+    ),
+    (
+        "index.html",
+        "---\nlayout: old\n---\n<p>Text</p>",
+        "---\nlayout: new\n---\n<p>Text</p>",
+    ),
+    ("index.html", "<p>{{ site.old }}</p>", "<p>{{ site.new }}</p>"),
+    ("assets/navigation.mjs", 'const path = "old";', 'const path = "new";'),
+    ("index.html", '<p><img src="\nold\n">Text</p>', '<p><img src="\nnew\n">Text</p>'),
+    ("index.html", "<p>https://example.com/old</p>", "<p>https://example.com/new</p>"),
+    (
+        "index.html",
+        "<style>body { background: u\\72l(\nold\n); }</style>",
+        "<style>body { background: u\\72l(\nnew\n); }</style>",
+    ),
+    (
+        "index.html",
+        '<style>@import "\nold\n";</style>',
+        '<style>@import "\nnew\n";</style>',
+    ),
+    (
+        "index.html",
+        '{% capture target %}<p>old</p>{% endcapture %}<a href="{{ target }}">Link</a>',
+        '{% capture target %}<p>new</p>{% endcapture %}<a href="{{ target }}">Link</a>',
+    ),
+    (
+        "index.html",
+        "---\nvalue: '<p>old</p>'\n---\n<p>Text</p>",
+        "---\nvalue: '<p>new</p>'\n---\n<p>Text</p>",
+    ),
+    ("index.html", "<p><div>old</div></p>", "<p><div>new</div></p>"),
+    ("index.html", "<p>old", "<p>new"),
+    ("index.html", "<template/><p>old</p>", "<template/><p>new</p>"),
+    (
+        "index.html",
+        '<script>const value = "<p>old</p>";</script>',
+        '<script>const value = "<p>new</p>";</script>',
+    ),
+    ("index.html", "<textarea><p>old</p></textarea>", "<textarea><p>new</p></textarea>"),
+    ("index.html", "<template><p>old</p></template>", "<template><p>new</p></template>"),
+    (
+        "index.html",
+        "{% include unknown.html %}<p>old</p>",
+        "{% include unknown.html %}<p>new</p>",
+    ),
+    (
+        "index.html",
+        "\ufeff---\nvalue: '<p>old</p>'\n---\n<p>Text</p>",
+        "\ufeff---\nvalue: '<p>new</p>'\n---\n<p>Text</p>",
+    ),
+    # Only the exact asset version expression, unchanged, is accepted.
+    *(
+        (
+            "index.html",
+            f'<link href="/a.css?v={old}"><p>old</p>',
+            f'<link href="/a.css?v={new}"><p>new</p>',
+        )
+        for old, new in (
+            ("{{ site.asset_version }}", "{{ site.other }}"),
+            ("{{ site.asset_version }}", ""),
+            ("", "{{ site.asset_version }}"),
+            ("{{site.asset_version}}", "{{site.asset_version}}"),
+            ("{{ site.asset_version | escape }}", "{{ site.asset_version | escape }}"),
+            ("{{{ site.asset_version }}}", "{{{ site.asset_version }}}"),
+            ("{{ site.asset_version }}{{ x }}", "{{ site.asset_version }}{{ x }}"),
+        )
+    ),
+)
+
 
 class LiveLinkSelectionTests(unittest.TestCase):
     def merge_decision(
@@ -22,7 +103,8 @@ class LiveLinkSelectionTests(unittest.TestCase):
             root = Path(directory)
 
             def git(*arguments: str) -> None:
-                subprocess.run(
+                # Intentional Git lookup; arguments are fixture data, without a shell.
+                subprocess.run(  # nosec B603, B607
                     [
                         "git",
                         "-c",
@@ -81,85 +163,7 @@ class LiveLinkSelectionTests(unittest.TestCase):
                 self.assertTrue(self.merge_decision(source, changed, path))
 
     def test_real_merges_that_can_change_links_keep_live_checks(self) -> None:
-        for path, before, after in (
-            (
-                "index.html",
-                '<a href="https://example.com/old">Source</a>',
-                '<a href="https://example.com/new">Source</a>',
-            ),
-            ("index.html", '<a href="\nold\n">Source</a>', '<a href="\nnew\n">Source</a>'),
-            (
-                "assets/site.css",
-                "body { background: url(\nold\n); }",
-                "body { background: url(\nnew\n); }",
-            ),
-            (
-                "index.html",
-                "---\nlayout: old\n---\n<p>Text</p>",
-                "---\nlayout: new\n---\n<p>Text</p>",
-            ),
-            ("index.html", "<p>{{ site.old }}</p>", "<p>{{ site.new }}</p>"),
-            ("assets/navigation.mjs", 'const path = "old";', 'const path = "new";'),
-            ("index.html", '<p><img src="\nold\n">Text</p>', '<p><img src="\nnew\n">Text</p>'),
-            ("index.html", "<p>https://example.com/old</p>", "<p>https://example.com/new</p>"),
-            (
-                "index.html",
-                "<style>body { background: u\\72l(\nold\n); }</style>",
-                "<style>body { background: u\\72l(\nnew\n); }</style>",
-            ),
-            (
-                "index.html",
-                '<style>@import "\nold\n";</style>',
-                '<style>@import "\nnew\n";</style>',
-            ),
-            (
-                "index.html",
-                '{% capture target %}<p>old</p>{% endcapture %}<a href="{{ target }}">Link</a>',
-                '{% capture target %}<p>new</p>{% endcapture %}<a href="{{ target }}">Link</a>',
-            ),
-            (
-                "index.html",
-                "---\nvalue: '<p>old</p>'\n---\n<p>Text</p>",
-                "---\nvalue: '<p>new</p>'\n---\n<p>Text</p>",
-            ),
-            ("index.html", "<p><div>old</div></p>", "<p><div>new</div></p>"),
-            ("index.html", "<p>old", "<p>new"),
-            ("index.html", "<template/><p>old</p>", "<template/><p>new</p>"),
-            (
-                "index.html",
-                '<script>const value = "<p>old</p>";</script>',
-                '<script>const value = "<p>new</p>";</script>',
-            ),
-            ("index.html", "<textarea><p>old</p></textarea>", "<textarea><p>new</p></textarea>"),
-            ("index.html", "<template><p>old</p></template>", "<template><p>new</p></template>"),
-            (
-                "index.html",
-                "{% include unknown.html %}<p>old</p>",
-                "{% include unknown.html %}<p>new</p>",
-            ),
-            (
-                "index.html",
-                "\ufeff---\nvalue: '<p>old</p>'\n---\n<p>Text</p>",
-                "\ufeff---\nvalue: '<p>new</p>'\n---\n<p>Text</p>",
-            ),
-            # Only the exact asset version expression, unchanged, is accepted.
-            *(
-                (
-                    "index.html",
-                    f'<link href="/a.css?v={old}"><p>old</p>',
-                    f'<link href="/a.css?v={new}"><p>new</p>',
-                )
-                for old, new in (
-                    ("{{ site.asset_version }}", "{{ site.other }}"),
-                    ("{{ site.asset_version }}", ""),
-                    ("", "{{ site.asset_version }}"),
-                    ("{{site.asset_version}}", "{{site.asset_version}}"),
-                    ("{{ site.asset_version | escape }}", "{{ site.asset_version | escape }}"),
-                    ("{{{ site.asset_version }}}", "{{{ site.asset_version }}}"),
-                    ("{{ site.asset_version }}{{ x }}", "{{ site.asset_version }}{{ x }}"),
-                )
-            ),
-        ):
+        for path, before, after in LINK_CHANGING_MERGES:
             with self.subTest(path=path, before=before):
                 if path.endswith(".html"):
                     before += '\n<a href="/unchanged">Context</a>'

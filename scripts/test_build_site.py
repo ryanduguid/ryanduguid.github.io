@@ -153,8 +153,9 @@ def main() -> None:
         (root / "_config.yml").write_text(config.replace("20300101", "20300102"), encoding="utf-8")
         expected = expected.replace("20300101", "20300102")
         relative_rendered = build_site.build(Path(os.path.relpath(root)))
-        assert relative_rendered == root / "_site"
-        assert (relative_rendered / "index.html").read_text(encoding="utf-8") == expected
+        # Test assertions; the site checks never run Python with optimisation.
+        assert relative_rendered == root / "_site"  # nosec B101
+        assert (relative_rendered / "index.html").read_text(encoding="utf-8") == expected  # nosec B101
         assert (rendered / "robots.txt").read_text(encoding="utf-8") == "User-agent: *\n"
         assert not (rendered / "_includes").exists()
         server = serve_site.create_server(directory=rendered, port=0)
