@@ -77,6 +77,7 @@ MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-10-01"
 MCP_VISIBLE_REVIEW_DATE = "1 October 2026"
 ASSURANCE_ANCHORS = {
+    "quarter-close-to-forecast": "From monthly close to a cash forecast",
     "accepted-upstream-work": "Accepted upstream work",
     "identity-and-credentials": "Identity and credentials",
     "packages-releases-and-repositories": "Packages, releases and repositories",

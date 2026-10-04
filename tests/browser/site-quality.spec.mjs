@@ -94,7 +94,10 @@ const representativeHeightBaseline = {
     // The security policy and Actions table of 30 September replaces two
     // link-chain sentences; its 44px phone targets make it 12,031px. Keep
     // the 234px guard.
-    ['/evidence/', 12265],
+    // The fabricated quarter case of 4 October adds the checked narrative,
+    // three cash rows and six evidence downloads. It measures 14,555px at
+    // 390px; retain the existing 234px allowance above the content height.
+    ['/evidence/', 14789],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -122,7 +125,9 @@ const representativeHeightBaseline = {
     // plus the 234px guard.
     // The security policy and Actions table, 30 September: 8,986px locally,
     // plus the 234px guard.
-    ['/evidence/', 9220],
+    // The same quarter case measures 11,036px at 1440px. Retain the 234px
+    // allowance; the new content accounts for this increase.
+    ['/evidence/', 11270],
   ]),
 };
 
