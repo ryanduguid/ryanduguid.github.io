@@ -283,6 +283,82 @@ def check_metadata_text(html: str, rel: str, failures: list[str]) -> None:
         core.check_referrer_policy(html, rel, failures)
 
 
+def test_copy_reporting() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        page = root / "index.html"
+        text = root / "llms.txt"
+        page.write_text(
+            '<head><meta content="Revolutionizing with seamless" />'
+            '<script type="application/ld+json">'
+            '{"nested":["unlocks",{"description":"\\u0044ELVE"}]}'
+            "</script></head><main>Robust LEVERAGING and seamless 😊</main>",
+            encoding="utf-8",
+        )
+        text.write_text("world-class harness the offer", encoding="utf-8")
+        assert check_design.check_copy(root) == [
+            "index.html: banned visible phrase 'seamless'",
+            "index.html: banned visible phrase 'leverage'",
+            "index.html: banned visible phrase 'robust'",
+            "index.html: decorative emoji is not permitted",
+            "index.html: banned meta phrase 'revolutionise'",
+            "index.html: banned meta phrase 'seamless'",
+            "index.html: banned JSON-LD phrase 'delve'",
+            "index.html: banned JSON-LD phrase 'unlock'",
+            "llms.txt: banned text phrase 'world-class'",
+            "llms.txt: banned text phrase 'harness the'",
+        ]
+        text.write_text("Review", encoding="utf-8")
+        for visible, expected in (
+            (
+                "deep dive into",
+                [
+                    "index.html: banned visible phrase 'dive into'",
+                    "index.html: banned visible phrase 'deep dive'",
+                ],
+            ),
+            ("İNSIGHTS", ["index.html: banned visible phrase 'insights'"]),
+            ("seamlessx leveragedness insightsful", []),
+            ("Review 😊", ["index.html: decorative emoji is not permitted"]),
+        ):
+            page.write_text(f"<main>{visible}</main>", encoding="utf-8")
+            assert check_design.check_copy(root) == expected, visible
+        page.write_text("<main>Review</main>", encoding="utf-8")
+        with patch.object(check_design.re, "search", wraps=re.search) as searches:
+            assert check_design.check_copy(root) == []
+        assert searches.call_count < len(check_design.BANNED_VISIBLE_PATTERNS), (
+            f"clean text still searched every banned pattern: {searches.call_count} searches"
+        )
+        text.unlink()
+        assert check_design.check_copy(root) == ["copy page missing: llms.txt"]
+    print("copy reporting and clean-text work checks passed")
+
+
+def test_font_repetitive_text() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        (root / "assets").mkdir()
+        (root / "index.html").write_text(
+            "<main>" + "Café\x00\x1f" * 5000 + "</main>", encoding="utf-8"
+        )
+        (root / "assets/fixture.mjs").write_text("// β\n", encoding="utf-8")
+        tokens = "@font-face {unicode-range: U+0020-007E;}@font-face {unicode-range: U+0020-00FF;}"
+        with patch.object(check_design, "ord", wraps=ord, create=True) as conversions:
+            failures = check_design.check_font_delivery(root, tokens, {})
+        assert failures == [
+            "font face 1 does not cover visible U+00E9",
+            "font face 2 does not cover visible U+03B2",
+        ], failures
+        assert conversions.call_count < 100, (
+            f"repeated text still converts every character: {conversions.call_count} conversions"
+        )
+        assert (
+            check_design.check_font_delivery(root, "@font-face {unicode-range: U+0020-03FF;}", {})
+            == []
+        )
+    print("repeated font text, controls and script glyph checks passed")
+
+
 def test_design_contracts() -> int:
     """Exercise the main design boundaries against copies of the real site."""
     assert_clean("current design", check_design.check_repository(ROOT))
@@ -2486,6 +2562,8 @@ def test_release_record() -> None:
 
 
 def main() -> None:
+    test_copy_reporting()
+    test_font_repetitive_text()
     test_png_compression()
     test_xero_badge()
     test_release_record()
