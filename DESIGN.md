@@ -489,6 +489,9 @@ The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
 On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
 label are `#DADADA`. Increased-contrast and print styles retain their overrides.
+Printers drop background colours, so print maps the page's ink tokens, mid ink,
+masthead and code ink included, to black on white, and a test holds every
+visible text colour on every page to 4.5:1 against white paper.
 The favicon seal and the social-card template carry the same ink and soft
 ink literals, so their rasters are re-rendered whenever those 2 values
 change.
@@ -600,7 +603,7 @@ At the default desktop text size, the header is sticky, one line and at most 72p
 
 ### Footer
 
-The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom. An ABN line, `Ryan Duguid, ABN 59 834 031 764`, closes the footer below the disclaimer. Directly above it sits the motto, Ex fide fiducia, set in tracked mono capitals. The visible copy is hidden from assistive technology and carries the English meaning (from faith comes confidence) as a native `title` tooltip, which keyboard and touch users cannot open; a visually hidden copy gives screen readers the Latin, marked `lang="la"` and in mixed case so it is spoken as words, followed by that meaning. Machine view leaves the motto out of the footer notes it appends.
+The existing advice disclaimer remains exact. It sits above About, GitHub and Machine-readable index links with a strong top rule. Footer type remains readable at 200% zoom. An ABN line, `Ryan Duguid, ABN 59 834 031 764`, closes the footer below the disclaimer. Directly above it sits the motto, Ex fide fiducia, set in tracked mono capitals. The visible copy is hidden from assistive technology and carries the English meaning (from faith comes confidence) as a native `title` tooltip, which keyboard and touch users cannot open; a visually hidden copy gives screen readers the Latin, marked `lang="la"` and in mixed case so it is spoken as words, followed by that meaning. Machine view leaves the motto out of the footer notes it appends. Print does the same: paper keeps the disclaimer and the ABN line and drops the footer's links and motto. Printed calculator working ends with blank Reviewer and Review date lines, matching those fields in the downloaded question checklist.
 
 ### Buttons and links
 
@@ -712,6 +715,9 @@ Every changed visible sentence must pass these 5 principles:
 5. Visualise in the line. Prefer `READY is not sign-off` and `fund receipt within seven business days` to abstract quality claims.
 
 Banned visible language includes: revolutionise, seamless, cutting-edge, leverage, unlock, delves, landscape, tapestry, in today's fast-paced, decorative AI-powered language, generic `Get started`, emojis, em dashes and en dashes.
+
+When a published figure proves wrong, correct it on its own page with a dated
+note saying what changed, and record the correction in the changelog.
 
 Use Australian English in original prose, with no serial (Oxford) comma unless
 it prevents ambiguity, as the Australian Government Style Manual advises. Preserve exact
@@ -836,6 +842,12 @@ Once a result exists, edits to amounts, branches or bonuses show
 only after a successful calculation, including the existing recalculation
 before printing or adding an employee. The empty notice remains a live
 region so its first update can be announced.
+
+Each business calculator shows a Print working button in its sources panel
+once a result exists; an edit hides the panel and the button with it. The
+business calculator note and the Coal LSL method list invite readers to
+disconnect once the page has loaded and calculate. The browser suite runs
+every calculator offline to keep that invitation true.
 
 Tools uses smaller gaps around its introduction and supporting sections to
 keep the task chooser and delivery labels within the existing page-length

@@ -395,6 +395,20 @@ test('Print working calls the browser print command', async ({ page }) => {
   health.assertHealthy();
 });
 
+test('the calculator still works offline once the page has loaded', async ({ page, context }) => {
+  // The method list invites readers to disconnect and calculate; this keeps that true.
+  const health = observePageHealth(page);
+  await page.goto('/tools/coal-lsl-levy/');
+  await waitForVisualFonts(page);
+  await context.setOffline(true);
+  await page.getByRole('button', { name: 'Load the synthetic example', exact: true }).click();
+  await page.getByRole('button', { name: 'Calculate', exact: true }).click();
+  await expect(page.locator('[data-result-kind="eligible-wages"]'))
+    .toContainText(COAL_LSL_PROOF.expected.eligibleWages);
+  await expect(page.locator('[data-result-kind="levy"]')).toContainText(COAL_LSL_PROOF.expected.levy);
+  health.assertHealthy();
+});
+
 test('printing and the monthly table recalculate from edited inputs', async ({ page }) => {
   const health = observePageHealth(page);
   await page.addInitScript(() => {
@@ -438,6 +452,12 @@ test('print media keeps the working and hides interactive records', async ({ pag
   await expect(page.locator('button:visible')).toHaveCount(0);
   await expect(page.getByLabel('Employee reference', { exact: true })).toBeHidden();
   await expect(page.locator('#employee-table')).toBeHidden();
+  // The printed working keeps the footer's advice boundary and ends with a blank sign-off.
+  await expect(page.locator('.site-footer__inner > p').first()).toContainText('not a registered tax agent');
+  await expect(page.locator('.site-footer__inner > p').first()).toBeVisible();
+  await expect(page.locator('.site-footer__links')).toBeHidden();
+  expect(await page.locator('.site-footer__inner').evaluate((element) =>
+    getComputedStyle(element, '::after').content)).toContain('Review date:');
   health.assertHealthy();
 });
 

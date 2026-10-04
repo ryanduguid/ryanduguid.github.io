@@ -1,1 +1,12 @@
 * text=auto eol=lf
+
+# Written by the build scripts, so GitHub folds them in pull request diffs.
+# Keep committing them. sitemap.xml is edited by hand, and the agent-skills
+# index stays unfolded because its install commands need review.
+llms-full.txt linguist-generated
+index.txt linguist-generated
+.well-known/llms.txt linguist-generated
+feed.xml linguist-generated
+_includes/ozzit-reference.html linguist-generated
+scripts/design_baseline.json linguist-generated
+tests/browser/*-snapshots/** linguist-generated

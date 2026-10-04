@@ -2797,13 +2797,19 @@ input[type="checkbox"] {
     display: none;
   }
 
+  /* Printers drop background colours, so every ink token must read on white. */
   :root {
     color-scheme: light;
     --colour-canvas: var(--colour-print-paper);
     --colour-paper: var(--colour-print-paper);
     --colour-paper-raised: var(--colour-print-paper);
     --colour-ink: var(--colour-print-ink);
+    --colour-ink-mid: var(--colour-print-ink);
     --colour-ink-soft: var(--colour-print-ink);
+    --colour-masthead: var(--colour-print-ink);
+    --colour-code: var(--colour-print-paper);
+    --colour-code-ink: var(--colour-print-ink);
+    --colour-code-comment: var(--colour-print-ink);
     --colour-rule: var(--colour-print-ink);
     --colour-rule-strong: var(--colour-print-ink);
     --colour-stamp: var(--colour-print-ink);
@@ -2826,7 +2832,9 @@ input[type="checkbox"] {
   .chart-dialog,
   .chart-dialog::backdrop,
   .site-header,
-  .site-footer,
+  .site-footer__nav,
+  .site-footer__links,
+  .site-footer__motto,
   .article-crumb,
   .employee-section,
   .legal-content,
@@ -2873,6 +2881,28 @@ input[type="checkbox"] {
     display: block;
     margin-top: var(--space-5);
     font-size: var(--text-small);
+  }
+
+  /* The filled action's paper-coloured text would vanish without its fill. */
+  a.button {
+    color: var(--colour-print-ink);
+  }
+
+  /* Paper keeps the advice boundary and ABN line, as Machine view does. */
+  .site-footer__inner {
+    display: block;
+  }
+
+  .site-footer__motto + p {
+    margin-top: var(--space-3);
+  }
+
+  /* Printed calculator working ends with a blank sign-off for its reviewer. */
+  body:has(form[data-calculator], #calc-form) .site-footer__inner::after {
+    content: "Reviewer: ____________________\A Review date: ____________________";
+    display: block;
+    margin-top: var(--space-5);
+    white-space: pre-line;
   }
 
   .byline a[href^="https://"]::after,

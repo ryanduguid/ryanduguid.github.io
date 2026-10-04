@@ -405,6 +405,36 @@ test('homepage supporting text respects contrast and print overrides while stayi
   }
 });
 
+test('printed pages keep every visible text colour readable on white paper', async ({ page }, testInfo) => {
+  test.skip(projectKind(testInfo) !== 'desktop', 'print colours run once');
+  // Printers drop background colours, so light ink on a dark fill would print white on white.
+  await page.emulateMedia({ media: 'print' });
+  const failures = [];
+  for (const [name, path] of routes) {
+    await page.goto(path);
+    const low = await page.evaluate(() => {
+      const luminance = (colour) => {
+        const [r, g, b] = colour.match(/[\d.]+/g).slice(0, 3).map((value) => {
+          const channel = Number(value) / 255;
+          return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4;
+        });
+        return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      };
+      const found = new Set();
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        const element = node.parentElement;
+        if (!node.textContent.trim() || !element.checkVisibility({ visibilityProperty: true })) continue;
+        const colour = getComputedStyle(element).color;
+        if (1.05 / (luminance(colour) + 0.05) < 4.5) found.add(`${element.tagName.toLowerCase()} ${colour}`);
+      }
+      return [...found];
+    });
+    failures.push(...low.map((item) => `${name}: ${item}`));
+  }
+  expect(failures).toEqual([]);
+});
+
 test('primary navigation order and current states match the collection hierarchy', async ({ page }) => {
   const health = observePageHealth(page);
   for (const [route, currentLabel, currentValue] of currentNavigationCases) {
