@@ -5,6 +5,7 @@ from __future__ import annotations
 import builtins
 import hashlib
 import json
+import os
 import re
 import shutil
 import struct
@@ -35,7 +36,7 @@ def copied_site():
     """Copy committed site inputs without generated or local-only directories."""
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory) / "site"
-        shutil.copytree(ROOT, root, ignore=COPY_IGNORE)
+        shutil.copytree(ROOT, root, ignore=COPY_IGNORE, copy_function=shutil.copyfile)
         yield root
 
 
@@ -281,6 +282,50 @@ def check_metadata_text(html: str, rel: str, failures: list[str]) -> None:
     )
     if re.search(r'<link\s+rel="stylesheet"(?:\s|/?>)', html):
         core.check_referrer_policy(html, rel, failures)
+
+
+def test_html_file_discovery() -> None:
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        public = [
+            "index.html",
+            "about/index.html",
+            "about/nested/page.html",
+            "google-directory.html/nested/index.html",
+            "catalog.html",
+        ]
+        (root / "catalog.html").mkdir()
+        for relative in public[:-1]:
+            page = root / relative
+            page.parent.mkdir(parents=True, exist_ok=True)
+            page.write_text("<main>Review</main>", encoding="utf-8")
+        for relative in (".hidden.html", "google-verification.html", "about/google-check.html"):
+            (root / relative).write_text("excluded", encoding="utf-8")
+        for name in (*core.GENERATED_HTML_DIRECTORIES, ".hidden"):
+            for parent in (root, root / "about"):
+                page = parent / name / "nested/index.html"
+                page.parent.mkdir(parents=True, exist_ok=True)
+                page.write_text("excluded", encoding="utf-8")
+        uppercase = root / "uppercase.HTML"
+        uppercase.write_text("<main>Review</main>", encoding="utf-8")
+        if uppercase.match("*.html"):
+            public.append(uppercase.name)
+        scanner = os.scandir
+
+        def public_scandir(path):
+            relative = Path(path).relative_to(root)
+            assert not any(
+                part.startswith(".") or part in core.GENERATED_HTML_DIRECTORIES
+                for part in relative.parts
+            ), f"HTML discovery entered excluded directory: {relative}"
+            return scanner(path)
+
+        with patch("os.scandir", side_effect=public_scandir):
+            found = core.html_files(root)
+        assert found == sorted(root / name for name in public), found
+        assert core.html_files(root / "missing") == []
+        assert core.html_files(root / "index.html") == []
+    print("public HTML discovery and excluded-directory traversal checks passed")
 
 
 def test_copy_reporting() -> None:
@@ -2673,6 +2718,7 @@ def test_release_record() -> None:
 
 
 def main() -> None:
+    test_html_file_discovery()
     test_stylesheet_version()
     test_copy_reporting()
     test_font_repetitive_text()
