@@ -21,7 +21,8 @@ python scripts/check_site.py
 Use `python scripts/check_site.py --offline` to skip external requests while
 checking the built pages and local links. CI uses `python scripts/check_site.py --ci`:
 pull requests whose changed files contain no links, templates or front matter
-use offline checks. Potential link, template, script or configuration changes
+use offline checks, as do HTML changes limited to plain paragraph text in pages
+whose only Liquid is the shared header, footer and stylesheet version. Potential link, template, script or configuration changes
 keep live checks. Pushes, scheduled
 runs and manual runs keep live checks too. An unavailable merge comparison runs
 the live checks. PRs changing only the six excluded root documents (`AGENTS.md`,
@@ -46,10 +47,13 @@ contracts. TypeScript checks the existing JavaScript without emitting files.
 The compiler cases in `tests/types/calculators.ts` must reject invalid input
 and result types; the Node tests still check validation and rounding.
 
-Stylesheet links carry a shared `v` query value because Cloudflare caches CSS
-for four hours. When changing `assets/tokens.css`, `assets/site.css` or
-`assets/accounting-pages.css`, update that value in the HTML pages, layouts and
-`scripts/check_design.py` so the new HTML requests fresh CSS. Use the release date, adding a suffix for another
+Stylesheet links carry a `v` query value because Cloudflare caches CSS for four
+hours. When changing `assets/tokens.css` or `assets/site.css`, update the quoted
+`asset_version` in `_config.yml` so the new HTML requests fresh CSS. Page and
+layout sources use that setting, and the design checks validate the rendered
+URLs and stylesheet order. When changing `assets/accounting-pages.css`, update
+its value in the layouts and pages that link it and in `scripts/check_design.py`.
+Use the release date as `YYYYMMDD`, adding a lowercase suffix for another
 release on the same day.
 
 The browser job also runs `npm audit --audit-level=high`, including development

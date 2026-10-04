@@ -9,13 +9,19 @@ import shutil
 import subprocess
 import sys
 import tempfile
+from html.parser import HTMLParser
 from pathlib import Path
 
 from build_site import build
+from seo_core import VOID_ELEMENTS
 
 ROOT = Path(__file__).resolve().parents[1]
 METADATA_ROOT_PATHS = frozenset(
     {"AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "DESIGN.md", "README.md", "SECURITY.md"}
+)
+LINK_MARKERS = re.compile(
+    r"https?://|//|href|src|url\s*\(|@import|\\|\]\(|\{[{%]|^[ +\-]---\s*$",
+    re.IGNORECASE | re.MULTILINE,
 )
 CHECKS = (
     (sys.executable, "scripts/test_ozzit_reference.py"),
@@ -24,7 +30,6 @@ CHECKS = (
     (sys.executable, "scripts/test_site_server.py"),
     (sys.executable, "scripts/check_design.py"),
     (sys.executable, "scripts/test_check_links.py"),
-    (sys.executable, "scripts/test_ci_link_selection.py"),
     (sys.executable, "scripts/test_ci_metadata_selection.py"),
     (sys.executable, "scripts/test_search_console.py"),
     (
@@ -78,14 +83,91 @@ def can_skip_live_links(event: str, paths: list[str], diff: str) -> bool:
         }:
             return False
     # Inspect context too: a changed value can sit below an unchanged href or url().
-    return (
-        re.search(
-            r"https?://|//|href|src|url\s*\(|@import|\\|\]\(|\{[{%]|^[ +\-]---\s*$",
-            diff,
-            re.IGNORECASE | re.MULTILINE,
-        )
-        is None
+    return LINK_MARKERS.search(diff) is None
+
+
+def paragraph_structure(source: str) -> str | None:
+    """Mask only literal paragraph data, retaining every other source character."""
+    prefix = ""
+    if source.lstrip("\ufeff \t\r\n").startswith("---") and not source.startswith("---\n"):
+        return None
+    if source.startswith("---\n"):
+        end = source.find("\n---\n", 3)
+        if end < 0:
+            return None
+        prefix, source = source[: end + 5], source[end + 5 :]
+    # The site's header/footer are balanced includes. The exact stylesheet version expression
+    # reads only _config.yml, whose changes keep live checks, and stays in the compared
+    # structure, so base and candidate must match. Other Liquid stays conservative.
+    templates = re.sub(
+        r"\{%\s*include\s+site-(?:header|footer)\.html\s*%\}"
+        r"|(?<!\{)\{\{ site\.asset_version \}\}(?!\})",
+        "",
+        source,
     )
+    if re.search(r"\{[{%]|\x00", templates):
+        return None
+
+    class ParagraphParser(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=False)
+            self.stack: list[str] = []
+            self.spans: list[tuple[int, int]] = []
+            self.offsets = [0, *(match.end() for match in re.finditer("\n", source))]
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            if tag == "p" and "p" in self.stack:
+                raise ValueError("nested paragraph")
+            if tag not in VOID_ELEMENTS:
+                self.stack.append(tag)
+
+        def handle_endtag(self, tag: str) -> None:
+            if not self.stack or self.stack.pop() != tag:
+                raise ValueError("unbalanced tags")
+
+        def handle_startendtag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            if tag not in VOID_ELEMENTS:
+                raise ValueError("self-closing non-void tag")
+
+        def handle_data(self, data: str) -> None:
+            containers = {
+                "html",
+                "body",
+                "main",
+                "section",
+                "article",
+                "div",
+                "aside",
+                "header",
+                "footer",
+                "nav",
+            }
+            if (
+                not self.stack
+                or self.stack[-1] != "p"
+                or not set(self.stack[:-1]) <= containers
+                or LINK_MARKERS.search(data)
+                or re.search(r"[<>{}\[\]=]", data)
+            ):
+                return
+            line, column = self.getpos()
+            start = self.offsets[line - 1] + column
+            if source[start : start + len(data)] != data:
+                raise ValueError("data position mismatch")
+            self.spans.append((start, start + len(data)))
+
+    # ponytail: recognise direct paragraph text only; widen for an evidenced prose case.
+    parser = ParagraphParser()
+    try:
+        parser.feed(source)
+        parser.close()
+    except ValueError:
+        return None
+    if parser.stack or not parser.spans:
+        return None
+    for start, end in reversed(parser.spans):
+        source = source[:start] + "\x00" + source[end:]
+    return prefix + source
 
 
 def ci_offline() -> bool:
@@ -111,9 +193,35 @@ def ci_offline() -> bool:
             text=True,
             check=True,
         ).stdout
-    except subprocess.CalledProcessError:
+        if can_skip_live_links("pull_request", paths, diff):
+            return True
+        if not paths or any(Path(path).suffix != ".html" for path in paths):
+            return False
+        if re.search(
+            r"^(?:old mode|new mode|new file mode|deleted file mode|Binary files|GIT binary patch)",
+            diff,
+            re.MULTILINE,
+        ):
+            return False
+        for path in paths:
+            versions = [
+                # Fixed arguments and intentional runner Git lookup for reviewed repository code.
+                subprocess.run(  # nosec B603, B607
+                    ["git", "show", "--no-textconv", f"{revision}:{path}"],
+                    cwd=ROOT,
+                    capture_output=True,
+                    text=True,
+                    encoding="utf-8",
+                    check=True,
+                ).stdout
+                for revision in ("HEAD^1", "HEAD")
+            ]
+            before, after = (paragraph_structure(version) for version in versions)
+            if versions[0] == versions[1] or before is None or before != after:
+                return False
+    except (subprocess.CalledProcessError, OSError, UnicodeError):
         return False
-    return can_skip_live_links("pull_request", paths, diff)
+    return True
 
 
 def is_metadata_only(event: str, paths: list[str]) -> bool:
@@ -187,7 +295,9 @@ def main() -> int:
     )
     rendered = build()
     check_metadata_excluded(rendered)
-    subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
+    # These read source files: CI selects link checks from source pages, not rendered ones.
+    for test in ("scripts/test_build_site.py", "scripts/test_ci_link_selection.py"):
+        subprocess.run([sys.executable, test], cwd=ROOT, check=True)
     # Add only the tooling and fixtures the checks need beside the built files.
     # Copying public source files here would hide omissions from Jekyll's output.
     with tempfile.TemporaryDirectory() as directory:

@@ -11,6 +11,7 @@ require_front_matter: true
 readme_index:
   enabled: false
 theme: null
+asset_version: "20261001c"
 include:
   - .well-known
 exclude:
