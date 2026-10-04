@@ -161,7 +161,7 @@ export async function fetchReleases(repository, run = execFileSync) {
 }
 
 export async function checkReleases(html, lookup = fetchReleases) {
-  const section = /<section aria-labelledby="tool-releases">([\s\S]*?)<\/section>/.exec(html)?.[1] ?? '';
+  const section = /<section\b[^>]*\baria-labelledby="tool-releases"[^>]*>([\s\S]*?)<\/section>/.exec(html)?.[1] ?? '';
   const links = [...section.matchAll(/<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/g)];
   if (!links.length) return ['no release links found in changelog/index.html'];
   const recorded = new Set(links.map(([, repository, tag]) => `${repository}/${tag}`));
