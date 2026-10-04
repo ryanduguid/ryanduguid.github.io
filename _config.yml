@@ -17,6 +17,8 @@ include:
 exclude:
   - AGENTS.md
   - CLAUDE.md
+  - GATES.md
+  - graft
   - CONTRIBUTING.md
   - Gemfile
   - Gemfile.lock

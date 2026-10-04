@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import gzip
 import os
+import re
 import tempfile
 import threading
 from http.client import HTTPConnection
@@ -73,9 +74,14 @@ def check_site_selection(root: Path | None = None) -> None:
         (".well-known/security.txt", True),
         (".git/config", False),
         ("scripts/test_build_site.py", False),
+        ("GATES.md", False),
+        ("graft/INDEX.md", False),
+        ("graft/scripts/component.md", False),
+        ("graft/graph.json", False),
         ("vendor/bundle/gem.css", False),
         ("_site/index.html", False),
         ("assets/work/report.css", True),
+        ("assets/graft/guide.txt", True),
     ):
         actual = is_site_source(Path(path), include, exclude)
         assert actual is expected, f"{path}: selected={actual}, expected {expected}"
@@ -141,8 +147,27 @@ def main() -> None:
             encoding="utf-8",
         )
         (root / "robots.txt").write_text("User-agent: *\n", encoding="utf-8")
-        config = 'asset_version: "20300101"\n'
-        (root / "_config.yml").write_text(config, encoding="utf-8")
+        # Build with the repository's exclusions, changing only the stylesheet version.
+        config = re.sub(
+            r"(?m)^asset_version:.*$",
+            'asset_version: "20300101"',
+            (build_site.ROOT / CONFIG).read_text(encoding="utf-8"),
+        )
+        (root / CONFIG).write_text(config, encoding="utf-8")
+        (root / "GATES.md").write_text("Internal planning fixture\n", encoding="utf-8")
+        fixture_files = {
+            "graft/INDEX.md": b"Generated index fixture\n",
+            "graft/scripts/component.md": b"Generated component fixture\n",
+            "graft/graph.json": b'{"fixture": true}\n',
+            "assets/graft/guide.txt": b"Public asset fixture\n",
+        }
+        for relative, content in fixture_files.items():
+            path = root / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(content)
+        stale_index = root / "_site/graft/stale.md"
+        stale_index.parent.mkdir(parents=True)
+        stale_index.write_text("Stale index fixture\n", encoding="utf-8")
         rendered = build_site.build(root)
         expected = '<html><head><link rel="modulepreload" href="/assets/fixture.mjs" />'
         expected += '<link rel="stylesheet" href="/assets/tokens.css?v=20300101" />'
@@ -150,7 +175,7 @@ def main() -> None:
         expected += '<body><nav><a href="/" aria-current="page">Home</a></nav>'
         expected += '<main id="main">Café</main></body></html>'
         assert (rendered / "index.html").read_text(encoding="utf-8") == expected
-        (root / "_config.yml").write_text(config.replace("20300101", "20300102"), encoding="utf-8")
+        (root / CONFIG).write_text(config.replace("20300101", "20300102"), encoding="utf-8")
         expected = expected.replace("20300101", "20300102")
         relative_rendered = build_site.build(Path(os.path.relpath(root)))
         # Test assertions; the site checks never run Python with optimisation.
@@ -158,6 +183,12 @@ def main() -> None:
         assert (relative_rendered / "index.html").read_text(encoding="utf-8") == expected  # nosec B101
         assert (rendered / "robots.txt").read_text(encoding="utf-8") == "User-agent: *\n"
         assert not (rendered / "_includes").exists()
+        assert not (rendered / "GATES.md").exists()  # nosec B101
+        assert not (rendered / "graft").exists()  # nosec B101
+        guide = fixture_files["assets/graft/guide.txt"]
+        assert (rendered / "assets/graft/guide.txt").read_bytes() == guide  # nosec B101
+        for relative, content in fixture_files.items():
+            assert (root / relative).read_bytes() == content  # nosec B101
         server = serve_site.create_server(directory=rendered, port=0)
         thread = threading.Thread(target=server.serve_forever, daemon=True)
         thread.start()
