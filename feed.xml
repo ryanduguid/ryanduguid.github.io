@@ -8,6 +8,13 @@
   <updated>2026-10-05T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Wrapped tool and rate titles keep their underline clear of the next line, and…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-550e215dcdafdecc</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Wrapped tool and rate titles keep their underline clear of the next line, and on phones the changelog dates wrap so each change has room. Contact and Evaluations keep the usual gap below the page header, and figures in the cash flow comparison tables line up on the right.</summary>
+  </entry>
+  <entry>
     <title>Australian Accounting Skills v0.3.1 is the recommended skills release: the…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-ef2112639dcfdfa6</id>
