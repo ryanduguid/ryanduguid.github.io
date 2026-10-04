@@ -1122,7 +1122,7 @@ def test_public_contracts() -> int:
         replace_file(
             root,
             contracts.MCP_REL,
-            "checkout --detach 1776cc31c7041b7263a6c475bd6c2f0bc05984e7",
+            "checkout --detach 2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034",
             "checkout v0.2.1",
         )
         expect_failure(
