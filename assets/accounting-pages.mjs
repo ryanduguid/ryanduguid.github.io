@@ -7,6 +7,32 @@ const calendarDate = value => dateFormat.format(new Date(`${value}T00:00:00Z`));
 const percent = value => value === null ? 'undefined (zero base)' : minus(`${value.toFixed(2)}%`);
 const count = (text, noun) => `${Number(text).toLocaleString('en-AU', { maximumFractionDigits: 2 })} ${noun}${Number(text) === 1 ? '' : 's'}`;
 
+// A result shows its figures as labelled rows, and its text still reads as one
+// sentence ("Inputs: ... Label: value. ...") for the live region and the page's
+// text tests. The colon and stop that only the sentence needs stay in the
+// accessibility tree, hidden visually.
+function renderResult(output, result) {
+  const span = (className, text) => {
+    const element = document.createElement('span');
+    element.className = className;
+    if (text !== undefined) element.textContent = text;
+    return element;
+  };
+  const rows = span('result-rows');
+  result.rows.forEach(([label, value], index) => {
+    const row = span(index === result.principal ? 'result-row result-row--principal' : 'result-row');
+    // A figure that reads as a phrase sits under its label.
+    if (/\s/.test(value)) row.classList.add('result-row--stacked');
+    const figure = document.createElement('strong');
+    figure.textContent = value;
+    row.append(span('result-label', label), span('visually-hidden', ':'), ' ', figure, span('visually-hidden', '.'));
+    rows.append(' ', row);
+  });
+  const parts = [span('result-inputs', `Inputs: ${result.inputs}.`), rows];
+  if (result.note) parts.push(' ', span('result-note', `${result.note}.`));
+  output.replaceChildren(...parts);
+}
+
 function download(text, name, type) {
   const url = URL.createObjectURL(new Blob([text], { type }));
   const link = document.createElement('a');
@@ -156,6 +182,8 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
       if (event.target.matches('input, select')) fieldErrors.clearFieldError(event.target);
     });
     const output = form.querySelector('output');
+    // Announce a new result as a whole, in the order the sentence reads.
+    output.setAttribute('aria-atomic', 'true');
     const applied = form.querySelector('.sources-applied');
     if (applied) {
       // The button shows and hides with the sources, so an edit that clears the
@@ -231,50 +259,59 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
       invalidate();
       if (!fieldErrors.reportFirstInvalid(form)) return;
       try {
-        let message;
+        let result;
         switch (form.dataset.calculator) {
           case 'gst': {
             const inclusive = form.elements.namedItem('inclusive').checked;
             const r = calculate.gst(value('amount'), inclusive);
-            message = `Inputs: amount ${money('amount')}, ${inclusive ? 'includes' : 'excludes'} GST. Excluding GST: ${aud(r.net)}. GST: ${aud(r.gst)}. Including GST: ${aud(r.gross)}.`;
+            result = { inputs: `amount ${money('amount')}, ${inclusive ? 'includes' : 'excludes'} GST`, principal: 1,
+              rows: [['Excluding GST', aud(r.net)], ['GST', aud(r.gst)], ['Including GST', aud(r.gross)]] };
             break;
           }
           case 'business-use':
-            message = `Inputs: eligible cost ${money('cost')}, business use ${value('percent')}%. Business-use share: ${aud(calculate.businessUse(value('cost'), value('percent')).share)}.`;
+            result = { inputs: `eligible cost ${money('cost')}, business use ${value('percent')}%`, principal: 0,
+              rows: [['Business-use share', aud(calculate.businessUse(value('cost'), value('percent')).share)]] };
             break;
           case 'margin': {
             const r = calculate.margin(value('sales'), value('cost'));
-            message = `Inputs: sales ${money('sales')}, direct cost ${money('cost')}. Gross profit: ${aud(r.profit)}. Margin: ${percent(r.margin)}. Markup: ${percent(r.markup)}.`;
+            result = { inputs: `sales ${money('sales')}, direct cost ${money('cost')}`,
+              rows: [['Gross profit', aud(r.profit)], ['Margin', percent(r.margin)], ['Markup', percent(r.markup)]] };
             break;
           }
           case 'break-even': {
             const r = calculate.breakEven(value('fixed'), value('price'), value('variable'));
-            message = `Inputs: fixed costs ${money('fixed')}, selling price ${money('price')} per unit, variable cost ${money('variable')} per unit. Contribution per unit: ${aud(r.contribution)}. Break-even: ${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales.`;
+            result = { inputs: `fixed costs ${money('fixed')}, selling price ${money('price')} per unit, variable cost ${money('variable')} per unit`, principal: 1,
+              rows: [['Contribution per unit', aud(r.contribution)], ['Break-even', `${r.units.toLocaleString('en-AU')} whole units, or ${aud(r.sales)} in sales`]] };
             break;
           }
           case 'hourly':
-            message = `Inputs: annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}. Required hourly rate before GST: ${aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)}.`;
+            result = { inputs: `annual costs ${money('cost')}, target profit ${money('profit')}, ${count(value('hours'), 'billable hour')}`, principal: 0,
+              rows: [['Required hourly rate before GST', aud(calculate.hourlyRate(value('cost'), value('profit'), value('hours')).rate)]] };
             break;
           case 'variance': {
             const r = calculate.variance(value('actual'), value('budget'), value('kind'));
-            message = `Inputs: actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}. Actual minus budget: ${aud(r.difference)}. Difference as a share of absolute budget: ${percent(r.percent)}. ${r.effect}.`;
+            result = { inputs: `actual ${money('actual')}, budget ${money('budget')}, figure type ${value('kind')}`, principal: 0,
+              rows: [['Actual minus budget', aud(r.difference)], ['Difference as a share of absolute budget', percent(r.percent)]], note: r.effect };
             break;
           }
           case 'loan': {
             const r = calculate.loan(value('principal'), value('rate'), value('months'));
-            message = `Inputs: principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}. Monthly payment: ${aud(r.payment)}. First payment interest: ${aud(r.firstInterest)}. First payment principal: ${aud(r.firstPrincipal)}. Estimated total interest: ${aud(r.totalInterest)}.`;
+            result = { inputs: `principal ${money('principal')}, ${value('rate')}% annual nominal rate, ${count(value('months'), 'monthly payment')}`, principal: 0,
+              rows: [['Monthly payment', aud(r.payment)], ['First payment interest', aud(r.firstInterest)], ['First payment principal', aud(r.firstPrincipal)], ['Estimated total interest', aud(r.totalInterest)]] };
             break;
           }
           case 'staff': {
             const r = calculate.staffCost(value('wages'), value('super'), value('other'));
-            message = `Inputs: wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}. Annual staff cost: ${aud(r.annual)}. Monthly average: ${aud(r.monthly)}.`;
+            result = { inputs: `wages ${money('wages')}, super ${money('super')}, other costs ${money('other')}`, principal: 0,
+              rows: [['Annual staff cost', aud(r.annual)], ['Monthly average', aud(r.monthly)]] };
             break;
           }
           case 'cash': {
             const weeks = Array.from({ length: 13 }, (_, i) => ({ receipts: value(`receipts-${i + 1}`), payments: value(`payments-${i + 1}`) }));
             const dates = calculate.cashWeekDates(value('start-date'));
             const r = calculate.cashForecast(value('opening'), weeks, value('buffer'), { week: value('week'), amount: value('amount'), delay: value('delay') });
-            message = `Inputs: week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${count(value('delay'), 'week')}. Closing cash: ${aud(r.closing)}. Lowest opening or weekly closing balance: ${aud(r.minimum)}. Funding gap to the buffer: ${aud(r.funding)}. Receipts deferred beyond week 13: ${aud(r.deferred)}.`;
+            result = { inputs: `week 1 from ${calendarDate(value('start-date'))}, opening cash ${money('opening')}, buffer ${money('buffer')}, receipt of ${money('amount')} in week ${value('week')} delayed ${count(value('delay'), 'week')}`,
+              rows: [['Closing cash', aud(r.closing)], ['Lowest opening or weekly closing balance', aud(r.minimum)], ['Funding gap to the buffer', aud(r.funding)], ['Receipts deferred beyond week 13', aud(r.deferred)]] };
             const body = form.querySelector('#cash-results tbody');
             body.replaceChildren();
             for (const row of r.rows) {
@@ -301,7 +338,7 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
           }
           default: throw new Error('Unknown calculator.');
         }
-        output.textContent = message;
+        renderResult(output, result);
         form.dataset.calculated = 'true';
         if (applied) {
           // The panel names the rule and the figures behind this result; a

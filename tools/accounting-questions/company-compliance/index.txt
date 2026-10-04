@@ -24,8 +24,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Companies and trusts
-
 81.
 
 ### Does my company qualify for the lower company tax rate?

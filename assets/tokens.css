@@ -144,6 +144,10 @@
   --rule-thin: 0.0625rem;
   --rule-strong: 0.1875rem;
 
+  /* Ordinary text links: the accent underline is thick enough to read at rest. */
+  --link-underline-thickness: max(2px, 0.12em);
+  --link-underline-offset: 0.2em;
+
   --motion-fast: 120ms;
   --motion-standard: 160ms;
   --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);

@@ -107,7 +107,11 @@ const representativeHeightBaseline = {
     ['/', homeHeightBaseline.desktop],
     // Tools renders at 5,386px in Chromium CI run 35598730192 after the
     // Excel chooser row and calculator shortcut. Retain the 234px guard.
-    ['/tools/', 5620],
+    // Later content had used most of that guard: on 5 October main measured
+    // 5,611px, 9px under this ceiling. The gap added that day between the
+    // starting routes and the note after them measures 24px (5,635px), so the
+    // ceiling rises by 24px and keeps the same 9px allowance.
+    ['/tools/', 5644],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.

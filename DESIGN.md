@@ -16,6 +16,21 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 5 October 2026 a visual pass applied the evaluation of 4 October. Calculator
+results show each figure as a Coal LSL result row, with tabular mono figures,
+under a 3px accent rule; their text still reads as one sentence for the live
+region. The eight compact calculators put the result and its sources beside the
+inputs from 56.0625rem, and the cash forecast keeps one column for its tables.
+Ordinary links take an accent underline of 2px or 0.12em, whichever is thicker,
+from tokens.css. Buttons and table headers use Public Sans SemiBold, the face
+the typography section assigns to controls and tables, and
+`font-synthesis-weight: none` keeps the browser from faking a bold that no font
+file ships. Standalone links reach 44px on phones and wherever the primary
+pointer is coarse, such as a tablet. Below 56.0625rem the homepage chart spans
+the column under the case text. The topic page byline sits inside the content
+column and the calculators hub uses register rows. Section boundaries keep one
+rule and their standard gap.
+
 On 4 October 2026 Ryan replaced the green accent with Royal Purple (#990024).
 The black canvas remains. Filled controls, selected results, rules, the favicon,
 social cards and cash series use that exact colour. Ivory text and focus outlines

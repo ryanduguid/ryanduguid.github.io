@@ -67,6 +67,12 @@
   margin-bottom: var(--space-3);
 }
 
+/* The method heading starts a new part of the page, so it takes a section
+   gap below the result. */
+.business-calculator > h2 {
+  margin-top: var(--space-7);
+}
+
 /* The questions come first, so the tools and the group heading sit close to the header. */
 .question-controls.question-tools {
   margin-block: var(--space-3) 0;
@@ -96,15 +102,42 @@
   margin-top: var(--space-4);
 }
 
+/* A dashed edge tells an unavailable control from an enabled one without
+   relying on the softer text colour alone. */
 .accounting-page button:disabled {
   color: var(--colour-ink-soft);
   background: var(--colour-paper);
   border-color: var(--colour-rule-strong);
+  border-style: dashed;
   cursor: default;
 }
 
 .question-group {
   margin-top: var(--space-7);
+}
+
+/* On the questions hub each topic heading is a link; its review line sits
+   clear of the underline. On a topic page the closing links follow the
+   group with a section gap. */
+.question-group > h2 + .topic-review {
+  margin-top: var(--space-3);
+}
+
+/* Heading links take the register's title underline, as entry titles do. */
+.question-group > h2 > a {
+  text-decoration-color: currentColor;
+  text-decoration-thickness: from-font;
+  text-underline-offset: var(--space-2);
+}
+
+.question-group + p {
+  margin-top: var(--space-6);
+}
+
+/* An inline error spans the field row under the field that failed, so it
+   does not take a neighbouring field's cell. */
+.form-grid > .field-error {
+  grid-column: 1 / -1;
 }
 
 .question {
@@ -170,12 +203,107 @@
   margin-top: var(--space-4);
 }
 
+/* The result is the record the reader came for: an accent rule over the
+   inputs line, then its figures as the Coal LSL page's result rows. */
 .accounting-page output {
   display: block;
+  container-type: inline-size;
   padding: var(--space-4);
   margin-block: var(--space-4);
   border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-top: var(--rule-strong) solid var(--colour-stamp);
   font-variant-numeric: tabular-nums;
+}
+
+.result-inputs {
+  display: block;
+  color: var(--colour-ink-soft);
+  font-size: var(--text-small);
+}
+
+.result-rows {
+  display: grid;
+  margin-top: var(--space-2);
+}
+
+/* Labels and figures break only between words, never inside one. A figure
+   that reads as a phrase, such as break-even units and sales, sits under its
+   label. */
+.accounting-page output .result-row {
+  grid-template-columns: minmax(min-content, 1fr) minmax(0, auto);
+}
+
+.accounting-page output .result-row > * {
+  overflow-wrap: normal;
+}
+
+.accounting-page output .result-row strong {
+  white-space: normal;
+}
+
+.accounting-page output .result-row--stacked {
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-1);
+}
+
+.accounting-page output .result-row--stacked strong {
+  text-align: left;
+}
+
+.accounting-page output .result-row:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.result-row--principal {
+  font-size: var(--text-lead);
+}
+
+.result-note {
+  display: block;
+  margin-top: var(--space-3);
+  font-weight: 600;
+}
+
+/* A phone-width panel puts each figure under its label, so a long label
+   cannot squeeze the figure beside it. */
+@container (max-width: 26rem) {
+  .accounting-page output .result-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+
+  .accounting-page output .result-row strong {
+    text-align: left;
+  }
+}
+
+/* The compact calculators opt in to a split view on wide screens: inputs on
+   the left, the result and its sources on the right. Source order stays
+   fieldset, result, sources, so reading and keyboard order do not change,
+   and print keeps one column. */
+@media screen and (min-width: 56.0625rem) {
+  .accounting-page form.calculator-split {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    column-gap: var(--space-7);
+    align-items: start;
+    max-width: none;
+  }
+
+  .calculator-split > fieldset {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .calculator-split > output,
+  .calculator-split > .sources-applied {
+    grid-column: 2;
+  }
+
+  .calculator-split > output {
+    margin-top: 0;
+  }
 }
 
 .cash-scroll {
@@ -233,6 +361,33 @@
 .calculator-list li + li,
 .question-index li + li {
   margin-top: 0;
+}
+
+/* The calculators hub reads as a register like Tools: each name is a title
+   link, with what the calculator works out beside it on wide screens. */
+.calculator-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.accounting-page .calculator-list li {
+  display: grid;
+  gap: var(--space-2);
+  max-width: none;
+  padding-block: var(--space-4);
+}
+
+.calculator-list .collection-entry__title {
+  justify-self: start;
+  font-size: var(--text-lead);
+}
+
+@media (min-width: 56.0625rem) {
+  .accounting-page .calculator-list li {
+    grid-template-columns: minmax(14rem, 0.6fr) minmax(0, 1fr);
+    gap: var(--space-6);
+    align-items: baseline;
+  }
 }
 
 /* Phones: the first control of a calculator or question page has to land inside
