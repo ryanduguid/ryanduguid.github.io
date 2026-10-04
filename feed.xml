@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-04T00:00:00Z</updated>
+  <updated>2026-10-05T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Calculator results show each figure on its own row, beside the inputs on wide…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-cd758ad5cd7323c6</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Calculator results show each figure on its own row, beside the inputs on wide screens. Links have a thicker underline, buttons and table headers use the body typeface and touch tablets get 44px link targets. Below about 900px wide the homepage chart spans the page.</summary>
+  </entry>
   <entry>
     <title>Each business calculator offers Print working once it shows a result, and a…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

@@ -34,7 +34,7 @@ LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 # The calculator and question pages add a third stylesheet with the same key, so a
 # stylesheet change reaches returning visitors instead of waiting out the CSS cache.
-ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927c" />'
+ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20261005a" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (

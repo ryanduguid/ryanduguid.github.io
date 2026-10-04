@@ -3830,7 +3830,7 @@ Source: https://duguid.com.au/contact/
 
 # Contact
 
-Email feedback on any tool, example or evaluation, including a result you could not reproduce.
+Email feedback on any tool, example or evaluation, including a result you could not reproduce, to ryan@duguid.com.au.
 
 For professional connections, find me on LinkedIn. You can also review my accounting work samples.
 
@@ -3881,6 +3881,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+5 October 2026 | Calculator results show each figure on its own row, beside the inputs on wide screens. Links have a thicker underline, buttons and table headers use the body typeface and touch tablets get 44px link targets. Below about 900px wide the homepage chart spans the page.
 4 October 2026 | Each business calculator offers Print working once it shows a result, and a printed calculator ends with blank Reviewer and Review date lines.
 4 October 2026 | Printed pages keep the footer’s advice boundary and ABN line. Lead notes, short answers, code and filled buttons now print in black, where some had printed pale grey or white on white.
 4 October 2026 | The calculator pages explain how to check that figures stay in the browser: disconnect from the internet once the page has loaded, then calculate.
@@ -3967,7 +3968,7 @@ Date | Tool | Release
 
 Each release links its tagged source. The evaluations record which releases were tested against fictional inputs, and the evidence register records identity, source and release assurance.
 
-Published 30 August 2026. Last reviewed 4 October 2026.
+Published 30 August 2026. Last reviewed 5 October 2026.
 
 ## Links
 
@@ -4481,8 +4482,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Tax returns
-
 1.
 
 ### What will my income tax bill be?
@@ -4746,8 +4745,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Deductions
-
 11.
 
 ### How do I calculate my working-from-home deduction?
@@ -5002,8 +4999,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Starting a business
-
 21.
 
 ### Do I need an ABN for freelance or contracting work?
@@ -5256,8 +5251,6 @@ Clear filters Download selected checklist Print selected checklist Clear selecti
 Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
-
-## GST and BAS
 
 31.
 
@@ -5519,8 +5512,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Payroll and super
-
 41.
 
 ### How much super must I pay, and which earnings count towards it?
@@ -5778,8 +5769,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Bookkeeping and close
-
 51.
 
 ### Why does my Xero bank balance differ from my bank statement?
@@ -6013,8 +6002,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Cash flow
-
 61.
 
 ### How do I build a 13-week cash flow forecast?
@@ -6243,8 +6230,6 @@ Clear filters Download selected checklist Print selected checklist Clear selecti
 Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
-
-## Management reporting
 
 71.
 
@@ -6475,8 +6460,6 @@ Clear filters Download selected checklist Print selected checklist Clear selecti
 Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
-
-## Companies and trusts
 
 81.
 
@@ -6741,8 +6724,6 @@ Clear filters Download selected checklist Print selected checklist Clear selecti
 Selections remain when you filter. They clear on reload. The downloaded checklist includes your selected questions, steps, limits and links.
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
-
-## Investments and NSW
 
 91.
 

@@ -24,8 +24,6 @@ Selections remain when you filter. They clear on reload. The downloaded checklis
 
 All 10 answers are available below. JavaScript adds search, selection and checklist downloads.
 
-## Cash flow
-
 61.
 
 ### How do I build a 13-week cash flow forecast?

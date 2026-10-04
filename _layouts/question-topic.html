@@ -39,7 +39,7 @@
   <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
   <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
 
-  <link rel="stylesheet" href="/assets/accounting-pages.css?v=20260927c" />
+  <link rel="stylesheet" href="/assets/accounting-pages.css?v=20261005a" />
   <script type="module" src="/assets/accounting-pages.mjs"></script>
 </head>
 <body>
@@ -77,7 +77,7 @@
         <noscript><p>All {{ questions | size }} answers are available below. JavaScript adds search, selection and checklist downloads.</p></noscript>
         {% capture question_sections %}
         <section class="question-group" id="{{ topic.id }}" data-topic="{{ topic.id }}">
-          <h2>{{ topic.label | escape }}</h2>
+          <h2 class="visually-hidden">Questions</h2>
           {% for question in questions %}
           {% assign source = site.data.accounting_questions.sources[question.source] %}
           {% assign tool = site.data.accounting_questions.tools[question.tool] %}
@@ -102,12 +102,12 @@
         <nav class="question-topics" aria-label="Other topics"><ul>{% for other in site.data.accounting_questions.topics %}{% if other.id != topic.id %}
           <li><a href="/tools/accounting-questions/{{ other.id }}/">{{ other.label | escape }}</a></li>{% endif %}{% endfor %}
         </ul></nav>
-      </div>
-      <div class="byline">
-        <p>The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
-        <p>Written by Ryan Duguid in his own time and on his own equipment.
-        He is a Provisional CA ANZ Member.
-        CA ANZ has not endorsed this site or its tools.</p>
+        <div class="byline">
+          <p>The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.</p>
+          <p>Written by Ryan Duguid in his own time and on his own equipment.
+          He is a Provisional CA ANZ Member.
+          CA ANZ has not endorsed this site or its tools.</p>
+        </div>
       </div>
     </article>
   </main>

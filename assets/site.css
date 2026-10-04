@@ -24,6 +24,8 @@ body {
   font-size: var(--text-body);
   line-height: var(--leading-body);
   text-rendering: optimizeLegibility;
+  /* Every weight in use has its own font file, so the browser never fakes a bold. */
+  font-synthesis-weight: none;
 }
 
 img,
@@ -50,8 +52,8 @@ select {
 a {
   color: var(--colour-ink);
   text-decoration-color: var(--colour-stamp);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
+  text-decoration-thickness: var(--link-underline-thickness);
+  text-underline-offset: var(--link-underline-offset);
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
   transition:
@@ -302,7 +304,7 @@ button {
   border-radius: var(--radius-control);
   color: var(--colour-ink);
   background: var(--colour-stamp-strong);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-small);
   font-weight: 600;
   line-height: 1.2;
@@ -708,19 +710,32 @@ td {
   white-space: nowrap;
 }
 
+/* Each changelog table opens under its own heading, clear of the header rule
+   above and the table's rule below, and its dates stay on one line. */
+.changelog-section > .section-title {
+  margin-block: var(--space-6) var(--space-4);
+}
+
+.changelog-section tbody th {
+  white-space: nowrap;
+}
+
 .rate-figures td:nth-child(2),
 .rate-figures th:nth-child(2) {
-  font-family: var(--font-mono);
   text-align: right;
+}
+
+/* Figures are set in mono; their column header stays with the other headers. */
+.rate-figures td:nth-child(2) {
+  font-family: var(--font-mono);
 }
 
 th {
   color: var(--colour-ink-soft);
   background: var(--colour-paper);
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--text-caption);
   font-weight: 600;
-  letter-spacing: 0.02em;
   overflow-wrap: normal;
 }
 
@@ -768,6 +783,11 @@ caption {
 
 .facts--kv th {
   overflow-wrap: anywhere;
+}
+
+/* A page date after a facts table stands clear of its last rule and of the footer. */
+.facts + .page-meta {
+  margin-block: var(--space-5) var(--space-8);
 }
 
 .receipt-sensitivity td {
@@ -987,12 +1007,13 @@ caption {
 }
 
 /* Entry titles are headings for structure only; they keep the title link's
-   own measure rather than the heading tracking and balanced wrapping. An h3
-   entry sits under a group h2, so it takes the next step down the scale. */
+   own measure rather than the heading tracking and balanced wrapping, but
+   avoid leaving one word alone on the last line. An h3 entry sits under a
+   group h2, so it takes the next step down the scale. */
 .collection-entry > h2,
 .collection-entry > h3 {
   letter-spacing: normal;
-  text-wrap: wrap;
+  text-wrap: pretty;
 }
 
 .collection-entry > h2 {
@@ -1060,6 +1081,11 @@ caption {
 .task-routes h2 {
   padding-bottom: var(--space-3);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
+}
+
+/* The note after the routes starts clear of the last route's rule. */
+.task-routes + .site-shell {
+  padding-top: var(--space-5);
 }
 
 .work-chooser {
@@ -1202,7 +1228,9 @@ caption {
   border-color: var(--colour-rule-strong);
   color: var(--colour-ink-soft);
   background: var(--colour-code);
+  font-family: var(--font-mono);
   font-size: var(--text-caption);
+  font-weight: 400;
   letter-spacing: var(--tracking-label);
   text-transform: uppercase;
 }
@@ -1473,7 +1501,9 @@ caption {
   }
 }
 
-@media (max-width: 40rem) {
+/* Below the two-column hero the chart takes the full width under the case
+   text; a half-width column shrank its axis labels to about 5px on tablets. */
+@media (max-width: 56rem) {
   .home-case {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -1496,10 +1526,6 @@ caption {
 .home-tool-preview > header {
   padding-bottom: var(--space-5);
   border-bottom: var(--rule-strong) solid var(--colour-ink);
-}
-
-.home-tool-preview__list {
-  border-top: var(--rule-thin) solid var(--colour-rule-strong);
 }
 
 .home-tool-preview__entry {
@@ -1621,8 +1647,8 @@ caption {
   color: var(--colour-ink);
   text-decoration: underline;
   text-decoration-color: var(--colour-stamp);
-  text-decoration-thickness: 0.08em;
-  text-underline-offset: 0.18em;
+  text-decoration-thickness: var(--link-underline-thickness);
+  text-underline-offset: var(--link-underline-offset);
 }
 
 .route-actions > a span,
@@ -2187,6 +2213,14 @@ input[type="checkbox"] {
   font-size: var(--text-small);
 }
 
+/* The message names the error; the field's own border shows which one failed. */
+.field input[aria-invalid="true"],
+.field select[aria-invalid="true"],
+.bonus-row input[aria-invalid="true"],
+.bonus-row select[aria-invalid="true"] {
+  border-color: var(--colour-alert);
+}
+
 .bonus-row {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(9rem, 0.7fr) auto;
@@ -2284,6 +2318,7 @@ input[type="checkbox"] {
 .result-row strong {
   color: var(--colour-ink);
   font-family: var(--font-mono);
+  font-weight: 400;
   font-variant-numeric: tabular-nums;
   text-align: right;
   white-space: nowrap;
@@ -2579,6 +2614,14 @@ input[type="checkbox"] {
     display: none;
   }
 
+  /* On phones the suffix is hidden, so the home link can take a flex 44px target. */
+  .site-identity {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
   .site-nav {
     flex-wrap: wrap;
     justify-content: space-between;
@@ -2599,42 +2642,8 @@ input[type="checkbox"] {
     padding-inline: var(--space-1);
   }
 
-  .home-hero__actions a,
-  .home-tool-preview__entry a,
-  .proof-feature__links a,
-  .collection-entry__title,
-  .collection-entry__links a,
-  .article-toc a,
-  .site-identity,
-  .related > li > a,
-  .article-body .sources > li > a,
-  .legal-content .sources > li > a,
-  .install-panel > p > a,
-  .business-calculator > p > a,
-  .question-group h2 a,
-  .question-index a,
-  .site-footer__nav a,
-  .site-footer__links a,
-  tbody :is(td, th) > a {
-    display: inline-flex;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    align-items: center;
-  }
-
   .site-footer__links a {
     justify-self: start;
-  }
-
-  /* The 44px target overlaps the plain text above and below it, so the crumb
-     line keeps its height and the page below does not move. */
-  .article-crumb a {
-    display: inline-flex;
-    min-width: 2.75rem;
-    min-height: 2.75rem;
-    margin-block: calc((1.5em - 2.75rem) / 2);
-    align-items: center;
-    justify-content: center;
   }
 
   /* Notes carry instructions and privacy terms, so they keep body size. */
@@ -2779,6 +2788,46 @@ input[type="checkbox"] {
   .site-footer__links a,
   .site-footer__nav a {
     padding-block: var(--space-2);
+  }
+}
+
+/* Touch targets: on phones and on any coarse pointer, such as a tablet in
+   either orientation, standalone links reach 44px. */
+@media (max-width: 40rem), (pointer: coarse) {
+  .home-hero__actions a,
+  .home-tool-preview__entry a,
+  .proof-feature__links a,
+  .collection-entry__title,
+  .collection-entry__links a,
+  .article-toc a,
+  .related > li > a,
+  .article-body .sources > li > a,
+  .legal-content .sources > li > a,
+  .install-panel > p > a,
+  .business-calculator > p > a,
+  .question-group h2 a,
+  .question-index a,
+  .site-footer__nav a,
+  .site-footer__links a,
+  tbody :is(td, th) > a,
+  .article-actions > a:not(.button),
+  .credential-card__links a,
+  .page-404 .links a {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    align-items: center;
+  }
+
+  /* The 44px target overlaps the plain text above and below it, so the crumb
+     line keeps its height and the page below does not move. */
+  .article-crumb a {
+    display: inline-flex;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    margin-block: calc((1.5em - 2.75rem) / 2);
+    align-items: center;
+    justify-content: center;
   }
 }
 
