@@ -101,7 +101,7 @@ PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
 UNICODE_RANGE_PATTERN = re.compile(r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I)
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
-FAVICON_COLOURS = frozenset({"#000000", "#f2f2f2", "#4dff88"})
+FAVICON_COLOURS = frozenset({"#000000", "#f2f2f2", "#990024"})
 FAVICON_GEOMETRY_ATTRIBUTES = ("x", "y", "width", "height", "rx", "ry")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
@@ -399,7 +399,6 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
     for token in (
         "--colour-ink",
         "--colour-ink-soft",
-        "--colour-stamp",
         "--colour-alert",
     ):
         value = properties.get(token)
@@ -407,6 +406,14 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
+    for token in ("--colour-stamp", "--colour-stamp-strong"):
+        if properties.get(token) != "#990024":
+            failures.append(f"{token} must be Royal Purple #990024")
+    stamp = properties.get("--colour-stamp")
+    ink = properties.get("--colour-ink")
+    if stamp == "#990024" and ink and re.fullmatch(r"#[0-9a-f]{6}", ink):
+        if contrast_ratio(ink, stamp) < 4.5:
+            failures.append("ink contrast on filled accent must be at least 4.5:1")
     display = properties.get("--text-display", "")
     display_minimum = re.match(r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", display)
     if display_minimum is None or float(display_minimum.group(1)) > 2.5:

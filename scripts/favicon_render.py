@@ -1,8 +1,7 @@
 """Render the register seal into the site's chosen raster favicon sizes.
 
-The seal is rendered from ``assets/favicon.svg`` at exact integer scales. Every
-shipped raster therefore comes from one source drawing and stays crisp: no
-resampling, no antialiasing, no hand-edited copies drifting from the SVG.
+The seal is rendered from ``assets/favicon.svg`` at whole-pixel coordinates.
+The 180px touch icon rounds the grid coordinates. No raster is resampled.
 """
 
 from __future__ import annotations
@@ -16,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE = "assets/favicon.svg"
 # The 48px and 96px icons are declared in every page head; 96px also exceeds
 # Google's recommended 48px size. The 32px icon stays for browser tabs.
-PNG_SIZES = (32, 48, 96)
+PNG_SIZES = (32, 48, 96, 180)
 # Frames inside /favicon.ico for clients that request the root icon.
 ICO_SIZES = (16, 32, 48)
 ICO_TARGET = "favicon.ico"
@@ -100,6 +99,8 @@ def parse_seal(svg_text: str) -> tuple[int, tuple[tuple[int, int, int, int, byte
 
 def _scale(value: int, grid: int, size: int, label: str) -> int:
     product = value * size
+    if size == 180:
+        return round(product / grid)
     if product % grid:
         raise FaviconError(f"favicon {label}={value} does not land on a whole pixel at {size}px")
     return product // grid

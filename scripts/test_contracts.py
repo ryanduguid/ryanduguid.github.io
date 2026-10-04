@@ -666,6 +666,20 @@ def test_design_contracts() -> int:
             "OLED canvas must be #000000",
         ),
         (
+            "green accent restored",
+            "assets/tokens.css",
+            "--colour-stamp: #990024;",
+            "--colour-stamp: #4dff88;",
+            "--colour-stamp must be Royal Purple #990024",
+        ),
+        (
+            "low contrast accent text",
+            "assets/tokens.css",
+            "--colour-ink: #fffff0;",
+            "--colour-ink: #606060;",
+            "ink contrast on filled accent must be at least 4.5:1",
+        ),
+        (
             "mobile wrapping removed",
             "assets/site.css",
             "overflow-wrap: anywhere;",
@@ -773,7 +787,7 @@ def test_design_contracts() -> int:
         (
             "favicon palette drift",
             "assets/favicon.svg",
-            "#4dff88",
+            "#990024",
             "#5c2d91",
             "favicon colour outside OLED palette: #5c2d91",
         ),
@@ -871,8 +885,8 @@ def test_design_contracts() -> int:
         (
             "favicon geometry misses whole raster pixels",
             "assets/favicon.svg",
-            '<rect x="16" y="16" width="4" height="32" fill="#4dff88" />',
-            '<rect x="17" y="16" width="4" height="32" fill="#4dff88" />',
+            '<rect x="16" y="16" width="4" height="32" fill="#990024" />',
+            '<rect x="17" y="16" width="4" height="32" fill="#990024" />',
             "does not land on a whole pixel",
         ),
         (
@@ -885,8 +899,8 @@ def test_design_contracts() -> int:
         (
             "favicon rect starting outside the viewBox",
             "assets/favicon.svg",
-            '<rect x="16" y="16" width="4" height="32" fill="#4dff88" />',
-            '<rect x="-16" y="16" width="4" height="32" fill="#4dff88" />',
+            '<rect x="16" y="16" width="4" height="32" fill="#990024" />',
+            '<rect x="-16" y="16" width="4" height="32" fill="#990024" />',
             "favicon geometry must not be negative",
         ),
         (
@@ -1435,9 +1449,9 @@ def test_public_contracts() -> int:
         ),
         (
             "social-card context",
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20260924.png" />',
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20260924.png" />',
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20260924.png'",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20261004.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261004.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261004.png'",
         ),
         (
             "referrer policy",
@@ -1701,7 +1715,7 @@ def test_public_contracts() -> int:
                 replace_file(root, rel, before, after)
             expect_failure(label, checker(root), expected)
 
-    site_card_rel = "assets/social-card-site-20260924.png"
+    site_card_rel = "assets/social-card-site-20261004.png"
     with copied_site() as root:
         card_path = root / site_card_rel
         card = bytearray(card_path.read_bytes())

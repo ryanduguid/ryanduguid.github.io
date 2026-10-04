@@ -165,6 +165,22 @@ for (const [label, route] of routes) {
     const scan = await new AxeBuilder({ page }).analyze();
     const violations = scan.violations.map(({ id, impact, nodes }) => `${id} (${impact}): ${nodes[0]?.target}`);
     expect(violations, `${route} has axe violations`).toEqual([]);
+    const greenAccents = await page.evaluate(() => {
+      const properties = ['color', 'backgroundColor', 'borderTopColor', 'borderBottomColor',
+        'outlineColor', 'textDecorationColor', 'accentColor'];
+      return [...document.querySelectorAll('*')].flatMap((element) => {
+        const style = getComputedStyle(element);
+        return properties.flatMap((property) => {
+          const channels = style[property].match(/^rgba?\((\d+), (\d+), (\d+)/);
+          if (!channels) return [];
+          const [, red, green, blue] = channels.map(Number);
+          return green > red + 20 && green > blue + 20
+            ? [`${element.tagName}.${element.className}: ${property} ${style[property]}`]
+            : [];
+        });
+      });
+    });
+    expect(greenAccents, `${route} keeps a green accent`).toEqual([]);
     health.assertHealthy();
   });
 }

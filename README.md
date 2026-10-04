@@ -204,9 +204,9 @@ records the scenario, source and image hashes, renderer, and refresh procedure.
 The 5 contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 The current cards use dated filenames so preview crawlers receive a fresh image
-URL after a redesign. Earlier cards (the undated PNGs and the `-20260922` set)
+URL after a redesign. Earlier cards (the undated PNGs and the `-20260922` and `-20260924` sets)
 remain available for existing links; current page metadata points only to the
-`-20260924` cards. Rebuild the cards
+`-20261004` cards. Rebuild the cards
 with `node scripts/render-social-cards.mjs`, inspect all 5 outputs and update
 the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
@@ -216,15 +216,15 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site-20260924.png` | `cd43706d273f3ddd8b3ff990327f4e2928234534e0821a2c56e50746ed4cdf02` |
-| `assets/social-card-tools-20260924.png` | `e3318e6d53d7aca9e7dbc8d2aff5db4da4d50b9f60d50e42d9c4697c77235cfb` |
-| `assets/social-card-evaluations-20260924.png` | `fd39f8c839aff770271403d5fbf94513df697325eb76f2aeb3800ae07267400d` |
-| `assets/social-card-rates-20260924.png` | `14a80b6e29d1fbb1a28b87dddad2e8460509aed28ed68988c1f6bc8ae69ca7bc` |
-| `assets/social-card-evidence-20260924.png` | `9b6f07dcc944c2c1d5b7c22404a5300bf8ce5fec7f7899df6c570289ff217242` |
+| `assets/social-card-site-20261004.png` | `8b90de63b86c72d327b96b11aed80aec8d361a2ba2b39b34fddc64fe0ccc1da1` |
+| `assets/social-card-tools-20261004.png` | `7766ae6ad4a4b1dd6a4f4d33baf97b44ffa32bf7a4141c11e8c2e45c8bb1cf3b` |
+| `assets/social-card-evaluations-20261004.png` | `723bb937e9212d6c1ce1034e363d867ecaea5af26b78dba104f9d2d0c7a879e8` |
+| `assets/social-card-rates-20261004.png` | `acb073e50111b20cc11d765958e55e948bc9110ecf8cc594eeee28f44662e85c` |
+| `assets/social-card-evidence-20261004.png` | `1777e8d0e2d606e367f3b0fa248a5f9aaee74ef078516564b8b208427ad16c77` |
 
 ## Favicon provenance
 
-The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rectangles on the OLED palette. Every raster below is rendered from that one drawing by `scripts/favicon_render.py`, which scales the 64-unit grid by whole pixels, so no shipped icon carries resampling or a fourth colour.
+The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rectangles on the OLED palette. Every raster below is rendered from that one drawing by `scripts/favicon_render.py`, which scales the 64-unit grid to whole pixels. The 180px touch icon rounds its coordinates; no shipped icon carries resampling or a fourth colour.
 
 | Asset | Role |
 | --- | --- |
@@ -239,7 +239,7 @@ The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rec
 python scripts/favicon_render.py
 ```
 
-`scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for; 180 is not a whole-pixel scale of the 64-unit grid, so that file stays outside the render step.
+`scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for and is regenerated with the other icons.
 
 ## About portrait provenance
 

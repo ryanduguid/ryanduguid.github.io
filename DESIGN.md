@@ -16,6 +16,12 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 4 October 2026 Ryan replaced the green accent with Royal Purple (#990024).
+The black canvas remains. Filled controls, selected results, rules, the favicon,
+social cards and cash series use that exact colour. Ivory text and focus outlines
+preserve contrast; links use purple underlines and a purple hover background.
+This request supersedes the green palette and the earlier prohibition on purple.
+
 The 26 September evaluation pass applies a live audit of all 55 pages at 320, 360, 768 and 1280px. Calculator forms now come before their method, sources and notes, and each question topic folds its search box, checklist buttons and privacy notes into a closed 'Search or build a checklist' disclosure above the questions, with the topic review note moved below them, so the working control starts inside the first screen at 360, 390 and 1280px. On phones the header is no longer sticky: at two or three rows it covered a sixth of the screen. The view switch follows the header in the markup, inside a named region, and scrolls away with it; Machine view pins it again. The reading token drops from 68ch to 56ch because `ch` is the width of the zero, so 68ch gave 88 to 92 characters of body text a line. Text-only rows in an action register take the ordinary link cue, standalone links reach 44px on phones, page dates and the wordmark suffix leave the uppercase mono label register, field notes are 16px on phones, and the Lumbridge comparison tables fit a phone (the five-run table stacks per run, with explicit table roles). The homepage lists the four routes after the hero, which already opens the cash case; Tools and llms.txt keep all five. Each evaluation opens with its recorded result. The browser suite now runs axe on every sitemap page and fails on any impact, and `template-budgets.spec.mjs` holds the first-control, header and line-length budgets.
 
 The 26 September GEO implementation adds early work-sample links on About and Contact, an active LinkedIn contact route and a contextual accepted-contribution link on the Xero exporter page. The cash case gains a sourced five-scenario receipt-delay comparison. The shared header can wrap when enlarged text needs more space; narrow navigation tracks shrink and labels wrap within their cells. The existing view script measures the header when modes change and observes later size changes, with a window-resize fallback when ResizeObserver is unavailable. The About portrait uses at most 40% of the desktop columns, so enlarged text retains a readable column. Existing routes, the portrait, the dark palette and the single primary home action remain in place.
@@ -379,7 +385,7 @@ The 31 August 2026 refinement keeps the design read at
   the cards contain no portrait.
 
 The deliberate brand exceptions remain: a true-black, dark-only canvas;
-Besley as the display face; stamp green as the only accent; square register
+Besley as the display face; Royal Purple as the only accent; square register
 surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
@@ -469,8 +475,8 @@ and no system preference creates a second branded state.
 | Ink soft | `#9A9A9A` | Supporting copy and metadata | 7.46:1 |
 | Rule | `#262626` | Hairlines and table rows | n/a |
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
-| Stamp | `#4DFF88` | Links, focus, route state and live evidence | 15.98:1 |
-| Stamp strong | `#78FFA3` | Hover and filled controls | n/a |
+| Stamp | `#990024` | Fills, rules, link underlines and cash series | 2.38:1 |
+| Stamp strong | `#990024` | Hover and filled controls with ivory text | 8.75:1 (ivory on stamp) |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
 | Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
@@ -481,10 +487,10 @@ and no system preference creates a second branded state.
 True black is intentional: large canvas areas let OLED pixels switch off. This
 overrides the earlier pure-black prohibition. From 13 September 2026 the
 surfaces are true black rather than green-tinted near-black and the greys
-carry no hue, so stamp green is the only colour on the page besides the
+carry no hue, so Royal Purple is the only accent on the page besides the
 alert. From 1 October 2026 the main ink is ivory (`#FFFFF0`) rather than
 near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, not fills, separate the header, footer, bands and code blocks.
-No gradient, glow, indigo, violet, texture or alternate theme is permitted.
+No gradient, glow, texture or alternate theme is permitted. Royal Purple is the requested accent.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
 On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
@@ -607,7 +613,7 @@ The existing advice disclaimer remains exact. It sits above About, GitHub and Ma
 
 ### Buttons and links
 
-- primary actions are dark ink or stamp green rectangles with 2px radius
+- primary actions are Royal Purple rectangles with ivory text and 2px radius
 - secondary actions are underlined text with a directional phrase
 - labels describe the destination or action; no `Get started`
 - one label maps to one intent across a page

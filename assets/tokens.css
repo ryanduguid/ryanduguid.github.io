@@ -71,7 +71,7 @@
 
   /* True-black OLED register: every surface is #000000 except the raised
      field and the emphasis wash, the greys carry no hue and the main ink is
-     ivory. Stamp green is the single accent. */
+     ivory. Royal Purple is the single accent; ivory keeps text and focus readable. */
   --colour-canvas: #000000;
   --colour-paper: #000000;
   --colour-paper-raised: #0a0a0a;
@@ -80,8 +80,8 @@
   --colour-ink-soft: #9a9a9a;
   --colour-rule: #262626;
   --colour-rule-strong: #606060;
-  --colour-stamp: #4dff88;
-  --colour-stamp-strong: #78ffa3;
+  --colour-stamp: #990024;
+  --colour-stamp-strong: #990024;
   --colour-stamp-wash: #161616;
   --colour-alert: #ff9c91;
   --colour-masthead: #fffff0;

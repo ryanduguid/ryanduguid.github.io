@@ -5,7 +5,7 @@ Workbook SHA-256: b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b84
 Source commit: 386c7ff31f7989b86445ef37d83a912fcb02bb47
 Licence: MIT, as recorded in the sample pack.
 
-Captured 1 October 2026 with desktop Excel 16.0 on Windows.
+Captured 4 October 2026 with desktop Excel 16.0 on Windows.
 The source workbook was opened read-only with links disabled and macros
 disabled. Assumptions!B2 was set to 45 in memory and CalculateFullRebuild ran.
 The first chart on Cash 13 weeks stores a fixed layout that Excel's object
@@ -27,6 +27,8 @@ by direct labels for the lowest week, the final closing cash and the buffer;
 Public Sans text, the site's body face since 24 September 2026, installed
 for the exporting user so the chart matches the page. The 24 September
 exports carried IBM Plex Sans, the face the site served before that change.
+On 4 October 2026 the closing cash series changed to Royal Purple (#990024),
+with ivory marker edges and an ivory closing-cash label for contrast.
 No value, date or series was altered.
 
 Two variants were exported with Excel Chart.Export as PNG at this display
@@ -46,8 +48,8 @@ Weekly closing cash values in the exported chart, AUD:
 36480, 79280, 67320, 67320.
 The second series is the assumed 15000 cash buffer.
 
-cash-preview.png SHA-256: 2f9a42c64b87d7018c15bb0ba6cea427350c510edb1d0e502f3aa689c4aee96b
-cash-preview-narrow.png SHA-256: ea3af1472d41ac804fbf37996a349003d4fad7e1bbb6d1fa56f9876bac07fa38
+cash-preview.png SHA-256: 914b51b3db7f2adaeb0adadb7a34d4f4f2c3000a8f4c716959ca8a52b668f88a
+cash-preview-narrow.png SHA-256: 387e8d05d742917e1faec921ea0419f45a66c3a8386a71d7e4e17f443b63d215
 
 Each is an export of a workbook chart, not a screenshot of the entire
 worksheet. It stays fixed when a reader edits a downloaded workbook.
