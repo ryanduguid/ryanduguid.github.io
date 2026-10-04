@@ -5,7 +5,7 @@
 }
 
 ::selection {
-  color: var(--colour-canvas);
+  color: var(--colour-ink);
   background: var(--colour-stamp);
 }
 
@@ -48,7 +48,8 @@ select {
 }
 
 a {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
+  text-decoration-color: var(--colour-stamp);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
   -webkit-tap-highlight-color: transparent;
@@ -60,7 +61,9 @@ a {
 
 a:hover,
 a:active {
-  color: var(--colour-stamp);
+  color: var(--colour-ink);
+  background: var(--colour-stamp);
+  text-decoration-color: currentColor;
 }
 
 a:focus-visible,
@@ -71,7 +74,7 @@ textarea:focus-visible,
 [tabindex="0"]:focus-visible,
 summary:focus-visible,
 .calculator-result h2:focus-visible {
-  outline: 0.1875rem solid var(--colour-stamp);
+  outline: 0.1875rem solid var(--colour-ink);
   outline-offset: 0.1875rem;
 }
 
@@ -208,8 +211,9 @@ pre code {
 
 .skip-link:focus {
   translate: 0;
-  /* a:hover outranks .skip-link, so a hovered focus turned the text stamp green on ink. */
+  /* a:hover outranks .skip-link, so a hovered focus turned the text into the accent colour on ink. */
   color: var(--colour-paper);
+  background: var(--colour-ink);
 }
 
 .site-header {
@@ -269,7 +273,7 @@ pre code {
 .site-nav a:hover,
 .site-nav a[aria-current="page"],
 .site-nav a[aria-current="location"] {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 .site-nav a[aria-current] {
@@ -294,9 +298,9 @@ button {
   align-items: center;
   justify-content: center;
   padding: var(--space-2) var(--space-4);
-  border: var(--rule-thin) solid var(--colour-stamp-strong);
+  border: var(--rule-thin) solid var(--colour-rule-strong);
   border-radius: var(--radius-control);
-  color: var(--colour-paper);
+  color: var(--colour-ink);
   background: var(--colour-stamp-strong);
   font-family: var(--font-mono);
   font-size: var(--text-small);
@@ -310,11 +314,13 @@ button {
     border-color var(--motion-standard) var(--ease-standard);
 }
 
+/* The fill does not change on hover, so the border carries the hover cue. */
 @media (hover: hover) {
   .button:hover,
   .link-button:hover,
   button:hover {
-    color: var(--colour-paper);
+    border-color: var(--colour-ink);
+    color: var(--colour-ink);
     background: var(--colour-stamp);
   }
 }
@@ -329,14 +335,14 @@ button:active {
    opts into the fill with class="button". */
 .button--secondary,
 button:not(.button) {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   background: transparent;
 }
 
 @media (hover: hover) {
   .button--secondary:hover,
   button:not(.button):hover {
-    color: var(--colour-paper);
+    color: var(--colour-ink);
     background: var(--colour-stamp-strong);
   }
 }
@@ -555,7 +561,7 @@ main p {
 }
 
 .article-toc a:hover {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   text-decoration: underline;
 }
 
@@ -869,11 +875,11 @@ caption {
 }
 
 .faq summary::marker {
-  color: var(--colour-stamp);
+  color: var(--colour-ink);
 }
 
 .faq details[open] summary h3 {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 .faq details > p {
@@ -1150,7 +1156,7 @@ caption {
 }
 
 .route-actions.route-actions--mail > a > strong {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   text-decoration: underline;
   text-decoration-thickness: var(--rule-thin);
   text-underline-offset: var(--space-1);
@@ -1169,7 +1175,7 @@ caption {
 }
 
 .route-actions--mail > a:hover .route-action-type {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 .route-terminus {
@@ -1210,7 +1216,7 @@ caption {
 
 @media (hover: hover) {
   .copy-button:hover {
-    color: var(--colour-paper);
+    color: var(--colour-ink);
     background: var(--colour-stamp);
   }
 }
@@ -1258,7 +1264,7 @@ caption {
 }
 
 .site-footer__nav a:hover {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   text-decoration: underline;
 }
 
@@ -1511,7 +1517,7 @@ caption {
 }
 
 .home-tool-preview__entry h3 a:hover {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   text-decoration: underline;
 }
 
@@ -1575,7 +1581,7 @@ caption {
 @media (hover: hover) {
   .route-actions > a:hover,
   .adoption-links > a:hover {
-    color: var(--colour-stamp-strong);
+    color: var(--colour-ink);
     background: var(--colour-stamp-wash);
   }
 }
@@ -1589,12 +1595,13 @@ caption {
   margin-block: var(--space-3);
   padding: var(--space-2) var(--space-4);
   border-bottom: var(--rule-thin) solid var(--colour-stamp-strong);
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 @media (hover: hover) {
   .route-actions > .button:hover {
-    color: var(--colour-paper);
+    border-color: var(--colour-ink);
+    color: var(--colour-ink);
     background: var(--colour-stamp-strong);
   }
 }
@@ -1611,8 +1618,9 @@ caption {
    ordinary link cue rather than relying on hover, which touch never shows. */
 .route-actions > a:not(.button):not(:has(> *)) {
   display: block;
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
   text-decoration: underline;
+  text-decoration-color: var(--colour-stamp);
   text-decoration-thickness: 0.08em;
   text-underline-offset: 0.18em;
 }
@@ -1717,7 +1725,7 @@ caption {
 }
 
 .adopt-input:focus-visible + .adopt-tab {
-  outline: 0.1875rem solid var(--colour-stamp);
+  outline: 0.1875rem solid var(--colour-ink);
   outline-offset: 0.1875rem;
 }
 
@@ -1900,7 +1908,7 @@ caption {
 .proof-capture > summary {
   padding-block: var(--space-3);
   cursor: pointer;
-  color: var(--colour-stamp);
+  color: var(--colour-ink);
 }
 
 .proof-capture[open] > summary {
@@ -1951,7 +1959,7 @@ caption {
 /* Which formula won is the whole point of the section, so the applied row is
    marked rather than merely listed among the others. */
 .proof-calc__result .is-applied {
-  background: var(--colour-stamp-wash);
+  background: var(--colour-stamp);
 }
 
 .proof-calc__result dt {
@@ -1960,7 +1968,7 @@ caption {
 
 .proof-calc__result .is-applied dt,
 .proof-calc__result .is-applied dd {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
 }
 
 .proof-calc__result dd {
@@ -2145,6 +2153,7 @@ input[type="checkbox"] {
   min-height: auto;
   margin-top: 0.2em;
   accent-color: var(--colour-stamp-strong);
+  outline: var(--rule-thin) solid var(--colour-ink);
 }
 
 .field {
@@ -2291,7 +2300,8 @@ input[type="checkbox"] {
 }
 
 .result-row[data-result-kind="levy"] strong {
-  color: var(--colour-stamp-strong);
+  color: var(--colour-ink);
+  background: var(--colour-stamp);
 }
 
 .result-why {
@@ -3015,7 +3025,7 @@ input[type="checkbox"] {
 }
 
 .view-mode__option:has(:focus-visible) {
-  outline: 2px solid var(--colour-mode-accent);
+  outline: 2px solid var(--colour-mode-ink);
   outline-offset: 3px;
 }
 
@@ -3036,6 +3046,7 @@ input[type="checkbox"] {
 
 .view-mode__option input:checked {
   background: var(--colour-mode-accent);
+  outline: 1px solid var(--colour-mode-ink);
 }
 
 @supports selector(:has(*)) {

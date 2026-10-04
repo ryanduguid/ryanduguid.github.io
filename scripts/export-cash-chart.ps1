@@ -149,7 +149,7 @@ try {
   $s1.Format.Line.Weight = 4
   $s1.MarkerStyle = 8
   $s1.MarkerSize = 8
-  $s1.MarkerForegroundColor = $stamp
+  $s1.MarkerForegroundColor = $ink
   $s1.MarkerBackgroundColor = $stamp
 
   $s2.Format.Line.ForeColor.RGB = $alert
@@ -173,7 +173,7 @@ try {
   $ef = $endPoint.DataLabel.Format.TextFrame2.TextRange.Font
   $ef.Name = $fontName
   $ef.Size = $layout.Text
-  $ef.Fill.ForeColor.RGB = $stamp
+  $ef.Fill.ForeColor.RGB = $ink
 
   $bufPoint = $s2.Points(13)
   $bufPoint.HasDataLabel = $true
