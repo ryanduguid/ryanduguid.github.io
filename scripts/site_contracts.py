@@ -2750,7 +2750,7 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
     else:
         try:
             configured = json.loads(data_path.read_text(encoding="utf-8"))
-        except (json.JSONDecodeError, UnicodeDecodeError):
+        except json.JSONDecodeError, UnicodeDecodeError:
             failures.append("assets/social-cards.json: social-card data is invalid JSON")
     expected_data = {
         card_id: {

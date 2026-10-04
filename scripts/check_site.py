@@ -214,7 +214,7 @@ def ci_offline() -> bool:
             before, after = (paragraph_structure(version) for version in versions)
             if versions[0] == versions[1] or before is None or before != after:
                 return False
-    except (subprocess.CalledProcessError, OSError, UnicodeError):
+    except subprocess.CalledProcessError, OSError, UnicodeError:
         return False
     return True
 
@@ -255,7 +255,7 @@ def ci_metadata_only() -> bool:
             check=True,
             timeout=30,
         ).stdout
-    except (OSError, UnicodeError, subprocess.CalledProcessError, subprocess.TimeoutExpired):
+    except OSError, UnicodeError, subprocess.CalledProcessError, subprocess.TimeoutExpired:
         return False
     if not output.endswith("\0"):
         return False

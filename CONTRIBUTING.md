@@ -6,7 +6,7 @@ before changing a page.
 
 ## Local checks
 
-Use Ruby 3.3 with Bundler, Python 3.10 or newer and Node 24 LTS. Run `bundle install`
+Use Ruby 3.3 with Bundler, Python 3.14 or newer and Node 24 LTS. Run `bundle install`
 once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
 pinned linters first, then the site checks on Python 3.14:
 
