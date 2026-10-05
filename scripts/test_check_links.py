@@ -183,6 +183,30 @@ class FetchFinalUrlTests(unittest.TestCase):
                     for url in manual_urls:
                         self.assertTrue(any(url in notice for notice in notices))
 
+    def test_linkedin_runner_exception_keeps_local_and_other_profile_404s(self) -> None:
+        current = "https://www.linkedin.com/in/ryan-duguid"
+        other = current + "-missing"
+        for actions in ("true", "false"):
+            with (
+                self.subTest(actions=actions),
+                urllib.error.HTTPError(
+                    current, 404, "Not Found", email.message.Message(), None
+                ) as denied,
+                unittest.mock.patch.dict(check_links.os.environ, {"GITHUB_ACTIONS": actions}),
+                unittest.mock.patch.object(
+                    check_links,
+                    "fetch_final_url",
+                    side_effect=denied,
+                ) as fetch,
+                unittest.mock.patch("builtins.print"),
+            ):
+                failures = check_links.check_hrefs("about/index.html", [current, other])
+                expected = [other] if actions == "true" else [current, other]
+                self.assertEqual(
+                    fetch.call_args_list, [unittest.mock.call(url) for url in expected]
+                )
+                self.assertEqual(len(failures), len(expected))
+
     def test_rate_limit_retry_headers_and_fallback_for_both_fetchers(self) -> None:
         class ApiResponse(FakeResponse):
             def read(self) -> bytes:

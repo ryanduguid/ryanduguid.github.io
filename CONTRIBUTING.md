@@ -194,6 +194,13 @@ GitHub Actions. Run `python scripts/check_links.py` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
 access works again.
 
+Actions run 37219134539 returned HTTP 404 for the LinkedIn profile linked from
+About and Contact. A public browser reached LinkedIn's login wall, and Ryan
+confirmed the profile URL on 5 October 2026. That exact URL now requires manual
+verification in CI. Local checks still fetch it and fail on HTTP 404; other
+LinkedIn URLs receive no CI exception. Remove this exception when runner access
+works again.
+
 That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
 locally on 11 September 2026. They are listed individually in
 `HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/check_links.py`. Only HTTP 403 is accepted
