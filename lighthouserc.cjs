@@ -12,7 +12,7 @@ const urls = [
   'http://127.0.0.1:4173/tools/business-calculators/',
 ];
 
-// CI runs the pages in parallel jobs. LHCI_SHARD selects one share as
+// CI runs the pages in parallel jobs. LHCI_SHARD selects one shard as
 // "index/total", like Playwright's --shard; unset, every page runs.
 const shardMatch = /^([1-9]\d*)\/([1-9]\d*)$/.exec(process.env.LHCI_SHARD ?? '1/1');
 const [shard, shards] = shardMatch ? [Number(shardMatch[1]), Number(shardMatch[2])] : [0, 0];
