@@ -119,7 +119,7 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.
 
-Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
+Needs Git and Python 3.14+ for validation. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills

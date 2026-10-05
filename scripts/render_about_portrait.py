@@ -1,5 +1,5 @@
 # /// script
-# requires-python = ">=3.10"
+# requires-python = ">=3.14"
 # dependencies = [
 #   "opencv-python-headless==4.14.0.94",
 #   "numpy==2.5.3",

@@ -2883,7 +2883,7 @@ It is not tax advice, and sitting outside a range is not a finding that anything
 
 ## Get it
 
-Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -3617,7 +3617,7 @@ GitHub workflows
 
 github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.
 
-Needs Git and Python 3.11+ for validation. Development checkout: clones the default branch, not a tagged release.
+Needs Git and Python 3.14+ for validation. Development checkout: clones the default branch, not a tagged release.
 
 ```
 # GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills

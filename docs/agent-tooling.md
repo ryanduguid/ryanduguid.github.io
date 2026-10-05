@@ -50,7 +50,7 @@ cd github-agent-skills
 python scripts/validate_skills.py --strict
 ```
 
-Validation needs Python 3.11+. A fresh clone includes both runtime copies and
+Validation needs Python 3.14+. A fresh clone includes both runtime copies and
 needs no synchronisation. For another project, copy `.claude/skills/` for
 Claude Code or `.agents/skills/` for Codex into that project's matching directory.
 After editing the canonical `.claude/skills/` source, run

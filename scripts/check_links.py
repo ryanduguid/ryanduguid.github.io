@@ -400,7 +400,7 @@ def retry_error(exc: urllib.error.URLError | TimeoutError, attempt: int, waited:
             if retry_at.tzinfo is None:
                 retry_at = retry_at.replace(tzinfo=timezone.utc)
             delay = max(0.0, retry_at.timestamp() - time.time())
-        except (ValueError, TypeError, OverflowError):
+        except ValueError, TypeError, OverflowError:
             pass
     if waited + delay > MAX_RETRY_WAIT_SECONDS:
         raise exc
