@@ -670,7 +670,14 @@ def test_design_contracts() -> int:
             "assets/tokens.css",
             "--colour-stamp: #990024;",
             "--colour-stamp: #4dff88;",
-            "--colour-stamp must be Royal Purple #990024",
+            "--colour-stamp must be #990024",
+        ),
+        (
+            "deep purple accent drift",
+            "assets/tokens.css",
+            "--colour-stamp-strong: #66023c;",
+            "--colour-stamp-strong: #990024;",
+            "--colour-stamp-strong must be #66023c",
         ),
         (
             "low contrast accent text",

@@ -64,7 +64,7 @@ a {
 a:hover,
 a:active {
   color: var(--colour-ink);
-  background: var(--colour-stamp);
+  background: var(--colour-stamp-strong);
   text-decoration-color: currentColor;
 }
 
@@ -303,7 +303,7 @@ button {
   border: var(--rule-thin) solid var(--colour-rule-strong);
   border-radius: var(--radius-control);
   color: var(--colour-ink);
-  background: var(--colour-stamp-strong);
+  background: var(--colour-stamp);
   font-family: var(--font-body);
   font-size: var(--text-small);
   font-weight: 600;
@@ -316,14 +316,14 @@ button {
     border-color var(--motion-standard) var(--ease-standard);
 }
 
-/* The fill does not change on hover, so the border carries the hover cue. */
+/* The deeper hover fill keeps ivory text and a visible border. */
 @media (hover: hover) {
   .button:hover,
   .link-button:hover,
   button:hover {
     border-color: var(--colour-ink);
     color: var(--colour-ink);
-    background: var(--colour-stamp);
+    background: var(--colour-stamp-strong);
   }
 }
 
@@ -1268,7 +1268,7 @@ caption {
 @media (hover: hover) {
   .copy-button:hover {
     color: var(--colour-ink);
-    background: var(--colour-stamp);
+    background: var(--colour-stamp-strong);
   }
 }
 
