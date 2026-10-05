@@ -9,7 +9,9 @@ name: source-freshness
 # A pull request raised with GITHUB_TOKEN does not start the checks workflow, so
 # this job runs the site checks itself and pushes only once they pass. The change
 # only rewrites date strings in tools/index.html, and scripts/check_site.py holds
-# the date contract; the browser and Lighthouse gates run on the merge to main.
+# the date contract; the live link, browser and Lighthouse gates run on the merge
+# to main. The site checks here run offline: without a token the archived-repository
+# lookups exhaust the runner's shared API limit, and this job's token can write.
 
 on:
   schedule:
@@ -119,7 +121,7 @@ jobs:
 
       - name: Site checks
         if: steps.changed.outputs.changed == 'true'
-        run: python scripts/check_site.py
+        run: python scripts/check_site.py --offline
 
       - name: Open or update the pull request
         if: steps.changed.outputs.changed == 'true'
@@ -138,5 +140,5 @@ jobs:
               --base main \
               --head "$BRANCH" \
               --title "Refresh source freshness stamps" \
-              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The site checks passed on this branch before it was pushed."
+              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; live link checks run on the merge to main."
           fi
