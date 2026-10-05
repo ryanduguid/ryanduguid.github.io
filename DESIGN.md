@@ -16,6 +16,11 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 5 October 2026 Ryan authorised deep purple (#66023C) and crimson (#990024)
+for the website and GitHub diagrams. Crimson remains the main accent; deep
+purple supplies hover fills and secondary emphasis. Ivory text, focus outlines
+and neutral control borders preserve contrast against the black canvas.
+
 Later on 5 October 2026 a review of the live result fixed four slips. Register
 titles take a 0.14em underline offset: at the 1.08 heading leading, an 8px
 offset ran through the next line of a wrapped title. Below 40rem Changelog
@@ -408,7 +413,7 @@ The 31 August 2026 refinement keeps the design read at
   the cards contain no portrait.
 
 The deliberate brand exceptions remain: a true-black, dark-only canvas;
-Besley as the display face; Royal Purple as the only accent; square register
+Besley as the display face; crimson and deep purple accents; square register
 surfaces; 2px control radius; and no generated or stock imagery.
 
 ## Current-state audit
@@ -499,7 +504,7 @@ and no system preference creates a second branded state.
 | Rule | `#262626` | Hairlines and table rows | n/a |
 | Rule strong | `#606060` | Structural boundaries and field borders | 3.34:1 |
 | Stamp | `#990024` | Fills, rules, link underlines and cash series | 2.38:1 |
-| Stamp strong | `#990024` | Hover and filled controls with ivory text | 8.75:1 (ivory on stamp) |
+| Stamp strong | `#66023C` | Hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
 | Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
@@ -510,10 +515,10 @@ and no system preference creates a second branded state.
 True black is intentional: large canvas areas let OLED pixels switch off. This
 overrides the earlier pure-black prohibition. From 13 September 2026 the
 surfaces are true black rather than green-tinted near-black and the greys
-carry no hue, so Royal Purple is the only accent on the page besides the
+carry no hue. Crimson and deep purple are the requested accents beside the
 alert. From 1 October 2026 the main ink is ivory (`#FFFFF0`) rather than
 near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, not fills, separate the header, footer, bands and code blocks.
-No gradient, glow, texture or alternate theme is permitted. Royal Purple is the requested accent.
+No gradient, glow, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
 On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
@@ -636,7 +641,7 @@ The existing advice disclaimer remains exact. It sits above About, GitHub and Ma
 
 ### Buttons and links
 
-- primary actions are Royal Purple rectangles with ivory text and 2px radius
+- primary actions are crimson rectangles with ivory text and 2px radius
 - secondary actions are underlined text with a directional phrase
 - labels describe the destination or action; no `Get started`
 - one label maps to one intent across a page
