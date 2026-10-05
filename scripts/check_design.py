@@ -406,13 +406,19 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
-    for token in ("--colour-stamp", "--colour-stamp-strong"):
-        if properties.get(token) != "#990024":
-            failures.append(f"{token} must be Royal Purple #990024")
-    stamp = properties.get("--colour-stamp")
+    for token, colour in (("--colour-stamp", "#990024"), ("--colour-stamp-strong", "#66023c")):
+        if properties.get(token) != colour:
+            failures.append(f"{token} must be {colour}")
     ink = properties.get("--colour-ink")
-    if stamp == "#990024" and ink and re.fullmatch(r"#[0-9a-f]{6}", ink):
-        if contrast_ratio(ink, stamp) < 4.5:
+    for token in ("--colour-stamp", "--colour-stamp-strong"):
+        stamp = properties.get(token)
+        if (
+            stamp
+            and re.fullmatch(r"#[0-9a-f]{6}", stamp)
+            and ink
+            and re.fullmatch(r"#[0-9a-f]{6}", ink)
+            and contrast_ratio(ink, stamp) < 4.5
+        ):
             failures.append("ink contrast on filled accent must be at least 4.5:1")
     display = properties.get("--text-display", "")
     display_minimum = re.match(r"clamp\(\s*([0-9]+(?:\.[0-9]+)?)rem\s*,", display)
