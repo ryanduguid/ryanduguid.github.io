@@ -240,6 +240,21 @@ class LiveLinkSelectionTests(unittest.TestCase):
         for event in ("push", "schedule", "workflow_dispatch", ""):
             self.assertFalse(check_site.can_skip_live_links(event, ["index.html"], "+wording"))
 
+    def test_push_uses_offline_checks_and_scheduled_or_manual_runs_stay_live(self) -> None:
+        for event, offline in (
+            ("push", True),
+            ("schedule", False),
+            ("workflow_dispatch", False),
+            ("", False),
+        ):
+            with (
+                self.subTest(event=event),
+                patch.dict(check_site.os.environ, {"CI_EVENT": event}),
+                patch.object(check_site.subprocess, "run") as run,
+            ):
+                self.assertIs(check_site.ci_offline(), offline)
+                run.assert_not_called()
+
     def test_missing_merge_parent_keeps_live_checks(self) -> None:
         with (
             patch.dict(check_site.os.environ, {"CI_EVENT": "pull_request"}),
