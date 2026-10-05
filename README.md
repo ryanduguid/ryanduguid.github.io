@@ -102,8 +102,9 @@ npm run test:capture
 Failure screenshots, traces and the HTML report stay in the ignored `work/`
 directory.
 
-Run 3-pass Lighthouse medians for the homepage, Tools, Evidence, Coal
-LSL calculator, accounting question hub, and business calculators:
+Run 3-pass Lighthouse medians for the homepage, Tools, Evidence, the profit
+versus cash flow example, Coal LSL calculator, accounting question hub, and
+business calculators:
 
 ```bash
 npm run test:lighthouse

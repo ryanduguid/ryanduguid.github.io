@@ -166,7 +166,12 @@ def paragraph_structure(source: str) -> str | None:
 
 
 def ci_offline() -> bool:
-    if os.environ.get("CI_EVENT") != "pull_request":
+    event = os.environ.get("CI_EVENT")
+    # Branch protection admits a push to main only after its pull request's checks, which
+    # keep live checks for any link change. The weekly schedule keeps the full live sweep.
+    if event == "push":
+        return True
+    if event != "pull_request":
         return False
     # The first parent of GitHub's pull-request merge commit is its base tip.
     try:

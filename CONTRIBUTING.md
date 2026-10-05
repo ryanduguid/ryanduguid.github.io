@@ -23,8 +23,9 @@ checking the built pages and local links. CI uses `python scripts/check_site.py 
 pull requests whose changed files contain no links, templates or front matter
 use offline checks, as do HTML changes limited to plain paragraph text in pages
 whose only Liquid is the shared header, footer and stylesheet version. Potential link, template, script or configuration changes
-keep live checks. Pushes, scheduled
-runs and manual runs keep live checks too. An unavailable merge comparison runs
+keep live checks. Pushes to `main` use offline checks, because branch protection
+admits them only after their pull request's checks; scheduled and manual runs
+keep the full live sweep. An unavailable merge comparison runs
 the live checks. PRs changing only the six excluded root documents (`AGENTS.md`,
 `CLAUDE.md`, `CONTRIBUTING.md`, `DESIGN.md`, `README.md`, `SECURITY.md`) or `docs/`
 use offline site checks and omit browser and Lighthouse execution. Lint, site
@@ -40,7 +41,10 @@ separate from each request's 30-second timeout. Exhausted retries and permanent
 HTTP errors still fail the live check.
 
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
-describes them.
+describes them. CI splits the browser tests across two Windows jobs with
+Playwright's `--shard`, and the first also runs the type check, proof capture and
+dependency audit. Lighthouse runs as three jobs: `LHCI_SHARD=2/3 npm run test:lighthouse`
+runs the second job's pages, and leaving it unset runs every page.
 
 Run `npm run typecheck` after `npm ci` to check the calculator and WebMCP
 contracts. TypeScript checks the existing JavaScript without emitting files.
