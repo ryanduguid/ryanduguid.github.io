@@ -16,8 +16,8 @@ Checks, in order, per file:
    30 seconds of total waiting per fetch. Other HTTP 4xx responses do not retry.
    HTTP 403 from exact allow-listed source URLs and HTTP 999 from the
    LinkedIn profile are accepted.
-   Five exact government URLs require manual verification in GitHub Actions
-   because runner connections time out; local runs still fetch them.
+   Exact external URLs require manual verification in GitHub Actions when
+   runner access is unavailable; local runs still fetch them.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 6. No github.com/ryanduguid/<repo> link may resolve to an archived
@@ -103,6 +103,9 @@ CI_MANUAL_URLS = frozenset(
         # on 29 September 2026.
         "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance",
         "https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register",
+        # Run 37219134539 returned 404; a public browser reached a login wall.
+        # Ryan confirmed this profile URL on 5 October 2026.
+        "https://www.linkedin.com/in/ryan-duguid",
     }
 )
 
@@ -614,7 +617,9 @@ def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[st
             continue
         seen.add(href)
         if os.environ.get("GITHUB_ACTIONS") == "true" and href in CI_MANUAL_URLS:
-            print(f"manual verification {rel}: {href} (runner timeout; see CONTRIBUTING.md)")
+            print(
+                f"manual verification {rel}: {href} (runner access unavailable; see CONTRIBUTING.md)"
+            )
             continue
         if href.startswith("/") or is_self_origin(href):
             target = self_origin_target(href)
