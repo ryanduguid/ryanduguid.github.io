@@ -1293,7 +1293,7 @@ Instant asset write-off | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment
 Tax loss carry-back | Budget 2026-27 | 1 July 2026 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
 Medicare levy low-income threshold increase | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Delivering an Efficient and Trusted Tax System) Act 2026, Royal Assent 30 June 2026
 Better Targeted Superannuation Concessions: practical changes | MYEFO 2025-26 | 1 July 2026 | Treasury Laws Amendment (Building a Stronger and Fairer Super System) Act 2026 and Superannuation (Building a Stronger and Fairer Super System) Imposition Act 2026, Royal Assent 13 March 2026
-Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026, Royal Assent 30 June 2026
+Temporary reduction of fuel excise and the heavy vehicle road user charge | Budget 2026-27 | 1 April 2026 | Treasury Laws Amendment (Fuel Excise Relief No. 2) Act 2026 and Fuel Tax (Road User Charge) Determination 2026; Act Royal Assent 30 June 2026, Determination registered 25 June 2026
 Enhancing Pacific engagement | Budget 2026-27 | 1 July 2025 | Treasury Laws Amendment (Tax Reform No. 2) Act 2026, Royal Assent 26 August 2026
 Combatting illicit tobacco | Budget 2026-27 | Royal Assent | Combatting Illicit Tobacco Act 2026, Royal Assent 26 August 2026
 Income tax exemption for international sporting events | MYEFO 2025-26 | 1 July 2025 | Income Tax Assessment (1997 Act) Amendment (Income Tax Exemption) Regulations 2026, registered 26 June 2026
@@ -5527,7 +5527,7 @@ The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2
 
 The old quarterly SG worksheet does not establish current Payday Super entitlement.
 
-Payday Super for employers · Super guarantee rate history on this site · Maximum super contribution base by year
+Payday Super for employers · Super guarantee rate history on this site · ATO maximum contribution base · Maximum super contribution base by year
 
 The bold answer was checked on 27 September 2026.
 
@@ -5561,7 +5561,7 @@ Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund m
 
 Sending a replacement does not automatically remove a late-payment consequence.
 
-Payday Super for employers · What to do if you miss a Payday Super contribution · Payday Super receipt evidence example
+Payday Super for employers · What to do if you miss a Payday Super contribution · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
 The bold answer was checked on 27 September 2026.
 
@@ -5708,6 +5708,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
+- ATO maximum contribution base: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base
 - Maximum super contribution base by year: https://duguid.com.au/rates/maximum-contribution-base/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super

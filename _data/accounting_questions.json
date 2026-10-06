@@ -170,6 +170,10 @@
       "label": "Super guarantee rate history on this site",
       "url": "/rates/super-guarantee/"
     },
+    "max-base": {
+      "label": "ATO maximum contribution base",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base"
+    },
     "stp-final": {
       "label": "End-of-year finalisation through STP",
       "url": "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp"
@@ -1281,7 +1285,8 @@
       "keywords": "superannuation SG",
       "fact": "The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2026 it is worked out on qualifying earnings, up to a maximum contribution base of $270,830 for 2026-27.",
       "fact_sources": [
-        "sg-rate"
+        "sg-rate",
+        "max-base"
       ]
     },
     {
@@ -1317,7 +1322,8 @@
       "keywords": "superannuation SG",
       "fact": "Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund makes you liable to the super guarantee charge, which the ATO assesses. The charge includes notional earnings and may include an administrative uplift of up to 60%; paying the fund what you owe as soon as possible, even in part, reduces it.",
       "fact_sources": [
-        "payday-late"
+        "payday-late",
+        "payday-deadlines"
       ]
     },
     {
