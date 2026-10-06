@@ -29,6 +29,14 @@ const cents = (value, min = 0) => Math.round(number(value, { min }) * 100);
 // Non-negative ratios in cents round half up. BigInt keeps large products exact.
 /** @param {bigint} numerator @param {bigint} denominator */
 const ratioMoney = (numerator, denominator) => Number((2n * numerator + denominator) / (2n * denominator)) / 100;
+// Percentages round half away from zero to 0.01, as Excel's ROUND does, from the
+// exact cents ratio rather than a float quotient. A zero result is never -0.
+/** @param {number} numerator cents @param {number} denominator cents, positive */
+const ratioPercent = (numerator, denominator) => {
+  const [top, bottom] = [BigInt(Math.abs(numerator)) * 10000n, BigInt(denominator)];
+  const hundredths = Number((2n * top + bottom) / (2n * bottom));
+  return (numerator < 0 && hundredths ? -hundredths : hundredths) / 100;
+};
 
 /** @param {string} amount @param {boolean} [inclusive] */
 export function gst(amount, inclusive = false) {
@@ -46,11 +54,11 @@ export function businessUse(cost, percent) {
 
 /** @param {string} sales @param {string} cost */
 export function margin(sales, cost) {
-  const revenue = number(sales);
-  const expense = number(cost);
-  const profit = (cents(sales) - cents(cost)) / 100;
-  return { profit, margin: revenue ? profit * 100 / revenue : null,
-    markup: expense ? profit * 100 / expense : null };
+  const revenue = cents(sales);
+  const expense = cents(cost);
+  const profit = revenue - expense;
+  return { profit: profit / 100, margin: revenue ? ratioPercent(profit, revenue) : null,
+    markup: expense ? ratioPercent(profit, expense) : null };
 }
 
 /** @param {string} fixed @param {string} price @param {string} variable */
@@ -76,9 +84,9 @@ export function hourlyRate(cost, profit, hours) {
 /** @param {string} actual @param {string} budget @param {'income' | 'cost'} kind */
 export function variance(actual, budget, kind) {
   if (!['income', 'cost'].includes(kind)) throw new Error('Choose income or cost.');
-  const base = number(budget, { min: -1e9 });
-  const difference = (cents(actual, -1e9) - cents(budget, -1e9)) / 100;
-  return { difference, percent: base ? difference * 100 / Math.abs(base) : null,
+  const base = cents(budget, -1e9);
+  const difference = cents(actual, -1e9) - base;
+  return { difference: difference / 100, percent: base ? ratioPercent(difference, Math.abs(base)) : null,
     effect: difference === 0 ? 'On budget' : (difference * (kind === 'income' ? 1 : -1) > 0 ? 'Favourable' : 'Unfavourable') };
 }
 
