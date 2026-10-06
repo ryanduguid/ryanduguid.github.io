@@ -195,6 +195,14 @@ in every release up to 6.2.0. `get-uri` 6.0.5 asks for `^5.0.2`, but it calls on
 Remove it when `get-uri` accepts a fixed release. Run the browser, capture, and
 Lighthouse checks when changing it.
 
+The `js-yaml` override gives Lighthouse CI's `js-yaml` 3.15.2 `argparse` 2.0.1,
+which drops `sprintf-js` 1.0.3 and its
+[unbounded-precision denial-of-service issue](https://github.com/advisories/GHSA-hp3w-g68c-fv3c),
+which has no fixed release. Only the `js-yaml` command-line tool uses `argparse`,
+and nothing here runs it; `@lhci/utils` uses the library to read configuration.
+Remove it when Lighthouse CI moves to `js-yaml` 4. Run the browser, capture, and
+Lighthouse checks when changing it.
+
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
 Both returned HTTP 200 locally on 10 September 2026. In
