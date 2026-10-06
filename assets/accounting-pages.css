@@ -332,6 +332,24 @@
   white-space: nowrap;
 }
 
+/* On the narrowest phones the weekly inputs take back some cell and field
+   padding, so a six-figure amount with cents shows in full. The focus ring
+   moves in to match, so the 4px cell padding still holds all of it at the
+   edge of the scroll region. */
+@media (max-width: 24rem) {
+  .cash-scroll table:not(#cash-results) :is(th, td) {
+    padding-inline: var(--space-1);
+  }
+
+  .cash-scroll table:not(#cash-results) input {
+    padding-inline: var(--space-2);
+  }
+
+  .cash-scroll table:not(#cash-results) input:focus-visible {
+    outline-offset: 0.0625rem;
+  }
+}
+
 .accounting-page [hidden] {
   display: none;
 }
