@@ -23,6 +23,15 @@ in sentence case at normal spacing, and the `--tracking-label` token is gone.
 The footer motto keeps its tracked capitals because it is a set mark, not a
 label.
 
+On 7 October 2026 calculator input grids pack densely, so an inline error,
+which spans its row under the failed field, no longer pushes the field beside
+it onto a new row. The same day settled the homepage chart's contrast: its
+crimson line measures 2.38:1 against black, below the 3:1 that WCAG 1.4.11
+sets for graphics needed to understand content. With the line removed from
+both exports, the ivory markers (20.81:1) still show all 13 weekly values and
+the trend, and the labels, caption and example tables give the figures, so
+the line stays crimson with no outline.
+
 On 5 October 2026 Ryan authorised deep purple (#66023C) and crimson (#990024)
 for the website and GitHub diagrams. Crimson remains the main accent; deep
 purple supplies hover fills and secondary emphasis. Ivory text, focus outlines

@@ -15,6 +15,13 @@
     <summary>Breadcrumbs, contents labels and the small labels in registers and fact lists are set in sentence case at normal letter spacing instead of spaced capitals.</summary>
   </entry>
   <entry>
+    <title>When a business calculator flags a field, the field beside it stays where it…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-a223370ae917ce76</id>
+    <updated>2026-10-07T00:00:00Z</updated>
+    <summary>When a business calculator flags a field, the field beside it stays where it was, and the message takes its own line below that row.</summary>
+  </entry>
+  <entry>
     <title>Wrapped tool and rate titles keep their underline clear of the next line, and…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-550e215dcdafdecc</id>
