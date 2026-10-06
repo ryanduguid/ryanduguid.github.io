@@ -2954,7 +2954,7 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is solomons-sword/v0.1.10, which pip install solomons-sword fetches.
+Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is solomons-sword/v0.2.0, which pip install solomons-sword fetches on Python 3.11 or later. On Python 3.10 it fetches v0.1.10, the last release for that version.
 
 Published 24 August 2026. Last reviewed 1 October 2026.
 
@@ -3047,7 +3047,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
-- solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
+- solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart
@@ -3508,7 +3508,7 @@ Reference release aus-accounting-mcp v0.2.8 runs local Australian accounting che
 
 Reference release v0.2.8. This guide and its worked example describe that release. Tagged source and release record on GitHub.
 
-The current published release is aus-accounting-mcp/v0.2.12, verified on GitHub, PyPI and the MCP registry on 1 October 2026. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases; v0.2.12 moves Payday Super to checker 0.1.9 and Division 7A review to 0.1.6 without changing tool behaviour. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.3.0, verified on GitHub, PyPI and the MCP registry on 6 October 2026. It requires Python 3.11 or later; v0.2.12 is the last release that installs on Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.
 
 Published 25 August 2026. Last reviewed 1 October 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.
 
@@ -3694,7 +3694,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Tagged source and release record on GitHub: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8
-- aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
+- aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -3741,7 +3741,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is review-ready-gate/v0.1.10.
+Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
 
 Published 25 August 2026. Last reviewed 1 October 2026.
 
@@ -3809,7 +3809,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
-- review-ready-gate/v0.1.10: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.10
+- review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - Run the two fictional BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
@@ -3933,6 +3933,10 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+5 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.3.0
+5 October 2026 | Trust distribution checks | solomons-sword/v0.2.0
+5 October 2026 | Division 7A loan review | div7a-loan-review/v0.2.0
+5 October 2026 | Workpaper Review Gate | review-ready-gate/v0.2.0
 4 October 2026 | Subcontract ledger skills | v0.3.1
 1 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.12
 30 September 2026 | Payday Super timing | payday-super-checker/v0.1.9
@@ -3976,6 +3980,10 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
+- solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
+- div7a-loan-review/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0
+- review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
 - aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
 - payday-super-checker/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
@@ -7559,7 +7567,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. au-fpa-pack at commit 386c7ff. The example is part of that repository, not of the published au-fpa-pack v0.1.2 distribution, so the commit rather than the release identifies it.
+- Source. au-fpa-pack at commit 386c7ff. The example is part of that repository, not of the published au-fpa-pack v0.2.0 distribution, so the commit rather than the release identifies it.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
@@ -7620,7 +7628,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- au-fpa-pack v0.1.2: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.2
+- au-fpa-pack v0.2.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.2.0
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/

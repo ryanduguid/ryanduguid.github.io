@@ -65,6 +65,10 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+5 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.3.0
+5 October 2026 | Trust distribution checks | solomons-sword/v0.2.0
+5 October 2026 | Division 7A loan review | div7a-loan-review/v0.2.0
+5 October 2026 | Workpaper Review Gate | review-ready-gate/v0.2.0
 4 October 2026 | Subcontract ledger skills | v0.3.1
 1 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.12
 30 September 2026 | Payday Super timing | payday-super-checker/v0.1.9
@@ -108,6 +112,10 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
+- solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
+- div7a-loan-review/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0
+- review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
 - aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12
 - payday-super-checker/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9
