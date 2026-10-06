@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-10-01",
+  "reviewed": "2026-10-06",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,10 +18,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.2.12",
-        "released_utc": "2026-09-30T19:31:53Z",
-        "verified": "2026-10-01",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12",
+        "version": "0.3.0",
+        "released_utc": "2026-10-04T18:02:42Z",
+        "verified": "2026-10-06",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -41,7 +41,7 @@
       "pinned_engines": {
         "payday-super-checker": "0.1.9",
         "ato-benchmark-compare": "0.1.11",
-        "div7a-loan-review": "0.1.6",
+        "div7a-loan-review": "0.2.0",
         "australian-tax-calculators": "0.1.8"
       },
       "pinned_commands": [
@@ -52,8 +52,8 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.2.12, verified on 1 October 2026.",
-        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.2.12."
+        "GitHub, PyPI and the MCP registry publish 0.3.0, verified on 6 October 2026. It requires Python 3.11 or later; 0.2.12 is the last release for Python 3.10.",
+        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.3.0."
       ]
     },
     "ozzit": {
@@ -87,10 +87,10 @@
       "distribution": "au-fpa-pack",
       "repository": "https://github.com/ryanduguid/au-fpa-pack",
       "published": {
-        "version": "0.1.2",
-        "released_utc": "2026-09-27T03:35:26Z",
-        "verified": "2026-09-27",
-        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.1.2",
+        "version": "0.2.0",
+        "released_utc": "2026-10-04T18:03:26Z",
+        "verified": "2026-10-06",
+        "release_url": "https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.2.0",
         "pypi_url": "https://pypi.org/project/au-fpa-pack/"
       },
       "documented": {

@@ -29,6 +29,34 @@
     <summary>Calculator results show each figure on its own row, beside the inputs on wide screens. Links have a thicker underline, buttons and table headers use the body typeface and touch tablets get 44px link targets. Below about 900px wide the homepage chart spans the page.</summary>
   </entry>
   <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.3.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0" />
+    <id>https://duguid.com.au/changelog/#entry-2c6c4d2d5dffedd6</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.3.0.</summary>
+  </entry>
+  <entry>
+    <title>Trust distribution checks solomons-sword/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-a9e7364952b44e35</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Trust distribution checks: release solomons-sword/v0.2.0.</summary>
+  </entry>
+  <entry>
+    <title>Division 7A loan review div7a-loan-review/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-dc3f816733ffeaf0</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Division 7A loan review: release div7a-loan-review/v0.2.0.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-de981b29a1b07bb2</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.2.0.</summary>
+  </entry>
+  <entry>
     <title>Each business calculator offers Print working once it shows a result, and a…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-6a3264e86cd2f55a</id>
