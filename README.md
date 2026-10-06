@@ -91,7 +91,7 @@ npx playwright install webkit
 npm run test:browser:webkit
 ```
 
-The full pass on 29 September 2026 reported 173 passed, 7 skipped and one failed. The remaining failure is named under WebKit differences in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md); compare a rerun's failing tests with that list by name, because a matching count alone does not show that the same tests failed.
+The Windows pass on 5 October 2026 reported 192 passed, 11 skipped and zero failures. Recovery retries the required modules directly. Its regression tests cover repeated failures, retained inputs and focus. The earlier reload failure and the repair are recorded under WebKit differences in [`docs/browser-quality-evidence.md`](docs/browser-quality-evidence.md). Physical Safari remains untested.
 
 Check the Coal LSL proof and contextual social-card renderers without changing the tracked images:
 

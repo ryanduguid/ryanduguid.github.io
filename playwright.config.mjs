@@ -22,6 +22,7 @@ export const chromiumLaunchOptions = process.platform === 'win32'
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
+  workers: !process.env.CI && process.platform === 'win32' ? 4 : undefined,
   forbidOnly: Boolean(process.env.CI),
   failOnFlakyTests: Boolean(process.env.CI),
   retries: process.env.CI ? 1 : 0,

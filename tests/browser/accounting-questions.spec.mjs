@@ -2,21 +2,31 @@ import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import { readFile } from 'node:fs/promises';
 
-test('calculator load failure explains recovery and reload retries the module', async ({ page }) => {
-  const errors = [];
-  page.on('pageerror', error => errors.push(error.message));
-  await page.route('**/assets/business-calculators.mjs', route => route.abort());
-  await page.goto('/tools/business-calculators/gst/');
-  await expect(page.locator('#gst output')).toContainText('Calculators could not load.');
-  await expect(page.locator('form[data-calculator] fieldset:disabled')).toHaveCount(1);
-  await page.unroute('**/assets/business-calculators.mjs');
-  await page.getByRole('button', { name: 'Reload this page to retry' }).first().click();
-  await expect(page.locator('#gst fieldset')).toBeEnabled();
-  await page.locator('#gst input[name=amount]').fill('100');
-  await page.locator('#gst').getByRole('button', { name: 'Calculate', exact: true }).click();
-  await expect(page.locator('#gst output')).toContainText('GST: $10.00');
-  expect(errors).toEqual([]);
-});
+for (const module of ['business-calculators', 'field-errors']) {
+  test(`calculator load failure explains recovery and retry loads the module (${module})`, async ({ page }) => {
+    const errors = [];
+    page.on('pageerror', error => errors.push(error.message));
+    const moduleRoute = `**/assets/${module}.mjs*`;
+    await page.route(moduleRoute, route => route.abort());
+    await page.goto('/tools/business-calculators/gst/');
+    await expect(page.locator('#gst output')).toContainText('Calculators could not load.');
+    await expect(page.locator('form[data-calculator] fieldset:disabled')).toHaveCount(1);
+    const retry = page.getByRole('button', { name: 'Retry loading calculators' });
+    await retry.click();
+    await expect(retry).toBeEnabled();
+    await expect(retry).toBeFocused();
+    await page.locator('#gst input[name=amount]').evaluate(input => { input.value = '100'; });
+    await page.unroute(moduleRoute);
+    await retry.click();
+    await expect(page.locator('#gst input[name=amount]')).toBeEnabled();
+    await expect(page.locator('#gst input[name=amount]')).toBeFocused();
+    await expect(page.locator('#gst input[name=amount]')).toHaveValue('100');
+    await expect(page.locator('#gst output')).toHaveText('Enter the inputs and calculate.');
+    await page.locator('#gst').getByRole('button', { name: 'Calculate', exact: true }).click();
+    await expect(page.locator('#gst output')).toContainText('GST: $10.00');
+    expect(errors).toEqual([]);
+  });
+}
 
 test('an invalid business calculator field gets an inline instruction and focus', async ({ page }) => {
   await page.goto('/tools/business-calculators/gst/');

@@ -154,9 +154,7 @@ if (questions.length) {
 }
 
 const forms = [...document.querySelectorAll('form[data-calculator]')];
-if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./field-errors.mjs')]).then(([calculate, fieldErrors]) => {
-  // WebKit restores an <output> across the retry reload below, so a failure
-  // message left from the previous load is cleared once the calculators load.
+function initialiseCalculators([calculate, fieldErrors]) {
   for (const form of forms) {
     const output = form.querySelector('output');
     if (output.textContent.startsWith('Calculators could not load')) output.textContent = 'Enter the inputs and calculate.';
@@ -355,14 +353,28 @@ if (forms.length) Promise.all([import('./business-calculators.mjs'), import('./f
       output.scrollIntoView({ behavior: 'instant', block: 'nearest' });
     });
   }
-}).catch(() => {
-  for (const form of forms) {
-    form.querySelector('fieldset').disabled = true;
-    const output = form.querySelector('output');
-    const retry = document.createElement('button');
-    retry.type = 'button';
-    retry.textContent = 'Reload this page to retry';
-    retry.addEventListener('click', () => location.reload());
-    output.replaceChildren('Calculators could not load. ', retry);
-  }
-});
+}
+
+function loadCalculators(retryForm) {
+  // A failed module import can remain cached, so a manual retry uses fresh URLs.
+  const suffix = retryForm ? `?retry=${Date.now()}` : '';
+  Promise.all([import(`./business-calculators.mjs${suffix}`), import(`./field-errors.mjs${suffix}`)])
+    .then(initialiseCalculators)
+    .then(() => { if (retryForm) retryForm.querySelector('input, select').focus(); })
+    .catch(() => {
+      for (const form of forms) {
+        form.querySelector('fieldset').disabled = true;
+        const output = form.querySelector('output');
+        const retry = document.createElement('button');
+        retry.type = 'button';
+        retry.textContent = 'Retry loading calculators';
+        retry.addEventListener('click', () => {
+          retry.disabled = true;
+          loadCalculators(form);
+        });
+        output.replaceChildren('Calculators could not load. ', retry);
+      }
+      if (retryForm) retryForm.querySelector('output button').focus();
+    });
+}
+if (forms.length) loadCalculators();
