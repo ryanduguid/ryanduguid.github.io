@@ -20,7 +20,8 @@ On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
 spacing. Breadcrumbs, contents labels, register and fact-list terms, route
 delivery types, the proof label and the Copy button now show their source text
 in sentence case at normal spacing, and the `--tracking-label` token is gone.
-The footer motto keeps its tracked capitals because it is a set mark, not a
+The contents label takes Public Sans SemiBold in full ink, so it still stands
+apart from the mono links below it. The footer motto keeps its tracked capitals because it is a set mark, not a
 label.
 
 On 7 October 2026 calculator input grids pack densely, so an inline error,

@@ -548,9 +548,12 @@ main p {
   line-height: 1.45;
 }
 
+/* The label sets apart from the mono links by face and weight, not capitals. */
 .article-toc p {
   margin-bottom: var(--space-2);
-  color: var(--colour-ink-soft);
+  color: var(--colour-ink);
+  font-family: var(--font-body);
+  font-weight: 600;
 }
 
 .article-toc a {

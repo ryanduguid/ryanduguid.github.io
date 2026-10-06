@@ -559,7 +559,8 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
 
     # Labels stay in sentence case at normal spacing; the footer motto is a
     # set mark, not a label, and keeps its tracked capitals.
-    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", site_css):
+    uncommented_css = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S)
+    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", uncommented_css):
         spacing = re.search(r"letter-spacing\s*:\s*([^;]+);", body, re.I)
         if (
             re.search(r"text-transform\s*:\s*uppercase", body, re.I)
