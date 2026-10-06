@@ -16,6 +16,13 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
+spacing. Breadcrumbs, contents labels, register and fact-list terms, route
+delivery types, the proof label and the Copy button now show their source text
+in sentence case at normal spacing, and the `--tracking-label` token is gone.
+The footer motto keeps its tracked capitals because it is a set mark, not a
+label.
+
 On 5 October 2026 Ryan authorised deep purple (#66023C) and crimson (#990024)
 for the website and GitHub diagrams. Crimson remains the main accent; deep
 purple supplies hover fills and secondary emphasis. Ivory text, focus outlines
@@ -603,7 +610,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Heading | 36 to 56px | Section statement |
 | Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
 
-Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
+Display tracking is modestly negative. Body and mono tracking stay neutral. Labels never combine `text-transform: uppercase` with positive letter spacing; `check_design.py` fails any rule that does, except the footer motto. No all-caps eyebrow appears above every section.
 
 ## Spacing, shape and layers
 

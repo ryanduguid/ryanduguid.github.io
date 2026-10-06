@@ -353,9 +353,7 @@ button:not(.button) {
 .article-crumb {
   color: var(--colour-ink-soft);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
   line-height: 1.5;
-  text-transform: uppercase;
 }
 
 /* Dates read as a sentence, so they keep the body face and sentence case. */
@@ -553,8 +551,6 @@ main p {
 .article-toc p {
   margin-bottom: var(--space-2);
   color: var(--colour-ink-soft);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .article-toc a {
@@ -610,8 +606,6 @@ main p {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .evaluation-summary dd {
@@ -1063,8 +1057,6 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .collection-entry dd {
@@ -1079,8 +1071,6 @@ caption {
   color: var(--colour-ink);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .collection-entry > dl {
@@ -1219,8 +1209,6 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .route-actions--mail > a:hover .route-action-type {
@@ -1254,8 +1242,6 @@ caption {
   font-family: var(--font-mono);
   font-size: var(--text-caption);
   font-weight: 400;
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .copy-status {
@@ -1855,8 +1841,6 @@ caption {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .credential-card__facts dd {
@@ -2321,8 +2305,6 @@ input[type="checkbox"] {
   color: var(--colour-ink-soft);
   font-family: var(--font-mono);
   font-size: var(--text-caption);
-  letter-spacing: var(--tracking-label);
-  text-transform: uppercase;
 }
 
 .calculator-method dd {

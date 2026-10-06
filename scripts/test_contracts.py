@@ -554,6 +554,13 @@ def test_design_contracts() -> int:
             "banned CSS pattern linear-gradient",
         ),
         (
+            "labels stay out of tracked capitals",
+            "assets/site.css",
+            ".article-toc p {",
+            ".article-toc p {\n  text-transform: uppercase;\n  letter-spacing: 0.055em;",
+            "tracked capital label: .article-toc p",
+        ),
+        (
             "content security policy removed",
             "about/index.html",
             check_design.CSP_META + "\n",
