@@ -61,8 +61,13 @@ export const WATCHED = new Map([
   ['https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates', ['5.45%', '$1,200,000']],
 ]);
 
-const escapeRegExp = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const WATCHED_URL = new Map([...WATCHED.keys()].map((url) => [url, new RegExp(`${escapeRegExp(url)}(?![\\w/%-])`)]));
+// A watched URL counts only where the next character cannot continue it.
+function citesWhole(text, url) {
+  for (let at = text.indexOf(url); at !== -1; at = text.indexOf(url, at + 1)) {
+    if (!/[\w/%-]/.test(text[at + url.length] ?? '')) return true;
+  }
+  return false;
+}
 
 export function extractUrls(text) {
   const urls = new Set();
@@ -71,7 +76,7 @@ export function extractUrls(text) {
     // Skip templates such as f-strings and printf patterns.
     if (!/[{}$%]/.test(url.replace(/%[0-9A-Fa-f]{2}/g, ''))) urls.add(url);
   }
-  for (const [url, pattern] of WATCHED_URL) if (pattern.test(text)) urls.add(url);
+  for (const url of WATCHED.keys()) if (citesWhole(text, url)) urls.add(url);
   return [...urls];
 }
 
