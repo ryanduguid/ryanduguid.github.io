@@ -557,6 +557,20 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     if not boundary_note_rule or "--colour-alert" not in boundary_note_rule.group(1):
         failures.append("boundary route notes must retain the alert rule")
 
+    # Labels stay in sentence case at normal spacing; the footer motto is a
+    # set mark, not a label, and keeps its tracked capitals.
+    uncommented_css = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S)
+    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", uncommented_css):
+        spacing = re.search(r"letter-spacing\s*:\s*([^;]+);", body, re.I)
+        if (
+            re.search(r"text-transform\s*:\s*uppercase", body, re.I)
+            and spacing
+            and spacing.group(1).strip() not in {"0", "normal"}
+            and not spacing.group(1).strip().startswith("-")
+            and ".site-footer__motto-mark" not in selector
+        ):
+            failures.append(f"tracked capital label: {' '.join(selector.split())}")
+
     font_faces = FONT_FACE_PATTERN.findall(tokens_css)
     for index, font_face in enumerate(font_faces, start=1):
         if not re.search(r"\bfont-display\s*:\s*optional\s*;", font_face, re.I):

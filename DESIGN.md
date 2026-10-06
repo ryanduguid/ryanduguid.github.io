@@ -16,6 +16,14 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
+spacing. Breadcrumbs, contents labels, register and fact-list terms, route
+delivery types, the proof label and the Copy button now show their source text
+in sentence case at normal spacing, and the `--tracking-label` token is gone.
+The contents label takes Public Sans SemiBold in full ink, so it still stands
+apart from the mono links below it. The footer motto keeps its tracked
+capitals because it is a set mark, not a label.
+
 On 7 October 2026 a clipping pass checked all 55 pages and the 404 page at
 widths from 320 to 1920px in Chromium, Firefox and WebKit, with 32px browser
 text, in the Machine view, with calculator results showing and in print.
@@ -628,7 +636,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Heading | 36 to 56px | Section statement |
 | Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
 
-Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
+Display tracking is modestly negative. Body and mono tracking stay neutral. Labels never combine `text-transform: uppercase` with positive letter spacing; `check_design.py` fails any rule that does, except the footer motto. No all-caps eyebrow appears above every section.
 
 ## Spacing, shape and layers
 

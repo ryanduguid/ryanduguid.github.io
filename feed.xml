@@ -8,6 +8,13 @@
   <updated>2026-10-07T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Breadcrumbs, contents labels and the small labels in registers and fact lists…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-4a54869975a5da59</id>
+    <updated>2026-10-07T00:00:00Z</updated>
+    <summary>Breadcrumbs, contents labels and the small labels in registers and fact lists are set in sentence case at normal letter spacing instead of spaced capitals.</summary>
+  </entry>
+  <entry>
     <title>A wrapped title link no longer covers part of the line above when hovered, and…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-6312d2ef8366a267</id>
