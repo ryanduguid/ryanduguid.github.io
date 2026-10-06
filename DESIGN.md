@@ -16,6 +16,39 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
+spacing. Breadcrumbs, contents labels, register and fact-list terms, route
+delivery types, the proof label and the Copy button now show their source text
+in sentence case at normal spacing, and the `--tracking-label` token is gone.
+The contents label takes Public Sans SemiBold in full ink, so it still stands
+apart from the mono links below it. The footer motto keeps its tracked
+capitals because it is a set mark, not a label.
+
+On 7 October 2026 a clipping pass checked all 55 pages and the 404 page at
+widths from 320 to 1920px in Chromium, Firefox and WebKit, with 32px browser
+text, in the Machine view, with calculator results showing and in print.
+Each heading link is one inline-flex box at every width, so its hover fill
+and focus ring cover its lines once; drawn line by line at the 1.08 leading,
+each fill had painted over the line above. Copy sits below its code block,
+beside the status line, instead of over the first line. Each scroll region
+is an inline-size container, so its caption wraps to the visible width. The
+header nav, which scrolls sideways below 56rem, keeps 6px of room for a
+link's focus ring, balanced by a negative margin. The Machine view draws its
+focus ring inside the window, and printed code wraps to the page. Below 24rem
+the cash forecast's weekly inputs take back some cell and field padding, with
+a 1px ring offset there, so a six-figure amount with cents shows in full. The
+Coal LSL proof images keep a 16px side inset, and the mobile image grows to
+780 by 1360 to hold it.
+
+On 7 October 2026 calculator input grids pack densely, so an inline error,
+which spans its row under the failed field, no longer pushes the field beside
+it onto a new row. The same day settled the homepage chart's contrast: its
+crimson line measures 2.38:1 against black, below the 3:1 that WCAG 1.4.11
+sets for graphics needed to understand content. With the line removed from
+both exports, the ivory markers (20.81:1) still show all 13 weekly values and
+the trend, and the labels, caption and example tables give the figures, so
+the line stays crimson with no outline.
+
 On 5 October 2026 Ryan authorised deep purple (#66023C) and crimson (#990024)
 for the website and GitHub diagrams. Crimson remains the main accent; deep
 purple supplies hover fills and secondary emphasis. Ivory text, focus outlines
@@ -398,7 +431,7 @@ The 31 August 2026 refinement keeps the design read at
   example, which is labelled as a fixed screenshot in a native disclosure.
 - The current Coal LSL proof is a deterministic, fabricated Formula B
   result-only screenshot. `npm run capture:coal-lsl-proof` generates both the
-  868 by 580 desktop image and the 780 by 1192 mobile image from the same
+  868 by 580 desktop image and the 780 by 1360 mobile image from the same
   fixture, with an 80 KB limit for each WebP.
 - Calculator orientation uses one concise task sentence followed by a compact
   rate, method and boundary register. Its output is a label and value result
@@ -603,7 +636,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Heading | 36 to 56px | Section statement |
 | Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
 
-Display tracking is modestly negative except for the uppercase homepage masthead, which uses open tracking as a deliberate Pliny-influenced register mark. Body and mono tracking stay neutral. No all-caps eyebrow appears above every section.
+Display tracking is modestly negative. Body and mono tracking stay neutral. Labels never combine `text-transform: uppercase` with positive letter spacing; `check_design.py` fails any rule that does, except the footer motto. No all-caps eyebrow appears above every section.
 
 ## Spacing, shape and layers
 

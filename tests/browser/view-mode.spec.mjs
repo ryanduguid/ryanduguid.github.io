@@ -28,9 +28,11 @@ test('mobile view switch stays inside the header and clear of its links', async 
     const toggle = await page.getByRole('radiogroup', { name: 'View mode' }).boundingBox();
     const header = await page.locator('.site-header').boundingBox();
     const identity = await page.locator('.site-identity').boundingBox();
-    const navigation = await page.getByRole('navigation', { name: 'Primary' }).boundingBox();
+    // The first link, not the nav box: the nav keeps transparent room around
+    // its links for focus rings.
+    const firstLink = await page.getByRole('navigation', { name: 'Primary' }).getByRole('link').first().boundingBox();
     expect(toggle.y).toBeGreaterThanOrEqual(header.y);
-    expect(toggle.y + toggle.height).toBeLessThanOrEqual(navigation.y);
+    expect(toggle.y + toggle.height).toBeLessThanOrEqual(firstLink.y);
     expect(identity.x + identity.width).toBeLessThan(toggle.x);
     expect(toggle.x + toggle.width).toBeLessThanOrEqual(width);
   }

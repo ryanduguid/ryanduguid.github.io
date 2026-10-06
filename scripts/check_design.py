@@ -34,7 +34,7 @@ LAMBDA_MARKUP = '<span class="function-symbol">λ</span>'
 RAW_COLOUR_PATTERN = re.compile(r"#[0-9a-f]{3,8}\b", re.I)
 # The calculator and question pages add a third stylesheet with the same key, so a
 # stylesheet change reaches returning visitors instead of waiting out the CSS cache.
-ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20261005a" />'
+ACCOUNTING_LINK = '<link rel="stylesheet" href="/assets/accounting-pages.css?v=20261007b" />'
 # Keep the site's chosen 48px and 96px rasters on every page. Google requires
 # a square icon of at least 8px and recommends a size larger than 48px.
 GOOGLE_FAVICON_LINKS = (
@@ -556,6 +556,20 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     boundary_note_rule = re.search(r"\.route-note\.boundary\s*\{(.*?)\}", site_css, re.S | re.I)
     if not boundary_note_rule or "--colour-alert" not in boundary_note_rule.group(1):
         failures.append("boundary route notes must retain the alert rule")
+
+    # Labels stay in sentence case at normal spacing; the footer motto is a
+    # set mark, not a label, and keeps its tracked capitals.
+    uncommented_css = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S)
+    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", uncommented_css):
+        spacing = re.search(r"letter-spacing\s*:\s*([^;]+);", body, re.I)
+        if (
+            re.search(r"text-transform\s*:\s*uppercase", body, re.I)
+            and spacing
+            and spacing.group(1).strip() not in {"0", "normal"}
+            and not spacing.group(1).strip().startswith("-")
+            and ".site-footer__motto-mark" not in selector
+        ):
+            failures.append(f"tracked capital label: {' '.join(selector.split())}")
 
     font_faces = FONT_FACE_PATTERN.findall(tokens_css)
     for index, font_face in enumerate(font_faces, start=1):
