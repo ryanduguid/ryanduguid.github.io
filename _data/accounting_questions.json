@@ -210,9 +210,17 @@
       "label": "Preparing for the 2026 land tax year, Revenue NSW",
       "url": "https://www.revenue.nsw.gov.au/news-media-releases/preparing-for-the-2026-land-tax-year"
     },
+    "land-thresholds": {
+      "label": "Land tax thresholds and rates, Revenue NSW",
+      "url": "https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/understanding-land-tax/thresholds-and-rates"
+    },
     "coallsl": {
       "label": "Coal LSL levy returns and payments",
       "url": "https://coallsl.com.au/employer/administer-lsl/levy"
+    },
+    "coallsl-eligibility": {
+      "label": "Coal LSL employee eligibility",
+      "url": "https://coallsl.com.au/employer/eligibility"
     },
     "claiming-deductions": {
       "label": "Claiming deductions",
@@ -803,7 +811,8 @@
       "tool": "car",
       "fact": "The cents per kilometre rate is 91 cents for 2026-27 (88 cents for 2024-25 and 2025-26), capped at 5,000 business kilometres per car. The logbook method has no kilometre cap but needs a valid logbook.",
       "fact_sources": [
-        "cpk"
+        "cpk",
+        "logbook"
       ]
     },
     {
@@ -2162,7 +2171,8 @@
       "tool": "",
       "fact": "For the 2026 land tax year, NSW land tax applies when the combined taxable value of your land, excluding exempt land such as your home, exceeds the general threshold of $1,075,000.",
       "fact_sources": [
-        "land-2026"
+        "land-2026",
+        "land-thresholds"
       ]
     },
     {
@@ -2178,6 +2188,9 @@
       "source": "coallsl",
       "tool": "coal",
       "fact": "Yes, for eligible employees in the black coal mining industry. The employer reports and pays the levy monthly, currently 2.7% of each eligible employee’s eligible wages.",
+      "fact_sources": [
+        "coallsl-eligibility"
+      ],
       "keywords": "Newcastle Hunter coal mining long service leave levy"
     },
     {
