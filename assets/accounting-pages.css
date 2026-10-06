@@ -135,7 +135,12 @@
 }
 
 /* An inline error spans the field row under the field that failed, so it
-   does not take a neighbouring field's cell. */
+   does not take a neighbouring field's cell. Dense packing returns the
+   fields after it to the gap it leaves in that row, so they do not move. */
+.form-grid {
+  grid-auto-flow: row dense;
+}
+
 .form-grid > .field-error {
   grid-column: 1 / -1;
 }
