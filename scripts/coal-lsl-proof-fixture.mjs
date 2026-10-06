@@ -3,6 +3,8 @@ export const COAL_LSL_PROOF = Object.freeze({
   capture: Object.freeze({
     width: 868,
     height: 580,
+    // Side margin inside the image, so right-aligned figures stop short of its edge.
+    inset: 16,
     quality: 0.84,
     maxBytes: 80_000,
   }),

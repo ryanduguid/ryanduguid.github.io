@@ -15,6 +15,13 @@
     <summary>Breadcrumbs, contents labels and the small labels in registers and fact lists are set in sentence case at normal letter spacing instead of spaced capitals.</summary>
   </entry>
   <entry>
+    <title>A wrapped title link no longer covers part of the line above when hovered, and…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-6312d2ef8366a267</id>
+    <updated>2026-10-07T00:00:00Z</updated>
+    <summary>A wrapped title link no longer covers part of the line above when hovered, and Copy buttons sit below their code instead of over it. Table captions wrap to a phone screen, header links keep their whole focus outline, printed code wraps to the page, the cash forecast shows six-figure weekly amounts on the narrowest phones and the Coal LSL result images no longer crop their figures.</summary>
+  </entry>
+  <entry>
     <title>When a business calculator flags a field, the field beside it stays where it…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-a223370ae917ce76</id>

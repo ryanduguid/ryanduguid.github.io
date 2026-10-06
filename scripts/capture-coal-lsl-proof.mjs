@@ -83,6 +83,7 @@ export async function renderCoalLslProofPage(page, capture = COAL_LSL_PROOF.capt
       maxWidth: 'none',
       minWidth: '0',
       margin: '0',
+      paddingInline: `${capture.inset}px`,
       position: 'static',
       overflow: 'hidden',
       background,
@@ -100,6 +101,14 @@ export async function renderCoalLslProofPage(page, capture = COAL_LSL_PROOF.capt
   const scrollHeight = await panel.evaluate((element) => element.scrollHeight);
   if (scrollHeight > capture.height) {
     throw new Error(`Proof content exceeds capture height: ${scrollHeight}`);
+  }
+  // The figures are right-aligned, so the furthest one shows whether they
+  // stop clear of the image edge; flush against it, their last glyphs looked cut.
+  const figuresRight = await panel.evaluate((element) => Math.max(
+    ...[...element.querySelectorAll('.result-row strong')].map((figure) => figure.getBoundingClientRect().right),
+  ));
+  if (capture.width - figuresRight < 8) {
+    throw new Error(`Proof figures end ${capture.width - figuresRight}px from the image edge`);
   }
 
   const png = await panel.screenshot({

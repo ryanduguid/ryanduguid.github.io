@@ -206,12 +206,12 @@ Lighthouse checks when changing it.
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or
 [SuperStream standards](https://softwaredevelopers.ato.gov.au/SuperStreamStandard).
 Both returned HTTP 200 locally on 10 September 2026. In
-[run 34593410260](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/34593410260),
+run 34593410260,
 the runner also timed out on [applying for an ABN](https://www.abr.gov.au/business-super-funds-charities/applying-abn),
 [final pay](https://www.fairwork.gov.au/ending-employment/final-pay) and the
 [TPB register](https://www.tpb.gov.au/public-register). These 3 URLs returned
 HTTP 200 locally on 11 September 2026. In
-[run 36531719107](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/36531719107)
+run 36531719107
 it timed out on the National AI Centre's
 [implementation guidance](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance)
 and [AI systems register](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register)
@@ -235,20 +235,20 @@ for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
 
 The [Division 7A benchmark rate table](https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate)
-also returned HTTP 403 in [run 34852175800](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/34852175800).
+also returned HTTP 403 in run 34852175800.
 The local link check and Camofox both returned HTTP 200 on 14 September 2026.
 Its exact URL is in the same exception list; other statuses and neighbouring
 URLs still fail. Recheck local access before changing the link, and remove
 the exception when runner access permits.
 
 The six ATO sources behind the car limit and FBT rate tables returned HTTP 403
-in [run 35459888870](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35459888870)
+in run 35459888870
 and HTTP 200 locally and in Camofox on 20 September 2026; they are in the same
 list under the same rule.
 
 The [Parliament bills index](https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation)
 and [ATO cents-per-kilometre eligibility page](https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/income-and-deductions-for-business/deductions/deductions-for-motor-vehicle-expenses/cents-per-kilometre-method)
-returned HTTP 403 in [run 35624778953](https://github.com/ryanduguid/ryanduguid.github.io/actions/runs/35624778953).
+returned HTTP 403 in run 35624778953.
 Camofox returned HTTP 200 and the expected content for both on 22 September 2026.
 The same exact-URL, HTTP-403 rule applies to them; other statuses and neighbouring
 URLs still fail. Recheck them in a browser when editing their citations and remove

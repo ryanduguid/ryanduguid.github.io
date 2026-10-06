@@ -73,11 +73,13 @@ for (const width of [320, 390]) {
       const geometry = await page.evaluate(() => {
         const name = document.querySelector('.site-identity').getBoundingClientRect();
         const mode = document.querySelector('.view-mode').getBoundingClientRect();
-        const nav = document.querySelector('.site-nav').getBoundingClientRect();
+        // The links, not the nav box: the nav keeps transparent room around
+        // them for focus rings.
+        const links = [...document.querySelectorAll('.site-nav a')].map((link) => link.getBoundingClientRect());
         return {
           switchOverlap: name.right > mode.left && name.bottom > mode.top,
           identityBottom: name.bottom,
-          navTop: nav.top,
+          navTop: Math.min(...links.map((link) => link.top)),
         };
       });
       expect(geometry.switchOverlap, `${route} site name and view switch overlap`).toBe(false);
