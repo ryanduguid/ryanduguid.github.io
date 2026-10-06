@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { baselineFile, classify, collectSources, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy } from './check_ato_sources.mjs';
+import { baselineFile, classify, collectSources, collectValues, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -35,8 +35,29 @@ test('sources skip generated output, tests and test files', () => {
   writeFileSync(join(root, 'tests', 'fixture.json'), '"https://www.ato.gov.au/fixture"');
   writeFileSync(join(root, 'scripts', 'test_links.py'), '"https://www.ato.gov.au/test-file"');
   const sources = collectSources([root]);
-  assert.deepEqual([...sources.keys()], [PAGE]);
+  assert.deepEqual([...sources.keys()].filter((url) => !WATCHED.has(url)), [PAGE]);
   assert.match(sources.get(PAGE)[0], /\/rates\/index\.html$/);
+});
+
+const LEVY = 'https://coallsl.com.au/employer/administer-lsl/levy';
+
+test('a watched page is found only as a whole URL', () => {
+  assert.deepEqual(extractUrls(`<a href="${LEVY}">levy</a>. See ${LEVY}.`), [LEVY]);
+  assert.deepEqual(extractUrls(`${LEVY}/history ${LEVY}-rates https://coallsl.com.au/employer`), []);
+});
+
+test('watched pages are read even when nothing cites them, and their values are traced', () => {
+  const root = mkdtempSync(join(tmpdir(), 'ato-watched-'));
+  mkdirSync(join(root, 'assets'));
+  writeFileSync(join(root, 'assets', 'levy.mjs'), 'export const NOTE = "2.7% of eligible wages";');
+  writeFileSync(join(root, 'index.html'), `<a href="${LEVY}">The levy is 2.7%</a>`);
+  const sources = collectSources([root]);
+  for (const url of WATCHED.keys()) assert.ok(sources.has(url), url);
+  assert.deepEqual(sources.get(LEVY).map((path) => path.split('/').pop()), ['index.html']);
+  assert.deepEqual(sources.get([...WATCHED.keys()][1]), []);
+  const values = collectValues([root]);
+  assert.deepEqual(values.get('2.7%').map((path) => path.split('/').slice(1).join('/')).sort(), ['assets/levy.mjs', 'index.html']);
+  assert.deepEqual(values.get('5.45%'), []);
 });
 
 test('a first-seen page passes and its text becomes the baseline', () => {

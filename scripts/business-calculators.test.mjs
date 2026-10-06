@@ -107,9 +107,30 @@ test('business use apportions the supplied eligible cost and rejects impossible 
 });
 
 test('margin uses revenue as denominator and markup uses cost', () => {
-  assert.deepEqual(margin('150', '100'), { profit: 50, margin: 100 / 3, markup: 50 });
+  assert.deepEqual(margin('150', '100'), { profit: 50, margin: 33.33, markup: 50 });
   assert.deepEqual(margin('0', '100'), { profit: -100, margin: null, markup: -100 });
   assert.equal(margin('100', '0').markup, null);
+});
+
+test('percentages round exact ties half away from zero, whatever the amounts', () => {
+  // Each pair is the same exact 1.005% margin; float division showed 1.00% for one, 1.01% for the other.
+  assert.equal(margin('200', '197.99').margin, 1.01);
+  assert.equal(margin('1000', '989.95').margin, 1.01);
+  assert.equal(margin('202.01', '200').markup, 1.01);
+  assert.equal(margin('197.99', '200').markup, -1.01);
+  assert.equal(variance('2004.10', '2000', 'cost').percent, 0.21);
+  assert.equal(variance('1995.90', '2000', 'cost').percent, -0.21);
+  assert.equal(variance('-1995.90', '-2000', 'income').percent, 0.21);
+  // Either side of a tie: 1.004% rounds down and 1.006% rounds up.
+  assert.equal(margin('1000', '989.96').margin, 1);
+  assert.equal(margin('1000', '989.94').margin, 1.01);
+});
+
+test('a percentage that rounds to zero is never negative zero', () => {
+  for (const value of [margin('100000', '100000.01').margin, margin('100000.01', '100000.02').markup,
+    variance('99999.99', '100000', 'income').percent]) {
+    assert.ok(Object.is(value, 0), `expected +0, got ${value}`);
+  }
 });
 
 test('break-even rounds units up and refuses non-positive contributions', () => {
