@@ -10,7 +10,7 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is solomons-sword/v0.1.10, which pip install solomons-sword fetches.
+Reference release solomons-sword/v0.1.9, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is solomons-sword/v0.2.0, which pip install solomons-sword fetches on Python 3.11 or later. On Python 3.10 it fetches v0.1.10, the last release for that version.
 
 Published 24 August 2026. Last reviewed 1 October 2026.
 
@@ -103,7 +103,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - solomons-sword/v0.1.9: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9
-- solomons-sword/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.10
+- solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
 - guideline PCG 2022/2: https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001
 - Published package: https://pypi.org/project/solomons-sword/0.1.9/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart

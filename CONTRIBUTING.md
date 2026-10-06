@@ -51,6 +51,13 @@ contracts. TypeScript checks the existing JavaScript without emitting files.
 The compiler cases in `tests/types/calculators.ts` must reject invalid input
 and result types; the Node tests still check validation and rounding.
 
+The business calculators work in integer cents. Money results round half up to
+the cent. Margin, markup and variance percentages round half away from zero to
+two decimal places, as Excel's ROUND does, and are worked out from the exact
+cents ratio. A percentage that rounds to zero shows as 0.00%, never −0.00%. Keep
+both rules in `assets/business-calculators.mjs` and the note on the calculator
+pages in step.
+
 Stylesheet links carry a `v` query value because Cloudflare caches CSS for four
 hours. When changing `assets/tokens.css` or `assets/site.css`, update the quoted
 `asset_version` in `_config.yml` so the new HTML requests fresh CSS. Page and
@@ -109,6 +116,14 @@ moves any baseline, and a rerun the same day adds to that day's report. It
 refuses more than 500 URLs, and
 `node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
+
+The same sweep reads three pages outside the ATO whose figures their publishers
+revise, listed in `WATCHED` in that script: the Coal LSL levy (2.7%), NSW land
+tax thresholds ($1,075,000) and NSW payroll tax thresholds and rates (5.45% above
+$1,200,000). It reads them whether or not a file cites them. When one changes,
+the report also lists every file containing each watched value, because the
+calculators and examples reuse these values without citing the page. Update the
+value in `WATCHED` with the pages that use it.
 
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
@@ -178,6 +193,14 @@ The `basic-ftp` override pins Lighthouse CI's FTP client to 6.2.1, which fixes a
 in every release up to 6.2.0. `get-uri` 6.0.5 asks for `^5.0.2`, but it calls only
 `Client`, `access`, `lastMod`, `downloadTo`, `list` and `close`, which 6.2.1 keeps.
 Remove it when `get-uri` accepts a fixed release. Run the browser, capture, and
+Lighthouse checks when changing it.
+
+The `js-yaml` override gives Lighthouse CI's `js-yaml` 3.15.2 `argparse` 2.0.1,
+which drops `sprintf-js` 1.0.3 and its
+[unbounded-precision denial-of-service issue](https://github.com/advisories/GHSA-hp3w-g68c-fv3c),
+which has no fixed release. Only the `js-yaml` command-line tool uses `argparse`,
+and nothing here runs it; `@lhci/utils` uses the library to read configuration.
+Remove it when Lighthouse CI moves to `js-yaml` 4. Run the browser, capture, and
 Lighthouse checks when changing it.
 
 GitHub runners cannot fetch [SBR](https://www.sbr.gov.au/) or

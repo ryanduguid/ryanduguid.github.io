@@ -1,8 +1,8 @@
-// Checks every ATO page the portfolio cites. The ATO answers GitHub runners
-// with HTTP 403 and check_links.py can only accept that denial on trust, so
-// this sweep runs on Ryan's machine: `nodriver batch` reads each page in a
-// local Chrome and the text is compared with the copy kept in --baseline from
-// the previous weekly run.
+// Checks every ATO page the portfolio cites, and the pages outside the ATO in
+// WATCHED. The ATO answers GitHub runners with HTTP 403 and check_links.py can
+// only accept that denial on trust, so this sweep runs on Ryan's machine:
+// `nodriver batch` reads each page in a local Chrome and the text is compared
+// with the copy kept in --baseline from the previous weekly run.
 //
 // Failures: a page that returns an error status or no text, and a page whose
 // text changed since the previous run, other than the legal database home
@@ -50,6 +50,25 @@ const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.json', '.mjs', '.js', 
 const TEST_FILE = /^test_|\.test\.|\.spec\./;
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
+// Pages outside the ATO behind values their publishers revise: the NSW budget
+// in June, the land tax year in January and the Coal LSL corporation when it
+// announces a new levy. They are read every run whether or not a file cites
+// them, and a change lists every file using each value, because the calculators
+// and examples reuse the values without citing the page.
+export const WATCHED = new Map([
+  ['https://coallsl.com.au/employer/administer-lsl/levy', ['2.7%']],
+  ['https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/land-tax/understanding-land-tax/thresholds-and-rates', ['$1,075,000']],
+  ['https://www.revenue.nsw.gov.au/taxes-duties-levies-royalties/payroll-tax/lodge-and-pay-returns/thresholds-and-rates', ['5.45%', '$1,200,000']],
+]);
+
+// A watched URL counts only where the next character cannot continue it.
+function citesWhole(text, url) {
+  for (let at = text.indexOf(url); at !== -1; at = text.indexOf(url, at + 1)) {
+    if (!/[\w/%-]/.test(text[at + url.length] ?? '')) return true;
+  }
+  return false;
+}
+
 export function extractUrls(text) {
   const urls = new Set();
   for (const match of text.matchAll(ATO_URL)) {
@@ -57,6 +76,7 @@ export function extractUrls(text) {
     // Skip templates such as f-strings and printf patterns.
     if (!/[{}$%]/.test(url.replace(/%[0-9A-Fa-f]{2}/g, ''))) urls.add(url);
   }
+  for (const url of WATCHED.keys()) if (citesWhole(text, url)) urls.add(url);
   return [...urls];
 }
 
@@ -73,7 +93,7 @@ function* textFiles(directory) {
 
 // Maps each cited URL to the files citing it, labelled by directory name.
 export function collectSources(directories) {
-  const sources = new Map();
+  const sources = new Map([...WATCHED.keys()].map((url) => [url, []]));
   for (const directory of directories) {
     const label = basename(resolve(directory));
     for (const path of textFiles(directory)) {
@@ -84,6 +104,21 @@ export function collectSources(directories) {
     }
   }
   return new Map([...sources].sort(([a], [b]) => a.localeCompare(b)));
+}
+
+// Maps each watched value to the files containing it, labelled as above.
+export function collectValues(directories) {
+  const values = new Map([...WATCHED.values()].flat().map((value) => [value, []]));
+  for (const directory of directories) {
+    const label = basename(resolve(directory));
+    for (const path of textFiles(directory)) {
+      const text = readFileSync(path, 'utf8');
+      for (const [value, files] of values) {
+        if (text.includes(value)) files.push(`${label}/${relative(directory, path).replaceAll('\\', '/')}`);
+      }
+    }
+  }
+  return values;
 }
 
 // Chrome may report a requested URL with different percent-encoding, and the
@@ -227,10 +262,11 @@ async function main() {
     options: { list: { type: 'boolean' }, baseline: { type: 'string' }, out: { type: 'string' } },
     allowPositionals: true,
   });
-  const sources = collectSources(positionals.length ? positionals : [root]);
+  const directories = positionals.length ? positionals : [root];
+  const sources = collectSources(directories);
   if (values.list) {
     for (const [url, files] of sources) console.log(`${url}\n  ${files.join('\n  ')}`);
-    console.log(`${sources.size} ATO URLs`);
+    console.log(`${sources.size} URLs, ${WATCHED.size} of them watched outside the ATO`);
     return 0;
   }
   if (!values.baseline || !values.out) {
@@ -238,10 +274,11 @@ async function main() {
     return 1;
   }
   if (sources.size > MAX_URLS) {
-    console.error(`${sources.size} ATO URLs exceed the limit of ${MAX_URLS}`);
+    console.error(`${sources.size} URLs exceed the limit of ${MAX_URLS}`);
     return 1;
   }
   const pages = await readPages([...sources.keys()]);
+  const valueFiles = collectValues(directories);
   const failures = [];
   const notes = [];
   const review = [];
@@ -256,7 +293,10 @@ async function main() {
     if (note) notes.push(`${url} ${note}`);
     if (!failure) continue;
     failures.push(`${url}: ${failure}`);
-    review.push(`### ${url}\n\n${failure}. Cited in: ${files.map((path) => `\`${path}\``).join(', ')}\n`);
+    review.push(`### ${url}\n\n${failure}. Cited in: ${files.map((path) => `\`${path}\``).join(', ') || 'no file'}\n`);
+    for (const value of WATCHED.get(url) ?? []) {
+      review.push(`\`${value}\` appears in: ${valueFiles.get(value).map((path) => `\`${path}\``).join(', ') || 'no file'}\n`);
+    }
     if (diff) review.push('```diff', diff, '```', '');
   }
   const date = new Date().toLocaleDateString('en-CA');
@@ -266,7 +306,7 @@ async function main() {
   for (const note of notes) console.log(`note: ${note}`);
   for (const failure of failures) console.error(failure);
   if (failures.length) return 1;
-  console.log(`${sources.size} ATO sources read, ${seeded} new to the baseline`);
+  console.log(`${sources.size} sources read, ${seeded} new to the baseline`);
   return 0;
 }
 

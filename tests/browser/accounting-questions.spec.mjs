@@ -371,6 +371,25 @@ for (const [id, inputs, expected] of [
   });
 }
 
+// Exact ties (the -1.005% markup and -0.205% variance) round half away from zero,
+// and the page writes negatives with U+2212.
+for (const [id, inputs, expected] of [
+  ['margin', { sales: '197.99', cost: '200' }, ['Margin: −1.02%', 'Markup: −1.01%']],
+  ['variance', { actual: '1995.90', budget: '2000', kind: 'cost' }, ['budget: −0.21%']],
+]) {
+  test(`${id} shows an exact negative tie rounded away from zero`, async ({ page }) => {
+    await page.goto(`/tools/business-calculators/${id}/`);
+    const form = page.locator(`#${id} form`);
+    for (const [name, value] of Object.entries(inputs)) {
+      const field = form.locator(`[name="${name}"]`);
+      if (name === 'kind') await field.selectOption(value);
+      else await field.fill(value);
+    }
+    await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+    for (const text of expected) await expect(form.locator('output')).toContainText(text);
+  });
+}
+
 for (const [rate, months, expected] of [
   ['2.4789', '2', ['Monthly payment: $501,549,845.36.', 'First payment principal: $499,484,095.36.']],
   ['100', '600', ['Monthly payment: $83,333,333.33.', 'Estimated total interest: $49,000,000,000.00.']],

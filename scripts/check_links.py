@@ -354,6 +354,11 @@ HTTP_403_AUTOMATION_DENIAL_URLS = frozenset(
             "https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/"
             "tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax"
         ),
+        # Run 37393107307 returned 403; the local link check returned 200 on 6 October 2026.
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/"
+            "paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base"
+        ),
     }
 )
 

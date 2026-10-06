@@ -58,11 +58,11 @@
         },
         {
           "id": "F5-tools",
-          "fact": "The current published release, v0.2.12, covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, 10 bounded tax worksheets and optional search of a local Markdown library. The guide's reproducible v0.2.8 example has 7 worksheets.",
+          "fact": "The current published release, v0.3.0, covers ATO small-business benchmark comparison, Payday Super timing, limited Division 7A review, 10 bounded tax worksheets and optional search of a local Markdown library. The guide's reproducible v0.2.8 example has 7 worksheets.",
           "source": "https://duguid.com.au/tools/australian-tax-ai-agents/",
           "release_basis": {
             "component": "aus-accounting-mcp",
-            "version": "0.2.12"
+            "version": "0.3.0"
           }
         },
         {

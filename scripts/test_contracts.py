@@ -2233,12 +2233,12 @@ def test_release_record() -> None:
     with copied_site() as root:
         lagging = copy.deepcopy(record)
         component = lagging["components"]["aus-accounting-mcp"]
-        component["published"]["version"] = "0.3.0"
+        component["published"]["version"] = "9.9.9"
         replace_file(
             root,
             contracts.MCP_REL,
             '<p class="page-meta">',
-            "<p>A different component has current published release 0.3.0.</p>\n"
+            "<p>A different component has current published release 9.9.9.</p>\n"
             '<p class="page-meta">',
         )
         expect_failure(
@@ -2250,16 +2250,16 @@ def test_release_record() -> None:
     with copied_site() as root:
         lagging = copy.deepcopy(record)
         component = lagging["components"]["aus-accounting-mcp"]
-        component["published"]["version"] = "0.3.0"
+        component["published"]["version"] = "9.9.9"
         component["published"]["release_url"] = (
             "https://github.com/ryanduguid/australian-accounting/releases/tag/"
-            "aus-accounting-mcp/v0.3.0"
+            "aus-accounting-mcp/v9.9.9"
         )
         replace_file(
             root,
             contracts.MCP_REL,
             '<p class="page-meta">',
-            "<p>Release 0.3.0 is the current published release; this page still "
+            "<p>Release 9.9.9 is the current published release; this page still "
             'documents 0.2.8.</p>\n    <p class="page-meta">',
         )
         failures = release_record.check_record(root, lagging)

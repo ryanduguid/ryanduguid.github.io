@@ -130,7 +130,7 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.2.12 for ATO benchmarks, Payday Super timing, limited Division 7A "
+        "Local MCP server v0.3.0 for ATO benchmarks, Payday Super timing, limited Division 7A "
         "review, 10 bounded tax worksheets, optional local Markdown search and "
         "synthetic SBR fixtures. Not advice.",
     ),
