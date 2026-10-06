@@ -10,7 +10,7 @@ Nine calculators, each on its own page with the formula, assumptions and source 
 
 Find a question and prepare a checklist.
 
-Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; loan estimates allow for calculation precision.
+Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up, and percentages to two decimal places, with exact halves rounded away from zero; loan estimates allow for calculation precision.
 
 Published 11 September 2026. Last reviewed 27 September 2026.
 

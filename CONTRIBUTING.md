@@ -51,6 +51,13 @@ contracts. TypeScript checks the existing JavaScript without emitting files.
 The compiler cases in `tests/types/calculators.ts` must reject invalid input
 and result types; the Node tests still check validation and rounding.
 
+The business calculators work in integer cents. Money results round half up to
+the cent. Margin, markup and variance percentages round half away from zero to
+two decimal places, as Excel's ROUND does, and are worked out from the exact
+cents ratio. A percentage that rounds to zero shows as 0.00%, never −0.00%. Keep
+both rules in `assets/business-calculators.mjs` and the note on the calculator
+pages in step.
+
 Stylesheet links carry a `v` query value because Cloudflare caches CSS for four
 hours. When changing `assets/tokens.css` or `assets/site.css`, update the quoted
 `asset_version` in `_config.yml` so the new HTML requests fresh CSS. Page and
