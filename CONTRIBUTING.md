@@ -110,6 +110,14 @@ refuses more than 500 URLs, and
 `node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 
+The same sweep reads three pages outside the ATO whose figures their publishers
+revise, listed in `WATCHED` in that script: the Coal LSL levy (2.7%), NSW land
+tax thresholds ($1,075,000) and NSW payroll tax thresholds and rates (5.45% above
+$1,200,000). It reads them whether or not a file cites them. When one changes,
+the report also lists every file containing each watched value, because the
+calculators and examples reuse these values without citing the page. Update the
+value in `WATCHED` with the pages that use it.
+
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
 `python scripts/check_design.py --update-baseline` and check that the diff
