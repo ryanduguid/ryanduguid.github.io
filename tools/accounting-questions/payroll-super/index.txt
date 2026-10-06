@@ -35,7 +35,7 @@ The super guarantee rate is 12%, as it has been since 1 July 2025. From 1 July 2
 
 The old quarterly SG worksheet does not establish current Payday Super entitlement.
 
-Payday Super for employers · Super guarantee rate history on this site · Maximum super contribution base by year
+Payday Super for employers · Super guarantee rate history on this site · ATO maximum contribution base · Maximum super contribution base by year
 
 The bold answer was checked on 27 September 2026.
 
@@ -69,7 +69,7 @@ Since 1 July 2026, super that is unpaid, late, short or paid to the wrong fund m
 
 Sending a replacement does not automatically remove a late-payment consequence.
 
-Payday Super for employers · What to do if you miss a Payday Super contribution · Payday Super receipt evidence example
+Payday Super for employers · What to do if you miss a Payday Super contribution · Payment deadlines for Payday Super · Payday Super receipt evidence example
 
 The bold answer was checked on 27 September 2026.
 
@@ -216,6 +216,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - Payday Super for employers: https://www.ato.gov.au/businesses-and-organisations/super-for-employers
 - Super guarantee rate history on this site: https://duguid.com.au/rates/super-guarantee/
+- ATO maximum contribution base: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base
 - Maximum super contribution base by year: https://duguid.com.au/rates/maximum-contribution-base/
 - Link to question 41: https://duguid.com.au/tools/accounting-questions/payroll-super/#q41
 - Payment deadlines for Payday Super: https://www.ato.gov.au/businesses-and-organisations/super-for-employers/paying-super-on-payday/payment-deadlines-for-payday-super
