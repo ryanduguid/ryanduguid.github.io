@@ -41,6 +41,23 @@ test('an invalid business calculator field gets an inline instruction and focus'
   await expect(form.locator('output')).toContainText('GST: $0.10');
 });
 
+test('an inline error leaves the field beside it in place', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 800 });
+  await page.goto('/tools/business-calculators/gst/');
+  const form = page.locator('#gst form');
+  const amount = form.locator('label.field');
+  const inclusive = form.locator('.check-field');
+  const field = await amount.boundingBox();
+  const before = await inclusive.boundingBox();
+  // At this width the checkbox shares the amount's row.
+  expect(before.y).toBeLessThan(field.y + field.height);
+  await form.getByRole('button', { name: 'Calculate', exact: true }).click();
+  const error = form.locator('.field-error');
+  await expect(error).toHaveText('Enter an amount.');
+  expect(await inclusive.boundingBox()).toEqual(before);
+  expect((await error.boundingBox()).y).toBeGreaterThanOrEqual(field.y + field.height);
+});
+
 test('question search finds abbreviations and words in the guidance', async ({ page }) => {
   const requests = [];
   page.on('request', request => requests.push(request.url()));
