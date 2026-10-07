@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this work, cite it with this metadata and the release tag or commit you used."
+title: "duguid.com.au"
+type: software
+authors:
+  - family-names: Duguid
+    given-names: Ryan
+abstract: "Open-source engines, MCP servers and AI agent workflows for Australian tax and accounting."
+repository-code: "https://github.com/ryanduguid/ryanduguid.github.io"
+url: "https://duguid.com.au/"
+license: MIT
+keywords:
+  - accounting
+  - australia
+  - github-pages
+  - landing-page
+  - portfolio
+  - tax
