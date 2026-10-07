@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import sys
 import tempfile
+import time
 from html.parser import HTMLParser
 from pathlib import Path
 
@@ -274,6 +275,17 @@ def check_metadata_excluded(rendered: Path) -> None:
             raise RuntimeError(f"CI metadata path reached the rendered site: {path}")
 
 
+def run_check(
+    command: tuple[str, ...] | list[str], cwd: Path, *, check: bool = True
+) -> subprocess.CompletedProcess[bytes]:
+    print(f"running {' '.join(command)}", flush=True)
+    started = time.perf_counter()
+    try:
+        return subprocess.run(command, cwd=cwd, check=check)
+    finally:
+        print(f"elapsed {time.perf_counter() - started:.3f}s: {' '.join(command)}", flush=True)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--offline", action="store_true", help="skip live external-link checks")
@@ -290,16 +302,20 @@ def main() -> int:
         print("true" if ci_metadata_only() else "false")
         return 0
     args.offline = args.offline or (args.ci and (ci_metadata_only() or ci_offline()))
-    subprocess.run(
-        [sys.executable, "scripts/build_ozzit_reference.py", "--check"], cwd=ROOT, check=True
-    )
-    rendered = build()
+    run_check([sys.executable, "scripts/build_ozzit_reference.py", "--check"], ROOT)
+    started = time.perf_counter()
+    try:
+        rendered = build()
+    finally:
+        print(f"elapsed {time.perf_counter() - started:.3f}s: Jekyll build", flush=True)
     check_metadata_excluded(rendered)
-    subprocess.run([sys.executable, "scripts/test_build_site.py"], cwd=ROOT, check=True)
+    run_check([sys.executable, "scripts/test_build_site.py"], ROOT)
     # CI selects link checks from source pages, so this test reads source, not rendered, files.
     # Fixed arguments: the current interpreter runs a repository test.
     # nosemgrep: python.lang.security.audit.dangerous-subprocess-use-audit.dangerous-subprocess-use-audit
-    subprocess.run([sys.executable, "scripts/test_ci_link_selection.py"], cwd=ROOT, check=True)  # nosec B603
+    run_check([sys.executable, "scripts/test_ci_link_selection.py"], ROOT)
+    # Publication tests inspect the workflow and aggregate in the unpublished source tree.
+    run_check([sys.executable, "scripts/test_check_publication.py"], ROOT)
     # Add only the tooling and fixtures the checks need beside the built files.
     # Copying public source files here would hide omissions from Jekyll's output.
     with tempfile.TemporaryDirectory() as directory:
@@ -324,8 +340,7 @@ def main() -> int:
         for command in CHECKS:
             if args.offline and "scripts/check_links.py" in command:
                 command = (*command, "--offline")
-            print(f"running {' '.join(command)}", flush=True)
-            completed = subprocess.run(command, cwd=checked, check=False)
+            completed = run_check(command, checked, check=False)
             if completed.returncode:
                 return completed.returncode
     print("site checks passed (external links skipped)" if args.offline else "site checks passed")

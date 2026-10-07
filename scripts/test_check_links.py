@@ -368,6 +368,7 @@ class FetchFinalUrlTests(unittest.TestCase):
                 [check_site.sys.executable, "scripts/build_ozzit_reference.py", "--check"],
                 [check_site.sys.executable, "scripts/test_build_site.py"],
                 [check_site.sys.executable, "scripts/test_ci_link_selection.py"],
+                [check_site.sys.executable, "scripts/test_check_publication.py"],
             ] + [
                 (*command, *arguments) if "scripts/check_links.py" in command else command
                 for command in check_site.CHECKS
