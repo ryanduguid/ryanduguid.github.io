@@ -94,6 +94,7 @@ PERSON_SAME_AS = [
     "https://github.com/ryanduguid",
     "https://www.linkedin.com/in/ryan-duguid",
     "https://www.openaccountants.com/network/368408e7-bf06-431d-95a6-0b72e168ddeb",
+    "https://pypi.org/user/ryanduguid/",
 ]
 PERSON_REQUIRED_FIELDS = {
     "name": "Ryan Duguid",
@@ -1478,8 +1479,8 @@ def check_canonical_person(person: dict[str, object]) -> list[str]:
         )
     if person.get("sameAs") != PERSON_SAME_AS:
         failures.append(
-            "person graph: Person sameAs must contain only the GitHub user and LinkedIn "
-            "URLs in the required order"
+            "person graph: Person sameAs must contain only the GitHub, LinkedIn, "
+            "OpenAccountants and PyPI profile URLs in the required order"
         )
     for field, expected in PERSON_REQUIRED_FIELDS.items():
         if person.get(field) != expected:

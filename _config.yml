@@ -37,6 +37,7 @@ exclude:
   - playwright.webkit.config.mjs
   - pyproject.toml
   - SECURITY.md
+  - CITATION.cff
   - scripts
   - tests
   - assets/social-card-template.svg
