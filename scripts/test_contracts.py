@@ -843,8 +843,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 30 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 4 October 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 4 October 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
