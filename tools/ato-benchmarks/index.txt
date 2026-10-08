@@ -56,7 +56,7 @@ It is not tax advice, and sitting outside a range is not a finding that anything
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
+Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git

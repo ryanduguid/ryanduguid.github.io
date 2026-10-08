@@ -38,7 +38,7 @@ Browse ten worked formulas
 
 ### Review a month-end close
 
-Australian Accounting includes a fictional July close with eight exceptions and a $250 creditors difference. Read the report here or rerun it with Git and Python.
+Accounting Review Pipeline includes a fictional July close with eight exceptions and a $250 creditors difference. Read the report here or rerun it with Git and Python.
 
 Reproduce the sample report
 
@@ -273,7 +273,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 30 September 2026.
+Last reviewed 4 October 2026.
 
 ## From monthly close to a cash forecast
 
@@ -2883,7 +2883,7 @@ It is not tax advice, and sitting outside a range is not a finding that anything
 
 ## Get it
 
-Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
+Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git

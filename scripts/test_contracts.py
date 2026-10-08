@@ -843,8 +843,8 @@ def test_design_contracts() -> int:
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            '<p class="page-meta">Last reviewed 30 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 30 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 4 October 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 4 October 2026.</p>',
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -941,7 +941,7 @@ def test_design_contracts() -> int:
     review_date_paths = (
         ("index.html", "6 October 2026", "2026-10-06"),
         ("tools/index.html", "25 September 2026", "2026-09-25"),
-        ("evidence/index.html", "30 September 2026", "2026-09-30"),
+        ("evidence/index.html", "4 October 2026", "2026-10-04"),
     )
     for rel, visible_date, structured_date in review_date_paths:
         with copied_site() as root:
