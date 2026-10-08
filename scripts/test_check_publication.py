@@ -130,6 +130,44 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "no longer main"):
             self.evaluate()
 
+    def test_main_moving_during_verification_refuses_success(self):
+        reads = []
+
+        def fetch(endpoint, paginate):
+            reads.append(endpoint)
+            result = self.fetch(endpoint, paginate)
+            if "/jobs?" in endpoint:
+                self.main = "b" * 40
+            return result
+
+        with self.assertRaisesRegex(ValueError, "no longer main"):
+            policy.evaluate(REPO, COMMIT, fetch)
+        self.assertEqual(f"repos/{REPO}/git/ref/heads/main", reads[-1])
+
+    def test_final_main_read_must_be_readable(self):
+        for response in (None, {}, {"object": None}, {"object": {"sha": None}}):
+            with self.subTest(response=response):
+                main_reads = 0
+
+                def fetch(endpoint, paginate):
+                    nonlocal main_reads
+                    if endpoint.endswith("heads/main"):
+                        main_reads += 1
+                        if main_reads == 2:
+                            return response
+                    return self.fetch(endpoint, paginate)
+
+                with self.assertRaises(ValueError):
+                    policy.evaluate(REPO, COMMIT, fetch)
+                self.assertEqual(2, main_reads)
+
+    def test_incomplete_results_do_not_take_a_final_main_read(self):
+        self.checks = []
+        fetch = mock.Mock(side_effect=self.fetch)
+        self.assertFalse(policy.evaluate(REPO, COMMIT, fetch))
+        main_reads = [call for call in fetch.call_args_list if call.args[0].endswith("heads/main")]
+        self.assertEqual(1, len(main_reads))
+
     def test_nullable_unrelated_workflow_does_not_block_the_audit(self):
         self.runs.append(self.run | {"id": 4, "path": "other.yml", "head_branch": None})
         self.assertTrue(self.evaluate())

@@ -48,12 +48,16 @@ def stable_items(
     raise ValueError("API listing did not stabilise")
 
 
-def evaluate(repository: str, commit: str, fetch: Callable[[str, bool], object]) -> bool:
+def require_main(repository: str, commit: str, fetch: Callable[[str, bool], object]) -> None:
     main = fetch(f"repos/{repository}/git/ref/heads/main", False)
     if not isinstance(main, dict) or not isinstance(main.get("object"), dict):
         raise ValueError("Unreadable main revision")
     if main["object"].get("sha") != commit:
         raise ValueError("Publication candidate is no longer main")
+
+
+def evaluate(repository: str, commit: str, fetch: Callable[[str, bool], object]) -> bool:
+    require_main(repository, commit, fetch)
     checks = stable_items(
         fetch, f"repos/{repository}/commits/{commit}/check-runs?filter=all", "check_runs"
     )
@@ -126,7 +130,7 @@ def evaluate(repository: str, commit: str, fetch: Callable[[str, bool], object])
                 and selected[0].get("conclusion") == "success"
             )
         )
-    return bool(
+    ready = bool(
         codeql
         and all(
             value.get("status") == "completed" and value.get("conclusion") == "success"
@@ -135,6 +139,9 @@ def evaluate(repository: str, commit: str, fetch: Callable[[str, bool], object])
         and audits
         and all(audits)
     )
+    if ready:
+        require_main(repository, commit, fetch)
+    return ready
 
 
 def gh_json(endpoint: str, paginate: bool) -> object:
