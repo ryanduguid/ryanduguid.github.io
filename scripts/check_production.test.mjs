@@ -1,7 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { spawn } from 'node:child_process';
+import { createServer } from 'node:http';
+import { fileURLToPath } from 'node:url';
 
-import { headerNotes, inspectHtml, sitemapPaths } from './check_production.mjs';
+import { headerNotes, inspectHtml, sitemapPaths, REQUIRED_HEADERS, REDIRECTS } from './check_production.mjs';
 
 // The address is only a fixture; the checks never hard-code the real one.
 const SOURCE = '<p>Write to <a href="mailto:someone@example.com">someone@example.com</a>.</p>';
@@ -108,4 +114,44 @@ test('a sampled report-only policy is a note, and its absence says nothing', () 
   const sampled = new Headers({ 'content-security-policy-report-only': policy });
   assert.deepEqual(headerNotes('/changelog/', sampled), [`/changelog/: report-only CSP delivered: ${policy}`]);
   assert.deepEqual(headerNotes('/changelog/', new Headers()), []);
+});
+
+test('the CLI uses the extracted artifact tree before and after publication', async (t) => {
+  const sourceRoot = mkdtempSync(join(tmpdir(), 'delivery-source-'));
+  t.after(() => rmSync(sourceRoot, { recursive: true, force: true }));
+  mkdirSync(join(sourceRoot, 'assets'));
+  mkdirSync(join(sourceRoot, 'contact'));
+  writeFileSync(join(sourceRoot, 'assets', 'fixture.mjs'), 'export {};');
+  const html = `${SOURCE}<script type="module" src="/assets/fixture.mjs"></script>`;
+  writeFileSync(join(sourceRoot, 'index.html'), html);
+  writeFileSync(join(sourceRoot, 'contact', 'index.html'), html);
+  writeFileSync(join(sourceRoot, 'sitemap.xml'), '<loc>https://duguid.com.au/</loc><loc>https://duguid.com.au/contact/</loc>');
+  let injected = false;
+  let base;
+  const server = createServer((request, response) => {
+    if (request.url in REDIRECTS) {
+      response.writeHead(301, { location: base + REDIRECTS[request.url] }).end();
+    } else if (request.url === '/' || request.url === '/contact/') {
+      response.writeHead(200, REQUIRED_HEADERS).end(html + (injected ? '<script src="/.webmcp/bridge.js"></script>' : ''));
+    } else response.writeHead(404).end();
+  });
+  await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
+  base = `http://127.0.0.1:${server.address().port}`;
+  t.after(() => new Promise((resolve) => server.close(resolve)));
+  const cli = (root, sourceOnly = false) => new Promise((resolve, reject) => {
+    const child = spawn(process.execPath, [fileURLToPath(new URL('./check_production.mjs', import.meta.url)), '--source-root', root, '--base', base, ...(sourceOnly ? ['--source-only'] : [])]);
+    let output = '';
+    child.stdout.on('data', (chunk) => { output += chunk; });
+    child.stderr.on('data', (chunk) => { output += chunk; });
+    child.on('error', reject);
+    child.on('close', (code) => resolve({ code, output }));
+  });
+  assert.equal((await cli(sourceRoot, true)).code, 0);
+  assert.equal((await cli(sourceRoot)).code, 0);
+  injected = true;
+  const failed = await cli(sourceRoot);
+  assert.equal(failed.code, 1);
+  assert.match(failed.output, /a script the site does not ship/);
+  rmSync(join(sourceRoot, 'contact', 'index.html'));
+  assert.equal((await cli(sourceRoot, true)).code, 1);
 });

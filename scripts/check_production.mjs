@@ -19,13 +19,14 @@
 // files without front matter into themed pages the repository's own build never
 // makes, with a theme stylesheet; _config.yml now switches that off.
 //
-// Run with: node scripts/check_production.mjs [--base https://duguid.com.au]
+// Run with: node scripts/check_production.mjs [--base https://duguid.com.au] [--source-root _site]
 
 import { existsSync, readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join, resolve } from 'node:path';
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..');
+const sourceIndex = process.argv.indexOf('--source-root');
+const root = sourceIndex > -1 ? resolve(process.argv[sourceIndex + 1]) : join(dirname(fileURLToPath(import.meta.url)), '..');
 const baseIndex = process.argv.indexOf('--base');
 const BASE = baseIndex > -1 ? process.argv[baseIndex + 1] : 'https://duguid.com.au';
 
@@ -77,16 +78,16 @@ export function scriptSources(html, pageUrl) {
 
 // A same-origin script the repository ships under assets/. Cloudflare's own
 // /cdn-cgi/ scripts get no exemption: the site ships none of them.
-function allowedScript(url) {
+function allowedScript(url, sourceRoot) {
   return url !== null && url.origin === new URL(BASE).origin
-    && /^\/assets\/.+\.m?js$/.test(url.pathname) && existsSync(join(root, url.pathname));
+    && /^\/assets\/.+\.m?js$/.test(url.pathname) && existsSync(join(sourceRoot, url.pathname));
 }
 
 export function sitemapPaths(xml) {
   return [...xml.matchAll(/<loc>https:\/\/duguid\.com\.au([^<]*)<\/loc>/g)].map((match) => match[1]);
 }
 
-export function inspectHtml(path, sourceHtml, deliveredHtml) {
+export function inspectHtml(path, sourceHtml, deliveredHtml, sourceRoot = root) {
   const failures = [];
   const notes = [];
   const sourceMailtos = [...sourceHtml.matchAll(/href="(mailto:[^"]+)"/g)].map((match) => match[1]);
@@ -107,7 +108,7 @@ export function inspectHtml(path, sourceHtml, deliveredHtml) {
     failures.push(`${path}: Cloudflare Rocket Loader rewrites the page's scripts; switch it off under Speed, Optimization`);
   }
   for (const url of scriptSources(deliveredHtml, new URL(path, BASE))) {
-    if (!allowedScript(url)) {
+    if (!allowedScript(url, sourceRoot)) {
       failures.push(`${path}: delivers a script the site does not ship: ${url?.href ?? 'an unparseable source'}`);
     }
   }
@@ -133,11 +134,31 @@ export function inspectHeaders(path, headers) {
   return failures;
 }
 
+export function validateSource(sourceRoot) {
+  const paths = sitemapPaths(readFileSync(join(sourceRoot, 'sitemap.xml'), 'utf8'));
+  if (!paths.includes('/')) throw new Error('Source sitemap has no home page');
+  const pages = new Map();
+  for (const path of paths) {
+    if (!path.startsWith('/') || !path.endsWith('/') || path.includes('..')) {
+      throw new Error('Source sitemap has an invalid page path');
+    }
+    const html = readFileSync(join(sourceRoot, path.slice(1), 'index.html'), 'utf8');
+    const { failures } = inspectHtml(path, html, html, sourceRoot);
+    if (failures.length) throw new Error(failures.join('\n'));
+    pages.set(path, html);
+  }
+  return pages;
+}
+
 async function main() {
+  const pages = validateSource(root);
+  if (process.argv.includes('--source-only')) {
+    console.log(`source delivery tree verified (${pages.size} pages)`);
+    return 0;
+  }
   const failures = [];
   const notes = [];
-  const sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
-  for (const path of sitemapPaths(sitemap)) {
+  for (const [path, source] of pages) {
     const response = await fetch(BASE + path, { headers: HEADERS, redirect: 'manual', signal: AbortSignal.timeout(20_000) });
     if (response.status !== 200) {
       failures.push(`${path}: HTTP ${response.status}`);
@@ -146,8 +167,7 @@ async function main() {
     failures.push(...inspectHeaders(path, response.headers));
     notes.push(...headerNotes(path, response.headers));
     const delivered = await response.text();
-    const sourcePath = join(root, path === '/' ? 'index.html' : path.replace(/^\//, '') + 'index.html');
-    const result = inspectHtml(path, readFileSync(sourcePath, 'utf8'), delivered);
+    const result = inspectHtml(path, source, delivered, root);
     failures.push(...result.failures);
     notes.push(...result.notes);
   }

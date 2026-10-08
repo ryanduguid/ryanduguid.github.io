@@ -12,8 +12,9 @@ permissions:
   contents: read
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Only replace obsolete PR validation. Every main revision keeps its checks.
+  group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   lint:
@@ -66,6 +67,25 @@ jobs:
           # archived-repository lookups in scripts/check_links.py.
           GITHUB_TOKEN: ${{ github.token }}
         run: python scripts/check_site.py --ci
+
+      - name: Package the validated Pages tree
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f _site/index.html
+          test -f _site/.well-known/llms.txt
+          printf '{"sha":"%s"}\n' "$GITHUB_SHA" > _site/.well-known/deployment.json
+          # Preserve .well-known, which upload-pages-artifact excludes.
+          tar --dereference --hard-dereference --directory _site -cf "$RUNNER_TEMP/artifact.tar" .
+      - name: Upload this run's validated Pages artifact
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/artifact.tar
+          if-no-files-found: error
+          retention-days: 7
 
   browser:
     timeout-minutes: 30
@@ -206,9 +226,11 @@ jobs:
     needs: [lint, checks, browser, lighthouse]
     if: always()
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 15
     permissions:
       contents: read
+      actions: read
+      checks: read
     steps:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
@@ -218,8 +240,77 @@ jobs:
           persist-credentials: false
           # The merge commit's first parent holds the base branch's workflow.
           fetch-depth: 2
-          sparse-checkout: .github
+          sparse-checkout: |
+            .github
+            scripts
       - name: Require every job to be listed, kept and successful
         env:
           RESULTS: ${{ toJSON(needs) }}
-        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates
+        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy
+      - name: Require external publication results for this main commit
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
+
+  deploy:
+    needs: checks-gates
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && needs.checks-gates.result == 'success' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: read
+      actions: read
+      checks: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    concurrency:
+      group: pages-main
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          sparse-checkout: scripts
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24"
+      - name: Download the validated artifact from this run
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/pages-artifact
+      - name: Verify the artifact before publication
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir "$RUNNER_TEMP/validated-site"
+          tar --extract --file "$RUNNER_TEMP/pages-artifact/artifact.tar" --directory "$RUNNER_TEMP/validated-site"
+          python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"validated-site/.well-known/deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
+          node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site" --source-only
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - name: Revalidate main and external results after environment admission
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
+      - name: Deploy the artifact from this run
+        id: deployment
+        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        with:
+          artifact_name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
+      - name: Verify the published source identity and delivery contract
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl --fail --silent --show-error --retry 3 --max-time 30 \
+            "${PAGE_URL%/}/.well-known/deployment.json?revision=$GITHUB_SHA" \
+            -o "$RUNNER_TEMP/deployment.json"
+          python -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
+          node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site"

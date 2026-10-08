@@ -348,3 +348,8 @@ retain the existing date-and-title hash. The site checks test this behaviour
 and reject invalid or duplicate IDs.
 The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
 For a potential security vulnerability follow [SECURITY.md](SECURITY.md).
+
+The site-check runner reports elapsed time for the Jekyll build and each
+subcommand, including a failing command. Compare the same event, source revision
+and runner before changing check coverage. These timings measure elapsed time;
+they do not establish billed minutes or savings.
