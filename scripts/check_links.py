@@ -18,6 +18,9 @@ Checks, in order, per file:
    LinkedIn profile are accepted.
    Exact external URLs require manual verification in GitHub Actions when
    runner access is unavailable; local runs still fetch them.
+   A server error on a ryanduguid GitHub file view switches subsequent attempts
+   to the exact public raw file, preserving its ref and path. A successful raw
+   fetch validates the file target, not availability of GitHub's HTML viewer.
 4. The HTML parses cleanly and links carry no empty href.
 5. Retired repository names and em or en dashes must not appear.
 6. No github.com/ryanduguid/<repo> link may resolve to an archived
@@ -413,6 +416,21 @@ def retry_error(exc: urllib.error.URLError | TimeoutError, attempt: int, waited:
     return waited + delay
 
 
+def github_blob_raw_url(url: str) -> str | None:
+    """Map an own-repository file view to its exact public file endpoint."""
+    parts = urlsplit(url)
+    if parts.scheme != "https" or parts.netloc.lower() != "github.com" or parts.query:
+        return None
+    match = re.fullmatch(r"/(ryanduguid/[A-Za-z0-9._-]+)/blob/(.+)", parts.path, re.I)
+    if match is None:
+        return None
+    tail = match.group(2)
+    segments = tail.split("/")
+    if len(segments) < 2 or any(segment in {"", ".", ".."} for segment in segments):
+        return None
+    return f"https://raw.githubusercontent.com/{match.group(1)}/{tail}"
+
+
 @functools.lru_cache(maxsize=None)
 def fetch_final_url(url: str, *, opener: object = urllib.request.urlopen) -> tuple[int, str]:
     req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
@@ -420,9 +438,22 @@ def fetch_final_url(url: str, *, opener: object = urllib.request.urlopen) -> tup
     for attempt in range(1, MAX_FETCH_ATTEMPTS + 1):
         try:
             with opener(req, timeout=30) as resp:  # type: ignore[operator]
+                if req.full_url != url and (
+                    not 200 <= resp.status < 300 or resp.geturl() != req.full_url
+                ):
+                    raise ValueError("GitHub direct file did not resolve to the exact HTTPS target")
                 return resp.status, resp.geturl()
         except (urllib.error.URLError, TimeoutError) as exc:
             waited = retry_error(exc, attempt, waited)
+            direct = github_blob_raw_url(url)
+            if (
+                isinstance(exc, urllib.error.HTTPError)
+                and 500 <= exc.code < 600
+                and direct is not None
+                and req.full_url == url
+            ):
+                req = urllib.request.Request(direct, headers={"User-Agent": USER_AGENT})
+                print(f"GitHub file fallback {url}: checking {direct}")
             print(f"retry {attempt}/{MAX_FETCH_ATTEMPTS - 1} {url}: {exc}")
     raise AssertionError("unreachable")
 
@@ -667,7 +698,12 @@ def check_hrefs(rel: str, hrefs: list[str], *, offline: bool = False) -> list[st
         name = own_repository(href)
         if name is not None:
             final_name = own_repository(final)
-            if final_name != name and not is_release_asset_redirect(href, final):
+            direct_file = final == github_blob_raw_url(href) and 200 <= status < 300
+            if (
+                final_name != name
+                and not direct_file
+                and not is_release_asset_redirect(href, final)
+            ):
                 # Signed download query strings do not belong in public check logs.
                 destination = urlsplit(final)._replace(query="", fragment="").geturl()
                 failures.append(

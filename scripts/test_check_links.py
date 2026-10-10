@@ -31,6 +31,163 @@ class FakeResponse:
 
 
 class FetchFinalUrlTests(unittest.TestCase):
+    def test_github_blob_server_error_uses_exact_direct_file_within_retry_budget(self) -> None:
+        for tail in (
+            "main/LICENSE",
+            "cb1aaf45198fc7e8083936b398de7b4cf052d992/docs/case.md#review",
+            "payday-super-checker/v0.1.6/packages/payday-super-checker/workbook.xlsx",
+        ):
+            href = "https://github.com/ryanduguid/australian-accounting/blob/" + tail
+            direct = (
+                "https://raw.githubusercontent.com/ryanduguid/australian-accounting/"
+                + tail.split("#")[0]
+            )
+            body = io.BytesIO(b"unavailable")
+            error = urllib.error.HTTPError(href, 503, "Unavailable", email.message.Message(), body)
+            response = unittest.mock.MagicMock()
+            response.__enter__.return_value.status = 200
+            response.__enter__.return_value.geturl.return_value = direct
+            opener = unittest.mock.Mock(side_effect=[error, response])
+            original = check_links.fetch_final_url
+            with (
+                self.subTest(tail=tail),
+                unittest.mock.patch.object(time, "sleep") as sleep,
+                unittest.mock.patch.object(
+                    check_links, "fetch_final_url", lambda url: original(url, opener=opener)
+                ),
+                unittest.mock.patch.object(
+                    check_links, "repository_is_archived", return_value=False
+                ) as lookup,
+                unittest.mock.patch("builtins.print"),
+            ):
+                self.assertEqual(check_links.check_hrefs("tools/index.html", [href]), [])
+            self.assertEqual(
+                [call.args[0].full_url for call in opener.call_args_list], [href, direct]
+            )
+            self.assertEqual(sleep.call_args_list, [unittest.mock.call(1)])
+            self.assertTrue(body.closed)
+            response.__exit__.assert_called_once()
+            lookup.assert_called_once_with("australian-accounting")
+
+    def test_direct_file_rejects_redirects_and_non_success_statuses(self) -> None:
+        href = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt"
+        direct = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/src/Financial.txt"
+        for status, final in (
+            (200, direct.replace("v3.4.2", "main")),
+            (200, direct.replace("Financial.txt", "Dates.txt")),
+            (200, direct.replace("/Ozzit/", "/renamed/")),
+            (200, direct.replace("/ryanduguid/", "/another-owner/")),
+            (200, direct.replace("https:", "http:")),
+            (200, direct.replace("raw.githubusercontent.com", "example.invalid")),
+            (200, direct + "?signature=synthetic-value"),
+            (200, href.replace("v3.4.2", "main")),
+            (302, direct),
+        ):
+            response = unittest.mock.MagicMock()
+            response.__enter__.return_value.status = status
+            response.__enter__.return_value.geturl.return_value = final
+            opener = unittest.mock.Mock(
+                side_effect=[
+                    urllib.error.HTTPError(href, 503, "Unavailable", email.message.Message(), None),
+                    response,
+                ]
+            )
+            with (
+                self.subTest(status=status, final=final),
+                unittest.mock.patch.object(time, "sleep"),
+            ):
+                with self.assertRaisesRegex(ValueError, "exact HTTPS target") as raised:
+                    check_links.fetch_final_url(href, opener=opener)
+            self.assertNotIn("synthetic-value", str(raised.exception))
+            response.__exit__.assert_called_once()
+
+    def test_direct_file_errors_fail_with_the_shared_attempt_and_wait_limits(self) -> None:
+        href = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/missing.txt"
+        direct = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/missing.txt"
+        for status, count, waits in ((404, 2, [1]), (429, 5, [1, 2, 4, 8]), (503, 5, [1, 2, 4, 8])):
+            bodies = [io.BytesIO(b"error") for _ in range(count)]
+            errors = [
+                urllib.error.HTTPError(
+                    href if index == 0 else direct,
+                    503 if index == 0 else status,
+                    "Error",
+                    email.message.Message(),
+                    body,
+                )
+                for index, body in enumerate(bodies)
+            ]
+            opener = unittest.mock.Mock(side_effect=errors)
+            with self.subTest(status=status), unittest.mock.patch.object(time, "sleep") as sleep:
+                with self.assertRaises(urllib.error.HTTPError) as raised:
+                    check_links.fetch_final_url(href, opener=opener)
+            self.assertIs(raised.exception, errors[-1])
+            self.assertEqual(
+                [call.args[0].full_url for call in opener.call_args_list],
+                [href] + [direct] * (count - 1),
+            )
+            self.assertEqual(sleep.call_args_list, [unittest.mock.call(wait) for wait in waits])
+            self.assertTrue(all(body.closed for body in bodies))
+
+    def test_file_fallback_keeps_repository_identity_archive_and_lookup_failure_checks(
+        self,
+    ) -> None:
+        href = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt"
+        direct = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/src/Financial.txt"
+        for verdict, message in (
+            (True, "is archived"),
+            (ValueError("renamed repository"), "lookup failed"),
+            (urllib.error.URLError("unavailable API"), "lookup failed"),
+        ):
+            with (
+                self.subTest(verdict=verdict),
+                unittest.mock.patch.object(
+                    check_links, "fetch_final_url", return_value=(200, direct)
+                ),
+                unittest.mock.patch.object(
+                    check_links,
+                    "repository_is_archived",
+                    side_effect=verdict if isinstance(verdict, Exception) else None,
+                    return_value=verdict,
+                ),
+                unittest.mock.patch("builtins.print"),
+            ):
+                failures = check_links.check_hrefs("tools/index.html", [href])
+            self.assertEqual(len(failures), 1)
+            self.assertIn(message, failures[0])
+
+    def test_fallback_scope_excludes_other_routes_owners_and_initial_client_errors(self) -> None:
+        for href in (
+            "https://github.com/ryanduguid/Ozzit/tree/v3.4.2/src",
+            "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
+            "https://github.com/another-owner/Ozzit/blob/main/README.md",
+            "https://github.com.example.invalid/ryanduguid/Ozzit/blob/main/README.md",
+            "http://github.com/ryanduguid/Ozzit/blob/main/README.md",
+            "https://github.com/ryanduguid/Ozzit/blob/main/README.md?plain=1",
+            "https://github.com/ryanduguid/Ozzit/blob/main/../README.md",
+        ):
+            opener = unittest.mock.Mock(
+                side_effect=urllib.error.HTTPError(
+                    href, 503, "Unavailable", email.message.Message(), None
+                )
+            )
+            with self.subTest(href=href), unittest.mock.patch.object(time, "sleep"):
+                with self.assertRaises(urllib.error.HTTPError):
+                    check_links.fetch_final_url(href, opener=opener)
+            self.assertEqual(opener.call_count, 5)
+            self.assertTrue(all(call.args[0].full_url == href for call in opener.call_args_list))
+        href = "https://github.com/ryanduguid/Ozzit/blob/main/README.md"
+        for error in (
+            urllib.error.HTTPError(href, 403, "Denied", email.message.Message(), None),
+            urllib.error.HTTPError(href, 404, "Missing", email.message.Message(), None),
+            urllib.error.HTTPError(href, 429, "Rate limited", email.message.Message(), None),
+            urllib.error.URLError("transport failure"),
+        ):
+            opener = unittest.mock.Mock(side_effect=error)
+            with self.subTest(error=error), unittest.mock.patch.object(time, "sleep"):
+                with self.assertRaises(type(error)):
+                    check_links.fetch_final_url(href, opener=opener)
+            self.assertTrue(all(call.args[0].full_url == href for call in opener.call_args_list))
+
     def test_http_errors_and_successful_responses_close(self) -> None:
         for fetch in (check_links.fetch_final_url, check_links.fetch_repository_archived):
             target = (
