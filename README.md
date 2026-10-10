@@ -8,6 +8,16 @@
 
 Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
+On this page:
+
+- [Site structure](#site-structure)
+- [Local preview](#local-preview)
+- [Checks](#checks)
+- [Response headers](#response-headers)
+- [Published files](#published-files)
+- [Social-card provenance](#social-card-provenance)
+- [Credential documents](#credential-documents)
+
 ## Site structure
 
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
@@ -22,7 +32,7 @@ The homepage is a short adoption path into those registers. The site is a person
 
 ## Local preview
 
-The pages share a Jekyll header and footer. Install Ruby 3.3 and Bundler,
+The pages share a Jekyll header and footer. Install Ruby 3.3, Bundler and Python 3.14 or newer,
 then install the locked build dependencies once:
 
 ```bash
@@ -77,7 +87,7 @@ tests CI check selection against the source pages,
 then runs the existing checks against generated HTML in a temporary copy
 containing the repository's test fixtures. The preview serves only `_site/`.
 
-Install the browser-test dependencies and Chromium once:
+Use Node 24 LTS for the browser tests. Install the dependencies and Chromium once:
 
 ```bash
 npm ci
