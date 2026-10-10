@@ -54,15 +54,15 @@
             <li aria-current="page">Monthly Close Controls</li>
           </ol>
         </nav>
-        <h1>Xero monthly close exception report</h1>
-        <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and produces a monthly close exception report. It flags material movements, missing mappings and supplied subledger differences for a human reviewer. It runs on local files without connecting to Xero.</p>
+        <h1>What needs review before a Xero month-end close?</h1>
+        <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
         <div class="article-actions">
           <a class="button" href="#worked-example">Inspect the eight exceptions</a>
           <a href="#get-it">Run the example</a>
         </div>
         <p class="field-note">Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.</p>
         <p class="release-meta">Example reproduced from <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane">source commit ae88966</a>. Results apply to this source snapshot.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 25 September 2026.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 10 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -71,6 +71,7 @@
           <a href="#outputs">Outputs and status</a>
           <a href="#worked-example">Worked example</a>
           <a href="#get-it">Run the example</a>
+          <a href="#refusal-example">Reproduce a refusal</a>
           <a href="#limits">Limits</a>
           <a href="#common-questions">Common questions</a>
           <a href="#related">Related</a>
@@ -78,8 +79,14 @@
         <div class="article-body">
           <section id="inputs">
             <h2>Inputs</h2>
-            <p>Start with the canonical CSV written by the <a href="/tools/xero-trial-balance/">Xero trial balance exporter</a>. Supply one current and one prior trial balance, plus an account mapping CSV. Each trial balance must contain one organisation and one report date; both must name the same organisation, with the prior date earlier than the current date.</p>
-            <p>You can supply subledger balances for reconciliation and a review note. Set the absolute and percentage materiality thresholds and reconciliation tolerance for the review. The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md">pinned source documentation</a> defines the accepted files and controls.</p>
+            <p>Start with canonical CSVs written by the <a href="/tools/xero-trial-balance/">Xero trial balance exporter</a>. The example uses these inputs:</p>
+            <ul>
+              <li><strong>Current and prior trial balances, required:</strong> one organisation and one report date in each file. Both must name the same organisation, with the prior date earlier than the current date.</li>
+              <li><strong>Account mapping, optional:</strong> a CSV assigning accounts to review groups. With a supplied file, missing mappings are flagged for review. Omit it and the mapping control is not run.</li>
+              <li><strong>Subledger balances, optional:</strong> supplied balances to compare with the trial balance. Omit them and subledger reconciliation is not run.</li>
+              <li><strong>Review note, optional:</strong> a human acknowledgement. It does not clear exceptions or approve the close.</li>
+            </ul>
+            <p>Set the absolute and percentage materiality thresholds and reconciliation tolerance for the review. Choose an output directory outside version control. The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md">pinned source documentation</a> defines the accepted files and controls.</p>
           </section>
           <section id="outputs">
             <h2>Outputs and status</h2>
@@ -118,6 +125,13 @@
             <p>Expect exit code 2 and <code>REVIEW; 8 exception(s); 6 client query(ies) drafted</code>. The output directory is beside the checkout. Keep review packs outside version control; the command refuses an output directory inside a checkout.</p>
             <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane">Source on GitHub</a></p>
             <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a>.</p>
+          </section>
+          <section id="refusal-example">
+            <h2>Reproduce a refusal: output inside the checkout</h2>
+            <p>From the same component directory at source commit <code>ae88966</code>, repeat the fictional example with only <code>--output</code> changed to <code>./close-control-demo</code>:</p>
+            <pre tabindex="0" role="region" aria-label="Reproduce the output directory refusal"><code><span class="cmd">python -m closecontrol.cli review --current examples/current_trial_balance.csv --prior examples/prior_trial_balance.csv --mapping examples/account_mapping.csv --subledger examples/subledger_balances.csv --absolute-threshold 10000 --percentage-threshold 0.10 --reconciliation-tolerance 0.01 --review-note examples/review_note.json --output ./close-control-demo</span></code></pre>
+            <p>Expect exit code 1 and an output error saying the directory <code>is inside the version-control checkout</code>. The command creates no pack. This guard runs before reading the input files, because review packs can contain client accounts and balances.</p>
+            <p>Use a new access-controlled directory outside version control for an actual review. The example proves this output-path refusal; it does not test every malformed input or establish that a close is acceptable.</p>
           </section>
           <section id="limits">
             <h2>Limits</h2>
@@ -163,7 +177,7 @@
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-25",
+      "dateModified": "2026-10-10",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -231,7 +245,7 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-09-25",
+      "dateModified": "2026-10-10",
       "operatingSystem": "Windows, macOS, Linux"
     },
     {

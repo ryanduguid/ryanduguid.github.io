@@ -40,6 +40,15 @@ allows five attempts and at most 30 seconds of accumulated waiting; this is
 separate from each request's 30-second timeout. Exhausted retries and permanent
 HTTP errors still fail the live check.
 
+On a server error from a `github.com/ryanduguid/<repo>/blob/<ref>/<path>` file
+view, remaining attempts use `raw.githubusercontent.com/ryanduguid/<repo>/<ref>/<path>`.
+This uses the same five-attempt and 30-second waiting budget. The direct file
+must return HTTP 2xx at that exact HTTPS URL; redirects, missing files and
+unknown refs fail. Repository identity and archive checks still run. This
+qualifies the linked file's availability, not the HTML viewer. Other GitHub
+routes, owners, query-bearing URLs, HTTP 4xx and transport errors keep their
+existing handling.
+
 The browser and Lighthouse jobs need `npm ci` and Chromium; the README
 describes them. CI splits the browser tests across two Windows jobs with
 Playwright's `--shard`, and the first also runs the type check, proof capture and
