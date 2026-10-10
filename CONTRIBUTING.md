@@ -8,7 +8,7 @@ before changing a page.
 
 Use Ruby 3.3 with Bundler, Python 3.14 or newer and Node 24 LTS. Run `bundle install`
 once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
-pinned linters first, then the site checks on Python 3.14:
+pinned linters first, then the site checks on Python 3.15:
 
 ```bash
 python -m pip install "ruff==0.16.8" "mypy==2.3.1"
