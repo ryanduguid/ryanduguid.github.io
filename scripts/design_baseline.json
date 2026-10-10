@@ -81,7 +81,7 @@
       "b995cd5c275ddb0ca99f0e9f6c0df843b5807e75c91302e312a1988bc279b41d"
     ],
     "tools/monthly-close-controls/index.html": [
-      "4c3ea34e80e0618be6653f8843b35ce4cb36fe60e4ee5d76cce9cabd60a32ee9"
+      "dd94ad67d3bbd8ad502b73e6213f3004c1072af950fd7d491c9b7917082acfd6"
     ],
     "tools/ozzit/index.html": [
       "b946bde6fd04e42f72484183b4977180d3a7e6ff9377eb7ea6eff3f00ff963dd"
@@ -111,7 +111,7 @@
   "protected_files": {
     "llms.txt": "d5123a827c9f97475833d3cd944ec996655b9fc3463a4fa13baf8af901c5d000",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "cc201854b9888069bd34147163c48de1df6963e4e75bfda8ca82084e3cb6f18a"
+    "sitemap.xml": "d78f636f6a45ff44f8c5a2e5e4a0bdf86a060fe09ba7bf4296d2534efbf7e3bc"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
