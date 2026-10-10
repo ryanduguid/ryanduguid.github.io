@@ -306,7 +306,7 @@ jobs:
         run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
       - name: Deploy the artifact from this run
         id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
         with:
           artifact_name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
       - name: Verify the published source identity and delivery contract
