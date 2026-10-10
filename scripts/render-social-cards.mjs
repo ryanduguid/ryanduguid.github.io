@@ -48,7 +48,7 @@ function validateCards(value) {
     if (!card || typeof card !== 'object' || Array.isArray(card)) {
       throw new TypeError(`Social-card ${id} must be an object`);
     }
-    const fields = Object.keys(card).sort();
+    const fields = Object.keys(card).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
     if (JSON.stringify(fields) !== JSON.stringify(CARD_FIELDS)) {
       throw new Error(`Social-card ${id} fields changed`);
     }
