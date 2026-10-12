@@ -362,6 +362,11 @@ HTTP_403_AUTOMATION_DENIAL_URLS = frozenset(
             "https://www.ato.gov.au/businesses-and-organisations/super-for-employers/"
             "paying-super-on-payday/what-payments-are-qualifying-earnings/maximum-contributions-base"
         ),
+        # Run 38270811495 returned 403; a plain HTTP fetch read the page's text on 13 October 2026.
+        (
+            "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/"
+            "changes-to-credit-card-payments"
+        ),
     }
 )
 
