@@ -34,7 +34,7 @@ RECORDS = (
 
 def git(dataset: Path, *args: str) -> bytes:
     # Maintainer script; git gets argument lists from this script's own calls, with no shell.
-    return subprocess.run(  # NOSONAR
+    return subprocess.run(  # NOSONAR  # nosec B603, B607
         ["git", "-C", str(dataset), *args], capture_output=True, check=True
     ).stdout
 
