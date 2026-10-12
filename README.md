@@ -7,6 +7,7 @@
 [![licence: MIT](https://img.shields.io/badge/licence-MIT-5C2D91.svg?labelColor=04001F)](LICENSE)
 [![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757?branch=main)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)
 [![SonarCloud](https://img.shields.io/sonar/quality_gate/ryanduguid_ryanduguid.github.io?server=https%3A%2F%2Fsonarcloud.io&label=SonarCloud&labelColor=000000)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io)
+[![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ryanduguid/ryanduguid.github.io/badge)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)
 
 Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
