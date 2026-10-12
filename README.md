@@ -3,7 +3,7 @@
 [![checks](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml)
 [![source freshness](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml)
 [![CodeQL](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql)
-[![licence: MIT](https://img.shields.io/badge/licence-MIT-5C2D91.svg?labelColor=04001F)](LICENSE)
+[![licence: MIT](https://img.shields.io/badge/licence-MIT-66023C.svg?labelColor=000000)](LICENSE)
 [![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757?branch=main)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)
 [![SonarCloud](https://img.shields.io/sonar/quality_gate/ryanduguid_ryanduguid.github.io?server=https%3A%2F%2Fsonarcloud.io&label=SonarCloud&labelColor=000000)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io)
 [![OpenSSF Scorecard](https://api.scorecard.dev/projects/github.com/ryanduguid/ryanduguid.github.io/badge)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)
