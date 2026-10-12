@@ -61,7 +61,8 @@ def load_prompts(path: Path = PROMPTS) -> dict[str, dict[str, Any]]:
 def load_capture(path: Path) -> dict[str, Any]:
     """Read one capture, or raise ValueError describing what is unusable."""
     try:
-        text = path.read_text(encoding="utf-8")
+        # Maintainer CLI; the path is the operator's own argument.
+        text = path.read_text(encoding="utf-8")  # NOSONAR
     except UnicodeDecodeError as error:
         raise ValueError(f"is not UTF-8 text: {error}") from error
     try:

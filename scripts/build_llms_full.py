@@ -103,7 +103,7 @@ def main_text(html: str, page_url: str = SITE + "/") -> str:
     blocks = [re.sub(r"\s+", " ", block).strip() for block in re.split(r"\n\s*\n", body)]
     # Removing hidden link context can strand a space before the next comma or stop.
     # Only punctuation that ends a word counts, so ".claude/skills/" keeps its space.
-    blocks = [re.sub(r"\s+([,.;:!?])(?=\s|$)", r"\1", block) for block in blocks]
+    blocks = [re.sub(r"(?<!\s)\s+([,.;:!?])(?=\s|$)", r"\1", block) for block in blocks]
     text = ""
     previous = "text"
     for block in filter(None, blocks):

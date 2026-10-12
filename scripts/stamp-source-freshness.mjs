@@ -80,7 +80,8 @@ function lastCommitDate(owner, repo, path) {
   }
   const endpoint = `repos/${owner}/${repo}/commits?${query}`;
   const answer = execFileSync(
-    'gh',
+    // Maintainer script; it runs the maintainer's own gh CLI from PATH.
+    'gh', // NOSONAR
     ['api', endpoint, '--jq', '.[0].commit.committer.date'],
     { encoding: 'utf8' },
   ).trim();
@@ -101,7 +102,7 @@ export function stampHtml(html, lookup = lastCommitDate) {
     // ISO dates compare correctly as strings, so the newest is simply the max.
     const iso = pathsFor(owner, repo, path)
       .map((each) => lookup(owner, repo, each))
-      .reduce((newest, date) => (date > newest ? date : newest));
+      .reduce((newest, date) => (date > newest ? date : newest), '');
     const stamp =
       '<span class="collection-entry__stamp">Last commit ' +
       `<time datetime="${iso}">${formatDate(iso)}</time></span>`;
@@ -171,7 +172,7 @@ export async function checkReleases(html, lookup = fetchReleases) {
     if (!repositories.has(repository)) repositories.set(repository, await lookup(repository));
     const published = repositories.get(repository).filter((release) =>
       !release.draft && !release.prerelease && release.published_at);
-    const version = /^(.*?)(\d+\.\d+\.\d+)$/.exec(tag);
+    const version = /^(.*?)(?<!\d)(\d+\.\d+\.\d+)$/.exec(tag);
     if (!version || !published.some((release) => release.tag_name === tag)) {
       failures.push(`${repository}: ${tag} is not a published stable release`);
       continue;
@@ -200,7 +201,7 @@ export async function checkToolReleases(pages, lookup = fetchReleases) {
     const link = /<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/.exec(meta);
     if (!link) continue;
     const [, repository, tag] = link;
-    const version = /^(.*?)(\d+\.\d+\.\d+)$/.exec(tag);
+    const version = /^(.*?)(?<!\d)(\d+\.\d+\.\d+)$/.exec(tag);
     if (!version) {
       failures.push(`${rel}: ${tag} is not a stable release tag`);
       continue;

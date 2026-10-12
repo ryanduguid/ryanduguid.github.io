@@ -320,7 +320,7 @@ test('known missing-route response is explicitly allowed', async ({ page }) => {
       && response.url().endsWith('/definitely-missing-agent-test'),
   );
   await page.goto('/definitely-missing-agent-test');
-  health.assertHealthy();
+  expect(() => health.assertHealthy()).not.toThrow();
 });
 
 test('home leads with adoption actions and a shorter tool preview', async ({ page }, testInfo) => {

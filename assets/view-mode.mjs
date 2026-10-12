@@ -58,7 +58,8 @@
       view.hidden = mode !== 'machine';
       for (const element of human) element.inert = mode === 'machine';
       for (const radio of toggle.querySelectorAll('input')) radio.checked = radio.value === mode;
-      if (mode === 'machine') loadText();
+      // loadText reports its own failures in the error element.
+      if (mode === 'machine') void loadText();
       measureHeader();
     }
 

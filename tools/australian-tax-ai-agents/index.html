@@ -89,7 +89,7 @@
 
     <section id="tool-types">
     <h2>The split, in one table</h2>
-    <div class="table-scroll" role="region" aria-label="Comparison of Australian tax AI tool types" tabindex="0">
+    <div class="table-scroll" role="region" aria-label="Comparison of Australian tax AI tool types" tabindex="0"><!-- NOSONAR: labelled keyboard-scroll region -->
     <table class="tool-table--wide comparison-table">
       <thead>
         <tr>
@@ -170,7 +170,7 @@
     <section id="try-example">
     <h2>Try two synthetic tool calls</h2>
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run the published demonstration without configuring an AI client:</p>
-    <pre tabindex="0" role="region" aria-label="Pinned MCP demonstration command"><code>uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo</code></pre>
+    <pre tabindex="0" role="region" aria-label="Pinned MCP demonstration command"><!-- NOSONAR: labelled keyboard-scroll region --><code>uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo</code></pre>
     <p>Expected: exit 0 and a JSON transcript containing <code>generate_synthetic_sbr_fixture</code> and <code>review_div7a_loan</code>. The demonstration calls the local tools with fictional facts. It needs no credentials, performs no lodgement and does not evaluate an agent’s behaviour.</p>
     <p>The transcript’s first line shows the source-checkout command, <code>uv run --locked aus-accounting-mcp-demo</code>. The command above runs the published 0.2.8 package. Its full output includes the engine’s caveats; retain those with any extracted result.</p>
     </section>
@@ -190,21 +190,21 @@
         <label class="adopt-tab" for="adopt-claude">Claude Code</label>
         <div class="adopt-panel">
           <p class="install-needs">Needs Python 3.10 or later and uv.</p>
-          <pre tabindex="0" role="region" aria-label="Claude Code install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
+          <pre tabindex="0" role="region" aria-label="Claude Code install command"><!-- NOSONAR: labelled keyboard-scroll region --><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-codex" />
         <label class="adopt-tab" for="adopt-codex">Codex</label>
         <div class="adopt-panel">
           <p class="install-needs">Needs Python 3.10 or later and uv.</p>
-          <pre tabindex="0" role="region" aria-label="Codex install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
+          <pre tabindex="0" role="region" aria-label="Codex install command"><!-- NOSONAR: labelled keyboard-scroll region --><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
 <span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
         <label class="adopt-tab" for="adopt-skills">Skills</label>
         <div class="adopt-panel">
           <p class="install-needs">Needs Git and Node. Start with the 65 workflows at the recorded v0.3.1 release commit.</p>
-          <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Run from the project where you want the released skills</span>
+          <pre tabindex="0" role="region" aria-label="Skills install command"><!-- NOSONAR: labelled keyboard-scroll region --><code><span class="comment"># Run from the project where you want the released skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release</span>
 <span class="cmd">git -C accounting-skills-release checkout --detach 2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034</span>
 <span class="cmd">npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy</span></code></pre>
@@ -213,7 +213,7 @@
           <details>
             <summary>Development installation</summary>
             <p>This command installs the default branch, which can be ahead of the v0.3.1 release.</p>
-            <pre tabindex="0" role="region" aria-label="Development skills install command"><code><span class="cmd">npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills</span></code></pre>
+            <pre tabindex="0" role="region" aria-label="Development skills install command"><!-- NOSONAR: labelled keyboard-scroll region --><code><span class="cmd">npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills</span></code></pre>
           </details>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-github" />
@@ -221,7 +221,7 @@
         <div class="adopt-panel">
           <p>github-agent-skills gives Codex and Claude Code the GitHub maintenance workflows this portfolio uses, and keeps the fictional-data and human review boundaries.</p>
           <p class="install-needs">Needs Git and Python 3.14+ for validation. Development checkout: clones the default branch, not a tagged release.</p>
-          <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
+          <pre tabindex="0" role="region" aria-label="GitHub maintenance workflows install commands"><!-- NOSONAR: labelled keyboard-scroll region --><code><span class="comment"># GitHub maintenance workflows for Codex and Claude Code: https://github.com/ryanduguid/github-agent-skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/github-agent-skills.git</span>
 <span class="cmd">cd github-agent-skills</span>
 <span class="cmd">python scripts/validate_skills.py --strict</span></code></pre>

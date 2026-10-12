@@ -145,9 +145,12 @@ export function parseCashScenario(text) {
     weeks: data.weeks.map(/** @param {CashWeek} row */ row => ({ receipts: row.receipts.trim(), payments: row.payments.trim() })) };
 }
 
+/** @type {Readonly<CashDeferral>} */
+const NO_DEFERRAL = Object.freeze({ week: 1, amount: '0', delay: 0 });
+
 /** @param {string} opening @param {readonly CashWeek[]} weeks @param {string} buffer
  * @param {CashDeferral} [scenario] */
-export function cashForecast(opening, weeks, buffer, scenario = { week: 1, amount: '0', delay: 0 }) {
+export function cashForecast(opening, weeks, buffer, scenario = NO_DEFERRAL) {
   if (!Array.isArray(weeks) || weeks.length !== 13) throw new Error('Enter all 13 weeks.');
   let balance = cents(opening, -1e9);
   const minimumBuffer = cents(buffer);

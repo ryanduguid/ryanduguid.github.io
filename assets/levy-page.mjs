@@ -165,7 +165,7 @@ document.getElementById('load-example').addEventListener('click', () => {
   document.getElementById('sacrificed').value = '0';
   // Programmatic assignment fires no input event, so clear any stale
   // validation marks before recalculating.
-  [...calcForm.querySelectorAll('input, select')].forEach(clearFieldError);
+  [...calcForm.querySelectorAll('input, select')].forEach((field) => clearFieldError(field));
   if (calculate()) revealResult();
 });
 

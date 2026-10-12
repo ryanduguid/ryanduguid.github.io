@@ -47,7 +47,7 @@ const MAX_DIFF_LINES = 40;
 
 const SKIP_DIRS = new Set(['.git', 'node_modules', '_site', 'graft', 'tests', '.venv', 'venv', 'dist', 'vendor']);
 const TEXT_EXTENSIONS = new Set(['.html', '.md', '.py', '.json', '.mjs', '.js', '.txt', '.yml', '.yaml', '.csv', '.toml']);
-const TEST_FILE = /^test_|\.test\.|\.spec\./;
+const TEST_FILE = /(?:^test_)|\.test\.|\.spec\./;
 const ATO_URL = /https:\/\/www\.ato\.gov\.au\/[^\s"'<>()[\]`\\|,]*/g;
 
 // Pages outside the ATO behind values their publishers revise: the NSW budget
@@ -72,7 +72,7 @@ function citesWhole(text, url) {
 export function extractUrls(text) {
   const urls = new Set();
   for (const match of text.matchAll(ATO_URL)) {
-    const url = match[0].replaceAll('&amp;', '&').replace(/[.,;:]+$/, '').split('#')[0];
+    const url = match[0].replaceAll('&amp;', '&').replace(/(?<![.,;:])[.,;:]+$/, '').split('#')[0];
     // Skip templates such as f-strings and printf patterns.
     if (!/[{}$%]/.test(url.replace(/%[0-9A-Fa-f]{2}/g, ''))) urls.add(url);
   }
@@ -140,7 +140,7 @@ export function sameUrl(url) {
 const CHANGE_EXEMPT = new Set([sameUrl('https://www.ato.gov.au/law/')]);
 
 // Non-breaking spaces and trailing blanks vary between renders of one page.
-export const tidy = (text) => text.replace(/[^\S\n\t]/g, ' ').replace(/[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
+export const tidy = (text) => text.replace(/[^\S\n\t]/g, ' ').replace(/(?<![ \t])[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
 
 // Lists the lines each version lacks, which is what a reviewer needs to see what
 // the ATO changed; it does not track where lines moved.
@@ -250,10 +250,13 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
 
 // Save the report before any baseline moves: it is the only record of a change, so never replace an earlier one.
 export function saveResults({ out, baseline, date, report, keep }) {
-  mkdirSync(out, { recursive: true });
+  // Maintainer CLI; the output folders are its own --out and --baseline arguments.
+  mkdirSync(out, { recursive: true }); // NOSONAR
   const file = join(out, `ato-sources-check-${date}.md`);
-  writeFileSync(file, `${existsSync(file) ? '\n---\n\n' : ''}${report.join('\n')}`, { flag: 'a' });
-  mkdirSync(baseline, { recursive: true });
+  // Maintainer CLI; the output folders are its own --out and --baseline arguments.
+  writeFileSync(file, `${existsSync(file) ? '\n---\n\n' : ''}${report.join('\n')}`, { flag: 'a' }); // NOSONAR
+  // Maintainer CLI; the output folders are its own --out and --baseline arguments.
+  mkdirSync(baseline, { recursive: true }); // NOSONAR
   for (const [path, text] of keep) writeFileSync(path, text);
 }
 

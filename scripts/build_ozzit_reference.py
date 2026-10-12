@@ -118,7 +118,7 @@ def render() -> str:
             f"  <p><strong>Signature:</strong> <code>{code(row['signature'])}</code>. Square brackets mark optional arguments.</p>"
         )
         parts.append(
-            f'  <pre class="copyable" tabindex="0" role="region" aria-label="{html.escape(example["title"], quote=True)} formula"><code>{code(example["formula"])}</code></pre>'
+            f'  <pre class="copyable" tabindex="0" role="region" aria-label="{html.escape(example["title"], quote=True)} formula"><!-- NOSONAR: labelled keyboard-scroll region --><code>{code(example["formula"])}</code></pre>'
         )
         parts.append(f"  <p><strong>Expected display:</strong> {html.escape(display)}</p>")
         parts.append(f"  <p><strong>Limits:</strong> {html.escape(example['note'])}</p>")

@@ -29,7 +29,7 @@ jobs:
           python-version: "3.15"
           allow-prereleases: true
       - name: Install pinned lint tools
-        run: python -m pip install --disable-pip-version-check --require-hashes --requirement requirements-lint.txt
+        run: python -m pip install --disable-pip-version-check --only-binary ':all:' --require-hashes --requirement requirements-lint.txt
       - name: Ruff
         run: python -m ruff check .
       - name: Ruff format
@@ -200,10 +200,10 @@ jobs:
           cache: npm
       - name: Install quality dependencies
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
-        run: npm ci
+        run: npm ci --ignore-scripts
       - name: Install Chromium and system dependencies
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
-        run: npx playwright install --with-deps chromium
+        run: ./node_modules/.bin/playwright install --with-deps chromium
       - name: Lighthouse checks
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
         env:
