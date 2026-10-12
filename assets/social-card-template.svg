@@ -42,21 +42,21 @@
     </style>
   </defs>
   <rect width="1200" height="630" fill="#000000" />
-  <rect x="72" y="72" width="1056" height="1" fill="#f2f2f2" />
-  <rect x="72" y="552" width="1056" height="1" fill="#f2f2f2" />
+  <rect x="72" y="72" width="1056" height="1" fill="#e5e4e2" />
+  <rect x="72" y="552" width="1056" height="1" fill="#e5e4e2" />
   <g transform="translate(984,214)">
-    <rect x="16" y="16" width="96" height="8" fill="#f2f2f2" />
-    <rect x="16" y="104" width="96" height="8" fill="#f2f2f2" />
-    <rect x="16" y="16" width="8" height="96" fill="#f2f2f2" />
-    <rect x="104" y="16" width="8" height="96" fill="#f2f2f2" />
+    <rect x="16" y="16" width="96" height="8" fill="#e5e4e2" />
+    <rect x="16" y="104" width="96" height="8" fill="#e5e4e2" />
+    <rect x="16" y="16" width="8" height="96" fill="#e5e4e2" />
+    <rect x="104" y="16" width="8" height="96" fill="#e5e4e2" />
     <rect x="32" y="32" width="8" height="64" fill="#990024" />
     <rect x="48" y="32" width="48" height="8" fill="#dadada" />
     <rect x="48" y="56" width="40" height="8" fill="#dadada" />
     <rect x="48" y="80" width="32" height="8" fill="#dadada" />
   </g>
   <text class="label" x="128" y="166" fill="#dadada">{{LABEL}}</text>
-  <text class="register" x="128" y="218" fill="#f2f2f2">Ryan Duguid</text>
-  <text class="heading" fill="#f2f2f2">{{HEADING_LINES}}</text>
+  <text class="register" x="128" y="218" fill="#fffff0">Ryan Duguid</text>
+  <text class="heading" fill="#fffff0">{{HEADING_LINES}}</text>
   <rect x="116" y="492" width="820" height="44" fill="#990024" />
-  <text class="host" x="128" y="524" fill="#f2f2f2">{{HOST}}</text>
+  <text class="host" x="128" y="524" fill="#fffff0">{{HOST}}</text>
 </svg>
