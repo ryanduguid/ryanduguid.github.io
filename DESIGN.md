@@ -22,7 +22,25 @@ Rhodesia as drawn in the Wikimedia Commons SVG. Green marks a passed result
 only, such as a code quality grade badge or the cleared or approved outcome
 node in a Mermaid diagram. Other badges and nodes keep deep purple, crimson and black.
 Ivory text on the green measures 10.04:1; the green measures 2.07:1 against
-black, so green nodes keep their ivory border. The website does not use it.
+black, so green nodes keep their ivory border. The next paragraph records
+the website's use.
+
+On 13 October 2026 Ryan chose Rhodesian green (#0F4B32) for the website's
+cash chart and passed results, as `--colour-pass`. The Lumbridge chart's
+closing cash line and markers take it, and a passed outcome row (the corrected
+BAS pack, `passing.csv` and the balanced Xero export) fills its row label in
+green with ivory text (10.04:1), as a passed node does in the GitHub diagrams.
+Green on black measures 2.07:1, below the 3:1 for graphics, so it never
+carries information alone: the chart keeps its ivory markers (20.81:1), labels
+and caption, and each passed row's label states the result. Crimson stays the
+main accent. Print drops the fill and keeps the label black on white.
+
+The same day the site's light neutrals were aligned with the GitHub diagrams,
+which draw text and node borders in ivory and connecting lines in platinum
+(#E5E4E2, 16.53:1 on black). The favicon seal and the social-card rules and seal frame are
+platinum; social-card text is ivory. Both had kept #F2F2F2 after the main ink
+moved to ivory. Homepage mid ink and Machine view ink move from #E6E6E6 to
+platinum, a 1.02:1 difference. The social cards take `-20261013` filenames.
 
 On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
 spacing. Breadcrumbs, contents labels, register and fact-list terms, route
@@ -547,6 +565,7 @@ and no system preference creates a second branded state.
 | Stamp | `#990024` | Fills, rules, link underlines and cash series | 2.38:1 |
 | Stamp strong | `#66023C` | Hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
+| Pass | `#0F4B32` (Rhodesian green) | Passed-result rules and the cash chart line | 2.07:1 |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
 | Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
 | Code | `#000000` | Code and install background, bounded by its rule | n/a |
@@ -562,14 +581,14 @@ near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, 
 No gradient, glow, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
-On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
+On the homepage, mid ink is platinum (`#E5E4E2`), soft ink and the inactive view-switch
 label are `#DADADA`. Increased-contrast and print styles retain their overrides.
 Printers drop background colours, so print maps the page's ink tokens, mid ink,
 masthead and code ink included, to black on white, and a test holds every
 visible text colour on every page to 4.5:1 against white paper.
-The favicon seal and the social-card template carry the same ink and soft
-ink literals, so their rasters are re-rendered whenever those 2 values
-change.
+The favicon seal and the social-card template draw lines in platinum and
+social-card text in ivory, so their rasters are re-rendered whenever those
+values change.
 
 ## Typography and licence
 

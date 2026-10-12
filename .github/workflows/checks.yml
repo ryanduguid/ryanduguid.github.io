@@ -29,7 +29,7 @@ jobs:
           python-version: "3.15"
           allow-prereleases: true
       - name: Install pinned lint tools
-        run: python -m pip install --disable-pip-version-check "ruff==0.16.8" "mypy==2.3.1"
+        run: python -m pip install --disable-pip-version-check --require-hashes --requirement requirements-lint.txt
       - name: Ruff
         run: python -m ruff check .
       - name: Ruff format
@@ -222,6 +222,33 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  fuzzing:
+    name: fuzz the changelog feed builder
+    # A 60-second random exploration is not a repeatable merge gate, so it
+    # runs after merge, weekly and on demand rather than on pull requests.
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - name: Install the pinned fuzzer
+        run: >-
+          python -m pip install --require-hashes --only-binary :all:
+          --requirement scripts/requirements-fuzz.txt
+      - name: Fuzz the feed builder
+        run: >-
+          python scripts/fuzz_feed.py scripts/fuzz-corpus/feed
+          -max_total_time=60 -max_len=4096 -timeout=2 -rss_limit_mb=1024
+
   checks-gates:
     # The one context branch protection requires from this workflow. It fails
     # unless every job it needs succeeded, when a job in this file is missing
@@ -251,7 +278,7 @@ jobs:
       - name: Require every job to be listed, kept and successful
         env:
           RESULTS: ${{ toJSON(needs) }}
-        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy
+        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy --exempt fuzzing
       - name: Require external publication results for this main commit
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
         env:

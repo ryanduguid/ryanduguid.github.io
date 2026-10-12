@@ -892,8 +892,8 @@ def test_design_contracts() -> int:
         (
             "favicon rasters left behind the seal",
             "assets/favicon.svg",
-            '<rect x="24" y="40" width="16" height="4" fill="#f2f2f2" />',
-            '<rect x="24" y="40" width="12" height="4" fill="#f2f2f2" />',
+            '<rect x="24" y="40" width="16" height="4" fill="#e5e4e2" />',
+            '<rect x="24" y="40" width="12" height="4" fill="#e5e4e2" />',
             "favicon raster out of date: assets/favicon-32.png",
         ),
         (
@@ -920,8 +920,8 @@ def test_design_contracts() -> int:
         (
             "favicon rect overflowing the viewBox",
             "assets/favicon.svg",
-            '<rect x="24" y="40" width="16" height="4" fill="#f2f2f2" />',
-            '<rect x="24" y="40" width="48" height="4" fill="#f2f2f2" />',
+            '<rect x="24" y="40" width="16" height="4" fill="#e5e4e2" />',
+            '<rect x="24" y="40" width="48" height="4" fill="#e5e4e2" />',
             "favicon rect falls outside the viewBox",
         ),
         (
@@ -1463,9 +1463,9 @@ def test_public_contracts() -> int:
         ),
         (
             "social-card context",
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20261004.png" />',
-            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261004.png" />',
-            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261004.png'",
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-site-20261013.png" />',
+            '<meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261013.png" />',
+            "og:image is 'https://duguid.com.au/assets/social-card-tools-20261013.png'",
         ),
         (
             "referrer policy",
@@ -1675,8 +1675,8 @@ def test_public_contracts() -> int:
     contract_mutation(
         "tool review date outside header",
         xero,
-        '<p class="page-meta">Published 24 August 2026. Last reviewed 1 October 2026.</p>',
-        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 1 October 2026.</p>',
+        '<p class="page-meta">Published 24 August 2026. Last reviewed 13 October 2026.</p>',
+        '<p class="moved-page-meta">Published 24 August 2026. Last reviewed 13 October 2026.</p>',
         lambda html, found: contracts.check_header_review_date(
             html, "tools/xero-trial-balance/index.html", found
         ),
@@ -1729,7 +1729,7 @@ def test_public_contracts() -> int:
                 replace_file(root, rel, before, after)
             expect_failure(label, checker(root), expected)
 
-    site_card_rel = "assets/social-card-site-20261004.png"
+    site_card_rel = "assets/social-card-site-20261013.png"
     with copied_site() as root:
         card_path = root / site_card_rel
         card = bytearray(card_path.read_bytes())
