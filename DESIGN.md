@@ -16,6 +16,15 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 13 October 2026 Ryan authorised Rhodesian green (#0F4B32) for GitHub
+badges and diagrams. It is the field green of the 1968 to 1979 flag of
+Rhodesia as drawn in the Wikimedia Commons SVG. Green marks a passed result
+only, such as a code quality grade badge or the cleared or approved outcome
+node in a Mermaid diagram. Other badges and nodes keep deep purple, crimson and black.
+Ivory text on the green measures 10.04:1; the green measures 2.07:1 against
+black, so green nodes keep their ivory border. The next paragraph records
+the website's use.
+
 On 13 October 2026 Ryan chose Rhodesian green (#0F4B32) for the website's
 cash chart and passed results, as `--colour-pass`. The Lumbridge chart's
 closing cash line and markers take it, and a passed outcome row (the corrected
