@@ -6,7 +6,8 @@
 [![Snyk](https://img.shields.io/github/actions/workflow/status/ryanduguid/ryanduguid.github.io/snyk.yml?branch=main&label=Snyk&labelColor=000000&style=flat-square)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/snyk.yml)
 [![SonarCloud](https://img.shields.io/sonar/quality_gate/ryanduguid_ryanduguid.github.io?server=https%3A%2F%2Fsonarcloud.io&label=SonarCloud&labelColor=000000&style=flat-square)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io)
 [![Codacy code quality](https://img.shields.io/codacy/grade/ed064dc009df4efd893dff3357d2c757?label=Codacy&labelColor=000000&style=flat-square)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br>
-[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/ryanduguid/ryanduguid.github.io?label=Scorecard&labelColor=000000&style=flat-square)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)<br>
+[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/ryanduguid/ryanduguid.github.io?label=Scorecard&labelColor=000000&style=flat-square)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)
+[![OpenSSF Best Practices](https://img.shields.io/cii/level/15431?label=Best%20Practices&labelColor=000000&style=flat-square)](https://www.bestpractices.dev/projects/15431)<br>
 [![licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-66023C?labelColor=000000&style=flat-square)](LICENSE)
 
 Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
