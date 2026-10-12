@@ -62,7 +62,7 @@ class FeedTests(unittest.TestCase):
                 build_feed.build(f"<tr {attributes}><td>22 September 2026</td><td>Copy</td></tr>")
 
     def test_a_release_link_with_a_quote_stays_well_formed(self) -> None:
-        tree = ElementTree.fromstring(
+        tree = ElementTree.fromstring(  # nosec B314: parses the feed build_feed just wrote
             build_feed.build(
                 '<tr><th scope="row">1 May 2026</th><td>Tool</td>'
                 '<td><a href="https://example.test/?q=&quot;v1&quot;">v1</a></td></tr>'

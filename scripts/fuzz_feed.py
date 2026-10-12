@@ -12,7 +12,9 @@ Python 3.14:
 from __future__ import annotations
 
 import sys
-from xml.etree import ElementTree
+
+# Parses only the feed build_feed just wrote; expat resolves no external entities.
+from xml.etree import ElementTree  # nosec B405 # nosemgrep
 
 import build_feed
 
