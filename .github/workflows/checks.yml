@@ -26,9 +26,10 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - name: Install pinned lint tools
-        run: python -m pip install --disable-pip-version-check "ruff==0.16.8" "mypy==2.3.1"
+        run: python -m pip install --disable-pip-version-check --require-hashes --requirement requirements-lint.txt
       - name: Ruff
         run: python -m ruff check .
       - name: Ruff format
@@ -51,7 +52,8 @@ jobs:
           bundler-cache: true
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: "24"
@@ -104,7 +106,8 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - name: Select metadata-only browser checks
         id: metadata
         env:
@@ -170,7 +173,8 @@ jobs:
           persist-credentials: false
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - name: Select metadata-only Lighthouse checks
         id: metadata
         env:
@@ -218,6 +222,33 @@ jobs:
           if-no-files-found: ignore
           retention-days: 7
 
+  fuzzing:
+    name: fuzz the changelog feed builder
+    # A 60-second random exploration is not a repeatable merge gate, so it
+    # runs after merge, weekly and on demand rather than on pull requests.
+    if: github.event_name != 'pull_request'
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Set up Python
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.14"
+      - name: Install the pinned fuzzer
+        run: >-
+          python -m pip install --require-hashes --only-binary :all:
+          --requirement scripts/requirements-fuzz.txt
+      - name: Fuzz the feed builder
+        run: >-
+          python scripts/fuzz_feed.py scripts/fuzz-corpus/feed
+          -max_total_time=60 -max_len=4096 -timeout=2 -rss_limit_mb=1024
+
   checks-gates:
     # The one context branch protection requires from this workflow. It fails
     # unless every job it needs succeeded, when a job in this file is missing
@@ -234,7 +265,8 @@ jobs:
     steps:
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -246,7 +278,7 @@ jobs:
       - name: Require every job to be listed, kept and successful
         env:
           RESULTS: ${{ toJSON(needs) }}
-        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy
+        run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy --exempt fuzzing
       - name: Require external publication results for this main commit
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
         env:
@@ -293,14 +325,15 @@ jobs:
           node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site" --source-only
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
-          python-version: "3.14"
+          python-version: "3.15"
+          allow-prereleases: true
       - name: Revalidate main and external results after environment admission
         env:
           GH_TOKEN: ${{ github.token }}
         run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
       - name: Deploy the artifact from this run
         id: deployment
-        uses: actions/deploy-pages@d6db90164ac5ed86f2b6aed7e0febac5b3c0c03e # v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
         with:
           artifact_name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
       - name: Verify the published source identity and delivery contract
