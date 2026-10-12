@@ -246,6 +246,10 @@
       "label": "How to pay",
       "url": "https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay"
     },
+    "credit-card-change": {
+      "label": "Changes to credit card payments",
+      "url": "https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments"
+    },
     "income-declare": {
       "label": "Income you must declare",
       "url": "https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare"
@@ -686,9 +690,10 @@
       "boundary": "This website does not collect payments or supply bank details.",
       "source": "pay",
       "tool": "",
-      "fact": "You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter.",
+      "fact": "You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026.",
       "fact_sources": [
-        "how-to-pay"
+        "how-to-pay",
+        "credit-card-change"
       ]
     },
     {
