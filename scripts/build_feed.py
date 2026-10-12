@@ -48,8 +48,17 @@ FEED_ID_PATTERN = re.compile(r"""\bdata-feed-id\s*=\s*(["'])(.*?)\1""")
 CELL_PATTERN = re.compile(r'<(?:td|th scope="row")>(.*?)</t[dh]>', re.S)
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
-# Characters outside the XML 1.0 Char production, which no feed reader accepts.
-XML_ILLEGAL = re.compile("[^\t\n\r\x20-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
+
+
+def xml_char(character: str) -> bool:
+    """True for a character in the XML 1.0 Char production, which feed readers require."""
+    point = ord(character)
+    return (
+        point in (0x9, 0xA, 0xD)
+        or 0x20 <= point <= 0xD7FF
+        or 0xE000 <= point <= 0xFFFD
+        or 0x10000 <= point <= 0x10FFFF
+    )
 
 
 def parse_date(text: str) -> date:
@@ -144,7 +153,7 @@ def build(html: str) -> str:
         ]
     lines.append("</feed>")
     feed = "\n".join(lines) + "\n"
-    if XML_ILLEGAL.search(feed):
+    if not all(xml_char(character) for character in feed):
         raise SystemExit("changelog: holds a control character XML cannot carry")
     return feed
 
