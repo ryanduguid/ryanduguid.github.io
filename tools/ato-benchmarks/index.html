@@ -111,7 +111,7 @@
     <p>A person must review the mapping and select the relevant industry, year and turnover band before comparing that 30% with an ATO range. This example does not establish whether a business falls within a benchmark.</p>
     <h3>Reproduce this exact example</h3>
     <p>In a fresh folder, with Git and <a href="https://docs.astral.sh/uv/">uv</a> installed, run the test at the release used above:</p>
-    <pre tabindex="0" role="region" aria-label="Pinned ato-benchmark-compare example test"><!-- NOSONAR: labelled keyboard-scroll region --><code>git clone https://github.com/ryanduguid/australian-accounting.git
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Pinned ato-benchmark-compare example test"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting
 git checkout ato-benchmark-compare/v0.1.6
 cd packages/ato-benchmark-compare
@@ -130,7 +130,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_ratios.py::test_c
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm. Development checkout: these commands clone the default branch and install it, not a tagged release; the worked example above is pinned to a tagged release and names it.</p>
-    <pre tabindex="0" role="region" aria-label="Installation commands"><!-- NOSONAR: labelled keyboard-scroll region --><code>git clone https://github.com/ryanduguid/australian-accounting.git
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting/packages/ato-benchmark-compare
 pip install .</code></pre>
     <p><a href="https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare">Source on GitHub</a> · Primary source: the ATO’s <a href="https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks">small business benchmarks</a>.</p>

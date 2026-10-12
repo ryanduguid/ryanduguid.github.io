@@ -91,7 +91,7 @@
           <section id="expected-result">
             <h2>Expected result</h2>
             <p>These results describe readiness for review; a manager still decides whether work may progress.</p>
-            <div class="table-scroll" role="region" aria-label="Workpaper Review Gate expected results" tabindex="0"><!-- NOSONAR: labelled keyboard-scroll region -->
+            <!-- NOSONAR: labelled keyboard-scroll region --><div class="table-scroll" role="region" aria-label="Workpaper Review Gate expected results" tabindex="0">
             <table class="facts">
               <thead>
                 <tr>
@@ -132,7 +132,7 @@
 
           <section id="reproduce" class="install-panel">
             <h2>Reproduce</h2>
-            <pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><!-- NOSONAR: labelled keyboard-scroll region --><code>git clone --branch review-ready-gate/v0.1.3 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
+            <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Commands to reproduce the evaluation"><code>git clone --branch review-ready-gate/v0.1.3 --depth 1 https://github.com/ryanduguid/accounting-review-pipeline.git
 cd accounting-review-pipeline/packages/review-ready-gate
 uv sync --locked --all-extras
 uv run review-ready gate --profile bas --pack examples/bas-not-ready --output outputs/evaluation-not-ready
