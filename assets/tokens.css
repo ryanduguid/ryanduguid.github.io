@@ -102,7 +102,7 @@
   --colour-mode-accent: var(--colour-stamp);
   --colour-mode-shadow: rgba(0, 0, 0, 0.25);
   --colour-machine-canvas: #000000;
-  --colour-machine-ink: #e6e6e6;
+  --colour-machine-ink: #e5e4e2;
 
   --font-display: "Besley", Georgia, serif;
   --font-body: "Public Sans", "Segoe UI", sans-serif;
@@ -159,7 +159,7 @@
 /* Brighter landing-page copy; fixed captures and other routes keep their palette. */
 @media screen {
   .page-home {
-    --colour-ink-mid: #e6e6e6;
+    --colour-ink-mid: #e5e4e2;
     --colour-ink-soft: #dadada;
     --colour-mode-muted: #dadada;
   }

@@ -19,11 +19,19 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 On 13 October 2026 Ryan chose Rhodesian green (#0F4B32) for the website's
 cash chart and passed results, as `--colour-pass`. The Lumbridge chart's
 closing cash line and markers take it, and a passed outcome row (the corrected
-BAS pack, `passing.csv` and the balanced Xero export) carries a 3px green rule
-inside its row label. Green on black measures 2.07:1, below the 3:1 for
-graphics, so it never carries information alone: the chart keeps its ivory
-markers (20.81:1), labels and caption, and each passed row's label states the
-result. Crimson stays the main accent and print maps the green to black.
+BAS pack, `passing.csv` and the balanced Xero export) fills its row label in
+green with ivory text (10.04:1), as a passed node does in the GitHub diagrams.
+Green on black measures 2.07:1, below the 3:1 for graphics, so it never
+carries information alone: the chart keeps its ivory markers (20.81:1), labels
+and caption, and each passed row's label states the result. Crimson stays the
+main accent. Print drops the fill and keeps the label black on white.
+
+The same day the site's light neutrals were aligned with the GitHub diagrams,
+which draw text in ivory and lines and borders in platinum (#E5E4E2, 16.53:1
+on black). The favicon seal and the social-card rules and seal frame are
+platinum; social-card text is ivory. Both had kept #F2F2F2 after the main ink
+moved to ivory. Homepage mid ink and Machine view ink move from #E6E6E6 to
+platinum, a 1.02:1 difference. The social cards take `-20261013` filenames.
 
 On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
 spacing. Breadcrumbs, contents labels, register and fact-list terms, route
@@ -564,14 +572,14 @@ near-white, which raises its contrast on canvas from 18.76:1 to 20.81:1. Rules, 
 No gradient, glow, texture or alternate theme is permitted.
 The Machine view canvas is also true black so its text sits on switched-off
 OLED pixels; its ink stays on the switch's own neutral palette.
-On the homepage, mid ink is `#E6E6E6`, soft ink and the inactive view-switch
+On the homepage, mid ink is platinum (`#E5E4E2`), soft ink and the inactive view-switch
 label are `#DADADA`. Increased-contrast and print styles retain their overrides.
 Printers drop background colours, so print maps the page's ink tokens, mid ink,
 masthead and code ink included, to black on white, and a test holds every
 visible text colour on every page to 4.5:1 against white paper.
-The favicon seal and the social-card template carry the same ink and soft
-ink literals, so their rasters are re-rendered whenever those 2 values
-change.
+The favicon seal and the social-card template draw lines in platinum and
+social-card text in ivory, so their rasters are re-rendered whenever those
+values change.
 
 ## Typography and licence
 
