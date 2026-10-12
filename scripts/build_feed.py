@@ -48,11 +48,17 @@ FEED_ID_PATTERN = re.compile(r"""\bdata-feed-id\s*=\s*(["'])(.*?)\1""")
 CELL_PATTERN = re.compile(r'<(?:td|th scope="row")>(.*?)</t[dh]>', re.S)
 TAG_PATTERN = re.compile(r"<[^>]+>")
 HREF_PATTERN = re.compile(r'href="([^"]+)"')
+# Characters outside the XML 1.0 Char production, which no feed reader accepts.
+XML_ILLEGAL = re.compile("[^\t\n\r\x20-\ud7ff\ue000-\ufffd\U00010000-\U0010ffff]")
 
 
 def parse_date(text: str) -> date:
-    day, month, year = text.split()
-    return date(int(year), MONTHS[month], int(day))
+    try:
+        day, month, year = text.split()
+        return date(int(year), MONTHS[month], int(day))
+    except (KeyError, OverflowError, ValueError) as error:
+        # A typo in a date cell escaped as a traceback naming no row.
+        raise SystemExit(f"changelog: unreadable date {text!r}") from error
 
 
 def headline(summary: str) -> str:
@@ -129,14 +135,18 @@ def build(html: str) -> str:
         lines += [
             "  <entry>",
             f"    <title>{escape(title)}</title>",
-            f'    <link href="{escape(link)}" />',
+            # The href is unescaped from the page, so it can hold a double quote.
+            f'    <link href="{escape(link, {chr(34): "&quot;"})}" />',
             f"    <id>{CHANGELOG_URL}#entry-{digest}</id>",
             f"    <updated>{when.isoformat()}T00:00:00Z</updated>",
             f"    <summary>{escape(summary)}</summary>",
             "  </entry>",
         ]
     lines.append("</feed>")
-    return "\n".join(lines) + "\n"
+    feed = "\n".join(lines) + "\n"
+    if XML_ILLEGAL.search(feed):
+        raise SystemExit("changelog: holds a control character XML cannot carry")
+    return feed
 
 
 def main(argv: list[str]) -> int:

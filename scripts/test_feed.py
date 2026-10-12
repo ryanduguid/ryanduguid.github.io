@@ -4,11 +4,15 @@ from __future__ import annotations
 
 import hashlib
 import unittest
+from pathlib import Path
+from unittest import mock
 from xml.etree import ElementTree
 
 import build_feed
+import fuzz_feed
 
 NS = {"a": "http://www.w3.org/2005/Atom"}
+FUZZ_CORPUS = Path(__file__).resolve().parent / "fuzz-corpus" / "feed"
 
 
 def feed_entries(source: str) -> dict[str, str | None]:
@@ -56,6 +60,43 @@ class FeedTests(unittest.TestCase):
                 self.assertRaisesRegex(SystemExit, "data-feed-id must be"),
             ):
                 build_feed.build(f"<tr {attributes}><td>22 September 2026</td><td>Copy</td></tr>")
+
+    def test_a_release_link_with_a_quote_stays_well_formed(self) -> None:
+        tree = ElementTree.fromstring(
+            build_feed.build(
+                '<tr><th scope="row">1 May 2026</th><td>Tool</td>'
+                '<td><a href="https://example.test/?q=&quot;v1&quot;">v1</a></td></tr>'
+            )
+        )
+        link = tree.find("a:entry/a:link", NS)
+        href = None if link is None else link.get("href")
+        self.assertEqual(href, 'https://example.test/?q="v1"')
+
+    def test_a_control_character_is_refused(self) -> None:
+        with self.assertRaisesRegex(SystemExit, "control character"):
+            build_feed.build("<tr><td>1 May 2026</td><td>Copy\x00</td></tr>")
+
+    def test_an_unreadable_date_names_the_cell(self) -> None:
+        for cell in ("soon", "31 Smarch 2026", "31 February 2026", "1 May 99999999999999999999"):
+            with (
+                self.subTest(cell=cell),
+                self.assertRaisesRegex(SystemExit, f"unreadable date '{cell}'"),
+            ):
+                build_feed.build(f"<tr><td>{cell}</td><td>Copy</td></tr>")
+
+    def test_the_fuzz_seed_corpus_replays_cleanly(self) -> None:
+        seeds = sorted(FUZZ_CORPUS.iterdir())
+        self.assertGreater(len(seeds), 0)
+        for seed in seeds:
+            with self.subTest(seed=seed.name):
+                fuzz_feed.test_one_input(seed.read_bytes())
+
+    def test_the_fuzz_harness_rejects_a_refusal_naming_no_changelog(self) -> None:
+        with (
+            mock.patch.object(build_feed, "build", side_effect=SystemExit("other")),
+            self.assertRaisesRegex(AssertionError, "unexpected refusal 'other'"),
+        ):
+            fuzz_feed.test_one_input(b"x")
 
     def test_long_titles_end_on_a_whole_word_and_keep_their_ids(self) -> None:
         summary = (
