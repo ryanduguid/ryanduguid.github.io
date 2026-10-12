@@ -113,14 +113,14 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter. Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO · How to pay
+Paying the ATO · How to pay · Changes to credit card payments
 
 The bold answer was checked on 27 September 2026.
 
@@ -235,6 +235,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
 - How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
+- Changes to credit card payments: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare

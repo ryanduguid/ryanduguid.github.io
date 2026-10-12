@@ -251,9 +251,11 @@ class PublicationTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.evaluate()
 
-    def test_only_deploy_is_exempt_from_the_actual_aggregate(self):
+    def test_only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate(self):
+        # Fuzzing never runs on pull requests, and a fuzz finding after merge must
+        # not hold back an unrelated deployment.
         workflow = (ROOT / ".github/workflows/checks.yml").read_text()
-        self.assertIn("checks-gates --exempt deploy\n", workflow)
+        self.assertIn("checks-gates --exempt deploy --exempt fuzzing\n", workflow)
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
             workflows = root / ".github/workflows"
@@ -278,6 +280,8 @@ class PublicationTests(unittest.TestCase):
                 "checks-gates",
                 "--exempt",
                 "deploy",
+                "--exempt",
+                "fuzzing",
             ]
             self.assertEqual(
                 subprocess.run(command, cwd=root, env=env, capture_output=True).returncode, 0

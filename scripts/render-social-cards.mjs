@@ -48,7 +48,7 @@ function validateCards(value) {
     if (!card || typeof card !== 'object' || Array.isArray(card)) {
       throw new TypeError(`Social-card ${id} must be an object`);
     }
-    const fields = Object.keys(card).sort();
+    const fields = Object.keys(card).sort((a, b) => (a < b ? -1 : a > b ? 1 : 0));
     if (JSON.stringify(fields) !== JSON.stringify(CARD_FIELDS)) {
       throw new Error(`Social-card ${id} fields changed`);
     }
@@ -67,7 +67,7 @@ function validateCards(value) {
     ) {
       throw new TypeError(`Social-card ${id} heading must contain two or three fitted lines`);
     }
-    const expectedOutput = `social-card-${id}-20261004.png`;
+    const expectedOutput = `social-card-${id}-20261013.png`;
     if (card.output !== expectedOutput) {
       throw new Error(`Social-card ${id} output must be ${expectedOutput}`);
     }
