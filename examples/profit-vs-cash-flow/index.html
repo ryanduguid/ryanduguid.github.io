@@ -104,7 +104,7 @@
 
           <section id="results">
             <h2>Both cases, side by side</h2>
-            <!-- NOSONAR: labelled keyboard-scroll region --><div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge baseline and late-receipt forecast comparison">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Lumbridge baseline and late-receipt forecast comparison">
               <table class="facts facts--figures rate-table--wide case-comparison">
                 <caption>Same work, same customer, different receipt date. All amounts AUD.</caption>
                 <thead>
@@ -133,16 +133,16 @@
           <section id="receipt-delay">
             <h2>Compare five receipt delays</h2>
             <p>A 15-day delay is enough to put this fictional business below zero for one day. Longer delays can also extend the time below zero without changing the lowest balance. These five runs move only the $44,000 OPEN-V receipt from its original 14 October date.</p>
-            <!-- NOSONAR: labelled keyboard-scroll region --><div class="table-scroll" tabindex="0" role="region" aria-label="Cash sensitivity to five receipt delays">
+            <div class="table-scroll" tabindex="0" role="region" aria-label="Cash sensitivity to five receipt delays">
               <table class="receipt-sensitivity rate-table--wide" role="table">
                 <caption>Daily closing cash at five receipt delays. All amounts AUD; all dates are in 2026.</caption>
                 <thead role="rowgroup"><tr role="row"><th scope="col" role="columnheader">Delay in days</th><th scope="col" role="columnheader">Receipt date</th><th scope="col" role="columnheader">Lowest cash</th><th scope="col" role="columnheader">First date at that low</th><th scope="col" role="columnheader">Days below zero</th></tr></thead>
                 <tbody role="rowgroup">
-                  <!-- NOSONAR: roles keep table semantics in the stacked layout --><tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">0</th><td role="cell" data-label="Receipt date">14 October</td><td role="cell" data-label="Lowest cash">$16,800.00</td><td role="cell" data-label="First date at that low">7 October</td><td role="cell" data-label="Days below zero">0</td></tr>
-                  <!-- NOSONAR: roles keep table semantics in the stacked layout --><tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">15</th><td role="cell" data-label="Receipt date">29 October</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$11,960.00</span></td><td role="cell" data-label="First date at that low">28 October</td><td role="cell" data-label="Days below zero">1</td></tr>
-                  <!-- NOSONAR: roles keep table semantics in the stacked layout --><tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">30</th><td role="cell" data-label="Receipt date">13 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
-                  <!-- NOSONAR: roles keep table semantics in the stacked layout --><tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">45</th><td role="cell" data-label="Receipt date">28 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
-                  <!-- NOSONAR: roles keep table semantics in the stacked layout --><tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">60</th><td role="cell" data-label="Receipt date">13 December</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">22</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">0</th><td role="cell" data-label="Receipt date">14 October</td><td role="cell" data-label="Lowest cash">$16,800.00</td><td role="cell" data-label="First date at that low">7 October</td><td role="cell" data-label="Days below zero">0</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">15</th><td role="cell" data-label="Receipt date">29 October</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$11,960.00</span></td><td role="cell" data-label="First date at that low">28 October</td><td role="cell" data-label="Days below zero">1</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">30</th><td role="cell" data-label="Receipt date">13 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">45</th><td role="cell" data-label="Receipt date">28 November</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">16</td></tr>
+                  <tr role="row"><th scope="row" role="rowheader" data-label="Delay in days">60</th><td role="cell" data-label="Receipt date">13 December</td><td role="cell" data-label="Lowest cash"><span class="nowrap">−$25,160.00</span></td><td role="cell" data-label="First date at that low">6 November</td><td role="cell" data-label="Days below zero">22</td></tr>
                 </tbody>
               </table>
             </div>
@@ -189,7 +189,7 @@
           <section id="reproduce">
             <h2>Rebuild it from source</h2>
             <p>The example lives in the au-fpa-pack repository, an Australian extension of <a href="https://github.com/JeffBrines/openfpa">Jeff Brines / Guiderail’s openfpa</a>. From a checkout of the captured commit, with Python 3.11 and <a href="https://docs.astral.sh/uv/">uv</a>:</p>
-            <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Lumbridge reproduction commands"><code><span class="cmd">uv sync --locked --extra dev</span>
+            <pre tabindex="0" role="region" aria-label="Lumbridge reproduction commands"><code><span class="cmd">uv sync --locked --extra dev</span>
 <span class="cmd">uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py</span>
 <span class="cmd">uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py --delay-days 45</span></code></pre>
             <p>Each run writes the workbook, briefing and schedules to <code>examples/lumbridge-services/output/</code> and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect <code>quarter_profit_before_tax</code> of 35957.55 in both runs, and <code>minimum_daily_cash</code> of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.</p>
