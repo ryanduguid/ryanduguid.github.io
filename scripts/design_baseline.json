@@ -15,7 +15,7 @@
       "85acfd4050b6f30c4a34f446f91b42e1cdf57cef6f54d780af839bc0aed10d97"
     ],
     "changelog/index.html": [
-      "527698cd8944019298011bca64051fac12de069df03a63396b3d7b326027c5cc"
+      "c3a67700a3b2a561402824ee30265ae8de32a9ec658f16c9bc1f687d2778199a"
     ],
     "contact/index.html": [
       "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
@@ -60,7 +60,7 @@
       "a1344c95e2d5c671b55fb0e3b84ee7789ad6b15251d4a1dc9088f08629ec4606"
     ],
     "tools/ato-benchmarks/index.html": [
-      "04bc6caa02320118f202cb64d2bebd30c9fda06df6d7670240280469ff8ead1e"
+      "0aa278d3c1d6273ea9d862c25217c7722be566fdfe34d3101648fa75d9d7bff6"
     ],
     "tools/australian-tax-ai-agents/index.html": [
       "abe17b25b89a6247b23958a84f12a281a8260a8fe6574b8c0074fad386126ef3"
@@ -72,7 +72,7 @@
       "3a241b0ac51a1c543aaa9d6dd19907c5f96c8f4031327edee8a47e41b9fb3290"
     ],
     "tools/company-tax-franking/index.html": [
-      "ee1b9ccda634e054350d1dbd08a37381e4f42fd27a607a86fc03948df0717ebe"
+      "8fc733579dbfb926efacfb2a32d0c1baa50a87e1ffb2f12ea89730965f14abc5"
     ],
     "tools/index.html": [
       "8773b9203fb9f922219e107feb35dae46cf6c8c673a39df3ad643993b76e2ae1"
@@ -93,25 +93,25 @@
       "b318535d0bcb89e7d3aa11ce6bded7a9360b3e52efcbd8436a01c0424ec2a156"
     ],
     "tools/subcontractor-ledgers/index.html": [
-      "a5a9a439d473c998485d91952d2df90f83a115f03291adfb1a9841b0274b4171"
+      "fb269b9c26aa26a2e56e6b878f7cf8be3f419b23c549f4c3618629459acb9189"
     ],
     "tools/trust-distributions/index.html": [
       "62b46b3fe3f1966d77b42e885ae0cce49d66978b499319698713249e640ec99d"
     ],
     "tools/wip-schedule/index.html": [
-      "e83af91c7a078b9940d6b65bf89ef0cd71bc1dd27058a8265ab1cca3586bd9e1"
+      "3a7bd0ba49055f06bc6f27479febfa7445b02de1d38bdbe5988124c52876c880"
     ],
     "tools/workpaper-review-gate/index.html": [
       "e92427299c0c01e71a8b334de24bb54b75cdcd6bc6df3c0916e48617263d5db6"
     ],
     "tools/xero-trial-balance/index.html": [
-      "a6500ec68df5deb7f59047405d03dc13508b02ffaef6e58b2f5868ead76dbfef"
+      "bb35a59ad4cacf1c02a8f6e2cc28b37e511db8cd1640ebb34fd44f3e73f4ef14"
     ]
   },
   "protected_files": {
     "llms.txt": "d5123a827c9f97475833d3cd944ec996655b9fc3463a4fa13baf8af901c5d000",
     "robots.txt": "8aadc951f1242dec2ee46153f7f5eaa194ab5e32d88f2c5d416824b921693dae",
-    "sitemap.xml": "d78f636f6a45ff44f8c5a2e5e4a0bdf86a060fe09ba7bf4296d2534efbf7e3bc"
+    "sitemap.xml": "bc1bf9ced53ad796de2d4c042f647a049278f615be5b5d751785e55c40d9bb77"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
