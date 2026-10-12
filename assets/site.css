@@ -808,6 +808,12 @@ caption {
   width: 13rem;
 }
 
+/* A passed result carries a Rhodesian green rule inside its row label. The
+   label text states the result, so the colour is never the only signal. */
+.is-pass > th:first-child {
+  box-shadow: inset var(--rule-strong) 0 0 var(--colour-pass);
+}
+
 .facts--kv th {
   overflow-wrap: anywhere;
 }
@@ -2914,6 +2920,7 @@ input[type="checkbox"] {
     --colour-stamp: var(--colour-print-ink);
     --colour-stamp-strong: var(--colour-print-ink);
     --colour-stamp-wash: var(--colour-print-paper);
+    --colour-pass: var(--colour-print-ink);
     --colour-alert: var(--colour-print-ink);
   }
 

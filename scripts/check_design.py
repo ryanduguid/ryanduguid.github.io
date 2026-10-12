@@ -406,7 +406,11 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
-    for token, colour in (("--colour-stamp", "#990024"), ("--colour-stamp-strong", "#66023c")):
+    for token, colour in (
+        ("--colour-stamp", "#990024"),
+        ("--colour-stamp-strong", "#66023c"),
+        ("--colour-pass", "#0f4b32"),
+    ):
         if properties.get(token) != colour:
             failures.append(f"{token} must be {colour}")
     ink = properties.get("--colour-ink")

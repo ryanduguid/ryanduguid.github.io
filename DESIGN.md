@@ -16,6 +16,15 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 13 October 2026 Ryan chose Rhodesian green (#0F4B32) for the website's
+cash chart and passed results, as `--colour-pass`. The Lumbridge chart's
+closing cash line and markers take it, and a passed outcome row (the corrected
+BAS pack, `passing.csv` and the balanced Xero export) carries a 3px green rule
+inside its row label. Green on black measures 2.07:1, below the 3:1 for
+graphics, so it never carries information alone: the chart keeps its ivory
+markers (20.81:1), labels and caption, and each passed row's label states the
+result. Crimson stays the main accent and print maps the green to black.
+
 On 7 October 2026 Ryan ruled out uppercase section labels with positive letter
 spacing. Breadcrumbs, contents labels, register and fact-list terms, route
 delivery types, the proof label and the Copy button now show their source text
@@ -539,6 +548,7 @@ and no system preference creates a second branded state.
 | Stamp | `#990024` | Fills, rules, link underlines and cash series | 2.38:1 |
 | Stamp strong | `#66023C` | Hover fills and secondary emphasis with ivory text | 12.70:1 (ivory on stamp) |
 | Stamp wash | `#161616` | Applied formula and interactive emphasis | n/a |
+| Pass | `#0F4B32` (Rhodesian green) | Passed-result rules and the cash chart line | 2.07:1 |
 | Alert | `#FF9C91` | Refusal and warning semantics only | 10.42:1 |
 | Masthead | `#FFFFF0` (ivory) | Homepage identity statement only | n/a |
 | Code | `#000000` | Code and install background, bounded by its rule | n/a |
