@@ -2838,9 +2838,9 @@ Source: https://duguid.com.au/tools/ato-benchmarks/
 
 The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 29 September 2026 is ato-benchmark-compare/v0.1.11, which adds the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio.
+Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is ato-benchmark-compare/v0.1.12. Release 0.1.11 added the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio; 0.1.12 needs Python 3.11 or later and changes no comparison.
 
-Published 24 August 2026. Last reviewed 29 September 2026.
+Published 24 August 2026. Last reviewed 13 October 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
@@ -2930,7 +2930,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
-- ato-benchmark-compare/v0.1.11: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.11
+- ato-benchmark-compare/v0.1.12: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
@@ -3079,9 +3079,9 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; it is also the current release, which pip install the-exchequer-tally fetches.
+Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-exchequer-tally/v0.1.8, which pip install the-exchequer-tally fetches. It needs Python 3.11 or later and changes no calculation.
 
-Published 24 August 2026. Last reviewed 26 September 2026.
+Published 24 August 2026. Last reviewed 13 October 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
@@ -3162,6 +3162,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
+- the-exchequer-tally/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
@@ -3188,9 +3189,9 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack.
+Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release on 13 October 2026 is v0.3.2, which keeps the same 65 skills and adds a BAS transaction GST coding review; its seven new validation cards have no recorded verdict.
 
-Published 24 August 2026. Last reviewed 5 October 2026.
+Published 24 August 2026. Last reviewed 13 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -3251,6 +3252,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Australian Accounting Skills v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
+- v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
@@ -3275,9 +3277,9 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is the-wip-tally/v0.1.3.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-wip-tally/v0.1.4, which needs Python 3.11 or later and changes no calculation.
 
-Published 25 August 2026. Last reviewed 1 October 2026.
+Published 25 August 2026. Last reviewed 13 October 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.
 
@@ -3321,7 +3323,7 @@ This is an educational tool, not tax, legal or financial advice, and using it cr
 
 ## Get it
 
-Needs Python 3.10 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -3370,7 +3372,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
-- the-wip-tally/v0.1.3: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.3
+- the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
 - uv: https://docs.astral.sh/uv/
@@ -3394,9 +3396,9 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 1 October 2026 is xero-trial-balance-export/v0.1.14.
+Evaluated release xero-trial-balance-export/v0.1.6, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is xero-trial-balance-export/v0.1.15, which needs Python 3.11 or later.
 
-Published 24 August 2026. Last reviewed 1 October 2026.
+Published 24 August 2026. Last reviewed 13 October 2026.
 
 This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
@@ -3481,7 +3483,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - xero-trial-balance-export/v0.1.6: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6
-- xero-trial-balance-export/v0.1.14: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.14
+- xero-trial-balance-export/v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -3884,6 +3886,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+13 October 2026 | The ATO benchmarks, company tax and franking, construction WIP, Xero trial balance and subcontract ledger pages name the releases published on 12 October. The five tool releases need Python 3.11 or later and change no calculated result; Australian Accounting Skills v0.3.2 adds a BAS transaction GST coding review, and v0.3.1 stays the recommended skills release.
 7 October 2026 | Breadcrumbs, contents labels and the small labels in registers and fact lists are set in sentence case at normal letter spacing instead of spaced capitals.
 7 October 2026 | A wrapped title link no longer covers part of the line above when hovered, and Copy buttons sit below their code instead of over it. Table captions wrap to a phone screen, header links keep their whole focus outline, printed code wraps to the page, the cash forecast shows six-figure weekly amounts on the narrowest phones and the Coal LSL result images no longer crop their figures.
 7 October 2026 | When a business calculator flags a field, the field beside it stays where it was, and the message takes its own line below that row.
@@ -3939,6 +3942,12 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+12 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.12
+12 October 2026 | Payday Super timing | payday-super-checker/v0.1.10
+12 October 2026 | Construction WIP schedule | the-wip-tally/v0.1.4
+12 October 2026 | Xero trial balance CSV export | xero-trial-balance-export/v0.1.15
+12 October 2026 | Company tax and franking checks | the-exchequer-tally/v0.1.8
+12 October 2026 | Subcontract ledger skills | v0.3.2
 5 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.3.0
 5 October 2026 | Trust distribution checks | solomons-sword/v0.2.0
 5 October 2026 | Division 7A loan review | div7a-loan-review/v0.2.0
@@ -3986,6 +3995,12 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- ato-benchmark-compare/v0.1.12: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12
+- payday-super-checker/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.10
+- the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4
+- xero-trial-balance-export/v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
+- the-exchequer-tally/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8
+- v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
 - solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
 - div7a-loan-review/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0
