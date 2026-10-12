@@ -187,6 +187,8 @@ for (const [label, route] of routes) {
     const scan = await new AxeBuilder({ page }).analyze();
     const violations = scan.violations.map(({ id, impact, nodes }) => `${id} (${impact}): ${nodes[0]?.target}`);
     expect(violations, `${route} has axe violations`).toEqual([]);
+    // Since 13 October 2026 the pass token, Rhodesian green, is the one green
+    // the site may show; any other green is a leftover of the retired palette.
     const greenAccents = await page.evaluate(() => {
       const properties = ['color', 'backgroundColor', 'borderTopColor', 'borderBottomColor',
         'outlineColor', 'textDecorationColor', 'accentColor'];
@@ -196,6 +198,7 @@ for (const [label, route] of routes) {
           const channels = style[property].match(/^rgba?\((\d+), (\d+), (\d+)/);
           if (!channels) return [];
           const [, red, green, blue] = channels.map(Number);
+          if (red === 15 && green === 75 && blue === 50) return [];
           return green > red + 20 && green > blue + 20
             ? [`${element.tagName}.${element.className}: ${property} ${style[property]}`]
             : [];
