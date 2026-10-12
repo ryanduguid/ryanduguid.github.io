@@ -10,7 +10,9 @@
 # Usage, from the repository root with Excel closed, once per variant:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant wide
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant narrow
-# Then record the printed PNG hashes in assets/examples/lumbridge/preview-record.txt.
+# Then run `uv run --script scripts/encode_cash_chart_webp.py` for the WebP
+# copies the pages show, and record the printed PNG and WebP hashes in
+# assets/examples/lumbridge/preview-record.txt.
 #
 # The wide chart serves the full-size link and wide hero columns; the narrow
 # chart serves phones and the tighter two-column widths. Both size their text
@@ -52,7 +54,7 @@ foreach ($line in Get-Content $tokensPath) {
     $tokens[$Matches[1]] = $Matches[2]
   }
 }
-foreach ($name in 'canvas', 'rule', 'rule-strong', 'ink', 'ink-soft', 'stamp', 'alert') {
+foreach ($name in 'canvas', 'rule', 'rule-strong', 'ink', 'ink-soft', 'pass', 'alert') {
   if (-not $tokens.ContainsKey($name)) { throw "tokens.css has no --colour-$name" }
 }
 
@@ -61,7 +63,7 @@ $rule = Rgb $tokens['rule']
 $ruleStrong = Rgb $tokens['rule-strong']
 $ink = Rgb $tokens['ink']
 $inkSoft = Rgb $tokens['ink-soft']
-$stamp = Rgb $tokens['stamp']
+$pass = Rgb $tokens['pass']
 $alert = Rgb $tokens['alert']
 
 Add-Type -Namespace Win32 -Name Native -MemberDefinition @'
@@ -145,12 +147,12 @@ try {
   $cax.Format.Line.ForeColor.RGB = $ruleStrong
   $cax.HasMajorGridlines = $false
 
-  $s1.Format.Line.ForeColor.RGB = $stamp
+  $s1.Format.Line.ForeColor.RGB = $pass
   $s1.Format.Line.Weight = 4
   $s1.MarkerStyle = 8
   $s1.MarkerSize = 8
   $s1.MarkerForegroundColor = $ink
-  $s1.MarkerBackgroundColor = $stamp
+  $s1.MarkerBackgroundColor = $pass
 
   $s2.Format.Line.ForeColor.RGB = $alert
   $s2.Format.Line.Weight = 3
