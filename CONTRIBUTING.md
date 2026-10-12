@@ -356,6 +356,9 @@ wording changes, then regenerate the feed. New rows without an explicit ID
 retain the existing date-and-title hash. The site checks test this behaviour
 and reject invalid or duplicate IDs.
 The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
+Add or update tests with every change to behaviour: new functionality needs a
+test that fails without it, and a fixed defect needs a regression test, in the
+Python checks, the Node tests or the browser tests as fits the change.
 For a potential security vulnerability follow [SECURITY.md](SECURITY.md).
 
 The site-check runner reports elapsed time for the Jekyll build and each
