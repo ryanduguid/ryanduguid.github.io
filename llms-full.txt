@@ -1258,6 +1258,8 @@ OECD Crypto Asset Reporting Framework and domestic reporting | MYEFO 2025-26 | 1
 Tax treaties with Ukraine and Croatia | MYEFO 2025-26 | To be determined | TBD
 Supporting philanthropy | MYEFO 2025-26 | Various | Various
 
+Later report for the foreign resident CGT row: the ATO measure page, updated 9 October 2026, says the Treasury Laws Amendment (Strengthening Accountability for Tax Adviser Misconduct and Other Measures) Act 2026 is law and the changes commenced on 1 October 2026. The Federal Register gives assent on 15 September 2026. The ATO summary still showed TBD when checked on 13 October 2026, so the row repeats it.
+
 Left out on purpose: the Budget and MYEFO rows that fund administration rather than change tax or super law (child support systems, the foreign investment framework, the Consumer Data Right, ABN authentication and lookup services, Digital ID, the counter-fraud and NDIS taskforces, director identification number linking and the wind-down of cheques).
 
 ## Legislated: later application
@@ -1349,6 +1351,7 @@ Published 20 September 2026. ATO summary and reform provisions reviewed 22 Septe
 - Minimum tax on discretionary trusts: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-introducing-a-minimum-tax-on-discretionary-trusts
 - Loss refundability reforms for businesses and start-ups (beyond the carry-back): https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-loss-refundability-reforms-for-businesses-and-start-ups
 - Dynamic PAYG instalments: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/dynamic-pay-as-you-go-instalments-making-tax-simpler-for-businesses
+- Federal Register: https://www.legislation.gov.au/C2026A00086/latest/text
 - Negative gearing and CGT discount reform: https://www.ato.gov.au/about-ato/new-legislation/in-detail/individuals/tax-reform-boosting-home-ownership-reforming-negative-gearing-and-capital-gains-tax
 - Treasury Laws Amendment (Tax Reform No. 1) Act 2026: https://www.legislation.gov.au/C2026A00049/latest/text
 - Tax loss carry-back: https://www.ato.gov.au/about-ato/new-legislation/in-detail/businesses/tax-reform-tax-loss-carry-back
@@ -4603,14 +4606,14 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-You can pay the ATO by BPAY, direct deposit, debit or credit card, Government EasyPay, in person at Australia Post or through an international money remitter. Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
 
 This website does not collect payments or supply bank details.
 
-Paying the ATO · How to pay
+Paying the ATO · How to pay · Changes to credit card payments
 
 The bold answer was checked on 27 September 2026.
 
@@ -4725,6 +4728,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to question 5: https://duguid.com.au/tools/accounting-questions/general-tax/#q5
 - Paying the ATO: https://www.ato.gov.au/individuals-and-families/paying-the-ato
 - How to pay: https://www.ato.gov.au/individuals-and-families/paying-the-ato/how-to-pay
+- Changes to credit card payments: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments
 - Link to question 6: https://duguid.com.au/tools/accounting-questions/general-tax/#q6
 - ATO income, deductions and records: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records
 - Income you must declare: https://www.ato.gov.au/individuals-and-families/income-deductions-offsets-and-records/income-you-must-declare
