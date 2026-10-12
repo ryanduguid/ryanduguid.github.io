@@ -5,8 +5,57 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-07T00:00:00Z</updated>
+  <updated>2026-10-13T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The ATO benchmarks, company tax and franking, construction WIP, Xero trial…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-0b11392cf263e0ee</id>
+    <updated>2026-10-13T00:00:00Z</updated>
+    <summary>The ATO benchmarks, company tax and franking, construction WIP, Xero trial balance and subcontract ledger pages name the releases published on 12 October. The five tool releases need Python 3.11 or later and change no calculated result; Australian Accounting Skills v0.3.2 adds a BAS transaction GST coding review, and v0.3.1 stays the recommended skills release.</summary>
+  </entry>
+  <entry>
+    <title>ATO benchmark comparison ato-benchmark-compare/v0.1.12</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12" />
+    <id>https://duguid.com.au/changelog/#entry-59036946afee5c67</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>ATO benchmark comparison: release ato-benchmark-compare/v0.1.12.</summary>
+  </entry>
+  <entry>
+    <title>Payday Super timing payday-super-checker/v0.1.10</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.10" />
+    <id>https://duguid.com.au/changelog/#entry-1f0bb7dac783f932</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>Payday Super timing: release payday-super-checker/v0.1.10.</summary>
+  </entry>
+  <entry>
+    <title>Construction WIP schedule the-wip-tally/v0.1.4</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4" />
+    <id>https://duguid.com.au/changelog/#entry-c0d7438e9cbff58e</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>Construction WIP schedule: release the-wip-tally/v0.1.4.</summary>
+  </entry>
+  <entry>
+    <title>Xero trial balance CSV export xero-trial-balance-export/v0.1.15</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15" />
+    <id>https://duguid.com.au/changelog/#entry-c003a1b1388fec72</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>Xero trial balance CSV export: release xero-trial-balance-export/v0.1.15.</summary>
+  </entry>
+  <entry>
+    <title>Company tax and franking checks the-exchequer-tally/v0.1.8</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8" />
+    <id>https://duguid.com.au/changelog/#entry-78a340905ef4d064</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>Company tax and franking checks: release the-exchequer-tally/v0.1.8.</summary>
+  </entry>
+  <entry>
+    <title>Subcontract ledger skills v0.3.2</title>
+    <link href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2" />
+    <id>https://duguid.com.au/changelog/#entry-f6020bdf69fc4b74</id>
+    <updated>2026-10-12T00:00:00Z</updated>
+    <summary>Subcontract ledger skills: release v0.3.2.</summary>
+  </entry>
   <entry>
     <title>Breadcrumbs, contents labels and the small labels in registers and fact lists…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

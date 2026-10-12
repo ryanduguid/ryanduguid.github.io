@@ -1,10 +1,13 @@
 # ryanduguid.github.io
 
-[![checks](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml)
-[![source freshness](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml)
-[![CodeQL](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql/badge.svg)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql)
-[![licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-5C2D91.svg?labelColor=04001F)](LICENSE)
-[![Codacy code quality](https://app.codacy.com/project/badge/Grade/ed064dc009df4efd893dff3357d2c757?branch=main)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)
+[![checks](https://img.shields.io/github/actions/workflow/status/ryanduguid/ryanduguid.github.io/checks.yml?branch=main&label=checks&labelColor=000000&style=flat-square)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/checks.yml)
+[![source freshness](https://img.shields.io/github/actions/workflow/status/ryanduguid/ryanduguid.github.io/source-freshness.yml?branch=main&label=source%20freshness&labelColor=000000&style=flat-square)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/source-freshness.yml)
+[![CodeQL](https://img.shields.io/github/actions/workflow/status/ryanduguid/ryanduguid.github.io/github-code-scanning%2Fcodeql?branch=main&label=CodeQL&labelColor=000000&style=flat-square)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/github-code-scanning/codeql)
+[![Snyk](https://img.shields.io/github/actions/workflow/status/ryanduguid/ryanduguid.github.io/snyk.yml?branch=main&label=Snyk&labelColor=000000&style=flat-square)](https://github.com/ryanduguid/ryanduguid.github.io/actions/workflows/snyk.yml)
+[![SonarCloud](https://img.shields.io/sonar/quality_gate/ryanduguid_ryanduguid.github.io?server=https%3A%2F%2Fsonarcloud.io&label=SonarCloud&labelColor=000000&style=flat-square)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io)
+[![Codacy code quality](https://img.shields.io/codacy/grade/ed064dc009df4efd893dff3357d2c757?label=Codacy&labelColor=000000&style=flat-square)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br>
+[![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/ryanduguid/ryanduguid.github.io?label=Scorecard&labelColor=000000&style=flat-square)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)<br>
+[![licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-66023C?labelColor=000000&style=flat-square)](LICENSE)
 
 Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
