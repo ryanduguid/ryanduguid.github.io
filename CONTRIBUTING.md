@@ -11,7 +11,7 @@ once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
 pinned linters first, then the site checks on Python 3.15:
 
 ```bash
-python -m pip install "ruff==0.16.8" "mypy==2.3.1"
+python -m pip install --require-hashes --requirement requirements-lint.txt
 python -m ruff check .
 python -m ruff format --check .
 python -m mypy
