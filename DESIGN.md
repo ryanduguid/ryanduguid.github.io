@@ -27,8 +27,8 @@ and caption, and each passed row's label states the result. Crimson stays the
 main accent. Print drops the fill and keeps the label black on white.
 
 The same day the site's light neutrals were aligned with the GitHub diagrams,
-which draw text in ivory and lines and borders in platinum (#E5E4E2, 16.53:1
-on black). The favicon seal and the social-card rules and seal frame are
+which draw text and node borders in ivory and connecting lines in platinum
+(#E5E4E2, 16.53:1 on black). The favicon seal and the social-card rules and seal frame are
 platinum; social-card text is ivory. Both had kept #F2F2F2 after the main ink
 moved to ivory. Homepage mid ink and Machine view ink move from #E6E6E6 to
 platinum, a 1.02:1 difference. The social cards take `-20261013` filenames.
