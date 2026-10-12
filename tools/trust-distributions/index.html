@@ -99,21 +99,21 @@
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
     <p class="install-needs">Needs Python 3.10 or later. Install the reference release in your Python environment.</p>
-    <pre tabindex="0" role="region" aria-label="Trust checker installation command"><code>python -m pip install "solomons-sword==0.1.9"</code></pre>
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Trust checker installation command"><code>python -m pip install "solomons-sword==0.1.9"</code></pre>
     <p><a href="https://pypi.org/project/solomons-sword/0.1.9/">Published package</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.1.9/packages/solomons-sword/README.md#quickstart">release instructions</a>.</p>
     </section>
     <section id="worked-example">
     <h2>Fictional worked example</h2>
     <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, run this pinned package directly. No clone or input file is needed.</p>
     <p>This section 99B example assumes a beneficiary who was resident during the income year, a gross receipt of $150,000 and $50,000 of qualifying corpus. It assumes no corpus attributable to notionally assessable income and no other exclusions. The name and amounts are fictional. The command states residency with <code>--resident-during-year</code> because release 0.1.9 refuses a run that states neither residency flag.</p>
-    <pre tabindex="0" role="region" aria-label="Fictional trust checker command"><code>uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year</code></pre>
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Fictional trust checker command"><code>uvx --from solomons-sword==0.1.9 solomons-sword s99b-check --beneficiary "Fabricated Beneficiary" --gross 150000 --corpus 50000 --resident-during-year</code></pre>
     <p>Selected output from release 0.1.9, verified on 27 September 2026. The command exits 0 and also prints its statutory basis, a caveat naming the amounts left at nil and its review boundaries.</p>
-    <pre tabindex="0" role="region" aria-label="Expected trust checker output"><code>Gross Receipt:           $150,000.00
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Expected trust checker output"><code>Gross Receipt:           $150,000.00
 Corpus Exemption:        $50,000.00
 Assessable under s99B:   $100,000.00</code></pre>
     <h3>Try a refusal</h3>
     <p>Change <code>--corpus 50000</code> to <code>--corpus 160000</code>. The exemptions now exceed the gross receipt. The command exits 2 and returns no assessment:</p>
-    <pre tabindex="0" role="region" aria-label="Expected trust checker refusal"><code>error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount</code></pre>
+    <!-- NOSONAR: labelled keyboard-scroll region --><pre tabindex="0" role="region" aria-label="Expected trust checker refusal"><code>error: exemptions ($160,000.00) exceed the gross receipt ($150,000.00); check the inputs rather than assuming a nil assessable amount</code></pre>
     <p>This verifies the published command’s behaviour on fictional inputs. Confirm residence, the character of the corpus and each exclusion before using the tool with real facts.</p>
     </section>
     <section id="limits">

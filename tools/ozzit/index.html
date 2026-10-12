@@ -67,7 +67,7 @@
         </div>
         <section class="article-preview" aria-labelledby="gst-preview-title">
           <h2 id="gst-preview-title">Extract GST from $1,100</h2>
-          <pre class="copyable" tabindex="0" role="region" aria-label="Quick GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
+          <!-- NOSONAR: labelled keyboard-scroll region --><pre class="copyable" tabindex="0" role="region" aria-label="Quick GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
           <p class="preview-result"><strong>100.00</strong> displayed to two decimal places</p>
           <p>Assumes a wholly taxable, GST-inclusive amount at 10%. <a href="#worked-example">Read the workings, the Excel check and the limits</a>.</p>
         </section>
@@ -98,7 +98,7 @@
           <section id="compatibility">
             <h2>Who it is for and what it needs</h2>
             <p>It suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.</p>
-            <div class="table-scroll" tabindex="0" role="region" aria-label="Ozzit compatibility and delivery">
+            <!-- NOSONAR: labelled keyboard-scroll region --><div class="table-scroll" tabindex="0" role="region" aria-label="Ozzit compatibility and delivery">
               <table class="facts rate-table--wide">
                 <caption>What the workbook needs. Scroll sideways on small screens.</caption>
                 <tbody>
@@ -129,7 +129,7 @@
           <section id="worked-example">
             <h2>One worked example</h2>
             <p>Take $1,100 that is assumed to be wholly taxable and GST-inclusive at 10%. Enter this formula in a cell of the Ozzit workbook:</p>
-            <pre class="copyable" tabindex="0" role="region" aria-label="Ozzit GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
+            <!-- NOSONAR: labelled keyboard-scroll region --><pre class="copyable" tabindex="0" role="region" aria-label="Ozzit GST extraction formula"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(1100)</code></pre>
             <p>The result is <code>100.00</code>. Check: 1100 / 11 = 100.00.</p>
             <p>That is the whole of the function’s contribution: 10% arithmetic on an amount you supply.</p>
             <p>Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.</p>

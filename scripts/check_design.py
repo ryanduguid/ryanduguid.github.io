@@ -97,7 +97,8 @@ HERO_ACTIONS_PATTERN = re.compile(
     re.I | re.S,
 )
 ROOT_BLOCK_PATTERN = re.compile(r":root\s*\{(.*?)\}", re.S | re.I)
-PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
+# Bounded input: the site's own CSS, HTML or source text.
+PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")  # NOSONAR
 UNICODE_RANGE_PATTERN = re.compile(r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I)
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
@@ -432,7 +433,8 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
 
 
 def unicode_ranges(font_face: str) -> list[tuple[int, int]]:
-    declaration = re.search(r"\bunicode-range\s*:\s*([^;]+);", font_face, re.I)
+    # Bounded input: the site's own CSS, HTML or source text.
+    declaration = re.search(r"\bunicode-range\s*:\s*([^;]+);", font_face, re.I)  # NOSONAR
     if declaration is None:
         return []
     ranges: list[tuple[int, int]] = []
@@ -537,7 +539,8 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     ):
         failures.append("body must wrap unbroken identifiers at the 320px boundary")
 
-    transitions = re.findall(r"\btransition\s*:\s*(.*?);", site_css, re.S | re.I)
+    # Bounded input: the site's own CSS, HTML or source text.
+    transitions = re.findall(r"\btransition\s*:\s*(.*?);", site_css, re.S | re.I)  # NOSONAR
     if not transitions or any(
         "var(--motion-standard)" not in transition for transition in transitions
     ):
@@ -564,8 +567,10 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     # Labels stay in sentence case at normal spacing; the footer motto is a
     # set mark, not a label, and keeps its tracked capitals.
     uncommented_css = re.sub(r"/\*.*?\*/", "", site_css, flags=re.S)
-    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", uncommented_css):
-        spacing = re.search(r"letter-spacing\s*:\s*([^;]+);", body, re.I)
+    # Bounded input: the site's own CSS, HTML or source text.
+    for selector, body in re.findall(r"([^{}]+)\{([^{}]*)\}", uncommented_css):  # NOSONAR
+        # Bounded input: the site's own CSS, HTML or source text.
+        spacing = re.search(r"letter-spacing\s*:\s*([^;]+);", body, re.I)  # NOSONAR
         if (
             re.search(r"text-transform\s*:\s*uppercase", body, re.I)
             and spacing
@@ -591,7 +596,8 @@ def check_stylesheets(root: Path, baseline: dict[str, Any]) -> list[str]:
     route_rules = re.findall(r"\.route-section\s*\{(.*?)\}", site_css, re.S | re.I)
     if any(
         re.search(
-            r"\bmin-height\s*:\s*[^;]*(?:var\(--route-min-height\)|[sd]?vh)",
+            # Bounded input: the site's own CSS, HTML or source text.
+            r"\bmin-height\s*:\s*[^;]*(?:var\(--route-min-height\)|[sd]?vh)",  # NOSONAR
             rule,
             re.I,
         )

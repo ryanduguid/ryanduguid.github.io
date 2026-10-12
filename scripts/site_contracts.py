@@ -1595,7 +1595,8 @@ def check_evidence_page(root: Path = core.ROOT) -> list[str]:
         page = (root / rel).read_text(encoding="utf-8")
         page = re.sub(r"<(script|style|template)\b.*?</\1>", " ", page, flags=re.S | re.I)
         page = re.sub(r"<!--.*?-->", " ", page, flags=re.S)
-        if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):
+        # Bounded input: the site's own CSS, HTML or source text.
+        if not re.search(r'<a\b[^>]*href="/evidence/"[^>]*>', page, re.I):  # NOSONAR
             failures.append(f"{rel}: no visible link to /evidence/")
 
     if not evidence_path.is_file():
@@ -2063,7 +2064,8 @@ def check_worked_examples() -> list[str]:
                 re.I,
             ):
                 failures.append(f"{rel}: no visible tagged fixture link to {fixture_url}")
-        if re.search(r'href="[^"]*github\.com/[^"]*/blob/main/', example_html, re.I):
+        # Bounded input: the site's own CSS, HTML or source text.
+        if re.search(r'href="[^"]*github\.com/[^"]*/blob/main/', example_html, re.I):  # NOSONAR
             failures.append(f"{rel}: worked-example evidence must not use an unpinned main URL")
 
         for label, pattern in expected["labels"].items():

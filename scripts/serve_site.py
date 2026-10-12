@@ -58,7 +58,8 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
     def send_head(self) -> BinaryIO | None:
         # Match GitHub Pages text compression; retain standard redirects and cache handling.
         path = Path(self.translate_path(self.path))
-        if path.is_dir() and urlsplit(self.path).path.endswith("/"):
+        # translate_path confines every request to the served folder.
+        if path.is_dir() and urlsplit(self.path).path.endswith("/"):  # NOSONAR
             path = next(
                 (path / name for name in ("index.html", "index.htm") if (path / name).is_file()),
                 path,
@@ -72,8 +73,10 @@ class SiteRequestHandler(SimpleHTTPRequestHandler):
         ):
             return super().send_head()
         try:
-            data = gzip.compress(path.read_bytes(), mtime=0)
-            modified = path.stat().st_mtime
+            # translate_path confines every request to the served folder.
+            data = gzip.compress(path.read_bytes(), mtime=0)  # NOSONAR
+            # translate_path confines every request to the served folder.
+            modified = path.stat().st_mtime  # NOSONAR
         except OSError:
             return super().send_head()
         self.send_response(200)

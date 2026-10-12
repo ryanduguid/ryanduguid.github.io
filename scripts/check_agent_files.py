@@ -137,7 +137,7 @@ EXACT_PYTHON_VERSION = re.compile(
 
 # A local path, a requirements file or an editable install names no registry
 # package, so there is nothing for anyone else to claim.
-LOCAL = re.compile(r"^(?:\.|/|~|[A-Za-z]:|-|\$)|\.(?:txt|lock|toml|cfg|whl|tar\.gz|json)$")
+LOCAL = re.compile(r"(?:^(?:\.|/|~|[A-Za-z]:|-|\$))|(?:\.(?:txt|lock|toml|cfg|whl|tar\.gz|json)$)")
 
 
 class Finding(NamedTuple):

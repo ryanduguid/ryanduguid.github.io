@@ -111,7 +111,8 @@ def build_png(colour: bytes, alpha: bytes, size: int = BADGE_SIZE) -> bytes:
 
 def extract(source: Path) -> bytes:
     """Return the badge PNG rebuilt from one certificate file."""
-    objects = _objects(source.read_bytes())
+    # Maintainer CLI; the path is the operator's own argument.
+    objects = _objects(source.read_bytes())  # NOSONAR
     colour_number, mask_number = _find_badge(objects)
     colour = _stream(objects[colour_number], colour_number)
     alpha = _stream(objects[mask_number], mask_number)
