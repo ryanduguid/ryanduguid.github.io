@@ -811,7 +811,8 @@ caption {
 /* A passed result carries a Rhodesian green rule inside its row label. The
    label text states the result, so the colour is never the only signal. */
 .is-pass > th:first-child {
-  box-shadow: inset var(--rule-strong) 0 0 var(--colour-pass);
+  padding-inline-start: calc(var(--space-4) - var(--rule-strong));
+  border-inline-start: var(--rule-strong) solid var(--colour-pass);
 }
 
 .facts--kv th {
