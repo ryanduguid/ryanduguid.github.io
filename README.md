@@ -7,7 +7,7 @@
 [![SonarCloud](https://img.shields.io/sonar/quality_gate/ryanduguid_ryanduguid.github.io?server=https%3A%2F%2Fsonarcloud.io&label=SonarCloud&labelColor=000000&style=flat-square)](https://sonarcloud.io/summary/new_code?id=ryanduguid_ryanduguid.github.io)
 [![Codacy code quality](https://img.shields.io/codacy/grade/ed064dc009df4efd893dff3357d2c757?label=Codacy&labelColor=000000&style=flat-square)](https://app.codacy.com/gh/ryanduguid/ryanduguid.github.io/dashboard)<br>
 [![OpenSSF Scorecard](https://img.shields.io/ossf-scorecard/github.com/ryanduguid/ryanduguid.github.io?label=Scorecard&labelColor=000000&style=flat-square)](https://scorecard.dev/viewer/?uri=github.com/ryanduguid/ryanduguid.github.io)<br>
-[![licence: MIT](https://img.shields.io/badge/licence-MIT-66023C?labelColor=000000&style=flat-square)](LICENSE)
+[![licence: Apache-2.0](https://img.shields.io/badge/licence-Apache--2.0-66023C?labelColor=000000&style=flat-square)](LICENSE)
 
 Source for [duguid.com.au](https://duguid.com.au/), the open source accounting tool library for Ryan Duguid's Australian computational accounting work: engines, MCP servers, Excel LAMBDAs and agent workflows.
 
@@ -232,7 +232,7 @@ the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
 may retain a cached preview until they fetch the page again.
 
-Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: MIT; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
+Every card below shares one provenance record. Sources: `assets/social-card-template.svg`, `assets/social-cards.json`; licence: Apache-2.0; renderer: Playwright 1.63.0, Chromium 153.0.8010.12, device scale 1. Refresh when the template, context copy, embedded fonts or pinned browser changes.
 
 | Asset | SHA-256 |
 | --- | --- |
@@ -304,9 +304,9 @@ note records what evidence a Payroll or Migration badge would need first.
 
 ## Licence
 
-MIT, see [LICENSE](LICENSE), for this repository's own code, text and data. The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
+Apache-2.0, see [LICENSE](LICENSE), for this repository's own code, text and data. If you redistribute or adapt that material, keep the attribution in [NOTICE](NOTICE). The Privacy page states the same grant for readers, and every page's own page node in its JSON-LD carries it as `license`; software listings keep their own package licences.
 
-The MIT grant does not extend to third-party material published here. The Besley,
+The Apache-2.0 grant does not extend to third-party material published here. The Besley,
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
 Open Font License 1.1 in one `assets/fonts/OFL-*.txt` file per family. The certificate and badge under `assets/credentials/`
 are Xero's document and artwork, published as a factual record of Ryan Duguid's

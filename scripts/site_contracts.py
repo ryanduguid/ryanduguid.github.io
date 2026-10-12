@@ -1571,7 +1571,7 @@ def check_person_graph(paths: list[Path]) -> list[str]:
         if node.get("codeRepository") != expected["repository"]:
             failures.append(f"person graph: {name} does not name its GitHub repository")
         if node.get("license") != expected["license"]:
-            failures.append(f"person graph: {name} does not declare its MIT licence URL")
+            failures.append(f"person graph: {name} does not declare its licence URL")
         if node.get("description") != expected["description"]:
             failures.append(f"person graph: {name} does not use its current description")
     return failures
@@ -2803,7 +2803,7 @@ def check_social_cards(root: Path = core.ROOT) -> list[str]:
     for required in (
         "assets/social-card-template.svg",
         "assets/social-cards.json",
-        "MIT",
+        "Apache-2.0",
         "Playwright 1.63.0",
         "Chromium",
         "device scale 1",
