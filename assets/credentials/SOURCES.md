@@ -3,7 +3,7 @@
 These files support the Xero entry in the
 [evidence register](https://duguid.com.au/evidence/#xero-certification). They are
 Ryan Duguid's own credential records and Xero's own artwork. They are **not**
-covered by this repository's MIT licence, which applies to the site's code and
+covered by this repository's Apache License 2.0, which applies to the site's code and
 its own text.
 
 | File | Bytes | SHA-256 |

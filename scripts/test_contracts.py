@@ -284,6 +284,48 @@ def check_metadata_text(html: str, rel: str, failures: list[str]) -> None:
         core.check_referrer_policy(html, rel, failures)
 
 
+def test_indexable_robots_metadata() -> None:
+    original = read_text(ROOT, "contact/index.html")
+    blocked_tags = (
+        '<meta name="robots" content="noindex">',
+        '<META NAME="ROBOTS" CONTENT="NoIndex, Follow">',
+        "<meta content='none' name='robots' />",
+        '<meta name="robots" content="index"><meta name="robots" content="noindex">',
+        '<meta name="googlebot" content="noindex">',
+        '<meta name="robots" content="index, follow"><meta name="googlebot" content="noindex">',
+        "<meta content='none' name='GOOGLEBOT-NEWS' />",
+        '<META NAME="GOOGLEBOT" CONTENT="NoIndex, Follow">',
+        '<meta name="bingbot" content="noindex">',
+    )
+    missed: list[str] = []
+    with tempfile.TemporaryDirectory() as directory:
+        root = Path(directory)
+        path = root / "contact/index.html"
+        path.parent.mkdir()
+        for tag in blocked_tags:
+            path.write_text(original.replace("</head>", f"{tag}</head>", 1), encoding="utf-8")
+            failures = page_metadata_failures(root, "contact/index.html")
+            if not any("indexable page" in failure for failure in failures):
+                missed.append(tag)
+        assert not missed, f"indexable pages accepted indexing restrictions: {missed}"
+
+        for tag in (
+            '<meta name="robots" content="index, follow">',
+            '<meta name="robots" content="noimageindex, nosnippet">',
+            '<!-- <meta name="robots" content="noindex"> -->',
+            '<template><meta name="robots" content="noindex"></template>',
+            '<meta name="author" content="none">',
+        ):
+            path.write_text(original.replace("</head>", f"{tag}</head>", 1), encoding="utf-8")
+            assert_clean(
+                "indexable robots control", page_metadata_failures(root, "contact/index.html")
+            )
+        path = root / "404.html"
+        path.write_text(read_text(ROOT, "404.html"), encoding="utf-8")
+        assert_clean("deliberately unindexed page", page_metadata_failures(root, "404.html"))
+    print("robots metadata tests passed (15 cases)")
+
+
 def test_html_file_discovery() -> None:
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
@@ -2746,6 +2788,7 @@ def test_release_record() -> None:
 
 
 def main() -> None:
+    test_indexable_robots_metadata()
     test_html_file_discovery()
     test_stylesheet_version()
     test_copy_reporting()

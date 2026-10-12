@@ -133,6 +133,22 @@ def check_file_metadata(
     if not indexed:
         return failures
 
+    for element in descendants(parse_structure(html), "meta", rendered_only=True):
+        if (element.attr("name") or "").casefold() not in {
+            "robots",
+            "googlebot",
+            "googlebot-news",
+            "bingbot",
+        }:
+            continue
+        directives = {
+            directive.strip().casefold() for directive in (element.attr("content") or "").split(",")
+        }
+        if directives & {"noindex", "none"}:
+            failures.append(
+                f"{rel}: indexable page must not declare noindex or none in robots metadata"
+            )
+
     expected = site_url(rel, site)
     if canonical is None:
         failures.append(f"{rel}: no canonical link")
