@@ -101,7 +101,7 @@ PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")
 UNICODE_RANGE_PATTERN = re.compile(r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I)
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
-FAVICON_COLOURS = frozenset({"#000000", "#f2f2f2", "#990024"})
+FAVICON_COLOURS = frozenset({"#000000", "#e5e4e2", "#990024"})
 FAVICON_GEOMETRY_ATTRIBUTES = ("x", "y", "width", "height", "rx", "ry")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
@@ -406,7 +406,11 @@ def check_oled_tokens(tokens_css: str) -> list[str]:
             failures.append(f"{token} must be a six-digit colour")
         elif contrast_ratio(value, canvas) < 4.5:
             failures.append(f"{token} contrast on canvas must be at least 4.5:1")
-    for token, colour in (("--colour-stamp", "#990024"), ("--colour-stamp-strong", "#66023c")):
+    for token, colour in (
+        ("--colour-stamp", "#990024"),
+        ("--colour-stamp-strong", "#66023c"),
+        ("--colour-pass", "#0f4b32"),
+    ):
         if properties.get(token) != colour:
             failures.append(f"{token} must be {colour}")
     ink = properties.get("--colour-ink")
