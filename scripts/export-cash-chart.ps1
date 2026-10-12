@@ -10,7 +10,9 @@
 # Usage, from the repository root with Excel closed, once per variant:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant wide
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant narrow
-# Then record the printed PNG hashes in assets/examples/lumbridge/preview-record.txt.
+# Then run `uv run --script scripts/encode_cash_chart_webp.py` for the WebP
+# copies the pages show, and record the printed PNG and WebP hashes in
+# assets/examples/lumbridge/preview-record.txt.
 #
 # The wide chart serves the full-size link and wide hero columns; the narrow
 # chart serves phones and the tighter two-column widths. Both size their text
