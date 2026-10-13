@@ -75,6 +75,7 @@ test('a changed page fails, carries its diff and moves the baseline on', () => {
   const now = TEXT.replace('11.17%', '11.42%');
   const result = classify(PAGE, page(now), TEXT);
   assert.match(result.failure, /changed since the previous run/);
+  assert.equal(result.changed, true);
   assert.equal(result.diff, '- The rate for the December quarter is 11.17%.\n+ The rate for the December quarter is 11.42%.');
   assert.equal(result.text, now);
 });

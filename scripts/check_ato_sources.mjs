@@ -8,7 +8,9 @@
 // text changed since the previous run, other than the legal database home
 // (CHANGE_EXEMPT). A changed page needs editorial review of every file that
 // cites it; the report lists those files and the lines that differ. A moved
-// page that still resolves is a note.
+// page that still resolves is a note. The exit code is 1 when any page could
+// not be read and 2 when every failure is a changed page, so the scheduled run
+// can tell a change to review from a broken sweep.
 //
 // ponytail: every run overwrites the baseline, so a change fails one run and
 // the next run compares against the changed page. The report is the record, so
@@ -175,7 +177,7 @@ export function classify(url, page, previous) {
   if (text.length < MIN_TEXT) return { failure: 'no page text' };
   const note = page.finalUrl && sameUrl(page.finalUrl) !== sameUrl(url) ? `now resolves to ${page.finalUrl}` : undefined;
   if (previous !== undefined && previous !== text && !CHANGE_EXEMPT.has(sameUrl(url))) {
-    return { failure: 'changed since the previous run', diff: lineDiff(previous, text), text, note };
+    return { failure: 'changed since the previous run', changed: true, diff: lineDiff(previous, text), text, note };
   }
   return { text, note };
 }
@@ -287,10 +289,12 @@ async function main() {
   const review = [];
   const keep = new Map();
   let seeded = 0;
+  let changedPages = 0;
   for (const [url, files] of sources) {
     const file = join(values.baseline, baselineFile(url));
     const previous = existsSync(file) ? readFileSync(file, 'utf8') : undefined;
-    const { failure, note, diff, text } = classify(url, pages.get(url), previous);
+    const { failure, changed, note, diff, text } = classify(url, pages.get(url), previous);
+    if (changed) changedPages++;
     if (text !== undefined) keep.set(file, text);
     if (text !== undefined && previous === undefined) seeded++;
     if (note) notes.push(`${url} ${note}`);
@@ -308,7 +312,7 @@ async function main() {
   saveResults({ out: values.out, baseline: values.baseline, date, report, keep });
   for (const note of notes) console.log(`note: ${note}`);
   for (const failure of failures) console.error(failure);
-  if (failures.length) return 1;
+  if (failures.length) return failures.length === changedPages ? 2 : 1;
   console.log(`${sources.size} sources read, ${seeded} new to the baseline`);
   return 0;
 }
