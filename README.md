@@ -179,13 +179,17 @@ longer arrives intact or Rocket Loader rewrites the scripts; it runs weekly from
 `Content-Security-Policy` is the exception. Browsers honour a policy delivered
 as `<meta http-equiv="Content-Security-Policy">`, minus `frame-ancestors`,
 `report-uri` / `report-to` and report-only mode, which the specification
-reserves for the response header. Every page ships that markup policy:
+reserves for the response header. Pages ship this markup policy:
 
 ```
 default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self';
 font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none';
 object-src 'none'
 ```
+
+The Coal LSL calculator uses `form-action 'none'` instead of `form-action 'self'`.
+This blocks native form submission even when its JavaScript fails or is disabled,
+so entered figures cannot leave through the form's default GET request.
 
 It holds because the site carries no inline `<style>`, no `style` attribute
 and no inline script other than JSON-LD data blocks. The Coal LSL calculator's
