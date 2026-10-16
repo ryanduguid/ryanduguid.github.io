@@ -194,10 +194,10 @@ def test_geo_leftovers_surface() -> None:
         "YouBot": ["Allow: /"],
         "anthropic-ai": ["Allow: /"],
         "Claude-Web": ["Allow: /"],
-        "GPTBot": ["Disallow: /"],
-        "ClaudeBot": ["Disallow: /"],
+        "GPTBot": ["Allow: /"],
+        "ClaudeBot": ["Allow: /"],
         "Google-Extended": ["Allow: /"],
-        "Applebot-Extended": ["Disallow: /"],
+        "Applebot-Extended": ["Allow: /"],
         "CCBot": ["Allow: /"],
         "Bytespider": ["Allow: /"],
         "Amazonbot": ["Disallow: /"],
@@ -1900,13 +1900,13 @@ def test_public_contracts() -> int:
     )
     changed_robots = changed_text(
         robots,
-        "User-agent: GPTBot\nDisallow: /",
-        "User-agent: GPTBot\nAllow: /",
+        "User-agent: Amazonbot\nDisallow: /",
+        "User-agent: Amazonbot\nAllow: /",
     )
     expect_failure(
         "training crawler opened",
         contracts.check_robots_policy(changed_robots),
-        "robots.txt: GPTBot must have exactly",
+        "robots.txt: Amazonbot must have exactly",
     )
 
     authority_mutations = (

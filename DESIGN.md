@@ -866,9 +866,9 @@ fixture pins, legal review dates, rates, layout and disclaimer boundaries remain
 
 The following whole-file values are protected after normalising only platform line endings:
 
-- `llms.txt`: SHA-256 `EA9CD2DCA5C071C80ADC30FA8EE49451E85D793A4D412D4F60D68675B7A60E0E`
-- `robots.txt`: SHA-256 `8AADC951F1242DEC2EE46153F7F5EAA194AB5E32D88F2C5D416824B921693DAE`
-- `sitemap.xml`: SHA-256 `AAB1255582EF87D87B3DFCD8B57AB8DBBCD330EDDCDBFF6C2CCDBC4A87AC9AB9`
+- `llms.txt`: SHA-256 `08AC8CB9805B4139F8B5BCA398F1FCC28C507F5410643F39EB8DC9E7645EE5DC`
+- `robots.txt`: SHA-256 `28E5D429F1E7A23010A412ED0B6AB4186391398586558F122937F764E1F78242`
+- `sitemap.xml`: SHA-256 `89673A839CFA2F162761A37C417866134B39A7F80C347BD82BC15BB73BE075CB`
 
 Rate main text is protected by a semantic visible-text digest so shared head and
 footer delivery chrome can improve without changing a rate, date, source or
@@ -890,9 +890,9 @@ evidence. It does not mean keyword stuffing or a Google ranking campaign.
 - ordinary crawlability remains available to people, search systems and answer
   systems
 - search and user-retrieval crawlers remain allowed, including Google-Extended
-- Common Crawl (CCBot) and Bytespider are allowed for open-web archival and
-  training crawl. GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai,
-  Diffbot, FacebookBot, and meta-externalagent remain blocked
+- Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended are
+  allowed for training crawl. Amazonbot, cohere-ai, Diffbot, FacebookBot and
+  meta-externalagent remain blocked
 - `llms.txt` is the canonical machine index; `.well-known/llms.txt` is an
   identical generated copy. The existing build script maintains that copy and
   `llms-full.txt`. The XML sitemap contains indexable HTML only
