@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
 import * as freshness from './stamp-source-freshness.mjs';
@@ -440,3 +440,80 @@ test('the committed register facts and homepage releases match the data', () => 
   const home = readFileSync(join(root, 'index.html'), 'utf8');
   assert.equal(freshness.stampLatestReleases(home, tools, data), home);
 });
+
+function runCliFixture(args, workflow = {}) {
+  const directory = mkdtempSync(join(tmpdir(), 'freshness-cli-'));
+  assert.equal(dirname(directory), tmpdir());
+  try {
+    for (const name of ['scripts', 'tools', 'changelog']) mkdirSync(join(directory, name));
+    const script = join(directory, 'scripts', 'stamp-source-freshness.mjs');
+    writeFileSync(script, readFileSync(join(root, 'scripts', 'stamp-source-freshness.mjs')));
+    const original = stampHtml(card(WHOLE_REPO), () => '2026-09-01');
+    const page = join(directory, 'tools', 'index.html');
+    writeFileSync(page, original);
+    writeFileSync(join(directory, 'changelog', 'index.html'), releaseTable('v1.0.0'));
+    const lookup = join(directory, 'lookup');
+    const preload = join(directory, 'lookup.mjs');
+    // Replace the CLI's GitHub reads before importing its named built-in export.
+    writeFileSync(preload, `
+import assert from 'node:assert/strict';
+import childProcess from 'node:child_process';
+import { writeFileSync } from 'node:fs';
+import { syncBuiltinESMExports } from 'node:module';
+childProcess.execFileSync = (command, args) => {
+  assert.equal(command, 'gh');
+  assert.equal(args[0], 'api');
+  writeFileSync(${JSON.stringify(lookup)}, args[1]);
+  if (args[1].includes('/releases?')) return ${JSON.stringify(JSON.stringify([release('v1.0.0')]))};
+  assert.match(args[1], /\\/commits\\?/);
+  return '2026-09-02T00:00:00Z';
+};
+syncBuiltinESMExports();
+`);
+    const env = Object.fromEntries(['PATH', 'SystemRoot', 'TEMP', 'TMP']
+      .filter((key) => process.env[key] !== undefined).map((key) => [key, process.env[key]]));
+    const result = spawnSync(process.execPath, ['--import', pathToFileURL(preload).href, script, ...args], {
+      cwd: directory, env: { ...env, ...workflow }, encoding: 'utf8', timeout: 5000,
+    });
+    assert.ifError(result.error);
+    assert.equal(result.signal, null, result.stderr);
+    return { result, original, updated: readFileSync(page, 'utf8'), lookedUp: existsSync(lookup) };
+  } finally {
+    rmSync(directory, { recursive: true, force: true });
+  }
+}
+
+for (const ref of ['refs/heads/feature-freshness', 'refs/tags/v0.0.0-fixture', undefined]) {
+  test(`Actions writes reject ${ref ?? 'a missing ref'} before lookups or changes`, () => {
+    const workflow = { GITHUB_ACTIONS: 'true', ...(ref === undefined ? {} : { GITHUB_REF: ref }) };
+    const { result, original, updated, lookedUp } = runCliFixture(['--write'], workflow);
+    // Thrown errors exit 2, which the workflow keeps apart from release drift (1).
+    assert.equal(result.status, 2, result.stdout + result.stderr);
+    assert.match(result.stderr, /main branch/);
+    assert.equal(updated, original);
+    assert.equal(lookedUp, false);
+  });
+}
+
+for (const [name, workflow] of [
+  ['Actions on main', { GITHUB_ACTIONS: 'true', GITHUB_REF: 'refs/heads/main' }],
+  ['a local invocation', {}],
+]) {
+  test(`${name} can refresh dates`, () => {
+    const { result, original, updated, lookedUp } = runCliFixture(['--write'], workflow);
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.notEqual(updated, original);
+    assert.match(updated, /datetime="2026-09-02"/);
+    assert.equal(lookedUp, true);
+  });
+}
+
+for (const args of [[], ['--check-releases']]) {
+  test(`feature-ref Actions keeps ${args[0] ?? 'offline checking'} read only`, () => {
+    const { result, original, updated } = runCliFixture(args, {
+      GITHUB_ACTIONS: 'true', GITHUB_REF: 'refs/heads/feature-freshness',
+    });
+    assert.equal(result.status, 0, result.stdout + result.stderr);
+    assert.equal(updated, original);
+  });
+}
