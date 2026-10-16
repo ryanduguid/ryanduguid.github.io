@@ -790,13 +790,13 @@ SOCIAL_CARD_CONTEXTS = {
             "Australian accountants",
         ],
         "host": "duguid.com.au",
-        "output": "social-card-site-20261013.png",
+        "output": "social-card-site-20261016.png",
     },
     "tools": {
         "label": "Open source tools",
         "heading": ["Accounting checks that", "show their working."],
         "host": "duguid.com.au/tools/",
-        "output": "social-card-tools-20261013.png",
+        "output": "social-card-tools-20261016.png",
     },
     "evaluations": {
         "label": "Reproducible evaluations",
@@ -806,24 +806,24 @@ SOCIAL_CARD_CONTEXTS = {
             "Visible limits.",
         ],
         "host": "duguid.com.au/evaluate/",
-        "output": "social-card-evaluations-20261013.png",
+        "output": "social-card-evaluations-20261016.png",
     },
     "rates": {
         "label": "Maintained reference tables",
         "heading": ["Australian rates,", "sources, and review dates."],
         "host": "duguid.com.au/rates/",
-        "output": "social-card-rates-20261013.png",
+        "output": "social-card-rates-20261016.png",
     },
     "evidence": {
         "label": "Evidence register",
         "heading": ["Claims linked to sources,", "releases, and tests."],
         "host": "duguid.com.au/evidence/",
-        "output": "social-card-evidence-20261013.png",
+        "output": "social-card-evidence-20261016.png",
     },
 }
 SOCIAL_CARD_DIMENSIONS = (1200, 630)
 SOCIAL_CARD_MAX_BYTES = 50_000
-SOCIAL_CARD_COLOURS = frozenset({"#000000", "#e5e4e2", "#fffff0", "#990024", "#dadada"})
+SOCIAL_CARD_COLOURS = frozenset({"#000000", "#ffd32a", "#fffff0", "#990024", "#dadada"})
 SOCIAL_CARD_TEMPLATE_PLACEHOLDERS = frozenset(
     {
         "{{FONT_SERIF}}",

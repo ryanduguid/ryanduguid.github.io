@@ -7,11 +7,11 @@ import { expect, test } from '@playwright/test';
 import { renderSocialCards } from './render-social-cards.mjs';
 
 const OUTPUTS = [
-  'social-card-site-20261013.png',
-  'social-card-tools-20261013.png',
-  'social-card-evaluations-20261013.png',
-  'social-card-rates-20261013.png',
-  'social-card-evidence-20261013.png',
+  'social-card-site-20261016.png',
+  'social-card-tools-20261016.png',
+  'social-card-evaluations-20261016.png',
+  'social-card-rates-20261016.png',
+  'social-card-evidence-20261016.png',
 ];
 
 test('renders all contextual social cards reproducibly without touching assets', async ({ browser }) => {

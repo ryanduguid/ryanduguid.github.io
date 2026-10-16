@@ -16,6 +16,19 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 
 ## Current refinement record
 
+On 16 October 2026 Ryan's GitHub Mermaid diagrams moved their connecting
+lines from platinum to bright gold (#FFD32A) and their group outlines to
+dark gold (#9B7735), with lavender (#745EB1) source nodes and red (#E7162F)
+decision nodes. The same day Ryan chose to carry the connector gold to the
+site's identity marks, which had followed the diagrams' line colour since
+13 October. The favicon seal's frame and lines, the social-card rules and
+the social-card seal are now gold: 14.60:1 on black and 6.13:1 against the
+crimson spine. The favicon keeps its three colours: black, gold and crimson.
+Social-card text stays ivory and its label stays #DADADA. Page text and
+the Machine view keep platinum, and no page token changes. The social
+cards take `-20261016` filenames. Dark gold, lavender and red stay in the
+diagrams only.
+
 On 13 October 2026 Ryan authorised Rhodesian green (#0F4B32) for GitHub
 badges and diagrams. It is the field green of the 1968 to 1979 flag of
 Rhodesia as drawn in the Wikimedia Commons SVG. Green marks a passed result
@@ -586,8 +599,8 @@ label are `#DADADA`. Increased-contrast and print styles retain their overrides.
 Printers drop background colours, so print maps the page's ink tokens, mid ink,
 masthead and code ink included, to black on white, and a test holds every
 visible text colour on every page to 4.5:1 against white paper.
-The favicon seal and the social-card template draw lines in platinum and
-social-card text in ivory, so their rasters are re-rendered whenever those
+The favicon seal and the social-card template draw lines in gold (`#FFD32A`)
+and social-card text in ivory, so their rasters are re-rendered whenever those
 values change.
 
 ## Typography and licence
