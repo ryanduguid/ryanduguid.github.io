@@ -534,21 +534,16 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/apps/aus-accounting-mcp/SECURITY.md
 - GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-payday-super-checker.yml
+- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci.yml
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-ato-benchmark-compare.yml
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-solomons-sword.yml
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-exchequer-tally/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-exchequer-tally.yml
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting-skills/blob/main/SECURITY.md
 - GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/verify.yml
 - SECURITY.md: https://github.com/ryanduguid/australian-accounting/blob/main/packages/the-wip-tally/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/australian-accounting/actions/workflows/ci-the-wip-tally.yml
 - SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/xero-trial-balance-export/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/xero-trial-balance-export.yml
+- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/ci.yml
 - SECURITY.md: https://github.com/ryanduguid/accounting-review-pipeline/blob/main/packages/review-ready-gate/SECURITY.md
-- GitHub Actions: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/review-ready-gate.yml
 - GitHub Actions: https://github.com/ryanduguid/australian-accounting-skills/actions
 - SECURITY.md: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/SECURITY.md
 - GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions

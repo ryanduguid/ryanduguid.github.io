@@ -102,7 +102,7 @@ PROPERTY_PATTERN = re.compile(r"(--[\w-]+)\s*:\s*([^;]+);")  # NOSONAR
 UNICODE_RANGE_PATTERN = re.compile(r"U\+([0-9A-F]{1,6})(?:-([0-9A-F]{1,6}))?", re.I)
 MAX_FONT_BYTES = 25_000
 MAX_TOTAL_FONT_BYTES = 135_000
-FAVICON_COLOURS = frozenset({"#000000", "#e5e4e2", "#990024"})
+FAVICON_COLOURS = frozenset({"#000000", "#ffd32a", "#990024"})
 FAVICON_GEOMETRY_ATTRIBUTES = ("x", "y", "width", "height", "rx", "ry")
 BANNED_CSS_PATTERNS = (
     "linear-gradient",
