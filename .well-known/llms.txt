@@ -146,7 +146,7 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 
 ## Optional
 
-- [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Common Crawl (CCBot) and Bytespider may crawl for open-web archival and training. GPTBot, ClaudeBot, Applebot-Extended, Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent remain blocked. Permission does not guarantee a crawl, dataset inclusion or use by a model.
+- [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended may crawl for training. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent remain blocked. Permission does not guarantee a crawl, dataset inclusion or use by a model.
 
 - [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
 - [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.

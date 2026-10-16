@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-13T00:00:00Z</updated>
+  <updated>2026-10-16T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-45928a4f9a82fd93</id>
+    <updated>2026-10-16T00:00:00Z</updated>
+    <summary>robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.</summary>
+  </entry>
   <entry>
     <title>The ATO benchmarks, company tax and franking, construction WIP, Xero trial…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

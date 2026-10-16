@@ -193,11 +193,8 @@ RETRIEVAL_CRAWLERS = {
     "Claude-Web",
     "Google-Extended",
 }
-OPEN_WEB_CRAWLERS = {"CCBot", "Bytespider"}
-TRAINING_CRAWLERS = {
-    "GPTBot",
-    "ClaudeBot",
-    "Applebot-Extended",
+ALLOWED_TRAINING_CRAWLERS = {"CCBot", "Bytespider", "GPTBot", "ClaudeBot", "Applebot-Extended"}
+BLOCKED_TRAINING_CRAWLERS = {
     "Amazonbot",
     "cohere-ai",
     "Diffbot",
@@ -206,8 +203,9 @@ TRAINING_CRAWLERS = {
 }
 CRAWLER_POLICY_COMMENTS = (
     "Search indexing and user-requested citation fetches are allowed.",
-    "Open-web archival and training crawl by Common Crawl (CCBot) and Bytespider are allowed.",
-    "The named closed-lab and other training crawlers below remain blocked.",
+    "Training crawl by Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended "
+    "is allowed.",
+    "The other named training crawlers below remain blocked.",
     "Unnamed agents must not silently redefine this policy; named rows state "
     "the intended treatment.",
     "Google-Extended is allowed so Gemini and Vertex AI grounding can cite this site; it is not a search crawler.",
@@ -2375,8 +2373,8 @@ def check_robots_policy(robots: str) -> list[str]:
     groups = core.robots_groups(robots)
     expected = {"*": ["Allow: /"]}
     expected.update({agent: ["Allow: /"] for agent in RETRIEVAL_CRAWLERS})
-    expected.update({agent: ["Allow: /"] for agent in OPEN_WEB_CRAWLERS})
-    expected.update({agent: ["Disallow: /"] for agent in TRAINING_CRAWLERS})
+    expected.update({agent: ["Allow: /"] for agent in ALLOWED_TRAINING_CRAWLERS})
+    expected.update({agent: ["Disallow: /"] for agent in BLOCKED_TRAINING_CRAWLERS})
 
     for agent, directives in expected.items():
         if groups.get(agent) != directives:
