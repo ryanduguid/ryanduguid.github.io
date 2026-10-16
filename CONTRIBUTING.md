@@ -102,7 +102,8 @@ tool pages outside it.
 For a release-only verification after a fix, dispatch `source-freshness.yml`
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
-input still run every job.
+input on `main` still run every job. Date refreshes in GitHub Actions require
+`main`; a manual run from another ref fails before refreshing dates.
 
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
 live pages and holds them to the delivery promises in the README: the five

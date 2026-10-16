@@ -247,6 +247,9 @@ async function main() {
   }
   const html = readFileSync(page, 'utf8');
   if (process.argv.includes('--write')) {
+    if (process.env.GITHUB_ACTIONS === 'true' && process.env.GITHUB_REF !== 'refs/heads/main') {
+      throw new Error('Source freshness writes in GitHub Actions require the main branch');
+    }
     const updated = stampHtml(html);
     if (updated !== html) {
       writeFileSync(page, updated);
