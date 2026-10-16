@@ -617,6 +617,27 @@ def test_design_contracts() -> int:
             "tools/index.html: expected one Content Security Policy meta tag",
         ),
         (
+            "calculator native submission restriction weakened",
+            "tools/coal-lsl-levy/index.html",
+            "form-action 'none';",
+            "form-action 'self';",
+            "tools/coal-lsl-levy/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "calculator content security policy removed",
+            "tools/coal-lsl-levy/index.html",
+            check_design.CALCULATOR_CSP_META,
+            "",
+            "tools/coal-lsl-levy/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
+            "calculator content security policy commented out",
+            "tools/coal-lsl-levy/index.html",
+            check_design.CALCULATOR_CSP_META,
+            "<!-- " + check_design.CALCULATOR_CSP_META + " -->",
+            "tools/coal-lsl-levy/index.html: expected one Content Security Policy meta tag",
+        ),
+        (
             "display serif preload removed",
             "index.html",
             check_design.FONT_PRELOADS["Besley-SemiBold"] + "\n",

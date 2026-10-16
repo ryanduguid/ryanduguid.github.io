@@ -45,6 +45,56 @@ async function unresolvedVisibleMoneyHelp(page) {
   );
 }
 
+async function expectNativeSubmissionBlocked(page, submit) {
+  const requests = [];
+  page.on('request', (request) => requests.push(request.url() + (request.postData() || '')));
+  const url = page.url();
+  const outcome = Promise.race([
+    page.waitForEvent('console', {
+      predicate: (message) => message.text().includes("form-action 'none'"),
+    }).then(() => 'blocked'),
+    page.waitForEvent('request', {
+      predicate: (request) => request.isNavigationRequest(),
+    }).then(() => 'submitted'),
+  ]);
+  await submit();
+  expect(await outcome).toBe('blocked');
+  expect(page.url()).toBe(url);
+  expect(requests.filter((request) => /1234567|reportingMonth=|sacrificed=/.test(request)))
+    .toEqual([]);
+}
+
+for (const failure of ['scripts disabled', 'module failed', 'dependency failed']) {
+  test.describe(`calculator privacy with ${failure}`, () => {
+    test.use({ javaScriptEnabled: failure !== 'scripts disabled' });
+    test('blocks native submission', async ({ page }) => {
+      if (failure !== 'scripts disabled') {
+        const module = failure === 'module failed' ? 'levy-page' : 'levy-form';
+        await page.route(`**/assets/${module}.mjs`, (route) => route.abort());
+      }
+      await page.goto('/tools/coal-lsl-levy/');
+      await page.locator('#reportingMonth').fill('2026-09');
+      await page.locator('#sacrificed').fill('1234567.89');
+      // Keyboard activation also works without script-based stability polling.
+      // A blocked form navigation never completes Playwright's navigation wait.
+      await expectNativeSubmissionBlocked(page, () =>
+        page.getByRole('button', { name: 'Calculate', exact: true }).press('Enter', { noWaitAfter: true }));
+    });
+  });
+}
+
+test('calculator privacy blocks direct native submission after normal keyboard calculation', async ({ page }) => {
+  await page.goto('/tools/coal-lsl-levy/');
+  await page.locator('#reportingMonth').fill('2026-09');
+  await page.locator('#baseRate').fill('10000');
+  await page.locator('#sacrificed').fill('0');
+  await page.locator('#baseRate').press('Enter');
+  await expect(page.locator('[data-result-kind="levy"] strong')).toHaveText('$270.00');
+  await page.locator('#sacrificed').fill('1234567.89');
+  await expectNativeSubmissionBlocked(page, () => page.locator('#calc-form').evaluate((form) =>
+    HTMLFormElement.prototype.submit.call(form)));
+});
+
 test('home proof rejects invalid amounts and recovers without stale results', async ({ page }) => {
   const health = observePageHealth(page);
   await page.goto('/');

@@ -48,6 +48,7 @@ CSP_META = (
     "connect-src 'self'; form-action 'self'; base-uri 'none'; "
     "object-src 'none'\" />"
 )
+CALCULATOR_CSP_META = CSP_META.replace("form-action 'self'", "form-action 'none'")
 FONT_PRELOADS = {
     face: (
         f'<link rel="preload" href="/assets/fonts/{face}.woff2" '
@@ -906,7 +907,8 @@ def check_document_delivery(root: Path, baseline: dict[str, Any]) -> list[str]:
         )
         if rel in indexable and (raw.count(alternate) != 1 or head.count(alternate) != 1):
             failures.append(f"{rel}: expected one page-specific plain-text alternate link")
-        if raw.count(CSP_META) != 1 or head.count(CSP_META) != 1:
+        csp_meta = CALCULATOR_CSP_META if rel == "tools/coal-lsl-levy/index.html" else CSP_META
+        if raw.count(csp_meta) != 1 or head.count(csp_meta) != 1:
             failures.append(f"{rel}: expected one Content Security Policy meta tag")
         for link in GOOGLE_FAVICON_LINKS:
             if raw.count(link) != 1 or head.count(link) != 1:
