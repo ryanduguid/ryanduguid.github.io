@@ -225,9 +225,9 @@ records the scenario, source and image hashes, renderer, and refresh procedure.
 The 5 contexts cover the site, tools, evaluations, rates and evidence. They are rendered from one editable source and one context file. The Playwright renderer is development-only; the public site serves static PNGs with no social-card runtime dependency. The cards contain register geometry and text, with no portrait. Register-card geometry is adapted from unmerged PR 44 commit `89e1b9d`.
 
 The current cards use dated filenames so preview crawlers receive a fresh image
-URL after a redesign. Earlier cards (the undated PNGs and the `-20260922`, `-20260924` and `-20261004` sets)
+URL after a redesign. Earlier cards (the undated PNGs and the `-20260922`, `-20260924`, `-20261004` and `-20261013` sets)
 remain available for existing links; current page metadata points only to the
-`-20261013` cards. Rebuild the cards
+`-20261016` cards. Rebuild the cards
 with `node scripts/render-social-cards.mjs`, inspect all 5 outputs and update
 the hashes below. Advance the filename version in the context data, renderer,
 page metadata and contracts when changing published artwork. Messaging apps
@@ -237,11 +237,11 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 | Asset | SHA-256 |
 | --- | --- |
-| `assets/social-card-site-20261013.png` | `9b88c0181477d34c23fe6b6b8ba075baceef0808728c858db6c7fb03eea41e27` |
-| `assets/social-card-tools-20261013.png` | `e1434c961e87576db913d7fc543cb79935b1e558bf49baf8ffcb34efa0a50815` |
-| `assets/social-card-evaluations-20261013.png` | `b386ac8de28727b628335079e583fe7b6b769dac81ceb634ff9d22b886635738` |
-| `assets/social-card-rates-20261013.png` | `537663588610d6e71c78396c8821bca3f72872fa9fc083abe592a1c177c5cc7a` |
-| `assets/social-card-evidence-20261013.png` | `d26bd386440de7238119752541244f6bdb40a2ba0e11c5b5e228119775de64dd` |
+| `assets/social-card-site-20261016.png` | `ac5398e69fc661cf129e145ede805318c7fcc795983133fbbec7059df72a3c61` |
+| `assets/social-card-tools-20261016.png` | `19387912a2f19bd7cefcf6a6043550491dc126fabd1a4c9a5d776e6eae8c3b3c` |
+| `assets/social-card-evaluations-20261016.png` | `b4a1bf027fdd17b4a93027a726bf52939b6aa36bd37caffc74bfbe16ec076ef0` |
+| `assets/social-card-rates-20261016.png` | `01c0ec28da423bc97fd9d5f72be6b692fa21aee74ab8f359d21bf3dafa6b53d6` |
+| `assets/social-card-evidence-20261016.png` | `bf07171095468c9cdb1b2cf1d83aa926c0df1a52d496fc2d1de62e51c43fabbc` |
 
 ## Favicon provenance
 
