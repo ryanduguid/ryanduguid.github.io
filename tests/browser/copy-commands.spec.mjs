@@ -95,3 +95,44 @@ test('install commands stay selectable when the clipboard API is unavailable', a
   await expect(command).toBeFocused();
   await expect(page.getByRole('button', { name: /Copy:/ })).toHaveCount(0);
 });
+
+test('rate query copies its full text and keeps a manual fallback', async ({ page }) => {
+  await page.addInitScript(() => {
+    window.copiedQuery = null;
+    window.denyCopy = false;
+    Object.defineProperty(navigator, 'clipboard', {
+      value: { async writeText(text) {
+        if (window.denyCopy) throw new DOMException('Permission denied', 'NotAllowedError');
+        window.copiedQuery = text;
+      } },
+    });
+  });
+  await page.goto('/rates/');
+  await page.locator('#excel summary').click();
+  const query = page.getByRole('region', { name: 'Power Query import for super guarantee rates' });
+  const copy = page.getByRole('button', { name: 'Copy: power query import for super guarantee rates' });
+  const status = query.locator('..').getByRole('status');
+  await copy.focus();
+  await page.keyboard.press('Enter');
+  await expect(status).toHaveText('Copied to clipboard.');
+  expect(await page.evaluate(() => window.copiedQuery)).toBe((await query.textContent()).trim());
+  await expect(copy).toBeFocused();
+
+  await page.evaluate(() => { window.denyCopy = true; });
+  await copy.click();
+  await expect(status).toContainText('copy it manually');
+  await expect(query).toBeVisible();
+
+});
+
+test('rate query stays selectable when clipboard access is unavailable', async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'clipboard', { value: undefined });
+  });
+  await page.goto('/rates/');
+  await page.locator('#excel summary').click();
+  await expect(page.getByRole('button', { name: 'Copy: power query import for super guarantee rates' })).toHaveCount(0);
+  const query = page.getByRole('region', { name: 'Power Query import for super guarantee rates' });
+  await query.focus();
+  await expect(query).toBeFocused();
+});

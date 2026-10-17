@@ -14,7 +14,31 @@ Fictional July close: REVIEW, including a $250 creditors difference. Read it in 
 
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 
-Published 11 September 2026. Last reviewed 10 October 2026.
+Published 11 September 2026. Last reviewed 17 October 2026.
+
+## Worked example: balanced trial balance, unfinished review
+
+The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
+
+### From supplied balances to an exception
+
+Selected values for account 200, Trade Creditors. Amounts are AUD; a credit balance is negative.
+
+File | Field | Value
+current_trial_balance.csv | YTDCredit | 65000.00
+subledger_balances.csv | SubledgerBalance | -64750.00
+exceptions.csv | difference | -250.00
+
+The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 17 October 2026.
+
+Exception | Result | Reviewer action
+Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
+Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account’s review group.
+Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
+
+Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
+
+The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
 ## Inputs
 
@@ -35,19 +59,6 @@ Set the absolute and percentage materiality thresholds and reconciliation tolera
 - close-review-pack.json: structured results and evidence for the run, including any supplied review acknowledgement.
 
 PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.
-
-## Worked example: balanced trial balance, unfinished review
-
-The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
-
-Exception | Result | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
-Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account’s review group.
-Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
-
-Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
-
-The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
 ## Run the example
 
@@ -117,9 +128,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
+- Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
+- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/examples
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
-- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/

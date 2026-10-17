@@ -15,7 +15,7 @@
       "85acfd4050b6f30c4a34f446f91b42e1cdf57cef6f54d780af839bc0aed10d97"
     ],
     "changelog/index.html": [
-      "8ec7f3a5bad68a17e6419359c7e51bea922503ad32a40ce81a131d05600f628c"
+      "2834875ae50bcd530cfc5718d789af4eea52ca05bb70918efcb3e5b870e6d27c"
     ],
     "contact/index.html": [
       "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
@@ -51,7 +51,7 @@
       "44e4304c8e41dcb3e54e345f90fe527d83bd62ed70f02004ca6fdd7229fbe223"
     ],
     "rates/index.html": [
-      "7486543eb98a92290b7b5118aea5eb217ca945279113acbabebbfa3362e53e57"
+      "56abd9d3017aae8c3c95e60ff93c03ede0ba46ecfd8b876df10071e3a9596cbd"
     ],
     "rates/super-guarantee/index.html": [
       "4c2ef6c169c8cabe288bbdf1a0a8f957ccacf49a1b51eeb13ffe817fca09883d"
@@ -75,13 +75,13 @@
       "8fc733579dbfb926efacfb2a32d0c1baa50a87e1ffb2f12ea89730965f14abc5"
     ],
     "tools/index.html": [
-      "8773b9203fb9f922219e107feb35dae46cf6c8c673a39df3ad643993b76e2ae1"
+      "50229b59d14d152c80cb186b9209a28cfde001edc39e6f23c25c0792f167583c"
     ],
     "tools/limitations/index.html": [
       "b995cd5c275ddb0ca99f0e9f6c0df843b5807e75c91302e312a1988bc279b41d"
     ],
     "tools/monthly-close-controls/index.html": [
-      "dd94ad67d3bbd8ad502b73e6213f3004c1072af950fd7d491c9b7917082acfd6"
+      "3ba6c42d9d4f42688cbb15d790a299c0eec7556a75c2f226fbe6f3865bb54b4d"
     ],
     "tools/ozzit/index.html": [
       "b946bde6fd04e42f72484183b4977180d3a7e6ff9377eb7ea6eff3f00ff963dd"
@@ -102,7 +102,7 @@
       "3a7bd0ba49055f06bc6f27479febfa7445b02de1d38bdbe5988124c52876c880"
     ],
     "tools/workpaper-review-gate/index.html": [
-      "e92427299c0c01e71a8b334de24bb54b75cdcd6bc6df3c0916e48617263d5db6"
+      "847f00055041053fa4891c6ccfc59d0cce2284beabd58b1643abf6d547a3c4d9"
     ],
     "tools/xero-trial-balance/index.html": [
       "bb35a59ad4cacf1c02a8f6e2cc28b37e511db8cd1640ebb34fd44f3e73f4ef14"
@@ -111,7 +111,7 @@
   "protected_files": {
     "llms.txt": "a36d8e20a6e89457a6db484d4060e4ed7e01fa31a8708df842c0e87c60f5124a",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "89673a839cfa2f162761a37c417866134b39a7f80c347bd82bc15bb73be075cb"
+    "sitemap.xml": "4fa46f247bdfa9bf4d5402c32b4c21a24f1f5569bb4160e185049cd2dc2b5f3c"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

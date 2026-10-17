@@ -209,7 +209,7 @@ def test_geo_leftovers_surface() -> None:
 
     # Hub dates record their own editorial review, independently of rate rows.
     hub_dates = {
-        "rates/index.html": ("22 September 2026", "2026-09-22"),
+        "rates/index.html": ("17 October 2026", "2026-10-17"),
         "evaluate/index.html": ("26 September 2026", "2026-09-26"),
     }
     for rel, (hub_review_date, hub_modified_date) in hub_dates.items():
@@ -899,8 +899,8 @@ def test_design_contracts() -> int:
         (
             "Tools opening review date moved",
             "tools/index.html",
-            '<p class="page-meta">Last reviewed 25 September 2026.</p>',
-            '<p class="moved-page-meta">Last reviewed 25 September 2026.</p>',
+            '<p class="page-meta">Last reviewed 17 October 2026.</p>',
+            '<p class="moved-page-meta">Last reviewed 17 October 2026.</p>',
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -1003,7 +1003,7 @@ def test_design_contracts() -> int:
 
     review_date_paths = (
         ("index.html", "6 October 2026", "2026-10-06"),
-        ("tools/index.html", "25 September 2026", "2026-09-25"),
+        ("tools/index.html", "17 October 2026", "2026-10-17"),
         ("evidence/index.html", "4 October 2026", "2026-10-04"),
     )
     for rel, visible_date, structured_date in review_date_paths:
