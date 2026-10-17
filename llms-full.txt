@@ -1091,9 +1091,40 @@ Seven maintained Australian reference tables with the current value, source-revi
 
 Verify a figure against current guidance before relying on it. Historical and current values remain on the linked HTML pages. Verified is the date a figure was last checked against its primary source; last reviewed is this page’s editorial check.
 
-Last reviewed 22 September 2026.
+Last reviewed 17 October 2026.
 
-This review updates the announced-measures entry, Division 7A scope and financial year labels; each rate page keeps its own verification date.
+Each rate page keeps its own source verification date. The Excel instructions below do not renew those checks.
+
+Use these tables in Excel
+
+In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close & Load. If prompted, choose Anonymous access for this public source. Microsoft’s Text/CSV guide explains the connector.
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"period_start", type date},
+        {"period_end", type date},
+        {"general_sg_rate_percent", type number},
+        {"notes", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained.
+
+This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.
+
+Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not source verification. Check the linked rate page’s verified date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its source verification date; a live query can change on refresh.
+
+For another table, use its Download CSV address below and set the column types for that file. Their schemas differ. Keep effective periods and notes, and preserve announced measures’ status rather than treating them as enacted rates.
+
+Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
 ## Super guarantee rate history
 
@@ -1195,6 +1226,8 @@ Primary source Download CSV
 
 ## Links
 
+- Microsoft’s Text/CSV guide: https://learn.microsoft.com/en-us/power-query/connectors/text-csv
+- Follow updates with the Atom feed: https://duguid.com.au/feed.xml
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
 - Primary source: https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-guarantee
 - Download CSV: https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv
@@ -1884,43 +1917,13 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 25 September 2026.
+Last reviewed 17 October 2026.
 
 ## Start with what you came to do
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Python to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
 For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
-
-## Browse more accounting tasks
-
-- Explain profit and cash differences
-
-Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation
-
-- Calculate in Excel
-
-Ozzit Excel LAMBDA library Microsoft 365 or Excel 2024 or later
-
-- Payroll and super
-
-Payday Super timing Python Coal LSL levy calculator Browser
-
-- Reconcile a close or prepare a BAS pack for review
-
-Workpaper Review Gate Python Monthly Close Controls Two trial balances and a mapping produce exceptions with evidence. Python. Xero trial balance CSV export Python
-
-- Reconcile construction work in progress and billings
-
-Construction WIP schedule Contract inputs, a calculated schedule and its limits. Python. Subcontract ledger skills Agent skills
-
-- Tax positions
-
-Trust distribution checks Python Company tax and franking checks Python ATO benchmark comparison Mapped profit and loss, supported ratios and comparison limits. Python.
-
-- AI agents in the workflow
-
-Australian tax tools for AI agents MCP
 
 Extract
 
@@ -2137,36 +2140,36 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
-- Payday Super timing Python: https://duguid.com.au/tools/payday-super/
-- Workpaper Review Gate Python: https://duguid.com.au/tools/workpaper-review-gate/
-- Monthly Close Controls Two trial balances and a mapping produce exceptions with evidence. Python.: https://duguid.com.au/tools/monthly-close-controls/#worked-example
-- Xero trial balance CSV export Python: https://duguid.com.au/tools/xero-trial-balance/
-- Construction WIP schedule Contract inputs, a calculated schedule and its limits. Python.: https://duguid.com.au/tools/wip-schedule/#worked-example
-- Subcontract ledger skills Agent skills: https://duguid.com.au/tools/subcontractor-ledgers/
-- Trust distribution checks Python: https://duguid.com.au/tools/trust-distributions/
-- Company tax and franking checks Python: https://duguid.com.au/tools/company-tax-franking/
-- ATO benchmark comparison Mapped profit and loss, supported ratios and comparison limits. Python.: https://duguid.com.au/tools/ato-benchmarks/#worked-example
-- Australian tax tools for AI agents MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
+- Subcontract ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - Evaluation procedure: https://duguid.com.au/tools/subcontractor-ledgers/#reproduce
 - Source code: https://github.com/ryanduguid/australian-accounting-skills
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
+- Try an example: https://duguid.com.au/tools/wip-schedule/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally
+- Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Try an example: https://duguid.com.au/tools/payday-super/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - Reproduce the evaluation: https://duguid.com.au/evaluate/payday-super-evidence/
 - ATO benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
+- Try an example: https://duguid.com.au/tools/ato-benchmarks/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - Source code: https://github.com/ryanduguid/ryanduguid.github.io
+- Trust distribution checks: https://duguid.com.au/tools/trust-distributions/
 - Try an example: https://duguid.com.au/tools/trust-distributions/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword
+- Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/
 - Try an example: https://duguid.com.au/tools/company-tax-franking/#worked-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - Try an example: https://duguid.com.au/tools/ozzit/#worked-example
 - Source code: https://github.com/ryanduguid/Ozzit
+- Workpaper Review Gate: https://duguid.com.au/tools/workpaper-review-gate/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- Try an example: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
+- Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
 - Try an example: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
 - Source code: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
 - its refusal scenarios: https://duguid.com.au/tools/refusals/#drdebits
@@ -3743,7 +3746,22 @@ This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKE
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
 
-Published 25 August 2026. Last reviewed 1 October 2026.
+Published 25 August 2026. Last reviewed 17 October 2026.
+
+## Inspect a fictional BAS pack
+
+Release review-ready-gate/v0.1.3 returns NOT_READY for its incomplete pack and READY with no findings for its corrected pack. Both runs were reproduced on 17 October 2026 using the unchanged fictional fixtures.
+
+Three findings in the incomplete pack’s generated findings.csv.
+
+Supplied evidence | Finding code | Status
+gst_control_gl.csv is absent. | MISSING_ARTEFACT | NOT_READY
+pack_complete, tie_outs_done and self_reviewed are false in self_review.json. | SELF_REVIEW_INCOMPLETE | NOT_READY
+Item OI-002 is BLOCKING and OPEN, with no resolution in open_items.csv. | OPEN_ITEM_BLOCKING | NOT_READY
+
+Download the generated findings.csv, including the reasons, repeat flag and reviewer actions. Inspect the incomplete input pack and corrected input pack at that release.
+
+The corrected pack’s generated cover sheet records Overall status: READY and Findings: 0 total; 0 blocked; 0 not ready; 0 repeats. A human still decides whether the file is acceptable. The fixed-release evaluation gives both reproduction commands.
 
 Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
 
@@ -3810,7 +3828,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
-- Run the two fictional BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
+- Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
+- incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
+- corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
+- generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
+- fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
@@ -3881,6 +3903,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+17 October 2026 | Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, and Machine view excludes its text and status from search snippets.
 16 October 2026 | robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.
 13 October 2026 | The ATO benchmarks, company tax and franking, construction WIP, Xero trial balance and subcontract ledger pages name the releases published on 12 October. The five tool releases need Python 3.11 or later and change no calculated result; Australian Accounting Skills v0.3.2 adds a BAS transaction GST coding review, and v0.3.1 stays the recommended skills release.
 7 October 2026 | Breadcrumbs, contents labels and the small labels in registers and fact lists are set in sentence case at normal letter spacing instead of spaced capitals.
@@ -4057,7 +4080,31 @@ Fictional July close: REVIEW, including a $250 creditors difference. Read it in 
 
 Example reproduced from source commit ae88966. Results apply to this source snapshot.
 
-Published 11 September 2026. Last reviewed 10 October 2026.
+Published 11 September 2026. Last reviewed 17 October 2026.
+
+## Worked example: balanced trial balance, unfinished review
+
+The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
+
+### From supplied balances to an exception
+
+Selected values for account 200, Trade Creditors. Amounts are AUD; a credit balance is negative.
+
+File | Field | Value
+current_trial_balance.csv | YTDCredit | 65000.00
+subledger_balances.csv | SubledgerBalance | -64750.00
+exceptions.csv | difference | -250.00
+
+The engine compares -65000.00 with -64750.00 and writes subledger_reconciliation,REVIEW. Download the generated exceptions.csv with all 8 exceptions, or inspect the complete fictional input files at the same commit. Reproduced on 17 October 2026.
+
+Exception | Result | Reviewer action
+Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
+Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account’s review group.
+Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
+
+Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
+
+The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
 ## Inputs
 
@@ -4078,19 +4125,6 @@ Set the absolute and percentage materiality thresholds and reconciliation tolera
 - close-review-pack.json: structured results and evidence for the run, including any supplied review acknowledgement.
 
 PASS means the configured checks passed on the supplied files. REVIEW or BLOCKED requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.
-
-## Worked example: balanced trial balance, unfinished review
-
-The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is REVIEW: 8 exceptions, none blocked, and 6 draft client queries.
-
-Exception | Result | Reviewer action
-Creditors reconciliation | Trial balance less supplied subledger: −$250. | Trace the reconciling items and document their cause.
-Account mapping | Operating Expenses, account 6000, has no supplied mapping. | Confirm the account’s review group.
-Financial year reset | The comparison crosses 1 July. | Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.
-
-Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at REVIEW.
-
-The captured manager case study explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.
 
 ## Run the example
 
@@ -4160,9 +4194,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Inspect the eight exceptions: https://duguid.com.au/tools/monthly-close-controls/#worked-example
 - Run the example: https://duguid.com.au/tools/monthly-close-controls/#get-it
 - source commit ae88966: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane
+- Download the generated exceptions.csv: https://duguid.com.au/assets/examples/monthly-close/exceptions.csv
+- complete fictional input files at the same commit: https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/examples
+- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Xero trial balance exporter: https://duguid.com.au/tools/xero-trial-balance/
 - pinned source documentation: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/README.md
-- captured manager case study: https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - Check a workpaper pack before manager review: https://duguid.com.au/tools/workpaper-review-gate/

@@ -86,13 +86,44 @@ test('home keeps its adoption overview and links to the installation guide', asy
   await expect(page.locator('#adopt-none')).toBeChecked();
 });
 
-test('tool chooser exposes Excel compatibility and both browser calculator routes', async ({ page }) => {
+test('task shortcuts expose Excel compatibility and both browser calculator routes', async ({ page }) => {
   await page.goto('/tools/');
-  await page.getByText('Browse more accounting tasks', { exact: true }).click();
-  const excel = page.locator('.work-chooser a[href="/tools/ozzit/"]');
+  const excel = page.locator('.task-routes a[href="/tools/ozzit/"]');
   await expect(excel).toContainText('Microsoft 365 or Excel 2024 or later');
   await expect(page.getByRole('link', { name: '9 business planning calculators', exact: true }))
     .toHaveAttribute('href', '/tools/business-calculators/');
   await excel.click();
   await expect(page).toHaveURL(/\/tools\/ozzit\/$/);
+});
+
+test('review previews expose their captured reports before installation', async ({ page, request }) => {
+  await page.goto('/tools/monthly-close-controls/');
+  await expect(page.locator('.article-body > section').first()).toHaveAttribute('id', 'worked-example');
+  await expect(page.getByRole('region', { name: 'Fictional creditors inputs and generated difference' })).toContainText('-250.00');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+  const monthly = await request.get('/assets/examples/monthly-close/exceptions.csv');
+  expect(monthly.ok()).toBe(true);
+  expect(await monthly.text()).toContain('subledger_reconciliation,REVIEW');
+
+  await page.goto('/tools/workpaper-review-gate/');
+  await expect(page.locator('.article-body > section').first()).toHaveAttribute('id', 'worked-example');
+  await expect(page.getByRole('region', { name: 'Fictional BAS inputs and generated findings' })).toContainText('OPEN_ITEM_BLOCKING');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+  const findings = await request.get('/assets/examples/review-gate/findings.csv');
+  expect(findings.ok()).toBe(true);
+  expect(await findings.text()).toContain('MISSING_ARTEFACT,NOT_READY,gst_control_gl,true');
+  const summary = await request.get('/assets/examples/review-gate/readiness-summary.md');
+  expect(summary.ok()).toBe(true);
+  expect(await summary.text()).toContain('A human must still decide whether the file is acceptable.');
+});
+
+test('rates offer an Excel import and the existing update feed', async ({ page, request }) => {
+  await page.goto('/rates/');
+  await page.locator('#excel summary').click();
+  await expect(page.getByRole('region', { name: 'Power Query import for super guarantee rates' })).toContainText('general_sg_rate_percent');
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(page.viewportSize().width);
+  await expect(page.getByRole('link', { name: 'Follow updates with the Atom feed' })).toHaveAttribute('href', '/feed.xml');
+  const csv = await request.get('/rates/super-guarantee/super-guarantee-rates.csv');
+  expect(csv.ok()).toBe(true);
+  expect(await csv.text()).toContain('period_start,period_end,general_sg_rate_percent,notes');
 });

@@ -1,0 +1,4 @@
+﻿code,status,slot,repeat,reason,reviewer_action
+MISSING_ARTEFACT,NOT_READY,gst_control_gl,true,Required artefact gst_control_gl is not in the pack directory. This finding was OPEN on the prior pack.,Return the pack to the preparer. Do not start technical review. Treat as a repeated preparer or vendor failure.
+SELF_REVIEW_INCOMPLETE,NOT_READY,self_review,false,"Self-review assertions still false: pack_complete, tie_outs_done, self_reviewed.",Return the pack. The preparer has not certified it as review-ready.
+OPEN_ITEM_BLOCKING,NOT_READY,open_items,false,Blocking open item OI-002 still OPEN with no resolution: GST control account export never arrived,Return the pack. Blocking items must be cleared or resolved before review.

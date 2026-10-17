@@ -62,14 +62,14 @@
         </div>
         <p class="field-note">Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.</p>
         <p class="release-meta">Example reproduced from <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane">source commit ae88966</a>. Results apply to this source snapshot.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 10 October 2026.</p>
+        <p class="page-meta">Published 11 September 2026. Last reviewed 17 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
+          <a href="#worked-example">Worked example</a>
           <a href="#inputs">Inputs</a>
           <a href="#outputs">Outputs and status</a>
-          <a href="#worked-example">Worked example</a>
           <a href="#get-it">Run the example</a>
           <a href="#refusal-example">Reproduce a refusal</a>
           <a href="#limits">Limits</a>
@@ -77,6 +77,35 @@
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+          <section id="worked-example">
+            <h2>Worked example: balanced trial balance, unfinished review</h2>
+            <p>The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is <code>REVIEW</code>: 8 exceptions, none blocked, and 6 draft client queries.</p>
+            <h3>From supplied balances to an exception</h3>
+            <div class="table-scroll" role="region" aria-label="Fictional creditors inputs and generated difference" tabindex="0">
+              <table>
+                <caption>Selected values for account 200, Trade Creditors. Amounts are AUD; a credit balance is negative.</caption>
+                <thead><tr><th>File</th><th>Field</th><th>Value</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">current_trial_balance.csv</th><td>YTDCredit</td><td>65000.00</td></tr>
+                  <tr><th scope="row">subledger_balances.csv</th><td>SubledgerBalance</td><td>-64750.00</td></tr>
+                  <tr><th scope="row">exceptions.csv</th><td>difference</td><td>-250.00</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The engine compares <code>-65000.00</code> with <code>-64750.00</code> and writes <code>subledger_reconciliation,REVIEW</code>. <a href="/assets/examples/monthly-close/exceptions.csv" download>Download the generated exceptions.csv</a> with all 8 exceptions, or inspect the <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/examples">complete fictional input files at the same commit</a>. Reproduced on 17 October 2026.</p>
+            <div class="table-scroll" role="region" aria-label="Selected monthly close exceptions" tabindex="0">
+              <table class="tool-table--wide">
+                <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: <span class="nowrap">−$250</span>.</td><td>Trace the reconciling items and document their cause.</td></tr>
+                  <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account’s review group.</td></tr>
+                  <tr><th scope="row">Financial year reset</th><td>The comparison crosses 1 July.</td><td>Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
+            <p>The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md">captured manager case study</a> explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.</p>
+          </section>
           <section id="inputs">
             <h2>Inputs</h2>
             <p>Start with canonical CSVs written by the <a href="/tools/xero-trial-balance/">Xero trial balance exporter</a>. The example uses these inputs:</p>
@@ -97,22 +126,6 @@
               <li><code>close-review-pack.json</code>: structured results and evidence for the run, including any supplied review acknowledgement.</li>
             </ul>
             <p><code>PASS</code> means the configured checks passed on the supplied files. <code>REVIEW</code> or <code>BLOCKED</code> requires attention and returns exit code 2. Malformed inputs, invalid configuration or an output path the tool refuses return exit code 1. A human decides whether the close is acceptable.</p>
-          </section>
-          <section id="worked-example">
-            <h2>Worked example: balanced trial balance, unfinished review</h2>
-            <p>The fictional example compares 31 July 2026 with 30 June 2026. With thresholds of $10,000 and 10%, and a reconciliation tolerance of $0.01, the result is <code>REVIEW</code>: 8 exceptions, none blocked, and 6 draft client queries.</p>
-            <div class="table-scroll" role="region" aria-label="Selected monthly close exceptions" tabindex="0">
-              <table class="tool-table--wide">
-                <thead><tr><th>Exception</th><th>Result</th><th>Reviewer action</th></tr></thead>
-                <tbody>
-                  <tr><th scope="row">Creditors reconciliation</th><td>Trial balance less supplied subledger: <span class="nowrap">−$250</span>.</td><td>Trace the reconciling items and document their cause.</td></tr>
-                  <tr><th scope="row">Account mapping</th><td>Operating Expenses, account 6000, has no supplied mapping.</td><td>Confirm the account’s review group.</td></tr>
-                  <tr><th scope="row">Financial year reset</th><td>The comparison crosses 1 July.</td><td>Resolve the reset before treating profit and loss YTD differences as ordinary monthly movements.</td></tr>
-                </tbody>
-              </table>
-            </div>
-            <p>Five threshold movements make up the remaining exceptions. The 8 exceptions are not 8 accounting errors. The review acknowledgement leaves the result at <code>REVIEW</code>.</p>
-            <p>The <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane/docs/manager-case-study.md">captured manager case study</a> explains the selected exceptions. The command below reproduces the 4-file output at that same commit. All inputs are fictional.</p>
           </section>
           <section id="get-it" class="install-panel">
             <h2>Run the example</h2>
@@ -177,7 +190,7 @@
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-10-10",
+      "dateModified": "2026-10-17",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -245,7 +258,7 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-10-10",
+      "dateModified": "2026-10-17",
       "operatingSystem": "Windows, macOS, Linux"
     },
     {

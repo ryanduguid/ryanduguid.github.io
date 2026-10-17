@@ -30,28 +30,17 @@ test('mobile discovery links have room to tap without horizontal scrolling', asy
   }
 });
 
-test('the extra task chooser works with keyboard and touch', async ({ page }, testInfo) => {
+test('task shortcuts work with keyboard and touch', async ({ page }, testInfo) => {
   await page.goto('/tools/');
-  const chooser = page.locator('.work-chooser details');
-  const summary = chooser.locator('summary');
-  const excel = chooser.getByRole('link', { name: /Ozzit Excel LAMBDA library/ });
-  await expect(chooser).not.toHaveAttribute('open');
-  await expect(excel).not.toBeVisible();
-  await summary.focus();
+  const excel = page.locator('.task-routes a[href="/tools/ozzit/"]');
+  await excel.focus();
   await page.keyboard.press('Enter');
-  await expect(excel).toBeVisible();
-  await page.keyboard.press('Space');
-  await expect(excel).not.toBeVisible();
-  if (projectKind(testInfo) === 'mobile') {
-    await summary.tap();
-    await excel.tap();
-  } else {
-    await summary.click();
-    await excel.click();
-  }
   await expect(page).toHaveURL(/\/tools\/ozzit\/$/);
   await page.goBack();
-  await expect(page).toHaveURL(/\/tools\/$/);
+  if (projectKind(testInfo) === 'mobile') await excel.tap();
+  else await excel.click();
+  await expect(page).toHaveURL(/\/tools\/ozzit\/$/);
+  await page.goBack();
   await expect(page.getByRole('navigation', { name: 'Start with what you came to do' })).toBeVisible();
 });
 
