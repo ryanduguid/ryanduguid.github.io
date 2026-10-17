@@ -39,7 +39,7 @@
       "8bf1e47bc9f934cdeca4305fa62d4de764e2d46d5aebcbb2ac6a6219bc788856"
     ],
     "index.html": [
-      "e53629e9da9e734adc1c28e6a80d9c942c4e08264aa92b8f0421bfe649c5ec21"
+      "9394454b5b2a5e3990c860bb7e0d5283d9e896a6ee54997fde78964e679eebc3"
     ],
     "privacy/index.html": [
       "7621dde36a8c6e5b0f04cb6d575c0acaee9e938e59b8842642f76e88a759dcef"
@@ -63,7 +63,7 @@
       "0aa278d3c1d6273ea9d862c25217c7722be566fdfe34d3101648fa75d9d7bff6"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "abe17b25b89a6247b23958a84f12a281a8260a8fe6574b8c0074fad386126ef3"
+      "01eae7213b071e0b60f358bee353d297c877c7c9d41b728e67f0d42af69b5a11"
     ],
     "tools/business-calculators/index.html": [
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
@@ -109,7 +109,7 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "08ac8cb9805b4139f8b5bca398f1fcc28c507f5410643f39eb8dc9e7645ee5dc",
+    "llms.txt": "a36d8e20a6e89457a6db484d4060e4ed7e01fa31a8708df842c0e87c60f5124a",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
     "sitemap.xml": "89673a839cfa2f162761a37c417866134b39a7f80c347bd82bc15bb73be075cb"
   },

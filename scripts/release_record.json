@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-10-06",
+  "reviewed": "2026-10-17",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: python scripts/release_record.py --verify-live",
@@ -18,10 +18,10 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.3.0",
-        "released_utc": "2026-10-04T18:02:42Z",
-        "verified": "2026-10-06",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0",
+        "version": "0.5.0",
+        "released_utc": "2026-10-17T08:03:24Z",
+        "verified": "2026-10-17",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
@@ -42,7 +42,7 @@
         "payday-super-checker": "0.1.9",
         "ato-benchmark-compare": "0.1.11",
         "div7a-loan-review": "0.2.0",
-        "australian-tax-calculators": "0.1.8"
+        "australian-tax-calculators": "0.2.0"
       },
       "pinned_commands": [
         "uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo"
@@ -52,8 +52,8 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.3.0, verified on 6 October 2026. It requires Python 3.11 or later; 0.2.12 is the last release for Python 3.10.",
-        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.3.0."
+        "GitHub, PyPI and the MCP registry publish 0.5.0, verified on 17 October 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.5.0, which exposes all 14 bounded worksheet kinds through australian-tax-calculators 0.2.0."
       ]
     },
     "ozzit": {

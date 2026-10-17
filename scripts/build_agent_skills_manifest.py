@@ -26,7 +26,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = ROOT / ".well-known" / "agent-skills" / "index.json"
 REPOSITORY = "ryanduguid/australian-accounting-skills"
-RELEASE = "v0.3.1"
+RELEASE = "v0.4.0"
 SKILLS_DIR = ".claude/skills"
 FORMAT = "duguid.com.au/agent-skills-index/1"
 NAME_PATTERN = re.compile(r"^[a-z0-9]+(?:-[a-z0-9]+)*$")
@@ -117,7 +117,7 @@ def build() -> dict[str, Any]:
             "repository": f"https://github.com/{REPOSITORY}",
             "release": RELEASE,
             "commit": commit,
-            "license": "MIT",
+            "license": "Apache-2.0",
             "install": install_commands(commit),
         },
         "note": (
