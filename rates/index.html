@@ -64,7 +64,7 @@
           <summary>Use these tables in Excel</summary>
           <div class="article-body">
             <p>In Excel for Windows with Power Query, choose Data, Get Data, From Other Sources, Blank Query. Open Advanced Editor, replace its contents with this query and choose Done, then Close &amp; Load. If prompted, choose Anonymous access for this public source. <a href="https://learn.microsoft.com/en-us/power-query/connectors/text-csv">Microsoft’s Text/CSV guide</a> explains the connector.</p>
-            <pre tabindex="0" role="region" aria-label="Power Query import for super guarantee rates"><code>let
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for super guarantee rates"><code>let
     Source = Csv.Document(
         Web.Contents("https://duguid.com.au/rates/super-guarantee/super-guarantee-rates.csv"),
         [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
@@ -156,6 +156,7 @@ in
     </article>
   </main>
 {% include site-footer.html %}
+  <script type="module" src="/assets/copy-commands.mjs"></script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",

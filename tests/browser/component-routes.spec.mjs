@@ -88,6 +88,11 @@ test('home keeps its adoption overview and links to the installation guide', asy
 
 test('task shortcuts expose Excel compatibility and both browser calculator routes', async ({ page }) => {
   await page.goto('/tools/');
+  const related = page.locator('#related-resources');
+  await expect(related.getByRole('link', { name: 'Tax prompt guide and refusal examples' }))
+    .toHaveAttribute('href', '/tools/refusals/#drdebits');
+  await expect(related.getByRole('link', { name: 'Fictional cash flow example' }))
+    .toHaveAttribute('href', '/examples/profit-vs-cash-flow/');
   const excel = page.locator('.task-routes a[href="/tools/ozzit/"]');
   await expect(excel).toContainText('Microsoft 365 or Excel 2024 or later');
   await expect(page.getByRole('link', { name: '9 business planning calculators', exact: true }))
