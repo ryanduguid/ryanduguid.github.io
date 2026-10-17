@@ -12,7 +12,7 @@
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-06fa44522e7a41ef</id>
     <updated>2026-10-17T00:00:00Z</updated>
-    <summary>Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, and Machine view excludes its text and status from search snippets.</summary>
+    <summary>Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example with a Copy button and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, groups the related prompt guide and cash flow example under Related resources, and Machine view excludes its text and status from search snippets.</summary>
   </entry>
   <entry>
     <title>robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training…</title>

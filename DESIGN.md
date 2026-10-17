@@ -19,8 +19,9 @@ The canonical routes, the dark-only token palette and the rate main text are fro
 On 17 October 2026 the Tools page keeps its five task shortcuts and full register,
 with the duplicate task disclosure removed. The two review guides show fictional
 input values beside captured report downloads from their existing pinned versions.
-Rates adds a native disclosure with an SG Power Query example and links the existing
-Atom feed. Machine view excludes its duplicate text and status from search snippets.
+Rates adds a native disclosure with an SG Power Query example, the existing Copy
+control and the existing Atom feed. Related resources groups the external prompt
+guide and fictional cash flow example under descriptive links. Machine view excludes its duplicate text and status from search snippets.
 The existing components, rates, calculation engines and release pins are unchanged.
 
 On 16 October 2026 Ryan's GitHub Mermaid diagrams moved their connecting
