@@ -51,7 +51,7 @@ GITHUB_AGENT_SKILLS_INSTALL_PATTERN = (
 STABLE_SKILLS_INSTALL_PATTERN = (
     r"\bgit\s+clone\s+https://github\.com/ryanduguid/australian-accounting-skills\.git\s+"
     r"accounting-skills-release\s+git\s+-C\s+accounting-skills-release\s+checkout\s+"
-    r"--detach\s+2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034\s+"
+    r"--detach\s+v0\.4\.0\s+"
     r"npx\s+--yes\s+skills@1\.5\.22\s+add\s+"
     r"\./accounting-skills-release\s+--agent\s+codex\s+claude-code\s+"
     r"--skill\s+'\*'\s+--yes\s+--copy\b"
@@ -131,8 +131,8 @@ CURRENT_SOFTWARE_REPOSITORIES = {
     "aus-accounting-mcp": (
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.3.0 for ATO benchmarks, Payday Super timing, limited Division 7A "
-        "review, 10 bounded tax worksheets, optional local Markdown search and "
+        "Local MCP server v0.5.0 for ATO benchmarks, Payday Super timing, limited Division 7A "
+        "review, 14 bounded tax worksheets, optional local Markdown search and "
         "synthetic SBR fixtures. Not advice.",
     ),
     "australian-accounting-skills": (

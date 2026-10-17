@@ -9,10 +9,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Australian tax MCP server: Aus Accounting MCP</title>
-  <meta name="description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup." />
+  <meta name="description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.5.0 has 14 worksheets. Includes scope and setup." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Australian tax MCP server: Aus Accounting MCP" />
-  <meta property="og:description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup." />
+  <meta property="og:description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.5.0 has 14 worksheets. Includes scope and setup." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +24,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Australian tax MCP server: Aus Accounting MCP" />
-  <meta name="twitter:description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup." />
+  <meta name="twitter:description" content="Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.5.0 has 14 worksheets. Includes scope and setup." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/australian-tax-ai-agents/" />
@@ -62,7 +62,7 @@
       search a Markdown folder you configure. Outputs need human review.
     </p>
     <p class="release-meta">Reference release v0.2.8. This guide and its worked example describe that release. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8">Tagged source and release record on GitHub</a>.</p>
-    <p>The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0">aus-accounting-mcp/v0.3.0</a>, verified on GitHub, PyPI and the MCP registry on 6 October 2026. It requires Python 3.11 or later; v0.2.12 is the last release that installs on Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum and study and training support loan repayment worksheets, bringing the total to 10, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Those changes are outside this guide’s v0.2.8 worked example.</p>
+    <p>The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0">aus-accounting-mcp/v0.5.0</a>, verified on GitHub, PyPI and the MCP registry on 17 October 2026. It requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. The annual Medicare levy worksheet does not adjust payroll withholding. Those changes are outside this guide’s v0.2.8 worked example.</p>
     <p class="page-meta">Published 25 August 2026. Last reviewed 1 October 2026. Release v0.2.8 pins ato-benchmark-compare 0.1.9 and australian-tax-calculators 0.1.5. It ranks local legislation search results best first and reads long provisions in parts.</p>
       </header>
       <div class="article-layout site-shell">
@@ -189,30 +189,30 @@
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-claude" />
         <label class="adopt-tab" for="adopt-claude">Claude Code</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Python 3.10 or later and uv.</p>
+          <p class="install-needs">Needs Python 3.14 or later and uv for the current release.</p>
           <pre tabindex="0" role="region" aria-label="Claude Code install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Claude Code</span>
 <span class="cmd">claude mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-codex" />
         <label class="adopt-tab" for="adopt-codex">Codex</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Python 3.10 or later and uv.</p>
+          <p class="install-needs">Needs Python 3.14 or later and uv for the current release.</p>
           <pre tabindex="0" role="region" aria-label="Codex install command"><code><span class="comment"># Australian Accounting &amp; Tax MCP server for Codex</span>
 <span class="cmd">codex mcp add aus-accounting -- uvx aus-accounting-mcp</span></code></pre>
         </div>
         <input class="adopt-input" type="radio" name="adopt-route" id="adopt-skills" />
         <label class="adopt-tab" for="adopt-skills">Skills</label>
         <div class="adopt-panel">
-          <p class="install-needs">Needs Git and Node. Start with the 65 workflows at the recorded v0.3.1 release commit.</p>
+          <p class="install-needs">Needs Git and Node. Start with the 65 workflows at the published v0.4.0 tag.</p>
           <pre tabindex="0" role="region" aria-label="Skills install command"><code><span class="comment"># Run from the project where you want the released skills</span>
 <span class="cmd">git clone https://github.com/ryanduguid/australian-accounting-skills.git accounting-skills-release</span>
-<span class="cmd">git -C accounting-skills-release checkout --detach 2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034</span>
+<span class="cmd">git -C accounting-skills-release checkout --detach v0.4.0</span>
 <span class="cmd">npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy</span></code></pre>
           <p>This copies the released skills into the current project’s Codex and Claude Code directories. An agent runtime is still required.</p>
           <p>Clone once per project. To repeat or retry from that directory, rerun only the checkout and install commands.</p>
           <details>
             <summary>Development installation</summary>
-            <p>This command installs the default branch, which can be ahead of the v0.3.1 release.</p>
+            <p>This command installs the default branch, which can be ahead of the v0.4.0 release.</p>
             <pre tabindex="0" role="region" aria-label="Development skills install command"><code><span class="cmd">npx --yes skills@1.5.22 add ryanduguid/australian-accounting-skills</span></code></pre>
           </details>
         </div>
@@ -238,7 +238,7 @@
       reproduces release 0.2.8, and each <a href="/evaluate/">evaluation</a>
       keeps the release it was run against.
     </p>
-    <p>The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the recorded v0.3.1 commit. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
+    <p>The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.</p>
     <p>
       aus-accounting-mcp is published on PyPI and from its source repository.
       <a href="https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp">Source on GitHub</a>,
@@ -272,7 +272,7 @@
     <h2>Common questions</h2>
     <div class="faq">
       <h3>What is aus-accounting-mcp?</h3>
-      <p>A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.12 has 10. Outputs need human review.</p>
+      <p>A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.5.0 has 14. Outputs need human review.</p>
       <h3>Is aus-accounting-mcp a hosted ATO document library?</h3>
       <p>No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings or legislation from the web. You can configure a local Markdown folder for search and reading with file and line citations. Retrieved excerpts enter the calling assistant’s context.</p>
       <h3>Does it calculate Division 7A repayments?</h3>
@@ -321,7 +321,7 @@
         "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
         "headline": "Australian tax MCP server: Aus Accounting MCP",
         "name": "Australian tax MCP server: Aus Accounting MCP",
-        "description": "Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup.",
+        "description": "Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.5.0 has 14 worksheets. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
         "dateModified": "2026-10-01",
@@ -340,7 +340,7 @@
         "@id": "https://duguid.com.au/tools/australian-tax-ai-agents/#webpage",
         "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
         "name": "Australian tax MCP server: Aus Accounting MCP",
-        "description": "Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.2.12 has 10 worksheets. Includes scope and setup.",
+        "description": "Guide to Aus Accounting MCP v0.2.8: 7 tax worksheets and local accounting checks. Published v0.5.0 has 14 worksheets. Includes scope and setup.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
         "dateModified": "2026-10-01",
@@ -380,7 +380,7 @@
         "@id": "https://duguid.com.au/tools/australian-tax-ai-agents/#software",
         "name": "Aus Accounting MCP",
         "alternateName": "aus-accounting-mcp",
-        "description": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.12 has 10. Outputs need human review.",
+        "description": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.5.0 has 14. Outputs need human review.",
         "applicationCategory": "FinanceApplication",
         "operatingSystem": "Linux, macOS, Windows",
         "url": "https://duguid.com.au/tools/australian-tax-ai-agents/",
@@ -409,7 +409,7 @@
           {
             "@type": "Question",
             "name": "What is aus-accounting-mcp?",
-            "acceptedAnswer": { "@type": "Answer", "text": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.2.12 has 10. Outputs need human review." }
+            "acceptedAnswer": { "@type": "Answer", "text": "A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.5.0 has 14. Outputs need human review." }
           },
           {
             "@type": "Question",

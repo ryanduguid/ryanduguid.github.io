@@ -33,7 +33,7 @@ test('current tool routes lead to maintained component source and support', asyn
   await page.locator('label[for="adopt-skills"]').click();
   const stableInstall = page.getByRole('region', { name: 'Skills install command', exact: true });
   await expect(stableInstall)
-    .toContainText('checkout --detach 2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034');
+    .toContainText('checkout --detach v0.4.0');
   await expect(stableInstall)
     .toContainText("npx --yes skills@1.5.22 add ./accounting-skills-release --agent codex claude-code --skill '*' --yes --copy");
   const developmentInstall = page.getByRole('region', { name: 'Development skills install command', exact: true });
