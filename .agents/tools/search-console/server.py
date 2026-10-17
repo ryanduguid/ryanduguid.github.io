@@ -1,7 +1,7 @@
 # /// script
 # requires-python = ">=3.14"
 # dependencies = [
-#   "mcp==2.1.1",
+#   "mcp==2.3.0",
 #   "google-auth==2.57.0",
 #   "google-auth-oauthlib==1.4.1",
 #   "keyring==25.7.0",
@@ -324,6 +324,28 @@ def build_server() -> MCPServer:
 
 async def _self_test() -> None:
     from unittest.mock import patch
+    from urllib.parse import parse_qs, urlparse
+
+    flow = InstalledAppFlow.from_client_config(
+        {
+            "installed": {
+                "client_id": "fabricated-client",
+                "client_secret": "fabricated-secret",
+                "auth_uri": "https://accounts.example.invalid/auth",
+                "token_uri": "https://accounts.example.invalid/token",
+            }
+        },
+        SCOPES,
+        autogenerate_code_verifier=True,
+    )
+    flow.redirect_uri = "http://localhost:12345/"
+    url, _ = flow.authorization_url(state="fabricated-state")
+    query = parse_qs(urlparse(url).query)
+    assert query["scope"] == [SCOPE]
+    assert query["redirect_uri"] == [flow.redirect_uri]
+    assert query["state"] == ["fabricated-state"]
+    assert query["code_challenge_method"] == ["S256"]
+    assert query["code_challenge"]
 
     # Patch the storage boundary before exercising malformed fabricated values.
     for stored in ('[]', 'null', 'true', '42', '"fabricated"'):
