@@ -10,7 +10,22 @@ This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKE
 
 Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
 
-Published 25 August 2026. Last reviewed 1 October 2026.
+Published 25 August 2026. Last reviewed 17 October 2026.
+
+## Inspect a fictional BAS pack
+
+Release review-ready-gate/v0.1.3 returns NOT_READY for its incomplete pack and READY with no findings for its corrected pack. Both runs were reproduced on 17 October 2026 using the unchanged fictional fixtures.
+
+Three findings in the incomplete pack’s generated findings.csv.
+
+Supplied evidence | Finding code | Status
+gst_control_gl.csv is absent. | MISSING_ARTEFACT | NOT_READY
+pack_complete, tie_outs_done and self_reviewed are false in self_review.json. | SELF_REVIEW_INCOMPLETE | NOT_READY
+Item OI-002 is BLOCKING and OPEN, with no resolution in open_items.csv. | OPEN_ITEM_BLOCKING | NOT_READY
+
+Download the generated findings.csv, including the reasons, repeat flag and reviewer actions. Inspect the incomplete input pack and corrected input pack at that release.
+
+The corrected pack’s generated cover sheet records Overall status: READY and Findings: 0 total; 0 blocked; 0 not ready; 0 repeats. A human still decides whether the file is acceptable. The fixed-release evaluation gives both reproduction commands.
 
 Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
 
@@ -77,7 +92,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
-- Run the two fictional BAS packs and compare the expected findings: https://duguid.com.au/evaluate/manager-review-gate/
+- Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
+- incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
+- corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
+- generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
+- fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
 - Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/

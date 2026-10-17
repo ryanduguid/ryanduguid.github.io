@@ -60,18 +60,13 @@ test('printing opens the fixed proof and closes it again afterwards', async ({ p
   await expect(disclosure).not.toHaveAttribute('open');
 });
 
-test('printing opens the extra accounting tasks and closes their chooser again afterwards', async ({ page }) => {
+test('printing keeps the full tool register available without a duplicate task list', async ({ page }) => {
   await page.goto('/tools/');
-  const chooser = page.locator('.work-chooser details');
-  await expect(chooser).not.toHaveAttribute('open');
-  await page.evaluate(() => dispatchEvent(new Event('beforeprint')));
+  await expect(page.locator('.work-chooser')).toHaveCount(0);
   await page.emulateMedia({ media: 'print' });
-  await expect(chooser).toHaveAttribute('open', '');
-  await expect(chooser.getByRole('link', { name: /Ozzit Excel LAMBDA library/ })).toBeVisible();
-  await expect(chooser.getByRole('link', { name: /Australian tax tools for AI agents/ })).toBeVisible();
-  await page.evaluate(() => dispatchEvent(new Event('afterprint')));
-  await page.emulateMedia({ media: null });
-  await expect(chooser).not.toHaveAttribute('open');
+  await expect(page.locator('.collection-entry')).toHaveCount(12);
+  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Ozzit Excel LAMBDA library' })).toBeVisible();
+  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Australian tax tools for AI agents' })).toBeVisible();
 });
 
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {
@@ -151,12 +146,9 @@ test('cash-flow entry points reach the workbook and About reaches review evidenc
       await expect(chart).toBeFocused();
     }
   }
-  for (const [route, name] of [['/', 'Explore the cash flow example'], ['/tools/', 'Fictional Newcastle cash flow case Source invoices and payments, Excel forecast and explanation']]) {
+  for (const [route, name] of [['/', 'Explore the cash flow example'], ['/tools/', 'Understand why profit and cash differ']]) {
     await page.goto(route);
-    if (route === '/tools/') {
-      await page.locator('.work-chooser summary').click();
-    }
-    await page.getByRole('link', { name, exact: true }).click();
+    await page.getByRole('link', { name, exact: false }).click();
     await expect(page).toHaveURL(/\/examples\/profit-vs-cash-flow\/$/);
     await waitForVisualFonts(page);
     const downloadOffset = await page.locator('#try').evaluate((section) => (

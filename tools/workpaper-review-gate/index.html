@@ -59,11 +59,12 @@
       This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
     </p>
     <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3">review-ready-gate/v0.1.3</a>, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0">review-ready-gate/v0.2.0</a>, which requires Python 3.11 or later.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 1 October 2026.</p>
+    <p class="page-meta">Published 25 August 2026. Last reviewed 17 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
           <p>On this page</p>
+          <a href="#worked-example">Inspect a sample pack</a>
           <a href="#what-this-tool-does">What this tool does</a>
           <a href="#limits">Limits</a>
           <a href="#get-it">Get it</a>
@@ -71,6 +72,23 @@
           <a href="#related">Related</a>
         </nav>
         <div class="article-body">
+    <section id="worked-example">
+    <h2>Inspect a fictional BAS pack</h2>
+    <p>Release <code>review-ready-gate/v0.1.3</code> returns <code>NOT_READY</code> for its incomplete pack and <code>READY</code> with no findings for its corrected pack. Both runs were reproduced on 17 October 2026 using the unchanged fictional fixtures.</p>
+    <div class="table-scroll" role="region" aria-label="Fictional BAS inputs and generated findings" tabindex="0">
+      <table class="tool-table--wide">
+        <caption>Three findings in the incomplete pack’s generated findings.csv.</caption>
+        <thead><tr><th>Supplied evidence</th><th>Finding code</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">gst_control_gl.csv is absent.</th><td>MISSING_ARTEFACT</td><td>NOT_READY</td></tr>
+          <tr><th scope="row">pack_complete, tie_outs_done and self_reviewed are false in self_review.json.</th><td>SELF_REVIEW_INCOMPLETE</td><td>NOT_READY</td></tr>
+          <tr><th scope="row">Item OI-002 is BLOCKING and OPEN, with no resolution in open_items.csv.</th><td>OPEN_ITEM_BLOCKING</td><td>NOT_READY</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p><a href="/assets/examples/review-gate/findings.csv" download>Download the generated findings.csv</a>, including the reasons, repeat flag and reviewer actions. Inspect the <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready">incomplete input pack</a> and <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready">corrected input pack</a> at that release.</p>
+    <p>The corrected pack’s <a href="/assets/examples/review-gate/readiness-summary.md" download>generated cover sheet</a> records <code>Overall status: READY</code> and <code>Findings: 0 total; 0 blocked; 0 not ready; 0 repeats.</code> A human still decides whether the file is acceptable. The <a href="/evaluate/manager-review-gate/">fixed-release evaluation</a> gives both reproduction commands.</p>
+    </section>
     <p>
       Preparation got cheaper and review did not. Offshore teams, juniors and AI agents can produce a file faster than a manager can reconstruct it, so managers spend their review time finding the missing tie-out, the open item still sitting in email and the same error as last period.
     </p>
@@ -153,7 +171,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "description": "Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-10-01",
+        "dateModified": "2026-10-17",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "isPartOf": {
           "@id": "https://duguid.com.au/#website"
@@ -218,7 +236,7 @@ review-ready gate --profile bas --pack examples/bas-ready --output ../../../revi
         "isAccessibleForFree": true,
         "inLanguage": "en-AU",
         "datePublished": "2026-08-25",
-        "dateModified": "2026-10-01"
+        "dateModified": "2026-10-17"
       },
       {
         "@type": "FAQPage",

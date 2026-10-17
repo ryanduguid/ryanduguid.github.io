@@ -222,6 +222,7 @@ test('saved Machine mode renders the unindexed not-found page without a text dow
 test('machine-view status text stays out of ordinary extraction but loads at runtime', async ({ page, request }) => {
   const delivered = await (await request.get('/')).text();
   expect(delivered).not.toContain('Loading page text');
+  expect(delivered).toMatch(/<section[^>]*id="machine-view"[^>]*data-nosnippet/);
 
   await page.goto('/');
   const extracted = await page.evaluate(() => document.body.innerText);
