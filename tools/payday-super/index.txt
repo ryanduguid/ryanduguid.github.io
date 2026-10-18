@@ -98,7 +98,7 @@ Wheel SHA-256: 0228da4c60681396ab38d10857d7e23dd978585588e8071ce85892f7fba11e78
 
 Reproduction record
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Written by Ryan Duguid. He is a Provisional CA ANZ Member.
 
 ## Links
 

@@ -214,7 +214,7 @@ A refusal shows that a configured gate tripped on the supplied input. It does no
 - Evaluations
 - Human accountability and refusals
 
-Written by Ryan Duguid in his own time and on his own equipment.
+Written by Ryan Duguid.
 
 ## Links
 

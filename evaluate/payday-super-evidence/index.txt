@@ -99,7 +99,7 @@ Experimental review aid. Not a compliance determination. This evaluation does no
 - Super guarantee rate history
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
+Written by Ryan Duguid.
 
 ## Links
 

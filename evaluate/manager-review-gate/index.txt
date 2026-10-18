@@ -74,7 +74,7 @@ This evaluates configured gates against fictional inputs. It does not establish 
 - Workpaper Review Gate
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
+Written by Ryan Duguid.
 
 ## Links
 

@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "85acfd4050b6f30c4a34f446f91b42e1cdf57cef6f54d780af839bc0aed10d97"
+      "9df52cce1019fb0e688696d4fed3506fbbc67b64ffef9f4d2633d6eb78d620e1"
     ],
     "changelog/index.html": [
       "2834875ae50bcd530cfc5718d789af4eea52ca05bb70918efcb3e5b870e6d27c"
@@ -63,7 +63,7 @@
       "0aa278d3c1d6273ea9d862c25217c7722be566fdfe34d3101648fa75d9d7bff6"
     ],
     "tools/australian-tax-ai-agents/index.html": [
-      "01eae7213b071e0b60f358bee353d297c877c7c9d41b728e67f0d42af69b5a11"
+      "cd5350a58703c050377afe1010457c3fd8e22f5358d0b90450b09c28adb0126e"
     ],
     "tools/business-calculators/index.html": [
       "6baa4a702af23924dd0d14ba8b0a7eb8cdaa461067ac096f926aace0292441b6"
@@ -166,9 +166,9 @@
     ]
   },
   "protected_main_text": {
-    "rates/cents-per-kilometre/index.html": "c5ed4da0da341bf547e9709a1d255688db3f86296cb5ba1d316ce4980b47975d",
-    "rates/div7a-benchmark-rate/index.html": "b9c27c5ff036b9b70ee852d887d744da1775ad2b842b4e70fada015816902bdc",
-    "rates/super-guarantee/index.html": "be668dade44b31ee31e371afaabdb8b268d5e40570716cc1d2c45dfccc1a5597"
+    "rates/cents-per-kilometre/index.html": "2033ddf8b8121e5d38e76de5334a76d0099e03ad169ae98074f3cde347458cb0",
+    "rates/div7a-benchmark-rate/index.html": "ebed02423734df02fe7f60520344ad618eeaf6d970415ec50f465b7757473988",
+    "rates/super-guarantee/index.html": "09fda554c85d0d4eada4b18da824e7e62be6b7570147e98c152d9a00f3ead45b"
   },
   "protected_text": {
     "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,
