@@ -103,7 +103,7 @@ This control does not prove completeness, classification, accounting treatment o
 - Xero trial balance CSV export
 - All evaluations
 
-Written by Ryan Duguid in his own time and on his own equipment.
+Written by Ryan Duguid.
 
 ## Links
 

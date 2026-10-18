@@ -54,7 +54,7 @@ This is a local software case. It is not tax, legal or financial advice, account
 
 ## Accepted upstream work
 
-Maintainers of the projects below merged these specific changes. The merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
+Maintainers of the projects below merged these specific changes. The merges do not establish adoption or validate the accounting calculations.
 
 OpenAccountants, tax guides for coding agents. Pull request 85 restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.
 
@@ -78,7 +78,7 @@ Merge dates are in Australian Eastern time. Merge status and file counts were re
 
 ## Identity and credentials
 
-I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
+I am a Provisional CA ANZ Member. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
 
 ### Xero Certified Specialist, Level 3
 
@@ -100,7 +100,7 @@ Valid until
 
 View certificate (PDF) Xero trial balance export and review workflow
 
-The certificate records my own product knowledge for the period shown. It is not a Xero endorsement, certification or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
+The certificate records my own product knowledge for the period shown. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
 
 ## Packages, releases and repositories
 
@@ -185,7 +185,7 @@ Human review remains mandatory before posting, payment, lodgement, approval or p
 
 I publish evaluations of fixed releases on the Evaluations page. I use feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
-Written by Ryan Duguid in his own time and on his own equipment.
+Written by Ryan Duguid.
 
 ## Links
 

@@ -70,9 +70,7 @@ RETIRED_GITHUB_SOURCE_INSTALL_PATTERN = (
     r"(?:\\\s*)?git\+https://github\.com/ryanduguid/aus-accounting-mcp\s+"
     r"aus-accounting-mcp\b"
 )
-CA_ANZ_NON_ENDORSEMENT = (
-    "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools."
-)
+CA_ANZ_MEMBERSHIP = "I am a Provisional CA ANZ Member."
 MCP_REL = "tools/australian-tax-ai-agents/index.html"
 MCP_REVIEW_DATE = "2026-10-01"
 MCP_VISIBLE_REVIEW_DATE = "1 October 2026"
@@ -1855,8 +1853,8 @@ def check_authority_surface(root: Path = core.ROOT) -> list[str]:
     evidence_headings = core.heading_texts(rendered_evidence)
     if any(heading.casefold() not in evidence_headings for heading in ASSURANCE_HEADINGS):
         failures.append("evidence/index.html: missing assurance heading")
-    if CA_ANZ_NON_ENDORSEMENT not in core.visible_text(rendered_evidence):
-        failures.append("evidence/index.html: missing CA ANZ non-endorsement boundary")
+    if CA_ANZ_MEMBERSHIP not in core.visible_text(rendered_evidence):
+        failures.append("evidence/index.html: missing provisional CA ANZ membership wording")
 
     short_answer = re.search(
         r'<p\b(?=[^>]*\bclass\s*=\s*["\'][^"\']*\bshort-answer\b[^"\']*["\'])[^>]*>'

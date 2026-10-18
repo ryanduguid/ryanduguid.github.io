@@ -18,7 +18,7 @@ Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
 Not to be confused with | The US software product executive of the same name
 Field | Accounting, Australian taxation, payroll and statutory compliance
-Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Professional body | I am a Provisional CA ANZ Member.
 
 Certifications |
 
@@ -88,7 +88,7 @@ This site does not offer tax or BAS agent services or take requests for tax advi
 
 Duguid, R. (2026). Australian computational accounting tools. https://duguid.com.au/. Each tool page names the source it is grounded in, and each linked repository carries its own licence and disclaimer.
 
-I write and maintain this site in my own time and on my own equipment.
+I write and maintain this site.
 
 ## Links
 

@@ -315,7 +315,6 @@ The Apache-2.0 grant does not extend to third-party material published here. The
 Public Sans and Spline Sans Mono subsets under `assets/fonts/` keep the SIL
 Open Font License 1.1 in one `assets/fonts/OFL-*.txt` file per family. The certificate and badge under `assets/credentials/`
 are Xero's document and artwork, published as a factual record of Ryan Duguid's
-own certification under the terms in `assets/credentials/SOURCES.md`, and carry
-no Xero endorsement of this site or its tools.
+own certification under the terms in `assets/credentials/SOURCES.md`.
 
 Nothing on the site is tax, legal or financial advice. Outputs of the tools it links are review aids for a qualified professional, not compliance determinations.
