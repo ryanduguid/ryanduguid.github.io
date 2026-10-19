@@ -21,6 +21,18 @@ updates:
       # unapproved SHA to the portfolio audit without changing the workflow,
       # so re-pin by hand instead.
       - dependency-name: "ryanduguid/release-policy/.github/workflows/*"
+  - package-ecosystem: cargo
+    directories:
+      - /scripts
+      - /scripts/fuzz
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    groups:
+      rust-dependencies:
+        patterns:
+          - "*"
   - package-ecosystem: npm
     directory: /
     schedule:
@@ -39,7 +51,7 @@ updates:
       default-days: 7
     ignore:
       # GitHub Pages builds and deploys this site with its own pinned Jekyll,
-      # and scripts/build_site.py exists to build with that same version. The
+      # and `site-tools build_site` exists to build with that same version. The
       # Gemfile mirrors GitHub Pages rather than tracking upstream Jekyll, so
       # a major or minor bump would have CI validate HTML the live site never
       # produces. Raise the pin when GitHub Pages raises theirs, not when

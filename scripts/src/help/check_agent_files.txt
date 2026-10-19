@@ -1,0 +1,24 @@
+usage: check_agent_files.py [-h] [--verify-live]
+
+Check what an agent can be made to run from this site's machine-readable
+files. An llms.txt is not documentation an agent reads and weighs. It is an
+instruction file an agent acts on, so an install command in it executes on
+whoever's machine is reading. Two failures follow from that: - a package name
+nobody has published is claimable by anyone, and the agent installs the
+claimant's code from the correct, official-looking file; - an unpinned third-
+party command runs whatever that registry serves at read time, so a later
+release of someone else's tool changes what this site tells an agent to do.
+Ryan's own names resolve to his own latest release, so those may stay
+unpinned; anything published by someone else must name its version. Invisible
+and direction-control characters are checked in the same pass. They do not
+render for a reader, so text can be hidden in a file that looks clean while
+the model reads every character of it. The default run is offline and
+deterministic: it reads the built files and `scripts/agent_file_policy.json`
+and never contacts a service. `--verify-live` is the explicit refresh step. It
+reports drift between the reviewed record and the public registries so a
+person can review the difference; it never edits a file and never runs as part
+of an ordinary build.
+
+options:
+  -h, --help     show this help message and exit
+  --verify-live  check the reviewed names against the public registries

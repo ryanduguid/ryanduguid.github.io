@@ -30,7 +30,7 @@ document remains with Xero.
 badge Xero placed in that certificate: the 318 by 318 pixel image XObject
 `5 0 R`, recombined with its `4 0 R` soft mask so the rounded corners stay
 transparent. No pixel came from any other source, and no colour, proportion or
-wording was changed. Reproduce it with `python scripts/extract_xero_badge.py`
+wording was changed. Reproduce it with `site-tools extract_xero_badge`
 against the source PDF. The script preserves the existing file when its pixels,
 mask and metadata match, even if the runtime's PNG compression differs. The
 table records the shipped file's hash.
@@ -68,7 +68,7 @@ and update the explicit dates in:
 Keep the About page's Xero JSON-LD dates (`dateCreated` and `expires`) in sync.
 
 Then regenerate the text indexes with
-`python scripts/build_llms_full.py --write`.
+`site-tools build_llms_full --write`.
 
 ## Payroll and Migration specialist badges
 

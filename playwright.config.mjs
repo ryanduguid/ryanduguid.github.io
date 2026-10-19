@@ -20,6 +20,12 @@ export const chromiumLaunchOptions = process.platform === 'win32'
     }
   : {};
 
+// The site server is `site-tools serve_site`. CI sets SITE_TOOLS to a prebuilt
+// binary; locally Cargo builds it on first use.
+export const siteServerCommand = process.env.SITE_TOOLS
+  ? `"${process.env.SITE_TOOLS}" serve_site`
+  : 'cargo run --locked --quiet --release --manifest-path scripts/Cargo.toml -- serve_site';
+
 export default defineConfig({
   testDir: './tests/browser',
   fullyParallel: true,
@@ -60,7 +66,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: 'python -u scripts/serve_site.py',
+    command: siteServerCommand,
     url: 'http://127.0.0.1:4173/',
     reuseExistingServer: !process.env.CI,
   },

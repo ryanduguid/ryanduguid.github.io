@@ -645,7 +645,7 @@ its files were never cut.
 The 6 files are `pyftsubset` cuts of the upstream static TTFs, limited to the
 characters the pages use. The upstream revisions, the exact command, byte
 counts and SHA-256 values are recorded in `assets/fonts/SOURCES.md`; each face
-declares the same characters as its `unicode-range`, which `check_design.py`
+declares the same characters as its `unicode-range`, which `site-tools check_design`
 tests against every page. The declared set is 102,928 bytes, down from 129,872
 for the Plex Latin1 splits. The 4 faces used by the homepage total 68,732
 source bytes before HTTP overhead, down from 84,268, and all 4 are preloaded
@@ -684,7 +684,7 @@ The token scale uses fluid clamps rather than one-off page values.
 | Heading | 36 to 56px | Section statement |
 | Display | 36 to 88px | Global display token; the homepage masthead caps it at 80px, then at 32px for viewports up to 640px |
 
-Display tracking is modestly negative. Body and mono tracking stay neutral. Labels never combine `text-transform: uppercase` with positive letter spacing; `check_design.py` fails any rule that does, except the footer motto. No all-caps eyebrow appears above every section.
+Display tracking is modestly negative. Body and mono tracking stay neutral. Labels never combine `text-transform: uppercase` with positive letter spacing; `site-tools check_design` fails any rule that does, except the footer motto. No all-caps eyebrow appears above every section.
 
 ## Spacing, shape and layers
 

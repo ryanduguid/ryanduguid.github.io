@@ -9,17 +9,17 @@ never blends them:
 
 `docs/visibility-benchmark/prompts.json` holds the reviewed prompts, their
 sourced expected facts and the specific errors worth counting.
-`scripts/visibility_benchmark.py` validates and summarises captures.
-`scripts/test_visibility_benchmark.py` covers both and runs offline in
-`check_site.py`.
+`site-tools visibility_benchmark` validates and summarises captures.
+`scripts/tests/visibility.rs` covers both and runs offline in
+`site-tools check_site`.
 
 ## Run a round
 
 ```bash
-python scripts/visibility_benchmark.py --template > docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
+site-tools visibility_benchmark --template > docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
 # answer the prompts by hand, fill in the file, keep the answers beside it
-python scripts/visibility_benchmark.py --check docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
-python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
+site-tools visibility_benchmark --check docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
+site-tools visibility_benchmark --summary docs/visibility-benchmark/captures/2026-09-18-chatgpt.json
 ```
 
 Every command names the same file, so what you validate is what you summarise. With

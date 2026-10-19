@@ -1,5 +1,5 @@
 // Checks every ATO page the portfolio cites, and the pages outside the ATO in
-// WATCHED. The ATO answers GitHub runners with HTTP 403 and check_links.py can
+// WATCHED. The ATO answers GitHub runners with HTTP 403 and site-tools check_links can
 // only accept that denial on trust, so this sweep runs on Ryan's machine:
 // `nodriver batch` reads each page in a local Chrome and the text is compared
 // with the copy kept in --baseline from the previous weekly run.

@@ -1,0 +1,9 @@
+usage: check_site.py [-h] [--offline] [--ci] [--ci-metadata-only]
+
+Run every repository-defined site check through one documented command.
+
+options:
+  -h, --help          show this help message and exit
+  --offline           skip live external-link checks
+  --ci                select live checks from the pull-request diff
+  --ci-metadata-only  print the browser CI selection only

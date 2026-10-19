@@ -27,11 +27,11 @@ pyftsubset <upstream>.ttf --unicodes="U+0020-007E,U+00A0,U+00A3,U+00A7,U+00A9,U+
 
 Add `--no-hinting` for the two Besley files. Besley sets only headings, where
 hinting has no visible effect, and its hints push the SemiBold cut past the
-25,000-byte per-file budget in `scripts/check_design.py`. The command is
+25,000-byte per-file budget in `scripts/src/check_design.rs`. The command is
 deterministic: rerunning it on the same inputs reproduces the hashes below.
 
 Each face in `assets/tokens.css` declares that same range as its
-`unicode-range`, and `scripts/check_design.py` fails when a page or script uses a
+`unicode-range`, and `site-tools check_design` fails when a page or script uses a
 character outside it. To use a new character, rebuild the six files with the
 wider range, then widen the ranges in `tokens.css` and update this table and
 `scripts/design_baseline.json`.

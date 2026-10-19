@@ -1,0 +1,23 @@
+[package]
+name = "duguid-site-tools-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4.13"
+duguid-site-tools = { path = ".." }
+
+# A separate workspace, so the site tools' own build never compiles the fuzzer.
+[workspace]
+members = ["."]
+
+[[bin]]
+name = "feed"
+path = "fuzz_targets/feed.rs"
+test = false
+doc = false
+bench = false

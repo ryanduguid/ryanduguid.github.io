@@ -1,10 +1,11 @@
-# Tool configuration only. This repository is a static site whose checks are
-# standard-library Python scripts under scripts/: nothing here is installed or
-# built. The Search Console tool under .agents/ declares its own inline script
-# metadata and runs through uv, so it is not part of this configuration. The
-# About portrait renderer, scripts/render_about_portrait.py, also declares its
-# own dependencies and runs through uv; it builds an image, not a check. So
-# does scripts/encode_cash_chart_webp.py, which encodes the cash chart copies.
+# Tool configuration only. The site's checks are the Rust crate in scripts/
+# (`site-tools`); the Python left under scripts/ is the Search Console tool's
+# test and two image renderers, and nothing here is installed or built. The
+# Search Console tool under .agents/ declares its own inline script metadata and
+# runs through uv, so it is not part of this configuration. The About portrait
+# renderer, scripts/render_about_portrait.py, also declares its own dependencies
+# and runs through uv; it builds an image, not a check. So does
+# scripts/encode_cash_chart_webp.py, which encodes the cash chart copies.
 
 [tool.ruff]
 target-version = "py314"

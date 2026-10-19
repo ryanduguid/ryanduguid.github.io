@@ -16,6 +16,12 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.event_name }}-${{ github.event_name == 'pull_request' && github.ref || github.run_id }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
+# The site tools are the Rust crate in scripts/; scripts/rust-toolchain.toml pins
+# the compiler that RUST_TOOLCHAIN installs.
+env:
+  CARGO_TERM_COLOR: never
+  RUST_TOOLCHAIN: "1.99"
+
 jobs:
   lint:
     timeout-minutes: 15
@@ -36,6 +42,66 @@ jobs:
         run: python -m ruff format --check .
       - name: Mypy
         run: python -m mypy
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component clippy,rustfmt
+      - name: Rust format
+        working-directory: scripts
+        run: |
+          cargo fmt --check
+          cargo fmt --check --manifest-path fuzz/Cargo.toml
+      - name: Clippy
+        working-directory: scripts
+        run: |
+          cargo clippy --locked --all-targets -- -D warnings
+          cargo clippy --locked --manifest-path fuzz/Cargo.toml -- -D warnings
+
+  tools:
+    # Builds site-tools once per runner OS in a read-only job. The browser and
+    # Lighthouse jobs serve the site with it, and the jobs that publish run it
+    # without compiling anything themselves.
+    timeout-minutes: 20
+    strategy:
+      matrix:
+        os: [ubuntu-24.04, windows-2025]
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - name: Build site-tools
+        run: cargo build --locked --release --bin site-tools
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-tools-${{ runner.os }}
+          path: scripts/target/release/site-tools${{ runner.os == 'Windows' && '.exe' || '' }}
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 7
+
+  rust-windows:
+    # The site checks run every Rust suite on Linux against the rendered site.
+    # This runs them on Windows too; suites that need the rendered site report
+    # that they skipped, because this job installs no Jekyll.
+    timeout-minutes: 30
+    runs-on: windows-2025
+    defaults:
+      run:
+        shell: bash
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - name: Rust tests
+        run: cargo test --locked
 
   checks:
     needs: lint
@@ -62,13 +128,19 @@ jobs:
         with:
           version: "0.12.17"
           enable-cache: true
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - name: Build site-tools
+        working-directory: scripts
+        run: cargo build --locked
       - name: Site checks
         env:
           CI_EVENT: ${{ github.event_name }}
           # Lifts the unauthenticated GitHub API rate limit for the
-          # archived-repository lookups in scripts/check_links.py.
+          # archived-repository lookups in site-tools check_links.
           GITHUB_TOKEN: ${{ github.token }}
-        run: python scripts/check_site.py --ci
+        # check_site runs each Rust suite through cargo test against the checked tree.
+        run: scripts/target/debug/site-tools check_site --ci
 
       - name: Package the validated Pages tree
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
@@ -90,6 +162,7 @@ jobs:
           retention-days: 7
 
   browser:
+    needs: tools
     timeout-minutes: 30
     runs-on: windows-2025
     strategy:
@@ -104,17 +177,20 @@ jobs:
         with:
           fetch-depth: 2
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          python-version: "3.15"
-          allow-prereleases: true
+          name: site-tools-Windows
+          path: ${{ runner.temp }}/site-tools
       - name: Select metadata-only browser checks
         id: metadata
         env:
           CI_EVENT: ${{ github.event_name }}
         shell: pwsh
         run: |
-          $selection = @(python scripts/check_site.py --ci-metadata-only)
+          # Playwright's web server runs the same binary (playwright.config.mjs).
+          $tools = Join-Path $env:RUNNER_TEMP 'site-tools\site-tools.exe'
+          "SITE_TOOLS=$tools" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          $selection = @(& $tools check_site --ci-metadata-only)
           if ($LASTEXITCODE -ne 0 -or $selection.Count -ne 1 -or $selection[0] -cnotin @('true', 'false')) {
             throw 'Invalid CI metadata selection'
           }
@@ -129,13 +205,16 @@ jobs:
           node-version: "24"
           cache: npm
       - name: Install browser-test dependencies
-        run: npm ci
+        # No locked package has an install script; this keeps it that way.
+        run: npm ci --ignore-scripts
       - name: Check calculator and WebMCP contracts
         if: ${{ matrix.shard == 1 }}
         run: npm run typecheck
       - name: Install Chromium
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
-        run: npx playwright install chromium
+        # The locked Playwright, as the Lighthouse job runs it; npx could fetch another.
+        shell: bash
+        run: ./node_modules/.bin/playwright install chromium
       - name: Proof capture check
         if: ${{ steps.metadata.outputs.metadata_only == 'false' && matrix.shard == 1 }}
         run: npm run test:capture
@@ -159,6 +238,7 @@ jobs:
         run: npm audit --audit-level=high
 
   lighthouse:
+    needs: tools
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     strategy:
@@ -171,17 +251,22 @@ jobs:
         with:
           fetch-depth: 2
           persist-credentials: false
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          python-version: "3.15"
-          allow-prereleases: true
+          name: site-tools-Linux
+          path: ${{ runner.temp }}/site-tools
       - name: Select metadata-only Lighthouse checks
         id: metadata
         env:
           CI_EVENT: ${{ github.event_name }}
         shell: bash
         run: |
-          python scripts/check_site.py --ci-metadata-only > "$RUNNER_TEMP/ci-metadata-selection.txt"
+          # Artifacts drop the executable bit. Lighthouse's server runs the same
+          # binary (lighthouserc.cjs).
+          tools="$RUNNER_TEMP/site-tools/site-tools"
+          chmod +x "$tools"
+          printf 'SITE_TOOLS=%s\n' "$tools" >> "$GITHUB_ENV"
+          "$tools" check_site --ci-metadata-only > "$RUNNER_TEMP/ci-metadata-selection.txt"
           mapfile -t selection < "$RUNNER_TEMP/ci-metadata-selection.txt"
           if [[ ${#selection[@]} != 1 || ( ${selection[0]} != true && ${selection[0]} != false ) ]]; then
             echo "Invalid CI metadata selection" >&2
@@ -227,26 +312,26 @@ jobs:
     # A 60-second random exploration is not a repeatable merge gate, so it
     # runs after merge, weekly and on demand rather than on pull requests.
     if: github.event_name != 'pull_request'
-    timeout-minutes: 5
+    timeout-minutes: 20
     runs-on: ubuntu-latest
     permissions:
       contents: read
+    defaults:
+      run:
+        working-directory: scripts
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-      - name: Set up Python
-        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
-        with:
-          python-version: "3.14"
+      # libFuzzer instrumentation needs a nightly compiler; the date is pinned.
       - name: Install the pinned fuzzer
-        run: >-
-          python -m pip install --require-hashes --only-binary :all:
-          --requirement scripts/requirements-fuzz.txt
+        run: |
+          rustup toolchain install nightly-2026-10-15 --profile minimal
+          cargo install cargo-fuzz --locked --version 0.13.2
       - name: Fuzz the feed builder
         run: >-
-          python scripts/fuzz_feed.py scripts/fuzz-corpus/feed
+          cargo +nightly-2026-10-15 fuzz run feed fuzz-corpus/feed --
           -max_total_time=60 -max_len=4096 -timeout=2 -rss_limit_mb=1024
 
   checks-gates:
@@ -254,7 +339,7 @@ jobs:
     # unless every job it needs succeeded, when a job in this file is missing
     # from needs, or when a pull request removes a job without adding a
     # "# removed-jobs: <job>" comment to this file.
-    needs: [lint, checks, browser, lighthouse]
+    needs: [lint, tools, rust-windows, checks, browser, lighthouse]
     if: always()
     runs-on: ubuntu-latest
     timeout-minutes: 15
@@ -272,18 +357,23 @@ jobs:
           persist-credentials: false
           # The merge commit's first parent holds the base branch's workflow.
           fetch-depth: 2
-          sparse-checkout: |
-            .github
-            scripts
+          sparse-checkout: .github
       - name: Require every job to be listed, kept and successful
         env:
           RESULTS: ${{ toJSON(needs) }}
         run: python3 .github/ci/check_gates.py .github/workflows/checks.yml checks-gates --exempt deploy --exempt fuzzing
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
+        with:
+          name: site-tools-Linux
+          path: ${{ runner.temp }}/site-tools
       - name: Require external publication results for this main commit
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
+        run: |
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" check_publication --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
 
   deploy:
     needs: checks-gates
@@ -323,14 +413,17 @@ jobs:
           tar --extract --file "$RUNNER_TEMP/pages-artifact/artifact.tar" --directory "$RUNNER_TEMP/validated-site"
           python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"validated-site/.well-known/deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
           node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site" --source-only
-      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+      # Built by the read-only tools job; this job compiles nothing.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
         with:
-          python-version: "3.15"
-          allow-prereleases: true
+          name: site-tools-Linux
+          path: ${{ runner.temp }}/site-tools
       - name: Revalidate main and external results after environment admission
         env:
           GH_TOKEN: ${{ github.token }}
-        run: python scripts/check_publication.py --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
+        run: |
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" check_publication --repository "$GITHUB_REPOSITORY" --commit "$GITHUB_SHA" --wait-seconds 600
       - name: Deploy the artifact from this run
         id: deployment
         uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1
@@ -345,5 +438,5 @@ jobs:
           curl --fail --silent --show-error --retry 3 --max-time 30 \
             "${PAGE_URL%/}/.well-known/deployment.json?revision=$GITHUB_SHA" \
             -o "$RUNNER_TEMP/deployment.json"
-          python -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
+          python3 -c 'import json,os,pathlib; assert json.loads((pathlib.Path(os.environ["RUNNER_TEMP"])/"deployment.json").read_text())["sha"] == os.environ["GITHUB_SHA"]'
           node scripts/check_production.mjs --source-root "$RUNNER_TEMP/validated-site"

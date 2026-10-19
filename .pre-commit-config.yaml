@@ -1,8 +1,25 @@
-# Local git hooks. Install once with `pre-commit install`. Ruff matches CI.
-# This hook runs lint only; CI also checks formatting.
+# Local git hooks. Install once with `pre-commit install`. Ruff and the Rust
+# hooks run the same commands as CI's lint job; CI also checks Python formatting.
+# The Rust hooks need `cargo` on PATH; rustup installs the toolchain pinned in
+# scripts/rust-toolchain.toml on first use.
 repos:
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.16.8
     hooks:
       - id: ruff
 
+  - repo: local
+    hooks:
+      - id: rustfmt
+        name: format the site tools
+        entry: cargo fmt --manifest-path scripts/Cargo.toml --check
+        language: system
+        pass_filenames: false
+        files: ^scripts/(src|tests|examples|fuzz)/|^scripts/Cargo\.toml$
+
+      - id: clippy
+        name: lint the site tools
+        entry: cargo clippy --manifest-path scripts/Cargo.toml --locked --all-targets -- -D warnings
+        language: system
+        pass_filenames: false
+        files: ^scripts/(src|tests|examples)/|^scripts/Cargo\.(toml|lock)$
