@@ -4,6 +4,7 @@ use crate::html::unescape;
 use crate::htmlparser::{self, Event};
 use crate::py;
 use crate::pyjson::{self, Dump, Json};
+use crate::pyobj::type_name;
 use crate::pyre::{self, I, M, S, re};
 use crate::pytime;
 use crate::seo_core as core;
@@ -662,18 +663,6 @@ fn baseline_items(baseline: &Json, key: &str) -> Result<Vec<(String, Json)>, Str
             "AttributeError: '{}' object has no attribute 'items'",
             type_name(other)
         )),
-    }
-}
-
-fn type_name(value: &Json) -> &'static str {
-    match value {
-        Json::Null => "NoneType",
-        Json::Bool(_) => "bool",
-        Json::Int(_) => "int",
-        Json::Float(_) => "float",
-        Json::Str(_) => "str",
-        Json::Array(_) => "list",
-        Json::Object(_) => "dict",
     }
 }
 

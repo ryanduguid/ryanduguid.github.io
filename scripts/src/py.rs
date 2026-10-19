@@ -264,6 +264,32 @@ pub fn repr_bytes(b: &[u8]) -> String {
     out
 }
 
+/// The shortest round-tripping digits of a finite `a >= 0` and the decimal point position,
+/// as CPython's dtoa mode 0 gives them. Among equally short candidates dtoa takes the one
+/// nearest the exact value, ties to even; Rust's shortest form rounds such a tie up
+/// (720084694934744.25 prints as ...744.3, Python as ...744.2), so the correctly rounded
+/// candidate of the same length is preferred whenever it round-trips.
+pub fn shortest_digits(a: f64) -> (String, i64) {
+    let split = |text: &str| {
+        let (mantissa, exponent) = text.split_once('e').expect("scientific notation");
+        let digits: String = mantissa.chars().filter(|c| *c != '.').collect();
+        (digits, exponent.parse::<i64>().expect("exponent") + 1)
+    };
+    let (digits, decpt) = split(&format!("{a:e}"));
+    if a == 0.0 || digits.len() < 2 {
+        return (digits, decpt);
+    }
+    let nearest = format!("{a:.*e}", digits.len() - 1);
+    if nearest.parse::<f64>() == Ok(a) {
+        let (near_digits, near_decpt) = split(&nearest);
+        let trimmed = near_digits.trim_end_matches('0');
+        if trimmed.len() == digits.len() {
+            return (trimmed.to_owned(), near_decpt);
+        }
+    }
+    (digits, decpt)
+}
+
 /// `repr(f)` for a `float`.
 pub fn float_repr(f: f64) -> String {
     if f.is_nan() {
@@ -272,10 +298,7 @@ pub fn float_repr(f: f64) -> String {
     if f.is_infinite() {
         return if f > 0.0 { "inf".into() } else { "-inf".into() };
     }
-    let sci = format!("{:e}", f.abs());
-    let (mantissa, exponent) = sci.split_once('e').expect("scientific notation");
-    let digits: String = mantissa.chars().filter(|c| *c != '.').collect();
-    let decpt: i64 = exponent.parse::<i64>().expect("exponent") + 1;
+    let (digits, decpt) = shortest_digits(f.abs());
     let sign = if f.is_sign_negative() { "-" } else { "" };
     let n = digits.len() as i64;
     let body = if f == 0.0 {
