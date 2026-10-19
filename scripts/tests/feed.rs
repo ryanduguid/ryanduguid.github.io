@@ -34,21 +34,6 @@ fn refusal(source: &str) -> String {
     feed::build(source).unwrap_err()
 }
 
-/// fuzz_feed.test_one_input: refusals name the changelog and built feeds are well-formed.
-fn fuzz_one(data: &[u8]) -> Result<(), String> {
-    check_outcome(feed::build(&String::from_utf8_lossy(data)))
-}
-
-fn check_outcome(outcome: Result<String, String>) -> Result<(), String> {
-    match outcome {
-        Err(refusal) if refusal.starts_with("changelog: ") => Ok(()),
-        Err(refusal) => Err(format!("unexpected refusal {refusal:?}")),
-        Ok(built) => roxmltree::Document::parse(&built)
-            .map(drop)
-            .map_err(|e| format!("built a malformed feed: {e}")),
-    }
-}
-
 #[test]
 fn edit_keeps_published_identity_when_rows_move() {
     let original = "<tr><td>31 August 2026</td><td>An open-source index.</td></tr>";
@@ -149,18 +134,19 @@ fn the_fuzz_seed_corpus_replays_cleanly() {
     seeds.sort();
     assert!(!seeds.is_empty());
     for seed in seeds {
-        fuzz_one(&std::fs::read(&seed).unwrap()).unwrap_or_else(|e| panic!("{seed:?}: {e}"));
+        feed::fuzz_check(&std::fs::read(&seed).unwrap())
+            .unwrap_or_else(|e| panic!("{seed:?}: {e}"));
     }
 }
 
 #[test]
 fn the_fuzz_check_rejects_a_refusal_naming_no_changelog() {
     assert_eq!(
-        check_outcome(Err("other".into())),
+        feed::check_outcome(Err("other".into())),
         Err("unexpected refusal \"other\"".into())
     );
     assert!(
-        check_outcome(Ok("<feed".into()))
+        feed::check_outcome(Ok("<feed".into()))
             .unwrap_err()
             .starts_with("built a malformed feed")
     );

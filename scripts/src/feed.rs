@@ -235,3 +235,19 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     crate::print_text(&message, false).map_err(|e| e.to_string())?;
     Ok(code)
 }
+
+/// fuzz_feed.test_one_input, shared by the cargo-fuzz target and the corpus replay:
+/// refusals name the changelog and built feeds are well-formed XML.
+pub fn fuzz_check(data: &[u8]) -> Result<(), String> {
+    check_outcome(build(&String::from_utf8_lossy(data)))
+}
+
+pub fn check_outcome(outcome: Result<String, String>) -> Result<(), String> {
+    match outcome {
+        Err(refusal) if refusal.starts_with("changelog: ") => Ok(()),
+        Err(refusal) => Err(format!("unexpected refusal {refusal:?}")),
+        Ok(built) => roxmltree::Document::parse(&built)
+            .map(drop)
+            .map_err(|e| format!("built a malformed feed: {e}")),
+    }
+}
