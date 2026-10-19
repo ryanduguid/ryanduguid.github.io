@@ -59,6 +59,9 @@ commands.
   Python scripts, so its `running ...` lines differ. Its Python and Node checks
   are unchanged; `python` means `python3` off Windows. The checked tree leaves
   out `scripts/target`.
+- `release_record --verify-live` exits 1 when a source has drifted, is absent
+  or has changed, and 2 when no source could be read; Python always exited 0.
+  It sends `GH_TOKEN`, when set, to the GitHub API only.
 - Findings Python reported in hash-randomised set order (robots.txt groups,
   the metadata path check) come in a fixed order.
 - XML parse errors use roxmltree's wording, not expat's.
