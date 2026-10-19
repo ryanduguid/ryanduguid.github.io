@@ -86,7 +86,7 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
