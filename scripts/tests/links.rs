@@ -5,7 +5,7 @@ use site_tools::check_links::{
 };
 use std::cell::RefCell;
 use std::collections::VecDeque;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::rc::Rc;
 
 /// Answers in order (the last repeating), recording each requested URL and its headers.
@@ -780,4 +780,58 @@ fn the_api_token_is_sent_only_when_present() {
     assert!(
         github_blob_raw_url("https://github.com/ryanduguid/Ozzit/blob/main/README.md").is_some()
     );
+}
+
+/// check_site with every command recorded and none run.
+struct Recorder {
+    commands: Vec<Vec<String>>,
+}
+
+impl site_tools::check_site::Host for Recorder {
+    fn event(&self) -> Option<String> {
+        None
+    }
+    fn git(&mut self) -> &mut dyn site_tools::check_site::Git {
+        panic!("read git")
+    }
+    fn exe(&self) -> String {
+        "site-tools".into()
+    }
+    fn build(&mut self) -> Result<PathBuf, String> {
+        Ok("unused".into())
+    }
+    fn checked(&mut self, _: &Path) -> Result<PathBuf, String> {
+        Ok("unused-checked".into())
+    }
+    fn run(&mut self, argv: &[String], _: &Path, _: Option<&Path>) -> Result<i32, String> {
+        self.commands.push(argv.to_vec());
+        Ok(0)
+    }
+    fn say(&mut self, _: &str) {}
+}
+
+#[test]
+fn site_runner_passes_offline_only_to_the_link_checker() {
+    use site_tools::check_site::{CHECKS, Check, main_with};
+    for arguments in [vec![], vec!["--offline".to_owned()]] {
+        let mut host = Recorder {
+            commands: Vec::new(),
+        };
+        assert_eq!(main_with(Path::new("."), &arguments, &mut host), Ok(0));
+        let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
+        let mut expected = vec![
+            words(&["site-tools", "build_ozzit_reference", "--check"]),
+            words(&["cargo", "test", "--locked", "--test", "build_site"]),
+            words(&["cargo", "test", "--locked", "--test", "ci_link_selection"]),
+            words(&["cargo", "test", "--locked", "--test", "publication"]),
+        ];
+        for check in CHECKS {
+            let mut argv = check.argv("site-tools");
+            if *check == Check::Tool(&["check_links"]) {
+                argv.extend(arguments.iter().cloned());
+            }
+            expected.push(argv);
+        }
+        assert_eq!(host.commands, expected, "{arguments:?}");
+    }
 }

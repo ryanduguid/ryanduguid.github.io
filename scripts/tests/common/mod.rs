@@ -1,7 +1,8 @@
 //! The checked tree the site's Python tests run in, and their mutation helpers.
 #![allow(dead_code)]
 pub mod http;
-use std::path::Path;
+use std::collections::HashSet;
+use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
 /// The checked tree scripts/check_site.py runs these tests in: the Jekyll-rendered site
@@ -131,4 +132,126 @@ pub fn append_file(root: &Path, rel: &str, addition: &str) {
     let path = root.join(rel);
     let text = read_text(root, rel) + addition;
     std::fs::write(path, text).unwrap();
+}
+
+pub const CONFIG: &str = "_config.yml";
+// Jekyll always excludes its own destination, so `_config.yml` does not name it.
+pub const DESTINATION: &str = "_site";
+
+pub fn repository() -> PathBuf {
+    site_tools::py::resolve(&Path::new(env!("CARGO_MANIFEST_DIR")).join(".."))
+}
+
+/// The include and exclude lists `_config.yml` hands Jekyll, read from the same file the
+/// build uses. Anything but two flat `- value` blocks fails rather than selecting nothing.
+pub fn site_selection(root: &Path) -> (HashSet<String>, HashSet<String>) {
+    let mut include = HashSet::new();
+    let mut exclude = HashSet::new();
+    let mut current: Option<&mut HashSet<String>> = None;
+    let text = std::fs::read_to_string(root.join(CONFIG)).unwrap();
+    for line in text.lines() {
+        if line.starts_with("include:") {
+            current = Some(&mut include);
+        } else if line.starts_with("exclude:") {
+            current = Some(&mut exclude);
+        } else if let Some(value) = line.strip_prefix("  - ")
+            && let Some(set) = current.as_deref_mut()
+        {
+            set.insert(value.trim().trim_matches('/').to_owned());
+        } else if !line.is_empty() && !line.starts_with([' ', '#']) {
+            current = None;
+        }
+    }
+    assert!(
+        !include.is_empty() && !exclude.is_empty(),
+        "{CONFIG} no longer lists include and exclude as flat blocks"
+    );
+    (include, exclude)
+}
+
+/// Whether Jekyll would read this source-relative path by its include and exclude rules.
+pub fn is_site_source(
+    relative: &str,
+    include: &HashSet<String>,
+    exclude: &HashSet<String>,
+) -> bool {
+    if relative == DESTINATION || relative.starts_with(&format!("{DESTINATION}/")) {
+        return false;
+    }
+    if exclude
+        .iter()
+        .any(|name| relative == name || relative.starts_with(&format!("{name}/")))
+    {
+        return false;
+    }
+    let parts: Vec<&str> = relative.split('/').collect();
+    for depth in 1..=parts.len() {
+        if parts[depth - 1].starts_with('.') && !include.contains(&parts[..depth].join("/")) {
+            return false;
+        }
+    }
+    true
+}
+
+/// `Path.write_text(text, encoding="utf-8")`: newlines become the platform's.
+pub fn write_text(path: &Path, text: &str) {
+    let text = if cfg!(windows) {
+        text.replace('\n', "\r\n")
+    } else {
+        text.to_owned()
+    };
+    std::fs::write(path, text).unwrap();
+}
+
+/// Run Git in a fixture repository with a fixed identity and no hooks; its trimmed output.
+pub fn git(root: &Path, args: &[&str]) -> String {
+    let hooks = format!("core.hooksPath={}", root.join("unused-hooks").display());
+    let output = std::process::Command::new("git")
+        .args([
+            "-c",
+            "user.name=Fixture",
+            "-c",
+            "user.email=fixture@example.invalid",
+            "-c",
+            "commit.gpgSign=false",
+            "-c",
+            "core.autocrlf=false",
+            "-c",
+            &hooks,
+        ])
+        .args(args)
+        .current_dir(root)
+        .output()
+        .unwrap();
+    assert!(
+        output.status.success(),
+        "git {args:?}: {}",
+        String::from_utf8_lossy(&output.stderr)
+    );
+    String::from_utf8(output.stdout).unwrap().trim().to_owned()
+}
+
+/// A Git stand-in serving scripted results in order; it fails the test when called
+/// beyond them.
+pub struct ScriptedGit {
+    pub results: std::collections::VecDeque<Result<String, site_tools::check_site::GitError>>,
+    pub calls: usize,
+}
+
+impl ScriptedGit {
+    pub fn new(results: Vec<Result<String, site_tools::check_site::GitError>>) -> Self {
+        ScriptedGit {
+            results: results.into(),
+            calls: 0,
+        }
+    }
+}
+
+impl site_tools::check_site::Git for ScriptedGit {
+    fn run(&mut self, args: &[&str], _: bool) -> Result<String, site_tools::check_site::GitError> {
+        self.calls += 1;
+        self.results
+            .pop_front()
+            .unwrap_or_else(|| panic!("unexpected git {args:?}"))
+    }
 }

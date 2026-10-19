@@ -6,6 +6,7 @@ pub mod check_links;
 mod check_links_data;
 pub mod check_publication;
 pub mod check_seo;
+pub mod check_site;
 pub mod extract_xero_badge;
 pub mod favicon_render;
 pub mod feed;

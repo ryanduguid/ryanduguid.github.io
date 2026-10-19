@@ -1,63 +1,9 @@
 //! scripts/test_build_site.py: the rendered site and preview against a small Jekyll fixture.
 mod common;
 
-use std::collections::HashSet;
+use common::{CONFIG, is_site_source, repository, site_selection};
+
 use std::path::{Component, Path, PathBuf};
-
-const CONFIG: &str = "_config.yml";
-// Jekyll always excludes its own destination, so `_config.yml` does not name it.
-const DESTINATION: &str = "_site";
-
-fn repository() -> PathBuf {
-    site_tools::py::resolve(&Path::new(env!("CARGO_MANIFEST_DIR")).join(".."))
-}
-
-/// The include and exclude lists `_config.yml` hands Jekyll, read from the same file the
-/// build uses. Anything but two flat `- value` blocks fails rather than selecting nothing.
-fn site_selection(root: &Path) -> (HashSet<String>, HashSet<String>) {
-    let mut include = HashSet::new();
-    let mut exclude = HashSet::new();
-    let mut current: Option<&mut HashSet<String>> = None;
-    let text = std::fs::read_to_string(root.join(CONFIG)).unwrap();
-    for line in text.lines() {
-        if line.starts_with("include:") {
-            current = Some(&mut include);
-        } else if line.starts_with("exclude:") {
-            current = Some(&mut exclude);
-        } else if let Some(value) = line.strip_prefix("  - ")
-            && let Some(set) = current.as_deref_mut()
-        {
-            set.insert(value.trim().trim_matches('/').to_owned());
-        } else if !line.is_empty() && !line.starts_with([' ', '#']) {
-            current = None;
-        }
-    }
-    assert!(
-        !include.is_empty() && !exclude.is_empty(),
-        "{CONFIG} no longer lists include and exclude as flat blocks"
-    );
-    (include, exclude)
-}
-
-/// Whether Jekyll would read this source-relative path by its include and exclude rules.
-fn is_site_source(relative: &str, include: &HashSet<String>, exclude: &HashSet<String>) -> bool {
-    if relative == DESTINATION || relative.starts_with(&format!("{DESTINATION}/")) {
-        return false;
-    }
-    if exclude
-        .iter()
-        .any(|name| relative == name || relative.starts_with(&format!("{name}/")))
-    {
-        return false;
-    }
-    let parts: Vec<&str> = relative.split('/').collect();
-    for depth in 1..=parts.len() {
-        if parts[depth - 1].starts_with('.') && !include.contains(&parts[..depth].join("/")) {
-            return false;
-        }
-    }
-    true
-}
 
 #[test]
 fn site_selection_rules() {

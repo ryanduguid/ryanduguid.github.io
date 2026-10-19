@@ -24,7 +24,7 @@ pub enum Parsed {
 }
 
 impl Parser {
-    fn error(&self, message: &str) -> Parsed {
+    pub fn error(&self, message: &str) -> Parsed {
         let _ = crate::print_text(
             &format!("{}{}: error: {message}\n", self.usage, self.prog),
             true,
