@@ -16,6 +16,9 @@ name: source-freshness
 on:
   schedule:
     - cron: "0 6 * * 1"
+    # The other six days run the release check alone, so a new release is
+    # flagged within a day. The production and stamp jobs skip this schedule.
+    - cron: "0 6 * * 0,2-6"
   workflow_dispatch:
     inputs:
       releases_only:
@@ -82,7 +85,7 @@ jobs:
             exit 0
           fi
           {
-            echo "The weekly release check found pages naming an older release than the current one."
+            echo "The daily release check found pages naming an older release than the current one."
             echo "Review each page and its capability descriptions; the check rewrites nothing."
             echo "Dispatch source-freshness.yml with releases_only=true after a fix; a clean run closes this issue."
             echo
@@ -106,7 +109,7 @@ jobs:
   # HTML and add headers the repository never sees. This job fetches the live
   # pages and holds them to the delivery promises README.md records.
   production:
-    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
+    if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
     timeout-minutes: 10
     runs-on: ubuntu-24.04
     permissions:
@@ -122,7 +125,7 @@ jobs:
         run: node scripts/check_production.mjs
 
   stamp:
-    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
+    if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     # The only job that writes: it pushes the stamp branch and opens the pull request.
