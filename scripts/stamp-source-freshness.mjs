@@ -171,6 +171,9 @@ export async function checkReleases(html, lookup = fetchReleases) {
   const recorded = new Set(links.map(([, repository, tag]) => `${repository}/${tag}`));
   const failures = [];
   const repositories = new Map();
+  // One line per package, naming its newest recorded tag: the table keeps every
+  // past release, so a line per row would repeat the same drift many times.
+  const behind = new Map();
   for (const [, repository, tag] of links) {
     if (!repositories.has(repository)) repositories.set(repository, await lookup(repository));
     const published = repositories.get(repository).filter((release) =>
@@ -184,9 +187,14 @@ export async function checkReleases(html, lookup = fetchReleases) {
     const tags = published.map((release) => release.tag_name).filter((name) =>
       name.startsWith(prefix) && /^\d+\.\d+\.\d+$/.test(name.slice(prefix.length)));
     const latest = tags.sort((a, b) => a.localeCompare(b, 'en', { numeric: true })).at(-1);
-    if (!recorded.has(`${repository}/${latest}`)) {
-      failures.push(`${repository}: ${tag} is behind ${latest}; review changelog/index.html and capability descriptions`);
+    const key = `${repository}/${latest}`;
+    if (!recorded.has(key) &&
+        (!behind.has(key) || behind.get(key).tag.localeCompare(tag, 'en', { numeric: true }) < 0)) {
+      behind.set(key, { repository, tag, latest });
     }
+  }
+  for (const { repository, tag, latest } of behind.values()) {
+    failures.push(`${repository}: ${tag} is behind ${latest}; review changelog/index.html and capability descriptions`);
   }
   return failures;
 }

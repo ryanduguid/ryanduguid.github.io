@@ -203,6 +203,20 @@ test('release history cannot hide a missing stable tag or another package drifti
   ]);
 });
 
+test('release history behind the latest tag is reported once, from its newest row', async () => {
+  const lookup = async () => [
+    release('tool/v0.1.8'), release('tool/v0.1.9'), release('tool/v0.1.10'), release('tool/v0.2.0'),
+  ];
+  for (const tags of [
+    ['tool/v0.1.10', 'tool/v0.1.9', 'tool/v0.1.8'],
+    ['tool/v0.1.8', 'tool/v0.1.10', 'tool/v0.1.9'],
+  ]) {
+    assert.deepEqual(await freshness.checkReleases(releaseTable(...tags), lookup), [
+      'ryanduguid/example: tool/v0.1.10 is behind tool/v0.2.0; review changelog/index.html and capability descriptions',
+    ]);
+  }
+});
+
 test('a current tag in another repository cannot satisfy release freshness', async () => {
   const html = releaseTable('tool/v1.0.0').replace('</section>',
     '<a href="https://github.com/ryanduguid/another/releases/tag/tool/v1.1.0">tool/v1.1.0</a></section>');

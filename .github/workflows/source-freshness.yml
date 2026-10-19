@@ -91,7 +91,13 @@ jobs:
             echo "Last checked: $RUN_URL"
           } > "$RUNNER_TEMP/body.md"
           if [ -n "$number" ]; then
+            # A body edit notifies nobody, so a changed drift list also gets a comment.
+            old=$(gh issue view "$number" --json body --jq .body | tr -d '\r' | grep -v '^Last checked: ')
+            new=$(grep -v '^Last checked: ' "$RUNNER_TEMP/body.md")
             gh issue edit "$number" --body-file "$RUNNER_TEMP/body.md"
+            if [ "$old" != "$new" ]; then
+              gh issue comment "$number" --body "The drift list changed in $RUN_URL."
+            fi
           else
             gh issue create --title "$TITLE" --body-file "$RUNNER_TEMP/body.md"
           fi
