@@ -101,13 +101,20 @@ fn relative_to_cwd(path: &Path) -> PathBuf {
     relative
 }
 
-fn bundler() -> bool {
+/// Whether the repository's locked Jekyll runs. Bundler alone is not enough: CI's
+/// Windows image ships Ruby and Bundler without the site's gems.
+fn locked_jekyll() -> bool {
     std::process::Command::new(if cfg!(windows) {
         "bundle.bat"
     } else {
         "bundle"
     })
-    .arg("--version")
+    .arg("exec")
+    .arg(format!(
+        "--gemfile={}",
+        repository().join("Gemfile").display()
+    ))
+    .args(["jekyll", "--version"])
     .output()
     .is_ok_and(|o| o.status.success())
 }
@@ -116,8 +123,8 @@ fn bundler() -> bool {
 /// relative source, and the preview serves the rendered page.
 #[test]
 fn jekyll_fixture_build_and_preview() {
-    if !bundler() {
-        eprintln!("skipped: Bundler is not installed (the Linux qualification runs this)");
+    if !locked_jekyll() {
+        eprintln!("skipped: the locked Jekyll is not installed (the Linux site checks run this)");
         return;
     }
     let repository = repository();

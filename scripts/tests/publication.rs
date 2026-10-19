@@ -453,8 +453,21 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
     let path = workflows.join("checks.yml");
     std::fs::write(&path, &workflow).unwrap();
     let results = r#"{"lint": {"result": "success"}, "tools": {"result": "success"}, "rust-windows": {"result": "success"}, "checks": {"result": "success"}, "browser": {"result": "success"}, "lighthouse": {"result": "success"}}"#;
+    // As the Python test did, only these variables pass through: in a pull request's
+    // CI, GITHUB_EVENT_NAME would make the gate compare against Git history that this
+    // temporary folder does not have.
+    let kept: Vec<(String, String)> = ["PATH", "SYSTEMROOT", "TEMP", "TMP"]
+        .iter()
+        .filter_map(|key| {
+            std::env::var(key)
+                .ok()
+                .map(|value| ((*key).to_owned(), value))
+        })
+        .collect();
     let gate = || {
         std::process::Command::new(python)
+            .env_clear()
+            .envs(kept.iter().cloned())
             .arg(repository.join(".github/ci/check_gates.py"))
             .args([
                 ".github/workflows/checks.yml",
