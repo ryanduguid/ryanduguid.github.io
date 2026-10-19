@@ -106,7 +106,7 @@ The evidence register links each claim to identity records, releases, primary so
 
 Open the evidence register Maintained rates
 
-The evidence supports limited claims about the software, not endorsements or client outcomes.
+Explore the recorded software checks and contributions.
 
 ## Links
 

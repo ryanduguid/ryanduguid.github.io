@@ -170,7 +170,7 @@ No. Lumbridge Services, its customers, invoices and balances are fictional. No c
 - Reproducible accounting tool evaluations
 - Evidence and Assurance
 
-Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fictional and no client outcome is claimed.
 

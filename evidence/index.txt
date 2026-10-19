@@ -54,7 +54,7 @@ This is a local software case. It is not tax, legal or financial advice, account
 
 ## Accepted upstream work
 
-Maintainers of the projects below merged these specific changes. The merges do not establish adoption or endorsement of this portfolio, or validate its accounting calculations.
+Maintainers of the projects below merged these specific changes. The merges do not establish adoption or validate the accounting calculations.
 
 OpenAccountants, tax guides for coding agents. Pull request 85 restored the Australian BAS guide and added stale-sync integrity checks, including detection after a write. It merged on 11 August 2026 and changed 10 files. Stopping stale sync runs from overwriting guides also needs the exporter to call those checks and the repository to enforce them. The pull request did not deploy either.
 
@@ -100,7 +100,7 @@ Valid until
 
 View certificate (PDF) Xero trial balance export and review workflow
 
-The certificate records my own product knowledge for the period shown. It is not a Xero endorsement, certification or review of this site or any tool listed here, and it is not a Xero partner status. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
+The certificate records my own product knowledge for the period shown. The badge is Xero’s artwork, taken from the certificate itself. Both files carry their own source and usage record, not this repository’s software licence.
 
 ## Packages, releases and repositories
 
