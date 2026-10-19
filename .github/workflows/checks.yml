@@ -82,7 +82,7 @@ jobs:
           tar --dereference --hard-dereference --directory _site -cf "$RUNNER_TEMP/artifact.tar" .
       - name: Upload this run's validated Pages artifact
         if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.PAGES_VALIDATED_DEPLOYMENT == 'true' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: github-pages-${{ github.sha }}-${{ github.run_attempt }}
           path: ${{ runner.temp }}/artifact.tar
@@ -144,7 +144,7 @@ jobs:
         run: npm run test:browser -- --shard=${{ matrix.shard }}/${{ strategy.job-total }}
       - name: Upload browser evidence
         if: ${{ !cancelled() && steps.metadata.outputs.metadata_only == 'false' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: browser-evidence-${{ matrix.shard }}
           path: |
@@ -213,7 +213,7 @@ jobs:
         # Evidence is for diagnosing a failed assertion; a passing run's
         # reports are about 20 MB each and nothing reads them.
         if: ${{ failure() && steps.metadata.outputs.metadata_only == 'false' }}
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: lighthouse-evidence-${{ matrix.shard }}
           path: |
