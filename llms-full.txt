@@ -157,7 +157,7 @@ Name | Ryan Duguid
 Based in | Newcastle, NSW, Australia
 Not to be confused with | The US software product executive of the same name
 Field | Accounting, Australian taxation, payroll and statutory compliance
-Professional body | I am a Provisional CA ANZ Member.
+Professional body | I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 Certifications |
 
@@ -227,7 +227,7 @@ This site does not offer tax or BAS agent services or take requests for tax advi
 
 Duguid, R. (2026). Australian computational accounting tools. https://duguid.com.au/. Each tool page names the source it is grounded in, and each linked repository carries its own licence and disclaimer.
 
-I write and maintain this site.
+I write and maintain this site in my own time and on my own equipment.
 
 ## Links
 
@@ -343,7 +343,7 @@ Merge dates are in Australian Eastern time. Merge status and file counts were re
 
 ## Identity and credentials
 
-I am a Provisional CA ANZ Member. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
+I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
 
 ### Xero Certified Specialist, Level 3
 
@@ -450,7 +450,7 @@ Human review remains mandatory before posting, payment, lodgement, approval or p
 
 I publish evaluations of fixed releases on the Evaluations page. I use feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
@@ -820,7 +820,7 @@ This evaluates configured gates against fictional inputs. It does not establish 
 - Workpaper Review Gate
 - All evaluations
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
@@ -941,7 +941,7 @@ This control does not prove completeness, classification, accounting treatment o
 - Xero trial balance CSV export
 - All evaluations
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
@@ -1058,7 +1058,7 @@ Experimental review aid. Not a compliance determination. This evaluation does no
 - Super guarantee rate history
 - All evaluations
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
@@ -1557,7 +1557,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 
 Published 24 August 2026. Last reviewed 22 September 2026.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -1650,7 +1650,7 @@ General reference only, not tax, legal or financial advice, and using it creates
 
 Published 24 August 2026. Last reviewed 24 September 2026.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -2411,7 +2411,7 @@ A refusal shows that a configured gate tripped on the supplied input. It does no
 - Evaluations
 - Human accountability and refusals
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
@@ -2680,7 +2680,7 @@ Software issue using fictional data? Open an issue or email with the tool named 
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -2799,7 +2799,7 @@ Wheel SHA-256: 0228da4c60681396ab38d10857d7e23dd978585588e8071ce85892f7fba11e78
 
 Reproduction record
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -2925,7 +2925,7 @@ Because no account name on its own tells you whether wages went to an associated
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3045,7 +3045,7 @@ Anything it does not implement, including trust capital gains and franked divide
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3157,7 +3157,7 @@ Under Division 203, a company must frank all distributions in a franking period 
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3247,7 +3247,7 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3367,7 +3367,7 @@ No. It is a review aid. Recognition over time versus at a point in time, whether
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3478,7 +3478,7 @@ No file is written. The balance check runs before anything reaches disk, and bot
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3694,7 +3694,7 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -3824,7 +3824,7 @@ No. It reads local files and writes a readiness pack. It cannot post, pay, lodge
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -4189,7 +4189,7 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 - Reproducible examples and evaluations
 - Evidence and Assurance
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -4378,7 +4378,7 @@ Reviewed 11 September 2026. Use the relevant disposal, income or NSW assessment 
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -4523,7 +4523,7 @@ Published 11 September 2026. Last reviewed 27 September 2026.
 - Staff cost calculator Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - 13-week cash forecast Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -4752,7 +4752,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -5016,7 +5016,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -5270,7 +5270,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -5527,7 +5527,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -5783,7 +5783,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -6027,7 +6027,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -6258,7 +6258,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -6483,7 +6483,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -6733,7 +6733,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -6997,7 +6997,7 @@ One of 10 topics in the 100 Australian accounting questions.
 
 The linked repositories have different scopes and supported periods. A preparation checklist or an unevaluated agent workflow does not establish a tax conclusion. I do not take on professional engagements through this site.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7074,7 +7074,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7115,7 +7115,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7155,7 +7155,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7194,7 +7194,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7233,7 +7233,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; the required hourly rate rounds up to the next cent.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7276,7 +7276,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7316,7 +7316,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7355,7 +7355,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7425,7 +7425,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
@@ -7685,7 +7685,7 @@ No. Lumbridge Services, its customers, invoices and balances are fictional. No c
 - Reproducible accounting tool evaluations
 - Evidence and Assurance
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set]. https://duguid.com.au/examples/profit-vs-cash-flow/. Figures are fictional and no client outcome is claimed.
 
@@ -8173,7 +8173,7 @@ Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SU
 - All tools
 - Evidence and Assurance
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 

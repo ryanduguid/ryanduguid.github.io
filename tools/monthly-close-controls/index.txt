@@ -121,7 +121,7 @@ No. PASS means the configured checks passed on the supplied inputs. A human stil
 - Reproducible examples and evaluations
 - Evidence and Assurance
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 
