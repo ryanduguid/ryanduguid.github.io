@@ -19,9 +19,12 @@ pub const M: u8 = 4;
 ///
 /// A pattern using `\b` or `\B` also gets a copy with the regex crate's own boundary,
 /// which lets the fast engine run. Its word characters differ from Python's only on
-/// the WORD_DIFF code points, so it gives the same matches on text without them.
+/// the WORD_DIFF code points, so it gives the same matches on text without them. The
+/// exact pattern is compiled on first use, since most texts never need it.
 pub struct Re {
-    exact: Regex,
+    pattern: String,
+    translated: String,
+    exact: std::sync::OnceLock<Regex>,
     native: Option<Regex>,
 }
 
@@ -32,23 +35,31 @@ fn build(pattern: &str, translated: &str) -> Regex {
         .unwrap_or_else(|e| panic!("pattern {pattern:?} as {translated:?}: {e}"))
 }
 
-type Cache = Mutex<HashMap<(String, u8), Arc<Re>>>;
+/// Compiled patterns by pattern text, then by flags (I | S | M, so 0 to 7). Keyed by
+/// the text alone, a hit is found by borrowing the caller's `&str`, with no allocation.
+type Cache = Mutex<HashMap<String, [Option<Arc<Re>>; 8]>>;
 
 /// `re.compile(pattern, flags)`, cached.
 pub fn re(pattern: &str, flags: u8) -> Arc<Re> {
     static CACHE: LazyLock<Cache> = LazyLock::new(Default::default);
     let mut cache = CACHE.lock().unwrap_or_else(|e| e.into_inner());
-    cache
-        .entry((pattern.to_owned(), flags))
-        .or_insert_with(|| {
-            let translated = translate(pattern, flags);
-            let native = translate_with(pattern, flags, true);
-            Arc::new(Re {
-                native: (native != translated).then(|| build(pattern, &native)),
-                exact: build(pattern, &translated),
-            })
-        })
-        .clone()
+    let slot = usize::from(flags & (I | S | M));
+    if let Some(found) = cache
+        .get(pattern)
+        .and_then(|by_flags| by_flags[slot].clone())
+    {
+        return found;
+    }
+    let translated = translate(pattern, flags);
+    let native = translate_with(pattern, flags, true);
+    let compiled = Arc::new(Re {
+        native: (native != translated).then(|| build(pattern, &native)),
+        pattern: pattern.to_owned(),
+        translated,
+        exact: std::sync::OnceLock::new(),
+    });
+    cache.entry(pattern.to_owned()).or_default()[slot] = Some(compiled.clone());
+    compiled
 }
 
 /// `re.fullmatch(pattern, text, flags)`: the pattern anchored at both ends, so alternatives
@@ -73,7 +84,9 @@ impl Re {
     fn engine(&self, text: &str) -> &Regex {
         match &self.native {
             Some(native) if text.is_ascii() || !text.chars().any(py::word_diff) => native,
-            _ => &self.exact,
+            _ => self
+                .exact
+                .get_or_init(|| build(&self.pattern, &self.translated)),
         }
     }
 
