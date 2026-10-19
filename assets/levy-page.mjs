@@ -245,6 +245,21 @@ document.getElementById('print-working').addEventListener('click', () => {
 let employees = [];
 const tableStatus = document.getElementById('table-status');
 
+// The table is never stored, so the page asks before unloading while it holds
+// changes not yet downloaded. The listener is attached only while needed,
+// because a beforeunload listener can keep the page out of the back/forward cache.
+let undownloaded = false;
+function warnBeforeLeaving(event) {
+  event.preventDefault();
+  event.returnValue = '';
+}
+function setUndownloaded(value) {
+  if (value === undownloaded) return;
+  undownloaded = value;
+  if (value) window.addEventListener('beforeunload', warnBeforeLeaving);
+  else window.removeEventListener('beforeunload', warnBeforeLeaving);
+}
+
 function rowCount() {
   return `${employees.length} ${employees.length === 1 ? 'row' : 'rows'}`;
 }
@@ -271,6 +286,7 @@ function renderEmployees() {
   // aggregate, and rounding happens once, at the final step only).
   document.getElementById('employee-total-levy').textContent = money(levyCents(totalWages));
   employeeTableWrap.hidden = employees.length === 0;
+  setUndownloaded(employees.length > 0);
 }
 
 document.getElementById('add-employee').addEventListener('click', () => {
@@ -375,4 +391,5 @@ document.getElementById('export-csv').addEventListener('click', () => {
   a.click();
   a.remove();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
+  setUndownloaded(false);
 });
