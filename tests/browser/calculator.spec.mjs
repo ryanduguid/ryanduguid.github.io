@@ -50,8 +50,9 @@ async function expectNativeSubmissionBlocked(page, submit) {
   page.on('request', (request) => requests.push(request.url() + (request.postData() || '')));
   const url = page.url();
   const outcome = Promise.race([
+    // Chromium quotes "form-action 'none'"; WebKit names only the form-action directive.
     page.waitForEvent('console', {
-      predicate: (message) => message.text().includes("form-action 'none'"),
+      predicate: (message) => message.text().includes('form-action'),
     }).then(() => 'blocked'),
     page.waitForEvent('request', {
       predicate: (request) => request.isNavigationRequest(),
