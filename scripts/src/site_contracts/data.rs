@@ -126,7 +126,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "aus-accounting-mcp",
         "aus-accounting-mcp",
         "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
-        "Local MCP server v0.5.0 for ATO benchmarks, Payday Super timing, limited Division 7A review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures. Not advice.",
+        "Local MCP server v0.6.0 for ATO benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, 14 bounded tax worksheets, optional local Markdown search and synthetic SBR fixtures. Not advice.",
     ),
     (
         "australian-accounting-skills",
