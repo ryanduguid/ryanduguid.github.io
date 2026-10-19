@@ -114,6 +114,6 @@ fn pin_needs_exactly_one_checkout() {
     assert_eq!((code, stdout.as_str()), (Some(2), ""));
     assert_eq!(
         stderr,
-        "Usage: python scripts/pin_rates_dataset.py <path to an australian-accounting checkout>\n"
+        "Usage: site-tools pin_rates_dataset <path to an australian-accounting checkout>\n"
     );
 }

@@ -223,7 +223,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     } else if args.iter().any(|a| a == "--check") {
         if !output.is_file() || crate::read(&output)? != feed {
             (
-                "feed.xml is stale: run python scripts/build_feed.py --write\n".into(),
+                "feed.xml is stale: run site-tools build_feed --write\n".into(),
                 1,
             )
         } else {

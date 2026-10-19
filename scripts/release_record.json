@@ -3,7 +3,7 @@
   "reviewed": "2026-10-17",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
-    "Refresh with: python scripts/release_record.py --verify-live",
+    "Refresh with: site-tools release_record --verify-live",
     "published: the release a reader can download today, verified on the date shown.",
     "documented: the release each page's prose, links and structured data describe.",
     "Release instants are UTC. 'reviewed' and 'verified' are Australia/Melbourne dates.",

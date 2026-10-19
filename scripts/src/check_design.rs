@@ -369,7 +369,7 @@ pub fn check_favicon_assets(root: &Path) -> Result<Vec<String>, String> {
         };
         if !matches {
             failures.push(format!(
-                "favicon raster out of date: {rel} (run python scripts/favicon_render.py)"
+                "favicon raster out of date: {rel} (run site-tools favicon_render)"
             ));
         }
     }

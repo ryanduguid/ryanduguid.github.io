@@ -240,7 +240,7 @@ fn command_writes_checks_and_explains_like_the_script() {
         run(root.path(), &["--check"]),
         (
             Some(1),
-            eol("feed.xml is stale: run python scripts/build_feed.py --write\n"),
+            eol("feed.xml is stale: run site-tools build_feed --write\n"),
             String::new()
         )
     );

@@ -24,7 +24,7 @@ const RECORDS: [&str; 9] = [
     "super-guarantee-rate-2026-27",
 ];
 const USAGE: &str =
-    "Usage: python scripts/pin_rates_dataset.py <path to an australian-accounting checkout>\n";
+    "Usage: site-tools pin_rates_dataset <path to an australian-accounting checkout>\n";
 
 enum Git {
     Output(Vec<u8>),

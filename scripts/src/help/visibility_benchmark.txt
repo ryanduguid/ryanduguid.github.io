@@ -10,14 +10,13 @@ observations are excluded from every denominator rather than counted as a
 failure, fixtures are excluded from real summaries, and branded prompts are
 summarised apart from non-branded ones. Every mode validates the exact files
 it was given, so a summary never reports metrics from a capture that failed
-validation: python scripts/visibility_benchmark.py --template >
-docs/visibility-benchmark/captures/round-example.json python
-scripts/visibility_benchmark.py --check docs/visibility-
-benchmark/captures/round-example.json python scripts/visibility_benchmark.py
---summary docs/visibility-benchmark/captures/round-example.json `--check` and
-`--summary` with no paths read every capture in `docs/visibility-
-benchmark/captures/`. A named file that does not exist is a failure, never a
-silent omission.
+validation: site-tools visibility_benchmark --template > docs/visibility-
+benchmark/captures/round-example.json site-tools visibility_benchmark --check
+docs/visibility-benchmark/captures/round-example.json site-tools
+visibility_benchmark --summary docs/visibility-benchmark/captures/round-
+example.json `--check` and `--summary` with no paths read every capture in
+`docs/visibility-benchmark/captures/`. A named file that does not exist is a
+failure, never a silent omission.
 
 options:
   -h, --help            show this help message and exit
