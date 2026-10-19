@@ -26,6 +26,7 @@ mod pyunicode;
 pub mod pyurl;
 pub mod pyval;
 pub mod rates_register;
+pub mod release_record;
 pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;

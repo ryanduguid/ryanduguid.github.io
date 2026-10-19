@@ -1,6 +1,6 @@
 use std::process::ExitCode;
 
-const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_publication, check_rates_register, check_seo, extract_xero_badge, favicon_render, pin_rates_dataset, serve_site\n";
+const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_publication, check_rates_register, check_seo, extract_xero_badge, favicon_render, pin_rates_dataset, release_record, serve_site\n";
 
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -25,6 +25,7 @@ fn main() -> ExitCode {
             "check_design" => site_tools::check_design::run(&root, rest),
             "favicon_render" => site_tools::favicon_render::run(&root),
             "pin_rates_dataset" => site_tools::pin_rates::run(&root, rest),
+            "release_record" => site_tools::release_record::run(&root, rest),
             "serve_site" => site_tools::serve_site::run(&root),
             "extract_xero_badge" => site_tools::extract_xero_badge::run(&root, rest),
             _ => Err(format!("site-tools: unknown command {command:?}\n{USAGE}")),
