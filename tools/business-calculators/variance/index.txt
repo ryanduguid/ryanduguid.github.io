@@ -32,7 +32,7 @@ One of the nine business calculators. Calculations run in this browser. The calc
 
 Planning estimates in AUD. Confirm tax treatment, liability amounts and dates separately. Amounts round to the nearest cent, with exact half cents rounded up; percentages round to two decimal places, with exact halves rounded away from zero.
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 

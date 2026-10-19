@@ -191,7 +191,7 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 - Evidence and Assurance
 - About Ryan Duguid
 
-Written by Ryan Duguid. He is a Provisional CA ANZ Member.
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
 
 ## Links
 

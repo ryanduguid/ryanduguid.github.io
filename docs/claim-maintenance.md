@@ -100,4 +100,4 @@ Review current release rows and capability descriptions after a release alert. A
 
 Read the relevant primary source before changing a rate or its verification date. Keep editorial review dates separate from source checks, and state the scope of a partial check. Regenerate the machine views after changing visible page text.
 
-Review credential wording against the issuer's record or the owner's supplied evidence when status changes. Preserve provisional membership wording.
+Review credential wording against the issuer's record or the owner's supplied evidence when status changes. Preserve provisional membership wording and the non-endorsement boundary.

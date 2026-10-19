@@ -78,7 +78,7 @@ Merge dates are in Australian Eastern time. Merge status and file counts were re
 
 ## Identity and credentials
 
-I am a Provisional CA ANZ Member. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
+I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Two of my credentials can be verified with their issuer: the SAP S/4HANA Financial Accounting Credly badge and the SAP S/4HANA Management Accounting Credly badge. Xero has no public verification page for its certification, so I publish the certificate Xero issued here in full. These credentials do not establish regulatory approval, authorisation to provide a regulated service or a client outcome.
 
 ### Xero Certified Specialist, Level 3
 
@@ -185,7 +185,7 @@ Human review remains mandatory before posting, payment, lodgement, approval or p
 
 I publish evaluations of fixed releases on the Evaluations page. I use feedback only with recorded permission. Each evaluation states its scope and method. It is not regulatory approval or evidence beyond that evaluation.
 
-Written by Ryan Duguid.
+Written by Ryan Duguid in his own time and on his own equipment.
 
 ## Links
 
