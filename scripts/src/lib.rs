@@ -1,3 +1,4 @@
+pub mod check_seo;
 pub mod feed;
 pub mod html;
 pub mod htmlparser;
@@ -5,7 +6,10 @@ pub mod py;
 pub mod pyjson;
 pub mod pyre;
 mod pyunicode;
+pub mod pyurl;
+pub mod pyval;
 pub mod seo_core;
+pub mod site_contracts;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};

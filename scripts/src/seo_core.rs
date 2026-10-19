@@ -1037,13 +1037,19 @@ pub fn sitemap_lastmods(url: &str, root: &Path) -> Result<Vec<String>, String> {
 
 /// Public site HTML, excluding hidden and generated directories, sorted as `sorted(paths)`.
 pub fn html_files(root: &Path) -> Vec<PathBuf> {
+    html_files_observed(root, &mut |_| {})
+}
+
+/// `html_files`, reporting each directory it lists (the tests' `os.scandir` patch).
+pub fn html_files_observed(root: &Path, listed: &mut dyn FnMut(&Path)) -> Vec<PathBuf> {
     let mut paths = Vec::new();
-    walk(root, &mut paths);
+    walk(root, &mut paths, listed);
     crate::sort_paths(&mut paths);
     paths
 }
 
-fn walk(directory: &Path, paths: &mut Vec<PathBuf>) {
+fn walk(directory: &Path, paths: &mut Vec<PathBuf>, listed: &mut dyn FnMut(&Path)) {
+    listed(directory);
     let Ok(entries) = std::fs::read_dir(directory) else {
         return;
     };
@@ -1069,6 +1075,6 @@ fn walk(directory: &Path, paths: &mut Vec<PathBuf>) {
         }
     }
     for directory in subdirectories {
-        walk(&directory, paths);
+        walk(&directory, paths, listed);
     }
 }
