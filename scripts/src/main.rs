@@ -1,6 +1,6 @@
 use std::process::ExitCode;
 
-const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_publication, check_rates_register, check_seo, extract_xero_badge, favicon_render, pin_rates_dataset, release_record, serve_site, visibility_benchmark\n";
+const USAGE: &str = "usage: site-tools <command> [arguments]\n\ncommands: build_agent_skills_manifest, build_feed, build_llms_full, build_ozzit_reference, build_site, check_agent_files, check_design, check_links, check_publication, check_rates_register, check_seo, extract_xero_badge, favicon_render, pin_rates_dataset, release_record, serve_site, visibility_benchmark\n";
 
 fn main() -> ExitCode {
     let args: Vec<String> = std::env::args().skip(1).collect();
@@ -20,6 +20,7 @@ fn main() -> ExitCode {
             "build_ozzit_reference" => site_tools::ozzit_reference::run(&root, rest),
             "build_site" => site_tools::build_site::run(&root),
             "check_agent_files" => site_tools::agent_files::run(&root, rest),
+            "check_links" => site_tools::check_links::run(&root, rest),
             "check_rates_register" => site_tools::rates_register::run(&root),
             "check_seo" => site_tools::check_seo::run(&root),
             "check_design" => site_tools::check_design::run(&root, rest),

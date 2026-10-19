@@ -2,6 +2,8 @@ pub mod agent_files;
 pub mod agent_skills;
 pub mod build_site;
 pub mod check_design;
+pub mod check_links;
+mod check_links_data;
 pub mod check_publication;
 pub mod check_seo;
 pub mod extract_xero_badge;

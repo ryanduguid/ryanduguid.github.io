@@ -321,7 +321,7 @@ const ZONES: [(&str, i64); 14] = [
 
 /// `email.utils.parsedate_to_datetime(text)` as UTC seconds, with whether it was UTC
 /// (offset zero, `-0000` or no recognised zone). `None` where Python raised.
-fn parse_http_date(text: &str) -> Option<(i64, bool)> {
+pub fn parse_http_date(text: &str) -> Option<(i64, bool)> {
     let mut data: Vec<String> = py::split_whitespace(text)
         .into_iter()
         .map(str::to_owned)
