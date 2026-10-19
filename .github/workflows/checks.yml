@@ -44,6 +44,13 @@ jobs:
         run: python -m mypy
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal --component clippy,rustfmt
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: |
+            scripts -> target
+            scripts/fuzz -> target
+          # Pull requests read main's cache and never write their own.
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Rust format
         working-directory: scripts
         run: |
@@ -58,7 +65,9 @@ jobs:
   tools:
     # Builds site-tools once per runner OS in a read-only job. The browser and
     # Lighthouse jobs serve the site with it, and the jobs that publish run it
-    # without compiling anything themselves.
+    # without compiling anything themselves. Because the deploy job runs this
+    # binary, it is built without a restored cache, in the dev profile (whose
+    # dependencies are optimised) rather than the slower fully optimised release.
     timeout-minutes: 20
     strategy:
       matrix:
@@ -75,19 +84,19 @@ jobs:
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
       - name: Build site-tools
-        run: cargo build --locked --release --bin site-tools
+        run: cargo build --locked --bin site-tools
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: site-tools-${{ runner.os }}
-          path: scripts/target/release/site-tools${{ runner.os == 'Windows' && '.exe' || '' }}
+          path: scripts/target/debug/site-tools${{ runner.os == 'Windows' && '.exe' || '' }}
           if-no-files-found: error
           overwrite: true
           retention-days: 7
 
   rust-windows:
     # The site checks run every Rust suite on Linux against the rendered site.
-    # This runs them on Windows too; suites that need the rendered site report
-    # that they skipped, because this job installs no Jekyll.
+    # This runs them on Windows too, with the locked Jekyll; the suites render
+    # the site once and share it.
     timeout-minutes: 30
     runs-on: windows-2025
     defaults:
@@ -98,8 +107,17 @@ jobs:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
+      - uses: ruby/setup-ruby@651ff0d62c5c79bed6d53ec518387aae20e72c1a
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+          working-directory: .
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: scripts -> target
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Rust tests
         run: cargo test --locked
 
@@ -130,6 +148,10 @@ jobs:
           enable-cache: true
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: scripts -> target
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Build site-tools
         working-directory: scripts
         run: cargo build --locked
