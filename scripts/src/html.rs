@@ -18,6 +18,13 @@ pub fn escape(text: &str, quote: bool) -> String {
     }
 }
 
+/// `name in html.entities.html5`: a name with or without its semicolon.
+pub fn is_html5_entity(name: &str) -> bool {
+    entities::HTML5
+        .binary_search_by_key(&name, |(key, _)| key)
+        .is_ok()
+}
+
 pub fn unescape(text: &str) -> String {
     static CHARREF: LazyLock<Regex> = LazyLock::new(|| {
         Regex::new(r"&(#(?:[0-9]+|[xX][0-9a-fA-F]+);?|[^\t\n\x0c <&#;]{1,32};?)").unwrap()

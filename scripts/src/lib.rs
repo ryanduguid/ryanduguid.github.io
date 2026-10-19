@@ -1,7 +1,11 @@
 pub mod feed;
 pub mod html;
+pub mod htmlparser;
 pub mod py;
+pub mod pyjson;
+pub mod pyre;
 mod pyunicode;
+pub mod seo_core;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
@@ -37,6 +41,33 @@ pub fn read(path: &Path) -> Result<String, String> {
         py::ReadError::Os(e) => py::oserror_str(&e, &path.to_string_lossy(), py::OsStyle::Errno),
         py::ReadError::Decode(e) => e.to_string(),
     })
+}
+
+/// Whether `Path.glob("*<suffix>")` matches a name: case-insensitively on Windows.
+pub fn glob_suffix(name: &str, suffix: &str) -> bool {
+    if cfg!(windows) {
+        name.len() >= suffix.len()
+            && name.is_char_boundary(name.len() - suffix.len())
+            && name[name.len() - suffix.len()..].eq_ignore_ascii_case(suffix)
+    } else {
+        name.ends_with(suffix)
+    }
+}
+
+/// `sorted(paths)`: pathlib compares parts, lower-cased on Windows.
+pub fn sort_paths(paths: &mut [PathBuf]) {
+    paths.sort_by_cached_key(|path| {
+        path.components()
+            .map(|c| {
+                let part = c.as_os_str().to_string_lossy().into_owned();
+                if cfg!(windows) {
+                    part.to_lowercase()
+                } else {
+                    part
+                }
+            })
+            .collect::<Vec<_>>()
+    });
 }
 
 pub fn sha256(bytes: impl AsRef<[u8]>) -> String {

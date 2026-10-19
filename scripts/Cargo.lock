@@ -137,6 +137,7 @@ dependencies = [
  "chrono",
  "fancy-regex",
  "num-bigint",
+ "num-traits",
  "regex",
  "roxmltree",
  "serde_json",
