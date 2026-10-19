@@ -88,8 +88,9 @@ Browser CI fails when a test passes only on retry. Failed attempts keep their
 traces for diagnosis, even if a retry passes. Homepage snapshots keep the proof disclosure closed;
 separate proof tests check both responsive images after opening it.
 
-The weekly source-freshness workflow checks the changelog's release links with
-`node scripts/stamp-source-freshness.mjs --check-releases`. This uses the GitHub
+The source-freshness workflow checks the changelog's release links every day with
+`node scripts/stamp-source-freshness.mjs --check-releases`; its date-refresh and
+production jobs run on Mondays only. This uses the GitHub
 CLI to read releases and compares stable version numbers within
 each package's tag prefix. API failures fail the check. A newer release needs
 editorial review of the changelog and capability descriptions; the check does
@@ -100,10 +101,14 @@ check command above. The same run reads every tool page's `release-meta` line:
 a page may keep a worked example pinned to an older release, but then the page
 text must name the current release too, so a reader installing from the page
 knows which version they get. `scripts/release_record.json` (below) is the
-reviewed statement for the components it lists; this weekly read covers the
+reviewed statement for the components it lists; this daily read covers the
 tool pages outside it.
 
-For a release-only verification after a fix, dispatch `source-freshness.yml`
+When the check finds drift (exit 1), the job opens or rewrites one issue titled
+'Release references are behind the current releases' listing each flagged line
+(one per package for the changelog), comments when that list changes, and the
+first clean run closes it. An API failure exits 2 and leaves the issue as
+it was. For a release-only verification after a fix, dispatch `source-freshness.yml`
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
 input still run every job.

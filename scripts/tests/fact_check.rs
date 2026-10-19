@@ -798,6 +798,48 @@ fn rates_dataset_values() {
 }
 
 #[test]
+fn rates_hub_queries_type_every_csv_column() {
+    if !rendered() {
+        return;
+    }
+    // Each Power Query block names one published CSV and types each of its
+    // columns in order, so a renamed or added column fails here, not in Excel.
+    let blocks = re(
+        r#"aria-label="Power Query import for [^"]+"><code>(.*?)</code>"#,
+        S,
+    )
+    .findall(&read("rates/index.html"));
+    // ROOT.glob("rates/*/*.csv"), as sorted relative paths.
+    let mut csvs = Vec::new();
+    for directory in std::fs::read_dir(root().join("rates")).unwrap().flatten() {
+        if !directory.path().is_dir() {
+            continue;
+        }
+        for file in std::fs::read_dir(directory.path()).unwrap().flatten() {
+            let name = file.file_name().to_string_lossy().into_owned();
+            if file.path().is_file() && site_tools::glob_suffix(&name, ".csv") {
+                csvs.push(format!(
+                    "rates/{}/{name}",
+                    directory.file_name().to_string_lossy()
+                ));
+            }
+        }
+    }
+    csvs.sort();
+    let mut queried = Vec::new();
+    for block in &blocks {
+        let urls = re(r#"Web\.Contents\("https://duguid\.com\.au/([^"]+)"\)"#, 0).findall(block);
+        assert_eq!(urls.len(), 1, "{block}");
+        let url = &urls[0];
+        let header = pycsv::reader(&read(url)).unwrap().remove(0);
+        assert_eq!(re(r#"\{"(\w+)", "#, 0).findall(block), header, "{url}");
+        queried.push(url.clone());
+    }
+    queried.sort();
+    assert_eq!(queried, csvs);
+}
+
+#[test]
 fn money_formats_like_decimal() {
     assert_eq!(money("1234.5"), "$1,234.50");
     assert_eq!(money("-1234.565"), "-$1,234.56");

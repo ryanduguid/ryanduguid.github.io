@@ -3,8 +3,8 @@ name: source-freshness
 # Re-reads the last commit date of every tool source and opens a pull request
 # when a date has moved. The site itself stays static: the dates are baked into
 # tools/index.html, so no visitor request ever reaches the GitHub API.
-# A separate read-only job flags newer stable releases for editorial review;
-# it never rewrites capability descriptions or evaluation references.
+# A separate job flags newer stable releases for editorial review in a tracking
+# issue; it never rewrites capability descriptions or evaluation references.
 #
 # A pull request raised with GITHUB_TOKEN does not start the checks workflow, so
 # the stamp job runs the site checks itself and hands its change on only once they
@@ -18,6 +18,9 @@ name: source-freshness
 on:
   schedule:
     - cron: "0 6 * * 1"
+    # The other six days run the release check alone, so a new release is
+    # flagged within a day. The production and stamp jobs skip this schedule.
+    - cron: "0 6 * * 0,2-6"
   workflow_dispatch:
     inputs:
       releases_only:
@@ -36,11 +39,17 @@ env:
   BRANCH: automation/source-freshness
 
 jobs:
+  # A red scheduled run notifies nobody, so drift is also kept in one tracking
+  # issue: opened on the first drift, rewritten while drift remains and closed by
+  # the first run that finds none. An outage (exit 2) leaves the issue alone.
   releases:
     timeout-minutes: 5
     runs-on: ubuntu-24.04
     permissions:
       contents: read
+      issues: write
+    env:
+      TITLE: Release references are behind the current releases
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -49,15 +58,60 @@ jobs:
         with:
           node-version: "24"
       - name: Check current release references
+        id: check
+        shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
-        run: node scripts/stamp-source-freshness.mjs --check-releases
+        run: |
+          set +e
+          node scripts/stamp-source-freshness.mjs --check-releases 2> "$RUNNER_TEMP/drift.txt"
+          status=$?
+          cat "$RUNNER_TEMP/drift.txt" >&2
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
+      - name: Open, update or close the tracking issue
+        if: ${{ !cancelled() && (steps.check.outputs.status == '0' || steps.check.outputs.status == '1') }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          STATUS: ${{ steps.check.outputs.status }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          number=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title \
+            --jq 'map(select(.title == env.TITLE)) | .[0].number // empty')
+          if [ "$STATUS" = 0 ]; then
+            if [ -n "$number" ]; then
+              gh issue close "$number" --comment "No release drift in $RUN_URL."
+            fi
+            exit 0
+          fi
+          {
+            echo "The daily release check found pages naming an older release than the current one."
+            echo "Review each page and its capability descriptions; the check rewrites nothing."
+            echo "Dispatch source-freshness.yml with releases_only=true after a fix; a clean run closes this issue."
+            echo
+            sed 's/^/- /' "$RUNNER_TEMP/drift.txt"
+            echo
+            echo "Last checked: $RUN_URL"
+          } > "$RUNNER_TEMP/body.md"
+          if [ -n "$number" ]; then
+            # A body edit notifies nobody, so a changed drift list also gets a comment.
+            old=$(gh issue view "$number" --json body --jq .body | tr -d '\r' | grep -v '^Last checked: ')
+            new=$(grep -v '^Last checked: ' "$RUNNER_TEMP/body.md")
+            gh issue edit "$number" --body-file "$RUNNER_TEMP/body.md"
+            if [ "$old" != "$new" ]; then
+              gh issue comment "$number" --body "The drift list changed in $RUN_URL."
+            fi
+          else
+            gh issue create --title "$TITLE" --body-file "$RUNNER_TEMP/body.md"
+          fi
 
   # The public site is delivered through Cloudflare, which can rewrite the
   # HTML and add headers the repository never sees. This job fetches the live
   # pages and holds them to the delivery promises README.md records.
   production:
-    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
+    if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
     timeout-minutes: 10
     runs-on: ubuntu-24.04
     permissions:
@@ -73,7 +127,7 @@ jobs:
         run: node scripts/check_production.mjs
 
   stamp:
-    if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
+    if: github.event.schedule != '0 6 * * 0,2-6' && (github.event_name != 'workflow_dispatch' || !inputs.releases_only)
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     permissions:

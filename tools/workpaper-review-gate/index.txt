@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
+Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.3.0, published on 14 October 2026. It requires Python 3.14 or later, moves to Apache-2.0 and accepts BAS labels 1A and 1B reported in whole dollars; review-ready-gate/v0.2.0 remains the last release for Python 3.11 to 3.13.
 
 Published 25 August 2026. Last reviewed 17 October 2026.
 
@@ -91,6 +91,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
+- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready

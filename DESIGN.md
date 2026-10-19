@@ -972,7 +972,9 @@ The employee table chooses an unused automatic reference when a reference is
 left blank, including after row removal. Its addition and removal confirmation
 is visible below the entry controls and remains a live region. A note above
 the controls tells visitors to download the CSV before leaving because the
-table is not saved and clears on reload or when the page closes.
+table is not saved and clears on reload or when the page closes. While the
+table has rows changed since the last download, a `beforeunload` prompt asks
+before the page unloads; the listener is attached only while that is true.
 The populated table keeps cells on one line and horizontal scrolling within
 its own region at 320 CSS pixels, including the hidden column label.
 

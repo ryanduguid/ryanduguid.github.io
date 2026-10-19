@@ -597,6 +597,31 @@ test('monthly table automatic references skip a typed label in any case', async 
   health.assertHealthy();
 });
 
+test('monthly table asks before leaving only while rows are not downloaded', async ({ page }) => {
+  const health = observePageHealth(page);
+  // A cancelled synthetic beforeunload shows whether the page would ask.
+  const wouldAsk = () => page.evaluate(() => {
+    const event = new Event('beforeunload', { cancelable: true });
+    window.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+  await calculateFormulaB(page);
+  expect(await wouldAsk()).toBe(false);
+  const add = page.getByRole('button', { name: 'Add to monthly table', exact: true });
+  await add.click();
+  expect(await wouldAsk()).toBe(true);
+  const download = page.waitForEvent('download');
+  await page.getByRole('button', { name: 'Download CSV', exact: true }).click();
+  await download;
+  expect(await wouldAsk()).toBe(false);
+  await add.click();
+  expect(await wouldAsk()).toBe(true);
+  const removeButtons = page.locator('#employee-rows button[data-remove]');
+  while (await removeButtons.count()) await removeButtons.first().click();
+  expect(await wouldAsk()).toBe(false);
+  health.assertHealthy();
+});
+
 test('monthly table refuses a repeated employee reference', async ({ page }) => {
   const health = observePageHealth(page);
   await calculateFormulaB(page);

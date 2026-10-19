@@ -1122,7 +1122,132 @@ This imports the full SG history. A rate of 12.00 means 12%; divide by 100 if a 
 
 Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not source verification. Check the linked rate page’s verified date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its source verification date; a live query can change on refresh.
 
-For another table, use its Download CSV address below and set the column types for that file. Their schemas differ. Keep effective periods and notes, and preserve announced measures’ status rather than treating them as enacted rates.
+The other six tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.
+
+Division 7A benchmark rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"benchmark_rate_percent", type number},
+        {"rba_series_month", type text},
+        {"notes", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+Cents per kilometre rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"cents_per_km", Int64.Type},
+        {"instrument", type text},
+        {"register_id", type text},
+        {"scope", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+Maximum super contribution base:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"basis", type text},
+        {"maximum_contribution_base", type number},
+        {"maximum_sg_per_period", type number},
+        {"notes", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+Car limit:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/car-limit/car-limit.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"car_limit", Int64.Type},
+        {"source", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+FBT rates:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/fbt-rate/fbt-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"fbt_year_ending", type date},
+        {"fbt_rate_percent", type number},
+        {"type_1_gross_up", type number},
+        {"type_2_gross_up", type number},
+        {"source", type text}
+    }, "en-AU")
+in
+    Rates
+```
+
+Announced measures:
+
+```
+let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Measures = Table.TransformColumnTypes(Headers, {
+        {"measure", type text},
+        {"announced_in", type text},
+        {"start", type text},
+        {"status", type text},
+        {"legislation", type text},
+        {"royal_assent", type text},
+        {"ato_measure_url", type text},
+        {"checked_at", type date},
+        {"status_source_url", type text},
+        {"review_scope", type text},
+        {"application_note", type text}
+    }, "en-AU")
+in
+    Measures
+```
+
+Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors.
 
 Follow updates with the Atom feed. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.
 
@@ -1941,7 +2066,7 @@ Boundary
 
 Read-only Xero scope; no ledger writes.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Subcontract ledger skills
 
@@ -1955,7 +2080,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Evaluation procedure Source code Last commit 12 October 2026
+Evaluation procedure Source code Last commit 19 October 2026
 
 ### Construction WIP schedule
 
@@ -1969,7 +2094,7 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Calculate
 
@@ -1987,7 +2112,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Try an example Source code Reproduce the evaluation Last commit 12 October 2026
+Try an example Source code Reproduce the evaluation Last commit 19 October 2026
 
 ### ATO benchmark comparison
 
@@ -2001,7 +2126,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Coal LSL levy calculator
 
@@ -2017,7 +2142,7 @@ Boundary
 
 No lodgement, storage or network transmission; verify the monthly return.
 
-Try an example Source code Last commit 27 September 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Trust distribution checks
 
@@ -2031,7 +2156,7 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Company tax and franking checks
 
@@ -2045,7 +2170,7 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Ozzit Excel LAMBDA library
 
@@ -2059,7 +2184,7 @@ Boundary
 
 Calculates only. The reviewer decides the accounting treatment and the tax position.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Control
 
@@ -2077,7 +2202,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Monthly Close Controls
 
@@ -2091,7 +2216,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Inspect
 
@@ -2109,7 +2234,7 @@ Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ## Before using a tool
 
@@ -2606,7 +2731,7 @@ Your figures are not sent to a server. To check, disconnect from the internet on
 
 Use an internal payroll reference such as EMP-001. Do not enter an employee name, TFN or other direct identifier. Calculate first, then add the result and choose Download CSV.
 
-Download CSV before leaving. This table is not saved and clears when you reload or close the page.
+Download CSV before leaving. This table is not saved and clears when you reload or close the page. While it has changes you have not downloaded, the browser asks before you leave.
 
 ## Disclaimer
 
@@ -3079,7 +3204,7 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-exchequer-tally/v0.1.8, which pip install the-exchequer-tally fetches. It needs Python 3.11 or later and changes no calculation.
+Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.2.0, published on 19 October 2026, which pip install the-exchequer-tally fetches. It requires Python 3.14 or later, moves to Apache-2.0 and changes no calculation; the-exchequer-tally/v0.1.8 remains the last release for Python 3.11 to 3.13.
 
 Published 24 August 2026. Last reviewed 13 October 2026.
 
@@ -3162,6 +3287,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
+- the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - the-exchequer-tally/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
@@ -3189,7 +3315,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release on 13 October 2026 is v0.3.2, which keeps the same 65 skills and adds a BAS transaction GST coding review; its seven new validation cards have no recorded verdict.
+Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release is v0.4.0, published on 14 October 2026, with the same 65 skills. v0.3.2 added a BAS transaction GST coding review whose seven validation cards have no recorded verdict, and v0.4.0 moves the pack from MIT to Apache-2.0.
 
 Published 24 August 2026. Last reviewed 13 October 2026.
 
@@ -3252,6 +3378,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Australian Accounting Skills v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
+- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
 - v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
@@ -3277,7 +3404,7 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-wip-tally/v0.1.4, which needs Python 3.11 or later and changes no calculation.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-wip-tally/v0.2.0, published on 19 October 2026. It requires Python 3.14 or later and moves to Apache-2.0. Where a contract’s outcome is not reasonably measurable, it now limits revenue to recoverable cost under AASB 15 para 45 before any measure of progress; contracts whose outcome is reasonably measurable, like the worked example, are unchanged. the-wip-tally/v0.1.4 remains the last release for Python 3.11 to 3.13.
 
 Published 25 August 2026. Last reviewed 13 October 2026.
 
@@ -3323,7 +3450,7 @@ This is an educational tool, not tax, legal or financial advice, and using it cr
 
 ## Get it
 
-Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -3372,6 +3499,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
+- the-wip-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
@@ -3746,7 +3874,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
+Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.3.0, published on 14 October 2026. It requires Python 3.14 or later, moves to Apache-2.0 and accepts BAS labels 1A and 1B reported in whole dollars; review-ready-gate/v0.2.0 remains the last release for Python 3.11 to 3.13.
 
 Published 25 August 2026. Last reviewed 17 October 2026.
 
@@ -3829,6 +3957,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
+- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
@@ -3905,6 +4034,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+20 October 2026 | The company tax and construction WIP pages name the current releases, the-exchequer-tally/v0.2.0 and the-wip-tally/v0.2.0, which require Python 3.14 or later and move to Apache-2.0. The WIP install line now asks for Python 3.14. The release table adds the Skills, MCP server, review gate and two engine releases published from 14 to 19 October.
+19 October 2026 | The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.
 17 October 2026 | Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example with a Copy button and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, groups the related prompt guide and cash flow example under Related resources, and Machine view excludes its text and status from search snippets.
 16 October 2026 | robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.
 13 October 2026 | The ATO benchmarks, company tax and franking, construction WIP, Xero trial balance and subcontract ledger pages name the releases published on 12 October. The five tool releases need Python 3.11 or later and change no calculated result; Australian Accounting Skills v0.3.2 adds a BAS transaction GST coding review, and v0.3.1 stays the recommended skills release.
@@ -3963,6 +4094,12 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+19 October 2026 | Construction WIP schedule | the-wip-tally/v0.2.0
+19 October 2026 | Company tax and franking checks | the-exchequer-tally/v0.2.0
+17 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.5.0
+14 October 2026 | Workpaper Review Gate | review-ready-gate/v0.3.0
+14 October 2026 | Subcontract ledger skills | v0.4.0
+14 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.4.0
 12 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.12
 12 October 2026 | Payday Super timing | payday-super-checker/v0.1.10
 12 October 2026 | Construction WIP schedule | the-wip-tally/v0.1.4
@@ -4016,6 +4153,12 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- the-wip-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
+- the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
+- aus-accounting-mcp/v0.5.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0
+- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
+- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- aus-accounting-mcp/v0.4.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.4.0
 - ato-benchmark-compare/v0.1.12: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12
 - payday-super-checker/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.10
 - the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4
