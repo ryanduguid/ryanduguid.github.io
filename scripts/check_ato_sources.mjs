@@ -227,7 +227,8 @@ async function readPdf(url) {
 }
 
 // Returns url => page. PDFs are fetched directly; everything else goes through
-// the browser in batches. A page without either container is read whole, and a
+// the browser in batches. JavaScript assets start with the whole-text reader;
+// they have no page containers. A page without either container is read whole, and a
 // page that errors is read again, up to three rounds in all, because Chrome
 // sometimes fails to start and a page sometimes times out once.
 export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) {
@@ -236,7 +237,7 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
   const args = { selector: ['--selector', PAGE_SELECTOR], main: ['--main'] };
   const mode = new Map();
   let todo = urls.filter((url) => !isPdf(url));
-  for (const url of todo) mode.set(url, 'selector');
+  for (const url of todo) mode.set(url, /[.]js$/i.test(new URL(url).pathname) ? 'main' : 'selector');
   for (let round = 1; round <= 3 && todo.length; round++) {
     for (const kind of Object.keys(args)) {
       const list = todo.filter((url) => mode.get(url) === kind);
