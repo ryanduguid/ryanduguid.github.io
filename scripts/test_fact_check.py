@@ -400,6 +400,24 @@ class RatesDatasetTests(unittest.TestCase):
     def rows(path: str) -> list[dict[str, str]]:
         return list(csv.DictReader(read(path).splitlines()))
 
+    def test_rates_hub_queries_type_every_csv_column(self) -> None:
+        # Each Power Query block names one published CSV and types each of its
+        # columns in order, so a renamed or added column fails here, not in Excel.
+        blocks = re.findall(
+            r'aria-label="Power Query import for [^"]+"><code>(.*?)</code>',
+            read("rates/index.html"),
+            re.S,
+        )
+        csvs = sorted(path.relative_to(ROOT).as_posix() for path in ROOT.glob("rates/*/*.csv"))
+        queried = []
+        for block in blocks:
+            (url,) = re.findall(r'Web\.Contents\("https://duguid\.com\.au/([^"]+)"\)', block)
+            queried.append(url)
+            with self.subTest(csv=url):
+                header = next(csv.reader(read(url).splitlines()))
+                self.assertEqual(re.findall(r'\{"(\w+)", ', block), header)
+        self.assertEqual(sorted(queried), csvs)
+
     def test_rate_tables_state_the_dataset_values(self) -> None:
         def by_year(path: str) -> dict[str, dict[str, str]]:
             return {row["income_year"]: row for row in self.rows(path)}
