@@ -28,3 +28,19 @@ pub fn get(url: &str, user_agent: &str, timeout: Duration) -> Result<Vec<u8>, St
         Err(e) => Err(format!("urllib.error.URLError: <urlopen error {e}>")),
     }
 }
+
+/// The final HTTP status of a GET, redirects followed; an error status is a result here,
+/// as urllib's HTTPError code is to the caller that catches it.
+pub fn status(url: &str, user_agent: &str, timeout: Duration) -> Result<u16, String> {
+    let agent: ureq::Agent = ureq::Agent::config_builder()
+        .timeout_global(Some(timeout))
+        .user_agent(user_agent)
+        .http_status_as_error(false)
+        .build()
+        .into();
+    agent
+        .get(url)
+        .call()
+        .map(|response| response.status().as_u16())
+        .map_err(|e| format!("<urlopen error {e}>"))
+}

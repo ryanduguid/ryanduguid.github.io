@@ -1,3 +1,4 @@
+pub mod agent_files;
 pub mod agent_skills;
 pub mod build_site;
 pub mod check_design;
@@ -24,6 +25,7 @@ pub mod pytime;
 mod pyunicode;
 pub mod pyurl;
 pub mod pyval;
+pub mod rates_register;
 pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;
@@ -101,4 +103,16 @@ pub fn sha256(bytes: impl AsRef<[u8]>) -> String {
         .iter()
         .map(|b| format!("{b:02x}"))
         .collect()
+}
+
+/// pathlib's `suffix` of the final component: leading dots belong to the name, and a
+/// trailing dot is a suffix of its own.
+pub fn suffix(path: &Path) -> String {
+    let name = path
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    let stem = name.trim_start_matches('.');
+    stem.rfind('.')
+        .map_or(String::new(), |i| stem[i..].to_owned())
 }

@@ -243,17 +243,6 @@ fn translate_path(directory: &Path, request: &str) -> String {
     result
 }
 
-/// pathlib's `suffix` of the final component.
-fn suffix(path: &Path) -> String {
-    let name = path
-        .file_name()
-        .map(|n| n.to_string_lossy().into_owned())
-        .unwrap_or_default();
-    let stem = name.trim_start_matches('.');
-    stem.rfind('.')
-        .map_or(String::new(), |i| stem[i..].to_owned())
-}
-
 /// `datetime.fromtimestamp(t, utc)` seconds: rounded half-even to microseconds, then floored.
 fn timestamp_seconds(time: SystemTime) -> i64 {
     let nanos: i128 = match time.duration_since(UNIX_EPOCH) {
@@ -723,7 +712,7 @@ impl Handler {
         if !self.accepts_gzip()?
             || self.header("If-Modified-Since").is_some()
             || self.header("Range").is_some()
-            || !COMPRESSED.contains(&suffix(&path).to_lowercase().as_str())
+            || !COMPRESSED.contains(&crate::suffix(&path).to_lowercase().as_str())
         {
             return self.simple_send_head();
         }
