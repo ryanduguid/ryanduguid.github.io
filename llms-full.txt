@@ -2066,7 +2066,7 @@ Boundary
 
 Read-only Xero scope; no ledger writes.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Subcontract ledger skills
 
@@ -2080,7 +2080,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Evaluation procedure Source code Last commit 12 October 2026
+Evaluation procedure Source code Last commit 19 October 2026
 
 ### Construction WIP schedule
 
@@ -2094,7 +2094,7 @@ Boundary
 
 Review aid under AASB 15, not an accounting determination.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Calculate
 
@@ -2112,7 +2112,7 @@ Boundary
 
 Missing receipt evidence stays at risk; the tool does not infer payment.
 
-Try an example Source code Reproduce the evaluation Last commit 12 October 2026
+Try an example Source code Reproduce the evaluation Last commit 19 October 2026
 
 ### ATO benchmark comparison
 
@@ -2126,7 +2126,7 @@ Boundary
 
 A comparison is not an audit finding or compliance conclusion.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Coal LSL levy calculator
 
@@ -2142,7 +2142,7 @@ Boundary
 
 No lodgement, storage or network transmission; verify the monthly return.
 
-Try an example Source code Last commit 27 September 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Trust distribution checks
 
@@ -2156,7 +2156,7 @@ Boundary
 
 Does not invent arrangements, intentions or beneficiary facts.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Company tax and franking checks
 
@@ -2170,7 +2170,7 @@ Boundary
 
 Requires verified income composition, distributions and ledger inputs.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Ozzit Excel LAMBDA library
 
@@ -2184,7 +2184,7 @@ Boundary
 
 Calculates only. The reviewer decides the accounting treatment and the tax position.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Control
 
@@ -2202,7 +2202,7 @@ Boundary
 
 READY means ready for human review, not approved or signed off.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ### Monthly Close Controls
 
@@ -2216,7 +2216,7 @@ Boundary
 
 PASS applies to the configured checks. A human approves the close.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 Inspect
 
@@ -2234,7 +2234,7 @@ Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
-Try an example Source code Last commit 12 October 2026
+Try an example Source code Last commit 19 October 2026
 
 ## Before using a tool
 
