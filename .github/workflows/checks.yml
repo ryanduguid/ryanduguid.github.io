@@ -205,13 +205,16 @@ jobs:
           node-version: "24"
           cache: npm
       - name: Install browser-test dependencies
-        run: npm ci
+        # No locked package has an install script; this keeps it that way.
+        run: npm ci --ignore-scripts
       - name: Check calculator and WebMCP contracts
         if: ${{ matrix.shard == 1 }}
         run: npm run typecheck
       - name: Install Chromium
         if: ${{ steps.metadata.outputs.metadata_only == 'false' }}
-        run: npx playwright install chromium
+        # The locked Playwright, as the Lighthouse job runs it; npx could fetch another.
+        shell: bash
+        run: ./node_modules/.bin/playwright install chromium
       - name: Proof capture check
         if: ${{ steps.metadata.outputs.metadata_only == 'false' && matrix.shard == 1 }}
         run: npm run test:capture
