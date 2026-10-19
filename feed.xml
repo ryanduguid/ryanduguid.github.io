@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-17T00:00:00Z</updated>
+  <updated>2026-10-19T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The subcontract ledger and Workpaper Review Gate pages name the current…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-c3514e3ece51d48f</id>
+    <updated>2026-10-19T00:00:00Z</updated>
+    <summary>The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.</summary>
+  </entry>
   <entry>
     <title>Monthly Close Controls and Workpaper Review Gate show fictional inputs and…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
