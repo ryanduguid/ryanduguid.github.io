@@ -33,6 +33,16 @@ pub fn is_space(c: char) -> bool {
     in_table(c as u32, tables::SPACE)
 }
 
+/// Python's `\w` for one character in a `str` pattern.
+pub fn is_word(c: char) -> bool {
+    in_table(c as u32, tables::WORD)
+}
+
+/// Whether Python's `\w` and the regex crate's `\w` disagree about one character.
+pub fn word_diff(c: char) -> bool {
+    (c as u32) >= 0x80 && in_table(c as u32, tables::WORD_DIFF)
+}
+
 /// `str.isprintable` for one character.
 pub fn is_printable(c: char) -> bool {
     !in_table(c as u32, tables::NOT_PRINTABLE)

@@ -559,6 +559,8 @@ pub struct Dump {
     pub indent: Option<usize>,
     pub sort_keys: bool,
     pub ensure_ascii: bool,
+    /// `separators=(item, key)`; `None` is Python's default for the indent.
+    pub separators: Option<(&'static str, &'static str)>,
 }
 
 impl Default for Dump {
@@ -568,6 +570,7 @@ impl Default for Dump {
             indent: None,
             sort_keys: false,
             ensure_ascii: true,
+            separators: None,
         }
     }
 }
@@ -601,7 +604,12 @@ fn dump_into(value: &Json, level: usize, options: Dump, out: &mut String) {
             out.push_str(&" ".repeat(width * n));
         }
     };
-    let item_separator = if options.indent.is_some() { "," } else { ", " };
+    let (item_separator, key_separator) =
+        options.separators.unwrap_or(if options.indent.is_some() {
+            (",", ": ")
+        } else {
+            (", ", ": ")
+        });
     match value {
         Json::Null => out.push_str("null"),
         Json::Bool(true) => out.push_str("true"),
@@ -639,7 +647,7 @@ fn dump_into(value: &Json, level: usize, options: Dump, out: &mut String) {
                 }
                 newline(out, level + 1);
                 dump_str(k, options.ensure_ascii, out);
-                out.push_str(": ");
+                out.push_str(key_separator);
                 dump_into(v, level + 1, options, out);
             }
             newline(out, level);

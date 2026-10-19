@@ -16,7 +16,21 @@ pub const S: u8 = 2;
 pub const M: u8 = 4;
 
 /// A compiled pattern; matching never fails for lack of backtracking budget.
-pub struct Re(Regex);
+///
+/// A pattern using `\b` or `\B` also gets a copy with the regex crate's own boundary,
+/// which lets the fast engine run. Its word characters differ from Python's only on
+/// the WORD_DIFF code points, so it gives the same matches on text without them.
+pub struct Re {
+    exact: Regex,
+    native: Option<Regex>,
+}
+
+fn build(pattern: &str, translated: &str) -> Regex {
+    RegexBuilder::new(translated)
+        .backtrack_limit(usize::MAX)
+        .build()
+        .unwrap_or_else(|e| panic!("pattern {pattern:?} as {translated:?}: {e}"))
+}
 
 type Cache = Mutex<HashMap<(String, u8), Arc<Re>>>;
 
@@ -28,13 +42,19 @@ pub fn re(pattern: &str, flags: u8) -> Arc<Re> {
         .entry((pattern.to_owned(), flags))
         .or_insert_with(|| {
             let translated = translate(pattern, flags);
-            let regex = RegexBuilder::new(&translated)
-                .backtrack_limit(usize::MAX)
-                .build()
-                .unwrap_or_else(|e| panic!("pattern {pattern:?} as {translated:?}: {e}"));
-            Arc::new(Re(regex))
+            let native = translate_with(pattern, flags, true);
+            Arc::new(Re {
+                native: (native != translated).then(|| build(pattern, &native)),
+                exact: build(pattern, &translated),
+            })
         })
         .clone()
+}
+
+/// `re.fullmatch(pattern, text, flags)`: the pattern anchored at both ends, so alternatives
+/// and quantifiers backtrack until the whole text matches.
+pub fn fullmatch(pattern: &str, flags: u8, text: &str) -> bool {
+    re(&format!(r"\A(?:{pattern})\Z"), flags).is_match(text)
 }
 
 /// `re.escape(text)`.
@@ -50,13 +70,20 @@ pub fn escape(text: &str) -> String {
 }
 
 impl Re {
+    fn engine(&self, text: &str) -> &Regex {
+        match &self.native {
+            Some(native) if text.is_ascii() || !text.chars().any(py::word_diff) => native,
+            _ => &self.exact,
+        }
+    }
+
     pub fn search<'t>(&self, text: &'t str) -> Option<Captures<'t, str>> {
         self.search_at(text, 0)
     }
 
     /// `pattern.search(text, pos)` with `pos` as a byte offset.
     pub fn search_at<'t>(&self, text: &'t str, pos: usize) -> Option<Captures<'t, str>> {
-        self.0
+        self.engine(text)
             .captures_from_pos(text, pos)
             .expect("unbounded backtracking")
     }
@@ -68,14 +95,16 @@ impl Re {
     }
 
     pub fn is_match(&self, text: &str) -> bool {
-        self.search(text).is_some()
+        self.engine(text)
+            .is_match(text)
+            .expect("unbounded backtracking")
     }
 
     pub fn captures_iter<'r, 't>(
         &'r self,
         text: &'t str,
     ) -> impl Iterator<Item = Captures<'t, str>> + use<'r, 't> {
-        self.0
+        self.engine(text)
             .captures_iter(text)
             .map(|c| c.expect("unbounded backtracking"))
     }
@@ -88,6 +117,31 @@ impl Re {
                     .map_or(String::new(), |m| m.as_str().to_owned())
             })
             .collect()
+    }
+
+    /// `pattern.findall(text)` for a pattern with several groups: each group's text, or
+    /// an empty string for a group that did not take part, as Python returns them.
+    pub fn findall_groups(&self, text: &str) -> Vec<Vec<String>> {
+        self.captures_iter(text)
+            .map(|c| {
+                (1..c.len())
+                    .map(|g| c.get(g).map_or(String::new(), |m| m.as_str().to_owned()))
+                    .collect()
+            })
+            .collect()
+    }
+
+    /// `pattern.split(text)` for a pattern without groups.
+    pub fn split<'t>(&self, text: &'t str) -> Vec<&'t str> {
+        let mut pieces = Vec::new();
+        let mut last = 0;
+        for c in self.captures_iter(text) {
+            let m = c.get(0).expect("group 0");
+            pieces.push(&text[last..m.start()]);
+            last = m.end();
+        }
+        pieces.push(&text[last..]);
+        pieces
     }
 
     /// `pattern.sub(replacement, text)` with a literal replacement.
@@ -152,6 +206,7 @@ struct Parser<'p> {
     chars: Vec<char>,
     i: usize,
     pattern: &'p str,
+    native: bool,
 }
 
 /// One escape or character, as Python reads it inside or outside a class.
@@ -206,6 +261,8 @@ impl Parser<'_> {
             'a' => Atom::Char('\x07'),
             '0' => Atom::Char('\0'),
             'b' if in_class => Atom::Char('\x08'),
+            'b' if self.native => Atom::Other("\\b".into()),
+            'B' if self.native => Atom::Other("\\B".into()),
             'b' => Atom::Other(py::word_boundary()),
             'B' => {
                 let w = &*py::W;
@@ -266,7 +323,25 @@ impl Parser<'_> {
         out.push(']');
     }
 
-    fn group(&mut self, out: &mut String) {
+    fn group(&mut self, out: &mut String, flags: u8) {
+        // (?P=name) is a named backreference, not a group.
+        if self.peek(0) == Some('?') && self.peek(1) == Some('P') && self.peek(2) == Some('=') {
+            self.i += 3;
+            let mut name = String::new();
+            loop {
+                let c = self.next();
+                if c == ')' {
+                    break;
+                }
+                name.push(c);
+            }
+            if flags & I != 0 {
+                let _ = write!(out, "(?i:\\k<{name}>)");
+            } else {
+                let _ = write!(out, "\\k<{name}>");
+            }
+            return;
+        }
         out.push('(');
         if self.peek(0) != Some('?') {
             return;
@@ -331,10 +406,33 @@ impl Parser<'_> {
 
 /// Python pattern syntax and flags to a `fancy_regex` pattern.
 pub fn translate(pattern: &str, flags: u8) -> String {
+    translate_with(pattern, flags, false)
+}
+
+/// `translate`, with `\b` and `\B` left to the regex crate when `native` is set.
+fn translate_with(pattern: &str, flags: u8, native: bool) -> String {
+    // Global inline flags such as (?m) or (?si) may only open a Python pattern.
+    let mut flags = flags;
+    let mut pattern = pattern;
+    if let Some(rest) = pattern.strip_prefix("(?")
+        && let Some(end) = rest.find(')')
+        && end > 0
+        && rest[..end].chars().all(|c| "ims".contains(c))
+    {
+        for c in rest[..end].chars() {
+            flags |= match c {
+                'i' => I,
+                'm' => M,
+                _ => S,
+            };
+        }
+        pattern = &rest[end + 1..];
+    }
     let mut p = Parser {
         chars: pattern.chars().collect(),
         i: 0,
         pattern,
+        native,
     };
     let mut out = String::with_capacity(pattern.len() * 2);
     while let Some(c) = p.peek(0) {
@@ -345,7 +443,7 @@ pub fn translate(pattern: &str, flags: u8) -> String {
             }
             '(' => {
                 p.i += 1;
-                p.group(&mut out);
+                p.group(&mut out, flags);
             }
             '{' => {
                 p.i += 1;

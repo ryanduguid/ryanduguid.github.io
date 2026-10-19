@@ -1,14 +1,22 @@
+pub mod build_site;
+pub mod check_design;
 pub mod check_seo;
+pub mod extract_xero_badge;
+pub mod favicon_render;
 pub mod feed;
 pub mod html;
 pub mod htmlparser;
+pub mod llms_full;
+pub mod mimetypes;
 pub mod py;
 pub mod pyjson;
 pub mod pyre;
+pub mod pytime;
 mod pyunicode;
 pub mod pyurl;
 pub mod pyval;
 pub mod seo_core;
+pub mod serve_site;
 pub mod site_contracts;
 
 use std::io::{self, Write};
@@ -33,11 +41,15 @@ pub fn root() -> Result<PathBuf, String> {
         return Ok(PathBuf::from(root));
     }
     let current = std::env::current_dir().map_err(|e| e.to_string())?;
+    // The scripts found the site as their own directory's parent; the binary takes the
+    // nearest ancestor holding the site configuration or the scripts directory.
     current
         .ancestors()
-        .find(|p| p.join("_config.yml").is_file())
+        .find(|p| p.join("_config.yml").is_file() || p.join("scripts").is_dir())
         .map(Path::to_path_buf)
-        .ok_or_else(|| "Cannot locate _config.yml; set SITE_ROOT".into())
+        .ok_or_else(|| {
+            "Cannot locate the site root (_config.yml or scripts/); set SITE_ROOT".into()
+        })
 }
 
 pub fn read(path: &Path) -> Result<String, String> {
