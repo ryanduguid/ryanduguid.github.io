@@ -1,0 +1,31 @@
+usage: visibility_benchmark.py [-h] [--template | --check [CAPTURE ...] |
+                               --summary [CAPTURE ...]] [--include-fixtures]
+
+Validate and summarise assistant-visibility captures. The benchmark answers
+two separate questions and never mixes them: - visibility: did an assistant
+mention the site, and did it cite a page, - accuracy: were the facts in its
+answer right. It runs no query itself. A person records each answer in a
+capture file, which this script validates and summarises. Unrun and blocked
+observations are excluded from every denominator rather than counted as a
+failure, fixtures are excluded from real summaries, and branded prompts are
+summarised apart from non-branded ones. Every mode validates the exact files
+it was given, so a summary never reports metrics from a capture that failed
+validation: python scripts/visibility_benchmark.py --template >
+docs/visibility-benchmark/captures/round-example.json python
+scripts/visibility_benchmark.py --check docs/visibility-
+benchmark/captures/round-example.json python scripts/visibility_benchmark.py
+--summary docs/visibility-benchmark/captures/round-example.json `--check` and
+`--summary` with no paths read every capture in `docs/visibility-
+benchmark/captures/`. A named file that does not exist is a failure, never a
+silent omission.
+
+options:
+  -h, --help            show this help message and exit
+  --template            print a blank capture file
+  --check [CAPTURE ...]
+                        validate the named captures, or every stored capture
+                        when none are named
+  --summary [CAPTURE ...]
+                        validate then summarise the named captures, or every
+                        stored capture
+  --include-fixtures    include labelled fixture captures in the summary

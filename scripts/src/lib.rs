@@ -30,6 +30,7 @@ pub mod release_record;
 pub mod seo_core;
 pub mod serve_site;
 pub mod site_contracts;
+pub mod visibility;
 
 use std::io::{self, Write};
 use std::path::{Path, PathBuf};
