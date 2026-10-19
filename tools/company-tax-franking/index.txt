@@ -10,7 +10,7 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-exchequer-tally/v0.1.8, which pip install the-exchequer-tally fetches. It needs Python 3.11 or later and changes no calculation.
+Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.2.0, published on 19 October 2026, which pip install the-exchequer-tally fetches. It requires Python 3.14 or later, moves to Apache-2.0 and changes no calculation; the-exchequer-tally/v0.1.8 remains the last release for Python 3.11 to 3.13.
 
 Published 24 August 2026. Last reviewed 13 October 2026.
 
@@ -93,6 +93,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
+- the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - the-exchequer-tally/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart

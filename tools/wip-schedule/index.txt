@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/wip-schedule/
 
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
-Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is the-wip-tally/v0.1.4, which needs Python 3.11 or later and changes no calculation.
+Reference release the-wip-tally/v0.1.2, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-wip-tally/v0.2.0, published on 19 October 2026. It requires Python 3.14 or later and moves to Apache-2.0. Where a contract’s outcome is not reasonably measurable, it now limits revenue to recoverable cost under AASB 15 para 45 before any measure of progress; contracts whose outcome is reasonably measurable, like the worked example, are unchanged. the-wip-tally/v0.1.4 remains the last release for Python 3.11 to 3.13.
 
 Published 25 August 2026. Last reviewed 13 October 2026.
 
@@ -54,7 +54,7 @@ This is an educational tool, not tax, legal or financial advice, and using it cr
 
 ## Get it
 
-Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/australian-accounting.git
@@ -103,6 +103,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - the-wip-tally/v0.1.2: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2
+- the-wip-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4
 - subcontractor ledger skills: https://duguid.com.au/tools/subcontractor-ledgers/
 - cost-to-cost underbilling test in the-wip-tally v0.1.2: https://github.com/ryanduguid/australian-accounting/blob/the-wip-tally/v0.1.2/packages/the-wip-tally/tests/test_schedule.py
