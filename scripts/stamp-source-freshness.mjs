@@ -6,6 +6,9 @@
 // Default mode re-checks the committed stamps offline and is safe for CI.
 // --write refreshes them through gh, which holds its own credentials.
 // --check-releases reads release records through gh and flags changelog drift.
+//
+// Exit 1 means the check ran and found something; exit 2 means it could not
+// finish (an API failure, say), so a caller can tell drift from an outage.
 
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
@@ -268,6 +271,6 @@ async function main() {
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().then((code) => { process.exitCode = code; }, (error) => {
     console.error(error.message);
-    process.exitCode = 1;
+    process.exitCode = 2;
   });
 }

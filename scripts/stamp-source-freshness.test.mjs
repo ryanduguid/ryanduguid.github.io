@@ -1,6 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { spawnSync } from 'node:child_process';
+import { mkdtempSync, readFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -283,4 +285,23 @@ test('a tool page may pin an older release only if it names the current one', as
     'tools/a/index.html: pins tool/v1.1.0 but does not name the current release tool/v1.2.0',
   ]);
   assert.deepEqual(await freshness.checkToolReleases([['tools/b/index.html', '<p>No release-meta here</p>']], lookup), []);
+});
+
+// The workflow opens a drift issue on exit 1 only, so an outage must not share
+// that code. With PATH holding only an empty directory, gh cannot be found and
+// the lookup fails before any request. (Dropping PATH is not enough: on Windows
+// the child then searches the parent's PATH.)
+test('a release check that cannot reach gh exits 2, not 1', () => {
+  const env = Object.fromEntries(Object.entries(process.env).filter(([key]) => key.toUpperCase() !== 'PATH'));
+  env.PATH = mkdtempSync(join(tmpdir(), 'no-gh-'));
+  let result;
+  try {
+    result = spawnSync(process.execPath, [join(root, 'scripts', 'stamp-source-freshness.mjs'), '--check-releases'], {
+      cwd: root, env, encoding: 'utf8', timeout: 15_000,
+    });
+  } finally {
+    rmSync(env.PATH, { recursive: true, force: true });
+  }
+  assert.equal(result.status, 2, result.stderr);
+  assert.match(result.stderr, /ENOENT/);
 });

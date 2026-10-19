@@ -99,7 +99,10 @@ knows which version they get. `scripts/release_record.json` (below) is the
 reviewed statement for the components it lists; this weekly read covers the
 tool pages outside it.
 
-For a release-only verification after a fix, dispatch `source-freshness.yml`
+When the check finds drift (exit 1), the job opens or rewrites one issue titled
+'Release references are behind the current releases' listing each flagged line,
+and the first clean run closes it. An API failure exits 2 and leaves the issue as
+it was. For a release-only verification after a fix, dispatch `source-freshness.yml`
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
 input still run every job.
