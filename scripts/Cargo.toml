@@ -18,7 +18,7 @@ path = "src/main.rs"
 chrono = { version = "0.4.45", default-features = false, features = ["clock", "std"] }
 fancy-regex = "0.19.2"
 flate2 = { version = "1.1.10", default-features = false, features = ["zlib-rs"] }
-num-bigint = "0.4.8"
+num-bigint = "0.5.1"
 num-traits = "0.2.19"
 regex = "1.13.1"
 roxmltree = "0.21.1"
