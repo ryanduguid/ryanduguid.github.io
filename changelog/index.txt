@@ -13,6 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+20 October 2026 | The company tax and construction WIP pages name the current releases, the-exchequer-tally/v0.2.0 and the-wip-tally/v0.2.0, which require Python 3.14 or later and move to Apache-2.0. The WIP install line now asks for Python 3.14. The release table adds the Skills, MCP server, review gate and two engine releases published from 14 to 19 October.
 19 October 2026 | The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.
 17 October 2026 | Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example with a Copy button and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, groups the related prompt guide and cash flow example under Related resources, and Machine view excludes its text and status from search snippets.
 16 October 2026 | robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.
@@ -72,6 +73,12 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+19 October 2026 | Construction WIP schedule | the-wip-tally/v0.2.0
+19 October 2026 | Company tax and franking checks | the-exchequer-tally/v0.2.0
+17 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.5.0
+14 October 2026 | Workpaper Review Gate | review-ready-gate/v0.3.0
+14 October 2026 | Subcontract ledger skills | v0.4.0
+14 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.4.0
 12 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.1.12
 12 October 2026 | Payday Super timing | payday-super-checker/v0.1.10
 12 October 2026 | Construction WIP schedule | the-wip-tally/v0.1.4
@@ -125,6 +132,12 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- the-wip-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
+- the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
+- aus-accounting-mcp/v0.5.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0
+- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
+- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- aus-accounting-mcp/v0.4.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.4.0
 - ato-benchmark-compare/v0.1.12: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12
 - payday-super-checker/v0.1.10: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.10
 - the-wip-tally/v0.1.4: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4

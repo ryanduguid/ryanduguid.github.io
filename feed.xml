@@ -5,14 +5,35 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-19T00:00:00Z</updated>
+  <updated>2026-10-20T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The company tax and construction WIP pages name the current releases…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-0b9f0081c683015b</id>
+    <updated>2026-10-20T00:00:00Z</updated>
+    <summary>The company tax and construction WIP pages name the current releases, the-exchequer-tally/v0.2.0 and the-wip-tally/v0.2.0, which require Python 3.14 or later and move to Apache-2.0. The WIP install line now asks for Python 3.14. The release table adds the Skills, MCP server, review gate and two engine releases published from 14 to 19 October.</summary>
+  </entry>
   <entry>
     <title>The subcontract ledger and Workpaper Review Gate pages name the current…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-c3514e3ece51d48f</id>
     <updated>2026-10-19T00:00:00Z</updated>
     <summary>The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.</summary>
+  </entry>
+  <entry>
+    <title>Construction WIP schedule the-wip-tally/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-a25ccb4086c505f2</id>
+    <updated>2026-10-19T00:00:00Z</updated>
+    <summary>Construction WIP schedule: release the-wip-tally/v0.2.0.</summary>
+  </entry>
+  <entry>
+    <title>Company tax and franking checks the-exchequer-tally/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-76d45720e94bd2d5</id>
+    <updated>2026-10-19T00:00:00Z</updated>
+    <summary>Company tax and franking checks: release the-exchequer-tally/v0.2.0.</summary>
   </entry>
   <entry>
     <title>Monthly Close Controls and Workpaper Review Gate show fictional inputs and…</title>
@@ -22,11 +43,39 @@
     <summary>Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example with a Copy button and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, groups the related prompt guide and cash flow example under Related resources, and Machine view excludes its text and status from search snippets.</summary>
   </entry>
   <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.5.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0" />
+    <id>https://duguid.com.au/changelog/#entry-b090bf9c2319d49b</id>
+    <updated>2026-10-17T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.5.0.</summary>
+  </entry>
+  <entry>
     <title>robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-45928a4f9a82fd93</id>
     <updated>2026-10-16T00:00:00Z</updated>
     <summary>robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.</summary>
+  </entry>
+  <entry>
+    <title>Workpaper Review Gate review-ready-gate/v0.3.0</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0" />
+    <id>https://duguid.com.au/changelog/#entry-13c67ce262ffcfbc</id>
+    <updated>2026-10-14T00:00:00Z</updated>
+    <summary>Workpaper Review Gate: release review-ready-gate/v0.3.0.</summary>
+  </entry>
+  <entry>
+    <title>Subcontract ledger skills v0.4.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0" />
+    <id>https://duguid.com.au/changelog/#entry-6c3be76166921598</id>
+    <updated>2026-10-14T00:00:00Z</updated>
+    <summary>Subcontract ledger skills: release v0.4.0.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.4.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.4.0" />
+    <id>https://duguid.com.au/changelog/#entry-3e62394b2d138daa</id>
+    <updated>2026-10-14T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.4.0.</summary>
   </entry>
   <entry>
     <title>The ATO benchmarks, company tax and franking, construction WIP, Xero trial…</title>

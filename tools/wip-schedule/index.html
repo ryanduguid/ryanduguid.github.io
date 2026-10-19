@@ -62,7 +62,7 @@
       contract liability per job. Assets and liabilities are never netted.
       Review aid, not a determination.
     </p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2">the-wip-tally/v0.1.2</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4">the-wip-tally/v0.1.4</a>, which needs Python 3.11 or later and changes no calculation.</p>
+    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2">the-wip-tally/v0.1.2</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0">the-wip-tally/v0.2.0</a>, published on 19 October 2026. It requires Python 3.14 or later and moves to Apache-2.0. Where a contract’s outcome is not reasonably measurable, it now limits revenue to recoverable cost under AASB 15 para 45 before any measure of progress; contracts whose outcome is reasonably measurable, like the worked example, are unchanged. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4">the-wip-tally/v0.1.4</a> remains the last release for Python 3.11 to 3.13.</p>
     <p class="page-meta">Published 25 August 2026. Last reviewed 13 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
@@ -133,7 +133,7 @@ uv run --locked --extra dev --python 3.12 pytest -q tests/test_schedule.py::test
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.11 or later. A command-line tool for whoever runs Python at your firm.</p>
+    <p class="install-needs">Needs Python 3.14 or later. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code>git clone https://github.com/ryanduguid/australian-accounting.git
 cd australian-accounting/packages/the-wip-tally &amp;&amp; pip install .
 wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
