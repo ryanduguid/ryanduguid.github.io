@@ -7,11 +7,13 @@ name: source-freshness
 # it never rewrites capability descriptions or evaluation references.
 #
 # A pull request raised with GITHUB_TOKEN does not start the checks workflow, so
-# this job runs the site checks itself and pushes only once they pass. The change
-# only rewrites date strings in tools/index.html, and scripts/check_site.py holds
-# the date contract; the live link, browser and Lighthouse gates run on the merge
-# to main. The site checks here run offline: without a token the archived-repository
-# lookups exhaust the runner's shared API limit, and this job's token can write.
+# the stamp job runs the site checks itself and hands its change on only once they
+# pass. The change only rewrites date strings in tools/index.html, and
+# `site-tools check_site` holds the date contract; the live link, browser and
+# Lighthouse gates run on the merge to main. The site checks here run offline:
+# without a token the archived-repository lookups exhaust the runner's shared API
+# limit. The stamp job builds and runs site-tools with read-only access; the
+# publish job, which can write, applies the stamp job's patch and runs no tools.
 
 on:
   schedule:
@@ -74,13 +76,11 @@ jobs:
     if: github.event_name != 'workflow_dispatch' || !inputs.releases_only
     timeout-minutes: 30
     runs-on: ubuntu-24.04
-    # The only job that writes: it pushes the stamp branch and opens the pull request.
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
+    outputs:
+      changed: ${{ steps.changed.outputs.changed }}
     steps:
-      # No stored credentials: the gems, npm packages and scripts that run
-      # before the push never see the token. The push step authenticates itself.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
@@ -101,6 +101,12 @@ jobs:
         with:
           version: "0.12.17"
           enable-cache: true
+      - name: Install the pinned Rust toolchain
+        working-directory: scripts
+        run: rustup toolchain install 1.99 --profile minimal
+      - name: Build site-tools
+        working-directory: scripts
+        run: cargo build --locked
 
       - name: Refresh the stamps
         run: node scripts/stamp-source-freshness.mjs --write
@@ -108,7 +114,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Rebuild the full-text index from the stamped page
-        run: python scripts/build_llms_full.py --write
+        run: scripts/target/debug/site-tools build_llms_full --write
 
       - name: Stop early when no date moved
         id: changed
@@ -122,18 +128,49 @@ jobs:
 
       - name: Site checks
         if: steps.changed.outputs.changed == 'true'
-        run: python scripts/check_site.py --offline
+        run: scripts/target/debug/site-tools check_site --offline
 
-      - name: Open or update the pull request
+      - name: Record the change
         if: steps.changed.outputs.changed == 'true'
+        shell: bash
+        run: git diff --binary > "$RUNNER_TEMP/stamps.patch"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        if: steps.changed.outputs.changed == 'true'
+        with:
+          name: source-freshness-stamps
+          path: ${{ runner.temp }}/stamps.patch
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 1
+
+  publish:
+    needs: stamp
+    if: needs.stamp.outputs.changed == 'true'
+    timeout-minutes: 10
+    runs-on: ubuntu-24.04
+    # The only job that writes: it pushes the stamp branch and opens the pull request.
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      # No stored credentials; the push step authenticates itself.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: source-freshness-stamps
+          path: ${{ runner.temp }}/stamps
+      - name: Open or update the pull request
         shell: bash
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          git apply --index "$RUNNER_TEMP/stamps/stamps.patch"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git switch -C "$BRANCH"
-          git commit -am "Refresh source freshness stamps"
+          git commit -m "Refresh source freshness stamps"
           gh auth setup-git
           git push --force origin "$BRANCH"
           if ! gh pr view "$BRANCH" --json state --jq .state 2>/dev/null | grep -q OPEN; then

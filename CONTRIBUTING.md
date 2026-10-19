@@ -1,25 +1,29 @@
 # Contributing
 
-The site is HTML with shared Jekyll includes, checked by standard-library
-Python scripts and a small set of Node tests. Read [DESIGN.md](DESIGN.md)
+The site is HTML with shared Jekyll includes, checked by a Rust binary,
+`site-tools` (the crate in `scripts/`), and a small set of Node tests. Read [DESIGN.md](DESIGN.md)
 before changing a page.
 
 ## Local checks
 
-Use Ruby 3.3 with Bundler, Python 3.14 or newer and Node 24 LTS. Run `bundle install`
-once for the locked Jekyll build. `.github/workflows/checks.yml` runs the
-pinned linters first, then the site checks on Python 3.15:
+Use Ruby 3.3 with Bundler, Rust through rustup, Python 3.14 or newer and Node 24 LTS.
+Run `bundle install` once for the locked Jekyll build and
+`cargo install --locked --path scripts` for `site-tools` (again after pulling
+changes). `.github/workflows/checks.yml` runs the pinned linters first, then the
+site checks:
 
 ```bash
 python -m pip install --require-hashes --requirement requirements-lint.txt
 python -m ruff check .
 python -m ruff format --check .
 python -m mypy
-python scripts/check_site.py
+cargo fmt --manifest-path scripts/Cargo.toml --check
+cargo clippy --manifest-path scripts/Cargo.toml --locked --all-targets -- -D warnings
+site-tools check_site
 ```
 
-Use `python scripts/check_site.py --offline` to skip external requests while
-checking the built pages and local links. CI uses `python scripts/check_site.py --ci`:
+Use `site-tools check_site --offline` to skip external requests while
+checking the built pages and local links. CI uses `site-tools check_site --ci`:
 pull requests whose changed files contain no links, templates or front matter
 use offline checks, as do HTML changes limited to plain paragraph text in pages
 whose only Liquid is the shared header, footer and stylesheet version. Potential link, template, script or configuration changes
@@ -72,7 +76,7 @@ hours. When changing `assets/tokens.css` or `assets/site.css`, update the quoted
 `asset_version` in `_config.yml` so the new HTML requests fresh CSS. Page and
 layout sources use that setting, and the design checks validate the rendered
 URLs and stylesheet order. When changing `assets/accounting-pages.css`, update
-its value in the layouts and pages that link it and in `scripts/check_design.py`.
+its value in the layouts and pages that link it and in `scripts/src/check_design.rs`.
 Use the release date as `YYYYMMDD`, adding a lowercase suffix for another
 release on the same day.
 
@@ -136,7 +140,7 @@ value in `WATCHED` with the pages that use it.
 
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
-`python scripts/check_design.py --update-baseline` and check that the diff
+`site-tools check_design --update-baseline` and check that the diff
 touches only the pages you changed.
 
 ## Ozzit reference examples
@@ -144,7 +148,7 @@ touches only the pages you changed.
 The ten examples use the MIT-licensed Ozzit v3.4.2 function index in
 `assets/ozzit-functions-v3.4.2.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
-`python scripts/build_ozzit_reference.py --write`. The ordinary site checks
+`site-tools build_ozzit_reference --write`. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
 `assets/ozzit-reference-v3.4.2.json`. Each example records its result shape and a
@@ -169,7 +173,7 @@ one Jekyll advisory, GHSA-4xjh-m3qx-49wc, stops at 3.8.4 and does not reach
 vulnerability.
 
 It is also unreached. The site is written in plain CSS under `assets/`, so the
-converter is installed but never given an input. `scripts/test_build_site.py`
+converter is installed but never given an input. `scripts/tests/build_site.rs`
 enforces that: it fails on any `.scss` or `.sass` source, and on any stylesheet
 carrying front matter, because Jekyll 3 hands those to the converter. Keep
 writing plain CSS and the unsupported code stays off the build path.
@@ -226,7 +230,7 @@ it timed out on the National AI Centre's
 and [AI systems register](https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register)
 pages, which returned HTTP 200 locally on 29 September 2026. The link checker
 reports every exact URL in `CI_MANUAL_URLS` as requiring manual verification in
-GitHub Actions. Run `python scripts/check_links.py` locally before changing any
+GitHub Actions. Run `site-tools check_links` locally before changing any
 of them; local runs still fetch them all. Remove the CI exceptions when runner
 access works again.
 
@@ -239,7 +243,7 @@ works again.
 
 That run also returned HTTP 403 for 21 ATO source URLs that returned HTTP 200
 locally on 11 September 2026. They are listed individually in
-`HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/check_links.py`. Only HTTP 403 is accepted
+`HTTP_403_AUTOMATION_DENIAL_URLS` in `scripts/src/check_links_data.rs`. Only HTTP 403 is accepted
 for those exact URLs; other errors and unlisted URLs still fail. Recheck them
 locally before changing a source link and remove exceptions when access permits.
 
@@ -267,13 +271,13 @@ the exceptions when automated access works again.
 
 `scripts/release_record.json` is the reviewed statement of which release each page
 documents, which release is published, and which release each preserved evaluation
-reproduced. `scripts/check_site.py` validates the pages against it offline; no
+reproduced. `site-tools check_site` validates the pages against it offline; no
 ordinary build fetches a version number.
 
 Refresh it deliberately, not on a schedule:
 
 ```bash
-python scripts/release_record.py --verify-live
+site-tools release_record --verify-live
 ```
 
 That reads the public GitHub, PyPI and MCP registry records and reports drift. It
@@ -301,14 +305,14 @@ his own latest release, so those may stay unpinned; anything published by someon
 else names its version.
 
 `scripts/agent_file_policy.json` is the reviewed record of every package those
-files can install, and `scripts/check_agent_files.py` holds the pages to it
+files can install, and `site-tools check_agent_files` holds the pages to it
 offline. It also refuses invisible and direction-control characters, which a
 reader never sees and a model reads in full.
 
 Refresh the record deliberately:
 
 ```bash
-python scripts/check_agent_files.py --verify-live
+site-tools check_agent_files --verify-live
 ```
 
 That asks PyPI and npm whether each recorded name is still published and reports
@@ -322,9 +326,9 @@ files still tell agents to install it.
 and stays out of the published site. Read its README before recording a round.
 
 ```bash
-python scripts/visibility_benchmark.py --template > docs/visibility-benchmark/captures/round.json
-python scripts/visibility_benchmark.py --check docs/visibility-benchmark/captures/round.json
-python scripts/visibility_benchmark.py --summary docs/visibility-benchmark/captures/round.json
+site-tools visibility_benchmark --template > docs/visibility-benchmark/captures/round.json
+site-tools visibility_benchmark --check docs/visibility-benchmark/captures/round.json
+site-tools visibility_benchmark --summary docs/visibility-benchmark/captures/round.json
 ```
 
 Each command names the same file, so what you validate is what you summarise.
@@ -334,7 +338,7 @@ deliberately unfinished: it needs a recorder, and an observation marked complete
 needs its evidence, so it does not validate until a real round is recorded in it.
 A summary validates first and withholds every metric when any selected file fails.
 
-Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pre-commit install`; they run the pinned ruff check on staged files.
+Install the git hooks once with `python -m pip install "pre-commit==4.6.2" && pre-commit install`; they run the pinned ruff check on staged files and `cargo fmt` and `cargo clippy` when the Rust site tools change.
 
 ## Pull requests
 
@@ -343,8 +347,8 @@ documentation and current maintenance where applicable, and be open source
 software, official public resources or free developer interfaces.
 
 Keep every link to a live target, keep marketing vocabulary out of visible
-text, regenerate `feed.xml` with `python scripts/build_feed.py --write` after a
-changelog edit, and regenerate `llms-full.txt` with `python scripts/build_llms_full.py
+text, regenerate `feed.xml` with `site-tools build_feed --write` after a
+changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 --write` when a page's main text or `llms.txt` changes. That command also writes
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those

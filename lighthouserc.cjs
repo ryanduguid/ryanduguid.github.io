@@ -20,6 +20,13 @@ if (shard < 1 || shard > shards || shards > urls.length) {
   throw new Error(`LHCI_SHARD must be "index/total" with 1 <= index <= total <= ${urls.length}`);
 }
 
+// The site server is `site-tools serve_site`. CI sets SITE_TOOLS to a prebuilt
+// binary; locally Cargo builds it on first use, so build it before a first run
+// to stay inside the server's ready timeout.
+const siteServerCommand = process.env.SITE_TOOLS
+  ? `"${process.env.SITE_TOOLS}" serve_site`
+  : 'cargo run --locked --quiet --release --manifest-path scripts/Cargo.toml -- serve_site';
+
 module.exports = {
   ci: {
     collect: {
@@ -31,7 +38,7 @@ module.exports = {
             ? ['--no-sandbox']
             : [],
       },
-      startServerCommand: 'python -u scripts/serve_site.py',
+      startServerCommand: siteServerCommand,
       startServerReadyPattern: 'Serving HTTP on',
       startServerReadyTimeout: 10_000,
       url: urls.filter((_, index) => index % shards === shard - 1),

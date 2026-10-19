@@ -30,7 +30,7 @@ On this page:
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.
 - `/tools/business-calculators/` indexes 9 planning calculators, one page each under it, rendered by `_layouts/calculator.html` from `_includes/calculators/`. The 13-week cash scenario has CSV export.
 - `assets/hub-routes.mjs` forwards an old `#q12` or `#cash` bookmark on either index to the page that now holds it.
-- `/feed.xml` is an Atom feed built from the changelog tables by `scripts/build_feed.py`.
+- `/feed.xml` is an Atom feed built from the changelog tables by `site-tools build_feed`.
 
 The homepage is a short adoption path into those registers. The site is a personal open source index, not a practice, and does not accept professional engagements.
 
@@ -43,36 +43,47 @@ then install the locked build dependencies once:
 bundle install
 ```
 
+The build and check tools are one Rust binary, `site-tools`, built from the
+crate in `scripts/` with the toolchain pinned in `scripts/rust-toolchain.toml`.
+Install it once, and again after pulling changes:
+
+```bash
+cargo install --locked --path scripts
+```
+
+Any `site-tools` command below also runs without installing as
+`cargo run --locked --release --manifest-path scripts/Cargo.toml -- <command>`.
+
 Build and serve the generated HTML:
 
 ```bash
-python scripts/serve_site.py
+site-tools serve_site
 ```
 
 Then visit `http://127.0.0.1:4173/`. Restart the preview after editing a page
-or an include. `python scripts/build_site.py` builds `_site/` without serving it.
+or an include. `site-tools build_site` builds `_site/` without serving it.
 The preview compresses text when the browser accepts gzip, matching the
 compression verified on GitHub Pages. Lighthouse uses this same server.
 
 ## Checks
 
-`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job runs `ruff check .` and `mypy` over the check scripts first (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`), then the site checks run on Python 3.15:
+`.github/workflows/checks.yml` runs on every push, pull request and a weekly schedule. A `lint` job first runs `ruff check .` and `mypy` over the remaining Python (pinned to `ruff==0.16.8` and `mypy==2.3.1`, configured in `pyproject.toml`) and `cargo fmt --check` and `cargo clippy` over the Rust site tools; the Rust tests also run on Windows. Then the site checks run:
 
 - the Coal LSL levy engine's own test suite (`assets/levy.mjs`), run with `node --test scripts/levy.test.mjs`
-- the rates register's shape, provenance, ordering and checksums, run with `python scripts/check_rates_register.py` and `python scripts/test_rates_register.py`
+- the rates register's shape, provenance, ordering and checksums, run with `site-tools check_rates_register` and `cargo test --test rates`
 - the business planning arithmetic, run with `node --test scripts/business-calculators.test.mjs`
-- every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `python scripts/check_agent_files.py` and `python scripts/test_agent_files.py`
+- every install command in the machine-readable files must name a package in the reviewed `scripts/agent_file_policy.json`, and a third-party one must name its version; those files must also carry no invisible or direction-control characters. Run with `site-tools check_agent_files` and `cargo test --test agent_files`
 - every `github.com/ryanduguid/...` link must resolve to that exact repository, not through a rename redirect, and must not resolve to an archived repository (looked up once per repository through the GitHub REST API)
 - every same-origin link, absolute or root-relative, must resolve to a file on disk
 - external links must resolve
 - the HTML must parse cleanly
 - retired repository names and em or en dashes must not appear
-- marketing and machine-written vocabulary ('delve', 'leverage', 'seamless', 'robust', 'tapestry' and the rest of the list in `scripts/check_design.py`) must not appear in visible text, meta content, JSON-LD strings or `llms.txt`
+- marketing and machine-written vocabulary ('delve', 'leverage', 'seamless', 'robust', 'tapestry' and the rest of the list in `scripts/src/check_design.rs`) must not appear in visible text, meta content, JSON-LD strings or `llms.txt`
 - every page carries a title, a meta description in the length band, a canonical matching its own path, Open Graph tags and parseable JSON-LD; ItemList counts and positions must match their entries
 - every question marked up as an FAQ is visible on the page that claims it
 - every indexable page has one `main#main`, one skip link and the exact shared primary navigation
 - `sitemap.xml` and `llms.txt` between them cover every indexable page, and nothing else
-- `llms-full.txt` matches a fresh build from the visible main text of every indexable page, with each page's link destinations retained for citation; each page's `index.txt` is its own entry from that file, and `.well-known/llms.txt` is an identical copy of the canonical `llms.txt` (`python scripts/build_llms_full.py --write` regenerates all of them)
+- `llms-full.txt` matches a fresh build from the visible main text of every indexable page, with each page's link destinations retained for citation; each page's `index.txt` is its own entry from that file, and `.well-known/llms.txt` is an identical copy of the canonical `llms.txt` (`site-tools build_llms_full --write` regenerates all of them)
 - every styled page discovers design tokens before component CSS, and every indexable page links to its own plain-text alternate and the machine-readable index
 - every styled page carries the Content Security Policy meta tag and the 4 font preloads ahead of its stylesheets, and no page carries inline script other than JSON-LD data
 - `.well-known/security.txt` names a contact, has not expired and is published through `_config.yml`
@@ -83,7 +94,7 @@ compression verified on GitHub Pages. Lighthouse uses this same server.
 Run locally:
 
 ```bash
-python scripts/check_site.py
+site-tools check_site
 ```
 
 This builds with Jekyll, checks the build and preview with a small fixture,
@@ -194,7 +205,7 @@ so entered figures cannot leave through the form's default GET request.
 It holds because the site carries no inline `<style>`, no `style` attribute
 and no inline script other than JSON-LD data blocks. The Coal LSL calculator's
 page wiring lives in `assets/levy-page.mjs` for that reason, and
-`scripts/check_design.py` fails if a page drops the policy or gains an inline
+`site-tools check_design` fails if a page drops the policy or gains an inline
 script.
 
 The remainder are response-header-only controls: a `<meta http-equiv>` copy
@@ -209,7 +220,7 @@ GitHub Pages builds the repository with Jekyll. All 55 canonical pages
 include `_includes/site-header.html` and `_includes/site-footer.html`,
 directly or through a layout in `_layouts/`; the header sets the current page
 or section from each page's URL. The count is the number of URLs in
-`sitemap.xml`, which `scripts/test_contracts.py` asserts. Local builds and CI
+`sitemap.xml`, which `scripts/tests/contracts.rs` asserts. Local builds and CI
 pin Jekyll 3.10.0 in `Gemfile.lock` to match GitHub Pages.
 `_config.yml` decides what reaches the published origin. It keeps the
 repository's own tooling off duguid.com.au (`docs/`, `scripts/`, `tests/`, the
@@ -249,7 +260,7 @@ Every card below shares one provenance record. Sources: `assets/social-card-temp
 
 ## Favicon provenance
 
-The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rectangles on the OLED palette. Every raster below is rendered from that one drawing by `scripts/favicon_render.py`, which scales the 64-unit grid to whole pixels. The 180px touch icon rounds its coordinates; no shipped icon carries resampling or a fourth colour.
+The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rectangles on the OLED palette. Every raster below is rendered from that one drawing by `site-tools favicon_render`, which scales the 64-unit grid to whole pixels. The 180px touch icon rounds its coordinates; no shipped icon carries resampling or a fourth colour.
 
 | Asset | Role |
 | --- | --- |
@@ -261,10 +272,10 @@ The register seal is drawn once, in `assets/favicon.svg`, as square-cornered rec
 [Google's favicon guidance](https://developers.google.com/search/docs/appearance/favicon-in-search) requires a square image at least 8 × 8 pixels and recommends one larger than 48 × 48 pixels. The shipped 48px and 96px files meet the minimum; the 96px file also meets that recommendation. Eligibility does not guarantee display in search results. Rebuild them after any change to the seal:
 
 ```bash
-python scripts/favicon_render.py
+site-tools favicon_render
 ```
 
-`scripts/check_design.py` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for and is regenerated with the other icons.
+`site-tools check_design` fails if a shipped raster falls behind the SVG or a page drops an icon link. `assets/favicon-180.png` is the Apple touch icon at the 180px size iOS asks for and is regenerated with the other icons.
 
 ## About portrait provenance
 
@@ -303,7 +314,7 @@ individual Level 3 badge taken from it, which the evidence register publishes at
 [`/evidence/#xero-certification`](https://duguid.com.au/evidence/#xero-certification).
 [`assets/credentials/SOURCES.md`](assets/credentials/SOURCES.md) records both
 files' hashes, how the badge is rebuilt from the certificate with
-`python scripts/extract_xero_badge.py`, the usage limits carried into the page,
+`site-tools extract_xero_badge`, the usage limits carried into the page,
 and the 4 places to update on renewal. No Xero partner badge is published; that
 note records what evidence a Payroll or Migration badge would need first.
 

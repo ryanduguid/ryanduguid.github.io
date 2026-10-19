@@ -9,7 +9,7 @@ runtime.
 Run the repository-defined checks from the repository root:
 
 ```powershell
-python scripts/check_site.py
+site-tools check_site
 npm run test:capture
 npm run test:browser
 npm run test:lighthouse

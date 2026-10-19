@@ -452,7 +452,7 @@ fn only_deploy_and_fuzzing_are_exempt_from_the_actual_aggregate() {
     std::fs::create_dir_all(&workflows).unwrap();
     let path = workflows.join("checks.yml");
     std::fs::write(&path, &workflow).unwrap();
-    let results = r#"{"lint": {"result": "success"}, "checks": {"result": "success"}, "browser": {"result": "success"}, "lighthouse": {"result": "success"}}"#;
+    let results = r#"{"lint": {"result": "success"}, "tools": {"result": "success"}, "rust-windows": {"result": "success"}, "checks": {"result": "success"}, "browser": {"result": "success"}, "lighthouse": {"result": "success"}}"#;
     let gate = || {
         std::process::Command::new(python)
             .arg(repository.join(".github/ci/check_gates.py"))

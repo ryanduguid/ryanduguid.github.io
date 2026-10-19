@@ -2,13 +2,13 @@
 
 **Status, 4 October 2026.** The sourced dataset of dated figures now lives in
 `packages/au-tax-rates-data` in `ryanduguid/australian-accounting`, beside the
-engines whose copies a root test holds to it, and `scripts/pin_rates_dataset.py`
+engines whose copies a root test holds to it, and `site-tools pin_rates_dataset`
 pins the records the site states from there. That settles the register home in
 section 2.8 for those figures. `rates/register/` is unchanged.
 
 **Status, 18 September 2026.** Section 2 is partly built. `rates/register/`
 now holds the manifest, both schemas, `SHA256SUMS`, a changelog and one series
-(`coal-lsl-levy`), checked by `scripts/check_rates_register.py` in the site
+(`coal-lsl-levy`), checked by `site-tools check_rates_register` in the site
 checks. The built schema adds a `review` field, `automated-retrieval` or
 `professional-review`, which section 2.3 did not have: it keeps a figure a tool
 retrieved apart from one a person reviewed. Section 1's inventory is unchanged
@@ -592,7 +592,7 @@ proposed here.
   file exactly once and nothing else.
 - `SHA256SUMS` matches the tree.
 - Every `basis.url`, `primary_source.url` and `cross_checks` entry resolves.
-  The site's existing `check_links.py` scans `href` and `src` attributes in
+  The site's existing `site-tools check_links` scans `href` and `src` attributes in
   HTML only, so it never sees a URL inside a JSON file; the register needs a
   JSON-aware pass, either an extension to that script or a sibling that reads
   the series files and reuses its fetch and denial rules.
