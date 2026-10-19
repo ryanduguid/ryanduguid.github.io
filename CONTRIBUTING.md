@@ -104,11 +104,13 @@ knows which version they get. `scripts/release_record.json` (below) is the
 reviewed statement for the components it lists; this daily read covers the
 tool pages outside it.
 
-When the check finds drift (exit 1), the job opens or rewrites one issue titled
-'Release references are behind the current releases' listing each flagged line
-(one per package for the changelog), comments when that list changes, and the
-first clean run closes it. An API failure exits 2 and leaves the issue as
-it was. For a release-only verification after a fix, dispatch `source-freshness.yml`
+The same job also runs `site-tools release_record --verify-live` (below). When
+either check finds drift (exit 1), the job opens or rewrites one issue titled
+'Release references are behind the current releases', with a section for the
+pages (one line per package for the changelog) and one for the release record,
+comments when the list changes, and the first clean run closes it. A check that
+only failed to reach its sources exits 2; with no drift elsewhere, that leaves
+the issue as it was. For a release-only verification after a fix, dispatch `source-freshness.yml`
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
 input still run every job.
@@ -286,7 +288,9 @@ site-tools release_record --verify-live
 ```
 
 That reads the public GitHub, PyPI and MCP registry records and reports drift. It
-changes nothing. Review each difference, then update the record and the pages it
+changes nothing. It exits 1 when a source has drifted, is absent or has changed,
+and 2 when no source could be read; `GH_TOKEN`, when set, authenticates its
+GitHub API calls. Review each difference, then update the record and the pages it
 covers together. A newer release does not change a preserved evaluation: those keep
 the version they were run against, and the tests fail if one is quietly upgraded.
 A page may document an older release than the published one, but it must say so in

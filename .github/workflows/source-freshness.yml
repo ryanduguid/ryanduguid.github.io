@@ -39,10 +39,40 @@ env:
   BRANCH: automation/source-freshness
 
 jobs:
+  # Builds site-tools for the release check with read-only access, so the job that
+  # writes the tracking issue compiles nothing.
+  release-tools:
+    timeout-minutes: 15
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: scripts
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install 1.99 --profile minimal
+      - name: Build site-tools
+        run: cargo build --locked --bin site-tools
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: site-tools-release-check
+          path: scripts/target/debug/site-tools
+          if-no-files-found: error
+          overwrite: true
+          retention-days: 1
+
   # A red scheduled run notifies nobody, so drift is also kept in one tracking
   # issue: opened on the first drift, rewritten while drift remains and closed by
-  # the first run that finds none. An outage (exit 2) leaves the issue alone.
+  # the first run that finds none. Two checks feed it, each exiting 1 on drift and
+  # 2 on an outage: page links against GitHub releases, and the reviewed release
+  # record against GitHub, PyPI, the MCP registry and the release asset bytes.
+  # When neither drifted but either was inconclusive, the issue is left alone.
   releases:
+    needs: release-tools
     timeout-minutes: 5
     runs-on: ubuntu-24.04
     permissions:
@@ -57,6 +87,10 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: "24"
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8
+        with:
+          name: site-tools-release-check
+          path: ${{ runner.temp }}/site-tools
       - name: Check current release references
         id: check
         shell: bash
@@ -69,29 +103,63 @@ jobs:
           cat "$RUNNER_TEMP/drift.txt" >&2
           echo "status=$status" >> "$GITHUB_OUTPUT"
           exit "$status"
+      - name: Check the release record against the public sources
+        id: record
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set +e
+          chmod +x "$RUNNER_TEMP/site-tools/site-tools"
+          "$RUNNER_TEMP/site-tools/site-tools" release_record --verify-live > "$RUNNER_TEMP/record.txt" 2>&1
+          status=$?
+          cat "$RUNNER_TEMP/record.txt"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit "$status"
       - name: Open, update or close the tracking issue
-        if: ${{ !cancelled() && (steps.check.outputs.status == '0' || steps.check.outputs.status == '1') }}
+        if: ${{ !cancelled() && steps.check.outputs.status != '' && steps.record.outputs.status != '' }}
         shell: bash
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          STATUS: ${{ steps.check.outputs.status }}
+          PAGES: ${{ steps.check.outputs.status }}
+          RECORD: ${{ steps.record.outputs.status }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |
+          section() {
+            case "$1" in
+              0) echo "No drift." ;;
+              1) grep -E "$2" "$3" | sed 's/^/- /' ;;
+              *) echo "Inconclusive in this run (exit $1)." ;;
+            esac
+          }
+          if [ "$PAGES" != 1 ] && [ "$RECORD" != 1 ]; then
+            if [ "$PAGES" != 0 ] || [ "$RECORD" != 0 ]; then
+              echo "No drift found, but a check was inconclusive; the issue is unchanged."
+              exit 0
+            fi
+          fi
           number=$(gh issue list --state open --search "\"$TITLE\" in:title" --json number,title \
             --jq 'map(select(.title == env.TITLE)) | .[0].number // empty')
-          if [ "$STATUS" = 0 ]; then
+          if [ "$PAGES" = 0 ] && [ "$RECORD" = 0 ]; then
             if [ -n "$number" ]; then
               gh issue close "$number" --comment "No release drift in $RUN_URL."
             fi
             exit 0
           fi
           {
-            echo "The daily release check found pages naming an older release than the current one."
-            echo "Review each page and its capability descriptions; the check rewrites nothing."
+            echo "The daily release check found references behind the current releases."
+            echo "Review each page and its capability descriptions; the checks rewrite nothing."
             echo "Dispatch source-freshness.yml with releases_only=true after a fix; a clean run closes this issue."
             echo
-            sed 's/^/- /' "$RUNNER_TEMP/drift.txt"
+            echo "## Pages"
+            echo
+            section "$PAGES" '.' "$RUNNER_TEMP/drift.txt"
+            echo
+            echo "## Release record (scripts/release_record.json)"
+            echo
+            section "$RECORD" '\(DRIFT\)| ABSENT, | CHANGED, ' "$RUNNER_TEMP/record.txt"
             echo
             echo "Last checked: $RUN_URL"
           } > "$RUNNER_TEMP/body.md"

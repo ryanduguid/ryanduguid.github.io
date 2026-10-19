@@ -685,7 +685,7 @@ fn asset_classification() {
         bytes: Err(LiveError::Http(429)),
     };
     let mut printed = Vec::new();
-    verify_live(
+    let code = verify_live(
         &record,
         &mut live,
         &mut |_, _| {
@@ -701,6 +701,7 @@ fn asset_classification() {
         },
     )
     .unwrap();
+    assert_eq!(code, 1, "drift exits 1");
     let reported = printed.join("\n");
     assert!(reported.contains("github reports 9.9.9"), "{reported}");
     assert!(reported.contains("asset INCONCLUSIVE"), "{reported}");
@@ -709,4 +710,50 @@ fn asset_classification() {
         before,
         "the refresh must not rewrite the record"
     );
+}
+
+/// `--verify-live` exits 0 when every source answers and matches, and 2 when no source
+/// answered, so CI can tell drift (1) from an outage.
+#[test]
+fn verify_live_exit_codes() {
+    let mut record = load(Path::new(env!("CARGO_MANIFEST_DIR")).join("..").as_path()).unwrap();
+    let Json::Object(components) = at(&mut record, &["components"]).clone() else {
+        panic!("components")
+    };
+    for (name, _) in &components {
+        remove(
+            &mut record,
+            &["components", name, "published"],
+            "download_url",
+        );
+    }
+    let outcome = |state: &'static str| {
+        let mut live = Stub {
+            json: |_: &str| Ok(Json::Null),
+            bytes: Err(LiveError::Http(500)),
+        };
+        verify_live(
+            &record,
+            &mut live,
+            &mut |_, component: &Json| {
+                let version = match component.get("published").and_then(|p| p.get("version")) {
+                    Some(Json::Str(version)) => version.clone(),
+                    other => panic!("version {other:?}"),
+                };
+                Ok(vec![Probe {
+                    source: "github".into(),
+                    state,
+                    detail: if state == FOUND {
+                        version
+                    } else {
+                        "HTTPError: HTTP Error 503: Service Unavailable".into()
+                    },
+                }])
+            },
+            &mut |_| Ok(()),
+        )
+        .unwrap()
+    };
+    assert_eq!(outcome(FOUND), 0, "every source matches");
+    assert_eq!(outcome(INCONCLUSIVE), 2, "no source answered");
 }
