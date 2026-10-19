@@ -1,5 +1,7 @@
-usage: visibility_benchmark.py [-h] [--template | --check [CAPTURE ...] |
-                               --summary [CAPTURE ...]] [--include-fixtures]
+usage: site-tools visibility_benchmark [-h] [--template |
+                                       --check [CAPTURE ...] |
+                                       --summary [CAPTURE ...]]
+                                       [--include-fixtures]
 
 Validate and summarise assistant-visibility captures. The benchmark answers
 two separate questions and never mixes them: - visibility: did an assistant

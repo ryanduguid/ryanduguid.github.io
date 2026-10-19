@@ -25,7 +25,7 @@ const GITHUB_API: &str = "https://api.github.com/repos/ryanduguid/";
 const FRAGMENT_TARGET: &str = r#"\s(?:id|name)=(["'])([^"']+)\1"#;
 const OWN_REPO: &str = r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)";
 const MARKDOWN_LINK: &str = r"\]\((https?://[^)\s]+)\)";
-const USAGE: &str = "usage: check_links.py [-h] [--offline]\n";
+const USAGE: &str = include_str!("help/check_links.usage");
 
 /// A failed request, rendered as urllib's exception text.
 #[derive(Debug, Clone, PartialEq)]
@@ -636,7 +636,7 @@ fn self_check(root: &Path, say: &mut dyn FnMut(&str)) -> Result<(), String> {
 
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let parser = crate::pyargs::Parser {
-        prog: "check_links.py",
+        prog: "site-tools check_links",
         usage: USAGE,
         help: include_str!("help/check_links.txt"),
         flags: &["--offline"],

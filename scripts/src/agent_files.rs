@@ -93,8 +93,8 @@ const EXACT_PYTHON_VERSION: &str = concat!(
 );
 const LOCAL: &str = r"(?:^(?:\.|/|~|[A-Za-z]:|-|\$))|(?:\.(?:txt|lock|toml|cfg|whl|tar\.gz|json)$)";
 const PARSER: Parser = Parser {
-    prog: "check_agent_files.py",
-    usage: "usage: check_agent_files.py [-h] [--verify-live]\n",
+    prog: "site-tools check_agent_files",
+    usage: include_str!("help/check_agent_files.usage"),
     help: include_str!("help/check_agent_files.txt"),
     flags: &["--verify-live"],
     exclusive: &[],

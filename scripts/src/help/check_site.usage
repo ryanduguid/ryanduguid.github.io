@@ -1,0 +1,1 @@
+usage: site-tools check_site [-h] [--offline] [--ci] [--ci-metadata-only]

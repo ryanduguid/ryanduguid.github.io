@@ -1,0 +1,1 @@
+usage: site-tools build_agent_skills_manifest [-h] (--write | --check)

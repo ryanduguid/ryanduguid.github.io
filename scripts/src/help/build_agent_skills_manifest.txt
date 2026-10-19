@@ -1,0 +1,8 @@
+usage: site-tools build_agent_skills_manifest [-h] (--write | --check)
+
+Build and check .well-known/agent-skills/index.json.
+
+options:
+  -h, --help  show this help message and exit
+  --write     fetch the release and rewrite the manifest
+  --check     validate the committed manifest offline

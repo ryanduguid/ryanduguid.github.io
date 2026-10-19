@@ -1,4 +1,4 @@
-usage: check_site.py [-h] [--offline] [--ci] [--ci-metadata-only]
+usage: site-tools check_site [-h] [--offline] [--ci] [--ci-metadata-only]
 
 Run every repository-defined site check through one documented command.
 

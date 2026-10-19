@@ -1,0 +1,3 @@
+usage: site-tools check_publication [-h] --repository REPOSITORY
+                                    --commit COMMIT
+                                    [--wait-seconds WAIT_SECONDS]

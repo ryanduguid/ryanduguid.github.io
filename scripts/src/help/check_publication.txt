@@ -1,0 +1,12 @@
+usage: site-tools check_publication [-h] --repository REPOSITORY
+                                    --commit COMMIT
+                                    [--wait-seconds WAIT_SECONDS]
+
+Require current main and successful external producers before Pages
+publication.
+
+options:
+  -h, --help            show this help message and exit
+  --repository REPOSITORY
+  --commit COMMIT
+  --wait-seconds WAIT_SECONDS

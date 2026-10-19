@@ -22,17 +22,9 @@ const DIGEST_PATTERN: &str = r"^sha256:[0-9a-f]{64}$";
 const COMMIT_PATTERN: &str = r"^[0-9a-f]{40}$";
 const USER_AGENT: &str = "duguid.com.au manifest build";
 const PARSER: Parser = Parser {
-    prog: "build_agent_skills_manifest.py",
-    usage: "usage: build_agent_skills_manifest.py [-h] (--write | --check)\n",
-    help: "usage: build_agent_skills_manifest.py [-h] (--write | --check)
-
-Build and check .well-known/agent-skills/index.json.
-
-options:
-  -h, --help  show this help message and exit
-  --write     fetch the release and rewrite the manifest
-  --check     validate the committed manifest offline
-",
+    prog: "site-tools build_agent_skills_manifest",
+    usage: include_str!("help/build_agent_skills_manifest.usage"),
+    help: include_str!("help/build_agent_skills_manifest.txt"),
     flags: &["--write", "--check"],
     exclusive: &["--write", "--check"],
     required: true,

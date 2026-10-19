@@ -18,17 +18,8 @@ const RECORD: &str = "assets/ozzit-reference-v3.4.2.json";
 const OUTPUT: &str = "_includes/ozzit-reference.html";
 const INDEX_OUTPUT: &str = "_includes/ozzit-function-index.html";
 const WORKBOOK_SHA256: &str = "0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f";
-const USAGE: &str = "usage: build_ozzit_reference.py [-h] [--write] [--check]\n";
-const HELP: &str = "usage: build_ozzit_reference.py [-h] [--write] [--check]
-
-Build the Ozzit page's ten worked examples and its index of every named
-formula from the pinned release index.
-
-options:
-  -h, --help  show this help message and exit
-  --write
-  --check
-";
+const USAGE: &str = include_str!("help/build_ozzit_reference.usage");
+const HELP: &str = include_str!("help/build_ozzit_reference.txt");
 
 type Result<T> = std::result::Result<T, String>;
 
@@ -347,7 +338,7 @@ pub fn render(root: &Path) -> Result<String> {
 }
 
 const PARSER: crate::pyargs::Parser = crate::pyargs::Parser {
-    prog: "build_ozzit_reference.py",
+    prog: "site-tools build_ozzit_reference",
     usage: USAGE,
     help: HELP,
     flags: &["--write", "--check"],

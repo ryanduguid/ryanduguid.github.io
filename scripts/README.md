@@ -52,8 +52,9 @@ commands.
   instead of a traceback. `serve_site` logs one line where `socketserver`
   printed a traceback.
 - Messages that told you to run `python scripts/<name>.py` now name
-  `site-tools <name>`, and the generated files' headers name the command. Help
-  and usage text keep the script names as their program names.
+  `site-tools <name>`, and the generated files' headers name the command. Help,
+  usage and argument errors name `site-tools <name>` as the program, wrapped as
+  argparse wraps them for that name.
 - `check_site` runs `site-tools` commands and `cargo test` suites where it ran
   Python scripts, so its `running ...` lines differ. Its Python and Node checks
   are unchanged; `python` means `python3` off Windows. The checked tree leaves
