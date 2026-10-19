@@ -3189,7 +3189,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release on 13 October 2026 is v0.3.2, which keeps the same 65 skills and adds a BAS transaction GST coding review; its seven new validation cards have no recorded verdict.
+Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release is v0.4.0, published on 14 October 2026, with the same 65 skills. v0.3.2 added a BAS transaction GST coding review whose seven validation cards have no recorded verdict, and v0.4.0 moves the pack from MIT to Apache-2.0.
 
 Published 24 August 2026. Last reviewed 13 October 2026.
 
@@ -3252,6 +3252,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - Australian Accounting Skills v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
+- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
 - v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
@@ -3746,7 +3747,7 @@ Source: https://duguid.com.au/tools/workpaper-review-gate/
 
 This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 6 October 2026 is review-ready-gate/v0.2.0, which requires Python 3.11 or later.
+Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.3.0, published on 14 October 2026. It requires Python 3.14 or later, moves to Apache-2.0 and accepts BAS labels 1A and 1B reported in whole dollars; review-ready-gate/v0.2.0 remains the last release for Python 3.11 to 3.13.
 
 Published 25 August 2026. Last reviewed 17 October 2026.
 
@@ -3829,6 +3830,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
+- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
@@ -3905,6 +3907,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+19 October 2026 | The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.
 17 October 2026 | Monthly Close Controls and Workpaper Review Gate show fictional inputs and captured report downloads. Rates adds an Excel Power Query example with a Copy button and links the existing Atom feed. Tools keeps its task shortcuts and full register without the duplicate task list, groups the related prompt guide and cash flow example under Related resources, and Machine view excludes its text and status from search snippets.
 16 October 2026 | robots.txt now allows the GPTBot, ClaudeBot and Applebot-Extended training crawlers, so OpenAI, Anthropic and Apple can include the site in model training as Common Crawl and Bytespider already could. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent stay blocked, and the Privacy page describes the change.
 13 October 2026 | The ATO benchmarks, company tax and franking, construction WIP, Xero trial balance and subcontract ledger pages name the releases published on 12 October. The five tool releases need Python 3.11 or later and change no calculated result; Australian Accounting Skills v0.3.2 adds a BAS transaction GST coding review, and v0.3.1 stays the recommended skills release.
