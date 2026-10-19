@@ -81,7 +81,107 @@ in
             <p class="field-note">Checked in Excel for Windows 16.0, build 20527, on 17 October 2026: 8 data rows, 4 columns and the open-ended period retained.</p>
             <p>This imports the full SG history. A rate of <code>12.00</code> means 12%; divide by 100 if a formula needs a fraction. A blank end date remains blank. Select the period that applies to your work; the latest row does not apply to every year.</p>
             <p>Use Data, Refresh All to fetch the current CSV again. A successful refresh confirms retrieval, not source verification. Check the linked rate page’s verified date and primary source. For a completed workpaper, keep a dated values-only copy of the table and its source verification date; a live query can change on refresh.</p>
-            <p>For another table, use its Download CSV address below and set the column types for that file. Their schemas differ. Keep effective periods and notes, and preserve announced measures’ status rather than treating them as enacted rates.</p>
+            <p>The other six tables use the same steps with their own column types. Percentage columns hold whole percentages, as in the SG table. Each query keeps effective periods and notes, and an announced measure’s status stays text: it is not an enacted rate.</p>
+            <p>Division 7A benchmark rates:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for Division 7A benchmark rates"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/div7a-benchmark-rate/div7a-benchmark-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"benchmark_rate_percent", type number},
+        {"rba_series_month", type text},
+        {"notes", type text}
+    }, "en-AU")
+in
+    Rates</code></pre>
+            <p>Cents per kilometre rates:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for cents per kilometre rates"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/cents-per-kilometre/cents-per-kilometre-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"cents_per_km", Int64.Type},
+        {"instrument", type text},
+        {"register_id", type text},
+        {"scope", type text}
+    }, "en-AU")
+in
+    Rates</code></pre>
+            <p>Maximum super contribution base:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for maximum super contribution base"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/maximum-contribution-base/maximum-contribution-base.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"basis", type text},
+        {"maximum_contribution_base", type number},
+        {"maximum_sg_per_period", type number},
+        {"notes", type text}
+    }, "en-AU")
+in
+    Rates</code></pre>
+            <p>Car limit:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for car limit"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/car-limit/car-limit.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"income_year", type text},
+        {"car_limit", Int64.Type},
+        {"source", type text}
+    }, "en-AU")
+in
+    Rates</code></pre>
+            <p>FBT rates:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for FBT rates"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/fbt-rate/fbt-rates.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Rates = Table.TransformColumnTypes(Headers, {
+        {"fbt_year_ending", type date},
+        {"fbt_rate_percent", type number},
+        {"type_1_gross_up", type number},
+        {"type_2_gross_up", type number},
+        {"source", type text}
+    }, "en-AU")
+in
+    Rates</code></pre>
+            <p>Announced measures:</p>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Power Query import for announced measures"><code>let
+    Source = Csv.Document(
+        Web.Contents("https://duguid.com.au/rates/announced-not-yet-law/announced-measures.csv"),
+        [Delimiter = ",", Encoding = 65001, QuoteStyle = QuoteStyle.Csv]
+    ),
+    Headers = Table.PromoteHeaders(Source, [PromoteAllScalars = true]),
+    Measures = Table.TransformColumnTypes(Headers, {
+        {"measure", type text},
+        {"announced_in", type text},
+        {"start", type text},
+        {"status", type text},
+        {"legislation", type text},
+        {"royal_assent", type text},
+        {"ato_measure_url", type text},
+        {"checked_at", type date},
+        {"status_source_url", type text},
+        {"review_scope", type text},
+        {"application_note", type text}
+    }, "en-AU")
+in
+    Measures</code></pre>
+            <p class="field-note">Each of these six queries was checked in the same Excel build on 19 October 2026 against a copy of its CSV: every row and column loaded with no type errors.</p>
           </div>
         </details>
         <p><a href="/feed.xml">Follow updates with the Atom feed</a>. It covers this site’s recorded changes and tool releases, including rate-page changes; it is not a live regulator alert service.</p>

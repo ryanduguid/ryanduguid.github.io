@@ -684,6 +684,8 @@ test('the footer signs off with the motto above the ABN line', async ({ page }) 
   await expect(motto.locator('.site-footer__motto-mark')).toHaveText('EX FIDE FIDUCIA', { useInnerText: true });
   await expect(motto.locator('.visually-hidden')).toHaveText('Ex fide fiducia, Latin for from faith comes confidence');
   await expect(motto.locator('.visually-hidden [lang="la"]')).toHaveText('Ex fide fiducia');
+  // Text extractors read both copies, so a space keeps them separate words.
+  expect(await motto.textContent()).toBe('Ex fide fiducia Ex fide fiducia, Latin for from faith comes confidence');
   const geometry = await page.evaluate(() => {
     const inner = document.querySelector('.site-footer__inner');
     const box = (element) => element.getBoundingClientRect();
@@ -739,6 +741,8 @@ test('the About portrait is centred and fits its frame', async ({ page }) => {
   await page.setViewportSize({ width: 768, height: 1024 });
   await page.goto('/about/');
   await waitForVisualFonts(page);
+  // The ASCII art is decoration, so search snippets skip it.
+  await expect(page.locator('.about-portrait')).toHaveAttribute('data-nosnippet', '');
   const geometry = await page.evaluate(() => {
     const frame = document.querySelector('.about-portrait');
     const pre = frame.querySelector('pre');
