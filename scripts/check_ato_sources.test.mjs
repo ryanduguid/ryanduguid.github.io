@@ -152,6 +152,26 @@ test('readPages sends PDFs to the PDF reader, batches the rest and rereads pages
   assert.equal(pages.get(pdfUrl).text, `pdf ${pdfUrl}`);
 });
 
+test('JavaScript assets use whole text immediately, while a page with .js only in its query uses containers', async () => {
+  const scripts = [
+    'https://www.ato.gov.au/misc/spa/calculators/ui/scripts/ato/DIV7A.atogov.min.js',
+    'https://www.ato.gov.au/misc/spa/calculators/ui/scripts/ato/subjectArea.IncomeTax.atogov.min.JS?v=1',
+  ];
+  const html = 'https://www.ato.gov.au/page?example=asset.js';
+  const calls = [];
+  const batch = (urls, args) => {
+    calls.push([urls, args]);
+    return new Map(urls.map((url) => [url, scripts.includes(url) && args[0] === '--selector'
+      ? { error: "nothing visible matches '#content, main'" }
+      : { status: 200, text: TEXT }]));
+  };
+  const pages = await readPages([...scripts, html], { batch });
+  assert.equal(pages.size, 3);
+  assert.equal(calls.length, 2);
+  assert.deepEqual(calls[0], [[html], ['--selector', '#content, main']]);
+  assert.deepEqual(calls[1], [scripts, ['--main']]);
+});
+
 test('readPages reads a failed page again, treats any .pdf as a PDF and reports a page that keeps failing', async () => {
   const flaky = 'https://www.ato.gov.au/flaky';
   const broken = 'https://www.ato.gov.au/broken';
