@@ -1,0 +1,1489 @@
+# Ozzit Ratios functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/ratios/
+
+> Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios.
+
+# Ozzit Ratios functions
+
+The 48 Ratios formulas cover liquidity, gearing, margin, return, market and working capital ratios. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
+
+Release v3.5.0. Read from the released Ratios formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 48 functions
+
+- oz.AboutRatiosλ
+- oz.CurrentRatioλ
+- oz.QuickRatioλ
+- oz.CashRatioλ
+- oz.OperatingCashFlowRatioλ
+- oz.ReceivablesTurnoverRatioλ
+- oz.InventoryTurnoverRatioλ
+- oz.WorkingCapitalTurnoverRatioλ
+- oz.DebtRatioλ
+- oz.DSCRλ
+- oz.DebtToCapitalRatioλ
+- oz.EquityMultiplierλ
+- oz.DebtToEquityRatioλ
+- oz.DebtToAssetRatioλ
+- oz.InterestCoverageRatioλ
+- oz.EquityRatioλ
+- oz.AssetTurnoverRatioλ
+- oz.DSIλ
+- oz.OperatingRatioλ
+- oz.GrossMarginλ
+- oz.EBITDAMarginλ
+- oz.OperatingMarginλ
+- oz.PretaxMarginλ
+- oz.NetProfitMarginλ
+- oz.CashFlowMarginλ
+- oz.ROAλ
+- oz.ROEλ
+- oz.ROIλ
+- oz.ROICλ
+- oz.PriceEarningsRatioλ
+- oz.PriceToBookRatioλ
+- oz.PriceToSalesRatioλ
+- oz.PriceToCashRatioλ
+- oz.BVPSλ
+- oz.CAPERatioλ
+- oz.DPRλ
+- oz.DividendYieldRatioλ
+- oz.EPSλ
+- oz.RetentionRatioλ
+- oz.ATOTurnoverλ
+- oz.ATOBenchmarkRatioλ
+- oz.ATOTotalExpensesRatioλ
+- oz.ATOCostOfSalesRatioλ
+- oz.ATOLabourRatioλ
+- oz.ReceivableDaysλ
+- oz.PayableDaysλ
+- oz.WIPDaysλ
+- oz.CashConversionCycleλ
+
+### oz.AboutRatiosλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.r.Aboutλ.
+
+### oz.CurrentRatioλ
+
+oz.CurrentRatioλ( Assets, Liabilities)
+
+Measures a company’s ability to pay short-term obligations (Current Assets/Liabilities)
+
+Parameters:
+
+Assets (required)
+
+Current Assets. Includes:
+
+- Cash
+- Accounts receivable
+- Inventory
+- Vendor non-trade receivables
+- Assets expected to be liquidated in the current year
+- Marketable securities
+- PPE only when it meets current-asset classification criteria
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.CurrentRatioλ( 134.836, 125.481)
+```
+
+The workbook help shows 1.075.
+
+Previous name: nabla.r.CurrentRatioλ.
+
+### oz.QuickRatioλ
+
+oz.QuickRatioλ( QuickAssets, Liabilities)
+
+Measures ability to meet short-term obligations (Quick Assets/Current Liabilities)
+
+Parameters:
+
+QuickAssets (required)
+
+Quick Assets. Includes:
+
+- Cash & Cash equivalents
+- Marketable securities
+- Accounts receivable
+
+Alterantively it includes:
+
+- Current assets
+- Less inventory
+- Less prepaid expenses
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.QuickRatioλ( 165000, 137500)
+```
+
+The workbook help shows 1.2.
+
+Previous name: nabla.r.QuickRatioλ.
+
+### oz.CashRatioλ
+
+oz.CashRatioλ( Cash, Liabilities)
+
+Evaluates ability to repay short-term debt w/cash or near-cash resources (Cash and Cash Equivalents / Current Liabilities)
+
+Parameters:
+
+Cash (required)
+
+Cash and Cash Equivalents
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.CashRatioλ( 63900000, 123500000)
+```
+
+The workbook help shows .517409.
+
+Previous name: nabla.r.CashRatioλ.
+
+### oz.OperatingCashFlowRatioλ
+
+oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
+
+Measures how readily current liabilities are covered by cash flows generated from operations
+
+Measures how readily current liabilities are covered by cash flows generated from operations. (OperatingCashFlow/Liabilities)
+
+Parameters:
+
+OperatingCashFlow (required)
+
+Operating cash flow. Indirect method includes:
+
+- Net Income
+- Plus depreciation and amortisation
+- Less increase in net working capital
+
+Direct method includes:
+
+- Cash revenue
+- Less Operating expenses paid in cash
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.OperatingCashFlowRatioλ( 27.8, 77.5)
+```
+
+The workbook help shows 0.35871.
+
+Previous name: nabla.r.OperatingCashFlowRatioλ.
+
+### oz.ReceivablesTurnoverRatioλ
+
+oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
+
+Indicates effectiveness in collecting outstanding balances from clients and managing line of credit process (Net Credit Sales/Average Accounts Receivable)
+
+Parameters:
+
+NetCreditSales (required)
+
+Net Credit Sales. Amount of revenue earned by a company paid via credit
+
+AverageAccountsReceivable (required)
+
+Average Accounts Receivable. Average of period opening and closing balance
+
+```
+=oz.ReceivablesTurnoverRatioλ( 800000, 68000 )
+```
+
+The workbook help shows 11.76471.
+
+Previous name: nabla.r.ReceivablesTurnoverRatioλ.
+
+### oz.InventoryTurnoverRatioλ
+
+oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
+
+Shows how many times a company turned over its inventory relative to its cost of goods sold (COGS) (COGS/Average Inventory)
+
+Parameters:
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) which can include:
+
+- Office supply costs
+- Rent and utility expenses
+- Repair and maintenance costs
+- Salary and wage expenses
+
+AverageInventory (required)
+
+Average of period open and close inventory
+
+```
+=oz.InventoryTurnoverRatioλ( 429, 50.7)
+```
+
+The workbook help shows 8.461538.
+
+Previous name: nabla.r.InventoryTurnoverRatioλ.
+
+### oz.WorkingCapitalTurnoverRatioλ
+
+oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
+
+Working Capital Turnover Ratio measures how efficiently a company is using its working capital to support sales and growth (Net Annual Sales/Average Working Capital).
+
+Parameters:
+
+NetAnnualSales (required)
+
+Net Annual Sales can include:
+
+- Gross sales
+- Less returns
+- Less allowances
+- Less discounts
+
+WorkingCapital (required)
+
+Average of period open and close current assts less curren liabilities.
+
+```
+=oz.WorkingCapitalTurnoverRatioλ( 12.0, 2.0)
+```
+
+The workbook help shows 6.0.
+
+Previous name: nabla.r.WorkingCapitalTurnoverRatioλ.
+
+### oz.DebtRatioλ
+
+oz.DebtRatioλ( TotalDebt, TotalAssets)
+
+Measures the extent of a company’s gearing
+
+See also: DebtToAssetRatioλ computes the same ratio under its longer name.
+
+Parameters:
+
+TotalDebt (required)
+
+Total Debt
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.DebtRatioλ(30.0, 100.0)
+```
+
+The workbook help shows .3.
+
+Part of this function’s help text is not reproduced here. Read it in the released source.
+
+Previous name: nabla.r.DebtRatioλ.
+
+### oz.DSCRλ
+
+oz.DSCRλ( NetOperatingIncome, TotalDebtService)
+
+Debt service coverage Ratio measures a firm’s available cash flow to pay its current debt obligations(Net Operating Income/Total Debt Service)
+
+Measures a firm’s available cash flow to pay its current debt obligations (Net Operating Income/Total Debt Service)
+
+Parameters:
+
+NetOperatingIncome (required)
+
+Income measure defined by the applicable covenant
+
+TotalDebtService (required)
+
+Principal, interest and other payments defined by that covenant Use the same period. Tax-adjust interest only if the covenant requires it
+
+```
+=oz.DSCRλ(2150.0, 350.0)
+```
+
+The workbook help shows 6.142857.
+
+Previous name: nabla.r.DSCRλ.
+
+### oz.DebtToCapitalRatioλ
+
+oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
+
+Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment (Debt/(Debt + Shareholders' equity)
+
+Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment. (Debt/(Debt + Shareholders' equity)
+
+Parameters:
+
+Debt (required)
+
+Total Debt which can include:
+
+- Notes payable
+- Bonds payable
+- Long-term liabilities
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.DebtToCapitalRatioλ( 80.0, 223.0 )
+```
+
+The workbook help shows 26.4%.
+
+Previous name: nabla.r.DebtToCapitalRatioλ.
+
+### oz.EquityMultiplierλ
+
+oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
+
+Measures the portion of a company’s assets financed by shareholders' equity rather than by debt (TotalAssets/TotalShareholdersEquity)
+
+Parameters:
+
+TotalAssets (required)
+
+Both current and long-term assets
+
+TotalShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.EquityMultiplierλ(366.6, 83.2 )
+```
+
+The workbook help shows 4.40625.
+
+Previous name: nabla.r.EquityMultiplierλ.
+
+### oz.DebtToEquityRatioλ
+
+oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
+
+Measures the degree to which a company is financing operations with debt rather than its own resources. (Total Liabilities/Shareholders' Equity)
+
+Parameters:
+
+TotalLiabilities (required)
+
+Total Liabilities
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.DebtToEquityRatioλ(279.0, 74.0 )
+```
+
+The workbook help shows 3.77.
+
+Previous name: nabla.r.DebtToEquityRatioλ.
+
+### oz.DebtToAssetRatioλ
+
+oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
+
+Analysts can compare one company's gearing with that of other companies in the same industry. (Total Debt/Total Assets)
+
+See also: DebtRatioλ computes the same ratio under its shorter name.
+
+Parameters:
+
+TotalDebt (required)
+
+Total debt includes shortterm and longterm debt
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.DebtToAssetRatioλ(31.845, 63.852 )
+```
+
+The workbook help shows .49873.
+
+Part of this function’s help text is not reproduced here. Read it in the released source.
+
+Previous name: nabla.r.DebtToAssetRatioλ.
+
+### oz.InterestCoverageRatioλ
+
+oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
+
+Determines how easily a company can pay interest on its outstanding debt (Operating Income/Interest Expenses)
+
+Parameters:
+
+OperatingIncome (required)
+
+Operating Income (EBIT)
+
+InterestExpenses (required)
+
+Interest Expense
+
+```
+=oz.InterestCoverageRatioλ( 625.0, 90.0 )
+```
+
+The workbook help shows 6.944444.
+
+Previous name: nabla.r.InterestCoverageRatioλ.
+
+### oz.EquityRatioλ
+
+oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
+
+Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets)).
+
+Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets))
+
+Parameters:
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+TotalAssets (required)
+
+Both current and long-term assets
+
+IntangibleAssets (required)
+
+Deducted from total assets before the comparison
+
+```
+=oz.EquityRatioλ( 20.0, 60.0, 10.0 )
+```
+
+The workbook help shows 40%.
+
+Previous name: nabla.r.EquityRatioλ.
+
+### oz.AssetTurnoverRatioλ
+
+oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
+
+Measures the value of a company's sales or revenues relative to the value of its assets. (Net Sales/Total Assets)
+
+Parameters:
+
+NetSales (required)
+
+revenue or net sales.
+
+TotalAssets (required)
+
+Average of Assets and period start and end.
+
+```
+=oz.AssetTurnoverRatioλ( 171760, 538715 )
+```
+
+The workbook help shows .32x.
+
+Previous name: nabla.r.AssetTurnoverRatioλ.
+
+### oz.DSIλ
+
+oz.DSIλ( AverageInventory, CostOfGoodsSold)
+
+Days Sales in Inventory Ratio (aka Average age of inventory indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365)
+
+Days Sales in Inventory Ratio (aka Average age of inventory) indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365 days)
+
+Parameters:
+
+AverageInventory (required)
+
+Average of period open and close Inventory
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) for a full year
+
+```
+=oz.DSIλ(54.9, 490 )
+```
+
+The workbook help shows 40.8949 days.
+
+Previous name: nabla.r.DSIλ.
+
+### oz.OperatingRatioλ
+
+oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
+
+Shows how efficient management is at keeping costs low while generating revenue (Operating Expenses + Cost Of Goods Sold)/Net Sales)
+
+Parameters:
+
+OperatingExpenses (required)
+
+Operating Expenses excluding COGS, which is supplied separately and added by the formula. Can include:
+
+- Accounting and legal fees
+- Bank charges
+- Sales and marketing costs
+- Non-capitalised research development (R&D) expenses
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) which can include:
+
+- Office supply costs
+- Rent and utility expenses
+- Repair and maintenance costs
+- Salary and wage expenses
+
+NetSales (required)
+
+Net Sales or Revenue.
+
+```
+=oz.OperatingRatioλ( 14.37, 48.48, 90.75 )
+```
+
+The workbook help shows 69%.
+
+Previous name: nabla.r.OperatingRatioλ.
+
+### oz.GrossMarginλ
+
+oz.GrossMarginλ( GrossProfit, NetSales)
+
+Shows how much profit a company makes after paying off its Cost of Goods Sold
+
+Shows how much profit a company makes after paying off its Cost of Goods Sold (COGS). (Gross Profit/Net Sales)
+
+Parameters:
+
+GrossProfit (required)
+
+Gross Profit
+
+NetSales (required)
+
+Net Sales or Revenue
+
+```
+=oz.GrossMarginλ( 62.984, 102.007 )
+```
+
+The workbook help shows 61.7448%.
+
+Previous name: nabla.r.GrossMarginλ.
+
+### oz.EBITDAMarginλ
+
+oz.EBITDAMarginλ( EBITDA, TotalRevenue)
+
+Measures a company's operating profit as a percentage of its revenue (EBITDA/Total Revenue).
+
+Measures a company's operating profit as a percentage of its revenue. (EBITDA/Total Revenue)
+
+Parameters:
+
+EBITDA (required)
+
+Earnings Before Interest, tax, depreciation, and amortisation
+
+TotalRevenue (required)
+
+Total Revenue
+
+```
+=oz.EBITDAMarginλ( 15.0, 125.0 )
+```
+
+The workbook help shows 12%.
+
+Previous name: nabla.r.EBITDAMarginλ.
+
+### oz.OperatingMarginλ
+
+oz.OperatingMarginλ( OperatingEarnings, Revenue)
+
+Measures how much profit a company makes on a dollar of sales after paying for variable costs of production, such as wages and raw materials, but before paying interest or tax (Operating Earnings/Revenue).
+
+Parameters:
+
+OperatingEarnings (required)
+
+Earnings Before Interest and tax (EBIT), which is revenue less COGS and less the other operating expenses
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.OperatingMarginλ( .8, 2.0 )
+```
+
+The workbook help shows 40%.
+
+Previous name: nabla.r.OperatingMarginλ.
+
+### oz.PretaxMarginλ
+
+oz.PretaxMarginλ( PretaxEarnings, Revenue)
+
+Measures the operating efficiency of a company (Pretax Earnings/Revenue).
+
+Parameters:
+
+PretaxEarnings (required)
+
+Earnings before tax (EBT)
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.PretaxMarginλ( 40.0, 500.0 )
+```
+
+The workbook help shows 8%.
+
+Previous name: nabla.r.PretaxMarginλ.
+
+### oz.NetProfitMarginλ
+
+oz.NetProfitMarginλ( NetIncome, Revenue)
+
+Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue).
+
+Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income includes:
+
+- Revenue
+- Less COGS
+- Less Operating and other expenses
+- Less Interest
+- Less Taxes
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.NetProfitMarginλ( 56.0, 100.0 )
+```
+
+The workbook help shows 56%.
+
+Previous name: nabla.r.NetProfitMarginλ.
+
+### oz.CashFlowMarginλ
+
+oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
+
+Cash Flow Margin is a trusted metric of a company’s profitability and efficiency and its earnings quality (Cash Flow From Operating Activities/Revenue).
+
+Parameters:
+
+CashFlowFromOperatingActivities (required)
+
+Cash Flow From Operating Activities includes:
+
+- Net Income
+- Non-cash Expenses (Depreciation and Amortisation)
+- Change in Working Capital
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.CashFlowMarginλ( 2.695, 5.3 )
+```
+
+The workbook help shows 50.8%.
+
+Previous name: nabla.r.CashFlowMarginλ.
+
+### oz.ROAλ
+
+oz.ROAλ( NetIncome, TotalAssets)
+
+Return on assets (ROA) ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)
+
+Return on assets ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.ROAλ(1200, 15000 )
+```
+
+The workbook help shows 8%.
+
+Previous name: nabla.r.ROAλ.
+
+### oz.ROEλ
+
+oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
+
+Return on equity (ROE) ratio is a measure of financial performance (Net Income/Average Shareholders' Equity)
+
+Return on equity ratio is considered a gauge of a corporation's profitability and how efficient it is in generating profits (Net Income/ Average Shareholders' Equity)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+ShareholdersEquity (required)
+
+Shareholders' Equity at the period close. Give the average of open and close here when OpeningEquity is left out
+
+OpeningEquity (optional)
+
+Shareholders' Equity at the period open. When given, the ratio divides by the average of OpeningEquity and ShareholdersEquity
+
+```
+=oz.ROEλ( 59.972, 256.144, 251.635 )
+```
+
+The workbook help shows 23.6213%.
+
+```
+=oz.ROEλ( 59.972, AVERAGE(251.635, 256.144) )
+```
+
+The workbook help shows 23.6213%.
+
+Previous name: nabla.r.ROEλ.
+
+### oz.ROIλ
+
+oz.ROIλ( NetReturnonInvestment, CostofInvestment)
+
+Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost (Net Return on Investment/Cost of Investment).
+
+Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost. (Net Return on Investment/Cost of Investment)
+
+Parameters:
+
+NetReturnonInvestment (required)
+
+Net Return on Investment is the final value of investment - initial value of investment
+
+CostofInvestment (required)
+
+Cost of Investment
+
+```
+=oz.ROIλ( 2875, 10000 )
+```
+
+The workbook help shows 28.75%.
+
+Previous name: nabla.r.ROIλ.
+
+### oz.ROICλ
+
+oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
+
+Return on Invested capital assesses a company’s efficiency in allocating capital to profitable investments (Net Operating Profit After Tax/Invested Capital)
+
+Parameters:
+
+NetOperatingProfitAfterTax (required)
+
+Net Operating profit after Tax [ operating profit x (1 - effective tax rate) ].
+
+InvestedCapital (required)
+
+Invested Capital (Debt + Equity).
+
+```
+=oz.ROICλ( 3245, 25729 )
+```
+
+The workbook help shows 12.6122%.
+
+Previous name: nabla.r.ROICλ.
+
+### oz.PriceEarningsRatioλ
+
+oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
+
+Price-earnings Ratio measures a company's share price relative to its earnings per share (Share Price/Earnings Per Share).
+
+Parameters:
+
+SharePrice (required)
+
+Share Price (Market Value Per Share)
+
+EarningsPerShare (required)
+
+Earnings Per Share
+
+```
+=oz.PriceEarningsRatioλ( 242.62, 16.85)
+```
+
+The workbook help shows 14.39881.
+
+Previous name: nabla.r.PriceEarningsRatioλ.
+
+### oz.PriceToBookRatioλ
+
+oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
+
+Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies.
+
+Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies. (Market Price Per Share/Book Value Per Share)
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+BookValuePerShare (required)
+
+Tangible book value per share (oz.BVPSλ keeps intangibles) (Total assets - intangible assets - total liabilities) ÷ number of outstanding shares
+
+```
+=oz.PriceToBookRatioλ( 5, 2.50 )
+```
+
+The workbook help shows 2.0.
+
+Previous name: nabla.r.PriceToBookRatioλ.
+
+### oz.PriceToSalesRatioλ
+
+oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
+
+Price to Sales (P/S) Ratio is an indicator of the value that financial markets have placed on each dollar of a company's sales or revenues (Market Price Per Share/Sales Per Share).
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+SalesPerShare (required)
+
+Annual Sales Per Share (Revenue prior 12 months)
+
+```
+=oz.PriceToSalesRatioλ( 455.0, 100.0 )
+```
+
+The workbook help shows 4.55.
+
+Previous name: nabla.r.PriceToSalesRatioλ.
+
+### oz.PriceToCashRatioλ
+
+oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
+
+Price to Cash (P/CF) Ratio is a stock valuation indicator or multiple that measures the value of a stock’s price relative to its operating cash flow per share (Market Price Per Share/Operating Cash Flow Per Share).
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+OperatingCashFlowPerShare (required)
+
+Operating Cash Flow for prior 12 months/Shares outstanding
+
+```
+=oz.PriceToCashRatioλ( 200.0, 100.0 )
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.r.PriceToCashRatioλ.
+
+### oz.BVPSλ
+
+oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
+
+Book value per share ratio is an indicator of the value of a company’s stock (Shareholders' Equity - Preferred Stock)/Average Shares Outstanding)
+
+Parameters:
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities), intangibles kept
+
+PreferredStock (required)
+
+Preferred Stock (securities that represent ownership in a corporation).
+
+AverageSharesOutstanding (required)
+
+Average Shares Out Standing
+
+```
+=oz.BVPSλ(20.0, 5.0, AVERAGE( 2.9, 3.1) )
+```
+
+The workbook help shows 5.
+
+Previous name: nabla.r.BVPSλ.
+
+### oz.CAPERatioλ
+
+oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
+
+CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earn
+
+CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earnings Inflation Adjusted)
+
+Parameters:
+
+SharePrice (required)
+
+Current stock price
+
+TenYearAverageEarningsInflationAdjusted (required)
+
+Average earnings per share for 10 years adjusted for inflation
+
+```
+=oz.CAPERatioλ( 100.0, 10.0  )
+```
+
+The workbook help shows 10.
+
+Previous name: nabla.r.CAPERatioλ.
+
+### oz.DPRλ
+
+oz.DPRλ( DividendsPaid, NetIncome )
+
+Dividend Payout Ratio is the percentage of earnings paid to shareholders via dividends (DividendsPaid/NetIncome)
+
+Parameters:
+
+DividendsPaid (required)
+
+Dividends paid
+
+NetIncome (required)
+
+Net Income
+
+```
+=oz.DPRλ( 5.0, 20.0 )
+```
+
+The workbook help shows 25%.
+
+Previous name: nabla.r.DPRλ.
+
+### oz.DividendYieldRatioλ
+
+oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
+
+Dividend yield ratio shows how much a company pays out in dividends each year relative to its stock price (Annual Dividends Pe rShare/Share Price)
+
+Parameters:
+
+AnnualDividendsPerShare (required)
+
+Annual Dividends Per Share
+
+SharePrice (required)
+
+Market value per share
+
+```
+=oz.DividendYieldRatioλ( 1.2, 45 )
+```
+
+The workbook help shows 2.6667%.
+
+Previous name: nabla.r.DividendYieldRatioλ.
+
+### oz.EPSλ
+
+oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
+
+Earnings per share measures profitability indicating how much profit each outstanding share of common stock has earned (Net Income - Preferred Dividends)/End Of Period Common Shares Outstanding)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+PreferredDividends (required)
+
+Dividends paid on prefered stock
+
+EndOfPeriodCommonSharesOutstanding (required)
+
+Weighted-average ordinary shares for basic EPS Use closing shares only when they equal that weighted average
+
+```
+=oz.EPSλ( 7.6, 0, 3.98 )
+```
+
+The workbook help shows 1.909548.
+
+Previous name: nabla.r.EPSλ.
+
+### oz.RetentionRatioλ
+
+oz.RetentionRatioλ( RetainedEarnings, NetIncome )
+
+Retention Ratio is the proportion of earnings kept back in the business as retained earnings (Retained Earnings/Net Income).
+
+Parameters:
+
+RetainedEarnings (required)
+
+Retained Earnings (Net Income - paid dividends)
+
+NetIncome (required)
+
+Net Income
+
+```
+=oz.RetentionRatioλ( 19.869, 41.981)
+```
+
+The workbook help shows 47.3%.
+
+Previous name: nabla.r.RetentionRatioλ.
+
+### oz.ATOTurnoverλ
+
+oz.ATOTurnoverλ(OtherSales, TotalBusinessIncome)
+
+Turnover as the ATO small business benchmarks measure it: other sales unless under half of total business income
+
+Turnover excluding GST, the denominator of every ATO tax return benchmark ratio.
+
+Note: Returns OtherSales, unless it is zero, blank or less than half of TotalBusinessIncome, when it returns TotalBusinessIncome instead. That is the ATO's rule. OtherSales is the other sales of goods and services amount on the return. Where total business income is blank or incomplete, the ATO adds up the business income items it lists for the return type: pass that total as TotalBusinessIncome. Pass both amounts excluding GST. Text in either argument returns #VALUE!. Arithmetic only: the reviewer decides what belongs in each amount. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+OtherSales (required)
+
+Other sales of goods and services, excluding GST.
+
+TotalBusinessIncome (required)
+
+Total business income, excluding GST.
+
+```
+=oz.ATOTurnoverλ(480000, 500000)
+```
+
+The workbook help shows 480000.
+
+```
+=oz.ATOTurnoverλ(200000, 500000)
+```
+
+The workbook help shows 500000.
+
+### oz.ATOBenchmarkRatioλ
+
+oz.ATOBenchmarkRatioλ(Amount, Turnover)
+
+ATO tax return benchmark ratio: an amount divided by turnover, as for rent or motor vehicle expenses to turnover
+
+ATO tax return benchmark ratio: Amount / Turnover.
+
+Note: The ATO's basic formula for a tax return benchmark ratio, and the whole of its rent expenses to turnover and motor vehicle expenses to turnover ratios: pass the rent or motor vehicle expenses amount from the return. Returns a fraction; format it as a percentage, as the ATO's figure is the same quotient multiplied by 100. Take Turnover from ATOTurnoverλ(). Use ATOTotalExpensesRatioλ(), ATOCostOfSalesRatioλ() and ATOLabourRatioλ() for the 3 ratios whose amounts the ATO adjusts. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+Amount (required)
+
+The expense amount, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+```
+=oz.ATOBenchmarkRatioλ(24000, 480000)
+```
+
+The workbook help shows 5%.
+
+### oz.ATOTotalExpensesRatioλ
+
+oz.ATOTotalExpensesRatioλ(TotalExpenses, Turnover, [AssociatePayments])
+
+ATO total expenses to turnover: total expenses less payments to associated persons, over turnover
+
+ATO total expenses to turnover benchmark ratio.
+
+Note: (TotalExpenses - AssociatePayments) / Turnover. The ATO deducts payments to associated persons from total expenses before dividing. Where total expenses is blank or incomplete, it adds up the expense items it lists for the return type: pass that total as TotalExpenses. OperatingRatioλ() gives the same quotient only when its expenses already exclude those payments and its net sales equal this Turnover. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank AssociatePayments counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+TotalExpenses (required)
+
+Total expenses from the return, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+AssociatePayments (optional, Default = 0)
+
+Payments to associated persons.
+
+```
+=oz.ATOTotalExpensesRatioλ(410000, 480000, 30000)
+```
+
+The workbook help shows 0.7917.
+
+### oz.ATOCostOfSalesRatioλ
+
+oz.ATOCostOfSalesRatioλ(CostOfSales, Turnover, [IncludedWages])
+
+ATO cost of sales to turnover, excluding salary and wages included in cost of sales
+
+ATO cost of sales to turnover benchmark ratio, excluding labour.
+
+Note: (CostOfSales - IncludedWages) / Turnover. The ATO's cost of sales excludes salary and wages: where the return's total salary and wages code is C, meaning they are included in cost of sales, it deducts the total salary and wages expenses. Pass that total as IncludedWages only when the code is C, and leave it out otherwise. GrossMarginλ() is a different measure: it keeps wages in cost of sales. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank IncludedWages counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+CostOfSales (required)
+
+Cost of sales from the return, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+IncludedWages (optional, Default = 0)
+
+Total salary and wages expenses, only when the return's code is C.
+
+```
+=oz.ATOCostOfSalesRatioλ(260000, 480000, 60000)
+```
+
+The workbook help shows 0.4167.
+
+### oz.ATOLabourRatioλ
+
+oz.ATOLabourRatioλ(SalaryWages, Contractors, Turnover, [AssociatePayments], [W1])
+
+ATO labour to turnover: salary and wages plus contractors less payments to associated persons, over turnover
+
+ATO labour to turnover benchmark ratio.
+
+Note: (Wages + Contractors - AssociatePayments) / Turnover, where Wages is SalaryWages, or W1 when W1 is greater. The ATO adds total salary and wages expenses to contractor, subcontractor and commission expenses and deducts payments to associated persons. Where the activity statements' label W1 (total salary, wages and other payments) for the year exceeds the return's salary and wages, it uses W1. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank AssociatePayments or W1 counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+SalaryWages (required)
+
+Total salary and wages expenses from the return.
+
+Contractors (required)
+
+Contractor, subcontractor and commission expenses.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+AssociatePayments (optional, Default = 0)
+
+Payments to associated persons.
+
+W1 (optional, Default = 0)
+
+The year's total at activity statement label W1.
+
+```
+=oz.ATOLabourRatioλ(90000, 20000, 480000, 10000, 95000)
+```
+
+The workbook help shows 0.21875.
+
+### oz.ReceivableDaysλ
+
+oz.ReceivableDaysλ(Receivables, Sales, [Days])
+
+Receivable days, or days sales outstanding (DSO): Receivables / Sales x Days
+
+Receivable days, or days sales outstanding (DSO): the days of sales not yet collected.
+
+Note: Receivables / Sales * Days. Days is the number of days the Sales figure covers: 365 with a year's sales, 90 with the last three months' sales for a rolling figure, or a month's days with that month's sales. Pass closing receivables, or the average of opening and closing for an average-balance figure. Put the balance and the sales on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Sales of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+Receivables (required)
+
+Trade receivables: the closing balance, or the average of opening and closing.
+
+Sales (required)
+
+Credit sales over the same Days.
+
+Days (optional, Default = 365)
+
+Days the Sales figure covers.
+
+```
+=oz.ReceivableDaysλ(125000, 1200000)
+```
+
+The workbook help shows 38.0208.
+
+```
+=oz.ReceivableDaysλ(125000, 330000, 90)
+```
+
+The workbook help shows 34.0909.
+
+### oz.PayableDaysλ
+
+oz.PayableDaysλ(Payables, Purchases, [Days])
+
+Payable days, or days payable outstanding (DPO): Payables / Purchases x Days
+
+Payable days, or days payable outstanding (DPO): the days of purchases not yet paid.
+
+Note: Payables / Purchases * Days. Days is the number of days the Purchases figure covers, as for ReceivableDaysλ(). Credit purchases are the matching flow; cost of sales is the common substitute where purchases are not reported. Pass closing payables, or the average of opening and closing. Put the balance and the purchases on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Purchases of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+Payables (required)
+
+Trade payables: the closing balance, or the average of opening and closing.
+
+Purchases (required)
+
+Credit purchases, or cost of sales, over the same Days.
+
+Days (optional, Default = 365)
+
+Days the Purchases figure covers.
+
+```
+=oz.PayableDaysλ(64000, 780000)
+```
+
+The workbook help shows 29.9487.
+
+### oz.WIPDaysλ
+
+oz.WIPDaysλ(WIP, RelatedFlow, [Days])
+
+Work in progress days: WIP / RelatedFlow x Days, with both on one valuation basis
+
+Work in progress days: the days of work done but not yet billed or completed.
+
+Note: WIP / RelatedFlow * Days. WIP and RelatedFlow must use the same valuation basis: fee revenue with WIP at charge-out value, as a professional services firm records it, or cost of sales with WIP at cost. Days is the number of days the RelatedFlow figure covers. WIP days plus ReceivableDaysλ() gives the lock-up days a services firm tracks. RelatedFlow of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+WIP (required)
+
+Work in progress: the closing balance, or the average of opening and closing.
+
+RelatedFlow (required)
+
+Fee revenue or cost of sales over the same Days, on the valuation basis of WIP.
+
+Days (optional, Default = 365)
+
+Days the RelatedFlow figure covers.
+
+```
+=oz.WIPDaysλ(42000, 510000)
+```
+
+The workbook help shows 30.0588.
+
+### oz.CashConversionCycleλ
+
+oz.CashConversionCycleλ(InventoryDays, ReceivableDays, PayableDays, [WIPDays])
+
+Cash conversion cycle in days: inventory days + WIP days + receivable days - payable days
+
+Cash conversion cycle: the days between paying suppliers and collecting from customers.
+
+Note: InventoryDays + WIPDays + ReceivableDays - PayableDays. Pass day counts, for example from DSIλ(), ReceivableDaysλ(), PayableDaysλ() and WIPDaysλ(), with every component on the same period basis. DSIλ() multiplies by 365 and expects a full year's cost of goods sold, so for a shorter window annualise that window's cost of goods sold before passing it. A negative result means suppliers are paid after customers pay. An omitted or blank WIPDays counts as 0. Pass WIPDays only where WIP is not already in the inventory behind InventoryDays, or it is counted twice.
+
+Parameters:
+
+InventoryDays (required)
+
+Inventory days, for example from DSIλ().
+
+ReceivableDays (required)
+
+Receivable days, for example from ReceivableDaysλ().
+
+PayableDays (required)
+
+Payable days, for example from PayableDaysλ().
+
+WIPDays (optional, Default = 0)
+
+Work in progress days, for example from WIPDaysλ().
+
+```
+=oz.CashConversionCycleλ(40.8949, 38.0208, 29.9487)
+```
+
+The workbook help shows 48.967.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
+- oz.CurrentRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
+- oz.QuickRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-quickratio
+- oz.CashRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashratio
+- oz.OperatingCashFlowRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingcashflowratio
+- oz.ReceivablesTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivablesturnoverratio
+- oz.InventoryTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-inventoryturnoverratio
+- oz.WorkingCapitalTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
+- oz.DebtRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
+- oz.DSCR λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
+- oz.DebtToCapitalRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
+- oz.EquityMultiplier λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equitymultiplier
+- oz.DebtToEquityRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoequityratio
+- oz.DebtToAssetRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
+- oz.InterestCoverageRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-interestcoverageratio
+- oz.EquityRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equityratio
+- oz.AssetTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-assetturnoverratio
+- oz.DSI λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
+- oz.OperatingRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingratio
+- oz.GrossMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-grossmargin
+- oz.EBITDAMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-ebitdamargin
+- oz.OperatingMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingmargin
+- oz.PretaxMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pretaxmargin
+- oz.NetProfitMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-netprofitmargin
+- oz.CashFlowMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashflowmargin
+- oz.ROA λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roa
+- oz.ROE λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roe
+- oz.ROI λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roi
+- oz.ROIC λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roic
+- oz.PriceEarningsRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-priceearningsratio
+- oz.PriceToBookRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetobookratio
+- oz.PriceToSalesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetosalesratio
+- oz.PriceToCashRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetocashratio
+- oz.BVPS λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-bvps
+- oz.CAPERatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-caperatio
+- oz.DPR λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
+- oz.DividendYieldRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dividendyieldratio
+- oz.EPS λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-eps
+- oz.RetentionRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
+- oz.ATOTurnover λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atoturnover
+- oz.ATOBenchmarkRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
+- oz.ATOTotalExpensesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atototalexpensesratio
+- oz.ATOCostOfSalesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
+- oz.ATOLabourRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
+- oz.ReceivableDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivabledays
+- oz.PayableDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-payabledays
+- oz.WIPDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
+- oz.CashConversionCycle λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashconversioncycle
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

@@ -14,7 +14,7 @@ XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or ma
 
 Current release v3.5.0, published 19 October 2026, verified 19 October 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 19 October 2026.
+Published 18 September 2026. Last reviewed 20 October 2026.
 
 ## Extract GST from $1,100
 
@@ -214,7 +214,7 @@ Link to this example · Released formula source
 
 ## All 148 named formulas
 
-Each module below lists the names its source file defines in the v3.5.0 workbook, with the released signature of each. Square brackets mark optional arguments.
+Each module below lists the names its source file defines in the v3.5.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
 
 Download the full v3.5.0 function index (CSV) for a one-line description of each, or read it on GitHub.
 
@@ -492,11 +492,165 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-periodrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-daycountrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-irr
+- Dates: https://duguid.com.au/tools/ozzit/functions/dates/
+- Essentials: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Financial: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ratios: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Utilities: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Debt: https://duguid.com.au/tools/ozzit/functions/debt/
 - Download the full v3.5.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.5.0.csv
 - read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/functions.csv
+- oz.ATOBenchmarkRatio λ (Amount, Turnover): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
+- oz.ATOCostOfSalesRatio λ (CostOfSales, Turnover, [IncludedWages]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
+- oz.ATOLabourRatio λ (SalaryWages, Contractors, Turnover, [AssociatePayments], [W1]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
+- oz.ATOTotalExpensesRatio λ (TotalExpenses, Turnover, [AssociatePayments]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atototalexpensesratio
+- oz.ATOTurnover λ (OtherSales, TotalBusinessIncome): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atoturnover
+- oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
+- oz.AssetTurnoverRatio λ ( NetSales, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-assetturnoverratio
+- oz.BVPS λ ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-bvps
+- oz.CAPERatio λ ( SharePrice, TenYearAverageEarningsInflationAdjusted ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-caperatio
+- oz.CashConversionCycle λ (InventoryDays, ReceivableDays, PayableDays, [WIPDays]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashconversioncycle
+- oz.CashFlowMargin λ ( CashFlowFromOperatingActivities, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashflowmargin
+- oz.CashRatio λ ( Cash, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashratio
+- oz.CurrentRatio λ ( Assets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
+- oz.DPR λ ( DividendsPaid, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
+- oz.DSCR λ ( NetOperatingIncome, TotalDebtService): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
+- oz.DSI λ ( AverageInventory, CostOfGoodsSold): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
+- oz.DebtRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
+- oz.DebtToAssetRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
+- oz.DebtToCapitalRatio λ ( Debt, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
+- oz.DebtToEquityRatio λ ( TotalLiabilities, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoequityratio
+- oz.DividendYieldRatio λ ( AnnualDividendsPerShare, SharePrice): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dividendyieldratio
+- oz.EBITDAMargin λ ( EBITDA, TotalRevenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-ebitdamargin
+- oz.EPS λ ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-eps
+- oz.EquityMultiplier λ ( TotalAssets, TotalShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equitymultiplier
+- oz.EquityRatio λ ( ShareholdersEquity, TotalAssets, IntangibleAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equityratio
+- oz.GrossMargin λ ( GrossProfit, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-grossmargin
+- oz.InterestCoverageRatio λ ( OperatingIncome, InterestExpenses): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-interestcoverageratio
+- oz.InventoryTurnoverRatio λ ( CostOfGoodsSold, AverageInventory): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-inventoryturnoverratio
+- oz.NetProfitMargin λ ( NetIncome, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-netprofitmargin
+- oz.OperatingCashFlowRatio λ ( OperatingCashFlow, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingcashflowratio
+- oz.OperatingMargin λ ( OperatingEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingmargin
+- oz.OperatingRatio λ ( OperatingExpenses, CostOfGoodsSold, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingratio
+- oz.PayableDays λ (Payables, Purchases, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-payabledays
+- oz.PretaxMargin λ ( PretaxEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pretaxmargin
+- oz.PriceEarningsRatio λ ( SharePrice, EarningsPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-priceearningsratio
+- oz.PriceToBookRatio λ ( MarketPricePerShare, BookValuePerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetobookratio
+- oz.PriceToCashRatio λ ( MarketPricePerShare, OperatingCashFlowPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetocashratio
+- oz.PriceToSalesRatio λ ( MarketPricePerShare, SalesPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetosalesratio
+- oz.QuickRatio λ ( QuickAssets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-quickratio
+- oz.ROA λ ( NetIncome, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roa
+- oz.ROE λ ( NetIncome, ShareholdersEquity, [OpeningEquity]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roe
+- oz.ROIC λ ( NetOperatingProfitAfterTax, InvestedCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roic
+- oz.ROI λ ( NetReturnonInvestment, CostofInvestment): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roi
+- oz.ReceivableDays λ (Receivables, Sales, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivabledays
+- oz.ReceivablesTurnoverRatio λ ( NetCreditSales, AverageAccountsReceivable): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivablesturnoverratio
+- oz.RetentionRatio λ ( RetainedEarnings, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
+- oz.WIPDays λ (WIP, RelatedFlow, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
+- oz.WorkingCapitalTurnoverRatio λ ( NetAnnualSales, WorkingCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
 - Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
+- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
+- oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
+- oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
+- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
+- oz.AnnualRate λ (PeriodRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
+- oz.CorkScrewReversal λ ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
+- oz.Corkscrew λ ( Opening, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
+- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
+- oz.Cumulative λ ( Totals, [OpeningBalance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
+- oz.DB λ (Cost, Salvage, Life, [Months]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
+- oz.DDB λ (Cost, Salvage, Life, [Factor]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
+- oz.DayCountRate λ (Timeline, APR, [Convention], [EndDates]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
+- oz.Depreciate λ (InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
+- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
+- oz.DiminishingValue λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
+- oz.FilterContains λ ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] ): https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
+- oz.GSTAdd λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
+- oz.GSTExtract λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
+- oz.IRR λ ( Values, Dates): https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
+- oz.IntOnInt λ ( Principal, Rate): https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
+- oz.LabelAmortise λ (LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
+- oz.LabelDepreciate λ ( AssetNames): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
+- oz.LeaseLiability λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
+- oz.LeaseRemeasure λ (RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
+- oz.LeaseSchedule λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
+- oz.Movement λ ( [BeginningValues], Values): https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
+- oz.PeriodDiff λ (StartDate, EndDate, Interval): https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
+- oz.PeriodRate λ (AnnualRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
+- oz.PeriodStart λ (AnyPeriodStart, MonthsPerPeriod, DateOfInterest): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
+- oz.PrimeCost λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
+- oz.ROUSchedule λ (Cost, Periods): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
+- oz.RangeToDA λ ( Cell, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
+- oz.Reversal λ ( [OpeningValue], RowToReverse): https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
+- oz.RollingAvg λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
+- oz.RollingMax λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
+- oz.RollingMin λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
+- oz.RollingSum λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
+- oz.SLN λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
+- oz.SYD λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
+- oz.SumAmortise λ (AmortisationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
+- oz.SumContains λ (ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
+- oz.SumDepreciate λ (DepreciationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
+- oz.SumPeriods λ ( Values, Dates, PeriodStarts): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
+- oz.TimelineOffset λ (Date, Timeline): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
+- oz.TimelinePosition λ (Array, Timeline, Offset): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
+- oz.VDB λ (Cost, Salvage, Life, [Factor], [No_Switch]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
+- oz.AvgCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
+- oz.AvgRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
+- oz.CountACols λ ( Array ): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countacols
+- oz.CountARows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countarows
+- oz.CountCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countcols
+- oz.CountC λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
+- oz.CountRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countrows
+- oz.IsBetweenE λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isbetweene
+- oz.IsInList λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isinlist
+- oz.MaxCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxcols
+- oz.MaxRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxrows
+- oz.MinCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-mincols
+- oz.MinRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-minrows
+- oz.RangeToDAE λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
+- oz.SumCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
+- oz.SumRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
 - Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Essentials.txt
+- oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
+- oz.AvgColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
+- oz.AvgRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
+- oz.CountAColsU λ ( Array ): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countacolsu
+- oz.CountARowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countarowsu
+- oz.CountCU λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
+- oz.CountColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcolsu
+- oz.CountRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countrowsu
+- oz.IsBetweenU λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isbetweenu
+- oz.IsInListU λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isinlistu
+- oz.MaxColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxcolsu
+- oz.MaxRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxrowsu
+- oz.MinColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-mincolsu
+- oz.MinRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-minrowsu
+- oz.RangeToDAU λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
+- oz.SumColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
+- oz.SumRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
 - Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
+- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
+- oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
+- oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
+- oz.FinancialYear λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.IsBetween λ (Values, Low, High, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
+- oz.IsOccurrenceDate λ (Dates, FirstOccurrence, [LastOccurrence], [Repeats]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
+- oz.OverLapDays λ (Period1Start, Period1End, Period2Start, Period2End): https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
+- oz.PeriodLabel λ (Date, [Interval]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
+- oz.Periods λ (Starts, Ends, [Intervals]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
+- oz.RateAtDate λ (EffectiveDates, Rates, Dates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
+- oz.ScheduleRatesByItems λ (PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
+- oz.ScheduleRates λ (PeriodEnds, RateStarts, Rates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
+- oz.ScheduleValuesByItems λ (PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
+- oz.ScheduleValues λ (PeriodStarts, PeriodEnds, Values, EffectiveDates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
+- oz.Timeline λ (StartDate, Periods, Interval, PeriodStarts?): https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
+- oz.AmortiseB λ (Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
+- oz.DebtSculptFixed λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
+- oz.DebtSculptVariableLRV λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
+- oz.DebtSculptVariable λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
+- oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
 - Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
 - historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/native-gst-capture.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
