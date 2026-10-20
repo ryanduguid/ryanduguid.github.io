@@ -930,3 +930,26 @@ test('a failing WebMCP registration leaves the GST calculator working', async ({
   expect(errors).toEqual([]);
   expect(warnings.some(text => text.includes('WebMCP tool registration failed') && text.includes('unsupported'))).toBe(true);
 });
+
+test('Ozzit module pages register a read-only WebMCP lookup only where the browser offers modelContext', async ({ page }) => {
+  const requests = [];
+  page.on('request', request => requests.push(request.url()));
+  await page.goto('/tools/ozzit/functions/financial/');
+  await page.waitForLoadState('networkidle');
+  expect(requests.some(url => url.endsWith('/assets/webmcp-tools.mjs'))).toBe(false);
+
+  await page.addInitScript(() => {
+    window.registeredTools = [];
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: async tool => { window.registeredTools.push(tool); } },
+    });
+  });
+  await page.reload();
+  await page.waitForFunction(() => window.registeredTools.length === 1);
+  const result = await page.evaluate(async () => {
+    const [tool] = window.registeredTools;
+    return { name: tool.name, readOnly: tool.annotations.readOnlyHint, output: await tool.execute({ name: 'GSTExtract' }) };
+  });
+  expect(result).toMatchObject({ name: 'ozzit_function', readOnly: true,
+    output: { name: 'oz.GSTExtractλ', module: 'Financial', source: 'https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract' } });
+});
