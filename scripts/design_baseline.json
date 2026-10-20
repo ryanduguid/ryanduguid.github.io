@@ -44,14 +44,26 @@
     "privacy/index.html": [
       "7621dde36a8c6e5b0f04cb6d575c0acaee9e938e59b8842642f76e88a759dcef"
     ],
+    "rates/announced-not-yet-law/index.html": [
+      "2e57bcf704153bccb42ef011b4b0b441bb2cdddc22a0896686da00d2360b9a64"
+    ],
+    "rates/car-limit/index.html": [
+      "03bb4a2d328fffc0aeebc7ac2b761aa9fe1ac45b3ae03257efb1a31f6b2bbebe"
+    ],
     "rates/cents-per-kilometre/index.html": [
       "98d1bd2330259541f0cd49d532f661b5ccd615b66ad1e4b5c087777037be4e94"
     ],
     "rates/div7a-benchmark-rate/index.html": [
       "44e4304c8e41dcb3e54e345f90fe527d83bd62ed70f02004ca6fdd7229fbe223"
     ],
+    "rates/fbt-rate/index.html": [
+      "b0773476b7cbccd28731b9bb3ab3312659fe15180c4d8b5492611497a52e2503"
+    ],
     "rates/index.html": [
       "56abd9d3017aae8c3c95e60ff93c03ede0ba46ecfd8b876df10071e3a9596cbd"
+    ],
+    "rates/maximum-contribution-base/index.html": [
+      "3c04a41450a64e45bb6ce504a6f679930b9c25c230c3badac4ff2d942077532f"
     ],
     "rates/super-guarantee/index.html": [
       "4c2ef6c169c8cabe288bbdf1a0a8f957ccacf49a1b51eeb13ffe817fca09883d"

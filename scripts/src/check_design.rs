@@ -1564,6 +1564,7 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
             };
         }
     }
+    refresh_page_entries(root, sections)?;
     let text = pyjson::dumps(
         &baseline,
         Dump {
@@ -1581,6 +1582,66 @@ pub fn update_baseline(root: &Path) -> Result<PathBuf, UpdateError> {
     std::fs::write(&path, text)
         .map_err(|e| py::oserror_str(&e, &path.to_string_lossy(), py::OsStyle::Errno))?;
     Ok(path)
+}
+
+/// The rendered pages protected text is counted in: `_site` after a build, or
+/// the root itself when it is already a rendered tree. Source pages hold the
+/// shared footer only as an include, so they cannot be counted.
+fn rendered_pages(root: &Path) -> Option<Vec<std::path::PathBuf>> {
+    let built = root.join("_site");
+    let tree = if built.is_dir() {
+        built
+    } else {
+        root.to_path_buf()
+    };
+    let home = std::fs::read_to_string(tree.join("index.html")).ok()?;
+    (!home.contains("{% include")).then(|| core::html_files(&tree))
+}
+
+/// Recount each protected text across the rendered pages, as the check counts
+/// it, and pin the JSON-LD of any page that carries some but is not yet listed.
+/// Without rendered pages the counts stay as they are.
+fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<(), UpdateError> {
+    let pages = core::html_files(root);
+    let mut texts = Vec::new();
+    for path in rendered_pages(root).unwrap_or_default() {
+        texts.push(core::raw_text(&crate::read(&path)?));
+    }
+    let html_text = texts.join("\n");
+    if let Some((_, Json::Object(entries))) = sections
+        .iter_mut()
+        .find(|(k, _)| k == "protected_text")
+        .filter(|_| !texts.is_empty())
+    {
+        for (protected, count) in entries.iter_mut() {
+            *count = Json::Int(num_bigint::BigInt::from(
+                html_text.matches(protected.as_str()).count(),
+            ));
+        }
+    }
+    if let Some((_, Json::Object(entries))) = sections.iter_mut().find(|(k, _)| k == "json_ld") {
+        for path in &pages {
+            let rel = core::rel(path, root);
+            if entries.iter().any(|(k, _)| *k == rel) {
+                continue;
+            }
+            let (values, parse_failures) = json_ld_digests(path)?;
+            if !parse_failures.is_empty() {
+                return Err(UpdateError::Exit(parse_failures.join("; ")));
+            }
+            if !values.is_empty() {
+                let at = entries.partition_point(|(k, _)| k.as_str() < rel.as_str());
+                entries.insert(
+                    at,
+                    (
+                        rel,
+                        Json::Array(values.into_iter().map(Json::Str).collect()),
+                    ),
+                );
+            }
+        }
+    }
+    Ok(())
 }
 
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
