@@ -2086,7 +2086,7 @@
       "question": "How do I work out the capital gain when I sell an investment property?",
       "answer": "Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.",
       "steps": [
-        "Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a sale on or after 1 July 2027 the market value immediately before that date.",
+        "Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a property held on 1 July 2027 and sold later, its market value immediately before that date.",
         "Review any exemptions, adjustments, residency and discount conditions before calculating the net result."
       ],
       "boundary": "A sale price minus purchase price calculation can omit material tax adjustments.",
@@ -2104,7 +2104,7 @@
       "question": "How do capital losses and the CGT discount affect tax on shares I sell?",
       "answer": "Calculate each gain or loss, apply eligible capital losses, then consider any available discount.",
       "steps": [
-        "Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for a sale on or after 1 July 2027 each holding’s market value immediately before that date.",
+        "Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for shares held on 1 July 2027 and sold later, each holding’s market value immediately before that date.",
         "Reconcile the final calculation to the year’s CGT schedule and keep the remaining loss record."
       ],
       "boundary": "The bounded worksheet assumes the gains, losses and discount eligibility have already been established.",

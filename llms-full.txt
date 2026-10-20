@@ -7011,7 +7011,7 @@ Link to question 92
 
 The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount or a pre-CGT exemption. An owner can choose to keep the current rules for an eligible new residential dwelling or affordable housing. Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
 
-- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a sale on or after 1 July 2027 the market value immediately before that date.
+- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a property held on 1 July 2027 and sold later, its market value immediately before that date.
 - Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
 
 A sale price minus purchase price calculation can omit material tax adjustments.
@@ -7028,7 +7028,7 @@ Link to question 93
 
 Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount or a pre-CGT exemption. Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
 
-- Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for a sale on or after 1 July 2027 each holding’s market value immediately before that date.
+- Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for shares held on 1 July 2027 and sold later, each holding’s market value immediately before that date.
 - Reconcile the final calculation to the year’s CGT schedule and keep the remaining loss record.
 
 The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
