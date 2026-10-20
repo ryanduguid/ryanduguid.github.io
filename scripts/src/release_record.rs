@@ -6,7 +6,7 @@
 //! offline; `--verify-live` reports drift against the public sources and changes nothing.
 //! The live probes take a [`Live`] source so tests can answer for the network.
 use crate::py;
-use crate::pyformat::py_str;
+use crate::pyformat::{format_value, py_str};
 use crate::pyjson::{self, Json};
 use crate::pyobj::type_name;
 use crate::pyre::{I, S, re};
@@ -347,6 +347,26 @@ fn check_component(root: &Path, name: &str, component: &Json) -> Result<Vec<Stri
         .any(|l| Json::Str(l.clone()).py_eq(release_url))
     {
         failures.push(format!("{rel}: does not link the published release record"));
+    }
+    // A page documenting the published asset must let a reader check the file it links.
+    if documented_version.is_none_or(|v| v.py_eq(published_version))
+        && contains(published, "asset_sha256")?
+    {
+        let download_url = item(published, "download_url")?;
+        if !visible_links
+            .iter()
+            .any(|l| Json::Str(l.clone()).py_eq(download_url))
+        {
+            failures.push(format!("{rel}: does not link the published download"));
+        }
+        let size = format_value(item(published, "asset_bytes")?, ",")? + " bytes";
+        for value in [text(item(published, "asset_sha256")?)?, &size] {
+            if !visible.contains(value) {
+                failures.push(format!(
+                    "{rel}: does not show the published asset's {value}"
+                ));
+            }
+        }
     }
     for supporting in iter_items(get_key(documented, "supporting_files")?)? {
         let tag = py_str(item(documented, "tag")?)?;

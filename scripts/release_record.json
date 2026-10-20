@@ -63,20 +63,20 @@
       "distribution": "ozzit.xlsx",
       "repository": "https://github.com/ryanduguid/Ozzit",
       "published": {
-        "version": "3.4.2",
-        "released_utc": "2026-09-20T07:54:31Z",
-        "verified": "2026-09-20",
-        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
-        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx",
-        "asset_sha256": "0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f",
-        "asset_bytes": 439097
+        "version": "3.5.0",
+        "released_utc": "2026-10-19T08:14:34Z",
+        "verified": "2026-10-19",
+        "release_url": "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0",
+        "download_url": "https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx",
+        "asset_sha256": "76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330",
+        "asset_bytes": 462490
       },
       "documented": {
         "page": "tools/ozzit/index.html",
-        "version": "3.4.2",
-        "visible_label": "Current release v3.4.2",
-        "software_version": "3.4.2",
-        "tag": "v3.4.2",
+        "version": "3.5.0",
+        "visible_label": "Current release v3.5.0",
+        "software_version": "3.5.0",
+        "tag": "v3.5.0",
         "supporting_files": [
           "CITATION.cff",
           "functions.csv",

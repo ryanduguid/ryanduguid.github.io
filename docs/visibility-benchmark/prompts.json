@@ -155,7 +155,7 @@
       "expected_facts": [
         {
           "id": "F12-count",
-          "fact": "Ozzit is one MIT-licensed Excel workbook with 133 native LAMBDA functions and 5 help tables.",
+          "fact": "Ozzit is one Apache-2.0-licensed Excel workbook with 143 native LAMBDA functions and 5 help tables.",
           "source": "https://duguid.com.au/tools/ozzit/"
         },
         {

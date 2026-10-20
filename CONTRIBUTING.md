@@ -152,21 +152,27 @@ touches only the pages you changed.
 
 ## Ozzit reference examples
 
-The ten examples use the MIT-licensed Ozzit v3.4.2 function index in
-`assets/ozzit-functions-v3.4.2.csv`. Edit the reviewed examples in
+The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
+`assets/ozzit-functions-v3.5.0.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
-`site-tools build_ozzit_reference --write`. The ordinary site checks
+`site-tools build_ozzit_reference --write`. The builder takes the documented tag
+and workbook hash from `scripts/release_record.json`, so a release bump adds the
+two tagged files in `assets/`, updates the record and edits the page prose. It
+fails when a page states a function, help-table or named-formula count that
+differs from the index. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.4.2.json`. Each example records its result shape and a
+`assets/ozzit-reference-v3.5.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.
-The workbook remains the authority. The 25 September 2026 record used Ozzit's
-existing `tools/excel_eval_formulas.ps1`, opened the exact release workbook
-read-only and confirmed its SHA-256 was unchanged after closing it without saving.
+The workbook remains the authority. The 19 October 2026 record used Ozzit's
+existing `tools/excel_eval_formulas_verified.ps1`, opened the workbook from the
+signed tag, whose SHA-256 equals the release asset's, read-only and confirmed the
+hash was unchanged after closing it without saving. The v3.4.2 index and its
+25 September 2026 record stay in `assets/` for links to the earlier release.
 The results establish arithmetic for these examples, not an accounting treatment.
 
 ## Ruby Sass in the locked chain
@@ -294,7 +300,9 @@ GitHub API calls. Review each difference, then update the record and the pages i
 covers together. A newer release does not change a preserved evaluation: those keep
 the version they were run against, and the tests fail if one is quietly upgraded.
 A page may document an older release than the published one, but it must say so in
-its own words, naming both versions.
+its own words, naming both versions. A page documenting a published release whose
+record carries `asset_sha256` must link its `download_url` and show that hash and
+the asset size in bytes.
 For a component with engine pins, an older guide must also record its release's
 pins in `documented.pinned_engines`. The checker validates the guide against those
 pins; the component's `pinned_engines` still describes the published release.
