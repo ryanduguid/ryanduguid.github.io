@@ -988,3 +988,96 @@ fn prefetched_links_report_exactly_as_the_sequential_pass() {
     );
     assert!(lines.iter().any(|l| l.starts_with("GitHub file fallback")));
 }
+
+/// GitHub API answers: a live repository, an archived one behind a 503, and one
+/// transferred elsewhere; a fourth name gets no answer.
+fn verdict_answers() -> std::sync::Arc<Vec<(String, Vec<Answer>)>> {
+    use site_tools::check_links::{NetError, Opened};
+    let api = |name: &str| format!("https://api.github.com/repos/ryanduguid/{name}");
+    let body = |text: &str| -> Answer {
+        Ok(Opened {
+            status: 200,
+            url: String::new(),
+            body: text.as_bytes().to_vec(),
+        })
+    };
+    let busy: Answer = Err(NetError::Http {
+        code: 503,
+        reason: "Service Unavailable".into(),
+        retry_after: None,
+    });
+    std::sync::Arc::new(vec![
+        (
+            api("Ozzit"),
+            vec![body(
+                r#"{"full_name": "ryanduguid/Ozzit", "archived": false}"#,
+            )],
+        ),
+        (
+            api("old"),
+            vec![
+                busy,
+                body(r#"{"full_name": "ryanduguid/old", "archived": true}"#),
+            ],
+        ),
+        (
+            api("moved"),
+            vec![body(r#"{"full_name": "someone/else", "archived": false}"#)],
+        ),
+    ])
+}
+
+/// The verdicts and printed lines of looking up each name in turn.
+fn lookups(
+    root: &Path,
+    answers: &std::sync::Arc<Vec<(String, Vec<Answer>)>>,
+    names: &[String],
+    prefetched: site_tools::check_links::PrefetchedVerdicts,
+) -> (Vec<Result<bool, String>>, Vec<String>) {
+    let mut opener = Scripted {
+        answers: answers.clone(),
+        served: Default::default(),
+    };
+    let mut clock = NoWait;
+    let mut printed = Vec::new();
+    let mut out = |line: &str| printed.push(line.to_owned());
+    let mut checker = site_tools::check_links::Checker::new(
+        root.to_path_buf(),
+        &mut opener,
+        &mut clock,
+        &mut out,
+    );
+    checker.prefetched_verdicts = prefetched;
+    let verdicts = names
+        .iter()
+        .map(|n| checker.repository_is_archived(n))
+        .collect();
+    drop(checker);
+    (verdicts, printed)
+}
+
+#[test]
+fn prefetched_archive_verdicts_replay_exactly() {
+    use site_tools::check_links::{Clock, Opener, PrefetchedVerdicts, prefetch_verdicts};
+    let answers = verdict_answers();
+    let names: Vec<String> = ["Ozzit", "old", "moved", "missing", "old"]
+        .iter()
+        .map(|n| (*n).to_owned())
+        .collect();
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let sequential = lookups(root, &answers, &names, PrefetchedVerdicts::new());
+    let transport = || {
+        (
+            Box::new(Scripted {
+                answers: answers.clone(),
+                served: Default::default(),
+            }) as Box<dyn Opener>,
+            Box::new(NoWait) as Box<dyn Clock>,
+        )
+    };
+    let prefetched = prefetch_verdicts(root, names[..4].to_vec(), &transport, None);
+    assert_eq!(lookups(root, &answers, &names, prefetched), sequential);
+    assert_eq!(sequential.0[1], Ok(true));
+    assert!(sequential.1.iter().any(|l| l.starts_with("retry 1/4 old")));
+}

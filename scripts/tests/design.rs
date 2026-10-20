@@ -687,10 +687,30 @@ fn design_contracts_text_mutations() {
             "index.html: expected one favicon link",
         ),
     ];
-    for (label, rel, old, new, expected) in mutations {
-        let site = copied_site();
-        replace_file(site.path(), rel, old, new);
-        expect_failure(label, &repository(site.path()), expected);
+    // Each mutation checks its own copy of the site, so they run on every core; the
+    // results are then checked in order.
+    let next = std::sync::atomic::AtomicUsize::new(0);
+    let found = std::sync::Mutex::new(vec![Vec::new(); mutations.len()]);
+    let workers = std::thread::available_parallelism().map_or(2, |n| n.get().min(8));
+    std::thread::scope(|scope| {
+        for _ in 0..workers {
+            scope.spawn(|| {
+                loop {
+                    let index = next.fetch_add(1, std::sync::atomic::Ordering::Relaxed);
+                    let Some((_, rel, old, new, _)) = mutations.get(index) else {
+                        return;
+                    };
+                    let site = copied_site();
+                    replace_file(site.path(), rel, old, new);
+                    let failures = repository(site.path());
+                    found.lock().unwrap()[index] = failures;
+                }
+            });
+        }
+    });
+    let found = found.into_inner().unwrap();
+    for ((label, _, _, _, expected), failures) in mutations.iter().zip(&found) {
+        expect_failure(label, failures, expected);
     }
 }
 
