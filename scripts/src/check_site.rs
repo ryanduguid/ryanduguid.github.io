@@ -59,7 +59,7 @@ pub const CHECKS: &[Check] = &[
     Check::Tool(&["visibility_benchmark", "--check"]),
     Check::Tool(&["build_llms_full", "--check"]),
     Check::Tool(&["build_feed", "--check"]),
-    Check::Tests(&["feed"]),
+    Check::Tests(&["feed", "merge_driver"]),
     Check::Tool(&["build_agent_skills_manifest", "--check"]),
     Check::Tool(&["check_links"]),
     Check::External(&["node", "--test", "scripts/levy.test.mjs"]),
