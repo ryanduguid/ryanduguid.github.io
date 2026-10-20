@@ -262,9 +262,11 @@ fn geo_leftovers_surface() {
     expected.sort();
     assert_eq!(groups, expected);
 
-    for (rel, review, modified) in [
-        ("rates/index.html", "17 October 2026", "2026-10-17"),
-        ("evaluate/index.html", "26 September 2026", "2026-09-26"),
+    // Each page's visible review date, its JSON-LD dateModified and its
+    // sitemap lastmod must agree; the dates themselves move with each edit.
+    for (rel, url) in [
+        ("rates/index.html", "https://duguid.com.au/rates/"),
+        ("evaluate/index.html", "https://duguid.com.au/evaluate/"),
     ] {
         let html = read_text(root(), rel);
         let tree = core::parse_structure(&html);
@@ -274,13 +276,24 @@ fn geo_leftovers_surface() {
             .filter(|e| tree.has_class(*e, "page-meta"))
             .map(|e| tree.text(e))
             .collect();
-        assert_eq!(meta, [format!("Last reviewed {review}.")]);
+        let [line] = meta.as_slice() else {
+            panic!("{rel}: expected one page-meta line, found {meta:?}");
+        };
+        let review = line
+            .strip_prefix("Last reviewed ")
+            .and_then(|d| d.strip_suffix('.'))
+            .unwrap_or_else(|| panic!("{rel}: page-meta is {line:?}"));
+        let modified = site_tools::pytime::strptime_day_month_year(review)
+            .unwrap_or_else(|| panic!("{rel}: {review:?} is not a date"))
+            .isoformat();
         assert!(
             web_page(&html, rel)
                 .get("dateModified")
                 .unwrap()
-                .py_eq(&s(modified))
+                .py_eq(&s(&modified)),
+            "{rel}: dateModified differs from {review}"
         );
+        assert_eq!(core::sitemap_lastmods(url, root()).unwrap(), [modified]);
     }
     let tables = core::markdown_section(&read_text(root(), "llms.txt"), "Reference tables");
     for url in [
@@ -293,13 +306,12 @@ fn geo_leftovers_surface() {
     ] {
         assert_eq!(tables.matches(url).count(), 1, "{url}");
     }
-    for (url, lastmod) in [
-        ("https://duguid.com.au/rates/", "2026-10-17"),
-        ("https://duguid.com.au/tools/coal-lsl-levy/", "2026-09-24"),
-        ("https://duguid.com.au/evaluate/", "2026-09-26"),
-    ] {
-        assert_eq!(core::sitemap_lastmods(url, root()).unwrap(), [lastmod]);
-    }
+    let levy = "https://duguid.com.au/tools/coal-lsl-levy/";
+    assert_eq!(
+        core::sitemap_lastmods(levy, root()).unwrap().len(),
+        1,
+        "{levy}"
+    );
 }
 
 #[test]
@@ -444,9 +456,11 @@ fn public_contracts_page_and_site_checks() {
         .iter()
         .filter(|p| !contracts::NOT_INDEXED.contains(&core::rel(p, root()).as_str()))
         .count();
+    // The sitemap lists every indexable page, so the count follows it.
+    let listed = core::sitemap_urls(root()).unwrap().len();
     assert_eq!(
-        indexed, 61,
-        "expected 61 canonical HTML pages, found {indexed}"
+        indexed, listed,
+        "expected {listed} canonical HTML pages, as the sitemap lists, found {indexed}"
     );
     let metadata: Vec<String> = paths
         .iter()
@@ -1619,7 +1633,8 @@ fn rendered_checked_tree_command_output() {
         stdout.starts_with(&format!("checked 404.html{eol}")),
         "{stdout}"
     );
+    let listed = core::sitemap_urls(root()).unwrap().len();
     assert!(stdout.ends_with(&format!(
-        "checked sitemap.xml (61 URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
+        "checked sitemap.xml ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
     )));
 }

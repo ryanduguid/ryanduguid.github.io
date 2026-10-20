@@ -148,7 +148,9 @@ value in `WATCHED` with the pages that use it.
 `scripts/design_baseline.json` pins digests of the machine-readable files, the
 rates pages and every page's JSON-LD. After a content edit, run
 `site-tools check_design --update-baseline` and check that the diff
-touches only the pages you changed.
+touches only the pages you changed. It also pins the JSON-LD of a new page, and
+after `site-tools build_site` it recounts the protected footer text in `_site`;
+without a build it leaves those counts unchanged.
 
 ## Ozzit reference examples
 
