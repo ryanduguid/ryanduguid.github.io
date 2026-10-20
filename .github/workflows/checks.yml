@@ -65,9 +65,11 @@ jobs:
   tools:
     # Builds site-tools once per runner OS in a read-only job. The browser and
     # Lighthouse jobs serve the site with it, and the jobs that publish run it
-    # without compiling anything themselves. Because the deploy job runs this
-    # binary, it is built without a restored cache, in the dev profile (whose
-    # dependencies are optimised) rather than the slower fully optimised release.
+    # without compiling anything themselves. Because the deploy job runs the
+    # Linux binary, that one is built without a restored cache, in the dev
+    # profile (whose dependencies are optimised) rather than the slower fully
+    # optimised release. The Windows binary only serves the browser tests, so it
+    # reuses the cache the rust-windows job saves on main.
     timeout-minutes: 20
     strategy:
       matrix:
@@ -83,6 +85,12 @@ jobs:
           persist-credentials: false
       - name: Install the pinned Rust toolchain
         run: rustup toolchain install "$RUST_TOOLCHAIN" --profile minimal
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        if: runner.os == 'Windows'
+        with:
+          workspaces: scripts -> target
+          shared-key: windows-debug
+          save-if: false
       - name: Build site-tools
         run: cargo build --locked --bin site-tools
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
@@ -117,12 +125,13 @@ jobs:
       - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
         with:
           workspaces: scripts -> target
+          shared-key: windows-debug
           save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Rust tests
         run: cargo test --locked
 
   checks:
-    needs: lint
+    # Runs alongside lint rather than after it; checks-gates still requires both.
     timeout-minutes: 30
     runs-on: ubuntu-24.04
     steps:
@@ -347,10 +356,16 @@ jobs:
         with:
           persist-credentials: false
       # libFuzzer instrumentation needs a nightly compiler; the date is pinned.
+      - name: Install the pinned nightly
+        run: rustup toolchain install nightly-2026-10-15 --profile minimal
+      # Keeps the fuzz build and the installed cargo-fuzz between runs, so the
+      # locked source install below is a no-op once cached.
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: scripts/fuzz -> target
+          save-if: ${{ github.ref == 'refs/heads/main' }}
       - name: Install the pinned fuzzer
-        run: |
-          rustup toolchain install nightly-2026-10-15 --profile minimal
-          cargo install cargo-fuzz --locked --version 0.13.2
+        run: cargo install cargo-fuzz --locked --version 0.13.2
       - name: Fuzz the feed builder
         run: >-
           cargo +nightly-2026-10-15 fuzz run feed fuzz-corpus/feed --

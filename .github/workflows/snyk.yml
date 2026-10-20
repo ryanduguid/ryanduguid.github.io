@@ -59,10 +59,13 @@ jobs:
           version: "0.12.5"
           enable-cache: false
       - uses: snyk/actions/setup@9adf32b1121593767fc3c057af55b55db032dc04 # v1.0.0
-      - name: Install the SBOM generator
-        run: |
-          rustup toolchain install 1.99 --profile minimal
-          cargo install cargo-cyclonedx --locked --version 0.5.9
+      - name: Install the pinned Rust toolchain
+        run: rustup toolchain install 1.99 --profile minimal
+      # A prebuilt release whose checksum the action's manifest pins, instead of
+      # compiling the generator on every run.
+      - uses: taiki-e/install-action@8cca0918f8471c33515202b73f56ab27f2bed283 # v2.87.29
+        with:
+          tool: cargo-cyclonedx@0.5.9
       - name: Test each dependency set
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}

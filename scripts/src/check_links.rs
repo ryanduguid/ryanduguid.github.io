@@ -212,8 +212,122 @@ pub struct Checker<'a> {
     pub lookup_hook: Hook<'a, Verdict>,
     /// Pages allowed to cite named archived repositories (ARCHIVED_TARGET_ALLOWLIST).
     pub archived_allowlist: Vec<(String, Vec<String>)>,
+    /// Outcomes fetched ahead of the pass (see [`prefetch`]), each replayed the first
+    /// time the pass asks for its URL.
+    pub prefetched: Prefetched,
     fetched: HashMap<String, (u16, String)>,
     verdicts: HashMap<String, Verdict>,
+}
+
+/// Each URL's fetch outcome and the retry lines it printed.
+pub type Prefetched = HashMap<String, (Fetched, Vec<String>)>;
+
+/// A fresh transport and clock for one prefetch worker.
+pub type Transport<'a> = dyn Fn() -> (Box<dyn Opener>, Box<dyn Clock>) + Sync + 'a;
+
+/// Requests in flight at once to one host, and overall.
+const PER_HOST: usize = 3;
+const WORKERS: usize = 8;
+
+/// The external URLs the sequential pass fetches, in first-use order: every
+/// `http` link that is not same-origin and, on CI, not left to manual verification.
+pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
+    let mut targets: Vec<String> = Vec::new();
+    for href in hrefs {
+        if !href.starts_with("http")
+            || (actions && CI_MANUAL_URLS.contains(&href.as_str()))
+            || targets.contains(href)
+        {
+            continue;
+        }
+        let Ok(parts) = pyurl::urlsplit(href) else {
+            continue;
+        };
+        if format!("{}://{}", parts.scheme, parts.netloc) != SELF_ORIGIN {
+            targets.push(href.clone());
+        }
+    }
+    targets
+}
+
+/// Fetch `urls` concurrently, at most [`PER_HOST`] at a time per host, recording what
+/// [`Checker::fetch_final_url`] would return and print for each. Replaying these in
+/// the sequential pass gives the same output with the waiting overlapped.
+pub fn prefetch(root: &Path, urls: Vec<String>, transport: &Transport<'_>) -> Prefetched {
+    let queue = HostQueue::new(urls);
+    let results = std::sync::Mutex::new(Prefetched::new());
+    std::thread::scope(|scope| {
+        for _ in 0..WORKERS {
+            scope.spawn(|| {
+                let (mut opener, mut clock) = transport();
+                while let Some(url) = queue.take() {
+                    let mut lines = Vec::new();
+                    let mut out = |line: &str| lines.push(line.to_owned());
+                    let mut checker =
+                        Checker::new(root.to_path_buf(), &mut *opener, &mut *clock, &mut out);
+                    let outcome = checker.fetch_final_url(&url);
+                    drop(checker);
+                    results
+                        .lock()
+                        .unwrap_or_else(|e| e.into_inner())
+                        .insert(url.clone(), (outcome, lines));
+                    queue.done(&url);
+                }
+            });
+        }
+    });
+    results.into_inner().unwrap_or_else(|e| e.into_inner())
+}
+
+/// URLs waiting to be fetched, handed out so no host has more than [`PER_HOST`]
+/// requests in flight.
+struct HostQueue {
+    state: std::sync::Mutex<(std::collections::VecDeque<String>, HashMap<String, usize>)>,
+    changed: std::sync::Condvar,
+}
+
+impl HostQueue {
+    fn new(urls: Vec<String>) -> Self {
+        HostQueue {
+            state: std::sync::Mutex::new((urls.into(), HashMap::new())),
+            changed: std::sync::Condvar::new(),
+        }
+    }
+
+    fn host(url: &str) -> String {
+        pyurl::urlsplit(url)
+            .map(|parts| parts.netloc.to_ascii_lowercase())
+            .unwrap_or_default()
+    }
+
+    /// The next URL whose host has room, waiting while every host is busy; None once
+    /// the queue is empty.
+    fn take(&self) -> Option<String> {
+        let mut state = self.state.lock().unwrap_or_else(|e| e.into_inner());
+        loop {
+            let (queue, in_flight) = &mut *state;
+            if queue.is_empty() {
+                return None;
+            }
+            let ready = queue
+                .iter()
+                .position(|u| in_flight.get(&Self::host(u)).copied().unwrap_or(0) < PER_HOST);
+            if let Some(index) = ready {
+                let url = queue.remove(index).expect("index in range");
+                *in_flight.entry(Self::host(&url)).or_insert(0) += 1;
+                return Some(url);
+            }
+            state = self.changed.wait(state).unwrap_or_else(|e| e.into_inner());
+        }
+    }
+
+    fn done(&self, url: &str) {
+        let mut state = self.state.lock().unwrap_or_else(|e| e.into_inner());
+        if let Some(count) = state.1.get_mut(&Self::host(url)) {
+            *count -= 1;
+        }
+        self.changed.notify_all();
+    }
 }
 
 impl<'a> Checker<'a> {
@@ -233,6 +347,7 @@ impl<'a> Checker<'a> {
             fetch_hook: None,
             lookup_hook: None,
             archived_allowlist: Vec::new(),
+            prefetched: Prefetched::new(),
             fetched: HashMap::new(),
             verdicts: HashMap::new(),
         }
@@ -282,6 +397,15 @@ impl<'a> Checker<'a> {
         }
         if let Some(found) = self.fetched.get(url) {
             return Ok(found.clone());
+        }
+        if let Some((outcome, lines)) = self.prefetched.remove(url) {
+            for line in &lines {
+                self.say(line);
+            }
+            if let Ok(found) = &outcome {
+                self.fetched.insert(url.to_owned(), found.clone());
+            }
+            return outcome;
         }
         let headers = [("User-Agent", USER_AGENT.to_owned())];
         let mut target = url.to_owned();
@@ -549,20 +673,7 @@ impl<'a> Checker<'a> {
     pub fn check_file(&mut self, path: &Path, offline: bool) -> Result<Vec<String>, String> {
         let rel = self.rel_to_root(path);
         let html = crate::read(path)?;
-        let mut hrefs = Vec::new();
-        let mut empty = 0;
-        for positioned in htmlparser::parse(&html, true) {
-            if let Event::StartTag(_, attrs) | Event::StartEndTag(_, attrs) = positioned.event {
-                for (name, value) in attrs {
-                    if name == "href" || name == "src" {
-                        match value {
-                            Some(value) if !value.is_empty() => hrefs.push(value),
-                            _ => empty += 1,
-                        }
-                    }
-                }
-            }
-        }
+        let (hrefs, empty) = page_hrefs(&html);
         let mut failures = Vec::new();
         if empty > 0 {
             failures.push(format!("{rel}: {empty} empty href/src attribute(s)"));
@@ -580,6 +691,25 @@ impl<'a> Checker<'a> {
         failures.extend(self.check_hrefs(&rel, &hrefs, offline)?);
         Ok(failures)
     }
+}
+
+/// Every non-empty href and src in a page, in order, and the count of empty ones.
+pub fn page_hrefs(html: &str) -> (Vec<String>, usize) {
+    let mut hrefs = Vec::new();
+    let mut empty = 0;
+    for positioned in htmlparser::parse(html, true) {
+        if let Event::StartTag(_, attrs) | Event::StartEndTag(_, attrs) = positioned.event {
+            for (name, value) in attrs {
+                if name == "href" || name == "src" {
+                    match value {
+                        Some(value) if !value.is_empty() => hrefs.push(value),
+                        _ => empty += 1,
+                    }
+                }
+            }
+        }
+    }
+    (hrefs, empty)
 }
 
 fn join(root: &Path, rel: &str) -> PathBuf {
@@ -657,8 +787,25 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let mut checker = Checker::new(root.clone(), &mut opener, &mut clock, &mut say);
     checker.actions = std::env::var("GITHUB_ACTIONS").is_ok_and(|v| v == "true");
     checker.token = std::env::var("GITHUB_TOKEN").ok();
+    let pages = crate::seo_core::html_files(&root);
+    if !offline {
+        // A file that cannot be read is skipped here; the pass below reports it in order.
+        let mut hrefs: Vec<String> = pages
+            .iter()
+            .filter_map(|path| crate::read(path).ok())
+            .flat_map(|html| page_hrefs(&html).0)
+            .collect();
+        hrefs.extend(llms_hrefs(&root).unwrap_or_default());
+        let targets = fetch_targets(&hrefs, checker.actions);
+        checker.prefetched = prefetch(&root, targets, &|| {
+            (
+                Box::new(Network) as Box<dyn Opener>,
+                Box::new(SystemClock) as Box<dyn Clock>,
+            )
+        });
+    }
     let mut failures = Vec::new();
-    for path in crate::seo_core::html_files(&root) {
+    for path in pages {
         failures.extend(checker.check_file(&path, offline)?);
     }
     let llms = llms_hrefs(&root)?;
