@@ -254,42 +254,13 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
 /// [`Checker::fetch_final_url`] would return and print for each. Replaying these in
 /// the sequential pass gives the same output with the waiting overlapped.
 pub fn prefetch(root: &Path, urls: Vec<String>, transport: &Transport<'_>) -> Prefetched {
-    use std::collections::VecDeque;
-    use std::sync::{Condvar, Mutex};
-    let host = |url: &str| {
-        pyurl::urlsplit(url)
-            .map(|parts| parts.netloc.to_ascii_lowercase())
-            .unwrap_or_default()
-    };
-    let pending = Mutex::new((
-        urls.into_iter().collect::<VecDeque<String>>(),
-        HashMap::<String, usize>::new(),
-    ));
-    let changed = Condvar::new();
-    let results = Mutex::new(Prefetched::new());
+    let queue = HostQueue::new(urls);
+    let results = std::sync::Mutex::new(Prefetched::new());
     std::thread::scope(|scope| {
         for _ in 0..WORKERS {
             scope.spawn(|| {
                 let (mut opener, mut clock) = transport();
-                loop {
-                    let url = {
-                        let mut state = pending.lock().unwrap_or_else(|e| e.into_inner());
-                        loop {
-                            let (queue, in_flight) = &mut *state;
-                            if queue.is_empty() {
-                                return;
-                            }
-                            let ready = queue.iter().position(|u| {
-                                in_flight.get(&host(u)).copied().unwrap_or(0) < PER_HOST
-                            });
-                            if let Some(index) = ready {
-                                let url = queue.remove(index).expect("index in range");
-                                *in_flight.entry(host(&url)).or_insert(0) += 1;
-                                break url;
-                            }
-                            state = changed.wait(state).unwrap_or_else(|e| e.into_inner());
-                        }
-                    };
+                while let Some(url) = queue.take() {
                     let mut lines = Vec::new();
                     let mut out = |line: &str| lines.push(line.to_owned());
                     let mut checker =
@@ -300,16 +271,63 @@ pub fn prefetch(root: &Path, urls: Vec<String>, transport: &Transport<'_>) -> Pr
                         .lock()
                         .unwrap_or_else(|e| e.into_inner())
                         .insert(url.clone(), (outcome, lines));
-                    let mut state = pending.lock().unwrap_or_else(|e| e.into_inner());
-                    if let Some(count) = state.1.get_mut(&host(&url)) {
-                        *count -= 1;
-                    }
-                    changed.notify_all();
+                    queue.done(&url);
                 }
             });
         }
     });
     results.into_inner().unwrap_or_else(|e| e.into_inner())
+}
+
+/// URLs waiting to be fetched, handed out so no host has more than [`PER_HOST`]
+/// requests in flight.
+struct HostQueue {
+    state: std::sync::Mutex<(std::collections::VecDeque<String>, HashMap<String, usize>)>,
+    changed: std::sync::Condvar,
+}
+
+impl HostQueue {
+    fn new(urls: Vec<String>) -> Self {
+        HostQueue {
+            state: std::sync::Mutex::new((urls.into(), HashMap::new())),
+            changed: std::sync::Condvar::new(),
+        }
+    }
+
+    fn host(url: &str) -> String {
+        pyurl::urlsplit(url)
+            .map(|parts| parts.netloc.to_ascii_lowercase())
+            .unwrap_or_default()
+    }
+
+    /// The next URL whose host has room, waiting while every host is busy; None once
+    /// the queue is empty.
+    fn take(&self) -> Option<String> {
+        let mut state = self.state.lock().unwrap_or_else(|e| e.into_inner());
+        loop {
+            let (queue, in_flight) = &mut *state;
+            if queue.is_empty() {
+                return None;
+            }
+            let ready = queue
+                .iter()
+                .position(|u| in_flight.get(&Self::host(u)).copied().unwrap_or(0) < PER_HOST);
+            if let Some(index) = ready {
+                let url = queue.remove(index).expect("index in range");
+                *in_flight.entry(Self::host(&url)).or_insert(0) += 1;
+                return Some(url);
+            }
+            state = self.changed.wait(state).unwrap_or_else(|e| e.into_inner());
+        }
+    }
+
+    fn done(&self, url: &str) {
+        let mut state = self.state.lock().unwrap_or_else(|e| e.into_inner());
+        if let Some(count) = state.1.get_mut(&Self::host(url)) {
+            *count -= 1;
+        }
+        self.changed.notify_all();
+    }
 }
 
 impl<'a> Checker<'a> {

@@ -873,79 +873,103 @@ impl site_tools::check_links::Clock for NoWait {
     }
 }
 
-#[test]
-fn prefetched_links_report_exactly_as_the_sequential_pass() {
-    use site_tools::check_links::{
-        Checker, Clock, NetError, Opened, Opener, Prefetched, fetch_targets, prefetch,
-    };
-    let ok = |url: &str| -> Result<Opened, NetError> {
+const BLOB: &str = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt";
+const RAW: &str = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/src/Financial.txt";
+
+/// Successes, a 503 and 429 retried to success, a 404, a transport failure, and a
+/// GitHub file whose 500 falls back to its raw copy.
+fn scripted_answers() -> std::sync::Arc<Vec<(String, Vec<Answer>)>> {
+    use site_tools::check_links::{NetError, Opened};
+    let ok = |url: &str| -> Answer {
         Ok(Opened {
             status: 200,
             url: url.into(),
             body: Vec::new(),
         })
     };
-    let http = |code: u16| -> Result<Opened, NetError> {
+    let http = |code: u16| -> Answer {
         Err(NetError::Http {
             code,
             reason: "Error".into(),
             retry_after: None,
         })
     };
-    let blob = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt";
-    let raw = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/src/Financial.txt";
-    let answers = std::sync::Arc::new(vec![
+    std::sync::Arc::new(vec![
         (
-            "https://example.com/a".to_owned(),
+            "https://example.com/a".into(),
             vec![ok("https://example.com/a")],
         ),
         (
-            "https://example.com/b".to_owned(),
+            "https://example.com/b".into(),
             vec![http(503), http(429), ok("https://example.com/final")],
         ),
-        ("https://example.com/c".to_owned(), vec![http(404)]),
+        ("https://example.com/c".into(), vec![http(404)]),
         (
-            "https://example.com/d".to_owned(),
+            "https://example.com/d".into(),
             vec![Err(NetError::Url("transport failure".into()))],
         ),
-        (blob.to_owned(), vec![http(500)]),
-        (raw.to_owned(), vec![ok(raw)]),
-    ]);
-    let hrefs: Vec<String> = [
+        (BLOB.into(), vec![http(500)]),
+        (RAW.into(), vec![ok(RAW)]),
+    ])
+}
+
+/// Links in page order, with a same-origin link, an unanswered URL and a repeat.
+fn prefetch_hrefs() -> Vec<String> {
+    [
         "https://example.com/a",
         "https://example.com/b",
         "/",
         "https://example.com/c",
-        blob,
+        BLOB,
         "https://example.com/d",
         "https://example.com/never-answered",
         "https://example.com/b",
     ]
     .iter()
     .map(|h| (*h).to_owned())
-    .collect();
-    let root = std::env::temp_dir();
-    let run = |prefetched: Prefetched| {
-        let mut opener = Scripted {
-            answers: answers.clone(),
-            served: Default::default(),
-        };
-        let mut clock = NoWait;
-        let mut printed = Vec::new();
-        let mut out = |line: &str| printed.push(line.to_owned());
-        let mut checker = Checker::new(root.clone(), &mut opener, &mut clock, &mut out);
-        checker.prefetched = prefetched;
-        let failures = checker.check_hrefs("page.html", &hrefs, false).unwrap();
-        drop(checker);
-        (failures, printed)
+    .collect()
+}
+
+/// The failures and printed lines of one pass over `hrefs`.
+fn report(
+    root: &Path,
+    answers: &std::sync::Arc<Vec<(String, Vec<Answer>)>>,
+    hrefs: &[String],
+    prefetched: site_tools::check_links::Prefetched,
+) -> (Vec<String>, Vec<String>) {
+    let mut opener = Scripted {
+        answers: answers.clone(),
+        served: Default::default(),
     };
-    let sequential = run(Prefetched::new());
+    let mut clock = NoWait;
+    let mut printed = Vec::new();
+    let mut out = |line: &str| printed.push(line.to_owned());
+    let mut checker = site_tools::check_links::Checker::new(
+        root.to_path_buf(),
+        &mut opener,
+        &mut clock,
+        &mut out,
+    );
+    checker.prefetched = prefetched;
+    let failures = checker.check_hrefs("page.html", hrefs, false).unwrap();
+    drop(checker);
+    (failures, printed)
+}
+
+#[test]
+fn prefetched_links_report_exactly_as_the_sequential_pass() {
+    use site_tools::check_links::{Clock, Opener, Prefetched, fetch_targets, prefetch};
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let answers = scripted_answers();
+    let hrefs = prefetch_hrefs();
+    let sequential = report(root, &answers, &hrefs, Prefetched::new());
     let targets = fetch_targets(&hrefs, false);
     assert!(
         !targets.iter().any(|t| t == "/"),
         "same-origin links are not fetched"
     );
-    let replayed = run(prefetch(&root, targets, &|| {
+    let transport = || {
         (
             Box::new(Scripted {
                 answers: answers.clone(),
@@ -953,18 +977,14 @@ fn prefetched_links_report_exactly_as_the_sequential_pass() {
             }) as Box<dyn Opener>,
             Box::new(NoWait) as Box<dyn Clock>,
         )
-    }));
+    };
+    let replayed = report(root, &answers, &hrefs, prefetch(root, targets, &transport));
     assert_eq!(replayed, sequential);
+    let lines = &sequential.1;
     assert!(
-        sequential
-            .1
+        lines
             .iter()
             .any(|l| l.starts_with("retry 1/4 https://example.com/b"))
     );
-    assert!(
-        sequential
-            .1
-            .iter()
-            .any(|l| l.starts_with("GitHub file fallback"))
-    );
+    assert!(lines.iter().any(|l| l.starts_with("GitHub file fallback")));
 }
