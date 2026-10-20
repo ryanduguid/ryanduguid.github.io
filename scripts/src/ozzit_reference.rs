@@ -376,6 +376,26 @@ pub fn render(root: &Path) -> Result<String> {
     Ok(parts.join("\n") + "\n")
 }
 
+/// The distinct numbers a count pattern captures in `text`, in ascending order.
+fn stated_counts(pattern: &crate::pyre::Re, text: &str) -> Result<Vec<num_bigint::BigInt>> {
+    let mut stated = Vec::new();
+    for value in pattern.findall_groups(text).into_iter().flatten() {
+        if value.is_empty() {
+            continue;
+        }
+        let value = value.parse().map_err(|_| {
+            value_error(&format!(
+                "invalid literal for int() with base 10: '{value}'"
+            ))
+        })?;
+        if !stated.contains(&value) {
+            stated.push(value);
+        }
+    }
+    stated.sort();
+    Ok(stated)
+}
+
 /// Every count a page states for the library must match the index.
 pub fn count_failures(root: &Path) -> Result<Vec<String>> {
     let (tag, _) = documented_release(root)?;
@@ -393,21 +413,7 @@ pub fn count_failures(root: &Path) -> Result<Vec<String>> {
     for rel in COUNT_PAGES {
         let text = crate::read(&root.join(rel))?;
         for (pattern, count, label) in &expected {
-            let mut stated: Vec<num_bigint::BigInt> = Vec::new();
-            for value in pattern.findall_groups(&text).into_iter().flatten() {
-                if value.is_empty() {
-                    continue;
-                }
-                let value = value.parse().map_err(|_| {
-                    value_error(&format!(
-                        "invalid literal for int() with base 10: '{value}'"
-                    ))
-                })?;
-                if !stated.contains(&value) {
-                    stated.push(value);
-                }
-            }
-            stated.sort();
+            let stated = stated_counts(pattern, &text)?;
             if stated.iter().any(|value| *value != (*count).into()) {
                 let listed: Vec<String> = stated.iter().map(ToString::to_string).collect();
                 failures.push(format!(
