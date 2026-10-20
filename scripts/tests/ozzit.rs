@@ -5,17 +5,18 @@ use site_tools::pycsv::DictRow;
 use site_tools::pyjson::{self, Dump, Json};
 use std::path::{Path, PathBuf};
 
-const INPUTS: [&str; 3] = [
-    "assets/ozzit-functions-v3.4.2.csv",
+const INPUTS: [&str; 4] = [
+    "assets/ozzit-functions-v3.5.0.csv",
     "scripts/ozzit_reference_examples.json",
-    "assets/ozzit-reference-v3.4.2.json",
+    "assets/ozzit-reference-v3.5.0.json",
+    "assets/ozzit-function-reference-v3.5.0.json",
 ];
 
 fn repository() -> PathBuf {
     Path::new(env!("CARGO_MANIFEST_DIR")).join("..")
 }
 
-/// A private site root holding copies of the generator's three inputs.
+/// A private site root holding copies of the generator's four inputs.
 fn inputs() -> tempfile::TempDir {
     let root = tempfile::tempdir().unwrap();
     for rel in INPUTS {
@@ -109,7 +110,7 @@ fn results_must_identify_the_released_workbook() {
     let mut record = load(root.path(), INPUTS[2]);
     *member(&mut record, "workbook_sha256") = Json::Str("0".repeat(64));
     save(root.path(), INPUTS[2], &record);
-    assert!(render_error(root.path()).contains("v3.4.2 release workbook"));
+    assert!(render_error(root.path()).contains("v3.5.0 release workbook"));
 }
 
 #[test]
@@ -176,11 +177,11 @@ fn modules_hold_every_named_formula_largest_first() {
         .map(|c| (c[1].to_owned(), c[2].to_owned()))
         .collect();
     let expected = [
+        ("Ratios", "48"),
         ("Financial", "46"),
-        ("Ratios", "39"),
         ("Essentials", "17"),
         ("Utilities", "17"),
-        ("Dates", "14"),
+        ("Dates", "15"),
         ("Debt", "5"),
     ];
     assert_eq!(
@@ -192,12 +193,14 @@ fn modules_hold_every_named_formula_largest_first() {
         .captures_iter(&output)
         .map(|c| c[1].to_owned())
         .collect();
-    assert_eq!(ids.len(), 138);
+    assert_eq!(ids.len(), 148);
     let mut unique = ids.clone();
     unique.sort();
     unique.dedup();
-    assert_eq!(unique.len(), 138);
-    assert!(output.contains("<li id=\"oz-gstextract\"><code>oz.GSTExtract"));
+    assert_eq!(unique.len(), 148);
+    assert!(output.contains(
+        "<li id=\"oz-gstextract\"><a href=\"/tools/ozzit/functions/financial/#oz-gstextract\"><code>oz.GSTExtract"
+    ));
     assert_eq!(output.matches("<details").count(), 6);
     assert!(!output.contains("<details open"));
     // Unstyled lists keep their semantics in Safari only with an explicit role.
@@ -230,8 +233,12 @@ fn every_call_is_the_released_signature() {
 #[test]
 fn lambda_is_marked_and_markup_is_escaped() {
     let mut rows = rows();
-    let signature = format!("{} <b>&amp;</b>", get(&rows[5], "signature"));
-    set(&mut rows[5], "signature", &signature);
+    let at = rows
+        .iter()
+        .position(|r| get(r, "signature").contains('('))
+        .unwrap();
+    let signature = format!("{} <b>&amp;</b>", get(&rows[at], "signature"));
+    set(&mut rows[at], "signature", &signature);
     let output = render_with(&rows).unwrap();
     assert!(output.contains("&lt;b&gt;&amp;amp;&lt;/b&gt;"));
     assert!(!output.contains("<b>"));
@@ -306,4 +313,143 @@ fn committed_includes_are_current() {
         "{}",
         String::from_utf8_lossy(&output.stdout)
     );
+}
+
+fn pages(root: &Path) -> Vec<(String, String)> {
+    site_tools::ozzit_functions::render_pages(root).unwrap()
+}
+
+#[test]
+fn module_pages_document_every_named_formula_once() {
+    let pages = pages(&repository());
+    assert_eq!(pages.len(), 6);
+    let all = pages
+        .iter()
+        .map(|(_, html)| html.as_str())
+        .collect::<String>();
+    for row in rows() {
+        let id = anchor(get(&row, "function"));
+        assert_eq!(
+            all.matches(&format!("<section id=\"{id}\"")).count(),
+            1,
+            "{id}"
+        );
+    }
+    for (rel, html) in &pages {
+        assert!(rel.starts_with("tools/ozzit/functions/"), "{rel}");
+        assert!(html.starts_with("---\n---\n<!DOCTYPE html>"), "{rel}");
+        assert_eq!(html.matches("<h1>").count(), 1, "{rel}");
+    }
+}
+
+#[test]
+fn every_index_entry_links_to_its_module_page_entry() {
+    let index = render_index(&repository()).unwrap();
+    let pages = pages(&repository());
+    let links =
+        regex::Regex::new(r#"href="/(tools/ozzit/functions/[a-z]+/)#([a-z0-9-]+)""#).unwrap();
+    let mut count = 0;
+    for link in links.captures_iter(&index) {
+        let rel = format!("{}index.html", &link[1]);
+        let page = &pages
+            .iter()
+            .find(|(r, _)| *r == rel)
+            .expect("a module page")
+            .1;
+        assert!(
+            page.contains(&format!("<section id=\"{}\"", &link[2])),
+            "{}",
+            &link[2]
+        );
+        count += 1;
+    }
+    assert_eq!(count, 148);
+}
+
+#[test]
+fn reference_must_agree_with_the_pinned_index() {
+    let root = inputs();
+    let rel = INPUTS[3];
+    let text = std::fs::read_to_string(root.path().join(rel)).unwrap();
+    let changed = text.replacen(
+        "\"summary\": \"Creates a corkscrew amortisation schedule\"",
+        "\"summary\": \"Creates a loan schedule\"",
+        1,
+    );
+    assert_ne!(changed, text);
+    std::fs::write(root.path().join(rel), changed).unwrap();
+    let error = site_tools::ozzit_functions::render_pages(root.path()).unwrap_err();
+    assert!(
+        error.contains("oz.Amortiseλ: the reference and the pinned index disagree"),
+        "{error}"
+    );
+}
+
+#[test]
+fn excluded_vocabulary_is_left_out_with_a_pointer_to_the_source() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(!ratios.to_lowercase().contains("leverage"));
+    let entry = ratios.split("<section id=\"oz-debtratio\"").nth(1).unwrap();
+    let entry = entry.split("</section>").next().unwrap();
+    assert!(entry.contains("Part of this function’s help text is not reproduced here."));
+    assert!(
+        entry.contains("href=\"https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt\"")
+    );
+}
+
+#[test]
+fn help_text_is_escaped_and_lambda_marked() {
+    let pages = pages(&repository());
+    let financial = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/financial/"))
+        .unwrap()
+        .1;
+    assert!(financial.contains(
+        "<code>=oz.Amortise<span class=\"function-symbol\">λ</span>(10000, 5%, 4 * 12, \"2026-07-01\")</code>"
+    ));
+    assert!(
+        financial
+            .contains("<dt><code>Principals</code> (required)</dt><dd>Loan/debt amounts.</dd>")
+    );
+}
+
+#[test]
+fn help_bullets_render_as_lists() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(ratios.contains(
+        "<dd>Quick Assets. Includes:<ul><li>Cash &amp; Cash equivalents</li><li>Marketable securities</li>"
+    ));
+    assert!(!pages.iter().any(|(_, html)| html.contains('•')));
+}
+
+#[test]
+fn rows_after_an_introducing_colon_render_as_a_list() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(
+        ratios.contains(
+            "<dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li>"
+        )
+    );
+    let financial = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/financial/"))
+        .unwrap()
+        .1;
+    assert!(financial.contains("A date here is not a life: the arguments read"));
 }

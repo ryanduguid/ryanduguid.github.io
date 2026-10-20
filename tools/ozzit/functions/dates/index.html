@@ -1,0 +1,421 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Ozzit Dates functions: Excel LAMBDA reference</title>
+  <meta name="description" content="Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Ozzit Dates functions: Excel LAMBDA reference" />
+  <meta property="og:description" content="Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/ozzit/functions/dates/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ozzit Dates functions: Excel LAMBDA reference" />
+  <meta name="twitter:description" content="Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/ozzit/functions/dates/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/ozzit/functions/dates/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/tools/ozzit/">Ozzit Excel LAMBDA library</a></li>
+            <li aria-current="page">Ozzit Dates functions</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>Ozzit Dates functions</h1>
+          <p class="lead-note">The 15 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives the signature, parameters and worked example from the workbook’s own help.</p>
+          <p class="release-meta">Release v3.5.0. Read from the released <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt">Dates formula source</a>, which the workbook compiles.</p>
+          <p class="page-meta">Published 20 October 2026. Last reviewed 20 October 2026.</p>
+        </div>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#use">Using these functions</a>
+          <a href="#functions">All 15 functions</a>
+          <a href="#modules">Other modules</a>
+        </nav>
+        <div class="article-body">
+
+          <section id="use">
+            <h2>Using these functions</h2>
+            <p>Each function is a native Excel <code>LAMBDA</code> in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.</p>
+            <p>The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. <a href="/tools/ozzit/#download">Download the workbook and check its hash</a>.</p>
+          </section>
+
+          <section id="functions">
+            <h2>All 15 functions</h2>
+<!-- Generated by site-tools build_ozzit_reference from the function reference. -->
+<ul class="function-index__list" role="list">
+  <li><a href="#oz-aboutdates"><code>oz.AboutDates<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-countdow"><code>oz.CountDOW<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-isbetween"><code>oz.IsBetween<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-isoccurrencedate"><code>oz.IsOccurrenceDate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-overlapdays"><code>oz.OverLapDays<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-periodlabel"><code>oz.PeriodLabel<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-periods"><code>oz.Periods<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-schedulerates"><code>oz.ScheduleRates<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-scheduleratesbyitems"><code>oz.ScheduleRatesByItems<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-schedulevalues"><code>oz.ScheduleValues<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-schedulevaluesbyitems"><code>oz.ScheduleValuesByItems<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-timeline"><code>oz.Timeline<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-financialyear"><code>oz.FinancialYear<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rateatdate"><code>oz.RateAtDate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-datedif"><code>oz.DateDif<span class="function-symbol">λ</span></code></a></li>
+</ul>
+  <section id="oz-aboutdates" aria-labelledby="oz-aboutdates-name">
+    <h3 id="oz-aboutdates-name"><code>oz.AboutDates<span class="function-symbol">λ</span></code></h3>
+    <p>Displays this module's repository URL and function list</p>
+    <p class="field-note">Previous name: <code>nabla.d.About<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-countdow" aria-labelledby="oz-countdow-name">
+    <h3 id="oz-countdow-name"><code>oz.CountDOW<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CountDOW<span class="function-symbol">λ</span>(Starts, Ends, DayOfWeek)</code></p>
+    <p>Count instances of a specific day of the week between two dates.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CountDOWλ">
+      <div><dt><code>Starts</code> (required)</dt><dd>One of more start dates (text or numeric) in a row or column</dd></div>
+      <div><dt><code>Ends</code> (required)</dt><dd>End dates (text or numeric) for each start date</dd></div>
+      <div><dt><code>DayOfWeek</code> (required)</dt><dd>1=Sunday, 7=Saturday.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CountDOWλ"><code>=oz.CountDOW<span class="function-symbol">λ</span>("23/7/2026", "11/8/2026",  1)</code></pre>
+    <p>The workbook help shows <code>3</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.CountDOW<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-isbetween" aria-labelledby="oz-isbetween-name">
+    <h3 id="oz-isbetween-name"><code>oz.IsBetween<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.IsBetween<span class="function-symbol">λ</span>(Values, Low, High, [Inclusive])</code></p>
+    <p>Determine if a value is between a lower and upper limit</p>
+    <p>Determine if a value is between a lower and upper limit.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.IsBetweenλ">
+      <div><dt><code>Values</code> (required)</dt><dd>one or more values to compare.</dd></div>
+      <div><dt><code>Low</code> (required)</dt><dd>The lower limit that the value(s) must be greater than</dd></div>
+      <div><dt><code>High</code> (required)</dt><dd>The higher limit that the value(s) must be less than</dd></div>
+      <div><dt><code>Inclusive</code> (optional)</dt><dd>TRUE: Value(s) can be equal to Low and/or High (default)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.IsBetweenλ"><code>=oz.IsBetween<span class="function-symbol">λ</span>(1, 2, 4)</code></pre>
+    <p>The workbook help shows <code>FALSE</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.IsBetweenλ"><code>=oz.IsBetween<span class="function-symbol">λ</span>(Today(), Today(), Today()+1)</code></pre>
+    <p>The workbook help shows <code>TRUE</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.IsBetweenλ"><code>=oz.IsBetween<span class="function-symbol">λ</span>("B", "B", "D", FALSE)</code></pre>
+    <p>The workbook help shows <code>FALSE</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.IsBetween<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-isoccurrencedate" aria-labelledby="oz-isoccurrencedate-name">
+    <h3 id="oz-isoccurrencedate-name"><code>oz.IsOccurrenceDate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.IsOccurrenceDate<span class="function-symbol">λ</span>(Dates, FirstOccurrence, [LastOccurrence], [Repeats])</code></p>
+    <p>Returns TRUE if Date passed is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.</p>
+    <p>Returns TRUE if a Date is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.</p>
+    <p class="field-note">Note: A monthly, quarterly, semi-annual or annual item that starts on the 29th, 30th or 31st falls on the last day of any shorter month.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.IsOccurrenceDateλ">
+      <div><dt><code>Dates</code> (required)</dt><dd>Date to test. Normally this is horizontal timeline by day</dd></div>
+      <div><dt><code>FirstOccurrence</code> (required)</dt><dd>When something that may repeat, happens for the first time.</dd></div>
+      <div><dt><code>LastOccurrence</code> (optional)</dt><dd>When something that may repeat, happens for the last time. If omitted, it is assumed repeating items repeat forever.</dd></div>
+      <div><dt><code>Repeats</code> (optional)</dt><dd>A code that conveys how often this thing repeats. Repeat codes are O=One time/never repeats (default) A=Annually S=Semi-Annually Q=Quarterly M=Monthly B=BiWeekly W=Weekly X=Every Workday (Monday to Friday) D=Daily</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.IsOccurrenceDateλ"><code>=SUM(N(oz.IsOccurrenceDate<span class="function-symbol">λ</span>(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "D")))</code></pre>
+    <p>The workbook help shows <code>72</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.IsOccurrenceDateλ"><code>=SUM(N(oz.IsOccurrenceDate<span class="function-symbol">λ</span>(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "O")))</code></pre>
+    <p>The workbook help shows <code>01</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.IsOccurrenceDateλ"><code>=SUM(N(oz.IsOccurrenceDate<span class="function-symbol">λ</span>(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "W")))</code></pre>
+    <p>The workbook help shows <code>11</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.IsOccurrenceDate<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-overlapdays" aria-labelledby="oz-overlapdays-name">
+    <h3 id="oz-overlapdays-name"><code>oz.OverLapDays<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.OverLapDays<span class="function-symbol">λ</span>(Period1Start, Period1End, Period2Start, Period2End)</code></p>
+    <p>Return how many days overlap two period ranges.</p>
+    <p>Count days shared between two sets of periods.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.OverLapDaysλ">
+      <div><dt><code>Period1Start</code> (required)</dt><dd>First period's start date.</dd></div>
+      <div><dt><code>Period1End</code> (required)</dt><dd>First period's end date.</dd></div>
+      <div><dt><code>Period2Start</code> (required)</dt><dd>Second period's start date.</dd></div>
+      <div><dt><code>Period2End</code> (required)</dt><dd>Second period's end date.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.OverLapDaysλ"><code>=oz.OverLapDays<span class="function-symbol">λ</span>(08, 14, 10, 17)</code></pre>
+    <p>The workbook help shows <code>5</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.OverLapDaysλ"><code>=oz.OverLapDays<span class="function-symbol">λ</span>(10, 20, 11, 18)</code></pre>
+    <p>The workbook help shows <code>8</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.OverLapDaysλ"><code>=oz.OverLapDays<span class="function-symbol">λ</span>("17/7/2026", "25/7/2026", "7/7/2026", "18/7/2026")</code></pre>
+    <p>The workbook help shows <code>2</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.OverLapDays<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-periodlabel" aria-labelledby="oz-periodlabel-name">
+    <h3 id="oz-periodlabel-name"><code>oz.PeriodLabel<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PeriodLabel<span class="function-symbol">λ</span>(Date, [Interval])</code></p>
+    <p>Creates a label for a date based on period interval</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PeriodLabelλ">
+      <div><dt><code>Date</code> (required)</dt><dd>A single date or array of date(s) where the first date is the first date of a calendar year.</dd></div>
+      <div><dt><code>Interval</code> (optional)</dt><dd>Must be one of:<ul><li>D=Daily</li><li>W=Weekly</li><li>I=Weekly (using ISO week number)</li><li>M=Monthly</li><li>Q=Quarterly</li><li>S=Semi-Annually</li><li>A or Y=Annually</li></ul></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.PeriodLabelλ"><code>=oz.PeriodLabel<span class="function-symbol">λ</span>(DATEVALUE("26/8/2026"), "D")</code></pre>
+    <p>The workbook help shows <code>2026-Aug-26</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.PeriodLabelλ"><code>=oz.PeriodLabel<span class="function-symbol">λ</span>(DATEVALUE("26/8/2026"), "M")</code></pre>
+    <p>The workbook help shows <code>2026-Aug</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.PeriodLabelλ"><code>=oz.PeriodLabel<span class="function-symbol">λ</span>(DATEVALUE("26/8/2026"), "Q")</code></pre>
+    <p>The workbook help shows <code>2026:Q3</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 4: oz.PeriodLabelλ"><code>=oz.PeriodLabel<span class="function-symbol">λ</span>(DATEVALUE("26/8/2026"), "Y")</code></pre>
+    <p>The workbook help shows <code>2026</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.PeriodLabel<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-periods" aria-labelledby="oz-periods-name">
+    <h3 id="oz-periods-name"><code>oz.Periods<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Periods<span class="function-symbol">λ</span>(Starts, Ends, [Intervals])</code></p>
+    <p>Determine the number of periods from Starts to Date2 in Days, Weeks, Months, Quarters, or Years.</p>
+    <p>Determine the number of periods from Starts to Ends inclusive. Differences to Excel's DATEDIF are: * Interval includes Weeks &amp; Quarters * Counts the period starts crossed, so a part period at the end counts * Returns negative values if Starts is after Ends</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Periodsλ">
+      <div><dt><code>Starts</code> (required)</dt><dd>First date (normally older). A single date or an array of dates.</dd></div>
+      <div><dt><code>Ends</code> (required)</dt><dd>Second date (normally newer). A single date or an array the same shape as Starts. A single Starts or Ends is applied to every date in the other.</dd></div>
+      <div><dt><code>Intervals</code> (optional)</dt><dd>Days, Weeks, Months (default), Quarters, or Years (D, W, M, Q, Y). One code, or an array of codes the same shape as the dates.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.Periodsλ"><code>=oz.Periods<span class="function-symbol">λ</span>("31/7/2026", "15/9/2026")</code></pre>
+    <p>The workbook help shows <code>2</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.Periodsλ"><code>=oz.Periods<span class="function-symbol">λ</span>("15/9/2026", "31/7/2026")</code></pre>
+    <p>The workbook help shows <code>-2</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.Periodsλ"><code>=oz.Periods<span class="function-symbol">λ</span>("15/7/2027", "16/7/2026")</code></pre>
+    <p>The workbook help shows <code>-12</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 4: oz.Periodsλ"><code>=oz.Periods<span class="function-symbol">λ</span>("15/7/2027", "16/7/2026", "W")</code></pre>
+    <p>The workbook help shows <code>-52</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.Periods<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-schedulerates" aria-labelledby="oz-schedulerates-name">
+    <h3 id="oz-schedulerates-name"><code>oz.ScheduleRates<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ScheduleRates<span class="function-symbol">λ</span>(PeriodEnds, RateStarts, Rates)</code></p>
+    <p>Schedule rates that persist until replaced in a timeline.</p>
+    <p>Schedules rates that persist until replaced in a timeline from a schedule in a table.</p>
+    <p class="field-note">Note: If 2 rates are scheduled within the same period, only the last rate will be selected.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ScheduleRatesλ">
+      <div><dt><code>PeriodEnds</code> (required)</dt><dd>A row of period end dates (timeline).</dd></div>
+      <div><dt><code>RateStarts</code> (required)</dt><dd>A column or row of rate effective dates in any order.</dd></div>
+      <div><dt><code>Rates</code> (required)</dt><dd>A column or row of rates associated with RateStarts.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ScheduleRatesλ"><code>=oz.ScheduleRates<span class="function-symbol">λ</span>(Timeline<span class="function-symbol">λ</span>("1/7/2026",5,"W"),{46208; 46216; 46222}, {10; 20; 30})</code></pre>
+    <p>The workbook help shows <code>_,10,20,30,30</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.ScheduleRates<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-scheduleratesbyitems" aria-labelledby="oz-scheduleratesbyitems-name">
+    <h3 id="oz-scheduleratesbyitems-name"><code>oz.ScheduleRatesByItems<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ScheduleRatesByItems<span class="function-symbol">λ</span>(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)</code></p>
+    <p>Schedule rates that persist until replaced in a timeline for each item in a list.</p>
+    <p>Schedules each item's rates by period until another rate takes effect.</p>
+    <p class="field-note">Note: If 2 rates are scheduled within the same period for the same item, . only the last rate will be selected.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ScheduleRatesByItemsλ">
+      <div><dt><code>PeriodEnds</code> (required)</dt><dd>A row of period end dates (timeline).</dd></div>
+      <div><dt><code>ItemFilter</code> (required)</dt><dd>A column of 1 or more items to filter a rate schedule by. A 'rate schedule' is a table/list where each row contains a unique item/effective date pair with a rate. An item with no rate in the schedule scores nought in every period.</dd></div>
+      <div><dt><code>ItemList</code> (required)</dt><dd>Items in a rate schedule.</dd></div>
+      <div><dt><code>EffectiveList</code> (required)</dt><dd>Effective dates in the rate schedule.</dd></div>
+      <div><dt><code>RateList</code> (required)</dt><dd>Rates in a rate schedule for each item/effective date pair.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ScheduleRatesByItemsλ"><code>=oz.ScheduleRatesByItems<span class="function-symbol">λ</span>( oz.Timeline<span class="function-symbol">λ</span>( "1/7/2026"), UNIQUE( tblRates[Unit]),
+tblRates[Unit], tblRates[Effective], tblRates[Rent])</code></pre>
+    <p class="field-note">Previous name: <code>nabla.d.ScheduleRatesByItems<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-schedulevalues" aria-labelledby="oz-schedulevalues-name">
+    <h3 id="oz-schedulevalues-name"><code>oz.ScheduleValues<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ScheduleValues<span class="function-symbol">λ</span>(PeriodStarts, PeriodEnds, Values, EffectiveDates)</code></p>
+    <p>Schedules values in a timeline from a schedule in a table.</p>
+    <p>Place values from a table into a timeline's appropriate period.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ScheduleValuesλ">
+      <div><dt><code>PeriodStarts</code> (required)</dt><dd>A row of period start dates (timeline).</dd></div>
+      <div><dt><code>PeriodEnds</code> (required)</dt><dd>A row of period end dates (timeline).</dd></div>
+      <div><dt><code>Values</code> (required)</dt><dd>A column or row of values to be scheduled.</dd></div>
+      <div><dt><code>EffectiveDates</code> (required)</dt><dd>When each value is scheduled, in the same orientation as Values.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ScheduleValuesλ"><code>=oz.ScheduleValues<span class="function-symbol">λ</span>(Timeline<span class="function-symbol">λ</span>("1/7/2026"), Timeline<span class="function-symbol">λ</span>("1/7/2026",,,FALSE), {1;3}, {"1/7/2026"; "15/8/2026"})</code></pre>
+    <p class="field-note">Previous name: <code>nabla.d.ScheduleValues<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-schedulevaluesbyitems" aria-labelledby="oz-schedulevaluesbyitems-name">
+    <h3 id="oz-schedulevaluesbyitems-name"><code>oz.ScheduleValuesByItems<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ScheduleValuesByItems<span class="function-symbol">λ</span>(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)</code></p>
+    <p>Schedule and sum values in a timeline for each item.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ScheduleValuesByItemsλ">
+      <div><dt><code>PeriodStarts</code> (required)</dt><dd>A row of period start dates (timeline).</dd></div>
+      <div><dt><code>PeriodEnds</code> (required)</dt><dd>A row of period end dates (timeline).</dd></div>
+      <div><dt><code>ItemFilter</code> (required)</dt><dd>A column of 1 or more items to filter a value schedule by. A 'value schedule' is a table/list where each row contains a unique item/effective date pair with a value.</dd></div>
+      <div><dt><code>ItemList</code> (required)</dt><dd>Items in a value schedule.</dd></div>
+      <div><dt><code>EffectiveList</code> (required)</dt><dd>Effective dates in the value schedule.</dd></div>
+      <div><dt><code>ValueList</code> (required)</dt><dd>Values in a value schedule for each item/effective date pair. An item with no rows in the schedule totals nought in every period.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ScheduleValuesByItemsλ"><code>=oz.ScheduleValuesByItems<span class="function-symbol">λ</span>( oz.Timeline<span class="function-symbol">λ</span>( "1/7/2026"),  oz.Timeline<span class="function-symbol">λ</span>( "1/7/2026",,,FALSE),
+UNIQUE( tblExp[Items]), tblExp[Items], tblExp[Dates], tblExp[Amount])</code></pre>
+    <p class="field-note">Previous name: <code>nabla.d.ScheduleValuesByItems<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-timeline" aria-labelledby="oz-timeline-name">
+    <h3 id="oz-timeline-name"><code>oz.Timeline<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Timeline<span class="function-symbol">λ</span>(StartDate, Periods, Interval, PeriodStarts?)</code></p>
+    <p>Create a horizontal list of period dates</p>
+    <p>Creates a horizontal list of period dates.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Timelineλ">
+      <div><dt><code>StartDate</code> (required)</dt><dd>First period's start date. May be entered as text.</dd></div>
+      <div><dt><code>Periods</code> (optional)</dt><dd>The number of period in the timeline. Defaults to 12.</dd></div>
+      <div><dt><code>Interval</code> (optional)</dt><dd>Period interval: D, W, M, Q or Y (Day, Week, Month &lt;default&gt;, Quarter, or Year)</dd></div>
+      <div><dt><code>PeriodStarts?</code> (optional)</dt><dd>TRUE=Display period start dates &lt;default&gt;. FALSE=Period end dates</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.Timelineλ"><code>=oz.Timeline<span class="function-symbol">λ</span>(TODAY())</code></pre>
+    <p>The workbook help shows <code>12 mo, starts</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.Timelineλ"><code>=oz.Timeline<span class="function-symbol">λ</span>(TODAY(), , "Q", FALSE)</code></pre>
+    <p>The workbook help shows <code>12 qtr, ends</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.Timeline<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-financialyear" aria-labelledby="oz-financialyear-name">
+    <h3 id="oz-financialyear-name"><code>oz.FinancialYear<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.FinancialYear<span class="function-symbol">λ</span>(Dates, [StartMonth])</code></p>
+    <p>Labels dates with their Australian financial year, which starts on 1 July</p>
+    <p>Labels dates with their Australian financial year, which starts on 1 July.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.FinancialYearλ">
+      <div><dt><code>Dates</code> (required)</dt><dd>One or more dates, numeric or text. A blank cell returns a blank.</dd></div>
+      <div><dt><code>StartMonth</code> (optional, Default = 7)</dt><dd>Month the financial year starts. Blank cells and empty text use 7.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.FinancialYearλ"><code>=oz.FinancialYear<span class="function-symbol">λ</span>(DATE(2026,8,15))</code></pre>
+    <p>The workbook help shows <code>FY2027</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.d.FinancialYear<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rateatdate" aria-labelledby="oz-rateatdate-name">
+    <h3 id="oz-rateatdate-name"><code>oz.RateAtDate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RateAtDate<span class="function-symbol">λ</span>(EffectiveDates, Rates, Dates)</code></p>
+    <p>Returns the rate in effect on each date from a table of effective dates and rates, refusing gaps, unsorted or repeated dates</p>
+    <p>Returns the rate in effect on each date from your table of effective dates and rates.</p>
+    <p class="field-note">Note: Each rate applies from its effective date until the next one. Dates may be one date or a row or column of them, and the result takes their shape. A date before the first effective date has no rate in effect and returns #N/A. The table must be complete and in order, so instead of a result it returns a message when EffectiveDates and Rates differ in length or hold a blank or text entry, when the dates are not in ascending order, or when a date repeats. A text or blank date in Dates returns #VALUE!. The library ships no rate table: supply your own, with its source and the date you checked it. ScheduleRates<span class="function-symbol">λ</span>() lays rates across a timeline without these checks.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RateAtDateλ">
+      <div><dt><code>EffectiveDates</code> (required)</dt><dd>A row or column of dates from which each rate applies, in ascending order.</dd></div>
+      <div><dt><code>Rates</code> (required)</dt><dd>The rate that applies from each effective date, the same length as EffectiveDates.</dd></div>
+      <div><dt><code>Dates</code> (required)</dt><dd>The date, or a row or column of dates, to look up.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RateAtDateλ"><code>=oz.RateAtDate<span class="function-symbol">λ</span>(DATE(2026, {1;7;10}, 1), {0.04;0.045;0.05}, DATE(2026, 8, 15))</code></pre>
+    <p>The workbook help shows <code>0.045</code>.</p>
+  </section>
+  <section id="oz-datedif" aria-labelledby="oz-datedif-name">
+    <h3 id="oz-datedif-name"><code>oz.DateDif<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DateDif<span class="function-symbol">λ</span>(StartDate, EndDate, [Unit])</code></p>
+    <p>Whole years, months or days between two dates, and the remainders DATEDIF gets wrong</p>
+    <p>Whole years, months or days between two dates, and the remainders.</p>
+    <p class="field-note">Note: Excel documents DATEDIF as a legacy compatibility function and warns its MD unit can return a negative or wrong day count. This counts a month as complete when EDATE() of the start date has arrived, so a month after 31 January is the last day of February, and takes every remainder from there. A reversed range or an unknown unit returns #NUM!.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DateDifλ">
+      <div><dt><code>StartDate</code> (required)</dt><dd>The earlier date, numeric or text.</dd></div>
+      <div><dt><code>EndDate</code> (required)</dt><dd>The later date, numeric or text.</dd></div>
+      <div><dt><code>Unit</code> (optional, Default = D)</dt><dd>Y whole years, M whole months, D days, YM months left after the whole years, YD days left after the whole years, MD days left after the whole months.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DateDifλ"><code>=oz.DateDif<span class="function-symbol">λ</span>(DATE(2026,1,31), DATE(2026,3,1), "MD")</code></pre>
+    <p>The workbook help shows <code>1</code>.</p>
+  </section>
+          </section>
+
+          <section id="modules">
+            <h2>Other modules</h2>
+            <ul class="related">
+              <li><a href="/tools/ozzit/functions/essentials/">Ozzit Essentials functions</a></li>
+              <li><a href="/tools/ozzit/functions/financial/">Ozzit Financial functions</a></li>
+              <li><a href="/tools/ozzit/functions/ratios/">Ozzit Ratios functions</a></li>
+              <li><a href="/tools/ozzit/functions/utilities/">Ozzit Utilities functions</a></li>
+              <li><a href="/tools/ozzit/functions/debt/">Ozzit Debt functions</a></li>
+              <li><a href="/tools/ozzit/">Ozzit overview, download and release verification</a></li>
+            </ul>
+          </section>
+
+          <p class="byline">
+            Written by Ryan Duguid in his own time and on his own equipment.
+            He is a Provisional CA ANZ Member.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/dates/#article",
+        "url": "https://duguid.com.au/tools/ozzit/functions/dates/",
+        "headline": "Ozzit Dates functions: Excel LAMBDA reference",
+        "name": "Ozzit Dates functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/dates/#webpage",
+        "url": "https://duguid.com.au/tools/ozzit/functions/dates/",
+        "name": "Ozzit Dates functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/tools/ozzit/functions/dates/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/dates/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Ozzit Excel LAMBDA library", "item": "https://duguid.com.au/tools/ozzit/" },
+          { "@type": "ListItem", "position": 4, "name": "Ozzit Dates functions", "item": "https://duguid.com.au/tools/ozzit/functions/dates/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>

@@ -582,7 +582,7 @@ An evaluation shows what one version did on declared fixtures. It does not prove
 
 For identity, source and release assurance, see the Evidence register. Each evaluated tool is listed on the Tools page. Choose an example for any tool.
 
-Last reviewed 26 September 2026.
+Last reviewed 20 October 2026.
 
 ## $35,957.55 profit, yet a $25,160 cash shortfall
 
@@ -617,7 +617,7 @@ Company tax and franking checks | Pinned package trial | 25.0% on the declared b
 Workpaper Review Gate | Fixed-release evaluation | NOT_READY findings, then READY after the stated corrections.
 Monthly Close Controls | Pinned source case | REVIEW with 8 exceptions in the supplied July close.
 Australian tax tools for AI agents | Pinned package demonstration | Two synthetic tool calls, without an agent session or credentials.
-Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.4.2, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
+Ozzit Excel LAMBDA library | Pinned workbook | Download release v3.5.0, check the published SHA-256 and confirm one LAMBDA result in desktop Excel.
 
 The Excel cash flow case and browser planning calculators offer examples without Python. For an agent evaluation, preserve the source revision, model, runtime, available tools and full response. Repeat the procedure and assess the required checks; identical prose is not expected.
 
@@ -4037,6 +4037,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+20 October 2026 | The Ozzit page names the current release, v3.5.0: 143 functions and 5 help tables in a 462,490-byte workbook, now under Apache-2.0. Its 10 worked examples were rerun in Excel against that workbook and return the same results. Six new module pages document all 148 named formulas with their signatures, parameters, notes and worked examples, read from each function’s help in the release source.
 20 October 2026 | The ATO benchmarks, trust distribution, Payday Super timing and Aus Accounting MCP pages name the current releases: ato-benchmark-compare/v0.2.2, solomons-sword/v0.3.2, payday-super-checker/v0.2.2 and aus-accounting-mcp/v0.6.0. The engine releases require Python 3.14 or later, move to Apache-2.0 and change no result. MCP v0.6.0 adds GST coding and BAS reconciliation review and pins the new payday, benchmark and Division 7A engines. Worked examples stay pinned to the releases they were run against, and the ATO benchmarks install line now asks for Python 3.14. The release table adds these releases and div7a-loan-review/v0.3.2, and the profit and cash flow case links au-fpa-pack v0.3.0, the current published release. The evidence page links the company tax release workflow at the-exchequer-tally/v0.2.0, since the repository no longer has that workflow.
 20 October 2026 | The company tax and construction WIP pages name the current releases, the-exchequer-tally/v0.2.0 and the-wip-tally/v0.2.0, which require Python 3.14 or later and move to Apache-2.0. The WIP install line now asks for Python 3.14. The release table adds the Skills, MCP server, review gate and two engine releases published from 14 to 19 October.
 19 October 2026 | The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.
@@ -7872,19 +7873,19 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 
 Source: https://duguid.com.au/tools/ozzit/
 
-> A free Excel workbook of 133 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
+> A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
 
 # Ozzit: Excel LAMBDA functions for Australian modelling
 
-133 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
+143 functions and 5 help tables for GST, financial years, depreciation, loans, leases and ATO benchmark ratios. Open the workbook and try a formula; every definition is visible in Excel.
 
-Download Ozzit v3.4.2 Browse worked formulas
+Download Ozzit v3.5.0 Browse worked formulas
 
-XLSX, 439,097 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
+XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
 
-Current release v3.4.2, published 20 September 2026, verified 20 September 2026. Release record and verification on GitHub.
+Current release v3.5.0, published 19 October 2026, verified 19 October 2026. Release record and verification on GitHub.
 
-Published 18 September 2026. Last reviewed 28 September 2026.
+Published 18 September 2026. Last reviewed 20 October 2026.
 
 ## Extract GST from $1,100
 
@@ -7900,9 +7901,9 @@ Assumes a wholly taxable, GST-inclusive amount at 10%. Read the workings, the Ex
 
 An Excel workbook, not a program. Open it, copy a function into your own model, and the formula travels with the file. Every definition is a native LAMBDA stored as a defined name, so the arithmetic stays inside the workbook where a reviewer can read it.
 
-The v3.4.2 workbook carries 138 named formulas: 133 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
+The v3.5.0 workbook carries 148 named formulas: 143 LAMBDA functions and 5 help tables that document them inside the workbook. Each module also ships an editable demonstration worksheet, and the formula source is published as plain text in the repository’s src/ folder and indexed in functions.csv.
 
-The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial year label, 2 modelling depreciation schedules and 4 AASB 16 lessee schedules. The rest of the library is general financial modelling.
+The Australian helpers are deliberately small: GST addition and extraction at 10%, a 1 July financial year label, 2 modelling depreciation schedules, 4 AASB 16 lessee schedules and 5 helpers for the ATO’s small business benchmark ratios. The rest of the library is general financial modelling.
 
 ## Who it is for and what it needs
 
@@ -7913,14 +7914,14 @@ What the workbook needs. Scroll sideways on small screens.
 Requires | Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays
 Does not run in | LibreOffice and Excel versions before 2024, which cannot evaluate the functions
 Contains | No VBA, no macros, no add-in and no external link
-Licence | MIT, covering the workbook, the formula source and the function index
+Licence | Apache-2.0 from v3.5.0, covering the workbook, the formula source and the function index. Releases up to v3.4.2 remain under MIT
 Author | Ryan Duguid. Built from scratch, with provenance recorded in the repository
 
 ## Ten worked formulas
 
-Open an example for its arguments, formula, expected display and limits. These examples describe v3.4.2 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
+Open an example for its arguments, formula, expected display and limits. These examples describe v3.5.0 and need Microsoft 365 or Excel 2024 or later. Enter them in the Ozzit workbook with space for any spilled result.
 
-All ten were evaluated in Excel 16.0 build 20430 on 25 September 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
+All ten were evaluated in Excel 16.0 build 20527 on 20 October 2026 against the unchanged released workbook. Read the inputs and raw results. The check verifies these calculations, not an accounting treatment.
 
 ### Extract GST from an inclusive amount
 
@@ -8006,7 +8007,7 @@ Link to this example · Released formula source
 
 oz.Amortiseλ: Creates a corkscrew amortisation schedule
 
-Signature: Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline]). Square brackets mark optional arguments.
+Signature: Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]). Square brackets mark optional arguments.
 
 ```
 =TAKE(oz.Amortiseλ(100000,0.05,60,DATE(2026,7,1)),,1)
@@ -8082,17 +8083,70 @@ Limits: One outflow of 1,000 followed by an inflow of 1,100 one year later. Othe
 
 Link to this example · Released formula source
 
-## All 138 named formulas
+## All 148 named formulas
 
-Each module below lists the names its source file defines in the v3.4.2 workbook, with the released signature of each. Square brackets mark optional arguments.
+Each module below lists the names its source file defines in the v3.5.0 workbook, with the released signature of each. Square brackets mark optional arguments. Each name links to its entry on a module page with its parameters, notes and worked examples: Dates, Essentials, Financial, Ratios, Utilities and Debt.
 
-Download the full v3.4.2 function index (CSV) for a one-line description of each, or read it on GitHub.
+Download the full v3.5.0 function index (CSV) for a one-line description of each, or read it on GitHub.
+
+### Ratios, 48 named formulas
+
+- oz.ATOBenchmarkRatioλ(Amount, Turnover)
+- oz.ATOCostOfSalesRatioλ(CostOfSales, Turnover, [IncludedWages])
+- oz.ATOLabourRatioλ(SalaryWages, Contractors, Turnover, [AssociatePayments], [W1])
+- oz.ATOTotalExpensesRatioλ(TotalExpenses, Turnover, [AssociatePayments])
+- oz.ATOTurnoverλ(OtherSales, TotalBusinessIncome)
+- oz.AboutRatiosλ
+- oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
+- oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
+- oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
+- oz.CashConversionCycleλ(InventoryDays, ReceivableDays, PayableDays, [WIPDays])
+- oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
+- oz.CashRatioλ( Cash, Liabilities)
+- oz.CurrentRatioλ( Assets, Liabilities)
+- oz.DPRλ( DividendsPaid, NetIncome )
+- oz.DSCRλ( NetOperatingIncome, TotalDebtService)
+- oz.DSIλ( AverageInventory, CostOfGoodsSold)
+- oz.DebtRatioλ( TotalDebt, TotalAssets)
+- oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
+- oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
+- oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
+- oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
+- oz.EBITDAMarginλ( EBITDA, TotalRevenue)
+- oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
+- oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
+- oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
+- oz.GrossMarginλ( GrossProfit, NetSales)
+- oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
+- oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
+- oz.NetProfitMarginλ( NetIncome, Revenue)
+- oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
+- oz.OperatingMarginλ( OperatingEarnings, Revenue)
+- oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
+- oz.PayableDaysλ(Payables, Purchases, [Days])
+- oz.PretaxMarginλ( PretaxEarnings, Revenue)
+- oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
+- oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
+- oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
+- oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
+- oz.QuickRatioλ( QuickAssets, Liabilities)
+- oz.ROAλ( NetIncome, TotalAssets)
+- oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
+- oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
+- oz.ROIλ( NetReturnonInvestment, CostofInvestment)
+- oz.ReceivableDaysλ(Receivables, Sales, [Days])
+- oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
+- oz.RetentionRatioλ( RetainedEarnings, NetIncome )
+- oz.WIPDaysλ(WIP, RelatedFlow, [Days])
+- oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
+
+Released Ratios source
 
 ### Financial, 46 named formulas
 
 - oz.AboutFinancialλ
 - oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
-- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline])
+- oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
 - oz.AmortiseλDV
 - oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
 - oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
@@ -8139,50 +8193,6 @@ Download the full v3.4.2 function index (CSV) for a one-line description of each
 
 Released Financial source
 
-### Ratios, 39 named formulas
-
-- oz.AboutRatiosλ
-- oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
-- oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
-- oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
-- oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
-- oz.CashRatioλ( Cash, Liabilities)
-- oz.CurrentRatioλ( Assets, Liabilities)
-- oz.DPRλ( DividendsPaid, NetIncome )
-- oz.DSCRλ( NetOperatingIncome, TotalDebtService)
-- oz.DSIλ( AverageInventory, CostOfGoodsSold)
-- oz.DebtRatioλ( TotalDebt, TotalAssets)
-- oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
-- oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
-- oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
-- oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
-- oz.EBITDAMarginλ( EBITDA, TotalRevenue)
-- oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
-- oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
-- oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
-- oz.GrossMarginλ( GrossProfit, NetSales)
-- oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
-- oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
-- oz.NetProfitMarginλ( NetIncome, Revenue)
-- oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
-- oz.OperatingMarginλ( OperatingEarnings, Revenue)
-- oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
-- oz.PretaxMarginλ( PretaxEarnings, Revenue)
-- oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
-- oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
-- oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
-- oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
-- oz.QuickRatioλ( QuickAssets, Liabilities)
-- oz.ROAλ( NetIncome, TotalAssets)
-- oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
-- oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
-- oz.ROIλ( NetReturnonInvestment, CostofInvestment)
-- oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
-- oz.RetentionRatioλ( RetainedEarnings, NetIncome )
-- oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
-
-Released Ratios source
-
 ### Essentials, 17 named formulas
 
 - oz.AboutEssentialsλ
@@ -8227,7 +8237,7 @@ Released Essentials source
 
 Released Utilities source
 
-### Dates, 14 named formulas
+### Dates, 15 named formulas
 
 - oz.AboutDatesλ
 - oz.CountDOWλ(Starts, Ends, DayOfWeek)
@@ -8238,6 +8248,7 @@ Released Utilities source
 - oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
 - oz.PeriodLabelλ(Date, [Interval])
 - oz.Periodsλ(Starts, Ends, [Intervals])
+- oz.RateAtDateλ(EffectiveDates, Rates, Dates)
 - oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
 - oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
 - oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
@@ -8270,26 +8281,26 @@ That is the whole of the function’s contribution: 10% arithmetic on an amount 
 
 Whether the supply is wholly taxable, whether a tax invoice supports it and whether the credit is claimable in that period are decisions for the reviewer. The function cannot see the evidence and does not classify the supply.
 
-The 25 September 2026 native Excel record evaluates this formula against the exact v3.4.2 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
+The 20 October 2026 native Excel record evaluates this formula against the exact v3.5.0 release workbook. It returned 99.999999999999986 before display rounding. The file hash was unchanged after the check. The repository also retains its historical v3.2.0 screenshot record.
 
 ## Download and use it
 
 Needs Microsoft 365 or Excel 2024 or later. Nothing is installed.
 
-- Download the v3.4.2 workbook. The release page also publishes SHA256SUMS and a provenance record.
-- Check the file before you trust it: the v3.4.2 asset is 439,097 bytes with SHA-256 0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f.
+- Download the v3.5.0 workbook. The release page also publishes SHA256SUMS and a provenance record.
+- Check the file before you trust it: the v3.5.0 asset is 462,490 bytes with SHA-256 76d3722c785abd3813ffffffc5fbb2d6ab80628da10fb7f36cea7c67fd171330.
 - Read the source, guides and changelog, or start with the guide to opening the workbook and copying functions.
 
-To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.4.2 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
+To use a function in your own file, copy the cell that calls it, or copy the definition from the workbook’s name manager into your model. The function then belongs to your workbook and stays with it. Cite the library with the metadata in the v3.5.0 CITATION.cff, which names the release this page documents. The default branch may already carry a later version.
 
 ## Release verification
 
-Release v3.4.2 was built from a signed tag and gated before publication. On 20 September 2026, in Excel 16.0 build 20430:
+Release v3.5.0 was built from a signed tag and gated before publication. On 19 October 2026, in Excel 16.0 build 20527:
 
 - 1,129 formulas recalculated with 0 in error.
-- 905 assertions ran with 0 failures: 603 written by hand, 23 of them randomised against independent formulas, and 302 generated from the workbook’s own help.
-- 19,444 cached values were confirmed to equal what their formulas produce.
-- 246 unit tests passed, and the published formula source reproduced all 138 named formulas.
+- 1,065 assertions ran with 0 failures.
+- 19,446 cached values were confirmed to equal what their formulas produce.
+- The published formula source reproduced all 148 named formulas.
 
 Those checks establish that the workbook calculates what its definitions say. They do not establish that a given accounting treatment is correct.
 
@@ -8308,7 +8319,7 @@ Not tax, legal or financial advice. The functions calculate; a person decides th
 
 ### What is Ozzit?
 
-An Excel workbook containing 133 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the MIT licence. It has no add-in, macro or external dependency.
+An Excel workbook containing 143 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency.
 
 ### Which Excel versions can run it?
 
@@ -8320,7 +8331,7 @@ No. It performs 10% GST arithmetic and labels Australian financial years, and it
 
 ### Where do I get the current release?
 
-Release v3.4.2, published on 20 September 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use.
+Release v3.5.0, published on 19 October 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use.
 
 ## Related
 
@@ -8334,16 +8345,16 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Download Ozzit v3.4.2: https://github.com/ryanduguid/Ozzit/releases/download/v3.4.2/ozzit.xlsx
+- Download Ozzit v3.5.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
-- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2
+- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
-- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.4.2.json
+- Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.5.0.json
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstadd
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-financialyear
-- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Dates.txt
+- Released formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-primecost
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-diminishingvalue
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-amortise
@@ -8351,18 +8362,4888 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-periodrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-daycountrate
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-irr
-- Download the full v3.4.2 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.4.2.csv
-- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/functions.csv
-- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Ratios.txt
-- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Essentials.txt
-- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Utilities.txt
-- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Debt.txt
-- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/native-gst-capture.md
+- Dates: https://duguid.com.au/tools/ozzit/functions/dates/
+- Essentials: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Financial: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ratios: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Utilities: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Debt: https://duguid.com.au/tools/ozzit/functions/debt/
+- Download the full v3.5.0 function index (CSV): https://duguid.com.au/assets/ozzit-functions-v3.5.0.csv
+- read it on GitHub: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/functions.csv
+- oz.ATOBenchmarkRatio λ (Amount, Turnover): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
+- oz.ATOCostOfSalesRatio λ (CostOfSales, Turnover, [IncludedWages]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
+- oz.ATOLabourRatio λ (SalaryWages, Contractors, Turnover, [AssociatePayments], [W1]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
+- oz.ATOTotalExpensesRatio λ (TotalExpenses, Turnover, [AssociatePayments]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atototalexpensesratio
+- oz.ATOTurnover λ (OtherSales, TotalBusinessIncome): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atoturnover
+- oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
+- oz.AssetTurnoverRatio λ ( NetSales, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-assetturnoverratio
+- oz.BVPS λ ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-bvps
+- oz.CAPERatio λ ( SharePrice, TenYearAverageEarningsInflationAdjusted ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-caperatio
+- oz.CashConversionCycle λ (InventoryDays, ReceivableDays, PayableDays, [WIPDays]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashconversioncycle
+- oz.CashFlowMargin λ ( CashFlowFromOperatingActivities, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashflowmargin
+- oz.CashRatio λ ( Cash, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashratio
+- oz.CurrentRatio λ ( Assets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
+- oz.DPR λ ( DividendsPaid, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
+- oz.DSCR λ ( NetOperatingIncome, TotalDebtService): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
+- oz.DSI λ ( AverageInventory, CostOfGoodsSold): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
+- oz.DebtRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
+- oz.DebtToAssetRatio λ ( TotalDebt, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
+- oz.DebtToCapitalRatio λ ( Debt, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
+- oz.DebtToEquityRatio λ ( TotalLiabilities, ShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoequityratio
+- oz.DividendYieldRatio λ ( AnnualDividendsPerShare, SharePrice): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dividendyieldratio
+- oz.EBITDAMargin λ ( EBITDA, TotalRevenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-ebitdamargin
+- oz.EPS λ ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-eps
+- oz.EquityMultiplier λ ( TotalAssets, TotalShareholdersEquity): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equitymultiplier
+- oz.EquityRatio λ ( ShareholdersEquity, TotalAssets, IntangibleAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equityratio
+- oz.GrossMargin λ ( GrossProfit, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-grossmargin
+- oz.InterestCoverageRatio λ ( OperatingIncome, InterestExpenses): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-interestcoverageratio
+- oz.InventoryTurnoverRatio λ ( CostOfGoodsSold, AverageInventory): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-inventoryturnoverratio
+- oz.NetProfitMargin λ ( NetIncome, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-netprofitmargin
+- oz.OperatingCashFlowRatio λ ( OperatingCashFlow, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingcashflowratio
+- oz.OperatingMargin λ ( OperatingEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingmargin
+- oz.OperatingRatio λ ( OperatingExpenses, CostOfGoodsSold, NetSales): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingratio
+- oz.PayableDays λ (Payables, Purchases, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-payabledays
+- oz.PretaxMargin λ ( PretaxEarnings, Revenue): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pretaxmargin
+- oz.PriceEarningsRatio λ ( SharePrice, EarningsPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-priceearningsratio
+- oz.PriceToBookRatio λ ( MarketPricePerShare, BookValuePerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetobookratio
+- oz.PriceToCashRatio λ ( MarketPricePerShare, OperatingCashFlowPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetocashratio
+- oz.PriceToSalesRatio λ ( MarketPricePerShare, SalesPerShare): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetosalesratio
+- oz.QuickRatio λ ( QuickAssets, Liabilities): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-quickratio
+- oz.ROA λ ( NetIncome, TotalAssets): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roa
+- oz.ROE λ ( NetIncome, ShareholdersEquity, [OpeningEquity]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roe
+- oz.ROIC λ ( NetOperatingProfitAfterTax, InvestedCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roic
+- oz.ROI λ ( NetReturnonInvestment, CostofInvestment): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roi
+- oz.ReceivableDays λ (Receivables, Sales, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivabledays
+- oz.ReceivablesTurnoverRatio λ ( NetCreditSales, AverageAccountsReceivable): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivablesturnoverratio
+- oz.RetentionRatio λ ( RetainedEarnings, NetIncome ): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
+- oz.WIPDays λ (WIP, RelatedFlow, [Days]): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
+- oz.WorkingCapitalTurnoverRatio λ ( NetAnnualSales, WorkingCapital): https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
+- Released Ratios source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
+- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
+- oz.Allocate λ (Amounts, [FromInterval], [ToInterval]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
+- oz.Amortise λ ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
+- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
+- oz.AnnualRate λ (PeriodRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
+- oz.CorkScrewReversal λ ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
+- oz.Corkscrew λ ( Opening, Flow1, [Flow2], [Flow3], [Flow4]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
+- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
+- oz.Cumulative λ ( Totals, [OpeningBalance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
+- oz.DB λ (Cost, Salvage, Life, [Months]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
+- oz.DDB λ (Cost, Salvage, Life, [Factor]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
+- oz.DayCountRate λ (Timeline, APR, [Convention], [EndDates]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
+- oz.Depreciate λ (InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
+- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
+- oz.DiminishingValue λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
+- oz.FilterContains λ ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] ): https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
+- oz.GSTAdd λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
+- oz.GSTExtract λ (Amounts, [Rate]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
+- oz.IRR λ ( Values, Dates): https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
+- oz.IntOnInt λ ( Principal, Rate): https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
+- oz.LabelAmortise λ (LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
+- oz.LabelDepreciate λ ( AssetNames): https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
+- oz.LeaseLiability λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
+- oz.LeaseRemeasure λ (RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
+- oz.LeaseSchedule λ (Payments, Rate, [InAdvance]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
+- oz.Movement λ ( [BeginningValues], Values): https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
+- oz.PeriodDiff λ (StartDate, EndDate, Interval): https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
+- oz.PeriodRate λ (AnnualRate, [PeriodsPerYear]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
+- oz.PeriodStart λ (AnyPeriodStart, MonthsPerPeriod, DateOfInterest): https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
+- oz.PrimeCost λ (Cost, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
+- oz.ROUSchedule λ (Cost, Periods): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
+- oz.RangeToDA λ ( Cell, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
+- oz.Reversal λ ( [OpeningValue], RowToReverse): https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
+- oz.RollingAvg λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
+- oz.RollingMax λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
+- oz.RollingMin λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
+- oz.RollingSum λ ( Values, Size): https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
+- oz.SLN λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
+- oz.SYD λ (Cost, Salvage, Life): https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
+- oz.SumAmortise λ (AmortisationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
+- oz.SumContains λ (ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
+- oz.SumDepreciate λ (DepreciationSchedule): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
+- oz.SumPeriods λ ( Values, Dates, PeriodStarts): https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
+- oz.TimelineOffset λ (Date, Timeline): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
+- oz.TimelinePosition λ (Array, Timeline, Offset): https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
+- oz.VDB λ (Cost, Salvage, Life, [Factor], [No_Switch]): https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
+- oz.AvgCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
+- oz.AvgRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
+- oz.CountACols λ ( Array ): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countacols
+- oz.CountARows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countarows
+- oz.CountCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countcols
+- oz.CountC λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
+- oz.CountRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countrows
+- oz.IsBetweenE λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isbetweene
+- oz.IsInList λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isinlist
+- oz.MaxCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxcols
+- oz.MaxRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxrows
+- oz.MinCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-mincols
+- oz.MinRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-minrows
+- oz.RangeToDAE λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
+- oz.SumCols λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
+- oz.SumRows λ ( Array): https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
+- Released Essentials source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Essentials.txt
+- oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
+- oz.AvgColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
+- oz.AvgRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
+- oz.CountAColsU λ ( Array ): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countacolsu
+- oz.CountARowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countarowsu
+- oz.CountCU λ ( Text, Characters): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
+- oz.CountColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcolsu
+- oz.CountRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countrowsu
+- oz.IsBetweenU λ ( Value, Low, Hi, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isbetweenu
+- oz.IsInListU λ ( Value, List): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isinlistu
+- oz.MaxColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxcolsu
+- oz.MaxRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxrowsu
+- oz.MinColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-mincolsu
+- oz.MinRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-minrowsu
+- oz.RangeToDAU λ (Range, [Rows], [Columns]): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
+- oz.SumColsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
+- oz.SumRowsU λ ( Array): https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
+- Released Utilities source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
+- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
+- oz.CountDOW λ (Starts, Ends, DayOfWeek): https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
+- oz.DateDif λ (StartDate, EndDate, [Unit]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
+- oz.FinancialYear λ (Dates, [StartMonth]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.IsBetween λ (Values, Low, High, [Inclusive]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
+- oz.IsOccurrenceDate λ (Dates, FirstOccurrence, [LastOccurrence], [Repeats]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
+- oz.OverLapDays λ (Period1Start, Period1End, Period2Start, Period2End): https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
+- oz.PeriodLabel λ (Date, [Interval]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
+- oz.Periods λ (Starts, Ends, [Intervals]): https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
+- oz.RateAtDate λ (EffectiveDates, Rates, Dates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
+- oz.ScheduleRatesByItems λ (PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
+- oz.ScheduleRates λ (PeriodEnds, RateStarts, Rates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
+- oz.ScheduleValuesByItems λ (PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
+- oz.ScheduleValues λ (PeriodStarts, PeriodEnds, Values, EffectiveDates): https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
+- oz.Timeline λ (StartDate, Periods, Interval, PeriodStarts?): https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
+- oz.AmortiseB λ (Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
+- oz.DebtSculptFixed λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
+- oz.DebtSculptVariableLRV λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
+- oz.DebtSculptVariable λ ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates]): https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
+- oz.InterestLRV λ (CFADS, DSCR, Principal, InterestRate): https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
+- Released Debt source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
+- historical v3.2.0 screenshot record: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/native-gst-capture.md
 - Read the source, guides and changelog: https://github.com/ryanduguid/Ozzit
-- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/docs/workbook-use.md
-- the v3.4.2 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff
+- guide to opening the workbook and copying functions: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/docs/workbook-use.md
+- the v3.5.0 CITATION.cff: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/CITATION.cff
 - Profit vs cash flow: an Australian Excel worked example: https://duguid.com.au/examples/profit-vs-cash-flow/
 - Browser calculators, nothing to install: https://duguid.com.au/tools/business-calculators/
 - Construction WIP schedule: https://duguid.com.au/tools/wip-schedule/
 - All tools: https://duguid.com.au/tools/
 - Evidence and Assurance: https://duguid.com.au/evidence/
+
+---
+
+# Ozzit Dates functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/dates/
+
+> Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.
+
+# Ozzit Dates functions
+
+The 15 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Dates formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 15 functions
+
+- oz.AboutDatesλ
+- oz.CountDOWλ
+- oz.IsBetweenλ
+- oz.IsOccurrenceDateλ
+- oz.OverLapDaysλ
+- oz.PeriodLabelλ
+- oz.Periodsλ
+- oz.ScheduleRatesλ
+- oz.ScheduleRatesByItemsλ
+- oz.ScheduleValuesλ
+- oz.ScheduleValuesByItemsλ
+- oz.Timelineλ
+- oz.FinancialYearλ
+- oz.RateAtDateλ
+- oz.DateDifλ
+
+### oz.AboutDatesλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.d.Aboutλ.
+
+### oz.CountDOWλ
+
+oz.CountDOWλ(Starts, Ends, DayOfWeek)
+
+Count instances of a specific day of the week between two dates.
+
+Parameters:
+
+Starts (required)
+
+One of more start dates (text or numeric) in a row or column
+
+Ends (required)
+
+End dates (text or numeric) for each start date
+
+DayOfWeek (required)
+
+1=Sunday, 7=Saturday.
+
+```
+=oz.CountDOWλ("23/7/2026", "11/8/2026",  1)
+```
+
+The workbook help shows 3.
+
+Previous name: nabla.d.CountDOWλ.
+
+### oz.IsBetweenλ
+
+oz.IsBetweenλ(Values, Low, High, [Inclusive])
+
+Determine if a value is between a lower and upper limit
+
+Determine if a value is between a lower and upper limit.
+
+Parameters:
+
+Values (required)
+
+one or more values to compare.
+
+Low (required)
+
+The lower limit that the value(s) must be greater than
+
+High (required)
+
+The higher limit that the value(s) must be less than
+
+Inclusive (optional)
+
+TRUE: Value(s) can be equal to Low and/or High (default)
+
+```
+=oz.IsBetweenλ(1, 2, 4)
+```
+
+The workbook help shows FALSE.
+
+```
+=oz.IsBetweenλ(Today(), Today(), Today()+1)
+```
+
+The workbook help shows TRUE.
+
+```
+=oz.IsBetweenλ("B", "B", "D", FALSE)
+```
+
+The workbook help shows FALSE.
+
+Previous name: nabla.d.IsBetweenλ.
+
+### oz.IsOccurrenceDateλ
+
+oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
+
+Returns TRUE if Date passed is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
+
+Returns TRUE if a Date is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
+
+Note: A monthly, quarterly, semi-annual or annual item that starts on the 29th, 30th or 31st falls on the last day of any shorter month.
+
+Parameters:
+
+Dates (required)
+
+Date to test. Normally this is horizontal timeline by day
+
+FirstOccurrence (required)
+
+When something that may repeat, happens for the first time.
+
+LastOccurrence (optional)
+
+When something that may repeat, happens for the last time. If omitted, it is assumed repeating items repeat forever.
+
+Repeats (optional)
+
+A code that conveys how often this thing repeats. Repeat codes are O=One time/never repeats (default) A=Annually S=Semi-Annually Q=Quarterly M=Monthly B=BiWeekly W=Weekly X=Every Workday (Monday to Friday) D=Daily
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "D")))
+```
+
+The workbook help shows 72.
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "O")))
+```
+
+The workbook help shows 01.
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "W")))
+```
+
+The workbook help shows 11.
+
+Previous name: nabla.d.IsOccurrenceDateλ.
+
+### oz.OverLapDaysλ
+
+oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
+
+Return how many days overlap two period ranges.
+
+Count days shared between two sets of periods.
+
+Parameters:
+
+Period1Start (required)
+
+First period's start date.
+
+Period1End (required)
+
+First period's end date.
+
+Period2Start (required)
+
+Second period's start date.
+
+Period2End (required)
+
+Second period's end date.
+
+```
+=oz.OverLapDaysλ(08, 14, 10, 17)
+```
+
+The workbook help shows 5.
+
+```
+=oz.OverLapDaysλ(10, 20, 11, 18)
+```
+
+The workbook help shows 8.
+
+```
+=oz.OverLapDaysλ("17/7/2026", "25/7/2026", "7/7/2026", "18/7/2026")
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.d.OverLapDaysλ.
+
+### oz.PeriodLabelλ
+
+oz.PeriodLabelλ(Date, [Interval])
+
+Creates a label for a date based on period interval
+
+Parameters:
+
+Date (required)
+
+A single date or array of date(s) where the first date is the first date of a calendar year.
+
+Interval (optional)
+
+Must be one of:
+
+- D=Daily
+- W=Weekly
+- I=Weekly (using ISO week number)
+- M=Monthly
+- Q=Quarterly
+- S=Semi-Annually
+- A or Y=Annually
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "D")
+```
+
+The workbook help shows 2026-Aug-26.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "M")
+```
+
+The workbook help shows 2026-Aug.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Q")
+```
+
+The workbook help shows 2026:Q3.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Y")
+```
+
+The workbook help shows 2026.
+
+Previous name: nabla.d.PeriodLabelλ.
+
+### oz.Periodsλ
+
+oz.Periodsλ(Starts, Ends, [Intervals])
+
+Determine the number of periods from Starts to Date2 in Days, Weeks, Months, Quarters, or Years.
+
+Determine the number of periods from Starts to Ends inclusive. Differences to Excel's DATEDIF are: * Interval includes Weeks & Quarters * Counts the period starts crossed, so a part period at the end counts * Returns negative values if Starts is after Ends
+
+Parameters:
+
+Starts (required)
+
+First date (normally older). A single date or an array of dates.
+
+Ends (required)
+
+Second date (normally newer). A single date or an array the same shape as Starts. A single Starts or Ends is applied to every date in the other.
+
+Intervals (optional)
+
+Days, Weeks, Months (default), Quarters, or Years (D, W, M, Q, Y). One code, or an array of codes the same shape as the dates.
+
+```
+=oz.Periodsλ("31/7/2026", "15/9/2026")
+```
+
+The workbook help shows 2.
+
+```
+=oz.Periodsλ("15/9/2026", "31/7/2026")
+```
+
+The workbook help shows -2.
+
+```
+=oz.Periodsλ("15/7/2027", "16/7/2026")
+```
+
+The workbook help shows -12.
+
+```
+=oz.Periodsλ("15/7/2027", "16/7/2026", "W")
+```
+
+The workbook help shows -52.
+
+Previous name: nabla.d.Periodsλ.
+
+### oz.ScheduleRatesλ
+
+oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
+
+Schedule rates that persist until replaced in a timeline.
+
+Schedules rates that persist until replaced in a timeline from a schedule in a table.
+
+Note: If 2 rates are scheduled within the same period, only the last rate will be selected.
+
+Parameters:
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+RateStarts (required)
+
+A column or row of rate effective dates in any order.
+
+Rates (required)
+
+A column or row of rates associated with RateStarts.
+
+```
+=oz.ScheduleRatesλ(Timelineλ("1/7/2026",5,"W"),{46208; 46216; 46222}, {10; 20; 30})
+```
+
+The workbook help shows _,10,20,30,30.
+
+Previous name: nabla.d.ScheduleRatesλ.
+
+### oz.ScheduleRatesByItemsλ
+
+oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
+
+Schedule rates that persist until replaced in a timeline for each item in a list.
+
+Schedules each item's rates by period until another rate takes effect.
+
+Note: If 2 rates are scheduled within the same period for the same item,. only the last rate will be selected.
+
+Parameters:
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+ItemFilter (required)
+
+A column of 1 or more items to filter a rate schedule by. A 'rate schedule' is a table/list where each row contains a unique item/effective date pair with a rate. An item with no rate in the schedule scores nought in every period.
+
+ItemList (required)
+
+Items in a rate schedule.
+
+EffectiveList (required)
+
+Effective dates in the rate schedule.
+
+RateList (required)
+
+Rates in a rate schedule for each item/effective date pair.
+
+```
+=oz.ScheduleRatesByItemsλ( oz.Timelineλ( "1/7/2026"), UNIQUE( tblRates[Unit]),
+tblRates[Unit], tblRates[Effective], tblRates[Rent])
+```
+
+Previous name: nabla.d.ScheduleRatesByItemsλ.
+
+### oz.ScheduleValuesλ
+
+oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
+
+Schedules values in a timeline from a schedule in a table.
+
+Place values from a table into a timeline's appropriate period.
+
+Parameters:
+
+PeriodStarts (required)
+
+A row of period start dates (timeline).
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+Values (required)
+
+A column or row of values to be scheduled.
+
+EffectiveDates (required)
+
+When each value is scheduled, in the same orientation as Values.
+
+```
+=oz.ScheduleValuesλ(Timelineλ("1/7/2026"), Timelineλ("1/7/2026",,,FALSE), {1;3}, {"1/7/2026"; "15/8/2026"})
+```
+
+Previous name: nabla.d.ScheduleValuesλ.
+
+### oz.ScheduleValuesByItemsλ
+
+oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
+
+Schedule and sum values in a timeline for each item.
+
+Parameters:
+
+PeriodStarts (required)
+
+A row of period start dates (timeline).
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+ItemFilter (required)
+
+A column of 1 or more items to filter a value schedule by. A 'value schedule' is a table/list where each row contains a unique item/effective date pair with a value.
+
+ItemList (required)
+
+Items in a value schedule.
+
+EffectiveList (required)
+
+Effective dates in the value schedule.
+
+ValueList (required)
+
+Values in a value schedule for each item/effective date pair. An item with no rows in the schedule totals nought in every period.
+
+```
+=oz.ScheduleValuesByItemsλ( oz.Timelineλ( "1/7/2026"),  oz.Timelineλ( "1/7/2026",,,FALSE),
+UNIQUE( tblExp[Items]), tblExp[Items], tblExp[Dates], tblExp[Amount])
+```
+
+Previous name: nabla.d.ScheduleValuesByItemsλ.
+
+### oz.Timelineλ
+
+oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
+
+Create a horizontal list of period dates
+
+Creates a horizontal list of period dates.
+
+Parameters:
+
+StartDate (required)
+
+First period's start date. May be entered as text.
+
+Periods (optional)
+
+The number of period in the timeline. Defaults to 12.
+
+Interval (optional)
+
+Period interval: D, W, M, Q or Y (Day, Week, Month <default>, Quarter, or Year)
+
+PeriodStarts? (optional)
+
+TRUE=Display period start dates <default>. FALSE=Period end dates
+
+```
+=oz.Timelineλ(TODAY())
+```
+
+The workbook help shows 12 mo, starts.
+
+```
+=oz.Timelineλ(TODAY(), , "Q", FALSE)
+```
+
+The workbook help shows 12 qtr, ends.
+
+Previous name: nabla.d.Timelineλ.
+
+### oz.FinancialYearλ
+
+oz.FinancialYearλ(Dates, [StartMonth])
+
+Labels dates with their Australian financial year, which starts on 1 July
+
+Labels dates with their Australian financial year, which starts on 1 July.
+
+Parameters:
+
+Dates (required)
+
+One or more dates, numeric or text. A blank cell returns a blank.
+
+StartMonth (optional, Default = 7)
+
+Month the financial year starts. Blank cells and empty text use 7.
+
+```
+=oz.FinancialYearλ(DATE(2026,8,15))
+```
+
+The workbook help shows FY2027.
+
+Previous name: nabla.d.FinancialYearλ.
+
+### oz.RateAtDateλ
+
+oz.RateAtDateλ(EffectiveDates, Rates, Dates)
+
+Returns the rate in effect on each date from a table of effective dates and rates, refusing gaps, unsorted or repeated dates
+
+Returns the rate in effect on each date from your table of effective dates and rates.
+
+Note: Each rate applies from its effective date until the next one. Dates may be one date or a row or column of them, and the result takes their shape. A date before the first effective date has no rate in effect and returns #N/A. The table must be complete and in order, so instead of a result it returns a message when EffectiveDates and Rates differ in length or hold a blank or text entry, when the dates are not in ascending order, or when a date repeats. A text or blank date in Dates returns #VALUE!. The library ships no rate table: supply your own, with its source and the date you checked it. ScheduleRatesλ() lays rates across a timeline without these checks.
+
+Parameters:
+
+EffectiveDates (required)
+
+A row or column of dates from which each rate applies, in ascending order.
+
+Rates (required)
+
+The rate that applies from each effective date, the same length as EffectiveDates.
+
+Dates (required)
+
+The date, or a row or column of dates, to look up.
+
+```
+=oz.RateAtDateλ(DATE(2026, {1;7;10}, 1), {0.04;0.045;0.05}, DATE(2026, 8, 15))
+```
+
+The workbook help shows 0.045.
+
+### oz.DateDifλ
+
+oz.DateDifλ(StartDate, EndDate, [Unit])
+
+Whole years, months or days between two dates, and the remainders DATEDIF gets wrong
+
+Whole years, months or days between two dates, and the remainders.
+
+Note: Excel documents DATEDIF as a legacy compatibility function and warns its MD unit can return a negative or wrong day count. This counts a month as complete when EDATE() of the start date has arrived, so a month after 31 January is the last day of February, and takes every remainder from there. A reversed range or an unknown unit returns #NUM!.
+
+Parameters:
+
+StartDate (required)
+
+The earlier date, numeric or text.
+
+EndDate (required)
+
+The later date, numeric or text.
+
+Unit (optional, Default = D)
+
+Y whole years, M whole months, D days, YM months left after the whole years, YD days left after the whole years, MD days left after the whole months.
+
+```
+=oz.DateDifλ(DATE(2026,1,31), DATE(2026,3,1), "MD")
+```
+
+The workbook help shows 1.
+
+## Other modules
+
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
+- oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
+- oz.IsBetween λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
+- oz.IsOccurrenceDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
+- oz.OverLapDays λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
+- oz.PeriodLabel λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
+- oz.Periods λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
+- oz.ScheduleRates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
+- oz.ScheduleRatesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
+- oz.ScheduleValues λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
+- oz.ScheduleValuesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
+- oz.Timeline λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
+- oz.FinancialYear λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.RateAtDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
+- oz.DateDif λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
+
+---
+
+# Ozzit Essentials functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/essentials/
+
+> Parameters and worked examples for 17 Ozzit Essentials Excel LAMBDA functions: row and column totals, averages, counts and range conversion for dynamic arrays.
+
+# Ozzit Essentials functions
+
+The 17 Essentials formulas cover row and column totals, averages, counts and range conversion for dynamic arrays. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Essentials formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 17 functions
+
+- oz.AboutEssentialsλ
+- oz.CountCλ
+- oz.SumRowsλ
+- oz.SumColsλ
+- oz.AvgRowsλ
+- oz.AvgColsλ
+- oz.MinRowsλ
+- oz.MinColsλ
+- oz.MaxRowsλ
+- oz.MaxColsλ
+- oz.CountARowsλ
+- oz.CountAColsλ
+- oz.CountRowsλ
+- oz.CountColsλ
+- oz.IsBetweenEλ
+- oz.IsInListλ
+- oz.RangeToDAEλ
+
+### oz.AboutEssentialsλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.e.Aboutλ.
+
+### oz.CountCλ
+
+oz.CountCλ( Text, Characters)
+
+Count occurrences of character(s) in a string
+
+Count how many of one or more characters are in a string.
+
+Parameters:
+
+Text (required)
+
+The string to interrogate. Empty text returns 0
+
+Characters (required)
+
+A single character, or CSV of characters to find in Text NOTE! Case sensitive. A single character is taken as itself, so a comma works
+
+```
+=oz.CountCλ( "Mary had a little lamb", "a,b")
+```
+
+Previous name: nabla.e.CountCλ.
+
+### oz.SumRowsλ
+
+oz.SumRowsλ( Array)
+
+Get the total for each row
+
+Get the total of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by row.
+
+```
+=oz.SumRowsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.SumRowsλ.
+
+### oz.SumColsλ
+
+oz.SumColsλ( Array)
+
+Get the total for each Column
+
+Get the total of each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by column.
+
+```
+=oz.SumColsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.SumColsλ.
+
+### oz.AvgRowsλ
+
+oz.AvgRowsλ( Array)
+
+Get the average for each row
+
+Get the average of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by row.
+
+```
+=oz.AvgRowsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.AvgRowsλ.
+
+### oz.AvgColsλ
+
+oz.AvgColsλ( Array)
+
+Get the average for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by column.
+
+```
+=oz.AvgColsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.AvgColsλ.
+
+### oz.MinRowsλ
+
+oz.MinRowsλ( Array)
+
+Get the minimum for each row
+
+Get the minimum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by row.
+
+```
+=oz.MinRowsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.MinRowsλ.
+
+### oz.MinColsλ
+
+oz.MinColsλ( Array)
+
+Get the minimum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by column.
+
+```
+=oz.MinColsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.MinColsλ.
+
+### oz.MaxRowsλ
+
+oz.MaxRowsλ( Array)
+
+Get the maximum for each row
+
+Get the maximum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by row.
+
+```
+=oz.MaxRowsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.MaxRowsλ.
+
+### oz.MaxColsλ
+
+oz.MaxColsλ( Array)
+
+Get the maximum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by column.
+
+```
+=oz.MaxColsλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.e.MaxColsλ.
+
+### oz.CountARowsλ
+
+oz.CountARowsλ( Array)
+
+Count everything in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountARowsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.e.CountARowsλ.
+
+### oz.CountAColsλ
+
+oz.CountAColsλ( Array )
+
+Count everything in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountAColsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.e.CountAColsλ.
+
+### oz.CountRowsλ
+
+oz.CountRowsλ( Array)
+
+Count numbers in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountRowsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.e.CountRowsλ.
+
+### oz.CountColsλ
+
+oz.CountColsλ( Array)
+
+Count numbers in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountColsλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.e.CountColsλ.
+
+### oz.IsBetweenEλ
+
+oz.IsBetweenEλ( Value, Low, Hi, [Inclusive])
+
+Determine if a value is between a lower and upper limit
+
+Determine if a value is between a lower and upper limit.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+Low (required)
+
+The lower limit that the value must be greater than
+
+Hi (required)
+
+The higher limit that the value must be less than
+
+Inclusive (optional)
+
+If set to TRUE (default) the value can be equal to Low and/or Hi
+
+```
+=IsBetweenEλ(1, 2, 4)
+```
+
+The workbook help shows FALSE.
+
+```
+=IsBetweenEλ(2, 2, 4)
+```
+
+The workbook help shows TRUE.
+
+```
+=IsBetweenEλ(2, 2, 4, FALSE)
+```
+
+The workbook help shows FALSE.
+
+Previous name: nabla.e.IsBetweenλ.
+
+### oz.IsInListλ
+
+oz.IsInListλ( Value, List)
+
+Determine whether a value is one of a list of items
+
+Determine if a value is one of a list of items.
+
+Note: The comparison is exact and case-insensitive; * and? are ordinary characters.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+List (required)
+
+A list of values to check: a row, a column or a grid.
+
+```
+=IsInListλ(1, {2,3,4})
+```
+
+The workbook help shows FALSE.
+
+```
+=IsInListλ(1, {1,3,5})
+```
+
+The workbook help shows TRUE.
+
+Previous name: nabla.e.IsInListλ.
+
+### oz.RangeToDAEλ
+
+oz.RangeToDAEλ(Range, [Rows], [Columns])
+
+Convert a range reference to a dynamic array reference
+
+Convert a range reference to a dynamic array reference.
+
+See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
+
+Parameters:
+
+Range (required)
+
+A reference to the range to be converted.
+
+Rows (optional)
+
+Number of rows for the dynamic array. Defaults to 1.
+
+Columns (optional)
+
+Number of columns for the dynamic array. Defaults to 1.
+
+```
+=RangeToDAEλ(A1, , ModelPeriodCount)
+```
+
+Previous name: nabla.e.RangeToDAλ.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Essentials formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Essentials.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutEssentials λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-aboutessentials
+- oz.CountC λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countc
+- oz.SumRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumrows
+- oz.SumCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-sumcols
+- oz.AvgRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgrows
+- oz.AvgCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-avgcols
+- oz.MinRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-minrows
+- oz.MinCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-mincols
+- oz.MaxRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxrows
+- oz.MaxCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-maxcols
+- oz.CountARows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countarows
+- oz.CountACols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countacols
+- oz.CountRows λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countrows
+- oz.CountCols λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-countcols
+- oz.IsBetweenE λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isbetweene
+- oz.IsInList λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-isinlist
+- oz.RangeToDAE λ: https://duguid.com.au/tools/ozzit/functions/essentials/#oz-rangetodae
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
+
+---
+
+# Ozzit Financial functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/financial/
+
+> Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.
+
+# Ozzit Financial functions
+
+The 46 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Financial formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 46 functions
+
+- oz.AboutFinancialλ
+- oz.Corkscrewλ
+- oz.CorkScrewReversalλ
+- oz.IntOnIntλ
+- oz.IRRλ
+- oz.Movementλ
+- oz.Reversalλ
+- oz.Cumulativeλ
+- oz.RollingAvgλ
+- oz.RollingMaxλ
+- oz.RollingMinλ
+- oz.RollingSumλ
+- oz.SumContainsλ
+- oz.SumPeriodsλ
+- oz.Amortiseλ
+- oz.LabelAmortiseλ
+- oz.SumAmortiseλ
+- oz.Depreciateλ
+- oz.LabelDepreciateλ
+- oz.SumDepreciateλ
+- oz.Allocateλ
+- oz.PeriodDiffλ
+- oz.SLNλ
+- oz.SYDλ
+- oz.DBλ
+- oz.DDBλ
+- oz.VDBλ
+- oz.AmortiseλDV
+- oz.CorkscrewλDV
+- oz.DepreciateλDV
+- oz.TimelineOffsetλ
+- oz.TimelinePositionλ
+- oz.FilterContainsλ
+- oz.RangeToDAλ
+- oz.PeriodStartλ
+- oz.DiminishingValueλ
+- oz.PrimeCostλ
+- oz.GSTAddλ
+- oz.GSTExtractλ
+- oz.LeaseLiabilityλ
+- oz.LeaseScheduleλ
+- oz.LeaseRemeasureλ
+- oz.ROUScheduleλ
+- oz.PeriodRateλ
+- oz.AnnualRateλ
+- oz.DayCountRateλ
+
+### oz.AboutFinancialλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.f.Aboutλ.
+
+### oz.Corkscrewλ
+
+oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
+
+Create a corkscrew section that sums the opening balance and up to 4 independent flows.
+
+Create a corkscrew section that sums the opening balance and up to 4 independent flows
+
+Note: All flows are added. To subtract a flow make it negative.
+
+Parameters:
+
+Opening (required)
+
+First periods opening balance.
+
+Flow1 (required)
+
+First row (or array of rows) of numbers to include in period totals.
+
+Flow2 (optional)
+
+Second row (or array of rows) of numbers to include in period totals.
+
+Flow3 (optional)
+
+Third row (or array of rows) of numbers to include in period totals.
+
+Flow4 (optional)
+
+Fourth row (or array of rows) of numbers to include in period totals.
+
+```
+=oz.Corkscrewλ(0, Sequence(1,5))
+```
+
+The workbook help shows 00, 01, 03, 06, 10; 01, 02, 03, 04, 05; 01, 03, 06, 10, 15.
+
+Previous name: nabla.f.Corkscrewλ.
+
+### oz.CorkScrewReversalλ
+
+oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
+
+Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter.
+
+Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter
+
+Note: All flows are added. To subtract a flow make it negative.
+
+Parameters:
+
+Opening (required)
+
+First periods opening balance.
+
+ReversalFlags (required)
+
+A row of ones and blanks (or zeros) indicating when to reverse period totals.
+
+Flow1 (required)
+
+First row (or array of rows) of numbers to include in period totals.
+
+Flow2 (optional)
+
+Second row (or array of rows) of numbers to include in period totals.
+
+Flow3 (optional)
+
+Third row (or array of rows) of numbers to include in period totals.
+
+Flow4 (optional)
+
+Fourth row (or array of rows) of numbers to include in period totals.
+
+Previous name: nabla.f.CorkScrewReversalλ.
+
+### oz.IntOnIntλ
+
+oz.IntOnIntλ( Principal, Rate)
+
+Calculate Interest on Interest. Use to determine amount needed to cover debt plus interest on debt
+
+Calculate Interest on Interest (Interest only). Use to determine amount needed to cover borrowed interest
+
+Parameters:
+
+Principal (required)
+
+Principal amount
+
+Rate (required)
+
+Interest percentage rate. For years, APR. For months, APR/12
+
+```
+=oz.IntOnIntλ( 1000, 5%)
+```
+
+The workbook help shows 52.63.
+
+Previous name: nabla.f.IntOnIntλ.
+
+### oz.IRRλ
+
+oz.IRRλ( Values, Dates)
+
+Calculates IRR, correcting for when the first investment is not in the first period
+
+Parameters:
+
+Values (required)
+
+A row of investments (negative) and distributions (positive) The first entry, whether 0 or an amount, must be for the first period in the timeline and subsequent entries must correspond to periods in the timeline; however, the timeline may extend beyond the end of values.
+
+Dates (required)
+
+A timeline for when each investment is made
+
+```
+=EDATE("1/7/2026", SEQUENCE(,24, 0))
+```
+
+The workbook help shows Dates.
+
+```
+={0,0,-150,0,-100,10,20,30,40,50,60,70}
+```
+
+The workbook help shows Values.
+
+```
+=oz.IRRλ( Values, Dates)
+```
+
+The workbook help shows 25%.
+
+Previous name: nabla.f.IRRλ.
+
+### oz.Movementλ
+
+oz.Movementλ( [BeginningValues], Values)
+
+Create a row of differences from column to column
+
+Parameters:
+
+BeginningValues (optional)
+
+Defaults to 0. One value, or one per row of Values
+
+Values (required)
+
+A row (or rows) of values to compare column to column
+
+```
+=oz.Movementλ(,{100,110,130,100})
+```
+
+The workbook help shows 100,10,20,-30.
+
+Previous name: nabla.f.Movementλ.
+
+### oz.Reversalλ
+
+oz.Reversalλ( [OpeningValue], RowToReverse)
+
+Create a row that reverses input values in the next period.
+
+Parameters:
+
+OpeningValue (optional)
+
+Defaults to 0
+
+RowToReverse (required)
+
+A row of values to reverse the following periods
+
+```
+=oz.Reversalλ( , {100,110,130})
+```
+
+The workbook help shows 0,-100,-110.
+
+Previous name: nabla.f.Reversalλ.
+
+### oz.Cumulativeλ
+
+oz.Cumulativeλ( Totals, [OpeningBalance])
+
+Creates a row or column of cumulative totals from a total row or column
+
+Parameters:
+
+Totals (required)
+
+A row or column of totals from which to run cumulative totals
+
+OpeningBalance (optional)
+
+A starting balance. This defaults to 0
+
+```
+=oz.Cumulativeλ(Sequence(,3))
+```
+
+The workbook help shows 1,3,6.
+
+Previous name: nabla.f.Cumulativeλ.
+
+### oz.RollingAvgλ
+
+oz.RollingAvgλ( Values, Size)
+
+Creates Averages for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates averages for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be averaged.
+
+Size (required)
+
+The number of values to average that include and precede the current value
+
+```
+=oz.RollingAvgλ(SEQUENCE(, 5), 3)
+```
+
+The workbook help shows 1,1.5,2,3,4.
+
+Previous name: nabla.f.RollingAvgλ.
+
+### oz.RollingMaxλ
+
+oz.RollingMaxλ( Values, Size)
+
+Creates the maximum for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates the maximum for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be maxed.
+
+Size (required)
+
+The number of values to find the maximum of that include and precede the current value
+
+```
+=oz.RollingMaxλ({5,3,4,6,3,7}, 3)
+```
+
+The workbook help shows 5,5,5,6,6,7.
+
+Previous name: nabla.f.RollingMaxλ.
+
+### oz.RollingMinλ
+
+oz.RollingMinλ( Values, Size)
+
+Creates the Minimum for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates the minimum for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to take the minimum of.
+
+Size (required)
+
+The number of values to find the minimum of that include and precede the current value
+
+```
+=oz.RollingMinλ({5,3,4,6,2,7}, 3)
+```
+
+The workbook help shows 5,3,3,3,2,2.
+
+Previous name: nabla.f.RollingMinλ.
+
+### oz.RollingSumλ
+
+oz.RollingSumλ( Values, Size)
+
+Creates totals for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates totals for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be totalled.
+
+Size (required)
+
+The number of values to total that include and precede the current value
+
+```
+=oz.RollingSumλ(SEQUENCE(, 5), 3)
+```
+
+The workbook help shows 1,3,6,9,12.
+
+Previous name: nabla.f.RollingSumλ.
+
+### oz.SumContainsλ
+
+oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
+
+Creates a row of totals for each row in an array where its labels contain a letter, word, or phrase
+
+Creates a row of column totals for each row in an array where its labels contain a unique letter, word, or phrase.
+
+See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.
+
+Parameters:
+
+ValuesToFilter (required)
+
+An array of values to be filtered
+
+ValueLabels (required)
+
+An array containing the values' labels
+
+FilterByText (required)
+
+A unique letter, word or phrase to find contained in ValueLabels
+
+IgnoreCase? (optional)
+
+A flag to determine if Text's case is important. Default is TRUE
+
+```
+=oz.SumContainsλ( Array, Labels, "CAPEX" )
+```
+
+Previous name: nabla.f.SumContainsλ.
+
+### oz.SumPeriodsλ
+
+oz.SumPeriodsλ( Values, Dates, PeriodStarts)
+
+Groups and totals all columns in a Values array by period resulting in one column for each period
+
+Summarises values where each value column is for one day into one column for each period.
+
+See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.
+
+Parameters:
+
+Values (required)
+
+A two dimensional array/range containing values to be summed whereeach column is for a specific day
+
+Dates (required)
+
+A row of dates providing the date for each Values column
+
+PeriodStarts (required)
+
+A row of period start dates
+
+```
+=oz.SumPeriodsλ({1,2,3,4;4,3,2,1;10,20,30,40}, {1,2,3,4}, {1,3})
+```
+
+The workbook help shows 03, 07.
+
+Previous name: nabla.f.SumPeriodsλ.
+
+### oz.Amortiseλ
+
+oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
+
+Creates a corkscrew amortisation schedule
+
+Creates an amortisation schedule array for one or more loans. Payments are assumed monthly. Each month lands in the period holding its start. Flows add up; balances show the first opening and last closing. Periods without a loan month are nil. Use LabelAmortiseλ() to apply labels to this function's results: Use SumAmortiseλ() to apply totals to this function's results:
+
+Parameters:
+
+Principals (required)
+
+Loan/debt amounts.
+
+APRs (required)
+
+Annual Percentage Rates for interest.
+
+Terms (required)
+
+Number of months for loans/debts.
+
+StartDates (required)
+
+Dates debts are issued.
+
+Timeline (optional)
+
+A row of period start dates. If omitted, a monthly timeline is added
+
+FinalPeriodEnd (optional)
+
+The day after the last period ends. Needs Timeline, and only moves money where its periods are shorter than a month. Otherwise, the last period follows the preceding interval, using calendar months for monthly or longer intervals.
+
+```
+=oz.Amortiseλ(10000, 5%, 4 * 12, "2026-07-01")
+```
+
+Previous name: nabla.f.Amortiseλ.
+
+### oz.LabelAmortiseλ
+
+oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
+
+Create labels for Amortiseλ
+
+Create row labels for the amortisation schedule array produced by Amortiseλ
+
+Parameters:
+
+LoanNames (required)
+
+Names or descriptions of each loan in the amortisation schedule produced by Amortiseλ
+
+LoanAmounts (optional)
+
+Amount borrowed
+
+LoanAPRs (optional)
+
+Annual Percentage Interest Rate
+
+LoanTerms (optional)
+
+Number of months to repay
+
+```
+=oz.LabelAmortiseλ(tblLoans[Loan Name])
+```
+
+Previous name: nabla.f.LabelAmortiseλ.
+
+### oz.SumAmortiseλ
+
+oz.SumAmortiseλ(AmortisationSchedule)
+
+Create row totals for Amortiseλ
+
+Parameters:
+
+AmortisationSchedule (required)
+
+An array produced by Amortiseλ
+
+```
+=oz.SumAmortiseλ(AmortisationSchedule)
+```
+
+Previous name: nabla.f.SumAmortiseλ.
+
+### oz.Depreciateλ
+
+oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
+
+Create a block of CAPEX, Opening Balance, Depreciation Values, and Book Value for each asset
+
+Creates an array of CAPEX, depreciation, and book values for a model's timeline
+
+Note: The methods used here differ from Excel's functions in several ways. Please see webpage for details.
+
+Parameters:
+
+InitialValues (required)
+
+The purchase values of each asset to depreciate
+
+InServiceDates (required)
+
+The dates from which to start depreciating each asset
+
+LifeInYears (required)
+
+The whole number of years over which to depreciate each asset. More than 0 and no more than 100. A date here is not a life: the arguments read InitialValues, InServiceDates, LifeInYears, Timeline.
+
+Timeline (required)
+
+The model's timeline or a row of period start dates. Timeline can be any interval: days, weeks, months, quarters or years
+
+SalvageValues (optional, Default = 0)
+
+The book values of each asset after fully depreciated.
+
+DisposalDates (optional, Default = End of life)
+
+The dates on which the assets are removed from the books. A disposal before the end of life writes the remaining book value off in that month.
+
+DisposalCosts (optional, Default = 0)
+
+The costs of removing each asset from the books, charged in the disposal period.
+
+Methods (optional, Default = SLN)
+
+The desired depreciation method. Must be one of these method codes:
+
+- SLN=Straight Line Depreciation
+- SYD=Sum of Year's Digits
+- DB =Declining Balance
+- DDB=Double Declining Balance
+- VDB=Variable Declining Balance
+- DV =Diminishing balance at 200% of straight line. Salvage value ignored
+- PC =Straight line, whole years. Salvage value ignored
+
+Factors (optional, Default = 2)
+
+Only applicable to DDB and VDB methods.
+
+Previous name: nabla.f.Depreciateλ.
+
+### oz.LabelDepreciateλ
+
+oz.LabelDepreciateλ( AssetNames)
+
+Create labels for Depreciateλ
+
+Create row labels for the depreciation schedule array produced by Depreciateλ
+
+Parameters:
+
+AssetNames (required)
+
+The names or descriptions of each asset in the depreciation schedule produced by Depreciateλ
+
+```
+=oz.LabelDepreciateλ(tblAssets[Asset Name])
+```
+
+Previous name: nabla.f.LabelDepreciateλ.
+
+### oz.SumDepreciateλ
+
+oz.SumDepreciateλ(DepreciationSchedule)
+
+Create row totals for Depreciateλ
+
+Parameters:
+
+DepreciationSchedule (required)
+
+An array produced by Depreciateλ
+
+```
+=oz.SumDepreciateλ(DepreciationSchedule)
+```
+
+Previous name: nabla.f.SumDepreciateλ.
+
+### oz.Allocateλ
+
+oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
+
+Divide one or more amounts equally across smaller periods
+
+Note: When a From Period's amount does not divide evenly to the 1/100 for all To Periods', the last To Period contains the necessary adjustment.
+
+Parameters:
+
+Amounts (required)
+
+One amount or a row of amounts to allocate.
+
+FromInterval
+
+(Optional Default=Y) The larger interval in Q=Quarters or Y=Years
+
+ToInterval
+
+(Optional Default=M) The smaller interval in W=Weeks, M=Months, or Q=Quarters
+
+```
+=oz.Allocateλ({999.99, 2000}, "Y", "Q")
+```
+
+The workbook help shows 250,250,250,249.99,500,500,500,500.
+
+Previous name: nabla.f.Allocateλ.
+
+### oz.PeriodDiffλ
+
+oz.PeriodDiffλ(StartDate, EndDate, Interval)
+
+Determine the number of periods between two dates.
+
+Note: This improves on, and corrects problems w/Excel's deprecated DATEDIF() function.
+
+Parameters:
+
+StartDate (required)
+
+Start Date.
+
+EndDate (required)
+
+End Date
+
+Interval (required)
+
+W=Week, M=Month, Q=Quarter, Y=Year.
+
+```
+=oz.PeriodDiffλ("2026-01-01", "2026-04-15", "Q")
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.f.PeriodDiffλ.
+
+### oz.SLNλ
+
+oz.SLNλ(Cost, Salvage, Life)
+
+Straight Line depreciation method for one asset or asset class.
+
+Straight Line Depreciation Method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value and end of life
+
+Life (required)
+
+Asset's useful life in years.
+
+```
+=oz.SLNλ(1000, 100, 5)
+```
+
+The workbook help shows 180,180,180,180,180.
+
+Previous name: nabla.f.SLNλ.
+
+### oz.SYDλ
+
+oz.SYDλ(Cost, Salvage, Life)
+
+Sum-of-years' digits depreciation method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value and end of life
+
+Life (required)
+
+Asset's useful life in years.
+
+```
+=oz.SYDλ(1000, 100, 5)
+```
+
+The workbook help shows 300,240,180,120,60.
+
+Previous name: nabla.f.SYDλ.
+
+### oz.DBλ
+
+oz.DBλ(Cost, Salvage, Life, [Months])
+
+Fixed declining balance depreciation method for one asset or asset class.
+
+Fixed declining balance depreciation method for one asset or asset class
+
+Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DB calculation. The final value makes total depreciation equal Cost minus Salvage. Months applies to the first of those earlier values; no extra final period is added. A one-year life returns Cost minus Salvage, regardless of Months.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Months (optional)
+
+Number of months in the first year to depreciate.
+
+```
+=oz.DBλ(1000, 100, 5)
+```
+
+The workbook help shows 369.00,232.84,146.92,92.71,58.53.
+
+Previous name: nabla.f.DBλ.
+
+### oz.DDBλ
+
+oz.DDBλ(Cost, Salvage, Life, [Factor])
+
+Double-declining balance depreciation method for one asset or asset class.
+
+Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DDB calculation. The final value makes total depreciation equal Cost minus Salvage. A one-year life returns Cost minus Salvage, regardless of Factor.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Factor
+
+(Optional Default=2) Rate at which the balance declines.
+
+```
+=oz.DDBλ(1000, 100, 5)
+```
+
+The workbook help shows 400.00,240.00,144.00,86.40,29.60.
+
+Previous name: nabla.f.DDBλ.
+
+### oz.VDBλ
+
+oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
+
+Variable declining balance depreciation method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Factor
+
+(Optional Default=2) Rate at which the balance declines.
+
+No_Switch
+
+(Optional Default=FALSE) Switch to straight-line depreciation when depreciation is greater than the declining balance calculation.
+
+```
+=oz.VDBλ(1000, 100, 5, 1.5, TRUE)
+```
+
+The workbook help shows 300.00,210.00,147.00,102.90,72.03.
+
+Previous name: nabla.f.VDBλ.
+
+### oz.AmortiseλDV
+
+Provides extended data validation of arguments for Amortiseλ()
+
+Previous name: nabla.f.AmortiseλDV.
+
+### oz.CorkscrewλDV
+
+Provides extended data validation of arguments for Corkscrewλ.
+
+Previous name: nabla.f.CorkscrewλDV.
+
+### oz.DepreciateλDV
+
+Provides extended data validation of arguments for Depreciateλ
+
+Previous name: nabla.f.DepreciateλDV.
+
+### oz.TimelineOffsetλ
+
+oz.TimelineOffsetλ(Date, Timeline)
+
+Determines how many periods one array is offset from the timeline
+
+Determines in which period, relative to the timeline's start and interval, a date falls within.
+
+Parameters:
+
+Date (required)
+
+A starting date
+
+Timeline (required)
+
+A model's timeline (Row of period start dates)
+
+```
+=oz.TimelineOffsetλ("15/8/2026", EDATE("1/7/2026", SEQUENCE( , 12, 0)))
+```
+
+The workbook help shows 1.
+
+```
+=oz.TimelineOffsetλ("15/8/2025", EDATE("1/7/2026", SEQUENCE( , 12, 0)))
+```
+
+The workbook help shows -11.
+
+Previous name: nabla.f.TimelineOffsetλ.
+
+### oz.TimelinePositionλ
+
+oz.TimelinePositionλ(Array, Timeline, Offset)
+
+Crops an array based on a model's timeline
+
+Position an array relative to the model's timeline
+
+Note: Timelines can be vertical or horizontal. Whichever way the timeline goes, the array must match.
+
+Parameters:
+
+Array (required)
+
+The array to be positioned relative to a model's timeline
+
+Timeline (required)
+
+A model's timeline
+
+Offset (required)
+
+The number of rows or columns to start placing the array within the timeline
+
+```
+=oz.TimelinePositionλ(SEQUENCE(3,3), EDATE("1/7/2026", SEQUENCE( , 12, 0)), 12)
+```
+
+Previous name: nabla.f.TimelinePositionλ.
+
+### oz.FilterContainsλ
+
+oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
+
+Filter an array by another array that contains specific text
+
+Filter an array by another array that contains specific text.
+
+See also: Excel 365 now has REGEXTEST and REGEXEXTRACT for pattern matching.
+
+Parameters:
+
+ArrayToFilter (required)
+
+An array to be filtered
+
+FilterByArray (required)
+
+An array containing text to use as a filter
+
+FilterByText (required)
+
+A text string to find in FilterByArray
+
+IgnoreCase? (optional)
+
+A flag to determine if Text's case is important. Default is TRUE
+
+```
+=oz.FilterContainsλ( {"Joe", "Sally", "Cat"}, {"H1", "H2", "A1"}, "A" )
+```
+
+The workbook help shows "Cat".
+
+Previous name: nabla.f.FilterContainsλ.
+
+### oz.RangeToDAλ
+
+oz.RangeToDAλ( Cell, [Rows], [Columns])
+
+Create a dynamic array from a static range
+
+See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
+
+Parameters:
+
+Cell (required)
+
+The upper left cell of a range to convert
+
+Rows (optional)
+
+The number of rows for dynamic array. Defaults to 1.
+
+Columns (optional)
+
+The number of columns for dynamic array. Defaults to 1.
+
+```
+=oz.RangeToDAλ( A1, , 12)
+```
+
+Previous name: nabla.f.RangeToDAλ.
+
+### oz.PeriodStartλ
+
+oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
+
+Determine when the period containing a date of interest starts
+
+Determine when the period containing a date of interest starts.
+
+Parameters:
+
+AnyPeriodStart (required)
+
+Any start date within a timeline.
+
+MonthsPerPeriod (required)
+
+Number of months in each period
+
+DateOfInterest (required)
+
+A date for which we want to know the start of the period containing it.
+
+```
+=oz.PeriodStartλ("2026-07-01", 3, "2026-10-15")
+```
+
+The workbook help shows 2026-10-01.
+
+Previous name: nabla.f.PeriodStartλ.
+
+### oz.DiminishingValueλ
+
+oz.DiminishingValueλ(Cost, Life)
+
+Diminishing-balance depreciation schedule at 200% of the straight-line rate, writing the residual off in the final period. A modelling schedule, not a tax calculation.
+
+Parameters:
+
+Cost (required)
+
+Asset's cost.
+
+Life (required)
+
+Asset's effective life in years.
+
+```
+=oz.DiminishingValueλ(1000, 5)
+```
+
+The workbook help shows 400.00,240.00,144.00,86.40,129.60.
+
+Previous name: nabla.f.DiminishingValueλ.
+
+### oz.PrimeCostλ
+
+oz.PrimeCostλ(Cost, Life)
+
+Straight-line depreciation schedule for one asset or asset class, in whole years. A modelling schedule, not a tax calculation.
+
+Parameters:
+
+Cost (required)
+
+Asset's cost.
+
+Life (required)
+
+Asset's effective life in years.
+
+```
+=oz.PrimeCostλ(1000, 5)
+```
+
+The workbook help shows 200.00,200.00,200.00,200.00,200.00.
+
+Previous name: nabla.f.PrimeCostλ.
+
+### oz.GSTAddλ
+
+oz.GSTAddλ(Amounts, [Rate])
+
+Adds GST to one or more GST-exclusive amounts.
+
+Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.
+
+Parameters:
+
+Amounts (required)
+
+One or more GST-exclusive amounts.
+
+Rate (optional, Default = 0.1)
+
+GST rate as a fraction.
+
+```
+=oz.GSTAddλ(100)
+```
+
+The workbook help shows 110.
+
+Previous name: nabla.f.GSTAddλ.
+
+### oz.GSTExtractλ
+
+oz.GSTExtractλ(Amounts, [Rate])
+
+Returns the GST contained in one or more GST-inclusive amounts.
+
+Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.
+
+Parameters:
+
+Amounts (required)
+
+One or more GST-inclusive amounts.
+
+Rate (optional, Default = 0.1)
+
+GST rate as a fraction.
+
+```
+=oz.GSTExtractλ(110)
+```
+
+The workbook help shows 10.
+
+Previous name: nabla.f.GSTExtractλ.
+
+### oz.LeaseLiabilityλ
+
+oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
+
+Present value of the lease payments that are not paid at the commencement date
+
+Present value of the lease payments that are not paid at the commencement date.
+
+Note: AASB 16 paragraph 26 measures the lease liability at the present value of the lease payments not paid at the commencement date, discounted at the interest rate implicit in the lease where that rate can be readily determined and at the lessee's incremental borrowing rate where it cannot. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and excluded from the liability. Add a payment made at or before commencement to the right-of-use asset cost instead. Rate is per period. Convert an effective annual rate with PeriodRateλ(AnnualRate, PeriodsPerYear). Divide a nominal annual rate by PeriodsPerYear only when its compounding periods match the payments. Include an amount expected to be payable under a residual value guarantee, or the exercise price of a purchase option, in the final period where paragraph 27 brings it into the lease payments. IRRλ() over the same cash flows gives an implicit rate per year; convert it to the rate per period, (1 + annual) ^ (1 / 12) - 1 for months, before passing it here. Arithmetic only: this does not determine the lease term, decide what is a lease payment, or decide whether the arrangement contains a lease. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+Payments (required)
+
+One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period, not per year.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first supplied payment is paid at the measurement date.
+
+```
+=oz.LeaseLiabilityλ({100,100,100}, 0.05)
+```
+
+The workbook help shows 272.32.
+
+### oz.LeaseScheduleλ
+
+oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
+
+Unwinds an AASB 16 lease liability: opening, payment, interest and closing for each period
+
+Unwinds an AASB 16 lease liability over its term.
+
+Note: Returns four rows: opening liability, payment, interest, closing liability. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and is excluded from both the opening liability and the payment row. Each remaining payment follows one period of interest, so closing is opening plus interest less payment and the last closing balance is nil. The result has one fewer column for payments in advance; a sole measurement-date payment returns one zero column. The opening balance is LeaseLiabilityλ() on the same arguments. Pair this with ROUScheduleλ() for the asset that sits opposite it: the two together give the front-loaded expense profile AASB 16 produces. Arithmetic only, on the payments and rate you supply.
+
+Parameters:
+
+Payments (required)
+
+One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period, not per year.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first supplied payment is paid at the measurement date.
+
+```
+=oz.LeaseScheduleλ({100,100,100}, 0.05)
+```
+
+The workbook help shows 272.32, 185.94, 95.24; 100.00, 100.00, 100.00; 13.62, 9.30, 4.76; 185.94, 95.24, 0.00.
+
+### oz.LeaseRemeasureλ
+
+oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
+
+Remeasures an AASB 16 lease liability for revised payments and adjusts the right-of-use asset
+
+Remeasures a lease liability for revised payments and adjusts the asset.
+
+Note: Returns four rows: revised lease liability, adjustment, revised right-of-use asset, amount recognised in profit or loss. AASB 16 paragraph 42(b) remeasures the liability where future payments change because an index or a rate used to determine them has changed, and only when the cash flows change. Paragraph 43 keeps the discount rate unchanged for that revision, and uses a revised rate only where the change arises from a floating interest rate, so pass the original rate unless it is the rate itself that moved. When InAdvance is TRUE, the first revised payment is paid at the remeasurement date and excluded from the revised liability. Paragraph 39 takes the remeasurement to the right-of-use asset, and where that asset is reduced to nil any further reduction goes to profit or loss: row four carries that remainder, negative, because it is a credit. Arithmetic only. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+RevisedPayments (required)
+
+Revised lease payments for the remaining term, one per period, positive. Include a payment made at the remeasurement date first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period. Unchanged, unless a floating rate moved.
+
+CarryingLiability (required)
+
+Lease liability before remeasurement and before any payment due that day. Do not deduct the first revised payment.
+
+CarryingROU (required)
+
+Right-of-use asset carried immediately before the remeasurement.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first revised payment is paid at the remeasurement date.
+
+```
+=oz.LeaseRemeasureλ({110,110}, 0.05, 185.94, 181.55)
+```
+
+The workbook help shows 204.54; 18.60; 200.15; 0.00.
+
+### oz.ROUScheduleλ
+
+oz.ROUScheduleλ(Cost, Periods)
+
+Straight-line right-of-use asset schedule: opening, depreciation and closing for each period
+
+Depreciates a right-of-use asset in a straight line over the lease term.
+
+Note: Returns three rows: opening carrying amount, depreciation, closing carrying amount. AASB 16 paragraph 24 measures the asset at cost, comprising the initial lease liability, lease payments made at or before the commencement date less incentives received, initial direct costs, and an estimate of dismantling and restoration costs. Add those up yourself and pass the total as Cost. Depreciate over the lease term where ownership does not transfer, and over the useful life where it does. Cost and Periods are single values, not arrays. Arithmetic only. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+Cost (required)
+
+Initial carrying amount of the right-of-use asset.
+
+Periods (required)
+
+Number of periods to depreciate over, at least 1.
+
+```
+=oz.ROUScheduleλ(300, 3)
+```
+
+The workbook help shows 300, 200, 100; 100, 100, 100; 200, 100, 0.
+
+### oz.PeriodRateλ
+
+oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
+
+Converts an effective annual rate to the equivalent rate per period, the rate the lease functions take
+
+Converts an effective annual rate to the equivalent rate per period.
+
+Note: (1 + AnnualRate) ^ (1 / PeriodsPerYear) - 1, so compounding the result PeriodsPerYear times gives the annual rate back. This is the rate per period that LeaseLiabilityλ(), LeaseScheduleλ() and LeaseRemeasureλ() take. It is for an effective annual rate. A nominal annual percentage rate that compounds monthly is already APR / 12 per month, so do not pass it here; EFFECT() turns one into the effective rate this takes. AnnualRateλ() is the inverse.
+
+Parameters:
+
+AnnualRate (required)
+
+Effective annual rate, or a row or column of them.
+
+PeriodsPerYear (optional, Default = 12)
+
+Periods in a year: 12 for months, 4 for quarters, 1 for years.
+
+```
+=oz.PeriodRateλ(0.05)
+```
+
+The workbook help shows 0.004074.
+
+### oz.AnnualRateλ
+
+oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
+
+Converts a rate per period to the effective annual rate, the inverse of PeriodRateλ
+
+Converts a rate per period to the effective annual rate.
+
+Note: (1 + PeriodRate) ^ PeriodsPerYear - 1, the inverse of PeriodRateλ(). Use it to state a rate per period, such as a lease rate solved per month, as the annual figure a reader expects.
+
+Parameters:
+
+PeriodRate (required)
+
+Rate per period, or a row or column of them.
+
+PeriodsPerYear (optional, Default = 12)
+
+Periods in a year: 12 for months, 4 for quarters, 1 for years.
+
+```
+=oz.AnnualRateλ(0.01)
+```
+
+The workbook help shows 0.126825.
+
+### oz.DayCountRateλ
+
+oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
+
+Interest rate for each period of a timeline under a day count convention: 30/360, Actual/360, Actual/365 or Actual/Actual
+
+Interest rate for each period of a timeline under a day count convention.
+
+Note: Returns a row with one rate per timeline period, whichever way the timeline runs: APR multiplied by the days in the period and divided by the days in the year, as the convention counts them. Pass the result to DebtSculptVariableλ() or DebtSculptVariableLRVλ() as PeriodRates in place of a flat twelfth of the APR. With start dates each period runs from its date to the day before the next, and the last period takes its length from the one before it; with end dates each runs from the day after the previous date to its own, and the first period is the one inferred. A gap of 28 days or more is read as whole calendar months, a shorter one as days. 30/360 counts every month as 30 days on the European rule. Under Actual/Actual each calendar year uses its own length as the denominator (the ISDA rule), including periods spanning several years.
+
+Parameters:
+
+Timeline (required)
+
+A row or column of period dates, at least two, evenly spaced.
+
+APR (required)
+
+Annual percentage rate, one value or one per period.
+
+Convention (optional, Default = 3)
+
+1 = 30/360, 2 = Actual/360, 3 = Actual/365, 4 = Actual/Actual. Any other number is #VALUE!.
+
+EndDates (optional, Default = FALSE)
+
+TRUE, or a number other than 0, when the timeline shows period end dates rather than start dates.
+
+```
+=oz.DayCountRateλ(EDATE(DATE(2026,7,1), {0,1,2}), 0.073)
+```
+
+The workbook help shows 0.0062, 0.0062, 0.0060.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
+- oz.Corkscrew λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
+- oz.CorkScrewReversal λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
+- oz.IntOnInt λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
+- oz.IRR λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
+- oz.Movement λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
+- oz.Reversal λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
+- oz.Cumulative λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
+- oz.RollingAvg λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
+- oz.RollingMax λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
+- oz.RollingMin λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
+- oz.RollingSum λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
+- oz.SumContains λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
+- oz.SumPeriods λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
+- oz.Amortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
+- oz.LabelAmortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
+- oz.SumAmortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
+- oz.Depreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
+- oz.LabelDepreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
+- oz.SumDepreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
+- oz.Allocate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
+- oz.PeriodDiff λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
+- oz.SLN λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
+- oz.SYD λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
+- oz.DB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
+- oz.DDB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
+- oz.VDB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
+- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
+- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
+- oz.TimelineOffset λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
+- oz.TimelinePosition λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
+- oz.FilterContains λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
+- oz.RangeToDA λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
+- oz.PeriodStart λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
+- oz.DiminishingValue λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
+- oz.PrimeCost λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
+- oz.GSTAdd λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
+- oz.GSTExtract λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
+- oz.LeaseLiability λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
+- oz.LeaseSchedule λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
+- oz.LeaseRemeasure λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
+- oz.ROUSchedule λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
+- oz.PeriodRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
+- oz.AnnualRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
+- oz.DayCountRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
+
+---
+
+# Ozzit Ratios functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/ratios/
+
+> Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios.
+
+# Ozzit Ratios functions
+
+The 48 Ratios formulas cover liquidity, gearing, margin, return, market and working capital ratios. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Ratios formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 48 functions
+
+- oz.AboutRatiosλ
+- oz.CurrentRatioλ
+- oz.QuickRatioλ
+- oz.CashRatioλ
+- oz.OperatingCashFlowRatioλ
+- oz.ReceivablesTurnoverRatioλ
+- oz.InventoryTurnoverRatioλ
+- oz.WorkingCapitalTurnoverRatioλ
+- oz.DebtRatioλ
+- oz.DSCRλ
+- oz.DebtToCapitalRatioλ
+- oz.EquityMultiplierλ
+- oz.DebtToEquityRatioλ
+- oz.DebtToAssetRatioλ
+- oz.InterestCoverageRatioλ
+- oz.EquityRatioλ
+- oz.AssetTurnoverRatioλ
+- oz.DSIλ
+- oz.OperatingRatioλ
+- oz.GrossMarginλ
+- oz.EBITDAMarginλ
+- oz.OperatingMarginλ
+- oz.PretaxMarginλ
+- oz.NetProfitMarginλ
+- oz.CashFlowMarginλ
+- oz.ROAλ
+- oz.ROEλ
+- oz.ROIλ
+- oz.ROICλ
+- oz.PriceEarningsRatioλ
+- oz.PriceToBookRatioλ
+- oz.PriceToSalesRatioλ
+- oz.PriceToCashRatioλ
+- oz.BVPSλ
+- oz.CAPERatioλ
+- oz.DPRλ
+- oz.DividendYieldRatioλ
+- oz.EPSλ
+- oz.RetentionRatioλ
+- oz.ATOTurnoverλ
+- oz.ATOBenchmarkRatioλ
+- oz.ATOTotalExpensesRatioλ
+- oz.ATOCostOfSalesRatioλ
+- oz.ATOLabourRatioλ
+- oz.ReceivableDaysλ
+- oz.PayableDaysλ
+- oz.WIPDaysλ
+- oz.CashConversionCycleλ
+
+### oz.AboutRatiosλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.r.Aboutλ.
+
+### oz.CurrentRatioλ
+
+oz.CurrentRatioλ( Assets, Liabilities)
+
+Measures a company’s ability to pay short-term obligations (Current Assets/Liabilities)
+
+Parameters:
+
+Assets (required)
+
+Current Assets. Includes:
+
+- Cash
+- Accounts receivable
+- Inventory
+- Vendor non-trade receivables
+- Assets expected to be liquidated in the current year
+- Marketable securities
+- PPE only when it meets current-asset classification criteria
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.CurrentRatioλ( 134.836, 125.481)
+```
+
+The workbook help shows 1.075.
+
+Previous name: nabla.r.CurrentRatioλ.
+
+### oz.QuickRatioλ
+
+oz.QuickRatioλ( QuickAssets, Liabilities)
+
+Measures ability to meet short-term obligations (Quick Assets/Current Liabilities)
+
+Parameters:
+
+QuickAssets (required)
+
+Quick Assets. Includes:
+
+- Cash & Cash equivalents
+- Marketable securities
+- Accounts receivable
+
+Alterantively it includes:
+
+- Current assets
+- Less inventory
+- Less prepaid expenses
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.QuickRatioλ( 165000, 137500)
+```
+
+The workbook help shows 1.2.
+
+Previous name: nabla.r.QuickRatioλ.
+
+### oz.CashRatioλ
+
+oz.CashRatioλ( Cash, Liabilities)
+
+Evaluates ability to repay short-term debt w/cash or near-cash resources (Cash and Cash Equivalents / Current Liabilities)
+
+Parameters:
+
+Cash (required)
+
+Cash and Cash Equivalents
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.CashRatioλ( 63900000, 123500000)
+```
+
+The workbook help shows .517409.
+
+Previous name: nabla.r.CashRatioλ.
+
+### oz.OperatingCashFlowRatioλ
+
+oz.OperatingCashFlowRatioλ( OperatingCashFlow, Liabilities)
+
+Measures how readily current liabilities are covered by cash flows generated from operations
+
+Measures how readily current liabilities are covered by cash flows generated from operations. (OperatingCashFlow/Liabilities)
+
+Parameters:
+
+OperatingCashFlow (required)
+
+Operating cash flow. Indirect method includes:
+
+- Net Income
+- Plus depreciation and amortisation
+- Less increase in net working capital
+
+Direct method includes:
+
+- Cash revenue
+- Less Operating expenses paid in cash
+
+Liabilities (required)
+
+Current Liabilities. Includes:
+
+- Accounts payable
+- Wages
+- Taxes payable
+- Short-term debts
+- Current portion of long-term debt
+
+```
+=oz.OperatingCashFlowRatioλ( 27.8, 77.5)
+```
+
+The workbook help shows 0.35871.
+
+Previous name: nabla.r.OperatingCashFlowRatioλ.
+
+### oz.ReceivablesTurnoverRatioλ
+
+oz.ReceivablesTurnoverRatioλ( NetCreditSales, AverageAccountsReceivable)
+
+Indicates effectiveness in collecting outstanding balances from clients and managing line of credit process (Net Credit Sales/Average Accounts Receivable)
+
+Parameters:
+
+NetCreditSales (required)
+
+Net Credit Sales. Amount of revenue earned by a company paid via credit
+
+AverageAccountsReceivable (required)
+
+Average Accounts Receivable. Average of period opening and closing balance
+
+```
+=oz.ReceivablesTurnoverRatioλ( 800000, 68000 )
+```
+
+The workbook help shows 11.76471.
+
+Previous name: nabla.r.ReceivablesTurnoverRatioλ.
+
+### oz.InventoryTurnoverRatioλ
+
+oz.InventoryTurnoverRatioλ( CostOfGoodsSold, AverageInventory)
+
+Shows how many times a company turned over its inventory relative to its cost of goods sold (COGS) (COGS/Average Inventory)
+
+Parameters:
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) which can include:
+
+- Office supply costs
+- Rent and utility expenses
+- Repair and maintenance costs
+- Salary and wage expenses
+
+AverageInventory (required)
+
+Average of period open and close inventory
+
+```
+=oz.InventoryTurnoverRatioλ( 429, 50.7)
+```
+
+The workbook help shows 8.461538.
+
+Previous name: nabla.r.InventoryTurnoverRatioλ.
+
+### oz.WorkingCapitalTurnoverRatioλ
+
+oz.WorkingCapitalTurnoverRatioλ( NetAnnualSales, WorkingCapital)
+
+Working Capital Turnover Ratio measures how efficiently a company is using its working capital to support sales and growth (Net Annual Sales/Average Working Capital).
+
+Parameters:
+
+NetAnnualSales (required)
+
+Net Annual Sales can include:
+
+- Gross sales
+- Less returns
+- Less allowances
+- Less discounts
+
+WorkingCapital (required)
+
+Average of period open and close current assts less curren liabilities.
+
+```
+=oz.WorkingCapitalTurnoverRatioλ( 12.0, 2.0)
+```
+
+The workbook help shows 6.0.
+
+Previous name: nabla.r.WorkingCapitalTurnoverRatioλ.
+
+### oz.DebtRatioλ
+
+oz.DebtRatioλ( TotalDebt, TotalAssets)
+
+Measures the extent of a company’s gearing
+
+See also: DebtToAssetRatioλ computes the same ratio under its longer name.
+
+Parameters:
+
+TotalDebt (required)
+
+Total Debt
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.DebtRatioλ(30.0, 100.0)
+```
+
+The workbook help shows .3.
+
+Part of this function’s help text is not reproduced here. Read it in the released source.
+
+Previous name: nabla.r.DebtRatioλ.
+
+### oz.DSCRλ
+
+oz.DSCRλ( NetOperatingIncome, TotalDebtService)
+
+Debt service coverage Ratio measures a firm’s available cash flow to pay its current debt obligations(Net Operating Income/Total Debt Service)
+
+Measures a firm’s available cash flow to pay its current debt obligations (Net Operating Income/Total Debt Service)
+
+Parameters:
+
+NetOperatingIncome (required)
+
+Income measure defined by the applicable covenant
+
+TotalDebtService (required)
+
+Principal, interest and other payments defined by that covenant Use the same period. Tax-adjust interest only if the covenant requires it
+
+```
+=oz.DSCRλ(2150.0, 350.0)
+```
+
+The workbook help shows 6.142857.
+
+Previous name: nabla.r.DSCRλ.
+
+### oz.DebtToCapitalRatioλ
+
+oz.DebtToCapitalRatioλ( Debt, ShareholdersEquity)
+
+Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment (Debt/(Debt + Shareholders' equity)
+
+Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment. (Debt/(Debt + Shareholders' equity)
+
+Parameters:
+
+Debt (required)
+
+Total Debt which can include:
+
+- Notes payable
+- Bonds payable
+- Long-term liabilities
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.DebtToCapitalRatioλ( 80.0, 223.0 )
+```
+
+The workbook help shows 26.4%.
+
+Previous name: nabla.r.DebtToCapitalRatioλ.
+
+### oz.EquityMultiplierλ
+
+oz.EquityMultiplierλ( TotalAssets, TotalShareholdersEquity)
+
+Measures the portion of a company’s assets financed by shareholders' equity rather than by debt (TotalAssets/TotalShareholdersEquity)
+
+Parameters:
+
+TotalAssets (required)
+
+Both current and long-term assets
+
+TotalShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.EquityMultiplierλ(366.6, 83.2 )
+```
+
+The workbook help shows 4.40625.
+
+Previous name: nabla.r.EquityMultiplierλ.
+
+### oz.DebtToEquityRatioλ
+
+oz.DebtToEquityRatioλ( TotalLiabilities, ShareholdersEquity)
+
+Measures the degree to which a company is financing operations with debt rather than its own resources. (Total Liabilities/Shareholders' Equity)
+
+Parameters:
+
+TotalLiabilities (required)
+
+Total Liabilities
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+```
+=oz.DebtToEquityRatioλ(279.0, 74.0 )
+```
+
+The workbook help shows 3.77.
+
+Previous name: nabla.r.DebtToEquityRatioλ.
+
+### oz.DebtToAssetRatioλ
+
+oz.DebtToAssetRatioλ( TotalDebt, TotalAssets)
+
+Analysts can compare one company's gearing with that of other companies in the same industry. (Total Debt/Total Assets)
+
+See also: DebtRatioλ computes the same ratio under its shorter name.
+
+Parameters:
+
+TotalDebt (required)
+
+Total debt includes shortterm and longterm debt
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.DebtToAssetRatioλ(31.845, 63.852 )
+```
+
+The workbook help shows .49873.
+
+Part of this function’s help text is not reproduced here. Read it in the released source.
+
+Previous name: nabla.r.DebtToAssetRatioλ.
+
+### oz.InterestCoverageRatioλ
+
+oz.InterestCoverageRatioλ( OperatingIncome, InterestExpenses)
+
+Determines how easily a company can pay interest on its outstanding debt (Operating Income/Interest Expenses)
+
+Parameters:
+
+OperatingIncome (required)
+
+Operating Income (EBIT)
+
+InterestExpenses (required)
+
+Interest Expense
+
+```
+=oz.InterestCoverageRatioλ( 625.0, 90.0 )
+```
+
+The workbook help shows 6.944444.
+
+Previous name: nabla.r.InterestCoverageRatioλ.
+
+### oz.EquityRatioλ
+
+oz.EquityRatioλ( ShareholdersEquity, TotalAssets, IntangibleAssets)
+
+Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets)).
+
+Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets))
+
+Parameters:
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities)
+
+TotalAssets (required)
+
+Both current and long-term assets
+
+IntangibleAssets (required)
+
+Deducted from total assets before the comparison
+
+```
+=oz.EquityRatioλ( 20.0, 60.0, 10.0 )
+```
+
+The workbook help shows 40%.
+
+Previous name: nabla.r.EquityRatioλ.
+
+### oz.AssetTurnoverRatioλ
+
+oz.AssetTurnoverRatioλ( NetSales, TotalAssets)
+
+Measures the value of a company's sales or revenues relative to the value of its assets. (Net Sales/Total Assets)
+
+Parameters:
+
+NetSales (required)
+
+revenue or net sales.
+
+TotalAssets (required)
+
+Average of Assets and period start and end.
+
+```
+=oz.AssetTurnoverRatioλ( 171760, 538715 )
+```
+
+The workbook help shows .32x.
+
+Previous name: nabla.r.AssetTurnoverRatioλ.
+
+### oz.DSIλ
+
+oz.DSIλ( AverageInventory, CostOfGoodsSold)
+
+Days Sales in Inventory Ratio (aka Average age of inventory indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365)
+
+Days Sales in Inventory Ratio (aka Average age of inventory) indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365 days)
+
+Parameters:
+
+AverageInventory (required)
+
+Average of period open and close Inventory
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) for a full year
+
+```
+=oz.DSIλ(54.9, 490 )
+```
+
+The workbook help shows 40.8949 days.
+
+Previous name: nabla.r.DSIλ.
+
+### oz.OperatingRatioλ
+
+oz.OperatingRatioλ( OperatingExpenses, CostOfGoodsSold, NetSales)
+
+Shows how efficient management is at keeping costs low while generating revenue (Operating Expenses + Cost Of Goods Sold)/Net Sales)
+
+Parameters:
+
+OperatingExpenses (required)
+
+Operating Expenses excluding COGS, which is supplied separately and added by the formula. Can include:
+
+- Accounting and legal fees
+- Bank charges
+- Sales and marketing costs
+- Non-capitalised research development (R&D) expenses
+
+CostOfGoodsSold (required)
+
+Cost of Goods Sold (COGS) which can include:
+
+- Office supply costs
+- Rent and utility expenses
+- Repair and maintenance costs
+- Salary and wage expenses
+
+NetSales (required)
+
+Net Sales or Revenue.
+
+```
+=oz.OperatingRatioλ( 14.37, 48.48, 90.75 )
+```
+
+The workbook help shows 69%.
+
+Previous name: nabla.r.OperatingRatioλ.
+
+### oz.GrossMarginλ
+
+oz.GrossMarginλ( GrossProfit, NetSales)
+
+Shows how much profit a company makes after paying off its Cost of Goods Sold
+
+Shows how much profit a company makes after paying off its Cost of Goods Sold (COGS). (Gross Profit/Net Sales)
+
+Parameters:
+
+GrossProfit (required)
+
+Gross Profit
+
+NetSales (required)
+
+Net Sales or Revenue
+
+```
+=oz.GrossMarginλ( 62.984, 102.007 )
+```
+
+The workbook help shows 61.7448%.
+
+Previous name: nabla.r.GrossMarginλ.
+
+### oz.EBITDAMarginλ
+
+oz.EBITDAMarginλ( EBITDA, TotalRevenue)
+
+Measures a company's operating profit as a percentage of its revenue (EBITDA/Total Revenue).
+
+Measures a company's operating profit as a percentage of its revenue. (EBITDA/Total Revenue)
+
+Parameters:
+
+EBITDA (required)
+
+Earnings Before Interest, tax, depreciation, and amortisation
+
+TotalRevenue (required)
+
+Total Revenue
+
+```
+=oz.EBITDAMarginλ( 15.0, 125.0 )
+```
+
+The workbook help shows 12%.
+
+Previous name: nabla.r.EBITDAMarginλ.
+
+### oz.OperatingMarginλ
+
+oz.OperatingMarginλ( OperatingEarnings, Revenue)
+
+Measures how much profit a company makes on a dollar of sales after paying for variable costs of production, such as wages and raw materials, but before paying interest or tax (Operating Earnings/Revenue).
+
+Parameters:
+
+OperatingEarnings (required)
+
+Earnings Before Interest and tax (EBIT), which is revenue less COGS and less the other operating expenses
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.OperatingMarginλ( .8, 2.0 )
+```
+
+The workbook help shows 40%.
+
+Previous name: nabla.r.OperatingMarginλ.
+
+### oz.PretaxMarginλ
+
+oz.PretaxMarginλ( PretaxEarnings, Revenue)
+
+Measures the operating efficiency of a company (Pretax Earnings/Revenue).
+
+Parameters:
+
+PretaxEarnings (required)
+
+Earnings before tax (EBT)
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.PretaxMarginλ( 40.0, 500.0 )
+```
+
+The workbook help shows 8%.
+
+Previous name: nabla.r.PretaxMarginλ.
+
+### oz.NetProfitMarginλ
+
+oz.NetProfitMarginλ( NetIncome, Revenue)
+
+Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue).
+
+Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income includes:
+
+- Revenue
+- Less COGS
+- Less Operating and other expenses
+- Less Interest
+- Less Taxes
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.NetProfitMarginλ( 56.0, 100.0 )
+```
+
+The workbook help shows 56%.
+
+Previous name: nabla.r.NetProfitMarginλ.
+
+### oz.CashFlowMarginλ
+
+oz.CashFlowMarginλ( CashFlowFromOperatingActivities, Revenue)
+
+Cash Flow Margin is a trusted metric of a company’s profitability and efficiency and its earnings quality (Cash Flow From Operating Activities/Revenue).
+
+Parameters:
+
+CashFlowFromOperatingActivities (required)
+
+Cash Flow From Operating Activities includes:
+
+- Net Income
+- Non-cash Expenses (Depreciation and Amortisation)
+- Change in Working Capital
+
+Revenue (required)
+
+Revenue
+
+```
+=oz.CashFlowMarginλ( 2.695, 5.3 )
+```
+
+The workbook help shows 50.8%.
+
+Previous name: nabla.r.CashFlowMarginλ.
+
+### oz.ROAλ
+
+oz.ROAλ( NetIncome, TotalAssets)
+
+Return on assets (ROA) ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)
+
+Return on assets ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+TotalAssets (required)
+
+Total Assets
+
+```
+=oz.ROAλ(1200, 15000 )
+```
+
+The workbook help shows 8%.
+
+Previous name: nabla.r.ROAλ.
+
+### oz.ROEλ
+
+oz.ROEλ( NetIncome, ShareholdersEquity, [OpeningEquity])
+
+Return on equity (ROE) ratio is a measure of financial performance (Net Income/Average Shareholders' Equity)
+
+Return on equity ratio is considered a gauge of a corporation's profitability and how efficient it is in generating profits (Net Income/ Average Shareholders' Equity)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+ShareholdersEquity (required)
+
+Shareholders' Equity at the period close. Give the average of open and close here when OpeningEquity is left out
+
+OpeningEquity (optional)
+
+Shareholders' Equity at the period open. When given, the ratio divides by the average of OpeningEquity and ShareholdersEquity
+
+```
+=oz.ROEλ( 59.972, 256.144, 251.635 )
+```
+
+The workbook help shows 23.6213%.
+
+```
+=oz.ROEλ( 59.972, AVERAGE(251.635, 256.144) )
+```
+
+The workbook help shows 23.6213%.
+
+Previous name: nabla.r.ROEλ.
+
+### oz.ROIλ
+
+oz.ROIλ( NetReturnonInvestment, CostofInvestment)
+
+Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost (Net Return on Investment/Cost of Investment).
+
+Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost. (Net Return on Investment/Cost of Investment)
+
+Parameters:
+
+NetReturnonInvestment (required)
+
+Net Return on Investment is the final value of investment - initial value of investment
+
+CostofInvestment (required)
+
+Cost of Investment
+
+```
+=oz.ROIλ( 2875, 10000 )
+```
+
+The workbook help shows 28.75%.
+
+Previous name: nabla.r.ROIλ.
+
+### oz.ROICλ
+
+oz.ROICλ( NetOperatingProfitAfterTax, InvestedCapital)
+
+Return on Invested capital assesses a company’s efficiency in allocating capital to profitable investments (Net Operating Profit After Tax/Invested Capital)
+
+Parameters:
+
+NetOperatingProfitAfterTax (required)
+
+Net Operating profit after Tax [ operating profit x (1 - effective tax rate) ].
+
+InvestedCapital (required)
+
+Invested Capital (Debt + Equity).
+
+```
+=oz.ROICλ( 3245, 25729 )
+```
+
+The workbook help shows 12.6122%.
+
+Previous name: nabla.r.ROICλ.
+
+### oz.PriceEarningsRatioλ
+
+oz.PriceEarningsRatioλ( SharePrice, EarningsPerShare)
+
+Price-earnings Ratio measures a company's share price relative to its earnings per share (Share Price/Earnings Per Share).
+
+Parameters:
+
+SharePrice (required)
+
+Share Price (Market Value Per Share)
+
+EarningsPerShare (required)
+
+Earnings Per Share
+
+```
+=oz.PriceEarningsRatioλ( 242.62, 16.85)
+```
+
+The workbook help shows 14.39881.
+
+Previous name: nabla.r.PriceEarningsRatioλ.
+
+### oz.PriceToBookRatioλ
+
+oz.PriceToBookRatioλ( MarketPricePerShare, BookValuePerShare)
+
+Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies.
+
+Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies. (Market Price Per Share/Book Value Per Share)
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+BookValuePerShare (required)
+
+Tangible book value per share (oz.BVPSλ keeps intangibles) (Total assets - intangible assets - total liabilities) ÷ number of outstanding shares
+
+```
+=oz.PriceToBookRatioλ( 5, 2.50 )
+```
+
+The workbook help shows 2.0.
+
+Previous name: nabla.r.PriceToBookRatioλ.
+
+### oz.PriceToSalesRatioλ
+
+oz.PriceToSalesRatioλ( MarketPricePerShare, SalesPerShare)
+
+Price to Sales (P/S) Ratio is an indicator of the value that financial markets have placed on each dollar of a company's sales or revenues (Market Price Per Share/Sales Per Share).
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+SalesPerShare (required)
+
+Annual Sales Per Share (Revenue prior 12 months)
+
+```
+=oz.PriceToSalesRatioλ( 455.0, 100.0 )
+```
+
+The workbook help shows 4.55.
+
+Previous name: nabla.r.PriceToSalesRatioλ.
+
+### oz.PriceToCashRatioλ
+
+oz.PriceToCashRatioλ( MarketPricePerShare, OperatingCashFlowPerShare)
+
+Price to Cash (P/CF) Ratio is a stock valuation indicator or multiple that measures the value of a stock’s price relative to its operating cash flow per share (Market Price Per Share/Operating Cash Flow Per Share).
+
+Parameters:
+
+MarketPricePerShare (required)
+
+Market Price Per Share (Current market price of the share)
+
+OperatingCashFlowPerShare (required)
+
+Operating Cash Flow for prior 12 months/Shares outstanding
+
+```
+=oz.PriceToCashRatioλ( 200.0, 100.0 )
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.r.PriceToCashRatioλ.
+
+### oz.BVPSλ
+
+oz.BVPSλ( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )
+
+Book value per share ratio is an indicator of the value of a company’s stock (Shareholders' Equity - Preferred Stock)/Average Shares Outstanding)
+
+Parameters:
+
+ShareholdersEquity (required)
+
+Shareholders' Equity (total assets - total liabilities), intangibles kept
+
+PreferredStock (required)
+
+Preferred Stock (securities that represent ownership in a corporation).
+
+AverageSharesOutstanding (required)
+
+Average Shares Out Standing
+
+```
+=oz.BVPSλ(20.0, 5.0, AVERAGE( 2.9, 3.1) )
+```
+
+The workbook help shows 5.
+
+Previous name: nabla.r.BVPSλ.
+
+### oz.CAPERatioλ
+
+oz.CAPERatioλ( SharePrice, TenYearAverageEarningsInflationAdjusted )
+
+CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earn
+
+CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earnings Inflation Adjusted)
+
+Parameters:
+
+SharePrice (required)
+
+Current stock price
+
+TenYearAverageEarningsInflationAdjusted (required)
+
+Average earnings per share for 10 years adjusted for inflation
+
+```
+=oz.CAPERatioλ( 100.0, 10.0  )
+```
+
+The workbook help shows 10.
+
+Previous name: nabla.r.CAPERatioλ.
+
+### oz.DPRλ
+
+oz.DPRλ( DividendsPaid, NetIncome )
+
+Dividend Payout Ratio is the percentage of earnings paid to shareholders via dividends (DividendsPaid/NetIncome)
+
+Parameters:
+
+DividendsPaid (required)
+
+Dividends paid
+
+NetIncome (required)
+
+Net Income
+
+```
+=oz.DPRλ( 5.0, 20.0 )
+```
+
+The workbook help shows 25%.
+
+Previous name: nabla.r.DPRλ.
+
+### oz.DividendYieldRatioλ
+
+oz.DividendYieldRatioλ( AnnualDividendsPerShare, SharePrice)
+
+Dividend yield ratio shows how much a company pays out in dividends each year relative to its stock price (Annual Dividends Pe rShare/Share Price)
+
+Parameters:
+
+AnnualDividendsPerShare (required)
+
+Annual Dividends Per Share
+
+SharePrice (required)
+
+Market value per share
+
+```
+=oz.DividendYieldRatioλ( 1.2, 45 )
+```
+
+The workbook help shows 2.6667%.
+
+Previous name: nabla.r.DividendYieldRatioλ.
+
+### oz.EPSλ
+
+oz.EPSλ( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)
+
+Earnings per share measures profitability indicating how much profit each outstanding share of common stock has earned (Net Income - Preferred Dividends)/End Of Period Common Shares Outstanding)
+
+Parameters:
+
+NetIncome (required)
+
+Net Income
+
+PreferredDividends (required)
+
+Dividends paid on prefered stock
+
+EndOfPeriodCommonSharesOutstanding (required)
+
+Weighted-average ordinary shares for basic EPS Use closing shares only when they equal that weighted average
+
+```
+=oz.EPSλ( 7.6, 0, 3.98 )
+```
+
+The workbook help shows 1.909548.
+
+Previous name: nabla.r.EPSλ.
+
+### oz.RetentionRatioλ
+
+oz.RetentionRatioλ( RetainedEarnings, NetIncome )
+
+Retention Ratio is the proportion of earnings kept back in the business as retained earnings (Retained Earnings/Net Income).
+
+Parameters:
+
+RetainedEarnings (required)
+
+Retained Earnings (Net Income - paid dividends)
+
+NetIncome (required)
+
+Net Income
+
+```
+=oz.RetentionRatioλ( 19.869, 41.981)
+```
+
+The workbook help shows 47.3%.
+
+Previous name: nabla.r.RetentionRatioλ.
+
+### oz.ATOTurnoverλ
+
+oz.ATOTurnoverλ(OtherSales, TotalBusinessIncome)
+
+Turnover as the ATO small business benchmarks measure it: other sales unless under half of total business income
+
+Turnover excluding GST, the denominator of every ATO tax return benchmark ratio.
+
+Note: Returns OtherSales, unless it is zero, blank or less than half of TotalBusinessIncome, when it returns TotalBusinessIncome instead. That is the ATO's rule. OtherSales is the other sales of goods and services amount on the return. Where total business income is blank or incomplete, the ATO adds up the business income items it lists for the return type: pass that total as TotalBusinessIncome. Pass both amounts excluding GST. Text in either argument returns #VALUE!. Arithmetic only: the reviewer decides what belongs in each amount. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+OtherSales (required)
+
+Other sales of goods and services, excluding GST.
+
+TotalBusinessIncome (required)
+
+Total business income, excluding GST.
+
+```
+=oz.ATOTurnoverλ(480000, 500000)
+```
+
+The workbook help shows 480000.
+
+```
+=oz.ATOTurnoverλ(200000, 500000)
+```
+
+The workbook help shows 500000.
+
+### oz.ATOBenchmarkRatioλ
+
+oz.ATOBenchmarkRatioλ(Amount, Turnover)
+
+ATO tax return benchmark ratio: an amount divided by turnover, as for rent or motor vehicle expenses to turnover
+
+ATO tax return benchmark ratio: Amount / Turnover.
+
+Note: The ATO's basic formula for a tax return benchmark ratio, and the whole of its rent expenses to turnover and motor vehicle expenses to turnover ratios: pass the rent or motor vehicle expenses amount from the return. Returns a fraction; format it as a percentage, as the ATO's figure is the same quotient multiplied by 100. Take Turnover from ATOTurnoverλ(). Use ATOTotalExpensesRatioλ(), ATOCostOfSalesRatioλ() and ATOLabourRatioλ() for the 3 ratios whose amounts the ATO adjusts. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+Amount (required)
+
+The expense amount, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+```
+=oz.ATOBenchmarkRatioλ(24000, 480000)
+```
+
+The workbook help shows 5%.
+
+### oz.ATOTotalExpensesRatioλ
+
+oz.ATOTotalExpensesRatioλ(TotalExpenses, Turnover, [AssociatePayments])
+
+ATO total expenses to turnover: total expenses less payments to associated persons, over turnover
+
+ATO total expenses to turnover benchmark ratio.
+
+Note: (TotalExpenses - AssociatePayments) / Turnover. The ATO deducts payments to associated persons from total expenses before dividing. Where total expenses is blank or incomplete, it adds up the expense items it lists for the return type: pass that total as TotalExpenses. OperatingRatioλ() gives the same quotient only when its expenses already exclude those payments and its net sales equal this Turnover. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank AssociatePayments counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+TotalExpenses (required)
+
+Total expenses from the return, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+AssociatePayments (optional, Default = 0)
+
+Payments to associated persons.
+
+```
+=oz.ATOTotalExpensesRatioλ(410000, 480000, 30000)
+```
+
+The workbook help shows 0.7917.
+
+### oz.ATOCostOfSalesRatioλ
+
+oz.ATOCostOfSalesRatioλ(CostOfSales, Turnover, [IncludedWages])
+
+ATO cost of sales to turnover, excluding salary and wages included in cost of sales
+
+ATO cost of sales to turnover benchmark ratio, excluding labour.
+
+Note: (CostOfSales - IncludedWages) / Turnover. The ATO's cost of sales excludes salary and wages: where the return's total salary and wages code is C, meaning they are included in cost of sales, it deducts the total salary and wages expenses. Pass that total as IncludedWages only when the code is C, and leave it out otherwise. GrossMarginλ() is a different measure: it keeps wages in cost of sales. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank IncludedWages counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+CostOfSales (required)
+
+Cost of sales from the return, excluding GST.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+IncludedWages (optional, Default = 0)
+
+Total salary and wages expenses, only when the return's code is C.
+
+```
+=oz.ATOCostOfSalesRatioλ(260000, 480000, 60000)
+```
+
+The workbook help shows 0.4167.
+
+### oz.ATOLabourRatioλ
+
+oz.ATOLabourRatioλ(SalaryWages, Contractors, Turnover, [AssociatePayments], [W1])
+
+ATO labour to turnover: salary and wages plus contractors less payments to associated persons, over turnover
+
+ATO labour to turnover benchmark ratio.
+
+Note: (Wages + Contractors - AssociatePayments) / Turnover, where Wages is SalaryWages, or W1 when W1 is greater. The ATO adds total salary and wages expenses to contractor, subcontractor and commission expenses and deducts payments to associated persons. Where the activity statements' label W1 (total salary, wages and other payments) for the year exceeds the return's salary and wages, it uses W1. Returns a fraction, as ATOBenchmarkRatioλ() does. An omitted or blank AssociatePayments or W1 counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.
+
+Parameters:
+
+SalaryWages (required)
+
+Total salary and wages expenses from the return.
+
+Contractors (required)
+
+Contractor, subcontractor and commission expenses.
+
+Turnover (required)
+
+Turnover excluding GST, for example from ATOTurnoverλ().
+
+AssociatePayments (optional, Default = 0)
+
+Payments to associated persons.
+
+W1 (optional, Default = 0)
+
+The year's total at activity statement label W1.
+
+```
+=oz.ATOLabourRatioλ(90000, 20000, 480000, 10000, 95000)
+```
+
+The workbook help shows 0.21875.
+
+### oz.ReceivableDaysλ
+
+oz.ReceivableDaysλ(Receivables, Sales, [Days])
+
+Receivable days, or days sales outstanding (DSO): Receivables / Sales x Days
+
+Receivable days, or days sales outstanding (DSO): the days of sales not yet collected.
+
+Note: Receivables / Sales * Days. Days is the number of days the Sales figure covers: 365 with a year's sales, 90 with the last three months' sales for a rolling figure, or a month's days with that month's sales. Pass closing receivables, or the average of opening and closing for an average-balance figure. Put the balance and the sales on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Sales of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+Receivables (required)
+
+Trade receivables: the closing balance, or the average of opening and closing.
+
+Sales (required)
+
+Credit sales over the same Days.
+
+Days (optional, Default = 365)
+
+Days the Sales figure covers.
+
+```
+=oz.ReceivableDaysλ(125000, 1200000)
+```
+
+The workbook help shows 38.0208.
+
+```
+=oz.ReceivableDaysλ(125000, 330000, 90)
+```
+
+The workbook help shows 34.0909.
+
+### oz.PayableDaysλ
+
+oz.PayableDaysλ(Payables, Purchases, [Days])
+
+Payable days, or days payable outstanding (DPO): Payables / Purchases x Days
+
+Payable days, or days payable outstanding (DPO): the days of purchases not yet paid.
+
+Note: Payables / Purchases * Days. Days is the number of days the Purchases figure covers, as for ReceivableDaysλ(). Credit purchases are the matching flow; cost of sales is the common substitute where purchases are not reported. Pass closing payables, or the average of opening and closing. Put the balance and the purchases on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Purchases of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+Payables (required)
+
+Trade payables: the closing balance, or the average of opening and closing.
+
+Purchases (required)
+
+Credit purchases, or cost of sales, over the same Days.
+
+Days (optional, Default = 365)
+
+Days the Purchases figure covers.
+
+```
+=oz.PayableDaysλ(64000, 780000)
+```
+
+The workbook help shows 29.9487.
+
+### oz.WIPDaysλ
+
+oz.WIPDaysλ(WIP, RelatedFlow, [Days])
+
+Work in progress days: WIP / RelatedFlow x Days, with both on one valuation basis
+
+Work in progress days: the days of work done but not yet billed or completed.
+
+Note: WIP / RelatedFlow * Days. WIP and RelatedFlow must use the same valuation basis: fee revenue with WIP at charge-out value, as a professional services firm records it, or cost of sales with WIP at cost. Days is the number of days the RelatedFlow figure covers. WIP days plus ReceivableDaysλ() gives the lock-up days a services firm tracks. RelatedFlow of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.
+
+Parameters:
+
+WIP (required)
+
+Work in progress: the closing balance, or the average of opening and closing.
+
+RelatedFlow (required)
+
+Fee revenue or cost of sales over the same Days, on the valuation basis of WIP.
+
+Days (optional, Default = 365)
+
+Days the RelatedFlow figure covers.
+
+```
+=oz.WIPDaysλ(42000, 510000)
+```
+
+The workbook help shows 30.0588.
+
+### oz.CashConversionCycleλ
+
+oz.CashConversionCycleλ(InventoryDays, ReceivableDays, PayableDays, [WIPDays])
+
+Cash conversion cycle in days: inventory days + WIP days + receivable days - payable days
+
+Cash conversion cycle: the days between paying suppliers and collecting from customers.
+
+Note: InventoryDays + WIPDays + ReceivableDays - PayableDays. Pass day counts, for example from DSIλ(), ReceivableDaysλ(), PayableDaysλ() and WIPDaysλ(), with every component on the same period basis. DSIλ() multiplies by 365 and expects a full year's cost of goods sold, so for a shorter window annualise that window's cost of goods sold before passing it. A negative result means suppliers are paid after customers pay. An omitted or blank WIPDays counts as 0. Pass WIPDays only where WIP is not already in the inventory behind InventoryDays, or it is counted twice.
+
+Parameters:
+
+InventoryDays (required)
+
+Inventory days, for example from DSIλ().
+
+ReceivableDays (required)
+
+Receivable days, for example from ReceivableDaysλ().
+
+PayableDays (required)
+
+Payable days, for example from PayableDaysλ().
+
+WIPDays (optional, Default = 0)
+
+Work in progress days, for example from WIPDaysλ().
+
+```
+=oz.CashConversionCycleλ(40.8949, 38.0208, 29.9487)
+```
+
+The workbook help shows 48.967.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Ratios formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutRatios λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-aboutratios
+- oz.CurrentRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-currentratio
+- oz.QuickRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-quickratio
+- oz.CashRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashratio
+- oz.OperatingCashFlowRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingcashflowratio
+- oz.ReceivablesTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivablesturnoverratio
+- oz.InventoryTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-inventoryturnoverratio
+- oz.WorkingCapitalTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-workingcapitalturnoverratio
+- oz.DebtRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debtratio
+- oz.DSCR λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dscr
+- oz.DebtToCapitalRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttocapitalratio
+- oz.EquityMultiplier λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equitymultiplier
+- oz.DebtToEquityRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoequityratio
+- oz.DebtToAssetRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-debttoassetratio
+- oz.InterestCoverageRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-interestcoverageratio
+- oz.EquityRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-equityratio
+- oz.AssetTurnoverRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-assetturnoverratio
+- oz.DSI λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dsi
+- oz.OperatingRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingratio
+- oz.GrossMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-grossmargin
+- oz.EBITDAMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-ebitdamargin
+- oz.OperatingMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-operatingmargin
+- oz.PretaxMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pretaxmargin
+- oz.NetProfitMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-netprofitmargin
+- oz.CashFlowMargin λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashflowmargin
+- oz.ROA λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roa
+- oz.ROE λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roe
+- oz.ROI λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roi
+- oz.ROIC λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-roic
+- oz.PriceEarningsRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-priceearningsratio
+- oz.PriceToBookRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetobookratio
+- oz.PriceToSalesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetosalesratio
+- oz.PriceToCashRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-pricetocashratio
+- oz.BVPS λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-bvps
+- oz.CAPERatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-caperatio
+- oz.DPR λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dpr
+- oz.DividendYieldRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-dividendyieldratio
+- oz.EPS λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-eps
+- oz.RetentionRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-retentionratio
+- oz.ATOTurnover λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atoturnover
+- oz.ATOBenchmarkRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atobenchmarkratio
+- oz.ATOTotalExpensesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atototalexpensesratio
+- oz.ATOCostOfSalesRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atocostofsalesratio
+- oz.ATOLabourRatio λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-atolabourratio
+- oz.ReceivableDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-receivabledays
+- oz.PayableDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-payabledays
+- oz.WIPDays λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-wipdays
+- oz.CashConversionCycle λ: https://duguid.com.au/tools/ozzit/functions/ratios/#oz-cashconversioncycle
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
+
+---
+
+# Ozzit Utilities functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/utilities/
+
+> Parameters and worked examples for 17 Ozzit Utilities Excel LAMBDA functions: standalone copies of the Essentials functions, each with a U suffix.
+
+# Ozzit Utilities functions
+
+The 17 Utilities formulas cover standalone copies of the Essentials functions, each with a U suffix. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Utilities formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 17 functions
+
+- oz.AboutUtilitiesλ
+- oz.CountCUλ
+- oz.SumRowsUλ
+- oz.SumColsUλ
+- oz.AvgRowsUλ
+- oz.AvgColsUλ
+- oz.MinRowsUλ
+- oz.MinColsUλ
+- oz.MaxRowsUλ
+- oz.MaxColsUλ
+- oz.CountARowsUλ
+- oz.CountAColsUλ
+- oz.CountRowsUλ
+- oz.CountColsUλ
+- oz.IsBetweenUλ
+- oz.IsInListUλ
+- oz.RangeToDAUλ
+
+### oz.AboutUtilitiesλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.u.Aboutλ.
+
+### oz.CountCUλ
+
+oz.CountCUλ( Text, Characters)
+
+Count occurrences of character(s) in a string
+
+Count how many of one or more characters are in a string.
+
+Parameters:
+
+Text (required)
+
+The string to interrogate. Empty text returns 0
+
+Characters (required)
+
+A single character, or CSV of characters to find in Text NOTE! Case sensitive. A single character is taken as itself, so a comma works
+
+```
+=oz.CountCUλ( "Mary had a little lamb", "a,b")
+```
+
+Previous name: nabla.u.CountCλ.
+
+### oz.SumRowsUλ
+
+oz.SumRowsUλ( Array)
+
+Get the total for each row
+
+Get the total of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by row.
+
+```
+=oz.SumRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.SumRowsλ.
+
+### oz.SumColsUλ
+
+oz.SumColsUλ( Array)
+
+Get the total for each Column
+
+Get the total of each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by column.
+
+```
+=oz.SumColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.SumColsλ.
+
+### oz.AvgRowsUλ
+
+oz.AvgRowsUλ( Array)
+
+Get the average for each row
+
+Get the average of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by row.
+
+```
+=oz.AvgRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.AvgRowsλ.
+
+### oz.AvgColsUλ
+
+oz.AvgColsUλ( Array)
+
+Get the average for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by column.
+
+```
+=oz.AvgColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.AvgColsλ.
+
+### oz.MinRowsUλ
+
+oz.MinRowsUλ( Array)
+
+Get the minimum for each row
+
+Get the minimum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by row.
+
+```
+=oz.MinRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MinRowsλ.
+
+### oz.MinColsUλ
+
+oz.MinColsUλ( Array)
+
+Get the minimum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by column.
+
+```
+=oz.MinColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MinColsλ.
+
+### oz.MaxRowsUλ
+
+oz.MaxRowsUλ( Array)
+
+Get the maximum for each row
+
+Get the maximum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by row.
+
+```
+=oz.MaxRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MaxRowsλ.
+
+### oz.MaxColsUλ
+
+oz.MaxColsUλ( Array)
+
+Get the maximum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by column.
+
+```
+=oz.MaxColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MaxColsλ.
+
+### oz.CountARowsUλ
+
+oz.CountARowsUλ( Array)
+
+Count everything in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountARowsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountARowsλ.
+
+### oz.CountAColsUλ
+
+oz.CountAColsUλ( Array )
+
+Count everything in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountAColsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountAColsλ.
+
+### oz.CountRowsUλ
+
+oz.CountRowsUλ( Array)
+
+Count numbers in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountRowsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountRowsλ.
+
+### oz.CountColsUλ
+
+oz.CountColsUλ( Array)
+
+Count numbers in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountColsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountColsλ.
+
+### oz.IsBetweenUλ
+
+oz.IsBetweenUλ( Value, Low, Hi, [Inclusive])
+
+Determine if a value is between a lower and upper limit
+
+Determine if a value is between a lower and upper limit.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+Low (required)
+
+The lower limit that the value must be greater than
+
+Hi (required)
+
+The higher limit that the value must be less than
+
+Inclusive (optional)
+
+If set to TRUE (default) the value can be equal to Low and/or Hi
+
+```
+=IsBetweenUλ(1, 2, 4)
+```
+
+The workbook help shows FALSE.
+
+```
+=IsBetweenUλ(2, 2, 4)
+```
+
+The workbook help shows TRUE.
+
+```
+=IsBetweenUλ(2, 2, 4, FALSE)
+```
+
+The workbook help shows FALSE.
+
+Previous name: nabla.u.IsBetweenλ.
+
+### oz.IsInListUλ
+
+oz.IsInListUλ( Value, List)
+
+Determine whether a value is one of a list of items
+
+Determine if a value is one of a list of items.
+
+Note: The comparison is exact and case-insensitive; * and? are ordinary characters.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+List (required)
+
+A list of values to check: a row, a column or a grid.
+
+```
+=IsInListUλ(1, {2,3,4})
+```
+
+The workbook help shows FALSE.
+
+```
+=IsInListUλ(1, {1,3,5})
+```
+
+The workbook help shows TRUE.
+
+Previous name: nabla.u.IsInListλ.
+
+### oz.RangeToDAUλ
+
+oz.RangeToDAUλ(Range, [Rows], [Columns])
+
+Convert a range reference to a dynamic array reference
+
+Convert a range reference to a dynamic array reference.
+
+See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
+
+Parameters:
+
+Range (required)
+
+A reference to the range to be converted.
+
+Rows (optional)
+
+Number of rows for the dynamic array. Defaults to 1.
+
+Columns (optional)
+
+Number of columns for the dynamic array. Defaults to 1.
+
+```
+=RangeToDAUλ(A1, , ModelPeriodCount)
+```
+
+Previous name: nabla.u.RangeToDAλ.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
+- oz.CountCU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
+- oz.SumRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
+- oz.SumColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
+- oz.AvgRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
+- oz.AvgColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
+- oz.MinRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-minrowsu
+- oz.MinColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-mincolsu
+- oz.MaxRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxrowsu
+- oz.MaxColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxcolsu
+- oz.CountARowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countarowsu
+- oz.CountAColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countacolsu
+- oz.CountRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countrowsu
+- oz.CountColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcolsu
+- oz.IsBetweenU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isbetweenu
+- oz.IsInListU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isinlistu
+- oz.RangeToDAU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/
+
+---
+
+# Ozzit Debt functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/debt/
+
+> Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting.
+
+# Ozzit Debt functions
+
+The 5 Debt formulas cover debt amortisation and fixed or variable DSCR debt sculpting. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Debt formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 5 functions
+
+- oz.AmortiseBλ
+- oz.DebtSculptFixedλ
+- oz.DebtSculptVariableLRVλ
+- oz.DebtSculptVariableλ
+- oz.InterestLRVλ
+
+### oz.AmortiseBλ
+
+oz.AmortiseBλ(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])
+
+Creates an amortisation schedule for a debt/loan across a model's periods
+
+Creates an amortisation schedule for a debt/loan across a model's periods.
+
+Parameters:
+
+Principal (required)
+
+Principal opening balance.
+
+APR (required)
+
+Annual percentage rate.
+
+Term (required)
+
+Number of periods to pay off the debt.
+
+ModelPeriods (required)
+
+Number of model periods.
+
+StartPeriod (optional)
+
+Period when the debt is issued. Defaults to 1.
+
+MonthsPerPeriod (optional)
+
+Number of months in each period. Defaults to 1.
+
+Row contents:
+
+- Interest Portion
+- Repayment
+- Closing Balance
+- Principal Portion
+
+```
+=oz.AmortiseBλ(10000, 3%, 48, 60)
+```
+
+The workbook help shows 5 rows, 60 cols.
+
+Previous name: nabla.debt.Amortiseλ.
+
+### oz.DebtSculptFixedλ
+
+oz.DebtSculptFixedλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod])
+
+Creates a debt sculpting schedule where APR and DSCR are fixed for all periods
+
+Creates a Debt Sculpting schedule where APR and DSCR are fixed for all periods
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of Cash Flow Available for Debt Service in each period
+
+DSCR (required)
+
+Debt Service Coverage Ratio, one number for all periods
+
+APR (required)
+
+Interest's Annual Percentage Rate, one number for all periods
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period.
+
+Suggested row IDs:
+
+- Interest on Principal Balance
+- Debt service (interest and principal)
+- Debt closing balance
+
+```
+=oz.DebtSculptFixedλ(, {1000,0,0}, {300,300,300}, 1.2, 6%, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptFixedλ.
+
+### oz.DebtSculptVariableLRVλ
+
+oz.DebtSculptVariableLRVλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+
+Creates a debt sculpting schedule where APR and DSCR are set for each period, with interest charged on the average balance
+
+Creates a Debt Sculpting schedule where APR and DSCR are set for each period. Interest is charged on the average balance over the period, the method presented by Lance Rubin, and the principal repaid is what the cash available for debt service leaves after that interest.
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of numeric Cash Flow Available for Debt Service in each period. Blank cells, text and logical values are rejected. Negative values supply no cash for debt service; existing debt still capitalises unpaid interest
+
+DSCR (required)
+
+A row of Debt Service Coverage Ratios, one per period
+
+APR
+
+(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period. Ignored when PeriodRates is given
+
+PeriodRates (optional)
+
+A row of interest rates per period, one per period, such as DayCountRateλ() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given
+
+Suggested row IDs:
+
+- Interest on Principal Balance
+- Principal repayments
+- Debt closing balance
+
+```
+=oz.DebtSculptVariableLRVλ(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptVariableLRVλ.
+
+### oz.DebtSculptVariableλ
+
+oz.DebtSculptVariableλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+
+Creates a debt sculpting schedule where APR and DSCR are set for each period
+
+Creates a Debt Sculpting schedule where APR and DSCR are set for each period
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of Cash Flow Available for Debt Service in each period
+
+DSCR (required)
+
+A row of Debt Service Coverage Ratios, one per period
+
+APR
+
+(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period. Ignored when PeriodRates is given
+
+PeriodRates (optional)
+
+A row of interest rates per period, one per period, such as DayCountRateλ() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given
+
+Suggested row IDs:
+
+- Interest on Principal Balance
+- Debt service (interest and principal)
+- Debt closing balance
+
+```
+=oz.DebtSculptVariableλ(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptVariableλ.
+
+### oz.InterestLRVλ
+
+oz.InterestLRVλ(CFADS, DSCR, Principal, InterestRate)
+
+Calculates debt sculpting interest on the average balance over the period, the method presented by Lance Rubin
+
+Calculates debt sculpting interest using the method presented by Lance Rubin. Interest is charged on the average balance over the period, with the principal repaid capped at the principal outstanding. The average balance depends on the interest and the interest on the average balance, which is solved in closed form rather than by iteration.
+
+Parameters:
+
+CFADS (required)
+
+Cash Flow Available for Debt Service for this period
+
+DSCR (required)
+
+Debt Service Coverage Ratio for this period
+
+Principal (required)
+
+Principal balance for this period
+
+InterestRate (required)
+
+Interest rate for this period (eg. APR/Days in this year * Days in this period)
+
+```
+=oz.InterestLRVλ( 6666.37, 3.50, 90000, 3%/12)
+```
+
+The workbook help shows 222.90.
+
+Previous name: nabla.debt.InterestLRVλ.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Debt formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AmortiseB λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
+- oz.DebtSculptFixed λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
+- oz.DebtSculptVariableLRV λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
+- oz.DebtSculptVariable λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
+- oz.InterestLRV λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

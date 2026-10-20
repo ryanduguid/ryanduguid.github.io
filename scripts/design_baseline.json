@@ -15,13 +15,13 @@
       "9df52cce1019fb0e688696d4fed3506fbbc67b64ffef9f4d2633d6eb78d620e1"
     ],
     "changelog/index.html": [
-      "2834875ae50bcd530cfc5718d789af4eea52ca05bb70918efcb3e5b870e6d27c"
+      "789ec903b5f4cd76e87ffc50ea5dfaba2afa0a53218b2bf6f8b6fc8c39ccfe3e"
     ],
     "contact/index.html": [
       "5629c3ae67d2773fb460f5c66a2447c17f697f3efb3b489c0faca059dbed15e6"
     ],
     "evaluate/index.html": [
-      "c9788b74b2f3a99c9c686dfea2be8ea81147268efbdf5f7e882723b402f0d733"
+      "bdf41cc545e857904df2ff972457b0daf46e3ce1b450b300cf8796ea5a62d1f1"
     ],
     "evaluate/manager-review-gate/index.html": [
       "e1483327b65db09a51e71ff5657499066ec8c466e97a7e905cf7adc8dc3415bc"
@@ -83,8 +83,26 @@
     "tools/monthly-close-controls/index.html": [
       "3ba6c42d9d4f42688cbb15d790a299c0eec7556a75c2f226fbe6f3865bb54b4d"
     ],
+    "tools/ozzit/functions/dates/index.html": [
+      "013340bbe6cfa68edc376569e55096b3dfaaac0041cde3616fbee02dc307960f"
+    ],
+    "tools/ozzit/functions/debt/index.html": [
+      "a2923407a9dc006f5be4c17e90eefb17d19c01455f23948aabfbbb68761a6c82"
+    ],
+    "tools/ozzit/functions/essentials/index.html": [
+      "9fa4b14ff26035a5d1db4d71da40bd190382861dfa7091987456a531ac1c3094"
+    ],
+    "tools/ozzit/functions/financial/index.html": [
+      "9626ef4856bda2a3668332e1512e10b4945c4ddcde5a42a08dbe6838b5410e51"
+    ],
+    "tools/ozzit/functions/ratios/index.html": [
+      "2c04519105ddf735a267430c0420e649f23d08bded9631344255fbeba6198a11"
+    ],
+    "tools/ozzit/functions/utilities/index.html": [
+      "1f13b1669cc8500dac23f8d95807dcc23d16bda095bc809443e60dee521b0411"
+    ],
     "tools/ozzit/index.html": [
-      "b946bde6fd04e42f72484183b4977180d3a7e6ff9377eb7ea6eff3f00ff963dd"
+      "fb1f0a48b98b900ab6a38cfbc8f8a9d76d477295fc5a734d38a8a68fc4d410d2"
     ],
     "tools/payday-super/index.html": [
       "0c873d8bc6238ff182bc6aa48e7611ebd2051eaded344641d3858a96a5a7ab5b"
@@ -109,9 +127,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "af0539031d8e7cb25fa2edeb04b56eee8e25b64d32721b3d2eda39542f4942ad",
+    "llms.txt": "c0bca68f01237cd01ae1840d2b2261bd295a5f2b6e6f5f8f4e0ebd672173fd48",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "4fa46f247bdfa9bf4d5402c32b4c21a24f1f5569bb4160e185049cd2dc2b5f3c"
+    "sitemap.xml": "0e578d54aac38644489b8e91a8004b0fa2f82bc2eddb1519d1f031ea40a7efe2"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -171,7 +189,7 @@
     "rates/super-guarantee/index.html": "09fda554c85d0d4eada4b18da824e7e62be6b7570147e98c152d9a00f3ead45b"
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 62,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

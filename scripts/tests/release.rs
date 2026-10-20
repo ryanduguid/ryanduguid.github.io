@@ -189,14 +189,14 @@ fn release_claims() {
     *at(
         &mut unreleased,
         &["components", "ozzit", "unreleased_default_branch"],
-    ) = pyjson::loads(r#"{"version": "3.4.3", "observed": "2026-09-20", "note": "Test fixture."}"#)
+    ) = pyjson::loads(r#"{"version": "3.5.1", "observed": "2026-09-20", "note": "Test fixture."}"#)
         .unwrap();
     let site = copied_site();
     replace_file(
         site.path(),
         "tools/ozzit/index.html",
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.3",
+        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0",
+        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.1",
     );
     expect_failure(
         "unreleased download offered",
@@ -358,7 +358,7 @@ fn release_claims() {
     rewrite(site.path(), "tools/ozzit/index.html", |t| {
         t.replace(
             "</main>",
-            "<p><a href=\"https://github.com/example/other/releases/tag/v3.4.3\">Another project's v3.4.3</a></p></main>",
+            "<p><a href=\"https://github.com/example/other/releases/tag/v3.5.1\">Another project's v3.5.1</a></p></main>",
         )
     });
     let unrelated: Vec<String> = check(site.path(), &unreleased)
@@ -368,22 +368,22 @@ fn release_claims() {
     assert_clean("unrelated repository sharing a version number", &unrelated);
 
     // A release-specific supporting file must be read at the documented release.
-    for replacement in ["main", "v3.4.3"] {
+    for replacement in ["main", "v3.5.1"] {
         let site = copied_site();
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(
-                "Ozzit/blob/v3.4.2/CITATION.cff",
+                "Ozzit/blob/v3.5.0/CITATION.cff",
                 &format!("Ozzit/blob/{replacement}/CITATION.cff"),
             )
         });
         expect_failure(
             "citation retargeted",
             &check(site.path(), &record),
-            "CITATION.cff must be linked at v3.4.2",
+            "CITATION.cff must be linked at v3.5.0",
         );
     }
     let site = copied_site();
-    let citation = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff";
+    let citation = "https://github.com/ryanduguid/Ozzit/blob/v3.5.0/CITATION.cff";
     rewrite(site.path(), "tools/ozzit/index.html", |t| {
         t.replace(
             &format!("href=\"{citation}\""),
@@ -394,7 +394,7 @@ fn release_claims() {
     expect_failure(
         "supporting evidence only in a comment",
         &check(site.path(), &record),
-        "CITATION.cff must be linked at v3.4.2",
+        "CITATION.cff must be linked at v3.5.0",
     );
     let site = copied_site();
     let unpinned: Vec<String> = check(site.path(), &record)

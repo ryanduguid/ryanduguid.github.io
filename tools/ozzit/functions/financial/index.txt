@@ -1,0 +1,1418 @@
+# Ozzit Financial functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/financial/
+
+> Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.
+
+# Ozzit Financial functions
+
+The 46 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Financial formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 46 functions
+
+- oz.AboutFinancialλ
+- oz.Corkscrewλ
+- oz.CorkScrewReversalλ
+- oz.IntOnIntλ
+- oz.IRRλ
+- oz.Movementλ
+- oz.Reversalλ
+- oz.Cumulativeλ
+- oz.RollingAvgλ
+- oz.RollingMaxλ
+- oz.RollingMinλ
+- oz.RollingSumλ
+- oz.SumContainsλ
+- oz.SumPeriodsλ
+- oz.Amortiseλ
+- oz.LabelAmortiseλ
+- oz.SumAmortiseλ
+- oz.Depreciateλ
+- oz.LabelDepreciateλ
+- oz.SumDepreciateλ
+- oz.Allocateλ
+- oz.PeriodDiffλ
+- oz.SLNλ
+- oz.SYDλ
+- oz.DBλ
+- oz.DDBλ
+- oz.VDBλ
+- oz.AmortiseλDV
+- oz.CorkscrewλDV
+- oz.DepreciateλDV
+- oz.TimelineOffsetλ
+- oz.TimelinePositionλ
+- oz.FilterContainsλ
+- oz.RangeToDAλ
+- oz.PeriodStartλ
+- oz.DiminishingValueλ
+- oz.PrimeCostλ
+- oz.GSTAddλ
+- oz.GSTExtractλ
+- oz.LeaseLiabilityλ
+- oz.LeaseScheduleλ
+- oz.LeaseRemeasureλ
+- oz.ROUScheduleλ
+- oz.PeriodRateλ
+- oz.AnnualRateλ
+- oz.DayCountRateλ
+
+### oz.AboutFinancialλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.f.Aboutλ.
+
+### oz.Corkscrewλ
+
+oz.Corkscrewλ( Opening, Flow1, [Flow2], [Flow3], [Flow4])
+
+Create a corkscrew section that sums the opening balance and up to 4 independent flows.
+
+Create a corkscrew section that sums the opening balance and up to 4 independent flows
+
+Note: All flows are added. To subtract a flow make it negative.
+
+Parameters:
+
+Opening (required)
+
+First periods opening balance.
+
+Flow1 (required)
+
+First row (or array of rows) of numbers to include in period totals.
+
+Flow2 (optional)
+
+Second row (or array of rows) of numbers to include in period totals.
+
+Flow3 (optional)
+
+Third row (or array of rows) of numbers to include in period totals.
+
+Flow4 (optional)
+
+Fourth row (or array of rows) of numbers to include in period totals.
+
+```
+=oz.Corkscrewλ(0, Sequence(1,5))
+```
+
+The workbook help shows 00, 01, 03, 06, 10; 01, 02, 03, 04, 05; 01, 03, 06, 10, 15.
+
+Previous name: nabla.f.Corkscrewλ.
+
+### oz.CorkScrewReversalλ
+
+oz.CorkScrewReversalλ( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])
+
+Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter.
+
+Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter
+
+Note: All flows are added. To subtract a flow make it negative.
+
+Parameters:
+
+Opening (required)
+
+First periods opening balance.
+
+ReversalFlags (required)
+
+A row of ones and blanks (or zeros) indicating when to reverse period totals.
+
+Flow1 (required)
+
+First row (or array of rows) of numbers to include in period totals.
+
+Flow2 (optional)
+
+Second row (or array of rows) of numbers to include in period totals.
+
+Flow3 (optional)
+
+Third row (or array of rows) of numbers to include in period totals.
+
+Flow4 (optional)
+
+Fourth row (or array of rows) of numbers to include in period totals.
+
+Previous name: nabla.f.CorkScrewReversalλ.
+
+### oz.IntOnIntλ
+
+oz.IntOnIntλ( Principal, Rate)
+
+Calculate Interest on Interest. Use to determine amount needed to cover debt plus interest on debt
+
+Calculate Interest on Interest (Interest only). Use to determine amount needed to cover borrowed interest
+
+Parameters:
+
+Principal (required)
+
+Principal amount
+
+Rate (required)
+
+Interest percentage rate. For years, APR. For months, APR/12
+
+```
+=oz.IntOnIntλ( 1000, 5%)
+```
+
+The workbook help shows 52.63.
+
+Previous name: nabla.f.IntOnIntλ.
+
+### oz.IRRλ
+
+oz.IRRλ( Values, Dates)
+
+Calculates IRR, correcting for when the first investment is not in the first period
+
+Parameters:
+
+Values (required)
+
+A row of investments (negative) and distributions (positive) The first entry, whether 0 or an amount, must be for the first period in the timeline and subsequent entries must correspond to periods in the timeline; however, the timeline may extend beyond the end of values.
+
+Dates (required)
+
+A timeline for when each investment is made
+
+```
+=EDATE("1/7/2026", SEQUENCE(,24, 0))
+```
+
+The workbook help shows Dates.
+
+```
+={0,0,-150,0,-100,10,20,30,40,50,60,70}
+```
+
+The workbook help shows Values.
+
+```
+=oz.IRRλ( Values, Dates)
+```
+
+The workbook help shows 25%.
+
+Previous name: nabla.f.IRRλ.
+
+### oz.Movementλ
+
+oz.Movementλ( [BeginningValues], Values)
+
+Create a row of differences from column to column
+
+Parameters:
+
+BeginningValues (optional)
+
+Defaults to 0. One value, or one per row of Values
+
+Values (required)
+
+A row (or rows) of values to compare column to column
+
+```
+=oz.Movementλ(,{100,110,130,100})
+```
+
+The workbook help shows 100,10,20,-30.
+
+Previous name: nabla.f.Movementλ.
+
+### oz.Reversalλ
+
+oz.Reversalλ( [OpeningValue], RowToReverse)
+
+Create a row that reverses input values in the next period.
+
+Parameters:
+
+OpeningValue (optional)
+
+Defaults to 0
+
+RowToReverse (required)
+
+A row of values to reverse the following periods
+
+```
+=oz.Reversalλ( , {100,110,130})
+```
+
+The workbook help shows 0,-100,-110.
+
+Previous name: nabla.f.Reversalλ.
+
+### oz.Cumulativeλ
+
+oz.Cumulativeλ( Totals, [OpeningBalance])
+
+Creates a row or column of cumulative totals from a total row or column
+
+Parameters:
+
+Totals (required)
+
+A row or column of totals from which to run cumulative totals
+
+OpeningBalance (optional)
+
+A starting balance. This defaults to 0
+
+```
+=oz.Cumulativeλ(Sequence(,3))
+```
+
+The workbook help shows 1,3,6.
+
+Previous name: nabla.f.Cumulativeλ.
+
+### oz.RollingAvgλ
+
+oz.RollingAvgλ( Values, Size)
+
+Creates Averages for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates averages for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be averaged.
+
+Size (required)
+
+The number of values to average that include and precede the current value
+
+```
+=oz.RollingAvgλ(SEQUENCE(, 5), 3)
+```
+
+The workbook help shows 1,1.5,2,3,4.
+
+Previous name: nabla.f.RollingAvgλ.
+
+### oz.RollingMaxλ
+
+oz.RollingMaxλ( Values, Size)
+
+Creates the maximum for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates the maximum for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be maxed.
+
+Size (required)
+
+The number of values to find the maximum of that include and precede the current value
+
+```
+=oz.RollingMaxλ({5,3,4,6,3,7}, 3)
+```
+
+The workbook help shows 5,5,5,6,6,7.
+
+Previous name: nabla.f.RollingMaxλ.
+
+### oz.RollingMinλ
+
+oz.RollingMinλ( Values, Size)
+
+Creates the Minimum for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates the minimum for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to take the minimum of.
+
+Size (required)
+
+The number of values to find the minimum of that include and precede the current value
+
+```
+=oz.RollingMinλ({5,3,4,6,2,7}, 3)
+```
+
+The workbook help shows 5,3,3,3,2,2.
+
+Previous name: nabla.f.RollingMinλ.
+
+### oz.RollingSumλ
+
+oz.RollingSumλ( Values, Size)
+
+Creates totals for preceding values of a set size moving from beginning to end over a row of values.
+
+Creates totals for preceding values of a set size moving from beginning to end over a row of values
+
+Parameters:
+
+Values (required)
+
+A row of values to be totalled.
+
+Size (required)
+
+The number of values to total that include and precede the current value
+
+```
+=oz.RollingSumλ(SEQUENCE(, 5), 3)
+```
+
+The workbook help shows 1,3,6,9,12.
+
+Previous name: nabla.f.RollingSumλ.
+
+### oz.SumContainsλ
+
+oz.SumContainsλ(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])
+
+Creates a row of totals for each row in an array where its labels contain a letter, word, or phrase
+
+Creates a row of column totals for each row in an array where its labels contain a unique letter, word, or phrase.
+
+See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.
+
+Parameters:
+
+ValuesToFilter (required)
+
+An array of values to be filtered
+
+ValueLabels (required)
+
+An array containing the values' labels
+
+FilterByText (required)
+
+A unique letter, word or phrase to find contained in ValueLabels
+
+IgnoreCase? (optional)
+
+A flag to determine if Text's case is important. Default is TRUE
+
+```
+=oz.SumContainsλ( Array, Labels, "CAPEX" )
+```
+
+Previous name: nabla.f.SumContainsλ.
+
+### oz.SumPeriodsλ
+
+oz.SumPeriodsλ( Values, Dates, PeriodStarts)
+
+Groups and totals all columns in a Values array by period resulting in one column for each period
+
+Summarises values where each value column is for one day into one column for each period.
+
+See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.
+
+Parameters:
+
+Values (required)
+
+A two dimensional array/range containing values to be summed whereeach column is for a specific day
+
+Dates (required)
+
+A row of dates providing the date for each Values column
+
+PeriodStarts (required)
+
+A row of period start dates
+
+```
+=oz.SumPeriodsλ({1,2,3,4;4,3,2,1;10,20,30,40}, {1,2,3,4}, {1,3})
+```
+
+The workbook help shows 03, 07.
+
+Previous name: nabla.f.SumPeriodsλ.
+
+### oz.Amortiseλ
+
+oz.Amortiseλ( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])
+
+Creates a corkscrew amortisation schedule
+
+Creates an amortisation schedule array for one or more loans. Payments are assumed monthly. Each month lands in the period holding its start. Flows add up; balances show the first opening and last closing. Periods without a loan month are nil. Use LabelAmortiseλ() to apply labels to this function's results: Use SumAmortiseλ() to apply totals to this function's results:
+
+Parameters:
+
+Principals (required)
+
+Loan/debt amounts.
+
+APRs (required)
+
+Annual Percentage Rates for interest.
+
+Terms (required)
+
+Number of months for loans/debts.
+
+StartDates (required)
+
+Dates debts are issued.
+
+Timeline (optional)
+
+A row of period start dates. If omitted, a monthly timeline is added
+
+FinalPeriodEnd (optional)
+
+The day after the last period ends. Needs Timeline, and only moves money where its periods are shorter than a month. Otherwise, the last period follows the preceding interval, using calendar months for monthly or longer intervals.
+
+```
+=oz.Amortiseλ(10000, 5%, 4 * 12, "2026-07-01")
+```
+
+Previous name: nabla.f.Amortiseλ.
+
+### oz.LabelAmortiseλ
+
+oz.LabelAmortiseλ(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])
+
+Create labels for Amortiseλ
+
+Create row labels for the amortisation schedule array produced by Amortiseλ
+
+Parameters:
+
+LoanNames (required)
+
+Names or descriptions of each loan in the amortisation schedule produced by Amortiseλ
+
+LoanAmounts (optional)
+
+Amount borrowed
+
+LoanAPRs (optional)
+
+Annual Percentage Interest Rate
+
+LoanTerms (optional)
+
+Number of months to repay
+
+```
+=oz.LabelAmortiseλ(tblLoans[Loan Name])
+```
+
+Previous name: nabla.f.LabelAmortiseλ.
+
+### oz.SumAmortiseλ
+
+oz.SumAmortiseλ(AmortisationSchedule)
+
+Create row totals for Amortiseλ
+
+Parameters:
+
+AmortisationSchedule (required)
+
+An array produced by Amortiseλ
+
+```
+=oz.SumAmortiseλ(AmortisationSchedule)
+```
+
+Previous name: nabla.f.SumAmortiseλ.
+
+### oz.Depreciateλ
+
+oz.Depreciateλ(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])
+
+Create a block of CAPEX, Opening Balance, Depreciation Values, and Book Value for each asset
+
+Creates an array of CAPEX, depreciation, and book values for a model's timeline
+
+Note: The methods used here differ from Excel's functions in several ways. Please see webpage for details.
+
+Parameters:
+
+InitialValues (required)
+
+The purchase values of each asset to depreciate
+
+InServiceDates (required)
+
+The dates from which to start depreciating each asset
+
+LifeInYears (required)
+
+The whole number of years over which to depreciate each asset. More than 0 and no more than 100. A date here is not a life: the arguments read InitialValues, InServiceDates, LifeInYears, Timeline.
+
+Timeline (required)
+
+The model's timeline or a row of period start dates. Timeline can be any interval: days, weeks, months, quarters or years
+
+SalvageValues (optional, Default = 0)
+
+The book values of each asset after fully depreciated.
+
+DisposalDates (optional, Default = End of life)
+
+The dates on which the assets are removed from the books. A disposal before the end of life writes the remaining book value off in that month.
+
+DisposalCosts (optional, Default = 0)
+
+The costs of removing each asset from the books, charged in the disposal period.
+
+Methods (optional, Default = SLN)
+
+The desired depreciation method. Must be one of these method codes:
+
+- SLN=Straight Line Depreciation
+- SYD=Sum of Year's Digits
+- DB =Declining Balance
+- DDB=Double Declining Balance
+- VDB=Variable Declining Balance
+- DV =Diminishing balance at 200% of straight line. Salvage value ignored
+- PC =Straight line, whole years. Salvage value ignored
+
+Factors (optional, Default = 2)
+
+Only applicable to DDB and VDB methods.
+
+Previous name: nabla.f.Depreciateλ.
+
+### oz.LabelDepreciateλ
+
+oz.LabelDepreciateλ( AssetNames)
+
+Create labels for Depreciateλ
+
+Create row labels for the depreciation schedule array produced by Depreciateλ
+
+Parameters:
+
+AssetNames (required)
+
+The names or descriptions of each asset in the depreciation schedule produced by Depreciateλ
+
+```
+=oz.LabelDepreciateλ(tblAssets[Asset Name])
+```
+
+Previous name: nabla.f.LabelDepreciateλ.
+
+### oz.SumDepreciateλ
+
+oz.SumDepreciateλ(DepreciationSchedule)
+
+Create row totals for Depreciateλ
+
+Parameters:
+
+DepreciationSchedule (required)
+
+An array produced by Depreciateλ
+
+```
+=oz.SumDepreciateλ(DepreciationSchedule)
+```
+
+Previous name: nabla.f.SumDepreciateλ.
+
+### oz.Allocateλ
+
+oz.Allocateλ(Amounts, [FromInterval], [ToInterval])
+
+Divide one or more amounts equally across smaller periods
+
+Note: When a From Period's amount does not divide evenly to the 1/100 for all To Periods', the last To Period contains the necessary adjustment.
+
+Parameters:
+
+Amounts (required)
+
+One amount or a row of amounts to allocate.
+
+FromInterval
+
+(Optional Default=Y) The larger interval in Q=Quarters or Y=Years
+
+ToInterval
+
+(Optional Default=M) The smaller interval in W=Weeks, M=Months, or Q=Quarters
+
+```
+=oz.Allocateλ({999.99, 2000}, "Y", "Q")
+```
+
+The workbook help shows 250,250,250,249.99,500,500,500,500.
+
+Previous name: nabla.f.Allocateλ.
+
+### oz.PeriodDiffλ
+
+oz.PeriodDiffλ(StartDate, EndDate, Interval)
+
+Determine the number of periods between two dates.
+
+Note: This improves on, and corrects problems w/Excel's deprecated DATEDIF() function.
+
+Parameters:
+
+StartDate (required)
+
+Start Date.
+
+EndDate (required)
+
+End Date
+
+Interval (required)
+
+W=Week, M=Month, Q=Quarter, Y=Year.
+
+```
+=oz.PeriodDiffλ("2026-01-01", "2026-04-15", "Q")
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.f.PeriodDiffλ.
+
+### oz.SLNλ
+
+oz.SLNλ(Cost, Salvage, Life)
+
+Straight Line depreciation method for one asset or asset class.
+
+Straight Line Depreciation Method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value and end of life
+
+Life (required)
+
+Asset's useful life in years.
+
+```
+=oz.SLNλ(1000, 100, 5)
+```
+
+The workbook help shows 180,180,180,180,180.
+
+Previous name: nabla.f.SLNλ.
+
+### oz.SYDλ
+
+oz.SYDλ(Cost, Salvage, Life)
+
+Sum-of-years' digits depreciation method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value and end of life
+
+Life (required)
+
+Asset's useful life in years.
+
+```
+=oz.SYDλ(1000, 100, 5)
+```
+
+The workbook help shows 300,240,180,120,60.
+
+Previous name: nabla.f.SYDλ.
+
+### oz.DBλ
+
+oz.DBλ(Cost, Salvage, Life, [Months])
+
+Fixed declining balance depreciation method for one asset or asset class.
+
+Fixed declining balance depreciation method for one asset or asset class
+
+Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DB calculation. The final value makes total depreciation equal Cost minus Salvage. Months applies to the first of those earlier values; no extra final period is added. A one-year life returns Cost minus Salvage, regardless of Months.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Months (optional)
+
+Number of months in the first year to depreciate.
+
+```
+=oz.DBλ(1000, 100, 5)
+```
+
+The workbook help shows 369.00,232.84,146.92,92.71,58.53.
+
+Previous name: nabla.f.DBλ.
+
+### oz.DDBλ
+
+oz.DDBλ(Cost, Salvage, Life, [Factor])
+
+Double-declining balance depreciation method for one asset or asset class.
+
+Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DDB calculation. The final value makes total depreciation equal Cost minus Salvage. A one-year life returns Cost minus Salvage, regardless of Factor.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Factor
+
+(Optional Default=2) Rate at which the balance declines.
+
+```
+=oz.DDBλ(1000, 100, 5)
+```
+
+The workbook help shows 400.00,240.00,144.00,86.40,29.60.
+
+Previous name: nabla.f.DDBλ.
+
+### oz.VDBλ
+
+oz.VDBλ(Cost, Salvage, Life, [Factor], [No_Switch])
+
+Variable declining balance depreciation method for one asset or asset class.
+
+Parameters:
+
+Cost (required)
+
+Asset's initial cost.
+
+Salvage (required)
+
+Asset's value at the end of its life. May be 0.
+
+Life (required)
+
+Asset's useful life in years.
+
+Factor
+
+(Optional Default=2) Rate at which the balance declines.
+
+No_Switch
+
+(Optional Default=FALSE) Switch to straight-line depreciation when depreciation is greater than the declining balance calculation.
+
+```
+=oz.VDBλ(1000, 100, 5, 1.5, TRUE)
+```
+
+The workbook help shows 300.00,210.00,147.00,102.90,72.03.
+
+Previous name: nabla.f.VDBλ.
+
+### oz.AmortiseλDV
+
+Provides extended data validation of arguments for Amortiseλ()
+
+Previous name: nabla.f.AmortiseλDV.
+
+### oz.CorkscrewλDV
+
+Provides extended data validation of arguments for Corkscrewλ.
+
+Previous name: nabla.f.CorkscrewλDV.
+
+### oz.DepreciateλDV
+
+Provides extended data validation of arguments for Depreciateλ
+
+Previous name: nabla.f.DepreciateλDV.
+
+### oz.TimelineOffsetλ
+
+oz.TimelineOffsetλ(Date, Timeline)
+
+Determines how many periods one array is offset from the timeline
+
+Determines in which period, relative to the timeline's start and interval, a date falls within.
+
+Parameters:
+
+Date (required)
+
+A starting date
+
+Timeline (required)
+
+A model's timeline (Row of period start dates)
+
+```
+=oz.TimelineOffsetλ("15/8/2026", EDATE("1/7/2026", SEQUENCE( , 12, 0)))
+```
+
+The workbook help shows 1.
+
+```
+=oz.TimelineOffsetλ("15/8/2025", EDATE("1/7/2026", SEQUENCE( , 12, 0)))
+```
+
+The workbook help shows -11.
+
+Previous name: nabla.f.TimelineOffsetλ.
+
+### oz.TimelinePositionλ
+
+oz.TimelinePositionλ(Array, Timeline, Offset)
+
+Crops an array based on a model's timeline
+
+Position an array relative to the model's timeline
+
+Note: Timelines can be vertical or horizontal. Whichever way the timeline goes, the array must match.
+
+Parameters:
+
+Array (required)
+
+The array to be positioned relative to a model's timeline
+
+Timeline (required)
+
+A model's timeline
+
+Offset (required)
+
+The number of rows or columns to start placing the array within the timeline
+
+```
+=oz.TimelinePositionλ(SEQUENCE(3,3), EDATE("1/7/2026", SEQUENCE( , 12, 0)), 12)
+```
+
+Previous name: nabla.f.TimelinePositionλ.
+
+### oz.FilterContainsλ
+
+oz.FilterContainsλ( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )
+
+Filter an array by another array that contains specific text
+
+Filter an array by another array that contains specific text.
+
+See also: Excel 365 now has REGEXTEST and REGEXEXTRACT for pattern matching.
+
+Parameters:
+
+ArrayToFilter (required)
+
+An array to be filtered
+
+FilterByArray (required)
+
+An array containing text to use as a filter
+
+FilterByText (required)
+
+A text string to find in FilterByArray
+
+IgnoreCase? (optional)
+
+A flag to determine if Text's case is important. Default is TRUE
+
+```
+=oz.FilterContainsλ( {"Joe", "Sally", "Cat"}, {"H1", "H2", "A1"}, "A" )
+```
+
+The workbook help shows "Cat".
+
+Previous name: nabla.f.FilterContainsλ.
+
+### oz.RangeToDAλ
+
+oz.RangeToDAλ( Cell, [Rows], [Columns])
+
+Create a dynamic array from a static range
+
+See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
+
+Parameters:
+
+Cell (required)
+
+The upper left cell of a range to convert
+
+Rows (optional)
+
+The number of rows for dynamic array. Defaults to 1.
+
+Columns (optional)
+
+The number of columns for dynamic array. Defaults to 1.
+
+```
+=oz.RangeToDAλ( A1, , 12)
+```
+
+Previous name: nabla.f.RangeToDAλ.
+
+### oz.PeriodStartλ
+
+oz.PeriodStartλ(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)
+
+Determine when the period containing a date of interest starts
+
+Determine when the period containing a date of interest starts.
+
+Parameters:
+
+AnyPeriodStart (required)
+
+Any start date within a timeline.
+
+MonthsPerPeriod (required)
+
+Number of months in each period
+
+DateOfInterest (required)
+
+A date for which we want to know the start of the period containing it.
+
+```
+=oz.PeriodStartλ("2026-07-01", 3, "2026-10-15")
+```
+
+The workbook help shows 2026-10-01.
+
+Previous name: nabla.f.PeriodStartλ.
+
+### oz.DiminishingValueλ
+
+oz.DiminishingValueλ(Cost, Life)
+
+Diminishing-balance depreciation schedule at 200% of the straight-line rate, writing the residual off in the final period. A modelling schedule, not a tax calculation.
+
+Parameters:
+
+Cost (required)
+
+Asset's cost.
+
+Life (required)
+
+Asset's effective life in years.
+
+```
+=oz.DiminishingValueλ(1000, 5)
+```
+
+The workbook help shows 400.00,240.00,144.00,86.40,129.60.
+
+Previous name: nabla.f.DiminishingValueλ.
+
+### oz.PrimeCostλ
+
+oz.PrimeCostλ(Cost, Life)
+
+Straight-line depreciation schedule for one asset or asset class, in whole years. A modelling schedule, not a tax calculation.
+
+Parameters:
+
+Cost (required)
+
+Asset's cost.
+
+Life (required)
+
+Asset's effective life in years.
+
+```
+=oz.PrimeCostλ(1000, 5)
+```
+
+The workbook help shows 200.00,200.00,200.00,200.00,200.00.
+
+Previous name: nabla.f.PrimeCostλ.
+
+### oz.GSTAddλ
+
+oz.GSTAddλ(Amounts, [Rate])
+
+Adds GST to one or more GST-exclusive amounts.
+
+Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.
+
+Parameters:
+
+Amounts (required)
+
+One or more GST-exclusive amounts.
+
+Rate (optional, Default = 0.1)
+
+GST rate as a fraction.
+
+```
+=oz.GSTAddλ(100)
+```
+
+The workbook help shows 110.
+
+Previous name: nabla.f.GSTAddλ.
+
+### oz.GSTExtractλ
+
+oz.GSTExtractλ(Amounts, [Rate])
+
+Returns the GST contained in one or more GST-inclusive amounts.
+
+Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.
+
+Parameters:
+
+Amounts (required)
+
+One or more GST-inclusive amounts.
+
+Rate (optional, Default = 0.1)
+
+GST rate as a fraction.
+
+```
+=oz.GSTExtractλ(110)
+```
+
+The workbook help shows 10.
+
+Previous name: nabla.f.GSTExtractλ.
+
+### oz.LeaseLiabilityλ
+
+oz.LeaseLiabilityλ(Payments, Rate, [InAdvance])
+
+Present value of the lease payments that are not paid at the commencement date
+
+Present value of the lease payments that are not paid at the commencement date.
+
+Note: AASB 16 paragraph 26 measures the lease liability at the present value of the lease payments not paid at the commencement date, discounted at the interest rate implicit in the lease where that rate can be readily determined and at the lessee's incremental borrowing rate where it cannot. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and excluded from the liability. Add a payment made at or before commencement to the right-of-use asset cost instead. Rate is per period. Convert an effective annual rate with PeriodRateλ(AnnualRate, PeriodsPerYear). Divide a nominal annual rate by PeriodsPerYear only when its compounding periods match the payments. Include an amount expected to be payable under a residual value guarantee, or the exercise price of a purchase option, in the final period where paragraph 27 brings it into the lease payments. IRRλ() over the same cash flows gives an implicit rate per year; convert it to the rate per period, (1 + annual) ^ (1 / 12) - 1 for months, before passing it here. Arithmetic only: this does not determine the lease term, decide what is a lease payment, or decide whether the arrangement contains a lease. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+Payments (required)
+
+One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period, not per year.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first supplied payment is paid at the measurement date.
+
+```
+=oz.LeaseLiabilityλ({100,100,100}, 0.05)
+```
+
+The workbook help shows 272.32.
+
+### oz.LeaseScheduleλ
+
+oz.LeaseScheduleλ(Payments, Rate, [InAdvance])
+
+Unwinds an AASB 16 lease liability: opening, payment, interest and closing for each period
+
+Unwinds an AASB 16 lease liability over its term.
+
+Note: Returns four rows: opening liability, payment, interest, closing liability. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and is excluded from both the opening liability and the payment row. Each remaining payment follows one period of interest, so closing is opening plus interest less payment and the last closing balance is nil. The result has one fewer column for payments in advance; a sole measurement-date payment returns one zero column. The opening balance is LeaseLiabilityλ() on the same arguments. Pair this with ROUScheduleλ() for the asset that sits opposite it: the two together give the front-loaded expense profile AASB 16 produces. Arithmetic only, on the payments and rate you supply.
+
+Parameters:
+
+Payments (required)
+
+One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period, not per year.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first supplied payment is paid at the measurement date.
+
+```
+=oz.LeaseScheduleλ({100,100,100}, 0.05)
+```
+
+The workbook help shows 272.32, 185.94, 95.24; 100.00, 100.00, 100.00; 13.62, 9.30, 4.76; 185.94, 95.24, 0.00.
+
+### oz.LeaseRemeasureλ
+
+oz.LeaseRemeasureλ(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])
+
+Remeasures an AASB 16 lease liability for revised payments and adjusts the right-of-use asset
+
+Remeasures a lease liability for revised payments and adjusts the asset.
+
+Note: Returns four rows: revised lease liability, adjustment, revised right-of-use asset, amount recognised in profit or loss. AASB 16 paragraph 42(b) remeasures the liability where future payments change because an index or a rate used to determine them has changed, and only when the cash flows change. Paragraph 43 keeps the discount rate unchanged for that revision, and uses a revised rate only where the change arises from a floating interest rate, so pass the original rate unless it is the rate itself that moved. When InAdvance is TRUE, the first revised payment is paid at the remeasurement date and excluded from the revised liability. Paragraph 39 takes the remeasurement to the right-of-use asset, and where that asset is reduced to nil any further reduction goes to profit or loss: row four carries that remainder, negative, because it is a credit. Arithmetic only. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+RevisedPayments (required)
+
+Revised lease payments for the remaining term, one per period, positive. Include a payment made at the remeasurement date first when InAdvance is TRUE.
+
+Rate (required)
+
+Discount rate per period. Unchanged, unless a floating rate moved.
+
+CarryingLiability (required)
+
+Lease liability before remeasurement and before any payment due that day. Do not deduct the first revised payment.
+
+CarryingROU (required)
+
+Right-of-use asset carried immediately before the remeasurement.
+
+InAdvance (optional, Default = FALSE)
+
+TRUE when the first revised payment is paid at the remeasurement date.
+
+```
+=oz.LeaseRemeasureλ({110,110}, 0.05, 185.94, 181.55)
+```
+
+The workbook help shows 204.54; 18.60; 200.15; 0.00.
+
+### oz.ROUScheduleλ
+
+oz.ROUScheduleλ(Cost, Periods)
+
+Straight-line right-of-use asset schedule: opening, depreciation and closing for each period
+
+Depreciates a right-of-use asset in a straight line over the lease term.
+
+Note: Returns three rows: opening carrying amount, depreciation, closing carrying amount. AASB 16 paragraph 24 measures the asset at cost, comprising the initial lease liability, lease payments made at or before the commencement date less incentives received, initial direct costs, and an estimate of dismantling and restoration costs. Add those up yourself and pass the total as Cost. Depreciate over the lease term where ownership does not transfer, and over the useful life where it does. Cost and Periods are single values, not arrays. Arithmetic only. AASB 16 compilation checked 24 August 2026.
+
+Parameters:
+
+Cost (required)
+
+Initial carrying amount of the right-of-use asset.
+
+Periods (required)
+
+Number of periods to depreciate over, at least 1.
+
+```
+=oz.ROUScheduleλ(300, 3)
+```
+
+The workbook help shows 300, 200, 100; 100, 100, 100; 200, 100, 0.
+
+### oz.PeriodRateλ
+
+oz.PeriodRateλ(AnnualRate, [PeriodsPerYear])
+
+Converts an effective annual rate to the equivalent rate per period, the rate the lease functions take
+
+Converts an effective annual rate to the equivalent rate per period.
+
+Note: (1 + AnnualRate) ^ (1 / PeriodsPerYear) - 1, so compounding the result PeriodsPerYear times gives the annual rate back. This is the rate per period that LeaseLiabilityλ(), LeaseScheduleλ() and LeaseRemeasureλ() take. It is for an effective annual rate. A nominal annual percentage rate that compounds monthly is already APR / 12 per month, so do not pass it here; EFFECT() turns one into the effective rate this takes. AnnualRateλ() is the inverse.
+
+Parameters:
+
+AnnualRate (required)
+
+Effective annual rate, or a row or column of them.
+
+PeriodsPerYear (optional, Default = 12)
+
+Periods in a year: 12 for months, 4 for quarters, 1 for years.
+
+```
+=oz.PeriodRateλ(0.05)
+```
+
+The workbook help shows 0.004074.
+
+### oz.AnnualRateλ
+
+oz.AnnualRateλ(PeriodRate, [PeriodsPerYear])
+
+Converts a rate per period to the effective annual rate, the inverse of PeriodRateλ
+
+Converts a rate per period to the effective annual rate.
+
+Note: (1 + PeriodRate) ^ PeriodsPerYear - 1, the inverse of PeriodRateλ(). Use it to state a rate per period, such as a lease rate solved per month, as the annual figure a reader expects.
+
+Parameters:
+
+PeriodRate (required)
+
+Rate per period, or a row or column of them.
+
+PeriodsPerYear (optional, Default = 12)
+
+Periods in a year: 12 for months, 4 for quarters, 1 for years.
+
+```
+=oz.AnnualRateλ(0.01)
+```
+
+The workbook help shows 0.126825.
+
+### oz.DayCountRateλ
+
+oz.DayCountRateλ(Timeline, APR, [Convention], [EndDates])
+
+Interest rate for each period of a timeline under a day count convention: 30/360, Actual/360, Actual/365 or Actual/Actual
+
+Interest rate for each period of a timeline under a day count convention.
+
+Note: Returns a row with one rate per timeline period, whichever way the timeline runs: APR multiplied by the days in the period and divided by the days in the year, as the convention counts them. Pass the result to DebtSculptVariableλ() or DebtSculptVariableLRVλ() as PeriodRates in place of a flat twelfth of the APR. With start dates each period runs from its date to the day before the next, and the last period takes its length from the one before it; with end dates each runs from the day after the previous date to its own, and the first period is the one inferred. A gap of 28 days or more is read as whole calendar months, a shorter one as days. 30/360 counts every month as 30 days on the European rule. Under Actual/Actual each calendar year uses its own length as the denominator (the ISDA rule), including periods spanning several years.
+
+Parameters:
+
+Timeline (required)
+
+A row or column of period dates, at least two, evenly spaced.
+
+APR (required)
+
+Annual percentage rate, one value or one per period.
+
+Convention (optional, Default = 3)
+
+1 = 30/360, 2 = Actual/360, 3 = Actual/365, 4 = Actual/Actual. Any other number is #VALUE!.
+
+EndDates (optional, Default = FALSE)
+
+TRUE, or a number other than 0, when the timeline shows period end dates rather than start dates.
+
+```
+=oz.DayCountRateλ(EDATE(DATE(2026,7,1), {0,1,2}), 0.073)
+```
+
+The workbook help shows 0.0062, 0.0062, 0.0060.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Financial formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutFinancial λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-aboutfinancial
+- oz.Corkscrew λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrew
+- oz.CorkScrewReversal λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewreversal
+- oz.IntOnInt λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-intonint
+- oz.IRR λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-irr
+- oz.Movement λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-movement
+- oz.Reversal λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-reversal
+- oz.Cumulative λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-cumulative
+- oz.RollingAvg λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingavg
+- oz.RollingMax λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmax
+- oz.RollingMin λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingmin
+- oz.RollingSum λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rollingsum
+- oz.SumContains λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumcontains
+- oz.SumPeriods λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumperiods
+- oz.Amortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise
+- oz.LabelAmortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-labelamortise
+- oz.SumAmortise λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumamortise
+- oz.Depreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciate
+- oz.LabelDepreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-labeldepreciate
+- oz.SumDepreciate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sumdepreciate
+- oz.Allocate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-allocate
+- oz.PeriodDiff λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-perioddiff
+- oz.SLN λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-sln
+- oz.SYD λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-syd
+- oz.DB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-db
+- oz.DDB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-ddb
+- oz.VDB λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-vdb
+- oz.Amortise λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortisedv
+- oz.Corkscrew λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-corkscrewdv
+- oz.Depreciate λ DV: https://duguid.com.au/tools/ozzit/functions/financial/#oz-depreciatedv
+- oz.TimelineOffset λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineoffset
+- oz.TimelinePosition λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-timelineposition
+- oz.FilterContains λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-filtercontains
+- oz.RangeToDA λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rangetoda
+- oz.PeriodStart λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodstart
+- oz.DiminishingValue λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-diminishingvalue
+- oz.PrimeCost λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-primecost
+- oz.GSTAdd λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstadd
+- oz.GSTExtract λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract
+- oz.LeaseLiability λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseliability
+- oz.LeaseSchedule λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseschedule
+- oz.LeaseRemeasure λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-leaseremeasure
+- oz.ROUSchedule λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-rouschedule
+- oz.PeriodRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-periodrate
+- oz.AnnualRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-annualrate
+- oz.DayCountRate λ: https://duguid.com.au/tools/ozzit/functions/financial/#oz-daycountrate
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

@@ -8,6 +8,13 @@
   <updated>2026-10-20T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Ozzit page names the current release, v3.5.0: 143 functions and 5 help…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-ecead79a1a976202</id>
+    <updated>2026-10-20T00:00:00Z</updated>
+    <summary>The Ozzit page names the current release, v3.5.0: 143 functions and 5 help tables in a 462,490-byte workbook, now under Apache-2.0. Its 10 worked examples were rerun in Excel against that workbook and return the same results. Six new module pages document all 148 named formulas with their signatures, parameters, notes and worked examples, read from each function’s help in the release source.</summary>
+  </entry>
+  <entry>
     <title>The ATO benchmarks, trust distribution, Payday Super timing and Aus Accounting…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />
     <id>https://duguid.com.au/changelog/#entry-85e1ca09ff0cc98b</id>

@@ -1,0 +1,847 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Ozzit Financial functions: Excel LAMBDA reference</title>
+  <meta name="description" content="Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Ozzit Financial functions: Excel LAMBDA reference" />
+  <meta property="og:description" content="Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/ozzit/functions/financial/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ozzit Financial functions: Excel LAMBDA reference" />
+  <meta name="twitter:description" content="Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/ozzit/functions/financial/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/ozzit/functions/financial/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/tools/ozzit/">Ozzit Excel LAMBDA library</a></li>
+            <li aria-current="page">Ozzit Financial functions</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>Ozzit Financial functions</h1>
+          <p class="lead-note">The 46 Financial formulas cover amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases. Each entry gives the signature, parameters and worked example from the workbook’s own help.</p>
+          <p class="release-meta">Release v3.5.0. Read from the released <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Financial.txt">Financial formula source</a>, which the workbook compiles.</p>
+          <p class="page-meta">Published 20 October 2026. Last reviewed 20 October 2026.</p>
+        </div>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#use">Using these functions</a>
+          <a href="#functions">All 46 functions</a>
+          <a href="#modules">Other modules</a>
+        </nav>
+        <div class="article-body">
+
+          <section id="use">
+            <h2>Using these functions</h2>
+            <p>Each function is a native Excel <code>LAMBDA</code> in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.</p>
+            <p>The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. <a href="/tools/ozzit/#download">Download the workbook and check its hash</a>.</p>
+          </section>
+
+          <section id="functions">
+            <h2>All 46 functions</h2>
+<!-- Generated by site-tools build_ozzit_reference from the function reference. -->
+<ul class="function-index__list" role="list">
+  <li><a href="#oz-aboutfinancial"><code>oz.AboutFinancial<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-corkscrew"><code>oz.Corkscrew<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-corkscrewreversal"><code>oz.CorkScrewReversal<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-intonint"><code>oz.IntOnInt<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-irr"><code>oz.IRR<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-movement"><code>oz.Movement<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-reversal"><code>oz.Reversal<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-cumulative"><code>oz.Cumulative<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rollingavg"><code>oz.RollingAvg<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rollingmax"><code>oz.RollingMax<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rollingmin"><code>oz.RollingMin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rollingsum"><code>oz.RollingSum<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-sumcontains"><code>oz.SumContains<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-sumperiods"><code>oz.SumPeriods<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-amortise"><code>oz.Amortise<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-labelamortise"><code>oz.LabelAmortise<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-sumamortise"><code>oz.SumAmortise<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-depreciate"><code>oz.Depreciate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-labeldepreciate"><code>oz.LabelDepreciate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-sumdepreciate"><code>oz.SumDepreciate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-allocate"><code>oz.Allocate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-perioddiff"><code>oz.PeriodDiff<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-sln"><code>oz.SLN<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-syd"><code>oz.SYD<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-db"><code>oz.DB<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-ddb"><code>oz.DDB<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-vdb"><code>oz.VDB<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-amortisedv"><code>oz.Amortise<span class="function-symbol">λ</span>DV</code></a></li>
+  <li><a href="#oz-corkscrewdv"><code>oz.Corkscrew<span class="function-symbol">λ</span>DV</code></a></li>
+  <li><a href="#oz-depreciatedv"><code>oz.Depreciate<span class="function-symbol">λ</span>DV</code></a></li>
+  <li><a href="#oz-timelineoffset"><code>oz.TimelineOffset<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-timelineposition"><code>oz.TimelinePosition<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-filtercontains"><code>oz.FilterContains<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rangetoda"><code>oz.RangeToDA<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-periodstart"><code>oz.PeriodStart<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-diminishingvalue"><code>oz.DiminishingValue<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-primecost"><code>oz.PrimeCost<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-gstadd"><code>oz.GSTAdd<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-gstextract"><code>oz.GSTExtract<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-leaseliability"><code>oz.LeaseLiability<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-leaseschedule"><code>oz.LeaseSchedule<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-leaseremeasure"><code>oz.LeaseRemeasure<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-rouschedule"><code>oz.ROUSchedule<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-periodrate"><code>oz.PeriodRate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-annualrate"><code>oz.AnnualRate<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-daycountrate"><code>oz.DayCountRate<span class="function-symbol">λ</span></code></a></li>
+</ul>
+  <section id="oz-aboutfinancial" aria-labelledby="oz-aboutfinancial-name">
+    <h3 id="oz-aboutfinancial-name"><code>oz.AboutFinancial<span class="function-symbol">λ</span></code></h3>
+    <p>Displays this module's repository URL and function list</p>
+    <p class="field-note">Previous name: <code>nabla.f.About<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-corkscrew" aria-labelledby="oz-corkscrew-name">
+    <h3 id="oz-corkscrew-name"><code>oz.Corkscrew<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Corkscrew<span class="function-symbol">λ</span>( Opening, Flow1, [Flow2], [Flow3], [Flow4])</code></p>
+    <p>Create a corkscrew section that sums the opening balance and up to 4 independent flows.</p>
+    <p>Create a corkscrew section that sums the opening balance and up to 4 independent flows</p>
+    <p class="field-note">Note: All flows are added. To subtract a flow make it negative.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Corkscrewλ">
+      <div><dt><code>Opening</code> (required)</dt><dd>First periods opening balance.</dd></div>
+      <div><dt><code>Flow1</code> (required)</dt><dd>First row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow2</code> (optional)</dt><dd>Second row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow3</code> (optional)</dt><dd>Third row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow4</code> (optional)</dt><dd>Fourth row (or array of rows) of numbers to include in period totals.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Corkscrewλ"><code>=oz.Corkscrew<span class="function-symbol">λ</span>(0, Sequence(1,5))</code></pre>
+    <p>The workbook help shows <code>00, 01, 03, 06, 10; 01, 02, 03, 04, 05; 01, 03, 06, 10, 15</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Corkscrew<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-corkscrewreversal" aria-labelledby="oz-corkscrewreversal-name">
+    <h3 id="oz-corkscrewreversal-name"><code>oz.CorkScrewReversal<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CorkScrewReversal<span class="function-symbol">λ</span>( Opening, ReversalFlags, Flow1, [Flow2], [Flow3], [Flow4])</code></p>
+    <p>Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter.</p>
+    <p>Create a corkscrew where the opening balance is reversed in the next period based on a timing parameter</p>
+    <p class="field-note">Note: All flows are added. To subtract a flow make it negative.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CorkScrewReversalλ">
+      <div><dt><code>Opening</code> (required)</dt><dd>First periods opening balance.</dd></div>
+      <div><dt><code>ReversalFlags</code> (required)</dt><dd>A row of ones and blanks (or zeros) indicating when to reverse period totals.</dd></div>
+      <div><dt><code>Flow1</code> (required)</dt><dd>First row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow2</code> (optional)</dt><dd>Second row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow3</code> (optional)</dt><dd>Third row (or array of rows) of numbers to include in period totals.</dd></div>
+      <div><dt><code>Flow4</code> (optional)</dt><dd>Fourth row (or array of rows) of numbers to include in period totals.</dd></div>
+    </dl>
+    <p class="field-note">Previous name: <code>nabla.f.CorkScrewReversal<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-intonint" aria-labelledby="oz-intonint-name">
+    <h3 id="oz-intonint-name"><code>oz.IntOnInt<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.IntOnInt<span class="function-symbol">λ</span>( Principal, Rate)</code></p>
+    <p>Calculate Interest on Interest. Use to determine amount needed to cover debt plus interest on debt</p>
+    <p>Calculate Interest on Interest (Interest only). Use to determine amount needed to cover borrowed interest</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.IntOnIntλ">
+      <div><dt><code>Principal</code> (required)</dt><dd>Principal amount</dd></div>
+      <div><dt><code>Rate</code> (required)</dt><dd>Interest percentage rate. For years, APR. For months, APR/12</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.IntOnIntλ"><code>=oz.IntOnInt<span class="function-symbol">λ</span>( 1000, 5%)</code></pre>
+    <p>The workbook help shows <code>52.63</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.IntOnInt<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-irr" aria-labelledby="oz-irr-name">
+    <h3 id="oz-irr-name"><code>oz.IRR<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.IRR<span class="function-symbol">λ</span>( Values, Dates)</code></p>
+    <p>Calculates IRR, correcting for when the first investment is not in the first period</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.IRRλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A row of investments (negative) and distributions (positive) The first entry, whether 0 or an amount, must be for the first period in the timeline and subsequent entries must correspond to periods in the timeline; however, the timeline may extend beyond the end of values.</dd></div>
+      <div><dt><code>Dates</code> (required)</dt><dd>A timeline for when each investment is made</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.IRRλ"><code>=EDATE("1/7/2026", SEQUENCE(,24, 0))</code></pre>
+    <p>The workbook help shows <code>Dates</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.IRRλ"><code>={0,0,-150,0,-100,10,20,30,40,50,60,70}</code></pre>
+    <p>The workbook help shows <code>Values</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 3: oz.IRRλ"><code>=oz.IRR<span class="function-symbol">λ</span>( Values, Dates)</code></pre>
+    <p>The workbook help shows <code>25%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.IRR<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-movement" aria-labelledby="oz-movement-name">
+    <h3 id="oz-movement-name"><code>oz.Movement<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Movement<span class="function-symbol">λ</span>( [BeginningValues], Values)</code></p>
+    <p>Create a row of differences from column to column</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Movementλ">
+      <div><dt><code>BeginningValues</code> (optional)</dt><dd>Defaults to 0. One value, or one per row of Values</dd></div>
+      <div><dt><code>Values</code> (required)</dt><dd>A row (or rows) of values to compare column to column</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Movementλ"><code>=oz.Movement<span class="function-symbol">λ</span>(,{100,110,130,100})</code></pre>
+    <p>The workbook help shows <code>100,10,20,-30</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Movement<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-reversal" aria-labelledby="oz-reversal-name">
+    <h3 id="oz-reversal-name"><code>oz.Reversal<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Reversal<span class="function-symbol">λ</span>( [OpeningValue], RowToReverse)</code></p>
+    <p>Create a row that reverses input values in the next period.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Reversalλ">
+      <div><dt><code>OpeningValue</code> (optional)</dt><dd>Defaults to 0</dd></div>
+      <div><dt><code>RowToReverse</code> (required)</dt><dd>A row of values to reverse the following periods</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Reversalλ"><code>=oz.Reversal<span class="function-symbol">λ</span>( , {100,110,130})</code></pre>
+    <p>The workbook help shows <code>0,-100,-110</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Reversal<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-cumulative" aria-labelledby="oz-cumulative-name">
+    <h3 id="oz-cumulative-name"><code>oz.Cumulative<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Cumulative<span class="function-symbol">λ</span>( Totals, [OpeningBalance])</code></p>
+    <p>Creates a row or column of cumulative totals from a total row or column</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Cumulativeλ">
+      <div><dt><code>Totals</code> (required)</dt><dd>A row or column of totals from which to run cumulative totals</dd></div>
+      <div><dt><code>OpeningBalance</code> (optional)</dt><dd>A starting balance. This defaults to 0</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Cumulativeλ"><code>=oz.Cumulative<span class="function-symbol">λ</span>(Sequence(,3))</code></pre>
+    <p>The workbook help shows <code>1,3,6</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Cumulative<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rollingavg" aria-labelledby="oz-rollingavg-name">
+    <h3 id="oz-rollingavg-name"><code>oz.RollingAvg<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RollingAvg<span class="function-symbol">λ</span>( Values, Size)</code></p>
+    <p>Creates Averages for preceding values of a set size moving from beginning to end over a row of values.</p>
+    <p>Creates averages for preceding values of a set size moving from beginning to end over a row of values</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RollingAvgλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A row of values to be averaged.</dd></div>
+      <div><dt><code>Size</code> (required)</dt><dd>The number of values to average that include and precede the current value</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RollingAvgλ"><code>=oz.RollingAvg<span class="function-symbol">λ</span>(SEQUENCE(, 5), 3)</code></pre>
+    <p>The workbook help shows <code>1,1.5,2,3,4</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.RollingAvg<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rollingmax" aria-labelledby="oz-rollingmax-name">
+    <h3 id="oz-rollingmax-name"><code>oz.RollingMax<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RollingMax<span class="function-symbol">λ</span>( Values, Size)</code></p>
+    <p>Creates the maximum for preceding values of a set size moving from beginning to end over a row of values.</p>
+    <p>Creates the maximum for preceding values of a set size moving from beginning to end over a row of values</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RollingMaxλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A row of values to be maxed.</dd></div>
+      <div><dt><code>Size</code> (required)</dt><dd>The number of values to find the maximum of that include and precede the current value</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RollingMaxλ"><code>=oz.RollingMax<span class="function-symbol">λ</span>({5,3,4,6,3,7}, 3)</code></pre>
+    <p>The workbook help shows <code>5,5,5,6,6,7</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.RollingMax<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rollingmin" aria-labelledby="oz-rollingmin-name">
+    <h3 id="oz-rollingmin-name"><code>oz.RollingMin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RollingMin<span class="function-symbol">λ</span>( Values, Size)</code></p>
+    <p>Creates the Minimum for preceding values of a set size moving from beginning to end over a row of values.</p>
+    <p>Creates the minimum for preceding values of a set size moving from beginning to end over a row of values</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RollingMinλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A row of values to take the minimum of.</dd></div>
+      <div><dt><code>Size</code> (required)</dt><dd>The number of values to find the minimum of that include and precede the current value</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RollingMinλ"><code>=oz.RollingMin<span class="function-symbol">λ</span>({5,3,4,6,2,7}, 3)</code></pre>
+    <p>The workbook help shows <code>5,3,3,3,2,2</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.RollingMin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rollingsum" aria-labelledby="oz-rollingsum-name">
+    <h3 id="oz-rollingsum-name"><code>oz.RollingSum<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RollingSum<span class="function-symbol">λ</span>( Values, Size)</code></p>
+    <p>Creates totals for preceding values of a set size moving from beginning to end over a row of values.</p>
+    <p>Creates totals for preceding values of a set size moving from beginning to end over a row of values</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RollingSumλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A row of values to be totalled.</dd></div>
+      <div><dt><code>Size</code> (required)</dt><dd>The number of values to total that include and precede the current value</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RollingSumλ"><code>=oz.RollingSum<span class="function-symbol">λ</span>(SEQUENCE(, 5), 3)</code></pre>
+    <p>The workbook help shows <code>1,3,6,9,12</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.RollingSum<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-sumcontains" aria-labelledby="oz-sumcontains-name">
+    <h3 id="oz-sumcontains-name"><code>oz.SumContains<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SumContains<span class="function-symbol">λ</span>(ValuesToFilter, ValueLabels, FilterByText, [IgnoreCase?])</code></p>
+    <p>Creates a row of totals for each row in an array where its labels contain a letter, word, or phrase</p>
+    <p>Creates a row of column totals for each row in an array where its labels contain a unique letter, word, or phrase.</p>
+    <p class="field-note">See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SumContainsλ">
+      <div><dt><code>ValuesToFilter</code> (required)</dt><dd>An array of values to be filtered</dd></div>
+      <div><dt><code>ValueLabels</code> (required)</dt><dd>An array containing the values' labels</dd></div>
+      <div><dt><code>FilterByText</code> (required)</dt><dd>A unique letter, word or phrase to find contained in ValueLabels</dd></div>
+      <div><dt><code>IgnoreCase?</code> (optional)</dt><dd>A flag to determine if Text's case is important. Default is TRUE</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SumContainsλ"><code>=oz.SumContains<span class="function-symbol">λ</span>( Array, Labels, "CAPEX" )</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.SumContains<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-sumperiods" aria-labelledby="oz-sumperiods-name">
+    <h3 id="oz-sumperiods-name"><code>oz.SumPeriods<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SumPeriods<span class="function-symbol">λ</span>( Values, Dates, PeriodStarts)</code></p>
+    <p>Groups and totals all columns in a Values array by period resulting in one column for each period</p>
+    <p>Summarises values where each value column is for one day into one column for each period.</p>
+    <p class="field-note">See also: Excel 365 now has GROUPBY and PIVOTBY for formula-driven aggregation.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SumPeriodsλ">
+      <div><dt><code>Values</code> (required)</dt><dd>A two dimensional array/range containing values to be summed whereeach column is for a specific day</dd></div>
+      <div><dt><code>Dates</code> (required)</dt><dd>A row of dates providing the date for each Values column</dd></div>
+      <div><dt><code>PeriodStarts</code> (required)</dt><dd>A row of period start dates</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SumPeriodsλ"><code>=oz.SumPeriods<span class="function-symbol">λ</span>({1,2,3,4;4,3,2,1;10,20,30,40}, {1,2,3,4}, {1,3})</code></pre>
+    <p>The workbook help shows <code>03, 07</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.SumPeriods<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-amortise" aria-labelledby="oz-amortise-name">
+    <h3 id="oz-amortise-name"><code>oz.Amortise<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Amortise<span class="function-symbol">λ</span>( Principals, APRs, Terms, StartDates, [Timeline], [FinalPeriodEnd])</code></p>
+    <p>Creates a corkscrew amortisation schedule</p>
+    <p>Creates an amortisation schedule array for one or more loans. Payments are assumed monthly. Each month lands in the period holding its start. Flows add up; balances show the first opening and last closing. Periods without a loan month are nil. Use LabelAmortise<span class="function-symbol">λ</span>() to apply labels to this function's results: Use SumAmortise<span class="function-symbol">λ</span>() to apply totals to this function's results:</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Amortiseλ">
+      <div><dt><code>Principals</code> (required)</dt><dd>Loan/debt amounts.</dd></div>
+      <div><dt><code>APRs</code> (required)</dt><dd>Annual Percentage Rates for interest.</dd></div>
+      <div><dt><code>Terms</code> (required)</dt><dd>Number of months for loans/debts.</dd></div>
+      <div><dt><code>StartDates</code> (required)</dt><dd>Dates debts are issued.</dd></div>
+      <div><dt><code>Timeline</code> (optional)</dt><dd>A row of period start dates. If omitted, a monthly timeline is added</dd></div>
+      <div><dt><code>FinalPeriodEnd</code> (optional)</dt><dd>The day after the last period ends. Needs Timeline, and only moves money where its periods are shorter than a month. Otherwise, the last period follows the preceding interval, using calendar months for monthly or longer intervals.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Amortiseλ"><code>=oz.Amortise<span class="function-symbol">λ</span>(10000, 5%, 4 * 12, "2026-07-01")</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.Amortise<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-labelamortise" aria-labelledby="oz-labelamortise-name">
+    <h3 id="oz-labelamortise-name"><code>oz.LabelAmortise<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.LabelAmortise<span class="function-symbol">λ</span>(LoanNames, [LoanAmounts], [LoanAPRs], [LoanTerms])</code></p>
+    <p>Create labels for Amortise<span class="function-symbol">λ</span></p>
+    <p>Create row labels for the amortisation schedule array produced by Amortise<span class="function-symbol">λ</span></p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.LabelAmortiseλ">
+      <div><dt><code>LoanNames</code> (required)</dt><dd>Names or descriptions of each loan in the amortisation schedule produced by Amortise<span class="function-symbol">λ</span></dd></div>
+      <div><dt><code>LoanAmounts</code> (optional)</dt><dd>Amount borrowed</dd></div>
+      <div><dt><code>LoanAPRs</code> (optional)</dt><dd>Annual Percentage Interest Rate</dd></div>
+      <div><dt><code>LoanTerms</code> (optional)</dt><dd>Number of months to repay</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.LabelAmortiseλ"><code>=oz.LabelAmortise<span class="function-symbol">λ</span>(tblLoans[Loan Name])</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.LabelAmortise<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-sumamortise" aria-labelledby="oz-sumamortise-name">
+    <h3 id="oz-sumamortise-name"><code>oz.SumAmortise<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SumAmortise<span class="function-symbol">λ</span>(AmortisationSchedule)</code></p>
+    <p>Create row totals for Amortise<span class="function-symbol">λ</span></p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SumAmortiseλ">
+      <div><dt><code>AmortisationSchedule</code> (required)</dt><dd>An array produced by Amortise<span class="function-symbol">λ</span></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SumAmortiseλ"><code>=oz.SumAmortise<span class="function-symbol">λ</span>(AmortisationSchedule)</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.SumAmortise<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-depreciate" aria-labelledby="oz-depreciate-name">
+    <h3 id="oz-depreciate-name"><code>oz.Depreciate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Depreciate<span class="function-symbol">λ</span>(InitialValues, InServiceDates, LifeInYears, Timeline, [SalvageValues], [DisposalDates], [DisposalCosts], [Methods], [Factors])</code></p>
+    <p>Create a block of CAPEX, Opening Balance, Depreciation Values, and Book Value for each asset</p>
+    <p>Creates an array of CAPEX, depreciation, and book values for a model's timeline</p>
+    <p class="field-note">Note: The methods used here differ from Excel's functions in several ways. Please see webpage for details.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Depreciateλ">
+      <div><dt><code>InitialValues</code> (required)</dt><dd>The purchase values of each asset to depreciate</dd></div>
+      <div><dt><code>InServiceDates</code> (required)</dt><dd>The dates from which to start depreciating each asset</dd></div>
+      <div><dt><code>LifeInYears</code> (required)</dt><dd>The whole number of years over which to depreciate each asset. More than 0 and no more than 100. A date here is not a life: the arguments read InitialValues, InServiceDates, LifeInYears, Timeline.</dd></div>
+      <div><dt><code>Timeline</code> (required)</dt><dd>The model's timeline or a row of period start dates. Timeline can be any interval: days, weeks, months, quarters or years</dd></div>
+      <div><dt><code>SalvageValues</code> (optional, Default = 0)</dt><dd>The book values of each asset after fully depreciated.</dd></div>
+      <div><dt><code>DisposalDates</code> (optional, Default = End of life)</dt><dd>The dates on which the assets are removed from the books. A disposal before the end of life writes the remaining book value off in that month.</dd></div>
+      <div><dt><code>DisposalCosts</code> (optional, Default = 0)</dt><dd>The costs of removing each asset from the books, charged in the disposal period.</dd></div>
+      <div><dt><code>Methods</code> (optional, Default = SLN)</dt><dd>The desired depreciation method. Must be one of these method codes:<ul><li>SLN=Straight Line Depreciation</li><li>SYD=Sum of Year's Digits</li><li>DB =Declining Balance</li><li>DDB=Double Declining Balance</li><li>VDB=Variable Declining Balance</li><li>DV =Diminishing balance at 200% of straight line. Salvage value ignored</li><li>PC =Straight line, whole years. Salvage value ignored</li></ul></dd></div>
+      <div><dt><code>Factors</code> (optional, Default = 2)</dt><dd>Only applicable to DDB and VDB methods.</dd></div>
+    </dl>
+    <p class="field-note">Previous name: <code>nabla.f.Depreciate<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-labeldepreciate" aria-labelledby="oz-labeldepreciate-name">
+    <h3 id="oz-labeldepreciate-name"><code>oz.LabelDepreciate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.LabelDepreciate<span class="function-symbol">λ</span>( AssetNames)</code></p>
+    <p>Create labels for Depreciate<span class="function-symbol">λ</span></p>
+    <p>Create row labels for the depreciation schedule array produced by Depreciate<span class="function-symbol">λ</span></p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.LabelDepreciateλ">
+      <div><dt><code>AssetNames</code> (required)</dt><dd>The names or descriptions of each asset in the depreciation schedule produced by Depreciate<span class="function-symbol">λ</span></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.LabelDepreciateλ"><code>=oz.LabelDepreciate<span class="function-symbol">λ</span>(tblAssets[Asset Name])</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.LabelDepreciate<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-sumdepreciate" aria-labelledby="oz-sumdepreciate-name">
+    <h3 id="oz-sumdepreciate-name"><code>oz.SumDepreciate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SumDepreciate<span class="function-symbol">λ</span>(DepreciationSchedule)</code></p>
+    <p>Create row totals for Depreciate<span class="function-symbol">λ</span></p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SumDepreciateλ">
+      <div><dt><code>DepreciationSchedule</code> (required)</dt><dd>An array produced by Depreciate<span class="function-symbol">λ</span></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SumDepreciateλ"><code>=oz.SumDepreciate<span class="function-symbol">λ</span>(DepreciationSchedule)</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.SumDepreciate<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-allocate" aria-labelledby="oz-allocate-name">
+    <h3 id="oz-allocate-name"><code>oz.Allocate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.Allocate<span class="function-symbol">λ</span>(Amounts, [FromInterval], [ToInterval])</code></p>
+    <p>Divide one or more amounts equally across smaller periods</p>
+    <p class="field-note">Note: When a From Period's amount does not divide evenly to the 1/100 for all To Periods', the last To Period contains the necessary adjustment.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.Allocateλ">
+      <div><dt><code>Amounts</code> (required)</dt><dd>One amount or a row of amounts to allocate.</dd></div>
+      <div><dt><code>FromInterval</code></dt><dd>(Optional Default=Y) The larger interval in Q=Quarters or Y=Years</dd></div>
+      <div><dt><code>ToInterval</code></dt><dd>(Optional Default=M) The smaller interval in W=Weeks, M=Months, or Q=Quarters</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.Allocateλ"><code>=oz.Allocate<span class="function-symbol">λ</span>({999.99, 2000}, "Y", "Q")</code></pre>
+    <p>The workbook help shows <code>250,250,250,249.99,500,500,500,500</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Allocate<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-perioddiff" aria-labelledby="oz-perioddiff-name">
+    <h3 id="oz-perioddiff-name"><code>oz.PeriodDiff<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PeriodDiff<span class="function-symbol">λ</span>(StartDate, EndDate, Interval)</code></p>
+    <p>Determine the number of periods between two dates.</p>
+    <p class="field-note">Note: This improves on, and corrects problems w/Excel's deprecated DATEDIF() function.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PeriodDiffλ">
+      <div><dt><code>StartDate</code> (required)</dt><dd>Start Date.</dd></div>
+      <div><dt><code>EndDate</code> (required)</dt><dd>End Date</dd></div>
+      <div><dt><code>Interval</code> (required)</dt><dd>W=Week, M=Month, Q=Quarter, Y=Year.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PeriodDiffλ"><code>=oz.PeriodDiff<span class="function-symbol">λ</span>("2026-01-01", "2026-04-15", "Q")</code></pre>
+    <p>The workbook help shows <code>2</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.PeriodDiff<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-sln" aria-labelledby="oz-sln-name">
+    <h3 id="oz-sln-name"><code>oz.SLN<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SLN<span class="function-symbol">λ</span>(Cost, Salvage, Life)</code></p>
+    <p>Straight Line depreciation method for one asset or asset class.</p>
+    <p>Straight Line Depreciation Method for one asset or asset class.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SLNλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's initial cost.</dd></div>
+      <div><dt><code>Salvage</code> (required)</dt><dd>Asset's value and end of life</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's useful life in years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SLNλ"><code>=oz.SLN<span class="function-symbol">λ</span>(1000, 100, 5)</code></pre>
+    <p>The workbook help shows <code>180,180,180,180,180</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.SLN<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-syd" aria-labelledby="oz-syd-name">
+    <h3 id="oz-syd-name"><code>oz.SYD<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.SYD<span class="function-symbol">λ</span>(Cost, Salvage, Life)</code></p>
+    <p>Sum-of-years' digits depreciation method for one asset or asset class.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.SYDλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's initial cost.</dd></div>
+      <div><dt><code>Salvage</code> (required)</dt><dd>Asset's value and end of life</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's useful life in years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.SYDλ"><code>=oz.SYD<span class="function-symbol">λ</span>(1000, 100, 5)</code></pre>
+    <p>The workbook help shows <code>300,240,180,120,60</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.SYD<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-db" aria-labelledby="oz-db-name">
+    <h3 id="oz-db-name"><code>oz.DB<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DB<span class="function-symbol">λ</span>(Cost, Salvage, Life, [Months])</code></p>
+    <p>Fixed declining balance depreciation method for one asset or asset class.</p>
+    <p>Fixed declining balance depreciation method for one asset or asset class</p>
+    <p class="field-note">Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DB calculation. The final value makes total depreciation equal Cost minus Salvage. Months applies to the first of those earlier values; no extra final period is added. A one-year life returns Cost minus Salvage, regardless of Months.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DBλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's initial cost.</dd></div>
+      <div><dt><code>Salvage</code> (required)</dt><dd>Asset's value at the end of its life. May be 0.</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's useful life in years.</dd></div>
+      <div><dt><code>Months</code> (optional)</dt><dd>Number of months in the first year to depreciate.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DBλ"><code>=oz.DB<span class="function-symbol">λ</span>(1000, 100, 5)</code></pre>
+    <p>The workbook help shows <code>369.00,232.84,146.92,92.71,58.53</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.DB<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-ddb" aria-labelledby="oz-ddb-name">
+    <h3 id="oz-ddb-name"><code>oz.DDB<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DDB<span class="function-symbol">λ</span>(Cost, Salvage, Life, [Factor])</code></p>
+    <p>Double-declining balance depreciation method for one asset or asset class.</p>
+    <p class="field-note">Note: For a positive whole-number Life, returns Life schedule values. The first Life-1 values use Excel's DDB calculation. The final value makes total depreciation equal Cost minus Salvage. A one-year life returns Cost minus Salvage, regardless of Factor.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DDBλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's initial cost.</dd></div>
+      <div><dt><code>Salvage</code> (required)</dt><dd>Asset's value at the end of its life. May be 0.</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's useful life in years.</dd></div>
+      <div><dt><code>Factor</code></dt><dd>(Optional Default=2) Rate at which the balance declines.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DDBλ"><code>=oz.DDB<span class="function-symbol">λ</span>(1000, 100, 5)</code></pre>
+    <p>The workbook help shows <code>400.00,240.00,144.00,86.40,29.60</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.DDB<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-vdb" aria-labelledby="oz-vdb-name">
+    <h3 id="oz-vdb-name"><code>oz.VDB<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.VDB<span class="function-symbol">λ</span>(Cost, Salvage, Life, [Factor], [No_Switch])</code></p>
+    <p>Variable declining balance depreciation method for one asset or asset class.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.VDBλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's initial cost.</dd></div>
+      <div><dt><code>Salvage</code> (required)</dt><dd>Asset's value at the end of its life. May be 0.</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's useful life in years.</dd></div>
+      <div><dt><code>Factor</code></dt><dd>(Optional Default=2) Rate at which the balance declines.</dd></div>
+      <div><dt><code>No_Switch</code></dt><dd>(Optional Default=FALSE) Switch to straight-line depreciation when depreciation is greater than the declining balance calculation.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.VDBλ"><code>=oz.VDB<span class="function-symbol">λ</span>(1000, 100, 5, 1.5, TRUE)</code></pre>
+    <p>The workbook help shows <code>300.00,210.00,147.00,102.90,72.03</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.VDB<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-amortisedv" aria-labelledby="oz-amortisedv-name">
+    <h3 id="oz-amortisedv-name"><code>oz.Amortise<span class="function-symbol">λ</span>DV</code></h3>
+    <p>Provides extended data validation of arguments for Amortise<span class="function-symbol">λ</span>()</p>
+    <p class="field-note">Previous name: <code>nabla.f.Amortise<span class="function-symbol">λ</span>DV</code>.</p>
+  </section>
+  <section id="oz-corkscrewdv" aria-labelledby="oz-corkscrewdv-name">
+    <h3 id="oz-corkscrewdv-name"><code>oz.Corkscrew<span class="function-symbol">λ</span>DV</code></h3>
+    <p>Provides extended data validation of arguments for Corkscrew<span class="function-symbol">λ</span>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.Corkscrew<span class="function-symbol">λ</span>DV</code>.</p>
+  </section>
+  <section id="oz-depreciatedv" aria-labelledby="oz-depreciatedv-name">
+    <h3 id="oz-depreciatedv-name"><code>oz.Depreciate<span class="function-symbol">λ</span>DV</code></h3>
+    <p>Provides extended data validation of arguments for Depreciate<span class="function-symbol">λ</span></p>
+    <p class="field-note">Previous name: <code>nabla.f.Depreciate<span class="function-symbol">λ</span>DV</code>.</p>
+  </section>
+  <section id="oz-timelineoffset" aria-labelledby="oz-timelineoffset-name">
+    <h3 id="oz-timelineoffset-name"><code>oz.TimelineOffset<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.TimelineOffset<span class="function-symbol">λ</span>(Date, Timeline)</code></p>
+    <p>Determines how many periods one array is offset from the timeline</p>
+    <p>Determines in which period, relative to the timeline's start and interval, a date falls within.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.TimelineOffsetλ">
+      <div><dt><code>Date</code> (required)</dt><dd>A starting date</dd></div>
+      <div><dt><code>Timeline</code> (required)</dt><dd>A model's timeline (Row of period start dates)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.TimelineOffsetλ"><code>=oz.TimelineOffset<span class="function-symbol">λ</span>("15/8/2026", EDATE("1/7/2026", SEQUENCE( , 12, 0)))</code></pre>
+    <p>The workbook help shows <code>1</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.TimelineOffsetλ"><code>=oz.TimelineOffset<span class="function-symbol">λ</span>("15/8/2025", EDATE("1/7/2026", SEQUENCE( , 12, 0)))</code></pre>
+    <p>The workbook help shows <code>-11</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.TimelineOffset<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-timelineposition" aria-labelledby="oz-timelineposition-name">
+    <h3 id="oz-timelineposition-name"><code>oz.TimelinePosition<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.TimelinePosition<span class="function-symbol">λ</span>(Array, Timeline, Offset)</code></p>
+    <p>Crops an array based on a model's timeline</p>
+    <p>Position an array relative to the model's timeline</p>
+    <p class="field-note">Note: Timelines can be vertical or horizontal. Whichever way the timeline goes, the array must match.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.TimelinePositionλ">
+      <div><dt><code>Array</code> (required)</dt><dd>The array to be positioned relative to a model's timeline</dd></div>
+      <div><dt><code>Timeline</code> (required)</dt><dd>A model's timeline</dd></div>
+      <div><dt><code>Offset</code> (required)</dt><dd>The number of rows or columns to start placing the array within the timeline</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.TimelinePositionλ"><code>=oz.TimelinePosition<span class="function-symbol">λ</span>(SEQUENCE(3,3), EDATE("1/7/2026", SEQUENCE( , 12, 0)), 12)</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.TimelinePosition<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-filtercontains" aria-labelledby="oz-filtercontains-name">
+    <h3 id="oz-filtercontains-name"><code>oz.FilterContains<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.FilterContains<span class="function-symbol">λ</span>( ArrayToFilter, FilterByArray, FilterByText, [IgnoreCase?] )</code></p>
+    <p>Filter an array by another array that contains specific text</p>
+    <p>Filter an array by another array that contains specific text.</p>
+    <p class="field-note">See also: Excel 365 now has REGEXTEST and REGEXEXTRACT for pattern matching.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.FilterContainsλ">
+      <div><dt><code>ArrayToFilter</code> (required)</dt><dd>An array to be filtered</dd></div>
+      <div><dt><code>FilterByArray</code> (required)</dt><dd>An array containing text to use as a filter</dd></div>
+      <div><dt><code>FilterByText</code> (required)</dt><dd>A text string to find in FilterByArray</dd></div>
+      <div><dt><code>IgnoreCase?</code> (optional)</dt><dd>A flag to determine if Text's case is important. Default is TRUE</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.FilterContainsλ"><code>=oz.FilterContains<span class="function-symbol">λ</span>( {"Joe", "Sally", "Cat"}, {"H1", "H2", "A1"}, "A" )</code></pre>
+    <p>The workbook help shows <code>"Cat"</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.FilterContains<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-rangetoda" aria-labelledby="oz-rangetoda-name">
+    <h3 id="oz-rangetoda-name"><code>oz.RangeToDA<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RangeToDA<span class="function-symbol">λ</span>( Cell, [Rows], [Columns])</code></p>
+    <p>Create a dynamic array from a static range</p>
+    <p class="field-note">See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RangeToDAλ">
+      <div><dt><code>Cell</code> (required)</dt><dd>The upper left cell of a range to convert</dd></div>
+      <div><dt><code>Rows</code> (optional)</dt><dd>The number of rows for dynamic array. Defaults to 1.</dd></div>
+      <div><dt><code>Columns</code> (optional)</dt><dd>The number of columns for dynamic array. Defaults to 1.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RangeToDAλ"><code>=oz.RangeToDA<span class="function-symbol">λ</span>( A1, , 12)</code></pre>
+    <p class="field-note">Previous name: <code>nabla.f.RangeToDA<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-periodstart" aria-labelledby="oz-periodstart-name">
+    <h3 id="oz-periodstart-name"><code>oz.PeriodStart<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PeriodStart<span class="function-symbol">λ</span>(AnyPeriodStart, MonthsPerPeriod, DateOfInterest)</code></p>
+    <p>Determine when the period containing a date of interest starts</p>
+    <p>Determine when the period containing a date of interest starts.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PeriodStartλ">
+      <div><dt><code>AnyPeriodStart</code> (required)</dt><dd>Any start date within a timeline.</dd></div>
+      <div><dt><code>MonthsPerPeriod</code> (required)</dt><dd>Number of months in each period</dd></div>
+      <div><dt><code>DateOfInterest</code> (required)</dt><dd>A date for which we want to know the start of the period containing it.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PeriodStartλ"><code>=oz.PeriodStart<span class="function-symbol">λ</span>("2026-07-01", 3, "2026-10-15")</code></pre>
+    <p>The workbook help shows <code>2026-10-01</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.PeriodStart<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-diminishingvalue" aria-labelledby="oz-diminishingvalue-name">
+    <h3 id="oz-diminishingvalue-name"><code>oz.DiminishingValue<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DiminishingValue<span class="function-symbol">λ</span>(Cost, Life)</code></p>
+    <p>Diminishing-balance depreciation schedule at 200% of the straight-line rate, writing the residual off in the final period. A modelling schedule, not a tax calculation.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DiminishingValueλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's cost.</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's effective life in years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DiminishingValueλ"><code>=oz.DiminishingValue<span class="function-symbol">λ</span>(1000, 5)</code></pre>
+    <p>The workbook help shows <code>400.00,240.00,144.00,86.40,129.60</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.DiminishingValue<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-primecost" aria-labelledby="oz-primecost-name">
+    <h3 id="oz-primecost-name"><code>oz.PrimeCost<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PrimeCost<span class="function-symbol">λ</span>(Cost, Life)</code></p>
+    <p>Straight-line depreciation schedule for one asset or asset class, in whole years. A modelling schedule, not a tax calculation.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PrimeCostλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Asset's cost.</dd></div>
+      <div><dt><code>Life</code> (required)</dt><dd>Asset's effective life in years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PrimeCostλ"><code>=oz.PrimeCost<span class="function-symbol">λ</span>(1000, 5)</code></pre>
+    <p>The workbook help shows <code>200.00,200.00,200.00,200.00,200.00</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.PrimeCost<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-gstadd" aria-labelledby="oz-gstadd-name">
+    <h3 id="oz-gstadd-name"><code>oz.GSTAdd<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.GSTAdd<span class="function-symbol">λ</span>(Amounts, [Rate])</code></p>
+    <p>Adds GST to one or more GST-exclusive amounts.</p>
+    <p class="field-note">Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.GSTAddλ">
+      <div><dt><code>Amounts</code> (required)</dt><dd>One or more GST-exclusive amounts.</dd></div>
+      <div><dt><code>Rate</code> (optional, Default = 0.1)</dt><dd>GST rate as a fraction.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.GSTAddλ"><code>=oz.GSTAdd<span class="function-symbol">λ</span>(100)</code></pre>
+    <p>The workbook help shows <code>110</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.GSTAdd<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-gstextract" aria-labelledby="oz-gstextract-name">
+    <h3 id="oz-gstextract-name"><code>oz.GSTExtract<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.GSTExtract<span class="function-symbol">λ</span>(Amounts, [Rate])</code></p>
+    <p>Returns the GST contained in one or more GST-inclusive amounts.</p>
+    <p class="field-note">Note: The 10% default and one-eleventh extraction reflect the basic rule for a taxable supply in A New Tax System (Goods and Services Tax) Act 1999 ss 9-70 and 9-75 (source checked 20 August 2026). Recheck the current Act. These helpers apply arithmetic only: they do not decide whether a supply is taxable, GST-free, input taxed, outside the GST system, or subject to a special rule.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.GSTExtractλ">
+      <div><dt><code>Amounts</code> (required)</dt><dd>One or more GST-inclusive amounts.</dd></div>
+      <div><dt><code>Rate</code> (optional, Default = 0.1)</dt><dd>GST rate as a fraction.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.GSTExtractλ"><code>=oz.GSTExtract<span class="function-symbol">λ</span>(110)</code></pre>
+    <p>The workbook help shows <code>10</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.f.GSTExtract<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-leaseliability" aria-labelledby="oz-leaseliability-name">
+    <h3 id="oz-leaseliability-name"><code>oz.LeaseLiability<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.LeaseLiability<span class="function-symbol">λ</span>(Payments, Rate, [InAdvance])</code></p>
+    <p>Present value of the lease payments that are not paid at the commencement date</p>
+    <p>Present value of the lease payments that are not paid at the commencement date.</p>
+    <p class="field-note">Note: AASB 16 paragraph 26 measures the lease liability at the present value of the lease payments not paid at the commencement date, discounted at the interest rate implicit in the lease where that rate can be readily determined and at the lessee's incremental borrowing rate where it cannot. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and excluded from the liability. Add a payment made at or before commencement to the right-of-use asset cost instead. Rate is per period. Convert an effective annual rate with PeriodRate<span class="function-symbol">λ</span>(AnnualRate, PeriodsPerYear). Divide a nominal annual rate by PeriodsPerYear only when its compounding periods match the payments. Include an amount expected to be payable under a residual value guarantee, or the exercise price of a purchase option, in the final period where paragraph 27 brings it into the lease payments. IRR<span class="function-symbol">λ</span>() over the same cash flows gives an implicit rate per year; convert it to the rate per period, (1 + annual) ^ (1 / 12) - 1 for months, before passing it here. Arithmetic only: this does not determine the lease term, decide what is a lease payment, or decide whether the arrangement contains a lease. AASB 16 compilation checked 24 August 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.LeaseLiabilityλ">
+      <div><dt><code>Payments</code> (required)</dt><dd>One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.</dd></div>
+      <div><dt><code>Rate</code> (required)</dt><dd>Discount rate per period, not per year.</dd></div>
+      <div><dt><code>InAdvance</code> (optional, Default = FALSE)</dt><dd>TRUE when the first supplied payment is paid at the measurement date.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.LeaseLiabilityλ"><code>=oz.LeaseLiability<span class="function-symbol">λ</span>({100,100,100}, 0.05)</code></pre>
+    <p>The workbook help shows <code>272.32</code>.</p>
+  </section>
+  <section id="oz-leaseschedule" aria-labelledby="oz-leaseschedule-name">
+    <h3 id="oz-leaseschedule-name"><code>oz.LeaseSchedule<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.LeaseSchedule<span class="function-symbol">λ</span>(Payments, Rate, [InAdvance])</code></p>
+    <p>Unwinds an AASB 16 lease liability: opening, payment, interest and closing for each period</p>
+    <p>Unwinds an AASB 16 lease liability over its term.</p>
+    <p class="field-note">Note: Returns four rows: opening liability, payment, interest, closing liability. When InAdvance is TRUE, the first supplied payment is paid at the measurement date and is excluded from both the opening liability and the payment row. Each remaining payment follows one period of interest, so closing is opening plus interest less payment and the last closing balance is nil. The result has one fewer column for payments in advance; a sole measurement-date payment returns one zero column. The opening balance is LeaseLiability<span class="function-symbol">λ</span>() on the same arguments. Pair this with ROUSchedule<span class="function-symbol">λ</span>() for the asset that sits opposite it: the two together give the front-loaded expense profile AASB 16 produces. Arithmetic only, on the payments and rate you supply.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.LeaseScheduleλ">
+      <div><dt><code>Payments</code> (required)</dt><dd>One row or one column of lease payments, one per period, entered positive. Include the measurement-date payment first when InAdvance is TRUE.</dd></div>
+      <div><dt><code>Rate</code> (required)</dt><dd>Discount rate per period, not per year.</dd></div>
+      <div><dt><code>InAdvance</code> (optional, Default = FALSE)</dt><dd>TRUE when the first supplied payment is paid at the measurement date.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.LeaseScheduleλ"><code>=oz.LeaseSchedule<span class="function-symbol">λ</span>({100,100,100}, 0.05)</code></pre>
+    <p>The workbook help shows <code>272.32, 185.94,  95.24; 100.00, 100.00, 100.00; 13.62,   9.30,   4.76; 185.94,  95.24,   0.00</code>.</p>
+  </section>
+  <section id="oz-leaseremeasure" aria-labelledby="oz-leaseremeasure-name">
+    <h3 id="oz-leaseremeasure-name"><code>oz.LeaseRemeasure<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.LeaseRemeasure<span class="function-symbol">λ</span>(RevisedPayments, Rate, CarryingLiability, CarryingROU, [InAdvance])</code></p>
+    <p>Remeasures an AASB 16 lease liability for revised payments and adjusts the right-of-use asset</p>
+    <p>Remeasures a lease liability for revised payments and adjusts the asset.</p>
+    <p class="field-note">Note: Returns four rows: revised lease liability, adjustment, revised right-of-use asset, amount recognised in profit or loss. AASB 16 paragraph 42(b) remeasures the liability where future payments change because an index or a rate used to determine them has changed, and only when the cash flows change. Paragraph 43 keeps the discount rate unchanged for that revision, and uses a revised rate only where the change arises from a floating interest rate, so pass the original rate unless it is the rate itself that moved. When InAdvance is TRUE, the first revised payment is paid at the remeasurement date and excluded from the revised liability. Paragraph 39 takes the remeasurement to the right-of-use asset, and where that asset is reduced to nil any further reduction goes to profit or loss: row four carries that remainder, negative, because it is a credit. Arithmetic only. AASB 16 compilation checked 24 August 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.LeaseRemeasureλ">
+      <div><dt><code>RevisedPayments</code> (required)</dt><dd>Revised lease payments for the remaining term, one per period, positive. Include a payment made at the remeasurement date first when InAdvance is TRUE.</dd></div>
+      <div><dt><code>Rate</code> (required)</dt><dd>Discount rate per period. Unchanged, unless a floating rate moved.</dd></div>
+      <div><dt><code>CarryingLiability</code> (required)</dt><dd>Lease liability before remeasurement and before any payment due that day. Do not deduct the first revised payment.</dd></div>
+      <div><dt><code>CarryingROU</code> (required)</dt><dd>Right-of-use asset carried immediately before the remeasurement.</dd></div>
+      <div><dt><code>InAdvance</code> (optional, Default = FALSE)</dt><dd>TRUE when the first revised payment is paid at the remeasurement date.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.LeaseRemeasureλ"><code>=oz.LeaseRemeasure<span class="function-symbol">λ</span>({110,110}, 0.05, 185.94, 181.55)</code></pre>
+    <p>The workbook help shows <code>204.54; 18.60; 200.15; 0.00</code>.</p>
+  </section>
+  <section id="oz-rouschedule" aria-labelledby="oz-rouschedule-name">
+    <h3 id="oz-rouschedule-name"><code>oz.ROUSchedule<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ROUSchedule<span class="function-symbol">λ</span>(Cost, Periods)</code></p>
+    <p>Straight-line right-of-use asset schedule: opening, depreciation and closing for each period</p>
+    <p>Depreciates a right-of-use asset in a straight line over the lease term.</p>
+    <p class="field-note">Note: Returns three rows: opening carrying amount, depreciation, closing carrying amount. AASB 16 paragraph 24 measures the asset at cost, comprising the initial lease liability, lease payments made at or before the commencement date less incentives received, initial direct costs, and an estimate of dismantling and restoration costs. Add those up yourself and pass the total as Cost. Depreciate over the lease term where ownership does not transfer, and over the useful life where it does. Cost and Periods are single values, not arrays. Arithmetic only. AASB 16 compilation checked 24 August 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ROUScheduleλ">
+      <div><dt><code>Cost</code> (required)</dt><dd>Initial carrying amount of the right-of-use asset.</dd></div>
+      <div><dt><code>Periods</code> (required)</dt><dd>Number of periods to depreciate over, at least 1.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ROUScheduleλ"><code>=oz.ROUSchedule<span class="function-symbol">λ</span>(300, 3)</code></pre>
+    <p>The workbook help shows <code>300, 200, 100; 100, 100, 100; 200, 100,   0</code>.</p>
+  </section>
+  <section id="oz-periodrate" aria-labelledby="oz-periodrate-name">
+    <h3 id="oz-periodrate-name"><code>oz.PeriodRate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PeriodRate<span class="function-symbol">λ</span>(AnnualRate, [PeriodsPerYear])</code></p>
+    <p>Converts an effective annual rate to the equivalent rate per period, the rate the lease functions take</p>
+    <p>Converts an effective annual rate to the equivalent rate per period.</p>
+    <p class="field-note">Note: (1 + AnnualRate) ^ (1 / PeriodsPerYear) - 1, so compounding the result PeriodsPerYear times gives the annual rate back. This is the rate per period that LeaseLiability<span class="function-symbol">λ</span>(), LeaseSchedule<span class="function-symbol">λ</span>() and LeaseRemeasure<span class="function-symbol">λ</span>() take. It is for an effective annual rate. A nominal annual percentage rate that compounds monthly is already APR / 12 per month, so do not pass it here; EFFECT() turns one into the effective rate this takes. AnnualRate<span class="function-symbol">λ</span>() is the inverse.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PeriodRateλ">
+      <div><dt><code>AnnualRate</code> (required)</dt><dd>Effective annual rate, or a row or column of them.</dd></div>
+      <div><dt><code>PeriodsPerYear</code> (optional, Default = 12)</dt><dd>Periods in a year: 12 for months, 4 for quarters, 1 for years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PeriodRateλ"><code>=oz.PeriodRate<span class="function-symbol">λ</span>(0.05)</code></pre>
+    <p>The workbook help shows <code>0.004074</code>.</p>
+  </section>
+  <section id="oz-annualrate" aria-labelledby="oz-annualrate-name">
+    <h3 id="oz-annualrate-name"><code>oz.AnnualRate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.AnnualRate<span class="function-symbol">λ</span>(PeriodRate, [PeriodsPerYear])</code></p>
+    <p>Converts a rate per period to the effective annual rate, the inverse of PeriodRate<span class="function-symbol">λ</span></p>
+    <p>Converts a rate per period to the effective annual rate.</p>
+    <p class="field-note">Note: (1 + PeriodRate) ^ PeriodsPerYear - 1, the inverse of PeriodRate<span class="function-symbol">λ</span>(). Use it to state a rate per period, such as a lease rate solved per month, as the annual figure a reader expects.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.AnnualRateλ">
+      <div><dt><code>PeriodRate</code> (required)</dt><dd>Rate per period, or a row or column of them.</dd></div>
+      <div><dt><code>PeriodsPerYear</code> (optional, Default = 12)</dt><dd>Periods in a year: 12 for months, 4 for quarters, 1 for years.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.AnnualRateλ"><code>=oz.AnnualRate<span class="function-symbol">λ</span>(0.01)</code></pre>
+    <p>The workbook help shows <code>0.126825</code>.</p>
+  </section>
+  <section id="oz-daycountrate" aria-labelledby="oz-daycountrate-name">
+    <h3 id="oz-daycountrate-name"><code>oz.DayCountRate<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DayCountRate<span class="function-symbol">λ</span>(Timeline, APR, [Convention], [EndDates])</code></p>
+    <p>Interest rate for each period of a timeline under a day count convention: 30/360, Actual/360, Actual/365 or Actual/Actual</p>
+    <p>Interest rate for each period of a timeline under a day count convention.</p>
+    <p class="field-note">Note: Returns a row with one rate per timeline period, whichever way the timeline runs: APR multiplied by the days in the period and divided by the days in the year, as the convention counts them. Pass the result to DebtSculptVariable<span class="function-symbol">λ</span>() or DebtSculptVariableLRV<span class="function-symbol">λ</span>() as PeriodRates in place of a flat twelfth of the APR. With start dates each period runs from its date to the day before the next, and the last period takes its length from the one before it; with end dates each runs from the day after the previous date to its own, and the first period is the one inferred. A gap of 28 days or more is read as whole calendar months, a shorter one as days. 30/360 counts every month as 30 days on the European rule. Under Actual/Actual each calendar year uses its own length as the denominator (the ISDA rule), including periods spanning several years.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DayCountRateλ">
+      <div><dt><code>Timeline</code> (required)</dt><dd>A row or column of period dates, at least two, evenly spaced.</dd></div>
+      <div><dt><code>APR</code> (required)</dt><dd>Annual percentage rate, one value or one per period.</dd></div>
+      <div><dt><code>Convention</code> (optional, Default = 3)</dt><dd>1 = 30/360, 2 = Actual/360, 3 = Actual/365, 4 = Actual/Actual. Any other number is #VALUE!.</dd></div>
+      <div><dt><code>EndDates</code> (optional, Default = FALSE)</dt><dd>TRUE, or a number other than 0, when the timeline shows period end dates rather than start dates.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DayCountRateλ"><code>=oz.DayCountRate<span class="function-symbol">λ</span>(EDATE(DATE(2026,7,1), {0,1,2}), 0.073)</code></pre>
+    <p>The workbook help shows <code>0.0062, 0.0062, 0.0060</code>.</p>
+  </section>
+          </section>
+
+          <section id="modules">
+            <h2>Other modules</h2>
+            <ul class="related">
+              <li><a href="/tools/ozzit/functions/dates/">Ozzit Dates functions</a></li>
+              <li><a href="/tools/ozzit/functions/essentials/">Ozzit Essentials functions</a></li>
+              <li><a href="/tools/ozzit/functions/ratios/">Ozzit Ratios functions</a></li>
+              <li><a href="/tools/ozzit/functions/utilities/">Ozzit Utilities functions</a></li>
+              <li><a href="/tools/ozzit/functions/debt/">Ozzit Debt functions</a></li>
+              <li><a href="/tools/ozzit/">Ozzit overview, download and release verification</a></li>
+            </ul>
+          </section>
+
+          <p class="byline">
+            Written by Ryan Duguid in his own time and on his own equipment.
+            He is a Provisional CA ANZ Member.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/financial/#article",
+        "url": "https://duguid.com.au/tools/ozzit/functions/financial/",
+        "headline": "Ozzit Financial functions: Excel LAMBDA reference",
+        "name": "Ozzit Financial functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/financial/#webpage",
+        "url": "https://duguid.com.au/tools/ozzit/functions/financial/",
+        "name": "Ozzit Financial functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 46 Ozzit Financial Excel LAMBDA functions: amortisation, depreciation, corkscrews, IRR, rolling sums, GST and AASB 16 leases.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/tools/ozzit/functions/financial/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/financial/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Ozzit Excel LAMBDA library", "item": "https://duguid.com.au/tools/ozzit/" },
+          { "@type": "ListItem", "position": 4, "name": "Ozzit Financial functions", "item": "https://duguid.com.au/tools/ozzit/functions/financial/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>

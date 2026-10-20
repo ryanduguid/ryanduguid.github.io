@@ -264,7 +264,7 @@ fn geo_leftovers_surface() {
 
     for (rel, review, modified) in [
         ("rates/index.html", "17 October 2026", "2026-10-17"),
-        ("evaluate/index.html", "26 September 2026", "2026-09-26"),
+        ("evaluate/index.html", "20 October 2026", "2026-10-20"),
     ] {
         let html = read_text(root(), rel);
         let tree = core::parse_structure(&html);
@@ -296,7 +296,7 @@ fn geo_leftovers_surface() {
     for (url, lastmod) in [
         ("https://duguid.com.au/rates/", "2026-10-17"),
         ("https://duguid.com.au/tools/coal-lsl-levy/", "2026-09-24"),
-        ("https://duguid.com.au/evaluate/", "2026-09-26"),
+        ("https://duguid.com.au/evaluate/", "2026-10-20"),
     ] {
         assert_eq!(core::sitemap_lastmods(url, root()).unwrap(), [lastmod]);
     }
@@ -445,8 +445,8 @@ fn public_contracts_page_and_site_checks() {
         .filter(|p| !contracts::NOT_INDEXED.contains(&core::rel(p, root()).as_str()))
         .count();
     assert_eq!(
-        indexed, 55,
-        "expected 55 canonical HTML pages, found {indexed}"
+        indexed, 61,
+        "expected 61 canonical HTML pages, found {indexed}"
     );
     let metadata: Vec<String> = paths
         .iter()
@@ -1620,6 +1620,6 @@ fn rendered_checked_tree_command_output() {
         "{stdout}"
     );
     assert!(stdout.ends_with(&format!(
-        "checked sitemap.xml (55 URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
+        "checked sitemap.xml (61 URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
     )));
 }

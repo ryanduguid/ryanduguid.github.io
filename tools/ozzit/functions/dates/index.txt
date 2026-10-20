@@ -1,0 +1,614 @@
+# Ozzit Dates functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/dates/
+
+> Parameters and worked examples for 15 Ozzit Dates Excel LAMBDA functions: periods, timelines, schedules, overlaps and Australian financial year labels.
+
+# Ozzit Dates functions
+
+The 15 Dates formulas cover periods, timelines, schedules, overlaps and Australian financial year labels. Each entry gives the signature, parameters and worked example from the workbook’s own help.
+
+Release v3.5.0. Read from the released Dates formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each function is a native Excel LAMBDA in the free Ozzit workbook. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 15 functions
+
+- oz.AboutDatesλ
+- oz.CountDOWλ
+- oz.IsBetweenλ
+- oz.IsOccurrenceDateλ
+- oz.OverLapDaysλ
+- oz.PeriodLabelλ
+- oz.Periodsλ
+- oz.ScheduleRatesλ
+- oz.ScheduleRatesByItemsλ
+- oz.ScheduleValuesλ
+- oz.ScheduleValuesByItemsλ
+- oz.Timelineλ
+- oz.FinancialYearλ
+- oz.RateAtDateλ
+- oz.DateDifλ
+
+### oz.AboutDatesλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.d.Aboutλ.
+
+### oz.CountDOWλ
+
+oz.CountDOWλ(Starts, Ends, DayOfWeek)
+
+Count instances of a specific day of the week between two dates.
+
+Parameters:
+
+Starts (required)
+
+One of more start dates (text or numeric) in a row or column
+
+Ends (required)
+
+End dates (text or numeric) for each start date
+
+DayOfWeek (required)
+
+1=Sunday, 7=Saturday.
+
+```
+=oz.CountDOWλ("23/7/2026", "11/8/2026",  1)
+```
+
+The workbook help shows 3.
+
+Previous name: nabla.d.CountDOWλ.
+
+### oz.IsBetweenλ
+
+oz.IsBetweenλ(Values, Low, High, [Inclusive])
+
+Determine if a value is between a lower and upper limit
+
+Determine if a value is between a lower and upper limit.
+
+Parameters:
+
+Values (required)
+
+one or more values to compare.
+
+Low (required)
+
+The lower limit that the value(s) must be greater than
+
+High (required)
+
+The higher limit that the value(s) must be less than
+
+Inclusive (optional)
+
+TRUE: Value(s) can be equal to Low and/or High (default)
+
+```
+=oz.IsBetweenλ(1, 2, 4)
+```
+
+The workbook help shows FALSE.
+
+```
+=oz.IsBetweenλ(Today(), Today(), Today()+1)
+```
+
+The workbook help shows TRUE.
+
+```
+=oz.IsBetweenλ("B", "B", "D", FALSE)
+```
+
+The workbook help shows FALSE.
+
+Previous name: nabla.d.IsBetweenλ.
+
+### oz.IsOccurrenceDateλ
+
+oz.IsOccurrenceDateλ(Dates, FirstOccurrence, [LastOccurrence], [Repeats])
+
+Returns TRUE if Date passed is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
+
+Returns TRUE if a Date is when something happens. This was developed for budgeting where we have expenses that start, and sometimes repeat at regular intervals.
+
+Note: A monthly, quarterly, semi-annual or annual item that starts on the 29th, 30th or 31st falls on the last day of any shorter month.
+
+Parameters:
+
+Dates (required)
+
+Date to test. Normally this is horizontal timeline by day
+
+FirstOccurrence (required)
+
+When something that may repeat, happens for the first time.
+
+LastOccurrence (optional)
+
+When something that may repeat, happens for the last time. If omitted, it is assumed repeating items repeat forever.
+
+Repeats (optional)
+
+A code that conveys how often this thing repeats. Repeat codes are O=One time/never repeats (default) A=Annually S=Semi-Annually Q=Quarterly M=Monthly B=BiWeekly W=Weekly X=Every Workday (Monday to Friday) D=Daily
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "D")))
+```
+
+The workbook help shows 72.
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "O")))
+```
+
+The workbook help shows 01.
+
+```
+=SUM(N(oz.IsOccurrenceDateλ(SEQUENCE(,90,"1/7/2026"), "1/7/2026", "10/9/2026", "W")))
+```
+
+The workbook help shows 11.
+
+Previous name: nabla.d.IsOccurrenceDateλ.
+
+### oz.OverLapDaysλ
+
+oz.OverLapDaysλ(Period1Start, Period1End, Period2Start, Period2End)
+
+Return how many days overlap two period ranges.
+
+Count days shared between two sets of periods.
+
+Parameters:
+
+Period1Start (required)
+
+First period's start date.
+
+Period1End (required)
+
+First period's end date.
+
+Period2Start (required)
+
+Second period's start date.
+
+Period2End (required)
+
+Second period's end date.
+
+```
+=oz.OverLapDaysλ(08, 14, 10, 17)
+```
+
+The workbook help shows 5.
+
+```
+=oz.OverLapDaysλ(10, 20, 11, 18)
+```
+
+The workbook help shows 8.
+
+```
+=oz.OverLapDaysλ("17/7/2026", "25/7/2026", "7/7/2026", "18/7/2026")
+```
+
+The workbook help shows 2.
+
+Previous name: nabla.d.OverLapDaysλ.
+
+### oz.PeriodLabelλ
+
+oz.PeriodLabelλ(Date, [Interval])
+
+Creates a label for a date based on period interval
+
+Parameters:
+
+Date (required)
+
+A single date or array of date(s) where the first date is the first date of a calendar year.
+
+Interval (optional)
+
+Must be one of:
+
+- D=Daily
+- W=Weekly
+- I=Weekly (using ISO week number)
+- M=Monthly
+- Q=Quarterly
+- S=Semi-Annually
+- A or Y=Annually
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "D")
+```
+
+The workbook help shows 2026-Aug-26.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "M")
+```
+
+The workbook help shows 2026-Aug.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Q")
+```
+
+The workbook help shows 2026:Q3.
+
+```
+=oz.PeriodLabelλ(DATEVALUE("26/8/2026"), "Y")
+```
+
+The workbook help shows 2026.
+
+Previous name: nabla.d.PeriodLabelλ.
+
+### oz.Periodsλ
+
+oz.Periodsλ(Starts, Ends, [Intervals])
+
+Determine the number of periods from Starts to Date2 in Days, Weeks, Months, Quarters, or Years.
+
+Determine the number of periods from Starts to Ends inclusive. Differences to Excel's DATEDIF are: * Interval includes Weeks & Quarters * Counts the period starts crossed, so a part period at the end counts * Returns negative values if Starts is after Ends
+
+Parameters:
+
+Starts (required)
+
+First date (normally older). A single date or an array of dates.
+
+Ends (required)
+
+Second date (normally newer). A single date or an array the same shape as Starts. A single Starts or Ends is applied to every date in the other.
+
+Intervals (optional)
+
+Days, Weeks, Months (default), Quarters, or Years (D, W, M, Q, Y). One code, or an array of codes the same shape as the dates.
+
+```
+=oz.Periodsλ("31/7/2026", "15/9/2026")
+```
+
+The workbook help shows 2.
+
+```
+=oz.Periodsλ("15/9/2026", "31/7/2026")
+```
+
+The workbook help shows -2.
+
+```
+=oz.Periodsλ("15/7/2027", "16/7/2026")
+```
+
+The workbook help shows -12.
+
+```
+=oz.Periodsλ("15/7/2027", "16/7/2026", "W")
+```
+
+The workbook help shows -52.
+
+Previous name: nabla.d.Periodsλ.
+
+### oz.ScheduleRatesλ
+
+oz.ScheduleRatesλ(PeriodEnds, RateStarts, Rates)
+
+Schedule rates that persist until replaced in a timeline.
+
+Schedules rates that persist until replaced in a timeline from a schedule in a table.
+
+Note: If 2 rates are scheduled within the same period, only the last rate will be selected.
+
+Parameters:
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+RateStarts (required)
+
+A column or row of rate effective dates in any order.
+
+Rates (required)
+
+A column or row of rates associated with RateStarts.
+
+```
+=oz.ScheduleRatesλ(Timelineλ("1/7/2026",5,"W"),{46208; 46216; 46222}, {10; 20; 30})
+```
+
+The workbook help shows _,10,20,30,30.
+
+Previous name: nabla.d.ScheduleRatesλ.
+
+### oz.ScheduleRatesByItemsλ
+
+oz.ScheduleRatesByItemsλ(PeriodEnds, ItemFilter, ItemList, EffectiveList, RateList)
+
+Schedule rates that persist until replaced in a timeline for each item in a list.
+
+Schedules each item's rates by period until another rate takes effect.
+
+Note: If 2 rates are scheduled within the same period for the same item,. only the last rate will be selected.
+
+Parameters:
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+ItemFilter (required)
+
+A column of 1 or more items to filter a rate schedule by. A 'rate schedule' is a table/list where each row contains a unique item/effective date pair with a rate. An item with no rate in the schedule scores nought in every period.
+
+ItemList (required)
+
+Items in a rate schedule.
+
+EffectiveList (required)
+
+Effective dates in the rate schedule.
+
+RateList (required)
+
+Rates in a rate schedule for each item/effective date pair.
+
+```
+=oz.ScheduleRatesByItemsλ( oz.Timelineλ( "1/7/2026"), UNIQUE( tblRates[Unit]),
+tblRates[Unit], tblRates[Effective], tblRates[Rent])
+```
+
+Previous name: nabla.d.ScheduleRatesByItemsλ.
+
+### oz.ScheduleValuesλ
+
+oz.ScheduleValuesλ(PeriodStarts, PeriodEnds, Values, EffectiveDates)
+
+Schedules values in a timeline from a schedule in a table.
+
+Place values from a table into a timeline's appropriate period.
+
+Parameters:
+
+PeriodStarts (required)
+
+A row of period start dates (timeline).
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+Values (required)
+
+A column or row of values to be scheduled.
+
+EffectiveDates (required)
+
+When each value is scheduled, in the same orientation as Values.
+
+```
+=oz.ScheduleValuesλ(Timelineλ("1/7/2026"), Timelineλ("1/7/2026",,,FALSE), {1;3}, {"1/7/2026"; "15/8/2026"})
+```
+
+Previous name: nabla.d.ScheduleValuesλ.
+
+### oz.ScheduleValuesByItemsλ
+
+oz.ScheduleValuesByItemsλ(PeriodStarts, PeriodEnds, ItemFilter, ItemList, EffectiveList, ValueList)
+
+Schedule and sum values in a timeline for each item.
+
+Parameters:
+
+PeriodStarts (required)
+
+A row of period start dates (timeline).
+
+PeriodEnds (required)
+
+A row of period end dates (timeline).
+
+ItemFilter (required)
+
+A column of 1 or more items to filter a value schedule by. A 'value schedule' is a table/list where each row contains a unique item/effective date pair with a value.
+
+ItemList (required)
+
+Items in a value schedule.
+
+EffectiveList (required)
+
+Effective dates in the value schedule.
+
+ValueList (required)
+
+Values in a value schedule for each item/effective date pair. An item with no rows in the schedule totals nought in every period.
+
+```
+=oz.ScheduleValuesByItemsλ( oz.Timelineλ( "1/7/2026"),  oz.Timelineλ( "1/7/2026",,,FALSE),
+UNIQUE( tblExp[Items]), tblExp[Items], tblExp[Dates], tblExp[Amount])
+```
+
+Previous name: nabla.d.ScheduleValuesByItemsλ.
+
+### oz.Timelineλ
+
+oz.Timelineλ(StartDate, Periods, Interval, PeriodStarts?)
+
+Create a horizontal list of period dates
+
+Creates a horizontal list of period dates.
+
+Parameters:
+
+StartDate (required)
+
+First period's start date. May be entered as text.
+
+Periods (optional)
+
+The number of period in the timeline. Defaults to 12.
+
+Interval (optional)
+
+Period interval: D, W, M, Q or Y (Day, Week, Month <default>, Quarter, or Year)
+
+PeriodStarts? (optional)
+
+TRUE=Display period start dates <default>. FALSE=Period end dates
+
+```
+=oz.Timelineλ(TODAY())
+```
+
+The workbook help shows 12 mo, starts.
+
+```
+=oz.Timelineλ(TODAY(), , "Q", FALSE)
+```
+
+The workbook help shows 12 qtr, ends.
+
+Previous name: nabla.d.Timelineλ.
+
+### oz.FinancialYearλ
+
+oz.FinancialYearλ(Dates, [StartMonth])
+
+Labels dates with their Australian financial year, which starts on 1 July
+
+Labels dates with their Australian financial year, which starts on 1 July.
+
+Parameters:
+
+Dates (required)
+
+One or more dates, numeric or text. A blank cell returns a blank.
+
+StartMonth (optional, Default = 7)
+
+Month the financial year starts. Blank cells and empty text use 7.
+
+```
+=oz.FinancialYearλ(DATE(2026,8,15))
+```
+
+The workbook help shows FY2027.
+
+Previous name: nabla.d.FinancialYearλ.
+
+### oz.RateAtDateλ
+
+oz.RateAtDateλ(EffectiveDates, Rates, Dates)
+
+Returns the rate in effect on each date from a table of effective dates and rates, refusing gaps, unsorted or repeated dates
+
+Returns the rate in effect on each date from your table of effective dates and rates.
+
+Note: Each rate applies from its effective date until the next one. Dates may be one date or a row or column of them, and the result takes their shape. A date before the first effective date has no rate in effect and returns #N/A. The table must be complete and in order, so instead of a result it returns a message when EffectiveDates and Rates differ in length or hold a blank or text entry, when the dates are not in ascending order, or when a date repeats. A text or blank date in Dates returns #VALUE!. The library ships no rate table: supply your own, with its source and the date you checked it. ScheduleRatesλ() lays rates across a timeline without these checks.
+
+Parameters:
+
+EffectiveDates (required)
+
+A row or column of dates from which each rate applies, in ascending order.
+
+Rates (required)
+
+The rate that applies from each effective date, the same length as EffectiveDates.
+
+Dates (required)
+
+The date, or a row or column of dates, to look up.
+
+```
+=oz.RateAtDateλ(DATE(2026, {1;7;10}, 1), {0.04;0.045;0.05}, DATE(2026, 8, 15))
+```
+
+The workbook help shows 0.045.
+
+### oz.DateDifλ
+
+oz.DateDifλ(StartDate, EndDate, [Unit])
+
+Whole years, months or days between two dates, and the remainders DATEDIF gets wrong
+
+Whole years, months or days between two dates, and the remainders.
+
+Note: Excel documents DATEDIF as a legacy compatibility function and warns its MD unit can return a negative or wrong day count. This counts a month as complete when EDATE() of the start date has arrived, so a month after 31 January is the last day of February, and takes every remainder from there. A reversed range or an unknown unit returns #NUM!.
+
+Parameters:
+
+StartDate (required)
+
+The earlier date, numeric or text.
+
+EndDate (required)
+
+The later date, numeric or text.
+
+Unit (optional, Default = D)
+
+Y whole years, M whole months, D days, YM months left after the whole years, YD days left after the whole years, MD days left after the whole months.
+
+```
+=oz.DateDifλ(DATE(2026,1,31), DATE(2026,3,1), "MD")
+```
+
+The workbook help shows 1.
+
+## Other modules
+
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Dates formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Dates.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutDates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-aboutdates
+- oz.CountDOW λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-countdow
+- oz.IsBetween λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isbetween
+- oz.IsOccurrenceDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-isoccurrencedate
+- oz.OverLapDays λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-overlapdays
+- oz.PeriodLabel λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periodlabel
+- oz.Periods λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-periods
+- oz.ScheduleRates λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulerates
+- oz.ScheduleRatesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-scheduleratesbyitems
+- oz.ScheduleValues λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevalues
+- oz.ScheduleValuesByItems λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-schedulevaluesbyitems
+- oz.Timeline λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-timeline
+- oz.FinancialYear λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-financialyear
+- oz.RateAtDate λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-rateatdate
+- oz.DateDif λ: https://duguid.com.au/tools/ozzit/functions/dates/#oz-datedif
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

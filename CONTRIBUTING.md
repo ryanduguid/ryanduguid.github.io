@@ -152,22 +152,33 @@ touches only the pages you changed.
 
 ## Ozzit reference examples
 
-The ten examples use the MIT-licensed Ozzit v3.4.2 function index in
-`assets/ozzit-functions-v3.4.2.csv`. Edit the reviewed examples in
+The ten examples use the Apache-2.0 Ozzit v3.5.0 function index in
+`assets/ozzit-functions-v3.5.0.csv`. Edit the reviewed examples in
 `scripts/ozzit_reference_examples.json`, then run
 `site-tools build_ozzit_reference --write`. The ordinary site checks
 require the generated include to match both inputs. They also require every
 formula to match the native Excel inputs and results in
-`assets/ozzit-reference-v3.4.2.json`. Each example records its result shape and a
+`assets/ozzit-reference-v3.5.0.json`. Each example records its result shape and a
 Python format template. The generator formats every recorded result and requires
 that display to equal the reviewed expected text, including array values and totals.
 
 Changing a formula requires a new native Excel check against the named release;
 editing an expected display also requires checking it against the raw result.
-The workbook remains the authority. The 25 September 2026 record used Ozzit's
-existing `tools/excel_eval_formulas.ps1`, opened the exact release workbook
+The workbook remains the authority. The 20 October 2026 record used Ozzit's
+v3.5.0 `tools/excel_eval_formulas.ps1` in Excel 16.0 build 20527, opened the exact release workbook
 read-only and confirmed its SHA-256 was unchanged after closing it without saving.
 The results establish arithmetic for these examples, not an accounting treatment.
+
+The 6 module pages under `tools/ozzit/functions/` come from
+`assets/ozzit-function-reference-v3.5.0.json`, which Ozzit's
+`ozzit function_reference src functions.csv <output>` command writes from each
+function's help block in the release source. The same command writes every page,
+and the site checks require each entry to match the pinned index: name, module,
+previous name, one-line description and signature. A sentence of help text that
+uses a word the copy check refuses is left out, with a link to the released source.
+For a new release, run that command on the tagged `src/` and `functions.csv`, update
+the release constants in `scripts/src/ozzit_reference.rs` and
+`scripts/src/ozzit_functions.rs`, and rerun the native Excel record.
 
 ## Ruby Sass in the locked chain
 
