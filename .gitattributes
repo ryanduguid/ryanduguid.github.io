@@ -16,5 +16,5 @@ tests/browser/*-snapshots/** linguist-generated
 # keeps both sides' new rows in date order; unconfigured, Git merges as usual.
 changelog/index.html merge=changelog-rows
 llms-full.txt merge=changelog-rows
-index.txt merge=changelog-rows
+changelog/index.txt merge=changelog-rows
 feed.xml merge=changelog-rows

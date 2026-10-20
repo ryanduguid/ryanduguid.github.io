@@ -416,9 +416,9 @@ copies by hand.
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in
 `changelog/index.txt`, `llms-full.txt` and `feed.xml`. `.gitattributes` assigns
-those files, and every page's `index.txt`, to the `changelog-rows` merge driver.
-After installing `site-tools`, configure it once per clone; worktrees share the
-setting:
+those files to the `changelog-rows` merge driver. After installing `site-tools`,
+configure it once per clone; worktrees share the setting, and removing it means
+removing the whole `merge.changelog-rows` section:
 
 ```bash
 git config merge.changelog-rows.name "changelog rows in date order"
@@ -426,15 +426,17 @@ git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B || git 
 ```
 
 The driver runs Git's three-way merge, then resolves only conflicts where both
-sides added dated rows or whole feed entries and changed nothing else at that
-point. It keeps both sides' additions, newest date first; on the same date the
-incoming side goes above, so a rebased pull request's row stays on top. If any
-other conflict remains in a file, or `site-tools` cannot run, the command falls
-back to `git merge-file` and the whole file keeps Git's markers: resolve the
-sources, then rerun `build_feed --write` and `build_llms_full --write`. The `--check` runs still compare the committed
-files with a fresh build, so a resolution that differs fails the site checks.
-Without the configuration, or in GitHub's web conflict editor, Git merges these
-files as before.
+sides added dated changelog rows, or whole feed entries from one changelog table,
+and changed nothing else at that point. In `llms-full.txt` that means the
+changelog page's section. It keeps both sides' additions, newest date first; on
+the same date the incoming side goes above, so a rebased pull request's row stays
+on top. If any other conflict remains in a file, or `site-tools` cannot run, the
+command falls back to `git merge-file` and the whole file keeps Git's markers:
+resolve the sources, then rerun `build_feed --write` and `build_llms_full
+--write`. The `--check` runs still compare the committed files with a fresh
+build, so a resolution that differs fails the site checks. Without the
+configuration, or in GitHub's web conflict editor, Git merges these files as
+before.
 
 Each changelog row's `id="entry-<feed ID>"` anchor holds its published Atom ID,
 so a row keeps its ID when it moves or its wording changes. Never edit, copy or

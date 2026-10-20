@@ -121,35 +121,71 @@ pub fn resolve(current: &[&str], base: &[&str], incoming: &[&str]) -> Option<Str
     Some(order.concat().concat())
 }
 
+const MARKS: [char; 4] = ['<', '|', '=', '>'];
+
 fn is_marker(line: &str, mark: char, size: usize) -> bool {
     let rest = line.trim_end_matches(['\n', '\r']);
     rest.starts_with(&mark.to_string().repeat(size))
         && rest[size..].chars().next().is_none_or(|c| c == ' ')
 }
 
+/// Whether a text holds a line that would read as a conflict marker of this size.
+pub fn holds_markers(text: &str, size: usize) -> bool {
+    text.split_inclusive('\n')
+        .any(|line| MARKS.iter().any(|&mark| is_marker(line, mark, size)))
+}
+
+/// Feed entries link to the site changes or to a release; the feed builder puts site
+/// changes first on the same date, so entries from both tables are left to a person.
+fn one_table(lines: &[&str]) -> bool {
+    let mut links = lines
+        .iter()
+        .filter(|l| l.starts_with("    <link "))
+        .map(|l| l.contains("#site-changes\""));
+    links
+        .next()
+        .is_none_or(|first| links.all(|site| site == first))
+}
+
 /// `git merge-file --diff3` output with every conflict resolved, or None when one of
-/// them is not a dated-row conflict.
+/// them is not a dated-row conflict. In the text files, which put each page under its
+/// "Source:" line, only conflicts on the changelog page count.
 pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
+    let changelog = format!("Source: {}", crate::feed::CHANGELOG_URL);
     let mut out = String::new();
+    let mut page: Option<&str> = None;
     let mut lines = merged.split_inclusive('\n');
     while let Some(line) = lines.next() {
         if !is_marker(line, '<', size) {
+            if line.starts_with("Source: ") {
+                page = Some(line.trim_end_matches(['\n', '\r']));
+            }
             out.push_str(line);
             continue;
         }
+        if page.is_some_and(|p| p != changelog) {
+            return None;
+        }
+        // Git writes current, |base, =incoming, >end; anything else is not its output.
         let mut sides: [Vec<&str>; 3] = Default::default();
         let mut part = 0;
-        for line in lines.by_ref() {
-            if is_marker(line, '>', size) {
+        loop {
+            let line = lines.next()?;
+            match MARKS[1..].iter().position(|&m| is_marker(line, m, size)) {
+                Some(next) if next == part => part += 1,
+                Some(_) => return None,
+                None if is_marker(line, '<', size) => return None,
+                None => sides[part].push(line),
+            }
+            if part == 3 {
                 break;
             }
-            match (part, line) {
-                (0, l) if is_marker(l, '|', size) => part = 1,
-                (0 | 1, l) if is_marker(l, '=', size) => part = 2,
-                (_, l) => sides[part].push(l),
-            }
         }
-        out.push_str(&resolve(&sides[0], &sides[1], &sides[2])?);
+        let [current, base, incoming] = &sides;
+        if !one_table(&[current.as_slice(), incoming].concat()) {
+            return None;
+        }
+        out.push_str(&resolve(current, base, incoming)?);
     }
     Some(out)
 }
@@ -159,6 +195,13 @@ pub fn run(args: &[String]) -> Result<u8, String> {
         crate::print_text(USAGE, true).map_err(|e| e.to_string())?;
         return Ok(2);
     };
+    // A file holding marker-like lines could be misread, so it is left to Git.
+    for path in [base, current, incoming] {
+        match std::fs::read_to_string(path) {
+            Ok(text) if !holds_markers(&text, MARKER_SIZE) => {}
+            _ => return Ok(1),
+        }
+    }
     let output = Command::new("git")
         .args([
             "merge-file",
@@ -169,7 +212,7 @@ pub fn run(args: &[String]) -> Result<u8, String> {
         .args([current, base, incoming])
         .output()
         .map_err(|e| format!("merge_driver: git: {e}"))?;
-    // merge-file exits with the number of conflicts, or 255 and up on an error.
+    // merge-file exits with the number of conflicts, at most 127; anything else is an error.
     let conflicts = output.status.code().filter(|c| (0..128).contains(c));
     let (Some(conflicts), Ok(merged)) = (conflicts, String::from_utf8(output.stdout)) else {
         return Err(format!(
@@ -184,6 +227,15 @@ pub fn run(args: &[String]) -> Result<u8, String> {
     } else {
         return Ok(1);
     };
-    std::fs::write(current, text).map_err(|e| format!("merge_driver: {current}: {e}"))?;
+    // Replace <current> only once the whole result is written: the fallback reads it.
+    let target = std::path::Path::new(current);
+    let dir = target
+        .parent()
+        .filter(|p| !p.as_os_str().is_empty())
+        .unwrap_or(std::path::Path::new("."));
+    let error = |e: &dyn std::fmt::Display| format!("merge_driver: {current}: {e}");
+    let mut file = tempfile::NamedTempFile::new_in(dir).map_err(|e| error(&e))?;
+    std::io::Write::write_all(&mut file, text.as_bytes()).map_err(|e| error(&e))?;
+    file.persist(target).map_err(|e| error(&e))?;
     Ok(0)
 }
