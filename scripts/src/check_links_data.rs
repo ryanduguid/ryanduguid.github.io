@@ -26,7 +26,7 @@ pub const CI_MANUAL_URLS: [&str; 9] = [
     "https://www.tpb.gov.au/public-register",
 ];
 
-pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 116] = [
+pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 117] = [
     "https://www.aph.gov.au/Parliamentary_Business/Bills_Legislation",
     "https://www.ato.gov.au/",
     "https://www.ato.gov.au/about-ato/new-legislation/guidance-on-tax-and-superannuation-measures",
@@ -54,9 +54,9 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 116] = [
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/completing-your-bas-for-gst/correcting-gst-errors/how-to-correct-gst-errors",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/in-detail/your-industry/motor-vehicle-and-transport/gst-and-motor-vehicles/purchasing-a-motor-vehicle",
-    "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/registering-for-gst",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/tax-invoices",
+    "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-and-how-to-report-and-pay-gst/monthly-gst-reporting",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/gst-free-sales",
     "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-to-charge-gst-and-when-not-to/input-taxed-sales",
     "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/fringe-benefits-tax",
@@ -111,6 +111,7 @@ pub const HTTP_403_AUTOMATION_DENIAL_URLS: [&str; 116] = [
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/calculating-your-cgt/how-to-calculate-your-cgt",
+    "https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/capital-gains-tax-reform",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/crypto-asset-investments/transactions-acquiring-and-disposing-of-crypto-assets/crypto-asset-transactions",
     "https://www.ato.gov.au/individuals-and-families/investments-and-assets/property-and-land",

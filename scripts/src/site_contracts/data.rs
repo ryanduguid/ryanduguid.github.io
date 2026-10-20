@@ -319,7 +319,7 @@ pub const EVALUATION_PACKS: [EvaluationPack; 3] = [
         ],
         primary_source_urls: &[
             "https://www.ato.gov.au/businesses-and-organisations/preparing-lodging-and-paying/business-activity-statements-bas",
-            "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/lodging-your-bas-or-annual-gst-return/options-for-reporting-and-paying-gst/monthly-gst-reporting",
+            "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/when-and-how-to-report-and-pay-gst/monthly-gst-reporting",
         ],
         section_contract_text: &[],
         sitemap_lastmod: None,
