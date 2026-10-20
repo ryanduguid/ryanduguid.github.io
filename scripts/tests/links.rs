@@ -835,3 +835,136 @@ fn site_runner_passes_offline_only_to_the_link_checker() {
         assert_eq!(host.commands, expected, "{arguments:?}");
     }
 }
+
+/// Answers per URL, the last repeating; an unknown URL times out. Each instance keeps
+/// its own count, as each prefetch worker gets a fresh transport.
+type Answer = Result<site_tools::check_links::Opened, site_tools::check_links::NetError>;
+
+#[derive(Clone)]
+struct Scripted {
+    answers: std::sync::Arc<Vec<(String, Vec<Answer>)>>,
+    served: std::collections::HashMap<String, usize>,
+}
+
+impl site_tools::check_links::Opener for Scripted {
+    fn open(
+        &mut self,
+        url: &str,
+        _: &[(&str, String)],
+    ) -> Result<site_tools::check_links::Opened, site_tools::check_links::NetError> {
+        let Some((_, list)) = self.answers.iter().find(|(u, _)| u == url) else {
+            return Err(site_tools::check_links::NetError::Timeout(
+                "timed out".into(),
+            ));
+        };
+        let index = self.served.entry(url.to_owned()).or_insert(0);
+        let answer = list[(*index).min(list.len() - 1)].clone();
+        *index += 1;
+        answer
+    }
+}
+
+struct NoWait;
+
+impl site_tools::check_links::Clock for NoWait {
+    fn sleep(&mut self, _: f64) {}
+    fn now(&mut self) -> f64 {
+        1_700_000_000.0
+    }
+}
+
+#[test]
+fn prefetched_links_report_exactly_as_the_sequential_pass() {
+    use site_tools::check_links::{
+        Checker, Clock, NetError, Opened, Opener, Prefetched, fetch_targets, prefetch,
+    };
+    let ok = |url: &str| -> Result<Opened, NetError> {
+        Ok(Opened {
+            status: 200,
+            url: url.into(),
+            body: Vec::new(),
+        })
+    };
+    let http = |code: u16| -> Result<Opened, NetError> {
+        Err(NetError::Http {
+            code,
+            reason: "Error".into(),
+            retry_after: None,
+        })
+    };
+    let blob = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/Financial.txt";
+    let raw = "https://raw.githubusercontent.com/ryanduguid/Ozzit/v3.4.2/src/Financial.txt";
+    let answers = std::sync::Arc::new(vec![
+        (
+            "https://example.com/a".to_owned(),
+            vec![ok("https://example.com/a")],
+        ),
+        (
+            "https://example.com/b".to_owned(),
+            vec![http(503), http(429), ok("https://example.com/final")],
+        ),
+        ("https://example.com/c".to_owned(), vec![http(404)]),
+        (
+            "https://example.com/d".to_owned(),
+            vec![Err(NetError::Url("transport failure".into()))],
+        ),
+        (blob.to_owned(), vec![http(500)]),
+        (raw.to_owned(), vec![ok(raw)]),
+    ]);
+    let hrefs: Vec<String> = [
+        "https://example.com/a",
+        "https://example.com/b",
+        "/",
+        "https://example.com/c",
+        blob,
+        "https://example.com/d",
+        "https://example.com/never-answered",
+        "https://example.com/b",
+    ]
+    .iter()
+    .map(|h| (*h).to_owned())
+    .collect();
+    let root = std::env::temp_dir();
+    let run = |prefetched: Prefetched| {
+        let mut opener = Scripted {
+            answers: answers.clone(),
+            served: Default::default(),
+        };
+        let mut clock = NoWait;
+        let mut printed = Vec::new();
+        let mut out = |line: &str| printed.push(line.to_owned());
+        let mut checker = Checker::new(root.clone(), &mut opener, &mut clock, &mut out);
+        checker.prefetched = prefetched;
+        let failures = checker.check_hrefs("page.html", &hrefs, false).unwrap();
+        drop(checker);
+        (failures, printed)
+    };
+    let sequential = run(Prefetched::new());
+    let targets = fetch_targets(&hrefs, false);
+    assert!(
+        !targets.iter().any(|t| t == "/"),
+        "same-origin links are not fetched"
+    );
+    let replayed = run(prefetch(&root, targets, &|| {
+        (
+            Box::new(Scripted {
+                answers: answers.clone(),
+                served: Default::default(),
+            }) as Box<dyn Opener>,
+            Box::new(NoWait) as Box<dyn Clock>,
+        )
+    }));
+    assert_eq!(replayed, sequential);
+    assert!(
+        sequential
+            .1
+            .iter()
+            .any(|l| l.starts_with("retry 1/4 https://example.com/b"))
+    );
+    assert!(
+        sequential
+            .1
+            .iter()
+            .any(|l| l.starts_with("GitHub file fallback"))
+    );
+}
