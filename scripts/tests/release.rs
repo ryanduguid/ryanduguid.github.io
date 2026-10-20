@@ -4,6 +4,7 @@
 mod common;
 
 use common::{assert_clean, copied_site, expect_failure, rendered, replace_file, root};
+use site_tools::pyformat::format_value;
 use site_tools::pyjson::{self, Json};
 use site_tools::release_record::{
     ABSENT, CHANGED, FOUND, INCONCLUSIVE, Live, LiveError, MISSING, Probe, check_record,
@@ -189,14 +190,14 @@ fn release_claims() {
     *at(
         &mut unreleased,
         &["components", "ozzit", "unreleased_default_branch"],
-    ) = pyjson::loads(r#"{"version": "3.4.3", "observed": "2026-09-20", "note": "Test fixture."}"#)
+    ) = pyjson::loads(r#"{"version": "3.5.1", "observed": "2026-09-20", "note": "Test fixture."}"#)
         .unwrap();
     let site = copied_site();
     replace_file(
         site.path(),
         "tools/ozzit/index.html",
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.2",
-        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.4.3",
+        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0",
+        "https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.1",
     );
     expect_failure(
         "unreleased download offered",
@@ -249,6 +250,29 @@ fn release_claims() {
         &check(site.path(), &lagging),
         "without naming the difference",
     );
+
+    // A stale download hash or size on the page is a failure, not a lag.
+    let published = at(&mut record.clone(), &["components", "ozzit", "published"]).clone();
+    let field = |key: &str| format_value(published.get(key).unwrap(), "").unwrap();
+    let size = format_value(published.get("asset_bytes").unwrap(), ",").unwrap() + " bytes";
+    for (stale, message) in [
+        (field("asset_sha256"), "does not show the published asset's"),
+        (size, "does not show the published asset's"),
+        (
+            format!("href=\"{}\"", field("download_url")),
+            "does not link the published download",
+        ),
+    ] {
+        let site = copied_site();
+        rewrite(site.path(), "tools/ozzit/index.html", |t| {
+            t.replace(&stale, "0")
+        });
+        expect_failure(
+            &format!("stale asset detail {stale}"),
+            &check(site.path(), &record),
+            message,
+        );
+    }
 
     // The release record must be a link a reader can follow, not a mention.
     let url = match at(
@@ -358,7 +382,7 @@ fn release_claims() {
     rewrite(site.path(), "tools/ozzit/index.html", |t| {
         t.replace(
             "</main>",
-            "<p><a href=\"https://github.com/example/other/releases/tag/v3.4.3\">Another project's v3.4.3</a></p></main>",
+            "<p><a href=\"https://github.com/example/other/releases/tag/v3.5.1\">Another project's v3.5.1</a></p></main>",
         )
     });
     let unrelated: Vec<String> = check(site.path(), &unreleased)
@@ -368,22 +392,22 @@ fn release_claims() {
     assert_clean("unrelated repository sharing a version number", &unrelated);
 
     // A release-specific supporting file must be read at the documented release.
-    for replacement in ["main", "v3.4.3"] {
+    for replacement in ["main", "v3.5.1"] {
         let site = copied_site();
         rewrite(site.path(), "tools/ozzit/index.html", |t| {
             t.replace(
-                "Ozzit/blob/v3.4.2/CITATION.cff",
+                "Ozzit/blob/v3.5.0/CITATION.cff",
                 &format!("Ozzit/blob/{replacement}/CITATION.cff"),
             )
         });
         expect_failure(
             "citation retargeted",
             &check(site.path(), &record),
-            "CITATION.cff must be linked at v3.4.2",
+            "CITATION.cff must be linked at v3.5.0",
         );
     }
     let site = copied_site();
-    let citation = "https://github.com/ryanduguid/Ozzit/blob/v3.4.2/CITATION.cff";
+    let citation = "https://github.com/ryanduguid/Ozzit/blob/v3.5.0/CITATION.cff";
     rewrite(site.path(), "tools/ozzit/index.html", |t| {
         t.replace(
             &format!("href=\"{citation}\""),
@@ -394,7 +418,7 @@ fn release_claims() {
     expect_failure(
         "supporting evidence only in a comment",
         &check(site.path(), &record),
-        "CITATION.cff must be linked at v3.4.2",
+        "CITATION.cff must be linked at v3.5.0",
     );
     let site = copied_site();
     let unpinned: Vec<String> = check(site.path(), &record)

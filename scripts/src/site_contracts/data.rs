@@ -114,7 +114,7 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Ozzit",
         "ozzit",
         "https://github.com/ryanduguid/Ozzit",
-        "133 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
+        "143 native Excel LAMBDA functions plus five help tables for AU modelling and GST arithmetic.",
     ),
     (
         "accounting-excel-toolkit",
@@ -182,14 +182,7 @@ pub static AUTHORED_SOFTWARE: LazyLock<Vec<Software>> = LazyLock::new(|| {
                     repository.replace("/tree/main/", "/blob/main/")
                 )
             } else {
-                format!(
-                    "{repository}/blob/main/{}",
-                    if *name == "Ozzit" {
-                        "LICENCE"
-                    } else {
-                        "LICENSE"
-                    }
-                )
+                format!("{repository}/blob/main/LICENSE")
             },
             description,
         })
