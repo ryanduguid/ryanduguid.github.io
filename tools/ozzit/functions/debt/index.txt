@@ -1,0 +1,293 @@
+# Ozzit Debt functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/debt/
+
+> Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting.
+
+# Ozzit Debt functions
+
+The 5 Debt formulas cover debt amortisation and fixed or variable DSCR debt sculpting. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
+
+Release v3.5.0. Read from the released Debt formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 5 functions
+
+- oz.AmortiseBλ
+- oz.DebtSculptFixedλ
+- oz.DebtSculptVariableLRVλ
+- oz.DebtSculptVariableλ
+- oz.InterestLRVλ
+
+### oz.AmortiseBλ
+
+oz.AmortiseBλ(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])
+
+Creates an amortisation schedule for a debt/loan across a model's periods
+
+Creates an amortisation schedule for a debt/loan across a model's periods.
+
+Parameters:
+
+Principal (required)
+
+Principal opening balance.
+
+APR (required)
+
+Annual percentage rate.
+
+Term (required)
+
+Number of periods to pay off the debt.
+
+ModelPeriods (required)
+
+Number of model periods.
+
+StartPeriod (optional)
+
+Period when the debt is issued. Defaults to 1.
+
+MonthsPerPeriod (optional)
+
+Number of months in each period. Defaults to 1.
+
+Row contents:
+
+- Opening Balance
+- Interest Portion
+- Repayment
+- Closing Balance
+- Principal Portion
+
+```
+=oz.AmortiseBλ(10000, 3%, 48, 60)
+```
+
+The workbook help shows 5 rows, 60 cols.
+
+Previous name: nabla.debt.Amortiseλ.
+
+### oz.DebtSculptFixedλ
+
+oz.DebtSculptFixedλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod])
+
+Creates a debt sculpting schedule where APR and DSCR are fixed for all periods
+
+Creates a Debt Sculpting schedule where APR and DSCR are fixed for all periods
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of Cash Flow Available for Debt Service in each period
+
+DSCR (required)
+
+Debt Service Coverage Ratio, one number for all periods
+
+APR (required)
+
+Interest's Annual Percentage Rate, one number for all periods
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period.
+
+Suggested row IDs:
+
+- Debt opening balance
+- Interest on Principal Balance
+- Debt service (interest and principal)
+- Debt closing balance
+
+```
+=oz.DebtSculptFixedλ(, {1000,0,0}, {300,300,300}, 1.2, 6%, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptFixedλ.
+
+### oz.DebtSculptVariableLRVλ
+
+oz.DebtSculptVariableLRVλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+
+Creates a debt sculpting schedule where APR and DSCR are set for each period, with interest charged on the average balance
+
+Creates a Debt Sculpting schedule where APR and DSCR are set for each period. Interest is charged on the average balance over the period, the method presented by Lance Rubin, and the principal repaid is what the cash available for debt service leaves after that interest.
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of numeric Cash Flow Available for Debt Service in each period. Blank cells, text and logical values are rejected. Negative values supply no cash for debt service; existing debt still capitalises unpaid interest
+
+DSCR (required)
+
+A row of Debt Service Coverage Ratios, one per period
+
+APR
+
+(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period. Ignored when PeriodRates is given
+
+PeriodRates (optional)
+
+A row of interest rates per period, one per period, such as DayCountRateλ() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given
+
+Suggested row IDs:
+
+- Debt opening balance
+- Interest on Principal Balance
+- Principal repayments
+- Debt closing balance
+
+```
+=oz.DebtSculptVariableLRVλ(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptVariableLRVλ.
+
+### oz.DebtSculptVariableλ
+
+oz.DebtSculptVariableλ([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])
+
+Creates a debt sculpting schedule where APR and DSCR are set for each period
+
+Creates a Debt Sculpting schedule where APR and DSCR are set for each period
+
+Parameters:
+
+OpeningBalance (optional)
+
+Model's debt on opening. Defaults to 0
+
+Debt (required)
+
+One row of new debt, at least two periods. Every period input must have this same width
+
+CFADS (required)
+
+A row of Cash Flow Available for Debt Service in each period
+
+DSCR (required)
+
+A row of Debt Service Coverage Ratios, one per period
+
+APR
+
+(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod
+
+MonthsPerPeriod (optional)
+
+Defaults to one month per period. Ignored when PeriodRates is given
+
+PeriodRates (optional)
+
+A row of interest rates per period, one per period, such as DayCountRateλ() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given
+
+Suggested row IDs:
+
+- Debt opening balance
+- Interest on Principal Balance
+- Debt service (interest and principal)
+- Debt closing balance
+
+```
+=oz.DebtSculptVariableλ(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)
+```
+
+The workbook help shows 4 rows, 3 cols.
+
+Previous name: nabla.debt.DebtSculptVariableλ.
+
+### oz.InterestLRVλ
+
+oz.InterestLRVλ(CFADS, DSCR, Principal, InterestRate)
+
+Calculates debt sculpting interest on the average balance over the period, the method presented by Lance Rubin
+
+Calculates debt sculpting interest using the method presented by Lance Rubin. Interest is charged on the average balance over the period, with the principal repaid capped at the principal outstanding. The average balance depends on the interest and the interest on the average balance, which is solved in closed form rather than by iteration.
+
+Parameters:
+
+CFADS (required)
+
+Cash Flow Available for Debt Service for this period
+
+DSCR (required)
+
+Debt Service Coverage Ratio for this period
+
+Principal (required)
+
+Principal balance for this period
+
+InterestRate (required)
+
+Interest rate for this period (eg. APR/Days in this year * Days in this period)
+
+```
+=oz.InterestLRVλ( 6666.37, 3.50, 90000, 3%/12)
+```
+
+The workbook help shows 222.90.
+
+Previous name: nabla.debt.InterestLRVλ.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Utilities functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Debt formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AmortiseB λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-amortiseb
+- oz.DebtSculptFixed λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptfixed
+- oz.DebtSculptVariableLRV λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariablelrv
+- oz.DebtSculptVariable λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-debtsculptvariable
+- oz.InterestLRV λ: https://duguid.com.au/tools/ozzit/functions/debt/#oz-interestlrv
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Utilities functions: https://duguid.com.au/tools/ozzit/functions/utilities/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

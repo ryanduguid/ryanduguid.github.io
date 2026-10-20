@@ -1,0 +1,869 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Ozzit Ratios functions: Excel LAMBDA reference</title>
+  <meta name="description" content="Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Ozzit Ratios functions: Excel LAMBDA reference" />
+  <meta property="og:description" content="Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/ozzit/functions/ratios/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ozzit Ratios functions: Excel LAMBDA reference" />
+  <meta name="twitter:description" content="Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/ozzit/functions/ratios/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/ozzit/functions/ratios/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/tools/ozzit/">Ozzit Excel LAMBDA library</a></li>
+            <li aria-current="page">Ozzit Ratios functions</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>Ozzit Ratios functions</h1>
+          <p class="lead-note">The 48 Ratios formulas cover liquidity, gearing, margin, return, market and working capital ratios. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.</p>
+          <p class="release-meta">Release v3.5.0. Read from the released <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt">Ratios formula source</a>, which the workbook compiles.</p>
+          <p class="page-meta">Published 20 October 2026. Last reviewed 20 October 2026.</p>
+        </div>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#use">Using these functions</a>
+          <a href="#functions">All 48 functions</a>
+          <a href="#modules">Other modules</a>
+        </nav>
+        <div class="article-body">
+
+          <section id="use">
+            <h2>Using these functions</h2>
+            <p>Each named formula is a native Excel <code>LAMBDA</code> in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.</p>
+            <p>The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. <a href="/tools/ozzit/#download">Download the workbook and check its hash</a>.</p>
+          </section>
+
+          <section id="functions">
+            <h2>All 48 functions</h2>
+<!-- Generated by site-tools build_ozzit_reference from the function reference. -->
+<ul class="function-index__list" role="list">
+  <li><a href="#oz-aboutratios"><code>oz.AboutRatios<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-currentratio"><code>oz.CurrentRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-quickratio"><code>oz.QuickRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-cashratio"><code>oz.CashRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-operatingcashflowratio"><code>oz.OperatingCashFlowRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-receivablesturnoverratio"><code>oz.ReceivablesTurnoverRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-inventoryturnoverratio"><code>oz.InventoryTurnoverRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-workingcapitalturnoverratio"><code>oz.WorkingCapitalTurnoverRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debtratio"><code>oz.DebtRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-dscr"><code>oz.DSCR<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debttocapitalratio"><code>oz.DebtToCapitalRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-equitymultiplier"><code>oz.EquityMultiplier<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debttoequityratio"><code>oz.DebtToEquityRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debttoassetratio"><code>oz.DebtToAssetRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-interestcoverageratio"><code>oz.InterestCoverageRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-equityratio"><code>oz.EquityRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-assetturnoverratio"><code>oz.AssetTurnoverRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-dsi"><code>oz.DSI<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-operatingratio"><code>oz.OperatingRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-grossmargin"><code>oz.GrossMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-ebitdamargin"><code>oz.EBITDAMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-operatingmargin"><code>oz.OperatingMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-pretaxmargin"><code>oz.PretaxMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-netprofitmargin"><code>oz.NetProfitMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-cashflowmargin"><code>oz.CashFlowMargin<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-roa"><code>oz.ROA<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-roe"><code>oz.ROE<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-roi"><code>oz.ROI<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-roic"><code>oz.ROIC<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-priceearningsratio"><code>oz.PriceEarningsRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-pricetobookratio"><code>oz.PriceToBookRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-pricetosalesratio"><code>oz.PriceToSalesRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-pricetocashratio"><code>oz.PriceToCashRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-bvps"><code>oz.BVPS<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-caperatio"><code>oz.CAPERatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-dpr"><code>oz.DPR<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-dividendyieldratio"><code>oz.DividendYieldRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-eps"><code>oz.EPS<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-retentionratio"><code>oz.RetentionRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-atoturnover"><code>oz.ATOTurnover<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-atobenchmarkratio"><code>oz.ATOBenchmarkRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-atototalexpensesratio"><code>oz.ATOTotalExpensesRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-atocostofsalesratio"><code>oz.ATOCostOfSalesRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-atolabourratio"><code>oz.ATOLabourRatio<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-receivabledays"><code>oz.ReceivableDays<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-payabledays"><code>oz.PayableDays<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-wipdays"><code>oz.WIPDays<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-cashconversioncycle"><code>oz.CashConversionCycle<span class="function-symbol">λ</span></code></a></li>
+</ul>
+  <section id="oz-aboutratios" aria-labelledby="oz-aboutratios-name">
+    <h3 id="oz-aboutratios-name"><code>oz.AboutRatios<span class="function-symbol">λ</span></code></h3>
+    <p>Displays this module's repository URL and function list</p>
+    <p class="field-note">Previous name: <code>nabla.r.About<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-currentratio" aria-labelledby="oz-currentratio-name">
+    <h3 id="oz-currentratio-name"><code>oz.CurrentRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CurrentRatio<span class="function-symbol">λ</span>( Assets, Liabilities)</code></p>
+    <p>Measures a company’s ability to pay short-term obligations (Current Assets/Liabilities)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CurrentRatioλ">
+      <div><dt><code>Assets</code> (required)</dt><dd>Current Assets. Includes:<ul><li>Cash</li><li>Accounts receivable</li><li>Inventory</li><li>Vendor non-trade receivables</li><li>Assets expected to be liquidated in the current year</li><li>Marketable securities</li><li>PPE only when it meets current-asset classification criteria</li></ul></dd></div>
+      <div><dt><code>Liabilities</code> (required)</dt><dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li><li>Taxes payable</li><li>Short-term debts</li><li>Current portion of long-term debt</li></ul></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CurrentRatioλ"><code>=oz.CurrentRatio<span class="function-symbol">λ</span>( 134.836, 125.481)</code></pre>
+    <p>The workbook help shows <code>1.075</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.CurrentRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-quickratio" aria-labelledby="oz-quickratio-name">
+    <h3 id="oz-quickratio-name"><code>oz.QuickRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.QuickRatio<span class="function-symbol">λ</span>( QuickAssets, Liabilities)</code></p>
+    <p>Measures ability to meet short-term obligations (Quick Assets/Current Liabilities)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.QuickRatioλ">
+      <div><dt><code>QuickAssets</code> (required)</dt><dd>Quick Assets. Includes:<ul><li>Cash &amp; Cash equivalents</li><li>Marketable securities</li><li>Accounts receivable</li></ul>Alterantively it includes:<ul><li>Current assets</li><li>Less inventory</li><li>Less prepaid expenses</li></ul></dd></div>
+      <div><dt><code>Liabilities</code> (required)</dt><dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li><li>Taxes payable</li><li>Short-term debts</li><li>Current portion of long-term debt</li></ul></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.QuickRatioλ"><code>=oz.QuickRatio<span class="function-symbol">λ</span>( 165000, 137500)</code></pre>
+    <p>The workbook help shows <code>1.2</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.QuickRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-cashratio" aria-labelledby="oz-cashratio-name">
+    <h3 id="oz-cashratio-name"><code>oz.CashRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CashRatio<span class="function-symbol">λ</span>( Cash, Liabilities)</code></p>
+    <p>Evaluates ability to repay short-term debt w/cash or near-cash resources (Cash and Cash Equivalents / Current Liabilities)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CashRatioλ">
+      <div><dt><code>Cash</code> (required)</dt><dd>Cash and Cash Equivalents</dd></div>
+      <div><dt><code>Liabilities</code> (required)</dt><dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li><li>Taxes payable</li><li>Short-term debts</li><li>Current portion of long-term debt</li></ul></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CashRatioλ"><code>=oz.CashRatio<span class="function-symbol">λ</span>( 63900000, 123500000)</code></pre>
+    <p>The workbook help shows <code>.517409</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.CashRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-operatingcashflowratio" aria-labelledby="oz-operatingcashflowratio-name">
+    <h3 id="oz-operatingcashflowratio-name"><code>oz.OperatingCashFlowRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.OperatingCashFlowRatio<span class="function-symbol">λ</span>( OperatingCashFlow, Liabilities)</code></p>
+    <p>Measures how readily current liabilities are covered by cash flows generated from operations</p>
+    <p>Measures how readily current liabilities are covered by cash flows generated from operations. (OperatingCashFlow/Liabilities)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.OperatingCashFlowRatioλ">
+      <div><dt><code>OperatingCashFlow</code> (required)</dt><dd>Operating cash flow. Indirect method includes:<ul><li>Net Income</li><li>Plus depreciation and amortisation</li><li>Less increase in net working capital</li></ul>Direct method includes:<ul><li>Cash revenue</li><li>Less Operating expenses paid in cash</li></ul></dd></div>
+      <div><dt><code>Liabilities</code> (required)</dt><dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li><li>Taxes payable</li><li>Short-term debts</li><li>Current portion of long-term debt</li></ul></dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.OperatingCashFlowRatioλ"><code>=oz.OperatingCashFlowRatio<span class="function-symbol">λ</span>( 27.8, 77.5)</code></pre>
+    <p>The workbook help shows <code>0.35871</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.OperatingCashFlowRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-receivablesturnoverratio" aria-labelledby="oz-receivablesturnoverratio-name">
+    <h3 id="oz-receivablesturnoverratio-name"><code>oz.ReceivablesTurnoverRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ReceivablesTurnoverRatio<span class="function-symbol">λ</span>( NetCreditSales, AverageAccountsReceivable)</code></p>
+    <p>Indicates effectiveness in collecting outstanding balances from clients and managing line of credit process (Net Credit Sales/Average Accounts Receivable)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ReceivablesTurnoverRatioλ">
+      <div><dt><code>NetCreditSales</code> (required)</dt><dd>Net Credit Sales. Amount of revenue earned by a company paid via credit</dd></div>
+      <div><dt><code>AverageAccountsReceivable</code> (required)</dt><dd>Average Accounts Receivable. Average of period opening and closing balance</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ReceivablesTurnoverRatioλ"><code>=oz.ReceivablesTurnoverRatio<span class="function-symbol">λ</span>( 800000, 68000 )</code></pre>
+    <p>The workbook help shows <code>11.76471</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.ReceivablesTurnoverRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-inventoryturnoverratio" aria-labelledby="oz-inventoryturnoverratio-name">
+    <h3 id="oz-inventoryturnoverratio-name"><code>oz.InventoryTurnoverRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.InventoryTurnoverRatio<span class="function-symbol">λ</span>( CostOfGoodsSold, AverageInventory)</code></p>
+    <p>Shows how many times a company turned over its inventory relative to its cost of goods sold (COGS) (COGS/Average Inventory)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.InventoryTurnoverRatioλ">
+      <div><dt><code>CostOfGoodsSold</code> (required)</dt><dd>Cost of Goods Sold (COGS) which can include:<ul><li>Office supply costs</li><li>Rent and utility expenses</li><li>Repair and maintenance costs</li><li>Salary and wage expenses</li></ul></dd></div>
+      <div><dt><code>AverageInventory</code> (required)</dt><dd>Average of period open and close inventory</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.InventoryTurnoverRatioλ"><code>=oz.InventoryTurnoverRatio<span class="function-symbol">λ</span>( 429, 50.7)</code></pre>
+    <p>The workbook help shows <code>8.461538</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.InventoryTurnoverRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-workingcapitalturnoverratio" aria-labelledby="oz-workingcapitalturnoverratio-name">
+    <h3 id="oz-workingcapitalturnoverratio-name"><code>oz.WorkingCapitalTurnoverRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.WorkingCapitalTurnoverRatio<span class="function-symbol">λ</span>( NetAnnualSales, WorkingCapital)</code></p>
+    <p>Working Capital Turnover Ratio measures how efficiently a company is using its working capital to support sales and growth (Net Annual Sales/Average Working Capital).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.WorkingCapitalTurnoverRatioλ">
+      <div><dt><code>NetAnnualSales</code> (required)</dt><dd>Net Annual Sales can include:<ul><li>Gross sales</li><li>Less returns</li><li>Less allowances</li><li>Less discounts</li></ul></dd></div>
+      <div><dt><code>WorkingCapital</code> (required)</dt><dd>Average of period open and close current assts less curren liabilities.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.WorkingCapitalTurnoverRatioλ"><code>=oz.WorkingCapitalTurnoverRatio<span class="function-symbol">λ</span>( 12.0, 2.0)</code></pre>
+    <p>The workbook help shows <code>6.0</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.WorkingCapitalTurnoverRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debtratio" aria-labelledby="oz-debtratio-name">
+    <h3 id="oz-debtratio-name"><code>oz.DebtRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtRatio<span class="function-symbol">λ</span>( TotalDebt, TotalAssets)</code></p>
+    <p>Measures the extent of a company’s gearing</p>
+    <p class="field-note">See also: DebtToAssetRatio<span class="function-symbol">λ</span> computes the same ratio under its longer name.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtRatioλ">
+      <div><dt><code>TotalDebt</code> (required)</dt><dd>Total Debt</dd></div>
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Total Assets</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtRatioλ"><code>=oz.DebtRatio<span class="function-symbol">λ</span>(30.0, 100.0)</code></pre>
+    <p>The workbook help shows <code>.3</code>.</p>
+    <p class="field-note">Part of this function’s help text is not reproduced here. <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt">Read it in the released source<span class="visually-hidden">, oz.DebtRatio<span class="function-symbol">λ</span></span></a>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DebtRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-dscr" aria-labelledby="oz-dscr-name">
+    <h3 id="oz-dscr-name"><code>oz.DSCR<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DSCR<span class="function-symbol">λ</span>( NetOperatingIncome, TotalDebtService)</code></p>
+    <p>Debt service coverage Ratio measures a firm’s available cash flow to pay its current debt obligations(Net Operating Income/Total Debt Service)</p>
+    <p>Measures a firm’s available cash flow to pay its current debt obligations (Net Operating Income/Total Debt Service)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DSCRλ">
+      <div><dt><code>NetOperatingIncome</code> (required)</dt><dd>Income measure defined by the applicable covenant</dd></div>
+      <div><dt><code>TotalDebtService</code> (required)</dt><dd>Principal, interest and other payments defined by that covenant Use the same period. Tax-adjust interest only if the covenant requires it</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DSCRλ"><code>=oz.DSCR<span class="function-symbol">λ</span>(2150.0, 350.0)</code></pre>
+    <p>The workbook help shows <code>6.142857</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DSCR<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debttocapitalratio" aria-labelledby="oz-debttocapitalratio-name">
+    <h3 id="oz-debttocapitalratio-name"><code>oz.DebtToCapitalRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtToCapitalRatio<span class="function-symbol">λ</span>( Debt, ShareholdersEquity)</code></p>
+    <p>Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment (Debt/(Debt + Shareholders' equity)</p>
+    <p>Gives analysts and investors a better idea of a company's financial structure and whether or not the company is a suitable investment. (Debt/(Debt + Shareholders' equity)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtToCapitalRatioλ">
+      <div><dt><code>Debt</code> (required)</dt><dd>Total Debt which can include:<ul><li>Notes payable</li><li>Bonds payable</li><li>Long-term liabilities</li></ul></dd></div>
+      <div><dt><code>ShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity (total assets - total liabilities)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtToCapitalRatioλ"><code>=oz.DebtToCapitalRatio<span class="function-symbol">λ</span>( 80.0, 223.0 )</code></pre>
+    <p>The workbook help shows <code>26.4%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DebtToCapitalRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-equitymultiplier" aria-labelledby="oz-equitymultiplier-name">
+    <h3 id="oz-equitymultiplier-name"><code>oz.EquityMultiplier<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.EquityMultiplier<span class="function-symbol">λ</span>( TotalAssets, TotalShareholdersEquity)</code></p>
+    <p>Measures the portion of a company’s assets financed by shareholders' equity rather than by debt (TotalAssets/TotalShareholdersEquity)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.EquityMultiplierλ">
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Both current and long-term assets</dd></div>
+      <div><dt><code>TotalShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity (total assets - total liabilities)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.EquityMultiplierλ"><code>=oz.EquityMultiplier<span class="function-symbol">λ</span>(366.6, 83.2 )</code></pre>
+    <p>The workbook help shows <code>4.40625</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.EquityMultiplier<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debttoequityratio" aria-labelledby="oz-debttoequityratio-name">
+    <h3 id="oz-debttoequityratio-name"><code>oz.DebtToEquityRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtToEquityRatio<span class="function-symbol">λ</span>( TotalLiabilities, ShareholdersEquity)</code></p>
+    <p>Measures the degree to which a company is financing operations with debt rather than its own resources. (Total Liabilities/Shareholders' Equity)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtToEquityRatioλ">
+      <div><dt><code>TotalLiabilities</code> (required)</dt><dd>Total Liabilities</dd></div>
+      <div><dt><code>ShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity (total assets - total liabilities)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtToEquityRatioλ"><code>=oz.DebtToEquityRatio<span class="function-symbol">λ</span>(279.0, 74.0 )</code></pre>
+    <p>The workbook help shows <code>3.77</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DebtToEquityRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debttoassetratio" aria-labelledby="oz-debttoassetratio-name">
+    <h3 id="oz-debttoassetratio-name"><code>oz.DebtToAssetRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtToAssetRatio<span class="function-symbol">λ</span>( TotalDebt, TotalAssets)</code></p>
+    <p>Analysts can compare one company's gearing with that of other companies in the same industry. (Total Debt/Total Assets)</p>
+    <p class="field-note">See also: DebtRatio<span class="function-symbol">λ</span> computes the same ratio under its shorter name.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtToAssetRatioλ">
+      <div><dt><code>TotalDebt</code> (required)</dt><dd>Total debt includes shortterm and longterm debt</dd></div>
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Total Assets</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtToAssetRatioλ"><code>=oz.DebtToAssetRatio<span class="function-symbol">λ</span>(31.845, 63.852 )</code></pre>
+    <p>The workbook help shows <code>.49873</code>.</p>
+    <p class="field-note">Part of this function’s help text is not reproduced here. <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Ratios.txt">Read it in the released source<span class="visually-hidden">, oz.DebtToAssetRatio<span class="function-symbol">λ</span></span></a>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DebtToAssetRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-interestcoverageratio" aria-labelledby="oz-interestcoverageratio-name">
+    <h3 id="oz-interestcoverageratio-name"><code>oz.InterestCoverageRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.InterestCoverageRatio<span class="function-symbol">λ</span>( OperatingIncome, InterestExpenses)</code></p>
+    <p>Determines how easily a company can pay interest on its outstanding debt (Operating Income/Interest Expenses)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.InterestCoverageRatioλ">
+      <div><dt><code>OperatingIncome</code> (required)</dt><dd>Operating Income (EBIT)</dd></div>
+      <div><dt><code>InterestExpenses</code> (required)</dt><dd>Interest Expense</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.InterestCoverageRatioλ"><code>=oz.InterestCoverageRatio<span class="function-symbol">λ</span>( 625.0, 90.0 )</code></pre>
+    <p>The workbook help shows <code>6.944444</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.InterestCoverageRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-equityratio" aria-labelledby="oz-equityratio-name">
+    <h3 id="oz-equityratio-name"><code>oz.EquityRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.EquityRatio<span class="function-symbol">λ</span>( ShareholdersEquity, TotalAssets, IntangibleAssets)</code></p>
+    <p>Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets)).</p>
+    <p>Measures the long-term solvency of a company by comparing its shareholders’ equity to its total assets (Shareholder's Equity/(Total Assets - Intangible Assets))</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.EquityRatioλ">
+      <div><dt><code>ShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity (total assets - total liabilities)</dd></div>
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Both current and long-term assets</dd></div>
+      <div><dt><code>IntangibleAssets</code> (required)</dt><dd>Deducted from total assets before the comparison</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.EquityRatioλ"><code>=oz.EquityRatio<span class="function-symbol">λ</span>( 20.0, 60.0, 10.0 )</code></pre>
+    <p>The workbook help shows <code>40%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.EquityRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-assetturnoverratio" aria-labelledby="oz-assetturnoverratio-name">
+    <h3 id="oz-assetturnoverratio-name"><code>oz.AssetTurnoverRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.AssetTurnoverRatio<span class="function-symbol">λ</span>( NetSales, TotalAssets)</code></p>
+    <p>Measures the value of a company's sales or revenues relative to the value of its assets. (Net Sales/Total Assets)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.AssetTurnoverRatioλ">
+      <div><dt><code>NetSales</code> (required)</dt><dd>revenue or net sales.</dd></div>
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Average of Assets and period start and end.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.AssetTurnoverRatioλ"><code>=oz.AssetTurnoverRatio<span class="function-symbol">λ</span>( 171760, 538715 )</code></pre>
+    <p>The workbook help shows <code>.32x</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.AssetTurnoverRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-dsi" aria-labelledby="oz-dsi-name">
+    <h3 id="oz-dsi-name"><code>oz.DSI<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DSI<span class="function-symbol">λ</span>( AverageInventory, CostOfGoodsSold)</code></p>
+    <p>Days Sales in Inventory Ratio (aka Average age of inventory indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365)</p>
+    <p>Days Sales in Inventory Ratio (aka Average age of inventory) indicates the average time in days that a company takes to turn its inventory (Average Inventory/Annual Cost of Goods Sold x 365 days)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DSIλ">
+      <div><dt><code>AverageInventory</code> (required)</dt><dd>Average of period open and close Inventory</dd></div>
+      <div><dt><code>CostOfGoodsSold</code> (required)</dt><dd>Cost of Goods Sold (COGS) for a full year</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DSIλ"><code>=oz.DSI<span class="function-symbol">λ</span>(54.9, 490 )</code></pre>
+    <p>The workbook help shows <code>40.8949 days</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DSI<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-operatingratio" aria-labelledby="oz-operatingratio-name">
+    <h3 id="oz-operatingratio-name"><code>oz.OperatingRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.OperatingRatio<span class="function-symbol">λ</span>( OperatingExpenses, CostOfGoodsSold, NetSales)</code></p>
+    <p>Shows how efficient management is at keeping costs low while generating revenue (Operating Expenses + Cost Of Goods Sold)/Net Sales)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.OperatingRatioλ">
+      <div><dt><code>OperatingExpenses</code> (required)</dt><dd>Operating Expenses excluding COGS, which is supplied separately and added by the formula. Can include:<ul><li>Accounting and legal fees</li><li>Bank charges</li><li>Sales and marketing costs</li><li>Non-capitalised research development (R&amp;D) expenses</li></ul></dd></div>
+      <div><dt><code>CostOfGoodsSold</code> (required)</dt><dd>Cost of Goods Sold (COGS) which can include:<ul><li>Office supply costs</li><li>Rent and utility expenses</li><li>Repair and maintenance costs</li><li>Salary and wage expenses</li></ul></dd></div>
+      <div><dt><code>NetSales</code> (required)</dt><dd>Net Sales or Revenue.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.OperatingRatioλ"><code>=oz.OperatingRatio<span class="function-symbol">λ</span>( 14.37, 48.48, 90.75 )</code></pre>
+    <p>The workbook help shows <code>69%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.OperatingRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-grossmargin" aria-labelledby="oz-grossmargin-name">
+    <h3 id="oz-grossmargin-name"><code>oz.GrossMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.GrossMargin<span class="function-symbol">λ</span>( GrossProfit, NetSales)</code></p>
+    <p>Shows how much profit a company makes after paying off its Cost of Goods Sold</p>
+    <p>Shows how much profit a company makes after paying off its Cost of Goods Sold (COGS). (Gross Profit/Net Sales)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.GrossMarginλ">
+      <div><dt><code>GrossProfit</code> (required)</dt><dd>Gross Profit</dd></div>
+      <div><dt><code>NetSales</code> (required)</dt><dd>Net Sales or Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.GrossMarginλ"><code>=oz.GrossMargin<span class="function-symbol">λ</span>( 62.984, 102.007 )</code></pre>
+    <p>The workbook help shows <code>61.7448%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.GrossMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-ebitdamargin" aria-labelledby="oz-ebitdamargin-name">
+    <h3 id="oz-ebitdamargin-name"><code>oz.EBITDAMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.EBITDAMargin<span class="function-symbol">λ</span>( EBITDA, TotalRevenue)</code></p>
+    <p>Measures a company's operating profit as a percentage of its revenue (EBITDA/Total Revenue).</p>
+    <p>Measures a company's operating profit as a percentage of its revenue. (EBITDA/Total Revenue)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.EBITDAMarginλ">
+      <div><dt><code>EBITDA</code> (required)</dt><dd>Earnings Before Interest, tax, depreciation, and amortisation</dd></div>
+      <div><dt><code>TotalRevenue</code> (required)</dt><dd>Total Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.EBITDAMarginλ"><code>=oz.EBITDAMargin<span class="function-symbol">λ</span>( 15.0, 125.0 )</code></pre>
+    <p>The workbook help shows <code>12%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.EBITDAMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-operatingmargin" aria-labelledby="oz-operatingmargin-name">
+    <h3 id="oz-operatingmargin-name"><code>oz.OperatingMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.OperatingMargin<span class="function-symbol">λ</span>( OperatingEarnings, Revenue)</code></p>
+    <p>Measures how much profit a company makes on a dollar of sales after paying for variable costs of production, such as wages and raw materials, but before paying interest or tax (Operating Earnings/Revenue).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.OperatingMarginλ">
+      <div><dt><code>OperatingEarnings</code> (required)</dt><dd>Earnings Before Interest and tax (EBIT), which is revenue less COGS and less the other operating expenses</dd></div>
+      <div><dt><code>Revenue</code> (required)</dt><dd>Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.OperatingMarginλ"><code>=oz.OperatingMargin<span class="function-symbol">λ</span>( .8, 2.0 )</code></pre>
+    <p>The workbook help shows <code>40%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.OperatingMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-pretaxmargin" aria-labelledby="oz-pretaxmargin-name">
+    <h3 id="oz-pretaxmargin-name"><code>oz.PretaxMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PretaxMargin<span class="function-symbol">λ</span>( PretaxEarnings, Revenue)</code></p>
+    <p>Measures the operating efficiency of a company (Pretax Earnings/Revenue).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PretaxMarginλ">
+      <div><dt><code>PretaxEarnings</code> (required)</dt><dd>Earnings before tax (EBT)</dd></div>
+      <div><dt><code>Revenue</code> (required)</dt><dd>Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PretaxMarginλ"><code>=oz.PretaxMargin<span class="function-symbol">λ</span>( 40.0, 500.0 )</code></pre>
+    <p>The workbook help shows <code>8%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.PretaxMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-netprofitmargin" aria-labelledby="oz-netprofitmargin-name">
+    <h3 id="oz-netprofitmargin-name"><code>oz.NetProfitMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.NetProfitMargin<span class="function-symbol">λ</span>( NetIncome, Revenue)</code></p>
+    <p>Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue).</p>
+    <p>Measures how much net income or profit a company generates as a percentage of its revenue. (Net Income/Revenue)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.NetProfitMarginλ">
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income includes:<ul><li>Revenue</li><li>Less COGS</li><li>Less Operating and other expenses</li><li>Less Interest</li><li>Less Taxes</li></ul></dd></div>
+      <div><dt><code>Revenue</code> (required)</dt><dd>Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.NetProfitMarginλ"><code>=oz.NetProfitMargin<span class="function-symbol">λ</span>( 56.0, 100.0 )</code></pre>
+    <p>The workbook help shows <code>56%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.NetProfitMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-cashflowmargin" aria-labelledby="oz-cashflowmargin-name">
+    <h3 id="oz-cashflowmargin-name"><code>oz.CashFlowMargin<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CashFlowMargin<span class="function-symbol">λ</span>( CashFlowFromOperatingActivities, Revenue)</code></p>
+    <p>Cash Flow Margin is a trusted metric of a company’s profitability and efficiency and its earnings quality (Cash Flow From Operating Activities/Revenue).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CashFlowMarginλ">
+      <div><dt><code>CashFlowFromOperatingActivities</code> (required)</dt><dd>Cash Flow From Operating Activities includes:<ul><li>Net Income</li><li>Non-cash Expenses (Depreciation and Amortisation)</li><li>Change in Working Capital</li></ul></dd></div>
+      <div><dt><code>Revenue</code> (required)</dt><dd>Revenue</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CashFlowMarginλ"><code>=oz.CashFlowMargin<span class="function-symbol">λ</span>( 2.695, 5.3 )</code></pre>
+    <p>The workbook help shows <code>50.8%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.CashFlowMargin<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-roa" aria-labelledby="oz-roa-name">
+    <h3 id="oz-roa-name"><code>oz.ROA<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ROA<span class="function-symbol">λ</span>( NetIncome, TotalAssets)</code></p>
+    <p>Return on assets (ROA) ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)</p>
+    <p>Return on assets ratio indicates how profitable a company is in relation to its total assets ( Net Income / Total Assets)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ROAλ">
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income</dd></div>
+      <div><dt><code>TotalAssets</code> (required)</dt><dd>Total Assets</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ROAλ"><code>=oz.ROA<span class="function-symbol">λ</span>(1200, 15000 )</code></pre>
+    <p>The workbook help shows <code>8%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.ROA<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-roe" aria-labelledby="oz-roe-name">
+    <h3 id="oz-roe-name"><code>oz.ROE<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ROE<span class="function-symbol">λ</span>( NetIncome, ShareholdersEquity, [OpeningEquity])</code></p>
+    <p>Return on equity (ROE) ratio is a measure of financial performance (Net Income/Average Shareholders' Equity)</p>
+    <p>Return on equity ratio is considered a gauge of a corporation's profitability and how efficient it is in generating profits (Net Income/ Average Shareholders' Equity)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ROEλ">
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income</dd></div>
+      <div><dt><code>ShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity at the period close. Give the average of open and close here when OpeningEquity is left out</dd></div>
+      <div><dt><code>OpeningEquity</code> (optional)</dt><dd>Shareholders' Equity at the period open. When given, the ratio divides by the average of OpeningEquity and ShareholdersEquity</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.ROEλ"><code>=oz.ROE<span class="function-symbol">λ</span>( 59.972, 256.144, 251.635 )</code></pre>
+    <p>The workbook help shows <code>23.6213%</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.ROEλ"><code>=oz.ROE<span class="function-symbol">λ</span>( 59.972, AVERAGE(251.635, 256.144) )</code></pre>
+    <p>The workbook help shows <code>23.6213%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.ROE<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-roi" aria-labelledby="oz-roi-name">
+    <h3 id="oz-roi-name"><code>oz.ROI<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ROI<span class="function-symbol">λ</span>( NetReturnonInvestment, CostofInvestment)</code></p>
+    <p>Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost (Net Return on Investment/Cost of Investment).</p>
+    <p>Return on Investment (ROI) ratio measures the profitability of an investment by comparing the gain or loss to its cost. (Net Return on Investment/Cost of Investment)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ROIλ">
+      <div><dt><code>NetReturnonInvestment</code> (required)</dt><dd>Net Return on Investment is the final value of investment - initial value of investment</dd></div>
+      <div><dt><code>CostofInvestment</code> (required)</dt><dd>Cost of Investment</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ROIλ"><code>=oz.ROI<span class="function-symbol">λ</span>( 2875, 10000 )</code></pre>
+    <p>The workbook help shows <code>28.75%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.ROI<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-roic" aria-labelledby="oz-roic-name">
+    <h3 id="oz-roic-name"><code>oz.ROIC<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ROIC<span class="function-symbol">λ</span>( NetOperatingProfitAfterTax, InvestedCapital)</code></p>
+    <p>Return on Invested capital assesses a company’s efficiency in allocating capital to profitable investments (Net Operating Profit After Tax/Invested Capital)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ROICλ">
+      <div><dt><code>NetOperatingProfitAfterTax</code> (required)</dt><dd>Net Operating profit after Tax [ operating profit x (1 - effective tax rate) ].</dd></div>
+      <div><dt><code>InvestedCapital</code> (required)</dt><dd>Invested Capital (Debt + Equity).</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ROICλ"><code>=oz.ROIC<span class="function-symbol">λ</span>( 3245, 25729 )</code></pre>
+    <p>The workbook help shows <code>12.6122%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.ROIC<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-priceearningsratio" aria-labelledby="oz-priceearningsratio-name">
+    <h3 id="oz-priceearningsratio-name"><code>oz.PriceEarningsRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PriceEarningsRatio<span class="function-symbol">λ</span>( SharePrice, EarningsPerShare)</code></p>
+    <p>Price-earnings Ratio measures a company's share price relative to its earnings per share (Share Price/Earnings Per Share).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PriceEarningsRatioλ">
+      <div><dt><code>SharePrice</code> (required)</dt><dd>Share Price (Market Value Per Share)</dd></div>
+      <div><dt><code>EarningsPerShare</code> (required)</dt><dd>Earnings Per Share</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PriceEarningsRatioλ"><code>=oz.PriceEarningsRatio<span class="function-symbol">λ</span>( 242.62, 16.85)</code></pre>
+    <p>The workbook help shows <code>14.39881</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.PriceEarningsRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-pricetobookratio" aria-labelledby="oz-pricetobookratio-name">
+    <h3 id="oz-pricetobookratio-name"><code>oz.PriceToBookRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PriceToBookRatio<span class="function-symbol">λ</span>( MarketPricePerShare, BookValuePerShare)</code></p>
+    <p>Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies.</p>
+    <p>Many investors use the price-to-book ratio (P/B ratio) to compare a firm's market capitalisation to its book value and locate undervalued companies. (Market Price Per Share/Book Value Per Share)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PriceToBookRatioλ">
+      <div><dt><code>MarketPricePerShare</code> (required)</dt><dd>Market Price Per Share (Current market price of the share)</dd></div>
+      <div><dt><code>BookValuePerShare</code> (required)</dt><dd>Tangible book value per share (oz.BVPS<span class="function-symbol">λ</span> keeps intangibles) (Total assets - intangible assets - total liabilities) ÷ number of outstanding shares</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PriceToBookRatioλ"><code>=oz.PriceToBookRatio<span class="function-symbol">λ</span>( 5, 2.50 )</code></pre>
+    <p>The workbook help shows <code>2.0</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.PriceToBookRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-pricetosalesratio" aria-labelledby="oz-pricetosalesratio-name">
+    <h3 id="oz-pricetosalesratio-name"><code>oz.PriceToSalesRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PriceToSalesRatio<span class="function-symbol">λ</span>( MarketPricePerShare, SalesPerShare)</code></p>
+    <p>Price to Sales (P/S) Ratio is an indicator of the value that financial markets have placed on each dollar of a company's sales or revenues (Market Price Per Share/Sales Per Share).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PriceToSalesRatioλ">
+      <div><dt><code>MarketPricePerShare</code> (required)</dt><dd>Market Price Per Share (Current market price of the share)</dd></div>
+      <div><dt><code>SalesPerShare</code> (required)</dt><dd>Annual Sales Per Share (Revenue prior 12 months)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PriceToSalesRatioλ"><code>=oz.PriceToSalesRatio<span class="function-symbol">λ</span>( 455.0, 100.0 )</code></pre>
+    <p>The workbook help shows <code>4.55</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.PriceToSalesRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-pricetocashratio" aria-labelledby="oz-pricetocashratio-name">
+    <h3 id="oz-pricetocashratio-name"><code>oz.PriceToCashRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PriceToCashRatio<span class="function-symbol">λ</span>( MarketPricePerShare, OperatingCashFlowPerShare)</code></p>
+    <p>Price to Cash (P/CF) Ratio is a stock valuation indicator or multiple that measures the value of a stock’s price relative to its operating cash flow per share (Market Price Per Share/Operating Cash Flow Per Share).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PriceToCashRatioλ">
+      <div><dt><code>MarketPricePerShare</code> (required)</dt><dd>Market Price Per Share (Current market price of the share)</dd></div>
+      <div><dt><code>OperatingCashFlowPerShare</code> (required)</dt><dd>Operating Cash Flow for prior 12 months/Shares outstanding</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PriceToCashRatioλ"><code>=oz.PriceToCashRatio<span class="function-symbol">λ</span>( 200.0, 100.0 )</code></pre>
+    <p>The workbook help shows <code>2</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.PriceToCashRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-bvps" aria-labelledby="oz-bvps-name">
+    <h3 id="oz-bvps-name"><code>oz.BVPS<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.BVPS<span class="function-symbol">λ</span>( ShareholdersEquity, PreferredStock, AverageSharesOutstanding )</code></p>
+    <p>Book value per share ratio is an indicator of the value of a company’s stock (Shareholders' Equity - Preferred Stock)/Average Shares Outstanding)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.BVPSλ">
+      <div><dt><code>ShareholdersEquity</code> (required)</dt><dd>Shareholders' Equity (total assets - total liabilities), intangibles kept</dd></div>
+      <div><dt><code>PreferredStock</code> (required)</dt><dd>Preferred Stock (securities that represent ownership in a corporation).</dd></div>
+      <div><dt><code>AverageSharesOutstanding</code> (required)</dt><dd>Average Shares Out Standing</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.BVPSλ"><code>=oz.BVPS<span class="function-symbol">λ</span>(20.0, 5.0, AVERAGE( 2.9, 3.1) )</code></pre>
+    <p>The workbook help shows <code>5</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.BVPS<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-caperatio" aria-labelledby="oz-caperatio-name">
+    <h3 id="oz-caperatio-name"><code>oz.CAPERatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CAPERatio<span class="function-symbol">λ</span>( SharePrice, TenYearAverageEarningsInflationAdjusted )</code></p>
+    <p>CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earn</p>
+    <p>CAPE Ratio is a valuation measure that uses real earnings per share (EPS) over a 10-year period to smooth out fluctuations in corporate profits that occur over different periods of a business cycle (aka Shiller PE Ratio) (Share Price/Ten Year Average Earnings Inflation Adjusted)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CAPERatioλ">
+      <div><dt><code>SharePrice</code> (required)</dt><dd>Current stock price</dd></div>
+      <div><dt><code>TenYearAverageEarningsInflationAdjusted</code> (required)</dt><dd>Average earnings per share for 10 years adjusted for inflation</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CAPERatioλ"><code>=oz.CAPERatio<span class="function-symbol">λ</span>( 100.0, 10.0  )</code></pre>
+    <p>The workbook help shows <code>10</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.CAPERatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-dpr" aria-labelledby="oz-dpr-name">
+    <h3 id="oz-dpr-name"><code>oz.DPR<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DPR<span class="function-symbol">λ</span>( DividendsPaid, NetIncome )</code></p>
+    <p>Dividend Payout Ratio is the percentage of earnings paid to shareholders via dividends (DividendsPaid/NetIncome)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DPRλ">
+      <div><dt><code>DividendsPaid</code> (required)</dt><dd>Dividends paid</dd></div>
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DPRλ"><code>=oz.DPR<span class="function-symbol">λ</span>( 5.0, 20.0 )</code></pre>
+    <p>The workbook help shows <code>25%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DPR<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-dividendyieldratio" aria-labelledby="oz-dividendyieldratio-name">
+    <h3 id="oz-dividendyieldratio-name"><code>oz.DividendYieldRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DividendYieldRatio<span class="function-symbol">λ</span>( AnnualDividendsPerShare, SharePrice)</code></p>
+    <p>Dividend yield ratio shows how much a company pays out in dividends each year relative to its stock price (Annual Dividends Pe rShare/Share Price)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DividendYieldRatioλ">
+      <div><dt><code>AnnualDividendsPerShare</code> (required)</dt><dd>Annual Dividends Per Share</dd></div>
+      <div><dt><code>SharePrice</code> (required)</dt><dd>Market value per share</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DividendYieldRatioλ"><code>=oz.DividendYieldRatio<span class="function-symbol">λ</span>( 1.2, 45 )</code></pre>
+    <p>The workbook help shows <code>2.6667%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.DividendYieldRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-eps" aria-labelledby="oz-eps-name">
+    <h3 id="oz-eps-name"><code>oz.EPS<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.EPS<span class="function-symbol">λ</span>( NetIncome, PreferredDividends, EndOfPeriodCommonSharesOutstanding)</code></p>
+    <p>Earnings per share measures profitability indicating how much profit each outstanding share of common stock has earned (Net Income - Preferred Dividends)/End Of Period Common Shares Outstanding)</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.EPSλ">
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income</dd></div>
+      <div><dt><code>PreferredDividends</code> (required)</dt><dd>Dividends paid on prefered stock</dd></div>
+      <div><dt><code>EndOfPeriodCommonSharesOutstanding</code> (required)</dt><dd>Weighted-average ordinary shares for basic EPS Use closing shares only when they equal that weighted average</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.EPSλ"><code>=oz.EPS<span class="function-symbol">λ</span>( 7.6, 0, 3.98 )</code></pre>
+    <p>The workbook help shows <code>1.909548</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.EPS<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-retentionratio" aria-labelledby="oz-retentionratio-name">
+    <h3 id="oz-retentionratio-name"><code>oz.RetentionRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.RetentionRatio<span class="function-symbol">λ</span>( RetainedEarnings, NetIncome )</code></p>
+    <p>Retention Ratio is the proportion of earnings kept back in the business as retained earnings (Retained Earnings/Net Income).</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.RetentionRatioλ">
+      <div><dt><code>RetainedEarnings</code> (required)</dt><dd>Retained Earnings (Net Income - paid dividends)</dd></div>
+      <div><dt><code>NetIncome</code> (required)</dt><dd>Net Income</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.RetentionRatioλ"><code>=oz.RetentionRatio<span class="function-symbol">λ</span>( 19.869, 41.981)</code></pre>
+    <p>The workbook help shows <code>47.3%</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.r.RetentionRatio<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-atoturnover" aria-labelledby="oz-atoturnover-name">
+    <h3 id="oz-atoturnover-name"><code>oz.ATOTurnover<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ATOTurnover<span class="function-symbol">λ</span>(OtherSales, TotalBusinessIncome)</code></p>
+    <p>Turnover as the ATO small business benchmarks measure it: other sales unless under half of total business income</p>
+    <p>Turnover excluding GST, the denominator of every ATO tax return benchmark ratio.</p>
+    <p class="field-note">Note: Returns OtherSales, unless it is zero, blank or less than half of TotalBusinessIncome, when it returns TotalBusinessIncome instead. That is the ATO's rule. OtherSales is the other sales of goods and services amount on the return. Where total business income is blank or incomplete, the ATO adds up the business income items it lists for the return type: pass that total as TotalBusinessIncome. Pass both amounts excluding GST. Text in either argument returns #VALUE!. Arithmetic only: the reviewer decides what belongs in each amount. ATO benchmark ratio calculations checked 19 October 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ATOTurnoverλ">
+      <div><dt><code>OtherSales</code> (required)</dt><dd>Other sales of goods and services, excluding GST.</dd></div>
+      <div><dt><code>TotalBusinessIncome</code> (required)</dt><dd>Total business income, excluding GST.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.ATOTurnoverλ"><code>=oz.ATOTurnover<span class="function-symbol">λ</span>(480000, 500000)</code></pre>
+    <p>The workbook help shows <code>480000</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.ATOTurnoverλ"><code>=oz.ATOTurnover<span class="function-symbol">λ</span>(200000, 500000)</code></pre>
+    <p>The workbook help shows <code>500000</code>.</p>
+  </section>
+  <section id="oz-atobenchmarkratio" aria-labelledby="oz-atobenchmarkratio-name">
+    <h3 id="oz-atobenchmarkratio-name"><code>oz.ATOBenchmarkRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ATOBenchmarkRatio<span class="function-symbol">λ</span>(Amount, Turnover)</code></p>
+    <p>ATO tax return benchmark ratio: an amount divided by turnover, as for rent or motor vehicle expenses to turnover</p>
+    <p>ATO tax return benchmark ratio: Amount / Turnover.</p>
+    <p class="field-note">Note: The ATO's basic formula for a tax return benchmark ratio, and the whole of its rent expenses to turnover and motor vehicle expenses to turnover ratios: pass the rent or motor vehicle expenses amount from the return. Returns a fraction; format it as a percentage, as the ATO's figure is the same quotient multiplied by 100. Take Turnover from ATOTurnover<span class="function-symbol">λ</span>(). Use ATOTotalExpensesRatio<span class="function-symbol">λ</span>(), ATOCostOfSalesRatio<span class="function-symbol">λ</span>() and ATOLabourRatio<span class="function-symbol">λ</span>() for the 3 ratios whose amounts the ATO adjusts. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ATOBenchmarkRatioλ">
+      <div><dt><code>Amount</code> (required)</dt><dd>The expense amount, excluding GST.</dd></div>
+      <div><dt><code>Turnover</code> (required)</dt><dd>Turnover excluding GST, for example from ATOTurnover<span class="function-symbol">λ</span>().</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ATOBenchmarkRatioλ"><code>=oz.ATOBenchmarkRatio<span class="function-symbol">λ</span>(24000, 480000)</code></pre>
+    <p>The workbook help shows <code>5%</code>.</p>
+  </section>
+  <section id="oz-atototalexpensesratio" aria-labelledby="oz-atototalexpensesratio-name">
+    <h3 id="oz-atototalexpensesratio-name"><code>oz.ATOTotalExpensesRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ATOTotalExpensesRatio<span class="function-symbol">λ</span>(TotalExpenses, Turnover, [AssociatePayments])</code></p>
+    <p>ATO total expenses to turnover: total expenses less payments to associated persons, over turnover</p>
+    <p>ATO total expenses to turnover benchmark ratio.</p>
+    <p class="field-note">Note: (TotalExpenses - AssociatePayments) / Turnover. The ATO deducts payments to associated persons from total expenses before dividing. Where total expenses is blank or incomplete, it adds up the expense items it lists for the return type: pass that total as TotalExpenses. OperatingRatio<span class="function-symbol">λ</span>() gives the same quotient only when its expenses already exclude those payments and its net sales equal this Turnover. Returns a fraction, as ATOBenchmarkRatio<span class="function-symbol">λ</span>() does. An omitted or blank AssociatePayments counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ATOTotalExpensesRatioλ">
+      <div><dt><code>TotalExpenses</code> (required)</dt><dd>Total expenses from the return, excluding GST.</dd></div>
+      <div><dt><code>Turnover</code> (required)</dt><dd>Turnover excluding GST, for example from ATOTurnover<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>AssociatePayments</code> (optional, Default = 0)</dt><dd>Payments to associated persons.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ATOTotalExpensesRatioλ"><code>=oz.ATOTotalExpensesRatio<span class="function-symbol">λ</span>(410000, 480000, 30000)</code></pre>
+    <p>The workbook help shows <code>0.7917</code>.</p>
+  </section>
+  <section id="oz-atocostofsalesratio" aria-labelledby="oz-atocostofsalesratio-name">
+    <h3 id="oz-atocostofsalesratio-name"><code>oz.ATOCostOfSalesRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ATOCostOfSalesRatio<span class="function-symbol">λ</span>(CostOfSales, Turnover, [IncludedWages])</code></p>
+    <p>ATO cost of sales to turnover, excluding salary and wages included in cost of sales</p>
+    <p>ATO cost of sales to turnover benchmark ratio, excluding labour.</p>
+    <p class="field-note">Note: (CostOfSales - IncludedWages) / Turnover. The ATO's cost of sales excludes salary and wages: where the return's total salary and wages code is C, meaning they are included in cost of sales, it deducts the total salary and wages expenses. Pass that total as IncludedWages only when the code is C, and leave it out otherwise. GrossMargin<span class="function-symbol">λ</span>() is a different measure: it keeps wages in cost of sales. Returns a fraction, as ATOBenchmarkRatio<span class="function-symbol">λ</span>() does. An omitted or blank IncludedWages counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ATOCostOfSalesRatioλ">
+      <div><dt><code>CostOfSales</code> (required)</dt><dd>Cost of sales from the return, excluding GST.</dd></div>
+      <div><dt><code>Turnover</code> (required)</dt><dd>Turnover excluding GST, for example from ATOTurnover<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>IncludedWages</code> (optional, Default = 0)</dt><dd>Total salary and wages expenses, only when the return's code is C.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ATOCostOfSalesRatioλ"><code>=oz.ATOCostOfSalesRatio<span class="function-symbol">λ</span>(260000, 480000, 60000)</code></pre>
+    <p>The workbook help shows <code>0.4167</code>.</p>
+  </section>
+  <section id="oz-atolabourratio" aria-labelledby="oz-atolabourratio-name">
+    <h3 id="oz-atolabourratio-name"><code>oz.ATOLabourRatio<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ATOLabourRatio<span class="function-symbol">λ</span>(SalaryWages, Contractors, Turnover, [AssociatePayments], [W1])</code></p>
+    <p>ATO labour to turnover: salary and wages plus contractors less payments to associated persons, over turnover</p>
+    <p>ATO labour to turnover benchmark ratio.</p>
+    <p class="field-note">Note: (Wages + Contractors - AssociatePayments) / Turnover, where Wages is SalaryWages, or W1 when W1 is greater. The ATO adds total salary and wages expenses to contractor, subcontractor and commission expenses and deducts payments to associated persons. Where the activity statements' label W1 (total salary, wages and other payments) for the year exceeds the return's salary and wages, it uses W1. Returns a fraction, as ATOBenchmarkRatio<span class="function-symbol">λ</span>() does. An omitted or blank AssociatePayments or W1 counts as 0. Turnover of 0 returns #DIV/0!. Arithmetic only. ATO benchmark ratio calculations checked 19 October 2026.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ATOLabourRatioλ">
+      <div><dt><code>SalaryWages</code> (required)</dt><dd>Total salary and wages expenses from the return.</dd></div>
+      <div><dt><code>Contractors</code> (required)</dt><dd>Contractor, subcontractor and commission expenses.</dd></div>
+      <div><dt><code>Turnover</code> (required)</dt><dd>Turnover excluding GST, for example from ATOTurnover<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>AssociatePayments</code> (optional, Default = 0)</dt><dd>Payments to associated persons.</dd></div>
+      <div><dt><code>W1</code> (optional, Default = 0)</dt><dd>The year's total at activity statement label W1.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.ATOLabourRatioλ"><code>=oz.ATOLabourRatio<span class="function-symbol">λ</span>(90000, 20000, 480000, 10000, 95000)</code></pre>
+    <p>The workbook help shows <code>0.21875</code>.</p>
+  </section>
+  <section id="oz-receivabledays" aria-labelledby="oz-receivabledays-name">
+    <h3 id="oz-receivabledays-name"><code>oz.ReceivableDays<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.ReceivableDays<span class="function-symbol">λ</span>(Receivables, Sales, [Days])</code></p>
+    <p>Receivable days, or days sales outstanding (DSO): Receivables / Sales x Days</p>
+    <p>Receivable days, or days sales outstanding (DSO): the days of sales not yet collected.</p>
+    <p class="field-note">Note: Receivables / Sales * Days. Days is the number of days the Sales figure covers: 365 with a year's sales, 90 with the last three months' sales for a rolling figure, or a month's days with that month's sales. Pass closing receivables, or the average of opening and closing for an average-balance figure. Put the balance and the sales on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Sales of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.ReceivableDaysλ">
+      <div><dt><code>Receivables</code> (required)</dt><dd>Trade receivables: the closing balance, or the average of opening and closing.</dd></div>
+      <div><dt><code>Sales</code> (required)</dt><dd>Credit sales over the same Days.</dd></div>
+      <div><dt><code>Days</code> (optional, Default = 365)</dt><dd>Days the Sales figure covers.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 1: oz.ReceivableDaysλ"><code>=oz.ReceivableDays<span class="function-symbol">λ</span>(125000, 1200000)</code></pre>
+    <p>The workbook help shows <code>38.0208</code>.</p>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example 2: oz.ReceivableDaysλ"><code>=oz.ReceivableDays<span class="function-symbol">λ</span>(125000, 330000, 90)</code></pre>
+    <p>The workbook help shows <code>34.0909</code>.</p>
+  </section>
+  <section id="oz-payabledays" aria-labelledby="oz-payabledays-name">
+    <h3 id="oz-payabledays-name"><code>oz.PayableDays<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.PayableDays<span class="function-symbol">λ</span>(Payables, Purchases, [Days])</code></p>
+    <p>Payable days, or days payable outstanding (DPO): Payables / Purchases x Days</p>
+    <p>Payable days, or days payable outstanding (DPO): the days of purchases not yet paid.</p>
+    <p class="field-note">Note: Payables / Purchases * Days. Days is the number of days the Purchases figure covers, as for ReceivableDays<span class="function-symbol">λ</span>(). Credit purchases are the matching flow; cost of sales is the common substitute where purchases are not reported. Pass closing payables, or the average of opening and closing. Put the balance and the purchases on the same basis: where one includes GST and the other does not, adjust the inputs first, because this function makes no GST adjustment. Purchases of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.PayableDaysλ">
+      <div><dt><code>Payables</code> (required)</dt><dd>Trade payables: the closing balance, or the average of opening and closing.</dd></div>
+      <div><dt><code>Purchases</code> (required)</dt><dd>Credit purchases, or cost of sales, over the same Days.</dd></div>
+      <div><dt><code>Days</code> (optional, Default = 365)</dt><dd>Days the Purchases figure covers.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.PayableDaysλ"><code>=oz.PayableDays<span class="function-symbol">λ</span>(64000, 780000)</code></pre>
+    <p>The workbook help shows <code>29.9487</code>.</p>
+  </section>
+  <section id="oz-wipdays" aria-labelledby="oz-wipdays-name">
+    <h3 id="oz-wipdays-name"><code>oz.WIPDays<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.WIPDays<span class="function-symbol">λ</span>(WIP, RelatedFlow, [Days])</code></p>
+    <p>Work in progress days: WIP / RelatedFlow x Days, with both on one valuation basis</p>
+    <p>Work in progress days: the days of work done but not yet billed or completed.</p>
+    <p class="field-note">Note: WIP / RelatedFlow * Days. WIP and RelatedFlow must use the same valuation basis: fee revenue with WIP at charge-out value, as a professional services firm records it, or cost of sales with WIP at cost. Days is the number of days the RelatedFlow figure covers. WIP days plus ReceivableDays<span class="function-symbol">λ</span>() gives the lock-up days a services firm tracks. RelatedFlow of 0 returns #DIV/0!, and Days of 0 or less returns #NUM!.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.WIPDaysλ">
+      <div><dt><code>WIP</code> (required)</dt><dd>Work in progress: the closing balance, or the average of opening and closing.</dd></div>
+      <div><dt><code>RelatedFlow</code> (required)</dt><dd>Fee revenue or cost of sales over the same Days, on the valuation basis of WIP.</dd></div>
+      <div><dt><code>Days</code> (optional, Default = 365)</dt><dd>Days the RelatedFlow figure covers.</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.WIPDaysλ"><code>=oz.WIPDays<span class="function-symbol">λ</span>(42000, 510000)</code></pre>
+    <p>The workbook help shows <code>30.0588</code>.</p>
+  </section>
+  <section id="oz-cashconversioncycle" aria-labelledby="oz-cashconversioncycle-name">
+    <h3 id="oz-cashconversioncycle-name"><code>oz.CashConversionCycle<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.CashConversionCycle<span class="function-symbol">λ</span>(InventoryDays, ReceivableDays, PayableDays, [WIPDays])</code></p>
+    <p>Cash conversion cycle in days: inventory days + WIP days + receivable days - payable days</p>
+    <p>Cash conversion cycle: the days between paying suppliers and collecting from customers.</p>
+    <p class="field-note">Note: InventoryDays + WIPDays + ReceivableDays - PayableDays. Pass day counts, for example from DSI<span class="function-symbol">λ</span>(), ReceivableDays<span class="function-symbol">λ</span>(), PayableDays<span class="function-symbol">λ</span>() and WIPDays<span class="function-symbol">λ</span>(), with every component on the same period basis. DSI<span class="function-symbol">λ</span>() multiplies by 365 and expects a full year's cost of goods sold, so for a shorter window annualise that window's cost of goods sold before passing it. A negative result means suppliers are paid after customers pay. An omitted or blank WIPDays counts as 0. Pass WIPDays only where WIP is not already in the inventory behind InventoryDays, or it is counted twice.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.CashConversionCycleλ">
+      <div><dt><code>InventoryDays</code> (required)</dt><dd>Inventory days, for example from DSI<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>ReceivableDays</code> (required)</dt><dd>Receivable days, for example from ReceivableDays<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>PayableDays</code> (required)</dt><dd>Payable days, for example from PayableDays<span class="function-symbol">λ</span>().</dd></div>
+      <div><dt><code>WIPDays</code> (optional, Default = 0)</dt><dd>Work in progress days, for example from WIPDays<span class="function-symbol">λ</span>().</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.CashConversionCycleλ"><code>=oz.CashConversionCycle<span class="function-symbol">λ</span>(40.8949, 38.0208, 29.9487)</code></pre>
+    <p>The workbook help shows <code>48.967</code>.</p>
+  </section>
+          </section>
+
+          <section id="modules">
+            <h2>Other modules</h2>
+            <ul class="related">
+              <li><a href="/tools/ozzit/functions/dates/">Ozzit Dates functions</a></li>
+              <li><a href="/tools/ozzit/functions/essentials/">Ozzit Essentials functions</a></li>
+              <li><a href="/tools/ozzit/functions/financial/">Ozzit Financial functions</a></li>
+              <li><a href="/tools/ozzit/functions/utilities/">Ozzit Utilities functions</a></li>
+              <li><a href="/tools/ozzit/functions/debt/">Ozzit Debt functions</a></li>
+              <li><a href="/tools/ozzit/">Ozzit overview, download and release verification</a></li>
+            </ul>
+          </section>
+
+          <p class="byline">
+            Written by Ryan Duguid in his own time and on his own equipment.
+            He is a Provisional CA ANZ Member.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/ratios/#article",
+        "url": "https://duguid.com.au/tools/ozzit/functions/ratios/",
+        "headline": "Ozzit Ratios functions: Excel LAMBDA reference",
+        "name": "Ozzit Ratios functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/ratios/#webpage",
+        "url": "https://duguid.com.au/tools/ozzit/functions/ratios/",
+        "name": "Ozzit Ratios functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 48 Ozzit Ratios Excel LAMBDA functions: liquidity, gearing, margin, return, market and working capital ratios.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/tools/ozzit/functions/ratios/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/ratios/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Ozzit Excel LAMBDA library", "item": "https://duguid.com.au/tools/ozzit/" },
+          { "@type": "ListItem", "position": 4, "name": "Ozzit Ratios functions", "item": "https://duguid.com.au/tools/ozzit/functions/ratios/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>

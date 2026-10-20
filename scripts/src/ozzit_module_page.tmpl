@@ -1,0 +1,150 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>@@TITLE@@</title>
+  <meta name="description" content="@@DESCRIPTION@@" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="@@TITLE@@" />
+  <meta property="og:description" content="@@DESCRIPTION@@" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="@@URL@@" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="@@TITLE@@" />
+  <meta name="twitter:description" content="@@DESCRIPTION@@" />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="@@URL@@" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="@@URL@@index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/tools/ozzit/">Ozzit Excel LAMBDA library</a></li>
+            <li aria-current="page">Ozzit @@NAME@@ functions</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>Ozzit @@NAME@@ functions</h1>
+          <p class="lead-note">The @@COUNT@@ @@NAME@@ formulas cover @@COVERS@@. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.</p>
+          <p class="release-meta">Release @@TAG@@. Read from the released <a href="@@SOURCE@@">@@NAME@@ formula source</a>, which the workbook compiles.</p>
+          <p class="page-meta">Published @@PUBLISHED@@. Last reviewed @@PUBLISHED@@.</p>
+        </div>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#use">Using these functions</a>
+          <a href="#functions">All @@COUNT@@ functions</a>
+          <a href="#modules">Other modules</a>
+        </nav>
+        <div class="article-body">
+
+          <section id="use">
+            <h2>Using these functions</h2>
+            <p>Each named formula is a native Excel <code>LAMBDA</code> in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.</p>
+            <p>The text below is the help each function carries in the @@TAG@@ workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. <a href="/tools/ozzit/#download">Download the workbook and check its hash</a>.</p>
+          </section>
+
+          <section id="functions">
+            <h2>All @@COUNT@@ functions</h2>
+@@ENTRIES@@          </section>
+
+          <section id="modules">
+            <h2>Other modules</h2>
+            <ul class="related">
+@@OTHERS@@              <li><a href="/tools/ozzit/">Ozzit overview, download and release verification</a></li>
+            </ul>
+          </section>
+
+          <p class="byline">
+            Written by Ryan Duguid in his own time and on his own equipment.
+            He is a Provisional CA ANZ Member.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "@@URL@@#article",
+        "url": "@@URL@@",
+        "headline": "@@TITLE@@",
+        "name": "@@TITLE@@",
+        "description": "@@DESCRIPTION@@",
+        "inLanguage": "en-AU",
+        "datePublished": "@@DATE@@",
+        "dateModified": "@@DATE@@",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "@@URL@@#webpage",
+        "url": "@@URL@@",
+        "name": "@@TITLE@@",
+        "description": "@@DESCRIPTION@@",
+        "inLanguage": "en-AU",
+        "datePublished": "@@DATE@@",
+        "dateModified": "@@DATE@@",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "@@URL@@#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "@@URL@@#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Ozzit Excel LAMBDA library", "item": "https://duguid.com.au/tools/ozzit/" },
+          { "@type": "ListItem", "position": 4, "name": "Ozzit @@NAME@@ functions", "item": "@@URL@@" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>

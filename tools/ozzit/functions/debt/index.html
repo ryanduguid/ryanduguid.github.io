@@ -1,0 +1,261 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Ozzit Debt functions: Excel LAMBDA reference</title>
+  <meta name="description" content="Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Ozzit Debt functions: Excel LAMBDA reference" />
+  <meta property="og:description" content="Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting." />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/tools/ozzit/functions/debt/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Ozzit Debt functions: Excel LAMBDA reference" />
+  <meta name="twitter:description" content="Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/tools/ozzit/functions/debt/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/tools/ozzit/functions/debt/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/tools/ozzit/">Ozzit Excel LAMBDA library</a></li>
+            <li aria-current="page">Ozzit Debt functions</li>
+          </ol>
+        </nav>
+        <div class="article-intro">
+          <h1>Ozzit Debt functions</h1>
+          <p class="lead-note">The 5 Debt formulas cover debt amortisation and fixed or variable DSCR debt sculpting. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.</p>
+          <p class="release-meta">Release v3.5.0. Read from the released <a href="https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Debt.txt">Debt formula source</a>, which the workbook compiles.</p>
+          <p class="page-meta">Published 20 October 2026. Last reviewed 20 October 2026.</p>
+        </div>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#use">Using these functions</a>
+          <a href="#functions">All 5 functions</a>
+          <a href="#modules">Other modules</a>
+        </nav>
+        <div class="article-body">
+
+          <section id="use">
+            <h2>Using these functions</h2>
+            <p>Each named formula is a native Excel <code>LAMBDA</code> in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.</p>
+            <p>The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. <a href="/tools/ozzit/#download">Download the workbook and check its hash</a>.</p>
+          </section>
+
+          <section id="functions">
+            <h2>All 5 functions</h2>
+<!-- Generated by site-tools build_ozzit_reference from the function reference. -->
+<ul class="function-index__list" role="list">
+  <li><a href="#oz-amortiseb"><code>oz.AmortiseB<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debtsculptfixed"><code>oz.DebtSculptFixed<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debtsculptvariablelrv"><code>oz.DebtSculptVariableLRV<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-debtsculptvariable"><code>oz.DebtSculptVariable<span class="function-symbol">λ</span></code></a></li>
+  <li><a href="#oz-interestlrv"><code>oz.InterestLRV<span class="function-symbol">λ</span></code></a></li>
+</ul>
+  <section id="oz-amortiseb" aria-labelledby="oz-amortiseb-name">
+    <h3 id="oz-amortiseb-name"><code>oz.AmortiseB<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.AmortiseB<span class="function-symbol">λ</span>(Principal, APR, Term, ModelPeriods, [StartPeriod], [MonthsPerPeriod])</code></p>
+    <p>Creates an amortisation schedule for a debt/loan across a model's periods</p>
+    <p>Creates an amortisation schedule for a debt/loan across a model's periods.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.AmortiseBλ">
+      <div><dt><code>Principal</code> (required)</dt><dd>Principal opening balance.</dd></div>
+      <div><dt><code>APR</code> (required)</dt><dd>Annual percentage rate.</dd></div>
+      <div><dt><code>Term</code> (required)</dt><dd>Number of periods to pay off the debt.</dd></div>
+      <div><dt><code>ModelPeriods</code> (required)</dt><dd>Number of model periods.</dd></div>
+      <div><dt><code>StartPeriod</code> (optional)</dt><dd>Period when the debt is issued. Defaults to 1.</dd></div>
+      <div><dt><code>MonthsPerPeriod</code> (optional)</dt><dd>Number of months in each period. Defaults to 1.</dd></div>
+    </dl>
+    <p>Row contents:</p>
+    <ul><li>Opening Balance</li><li>Interest Portion</li><li>Repayment</li><li>Closing Balance</li><li>Principal Portion</li></ul>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.AmortiseBλ"><code>=oz.AmortiseB<span class="function-symbol">λ</span>(10000, 3%, 48, 60)</code></pre>
+    <p>The workbook help shows <code>5 rows, 60 cols</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.debt.Amortise<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debtsculptfixed" aria-labelledby="oz-debtsculptfixed-name">
+    <h3 id="oz-debtsculptfixed-name"><code>oz.DebtSculptFixed<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtSculptFixed<span class="function-symbol">λ</span>([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod])</code></p>
+    <p>Creates a debt sculpting schedule where APR and DSCR are fixed for all periods</p>
+    <p>Creates a Debt Sculpting schedule where APR and DSCR are fixed for all periods</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtSculptFixedλ">
+      <div><dt><code>OpeningBalance</code> (optional)</dt><dd>Model's debt on opening. Defaults to 0</dd></div>
+      <div><dt><code>Debt</code> (required)</dt><dd>One row of new debt, at least two periods. Every period input must have this same width</dd></div>
+      <div><dt><code>CFADS</code> (required)</dt><dd>A row of Cash Flow Available for Debt Service in each period</dd></div>
+      <div><dt><code>DSCR</code> (required)</dt><dd>Debt Service Coverage Ratio, one number for all periods</dd></div>
+      <div><dt><code>APR</code> (required)</dt><dd>Interest's Annual Percentage Rate, one number for all periods</dd></div>
+      <div><dt><code>MonthsPerPeriod</code> (optional)</dt><dd>Defaults to one month per period.</dd></div>
+    </dl>
+    <p>Suggested row IDs:</p>
+    <ul><li>Debt opening balance</li><li>Interest on Principal Balance</li><li>Debt service (interest and principal)</li><li>Debt closing balance</li></ul>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtSculptFixedλ"><code>=oz.DebtSculptFixed<span class="function-symbol">λ</span>(, {1000,0,0}, {300,300,300}, 1.2, 6%, 12)</code></pre>
+    <p>The workbook help shows <code>4 rows, 3 cols</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.debt.DebtSculptFixed<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debtsculptvariablelrv" aria-labelledby="oz-debtsculptvariablelrv-name">
+    <h3 id="oz-debtsculptvariablelrv-name"><code>oz.DebtSculptVariableLRV<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtSculptVariableLRV<span class="function-symbol">λ</span>([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])</code></p>
+    <p>Creates a debt sculpting schedule where APR and DSCR are set for each period, with interest charged on the average balance</p>
+    <p>Creates a Debt Sculpting schedule where APR and DSCR are set for each period. Interest is charged on the average balance over the period, the method presented by Lance Rubin, and the principal repaid is what the cash available for debt service leaves after that interest.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtSculptVariableLRVλ">
+      <div><dt><code>OpeningBalance</code> (optional)</dt><dd>Model's debt on opening. Defaults to 0</dd></div>
+      <div><dt><code>Debt</code> (required)</dt><dd>One row of new debt, at least two periods. Every period input must have this same width</dd></div>
+      <div><dt><code>CFADS</code> (required)</dt><dd>A row of numeric Cash Flow Available for Debt Service in each period. Blank cells, text and logical values are rejected. Negative values supply no cash for debt service; existing debt still capitalises unpaid interest</dd></div>
+      <div><dt><code>DSCR</code> (required)</dt><dd>A row of Debt Service Coverage Ratios, one per period</dd></div>
+      <div><dt><code>APR</code></dt><dd>(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod</dd></div>
+      <div><dt><code>MonthsPerPeriod</code> (optional)</dt><dd>Defaults to one month per period. Ignored when PeriodRates is given</dd></div>
+      <div><dt><code>PeriodRates</code> (optional)</dt><dd>A row of interest rates per period, one per period, such as DayCountRate<span class="function-symbol">λ</span>() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given</dd></div>
+    </dl>
+    <p>Suggested row IDs:</p>
+    <ul><li>Debt opening balance</li><li>Interest on Principal Balance</li><li>Principal repayments</li><li>Debt closing balance</li></ul>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtSculptVariableLRVλ"><code>=oz.DebtSculptVariableLRV<span class="function-symbol">λ</span>(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)</code></pre>
+    <p>The workbook help shows <code>4 rows, 3 cols</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.debt.DebtSculptVariableLRV<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-debtsculptvariable" aria-labelledby="oz-debtsculptvariable-name">
+    <h3 id="oz-debtsculptvariable-name"><code>oz.DebtSculptVariable<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.DebtSculptVariable<span class="function-symbol">λ</span>([OpeningBalance], Debt, CFADS, DSCR, APR, [MonthsPerPeriod], [PeriodRates])</code></p>
+    <p>Creates a debt sculpting schedule where APR and DSCR are set for each period</p>
+    <p>Creates a Debt Sculpting schedule where APR and DSCR are set for each period</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.DebtSculptVariableλ">
+      <div><dt><code>OpeningBalance</code> (optional)</dt><dd>Model's debt on opening. Defaults to 0</dd></div>
+      <div><dt><code>Debt</code> (required)</dt><dd>One row of new debt, at least two periods. Every period input must have this same width</dd></div>
+      <div><dt><code>CFADS</code> (required)</dt><dd>A row of Cash Flow Available for Debt Service in each period</dd></div>
+      <div><dt><code>DSCR</code> (required)</dt><dd>A row of Debt Service Coverage Ratios, one per period</dd></div>
+      <div><dt><code>APR</code></dt><dd>(Required unless PeriodRates is given) A row of Interest's Annual Percentage Rates, one per period. Each period charges APR / 12 * MonthsPerPeriod</dd></div>
+      <div><dt><code>MonthsPerPeriod</code> (optional)</dt><dd>Defaults to one month per period. Ignored when PeriodRates is given</dd></div>
+      <div><dt><code>PeriodRates</code> (optional)</dt><dd>A row of interest rates per period, one per period, such as DayCountRate<span class="function-symbol">λ</span>() returns for a day count convention. When given, interest uses these rates and APR and MonthsPerPeriod are ignored. A blank cell or range counts as not given</dd></div>
+    </dl>
+    <p>Suggested row IDs:</p>
+    <ul><li>Debt opening balance</li><li>Interest on Principal Balance</li><li>Debt service (interest and principal)</li><li>Debt closing balance</li></ul>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.DebtSculptVariableλ"><code>=oz.DebtSculptVariable<span class="function-symbol">λ</span>(, {1000,0,0}, {300,300,300}, {1.2,1.2,1.2}, {0.06,0.06,0.06}, 12)</code></pre>
+    <p>The workbook help shows <code>4 rows, 3 cols</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.debt.DebtSculptVariable<span class="function-symbol">λ</span></code>.</p>
+  </section>
+  <section id="oz-interestlrv" aria-labelledby="oz-interestlrv-name">
+    <h3 id="oz-interestlrv-name"><code>oz.InterestLRV<span class="function-symbol">λ</span></code></h3>
+    <p><code>oz.InterestLRV<span class="function-symbol">λ</span>(CFADS, DSCR, Principal, InterestRate)</code></p>
+    <p>Calculates debt sculpting interest on the average balance over the period, the method presented by Lance Rubin</p>
+    <p>Calculates debt sculpting interest using the method presented by Lance Rubin. Interest is charged on the average balance over the period, with the principal repaid capped at the principal outstanding. The average balance depends on the interest and the interest on the average balance, which is solved in closed form rather than by iteration.</p>
+    <p>Parameters:</p>
+    <dl aria-label="Parameters of oz.InterestLRVλ">
+      <div><dt><code>CFADS</code> (required)</dt><dd>Cash Flow Available for Debt Service for this period</dd></div>
+      <div><dt><code>DSCR</code> (required)</dt><dd>Debt Service Coverage Ratio for this period</dd></div>
+      <div><dt><code>Principal</code> (required)</dt><dd>Principal balance for this period</dd></div>
+      <div><dt><code>InterestRate</code> (required)</dt><dd>Interest rate for this period (eg. APR/Days in this year * Days in this period)</dd></div>
+    </dl>
+    <pre class="copyable" tabindex="0" role="region" aria-label="Example: oz.InterestLRVλ"><code>=oz.InterestLRV<span class="function-symbol">λ</span>( 6666.37, 3.50, 90000, 3%/12)</code></pre>
+    <p>The workbook help shows <code>222.90</code>.</p>
+    <p class="field-note">Previous name: <code>nabla.debt.InterestLRV<span class="function-symbol">λ</span></code>.</p>
+  </section>
+          </section>
+
+          <section id="modules">
+            <h2>Other modules</h2>
+            <ul class="related">
+              <li><a href="/tools/ozzit/functions/dates/">Ozzit Dates functions</a></li>
+              <li><a href="/tools/ozzit/functions/essentials/">Ozzit Essentials functions</a></li>
+              <li><a href="/tools/ozzit/functions/financial/">Ozzit Financial functions</a></li>
+              <li><a href="/tools/ozzit/functions/ratios/">Ozzit Ratios functions</a></li>
+              <li><a href="/tools/ozzit/functions/utilities/">Ozzit Utilities functions</a></li>
+              <li><a href="/tools/ozzit/">Ozzit overview, download and release verification</a></li>
+            </ul>
+          </section>
+
+          <p class="byline">
+            Written by Ryan Duguid in his own time and on his own equipment.
+            He is a Provisional CA ANZ Member.
+          </p>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/debt/#article",
+        "url": "https://duguid.com.au/tools/ozzit/functions/debt/",
+        "headline": "Ozzit Debt functions: Excel LAMBDA reference",
+        "name": "Ozzit Debt functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "about": { "@id": "https://duguid.com.au/tools/ozzit/#software" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/debt/#webpage",
+        "url": "https://duguid.com.au/tools/ozzit/functions/debt/",
+        "name": "Ozzit Debt functions: Excel LAMBDA reference",
+        "description": "Parameters and worked examples for 5 Ozzit Debt Excel LAMBDA functions: debt amortisation and fixed or variable DSCR debt sculpting.",
+        "inLanguage": "en-AU",
+        "datePublished": "2026-10-20",
+        "dateModified": "2026-10-20",
+        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+        "isPartOf": { "@id": "https://duguid.com.au/#website" },
+        "author": { "@id": "https://duguid.com.au/about/#person" },
+        "publisher": { "@id": "https://duguid.com.au/about/#person" },
+        "breadcrumb": { "@id": "https://duguid.com.au/tools/ozzit/functions/debt/#breadcrumb" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://duguid.com.au/tools/ozzit/functions/debt/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://duguid.com.au/" },
+          { "@type": "ListItem", "position": 2, "name": "Tools", "item": "https://duguid.com.au/tools/" },
+          { "@type": "ListItem", "position": 3, "name": "Ozzit Excel LAMBDA library", "item": "https://duguid.com.au/tools/ozzit/" },
+          { "@type": "ListItem", "position": 4, "name": "Ozzit Debt functions", "item": "https://duguid.com.au/tools/ozzit/functions/debt/" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
+</body>
+</html>

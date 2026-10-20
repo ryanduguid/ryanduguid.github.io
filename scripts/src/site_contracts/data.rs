@@ -674,9 +674,15 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 5] = [
     "/tools/workpaper-review-gate/",
 ];
 pub const HOMEPAGE_PROOF_HREFS: [&str; 2] = ["/tools/coal-lsl-levy/", "/evidence/"];
-pub const ARTICLE_PATTERN_PAGES: [&str; 26] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 32] = [
     "examples/profit-vs-cash-flow/index.html",
     "tools/ozzit/index.html",
+    "tools/ozzit/functions/dates/index.html",
+    "tools/ozzit/functions/essentials/index.html",
+    "tools/ozzit/functions/financial/index.html",
+    "tools/ozzit/functions/ratios/index.html",
+    "tools/ozzit/functions/utilities/index.html",
+    "tools/ozzit/functions/debt/index.html",
     "tools/monthly-close-controls/index.html",
     "about/index.html",
     "evaluate/manager-review-gate/index.html",

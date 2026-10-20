@@ -921,6 +921,12 @@ pub fn collection_breadcrumb_shape(
         || rel.starts_with("examples/")
     {
         vec![home]
+    } else if rel.starts_with("tools/ozzit/functions/") {
+        vec![
+            home,
+            step("Tools", "/tools/"),
+            step("Ozzit Excel LAMBDA library", "/tools/ozzit/"),
+        ]
     } else if rel.starts_with("tools/") {
         vec![home, step("Tools", "/tools/")]
     } else if rel.starts_with("evaluate/") {

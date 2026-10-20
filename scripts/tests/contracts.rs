@@ -445,8 +445,8 @@ fn public_contracts_page_and_site_checks() {
         .filter(|p| !contracts::NOT_INDEXED.contains(&core::rel(p, root()).as_str()))
         .count();
     assert_eq!(
-        indexed, 55,
-        "expected 55 canonical HTML pages, found {indexed}"
+        indexed, 61,
+        "expected 61 canonical HTML pages, found {indexed}"
     );
     let metadata: Vec<String> = paths
         .iter()
@@ -1620,6 +1620,6 @@ fn rendered_checked_tree_command_output() {
         "{stdout}"
     );
     assert!(stdout.ends_with(&format!(
-        "checked sitemap.xml (55 URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
+        "checked sitemap.xml (61 URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
     )));
 }

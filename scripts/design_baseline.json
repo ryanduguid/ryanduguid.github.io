@@ -83,8 +83,26 @@
     "tools/monthly-close-controls/index.html": [
       "3ba6c42d9d4f42688cbb15d790a299c0eec7556a75c2f226fbe6f3865bb54b4d"
     ],
+    "tools/ozzit/functions/dates/index.html": [
+      "013340bbe6cfa68edc376569e55096b3dfaaac0041cde3616fbee02dc307960f"
+    ],
+    "tools/ozzit/functions/debt/index.html": [
+      "a2923407a9dc006f5be4c17e90eefb17d19c01455f23948aabfbbb68761a6c82"
+    ],
+    "tools/ozzit/functions/essentials/index.html": [
+      "9fa4b14ff26035a5d1db4d71da40bd190382861dfa7091987456a531ac1c3094"
+    ],
+    "tools/ozzit/functions/financial/index.html": [
+      "9626ef4856bda2a3668332e1512e10b4945c4ddcde5a42a08dbe6838b5410e51"
+    ],
+    "tools/ozzit/functions/ratios/index.html": [
+      "2c04519105ddf735a267430c0420e649f23d08bded9631344255fbeba6198a11"
+    ],
+    "tools/ozzit/functions/utilities/index.html": [
+      "1f13b1669cc8500dac23f8d95807dcc23d16bda095bc809443e60dee521b0411"
+    ],
     "tools/ozzit/index.html": [
-      "d56a869fa9c63062a2adca9be63e4e80ebff762dfb9d0fb0a7639bcc7c0d1fd5"
+      "fb1f0a48b98b900ab6a38cfbc8f8a9d76d477295fc5a734d38a8a68fc4d410d2"
     ],
     "tools/payday-super/index.html": [
       "0c873d8bc6238ff182bc6aa48e7611ebd2051eaded344641d3858a96a5a7ab5b"
@@ -109,9 +127,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "bb754fbc957dfa00c48fdfc79e4e510a4b2d16c4551045eebcbc0737f2e0be0a",
+    "llms.txt": "b9bfd2f564376d84a05f565add925a4cae042adc5691dfe7644e2ed137341e0b",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "163ac0aba79a8fef63791f446583b0a36e460e8e98722d2b682cc02bfd7da37e"
+    "sitemap.xml": "05c69bdf9d46d88a98d1b2096d3638200420e886f3229ef12769d411ead81f6a"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -171,7 +189,7 @@
     "rates/super-guarantee/index.html": "09fda554c85d0d4eada4b18da824e7e62be6b7570147e98c152d9a00f3ead45b"
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 56,
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 62,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

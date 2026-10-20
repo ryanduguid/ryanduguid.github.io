@@ -172,11 +172,14 @@ pub fn render_index(root: &Path) -> Result<String> {
         ));
         // Safari drops list semantics from an unstyled list unless the role is explicit.
         parts.push("  <ul class=\"function-index__list\" role=\"list\">".into());
+        let page = crate::ozzit_functions::module_for(module)
+            .map(crate::ozzit_functions::page_path)
+            .ok_or_else(|| value_error(&format!("{module}: no module reference page")))?;
         for row in members {
             let call = format!("oz.{}", field_text(row, "signature", "__add__")?);
+            let id = anchor(field_text(row, "function", "removeprefix")?);
             parts.push(format!(
-                "    <li id=\"{}\"><code>{}</code></li>",
-                anchor(field_text(row, "function", "removeprefix")?),
+                "    <li id=\"{id}\"><a href=\"{page}#{id}\"><code>{}</code></a></li>",
                 code(&call)
             ));
         }
@@ -449,7 +452,11 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
         crate::pyargs::Parsed::Flags(flags) => flags.contains(&"--write"),
         crate::pyargs::Parsed::Exit(code) => return Ok(code),
     };
-    let outputs = [(OUTPUT, render(root)?), (INDEX_OUTPUT, render_index(root)?)];
+    let mut outputs = vec![
+        (OUTPUT.to_owned(), render(root)?),
+        (INDEX_OUTPUT.to_owned(), render_index(root)?),
+    ];
+    outputs.extend(crate::ozzit_functions::render_pages(root)?);
     let say = |text: &str| crate::print_text(text, false).map_err(|e| e.to_string());
     let failures = count_failures(root)?;
     for failure in &failures {
@@ -461,26 +468,38 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     if write {
         for (rel, expected) in &outputs {
             let path = root.join(rel);
+            if let Some(parent) = path.parent() {
+                std::fs::create_dir_all(parent).map_err(|e| e.to_string())?;
+            }
             std::fs::write(&path, expected).map_err(|e| {
                 crate::py::oserror_str(&e, &path.to_string_lossy(), crate::py::OsStyle::Errno)
             })?;
         }
-        say("Wrote ten Ozzit function examples and the index of every named formula\n")?;
+        say(
+            "Wrote ten Ozzit function examples, the index of every named formula and the six module pages\n",
+        )?;
         return Ok(0);
     }
     for (rel, expected) in &outputs {
         let path = root.join(rel);
         if !path.is_file() || crate::read(&path)? != *expected {
-            let name = Path::new(rel)
-                .file_name()
-                .expect("a file name")
-                .to_string_lossy();
+            let name = if rel.starts_with("tools/") {
+                rel.clone()
+            } else {
+                Path::new(rel)
+                    .file_name()
+                    .expect("a file name")
+                    .to_string_lossy()
+                    .into_owned()
+            };
             say(&format!(
                 "{name} differs: run site-tools build_ozzit_reference --write\n"
             ))?;
             return Ok(1);
         }
     }
-    say("Ozzit reference and index match the pinned index and examples\n")?;
+    say(
+        "Ozzit reference, index and module pages match the pinned index, examples and function reference\n",
+    )?;
     Ok(0)
 }

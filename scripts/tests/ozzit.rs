@@ -24,6 +24,10 @@ fn index_csv() -> String {
     format!("assets/ozzit-functions-{}.csv", tag())
 }
 
+fn function_reference() -> String {
+    format!("assets/ozzit-function-reference-{}.json", tag())
+}
+
 fn native_record() -> String {
     format!("assets/ozzit-reference-{}.json", tag())
 }
@@ -42,6 +46,7 @@ fn inputs() -> tempfile::TempDir {
         index_csv(),
         EXAMPLES.into(),
         native_record(),
+        function_reference(),
         RELEASE_RECORD.into(),
     ] {
         copy(root.path(), &rel);
@@ -285,7 +290,9 @@ fn modules_hold_every_named_formula_largest_first() {
     unique.sort();
     unique.dedup();
     assert_eq!(unique.len(), ids.len());
-    assert!(output.contains("<li id=\"oz-gstextract\"><code>oz.GSTExtract"));
+    assert!(output.contains(
+        "<li id=\"oz-gstextract\"><a href=\"/tools/ozzit/functions/financial/#oz-gstextract\"><code>oz.GSTExtract"
+    ));
     assert_eq!(output.matches("<details").count(), 6);
     assert!(!output.contains("<details open"));
     // Unstyled lists keep their semantics in Safari only with an explicit role.
@@ -479,4 +486,225 @@ fn committed_includes_are_current() {
         "{}",
         String::from_utf8_lossy(&output.stdout)
     );
+}
+
+fn pages(root: &Path) -> Vec<(String, String)> {
+    site_tools::ozzit_functions::render_pages(root).unwrap()
+}
+
+#[test]
+fn module_pages_document_every_named_formula_once() {
+    let pages = pages(&repository());
+    assert_eq!(pages.len(), 6);
+    let all = pages
+        .iter()
+        .map(|(_, html)| html.as_str())
+        .collect::<String>();
+    for row in rows() {
+        let id = anchor(get(&row, "function"));
+        assert_eq!(
+            all.matches(&format!("<section id=\"{id}\"")).count(),
+            1,
+            "{id}"
+        );
+    }
+    for (rel, html) in &pages {
+        assert!(rel.starts_with("tools/ozzit/functions/"), "{rel}");
+        assert!(html.starts_with("---\n---\n<!DOCTYPE html>"), "{rel}");
+        assert_eq!(html.matches("<h1>").count(), 1, "{rel}");
+    }
+}
+
+#[test]
+fn every_index_entry_links_to_its_module_page_entry() {
+    let index = render_index(&repository()).unwrap();
+    let pages = pages(&repository());
+    let links =
+        regex::Regex::new(r#"href="/(tools/ozzit/functions/[a-z]+/)#([a-z0-9-]+)""#).unwrap();
+    let mut count = 0;
+    for link in links.captures_iter(&index) {
+        let rel = format!("{}index.html", &link[1]);
+        let page = &pages
+            .iter()
+            .find(|(r, _)| *r == rel)
+            .expect("a module page")
+            .1;
+        assert!(
+            page.contains(&format!("<section id=\"{}\"", &link[2])),
+            "{}",
+            &link[2]
+        );
+        count += 1;
+    }
+    assert_eq!(count, 148);
+}
+
+#[test]
+fn reference_must_agree_with_the_pinned_index() {
+    let root = inputs();
+    let rel = function_reference();
+    let text = std::fs::read_to_string(root.path().join(&rel)).unwrap();
+    let changed = text.replacen(
+        "\"summary\": \"Creates a corkscrew amortisation schedule\"",
+        "\"summary\": \"Creates a loan schedule\"",
+        1,
+    );
+    assert_ne!(changed, text);
+    std::fs::write(root.path().join(&rel), changed).unwrap();
+    let error = site_tools::ozzit_functions::render_pages(root.path()).unwrap_err();
+    assert!(
+        error.contains("oz.Amortiseλ: the reference and the pinned index disagree"),
+        "{error}"
+    );
+}
+
+#[test]
+fn excluded_vocabulary_is_left_out_with_a_pointer_to_the_source() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(!ratios.to_lowercase().contains("leverage"));
+    let entry = ratios.split("<section id=\"oz-debtratio\"").nth(1).unwrap();
+    let entry = entry.split("</section>").next().unwrap();
+    assert!(entry.contains("Part of this function’s help text is not reproduced here."));
+    assert!(entry.contains(&format!(
+        "href=\"https://github.com/ryanduguid/Ozzit/blob/{}/src/Ratios.txt\"",
+        tag()
+    )));
+}
+
+#[test]
+fn help_text_is_escaped_and_lambda_marked() {
+    let pages = pages(&repository());
+    let financial = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/financial/"))
+        .unwrap()
+        .1;
+    assert!(financial.contains(
+        "<code>=oz.Amortise<span class=\"function-symbol\">λ</span>(10000, 5%, 4 * 12, \"2026-07-01\")</code>"
+    ));
+    assert!(
+        financial
+            .contains("<dt><code>Principals</code> (required)</dt><dd>Loan/debt amounts.</dd>")
+    );
+}
+
+#[test]
+fn help_bullets_render_as_lists() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(ratios.contains(
+        "<dd>Quick Assets. Includes:<ul><li>Cash &amp; Cash equivalents</li><li>Marketable securities</li>"
+    ));
+    assert!(!pages.iter().any(|(_, html)| html.contains('•')));
+}
+
+#[test]
+fn rows_after_an_introducing_colon_render_as_a_list() {
+    let pages = pages(&repository());
+    let ratios = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/ratios/"))
+        .unwrap()
+        .1;
+    assert!(
+        ratios.contains(
+            "<dd>Current Liabilities. Includes:<ul><li>Accounts payable</li><li>Wages</li>"
+        )
+    );
+    let financial = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/financial/"))
+        .unwrap()
+        .1;
+    assert!(financial.contains("A date here is not a life: the arguments read"));
+}
+
+fn with_reference(
+    edit: impl FnOnce(&mut serde_json::Value),
+) -> Result<Vec<(String, String)>, String> {
+    let root = inputs();
+    let rel = function_reference();
+    let mut document: serde_json::Value =
+        serde_json::from_str(&std::fs::read_to_string(root.path().join(&rel)).unwrap()).unwrap();
+    edit(&mut document);
+    std::fs::write(
+        root.path().join(&rel),
+        serde_json::to_string(&document).unwrap(),
+    )
+    .unwrap();
+    site_tools::ozzit_functions::render_pages(root.path())
+}
+
+#[test]
+fn a_duplicated_or_missing_entry_is_refused() {
+    let error = with_reference(|d| {
+        let functions = d["modules"][0]["functions"].as_array_mut().unwrap();
+        functions[1] = functions[0].clone();
+    })
+    .unwrap_err();
+    assert!(error.contains("more than once"), "{error}");
+    let error = with_reference(|d| {
+        d["modules"][0]["functions"]
+            .as_array_mut()
+            .unwrap()
+            .remove(0);
+    })
+    .unwrap_err();
+    assert!(error.contains("does not document"), "{error}");
+}
+
+#[test]
+fn hostile_help_text_is_escaped_on_every_path() {
+    let hostile = "<b>&\"λ";
+    let pages = with_reference(|d| {
+        let f = d["modules"][2]["functions"]
+            .as_array_mut()
+            .unwrap()
+            .iter_mut()
+            .find(|f| f["name"] == "oz.Amortiseλ")
+            .unwrap();
+        f["description"] = hostile.into();
+        f["notes"] = serde_json::json!([hostile]);
+        f["see_also"] = hostile.into();
+        f["parameters"][0]["text"] = hostile.into();
+        f["parameters"][0]["qualifier"] = hostile.into();
+        f["examples"][0]["result"] = hostile.into();
+        f["extra"] = serde_json::json!([{"heading": "NOTES", "rows": [{"label": hostile, "text": hostile}]}]);
+    })
+    .unwrap();
+    let financial = &pages
+        .iter()
+        .find(|(r, _)| r.contains("/financial/"))
+        .unwrap()
+        .1;
+    let entry = financial
+        .split("<section id=\"oz-amortise\"")
+        .nth(1)
+        .unwrap();
+    let entry = entry.split("</section>").next().unwrap();
+    assert!(!entry.contains("<b>"), "{entry}");
+    assert!(entry.contains("&lt;b&gt;&amp;"));
+    // Visible text only: attributes such as aria-label may carry a bare λ.
+    let spans = entry.replace("<span class=\"function-symbol\">λ</span>", "");
+    let visible = regex::Regex::new("<[^>]*>")
+        .unwrap()
+        .replace_all(&spans, "");
+    assert!(!visible.contains('λ'), "{visible}");
+}
+
+#[test]
+fn restored_section_rows_are_published() {
+    let pages = pages(&repository());
+    let debt = &pages.iter().find(|(r, _)| r.contains("/debt/")).unwrap().1;
+    assert!(debt.contains("<li>Debt opening balance</li>"));
+    assert!(debt.contains("<li>Opening Balance</li>"));
 }

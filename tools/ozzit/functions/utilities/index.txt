@@ -1,0 +1,444 @@
+# Ozzit Utilities functions: Excel LAMBDA reference
+
+Source: https://duguid.com.au/tools/ozzit/functions/utilities/
+
+> Parameters and worked examples for 17 Ozzit Utilities Excel LAMBDA functions: standalone copies of the Essentials functions, each with a U suffix.
+
+# Ozzit Utilities functions
+
+The 17 Utilities formulas cover standalone copies of the Essentials functions, each with a U suffix. Each entry gives what the workbook’s own help supplies: the signature, parameters, notes and worked examples.
+
+Release v3.5.0. Read from the released Utilities formula source, which the workbook compiles.
+
+Published 20 October 2026. Last reviewed 20 October 2026.
+
+## Using these functions
+
+Each named formula is a native Excel LAMBDA in the free Ozzit workbook, or one of its 5 help tables. It needs Microsoft 365 or Excel 2024 or later. Enter a call in a cell of the workbook, or copy the definition from its name manager into your own model. Leave room for any spilled result.
+
+The text below is the help each function carries in the v3.5.0 workbook. The workbook remains the authority, and a calculation does not decide an accounting treatment. Download the workbook and check its hash.
+
+## All 17 functions
+
+- oz.AboutUtilitiesλ
+- oz.CountCUλ
+- oz.SumRowsUλ
+- oz.SumColsUλ
+- oz.AvgRowsUλ
+- oz.AvgColsUλ
+- oz.MinRowsUλ
+- oz.MinColsUλ
+- oz.MaxRowsUλ
+- oz.MaxColsUλ
+- oz.CountARowsUλ
+- oz.CountAColsUλ
+- oz.CountRowsUλ
+- oz.CountColsUλ
+- oz.IsBetweenUλ
+- oz.IsInListUλ
+- oz.RangeToDAUλ
+
+### oz.AboutUtilitiesλ
+
+Displays this module's repository URL and function list
+
+Previous name: nabla.u.Aboutλ.
+
+### oz.CountCUλ
+
+oz.CountCUλ( Text, Characters)
+
+Count occurrences of character(s) in a string
+
+Count how many of one or more characters are in a string.
+
+Parameters:
+
+Text (required)
+
+The string to interrogate. Empty text returns 0
+
+Characters (required)
+
+A single character, or CSV of characters to find in Text NOTE! Case sensitive. A single character is taken as itself, so a comma works
+
+```
+=oz.CountCUλ( "Mary had a little lamb", "a,b")
+```
+
+Previous name: nabla.u.CountCλ.
+
+### oz.SumRowsUλ
+
+oz.SumRowsUλ( Array)
+
+Get the total for each row
+
+Get the total of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by row.
+
+```
+=oz.SumRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.SumRowsλ.
+
+### oz.SumColsUλ
+
+oz.SumColsUλ( Array)
+
+Get the total for each Column
+
+Get the total of each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be totalled by column.
+
+```
+=oz.SumColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.SumColsλ.
+
+### oz.AvgRowsUλ
+
+oz.AvgRowsUλ( Array)
+
+Get the average for each row
+
+Get the average of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by row.
+
+```
+=oz.AvgRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.AvgRowsλ.
+
+### oz.AvgColsUλ
+
+oz.AvgColsUλ( Array)
+
+Get the average for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be averaged by column.
+
+```
+=oz.AvgColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.AvgColsλ.
+
+### oz.MinRowsUλ
+
+oz.MinRowsUλ( Array)
+
+Get the minimum for each row
+
+Get the minimum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by row.
+
+```
+=oz.MinRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MinRowsλ.
+
+### oz.MinColsUλ
+
+oz.MinColsUλ( Array)
+
+Get the minimum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the minimum by column.
+
+```
+=oz.MinColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MinColsλ.
+
+### oz.MaxRowsUλ
+
+oz.MaxRowsUλ( Array)
+
+Get the maximum for each row
+
+Get the maximum of each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by row.
+
+```
+=oz.MaxRowsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MaxRowsλ.
+
+### oz.MaxColsUλ
+
+oz.MaxColsUλ( Array)
+
+Get the maximum for each Column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to find the maximum by column.
+
+```
+=oz.MaxColsUλ( SEQUENCE(5,5))
+```
+
+Previous name: nabla.u.MaxColsλ.
+
+### oz.CountARowsUλ
+
+oz.CountARowsUλ( Array)
+
+Count everything in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountARowsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountARowsλ.
+
+### oz.CountAColsUλ
+
+oz.CountAColsUλ( Array )
+
+Count everything in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing values to be counted.
+
+```
+=oz.CountAColsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountAColsλ.
+
+### oz.CountRowsUλ
+
+oz.CountRowsUλ( Array)
+
+Count numbers in each row
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountRowsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountRowsλ.
+
+### oz.CountColsUλ
+
+oz.CountColsUλ( Array)
+
+Count numbers in each column
+
+Parameters:
+
+Array (required)
+
+A two dimensional array/range containing numbers to be counted.
+
+```
+=oz.CountColsUλ( CHOOSE( RANDARRAY( 5, 5, 1, 5),"A", "B", "", 1, 2))
+```
+
+Previous name: nabla.u.CountColsλ.
+
+### oz.IsBetweenUλ
+
+oz.IsBetweenUλ( Value, Low, Hi, [Inclusive])
+
+Determine if a value is between a lower and upper limit
+
+Determine if a value is between a lower and upper limit.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+Low (required)
+
+The lower limit that the value must be greater than
+
+Hi (required)
+
+The higher limit that the value must be less than
+
+Inclusive (optional)
+
+If set to TRUE (default) the value can be equal to Low and/or Hi
+
+```
+=IsBetweenUλ(1, 2, 4)
+```
+
+The workbook help shows FALSE.
+
+```
+=IsBetweenUλ(2, 2, 4)
+```
+
+The workbook help shows TRUE.
+
+```
+=IsBetweenUλ(2, 2, 4, FALSE)
+```
+
+The workbook help shows FALSE.
+
+Previous name: nabla.u.IsBetweenλ.
+
+### oz.IsInListUλ
+
+oz.IsInListUλ( Value, List)
+
+Determine whether a value is one of a list of items
+
+Determine if a value is one of a list of items.
+
+Note: The comparison is exact and case-insensitive; * and? are ordinary characters.
+
+Parameters:
+
+Value (required)
+
+A value or array of values to compare.
+
+List (required)
+
+A list of values to check: a row, a column or a grid.
+
+```
+=IsInListUλ(1, {2,3,4})
+```
+
+The workbook help shows FALSE.
+
+```
+=IsInListUλ(1, {1,3,5})
+```
+
+The workbook help shows TRUE.
+
+Previous name: nabla.u.IsInListλ.
+
+### oz.RangeToDAUλ
+
+oz.RangeToDAUλ(Range, [Rows], [Columns])
+
+Convert a range reference to a dynamic array reference
+
+Convert a range reference to a dynamic array reference.
+
+See also: Excel 365 now has TRIMRANGE and trim references (.:.) for this.
+
+Parameters:
+
+Range (required)
+
+A reference to the range to be converted.
+
+Rows (optional)
+
+Number of rows for the dynamic array. Defaults to 1.
+
+Columns (optional)
+
+Number of columns for the dynamic array. Defaults to 1.
+
+```
+=RangeToDAUλ(A1, , ModelPeriodCount)
+```
+
+Previous name: nabla.u.RangeToDAλ.
+
+## Other modules
+
+- Ozzit Dates functions
+- Ozzit Essentials functions
+- Ozzit Financial functions
+- Ozzit Ratios functions
+- Ozzit Debt functions
+- Ozzit overview, download and release verification
+
+Written by Ryan Duguid in his own time and on his own equipment. He is a Provisional CA ANZ Member.
+
+## Links
+
+- Utilities formula source: https://github.com/ryanduguid/Ozzit/blob/v3.5.0/src/Utilities.txt
+- Download the workbook and check its hash: https://duguid.com.au/tools/ozzit/#download
+- oz.AboutUtilities λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-aboututilities
+- oz.CountCU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcu
+- oz.SumRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumrowsu
+- oz.SumColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-sumcolsu
+- oz.AvgRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgrowsu
+- oz.AvgColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-avgcolsu
+- oz.MinRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-minrowsu
+- oz.MinColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-mincolsu
+- oz.MaxRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxrowsu
+- oz.MaxColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-maxcolsu
+- oz.CountARowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countarowsu
+- oz.CountAColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countacolsu
+- oz.CountRowsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countrowsu
+- oz.CountColsU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-countcolsu
+- oz.IsBetweenU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isbetweenu
+- oz.IsInListU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-isinlistu
+- oz.RangeToDAU λ: https://duguid.com.au/tools/ozzit/functions/utilities/#oz-rangetodau
+- Ozzit Dates functions: https://duguid.com.au/tools/ozzit/functions/dates/
+- Ozzit Essentials functions: https://duguid.com.au/tools/ozzit/functions/essentials/
+- Ozzit Financial functions: https://duguid.com.au/tools/ozzit/functions/financial/
+- Ozzit Ratios functions: https://duguid.com.au/tools/ozzit/functions/ratios/
+- Ozzit Debt functions: https://duguid.com.au/tools/ozzit/functions/debt/
+- Ozzit overview, download and release verification: https://duguid.com.au/tools/ozzit/

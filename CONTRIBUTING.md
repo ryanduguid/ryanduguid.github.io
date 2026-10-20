@@ -175,6 +175,17 @@ hash was unchanged after closing it without saving. The v3.4.2 index and its
 25 September 2026 record stay in `assets/` for links to the earlier release.
 The results establish arithmetic for these examples, not an accounting treatment.
 
+The 6 module pages under `tools/ozzit/functions/` come from
+`assets/ozzit-function-reference-<tag>.json`, which Ozzit's
+`ozzit function_reference src functions.csv <output>` command writes from each
+function's help block in the release source. `site-tools build_ozzit_reference --write`
+then writes every page from that file, and the site checks require each entry to match
+the pinned index: name, module, previous name, one-line description and signature,
+with no name missing or repeated. A sentence of help text that uses a word the copy
+check refuses is left out, with a link to the released source. For a new release, run
+that command on the tagged `src/` and `functions.csv` and save its output under the
+tag's name beside the index.
+
 ## Ruby Sass in the locked chain
 
 `Gemfile.lock` resolves Jekyll 3.10.0 to jekyll-sass-converter 1.5.2 and Ruby

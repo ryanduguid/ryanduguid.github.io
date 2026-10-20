@@ -15,6 +15,7 @@ pub mod html;
 pub mod htmlparser;
 pub mod llms_full;
 pub mod mimetypes;
+pub mod ozzit_functions;
 pub mod ozzit_reference;
 pub mod pin_rates;
 pub mod py;
