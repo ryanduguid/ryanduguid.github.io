@@ -953,3 +953,23 @@ test('Ozzit module pages register a read-only WebMCP lookup only where the brows
   expect(result).toMatchObject({ name: 'ozzit_function', readOnly: true,
     output: { name: 'oz.GSTExtractλ', module: 'Financial', source: 'https://duguid.com.au/tools/ozzit/functions/financial/#oz-gstextract' } });
 });
+
+test('the Ozzit WebMCP lookup retries the reference after a failed load', async ({ page }) => {
+  let failures = 1;
+  await page.route('**/assets/ozzit-function-reference-*.json', route =>
+    failures-- > 0 ? route.fulfill({ status: 503, body: '' }) : route.continue());
+  await page.addInitScript(() => {
+    window.registeredTools = [];
+    Object.defineProperty(document, 'modelContext', {
+      value: { registerTool: async tool => { window.registeredTools.push(tool); } },
+    });
+  });
+  await page.goto('/tools/ozzit/functions/financial/');
+  await page.waitForFunction(() => window.registeredTools.length === 1);
+  const result = await page.evaluate(async () => {
+    const [tool] = window.registeredTools;
+    const first = await tool.execute({ name: 'GSTExtract' }).then(() => 'resolved', error => error.message);
+    return { first, second: (await tool.execute({ name: 'GSTExtract' })).name };
+  });
+  expect(result).toEqual({ first: 'Ozzit reference returned HTTP 503', second: 'oz.GSTExtractλ' });
+});

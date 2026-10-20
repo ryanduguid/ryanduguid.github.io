@@ -10,6 +10,9 @@ if (modelContext?.registerTool && reference) {
     const load = () => (loaded ??= fetch(reference).then(response => {
       if (!response.ok) throw new Error(`Ozzit reference returned HTTP ${response.status}`);
       return response.json();
+    }).catch(error => {
+      loaded = undefined; // a failed load is retried on the next call, not cached
+      throw error;
     }));
     await modelContext.registerTool(ozzitTools(load).lookup);
   }).catch(error => console.warn('WebMCP tool registration failed:', error));
