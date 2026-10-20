@@ -719,11 +719,17 @@ fn design_contracts_review_dates_and_assets() {
     if !rendered() {
         return;
     }
-    for (rel, visible, structured) in [
-        ("index.html", "6 October 2026", "2026-10-06"),
-        ("tools/index.html", "17 October 2026", "2026-10-17"),
-        ("evidence/index.html", "4 October 2026", "2026-10-04"),
-    ] {
+    let review = regex::Regex::new(r"Last reviewed ([0-9]{1,2} [A-Z][a-z]+ [0-9]{4})\.").unwrap();
+    for rel in ["index.html", "tools/index.html", "evidence/index.html"] {
+        // Mutate whatever review date the page carries today.
+        let html = std::fs::read_to_string(copied_site().path().join(rel)).unwrap();
+        let visible = review
+            .captures(&html)
+            .unwrap_or_else(|| panic!("{rel}: no review date"))[1]
+            .to_owned();
+        let structured = site_tools::pytime::strptime_day_month_year(&visible)
+            .unwrap()
+            .isoformat();
         let site = copied_site();
         replace_file(
             site.path(),
@@ -928,5 +934,47 @@ fn favicon_rasters_match_the_committed_files() {
     for (rel, bytes) in favicon::rasters(root()).unwrap() {
         // zlib-rs reproduces Python's zlib-ng bytes for the seal's runs of colour.
         assert_eq!(std::fs::read(root().join(&rel)).unwrap(), bytes, "{rel}");
+    }
+}
+
+/// `--update-baseline` restores what it can derive: protected-text counts and
+/// the JSON-LD of a page missing from the baseline.
+#[test]
+fn update_baseline_recounts_text_and_pins_new_pages() {
+    if !rendered() {
+        return;
+    }
+    let site = copied_site();
+    let path = site.path().join("scripts/design_baseline.json");
+    let committed = pyjson::loads(&std::fs::read_to_string(&path).unwrap()).unwrap();
+    let mut changed = committed.clone();
+    let Json::Object(sections) = &mut changed else {
+        panic!("baseline is an object")
+    };
+    for (key, value) in sections.iter_mut() {
+        match (key.as_str(), value) {
+            ("json_ld", Json::Object(entries)) => {
+                entries.retain(|(rel, _)| rel != "tools/ozzit/functions/debt/index.html")
+            }
+            ("protected_text", Json::Object(entries)) => {
+                for (_, count) in entries.iter_mut() {
+                    *count = Json::Int(num_bigint::BigInt::from(0));
+                }
+            }
+            _ => {}
+        }
+    }
+    std::fs::write(&path, pyjson::dumps(&changed, pyjson::Dump::default())).unwrap();
+    assert!(design::update_baseline(site.path()).is_ok());
+    let refreshed = pyjson::loads(&std::fs::read_to_string(&path).unwrap()).unwrap();
+    // The checked tree is rendered, so only the two sections mutated above are compared.
+    for key in ["protected_text", "json_ld"] {
+        let (now, then) = (refreshed.get(key).unwrap(), committed.get(key).unwrap());
+        if key == "json_ld" {
+            let rel = "tools/ozzit/functions/debt/index.html";
+            assert!(now.get(rel).unwrap().py_eq(then.get(rel).unwrap()), "{rel}");
+        } else {
+            assert!(now.py_eq(then), "{key}");
+        }
     }
 }
