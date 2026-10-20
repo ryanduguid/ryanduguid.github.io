@@ -423,7 +423,7 @@ This site | SECURITY.md | GitHub Actions
 
 Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
 
-- australian-accounting: attestations; release workflows for Aus Accounting MCP, Payday Super, ATO benchmarks, trust distributions and, for company tax, the release workflow definition at the-exchequer-tally/v0.2.0, since that workflow has been removed from the repository
+- australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.2, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
 - accounting-review-pipeline (Xero export): attestations; release workflow
 - Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
@@ -549,10 +549,10 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - GitHub Actions: https://github.com/ryanduguid/ryanduguid.github.io/actions
 - attestations: https://github.com/ryanduguid/australian-accounting/attestations
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml
-- Payday Super: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-payday-super-checker.yml
-- ATO benchmarks: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-ato-benchmark-compare.yml
-- trust distributions: https://github.com/ryanduguid/australian-accounting/actions/workflows/release-solomons-sword.yml
-- release workflow definition at the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/.github/workflows/release-the-exchequer-tally.yml
+- Payday Super at payday-super-checker/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.2/.github/workflows/release-payday-super-checker.yml
+- ATO benchmarks at ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/.github/workflows/release-ato-benchmark-compare.yml
+- trust distributions at solomons-sword/v0.3.2: https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/.github/workflows/release-solomons-sword.yml
+- company tax at the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/.github/workflows/release-the-exchequer-tally.yml
 - attestations: https://github.com/ryanduguid/australian-accounting-skills/attestations
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
@@ -4037,7 +4037,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-20 October 2026 | Accounting questions 93 and 94 describe the first enacted stage of capital gains tax reform for CGT events on or after 1 July 2027: cost base indexation for eligible later gains, a minimum 30% tax on certain net capital gains of individuals, and existing treatment for gains accrued before then, with a records step for the market value at that date. Question 93 notes the choice to keep the current rules for an eligible new residential dwelling or affordable housing. The manager review gate evaluation cites the ATO’s new address for monthly GST reporting.
+20 October 2026 | Accounting questions 93 and 94 describe the first enacted stage of capital gains tax reform for CGT events on or after 1 July 2027: cost base indexation for eligible later gains, a minimum 30% tax on certain net capital gains of individuals, and existing treatment for gains accrued before then, although the pre-CGT exemption does not cover later gains, with a records step for the market value immediately before that date of an asset acquired earlier. Question 93 notes the choice to keep the current rules for an eligible new residential dwelling or affordable housing. The manager review gate evaluation cites the ATO’s new address for monthly GST reporting, and the evidence page links the engines’ release workflow definitions at their last Python releases, since the Rust port removed those workflows.
 20 October 2026 | Six new Ozzit module pages document all 148 named formulas in v3.5.0 with their signatures, parameters, notes and worked examples, read from each function’s help in the release source. Each name in the Ozzit page’s index links to its entry.
 20 October 2026 | The Ozzit page documents v3.5.0, published on 19 October: 143 LAMBDA functions and 5 help tables, the Apache License 2.0 and the new download hash. Its ten worked formulas were rerun in desktop Excel against the v3.5.0 workbook with unchanged results.
 20 October 2026 | The ATO benchmarks, trust distribution, Payday Super timing and Aus Accounting MCP pages name the current releases: ato-benchmark-compare/v0.2.2, solomons-sword/v0.3.2, payday-super-checker/v0.2.2 and aus-accounting-mcp/v0.6.0. The engine releases require Python 3.14 or later, move to Apache-2.0 and change no result. MCP v0.6.0 adds GST coding and BAS reconciliation review and pins the new payday, benchmark and Division 7A engines. Worked examples stay pinned to the releases they were run against, and the ATO benchmarks install line now asks for Python 3.14. The release table adds these releases and div7a-loan-review/v0.3.2, and the profit and cash flow case links au-fpa-pack v0.3.0, the current published release. The evidence page links the company tax release workflow at the-exchequer-tally/v0.2.0, since the repository no longer has that workflow.
@@ -7009,9 +7009,9 @@ Link to question 92
 
 ### How do I work out the capital gain when I sell an investment property?
 
-The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount or a pre-CGT exemption. An owner can choose to keep the current rules for an eligible new residential dwelling or affordable housing. Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
+The capital gain is the capital proceeds less the cost base. An Australian resident individual who owned the property for at least 12 months can usually reduce the gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount, but the pre-CGT exemption does not cover gains accruing from that date. An owner can choose to keep the current rules for an eligible new residential dwelling or affordable housing. Build the capital gains calculation from the relevant event, proceeds and adjusted cost base.
 
-- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a property held on 1 July 2027 and sold later, its market value immediately before that date.
+- Gather purchase and sale contracts, costs, ownership and occupancy history, and capital works records, and for a property acquired before 1 July 2027 and sold on or after that date, its market value immediately before that date, where required.
 - Review any exemptions, adjustments, residency and discount conditions before calculating the net result.
 
 A sale price minus purchase price calculation can omit material tax adjustments.
@@ -7026,9 +7026,9 @@ Link to question 93
 
 ### How do capital losses and the CGT discount affect tax on shares I sell?
 
-Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount or a pre-CGT exemption. Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
+Apply capital losses first. An Australian resident individual who owned the shares for at least 12 months can then reduce the remaining gain by the 50% CGT discount. For a CGT event on or after 1 July 2027, the first enacted stage of reform treats gains that accrue from that date differently: cost base indexation replaces the discount for assets held at least 12 months, and a minimum 30% tax can apply to certain net capital gains of individuals. Gains accrued before then keep their existing treatment, such as the discount, but the pre-CGT exemption does not cover gains accruing from that date. Calculate each gain or loss, apply eligible capital losses, then consider any available discount.
 
-- Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for shares held on 1 July 2027 and sold later, each holding’s market value immediately before that date.
+- Retain trade records, cost base adjustments, holding periods and carried-forward loss balances, and for shares acquired before 1 July 2027 and sold on or after that date, each holding’s market value immediately before that date, where required.
 - Reconcile the final calculation to the year’s CGT schedule and keep the remaining loss record.
 
 The bounded worksheet assumes the gains, losses and discount eligibility have already been established.
