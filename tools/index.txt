@@ -140,7 +140,7 @@ Try an example Source code Last commit 19 October 2026
 
 ### Ozzit Excel LAMBDA library
 
-133 native Excel LAMBDA functions and 5 help tables for GST, financial years, depreciation, amortisation and AASB 16 lessee schedules.
+143 native Excel LAMBDA functions and 5 help tables for GST, financial years, depreciation, amortisation and AASB 16 lessee schedules.
 
 Delivery
 

@@ -1,5 +1,6 @@
 //! scripts/build_ozzit_reference.py: build the Ozzit page's ten worked examples and its
-//! index of every named formula from the pinned release index.
+//! index of every named formula from the release the record says the page documents,
+//! and check every count a page states for the library against that index.
 //!
 //! The example and record files are JSON the script reads with Python's own semantics
 //! (dict and set equality, `len`, iteration and subscripts on any decoded value), so the
@@ -9,15 +10,22 @@ use crate::pycsv::{self, DictRow};
 use crate::pyformat;
 use crate::pyjson::{self, Json};
 use crate::pyobj::{Dict, hashable, iterate, py_len, set, set_eq, subscript, type_name};
-use crate::pyre::re;
+use crate::pyre::{I, re};
 use std::path::Path;
 
-const INDEX: &str = "assets/ozzit-functions-v3.4.2.csv";
 const EXAMPLES: &str = "scripts/ozzit_reference_examples.json";
-const RECORD: &str = "assets/ozzit-reference-v3.4.2.json";
 const OUTPUT: &str = "_includes/ozzit-reference.html";
 const INDEX_OUTPUT: &str = "_includes/ozzit-function-index.html";
-const WORKBOOK_SHA256: &str = "0306793a7e473ce70e78149fea1e107fc0f714d61ab50960c16f6fd528878f6f";
+/// Pages that state the library's size. Each stated count must match the index.
+pub const COUNT_PAGES: [&str; 4] = [
+    "tools/ozzit/index.html",
+    "tools/index.html",
+    "index.html",
+    "llms.txt",
+];
+const NAMED_COUNT: &str = r"\b(?:all|carries) (\d+) named formulas";
+const LAMBDA_COUNT: &str = r"\b(\d+) (?:native )?(?:Excel )?LAMBDA functions|\b(\d+) functions and";
+const TABLE_COUNT: &str = r"\b(\d+) help tables";
 const USAGE: &str = include_str!("help/build_ozzit_reference.usage");
 const HELP: &str = include_str!("help/build_ozzit_reference.txt");
 
@@ -57,8 +65,33 @@ fn code(value: &str) -> String {
     escape(value, true).replace('λ', "<span class=\"function-symbol\">λ</span>")
 }
 
+/// The tag the Ozzit page documents and the SHA-256 of that release's workbook.
+pub fn documented_release(root: &Path) -> Result<(String, Json)> {
+    let key = Json::str_obj;
+    let record = crate::release_record::load(root)?;
+    let component = subscript(&subscript(&record, &key("components"))?, &key("ozzit"))?;
+    let documented = subscript(&component, &key("documented"))?;
+    let published = subscript(&component, &key("published"))?;
+    let tag = subscript(&documented, &key("tag"))?;
+    let version = subscript(&documented, &key("version"))?;
+    let present = |value: &Json| !matches!(value, Json::Null);
+    // A page documenting an older release records that release's hash itself.
+    // `documented` subscripted as a dict above, so it is a dict here.
+    let mut sha256 = documented
+        .get("asset_sha256")
+        .filter(|v| present(v))
+        .cloned();
+    if sha256.is_none() && version.py_eq(&subscript(&published, &key("version"))?) {
+        sha256 = Some(subscript(&published, &key("asset_sha256"))?).filter(present);
+    }
+    let sha256 = sha256
+        .ok_or_else(|| value_error("Record asset_sha256 for the documented Ozzit release"))?;
+    Ok((tag.py_str(), sha256))
+}
+
 pub fn load_index(root: &Path) -> Result<Vec<DictRow>> {
-    let path = root.join(INDEX);
+    let (tag, _) = documented_release(root)?;
+    let path = root.join(format!("assets/ozzit-functions-{tag}.csv"));
     let bytes = std::fs::read(&path).map_err(|e| {
         crate::py::oserror_str(&e, &path.to_string_lossy(), crate::py::OsStyle::Errno)
     })?;
@@ -76,20 +109,19 @@ pub fn anchor(function: &str) -> String {
 }
 
 pub fn render_index(root: &Path) -> Result<String> {
+    let (tag, _) = documented_release(root)?;
     let rows = load_index(root)?;
     let mut names: Vec<Option<&str>> = Vec::new();
-    if rows.len() == 138 {
-        for row in &rows {
-            let name = field(row, "function")?;
-            if !names.contains(&name) {
-                names.push(name);
-            }
+    for row in &rows {
+        let name = field(row, "function")?;
+        if !names.contains(&name) {
+            names.push(name);
         }
     }
-    if rows.len() != 138 || names.len() != 138 {
-        return Err(value_error(
-            "Expected the 138 unique named formulas in the v3.4.2 index",
-        ));
+    if names.len() != rows.len() {
+        return Err(value_error(&format!(
+            "Every named formula in the {tag} index must be unique"
+        )));
     }
     let mut anchors = Vec::new();
     for row in &rows {
@@ -149,7 +181,7 @@ pub fn render_index(root: &Path) -> Result<String> {
             ));
         }
         parts.push("  </ul>".into());
-        let source = format!("https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/{module}.txt");
+        let source = format!("https://github.com/ryanduguid/Ozzit/blob/{tag}/src/{module}.txt");
         parts.push(format!(
             "  <p><a href=\"{}\">Released {} source</a></p>",
             escape(&source, true),
@@ -220,6 +252,7 @@ fn load_json(root: &Path, rel: &str) -> Result<Json> {
 }
 
 pub fn render(root: &Path) -> Result<String> {
+    let (tag, workbook_sha256) = documented_release(root)?;
     let rows = load_index(root)?;
     let mut functions: Vec<(String, &DictRow)> = Vec::new();
     for row in &rows {
@@ -233,7 +266,7 @@ pub fn render(root: &Path) -> Result<String> {
         }
     }
     let examples = load_json(root, EXAMPLES)?;
-    let record = load_json(root, RECORD)?;
+    let record = load_json(root, &format!("assets/ozzit-reference-{tag}.json"))?;
     let key = Json::str_obj;
     let mut recorded = Dict::default();
     for case in iterate(&subscript(&record, &key("cases"))?)? {
@@ -256,15 +289,20 @@ pub fn render(root: &Path) -> Result<String> {
             "Examples need matching native Excel inputs and results",
         ));
     }
-    if !subscript(&record, &key("workbook_sha256"))?.py_eq(&key(WORKBOOK_SHA256)) {
-        return Err(value_error(
-            "Native results must identify the v3.4.2 release workbook",
-        ));
+    // The record subscripted as a dict above, so it is a dict here.
+    if !subscript(&record, &key("workbook_sha256"))?.py_eq(&workbook_sha256)
+        || !record
+            .get("release")
+            .is_some_and(|release| release.py_eq(&Json::Str(tag.clone())))
+    {
+        return Err(value_error(&format!(
+            "Native results must identify the {tag} release workbook"
+        )));
     }
-    if functions.len() != 138 || functions.len() != rows.len() {
-        return Err(value_error(
-            "Expected the 138 unique named formulas in the v3.4.2 index",
-        ));
+    if functions.len() != rows.len() {
+        return Err(value_error(&format!(
+            "Every named formula in the {tag} index must be unique"
+        )));
     }
     let example_list = iterate(&examples)?;
     let unique_ids = || -> Result<usize> {
@@ -326,15 +364,69 @@ pub fn render(root: &Path) -> Result<String> {
             "  <p><strong>Limits:</strong> {}</p>",
             escape(&note, true)
         ));
-        let module = field_text(row, "module", "replace")?;
+        let module = field(row, "module")?.unwrap_or("None");
+        let source = format!("https://github.com/ryanduguid/Ozzit/blob/{tag}/src/{module}.txt");
         parts.push(format!(
-            "  <p><a href=\"#fn-{anchor}\">Link to this example</a> · <a href=\"https://github.com/ryanduguid/Ozzit/blob/v3.4.2/src/{}.txt\">Released formula source<span class=\"visually-hidden\">, {}</span></a></p>",
-            escape(module, true),
+            "  <p><a href=\"#fn-{anchor}\">Link to this example</a> · <a href=\"{}\">Released formula source<span class=\"visually-hidden\">, {}</span></a></p>",
+            escape(&source, true),
             escape(&title, true)
         ));
         parts.push("</details>".into());
     }
     Ok(parts.join("\n") + "\n")
+}
+
+/// Every count a page states for the library must match the index.
+pub fn count_failures(root: &Path) -> Result<Vec<String>> {
+    let (tag, _) = documented_release(root)?;
+    let rows = load_index(root)?;
+    let mut tables = 0;
+    for row in &rows {
+        tables += usize::from(field_text(row, "function", "startswith")?.starts_with("oz.About"));
+    }
+    let expected = [
+        (re(NAMED_COUNT, I), rows.len(), "named formulas"),
+        (re(LAMBDA_COUNT, 0), rows.len() - tables, "LAMBDA functions"),
+        (re(TABLE_COUNT, 0), tables, "help tables"),
+    ];
+    let mut failures = Vec::new();
+    for rel in COUNT_PAGES {
+        let text = crate::read(&root.join(rel))?;
+        for (pattern, count, label) in &expected {
+            let mut stated: Vec<num_bigint::BigInt> = Vec::new();
+            for value in pattern.findall_groups(&text).into_iter().flatten() {
+                if value.is_empty() {
+                    continue;
+                }
+                let value = value.parse().map_err(|_| {
+                    value_error(&format!(
+                        "invalid literal for int() with base 10: '{value}'"
+                    ))
+                })?;
+                if !stated.contains(&value) {
+                    stated.push(value);
+                }
+            }
+            stated.sort();
+            if stated.iter().any(|value| *value != (*count).into()) {
+                let listed: Vec<String> = stated.iter().map(ToString::to_string).collect();
+                failures.push(format!(
+                    "{rel}: states [{}] {label}; the {tag} index has {count}",
+                    listed.join(", ")
+                ));
+            }
+        }
+    }
+    let page = crate::read(&root.join(COUNT_PAGES[0]))?;
+    for (pattern, _, label) in &expected {
+        if !pattern.is_match(&page) {
+            failures.push(format!(
+                "{}: no longer states the number of {label}",
+                COUNT_PAGES[0]
+            ));
+        }
+    }
+    Ok(failures)
 }
 
 const PARSER: crate::pyargs::Parser = crate::pyargs::Parser {
@@ -353,6 +445,13 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     };
     let outputs = [(OUTPUT, render(root)?), (INDEX_OUTPUT, render_index(root)?)];
     let say = |text: &str| crate::print_text(text, false).map_err(|e| e.to_string());
+    let failures = count_failures(root)?;
+    for failure in &failures {
+        say(&format!("{failure}\n"))?;
+    }
+    if !failures.is_empty() {
+        return Ok(1);
+    }
     if write {
         for (rel, expected) in &outputs {
             let path = root.join(rel);
