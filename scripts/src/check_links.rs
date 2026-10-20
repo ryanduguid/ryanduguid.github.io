@@ -215,12 +215,17 @@ pub struct Checker<'a> {
     /// Outcomes fetched ahead of the pass (see [`prefetch`]), each replayed the first
     /// time the pass asks for its URL.
     pub prefetched: Prefetched,
+    /// Archived verdicts looked up ahead of the pass, replayed the same way.
+    pub prefetched_verdicts: PrefetchedVerdicts,
     fetched: HashMap<String, (u16, String)>,
     verdicts: HashMap<String, Verdict>,
 }
 
 /// Each URL's fetch outcome and the retry lines it printed.
 pub type Prefetched = HashMap<String, (Fetched, Vec<String>)>;
+
+/// Each repository's archived verdict and the retry lines it printed.
+pub type PrefetchedVerdicts = HashMap<String, (Verdict, Vec<String>)>;
 
 /// A fresh transport and clock for one prefetch worker.
 pub type Transport<'a> = dyn Fn() -> (Box<dyn Opener>, Box<dyn Clock>) + Sync + 'a;
@@ -254,24 +259,51 @@ pub fn fetch_targets(hrefs: &[String], actions: bool) -> Vec<String> {
 /// [`Checker::fetch_final_url`] would return and print for each. Replaying these in
 /// the sequential pass gives the same output with the waiting overlapped.
 pub fn prefetch(root: &Path, urls: Vec<String>, transport: &Transport<'_>) -> Prefetched {
-    let queue = HostQueue::new(urls);
-    let results = std::sync::Mutex::new(Prefetched::new());
+    prefetch_each(root, urls, transport, &|checker, url| {
+        checker.fetch_final_url(url)
+    })
+}
+
+/// [`Checker::fetch_repository_archived`] for each own repository named, concurrently
+/// as [`prefetch`] does, for [`Checker::repository_is_archived`] to replay.
+pub fn prefetch_verdicts(
+    root: &Path,
+    names: Vec<String>,
+    transport: &Transport<'_>,
+    token: Option<String>,
+) -> PrefetchedVerdicts {
+    prefetch_each(root, names, transport, &|checker, name| {
+        checker.token = token.clone();
+        checker.fetch_repository_archived(name)
+    })
+}
+
+/// Run `work` for each key on [`WORKERS`] threads, each with its own transport and a
+/// checker whose printed lines are kept with the result.
+fn prefetch_each<T: Send>(
+    root: &Path,
+    keys: Vec<String>,
+    transport: &Transport<'_>,
+    work: &(dyn Fn(&mut Checker<'_>, &str) -> T + Sync),
+) -> HashMap<String, (T, Vec<String>)> {
+    let queue = HostQueue::new(keys);
+    let results = std::sync::Mutex::new(HashMap::new());
     std::thread::scope(|scope| {
         for _ in 0..WORKERS {
             scope.spawn(|| {
                 let (mut opener, mut clock) = transport();
-                while let Some(url) = queue.take() {
+                while let Some(key) = queue.take() {
                     let mut lines = Vec::new();
                     let mut out = |line: &str| lines.push(line.to_owned());
                     let mut checker =
                         Checker::new(root.to_path_buf(), &mut *opener, &mut *clock, &mut out);
-                    let outcome = checker.fetch_final_url(&url);
+                    let outcome = work(&mut checker, &key);
                     drop(checker);
                     results
                         .lock()
                         .unwrap_or_else(|e| e.into_inner())
-                        .insert(url.clone(), (outcome, lines));
-                    queue.done(&url);
+                        .insert(key.clone(), (outcome, lines));
+                    queue.done(&key);
                 }
             });
         }
@@ -348,6 +380,7 @@ impl<'a> Checker<'a> {
             lookup_hook: None,
             archived_allowlist: Vec::new(),
             prefetched: Prefetched::new(),
+            prefetched_verdicts: PrefetchedVerdicts::new(),
             fetched: HashMap::new(),
             verdicts: HashMap::new(),
         }
@@ -507,6 +540,13 @@ impl<'a> Checker<'a> {
         }
         if let Some(verdict) = self.verdicts.get(name) {
             return verdict.clone();
+        }
+        if let Some((verdict, lines)) = self.prefetched_verdicts.remove(name) {
+            for line in &lines {
+                self.say(line);
+            }
+            self.verdicts.insert(name.to_owned(), verdict.clone());
+            return verdict;
         }
         let verdict = self.fetch_repository_archived(name);
         self.verdicts.insert(name.to_owned(), verdict.clone());
@@ -736,6 +776,38 @@ fn fragment_exists(target: &Path, fragment: &str) -> Result<bool, String> {
     Ok(text.contains("{%") && text.contains("{{"))
 }
 
+/// Every link and own-repository verdict the pass over `pages` and llms.txt will
+/// need, fetched over the network ahead of it.
+fn prefetch_all(
+    root: &Path,
+    pages: &[PathBuf],
+    actions: bool,
+    token: Option<String>,
+) -> (Prefetched, PrefetchedVerdicts) {
+    // A file that cannot be read is skipped here; the pass reports it in order.
+    let mut hrefs: Vec<String> = pages
+        .iter()
+        .filter_map(|path| crate::read(path).ok())
+        .flat_map(|html| page_hrefs(&html).0)
+        .collect();
+    hrefs.extend(llms_hrefs(root).unwrap_or_default());
+    let targets = fetch_targets(&hrefs, actions);
+    let mut names: Vec<String> = Vec::new();
+    for name in targets.iter().filter_map(|t| own_repository(t)) {
+        if !names.contains(&name) {
+            names.push(name);
+        }
+    }
+    let transport = || {
+        (
+            Box::new(Network) as Box<dyn Opener>,
+            Box::new(SystemClock) as Box<dyn Clock>,
+        )
+    };
+    let verdicts = prefetch_verdicts(root, names, &transport, token);
+    (prefetch(root, targets, &transport), verdicts)
+}
+
 /// Markdown link targets in llms.txt.
 pub fn llms_hrefs(root: &Path) -> Result<Vec<String>, String> {
     Ok(re(MARKDOWN_LINK, 0).findall(&crate::read(&root.join("llms.txt"))?))
@@ -789,20 +861,8 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     checker.token = std::env::var("GITHUB_TOKEN").ok();
     let pages = crate::seo_core::html_files(&root);
     if !offline {
-        // A file that cannot be read is skipped here; the pass below reports it in order.
-        let mut hrefs: Vec<String> = pages
-            .iter()
-            .filter_map(|path| crate::read(path).ok())
-            .flat_map(|html| page_hrefs(&html).0)
-            .collect();
-        hrefs.extend(llms_hrefs(&root).unwrap_or_default());
-        let targets = fetch_targets(&hrefs, checker.actions);
-        checker.prefetched = prefetch(&root, targets, &|| {
-            (
-                Box::new(Network) as Box<dyn Opener>,
-                Box::new(SystemClock) as Box<dyn Clock>,
-            )
-        });
+        (checker.prefetched, checker.prefetched_verdicts) =
+            prefetch_all(&root, &pages, checker.actions, checker.token.clone());
     }
     let mut failures = Vec::new();
     for path in pages {
