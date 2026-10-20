@@ -1,7 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import * as calculate from '../assets/business-calculators.mjs';
-import { calculatorTools } from '../assets/webmcp-tools.mjs';
+import { readFileSync, readdirSync } from 'node:fs';
+import { calculatorTools, ozzitTools } from '../assets/webmcp-tools.mjs';
 
 const tool = calculatorTools(calculate).gst;
 
@@ -36,4 +37,36 @@ test('GST tool schema pattern agrees with the calculator on amounts', async () =
 
 test('GST tool refuses a non-boolean inclusive flag', async () => {
   await assert.rejects(tool.execute({ amount: '100', inclusive: 'yes' }), /true or false/);
+});
+
+
+const referenceFile = readdirSync(new URL('../assets/', import.meta.url))
+  .filter(name => /^ozzit-function-reference-v[\d.]+\.json$/.test(name))
+  .sort()
+  .at(-1);
+const reference = JSON.parse(readFileSync(new URL(`../assets/${referenceFile}`, import.meta.url), 'utf8'));
+const lookup = ozzitTools(async () => reference).lookup;
+
+test('Ozzit tool is read-only and requires only a name', () => {
+  assert.equal(lookup.name, 'ozzit_function');
+  assert.equal(lookup.annotations.readOnlyHint, true);
+  assert.deepEqual(lookup.inputSchema.required, ['name']);
+  assert.equal(lookup.inputSchema.additionalProperties, false);
+});
+
+test('Ozzit tool finds a function however its name is typed', async () => {
+  for (const name of ['oz.Amortiseλ', 'Amortise', 'amortiseλ', ' OZ.AMORTISE ']) {
+    const found = await lookup.execute({ name });
+    assert.equal(found.name, 'oz.Amortiseλ', name);
+    assert.equal(found.module, 'Financial');
+    assert.ok(found.signature.startsWith('oz.Amortiseλ('));
+    assert.equal(found.source, 'https://duguid.com.au/tools/ozzit/functions/financial/#oz-amortise');
+    assert.ok(found.parameters.some(p => p.name === 'Principals'));
+  }
+});
+
+test('Ozzit tool refuses an unknown or empty name', async () => {
+  await assert.rejects(lookup.execute({ name: 'NotAFunction' }), /No Ozzit function is named NotAFunction/);
+  await assert.rejects(lookup.execute({ name: '  ' }), /function name/);
+  await assert.rejects(lookup.execute({}), /function name/);
 });

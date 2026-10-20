@@ -32,6 +32,14 @@ tool is read-only: it calls the same `gst()` function as the form, reads no
 form state and sends nothing off the page. `scripts/webmcp-tools.test.mjs` and
 the WebMCP test in `tests/browser/calculator.spec.mjs` cover it.
 
+The 6 Ozzit module pages offer a second read-only tool, `ozzit_function`, through
+`assets/ozzit-tools.mjs`. It looks up one formula by name in the published
+function reference that the page's script tag names, and returns its signature,
+parameters, notes, worked examples and module page link. It fetches that file
+from the site only when the browser exposes `modelContext` and an agent calls
+the tool. `scripts/webmcp-tools.test.mjs` and the Ozzit WebMCP test in
+`tests/browser/calculator.spec.mjs` cover it.
+
 Chrome ships the API behind `chrome://flags/#enable-webmcp-testing` and an
 origin trial. No origin-trial token is committed; registering one is an
 account action for the site owner. Add further calculators to
