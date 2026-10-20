@@ -411,7 +411,14 @@ fn commands_in(text: &str, prose: bool) -> Result<Vec<(String, bool)>> {
     for line in py::splitlines(text) {
         let mut start = 0;
         let mut segments = Vec::new();
-        for m in boundary.captures_iter(line) {
+        // Only a match starting with one of these splits a line; without them the
+        // line is one segment, so the boundary scan is skipped.
+        let separators = line.contains([';', '&', '|', '#']);
+        for m in separators
+            .then(|| boundary.captures_iter(line))
+            .into_iter()
+            .flatten()
+        {
             let m = m.get(0).expect("group 0");
             let first = m.as_str().chars().next().unwrap_or(' ');
             if ";&|#".contains(first) {
@@ -435,10 +442,26 @@ fn commands_in(text: &str, prose: bool) -> Result<Vec<(String, bool)>> {
     Ok(found)
 }
 
+/// Every installer and runner pattern contains one of these words (case matters, as
+/// the patterns use no flags), so a segment without any of them matches none.
+const INSTALL_WORDS: [&str; 6] = ["pip", "npm", "yarn", "bun", "uv", "npx"];
+
+fn may_install(segment: &str) -> bool {
+    INSTALL_WORDS.iter().any(|word| segment.contains(word))
+}
+
 /// Every package an install or run command in the text resolves.
 pub fn installs(text: &str, prose: bool) -> Result<Vec<Install>> {
+    Ok(installs_in(&commands_in(text, prose)?))
+}
+
+fn installs_in(commands: &[(String, bool)]) -> Vec<Install> {
     let mut found = Vec::new();
-    for (segment, is_command) in commands_in(text, prose)? {
+    for (segment, is_command) in commands {
+        let (segment, is_command) = (segment.as_str(), *is_command);
+        if !may_install(segment) {
+            continue;
+        }
         let mut seen: Vec<(&str, String, Option<String>)> = Vec::new();
         let mut add = |found: &mut Vec<Install>,
                        registry: &'static str,
@@ -457,7 +480,7 @@ pub fn installs(text: &str, prose: bool) -> Result<Vec<Install>> {
             }
         };
         for (registry, prefix) in INSTALLERS {
-            for m in re(prefix, 0).captures_iter(&segment) {
+            for m in re(prefix, 0).captures_iter(segment) {
                 let end = m.get(0).expect("group 0").end();
                 for (name, version) in packages_in(&segment[end..], registry, is_command) {
                     add(&mut found, registry, name, version, false);
@@ -468,7 +491,7 @@ pub fn installs(text: &str, prose: bool) -> Result<Vec<Install>> {
             if command_only && !is_command {
                 continue;
             }
-            for m in re(prefix, 0).captures_iter(&segment) {
+            for m in re(prefix, 0).captures_iter(segment) {
                 let end = m.get(0).expect("group 0").end();
                 for (name, version) in packages_in(&segment[end..], registry, false) {
                     add(&mut found, registry, name, version, true);
@@ -476,7 +499,7 @@ pub fn installs(text: &str, prose: bool) -> Result<Vec<Install>> {
             }
         }
     }
-    Ok(found)
+    found
 }
 
 fn get<'a>(value: &'a Json, key: &str) -> Result<Option<&'a Json>> {
@@ -535,9 +558,10 @@ pub fn check(root: &Path, policy: &Json) -> Result<Vec<Finding>> {
                 });
             }
         }
-        for (segment, _) in commands_in(&text, prose)? {
+        let commands = commands_in(&text, prose)?;
+        for (segment, _) in commands.iter().filter(|(s, _)| may_install(s)) {
             for (_, prefix) in INSTALLERS {
-                for m in re(prefix, 0).captures_iter(&segment) {
+                for m in re(prefix, 0).captures_iter(segment) {
                     let end = m.get(0).expect("group 0").end();
                     if unhashed_requirements(&segment[end..]) {
                         findings.push(Finding {
@@ -550,7 +574,7 @@ pub fn check(root: &Path, policy: &Json) -> Result<Vec<Finding>> {
                 }
             }
         }
-        for install in installs(&text, prose)? {
+        for install in installs_in(&commands) {
             let registry_entries = get(known, install.registry)?;
             let entry = match registry_entries {
                 Some(entries) => get(entries, &install.package)?,
