@@ -27,8 +27,7 @@ enum Line {
     Row(NaiveDate),
     Entry {
         date: Option<NaiveDate>,
-        open: bool,
-        close: bool,
+        field: usize,
     },
 }
 
@@ -42,8 +41,6 @@ fn classify(line: &str) -> Option<Line> {
     static UPDATED: LazyLock<Regex> = LazyLock::new(|| {
         Regex::new(r"^    <updated>(\d{4}-\d{2}-\d{2})T00:00:00Z</updated>$").unwrap()
     });
-    static ENTRY_FIELD: LazyLock<Regex> =
-        LazyLock::new(|| Regex::new(r"^    <(?:title|link|id|summary)\b").unwrap());
     let line = line.trim_end_matches(['\n', '\r']);
     if let Some(m) = HTML_ROW.captures(line).or_else(|| TEXT_ROW.captures(line)) {
         return parse_date(&m[1]).ok().map(Line::Row);
@@ -52,37 +49,66 @@ fn classify(line: &str) -> Option<Line> {
         let date = NaiveDate::parse_from_str(&m[1], "%Y-%m-%d").ok()?;
         return Some(Line::Entry {
             date: Some(date),
-            open: false,
-            close: false,
+            field: 4,
         });
     }
-    let (open, close) = (line == "  <entry>", line == "  </entry>");
-    (open || close || ENTRY_FIELD.is_match(line)).then_some(Line::Entry {
-        date: None,
-        open,
-        close,
-    })
+    let field = match line {
+        "  <entry>" => 0,
+        l if l.starts_with("    <title>") && l.ends_with("</title>") => 1,
+        l if l.starts_with("    <link href=\"") && l.ends_with("\" />") => 2,
+        l if l.starts_with("    <id>") && l.ends_with("</id>") => 3,
+        l if l.starts_with("    <summary>") && l.ends_with("</summary>") => 5,
+        "  </entry>" => 6,
+        _ => return None,
+    };
+    Some(Line::Entry { date: None, field })
 }
 
 /// The dates one side added, in order, when every line it added is a dated row or
-/// whole feed entries. A feed side counts as whole when its entry openings,
-/// closings and dates balance; both sides then start at the same point in an entry.
+/// whole feed entries. Git can align just after a shared opening tag, rotating
+/// each entry by one line. Other shapes are left to Git's ordinary merge.
 fn added_dates(side: &[&str]) -> Option<Vec<NaiveDate>> {
-    let (mut dates, mut opens, mut closes, mut entry_lines) = (Vec::new(), 0, 0, 0);
+    let (mut dates, mut fields) = (Vec::new(), Vec::new());
     for line in side {
         match classify(line)? {
             Line::Row(date) => dates.push(date),
-            Line::Entry { date, open, close } => {
-                entry_lines += 1;
-                opens += usize::from(open);
-                closes += usize::from(close);
+            Line::Entry { date, field } => {
+                fields.push(field);
                 dates.extend(date);
             }
         }
     }
-    let balanced = entry_lines == 0 || (opens == closes && closes == dates.len());
-    (balanced && !dates.is_empty() && (entry_lines == 0 || entry_lines == side.len()))
-        .then_some(dates)
+    if !fields.is_empty() {
+        let start = fields[0];
+        if fields.len() != side.len()
+            || start > 1
+            || !fields.len().is_multiple_of(7)
+            || !fields
+                .iter()
+                .enumerate()
+                .all(|(i, &f)| f == (start + i) % 7)
+        {
+            return None;
+        }
+        for chunk in side.as_chunks::<7>().0 {
+            let entry = if start == 1 {
+                [chunk[6..].concat(), chunk[..6].concat()].concat()
+            } else {
+                chunk.concat()
+            };
+            let xml = roxmltree::Document::parse(&entry).ok()?;
+            let names: Vec<_> = xml
+                .root_element()
+                .children()
+                .filter(|n| n.is_element())
+                .map(|n| n.tag_name().name())
+                .collect();
+            if names != ["title", "link", "id", "updated", "summary"] {
+                return None;
+            }
+        }
+    }
+    (!dates.is_empty()).then_some(dates)
 }
 
 /// Both sides' additions in date order, or None to leave the conflict to a person.
@@ -91,6 +117,12 @@ pub fn resolve(current: &[&str], base: &[&str], incoming: &[&str]) -> Option<Str
         return None;
     }
     let (ours, theirs) = (added_dates(current)?, added_dates(incoming)?);
+    // The two sides must use the same row or feed boundary orientation.
+    match (classify(current[0])?, classify(incoming[0])?) {
+        (Line::Row(_), Line::Row(_)) => {}
+        (Line::Entry { field: a, .. }, Line::Entry { field: b, .. }) if a == b => {}
+        _ => return None,
+    }
     // The same row added on both sides would be kept twice.
     fn key(line: &str) -> Option<&str> {
         let line = line.trim_end_matches(['\n', '\r']);
@@ -182,6 +214,12 @@ pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
             }
         }
         let [current, base, incoming] = &sides;
+        let text_rows = [current, incoming].into_iter().flatten().any(|line| {
+            !line.trim_start().starts_with('<') && matches!(classify(line), Some(Line::Row(_)))
+        });
+        if text_rows && page != Some(changelog.as_str()) {
+            return None;
+        }
         if !one_table(&[current.as_slice(), incoming].concat()) {
             return None;
         }

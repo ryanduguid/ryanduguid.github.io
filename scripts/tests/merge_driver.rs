@@ -99,6 +99,14 @@ fn text_conflicts_resolve_only_on_the_changelog_page() {
         "20 October 2026 | Theirs.\n",
     );
     let page = |url: &str| format!("# Page\n\nSource: {url}\n\nDate | Change\n{rows}");
+    assert_eq!(resolve_conflicts(&rows, 7), None);
+    assert_eq!(
+        resolve_conflicts(
+            &format!("# Prologue\n{rows}Source: https://duguid.com.au/changelog/\n"),
+            7
+        ),
+        None
+    );
     assert_eq!(
         resolve_conflicts(&page("https://duguid.com.au/changelog/"), 7),
         Some(
@@ -110,6 +118,32 @@ fn text_conflicts_resolve_only_on_the_changelog_page() {
         resolve_conflicts(&page("https://duguid.com.au/rates/"), 7),
         None
     );
+}
+
+#[test]
+fn incomplete_misordered_and_differently_rotated_entries_stay_conflicts() {
+    let ours = entry_rotated("aaaaaaaaaaaaaaaa", "2026-10-20");
+    let theirs = entry_rotated("bbbbbbbbbbbbbbbb", "2026-10-21");
+    let incomplete = "  <entry>\n    <updated>2026-10-21T00:00:00Z</updated>\n  </entry>\n";
+    assert_eq!(resolve(&lines(&ours), &[], &lines(incomplete)), None);
+    let missing_id = theirs
+        .lines()
+        .filter(|l| !l.starts_with("    <id>"))
+        .map(|l| format!("{l}\n"))
+        .collect::<String>();
+    assert_eq!(resolve(&lines(&ours), &[], &lines(&missing_id)), None);
+    let mut misordered = lines(&theirs);
+    misordered.swap(0, 1);
+    assert_eq!(resolve(&lines(&ours), &[], &misordered), None);
+    let full = format!("  <entry>\n{}", lines(&theirs)[..6].concat());
+    assert_eq!(resolve(&lines(&ours), &[], &lines(&full)), None);
+    let full_ours = format!("  <entry>\n{}", lines(&ours)[..6].concat());
+    assert_eq!(
+        resolve(&lines(&full_ours), &[], &lines(&full)),
+        Some(format!("{full}{full_ours}"))
+    );
+    let invalid_xml = theirs.replace("<summary>", "<summary><unclosed>");
+    assert_eq!(resolve(&lines(&ours), &[], &lines(&invalid_xml)), None);
 }
 
 #[test]
@@ -205,4 +239,205 @@ fn command_merges_in_place_or_leaves_the_file_to_git() {
         .unwrap();
     assert_eq!(status.code(), Some(1));
     assert_eq!(std::fs::read_to_string(&current).unwrap(), marker_like);
+}
+
+#[test]
+fn a_real_git_merge_preserves_all_four_builder_outputs_with_lf_and_crlf() {
+    use site_tools::{feed, llms_full};
+    for newline in ["\n", "\r\n"] {
+        let dir = tempfile::tempdir().unwrap();
+        let root = dir.path();
+        let git = |args: &[&str]| {
+            let out = Command::new("git")
+                .args(args)
+                .current_dir(root)
+                .env("GIT_CONFIG_NOSYSTEM", "1")
+                .output()
+                .unwrap();
+            assert!(
+                out.status.success(),
+                "{args:?}: {}",
+                String::from_utf8_lossy(&out.stderr)
+            );
+            out
+        };
+        git(&["init", "-q"]);
+        git(&["config", "user.name", "Test"]);
+        git(&["config", "user.email", "test@example.invalid"]);
+        git(&["config", "core.autocrlf", "false"]);
+        let binary = env!("CARGO_BIN_EXE_site-tools").replace('\\', "/");
+        git(&[
+            "config",
+            "merge.changelog-rows.driver",
+            &format!("\"{binary}\" merge_driver %O %A %B || git merge-file %A %O %B"),
+        ]);
+        std::fs::write(
+            root.join(".gitattributes"),
+            "*.html merge=changelog-rows\n*.txt merge=changelog-rows\n*.xml merge=changelog-rows\n",
+        )
+        .unwrap();
+        let old = row("20 October 2026", "Already published.");
+        let ours = row("20 October 2026", "Current addition.");
+        let theirs = row("20 October 2026", "Incoming addition.");
+        let outputs = |rows: &str| {
+            let html = format!(
+                "<html><body><main><h1>Changelog</h1><table><tbody>\n{rows}</tbody></table></main></body></html>\n"
+            );
+            let text = format!(
+                "# Changelog\n\nSource: {}\n\n{}\n",
+                feed::CHANGELOG_URL,
+                llms_full::main_text(&html, feed::CHANGELOG_URL).unwrap()
+            );
+            [
+                ("changelog.html", html.clone()),
+                ("changelog.txt", text.clone()),
+                (
+                    "llms-full.txt",
+                    llms_full::full_text(&[(feed::CHANGELOG_URL.into(), text)]),
+                ),
+                ("feed.xml", feed::build(&html).unwrap()),
+            ]
+            .map(|(name, text)| (name, text.replace('\n', newline)))
+        };
+        let write = |rows: &str| {
+            for (name, text) in outputs(rows) {
+                std::fs::write(root.join(name), text).unwrap();
+            }
+        };
+        write(&old);
+        git(&["add", "."]);
+        git(&["commit", "-qm", "base"]);
+        git(&["branch", "incoming"]);
+        write(&format!("{ours}{old}"));
+        git(&["commit", "-qam", "current"]);
+        git(&["checkout", "-q", "incoming"]);
+        write(&format!("{theirs}{old}"));
+        git(&["commit", "-qam", "incoming"]);
+        git(&["checkout", "-q", "-"]);
+        git(&["merge", "--no-edit", "incoming"]);
+        for (name, expected) in outputs(&format!("{theirs}{ours}{old}")) {
+            let actual = std::fs::read_to_string(root.join(name)).unwrap();
+            assert_eq!(actual, expected, "{name}, newline {newline:?}");
+            assert_eq!(
+                actual.matches("Current addition.").count(),
+                if name == "feed.xml" { 2 } else { 1 }
+            );
+            assert_eq!(
+                actual.matches("Incoming addition.").count(),
+                if name == "feed.xml" { 2 } else { 1 }
+            );
+        }
+    }
+}
+
+#[test]
+fn a_real_mixed_table_feed_conflict_falls_back_to_git_markers() {
+    let dir = tempfile::tempdir().unwrap();
+    let root = dir.path();
+    let git = |args: &[&str]| {
+        Command::new("git")
+            .args(args)
+            .current_dir(root)
+            .env("GIT_CONFIG_NOSYSTEM", "1")
+            .output()
+            .unwrap()
+    };
+    for args in [
+        vec!["init", "-q"],
+        vec!["config", "user.name", "Test"],
+        vec!["config", "user.email", "test@example.invalid"],
+        vec!["config", "core.autocrlf", "false"],
+    ] {
+        assert!(git(&args).status.success());
+    }
+    let binary = env!("CARGO_BIN_EXE_site-tools").replace('\\', "/");
+    assert!(
+        git(&[
+            "config",
+            "merge.changelog-rows.driver",
+            &format!("\"{binary}\" merge_driver %O %A %B || git merge-file %A %O %B")
+        ])
+        .status
+        .success()
+    );
+    std::fs::write(
+        root.join(".gitattributes"),
+        "feed.xml merge=changelog-rows\n",
+    )
+    .unwrap();
+    let old = entry_rotated("old", "2026-10-19");
+    let doc = |entries: &str| format!("<feed>\n  <entry>\n{entries}</feed>\n");
+    std::fs::write(root.join("feed.xml"), doc(&old)).unwrap();
+    assert!(git(&["add", "."]).status.success());
+    assert!(git(&["commit", "-qm", "base"]).status.success());
+    assert!(git(&["branch", "incoming"]).status.success());
+    let ours = entry_linked(
+        "ours",
+        "2026-10-20",
+        "https://duguid.com.au/changelog/#site-changes",
+    );
+    std::fs::write(root.join("feed.xml"), doc(&format!("{ours}{old}"))).unwrap();
+    assert!(git(&["commit", "-qam", "current"]).status.success());
+    assert!(git(&["checkout", "-q", "incoming"]).status.success());
+    let theirs = entry_linked(
+        "theirs",
+        "2026-10-20",
+        "https://duguid.com.au/changelog/#accounting-changes",
+    );
+    std::fs::write(root.join("feed.xml"), doc(&format!("{theirs}{old}"))).unwrap();
+    assert!(git(&["commit", "-qam", "incoming"]).status.success());
+    assert!(git(&["checkout", "-q", "-"]).status.success());
+    assert_eq!(
+        git(&["merge", "--no-edit", "incoming"]).status.code(),
+        Some(1)
+    );
+    let text = std::fs::read_to_string(root.join("feed.xml")).unwrap();
+    assert!(text.contains("<<<<<<<"));
+    assert!(text.contains("=======") && text.contains(">>>>>>>"));
+    assert!(text.contains("ours") && text.contains("theirs"));
+    assert!(!git(&["ls-files", "-u"]).stdout.is_empty());
+}
+
+#[cfg(windows)]
+#[test]
+fn a_locked_replacement_preserves_current_bytes_before_git_fallback() {
+    use std::os::windows::fs::OpenOptionsExt;
+    let dir = tempfile::tempdir().unwrap();
+    let old = row("19 October 2026", "Old.");
+    let ours = format!(
+        "<tbody>\n{}{old}</tbody>\n",
+        row("20 October 2026", "Ours.")
+    );
+    let theirs = format!(
+        "<tbody>\n{}{old}</tbody>\n",
+        row("20 October 2026", "Theirs.")
+    );
+    let [base, current, incoming] =
+        ["base", "current", "incoming"].map(|name| dir.path().join(name));
+    std::fs::write(&base, format!("<tbody>\n{old}</tbody>\n")).unwrap();
+    std::fs::write(&current, &ours).unwrap();
+    std::fs::write(&incoming, &theirs).unwrap();
+    // Permit readers but deny replacement while the existing file is open.
+    let lock = std::fs::OpenOptions::new()
+        .read(true)
+        .share_mode(1)
+        .open(&current)
+        .unwrap();
+    let output = Command::new(env!("CARGO_BIN_EXE_site-tools"))
+        .arg("merge_driver")
+        .args([&base, &current, &incoming])
+        .output()
+        .unwrap();
+    assert_eq!(output.status.code(), Some(1));
+    assert_eq!(std::fs::read(&current).unwrap(), ours.as_bytes());
+    drop(lock);
+    let fallback = Command::new("git")
+        .arg("merge-file")
+        .args([&current, &base, &incoming])
+        .output()
+        .unwrap();
+    assert_eq!(fallback.status.code(), Some(1));
+    let text = std::fs::read_to_string(&current).unwrap();
+    assert!(text.contains("<<<<<<<") && text.contains("=======") && text.contains(">>>>>>>"));
+    assert!(text.contains("Ours.") && text.contains("Theirs."));
 }
