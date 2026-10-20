@@ -5,9 +5,11 @@ use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
-/// The checked tree scripts/check_site.py runs these tests in: the Jekyll-rendered site
+/// The checked tree `site-tools check_site` runs these tests in: the Jekyll-rendered site
 /// plus the tooling and fixtures it adds. SITE_CHECKED names a prepared one; otherwise
-/// the site is rendered with `bundle exec jekyll build` when Bundler is installed.
+/// the site is rendered with `bundle exec jekyll build` when the locked gems are
+/// installed. The first suite to render keeps the tree in Cargo's test scratch
+/// directory, keyed by the source it rendered, and later suites reuse it.
 pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
     let checked = tempfile::tempdir().unwrap();
     if let Some(prepared) = std::env::var_os("SITE_CHECKED") {
@@ -15,8 +17,57 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
         return Some(checked);
     }
     let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let renders = Path::new(env!("CARGO_TARGET_TMPDIR")).join("site-checked");
+    let kept = renders.join(fingerprint(&repository));
+    if kept.is_dir() {
+        copy_tree(&kept, checked.path());
+        return Some(checked);
+    }
+    let checked = render(&repository, checked)?;
+    // Keep only the newest render; a partial copy never takes the final name.
+    let _ = std::fs::remove_dir_all(&renders);
+    let partial = renders.join("partial");
+    copy_tree(checked.path(), &partial);
+    let _ = std::fs::rename(&partial, &kept);
+    Some(checked)
+});
+
+/// A digest of every file the render reads from the repository.
+fn fingerprint(repository: &Path) -> String {
+    use sha2::{Digest, Sha256};
+    fn walk(root: &Path, directory: &Path, hasher: &mut Sha256) {
+        let mut entries: Vec<_> = std::fs::read_dir(directory).unwrap().flatten().collect();
+        entries.sort_by_key(|e| e.file_name());
+        for entry in entries {
+            let name = entry.file_name();
+            if SKIPPED.contains(&name.to_string_lossy().as_ref()) {
+                continue;
+            }
+            let path = entry.path();
+            if path.is_dir() {
+                walk(root, &path, hasher);
+            } else {
+                let relative = path.strip_prefix(root).unwrap().to_string_lossy();
+                let bytes = std::fs::read(&path).unwrap();
+                hasher.update((relative.len() as u64).to_le_bytes());
+                hasher.update(relative.as_bytes());
+                hasher.update((bytes.len() as u64).to_le_bytes());
+                hasher.update(&bytes);
+            }
+        }
+    }
+    let mut hasher = Sha256::new();
+    walk(repository, repository, &mut hasher);
+    hasher
+        .finalize()
+        .iter()
+        .map(|byte| format!("{byte:02x}"))
+        .collect()
+}
+
+fn render(repository: &Path, checked: tempfile::TempDir) -> Option<tempfile::TempDir> {
     let source = tempfile::tempdir().unwrap();
-    copy_tree(&repository, source.path());
+    copy_tree(repository, source.path());
     let rendered = source.path().join("_site");
     let built = std::process::Command::new(if cfg!(windows) {
         "bundle.bat"
@@ -57,7 +108,19 @@ pub static SITE: LazyLock<Option<tempfile::TempDir>> = LazyLock::new(|| {
         }
     }
     Some(checked)
-});
+}
+
+/// Directories no check reads: version control, dependencies, build output and caches.
+const SKIPPED: [&str; 8] = [
+    ".git",
+    "node_modules",
+    "work",
+    "__pycache__",
+    "target",
+    "vendor",
+    "_site",
+    ".jekyll-cache",
+];
 
 /// Whether the rendered site is available; tests that need it report and return otherwise.
 pub fn rendered() -> bool {
@@ -73,9 +136,7 @@ pub fn copy_tree(source: &Path, destination: &Path) {
     std::fs::create_dir_all(destination).unwrap();
     for entry in std::fs::read_dir(source).unwrap().flatten() {
         let name = entry.file_name();
-        if [".git", "node_modules", "work", "__pycache__", "target"]
-            .contains(&name.to_string_lossy().as_ref())
-        {
+        if SKIPPED.contains(&name.to_string_lossy().as_ref()) {
             continue;
         }
         let path = entry.path();

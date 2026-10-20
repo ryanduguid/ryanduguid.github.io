@@ -15,7 +15,7 @@ const RUN_STATES: [&str; 3] = ["blocked", "complete", "not_run"];
 const SEARCH_STATES: [&str; 3] = ["off", "on", "unknown"];
 const REQUIRED_TEXT: [&str; 4] = ["system", "model_reported", "timezone", "answer_evidence"];
 const REQUIRED_BOOLEANS: [&str; 3] = ["fresh_session", "mentioned", "site_cited"];
-const USAGE: &str = "usage: visibility_benchmark.py [-h] [--template | --check [CAPTURE ...] |\n                               --summary [CAPTURE ...]] [--include-fixtures]\n";
+const USAGE: &str = include_str!("help/visibility_benchmark.usage");
 const HELP: &str = include_str!("help/visibility_benchmark.txt");
 
 type Result<T> = std::result::Result<T, String>;
@@ -675,7 +675,7 @@ fn parse(args: &[String]) -> std::result::Result<Args, u8> {
     let options = ["--template", "--check", "--summary", "--include-fixtures"];
     let error = |message: &str| {
         let _ = crate::print_text(
-            &format!("{USAGE}visibility_benchmark.py: error: {message}\n"),
+            &format!("{USAGE}site-tools visibility_benchmark: error: {message}\n"),
             true,
         );
         Err(2)

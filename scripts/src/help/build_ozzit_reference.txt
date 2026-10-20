@@ -1,0 +1,9 @@
+usage: site-tools build_ozzit_reference [-h] [--write] [--check]
+
+Build the Ozzit page's ten worked examples and its index of every named
+formula from the pinned release index.
+
+options:
+  -h, --help  show this help message and exit
+  --write
+  --check

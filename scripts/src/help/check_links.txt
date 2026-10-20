@@ -1,4 +1,4 @@
-usage: check_links.py [-h] [--offline]
+usage: site-tools check_links [-h] [--offline]
 
 Link and content checks for every HTML file in the repository. Checks, in
 order, per file: 1. Every github.com/ryanduguid/<repo> link resolves to that

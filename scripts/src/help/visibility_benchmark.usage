@@ -1,0 +1,4 @@
+usage: site-tools visibility_benchmark [-h] [--template |
+                                       --check [CAPTURE ...] |
+                                       --summary [CAPTURE ...]]
+                                       [--include-fixtures]

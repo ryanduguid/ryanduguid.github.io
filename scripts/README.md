@@ -52,12 +52,16 @@ commands.
   instead of a traceback. `serve_site` logs one line where `socketserver`
   printed a traceback.
 - Messages that told you to run `python scripts/<name>.py` now name
-  `site-tools <name>`, and the generated files' headers name the command. Help
-  and usage text keep the script names as their program names.
+  `site-tools <name>`, and the generated files' headers name the command. Help,
+  usage and argument errors name `site-tools <name>` as the program, wrapped as
+  argparse wraps them for that name.
 - `check_site` runs `site-tools` commands and `cargo test` suites where it ran
   Python scripts, so its `running ...` lines differ. Its Python and Node checks
   are unchanged; `python` means `python3` off Windows. The checked tree leaves
   out `scripts/target`.
+- `release_record --verify-live` exits 1 when a source has drifted, is absent
+  or has changed, and 2 when no source could be read; Python always exited 0.
+  It sends `GH_TOKEN`, when set, to the GitHub API only.
 - Findings Python reported in hash-randomised set order (robots.txt groups,
   the metadata path check) come in a fixed order.
 - XML parse errors use roxmltree's wording, not expat's.

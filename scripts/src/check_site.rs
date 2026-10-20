@@ -581,9 +581,9 @@ impl Host for System<'_> {
     }
 }
 
-const USAGE: &str = "usage: check_site.py [-h] [--offline] [--ci] [--ci-metadata-only]\n";
+const USAGE: &str = include_str!("help/check_site.usage");
 const PARSER: crate::pyargs::Parser = crate::pyargs::Parser {
-    prog: "check_site.py",
+    prog: "site-tools check_site",
     usage: USAGE,
     help: include_str!("help/check_site.txt"),
     flags: &["--offline", "--ci", "--ci-metadata-only"],

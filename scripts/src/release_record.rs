@@ -105,6 +105,13 @@ fn get(url: &str, accept_json: bool) -> std::result::Result<Vec<u8>, LiveError> 
     if accept_json {
         request = request.header("Accept", "application/json");
     }
+    // Unauthenticated GitHub API calls share 60 an hour per runner address, so CI
+    // passes its token; it goes only to api.github.com.
+    if let Some(token) = std::env::var("GH_TOKEN").ok().filter(|t| !t.is_empty())
+        && url.starts_with("https://api.github.com/")
+    {
+        request = request.header("Authorization", format!("Bearer {token}"));
+    }
     match request.call() {
         Ok(mut response) => response
             .body_mut()
@@ -864,13 +871,17 @@ pub fn live_asset(live: &mut dyn Live, published: &Json) -> Result<Option<Probe>
 pub type Versions<'a> = dyn FnMut(&mut dyn Live, &Json) -> Result<Vec<Probe>> + 'a;
 
 /// Report what each public source says about each recorded release, line by line.
+/// The exit code: 1 when any source drifted, is absent or changed; 2 when no source
+/// answered (every probe was inconclusive, as in an outage); otherwise 0.
 pub fn verify_live(
     record: &Json,
     live: &mut dyn Live,
     versions: &mut Versions,
     out: &mut dyn FnMut(&str) -> Result<()>,
-) -> Result<()> {
+) -> Result<u8> {
     let mut drifted = false;
+    let mut probed = false;
+    let mut answered = false;
     for (name, component) in dict_items(item(record, "components")?)? {
         let recorded_value = item(item(component, "published")?, "version")?;
         let recorded = py_str(recorded_value)?;
@@ -884,6 +895,8 @@ pub fn verify_live(
             detail,
         } in probes
         {
+            probed = true;
+            answered |= state != INCONCLUSIVE;
             if state != FOUND {
                 if state == ABSENT || state == CHANGED {
                     drifted = true;
@@ -910,8 +923,9 @@ pub fn verify_live(
         out(
             "\nReview each drift, then update scripts/release_record.json and the pages it covers. A newer release alone does not change a preserved evaluation.",
         )?;
+        return Ok(1);
     }
-    Ok(())
+    Ok(if probed && !answered { 2 } else { 0 })
 }
 
 pub fn run(root: &Path, args: &[String]) -> Result<u8> {
@@ -919,10 +933,9 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
     let record = load(root)?;
     if args.iter().any(|a| a == "--verify-live") {
         let mut versions = |live: &mut dyn Live, component: &Json| live_versions(live, component);
-        verify_live(&record, &mut Network, &mut versions, &mut |line| {
+        return verify_live(&record, &mut Network, &mut versions, &mut |line| {
             say(&format!("{line}\n"))
-        })?;
-        return Ok(0);
+        });
     }
     let failures = check_record(&py::resolve(root), &record)?;
     for failure in &failures {

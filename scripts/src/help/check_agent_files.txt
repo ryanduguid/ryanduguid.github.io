@@ -1,4 +1,4 @@
-usage: check_agent_files.py [-h] [--verify-live]
+usage: site-tools check_agent_files [-h] [--verify-live]
 
 Check what an agent can be made to run from this site's machine-readable
 files. An llms.txt is not documentation an agent reads and weighs. It is an

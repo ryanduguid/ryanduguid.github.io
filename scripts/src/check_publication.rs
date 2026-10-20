@@ -12,19 +12,8 @@ pub const AUDIT_WORKFLOW: &str = ".github/workflows/no-ai-attribution.yml";
 pub const AUDIT_JOB: &str = "Attribution policy / Attribution policy runner";
 const SHA: &str = "[0-9a-f]{40}";
 const REPOSITORY: &str = "[A-Za-z0-9_.-]+/[A-Za-z0-9_.-]+";
-const USAGE: &str = "usage: check_publication.py [-h] --repository REPOSITORY --commit COMMIT\n                            [--wait-seconds WAIT_SECONDS]\n";
-const HELP: &str = "usage: check_publication.py [-h] --repository REPOSITORY --commit COMMIT
-                            [--wait-seconds WAIT_SECONDS]
-
-Require current main and successful external producers before Pages
-publication.
-
-options:
-  -h, --help            show this help message and exit
-  --repository REPOSITORY
-  --commit COMMIT
-  --wait-seconds WAIT_SECONDS
-";
+const USAGE: &str = include_str!("help/check_publication.usage");
+const HELP: &str = include_str!("help/check_publication.txt");
 
 /// Why verification stopped: a ValueError whose text is safe to print, or an API,
 /// process or JSON failure whose details may hold private response data.
@@ -334,7 +323,7 @@ fn parse(args: &[String]) -> std::result::Result<(String, String, i64), u8> {
     let options = ["--repository", "--commit", "--wait-seconds"];
     let error = |message: &str| {
         let _ = crate::print_text(
-            &format!("{USAGE}check_publication.py: error: {message}\n"),
+            &format!("{USAGE}site-tools check_publication: error: {message}\n"),
             true,
         );
         Err(2)

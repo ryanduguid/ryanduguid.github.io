@@ -81,7 +81,7 @@ bound described above.
 
 ## Rules the schema cannot express
 
-Enforced by `scripts/check_rates_register.py`, which runs in the site checks:
+Enforced by `site-tools check_rates_register`, which runs in the site checks:
 
 - `primary_source.url` sits on a primary host (legislation.gov.au, ato.gov.au,
   rba.gov.au, standards.aasb.gov.au, coallsl.com.au or a state legislation
@@ -105,7 +105,7 @@ Enforced by `scripts/check_rates_register.py`, which runs in the site checks:
 A published row is never edited. A correction adds a new row and marks the old
 one `superseded`, so the correction stays legible. Bump `register_version` in
 `register.json`, add a `CHANGELOG.md` entry, regenerate `SHA256SUMS`, and run
-`python scripts/check_rates_register.py`.
+`site-tools check_rates_register`.
 
 Nothing consumes this register at runtime over the network. An offline engine
 that adopts the register later should bundle a snapshot of the committed file
