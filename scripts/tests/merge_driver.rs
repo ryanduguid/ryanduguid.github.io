@@ -66,23 +66,30 @@ fn whole_feed_entries_merge_by_date_and_partial_ones_do_not() {
 }
 
 #[test]
-fn only_resolvable_hunks_lose_their_markers() {
-    let merged = format!(
-        "<tbody>\n<<<<<<< current\n{}||||||| base\n=======\n{}>>>>>>> incoming\nkept\n<<<<<<< current\n<p>A</p>\n||||||| base\n<p>O</p>\n=======\n<p>B</p>\n>>>>>>> incoming\n",
+fn one_unresolvable_hunk_leaves_the_whole_file_to_git() {
+    let rows = format!(
+        "<<<<<<< current\n{}||||||| base\n=======\n{}>>>>>>> incoming\n",
         row("20 October 2026", "Ours."),
         row("20 October 2026", "Theirs.")
     );
-    let (text, left) = resolve_conflicts(&merged, 7);
-    assert_eq!(left, 1);
-    assert!(text.starts_with(&format!(
-        "<tbody>\n{}{}kept\n<<<<<<< current\n",
-        row("20 October 2026", "Theirs."),
-        row("20 October 2026", "Ours.")
-    )));
+    let prose =
+        "<<<<<<< current\n<p>A</p>\n||||||| base\n<p>O</p>\n=======\n<p>B</p>\n>>>>>>> incoming\n";
+    assert_eq!(
+        resolve_conflicts(&format!("<tbody>\n{rows}</tbody>\n"), 7),
+        Some(format!(
+            "<tbody>\n{}{}</tbody>\n",
+            row("20 October 2026", "Theirs."),
+            row("20 October 2026", "Ours.")
+        ))
+    );
+    assert_eq!(
+        resolve_conflicts(&format!("<tbody>\n{rows}kept\n{prose}"), 7),
+        None
+    );
 }
 
 #[test]
-fn command_merges_in_place_and_reports_what_is_left() {
+fn command_merges_in_place_or_leaves_the_file_to_git() {
     let dir = tempfile::tempdir().unwrap();
     let write = |name: &str, text: &str| {
         let path = dir.path().join(name);
@@ -97,29 +104,23 @@ fn command_merges_in_place_and_reports_what_is_left() {
     let incoming = write("incoming", &format!("<tbody>\n{theirs}{old}</tbody>\n"));
     let tools = env!("CARGO_BIN_EXE_site-tools");
     let status = Command::new(tools)
-        .args(["merge_driver", &base, &current, &incoming, "7"])
+        .args(["merge_driver", &base, &current, &incoming])
         .status()
         .unwrap();
     assert_eq!(status.code(), Some(0));
     let merged = std::fs::read_to_string(&current).unwrap();
     assert_eq!(merged, format!("<tbody>\n{theirs}{ours}{old}</tbody>\n"));
 
-    let current = write(
-        "current",
-        &format!("<tbody>\n{}</tbody>\n", row("17 October 2026", "A.")),
-    );
+    let edited = format!("<tbody>\n{}</tbody>\n", row("17 October 2026", "A."));
+    let current = write("current", &edited);
     let incoming = write(
         "incoming",
         &format!("<tbody>\n{}</tbody>\n", row("17 October 2026", "B.")),
     );
     let status = Command::new(tools)
-        .args(["merge_driver", &base, &current, &incoming, "7"])
+        .args(["merge_driver", &base, &current, &incoming])
         .status()
         .unwrap();
     assert_eq!(status.code(), Some(1));
-    assert!(
-        std::fs::read_to_string(&current)
-            .unwrap()
-            .contains("<<<<<<< current\n")
-    );
+    assert_eq!(std::fs::read_to_string(&current).unwrap(), edited);
 }

@@ -7,15 +7,20 @@
 //! removed nothing: both sides' rows are kept, newest date first, and on the same date
 //! the incoming side's rows go above the current side's. In a rebase the incoming side
 //! is the pull request's commit, so its row lands on top, as a later merge would put
-//! it. Every other conflict keeps Git's markers. The site checks still compare the
-//! built files with a fresh build, so a resolution that differs from one fails them.
+//! it. When any other conflict remains, the driver leaves the file alone and exits 1,
+//! and the configured command falls back to `git merge-file`, so the person resolving
+//! it sees every conflict with Git's markers, as when the driver is missing. The site
+//! checks still compare the built files with a fresh build, so a resolution that
+//! differs from one fails them.
 use crate::feed::parse_date;
 use chrono::NaiveDate;
 use regex::Regex;
 use std::process::Command;
 use std::sync::LazyLock;
 
-const USAGE: &str = "usage: site-tools merge_driver <base> <current> <incoming> [marker-size]\n\nGit runs this as the changelog-rows merge driver (CONTRIBUTING.md). It merges\n<incoming> into <current> in place and exits 1 when a conflict remains.\n";
+const USAGE: &str = "usage: site-tools merge_driver <base> <current> <incoming>\n\nGit runs this as the changelog-rows merge driver (CONTRIBUTING.md). It merges\n<incoming> into <current> in place, or exits 1 and leaves <current> unchanged when\na conflict it does not resolve remains.\n";
+// Wider than any marker a file here holds; the driver's markers never reach a person.
+const MARKER_SIZE: usize = 40;
 
 /// One added line of a conflict side: a dated row, a feed entry line, or neither.
 enum Line {
@@ -122,21 +127,19 @@ fn is_marker(line: &str, mark: char, size: usize) -> bool {
         && rest[size..].chars().next().is_none_or(|c| c == ' ')
 }
 
-/// Resolves the dated-row conflicts in `git merge-file --diff3` output, returning the
-/// text and the number of conflicts left.
-pub fn resolve_conflicts(merged: &str, size: usize) -> (String, usize) {
-    let (mut out, mut left) = (String::new(), 0);
+/// `git merge-file --diff3` output with every conflict resolved, or None when one of
+/// them is not a dated-row conflict.
+pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
+    let mut out = String::new();
     let mut lines = merged.split_inclusive('\n');
     while let Some(line) = lines.next() {
         if !is_marker(line, '<', size) {
             out.push_str(line);
             continue;
         }
-        let mut raw = String::from(line);
         let mut sides: [Vec<&str>; 3] = Default::default();
         let mut part = 0;
         for line in lines.by_ref() {
-            raw.push_str(line);
             if is_marker(line, '>', size) {
                 break;
             }
@@ -146,36 +149,23 @@ pub fn resolve_conflicts(merged: &str, size: usize) -> (String, usize) {
                 (_, l) => sides[part].push(l),
             }
         }
-        match resolve(&sides[0], &sides[1], &sides[2]) {
-            Some(text) => out.push_str(&text),
-            None => {
-                out.push_str(&raw);
-                left += 1;
-            }
-        }
+        out.push_str(&resolve(&sides[0], &sides[1], &sides[2])?);
     }
-    (out, left)
+    Some(out)
 }
 
 pub fn run(args: &[String]) -> Result<u8, String> {
-    let [base, current, incoming, rest @ ..] = args else {
+    let [base, current, incoming] = args else {
         crate::print_text(USAGE, true).map_err(|e| e.to_string())?;
         return Ok(2);
-    };
-    let size = match rest.first() {
-        Some(size) => size
-            .parse()
-            .map_err(|_| format!("merge_driver: marker size {size:?}"))?,
-        None => 7,
     };
     let output = Command::new("git")
         .args([
             "merge-file",
             "--stdout",
             "--diff3",
-            &format!("--marker-size={size}"),
+            &format!("--marker-size={MARKER_SIZE}"),
         ])
-        .args(["-L", "current", "-L", "base", "-L", "incoming"])
         .args([current, base, incoming])
         .output()
         .map_err(|e| format!("merge_driver: git: {e}"))?;
@@ -187,11 +177,13 @@ pub fn run(args: &[String]) -> Result<u8, String> {
             String::from_utf8_lossy(&output.stderr).trim()
         ));
     };
-    let (text, left) = if conflicts == 0 {
-        (merged, 0)
+    let text = if conflicts == 0 {
+        merged
+    } else if let Some(text) = resolve_conflicts(&merged, MARKER_SIZE) {
+        text
     } else {
-        resolve_conflicts(&merged, size)
+        return Ok(1);
     };
     std::fs::write(current, text).map_err(|e| format!("merge_driver: {current}: {e}"))?;
-    Ok(u8::from(left > 0))
+    Ok(0)
 }

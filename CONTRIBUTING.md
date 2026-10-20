@@ -422,15 +422,16 @@ setting:
 
 ```bash
 git config merge.changelog-rows.name "changelog rows in date order"
-git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B %L"
+git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B || git merge-file -L current -L base -L incoming --marker-size=%L %A %O %B"
 ```
 
 The driver runs Git's three-way merge, then resolves only conflicts where both
 sides added dated rows or whole feed entries and changed nothing else at that
 point. It keeps both sides' additions, newest date first; on the same date the
-incoming side goes above, so a rebased pull request's row stays on top. Any other
-conflict keeps its markers: resolve the sources, then rerun `build_feed --write`
-and `build_llms_full --write`. The `--check` runs still compare the committed
+incoming side goes above, so a rebased pull request's row stays on top. If any
+other conflict remains in a file, or `site-tools` cannot run, the command falls
+back to `git merge-file` and the whole file keeps Git's markers: resolve the
+sources, then rerun `build_feed --write` and `build_llms_full --write`. The `--check` runs still compare the committed
 files with a fresh build, so a resolution that differs fails the site checks.
 Without the configuration, or in GitHub's web conflict editor, Git merges these
 files as before.
