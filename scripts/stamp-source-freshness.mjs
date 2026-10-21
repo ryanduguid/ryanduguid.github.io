@@ -314,7 +314,7 @@ export function buildCalculatorRevision(run = execFileSync) {
     ['api', 'repos/' + repository + '/commits?path=' + encodeURIComponent(path) + '&per_page=1',
       '--jq', '.[0]|{sha,date:.commit.committer.date}'],
     { encoding: 'utf8', timeout: 15_000 })));
-  return revisions.reduce((latest, revision) => revision.date > latest.date ? revision : latest);
+  return revisions.sort((a, b) => a.date.localeCompare(b.date)).at(-1);
 }
 
 async function main() {
