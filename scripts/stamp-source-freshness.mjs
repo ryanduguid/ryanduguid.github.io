@@ -306,16 +306,22 @@ export function stampMcpIndex(text, release) {
     (_, start) => start + 'v' + release.version + ' (' + release.dateLabel + ')');
 }
 
+export function buildCalculatorRevision(run = execFileSync) {
+  const repository = 'ryanduguid/ryanduguid.github.io';
+  const revisions = SOURCE_PATHS.get(repository).map(path => JSON.parse(run(
+    // Maintainer entry point, using the same trusted CLI as fetchReleases.
+    'gh', // NOSONAR
+    ['api', 'repos/' + repository + '/commits?path=' + encodeURIComponent(path) + '&per_page=1',
+      '--jq', '.[0]|{sha,date:.commit.committer.date}'],
+    { encoding: 'utf8', timeout: 15_000 })));
+  return revisions.reduce((latest, revision) => revision.date > latest.date ? revision : latest);
+}
+
 async function main() {
   if (process.argv.includes('--build') || process.argv.includes('--write-tool-releases')) {
     const tools = JSON.parse(readFileSync(join(root, '_data/tools.json'), 'utf8'));
     const data = await buildToolReleaseData(tools);
-    const revision = JSON.parse(execFileSync(
-      // Maintainer entry point, using the same trusted CLI as fetchReleases.
-      'gh', // NOSONAR
-      ['api',
-      'repos/ryanduguid/ryanduguid.github.io/commits?path=assets/levy.mjs&per_page=1',
-      '--jq', '.[0]|{sha,date:.commit.committer.date}'], { encoding: 'utf8', timeout: 15_000 }));
+    const revision = buildCalculatorRevision();
     const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney',
       year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(revision.date));
     data['coal-lsl-levy'] = { version: revision.sha, date, dateLabel: formatDate(date),

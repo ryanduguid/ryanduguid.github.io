@@ -375,3 +375,18 @@ test('MCP index refresh changes only the current release', () => {
   assert.ok(updated.includes('current release v0.6.0 (20 October 2026)'));
   assert.ok(updated.includes('Pinned example v0.2.8'));
 });
+
+test('calculator identity uses the newest implementing file, including its page adapter', () => {
+  const paths = [];
+  const revision = freshness.buildCalculatorRevision((command, args, options) => {
+    assert.equal(command, 'gh');
+    assert.equal(options.timeout, 15_000);
+    const path = new URL(args[1], 'https://api.github.com/').searchParams.get('path');
+    paths.push(path);
+    return JSON.stringify(path === 'assets/levy-page.mjs'
+      ? { sha: 'new-adapter', date: '2026-10-19T12:33:50Z' }
+      : { sha: 'old-core', date: '2026-09-27T00:00:00Z' });
+  });
+  assert.deepEqual(paths, ['assets/levy.mjs', 'assets/levy-form.mjs', 'assets/levy-page.mjs', 'assets/levy-explanation.mjs']);
+  assert.deepEqual(revision, { sha: 'new-adapter', date: '2026-10-19T12:33:50Z' });
+});
