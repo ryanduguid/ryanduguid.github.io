@@ -1,5 +1,8 @@
 ---
+tool: payday-super
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -9,10 +12,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Payday Super: sent on time, received on time?</title>
-  <meta name="description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision." />
+  <meta name="description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Payday Super: sent on time, received on time?" />
-  <meta property="og:description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision." />
+  <meta property="og:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +27,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Payday Super: sent on time, received on time?" />
-  <meta name="twitter:description" content="See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision." />
+  <meta name="twitter:description" content="Current release payday-super-checker v{{ release.version }}. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/payday-super/" />
@@ -51,18 +54,20 @@
           <li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li>
           <li aria-current="page">Payday Super timing</li>
         </ol></nav>
-        <h1>Payday Super receipt evidence</h1>
-        <p class="lead-note">Since 1 July 2026, super must generally reach the fund within 7 business days of payday. This synthetic example shows why proof of sending does not prove timely receipt. It is a review aid, not advice.</p>
+        <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+        <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.3. Review aid, not advice.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
           <section id="synthetic-worked-example">
             <h2>Synthetic worked example</h2>
-            <p><strong>Result: <span data-example="expected_verdict">AT_RISK</span>.</strong> The pinned engine calculates a deadline of <time data-example="expected_due_date" datetime="2026-08-17">17 August 2026</time>. It was sent before then, but no fund receipt date shows it arrived in time.</p>
-            <p><strong>Human decision:</strong> Obtain evidence of eligible fund receipt and check the applicable timing pathway before closing this exception. Sending does not establish receipt.</p>
+            <p><strong>Result: <span data-example="expected_verdict">AT_RISK</span>.</strong> Pinned deadline: <time data-example="expected_due_date" datetime="2026-08-17">17 August 2026</time>. Fund receipt unproven.</p>
+            <p><strong>Human decision:</strong> Confirm fund receipt evidence and the timing pathway.</p>
             <p>Employee <span data-example="employee_id">SYN001</span>. Payday <time data-example="payment_date" datetime="2026-08-06">6 August 2026</time>. Contribution <span data-example="sg_amount">$120.00</span>, supplied by the preparer. Remitted <time data-example="remitted_date" datetime="2026-08-14">14 August 2026</time>. Fund received: <span data-example="fund_received_date">no date recorded</span>. Review date <time data-example="as_at" datetime="2026-08-20">20 August 2026</time>. Ordinary timing pathway. First contribution: <span data-example="first_contribution">no</span>. Out-of-cycle: <span data-example="out_of_cycle">no</span>.</p>
             <p>This is a fixed example: there is nothing to install or upload, and the dates do not recalculate. <a href="https://github.com/ryanduguid/australian-accounting/blob/8e9bd7235030b2c42bc8f2e7d2e8a60dce627182/packages/payday-super-checker/evaluation/payday_super_evidence/fixtures/timely_remittance_no_receipt.csv">Inspect the exact fixture</a>.</p>
           </section>
         <p class="field-note"><strong>Receipt amount matters.</strong> A fund receipt date alone does not establish full payment. Check the amount received for this payday and its supporting record. <a href="#receipt-amount">Read the version-specific receipt rules</a>.</p>
         <p class="field-note">The contribution amount this check tests is set by the <a href="/rates/super-guarantee/">super guarantee rate</a>, kept as a maintained table on this site.</p>
-        <p class="page-meta">Published 24 August 2026. Last reviewed 1 October 2026. The 22 September review covered receipt amount cases, published MCP dependencies and workbook version differences; the quick trial moved to checker 0.1.8 on 27 September and to 0.1.9 on 1 October, each giving the same result. The fixed evaluation stays pinned to 0.1.3.</p>
+        <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026. The fixed evaluation stays pinned to v0.1.3; the command below stays pinned to v0.1.9 so its result remains reproducible.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -79,24 +84,25 @@
 
           <section id="receipt-amount">
             <h2>Receipt dates and amounts</h2>
-            <p><strong>Checker 0.1.7 requires amount evidence for a timely receipt.</strong> Verified on 22 September 2026: a $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>UNKNOWN</code> and exit 2. A late receipt without an amount remains <code>LATE</code>, but cannot reduce the shortfall and uses the as-at date for the maximum estimate. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.7">Read the 0.1.7 release record</a>.</p>
-            <p>Older checkers 0.1.5 and 0.1.6 assume full receipt when that amount is missing. The 0.1.6 release discloses the assumption in a caveat. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8">Published MCP 0.2.8</a> pins checker 0.1.7 and includes the correction; MCP 0.2.4 pins 0.1.6 and retains the older behaviour.</p>
+            <p>Since 1 July 2026, super must generally reach the fund within 7 business days of payday. Proof of sending does not prove timely receipt. Check the applicable timing pathway; this is a review aid, not advice.</p>
+            <p><strong>The current checker requires amount evidence for a timely receipt.</strong> A $120 obligation with a timely receipt date but neither <code>matched_amount</code> nor <code>remitted_amount</code> returns <code>UNKNOWN</code> and exit 2. A late receipt without an amount remains <code>LATE</code>, but cannot reduce the shortfall and uses the as-at date for the maximum estimate.</p>
+            <p>Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker before relying on that result.</p>
             <p><code>matched_amount</code> is the supplied amount associated with the payday. It takes precedence over <code>remitted_amount</code>, the supplied amount sent. Neither field authenticates a fund record. A remitted amount without fund receipt evidence does not establish receipt.</p>
             <p>For the $120 obligation in this example, a timely $60 matched receipt returns <code>UNPAID</code>, not full payment. A timely $120 matched receipt returns <code>ON_TIME</code> only on the supplied facts. Late receipt returns <code>LATE</code>; a receipt date before the remittance date is rejected. Resolve unmatched records and contradictory evidence before relying on any result.</p>
           </section>
 
           <section id="workbook-versions">
             <h2>Workbook versions and limits</h2>
-            <p>The <a href="https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.1.6/packages/payday-super-checker/workbooks/payday-super-checker.xlsx">tagged 0.1.6 workbook</a> assumes full receipt when a receipt date has no amount. It also extrapolates GIC beyond its last covered day, 31 December 2026. The 0.1.6 CLI withholds those estimates by default and offers <code>--allow-stale-gic</code> as an explicit opt-in; the workbook has no equivalent option.</p>
-            <p>The <a href="https://github.com/ryanduguid/australian-accounting/tree/payday-super-checker/v0.1.7/packages/payday-super-checker/workbooks">tagged 0.1.7 workbook</a> fixes both cases. Its Summary shows <code>Not assessed</code> for rate-dependent totals if any row needs an uncovered rate. It is available from the 0.1.7 tag; a PyPI install does not install the workbook. Desktop Excel checks on 22 September 2026 (Australia/Sydney) covered receipt amounts, remittance acknowledgements, contradictory dates and both sides of the GIC boundary. The <a href="https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md">verification record</a> identifies the tested files and hashes. These checks do not establish parity for every input or option. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is <code>BLOCKED</code>.</p>
+            <p>Historical workbooks can assume full receipt when a receipt date has no amount and can extrapolate GIC beyond their covered period. The recorded workbook coverage ends on 31 December 2026; a later period must remain Not assessed unless covered rates are supplied. The CLI option <code>--allow-stale-gic</code> is an explicit override, not current-rate evidence. Do not rely on those amounts without checking the workbook’s Review Checks and rate coverage.</p>
+            <p>The <a href="{{ tool.codeRepository }}/workbooks">current source workbook</a> withholds rate-dependent totals if any row needs an uncovered rate. A PyPI install does not install the workbook. The <a href="https://github.com/ryanduguid/australian-accounting/blob/9cc29537e8675478d400b64863b01fcae2704887/packages/payday-super-checker/docs/release-parity-review-2026-09-22.md">22 September verification record</a> identifies the tested files and hashes. Those checks do not establish parity for every input, option or later workbook. Read Review Checks before using row results; invalid input can leave a displayed verdict while the workbook is <code>BLOCKED</code>.</p>
           </section>
 
           <section id="try-example">
             <h2>Try the CSV without cloning</h2>
             <p>With <a href="https://docs.astral.sh/uv/">uv installed</a>, <a href="/assets/examples/payday/timely_remittance_no_receipt.csv" download>download the synthetic CSV</a> as <code>timely_remittance_no_receipt.csv</code>. Open a terminal in that folder and run:</p>
             <pre class="copyable" tabindex="0" role="region" aria-label="Pinned Payday Super example command"><code>uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv</code></pre>
-            <p>Quick trial release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.1.9">0.1.9</a>, kept so the result stays reproducible. The current published release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2">0.2.2</a>, published on 20 October 2026. It requires Python 3.14 or later, moves to Apache-2.0 and changes no check; versions 0.2.0 and 0.2.1 were tagged but never published, and 0.1.10 remains the last release for Python 3.11 to 3.13. The command downloads checker 0.1.9 from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>.</p>
-            <p><strong>Check the matching evidence before relying on the exported file.</strong> If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. Checker 0.1.5 carries each structural matching warning into the report’s <code>caveats</code> column; checker 0.1.4 printed them to the console only, so keep that console output with an older report. Reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
+            <p>The command downloads the pinned checker from PyPI and writes <code>payday-report.csv</code>, replacing that file if it exists. Open it to find one <code>AT_RISK</code> contribution with due date <code>2026-08-17</code>. The current release needs Python 3.14 or later and is Apache-2.0.</p>
+            <p><strong>Check the matching evidence before relying on the exported file.</strong> If employee identifiers or pay period columns are missing, the join degrades and which super payment matches which payday can change. The current checker carries structural matching warnings into the report’s <code>caveats</code> column. Keep the console output with a historical report that omits them. Reconcile affected matches before using a verdict; a row labelled <code>ON_TIME</code> is not reliable evidence of the match itself. See <a href="/tools/limitations/">Known limitations</a> (PSC-2).</p>
             <p>Exit 0 records your remittance-only acknowledgement. It does not establish timely receipt. Omit <code>--confirm-remittance-only</code> to get the same verdict with exit 2 and a request to resolve or acknowledge the evidence gap.</p>
             <p>The fixed example above and the <a href="/evaluate/payday-super-evidence/#reproduce">recorded public evaluation</a> use release 0.1.3. Follow that evaluation’s revision and commands to reproduce the historical run. This quick trial uses release 0.1.9 and leaves the fund receipt decision with the reviewer.</p>
           </section>
@@ -104,12 +110,12 @@
           <section id="evidence-pack">
             <h2>Evidence pack workflow</h2>
             <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/147">CLI change</a> combines the existing checker and practitioner checklist in one command. It writes <code>report.csv</code>, <code>practitioner-review.md</code>, <code>exceptions.json</code> and a blank <code>decision-log.md</code> into a new directory.</p>
-            <p>From checker 0.1.5 the pack’s report carries the structural matching warnings described under <a href="/tools/limitations/">Known limitations</a> (PSC-2). Checker 0.1.4 printed them to the console only, so keep its transcript with an older pack. Reconcile affected matches before relying on any verdict.</p>
+            <p>The pack’s report carries structural matching warnings. Reconcile affected matches before relying on any verdict; keep console warnings with an older pack if its report omits them.</p>
             <p>The report omits employee identifiers and input paths. The checklist and exception queue bind to its SHA-256. Every result other than <code>ON_TIME</code> enters the queue; the fictional example above remains <code>AT_RISK</code> and exits 2. A remittance-only acknowledgement does not clear that queue.</p>
             <p>A reviewer uses source row references to reconcile the private input, obtains missing receipt evidence and records decisions under applicable APES 110 and TPB obligations. Existing decision logs are preserved by refusing an output directory that already exists. The files remain private workpapers containing dates, amounts and warnings.</p>
             <p>The <a href="https://github.com/ryanduguid/australian-accounting/pull/148">companion MCP tool</a>, <code>build_payday_super_evidence_pack</code>, accepts structured contribution rows and returns the 4 files in memory. It accepts no input or output paths, writes no files and records no decisions. It requires a checker with evidence pack support.</p>
             <p>The identifier-free report is for the included checklist. Existing <code>review-pack</code> and <code>PaydaySuper.Report</code> Excel imports require the ordinary checker’s 18-column report.</p>
-            <p>This workflow is included in published checker 0.1.4 and MCP 0.2.2. Checker 0.1.3, used by the historical evaluation, does not include it. <a href="/evaluate/payday-super-evidence/#evidence-pack">Reproduce the recorded development snapshot with fictional data</a>. No advice, lodgement or ledger write is performed.</p>
+            <p>This workflow is included in the current checker and MCP server. The historical evaluation predates it. <a href="/evaluate/payday-super-evidence/#evidence-pack">Reproduce the recorded development snapshot with fictional data</a>. No advice, lodgement or ledger write is performed.</p>
           </section>
 
           <section id="evidence">
@@ -150,7 +156,7 @@
       "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-01",
+      "dateModified": "2026-10-20",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -198,17 +204,15 @@
     },
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "Payday super due date checker",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "Payday Super receipt evidence",
       "description": "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.",
       "applicationCategory": "FinanceApplication",
       "operatingSystem": "Windows, macOS, Linux",
       "url": "https://duguid.com.au/tools/payday-super/",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "AUD"
-      },
       "@id": "https://duguid.com.au/tools/payday-super/#software",
       "author": {
         "@id": "https://duguid.com.au/about/#person"
@@ -219,11 +223,21 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-01"
+      "dateModified": "2026-10-20",
+      "alternateName": [
+        "Payday super due date checker",
+        "payday-super-checker",
+        "Payday Super timing"
+      ],
+      "softwareVersion": "0.2.2",
+      "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker",
+      "sameAs": [
+        "https://pypi.org/project/payday-super-checker/"
+      ]
     }
   ]
 }
-  </script>
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

@@ -4,17 +4,19 @@ Source: https://duguid.com.au/tools/ozzit/
 
 > A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian modelling: GST, financial years, AASB 16 leases and amortisation.
 
-# Ozzit: Excel LAMBDA functions for Australian modelling
+# Ozzit
+
+Package Ozzit in the Ozzit repository. Current release v3.5.0.
 
 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
+
+Current release v3.5.0 (19 October 2026). Last reviewed 21 October 2026.
 
 Download Ozzit v3.5.0 Browse worked formulas
 
 XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.
 
-Current release v3.5.0, published 19 October 2026, verified 19 October 2026. Release record and verification on GitHub.
-
-Published 18 September 2026. Last reviewed 20 October 2026.
+Published 18 September 2026. Last reviewed 21 October 2026.
 
 ## Extract GST from $1,100
 
@@ -475,9 +477,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
+- Ozzit: https://github.com/ryanduguid/Ozzit/tree/main
+- v3.5.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
 - Download Ozzit v3.5.0: https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx
 - Browse worked formulas: https://duguid.com.au/tools/ozzit/#functions
-- Release record and verification on GitHub: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
 - Read the workings, the Excel check and the limits: https://duguid.com.au/tools/ozzit/#worked-example
 - Read the inputs and raw results: https://duguid.com.au/assets/ozzit-reference-v3.5.0.json
 - Link to this example: https://duguid.com.au/tools/ozzit/#fn-gstextract

@@ -1,5 +1,8 @@
 ---
+tool: subcontractor-ledgers
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -54,12 +57,12 @@
         <li aria-current="page">Subcontract ledger skills</li>
       </ol>
     </nav>
-    <h1>Subcontract ledger workflows for construction and mining</h1>
-    <p class="lead-note">
-      These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
-    </p>
-    <p class="release-meta">Released pack: <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1">Australian Accounting Skills v0.3.1</a>. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release is <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0">v0.4.0</a>, published on 14 October 2026, with the same 65 skills. <a href="https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2">v0.3.2</a> added a BAS transaction GST coding review whose seven validation cards have no recorded verdict, and v0.4.0 moves the pack from MIT to Apache-2.0.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 13 October 2026.</p>
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+    <p class="lead-note">These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+
+    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -151,121 +154,125 @@
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#webpage",
-        "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
-        "name": "Subcontract ledger skills for construction, mining",
-        "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Construction and mining subcontract ledger skills"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#webpage",
+      "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
+      "name": "Subcontract ledger skills for construction, mining",
+      "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-14",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Subcontract ledger skills",
-            "item": "https://duguid.com.au/tools/subcontractor-ledgers/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Subcontractor ledger skills for construction and mining",
-        "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Do I need Claude Code to use these skills?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "You need a compatible AI coding agent, such as Claude Code or Codex. These are agent skills, not a standalone program."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Will they tell me whether a contract is covered by a security of payment Act?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Both that conclusion and whether a worker is a contractor or an employee stay with a person. The skills refuse both."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Do the skills hard-code rates and thresholds?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Construction and mining subcontract ledger skills"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Subcontract ledger skills",
+          "item": "https://duguid.com.au/tools/subcontractor-ledgers/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "Subcontractor ledger skills for construction and mining",
+      "description": "Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/subcontractor-ledgers/",
+      "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-14",
+      "alternateName": [
+        "Subcontract ledger workflows for construction and mining",
+        "australian-accounting-skills"
+      ],
+      "softwareVersion": "0.4.0",
+      "codeRepository": "https://github.com/ryanduguid/australian-accounting-skills/tree/main"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/subcontractor-ledgers/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Do I need Claude Code to use these skills?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You need a compatible AI coding agent, such as Claude Code or Codex. These are agent skills, not a standalone program."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Will they tell me whether a contract is covered by a security of payment Act?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Both that conclusion and whether a worker is a contractor or an employee stay with a person. The skills refuse both."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do the skills hard-code rates and thresholds?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not as working figures. Each skill encodes the workflow, the tie-outs and the exceptions to chase, and sends the agent back to the primary source for any rate or threshold, because those go stale and differ by state. Some skills record the figures a person reviewed, with their effective dates, as a cross-check against the live source only."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

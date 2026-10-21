@@ -2,15 +2,17 @@
 
 Source: https://duguid.com.au/tools/workpaper-review-gate/
 
-> Gate a BAS, month-end or year-end pack before a manager opens it. Incomplete, untied or unbalanced files are sent back to the preparer.
+> Current release review-ready-gate v0.3.0. Check BAS, month-end or year-end packs before manager review. Incomplete files return to the preparer.
 
-# Workpaper Review Gate for manager review packs
+# Workpaper Review Gate
 
-This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
+Package review-ready-gate in the accounting-review-pipeline repository. Current release v0.3.0.
 
-Evaluated release review-ready-gate/v0.1.3, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is review-ready-gate/v0.3.0, published on 14 October 2026. It requires Python 3.14 or later, moves to Apache-2.0 and accepts BAS labels 1A and 1B reported in whole dollars; review-ready-gate/v0.2.0 remains the last release for Python 3.11 to 3.13.
+Current release review-ready-gate v0.3.0 (14 October 2026). The worked example below is pinned to v0.1.3. This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
-Published 25 August 2026. Last reviewed 17 October 2026.
+Current release v0.3.0 (14 October 2026). Last reviewed 21 October 2026.
+
+Published 25 August 2026. Last reviewed 21 October 2026.
 
 ## Inspect a fictional BAS pack
 
@@ -90,15 +92,13 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- review-ready-gate/v0.1.3: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.1.3
-- review-ready-gate/v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
-- review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
+- accounting-review-pipeline: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
+- v0.3.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.3.0
 - Download the generated findings.csv: https://duguid.com.au/assets/examples/review-gate/findings.csv
 - incomplete input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-not-ready
 - corrected input pack: https://github.com/ryanduguid/accounting-review-pipeline/tree/review-ready-gate/v0.1.3/packages/review-ready-gate/examples/bas-ready
 - generated cover sheet: https://duguid.com.au/assets/examples/review-gate/readiness-summary.md
 - fixed-release evaluation: https://duguid.com.au/evaluate/manager-review-gate/
-- Source on GitHub: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - How to export a Xero trial balance to CSV that balances: https://duguid.com.au/tools/xero-trial-balance/

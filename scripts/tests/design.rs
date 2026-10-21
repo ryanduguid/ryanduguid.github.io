@@ -612,7 +612,7 @@ fn design_contracts_text_mutations() {
         (
             "machine-written vocabulary in a meta description",
             "tools/payday-super/index.html",
-            "content=\"See why a synthetic $120 super contribution",
+            "content=\"Current release payday-super-checker",
             "content=\"Leverage this check that super reaches the fund",
             "tools/payday-super/index.html: banned meta phrase 'leverage'",
         ),

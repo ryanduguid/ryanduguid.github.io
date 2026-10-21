@@ -1602,7 +1602,10 @@ fn rendered_pages(root: &Path) -> Option<Vec<std::path::PathBuf>> {
 /// it, and pin the JSON-LD of any page that carries some but is not yet listed.
 /// Without rendered pages the counts stay as they are.
 fn refresh_page_entries(root: &Path, sections: &mut [(String, Json)]) -> Result<(), UpdateError> {
-    let pages = core::html_files(root);
+    let pages: Vec<_> = core::html_files(root)
+        .into_iter()
+        .filter(|path| !path.starts_with(root.join("scripts/target")))
+        .collect();
     let mut texts = Vec::new();
     for path in rendered_pages(root).unwrap_or_default() {
         texts.push(core::raw_text(&crate::read(&path)?));

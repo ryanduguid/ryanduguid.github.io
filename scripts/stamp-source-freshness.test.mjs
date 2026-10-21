@@ -319,3 +319,44 @@ test('a release check that cannot reach gh exits 2, not 1', () => {
   assert.equal(result.status, 2, result.stderr);
   assert.match(result.stderr, /ENOENT/);
 });
+
+test('tool release snapshot selects published stable package tags in Sydney time', async () => {
+  const tools = { a: { repository: 'owner/repo', tagPrefix: 'a/v' }, b: { repository: 'owner/repo', tagPrefix: 'b/v' } };
+  let calls = 0;
+  const lookup = async () => { calls += 1; return [
+    { tag_name: 'a/v0.9.0', published_at: '2026-10-19T14:00:00Z' },
+    { tag_name: 'a/v0.10.0', published_at: '2026-10-19T14:00:00Z' },
+    { tag_name: 'a/v1.0.0', published_at: '2026-10-19T14:00:00Z', draft: true },
+    { tag_name: 'a/v2.0.0', published_at: '2026-10-19T14:00:00Z', prerelease: true },
+    { tag_name: 'b/v3.5.0', published_at: '2026-10-19T08:00:00Z' },
+  ]; };
+  const data = await freshness.buildToolReleaseData(tools, lookup);
+  assert.equal(calls, 1);
+  assert.equal(data.a.version, '0.10.0');
+  assert.equal(data.a.date, '2026-10-20');
+  assert.equal(data.b.date, '2026-10-19');
+  await assert.rejects(freshness.buildToolReleaseData({ absent: { repository: 'owner/repo', tagPrefix: 'absent/v' } }, lookup), /no published stable release/);
+});
+
+test('metadata stamping preserves pinned examples whilst replacing current product metadata', () => {
+  const source = '<p>Worked example v0.1.3</p><script type="application/ld+json">' + JSON.stringify({ '@graph': [
+    { '@type': 'TechArticle', dateModified: '2026-09-01' },
+    { '@type': 'SoftwareApplication', name: 'Old name', offers: { '@type': 'Offer', price: '0' } },
+  ] }) + '</script>';
+  const stamped = freshness.stampToolMetadata(source, { name: 'Tool', alternateName: ['old'], codeRepository: 'https://example.com/source', sameAs: ['https://pypi.org/project/tool/'] },
+    { version: '0.2.2', date: '2026-10-20' });
+  assert.ok(stamped.includes('Worked example v0.1.3'));
+  assert.ok(!stamped.includes('Offer'));
+  assert.equal((stamped.match(/2026-10-20/g) ?? []).length, 2);
+  assert.ok(stamped.includes('SoftwareSourceCode'));
+  assert.ok(stamped.includes('https://pypi.org/project/tool/'));
+  const cleared = freshness.stampToolMetadata(stamped, { name: 'Tool', alternateName: [], codeRepository: 'https://example.com/source', sameAs: [] }, { version: '0.2.2', date: '2026-10-20' });
+  assert.ok(!cleared.includes('pypi.org'));
+});
+
+test('MCP index refresh changes only the current release', () => {
+  const index = '[Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.5.0 (1 October 2026). Pinned example v0.2.8.';
+  const updated = freshness.stampMcpIndex(index, { version: '0.6.0', dateLabel: '20 October 2026' });
+  assert.ok(updated.includes('current release v0.6.0 (20 October 2026)'));
+  assert.ok(updated.includes('Pinned example v0.2.8'));
+});

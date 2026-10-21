@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "reviewed": "2026-10-20",
+  "reviewed": "2026-10-21",
   "notes": [
     "Reviewed, reproducible input for the site checks. Ordinary builds never fetch it.",
     "Refresh with: site-tools release_record --verify-live",
@@ -28,14 +28,15 @@
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.2.8",
-        "visible_label": "Reference release v0.2.8",
-        "software_version": "0.2.8",
+        "version": "0.6.0",
+        "visible_label": "Aus Accounting MCP v0.6.0",
+        "software_version": "0.6.0",
         "pinned_engines": {
-          "payday-super-checker": "0.1.7",
-          "ato-benchmark-compare": "0.1.9",
-          "div7a-loan-review": "0.1.4",
-          "australian-tax-calculators": "0.1.5"
+          "payday-super-checker": "0.2.2",
+          "ato-benchmark-compare": "0.2.2",
+          "div7a-loan-review": "0.3.2",
+          "australian-tax-calculators": "0.2.0",
+          "gst-review": "0.1.0"
         }
       },
       "pinned_engines": {
@@ -55,7 +56,7 @@
       "notes": [
         "GitHub, PyPI and the MCP registry publish 0.6.0, verified on 20 October 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
-        "The guide and its demonstration remain pinned to 0.2.8 and name the newer published release separately. The recorded engine pins belong to published 0.6.0."
+        "The guide names current 0.6.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.6.0."
       ]
     },
     "ozzit": {
@@ -74,7 +75,7 @@
       "documented": {
         "page": "tools/ozzit/index.html",
         "version": "3.5.0",
-        "visible_label": "Current release v3.5.0",
+        "visible_label": "Current release v3.5.0 (19 October 2026). Last reviewed 21 October 2026.",
         "software_version": "3.5.0",
         "tag": "v3.5.0",
         "supporting_files": [
@@ -114,8 +115,9 @@
       },
       "documented": {
         "page": "tools/payday-super/index.html",
-        "version": "0.1.9",
-        "visible_label": "Quick trial release 0.1.9"
+        "version": "0.2.2",
+        "visible_label": "Current release payday-super-checker v0.2.2",
+        "software_version": "0.2.2"
       },
       "pinned_commands": [
         "uvx --from payday-super-checker==0.1.9 payday-super-check timely_remittance_no_receipt.csv --as-at 2026-08-20 --confirm-remittance-only -o payday-report.csv"

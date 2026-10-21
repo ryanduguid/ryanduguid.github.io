@@ -146,3 +146,26 @@ fn machine_index_copy() {
         "{stdout}"
     );
 }
+
+#[test]
+fn section_parts_are_bounded_and_preserve_citations() {
+    use site_tools::llms_full::section_parts;
+    let entries = vec![
+        (
+            format!("{SITE}tools/a/"),
+            format!("{}\nhttps://example.com/a", "a".repeat(60_000)),
+        ),
+        (format!("{SITE}tools/b/"), "b".repeat(60_000)),
+        (format!("{SITE}about/"), "About".into()),
+    ];
+    let parts = section_parts(&entries).unwrap();
+    assert_eq!(parts.len(), 3);
+    assert!(parts.iter().all(|(_, text)| text.len() < 100_000));
+    assert!(
+        parts
+            .iter()
+            .any(|(name, text)| name == "llms-full-tools-1.txt"
+                && text.contains("https://example.com/a"))
+    );
+    assert!(section_parts(&[(format!("{SITE}tools/huge/"), "x".repeat(100_000))]).is_err());
+}

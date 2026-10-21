@@ -11,10 +11,11 @@ require_front_matter: true
 readme_index:
   enabled: false
 theme: null
-asset_version: "20261013"
+asset_version: "20261021"
 include:
   - .well-known
 exclude:
+  - geo-out
   - AGENTS.md
   - CLAUDE.md
   - GATES.md

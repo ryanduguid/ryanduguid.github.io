@@ -2,13 +2,13 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-Last reviewed 17 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
+Last reviewed 21 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
 Licence: the site's own text, data and source code are Apache-2.0 (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
 
-> Ryan Duguid is an accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+> Ryan Duguid is a Senior Accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 Ryan Duguid is not a registered tax agent or BAS agent. Project support is limited to software issues reproduced with fictional data. Do not send taxpayer information or request advice, return preparation, tax-treatment confirmation or lodgement.
 
@@ -36,7 +36,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 
 ## For AI agents
 
-- [Australian tax tools for AI agents](https://duguid.com.au/tools/australian-tax-ai-agents/): aus-accounting-mcp is a local computational MCP for Payday Super timing and ATO small business benchmark ratios. It also supports limited, experimental Division 7A loan-term and repayment review, with human review required. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Published v0.6.0 runs 14 bounded tax and super worksheets, including study loan repayments and Schedule 8 withholding, annual Medicare levy, the low income tax offset and Division 293; the guide's reference release v0.2.8 has 7. v0.6.0 also reviews GST coding of bank lines against supplied registration dates and reconciles lodged BAS labels with the ledger; it does not classify supplies or prepare, revise or lodge a BAS. It can also search a configured local Markdown library. The annual Medicare worksheet does not adjust payroll withholding. Worksheets exclude full return preparation, and v0.2.8 has no HELP worksheet; confirm their supported periods and scope. Retrieved excerpts enter the calling assistant's context. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO document library and does not fetch rulings from the web. Official MCP registry name: io.github.ryanduguid/aus-accounting.
+- [Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.6.0 (20 October 2026). ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. Runs locally, ships no ATO document library, prepares or lodges nothing; human review required. Registry name io.github.ryanduguid/aus-accounting. Separate project from ato-mcp.
 - [Agent skills manifest](https://duguid.com.au/.well-known/agent-skills/index.json): the 65 released SKILL.md files of australian-accounting-skills v0.4.0, each with its description, a URL that serves the released bytes at the release commit and a sha256 digest to check them against. Preparation-only workflows in the Agent Skills format; not advice and not lodgement.
 
 ## Person
@@ -49,7 +49,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 - [Workpaper Review Gate evaluation](https://duguid.com.au/evaluate/manager-review-gate/): reproduces the released review-ready-gate/v0.1.3 result for 2 fictional BAS packs, including the exact NOT_READY findings, corrected READY result and human decision boundary.
 - [Xero trial balance integrity evaluation](https://duguid.com.au/evaluate/xero-trial-balance-integrity/): reproduces the movement and YTD balance gate with 3 fictional CSV fixtures, no Xero tenant credentials or tenant data, and an explicit human review boundary.
 - [Payday Super timing evidence evaluation](https://duguid.com.au/evaluate/payday-super-evidence/): preserves 4 fictional evidence-timing outcomes from checker 0.1.3, including at-risk, on-time and late classifications, with an explicit human decision boundary. It does not establish that the current release resolves the receipt amount limitation.
-- [Payday Super evidence pack workflow](https://duguid.com.au/tools/payday-super/#evidence-pack): the CLI and MCP tool combine report.csv, a SHA-256-bound practitioner checklist, exceptions.json and a blank decision-log.md. The pack omits employee identifiers and queues every non-ON_TIME result. The CLI writes a new directory; MCP returns file contents in memory and accepts no paths. Included in published checker 0.1.4 and MCP 0.2.2. Checker 0.1.3 does not include it; the evaluation preserves the original development snapshot. No advice, lodgement or ledger writes.
+- [Payday Super evidence pack workflow](https://duguid.com.au/tools/payday-super/#evidence-pack): the current checker combines report.csv, a SHA-256-bound practitioner checklist, exceptions.json and a blank decision-log.md. The pack omits employee identifiers and queues every non-ON_TIME result. The CLI writes a new directory; MCP returns file contents in memory and accepts no paths. No advice, lodgement or ledger writes.
 
 ## Reference tables
 
@@ -92,24 +92,24 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 - [Monthly loan payment calculator](https://duguid.com.au/tools/business-calculators/loan/): Fixed monthly payment, first-payment interest and principal, and estimated total interest, with no fees or balloon.
 - [Staff cost calculator](https://duguid.com.au/tools/business-calculators/staff/): Annual and monthly cost of a staff member from wages, the supplied super amount and other annual costs.
 - [13-week cash forecast](https://duguid.com.au/tools/business-calculators/cash/): Weekly closing cash from opening cash, receipts and payments, with one delayed receipt and a funding gap against a buffer. Save, load and export as CSV.
-- [Payday Super receipt evidence example](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads or recalculation; source and full evaluation links are on the page.
+- [Payday Super receipt evidence](https://duguid.com.au/tools/payday-super/): fixed synthetic $120 contribution, timely remittance and no recorded fund receipt. The pinned 0.1.3 engine returns AT_RISK with a 17 August 2026 deadline. No installation, uploads or recalculation; source and full evaluation links are on the page.
 - [Tools](https://duguid.com.au/tools/): index of 12 open source accounting controls grouped by extract, calculate, control and inspect, with delivery types, source repositories and human review boundaries.
 - [Coal LSL levy calculator](https://duguid.com.au/tools/coal-lsl-levy/): answers which wages are eligible for the 2.7% payroll levy under section 3B of the *Coal Mining Industry (Long Service Leave) Payroll Levy Collection Act 1992*, across the base rate, annual salary and casual branches. Explains the questions this calculator does not resolve and the statutory rules relevant to them.
 
 ## Tool guides, open source, install and run locally
 
-- [Ozzit Excel LAMBDA library](https://duguid.com.au/tools/ozzit/): an Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial year labels, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.5.0, published 19 October 2026. Needs Microsoft 365 or Excel 2024 or later; LibreOffice and older Excel cannot evaluate the functions. Apache License 2.0 from v3.5.0. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
-- Ozzit function reference: signatures, parameters, notes and worked examples for all 148 v3.5.0 named formulas, taken from each function's help in the released source, one page per module: [Dates](https://duguid.com.au/tools/ozzit/functions/dates/), [Essentials](https://duguid.com.au/tools/ozzit/functions/essentials/), [Financial](https://duguid.com.au/tools/ozzit/functions/financial/), [Ratios](https://duguid.com.au/tools/ozzit/functions/ratios/), [Utilities](https://duguid.com.au/tools/ozzit/functions/utilities/) and [Debt](https://duguid.com.au/tools/ozzit/functions/debt/). The underlying reference data as JSON: https://duguid.com.au/assets/ozzit-function-reference-v3.5.0.json
+- [Ozzit](https://duguid.com.au/tools/ozzit/): an Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, covering GST at 10%, 1 July financial year labels, modelling depreciation schedules, amortisation, ratios and AASB 16 lessee schedules. Current release v3.5.0, published 19 October 2026. Needs Microsoft 365 or Excel 2024 or later; LibreOffice and older Excel cannot evaluate the functions. Apache License 2.0 from v3.5.0. It calculates only: the reviewer decides the accounting treatment, and it contains no income tax, Medicare levy or Division 7A calculations.
+- Ozzit function reference: signatures, parameters, notes and worked examples for all 148 v3.5.0 named formulas (143 LAMBDA functions and 5 help tables), taken from each function's help in the released source, one page per module: [Dates](https://duguid.com.au/tools/ozzit/functions/dates/), [Essentials](https://duguid.com.au/tools/ozzit/functions/essentials/), [Financial](https://duguid.com.au/tools/ozzit/functions/financial/), [Ratios](https://duguid.com.au/tools/ozzit/functions/ratios/), [Utilities](https://duguid.com.au/tools/ozzit/functions/utilities/) and [Debt](https://duguid.com.au/tools/ozzit/functions/debt/). The underlying reference data as JSON: https://duguid.com.au/assets/ozzit-function-reference-v3.5.0.json
 
 - [Monthly Close Controls](https://duguid.com.au/tools/monthly-close-controls/): compares current and prior Xero-shaped trial balance CSVs and prepares an exception report for human review. The pinned fictional example returns REVIEW with 8 exceptions and 6 draft client queries. It reads local files and cannot approve a close.
 
 - [Workpaper Review Gate](https://duguid.com.au/tools/workpaper-review-gate/): local readiness gate for BAS, month-end and year-end folders. A missing artefact or unbalanced trial balance is sent back to the preparer. READY is not sign-off.
-- [Xero trial balance CSV export](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year-to-date figures both balance. Read-only scope.
-- [ATO small business benchmark comparison](https://duguid.com.au/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
-- [Construction WIP schedule](https://duguid.com.au/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
-- [Subcontract ledger skills for construction and mining](https://duguid.com.au/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
-- [Section 100A and Division 6 trust distributions](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford and calculates a section 99B amount.
-- [Company tax rate and franking account](https://duguid.com.au/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax and the Division 203 benchmark rule.
+- [Xero trial balance CSV export tool](https://duguid.com.au/tools/xero-trial-balance/): pulls the trial balance from the Xero reporting API and refuses to write a file unless the month movement and the year-to-date figures both balance. Read-only scope.
+- [ATO small business benchmark comparison tool](https://duguid.com.au/tools/ato-benchmarks/): maps a profit and loss to the ATO benchmark categories and shows whether each ratio falls inside the published range. Runs offline with no network call.
+- [TheWIPTally construction WIP schedule](https://duguid.com.au/tools/wip-schedule/): deterministic AASB 15 cost-to-cost WIP from a contract CSV. Contract assets and liabilities are per contract and never netted. Review aid, not a determination.
+- [Subcontractor ledger skills for construction and mining](https://duguid.com.au/tools/subcontractor-ledgers/): agent skills for progress claims, retentions, work in progress under AASB 15, fuel tax credits, the Coal LSL levy and payroll tax on contractors. Needs an AI coding agent to run. The skills assemble the contract CSV; TheWIPTally computes the schedule.
+- [Trust distribution worksheets for professional review](https://duguid.com.au/tools/trust-distributions/): classifies a distribution against the PCG 2022/2 zones, which are white, green and red only, works out proportionate Division 6 shares following Bamford and calculates a section 99B amount.
+- [Company tax and franking worksheets](https://duguid.com.au/tools/company-tax-franking/): base rate entity test, franking account ledger, franking deficit tax and the Division 203 benchmark rule.
 
 ## Refusals
 
@@ -117,7 +117,7 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 
 ## Known limitations
 
-- [Payday Super receipt amount rules](https://duguid.com.au/tools/payday-super/#receipt-amount): published checkers 0.1.7 and 0.1.8 leave a timely fund receipt date without an amount UNKNOWN. A late receipt without an amount remains LATE, with no shortfall reduction and an estimate measured to the as-at date. The guide's reference MCP v0.2.8 pins checker 0.1.7. Older checkers 0.1.5 and 0.1.6 assume full receipt when the amount is missing; 0.1.6 discloses that assumption, and the quick trial uses 0.1.9. MCP 0.2.4 pins checker 0.1.6 and retains the older behaviour.
+- [Payday Super receipt amount rules](https://duguid.com.au/tools/payday-super/#receipt-amount): current checker v0.2.2 requires amount evidence for a timely receipt. A timely receipt date without an amount remains UNKNOWN. A late receipt without an amount remains LATE, with no shortfall reduction and an estimate measured to the as-at date. Historical reports may assume full receipt when an amount is missing. Obtain the receipt amount and rerun the current checker. Reconcile supplied matches before relying on a verdict.
 
 A refusal is a question handed back. A limitation is an answer that rests on something the reader should be told. Each entry below is declared at runtime by the tool that carries it, and is bound to that behaviour by a test in its package. The full register is at [Known limitations](https://duguid.com.au/tools/limitations/), with a `LIMITATIONS.md` in each package. An absent entry means nothing has been established and recorded, not that a tool is correct everywhere else.
 
@@ -156,3 +156,23 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 ## About
 
 Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+
+## Full text by section
+
+The complete file remains at https://duguid.com.au/llms-full.txt. Each section part is below 100 KB.
+
+- [llms-full-about-1.txt](https://duguid.com.au/llms-full-about-1.txt)
+- [llms-full-changelog-1.txt](https://duguid.com.au/llms-full-changelog-1.txt)
+- [llms-full-contact-1.txt](https://duguid.com.au/llms-full-contact-1.txt)
+- [llms-full-evaluate-1.txt](https://duguid.com.au/llms-full-evaluate-1.txt)
+- [llms-full-evidence-1.txt](https://duguid.com.au/llms-full-evidence-1.txt)
+- [llms-full-examples-1.txt](https://duguid.com.au/llms-full-examples-1.txt)
+- [llms-full-home-1.txt](https://duguid.com.au/llms-full-home-1.txt)
+- [llms-full-privacy-1.txt](https://duguid.com.au/llms-full-privacy-1.txt)
+- [llms-full-rates-1.txt](https://duguid.com.au/llms-full-rates-1.txt)
+- [llms-full-tools-1.txt](https://duguid.com.au/llms-full-tools-1.txt)
+- [llms-full-tools-2.txt](https://duguid.com.au/llms-full-tools-2.txt)
+- [llms-full-tools-3.txt](https://duguid.com.au/llms-full-tools-3.txt)
+- [llms-full-tools-4.txt](https://duguid.com.au/llms-full-tools-4.txt)
+- [llms-full-tools-5.txt](https://duguid.com.au/llms-full-tools-5.txt)
+- [llms-full-tools-6.txt](https://duguid.com.au/llms-full-tools-6.txt)

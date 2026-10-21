@@ -204,7 +204,7 @@ fn geo_leftovers_surface() {
         .filter(|e| tree.has_class(*e, "short-answer"))
         .collect();
     assert_eq!(title(&coal).as_deref(), Some(coal_title));
-    assert!(h1s.len() == 1 && tree.text(h1s[0]) == coal_title);
+    assert!(h1s.len() == 1 && tree.text(h1s[0]) == "Coal LSL levy calculator");
     assert!(leads.len() == 1 && tree.text(leads[0]) == coal_lead);
     assert_eq!(
         core::meta(&coal, "property", "og:title").as_deref(),
@@ -220,9 +220,9 @@ fn geo_leftovers_surface() {
         coal_page
             .get("dateModified")
             .unwrap()
-            .py_eq(&s("2026-09-24"))
+            .py_eq(&s("2026-09-27"))
     );
-    assert!(core::visible_text(&coal).contains("Last reviewed 24 September 2026."));
+    assert!(core::visible_text(&coal).contains("Last reviewed 21 October 2026."));
 
     let robots = read_text(root(), "robots.txt");
     assert!(robots.contains(
@@ -1033,9 +1033,9 @@ fn public_contracts_homepage_and_metadata_mutations() {
         );
     }
     let payday = read_text(root(), "tools/payday-super/index.html");
-    let long = "See why a synthetic $120 super contribution remains AT_RISK despite timely remittance. Read the fixed facts, engine result and fund receipt decision.";
+    let long = "Current release payday-super-checker v0.2.2. Inspect a synthetic $120 contribution, its AT_RISK result and fund receipt evidence. Review aid.";
     let short = "Check Payday Super timing from payroll exports and estimate the SG charge for review, with fund receipt status visible.";
-    assert_eq!(payday.matches(long).count(), 5);
+    assert_eq!(payday.matches(long).count(), 3);
     let directory = tempfile::tempdir().unwrap();
     let rel = "tools/payday-super/index.html";
     let path = directory.path().join(rel);
@@ -1211,7 +1211,7 @@ fn public_contracts_structure_and_assets() {
     contract_mutation(
         "tool review date outside header",
         &xero,
-        "<p class=\"page-meta\">Published 24 August 2026. Last reviewed 13 October 2026.</p>",
+        "<p class=\"page-meta\">Published 24 August 2026. Last reviewed 21 October 2026.</p>",
         "<p class=\"moved-page-meta\">Published 24 August 2026. Last reviewed 13 October 2026.</p>",
         |html, found| {
             contracts::check_header_review_date(html, "tools/xero-trial-balance/index.html", found)
@@ -1428,12 +1428,12 @@ fn current_component_metadata() {
             "adapters/accounting-excel-toolkit",
         ),
         (
-            "workpaper-review-gate",
+            "review-ready-gate",
             "accounting-review-pipeline",
             "packages/review-ready-gate",
         ),
         (
-            "monthly-close-controls",
+            "monthly-close-control-plane",
             "accounting-review-pipeline",
             "packages/monthly-close-control-plane",
         ),
@@ -1532,7 +1532,14 @@ fn consolidation_review_dates() {
             date.year
         );
         assert!(
-            core::visible_text(&html).contains(&format!("Last reviewed {visible}.")),
+            core::visible_text(&html).contains(&format!(
+                "Last reviewed {}.",
+                if rel.starts_with("tools/") && rel != "tools/index.html" {
+                    "21 October 2026"
+                } else {
+                    &visible
+                }
+            )),
             "{rel}"
         );
         let url = format!(

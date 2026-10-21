@@ -127,7 +127,7 @@ pub fn check_person_graph(paths: &[PathBuf], root: &Path) -> Result<Vec<String>,
     }
     let software: Vec<&(String, Json)> = graph
         .iter()
-        .filter(|(_, n)| core::has_type(n, "SoftwareSourceCode"))
+        .filter(|(rel, n)| rel == "index.html" && core::has_type(n, "SoftwareSourceCode"))
         .collect();
     if software.len() != AUTHORED_SOFTWARE.len() {
         failures.push(format!(
@@ -1744,7 +1744,7 @@ pub fn check_task_routes(root: &Path) -> Result<Vec<String>, String> {
         }
     }
     failures.extend(parse_failures);
-    let home_expected: Vec<(String, String)> = HOMEPAGE_PREVIEW_ENTRIES
+    let home_expected: Vec<(String, String)> = TASK_ROUTE_ENTRIES
         .iter()
         .map(|(l, p, _)| ((*l).to_owned(), format!("{SITE}{p}")))
         .collect();

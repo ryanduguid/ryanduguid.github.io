@@ -405,7 +405,7 @@ fn wrong_or_missing_counts_are_reported() {
             "another page",
             "llms.txt",
             llms.replace(&format!("{lambdas} native LAMBDA"), "1 native LAMBDA"),
-            "llms.txt: states [1] LAMBDA functions",
+            "llms.txt: states [1, 143] LAMBDA functions",
         ),
     ];
     for (label, rel, changed, message) in cases {

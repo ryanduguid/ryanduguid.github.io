@@ -320,13 +320,10 @@ fn payday_super_receipts_workbooks_and_qualifications() {
     assert_eq!(sections.len(), 1);
     let text = tree.text(sections[0]);
     for term in [
-        "0.1.6",
-        "0.1.5",
         "matched_amount",
         "remitted_amount",
         "ON_TIME",
         "UNPAID",
-        "0.1.7",
         "Neither field authenticates",
     ] {
         assert!(text.contains(term), "{term}");
@@ -353,12 +350,10 @@ fn payday_super_receipts_workbooks_and_qualifications() {
     let section = by_id(&tree, "workbook-versions");
     let text = tree.text(section);
     for boundary in [
-        "0.1.6",
         "31 December 2026",
         "--allow-stale-gic",
-        "0.1.7",
         "Not assessed",
-        "a PyPI install does not install the workbook",
+        "A PyPI install does not install the workbook",
         "BLOCKED",
     ] {
         assert!(text.contains(boundary), "{boundary}");
@@ -366,7 +361,7 @@ fn payday_super_receipts_workbooks_and_qualifications() {
     assert!(links(&tree, section).iter().any(|h| {
         h.as_deref()
             .unwrap_or("")
-            .contains("payday-super-checker/v0.1.6/")
+            .contains("packages/payday-super-checker/workbooks")
     }));
 
     // The machine index keeps the claim boundaries.
@@ -378,10 +373,7 @@ fn payday_super_receipts_workbooks_and_qualifications() {
         "cloud-backed AI host",
         "tool results and library excerpts",
         "https://duguid.com.au/tools/payday-super/#receipt-amount",
-        "Older checkers 0.1.5 and 0.1.6",
-        "the quick trial uses 0.1.9",
         "assume full receipt",
-        "0.1.7",
         "outcomes from checker 0.1.3",
     ] {
         assert!(index.contains(qualification), "{qualification}");

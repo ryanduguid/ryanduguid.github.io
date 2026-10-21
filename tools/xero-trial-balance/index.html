@@ -1,5 +1,8 @@
 ---
+tool: xero-trial-balance
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -54,12 +57,12 @@
         <li aria-current="page">Xero trial balance CSV export</li>
       </ol>
     </nav>
-    <h1>How to export a Xero trial balance to CSV that balances</h1>
-    <p class="lead-note">
-      This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
-    </p>
-    <p class="release-meta">Evaluated release <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.6">xero-trial-balance-export/v0.1.6</a>, evaluated against tagged fixtures. The worked example on this page is pinned to that release so its figures stay reproducible; the current release on 13 October 2026 is <a href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15">xero-trial-balance-export/v0.1.15</a>, which needs Python 3.11 or later.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 13 October 2026.</p>
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+    <p class="lead-note">This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+
+    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -200,121 +203,128 @@
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/xero-trial-balance/#webpage",
-        "url": "https://duguid.com.au/tools/xero-trial-balance/",
-        "name": "Export a Xero trial balance to CSV that balances",
-        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/xero-trial-balance/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/xero-trial-balance/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Xero trial balance CSV export"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/xero-trial-balance/#webpage",
+      "url": "https://duguid.com.au/tools/xero-trial-balance/",
+      "name": "Export a Xero trial balance to CSV that balances",
+      "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-12",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/xero-trial-balance/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Xero trial balance CSV export",
-            "item": "https://duguid.com.au/tools/xero-trial-balance/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Xero trial balance CSV export tool",
-        "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
-        "applicationCategory": "BusinessApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/xero-trial-balance/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/xero-trial-balance/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/xero-trial-balance/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Can it export a trial balance for a date range?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Xero’s Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can this tool change my Xero data?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. It requests the accounting.reports.trialbalance.read scope, which is read-only, so it cannot write to any ledger."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What happens if the trial balance does not balance?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No file is written. The balance check runs before anything reaches disk, and both the month’s movement and the year-to-date figures have to balance for the export to proceed."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/xero-trial-balance/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/xero-trial-balance/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Xero trial balance CSV export"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/xero-trial-balance/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Xero trial balance CSV export",
+          "item": "https://duguid.com.au/tools/xero-trial-balance/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "Xero trial balance CSV export tool",
+      "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/xero-trial-balance/",
+      "@id": "https://duguid.com.au/tools/xero-trial-balance/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-12",
+      "alternateName": [
+        "How to export a Xero trial balance to CSV that balances",
+        "xero-trial-balance-export"
+      ],
+      "softwareVersion": "0.1.15",
+      "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export",
+      "sameAs": [
+        "https://pypi.org/project/xero-trial-balance-export/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/xero-trial-balance/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Can it export a trial balance for a date range?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Xero’s Trial Balance endpoint accepts an as-at date, not a range, so the Trial Balance by Date Range report, which exists in the Xero interface only, cannot be reproduced this way. The movement columns cover the usual reason for wanting a range, which is the current month."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can this tool change my Xero data?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It requests the accounting.reports.trialbalance.read scope, which is read-only, so it cannot write to any ledger."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if the trial balance does not balance?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No file is written. The balance check runs before anything reaches disk, and both the month’s movement and the year-to-date figures have to balance for the export to proceed."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

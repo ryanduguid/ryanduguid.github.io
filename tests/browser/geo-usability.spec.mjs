@@ -65,8 +65,8 @@ test('printing keeps the full tool register available without a duplicate task l
   await expect(page.locator('.work-chooser')).toHaveCount(0);
   await page.emulateMedia({ media: 'print' });
   await expect(page.locator('.collection-entry')).toHaveCount(12);
-  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Ozzit Excel LAMBDA library' })).toBeVisible();
-  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Australian tax tools for AI agents' })).toBeVisible();
+  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Ozzit' })).toBeVisible();
+  await expect(page.locator('.collection-entry__title').filter({ hasText: 'Aus Accounting MCP' })).toBeVisible();
 });
 
 test('AI tool comparison keeps all four columns readable', async ({ page }) => {
