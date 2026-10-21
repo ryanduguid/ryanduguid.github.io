@@ -16,7 +16,7 @@ Source: https://duguid.com.au/tools/
 
 Choose a task below to find an example, browser calculator or accounting workflow.
 
-Last reviewed 17 October 2026.
+Last reviewed 21 October 2026.
 
 ## Start with what you came to do
 
@@ -230,7 +230,7 @@ Fictional cash flow example: a worked forecast using au-fpa-pack, built on openf
 
 Third-party libraries, official guidance and primary sources this work depends on or sits beside. None is maintained here; each link goes to its own home.
 
-OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO datasets on data.gov.au Standard Business Reporting developer resources SuperStream technical standards
+OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Node SDK (official) tap-xero Singer tap for the Xero API Excel Labs Advanced Formula Environment STP Phase 2 employer reporting guidelines Federal Register of Legislation ATO Legal Database ATO dataset catalogue on data.gov.au (archived 19 April 2026) Standard Business Reporting developer resources SuperStream technical standards
 
 ## Links
 
@@ -288,7 +288,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
 - Federal Register of Legislation: https://www.legislation.gov.au/
 - ATO Legal Database: https://www.ato.gov.au/law/
-- ATO datasets on data.gov.au: https://data.gov.au/data/organization/australiantaxationoffice
+- ATO dataset catalogue on data.gov.au (archived 19 April 2026): https://web.archive.org/web/20260419123949/https://data.gov.au/data/organization/australiantaxationoffice
 - Standard Business Reporting developer resources: https://www.sbr.gov.au/
 - SuperStream technical standards: https://softwaredevelopers.ato.gov.au/SuperStreamStandard
 

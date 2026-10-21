@@ -10,7 +10,7 @@ I’m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source to
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 26 September 2026.
+Last reviewed 21 October 2026.
 
 ## The short facts
 

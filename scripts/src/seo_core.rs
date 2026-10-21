@@ -284,13 +284,24 @@ pub fn check_sitemap(
             continue;
         }
         let mut modified: Vec<String> = Vec::new();
-        for block in json_ld_blocks(&html, &rel, &mut Vec::new()) {
-            for node in nodes(&block) {
-                if let Some(value) = node.get("dateModified") {
-                    let value = value.py_str();
-                    if !modified.contains(&value) {
-                        modified.push(value);
-                    }
+        let blocks = json_ld_blocks(&html, &rel, &mut Vec::new());
+        let entries: Vec<_> = blocks.iter().flat_map(nodes).collect();
+        let document_types = ["WebPage", "TechArticle", "ProfilePage"];
+        let has_document = entries
+            .iter()
+            .any(|node| document_types.iter().any(|kind| has_type(node, kind)));
+        for node in entries {
+            if has_document && !document_types.iter().any(|kind| has_type(node, kind)) {
+                continue;
+            }
+            // Software dates describe releases; the sitemap describes the website document.
+            if has_type(node, "SoftwareApplication") || has_type(node, "SoftwareSourceCode") {
+                continue;
+            }
+            if let Some(value) = node.get("dateModified") {
+                let value = value.py_str();
+                if !modified.contains(&value) {
+                    modified.push(value);
                 }
             }
         }

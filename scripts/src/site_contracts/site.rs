@@ -317,7 +317,7 @@ pub fn check_mcp_review_dates(html: &str) -> Vec<String> {
     let blocks = core::json_ld_blocks(html, MCP_REL, &mut parse_failures);
     let nodes: Vec<&Json> = blocks.iter().flat_map(core::nodes).collect();
     failures.extend(parse_failures);
-    for schema in ["TechArticle", "WebPage", "SoftwareApplication"] {
+    for schema in ["TechArticle", "WebPage"] {
         let matches: Vec<&&Json> = nodes.iter().filter(|n| core::has_type(n, schema)).collect();
         if matches.len() != 1 || !eq(matches[0].get("dateModified"), &s(MCP_REVIEW_DATE)) {
             failures.push(format!(

@@ -340,20 +340,33 @@ test('tool release snapshot selects published stable package tags in Sydney time
 
 test('metadata stamping preserves pinned examples whilst replacing current product metadata', () => {
   const source = '<p>Worked example v0.1.3</p><script type="application/ld+json">' + JSON.stringify({ '@graph': [
-    { '@type': 'TechArticle', dateModified: '2026-09-01' },
+    { '@type': 'TechArticle', dateModified: '2026-10-21' },
     { '@type': 'SoftwareApplication', name: 'Old name', offers: { '@type': 'Offer', price: '0' } },
   ] }) + '</script>';
   const stamped = freshness.stampToolMetadata(source, { name: 'Tool', alternateName: ['old'], codeRepository: 'https://example.com/source', sameAs: ['https://pypi.org/project/tool/'] },
     { version: '0.2.2', date: '2026-10-20' });
   assert.ok(stamped.includes('Worked example v0.1.3'));
   assert.ok(!stamped.includes('Offer'));
-  assert.equal((stamped.match(/2026-10-20/g) ?? []).length, 2);
   assert.ok(stamped.includes('SoftwareSourceCode'));
   const stampedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(stamped)[1])['@graph'];
+  assert.equal(stampedGraph[0].dateModified, '2026-10-21');
+  assert.equal(stampedGraph[1].dateModified, '2026-10-20');
+  const sitemap = '<loc>https://example.com/tool/</loc><lastmod>2026-09-01</lastmod>';
+  assert.equal(freshness.stampToolSitemap(sitemap, 'https://example.com/tool/', stamped),
+    '<loc>https://example.com/tool/</loc><lastmod>2026-10-21</lastmod>');
   assert.deepEqual(stampedGraph[1].sameAs, ['https://pypi.org/project/tool/']);
   const cleared = freshness.stampToolMetadata(stamped, { name: 'Tool', alternateName: [], codeRepository: 'https://example.com/source', sameAs: [] }, { version: '0.2.2', date: '2026-10-20' });
   const clearedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(cleared)[1])['@graph'];
   assert.equal(Object.hasOwn(clearedGraph[1], 'sameAs'), false);
+});
+
+test('sitemap refresh rejects missing or inconsistent document dates', () => {
+  const html = '<script type="application/ld+json">' + JSON.stringify({ '@graph': [
+    { '@type': 'WebPage', dateModified: '2026-10-20' },
+    { '@type': 'TechArticle', dateModified: '2026-10-21' },
+  ] }) + '</script>';
+  assert.throws(() => freshness.stampToolSitemap('', 'https://example.com/tool/', html), /one document modification date/);
+  assert.throws(() => freshness.stampToolSitemap('', 'https://example.com/tool/', ''), /one document modification date/);
 });
 
 test('MCP index refresh changes only the current release', () => {

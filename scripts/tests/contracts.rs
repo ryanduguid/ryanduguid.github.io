@@ -220,7 +220,7 @@ fn geo_leftovers_surface() {
         coal_page
             .get("dateModified")
             .unwrap()
-            .py_eq(&s("2026-09-27"))
+            .py_eq(&s("2026-10-21"))
     );
     assert!(core::visible_text(&coal).contains("Last reviewed 21 October 2026."));
 
@@ -1303,6 +1303,47 @@ fn public_contracts_structure_and_assets() {
 }
 
 #[test]
+fn sitemap_uses_document_dates_instead_of_software_release_dates() {
+    let directory = tempfile::tempdir().unwrap();
+    let root = directory.path();
+    let site = contracts::SITE;
+    let page = root.join("index.html");
+    std::fs::write(
+        &page,
+        r#"<script type="application/ld+json">{"@graph":[
+          {"@type":"WebPage","dateModified":"2026-10-21"},
+          {"@type":"TechArticle","dateModified":"2026-10-21"},
+          {"@type":["SoftwareApplication","SoftwareSourceCode"],"dateModified":"2026-10-20"},
+          {"@type":"Dataset","dateModified":"2026-09-22"}
+        ]}</script>"#,
+    )
+    .unwrap();
+    let sitemap =
+        format!("<urlset><url><loc>{site}/</loc><lastmod>2026-10-21</lastmod></url></urlset>");
+    std::fs::write(root.join("sitemap.xml"), &sitemap).unwrap();
+    std::fs::write(root.join("llms.txt"), format!("{site}/ {site}/llms.txt")).unwrap();
+    std::fs::write(
+        root.join("robots.txt"),
+        format!("Sitemap: {site}/sitemap.xml"),
+    )
+    .unwrap();
+    let (failures, _) =
+        core::check_sitemap(std::slice::from_ref(&page), site, &HashSet::new(), root).unwrap();
+    assert_clean("document date after software release", &failures);
+    std::fs::write(
+        root.join("sitemap.xml"),
+        sitemap.replace("2026-10-21", "2026-10-20"),
+    )
+    .unwrap();
+    let (failures, _) = core::check_sitemap(&[page], site, &HashSet::new(), root).unwrap();
+    expect_failure(
+        "release date used for sitemap",
+        &failures,
+        "does not match its dateModified",
+    );
+}
+
+#[test]
 fn public_contracts_sitemap() {
     if !rendered() {
         return;
@@ -1507,6 +1548,10 @@ fn consolidation_review_dates() {
         let mut modified: Vec<String> = blocks
             .iter()
             .flat_map(core::nodes)
+            .filter(|n| {
+                !core::has_type(n, "SoftwareApplication")
+                    && !core::has_type(n, "SoftwareSourceCode")
+            })
             .filter_map(|n| {
                 n.get("dateModified")
                     .and_then(Json::as_str)
@@ -1532,14 +1577,7 @@ fn consolidation_review_dates() {
             date.year
         );
         assert!(
-            core::visible_text(&html).contains(&format!(
-                "Last reviewed {}.",
-                if rel.starts_with("tools/") && rel != "tools/index.html" {
-                    "21 October 2026"
-                } else {
-                    &visible
-                }
-            )),
+            core::visible_text(&html).contains(&format!("Last reviewed {visible}.")),
             "{rel}"
         );
         let url = format!(

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 4 October 2026.
+Last reviewed 21 October 2026.
 
 ## From monthly close to a cash forecast
 
@@ -115,7 +115,7 @@ Install commands are under Adopt. The package, release, compatibility and licenc
 
 ## Sources and review dates
 
-Start with current Commonwealth legislation, such as the Income Tax Assessment Act 1997. Regulator material supplies administrative and operational guidance, while accounting standards govern questions within their scope. Check the current primary source before each calculation; secondary summaries are not authoritative.
+Start with current Commonwealth legislation, such as the Income Tax Assessment Act 1997. Regulator material supplies administrative and operational guidance, while accounting standards (AASB portal archived 16 October 2026) govern questions within their scope. Check the current primary source before each calculation; secondary summaries are not authoritative.
 
 - Payday Super primary source review and ATO benchmark source notes.
 - Trust distribution statutory review record and company tax and franking statutory review record.
@@ -246,7 +246,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - licence: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 - Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Regulator material: https://www.ato.gov.au/
-- accounting standards: https://standards.aasb.gov.au/
+- accounting standards (AASB portal archived 16 October 2026): https://web.archive.org/web/20261016153419/https://standards.aasb.gov.au/
 - Payday Super primary source review: https://github.com/ryanduguid/australian-accounting/blob/main/packages/payday-super-checker/docs/primary-source-review-2026-08-15.md
 - ATO benchmark source notes: https://github.com/ryanduguid/australian-accounting/blob/main/packages/ato-benchmark-compare/docs/ato-source-notes-2026-08-13.md
 - Trust distribution statutory review record: https://github.com/ryanduguid/australian-accounting/blob/main/packages/solomons-sword/RELEASE_NOTES.md

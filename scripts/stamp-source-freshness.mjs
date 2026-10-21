@@ -281,10 +281,24 @@ export function stampToolMetadata(html, tool, release) {
         if (tool.sameAs?.length) entry.sameAs = tool.sameAs;
         else if (tool.sameAs) delete entry.sameAs;
       }
-      if (entry.dateModified) entry.dateModified = release.date;
     }
     return '<script type="application/ld+json">\n' + JSON.stringify(schema, null, 2) + '\n</script>';
   });
+}
+
+export function stampToolSitemap(sitemap, url, html) {
+  const dates = new Set();
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    const schema = JSON.parse(match[1]);
+    for (const entry of schema['@graph'] ?? [schema]) {
+      if ([entry['@type']].flat().some(type => ['WebPage', 'TechArticle'].includes(type)) && entry.dateModified) {
+        dates.add(entry.dateModified);
+      }
+    }
+  }
+  if (dates.size !== 1) throw new Error(url + ': expected one document modification date');
+  return sitemap.replace(new RegExp('(<loc>' + url.replaceAll('.', '\\.') + '</loc>\\s*<lastmod>)[^<]+'),
+    (_, start) => start + [...dates][0]);
 }
 
 export function stampMcpIndex(text, release) {
@@ -311,10 +325,10 @@ async function main() {
     let register = readFileSync(page, 'utf8');
     for (const [slug, tool] of Object.entries(tools)) {
       const source = join(root, 'tools', slug, 'index.html');
-      writeFileSync(source, stampToolMetadata(readFileSync(source, 'utf8'), tool, data[slug]));
+      const html = stampToolMetadata(readFileSync(source, 'utf8'), tool, data[slug]);
+      writeFileSync(source, html);
       const url = 'https://duguid.com.au/tools/' + slug + '/';
-      sitemap = sitemap.replace(new RegExp('(<loc>' + url.replaceAll('.', '\\.') + '</loc>\\s*<lastmod>)[^<]+'),
-        (_, start) => start + data[slug].date);
+      sitemap = stampToolSitemap(sitemap, url, html);
       register = register.replace(new RegExp('(class="collection-entry__title" href="/tools/' + slug + '/">)[^<]*'),
         (_, start) => start + tool.name);
       register = register.replace(new RegExp('("name": ")[^"\\n]+("[,]?\\s*"url": "' + url.replaceAll('.', '\\.') + '")'),
