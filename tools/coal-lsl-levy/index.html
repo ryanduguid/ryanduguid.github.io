@@ -1,5 +1,8 @@
 ---
+tool: coal-lsl-levy
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -57,9 +60,10 @@
         <li aria-current="page">Coal LSL levy calculator</li>
       </ol>
     </nav>
-    <h1>Coal LSL levy calculator and section 3B eligible wages</h1>
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Source <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Source revision <a href="{{ release.url }}">{{ release.version | truncate: 7, '' }}</a>.</p>
     <p class="short-answer">The coal mining long service leave (Coal LSL) levy is 2.7% of monthly eligible wages. Section 3B has separate base rate, annual salary and casual branches. The base rate branch uses the greater of Formula A and Formula B.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 24 September 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
     </header>
 
     <div class="calculator-workspace site-shell">
@@ -382,144 +386,148 @@
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#webpage",
-        "url": "https://duguid.com.au/tools/coal-lsl-levy/",
-        "name": "Coal LSL levy calculator and section 3B eligible wages",
-        "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-09-24",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/coal-lsl-levy/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/coal-lsl-levy/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Coal LSL levy calculator"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/coal-lsl-levy/#webpage",
+      "url": "https://duguid.com.au/tools/coal-lsl-levy/",
+      "name": "Coal LSL levy calculator and section 3B eligible wages",
+      "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Coal LSL levy calculator",
-            "item": "https://duguid.com.au/tools/coal-lsl-levy/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Coal LSL levy calculator",
-        "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/coal-lsl-levy/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-09-24"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What levy rate does this calculator use?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What does the 75% in Formula B apply to?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Which bonuses count towards eligible wages?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Weekly, fortnightly and monthly bonuses count. Quarterly, half-yearly and annual amounts are left out rather than spread across the year."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does the levy apply to employer superannuation?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How does this tool round the levy?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Half up to the nearest cent, once, at the final step. The Act, the Regulations and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Can I lodge my monthly Coal LSL return with this tool?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL."
-            }
-          }
-        ],
-        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#faq"
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/coal-lsl-levy/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Coal LSL levy calculator"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/coal-lsl-levy/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Coal LSL levy calculator",
+          "item": "https://duguid.com.au/tools/coal-lsl-levy/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "Coal LSL levy calculator",
+      "description": "Work out the Coal LSL payroll levy on eligible wages, including the Formula A and Formula B greater-of test for base rate employees. Estimate only, not advice.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/coal-lsl-levy/",
+      "@id": "https://duguid.com.au/tools/coal-lsl-levy/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-19",
+      "alternateName": [
+        "Coal LSL levy calculator and section 3B eligible wages",
+        "assets/levy.mjs"
+      ],
+      "softwareVersion": "92188225f42df20c14817af0ded3842f7911fb51",
+      "codeRepository": "https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What levy rate does this calculator use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "2.7% of eligible wages, the prescribed percentage in section 6 of the Payroll Levy Regulations 2018 as checked on 18 September 2026. It applies to eligible wages paid on or after 1 July 2023; earlier reporting months are refused. Confirm it on the Federal Register of Legislation before relying on a figure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the 75% in Formula B apply to?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "For a non-casual employee paid a base rate, section 3B(1)(b) applies 75% to the base rate of pay, incentive payments and bonuses paid at least once a month, overtime and penalty rates, and allowances other than expense reimbursements, added together, not to the base rate alone. The paragraph reads '75% of the base rate of pay paid to the employee, including' those components, and the Coal LSL guidance note sets Formula B out as 75% of that total. An amount that reimburses an expense is excluded by section 3B(1)(b)(iii). With $6,000 base pay, $3,000 overtime and penalty rates, and $500 of allowances that are not expense reimbursements, Formula B is 75% of $9,500, which is $7,125.00. Reducing only the base rate and adding the other amounts in full would give $8,000.00; that is not the formula. Eligible wages are then the greater of Formula A ($6,000.00) and Formula B. The annual salary and casual branches use their own formulas. Verified against Compilation No 12 of the Act (C2026C00364, in force 1 September 2026) on 18 September 2026."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which bonuses count towards eligible wages?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Weekly, fortnightly and monthly bonuses count. Quarterly, half-yearly and annual amounts are left out rather than spread across the year."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does the levy apply to employer superannuation?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Section 3B does not mention it at any point, so this tool does not guess a treatment and offers no input for it."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does this tool round the levy?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Half up to the nearest cent, once, at the final step. The Act, the Regulations and the guidance note publish no rounding rule, so the unrounded figure appears whenever it differs."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I lodge my monthly Coal LSL return with this tool?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. This is not a lodgement channel. The monthly return must be made on the Levy Advice form approved under the Coal Mining Industry (Long Service Leave) Payroll Levy Collection (Return Form) Instrument 2023, downloaded fresh each month from Coal LSL."
+          }
+        }
+      ],
+      "@id": "https://duguid.com.au/tools/coal-lsl-levy/#faq"
+    }
+  ]
+}
+</script>
 </body>
 </html>

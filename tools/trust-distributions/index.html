@@ -1,5 +1,8 @@
 ---
+tool: trust-distributions
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -54,13 +57,13 @@
         <li aria-current="page">Trust distribution checks</li>
       </ol>
     </nav>
-    <h1>Trust distribution worksheets for professional review</h1>
-    <p class="lead-note">
-      PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
-    </p>
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+    <p class="lead-note">PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
     <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.</p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.1.9">solomons-sword/v0.1.9</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2">solomons-sword/v0.3.2</a>, published on 20 October 2026, which <code>pip install solomons-sword</code> fetches on Python 3.14 or later. It moves to Apache-2.0 and changes no calculation; versions 0.3.0 and 0.3.1 were tagged but never published. On Python 3.11 to 3.13 it fetches <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0">v0.2.0</a>, and on Python 3.10 v0.1.10, the last releases for those versions.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 1 October 2026.</p>
+
+    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -162,129 +165,137 @@ Assessable under s99B:   $100,000.00</code></pre>
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/trust-distributions/#webpage",
-        "url": "https://duguid.com.au/tools/trust-distributions/",
-        "name": "Trust distribution worksheets for professional review",
-        "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-01",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/trust-distributions/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/trust-distributions/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "Section 100A and Division 6 trust distribution checker"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/trust-distributions/#webpage",
+      "url": "https://duguid.com.au/tools/trust-distributions/",
+      "name": "Trust distribution worksheets for professional review",
+      "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/trust-distributions/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Trust distribution checks",
-            "item": "https://duguid.com.au/tools/trust-distributions/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "Section 100A trust distribution checker",
-        "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/trust-distributions/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/trust-distributions/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-01"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/trust-distributions/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "Is there a blue zone in PCG 2022/2?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What is the white zone?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "How is each beneficiary’s share of trust income worked out?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "What will this tool refuse to calculate?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Anything it does not implement, including trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/trust-distributions/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/trust-distributions/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "Section 100A and Division 6 trust distribution checker"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/trust-distributions/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Trust distribution checks",
+          "item": "https://duguid.com.au/tools/trust-distributions/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "Trust distribution worksheets for professional review",
+      "description": "Inspect section 100A, Division 6 and section 99B worksheets from supplied facts. Have a registered tax agent review the arrangement before relying on a result.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/trust-distributions/",
+      "@id": "https://duguid.com.au/tools/trust-distributions/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-20",
+      "alternateName": [
+        "Section 100A trust distribution checker",
+        "solomons-sword",
+        "Trust distribution checks"
+      ],
+      "softwareVersion": "0.3.2",
+      "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword",
+      "sameAs": [
+        "https://pypi.org/project/solomons-sword/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/trust-distributions/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is there a blue zone in PCG 2022/2?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 2022/2 has white, green and red zones only."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the white zone?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is each beneficiary’s share of trust income worked out?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Proportionately, following the High Court’s decision in Bamford: a beneficiary’s share of trust income sets the proportion of the trust’s taxable income assessed to them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What will this tool refuse to calculate?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Anything it does not implement, including trust capital gains and franked dividends, streamed or not, under the Division 6E carve-out. It refuses the input rather than returning a number it cannot stand behind."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

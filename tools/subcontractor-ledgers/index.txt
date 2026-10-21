@@ -4,13 +4,15 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 > Claude Code skills for Australian subcontractor accounting: progress claims, retentions, work in progress, and mining and earthmoving-specific regimes.
 
-# Subcontract ledger workflows for construction and mining
+# Subcontractor ledger skills for construction and mining
+
+Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.4.0.
 
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Released pack: Australian Accounting Skills v0.3.1. The 10 workflows first shipped as Hardhat Ledger v0.1.5 on 26 August 2026 and now ship only in this pack. The current release is v0.4.0, published on 14 October 2026, with the same 65 skills. v0.3.2 added a BAS transaction GST coding review whose seven validation cards have no recorded verdict, and v0.4.0 moves the pack from MIT to Apache-2.0.
+Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 
-Published 24 August 2026. Last reviewed 13 October 2026.
+Published 24 August 2026. Last reviewed 21 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -70,9 +72,8 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- Australian Accounting Skills v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
+- australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
 - v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
-- v0.3.2: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.2
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install

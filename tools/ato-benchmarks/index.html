@@ -1,5 +1,8 @@
 ---
+tool: ato-benchmarks
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -9,10 +12,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>How does this business compare to ATO benchmarks?</title>
-  <meta name="description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="description" content="Current release ato-benchmark-compare v{{ release.version }}. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="How does this business compare to ATO benchmarks?" />
-  <meta property="og:description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta property="og:description" content="Current release ato-benchmark-compare v{{ release.version }}. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +27,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="How does this business compare to ATO benchmarks?" />
-  <meta name="twitter:description" content="Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown." />
+  <meta name="twitter:description" content="Current release ato-benchmark-compare v{{ release.version }}. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/ato-benchmarks/" />
@@ -54,12 +57,12 @@
         <li aria-current="page">ATO benchmark comparison</li>
       </ol>
     </nav>
-    <h1>How does this business compare to the ATO small business benchmarks?</h1>
-    <p class="lead-note">
-      The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
-    </p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6">ato-benchmark-compare/v0.1.6</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2">ato-benchmark-compare/v0.2.2</a>, published on 20 October 2026. Release 0.1.11 added the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio. Release 0.2.2 requires Python 3.14 or later, moves to Apache-2.0 and changes no comparison; versions 0.2.0 and 0.2.1 were tagged but never published. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12">ato-benchmark-compare/v0.1.12</a> remains the last release for Python 3.11 to 3.13.</p>
-    <p class="page-meta">Published 24 August 2026. Last reviewed 13 October 2026.</p>
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+    <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to v0.1.6. The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+
+    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -170,129 +173,136 @@ pip install .</code></pre>
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/ato-benchmarks/#webpage",
-        "url": "https://duguid.com.au/tools/ato-benchmarks/",
-        "name": "How does this business compare to ATO benchmarks?",
-        "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/ato-benchmarks/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "ATO small business benchmark comparison"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/ato-benchmarks/#webpage",
+      "url": "https://duguid.com.au/tools/ato-benchmarks/",
+      "name": "How does this business compare to ATO benchmarks?",
+      "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "ATO benchmark comparison",
-            "item": "https://duguid.com.au/tools/ato-benchmarks/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "ATO small business benchmark comparison tool",
-        "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/ato-benchmarks/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/ato-benchmarks/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-24",
-        "dateModified": "2026-10-13"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/ato-benchmarks/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What are the ATO small business benchmarks?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does being outside a benchmark range mean something is wrong?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does this tool send my client data anywhere?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Why does a person have to review the account mapping?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "ATO small business benchmark comparison"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/ato-benchmarks/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "ATO benchmark comparison",
+          "item": "https://duguid.com.au/tools/ato-benchmarks/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "ATO small business benchmark comparison tool",
+      "description": "Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/ato-benchmarks/",
+      "@id": "https://duguid.com.au/tools/ato-benchmarks/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-24",
+      "dateModified": "2026-10-20",
+      "alternateName": [
+        "How does this business compare to the ATO small business benchmarks?",
+        "ato-benchmark-compare"
+      ],
+      "softwareVersion": "0.2.2",
+      "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare",
+      "sameAs": [
+        "https://pypi.org/project/ato-benchmark-compare/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/ato-benchmarks/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What are the ATO small business benchmarks?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Ranges the ATO publishes for around 100 industries, showing the usual relationship between figures such as cost of sales and turnover. The ATO uses them to decide which businesses to examine."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does being outside a benchmark range mean something is wrong?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Businesses differ, which is why the ATO publishes a range rather than a point. A ratio outside the range is a prompt to explain why."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does this tool send my client data anywhere?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It runs on your own machine with no network call in the runtime, and it records which account went into which figure so a colleague can check the comparison later."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Why does a person have to review the account mapping?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Because no account name on its own tells you whether wages went to an associated person, and the ATO’s definitions turn on that. The tool drafts the mapping, a person corrects it, and only then is anything compared."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

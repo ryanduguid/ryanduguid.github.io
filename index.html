@@ -55,7 +55,7 @@
           <a class="button" href="/examples/profit-vs-cash-flow/">Explore the cash flow example</a>
         </nav>
         <p class="home-hero__note">Built by Ryan Duguid, a Senior Accountant in Newcastle, NSW. This personal site does not accept professional engagements.</p>
-        <p class="page-meta">Last reviewed 6 October 2026.</p>
+        <p class="page-meta">Last reviewed 21 October 2026.</p>
       </div>
       <section class="home-case" aria-labelledby="cash-case-title">
         <div>
@@ -192,7 +192,7 @@
         "description": "Personal index of open source Australian accounting tools for payroll, Xero, workpapers and AI workflows, with sources and working kept visible.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-22",
-        "dateModified": "2026-10-06",
+        "dateModified": "2026-10-21",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "about": { "@id": "https://duguid.com.au/about/#person" },
@@ -204,7 +204,7 @@
         "@type": "Person",
         "@id": "https://duguid.com.au/about/#person",
         "name": "Ryan Duguid",
-        "jobTitle": "Accountant",
+        "jobTitle": "Senior Accountant",
         "url": "https://duguid.com.au/about/",
         "sameAs": [
           "https://github.com/ryanduguid",
@@ -217,29 +217,30 @@
         "@type": "ItemList",
         "@id": "https://duguid.com.au/#home-preview",
         "name": "Starting routes by task",
-        "numberOfItems": 4,
+        "numberOfItems": 5,
         "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Understand why profit and cash differ", "url": "https://duguid.com.au/examples/profit-vs-cash-flow/" },
           {
             "@type": "ListItem",
-            "position": 1,
+            "position": 2,
             "name": "Use accounting functions in Excel",
             "url": "https://duguid.com.au/tools/ozzit/"
           },
           {
             "@type": "ListItem",
-            "position": 2,
+            "position": 3,
             "name": "Review a month-end close",
             "url": "https://duguid.com.au/tools/monthly-close-controls/"
           },
           {
             "@type": "ListItem",
-            "position": 3,
+            "position": 4,
             "name": "Calculate a Coal LSL levy",
             "url": "https://duguid.com.au/tools/coal-lsl-levy/"
           },
           {
             "@type": "ListItem",
-            "position": 4,
+            "position": 5,
             "name": "Check a BAS pack before manager review",
             "url": "https://duguid.com.au/evaluate/manager-review-gate/"
           }
@@ -307,8 +308,9 @@
       },
       {
         "@type": "SoftwareSourceCode",
-        "@id": "https://duguid.com.au/#software-workpaper-review-gate",
-        "name": "workpaper-review-gate",
+        "@id": "https://duguid.com.au/#software-review-ready-gate",
+        "name": "review-ready-gate",
+        "alternateName": "Workpaper Review Gate",
         "description": "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public practice packs. Not advice.",
         "url": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
@@ -327,8 +329,9 @@
       },
       {
         "@type": "SoftwareSourceCode",
-        "@id": "https://duguid.com.au/#software-monthly-close-controls",
-        "name": "monthly-close-controls",
+        "@id": "https://duguid.com.au/#software-monthly-close-control-plane",
+        "name": "monthly-close-control-plane",
+        "alternateName": "Monthly Close Controls",
         "description": "Deterministic monthly close controls for Xero-shaped trial balance exports, exception packs and human review.",
         "url": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
         "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",

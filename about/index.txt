@@ -1,16 +1,16 @@
-# About Ryan Duguid, accountant in Newcastle, NSW
+# About Ryan Duguid, Senior Accountant in Newcastle, NSW
 
 Source: https://duguid.com.au/about/
 
-> I’m Ryan Duguid, a Newcastle, NSW accountant building open source accounting tools. I’m a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3.
+> Ryan Duguid, Senior Accountant in Newcastle, NSW. Open source accounting tools, Provisional CA ANZ Member and Xero Certified Specialist, Level 3.
 
 # About Ryan Duguid
 
-I’m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
+I’m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 26 September 2026.
+Last reviewed 21 October 2026.
 
 ## The short facts
 

@@ -399,3 +399,7 @@ The site-check runner reports elapsed time for the Jekyll build and each
 subcommand, including a failing command. Compare the same event, source revision
 and runner before changing check coverage. These timings measure elapsed time;
 they do not establish billed minutes or savings.
+
+## Current tool releases
+
+Run `node scripts/stamp-source-freshness.mjs --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.

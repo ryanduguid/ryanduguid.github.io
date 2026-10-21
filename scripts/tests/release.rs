@@ -58,18 +58,22 @@ fn documented_engine_pins() {
     if !rendered() {
         return;
     }
-    let record = load(root()).unwrap();
+    let mut record = load(root()).unwrap();
+    *at(
+        &mut record,
+        &["components", "aus-accounting-mcp", "published", "version"],
+    ) = s("9.9.9");
     let site = copied_site();
     replace_file(
         site.path(),
         MCP_REL,
-        "australian-tax-calculators 0.1.5",
+        "australian-tax-calculators 0.2.0",
         "australian-tax-calculators 0.1.4",
     );
     expect_failure(
         "historical engine pin drift",
         &check(site.path(), &record),
-        "but aus-accounting-mcp 0.2.8 pins 0.1.5",
+        "but aus-accounting-mcp 0.6.0 pins 0.2.0",
     );
     let mut partial = record.clone();
     remove(
@@ -98,7 +102,7 @@ fn documented_engine_pins() {
         &check(root(), &missing),
         "missing engine pin for australian-tax-calculators",
     );
-    let mut newer = record.clone();
+    let mut newer = load(root()).unwrap();
     *at(
         &mut newer,
         &[
@@ -162,7 +166,7 @@ fn release_claims() {
         site.path(),
         MCP_REL,
         "<p class=\"page-meta\">",
-        "<p>Release 9.9.9 is the current published release; this page still documents 0.2.8.</p>\n    <p class=\"page-meta\">",
+        "<p>Release 9.9.9 is the current published release; this page still documents 0.6.0.</p>\n    <p class=\"page-meta\">",
     );
     let failures = check(site.path(), &lagging);
     assert!(
@@ -210,7 +214,7 @@ fn release_claims() {
     replace_file(
         site.path(),
         MCP_REL,
-        "\"softwareVersion\": \"0.2.8\"",
+        "\"softwareVersion\": \"0.6.0\"",
         "\"softwareVersion\": \"0.2.0\"",
     );
     expect_failure(
@@ -298,7 +302,7 @@ fn release_claims() {
     *at(
         &mut current,
         &["components", "aus-accounting-mcp", "published", "version"],
-    ) = s("0.2.8");
+    ) = s("0.6.0");
     *at(
         &mut current,
         &[
@@ -308,7 +312,7 @@ fn release_claims() {
             "release_url",
         ],
     ) = s(
-        "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.8",
+        "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0",
     );
     let pins = at(
         &mut current,
@@ -328,13 +332,13 @@ fn release_claims() {
     replace_file(
         site.path(),
         MCP_REL,
-        "australian-tax-calculators 0.1.5",
+        "australian-tax-calculators 0.2.0",
         "australian-tax-calculators 0.1.4",
     );
     expect_failure(
         "engine pin drift",
         &check(site.path(), &current),
-        "but aus-accounting-mcp 0.2.8 pins 0.1.5",
+        "but aus-accounting-mcp 0.6.0 pins 0.2.0",
     );
 
     // An evaluation's label names its component, so an unrelated number cannot pass.

@@ -49,8 +49,8 @@ pub const RETIRED_GITHUB_SOURCE_INSTALL_PATTERN: &str = concat!(
 pub const CA_ANZ_NON_ENDORSEMENT: &str =
     "I am a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.";
 pub const MCP_REL: &str = "tools/australian-tax-ai-agents/index.html";
-pub const MCP_REVIEW_DATE: &str = "2026-10-01";
-pub const MCP_VISIBLE_REVIEW_DATE: &str = "1 October 2026";
+pub const MCP_REVIEW_DATE: &str = "2026-10-21";
+pub const MCP_VISIBLE_REVIEW_DATE: &str = "21 October 2026";
 pub const ASSURANCE_ANCHORS: [(&str, &str); 10] = [
     (
         "quarter-close-to-forecast",
@@ -87,7 +87,7 @@ pub const PERSON_SAME_AS: [&str; 4] = [
 ];
 pub const PERSON_REQUIRED_FIELDS: [(&str, &str); 3] = [
     ("name", "Ryan Duguid"),
-    ("jobTitle", "Accountant"),
+    ("jobTitle", "Senior Accountant"),
     ("url", "https://duguid.com.au/about/"),
 ];
 pub const PERSON_ADDRESS: [(&str, &str); 4] = [
@@ -135,8 +135,8 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Claude Code and Codex skills for Australian public practice workflows. Not lodgement.",
     ),
     (
-        "workpaper-review-gate",
-        "workpaper-review-gate",
+        "review-ready-gate",
+        "review-ready-gate",
         "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
         "Stop incomplete workpapers reaching manager review. Deterministic readiness gate for Australian public practice packs. Not advice.",
     ),
@@ -147,8 +147,8 @@ pub const CURRENT_SOFTWARE_REPOSITORIES: [(&str, &str, &str, &str); 10] = [
         "Source-controlled Power BI project for Australian accounting analytics, consolidation, ATO benchmarks and Payday Super review.",
     ),
     (
-        "monthly-close-controls",
-        "monthly-close-controls",
+        "monthly-close-control-plane",
+        "monthly-close-control-plane",
         "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
         "Deterministic monthly close controls for Xero-shaped trial balance exports, exception packs and human review.",
     ),
@@ -544,25 +544,34 @@ pub const COLLECTION_HUBS: [CollectionHub; 3] = [
         entries: &[
             (
                 "/tools/xero-trial-balance/",
-                "Xero trial balance CSV export",
+                "Xero trial balance CSV export tool",
             ),
-            ("/tools/subcontractor-ledgers/", "Subcontract ledger skills"),
-            ("/tools/wip-schedule/", "Construction WIP schedule"),
-            ("/tools/payday-super/", "Payday Super timing"),
-            ("/tools/ato-benchmarks/", "ATO benchmark comparison"),
+            (
+                "/tools/subcontractor-ledgers/",
+                "Subcontractor ledger skills for construction and mining",
+            ),
+            (
+                "/tools/wip-schedule/",
+                "TheWIPTally construction WIP schedule",
+            ),
+            ("/tools/payday-super/", "Payday Super receipt evidence"),
+            (
+                "/tools/ato-benchmarks/",
+                "ATO small business benchmark comparison tool",
+            ),
             ("/tools/coal-lsl-levy/", "Coal LSL levy calculator"),
-            ("/tools/trust-distributions/", "Trust distribution checks"),
+            (
+                "/tools/trust-distributions/",
+                "Trust distribution worksheets for professional review",
+            ),
             (
                 "/tools/company-tax-franking/",
-                "Company tax and franking checks",
+                "Company tax and franking worksheets",
             ),
-            ("/tools/ozzit/", "Ozzit Excel LAMBDA library"),
+            ("/tools/ozzit/", "Ozzit"),
             ("/tools/workpaper-review-gate/", "Workpaper Review Gate"),
             ("/tools/monthly-close-controls/", "Monthly Close Controls"),
-            (
-                "/tools/australian-tax-ai-agents/",
-                "Australian tax tools for AI agents",
-            ),
+            ("/tools/australian-tax-ai-agents/", "Aus Accounting MCP"),
         ],
     },
     CollectionHub {
@@ -655,7 +664,7 @@ pub const TASK_ROUTE_ENTRIES: [(&str, &str, &str); 5] = [
     HOMEPAGE_PREVIEW_ENTRIES[3],
 ];
 pub const HOMEPAGE_ANCHORS: [&str; 2] = ["adopt", "verify"];
-pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, an accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
+pub const ABOUT_OPENING: &str = "I\u{2019}m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.";
 pub const EVIDENCE_HEADING: &str = "Evidence behind the tools";
 pub const EVIDENCE_OPENING: &str = "Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.";
 pub const HOMEPAGE_REQUIRED_TEXT: [&str; 4] = [

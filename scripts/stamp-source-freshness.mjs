@@ -207,7 +207,13 @@ export async function checkToolReleases(pages, lookup = fetchReleases) {
   const failures = [];
   const repositories = new Map();
   for (const [rel, html] of pages) {
-    const meta = /<p class="release-meta">([\s\S]*?)<\/p>/.exec(html)?.[1];
+    let meta = /<p class="release-meta">([\s\S]*?)<\/p>/.exec(html)?.[1];
+    if (meta?.includes('{{ release.url }}')) {
+      const slug = rel.split('/')[1];
+      const snapshot = JSON.parse(readFileSync(join(root, '_data/tool_releases.json'), 'utf8'))[slug];
+      if (!snapshot?.url) throw new Error(rel + ': no release snapshot');
+      meta = meta.replace('{{ release.url }}', snapshot.url);
+    }
     if (!meta) continue;
     const link = /<a href="https:\/\/github\.com\/([\w.-]+\/[\w.-]+)\/releases\/tag\/([^"#?]+)"/.exec(meta);
     if (!link) continue;
@@ -240,7 +246,112 @@ function toolPages() {
     .map((path) => [relative(root, path).replaceAll('\\', '/'), readFileSync(path, 'utf8')]);
 }
 
+// Release data is refreshed explicitly at build time; ordinary Jekyll builds use
+// the checked snapshot so offline checks never depend on GitHub availability.
+export async function buildToolReleaseData(tools, lookup = fetchReleases) {
+  const repositories = new Map();
+  const data = {};
+  for (const [slug, tool] of Object.entries(tools)) {
+    if (tool.tagPrefix === null) continue; // The browser levy has no tagged release.
+    if (!repositories.has(tool.repository)) repositories.set(tool.repository, await lookup(tool.repository));
+    const releases = repositories.get(tool.repository).filter((r) =>
+      !r.draft && !r.prerelease && r.published_at && r.tag_name.startsWith(tool.tagPrefix) &&
+      /^\d+\.\d+\.\d+$/.test(r.tag_name.slice(tool.tagPrefix.length)));
+    const latest = releases.sort((a, b) =>
+      a.tag_name.localeCompare(b.tag_name, 'en', { numeric: true })).at(-1);
+    if (!latest) throw new Error(slug + ': no published stable release');
+    const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney',
+      year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(latest.published_at));
+    data[slug] = { version: latest.tag_name.slice(tool.tagPrefix.length), tag: latest.tag_name,
+      date, dateLabel: formatDate(date),
+      url: 'https://github.com/' + tool.repository + '/releases/tag/' + latest.tag_name };
+  }
+  return data;
+}
+
+export function stampToolMetadata(html, tool, release) {
+  return html.replace(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g, (whole, body) => {
+    const schema = JSON.parse(body);
+    for (const entry of schema['@graph'] ?? [schema]) {
+      if ([entry['@type']].flat().includes('SoftwareApplication')) {
+        Object.assign(entry, { '@type': ['SoftwareApplication', 'SoftwareSourceCode'],
+          name: tool.name, alternateName: tool.alternateName, softwareVersion: release.version,
+          dateModified: release.date, codeRepository: tool.codeRepository, isAccessibleForFree: true });
+        delete entry.offers;
+        if (tool.sameAs?.length) entry.sameAs = tool.sameAs;
+        else if (tool.sameAs) delete entry.sameAs;
+      }
+    }
+    return '<script type="application/ld+json">\n' + JSON.stringify(schema, null, 2) + '\n</script>';
+  });
+}
+
+export function stampToolSitemap(sitemap, url, html) {
+  const dates = new Set();
+  for (const match of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    const schema = JSON.parse(match[1]);
+    for (const entry of schema['@graph'] ?? [schema]) {
+      if ([entry['@type']].flat().some(type => ['WebPage', 'TechArticle'].includes(type)) && entry.dateModified) {
+        dates.add(entry.dateModified);
+      }
+    }
+  }
+  if (dates.size !== 1) throw new Error(url + ': expected one document modification date');
+  return sitemap.replace(new RegExp('(<loc>' + url.replaceAll('.', '\\.') + '</loc>\\s*<lastmod>)[^<]+'),
+    (_, start) => start + [...dates][0]);
+}
+
+export function stampMcpIndex(text, release) {
+  return text.replace(/(\[Aus Accounting MCP\]\(https:\/\/duguid\.com\.au\/tools\/australian-tax-ai-agents\/\): local MCP server, current release )v[\d.]+ \([^)]+\)/,
+    (_, start) => start + 'v' + release.version + ' (' + release.dateLabel + ')');
+}
+
+export function buildCalculatorRevision(run = execFileSync) {
+  const repository = 'ryanduguid/ryanduguid.github.io';
+  const revisions = SOURCE_PATHS.get(repository).map(path => JSON.parse(run(
+    // Maintainer entry point, using the same trusted CLI as fetchReleases.
+    'gh', // NOSONAR
+    ['api', 'repos/' + repository + '/commits?path=' + encodeURIComponent(path) + '&per_page=1',
+      '--jq', '.[0]|{sha,date:.commit.committer.date}'],
+    { encoding: 'utf8', timeout: 15_000 })));
+  return revisions.sort((a, b) => a.date.localeCompare(b.date)).at(-1);
+}
+
 async function main() {
+  if (process.argv.includes('--build') || process.argv.includes('--write-tool-releases')) {
+    const tools = JSON.parse(readFileSync(join(root, '_data/tools.json'), 'utf8'));
+    const data = await buildToolReleaseData(tools);
+    const revision = buildCalculatorRevision();
+    const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney',
+      year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(revision.date));
+    data['coal-lsl-levy'] = { version: revision.sha, date, dateLabel: formatDate(date),
+      url: 'https://github.com/ryanduguid/ryanduguid.github.io/commit/' + revision.sha };
+    writeFileSync(join(root, '_data/tool_releases.json'), JSON.stringify(data, null, 2) + '\n');
+    let sitemap = readFileSync(join(root, 'sitemap.xml'), 'utf8');
+    let register = readFileSync(page, 'utf8');
+    for (const [slug, tool] of Object.entries(tools)) {
+      const source = join(root, 'tools', slug, 'index.html');
+      const html = stampToolMetadata(readFileSync(source, 'utf8'), tool, data[slug]);
+      writeFileSync(source, html);
+      const url = 'https://duguid.com.au/tools/' + slug + '/';
+      sitemap = stampToolSitemap(sitemap, url, html);
+      register = register.replace(new RegExp('(class="collection-entry__title" href="/tools/' + slug + '/">)[^<]*'),
+        (_, start) => start + tool.name);
+      register = register.replace(new RegExp('("name": ")[^"\\n]+("[,]?\\s*"url": "' + url.replaceAll('.', '\\.') + '")'),
+        (_, start, end) => start + tool.name + end);
+    }
+    writeFileSync(join(root, 'sitemap.xml'), sitemap);
+    writeFileSync(page, register);
+    const index = join(root, 'llms.txt');
+    writeFileSync(index, stampMcpIndex(readFileSync(index, 'utf8'), data['australian-tax-ai-agents']));
+    console.log('tool releases refreshed from published GitHub tags; browser levy from source revision');
+    if (process.argv.includes('--build')) execFileSync(
+      // Maintainer entry point, using the maintainer's own Rust toolchain.
+      'cargo', // NOSONAR
+      ['run', '--locked', '--quiet', '--manifest-path', 'scripts/Cargo.toml', '--', 'build_site'],
+      { cwd: root, stdio: 'inherit', timeout: 300_000 });
+    return 0;
+  }
   if (process.argv.includes('--check-releases')) {
     const releaseLookup = new Map();
     const cachedLookup = async (repository) => {

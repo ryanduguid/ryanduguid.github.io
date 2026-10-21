@@ -1,5 +1,8 @@
 ---
+tool: wip-schedule
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -54,16 +57,16 @@
         <li aria-current="page">Construction WIP schedule</li>
       </ol>
     </nav>
-    <h1>Construction WIP under AASB 15: over- or under-billed?</h1>
-    <p class="lead-note">
-      TheWIPTally reads one row per unit of account and produces a cost-to-cost
+    <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+    <p class="lead-note">TheWIPTally reads one row per unit of account and produces a cost-to-cost
       work-in-progress schedule: earned revenue after AASB 15 para B19
       exclusions, constrained unapproved variations, and a contract asset or
       contract liability per job. Assets and liabilities are never netted.
-      Review aid, not a determination.
-    </p>
-    <p class="release-meta">Reference release <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.2">the-wip-tally/v0.1.2</a>, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0">the-wip-tally/v0.2.0</a>, published on 19 October 2026. It requires Python 3.14 or later and moves to Apache-2.0. Where a contract’s outcome is not reasonably measurable, it now limits revenue to recoverable cost under AASB 15 para 45 before any measure of progress; contracts whose outcome is reasonably measurable, like the worked example, are unchanged. <a href="https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.1.4">the-wip-tally/v0.1.4</a> remains the last release for Python 3.11 to 3.13.</p>
-    <p class="page-meta">Published 25 August 2026. Last reviewed 13 October 2026.</p>
+      Review aid, not a determination.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+
+    <p class="page-meta">Published 25 August 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -180,129 +183,137 @@ wip-tally schedule examples/sample_contracts.csv --as-at 2026-08-31</code></pre>
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/wip-schedule/#webpage",
-        "url": "https://duguid.com.au/tools/wip-schedule/",
-        "name": "Construction WIP under AASB 15: over- or under-billed?",
-        "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-25",
-        "dateModified": "2026-10-13",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": {
-          "@id": "https://duguid.com.au/#website"
-        },
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "publisher": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "mainEntity": {
-          "@id": "https://duguid.com.au/tools/wip-schedule/#software"
-        },
-        "breadcrumb": {
-          "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb"
-        },
-        "about": {
-          "@type": "Thing",
-          "name": "AASB 15 construction work-in-progress schedule"
-        }
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/wip-schedule/#webpage",
+      "url": "https://duguid.com.au/tools/wip-schedule/",
+      "name": "Construction WIP under AASB 15: over- or under-billed?",
+      "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-25",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Construction WIP schedule",
-            "item": "https://duguid.com.au/tools/wip-schedule/"
-          }
-        ]
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@context": "https://schema.org",
-        "@type": "SoftwareApplication",
-        "name": "TheWIPTally construction WIP schedule",
-        "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Windows, macOS, Linux",
-        "url": "https://duguid.com.au/tools/wip-schedule/",
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "AUD"
-        },
-        "@id": "https://duguid.com.au/tools/wip-schedule/#software",
-        "author": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "creator": {
-          "@id": "https://duguid.com.au/about/#person"
-        },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU",
-        "datePublished": "2026-08-25",
-        "dateModified": "2026-10-13"
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/wip-schedule/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is a contract asset versus a contract liability?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Does wasted cost accelerate percentage complete?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Para B19(a) amounts are stripped from the progress measure and kept in estimated cost at completion, so they hit margin instead of pulling revenue forward."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Are unapproved variations booked in full?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%."
-            }
-          },
-          {
-            "@type": "Question",
-            "name": "Is this an accounting determination?",
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": "No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable and any AASB 137 onerous provision stay with the engagement lead."
-            }
-          }
-        ]
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/wip-schedule/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb"
+      },
+      "about": {
+        "@type": "Thing",
+        "name": "AASB 15 construction work-in-progress schedule"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/wip-schedule/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Construction WIP schedule",
+          "item": "https://duguid.com.au/tools/wip-schedule/"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "name": "TheWIPTally construction WIP schedule",
+      "description": "AASB 15 construction WIP from a contract CSV: cost-to-cost progress, per-contract assets and liabilities, and profit fade. Review aid, not a determination.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows, macOS, Linux",
+      "url": "https://duguid.com.au/tools/wip-schedule/",
+      "@id": "https://duguid.com.au/tools/wip-schedule/#software",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU",
+      "datePublished": "2026-08-25",
+      "dateModified": "2026-10-19",
+      "alternateName": [
+        "Construction WIP under AASB 15: over- or under-billed?",
+        "the-wip-tally",
+        "Construction WIP schedule"
+      ],
+      "softwareVersion": "0.2.0",
+      "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally",
+      "sameAs": [
+        "https://pypi.org/project/the-wip-tally/"
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/wip-schedule/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is a contract asset versus a contract liability?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Revenue to date less certified billings, per contract. Positive is a contract asset. Negative is a contract liability. The engine never offsets one job against another."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does wasted cost accelerate percentage complete?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Para B19(a) amounts are stripped from the progress measure and kept in estimated cost at completion, so they hit margin instead of pulling revenue forward."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Are unapproved variations booked in full?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Only the constrained slice (unapproved estimate multiplied by the include ratio) enters transaction price. A bare 25 is refused; use 0.25 or 25%."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is this an accounting determination?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It is a review aid. Recognition over time versus at a point in time, whether a claim is enforceable and any AASB 137 onerous provision stay with the engagement lead."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

@@ -319,3 +319,74 @@ test('a release check that cannot reach gh exits 2, not 1', () => {
   assert.equal(result.status, 2, result.stderr);
   assert.match(result.stderr, /ENOENT/);
 });
+
+test('tool release snapshot selects published stable package tags in Sydney time', async () => {
+  const tools = { a: { repository: 'owner/repo', tagPrefix: 'a/v' }, b: { repository: 'owner/repo', tagPrefix: 'b/v' } };
+  let calls = 0;
+  const lookup = async () => { calls += 1; return [
+    { tag_name: 'a/v0.9.0', published_at: '2026-10-19T14:00:00Z' },
+    { tag_name: 'a/v0.10.0', published_at: '2026-10-19T14:00:00Z' },
+    { tag_name: 'a/v1.0.0', published_at: '2026-10-19T14:00:00Z', draft: true },
+    { tag_name: 'a/v2.0.0', published_at: '2026-10-19T14:00:00Z', prerelease: true },
+    { tag_name: 'b/v3.5.0', published_at: '2026-10-19T08:00:00Z' },
+  ]; };
+  const data = await freshness.buildToolReleaseData(tools, lookup);
+  assert.equal(calls, 1);
+  assert.equal(data.a.version, '0.10.0');
+  assert.equal(data.a.date, '2026-10-20');
+  assert.equal(data.b.date, '2026-10-19');
+  await assert.rejects(freshness.buildToolReleaseData({ absent: { repository: 'owner/repo', tagPrefix: 'absent/v' } }, lookup), /no published stable release/);
+});
+
+test('metadata stamping preserves pinned examples whilst replacing current product metadata', () => {
+  const source = '<p>Worked example v0.1.3</p><script type="application/ld+json">' + JSON.stringify({ '@graph': [
+    { '@type': 'TechArticle', dateModified: '2026-10-21' },
+    { '@type': 'SoftwareApplication', name: 'Old name', offers: { '@type': 'Offer', price: '0' } },
+  ] }) + '</script>';
+  const stamped = freshness.stampToolMetadata(source, { name: 'Tool', alternateName: ['old'], codeRepository: 'https://example.com/source', sameAs: ['https://pypi.org/project/tool/'] },
+    { version: '0.2.2', date: '2026-10-20' });
+  assert.ok(stamped.includes('Worked example v0.1.3'));
+  assert.ok(!stamped.includes('Offer'));
+  assert.ok(stamped.includes('SoftwareSourceCode'));
+  const stampedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(stamped)[1])['@graph'];
+  assert.equal(stampedGraph[0].dateModified, '2026-10-21');
+  assert.equal(stampedGraph[1].dateModified, '2026-10-20');
+  const sitemap = '<loc>https://example.com/tool/</loc><lastmod>2026-09-01</lastmod>';
+  assert.equal(freshness.stampToolSitemap(sitemap, 'https://example.com/tool/', stamped),
+    '<loc>https://example.com/tool/</loc><lastmod>2026-10-21</lastmod>');
+  assert.deepEqual(stampedGraph[1].sameAs, ['https://pypi.org/project/tool/']);
+  const cleared = freshness.stampToolMetadata(stamped, { name: 'Tool', alternateName: [], codeRepository: 'https://example.com/source', sameAs: [] }, { version: '0.2.2', date: '2026-10-20' });
+  const clearedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(cleared)[1])['@graph'];
+  assert.equal(Object.hasOwn(clearedGraph[1], 'sameAs'), false);
+});
+
+test('sitemap refresh rejects missing or inconsistent document dates', () => {
+  const html = '<script type="application/ld+json">' + JSON.stringify({ '@graph': [
+    { '@type': 'WebPage', dateModified: '2026-10-20' },
+    { '@type': 'TechArticle', dateModified: '2026-10-21' },
+  ] }) + '</script>';
+  assert.throws(() => freshness.stampToolSitemap('', 'https://example.com/tool/', html), /one document modification date/);
+  assert.throws(() => freshness.stampToolSitemap('', 'https://example.com/tool/', ''), /one document modification date/);
+});
+
+test('MCP index refresh changes only the current release', () => {
+  const index = '[Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.5.0 (1 October 2026). Pinned example v0.2.8.';
+  const updated = freshness.stampMcpIndex(index, { version: '0.6.0', dateLabel: '20 October 2026' });
+  assert.ok(updated.includes('current release v0.6.0 (20 October 2026)'));
+  assert.ok(updated.includes('Pinned example v0.2.8'));
+});
+
+test('calculator identity uses the newest implementing file, including its page adapter', () => {
+  const paths = [];
+  const revision = freshness.buildCalculatorRevision((command, args, options) => {
+    assert.equal(command, 'gh');
+    assert.equal(options.timeout, 15_000);
+    const path = new URL(args[1], 'https://api.github.com/').searchParams.get('path');
+    paths.push(path);
+    return JSON.stringify(path === 'assets/levy-page.mjs'
+      ? { sha: 'new-adapter', date: '2026-10-19T12:33:50Z' }
+      : { sha: 'old-core', date: '2026-09-27T00:00:00Z' });
+  });
+  assert.deepEqual(paths, ['assets/levy.mjs', 'assets/levy-form.mjs', 'assets/levy-page.mjs', 'assets/levy-explanation.mjs']);
+  assert.deepEqual(revision, { sha: 'new-adapter', date: '2026-10-19T12:33:50Z' });
+});

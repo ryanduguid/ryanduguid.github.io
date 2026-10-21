@@ -6,13 +6,15 @@ Source: https://duguid.com.au/tools/company-tax-franking/
 
 # Company tax and franking worksheets
 
+Package the-exchequer-tally in the australian-accounting repository. Current release v0.2.0.
+
 A company gets the lower tax rate only if it is a base rate entity: aggregated turnover under the year’s threshold, and no more than 80% of assessable income being base rate entity passive income. Get that test wrong and the company pays the wrong income tax for the year. The rate used to frank a dividend is a separate imputation question that turns on prior-year facts, not this year’s test; this tool keeps the two apart and the worked example below does not determine a maximum franking rate. It runs the test, tracks the franking account and checks the Division 203 benchmark rule.
+
+Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
-Reference release the-exchequer-tally/v0.1.7, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is the-exchequer-tally/v0.2.0, published on 19 October 2026, which pip install the-exchequer-tally fetches. It requires Python 3.14 or later, moves to Apache-2.0 and changes no calculation; the-exchequer-tally/v0.1.8 remains the last release for Python 3.11 to 3.13.
-
-Published 24 August 2026. Last reviewed 13 October 2026.
+Published 24 August 2026. Last reviewed 21 October 2026.
 
 This tool runs the base rate entity test and tracks a franking account ledger covering PAYG instalments, company tax paid, dividends paid and received, and refunds. It works out franking deficit tax and checks the 30% offset reduction for supported debit types. The debit types and applicable exceptions determine whether a reduction applies, as explained under Common questions. It also checks distributions in a franking period against the Division 203 benchmark rule for over-franking tax and franking debit shortfalls.
 
@@ -92,12 +94,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- the-exchequer-tally/v0.1.7: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.7
-- the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
-- the-exchequer-tally/v0.1.8: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.1.8
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
+- v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - Published package: https://pypi.org/project/the-exchequer-tally/0.1.7/
 - release instructions: https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.1.7/packages/the-exchequer-tally/README.md#quickstart
-- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally
 - ATO company tax rates: https://www.ato.gov.au/tax-rates-and-codes/company-tax-rates
 - Division 203 of the Income Tax Assessment Act 1997: https://www.legislation.gov.au/C2004A05138/latest/text
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues

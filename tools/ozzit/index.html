@@ -1,5 +1,8 @@
 ---
+tool: ozzit
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -55,15 +58,17 @@
           </ol>
         </nav>
         <div class="article-intro">
-          <h1>Ozzit: Excel LAMBDA functions for Australian modelling</h1>
+          <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
           <p class="lead-note">143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
           <div class="article-actions">
             <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx">Download Ozzit v3.5.0</a>
             <a href="#functions">Browse worked formulas</a>
           </div>
           <p class="field-note">XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.</p>
-          <p class="release-meta">Current release v3.5.0, published 19 October 2026, verified 19 October 2026. <a href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0">Release record and verification on GitHub</a>.</p>
-          <p class="page-meta">Published 18 September 2026. Last reviewed 20 October 2026.</p>
+
+          <p class="page-meta">Published 18 September 2026. Last reviewed 21 October 2026.</p>
         </div>
         <section class="article-preview" aria-labelledby="gst-preview-title">
           <h2 id="gst-preview-title">Extract GST from $1,100</h2>
@@ -210,123 +215,166 @@
   </main>
 {% include site-footer.html %}
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "TechArticle",
-        "@id": "https://duguid.com.au/tools/ozzit/#article",
-        "url": "https://duguid.com.au/tools/ozzit/",
-        "headline": "Ozzit: Excel LAMBDA functions for Australian modelling",
-        "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
-        "description": "A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-09-18",
-        "dateModified": "2026-10-20",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": { "@id": "https://duguid.com.au/#website" },
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
-        "mainEntity": { "@id": "https://duguid.com.au/tools/ozzit/#software" },
-        "about": [
-          { "@type": "Thing", "name": "Excel LAMBDA functions" },
-          { "@type": "Thing", "name": "Australian financial modelling" }
-        ]
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "TechArticle",
+      "@id": "https://duguid.com.au/tools/ozzit/#article",
+      "url": "https://duguid.com.au/tools/ozzit/",
+      "headline": "Ozzit: Excel LAMBDA functions for Australian modelling",
+      "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
+      "description": "A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
       },
-      {
-        "@type": "WebPage",
-        "@id": "https://duguid.com.au/tools/ozzit/#webpage",
-        "url": "https://duguid.com.au/tools/ozzit/",
-        "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
-        "description": "A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
-        "inLanguage": "en-AU",
-        "datePublished": "2026-09-18",
-        "dateModified": "2026-10-20",
-        "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
-        "isPartOf": { "@id": "https://duguid.com.au/#website" },
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "publisher": { "@id": "https://duguid.com.au/about/#person" },
-        "mainEntity": { "@id": "https://duguid.com.au/tools/ozzit/#software" },
-        "breadcrumb": { "@id": "https://duguid.com.au/tools/ozzit/#breadcrumb" }
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "BreadcrumbList",
-        "@id": "https://duguid.com.au/tools/ozzit/#breadcrumb",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Home",
-            "item": "https://duguid.com.au/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Tools",
-            "item": "https://duguid.com.au/tools/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Ozzit Excel LAMBDA library",
-            "item": "https://duguid.com.au/tools/ozzit/"
-          }
-        ]
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
       },
-      {
-        "@type": "SoftwareApplication",
-        "@id": "https://duguid.com.au/tools/ozzit/#software",
-        "name": "Ozzit",
-        "alternateName": "ozzit.xlsx",
-        "description": "An Excel workbook of 143 native LAMBDA functions and 5 help tables for dynamic-array financial modelling under Australian conventions. No VBA, add-in or external dependency.",
-        "applicationCategory": "FinanceApplication",
-        "operatingSystem": "Windows, macOS",
-        "softwareRequirements": "Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays",
-        "url": "https://duguid.com.au/tools/ozzit/",
-        "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx",
-        "codeRepository": "https://github.com/ryanduguid/Ozzit",
-        "sameAs": [
-          "https://github.com/ryanduguid/Ozzit"
-        ],
-        "softwareVersion": "3.5.0",
-        "datePublished": "2026-10-19",
-        "dateModified": "2026-10-20",
-        "license": "https://github.com/ryanduguid/Ozzit/blob/v3.5.0/LICENSE",
-        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "AUD" },
-        "author": { "@id": "https://duguid.com.au/about/#person" },
-        "creator": { "@id": "https://duguid.com.au/about/#person" },
-        "isAccessibleForFree": true,
-        "inLanguage": "en-AU"
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/ozzit/#software"
       },
-      {
-        "@type": "FAQPage",
-        "@id": "https://duguid.com.au/tools/ozzit/#faq",
-        "mainEntity": [
-          {
-            "@type": "Question",
-            "name": "What is Ozzit?",
-            "acceptedAnswer": { "@type": "Answer", "text": "An Excel workbook containing 143 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency." }
-          },
-          {
-            "@type": "Question",
-            "name": "Which Excel versions can run it?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions." }
-          },
-          {
-            "@type": "Question",
-            "name": "Does Ozzit calculate Australian tax?",
-            "acceptedAnswer": { "@type": "Answer", "text": "No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations." }
-          },
-          {
-            "@type": "Question",
-            "name": "Where do I get the current release?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Release v3.5.0, published on 19 October 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use." }
-          }
-        ]
+      "about": [
+        {
+          "@type": "Thing",
+          "name": "Excel LAMBDA functions"
+        },
+        {
+          "@type": "Thing",
+          "name": "Australian financial modelling"
+        }
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/tools/ozzit/#webpage",
+      "url": "https://duguid.com.au/tools/ozzit/",
+      "name": "Ozzit: Excel LAMBDA functions for Australian modelling",
+      "description": "A free Excel workbook of 143 native LAMBDA functions and 5 help tables for Australian financial modelling, with GST, financial year, depreciation and AASB 16 lessee helpers.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-09-18",
+      "dateModified": "2026-10-21",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au/tools/ozzit/#software"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/tools/ozzit/#breadcrumb"
       }
-    ]
-  }
-  </script>
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/tools/ozzit/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Ozzit Excel LAMBDA library",
+          "item": "https://duguid.com.au/tools/ozzit/"
+        }
+      ]
+    },
+    {
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
+      "@id": "https://duguid.com.au/tools/ozzit/#software",
+      "name": "Ozzit",
+      "alternateName": [
+        "Ozzit: Excel LAMBDA functions for Australian modelling",
+        "ozzit.xlsx",
+        "Ozzit"
+      ],
+      "description": "An Excel workbook of 143 native LAMBDA functions and 5 help tables for dynamic-array financial modelling under Australian conventions. No VBA, add-in or external dependency.",
+      "applicationCategory": "FinanceApplication",
+      "operatingSystem": "Windows, macOS",
+      "softwareRequirements": "Microsoft 365 or Excel 2024 or later, with LAMBDA and dynamic arrays",
+      "url": "https://duguid.com.au/tools/ozzit/",
+      "downloadUrl": "https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx",
+      "codeRepository": "https://github.com/ryanduguid/Ozzit/tree/main",
+      "softwareVersion": "3.5.0",
+      "datePublished": "2026-10-19",
+      "dateModified": "2026-10-19",
+      "license": "https://github.com/ryanduguid/Ozzit/blob/v3.5.0/LICENSE",
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "creator": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "isAccessibleForFree": true,
+      "inLanguage": "en-AU"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://duguid.com.au/tools/ozzit/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Ozzit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "An Excel workbook containing 143 native LAMBDA functions and 5 help tables for financial modelling under Australian conventions, published free under the Apache License 2.0. It has no add-in, macro or external dependency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which Excel versions can run it?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Microsoft 365 or Excel 2024 or later, which support LAMBDA and dynamic arrays. LibreOffice and earlier Excel versions cannot evaluate the functions."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Ozzit calculate Australian tax?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. It performs 10% GST arithmetic and labels Australian financial years, and its depreciation and lease functions are modelling schedules rather than ATO or standard-setting methods. It contains no income tax, Medicare levy or Division 7A calculations."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where do I get the current release?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Release v3.5.0, published on 19 October 2026, ships ozzit.xlsx with a SHA256SUMS file and a provenance record on its GitHub release page. Compare the downloaded file’s SHA-256 with the published value before use."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

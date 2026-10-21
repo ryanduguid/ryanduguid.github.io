@@ -1,0 +1,181 @@
+{
+  "ato-benchmarks": {
+    "name": "ATO small business benchmark comparison tool",
+    "package": "ato-benchmark-compare",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "packages/ato-benchmark-compare",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare",
+    "tagPrefix": "ato-benchmark-compare/v",
+    "alternateName": [
+      "How does this business compare to the ATO small business benchmarks?",
+      "ato-benchmark-compare"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/ato-benchmark-compare/"
+    ]
+  },
+  "australian-tax-ai-agents": {
+    "name": "Aus Accounting MCP",
+    "package": "aus-accounting-mcp",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "apps/aus-accounting-mcp",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp",
+    "tagPrefix": "aus-accounting-mcp/v",
+    "alternateName": [
+      "Australian tax MCP server: Aus Accounting MCP",
+      "aus-accounting-mcp"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/aus-accounting-mcp/"
+    ]
+  },
+  "coal-lsl-levy": {
+    "name": "Coal LSL levy calculator",
+    "package": "assets/levy.mjs",
+    "repository": "ryanduguid/ryanduguid.github.io",
+    "path": "assets",
+    "codeRepository": "https://github.com/ryanduguid/ryanduguid.github.io/tree/main/assets",
+    "tagPrefix": null,
+    "alternateName": [
+      "Coal LSL levy calculator and section 3B eligible wages",
+      "assets/levy.mjs"
+    ],
+    "sameAs": []
+  },
+  "company-tax-franking": {
+    "name": "Company tax and franking worksheets",
+    "package": "the-exchequer-tally",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "packages/the-exchequer-tally",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-exchequer-tally",
+    "tagPrefix": "the-exchequer-tally/v",
+    "alternateName": [
+      "Company tax rate and franking account checker",
+      "the-exchequer-tally",
+      "Company tax and franking checks"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/the-exchequer-tally/"
+    ]
+  },
+  "monthly-close-controls": {
+    "name": "Monthly Close Controls",
+    "package": "monthly-close-control-plane",
+    "repository": "ryanduguid/accounting-review-pipeline",
+    "path": "packages/monthly-close-control-plane",
+    "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
+    "tagPrefix": "monthly-close-control-plane/v",
+    "alternateName": [
+      "What needs review before a Xero month-end close?",
+      "monthly-close-control-plane"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/monthly-close-control-plane/"
+    ]
+  },
+  "ozzit": {
+    "name": "Ozzit",
+    "package": "Ozzit",
+    "repository": "ryanduguid/Ozzit",
+    "path": "",
+    "codeRepository": "https://github.com/ryanduguid/Ozzit/tree/main",
+    "tagPrefix": "v",
+    "alternateName": [
+      "Ozzit: Excel LAMBDA functions for Australian modelling",
+      "ozzit.xlsx",
+      "Ozzit"
+    ],
+    "sameAs": []
+  },
+  "payday-super": {
+    "name": "Payday Super receipt evidence",
+    "package": "payday-super-checker",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "packages/payday-super-checker",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker",
+    "tagPrefix": "payday-super-checker/v",
+    "alternateName": [
+      "Payday super due date checker",
+      "payday-super-checker",
+      "Payday Super timing"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/payday-super-checker/"
+    ]
+  },
+  "subcontractor-ledgers": {
+    "name": "Subcontractor ledger skills for construction and mining",
+    "package": "australian-accounting-skills",
+    "repository": "ryanduguid/australian-accounting-skills",
+    "path": "",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting-skills/tree/main",
+    "tagPrefix": "v",
+    "alternateName": [
+      "Subcontract ledger workflows for construction and mining",
+      "australian-accounting-skills"
+    ],
+    "sameAs": []
+  },
+  "trust-distributions": {
+    "name": "Trust distribution worksheets for professional review",
+    "package": "solomons-sword",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "packages/solomons-sword",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/solomons-sword",
+    "tagPrefix": "solomons-sword/v",
+    "alternateName": [
+      "Section 100A trust distribution checker",
+      "solomons-sword",
+      "Trust distribution checks"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/solomons-sword/"
+    ]
+  },
+  "wip-schedule": {
+    "name": "TheWIPTally construction WIP schedule",
+    "package": "the-wip-tally",
+    "repository": "ryanduguid/australian-accounting",
+    "path": "packages/the-wip-tally",
+    "codeRepository": "https://github.com/ryanduguid/australian-accounting/tree/main/packages/the-wip-tally",
+    "tagPrefix": "the-wip-tally/v",
+    "alternateName": [
+      "Construction WIP under AASB 15: over- or under-billed?",
+      "the-wip-tally",
+      "Construction WIP schedule"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/the-wip-tally/"
+    ]
+  },
+  "workpaper-review-gate": {
+    "name": "Workpaper Review Gate",
+    "package": "review-ready-gate",
+    "repository": "ryanduguid/accounting-review-pipeline",
+    "path": "packages/review-ready-gate",
+    "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/review-ready-gate",
+    "tagPrefix": "review-ready-gate/v",
+    "alternateName": [
+      "Workpaper Review Gate for manager review packs",
+      "review-ready-gate"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/review-ready-gate/"
+    ]
+  },
+  "xero-trial-balance": {
+    "name": "Xero trial balance CSV export tool",
+    "package": "xero-trial-balance-export",
+    "repository": "ryanduguid/accounting-review-pipeline",
+    "path": "packages/xero-trial-balance-export",
+    "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export",
+    "tagPrefix": "xero-trial-balance-export/v",
+    "alternateName": [
+      "How to export a Xero trial balance to CSV that balances",
+      "xero-trial-balance-export"
+    ],
+    "sameAs": [
+      "https://pypi.org/project/xero-trial-balance-export/"
+    ]
+  }
+}

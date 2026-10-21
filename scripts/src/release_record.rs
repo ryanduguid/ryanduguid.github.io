@@ -957,7 +957,13 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8> {
             say(&format!("{line}\n"))
         });
     }
-    let failures = check_record(&py::resolve(root), &record)?;
+    // Standalone checks read rendered template data, as check_site already does.
+    let content_root = if root.join("Gemfile").is_file() {
+        crate::build_site::build(root, root)?
+    } else {
+        py::resolve(root)
+    };
+    let failures = check_record(&content_root, &record)?;
     for failure in &failures {
         say(&format!("  FAIL {failure}\n"))?;
     }

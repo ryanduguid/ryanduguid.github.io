@@ -192,6 +192,46 @@ pub fn full_text(entries: &[(String, String)]) -> String {
     parts.join("\n")
 }
 
+/// Section files keep complete page entries and their citations below 100 KB.
+pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<(String, String)>, String> {
+    let mut sections = std::collections::BTreeMap::<String, Vec<String>>::new();
+    for (url, entry) in entries {
+        let section = url
+            .strip_prefix(SITE)
+            .unwrap_or(url)
+            .trim_matches('/')
+            .split('/')
+            .next()
+            .filter(|s| !s.is_empty())
+            .unwrap_or("home");
+        sections
+            .entry(section.into())
+            .or_default()
+            .push(format!("---\n\n{entry}"));
+    }
+    let mut parts = Vec::new();
+    for (section, pages) in sections {
+        let mut text = HEADER.to_owned();
+        let mut number = 1;
+        for page in pages {
+            if HEADER.len() + page.len() + 1 > 96_000 {
+                return Err(format!(
+                    "llms-full: {section} page exceeds the section part budget"
+                ));
+            }
+            if text.len() + page.len() + 1 > 96_000 {
+                parts.push((format!("llms-full-{section}-{number}.txt"), text));
+                number += 1;
+                text = HEADER.to_owned();
+            }
+            text.push('\n');
+            text.push_str(&page);
+        }
+        parts.push((format!("llms-full-{section}-{number}.txt"), text));
+    }
+    Ok(parts)
+}
+
 fn read_text(path: &Path) -> Result<String, String> {
     if path.is_file() {
         crate::read(path)
@@ -212,6 +252,7 @@ fn say(text: &str) -> Result<(), String> {
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let entries = build(root)?;
     let built = full_text(&entries);
+    let parts = section_parts(&entries)?;
     let index_path = root.join("llms.txt");
     let index = std::fs::read(&index_path)
         .map_err(|e| py::oserror_str(&e, &index_path.to_string_lossy(), py::OsStyle::Errno))?;
@@ -219,6 +260,9 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let alias = root.join(".well-known/llms.txt");
     if args.iter().any(|a| a == "--write") {
         write(&output, built.as_bytes())?;
+        for (name, content) in &parts {
+            write(&root.join(name), content.as_bytes())?;
+        }
         for (url, entry) in &entries {
             write(&page_path(url, root, "index.txt"), entry.as_bytes())?;
         }
@@ -235,6 +279,12 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     if read_text(&output)? != built {
         say(&format!("llms-full.txt is stale: {RERUN}\n"))?;
         return Ok(1);
+    }
+    for (name, content) in &parts {
+        if read_text(&root.join(name))? != *content {
+            say(&format!("{name} is stale: {RERUN}\n"))?;
+            return Ok(1);
+        }
     }
     let mut stale = 0;
     for (url, entry) in &entries {

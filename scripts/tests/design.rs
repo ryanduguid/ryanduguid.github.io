@@ -584,22 +584,22 @@ fn design_contracts_text_mutations() {
         (
             "homepage opening review date moved",
             "index.html",
-            "<p class=\"page-meta\">Last reviewed 6 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 6 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            "<p class=\"page-meta\">Last reviewed 17 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 17 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            "<p class=\"page-meta\">Last reviewed 4 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 4 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
@@ -612,7 +612,7 @@ fn design_contracts_text_mutations() {
         (
             "machine-written vocabulary in a meta description",
             "tools/payday-super/index.html",
-            "content=\"See why a synthetic $120 super contribution",
+            "content=\"Current release payday-super-checker",
             "content=\"Leverage this check that super reaches the fund",
             "tools/payday-super/index.html: banned meta phrase 'leverage'",
         ),

@@ -1,5 +1,8 @@
 ---
+tool: monthly-close-controls
 ---
+{% assign tool = site.data.tools[page.tool] %}
+{% assign release = site.data.tool_releases[page.tool] %}
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
@@ -9,10 +12,10 @@
   <meta name="theme-color" content="#000000" />
   <meta name="color-scheme" content="dark" />
   <title>Monthly Close Controls: Xero close exception report</title>
-  <meta name="description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source." />
+  <meta name="description" content="Current release monthly-close-control-plane v{{ release.version }}. Compare Xero trial balance CSVs locally and flag exceptions for human review." />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta property="og:title" content="Monthly Close Controls: Xero close exception report" />
-  <meta property="og:description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source." />
+  <meta property="og:description" content="Current release monthly-close-control-plane v{{ release.version }}. Compare Xero trial balance CSVs locally and flag exceptions for human review." />
   <meta property="og:type" content="article" />
   <meta property="og:site_name" content="Ryan Duguid" />
   <meta property="og:locale" content="en_AU" />
@@ -24,7 +27,7 @@
   <meta property="og:image:height" content="630" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="Monthly Close Controls: Xero close exception report" />
-  <meta name="twitter:description" content="Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source." />
+  <meta name="twitter:description" content="Current release monthly-close-control-plane v{{ release.version }}. Compare Xero trial balance CSVs locally and flag exceptions for human review." />
   <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
   <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
   <link rel="canonical" href="https://duguid.com.au/tools/monthly-close-controls/" />
@@ -54,15 +57,17 @@
             <li aria-current="page">Monthly Close Controls</li>
           </ol>
         </nav>
-        <h1>What needs review before a Xero month-end close?</h1>
-        <p class="lead-note">Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
+        <h1>{{ tool.name }}</h1>
+    <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
+        <p class="lead-note">Current release {{ tool.package }} v{{ release.version }} ({{ release.dateLabel }}). The worked example below is pinned to source commit ae88966. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
         <div class="article-actions">
           <a class="button" href="#worked-example">Inspect the eight exceptions</a>
           <a href="#get-it">Run the example</a>
         </div>
         <p class="field-note">Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.</p>
-        <p class="release-meta">Example reproduced from <a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/ae88966fc416f6f2ad618652779c50d0e348949d/packages/monthly-close-control-plane">source commit ae88966</a>. Results apply to this source snapshot.</p>
-        <p class="page-meta">Published 11 September 2026. Last reviewed 17 October 2026.</p>
+
+        <p class="page-meta">Published 11 September 2026. Last reviewed 21 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -190,7 +195,7 @@
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-10-17",
+      "dateModified": "2026-10-21",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"
@@ -238,16 +243,14 @@
     },
     {
       "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
+      "@type": [
+        "SoftwareApplication",
+        "SoftwareSourceCode"
+      ],
       "name": "Monthly Close Controls",
       "description": "Compare Xero trial balance CSVs, flag monthly close exceptions and prepare a review pack. Includes a fictional example, exact results and source.",
       "applicationCategory": "BusinessApplication",
       "url": "https://duguid.com.au/tools/monthly-close-controls/",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "AUD"
-      },
       "@id": "https://duguid.com.au/tools/monthly-close-controls/#software",
       "author": {
         "@id": "https://duguid.com.au/about/#person"
@@ -258,8 +261,17 @@
       "isAccessibleForFree": true,
       "inLanguage": "en-AU",
       "datePublished": "2026-09-11",
-      "dateModified": "2026-10-17",
-      "operatingSystem": "Windows, macOS, Linux"
+      "dateModified": "2026-10-05",
+      "operatingSystem": "Windows, macOS, Linux",
+      "alternateName": [
+        "What needs review before a Xero month-end close?",
+        "monthly-close-control-plane"
+      ],
+      "softwareVersion": "0.2.0",
+      "codeRepository": "https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/monthly-close-control-plane",
+      "sameAs": [
+        "https://pypi.org/project/monthly-close-control-plane/"
+      ]
     },
     {
       "@type": "FAQPage",
@@ -293,7 +305,7 @@
     }
   ]
 }
-  </script>
+</script>
   <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>

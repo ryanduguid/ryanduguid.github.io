@@ -2,15 +2,17 @@
 
 Source: https://duguid.com.au/tools/ato-benchmarks/
 
-> Compare a profit and loss against the ATO’s own published small business benchmark ranges, on your own machine, with the working shown.
+> Current release ato-benchmark-compare v0.2.2. Compare profit and loss with ATO benchmark ranges locally. Review aid, not advice.
 
-# How does this business compare to the ATO small business benchmarks?
+# ATO small business benchmark comparison tool
 
-The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
+Package ato-benchmark-compare in the australian-accounting repository. Current release v0.2.2.
 
-Reference release ato-benchmark-compare/v0.1.6, tagged source on GitHub. The worked example on this page is pinned to that release so its figures stay reproducible; the current release is ato-benchmark-compare/v0.2.2, published on 20 October 2026. Release 0.1.11 added the labour, rent and motor vehicle ranges from the ATO’s industry pages as a guide that never sets the key ratio. Release 0.2.2 requires Python 3.14 or later, moves to Apache-2.0 and changes no comparison; versions 0.2.0 and 0.2.1 were tagged but never published. ato-benchmark-compare/v0.1.12 remains the last release for Python 3.11 to 3.13.
+Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked example below is pinned to v0.1.6. The ATO publishes benchmark ranges for around 100 industries and uses them to pick which small businesses to examine. This tool maps a profit and loss to the ATO’s own categories, applies its narrow definitions and shows whether each ratio falls inside the published range. Sitting outside a range is not a finding that anything is wrong.
 
-Published 24 August 2026. Last reviewed 13 October 2026.
+Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
+
+Published 24 August 2026. Last reviewed 21 October 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
 
@@ -99,12 +101,10 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 ## Links
 
-- ato-benchmark-compare/v0.1.6: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.6
-- ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
-- ato-benchmark-compare/v0.1.12: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.1.12
+- australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
+- v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
 - ratio tests in ato-benchmark-compare v0.1.6: https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.1.6/packages/ato-benchmark-compare/tests/test_ratios.py
 - uv: https://docs.astral.sh/uv/
-- Source on GitHub: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
 - small business benchmarks: https://www.ato.gov.au/businesses-and-organisations/income-deductions-and-concessions/small-business-benchmarks
 - Known limitations: https://duguid.com.au/tools/limitations/
 - Open an issue: https://github.com/ryanduguid/australian-accounting/issues
