@@ -349,9 +349,11 @@ test('metadata stamping preserves pinned examples whilst replacing current produ
   assert.ok(!stamped.includes('Offer'));
   assert.equal((stamped.match(/2026-10-20/g) ?? []).length, 2);
   assert.ok(stamped.includes('SoftwareSourceCode'));
-  assert.ok(stamped.includes('https://pypi.org/project/tool/'));
+  const stampedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(stamped)[1])['@graph'];
+  assert.deepEqual(stampedGraph[1].sameAs, ['https://pypi.org/project/tool/']);
   const cleared = freshness.stampToolMetadata(stamped, { name: 'Tool', alternateName: [], codeRepository: 'https://example.com/source', sameAs: [] }, { version: '0.2.2', date: '2026-10-20' });
-  assert.ok(!cleared.includes('pypi.org'));
+  const clearedGraph = JSON.parse(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/.exec(cleared)[1])['@graph'];
+  assert.equal(Object.hasOwn(clearedGraph[1], 'sameAs'), false);
 });
 
 test('MCP index refresh changes only the current release', () => {

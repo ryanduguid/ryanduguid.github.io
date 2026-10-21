@@ -296,7 +296,10 @@ async function main() {
   if (process.argv.includes('--build') || process.argv.includes('--write-tool-releases')) {
     const tools = JSON.parse(readFileSync(join(root, '_data/tools.json'), 'utf8'));
     const data = await buildToolReleaseData(tools);
-    const revision = JSON.parse(execFileSync('gh', ['api',
+    const revision = JSON.parse(execFileSync(
+      // Maintainer entry point, using the same trusted CLI as fetchReleases.
+      'gh', // NOSONAR
+      ['api',
       'repos/ryanduguid/ryanduguid.github.io/commits?path=assets/levy.mjs&per_page=1',
       '--jq', '.[0]|{sha,date:.commit.committer.date}'], { encoding: 'utf8', timeout: 15_000 }));
     const date = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Sydney',
@@ -322,7 +325,9 @@ async function main() {
     const index = join(root, 'llms.txt');
     writeFileSync(index, stampMcpIndex(readFileSync(index, 'utf8'), data['australian-tax-ai-agents']));
     console.log('tool releases refreshed from published GitHub tags; browser levy from source revision');
-    if (process.argv.includes('--build')) execFileSync('cargo',
+    if (process.argv.includes('--build')) execFileSync(
+      // Maintainer entry point, using the maintainer's own Rust toolchain.
+      'cargo', // NOSONAR
       ['run', '--locked', '--quiet', '--manifest-path', 'scripts/Cargo.toml', '--', 'build_site'],
       { cwd: root, stdio: 'inherit', timeout: 300_000 });
     return 0;
