@@ -277,7 +277,7 @@ Source: https://duguid.com.au/evidence/
 
 Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.
 
-Last reviewed 21 October 2026.
+Last reviewed 23 October 2026.
 
 ## From monthly close to a cash forecast
 
@@ -425,11 +425,11 @@ Workpaper Review Gate | SECURITY.md | GitHub Actions
 Australian Accounting Skills | SECURITY.md | GitHub Actions
 This site | SECURITY.md | GitHub Actions
 
-Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records, and each release workflow page shows the workflow definition and its current run results:
+Published products expose release assets through the release pages linked above. Each repository’s attestation index provides inspectable SLSA provenance and SPDX SBOM records. Live release workflow pages show current run results; pinned definitions preserve the earlier Python release process:
 
 - australian-accounting: attestations; release workflows for Aus Accounting MCP and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: Payday Super at payday-super-checker/v0.2.2, ATO benchmarks at ato-benchmark-compare/v0.2.2, trust distributions at solomons-sword/v0.3.2 and company tax at the-exchequer-tally/v0.2.0
 - australian-accounting-skills (Hardhat Ledger included): attestations; release workflow
-- accounting-review-pipeline (Xero export): attestations; release workflow
+- accounting-review-pipeline (Xero export): attestations; the Python release workflow was removed when the exporter moved to Rust. Its definition is preserved at the last Python release: Xero trial balance export at xero-trial-balance-export/v0.1.15
 - Shared across repositories: Release Policy workflows for releases, provenance attestations and Python package checks
 
 Passing tests proves only the specified behaviour under the tested conditions. It does not prove a real-world accounting conclusion or a client outcome.
@@ -560,7 +560,7 @@ Written by Ryan Duguid in his own time and on his own equipment.
 - attestations: https://github.com/ryanduguid/australian-accounting-skills/attestations
 - release workflow: https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml
 - attestations: https://github.com/ryanduguid/accounting-review-pipeline/attestations
-- release workflow: https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml
+- Xero trial balance export at xero-trial-balance-export/v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/.github/workflows/release-xero-trial-balance-export.yml
 - Release Policy: https://github.com/ryanduguid/release-policy
 - Guidance for AI Adoption: https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/guidance-ai-adoption-implementation-guidance
 - AI register template: https://www.ai.gov.au/staying-safe-and-responsible/essential-ai-practices/ai-systems-register

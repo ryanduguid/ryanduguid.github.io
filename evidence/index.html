@@ -55,7 +55,7 @@
         </nav>
         <h1>Evidence behind the tools</h1>
         <p class="lead-note short-answer">Check the records behind the tools: identity records, releases, primary source reviews, repository controls and tests you can reproduce. These records support limited software claims. An output is not advice, approval, a compliance decision or a lodgement.</p>
-        <p class="page-meta">Last reviewed 21 October 2026.</p>
+        <p class="page-meta">Last reviewed 23 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc contents-nav" aria-label="On this page">
@@ -251,13 +251,14 @@
             <p>
               Published products expose release assets through the release pages linked
               above. Each repository’s attestation index provides inspectable SLSA
-              provenance and SPDX SBOM records, and each release workflow page shows
-              the workflow definition and its current run results:
+              provenance and SPDX SBOM records. Live release workflow pages show
+              current run results; pinned definitions preserve the earlier Python
+              release process:
             </p>
             <ul>
               <li>australian-accounting: <a href="https://github.com/ryanduguid/australian-accounting/attestations">attestations<span class="visually-hidden">, australian-accounting</span></a>; release workflows for <a href="https://github.com/ryanduguid/australian-accounting/actions/workflows/release-aus-accounting-mcp.yml">Aus Accounting MCP</a> and, since the engines moved to Rust and their Python release workflows were removed, the release workflow definitions at each last Python release: <a href="https://github.com/ryanduguid/australian-accounting/blob/payday-super-checker/v0.2.2/.github/workflows/release-payday-super-checker.yml">Payday Super at payday-super-checker/v0.2.2</a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/ato-benchmark-compare/v0.2.2/.github/workflows/release-ato-benchmark-compare.yml">ATO benchmarks at ato-benchmark-compare/v0.2.2</a>, <a href="https://github.com/ryanduguid/australian-accounting/blob/solomons-sword/v0.3.2/.github/workflows/release-solomons-sword.yml">trust distributions at solomons-sword/v0.3.2</a> and <a href="https://github.com/ryanduguid/australian-accounting/blob/the-exchequer-tally/v0.2.0/.github/workflows/release-the-exchequer-tally.yml">company tax at the-exchequer-tally/v0.2.0</a></li>
               <li>australian-accounting-skills (Hardhat Ledger included): <a href="https://github.com/ryanduguid/australian-accounting-skills/attestations">attestations<span class="visually-hidden">, australian-accounting-skills</span></a>; <a href="https://github.com/ryanduguid/australian-accounting-skills/actions/workflows/release.yml">release workflow<span class="visually-hidden">, australian-accounting-skills</span></a></li>
-              <li>accounting-review-pipeline (Xero export): <a href="https://github.com/ryanduguid/accounting-review-pipeline/attestations">attestations<span class="visually-hidden">, accounting-review-pipeline</span></a>; <a href="https://github.com/ryanduguid/accounting-review-pipeline/actions/workflows/release-xero-trial-balance-export.yml">release workflow<span class="visually-hidden">, Xero trial balance export</span></a></li>
+              <li>accounting-review-pipeline (Xero export): <a href="https://github.com/ryanduguid/accounting-review-pipeline/attestations">attestations<span class="visually-hidden">, accounting-review-pipeline</span></a>; the Python release workflow was removed when the exporter moved to Rust. Its definition is preserved at the last Python release: <a href="https://github.com/ryanduguid/accounting-review-pipeline/blob/xero-trial-balance-export/v0.1.15/.github/workflows/release-xero-trial-balance-export.yml">Xero trial balance export at xero-trial-balance-export/v0.1.15</a></li>
               <li>Shared across repositories: <a href="https://github.com/ryanduguid/release-policy">Release Policy</a> workflows for releases, provenance attestations and Python package checks</li>
             </ul>
             <p>
@@ -336,7 +337,7 @@
         "headline": "Evidence and Assurance for Australian accounting tools",
         "description": "Canonical evidence, assurance boundaries and inspectable records for Australian computational accounting tools.",
         "inLanguage": "en-AU",
-        "dateModified": "2026-10-21",
+        "dateModified": "2026-10-23",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "author": { "@id": "https://duguid.com.au/about/#person" },
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
