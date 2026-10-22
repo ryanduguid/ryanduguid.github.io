@@ -584,22 +584,22 @@ fn design_contracts_text_mutations() {
         (
             "homepage opening review date moved",
             "index.html",
-            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed ",
+            "<p class=\"moved-page-meta\">Last reviewed ",
             "index.html: expected exactly one opening page-meta",
         ),
         (
             "Tools opening review date moved",
             "tools/index.html",
-            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed ",
+            "<p class=\"moved-page-meta\">Last reviewed ",
             "tools/index.html: expected exactly one opening page-meta",
         ),
         (
             "Evidence opening review date moved",
             "evidence/index.html",
-            "<p class=\"page-meta\">Last reviewed 21 October 2026.</p>",
-            "<p class=\"moved-page-meta\">Last reviewed 21 October 2026.</p>",
+            "<p class=\"page-meta\">Last reviewed ",
+            "<p class=\"moved-page-meta\">Last reviewed ",
             "evidence/index.html: expected exactly one opening page-meta",
         ),
         (
