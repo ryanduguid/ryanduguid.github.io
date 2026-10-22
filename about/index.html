@@ -56,7 +56,7 @@
         <h1>About Ryan Duguid</h1>
         <p class="lead-note">I’m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source tools that check Australian tax, payroll, ledgers and workpapers. Each tool shows its sources and working, uses fictional examples and leaves the judgement and lodgement to a person.</p>
         <p><a href="#work-samples">See my accounting work samples</a>, including a cash forecast, month-end checks and Excel functions.</p>
-        <p class="page-meta">Last reviewed 21 October 2026.</p>
+        <p class="page-meta">Last reviewed 23 October 2026.</p>
         <div class="about-portrait" role="img" data-nosnippet aria-label="ASCII portrait of Ryan Duguid"><pre aria-hidden="true">
                                                           .....
                                                      ..: '`' '`''' :.
@@ -209,6 +209,8 @@
               <li><a href="/tools/trust-distributions/">Trust distribution checks</a>: classifies section 100A risk zones and allocates income under Division 6.</li>
               <li><a href="/tools/company-tax-franking/">Company tax and franking checks</a>: runs the base rate entity test and tracks the franking account.</li>
               <li><a href="/tools/australian-tax-ai-agents/">Australian tax tools for AI agents</a>: compares a local calculation server with document lookup.</li>
+              <li><a href="https://github.com/ryanduguid/planning-analytics-model">planning-analytics-model</a>: an IBM Planning Analytics budget model with an offline Rust rule evaluator and fictional data.</li>
+              <li><a href="https://github.com/ryanduguid/au-accounting-hotkeys">au-accounting-hotkeys</a>: Windows AutoHotkey v2 shortcuts for workpaper dates, period labels and draft snippets.</li>
             </ul>
           </section>
 
@@ -285,10 +287,14 @@
         "description": "I’m Ryan Duguid, a Senior Accountant in Newcastle, NSW, Australia. I build open source computational accounting tools. I am a Provisional CA ANZ Member and a Xero Certified Specialist, Level 3.",
         "inLanguage": "en-AU",
         "datePublished": "2026-08-24",
-        "dateModified": "2026-10-21",
+        "dateModified": "2026-10-23",
         "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
         "isPartOf": { "@id": "https://duguid.com.au/#website" },
         "mainEntity": { "@id": "https://duguid.com.au/about/#person" },
+        "mentions": [
+          { "@id": "https://github.com/ryanduguid/planning-analytics-model#source" },
+          { "@id": "https://github.com/ryanduguid/au-accounting-hotkeys#source" }
+        ],
         "about": { "@id": "https://duguid.com.au/about/#person" },
         "breadcrumb": { "@id": "https://duguid.com.au/about/#breadcrumb" }
       },
@@ -394,6 +400,24 @@
           "https://www.openaccountants.com/network/368408e7-bf06-431d-95a6-0b72e168ddeb",
           "https://pypi.org/user/ryanduguid/"
         ]
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://github.com/ryanduguid/planning-analytics-model#source",
+        "name": "planning-analytics-model",
+        "description": "An IBM Planning Analytics budget model with an offline Rust rule evaluator and fictional data.",
+        "url": "https://github.com/ryanduguid/planning-analytics-model",
+        "codeRepository": "https://github.com/ryanduguid/planning-analytics-model",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
+      },
+      {
+        "@type": "SoftwareSourceCode",
+        "@id": "https://github.com/ryanduguid/au-accounting-hotkeys#source",
+        "name": "au-accounting-hotkeys",
+        "description": "Windows AutoHotkey v2 shortcuts for Australian workpaper dates, period labels and draft snippets.",
+        "url": "https://github.com/ryanduguid/au-accounting-hotkeys",
+        "codeRepository": "https://github.com/ryanduguid/au-accounting-hotkeys",
+        "author": { "@id": "https://duguid.com.au/about/#person" }
       }
     ]
   }

@@ -149,7 +149,7 @@ I’m Ryan Duguid, a Senior Accountant in Newcastle, NSW. I build open source to
 
 See my accounting work samples, including a cash forecast, month-end checks and Excel functions.
 
-Last reviewed 21 October 2026.
+Last reviewed 23 October 2026.
 
 ## The short facts
 
@@ -197,6 +197,8 @@ The tools extract records into a reviewable shape, apply deterministic calculati
 - Trust distribution checks: classifies section 100A risk zones and allocates income under Division 6.
 - Company tax and franking checks: runs the base rate entity test and tracks the franking account.
 - Australian tax tools for AI agents: compares a local calculation server with document lookup.
+- planning-analytics-model: an IBM Planning Analytics budget model with an offline Rust rule evaluator and fictional data.
+- au-accounting-hotkeys: Windows AutoHotkey v2 shortcuts for workpaper dates, period labels and draft snippets.
 
 ## Published packages
 
@@ -251,6 +253,8 @@ I write and maintain this site in my own time and on my own equipment.
 - Trust distribution checks: https://duguid.com.au/tools/trust-distributions/
 - Company tax and franking checks: https://duguid.com.au/tools/company-tax-franking/
 - Australian tax tools for AI agents: https://duguid.com.au/tools/australian-tax-ai-agents/
+- planning-analytics-model: https://github.com/ryanduguid/planning-analytics-model
+- au-accounting-hotkeys: https://github.com/ryanduguid/au-accounting-hotkeys
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - PyPI distribution: https://pypi.org/project/payday-super-checker/
 - Aus Accounting MCP: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp

@@ -12,7 +12,7 @@
   },
   "json_ld": {
     "about/index.html": [
-      "74779b29c65c084702593d5620eee984eb2e28056bd090cf92b33a2f9a852298"
+      "cc9da02e6454eb1a0e3d4a20d952bfb75403f9f85170c340e037219696c994f1"
     ],
     "changelog/index.html": [
       "789ec903b5f4cd76e87ffc50ea5dfaba2afa0a53218b2bf6f8b6fc8c39ccfe3e"
@@ -139,9 +139,9 @@
     ]
   },
   "protected_files": {
-    "llms.txt": "5903b31f47c71bdaf846f64d1b33c75e9432c81f6910225ecc860a37a0ccd3a4",
+    "llms.txt": "6af3a7beb54f44528ea78bce98817ef5021e23ad3bb57a0c3d33c174f683baf2",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "b5681eda3f2bdc198c8e96aa56f50309c0f951581f6389e1ffff4efafd6812a6"
+    "sitemap.xml": "f4fbf7e7cbb42e4564f06d487b7193a5740989085a478cdeaf19173dfd2cb6d4"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [

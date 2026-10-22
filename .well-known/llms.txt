@@ -2,7 +2,7 @@
 
 Canonical machine index: https://duguid.com.au/llms.txt
 
-Last reviewed 21 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
+Last reviewed 23 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
 
 Licence: the site's own text, data and source code are Apache-2.0 (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
 
@@ -138,6 +138,8 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 
 ## Source code
 
+- [planning-analytics-model](https://github.com/ryanduguid/planning-analytics-model): an IBM Planning Analytics budget model with an offline Rust rule evaluator. The model uses fictional data.
+- [au-accounting-hotkeys](https://github.com/ryanduguid/au-accounting-hotkeys): Windows AutoHotkey v2 shortcuts for Australian workpaper dates, period labels and draft snippets. Review generated text before using it in a workpaper.
 - [Australian Accounting](https://github.com/ryanduguid/australian-accounting): maintained home for the local MCP application and the independently versioned Australian accounting engines.
 - [Accounting Review Pipeline](https://github.com/ryanduguid/accounting-review-pipeline): maintained home for Xero exports, readiness and close-review controls, the Excel toolkit and the Power BI project. Each component keeps its own distribution, commands and licence.
 - [Australian Accounting Skills](https://github.com/ryanduguid/australian-accounting-skills): published release v0.4.0 contains 65 workflows under Apache-2.0, including 9 public practice and 10 construction and mining subcontractor workflows. Of its 83 validation cards, 72 have human-confirmed results. The recorded whole-card runs measure adherence to visible instructions, not source retrieval. Development has 67 workflows and additional task-only observations whose human verdicts remain pending. Use Adopt for installation. The contracting workflows are included in this unified pack.
