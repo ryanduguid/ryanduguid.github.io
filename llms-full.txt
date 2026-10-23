@@ -2751,7 +2751,7 @@ This tool does not decide whether an employee is an eligible employee, does not 
 
 Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here.
 
-The output may be inaccurate, out of date or incomplete. To the extent permitted by law, Ryan Duguid accepts no liability for reliance on it. Verify against Coal LSL.
+The output may be inaccurate, out of date or incomplete. Verify against Coal LSL.
 
 ## What this tool does not resolve
 
@@ -5097,7 +5097,7 @@ Link to question 15
 
 ### Can I deduct a laptop or tools immediately, or must I depreciate them?
 
-An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million can write off each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023. Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
+An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million that uses the simplified depreciation rules can write off each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023. Separate employee deductions from business asset rules, then identify whether immediate deduction or decline in value applies.
 
 - Record cost, acquisition date, first use, work use share and whether the item forms part of a set.
 - Check the applicable year’s asset rules and retain the calculation in an asset register.

@@ -721,7 +721,7 @@ This tool does not decide whether an employee is an eligible employee, does not 
 
 Eligible wages vary each month. Do not set a fixed or automatic levy payment from any figure produced here.
 
-The output may be inaccurate, out of date or incomplete. To the extent permitted by law, Ryan Duguid accepts no liability for reliance on it. Verify against Coal LSL.
+The output may be inaccurate, out of date or incomplete. Verify against Coal LSL.
 
 ## What this tool does not resolve
 
