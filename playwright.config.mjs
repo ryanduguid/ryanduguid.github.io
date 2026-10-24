@@ -10,7 +10,7 @@ const playwrightDisabledFeatures =
   '--disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,' +
   'DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,' +
   'PaintHolding,ThirdPartyStoragePartitioning,BlockOriginHeaderModificationOnRedirect,' +
-  'Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,' +
+  'AvoidCorsURLLoaderRestartOnRedirect,Translate,AutoDeElevate,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,' +
   'msForceBrowserSignIn,' +
   'msEdgeUpdateLaunchServicesPreferredVersion';
 export const chromiumLaunchOptions = process.platform === 'win32'
