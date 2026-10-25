@@ -845,7 +845,7 @@ pub fn check_shared_shell(html: &str, rel: &str, failures: &mut Vec<String>) {
     }
     let expected_current: Vec<(&str, &str)> = if rel == "tools/index.html" {
         vec![("/tools/", "page")]
-    } else if rel.starts_with("tools/") {
+    } else if rel.starts_with("tools/") || rel.starts_with("works-with/") {
         vec![("/tools/", "location")]
     } else if rel == "contact/index.html" {
         vec![("/contact/", "page")]

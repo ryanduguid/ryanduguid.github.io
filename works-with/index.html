@@ -1,0 +1,178 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Works with Xero and Claude | Ryan Duguid</title>
+  <meta name="description" content="Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Works with Xero and Claude | Ryan Duguid" />
+  <meta property="og:description" content="Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/works-with/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Works with Xero and Claude | Ryan Duguid" />
+  <meta name="twitter:description" content="Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/works-with/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/works-with/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li aria-current="page">Works with</li>
+          </ol>
+        </nav>
+        <h1>Works with</h1>
+        <p class="short-answer">Find a tool for the software you already use. Start with a read-only Xero export or accounting tools and workflows for Claude.</p>
+        <p class="page-meta">Published 25 October 2026. Last reviewed 25 October 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#xero">Xero</a>
+          <a href="#claude">Claude</a>
+          <a href="#before-you-connect">Before you connect</a>
+        </nav>
+        <div class="article-body">
+          <section id="xero">
+            <h2>Xero</h2>
+            <p>Export a trial balance to a local CSV, with a balance check on both monthly movement and year-to-date figures. The exporter requests read-only report access and cannot write to a ledger.</p>
+            <dl class="tool-facts">
+              <div><dt>Tool</dt><dd><a href="/tools/xero-trial-balance/">Xero trial balance CSV export</a></dd></div>
+              <div><dt>Needs</dt><dd>Python, a Xero developer app and consent for the selected organisation.</dd></div>
+              <div><dt>Try first</dt><dd>The fictional CSV evaluation needs no Xero account; a live API trial can use Xero’s Demo Company.</dd></div>
+            </dl>
+            <p><a href="/works-with/xero/">See Xero setup and access</a></p>
+          </section>
+          <section id="claude">
+            <h2>Claude</h2>
+            <p>Use Aus Accounting MCP for bounded calculations in Claude Code or Claude Desktop, or add accounting workflows to Claude Code with the released skills. The MCP server and skills have separate setup and data boundaries.</p>
+            <dl class="tool-facts">
+              <div><dt>Tools</dt><dd><a href="/tools/australian-tax-ai-agents/">Aus Accounting MCP</a> and <a href="/tools/subcontractor-ledgers/">accounting skills</a>.</dd></div>
+              <div><dt>Needs</dt><dd>A compatible Claude client and a local runtime. The local MCP server cannot be added directly to Claude’s web app.</dd></div>
+              <div><dt>Try first</dt><dd>Use fictional inputs and inspect the returned assumptions and refusals.</dd></div>
+            </dl>
+            <p><a href="/works-with/claude/">See Claude setup and access</a></p>
+          </section>
+          <section id="before-you-connect">
+            <h2>Before you connect</h2>
+            <p>These guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.</p>
+            <p>Read the <a href="/evidence/#data-and-privacy-boundary">data and privacy boundary</a> before supplying information. Installation may download packages, and an AI host may send supplied figures and tool results to its model provider. Posting, payment, lodgement, approval and period lock require human review.</p>
+            <p>For other delivery forms, browse the <a href="/tools/">full tool register</a>. For fixed inputs and expected results, open the <a href="/evaluate/">reproducible evaluations</a>.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/works-with/#webpage",
+      "url": "https://duguid.com.au/works-with/",
+      "name": "Works with Xero and Claude | Ryan Duguid",
+      "description": "Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-10-25",
+      "dateModified": "2026-10-25",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/works-with/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au/works-with/#list"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/works-with/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Works with",
+          "item": "https://duguid.com.au/works-with/"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://duguid.com.au/works-with/#list",
+      "name": "Works with",
+      "numberOfItems": 2,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Works with Xero",
+          "url": "https://duguid.com.au/works-with/xero/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Works with Claude",
+          "url": "https://duguid.com.au/works-with/claude/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</body>
+</html>

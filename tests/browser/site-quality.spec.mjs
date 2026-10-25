@@ -26,6 +26,9 @@ const primaryNavigation = [
 const currentNavigationCases = [
   ['/tools/', 'Tools', 'page'],
   ['/tools/coal-lsl-levy/', 'Tools', 'location'],
+  ['/works-with/', 'Tools', 'location'],
+  ['/works-with/xero/', 'Tools', 'location'],
+  ['/works-with/claude/', 'Tools', 'location'],
   ['/rates/', 'Rates', 'page'],
   ['/rates/super-guarantee/', 'Rates', 'location'],
   ['/evaluate/', 'Evaluations', 'page'],

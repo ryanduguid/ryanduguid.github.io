@@ -21,6 +21,7 @@ On this page:
 ## Site structure
 
 - `/tools/` groups the tool register by Extract, Calculate, Control and Inspect.
+- `/works-with/` lists existing tools by software, starting with Xero and Claude, with setup requirements and read and write boundaries.
 - `/evaluate/` holds 3 reproducible evaluations with fabricated inputs and expected results.
 - `/rates/` holds maintained Australian rate tables with primary sources and review dates, and `/rates/register/` holds the versioned machine-readable register of those figures.
 - `/tools/accounting-questions/` indexes 100 question guides; each of the 10 topic pages under it carries 10 answers with search and checklist downloads. The pages are stubs rendered by `_layouts/question-topic.html` from `_data/accounting_questions.json`.

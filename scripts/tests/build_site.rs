@@ -10,6 +10,8 @@ fn site_selection_rules() {
     let (include, exclude) = site_selection(&repository());
     for (path, expected) in [
         ("assets/site.css", true),
+        ("works-with/xero/index.html", true),
+        ("work/private.txt", false),
         (".well-known/security.txt", true),
         (".git/config", false),
         ("scripts/test_build_site.py", false),
@@ -173,7 +175,12 @@ fn jekyll_fixture_build_and_preview() {
         .collect();
     std::fs::write(root.join(CONFIG), &config).unwrap();
     std::fs::write(root.join("GATES.md"), "Internal planning fixture\n").unwrap();
-    let fixture_files: [(&str, &[u8]); 4] = [
+    let fixture_files: [(&str, &[u8]); 6] = [
+        (
+            "works-with/xero/index.html",
+            b"---\n---\n<p>Xero guide</p>\n",
+        ),
+        ("work/private.txt", b"Internal work fixture\n"),
         ("graft/INDEX.md", b"Generated index fixture\n"),
         (
             "graft/scripts/component.md",
@@ -221,6 +228,11 @@ fn jekyll_fixture_build_and_preview() {
     assert!(!rendered.join("_includes").exists());
     assert!(!rendered.join("GATES.md").exists());
     assert!(!rendered.join("graft").exists());
+    assert!(!rendered.join("work").exists());
+    assert_eq!(
+        std::fs::read_to_string(rendered.join("works-with/xero/index.html")).unwrap(),
+        "<p>Xero guide</p>\n"
+    );
     assert_eq!(
         std::fs::read(rendered.join("assets/graft/guide.txt")).unwrap(),
         b"Public asset fixture\n"

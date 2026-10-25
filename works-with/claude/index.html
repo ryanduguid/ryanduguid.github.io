@@ -1,0 +1,203 @@
+---
+---
+{% assign mcp = site.data.tool_releases["australian-tax-ai-agents"] %}
+{% assign skills = site.data.tool_releases["subcontractor-ledgers"] %}
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Works with Claude: accounting MCP and skills</title>
+  <meta name="description" content="Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Works with Claude: accounting MCP and skills" />
+  <meta property="og:description" content="Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/works-with/claude/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Works with Claude: accounting MCP and skills" />
+  <meta name="twitter:description" content="Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/works-with/claude/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/works-with/claude/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/works-with/">Works with</a></li>
+            <li aria-current="page">Works with Claude</li>
+          </ol>
+        </nav>
+        <h1>Works with Claude</h1>
+        <p class="short-answer">Give Claude a bounded accounting tool or a workflow to follow. Use Aus Accounting MCP for local calculations and released accounting skills for preparation in Claude Code.</p>
+        <p class="page-meta">Published 25 October 2026. Last reviewed 25 October 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#choose">Choose a route</a>
+          <a href="#setup">Set up and try</a>
+          <a href="#access">Read and write access</a>
+          <a href="#limits">Refusals and human review</a>
+        </nav>
+        <div class="article-body">
+          <section id="choose">
+            <h2>Choose a route</h2>
+            <h3>Calculations through Aus Accounting MCP</h3>
+            <p><a href="/tools/australian-tax-ai-agents/">Aus Accounting MCP</a> gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is <a href="{{ mcp.url }}">v{{ mcp.version }}</a>.</p>
+            <p>Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration">released client integration guide</a> shows the local configuration.</p>
+            <h3>Preparation through accounting skills</h3>
+            <p>The released <a href="{{ skills.url }}">Australian Accounting Skills v{{ skills.version }}</a> gives Claude Code workflows for preparing and checking workpapers. The <a href="/tools/subcontractor-ledgers/">subcontract ledger guide</a> covers progress claims, retentions and WIP preparation.</p>
+            <p>Skills are instructions used by the agent. They do not disable the agent’s other tools or enforce its permissions. Review the agent’s file, command and external-service access separately.</p>
+          </section>
+          <section id="setup">
+            <h2>Set up and try</h2>
+            <ol>
+              <li><strong>For MCP in Claude Code:</strong> install Python 3.14 or later and uv, then open the <a href="/tools/australian-tax-ai-agents/#install">installation guide</a> and choose the Claude Code tab. Check the installed version; the unpinned command may reuse a cached package.</li>
+              <li><strong>For MCP in Claude Desktop:</strong> use the same Python and uv prerequisites with the local stdio configuration in the <a href="https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration">released README</a>.</li>
+              <li><strong>For skills in Claude Code:</strong> use Git, Node and a working Claude Code installation. Choose Skills in the <a href="/tools/australian-tax-ai-agents/#install">installation guide</a> to copy the tagged release into a project. This route does not start the MCP server.</li>
+            </ol>
+            <p>Try the <a href="/tools/australian-tax-ai-agents/#try-example">fictional MCP demonstration</a> before supplying your own figures. It runs a pinned historical release outside Claude, so you can inspect the expected tool output separately from an assistant’s explanation. Retain the version and caveats with the result.</p>
+            <p>For a skills walkthrough, follow the <a href="https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/docs/bas-walkthrough.md">released BAS preparation example</a>. Check its required inputs and expected tie-outs before asking Claude Code to prepare a workpaper.</p>
+          </section>
+          <section id="access">
+            <h2>Read and write access</h2>
+            <div class="table-scroll" role="region" aria-label="Claude accounting routes and access" tabindex="0">
+              <table class="tool-table--wide">
+                <caption>Access depends on both the tool and the Claude client. Scroll sideways on small screens.</caption>
+                <thead><tr><th scope="col">Route</th><th scope="col">Read</th><th scope="col">Write and disclosure</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Local MCP server</th><td>Supplied arguments, bundled calculation data and any Markdown library you explicitly configure.</td><td>Returns results to Claude. It has no Xero connection and cannot post to a ledger or lodge with the ATO.</td></tr>
+                  <tr><th scope="row">Claude Code skills</th><td>Skill instructions and project material made available to the agent.</td><td>The agent may write working files with its available tools. Skills set workflow boundaries; runtime permissions control access.</td></tr>
+                  <tr><th scope="row">Claude client</th><td>Prompts, tool results and any retrieved local library excerpts enter its context.</td><td>A cloud-backed client may send this context to the model provider. Check your plan, settings and organisation’s data policy before supplying information.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>Installation downloads packages. The standard calculation engines and MCP server run locally; optional integrations have separate network boundaries. See the <a href="/tools/australian-tax-ai-agents/#limits">MCP limits</a> and <a href="/evidence/#supplier-information-for-ai-registers">supplier information for AI registers</a>.</p>
+          </section>
+          <section id="limits">
+            <h2>Refusals and human review</h2>
+            <blockquote><p><strong>Review required:</strong> calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock. These tools provide no tax, legal or financial advice.</p></blockquote>
+            <p>Aus Accounting MCP is separate from the hosted ATO retrieval project, ato-mcp. It ships no ATO document library and does not fetch legislation or rulings from the web. A configured local library sends its retrieved excerpts back into Claude’s context.</p>
+            <p>Division 7A support is experimental. The server provides benchmark interest rate lookup and reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Read the <a href="/tools/refusals/">refusal register</a> and the tool’s period and scope checks with each result.</p>
+            <p>These projects are not endorsed by Anthropic. For Xero report access, use the separate <a href="/works-with/xero/">Xero exporter guide</a>. Return to <a href="/works-with/">Works with</a> for the hub.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/works-with/claude/#webpage",
+      "url": "https://duguid.com.au/works-with/claude/",
+      "name": "Works with Claude: accounting MCP and skills",
+      "description": "Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-10-25",
+      "dateModified": "2026-10-25",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/works-with/claude/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au/works-with/claude/#list"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/works-with/claude/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Works with",
+          "item": "https://duguid.com.au/works-with/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Works with Claude",
+          "item": "https://duguid.com.au/works-with/claude/"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://duguid.com.au/works-with/claude/#list",
+      "name": "Works with Claude",
+      "numberOfItems": 2,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Aus Accounting MCP",
+          "url": "https://duguid.com.au/tools/australian-tax-ai-agents/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Subcontract ledger skills",
+          "url": "https://duguid.com.au/tools/subcontractor-ledgers/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</body>
+</html>
