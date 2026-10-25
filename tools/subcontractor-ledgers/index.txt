@@ -12,6 +12,18 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Agent skills
+
+Needs
+
+An AI coding agent such as Claude Code or Codex, and Node
+
+Boundary
+
+Requires human review of contracts, classifications and source records.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
@@ -62,6 +74,7 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 
 ## Related
 
+- Works with Claude: MCP and skills
 - Construction WIP schedule under AASB 15
 - Coal LSL levy calculator
 - When is payday super due
@@ -81,6 +94,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
+- Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/

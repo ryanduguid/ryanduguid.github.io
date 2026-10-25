@@ -42,7 +42,14 @@ Transient HTTP 5xx and transport failures wait 1, 2, 4 and 8 seconds between
 attempts. HTTP 429 and 5xx `Retry-After` headers take precedence. Each fetch
 allows five attempts and at most 30 seconds of accumulated waiting; this is
 separate from each request's 30-second timeout. Exhausted retries and permanent
-HTTP errors still fail the live check.
+HTTP errors still fail the live check, except on pull requests that run live
+link checks: there `check_site --ci` passes `--transient-warnings`, and a link
+still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
+warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
+the allow-listed denials below, DNS and other transport failures still fail pull
+requests, and an own-repository link that warns still gets its identity and
+archive lookup. The weekly scheduled and manual runs keep
+every failure strict, so a host that stays down fails within a week.
 
 On a server error from a `github.com/ryanduguid/<repo>/blob/<ref>/<path>` file
 view, remaining attempts use `raw.githubusercontent.com/ryanduguid/<repo>/<ref>/<path>`.
@@ -114,6 +121,15 @@ the issue as it was. For a release-only verification after a fix, dispatch `sour
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
 input still run every job.
+
+When a date moves, the publish job pushes `automation/source-freshness` and opens
+its pull request with a GitHub App token. GitHub holds `pull_request` runs raised
+with `GITHUB_TOKEN` for approval, and an unapproved run ends as a failed run with
+no jobs; App-raised runs start normally. The App is installed on this repository
+only, with Contents and Pull requests read and write and no Workflows permission.
+Its client ID is the repository variable `SOURCE_FRESHNESS_APP_CLIENT_ID` and its
+private key the secret `SOURCE_FRESHNESS_APP_PRIVATE_KEY`; the job requests a
+token limited to those 2 permissions.
 
 The same workflow runs `node scripts/check_production.mjs`, which fetches the
 live pages and holds them to the delivery promises in the README: the five

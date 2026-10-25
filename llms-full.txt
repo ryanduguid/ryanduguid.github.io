@@ -108,6 +108,12 @@ Browse reproducible evaluations Set up AI tools
 
 Before you use a tool, check its version and limits in the setup guide.
 
+### Latest tool releases
+
+- Trust distribution worksheets for professional review v0.3.2 20 October 2026
+- Payday Super receipt evidence v0.2.2 20 October 2026
+- Aus Accounting MCP v0.6.0 20 October 2026
+
 ## Check the source before the result
 
 The evidence register links each claim to identity records, releases, primary source reviews and tests. The About page sets out the 5 working rules behind every tool.
@@ -132,6 +138,9 @@ Explore the recorded software checks and contributions.
 - Open the evidence register: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Trust distribution worksheets for professional review v0.3.2: https://duguid.com.au/tools/trust-distributions/
+- Payday Super receipt evidence v0.2.2: https://duguid.com.au/tools/payday-super/
+- Aus Accounting MCP v0.6.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 
@@ -264,6 +273,212 @@ I write and maintain this site in my own time and on my own equipment.
 - Superannuation Guarantee (Administration) Act 1992: https://www.legislation.gov.au/C2004A04402/latest/text
 - rate history: https://duguid.com.au/rates/super-guarantee/
 - Check the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
+
+---
+
+# Works with Xero and Claude | Ryan Duguid
+
+Source: https://duguid.com.au/works-with/
+
+> Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries.
+
+# Works with
+
+Find a tool for the software you already use. Start with a read-only Xero export or accounting tools and workflows for Claude.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Xero
+
+Export a trial balance to a local CSV, with a balance check on both monthly movement and year-to-date figures. The exporter requests read-only report access and cannot write to a ledger.
+
+Tool
+
+Xero trial balance CSV export
+
+Needs
+
+Python, a Xero developer app and consent for the selected organisation.
+
+Try first
+
+The fictional CSV evaluation needs no Xero account; a live API trial can use Xero’s Demo Company.
+
+See Xero setup and access
+
+## Claude
+
+Use Aus Accounting MCP for bounded calculations in Claude Code or Claude Desktop, or add accounting workflows to Claude Code with the released skills. The MCP server and skills have separate setup and data boundaries.
+
+Tools
+
+Aus Accounting MCP and accounting skills.
+
+Needs
+
+A compatible Claude client and a local runtime. The local MCP server cannot be added directly to Claude’s web app.
+
+Try first
+
+Use fictional inputs and inspect the returned assumptions and refusals.
+
+See Claude setup and access
+
+## Before you connect
+
+These guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.
+
+Read the data and privacy boundary before supplying information. Installation may download packages, and an AI host may send supplied figures and tool results to its model provider. Posting, payment, lodgement, approval and period lock require human review.
+
+For other delivery forms, browse the full tool register. For fixed inputs and expected results, open the reproducible evaluations.
+
+## Links
+
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
+- See Xero setup and access: https://duguid.com.au/works-with/xero/
+- Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- accounting skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- See Claude setup and access: https://duguid.com.au/works-with/claude/
+- data and privacy boundary: https://duguid.com.au/evidence/#data-and-privacy-boundary
+- full tool register: https://duguid.com.au/tools/
+- reproducible evaluations: https://duguid.com.au/evaluate/
+
+---
+
+# Works with Xero: read-only trial balance export
+
+Source: https://duguid.com.au/works-with/xero/
+
+> Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits.
+
+# Works with Xero
+
+Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Export a trial balance
+
+Xero trial balance CSV export reads Xero’s Trial Balance reporting API and produces consistent account, debit, credit and year-to-date columns. A balanced file is an input for review; it does not establish that the accounts are complete or correctly classified.
+
+Use the released Python exporter, v0.1.15. The tool guide keeps the pinned installation commands and first export together. The repository’s default branch contains an unreleased Rust implementation with a different installation path.
+
+Open the Xero installation and first run guide
+
+## What you need
+
+- Python 3.11 or later, Git and a local working directory for the released exporter.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.
+- A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
+- An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
+
+For a trial without credentials, reproduce the trial balance integrity evaluation. It uses 3 fictional CSV fixtures at its declared historical release. It exercises the balance gate without connecting to Xero.
+
+## Read and write access
+
+Access used by the released exporter. Scroll sideways on small screens.
+
+Resource | Read | Write
+Xero organisation | Trial Balance report through accounting.reports.trialbalance.read, after consent. | No ledger write access.
+Local files | App configuration and the local token cache. | Authentication updates the token cache. Export writes a CSV and its provenance manifest after validation.
+Excel or Power BI | You import the resulting CSV into your chosen application. | No direct connection to those applications is supplied.
+
+The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.
+
+## Limits and evidence
+
+Boundary: the exporter cannot post journals, edit transactions or lodge returns. A balanced trial balance still needs professional review.
+
+The date is an as-at date. The API does not reproduce Xero’s separate Trial Balance by Date Range report. The guide explains the movement columns and the exporter’s refusals.
+
+Check the release record, the worked outcomes and the fixed-release evaluation before relying on an export. The evaluation’s version differs from the current installation.
+
+This utility is not affiliated with or endorsed by Xero. Return to Works with for the other supported software route.
+
+## Links
+
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
+- released Python exporter, v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
+- Open the Xero installation and first run guide: https://duguid.com.au/tools/xero-trial-balance/#get-it
+- reproduce the trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- exporter’s refusals: https://duguid.com.au/tools/refusals/#xero-trial-balance
+- worked outcomes: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
+- Works with: https://duguid.com.au/works-with/
+
+---
+
+# Works with Claude: accounting MCP and skills
+
+Source: https://duguid.com.au/works-with/claude/
+
+> Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits.
+
+# Works with Claude
+
+Give Claude a bounded accounting tool or a workflow to follow. Use Aus Accounting MCP for local calculations and released accounting skills for preparation in Claude Code.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Choose a route
+
+### Calculations through Aus Accounting MCP
+
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.6.0.
+
+Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
+
+### Preparation through accounting skills
+
+The released Australian Accounting Skills v0.4.0 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
+
+Skills are instructions used by the agent. They do not disable the agent’s other tools or enforce its permissions. Review the agent’s file, command and external-service access separately.
+
+## Set up and try
+
+- For MCP in Claude Code: install Python 3.14 or later and uv, then open the installation guide and choose the Claude Code tab. Check the installed version; the unpinned command may reuse a cached package.
+- For MCP in Claude Desktop: use the same Python and uv prerequisites with the local stdio configuration in the released README.
+- For skills in Claude Code: use Git, Node and a working Claude Code installation. Choose Skills in the installation guide to copy the tagged release into a project. This route does not start the MCP server.
+
+Try the fictional MCP demonstration before supplying your own figures. It runs a pinned historical release outside Claude, so you can inspect the expected tool output separately from an assistant’s explanation. Retain the version and caveats with the result.
+
+For a skills walkthrough, follow the released BAS preparation example. Check its required inputs and expected tie-outs before asking Claude Code to prepare a workpaper.
+
+## Read and write access
+
+Access depends on both the tool and the Claude client. Scroll sideways on small screens.
+
+Route | Read | Write and disclosure
+Local MCP server | Supplied arguments, bundled calculation data and any Markdown library you explicitly configure. | Returns results to Claude. It has no Xero connection and cannot post to a ledger or lodge with the ATO.
+Claude Code skills | Skill instructions and project material made available to the agent. | The agent may write working files with its available tools. Skills set workflow boundaries; runtime permissions control access.
+Claude client | Prompts, tool results and any retrieved local library excerpts enter its context. | A cloud-backed client may send this context to the model provider. Check your plan, settings and organisation’s data policy before supplying information.
+
+Installation downloads packages. The standard calculation engines and MCP server run locally; optional integrations have separate network boundaries. See the MCP limits and supplier information for AI registers.
+
+## Refusals and human review
+
+Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock. These tools provide no tax, legal or financial advice.
+
+Aus Accounting MCP is separate from the hosted ATO retrieval project, ato-mcp. It ships no ATO document library and does not fetch legislation or rulings from the web. A configured local library sends its retrieved excerpts back into Claude’s context.
+
+Division 7A support is experimental. The server provides benchmark interest rate lookup and reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Read the refusal register and the tool’s period and scope checks with each result.
+
+These projects are not endorsed by Anthropic. For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
+
+## Links
+
+- Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
+- released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
+- Australian Accounting Skills v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
+- installation guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- fictional MCP demonstration: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- released BAS preparation example: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/docs/bas-walkthrough.md
+- MCP limits: https://duguid.com.au/tools/australian-tax-ai-agents/#limits
+- supplier information for AI registers: https://duguid.com.au/evidence/#supplier-information-for-ai-registers
+- refusal register: https://duguid.com.au/tools/refusals/
+- Xero exporter guide: https://duguid.com.au/works-with/xero/
+- Works with: https://duguid.com.au/works-with/
 
 ---
 
@@ -2052,7 +2267,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Python to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
+Browser: Coal LSL levy calculator or 9 business planning calculators. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -2271,6 +2486,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Works with Xero and Claude: https://duguid.com.au/works-with/
 - Xero trial balance CSV export tool: https://duguid.com.au/tools/xero-trial-balance/
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
@@ -2978,6 +3194,18 @@ Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked examp
 
 Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.14 or later
+
+Boundary
+
+A comparison is not an audit finding or compliance conclusion.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
@@ -3095,6 +3323,18 @@ Package solomons-sword in the australian-accounting repository. Current release 
 PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
 
 Current release v0.3.2 (20 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Does not invent arrangements, intentions or beneficiary facts.
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
@@ -3219,6 +3459,18 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Requires verified income composition, distributions and ledger inputs.
+
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
 Published 24 August 2026. Last reviewed 21 October 2026.
@@ -3332,6 +3584,18 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Agent skills
+
+Needs
+
+An AI coding agent such as Claude Code or Codex, and Node
+
+Boundary
+
+Requires human review of contracts, classifications and source records.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
@@ -3382,6 +3646,7 @@ Not as working figures. Each skill encodes the workflow, the tie-outs and the ex
 
 ## Related
 
+- Works with Claude: MCP and skills
 - Construction WIP schedule under AASB 15
 - Coal LSL levy calculator
 - When is payday super due
@@ -3401,6 +3666,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
+- Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - Coal LSL levy calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - Evidence and Assurance: https://duguid.com.au/evidence/
@@ -3421,6 +3687,18 @@ Package the-wip-tally in the australian-accounting repository. Current release v
 TheWIPTally reads one row per unit of account and produces a cost-to-cost work-in-progress schedule: earned revenue after AASB 15 para B19 exclusions, constrained unapproved variations, and a contract asset or contract liability per job. Assets and liabilities are never netted. Review aid, not a determination.
 
 Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Python
+
+Needs
+
+Python 3.14 or later
+
+Boundary
+
+Review aid under AASB 15, not an accounting determination.
 
 Published 25 August 2026. Last reviewed 21 October 2026.
 
@@ -3540,9 +3818,21 @@ Package xero-trial-balance-export in the accounting-review-pipeline repository. 
 
 This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
-Current release v0.1.15 (12 October 2026). Last reviewed 21 October 2026.
+Current release v0.1.15 (12 October 2026). Last reviewed 25 October 2026.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+Delivery
+
+Python
+
+Needs
+
+Python 3.11 or later and a free Xero developer app
+
+Boundary
+
+Read-only Xero scope; no ledger writes.
+
+Published 24 August 2026. Last reviewed 25 October 2026.
 
 This tool reads the trial balance from Xero’s reporting API and writes consistent CSV columns for account codes, names, monthly movements and year-to-date balances.
 
@@ -3563,11 +3853,11 @@ MIT-licensed utility code, no warranty; outputs feed professional review like an
 
 ## Get it
 
-Needs Python 3.10 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
+Needs Python 3.11 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.
 
 ```
 git clone https://github.com/ryanduguid/accounting-review-pipeline.git
-git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.6
+git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.15
 cd accounting-review-pipeline/packages/xero-trial-balance-export
 python -m pip install --require-hashes -r requirements.lock
 # copy .env.example to .env and add the app's client ID and secret, then:
@@ -3580,6 +3870,8 @@ First success takes one command. After the one-off consent step above, export a 
 python export_tb.py --date 2026-06-30
 # writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass
 ```
+
+These commands install the current release, v0.1.15 (its source). The default branch below is newer, unreleased work. The synthetic worked example stays pinned to v0.1.6, the release its evaluation tests.
 
 Source on GitHub
 
@@ -3615,6 +3907,7 @@ No file is written. The balance check runs before anything reaches disk, and bot
 
 ## Related
 
+- Works with Xero: setup and access
 - Turn trial balance CSVs into a monthly close exception report
 - How a business compares to the ATO benchmarks
 - When is payday super due
@@ -3630,11 +3923,14 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
 - XeroAPI accepted my correction to its command-line report flags: https://github.com/XeroAPI/xero-command-line/pull/44
 - Read the accepted-work record: https://duguid.com.au/evidence/#accepted-upstream-work
+- its source: https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export
+- synthetic worked example: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
 - Open an issue: https://github.com/ryanduguid/accounting-review-pipeline/issues
 - contact page: https://duguid.com.au/contact/
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
+- Works with Xero: setup and access: https://duguid.com.au/works-with/xero/
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
@@ -3657,6 +3953,18 @@ Package aus-accounting-mcp in the australian-accounting repository. Current rele
 Aus Accounting MCP v0.6.0 (published 20 October 2026) is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. It runs on your machine, ships no ATO document library and lodges nothing. Outputs need human review. The worked example below is pinned to v0.2.8 so its figures stay reproducible.
 
 Current release v0.6.0 (20 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+MCP
+
+Needs
+
+Python 3.14 or later and uv
+
+Boundary
+
+Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
 The current published release is aus-accounting-mcp/v0.6.0, verified on GitHub, PyPI and the MCP registry on 20 October 2026. It requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Release v0.6.0 adds two GST review tools from the new gst-review engine: one gives each coded bank line a review state against the supplied GST registration dates, and the other compares lodged G1, G2, G3, G10, G11, 1A and 1B figures with the ledger for each period on the cash or accruals basis. Neither classifies a supply or prepares, revises or lodges a BAS. It also pins the Apache-2.0 releases of the Payday Super, benchmark and Division 7A engines, which change no check, comparison or review. The annual Medicare levy worksheet does not adjust payroll withholding. Those changes are outside this guide’s v0.2.8 worked example.
 
@@ -3834,6 +4142,7 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 
 ## Related
 
+- Works with Claude: MCP and skills
 - When is payday super due
 - ATO small business benchmark comparison
 - Super guarantee rate history
@@ -3874,6 +4183,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
 - Review the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
@@ -3896,6 +4206,18 @@ Package review-ready-gate in the accounting-review-pipeline repository. Current 
 Current release review-ready-gate v0.3.0 (14 October 2026). The worked example below is pinned to v0.1.3. This tool inspects a folder of workpapers and answers READY, NOT_READY or BLOCKED. A missing GST control export, an unsigned self-review or a trial balance that does not balance never reaches the manager.
 
 Current release v0.3.0 (14 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+READY means ready for human review, not approved or signed off.
 
 Published 25 August 2026. Last reviewed 21 October 2026.
 
@@ -4255,6 +4577,18 @@ Package monthly-close-control-plane in the accounting-review-pipeline repository
 Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked example below is pinned to source commit ae88966. Monthly Close Controls compares current and prior Xero-shaped trial balance CSVs and writes an exception report for a human reviewer. It flags material movements, missing mappings and supplied subledger differences. It runs on local files without connecting to Xero.
 
 Current release v0.2.0 (5 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Python
+
+Needs
+
+Git and Python 3.10 or later
+
+Boundary
+
+PASS applies to the configured checks. A human approves the close.
 
 Inspect the eight exceptions Run the example
 
@@ -7903,6 +8237,18 @@ Package Ozzit in the Ozzit repository. Current release v3.5.0.
 143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.
 
 Current release v3.5.0 (19 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Excel workbook
+
+Needs
+
+Microsoft 365 or Excel 2024 or later
+
+Boundary
+
+Calculates only. The reviewer decides the accounting treatment and the tax position.
 
 Download Ozzit v3.5.0 Browse worked formulas
 

@@ -11,7 +11,7 @@ require_front_matter: true
 readme_index:
   enabled: false
 theme: null
-asset_version: "20261021"
+asset_version: "20261025"
 include:
   - .well-known
 exclude:
@@ -25,7 +25,8 @@ exclude:
   - Gemfile.lock
   - vendor
   - node_modules
-  - work
+  # The trailing slash keeps Jekyll 3 from excluding the public works-with pages.
+  - work/
   - DESIGN.md
   - README.md
   - docs

@@ -5,6 +5,8 @@
 //! included; other http(s) links must resolve, with bounded retries for transport
 //! failures, HTTP 429 and 5xx; hrefs must not be empty; retired names and em or en dashes
 //! must not appear; and no own-repository link may point at an archived repository.
+//! With `--transient-warnings`, links still failing with HTTP 429, 5xx or a timeout
+//! after their retries are reported as warnings instead.
 //! Transport, clock and output are passed in so tests can answer for the network.
 use crate::check_links_data::*;
 use crate::htmlparser::{self, Event};
@@ -90,10 +92,7 @@ impl Opener for Network {
         for (name, value) in headers {
             request = request.header(*name, value);
         }
-        let mut response = request.call().map_err(|e| match e {
-            ureq::Error::Timeout(_) => NetError::Timeout("timed out".into()),
-            other => NetError::Url(other.to_string()),
-        })?;
+        let mut response = request.call().map_err(net_error)?;
         let status = response.status().as_u16();
         let final_url = ureq::ResponseExt::get_uri(&response).to_string();
         if status >= 400 {
@@ -118,12 +117,21 @@ impl Opener for Network {
             .with_config()
             .limit(u64::MAX)
             .read_to_vec()
-            .map_err(|e| NetError::Url(e.to_string()))?;
+            .map_err(net_error)?;
         Ok(Opened {
             status,
             url: final_url,
             body,
         })
+    }
+}
+
+/// A transport error as urllib raises it. The 30-second limit also covers reading the
+/// body, so a timeout there is a timeout too.
+pub fn net_error(error: ureq::Error) -> NetError {
+    match error {
+        ureq::Error::Timeout(_) => NetError::Timeout("timed out".into()),
+        other => NetError::Url(other.to_string()),
     }
 }
 
@@ -138,6 +146,16 @@ impl Clock for SystemClock {
         std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
             .map_or(0.0, |d| d.as_secs_f64())
+    }
+}
+
+/// Whether a fetch that exhausted its retries may be a brief outage: HTTP 429, 5xx or
+/// a timeout. Other HTTP errors, DNS and other transport failures are not.
+pub fn is_transient(error: &NetError) -> bool {
+    match error {
+        NetError::Http { code, .. } => *code == 429 || (500..600).contains(code),
+        NetError::Timeout(_) => true,
+        _ => false,
     }
 }
 
@@ -206,6 +224,11 @@ pub struct Checker<'a> {
     pub actions: bool,
     /// GITHUB_TOKEN, sent only to the GitHub API.
     pub token: Option<String>,
+    /// Report links that still fail with HTTP 429, 5xx or a timeout after their
+    /// retries in `warnings` instead of failing (`--transient-warnings`).
+    pub transient_warnings: bool,
+    /// The transient link failures `transient_warnings` reported.
+    pub warnings: Vec<String>,
     /// Replace fetch_final_url, as the Python tests patch it.
     pub fetch_hook: Hook<'a, Fetched>,
     /// Replace repository_is_archived, as the Python tests patch it.
@@ -376,6 +399,8 @@ impl<'a> Checker<'a> {
             out,
             actions: false,
             token: None,
+            transient_warnings: false,
+            warnings: Vec::new(),
             fetch_hook: None,
             lookup_hook: None,
             archived_allowlist: Vec::new(),
@@ -655,6 +680,18 @@ impl<'a> Checker<'a> {
             }
             let (status, final_url) = match self.fetch_final_url(href) {
                 Ok(found) => found,
+                Err(error) if self.transient_warnings && is_transient(&error) => {
+                    let shown = match error {
+                        NetError::Http { code, .. } => format!("HTTP {code}"),
+                        other => other.to_string(),
+                    };
+                    self.warnings.push(format!("{rel}: {href} -> {shown}"));
+                    // The repository identity and archive lookups stay strict.
+                    if own_repository(href).is_some() {
+                        resolved_own.push(href.clone());
+                    }
+                    continue;
+                }
                 Err(NetError::Http { code, .. }) => {
                     if is_accepted_automation_denial(href, code) {
                         self.say(&format!(
@@ -836,17 +873,28 @@ fn self_check(root: &Path, say: &mut dyn FnMut(&str)) -> Result<(), String> {
     Ok(())
 }
 
+/// A workflow command message, with the characters Actions decodes escaped.
+pub fn annotation(message: &str) -> String {
+    message
+        .replace('%', "%25")
+        .replace('\r', "%0D")
+        .replace('\n', "%0A")
+}
+
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let parser = crate::pyargs::Parser {
         prog: "site-tools check_links",
         usage: USAGE,
         help: include_str!("help/check_links.txt"),
-        flags: &["--offline"],
+        flags: &["--offline", "--transient-warnings"],
         exclusive: &[],
         required: false,
     };
-    let offline = match parser.parse(args) {
-        crate::pyargs::Parsed::Flags(flags) => flags.contains(&"--offline"),
+    let (offline, transient_warnings) = match parser.parse(args) {
+        crate::pyargs::Parsed::Flags(flags) => (
+            flags.contains(&"--offline"),
+            flags.contains(&"--transient-warnings"),
+        ),
         crate::pyargs::Parsed::Exit(code) => return Ok(code),
     };
     let root = py::resolve(root);
@@ -859,6 +907,7 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let mut checker = Checker::new(root.clone(), &mut opener, &mut clock, &mut say);
     checker.actions = std::env::var("GITHUB_ACTIONS").is_ok_and(|v| v == "true");
     checker.token = std::env::var("GITHUB_TOKEN").ok();
+    checker.transient_warnings = transient_warnings;
     let pages = crate::seo_core::html_files(&root);
     if !offline {
         (checker.prefetched, checker.prefetched_verdicts) =
@@ -871,11 +920,28 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let llms = llms_hrefs(&root)?;
     failures.extend(checker.check_hrefs("llms.txt", &llms, offline)?);
     let mut text = String::new();
+    if !checker.warnings.is_empty() {
+        text.push_str(&format!(
+            "\n{} transient failure(s) reported as warnings:\n",
+            checker.warnings.len()
+        ));
+        for warning in &checker.warnings {
+            text.push_str(&format!("  WARN {warning}\n"));
+            if checker.actions {
+                text.push_str(&format!(
+                    "::warning title=Transient link failure::{}\n",
+                    annotation(warning)
+                ));
+            }
+        }
+    }
     if failures.is_empty() {
         text.push_str(if offline {
             "\noffline checks passed; external links were skipped\n"
-        } else {
+        } else if checker.warnings.is_empty() {
             "\nall clear\n"
+        } else {
+            "\nno other failures\n"
         });
         crate::print_text(&text, false).map_err(|e| e.to_string())?;
         return Ok(0);

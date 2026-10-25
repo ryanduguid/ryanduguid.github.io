@@ -360,7 +360,7 @@ jobs:
     # runs after merge, weekly and on demand rather than on pull requests.
     if: github.event_name != 'pull_request'
     timeout-minutes: 20
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: read
     defaults:
@@ -394,7 +394,7 @@ jobs:
     # "# removed-jobs: <job>" comment to this file.
     needs: [lint, tools, rust-windows, checks, browser, lighthouse]
     if: always()
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     permissions:
       contents: read

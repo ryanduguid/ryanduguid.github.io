@@ -12,6 +12,18 @@ Current release monthly-close-control-plane v0.2.0 (5 October 2026). The worked 
 
 Current release v0.2.0 (5 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Git and Python 3.10 or later
+
+Boundary
+
+PASS applies to the configured checks. A human approves the close.
+
 Inspect the eight exceptions Run the example
 
 Fictional July close: REVIEW, including a $250 creditors difference. Read it in your browser; reproducing it needs Git and Python.

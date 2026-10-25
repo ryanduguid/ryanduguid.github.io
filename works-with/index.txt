@@ -1,0 +1,66 @@
+# Works with Xero and Claude | Ryan Duguid
+
+Source: https://duguid.com.au/works-with/
+
+> Find accounting tools for Xero and Claude, with setup requirements, read and write access, reproducible examples and human review boundaries.
+
+# Works with
+
+Find a tool for the software you already use. Start with a read-only Xero export or accounting tools and workflows for Claude.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Xero
+
+Export a trial balance to a local CSV, with a balance check on both monthly movement and year-to-date figures. The exporter requests read-only report access and cannot write to a ledger.
+
+Tool
+
+Xero trial balance CSV export
+
+Needs
+
+Python, a Xero developer app and consent for the selected organisation.
+
+Try first
+
+The fictional CSV evaluation needs no Xero account; a live API trial can use Xero’s Demo Company.
+
+See Xero setup and access
+
+## Claude
+
+Use Aus Accounting MCP for bounded calculations in Claude Code or Claude Desktop, or add accounting workflows to Claude Code with the released skills. The MCP server and skills have separate setup and data boundaries.
+
+Tools
+
+Aus Accounting MCP and accounting skills.
+
+Needs
+
+A compatible Claude client and a local runtime. The local MCP server cannot be added directly to Claude’s web app.
+
+Try first
+
+Use fictional inputs and inspect the returned assumptions and refusals.
+
+See Claude setup and access
+
+## Before you connect
+
+These guides list existing tools and their supported routes. They do not establish certification or endorsement by Xero or Anthropic.
+
+Read the data and privacy boundary before supplying information. Installation may download packages, and an AI host may send supplied figures and tool results to its model provider. Posting, payment, lodgement, approval and period lock require human review.
+
+For other delivery forms, browse the full tool register. For fixed inputs and expected results, open the reproducible evaluations.
+
+## Links
+
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
+- See Xero setup and access: https://duguid.com.au/works-with/xero/
+- Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- accounting skills: https://duguid.com.au/tools/subcontractor-ledgers/
+- See Claude setup and access: https://duguid.com.au/works-with/claude/
+- data and privacy boundary: https://duguid.com.au/evidence/#data-and-privacy-boundary
+- full tool register: https://duguid.com.au/tools/
+- reproducible evaluations: https://duguid.com.au/evaluate/

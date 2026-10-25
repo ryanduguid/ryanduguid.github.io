@@ -13,14 +13,17 @@
     "test:lighthouse": "lhci autorun"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.13.0",
+    "@axe-core/playwright": "4.14.0",
     "@lhci/cli": "0.15.1",
-    "@playwright/test": "1.64.0",
+    "@playwright/test": "1.64.1",
     "typescript": "7.0.2"
   },
   "overrides": {
     "@puppeteer/browsers": "3.2.2",
     "basic-ftp": "6.2.1",
+    "chromium-bidi": {
+      "zod": "4.6.6"
+    },
     "js-yaml": {
       "argparse": "2.0.1"
     },

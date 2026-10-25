@@ -135,13 +135,22 @@
       "166be0ea1ba5060fa35dbd4bb38fa035469357eaa0e1a6922eeaf867dfca9d16"
     ],
     "tools/xero-trial-balance/index.html": [
-      "3ce4db44293150bb94c4b1bf1b3c31aac5f53f1901d13c9e37e8a742ec892531"
+      "4409f23e14bc91e2a1c1ea3febfa7b0dfcb7dca73a4418dbb452df0a74dde93f"
+    ],
+    "works-with/claude/index.html": [
+      "394dd3d9c6afca45fff611cae4b875bea28cc1163d169474959d31d3929f09ee"
+    ],
+    "works-with/index.html": [
+      "260a4e84da69d8bf8eba5490988fff3b4b22bb2b8c7027d33f3816a7f54d4110"
+    ],
+    "works-with/xero/index.html": [
+      "a18e24a48059a90fc90755cc491ef0a4bad78974ed32b909a4b61da9c6a49f1d"
     ]
   },
   "protected_files": {
-    "llms.txt": "6af3a7beb54f44528ea78bce98817ef5021e23ad3bb57a0c3d33c174f683baf2",
+    "llms.txt": "6914f2195f618dcdcda6ca3a6b11a0116f10a0dec82a0c4b56eccb7b8a08432b",
     "robots.txt": "28e5d429f1e7a23010a412ed0b6ab4186391398586558f122937f764e1f78242",
-    "sitemap.xml": "f51e5457353ffacaa8259781712fd4ad3912f6c69cfb1cad81ac1fdb2b2cc61a"
+    "sitemap.xml": "fc6db29914cec4db247ff3c965f05dc2a09fbcde1421a4b5be75a117db8ddfef"
   },
   "protected_main_links": {
     "rates/cents-per-kilometre/index.html": [
@@ -201,7 +210,7 @@
     "rates/super-guarantee/index.html": "09fda554c85d0d4eada4b18da824e7e62be6b7570147e98c152d9a00f3ead45b"
   },
   "protected_text": {
-    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 62,
+    "Nothing here is tax, legal or financial advice. Computational outputs are review aids for a qualified professional, not compliance determinations, and lodgement decisions stay with a human.": 65,
     "Nothing here is tax, legal or financial advice. The tools are review aids for a qualified professional, not compliance determinations.": 1,
     "This site does not offer tax or BAS agent services or take requests for tax advice or lodgement.": 1
   }

@@ -12,6 +12,18 @@ PCG 2022/2 sorts section 100A arrangements into white, green and red zones. Ther
 
 Current release v0.3.2 (20 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Does not invent arrangements, intentions or beneficiary facts.
+
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
 Published 24 August 2026. Last reviewed 21 October 2026.

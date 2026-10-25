@@ -683,7 +683,10 @@ pub const HOMEPAGE_REQUIRED_HREFS: [&str; 5] = [
     "/tools/workpaper-review-gate/",
 ];
 pub const HOMEPAGE_PROOF_HREFS: [&str; 2] = ["/tools/coal-lsl-levy/", "/evidence/"];
-pub const ARTICLE_PATTERN_PAGES: [&str; 32] = [
+pub const ARTICLE_PATTERN_PAGES: [&str; 35] = [
+    "works-with/index.html",
+    "works-with/xero/index.html",
+    "works-with/claude/index.html",
     "examples/profit-vs-cash-flow/index.html",
     "tools/ozzit/index.html",
     "tools/ozzit/functions/dates/index.html",
@@ -891,6 +894,7 @@ pub fn header_dated(rel: &str) -> bool {
         && (rel.starts_with("tools/")
             || rel.starts_with("evaluate/")
             || rel.starts_with("examples/")))
+        || rel.starts_with("works-with/")
         || [CALCULATOR_REL, "rates/index.html", "evaluate/index.html"].contains(&rel)
 }
 
