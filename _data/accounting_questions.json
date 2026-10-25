@@ -870,7 +870,7 @@
       "boundary": "The depreciation worksheet covers a bounded ordinary first-year method; it does not decide immediate-deduction eligibility.",
       "source": "deductions",
       "tool": "tax",
-      "fact": "An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million can write off each eligible asset costing less than $20,000.",
+      "fact": "An employee can deduct the work-related share of an item costing $300 or less straight away, unless it is part of a set costing more than $300; a dearer item is depreciated over its effective life. A small business with aggregated turnover under $10 million that uses the simplified depreciation rules can write off each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.",
       "fact_sources": [
         "tools-300",
         "iawo"
