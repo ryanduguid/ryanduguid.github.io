@@ -99,6 +99,7 @@ No file is written. The balance check runs before anything reaches disk, and bot
 
 ## Related
 
+- Works with Xero: setup and access
 - Turn trial balance CSVs into a monthly close exception report
 - How a business compares to the ATO benchmarks
 - When is payday super due
@@ -121,6 +122,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Reproduce the Xero trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - tagged balanced-output test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L191-L210
 - tagged unbalanced-YTD test: https://github.com/ryanduguid/accounting-review-pipeline/blob/3ae854911bf36f00bd3cc3eeafd1855848896629/packages/xero-trial-balance-export/tests/test_export_tb.py#L421-L433
+- Works with Xero: setup and access: https://duguid.com.au/works-with/xero/
 - Turn trial balance CSVs into a monthly close exception report: https://duguid.com.au/tools/monthly-close-controls/
 - How a business compares to the ATO benchmarks: https://duguid.com.au/tools/ato-benchmarks/
 - When is payday super due: https://duguid.com.au/tools/payday-super/

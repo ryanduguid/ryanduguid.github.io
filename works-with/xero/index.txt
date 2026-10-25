@@ -1,0 +1,59 @@
+# Works with Xero: read-only trial balance export
+
+Source: https://duguid.com.au/works-with/xero/
+
+> Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits.
+
+# Works with Xero
+
+Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Export a trial balance
+
+Xero trial balance CSV export reads Xero’s Trial Balance reporting API and produces consistent account, debit, credit and year-to-date columns. A balanced file is an input for review; it does not establish that the accounts are complete or correctly classified.
+
+Use the released Python exporter, v0.1.15. The tool guide keeps the pinned installation commands and first export together. The repository’s default branch contains an unreleased Rust implementation with a different installation path.
+
+Open the Xero installation and first run guide
+
+## What you need
+
+- Python 3.11 or later, Git and a local working directory for the released exporter.
+- A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.
+- A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.
+- An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.
+
+For a trial without credentials, reproduce the trial balance integrity evaluation. It uses 3 fictional CSV fixtures at its declared historical release. It exercises the balance gate without connecting to Xero.
+
+## Read and write access
+
+Access used by the released exporter. Scroll sideways on small screens.
+
+Resource | Read | Write
+Xero organisation | Trial Balance report through accounting.reports.trialbalance.read, after consent. | No ledger write access.
+Local files | App configuration and the local token cache. | Authentication updates the token cache. Export writes a CSV and its provenance manifest after validation.
+Excel or Power BI | You import the resulting CSV into your chosen application. | No direct connection to those applications is supplied.
+
+The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.
+
+## Limits and evidence
+
+Boundary: the exporter cannot post journals, edit transactions or lodge returns. A balanced trial balance still needs professional review.
+
+The date is an as-at date. The API does not reproduce Xero’s separate Trial Balance by Date Range report. The guide explains the movement columns and the exporter’s refusals.
+
+Check the release record, the worked outcomes and the fixed-release evaluation before relying on an export. The evaluation’s version differs from the current installation.
+
+This utility is not affiliated with or endorsed by Xero. Return to Works with for the other supported software route.
+
+## Links
+
+- Xero trial balance CSV export: https://duguid.com.au/tools/xero-trial-balance/
+- released Python exporter, v0.1.15: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/xero-trial-balance-export/v0.1.15
+- Open the Xero installation and first run guide: https://duguid.com.au/tools/xero-trial-balance/#get-it
+- reproduce the trial balance integrity evaluation: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
+- exporter’s refusals: https://duguid.com.au/tools/refusals/#xero-trial-balance
+- worked outcomes: https://duguid.com.au/tools/xero-trial-balance/#synthetic-worked-example
+- Works with: https://duguid.com.au/works-with/

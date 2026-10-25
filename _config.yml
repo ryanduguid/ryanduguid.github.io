@@ -25,7 +25,8 @@ exclude:
   - Gemfile.lock
   - vendor
   - node_modules
-  - work
+  # The trailing slash keeps Jekyll 3 from excluding the public works-with pages.
+  - work/
   - DESIGN.md
   - README.md
   - docs

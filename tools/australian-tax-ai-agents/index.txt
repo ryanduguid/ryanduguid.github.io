@@ -200,6 +200,7 @@ Yes. The listing name is io.github.ryanduguid/aus-accounting. The install comman
 
 ## Related
 
+- Works with Claude: MCP and skills
 - When is payday super due
 - ATO small business benchmark comparison
 - Super guarantee rate history
@@ -240,6 +241,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - LodgeiT calculator adapter: https://github.com/ryanduguid/australian-accounting/tree/19a5824af78cf281ccfc6b8f07f7e21b860ae1a7/apps/lodgeit-calculator-adapter
 - Website hosting and browser data handling: https://duguid.com.au/privacy/
 - Review the version-specific receipt rules: https://duguid.com.au/tools/payday-super/#receipt-amount
+- Works with Claude: MCP and skills: https://duguid.com.au/works-with/claude/
 - When is payday super due: https://duguid.com.au/tools/payday-super/
 - ATO small business benchmark comparison: https://duguid.com.au/tools/ato-benchmarks/
 - Super guarantee rate history: https://duguid.com.au/rates/super-guarantee/
