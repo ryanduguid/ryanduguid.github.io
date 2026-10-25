@@ -36,6 +36,10 @@ pub fn decode_png(bytes: &[u8]) -> Result<Rgba, String> {
     if source.bit_depth == png::BitDepth::Sixteen {
         return Err("16-bit PNGs are not supported".into());
     }
+    // Pillow composites APNG frames onto a canvas; one raw frame would differ.
+    if source.animation_control.is_some() {
+        return Err("animated PNGs are not supported".into());
+    }
     let size = reader
         .output_buffer_size()
         .ok_or("PNG is too large to decode")?;
@@ -64,7 +68,11 @@ pub fn encode_webp(image: &Rgba) -> Result<Vec<u8>, String> {
     let width = i32::try_from(image.width).map_err(|e| e.to_string())?;
     let height = i32::try_from(image.height).map_err(|e| e.to_string())?;
     let stride = width.checked_mul(4).ok_or("image is too wide")?;
-    if image.pixels.len() != image.width as usize * image.height as usize * 4 {
+    let len = (image.width as usize)
+        .checked_mul(image.height as usize)
+        .and_then(|n| n.checked_mul(4))
+        .ok_or("image is too large")?;
+    if image.pixels.len() != len {
         return Err("pixel buffer does not match the image size".into());
     }
     // SAFETY: config, picture and writer are initialised by libwebp before use,
@@ -115,7 +123,16 @@ pub fn decode_webp(bytes: &[u8]) -> Result<Rgba, String> {
         if data.is_null() {
             return Err("WebP decoding failed".into());
         }
-        let len = width as usize * height as usize * 4;
+        let len = usize::try_from(width)
+            .ok()
+            .zip(usize::try_from(height).ok())
+            .filter(|&(w, h)| w > 0 && h > 0)
+            .and_then(|(w, h)| w.checked_mul(h)?.checked_mul(4))
+            .filter(|&n| isize::try_from(n).is_ok());
+        let Some(len) = len else {
+            webp::WebPFree(data.cast());
+            return Err("WebP decoder returned an invalid size".into());
+        };
         let pixels = std::slice::from_raw_parts(data, len).to_vec();
         webp::WebPFree(data.cast());
         Ok(Rgba {

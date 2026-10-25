@@ -177,3 +177,34 @@ fn design_check_reports_stale_and_missing_copies() {
         ]
     );
 }
+
+#[test]
+fn animated_pngs_are_refused() {
+    // Pillow composites APNG frames onto a canvas, so a first raw frame is not
+    // what `convert("RGBA")` would give; the charts are static exports.
+    let mut data = Vec::new();
+    {
+        let mut encoder = png::Encoder::new(&mut data, 1, 1);
+        encoder.set_color(png::ColorType::Rgba);
+        encoder.set_depth(png::BitDepth::Eight);
+        encoder.set_animated(2, 0).unwrap();
+        let mut writer = encoder.write_header().unwrap();
+        writer.write_image_data(&[0, 0, 0, 0]).unwrap();
+        writer.write_image_data(&[1, 2, 3, 255]).unwrap();
+        writer.finish().unwrap();
+    }
+    assert_eq!(
+        cash_chart_webp::decode_png(&data),
+        Err("animated PNGs are not supported".into())
+    );
+}
+
+#[test]
+fn an_image_too_large_for_its_buffer_is_refused() {
+    let image = Rgba {
+        width: 16_384,
+        height: 65_536,
+        pixels: Vec::new(),
+    };
+    assert!(cash_chart_webp::encode_webp(&image).is_err());
+}
