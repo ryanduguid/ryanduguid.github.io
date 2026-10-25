@@ -390,3 +390,53 @@ test('calculator identity uses the newest implementing file, including its page 
   assert.deepEqual(paths, ['assets/levy.mjs', 'assets/levy-form.mjs', 'assets/levy-page.mjs', 'assets/levy-explanation.mjs']);
   assert.deepEqual(revision, { sha: 'new-adapter', date: '2026-10-19T12:33:50Z' });
 });
+
+test('register facts come from the tool data and touch only that entry', () => {
+  const register = card('https://example.com/x') + '\n' + card('https://example.com/y').replace('/tools/x/', '/tools/y/');
+  const stamped = freshness.stampRegisterFacts(register, 'y', { delivery: 'MCP', boundary: 'Human review <required> & logged.' });
+  const [first, second] = stamped.split('</dl>');
+  assert.match(first, /<dd>Python<\/dd>[\s\S]*<dd>Review aid\.<\/dd>/);
+  assert.match(second, /<dt>Delivery<\/dt><dd>MCP<\/dd>/);
+  assert.match(second, /<dt>Boundary<\/dt><dd>Human review &lt;required&gt; &amp; logged\.<\/dd>/);
+  assert.throws(() => freshness.stampRegisterFacts(register, 'z', { delivery: 'MCP', boundary: 'x' }), /one register entry for z, found 0/);
+});
+
+test('register stamping refuses a missing or repeated fact instead of leaving it stale', () => {
+  const facts = { delivery: 'MCP', boundary: 'Review.' };
+  const noBoundary = card('https://example.com/x').replace(/\s*<div><dt>Boundary<\/dt>.*<\/div>/, '');
+  assert.throws(() => freshness.stampRegisterFacts(noBoundary, 'x', facts), /one Boundary for x, found 0/);
+  const twoDelivery = card('https://example.com/x').replace('<dl>', '<dl>\n<div><dt>Delivery</dt><dd>Excel</dd></div>');
+  assert.throws(() => freshness.stampRegisterFacts(twoDelivery, 'x', facts), /one Delivery for x, found 2/);
+  // A first card without facts must not take the next card's list.
+  const later = card('https://example.com/y').replace('/tools/x/', '/tools/y/');
+  const bare = card('https://example.com/x').replace(/\s*<dl>[\s\S]*<\/dl>/, '') + '\n' + later;
+  assert.throws(() => freshness.stampRegisterFacts(bare, 'x', facts), /one Delivery for x, found 0/);
+});
+
+test('latest releases list the newest tagged releases, ties by slug', () => {
+  const home = '<ul class="latest-releases" aria-labelledby="t">\n            <li>old</li>\n          </ul>';
+  const tools = { a: { name: 'A' }, b: { name: 'B & Co' }, c: { name: 'C' }, d: { name: 'D' }, levy: { name: 'Levy' } };
+  const data = {
+    a: { tag: 'a/v1.0.0', version: '1.0.0', date: '2026-10-20', dateLabel: '20 October 2026' },
+    b: { tag: 'b/v2.0.0', version: '2.0.0', date: '2026-10-20', dateLabel: '20 October 2026' },
+    c: { tag: 'c/v0.1.0', version: '0.1.0', date: '2026-09-01', dateLabel: '1 September 2026' },
+    d: { tag: 'd/v0.2.0', version: '0.2.0', date: '2026-10-01', dateLabel: '1 October 2026' },
+    levy: { version: 'abc123', date: '2026-10-24', dateLabel: '24 October 2026' },
+  };
+  const stamped = freshness.stampLatestReleases(home, tools, data);
+  assert.deepEqual([...stamped.matchAll(/href="\/tools\/([a-z]+)\/"/g)].map(m => m[1]), ['b', 'a', 'd']);
+  assert.match(stamped, /B &amp; Co v2\.0\.0<\/a> <time datetime="2026-10-20">20 October 2026<\/time>/);
+  assert.equal(freshness.stampLatestReleases(stamped, tools, data), stamped);
+  assert.throws(() => freshness.stampLatestReleases('<p></p>', tools, data), /latest releases list not found/);
+  assert.throws(() => freshness.stampLatestReleases(home, tools, { a: { ...data.a, date: '20 October' } }), /a: release date must be YYYY-MM-DD/);
+});
+
+test('the committed register facts and homepage releases match the data', () => {
+  const tools = JSON.parse(readFileSync(join(root, '_data', 'tools.json'), 'utf8'));
+  const data = JSON.parse(readFileSync(join(root, '_data', 'tool_releases.json'), 'utf8'));
+  const register = readFileSync(join(root, 'tools', 'index.html'), 'utf8');
+  const restamped = Object.entries(tools).reduce((html, [slug, tool]) => freshness.stampRegisterFacts(html, slug, tool), register);
+  assert.equal(restamped, register);
+  const home = readFileSync(join(root, 'index.html'), 'utf8');
+  assert.equal(freshness.stampLatestReleases(home, tools, data), home);
+});

@@ -301,6 +301,51 @@ export function stampToolSitemap(sitemap, url, html) {
     (_, start) => start + [...dates][0]);
 }
 
+const escapeHtml = text => text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
+
+// The register's Delivery and Boundary come from _data/tools.json, the facts
+// each tool page shows. They are written as static text so the register keeps
+// no Liquid beyond the shared chrome, which lets wording-only pull requests
+// use the offline site checks.
+export function stampRegisterFacts(register, slug, tool) {
+  // Each entry runs from its own opening div to the next one, so a card that
+  // loses its facts cannot borrow a later card's.
+  const marker = '<div class="collection-entry">';
+  const parts = register.split(marker);
+  const title = '<a class="collection-entry__title" href="/tools/' + slug + '/">';
+  const found = parts.flatMap((part, index) => (index > 0 && part.includes(title) ? [index] : []));
+  if (found.length !== 1) {
+    throw new Error('tools/index.html: expected one register entry for ' + slug + ', found ' + found.length);
+  }
+  let entry = parts[found[0]];
+  for (const [label, value] of [['Delivery', tool.delivery], ['Boundary', tool.boundary]]) {
+    const field = new RegExp('(<dt>' + label + '</dt><dd>)[^<]*(</dd>)', 'g');
+    const count = [...entry.matchAll(field)].length;
+    if (count !== 1) throw new Error(`tools/index.html: expected one ${label} for ${slug}, found ${count}`);
+    entry = entry.replace(field, (_, start, end) => start + escapeHtml(value) + end);
+  }
+  parts[found[0]] = entry;
+  return parts.join(marker);
+}
+
+// The homepage lists the newest tagged releases. Ties on a date fall back to
+// the slug, so a refresh never reorders an unchanged list.
+export function stampLatestReleases(home, tools, data, limit = 3) {
+  const list = /(<ul class="latest-releases"[^>]*>\n)[\s\S]*?(\n[ \t]*<\/ul>)/;
+  if (!list.test(home)) throw new Error('index.html: latest releases list not found');
+  const items = Object.entries(data)
+    .filter(([slug, release]) => release.tag && tools[slug])
+    .sort(([a, x], [b, y]) => y.date.localeCompare(x.date) || b.localeCompare(a))
+    .slice(0, limit)
+    .map(([slug, release]) => {
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(release.date)) throw new Error(slug + ': release date must be YYYY-MM-DD');
+      return '            <li><a href="/tools/' + slug + '/">' + escapeHtml(tools[slug].name)
+        + ' v' + escapeHtml(release.version) + '</a> <time datetime="' + release.date + '">'
+        + escapeHtml(release.dateLabel) + '</time></li>';
+    });
+  return home.replace(list, (_, start, end) => start + items.join('\n') + end);
+}
+
 export function stampMcpIndex(text, release) {
   return text.replace(/(\[Aus Accounting MCP\]\(https:\/\/duguid\.com\.au\/tools\/australian-tax-ai-agents\/\): local MCP server, current release )v[\d.]+ \([^)]+\)/,
     (_, start) => start + 'v' + release.version + ' (' + release.dateLabel + ')');
@@ -339,9 +384,12 @@ async function main() {
         (_, start) => start + tool.name);
       register = register.replace(new RegExp('("name": ")[^"\\n]+("[,]?\\s*"url": "' + url.replaceAll('.', '\\.') + '")'),
         (_, start, end) => start + tool.name + end);
+      register = stampRegisterFacts(register, slug, tool);
     }
     writeFileSync(join(root, 'sitemap.xml'), sitemap);
     writeFileSync(page, register);
+    const home = join(root, 'index.html');
+    writeFileSync(home, stampLatestReleases(readFileSync(home, 'utf8'), tools, data));
     const index = join(root, 'llms.txt');
     writeFileSync(index, stampMcpIndex(readFileSync(index, 'utf8'), data['australian-tax-ai-agents']));
     console.log('tool releases refreshed from published GitHub tags; browser levy from source revision');

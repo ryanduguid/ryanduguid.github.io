@@ -1089,6 +1089,127 @@ caption {
   margin: 0;
 }
 
+/* The Tools filter appears only with JavaScript; the full register shows
+   without it. Grid display would otherwise override the hidden attribute. */
+.tool-filter {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.tool-filter[hidden],
+.collection-group[hidden],
+.collection-entry[hidden] {
+  display: none;
+}
+
+.tool-filter .field {
+  max-width: 28rem;
+}
+
+.tool-filter fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.tool-filter legend {
+  width: 100%;
+  margin-bottom: var(--space-2);
+}
+
+.tool-filter fieldset label {
+  align-items: center;
+  gap: var(--space-2);
+  padding-inline: var(--space-3);
+  border: var(--rule-thin) solid var(--colour-rule-strong);
+  border-radius: var(--radius-control);
+}
+
+.tool-filter fieldset label:has(input:checked) {
+  border-color: var(--colour-ink);
+  background: var(--colour-stamp-wash);
+}
+
+.tool-filter input[type="radio"] {
+  margin-top: 0;
+}
+
+/* The shared radio outline outranks the global focus ring, so the chip
+   carries the site's 3px focus ring itself. */
+.tool-filter fieldset label:has(input:focus-visible) {
+  outline: 0.1875rem solid var(--colour-ink);
+  outline-offset: 0.1875rem;
+}
+
+.tool-filter p {
+  margin: 0;
+}
+
+.latest-releases__title {
+  margin-top: var(--space-4);
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.latest-releases {
+  display: grid;
+  gap: 0;
+  margin: var(--space-2) 0 var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+/* Plain body links, not the large route links around them; the block keeps a 44px target. */
+.route-section .latest-releases li a {
+  display: inline-block;
+  min-height: 2.75rem;
+  padding-block: var(--space-2);
+  border-bottom: 0;
+  font-family: inherit;
+  font-size: inherit;
+  text-decoration-line: underline;
+}
+
+.latest-releases time {
+  white-space: nowrap;
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+}
+
+/* A tool page's delivery, requirements and boundary, read before the detail. */
+.tool-facts {
+  display: grid;
+  gap: var(--space-2);
+  margin-block: var(--space-4);
+  padding-block: var(--space-3);
+  border-block: var(--rule-thin) solid var(--colour-rule-strong);
+}
+
+.tool-facts div {
+  display: grid;
+  grid-template-columns: minmax(5rem, 7rem) minmax(0, 1fr);
+  gap: var(--space-3);
+  align-items: baseline;
+}
+
+.tool-facts dt {
+  color: var(--colour-ink-soft);
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+}
+
+.tool-facts dd {
+  margin: 0;
+}
+
 /* The optional note sits under the description so the facts column keeps
    its place in every entry; the dl is pinned so auto-placement cannot drop
    it below the note. */

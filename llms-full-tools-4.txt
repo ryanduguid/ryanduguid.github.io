@@ -935,6 +935,18 @@ Package Ozzit in the Ozzit repository. Current release v3.5.0.
 
 Current release v3.5.0 (19 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Excel workbook
+
+Needs
+
+Microsoft 365 or Excel 2024 or later
+
+Boundary
+
+Calculates only. The reviewer decides the accounting treatment and the tax position.
+
 Download Ozzit v3.5.0 Browse worked formulas
 
 XLSX, 462,490 bytes. Needs Microsoft 365 or Excel 2024 or later. No add-in or macro.

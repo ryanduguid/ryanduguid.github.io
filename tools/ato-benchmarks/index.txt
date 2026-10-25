@@ -12,6 +12,18 @@ Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked examp
 
 Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.14 or later
+
+Boundary
+
+A comparison is not an audit finding or compliance conclusion.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.

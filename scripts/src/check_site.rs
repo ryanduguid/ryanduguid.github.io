@@ -540,6 +540,8 @@ impl Host for System<'_> {
         };
         for name in [
             "scripts",
+            // The release-refresh tests compare committed pages with this data.
+            "_data",
             ".agents",
             "docs",
             "README.md",

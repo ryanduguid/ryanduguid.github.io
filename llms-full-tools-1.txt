@@ -948,6 +948,18 @@ Current release ato-benchmark-compare v0.2.2 (20 October 2026). The worked examp
 
 Current release v0.2.2 (20 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.14 or later
+
+Boundary
+
+A comparison is not an audit finding or compliance conclusion.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Checking a business against the benchmarks before lodgement is a useful review step, and it is usually done by hand: find the industry page, work out which turnover band applies, add up the right accounts and divide.
@@ -1065,6 +1077,18 @@ Package solomons-sword in the australian-accounting repository. Current release 
 PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.
 
 Current release v0.3.2 (20 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Does not invent arrangements, intentions or beneficiary facts.
 
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
@@ -1189,6 +1213,18 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Requires verified income composition, distributions and ledger inputs.
+
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
 Published 24 August 2026. Last reviewed 21 October 2026.
@@ -1301,6 +1337,18 @@ Package australian-accounting-skills in the australian-accounting-skills reposit
 These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
+
+Delivery
+
+Agent skills
+
+Needs
+
+An AI coding agent such as Claude Code or Codex, and Node
+
+Boundary
+
+Requires human review of contracts, classifications and source records.
 
 Published 24 August 2026. Last reviewed 21 October 2026.
 

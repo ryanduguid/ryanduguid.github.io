@@ -189,7 +189,7 @@
           <section id="reproduce">
             <h2>Rebuild it from source</h2>
             <p>The example lives in the au-fpa-pack repository, an Australian extension of <a href="https://github.com/JeffBrines/openfpa">Jeff Brines / Guiderail’s openfpa</a>. From a checkout of the captured commit, with Python 3.11 and <a href="https://docs.astral.sh/uv/">uv</a>:</p>
-            <pre tabindex="0" role="region" aria-label="Lumbridge reproduction commands"><code><span class="cmd">uv sync --locked --extra dev</span>
+            <pre class="copyable" tabindex="0" role="region" aria-label="Lumbridge reproduction commands"><code><span class="cmd">uv sync --locked --extra dev</span>
 <span class="cmd">uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py</span>
 <span class="cmd">uv run --locked --extra dev python examples/lumbridge-services/models/generated/lumbridge.py --delay-days 45</span></code></pre>
             <p>Each run writes the workbook, briefing and schedules to <code>examples/lumbridge-services/output/</code> and verifies all 21 monthly workbook lines against the Python model before replacing the workbook. Expect <code>quarter_profit_before_tax</code> of 35957.55 in both runs, and <code>minimum_daily_cash</code> of 16800.0 on 2026-10-07 at a 0-day delay and -25160.0 on 2026-11-06 at 45. A rebuilt workbook can differ in package metadata or cache bytes from the file distributed here.</p>
@@ -347,5 +347,6 @@
   }
   </script>
   <script type="module" src="/assets/chart-dialog.mjs"></script>
+  <script type="module" src="/assets/copy-commands.mjs"></script>
 </body>
 </html>
