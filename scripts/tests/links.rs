@@ -562,6 +562,67 @@ fn transient_failures_wait_and_exhaust_for_both_fetchers() {
 }
 
 #[test]
+fn transient_warnings_cover_only_exhausted_rate_limits_server_errors_and_timeouts() {
+    let href = "https://example.com/page";
+    let dns = || Err(NetError::Url("failed to lookup address information".into()));
+    for (answer, transient, shown) in [
+        (http(503), true, "HTTP 503"),
+        (http(429), true, "HTTP 429"),
+        (
+            Err(NetError::Timeout("timed out".into())),
+            true,
+            "timed out",
+        ),
+        (http(404), false, "HTTP 404"),
+        (http(410), false, "HTTP 410"),
+        (
+            dns(),
+            false,
+            "<urlopen error failed to lookup address information>",
+        ),
+    ] {
+        for warn in [false, true] {
+            let harness = Harness::new(vec![answer.clone()]);
+            let (failures, warnings) = harness.run(|c| {
+                c.transient_warnings = warn;
+                let failures = c
+                    .check_hrefs("page.html", &strings(&[href]), false)
+                    .unwrap();
+                (failures, c.warnings.clone())
+            });
+            let expected = vec![format!("page.html: {href} -> {shown}")];
+            if warn && transient {
+                assert!(failures.is_empty(), "{failures:?}");
+                assert_eq!(warnings, expected);
+            } else {
+                assert_eq!(failures, expected);
+                assert!(warnings.is_empty(), "{warnings:?}");
+            }
+        }
+    }
+    // A link that recovers within its retries is neither a warning nor a failure.
+    let harness = Harness::new(vec![http(503), ok(200, href, "")]);
+    let (failures, warnings) = harness.run(|c| {
+        c.transient_warnings = true;
+        let failures = c
+            .check_hrefs("page.html", &strings(&[href]), false)
+            .unwrap();
+        (failures, c.warnings.clone())
+    });
+    assert!(failures.is_empty() && warnings.is_empty());
+    assert_eq!(harness.requests().len(), 2);
+}
+
+#[test]
+fn transient_warning_annotations_escape_workflow_command_characters() {
+    use site_tools::check_links::annotation;
+    assert_eq!(
+        annotation("a.html: https://x.test/a%20b -> HTTP 503\r\nnext"),
+        "a.html: https://x.test/a%2520b -> HTTP 503%0D%0Anext"
+    );
+}
+
+#[test]
 fn offline_mode_still_checks_local_links_without_external_requests() {
     let dir = tempfile::tempdir().unwrap();
     let page = dir.path().join("index.html");
@@ -785,14 +846,25 @@ fn the_api_token_is_sent_only_when_present() {
 /// check_site with every command recorded and none run.
 struct Recorder {
     commands: Vec<Vec<String>>,
+    event: Option<&'static str>,
+    git: NoDiff,
+}
+
+/// A merge comparison that cannot be read, so `--ci` keeps the live checks.
+struct NoDiff;
+
+impl site_tools::check_site::Git for NoDiff {
+    fn run(&mut self, _: &[&str], _: bool) -> Result<String, site_tools::check_site::GitError> {
+        Err(site_tools::check_site::GitError::Called)
+    }
 }
 
 impl site_tools::check_site::Host for Recorder {
     fn event(&self) -> Option<String> {
-        None
+        self.event.map(str::to_owned)
     }
     fn git(&mut self) -> &mut dyn site_tools::check_site::Git {
-        panic!("read git")
+        &mut self.git
     }
     fn exe(&self) -> String {
         "site-tools".into()
@@ -811,11 +883,23 @@ impl site_tools::check_site::Host for Recorder {
 }
 
 #[test]
-fn site_runner_passes_offline_only_to_the_link_checker() {
+fn site_runner_passes_link_modes_only_to_the_link_checker() {
     use site_tools::check_site::{CHECKS, Check, main_with};
-    for arguments in [vec![], vec!["--offline".to_owned()]] {
+    for (given, event, passed) in [
+        (&[][..], None, &[][..]),
+        (&["--offline"][..], None, &["--offline"][..]),
+        (&[], Some("pull_request"), &[]),
+        (&["--ci"], Some("pull_request"), &["--transient-warnings"]),
+        (&["--ci"], Some("schedule"), &[]),
+        (&["--ci"], Some("workflow_dispatch"), &[]),
+        (&["--ci"], Some("push"), &["--offline"]),
+        (&["--ci", "--offline"], Some("pull_request"), &["--offline"]),
+    ] {
+        let arguments = strings(given);
         let mut host = Recorder {
             commands: Vec::new(),
+            event,
+            git: NoDiff,
         };
         assert_eq!(main_with(Path::new("."), &arguments, &mut host), Ok(0));
         let words = |items: &[&str]| items.iter().map(|w| (*w).to_owned()).collect::<Vec<_>>();
@@ -828,11 +912,11 @@ fn site_runner_passes_offline_only_to_the_link_checker() {
         for check in CHECKS {
             let mut argv = check.argv("site-tools");
             if *check == Check::Tool(&["check_links"]) {
-                argv.extend(arguments.iter().cloned());
+                argv.extend(strings(passed));
             }
             expected.push(argv);
         }
-        assert_eq!(host.commands, expected, "{arguments:?}");
+        assert_eq!(host.commands, expected, "{arguments:?} {event:?}");
     }
 }
 

@@ -1,1 +1,1 @@
-usage: site-tools check_links [-h] [--offline]
+usage: site-tools check_links [-h] [--offline] [--transient-warnings]
