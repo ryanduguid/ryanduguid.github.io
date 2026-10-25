@@ -12,7 +12,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/ato-benchmark-compare/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.14 or later",
+    "boundary": "A comparison is not an audit finding or compliance conclusion."
   },
   "australian-tax-ai-agents": {
     "name": "Aus Accounting MCP",
@@ -27,7 +30,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/aus-accounting-mcp/"
-    ]
+    ],
+    "delivery": "MCP",
+    "needs": "Python 3.14 or later and uv",
+    "boundary": "Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited."
   },
   "coal-lsl-levy": {
     "name": "Coal LSL levy calculator",
@@ -40,7 +46,10 @@
       "Coal LSL levy calculator and section 3B eligible wages",
       "assets/levy.mjs"
     ],
-    "sameAs": []
+    "sameAs": [],
+    "delivery": "Browser",
+    "needs": "A web browser; nothing to install",
+    "boundary": "No lodgement, storage or network transmission; verify the monthly return."
   },
   "company-tax-franking": {
     "name": "Company tax and franking worksheets",
@@ -56,7 +65,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/the-exchequer-tally/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.10 or later",
+    "boundary": "Requires verified income composition, distributions and ledger inputs."
   },
   "monthly-close-controls": {
     "name": "Monthly Close Controls",
@@ -71,7 +83,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/monthly-close-control-plane/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Git and Python 3.10 or later",
+    "boundary": "PASS applies to the configured checks. A human approves the close."
   },
   "ozzit": {
     "name": "Ozzit",
@@ -85,7 +100,10 @@
       "ozzit.xlsx",
       "Ozzit"
     ],
-    "sameAs": []
+    "sameAs": [],
+    "delivery": "Excel workbook",
+    "needs": "Microsoft 365 or Excel 2024 or later",
+    "boundary": "Calculates only. The reviewer decides the accounting treatment and the tax position."
   },
   "payday-super": {
     "name": "Payday Super receipt evidence",
@@ -101,7 +119,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/payday-super-checker/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "uv, which fetches the pinned checker from PyPI",
+    "boundary": "Missing receipt evidence stays at risk; the tool does not infer payment."
   },
   "subcontractor-ledgers": {
     "name": "Subcontractor ledger skills for construction and mining",
@@ -114,7 +135,10 @@
       "Subcontract ledger workflows for construction and mining",
       "australian-accounting-skills"
     ],
-    "sameAs": []
+    "sameAs": [],
+    "delivery": "Agent skills",
+    "needs": "An AI coding agent such as Claude Code or Codex, and Node",
+    "boundary": "Requires human review of contracts, classifications and source records."
   },
   "trust-distributions": {
     "name": "Trust distribution worksheets for professional review",
@@ -130,7 +154,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/solomons-sword/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.10 or later",
+    "boundary": "Does not invent arrangements, intentions or beneficiary facts."
   },
   "wip-schedule": {
     "name": "TheWIPTally construction WIP schedule",
@@ -146,7 +173,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/the-wip-tally/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.14 or later",
+    "boundary": "Review aid under AASB 15, not an accounting determination."
   },
   "workpaper-review-gate": {
     "name": "Workpaper Review Gate",
@@ -161,7 +191,10 @@
     ],
     "sameAs": [
       "https://pypi.org/project/review-ready-gate/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.10 or later",
+    "boundary": "READY means ready for human review, not approved or signed off."
   },
   "xero-trial-balance": {
     "name": "Xero trial balance CSV export tool",
@@ -176,6 +209,9 @@
     ],
     "sameAs": [
       "https://pypi.org/project/xero-trial-balance-export/"
-    ]
+    ],
+    "delivery": "Python",
+    "needs": "Python 3.11 or later and a free Xero developer app",
+    "boundary": "Read-only Xero scope; no ledger writes."
   }
 }

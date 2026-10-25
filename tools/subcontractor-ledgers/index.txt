@@ -12,6 +12,18 @@ These are Claude Code skills rather than a standalone calculator, so an AI codin
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Agent skills
+
+Needs
+
+An AI coding agent such as Claude Code or Codex, and Node
+
+Boundary
+
+Requires human review of contracts, classifications and source records.
+
 Published 24 August 2026. Last reviewed 21 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.

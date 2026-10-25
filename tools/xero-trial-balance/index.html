@@ -60,9 +60,10 @@ tool: xero-trial-balance
     <h1>{{ tool.name }}</h1>
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
     <p class="lead-note">This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.</p>
-    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+    <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 25 October 2026.</p>
+{% include tool-facts.html %}
 
-    <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
+    <p class="page-meta">Published 24 August 2026. Last reviewed 25 October 2026.</p>
       </header>
       <div class="article-layout site-shell">
         <nav class="article-toc" aria-label="On this page">
@@ -113,9 +114,9 @@ tool: xero-trial-balance
     </section>
     <section id="get-it" class="install-panel">
     <h2>Get it</h2>
-    <p class="install-needs">Needs Python 3.10 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.</p>
+    <p class="install-needs">Needs Python 3.11 or later and a free Xero developer app, about 5 minutes of one-off setup. It works with Xero’s free Demo Company, so nothing has to touch a live ledger. A command-line tool for whoever runs Python at your firm.</p>
     <pre tabindex="0" role="region" aria-label="Installation commands"><code><span class="cmd">git clone https://github.com/ryanduguid/accounting-review-pipeline.git</span>
-<span class="cmd">git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.6</span>
+<span class="cmd">git -C accounting-review-pipeline checkout xero-trial-balance-export/v0.1.15</span>
 <span class="cmd">cd accounting-review-pipeline/packages/xero-trial-balance-export</span>
 <span class="cmd">python -m pip install --require-hashes -r requirements.lock</span>
 <span class="comment"># copy .env.example to .env and add the app's client ID and secret, then:</span>
@@ -123,6 +124,7 @@ tool: xero-trial-balance
     <p>First success takes one command. After the one-off consent step above, export a dated trial balance:</p>
     <pre tabindex="0" role="region" aria-label="First run command"><code><span class="cmd">python export_tb.py --date 2026-06-30</span>
 <span class="comment"># writes a CSV such as demo-company-au-...-tb-2026-06-30-accrual.csv, only when both balance checks pass</span></code></pre>
+    <p>These commands install the current release, v0.1.15 (<a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/xero-trial-balance-export/v0.1.15/packages/xero-trial-balance-export">its source</a>). The default branch below is newer, unreleased work. The <a href="#synthetic-worked-example">synthetic worked example</a> stays pinned to v0.1.6, the release its evaluation tests.</p>
     <p><a href="https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export">Source on GitHub</a></p>
     <p>Software issue using fictional data? <a href="https://github.com/ryanduguid/accounting-review-pipeline/issues">Open an issue</a> or <a href="mailto:ryan@duguid.com.au?subject=Xero%20trial%20balance%20CSV%20export">email with the tool named in the subject</a>. If the email link does not open, the <a href="/contact/">contact page</a> spells the address out.</p>
     <!-- geo-blocks -->
@@ -214,7 +216,7 @@ tool: xero-trial-balance
       "description": "Pull a trial balance straight from the Xero API into a tidy, balance-checked CSV for Power BI, Excel or pandas.",
       "inLanguage": "en-AU",
       "datePublished": "2026-08-24",
-      "dateModified": "2026-10-21",
+      "dateModified": "2026-10-25",
       "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
       "isPartOf": {
         "@id": "https://duguid.com.au/#website"

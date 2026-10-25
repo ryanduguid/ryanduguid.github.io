@@ -55,8 +55,10 @@ const homeHeightBaseline = {
   // both ceilings drop to that plus the 234px guard so the page stays short.
   // The single chart action of 1 October adds a measured 35px mobile and
   // 36px desktop. Keep the previous headroom above the new content height.
-  mobile: 6214,
-  desktop: 4681,
+  // The Latest tool releases list of 25 October adds a measured 332px mobile
+  // and 260px desktop. Keep the previous headroom above the new content height.
+  mobile: 6546,
+  desktop: 4941,
 };
 
 const representativeHeightBaseline = {
@@ -111,7 +113,9 @@ const representativeHeightBaseline = {
     // 5,611px, 9px under this ceiling. The gap added that day between the
     // starting routes and the note after them measures 24px (5,635px), so the
     // ceiling rises by 24px and keeps the same 9px allowance.
-    ['/tools/', 5644],
+    // The keyword and delivery filter of 25 October measures 205px (5,840px);
+    // the ceiling rises by that cost and keeps the same 9px allowance.
+    ['/tools/', 5849],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.

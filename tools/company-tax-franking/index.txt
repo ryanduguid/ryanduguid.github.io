@@ -12,6 +12,18 @@ A company gets the lower tax rate only if it is a base rate entity: aggregated t
 
 Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+Requires verified income composition, distributions and ledger inputs.
+
 Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.
 
 Published 24 August 2026. Last reviewed 21 October 2026.
