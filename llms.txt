@@ -34,6 +34,12 @@ For Python packages, the MCP server and agent workflows, use the [installation g
 - **Adopt** (https://duguid.com.au/tools/australian-tax-ai-agents/#install): use the supported install commands and evaluate tools with fictional data.
 - **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; supplier information for AI registers; human accountability and refusals; and reproducible evaluations.
 
+## Works with
+
+- [Works with](https://duguid.com.au/works-with/): choose existing tools by software, starting with Xero and Claude, with prerequisites and read and write boundaries.
+- [Works with Xero](https://duguid.com.au/works-with/xero/): read-only trial balance report export to a local CSV, developer app and consent requirements, fictional evaluation and ledger write refusal.
+- [Works with Claude](https://duguid.com.au/works-with/claude/): local Aus Accounting MCP in Claude Code or Claude Desktop, preparation skills in Claude Code, runtime requirements and model provider disclosure.
+
 ## For AI agents
 
 - [Aus Accounting MCP](https://duguid.com.au/tools/australian-tax-ai-agents/): local MCP server, current release v0.6.0 (20 October 2026). ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. Runs locally, ships no ATO document library, prepares or lodges nothing; human review required. Registry name io.github.ryanduguid/aus-accounting. Separate project from ato-mcp.

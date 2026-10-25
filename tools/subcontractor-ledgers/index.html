@@ -61,6 +61,7 @@ tool: subcontractor-ledgers
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
     <p class="lead-note">These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.</p>
     <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+{% include tool-facts.html %}
 
     <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>
       </header>
@@ -137,6 +138,7 @@ tool: subcontractor-ledgers
     <section id="related">
     <h2>Related</h2>
     <ul class="related">
+      <li><a href="/works-with/claude/">Works with Claude: MCP and skills</a></li>
       <li><a href="/tools/wip-schedule/">Construction WIP schedule under AASB 15</a></li>
       <li><a href="/tools/coal-lsl-levy/">Coal LSL levy calculator</a></li>
       <li><a href="/tools/payday-super/">When is payday super due</a></li>

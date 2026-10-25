@@ -61,6 +61,7 @@ tool: trust-distributions
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
     <p class="lead-note">PCG 2022/2 sorts section 100A arrangements into white, green and red zones. There is no blue zone: that was proposed in the draft, PCG 2022/D1, and did not survive into the final guideline. The software compares supplied flags with its implemented zone criteria and calculates conditional Division 6 and section 99B amounts. It does not establish the underlying facts or give tax clearance.</p>
     <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+{% include tool-facts.html %}
     <p>Software demonstration only. Ryan Duguid is not a registered tax agent or BAS agent. The examples assume supplied facts. Have a registered tax agent verify those facts and review their tax treatment before relying on a result. A successful calculation is not confirmation of entitlement, liability or compliance.</p>
 
     <p class="page-meta">Published 24 August 2026. Last reviewed 21 October 2026.</p>

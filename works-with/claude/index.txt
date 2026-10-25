@@ -1,0 +1,72 @@
+# Works with Claude: accounting MCP and skills
+
+Source: https://duguid.com.au/works-with/claude/
+
+> Choose local accounting tools for Claude Code or Claude Desktop. Compare MCP and skills, prerequisites, data handling, first examples and review limits.
+
+# Works with Claude
+
+Give Claude a bounded accounting tool or a workflow to follow. Use Aus Accounting MCP for local calculations and released accounting skills for preparation in Claude Code.
+
+Published 25 October 2026. Last reviewed 25 October 2026.
+
+## Choose a route
+
+### Calculations through Aus Accounting MCP
+
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.6.0.
+
+Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
+
+### Preparation through accounting skills
+
+The released Australian Accounting Skills v0.4.0 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
+
+Skills are instructions used by the agent. They do not disable the agent’s other tools or enforce its permissions. Review the agent’s file, command and external-service access separately.
+
+## Set up and try
+
+- For MCP in Claude Code: install Python 3.14 or later and uv, then open the installation guide and choose the Claude Code tab. Check the installed version; the unpinned command may reuse a cached package.
+- For MCP in Claude Desktop: use the same Python and uv prerequisites with the local stdio configuration in the released README.
+- For skills in Claude Code: use Git, Node and a working Claude Code installation. Choose Skills in the installation guide to copy the tagged release into a project. This route does not start the MCP server.
+
+Try the fictional MCP demonstration before supplying your own figures. It runs a pinned historical release outside Claude, so you can inspect the expected tool output separately from an assistant’s explanation. Retain the version and caveats with the result.
+
+For a skills walkthrough, follow the released BAS preparation example. Check its required inputs and expected tie-outs before asking Claude Code to prepare a workpaper.
+
+## Read and write access
+
+Access depends on both the tool and the Claude client. Scroll sideways on small screens.
+
+Route | Read | Write and disclosure
+Local MCP server | Supplied arguments, bundled calculation data and any Markdown library you explicitly configure. | Returns results to Claude. It has no Xero connection and cannot post to a ledger or lodge with the ATO.
+Claude Code skills | Skill instructions and project material made available to the agent. | The agent may write working files with its available tools. Skills set workflow boundaries; runtime permissions control access.
+Claude client | Prompts, tool results and any retrieved local library excerpts enter its context. | A cloud-backed client may send this context to the model provider. Check your plan, settings and organisation’s data policy before supplying information.
+
+Installation downloads packages. The standard calculation engines and MCP server run locally; optional integrations have separate network boundaries. See the MCP limits and supplier information for AI registers.
+
+## Refusals and human review
+
+Review required: calculations and prepared workpapers require human review before posting, payment, lodgement, approval or period lock. These tools provide no tax, legal or financial advice.
+
+Aus Accounting MCP is separate from the hosted ATO retrieval project, ato-mcp. It ships no ATO document library and does not fetch legislation or rulings from the web. A configured local library sends its retrieved excerpts back into Claude’s context.
+
+Division 7A support is experimental. The server provides benchmark interest rate lookup and reviews s 109N loan terms and s 109E minimum yearly repayments for one supplied amalgamated loan. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus. Read the refusal register and the tool’s period and scope checks with each result.
+
+These projects are not endorsed by Anthropic. For Xero report access, use the separate Xero exporter guide. Return to Works with for the hub.
+
+## Links
+
+- Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
+- v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
+- released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
+- Australian Accounting Skills v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
+- installation guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- fictional MCP demonstration: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- released BAS preparation example: https://github.com/ryanduguid/australian-accounting-skills/blob/v0.4.0/docs/bas-walkthrough.md
+- MCP limits: https://duguid.com.au/tools/australian-tax-ai-agents/#limits
+- supplier information for AI registers: https://duguid.com.au/evidence/#supplier-information-for-ai-registers
+- refusal register: https://duguid.com.au/tools/refusals/
+- Xero exporter guide: https://duguid.com.au/works-with/xero/
+- Works with: https://duguid.com.au/works-with/

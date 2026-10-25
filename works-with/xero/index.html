@@ -1,0 +1,193 @@
+---
+---
+{% assign release = site.data.tool_releases["xero-trial-balance"] %}
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'none'; object-src 'none'" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#000000" />
+  <meta name="color-scheme" content="dark" />
+  <title>Works with Xero: read-only trial balance export</title>
+  <meta name="description" content="Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits." />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta property="og:title" content="Works with Xero: read-only trial balance export" />
+  <meta property="og:description" content="Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits." />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Ryan Duguid" />
+  <meta property="og:locale" content="en_AU" />
+  <meta property="og:url" content="https://duguid.com.au/works-with/xero/" />
+  <meta property="og:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Works with Xero: read-only trial balance export" />
+  <meta name="twitter:description" content="Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits." />
+  <meta name="twitter:image" content="https://duguid.com.au/assets/social-card-tools-20261016.png" />
+  <meta name="twitter:image:alt" content="OLED register card: Accounting checks that show their working." />
+  <link rel="canonical" href="https://duguid.com.au/works-with/xero/" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon-48.png" />
+  <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon-96.png" />
+  <link rel="apple-touch-icon" href="/assets/favicon-180.png" />
+  <link rel="alternate" type="text/plain" href="https://duguid.com.au/works-with/xero/index.txt" />
+  <link rel="preload" href="/assets/fonts/Besley-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/SplineSansMono-Regular.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/assets/fonts/PublicSans-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/assets/tokens.css?v={{ site.asset_version }}" />
+  <link rel="stylesheet" href="/assets/site.css?v={{ site.asset_version }}" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+{% include site-header.html %}
+  <main id="main" class="site-main">
+    <article class="article">
+      <header class="article-header site-shell">
+        <nav class="article-crumb" aria-label="Breadcrumb">
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="/tools/">Tools</a></li>
+            <li><a href="/works-with/">Works with</a></li>
+            <li aria-current="page">Works with Xero</li>
+          </ol>
+        </nav>
+        <h1>Works with Xero</h1>
+        <p class="short-answer">Export a Xero trial balance to a local CSV for review in Excel, Power BI or pandas. Both monthly movement and year-to-date totals must balance before the exporter writes the file.</p>
+        <p class="page-meta">Published 25 October 2026. Last reviewed 25 October 2026.</p>
+      </header>
+      <div class="article-layout site-shell">
+        <nav class="article-toc" aria-label="On this page">
+          <p>On this page</p>
+          <a href="#tool">Export a trial balance</a>
+          <a href="#setup">What you need</a>
+          <a href="#access">Read and write access</a>
+          <a href="#limits">Limits and evidence</a>
+        </nav>
+        <div class="article-body">
+          <section id="tool">
+            <h2>Export a trial balance</h2>
+            <p><a href="/tools/xero-trial-balance/">Xero trial balance CSV export</a> reads Xero’s Trial Balance reporting API and produces consistent account, debit, credit and year-to-date columns. A balanced file is an input for review; it does not establish that the accounts are complete or correctly classified.</p>
+            <p>Use the <a href="{{ release.url }}">released Python exporter, v{{ release.version }}</a>. The tool guide keeps the pinned installation commands and first export together. The repository’s default branch contains an unreleased Rust implementation with a different installation path.</p>
+            <p><a href="/tools/xero-trial-balance/#get-it">Open the Xero installation and first run guide</a></p>
+          </section>
+          <section id="setup">
+            <h2>What you need</h2>
+            <ol>
+              <li>Python 3.11 or later, Git and a local working directory for the released exporter.</li>
+              <li>A Xero developer app with the local callback configured as the installation guide specifies. Keep its client secret and token files on your own machine.</li>
+              <li>A Xero user able to grant the requested access to the organisation. Start with the Demo Company before using a live organisation.</li>
+              <li>An as-at date, the intended organisation and a decision about accrual or cash basis. Check those choices against the report you expect.</li>
+            </ol>
+            <p>For a trial without credentials, <a href="/evaluate/xero-trial-balance-integrity/">reproduce the trial balance integrity evaluation</a>. It uses 3 fictional CSV fixtures at its declared historical release. It exercises the balance gate without connecting to Xero.</p>
+          </section>
+          <section id="access">
+            <h2>Read and write access</h2>
+            <div class="table-scroll" role="region" aria-label="Xero exporter access" tabindex="0">
+              <table class="tool-table--wide">
+                <caption>Access used by the released exporter. Scroll sideways on small screens.</caption>
+                <thead><tr><th scope="col">Resource</th><th scope="col">Read</th><th scope="col">Write</th></tr></thead>
+                <tbody>
+                  <tr><th scope="row">Xero organisation</th><td>Trial Balance report through <code>accounting.reports.trialbalance.read</code>, after consent.</td><td>No ledger write access.</td></tr>
+                  <tr><th scope="row">Local files</th><td>App configuration and the local token cache.</td><td>Authentication updates the token cache. Export writes a CSV and its provenance manifest after validation.</td></tr>
+                  <tr><th scope="row">Excel or Power BI</th><td>You import the resulting CSV into your chosen application.</td><td>No direct connection to those applications is supplied.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <p>The exporter contacts Xero for authentication and the requested report. The resulting CSV contains organisation and account data; protect it and any copies you import into other systems.</p>
+          </section>
+          <section id="limits">
+            <h2>Limits and evidence</h2>
+            <blockquote><p><strong>Boundary:</strong> the exporter cannot post journals, edit transactions or lodge returns. A balanced trial balance still needs professional review.</p></blockquote>
+            <p>The date is an as-at date. The API does not reproduce Xero’s separate Trial Balance by Date Range report. The guide explains the movement columns and the <a href="/tools/refusals/#xero-trial-balance">exporter’s refusals</a>.</p>
+            <p>Check the <a href="{{ release.url }}">release record</a>, the <a href="/tools/xero-trial-balance/#synthetic-worked-example">worked outcomes</a> and the <a href="/evaluate/xero-trial-balance-integrity/">fixed-release evaluation</a> before relying on an export. The evaluation’s version differs from the current installation.</p>
+            <p>This utility is not affiliated with or endorsed by Xero. Return to <a href="/works-with/">Works with</a> for the other supported software route.</p>
+          </section>
+        </div>
+      </div>
+    </article>
+  </main>
+{% include site-footer.html %}
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebPage",
+      "@id": "https://duguid.com.au/works-with/xero/#webpage",
+      "url": "https://duguid.com.au/works-with/xero/",
+      "name": "Works with Xero: read-only trial balance export",
+      "description": "Export a Xero trial balance to a checked CSV. See prerequisites, read-only report scope, local file output, a credential-free evaluation and limits.",
+      "inLanguage": "en-AU",
+      "datePublished": "2026-10-25",
+      "dateModified": "2026-10-25",
+      "license": "https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE",
+      "isPartOf": {
+        "@id": "https://duguid.com.au/#website"
+      },
+      "author": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "publisher": {
+        "@id": "https://duguid.com.au/about/#person"
+      },
+      "breadcrumb": {
+        "@id": "https://duguid.com.au/works-with/xero/#breadcrumb"
+      },
+      "mainEntity": {
+        "@id": "https://duguid.com.au/works-with/xero/#list"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://duguid.com.au/works-with/xero/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://duguid.com.au/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Tools",
+          "item": "https://duguid.com.au/tools/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Works with",
+          "item": "https://duguid.com.au/works-with/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Works with Xero",
+          "item": "https://duguid.com.au/works-with/xero/"
+        }
+      ]
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://duguid.com.au/works-with/xero/#list",
+      "name": "Works with Xero",
+      "numberOfItems": 1,
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Xero trial balance CSV export",
+          "url": "https://duguid.com.au/tools/xero-trial-balance/"
+        }
+      ]
+    }
+  ]
+}
+  </script>
+</body>
+</html>

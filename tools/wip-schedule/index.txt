@@ -12,6 +12,18 @@ TheWIPTally reads one row per unit of account and produces a cost-to-cost work-i
 
 Current release v0.2.0 (19 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.14 or later
+
+Boundary
+
+Review aid under AASB 15, not an accounting determination.
+
 Published 25 August 2026. Last reviewed 21 October 2026.
 
 Construction month-end turns on the WIP schedule. The formula is easy. Applying it the same way every month is the work: strip waste from percentage complete without dropping it from margin, book uninstalled materials at cost, constrain unapproved claims and present each contract as an asset or a liability, never a portfolio net.

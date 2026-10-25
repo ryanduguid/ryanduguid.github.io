@@ -62,6 +62,7 @@ tool: ozzit
     <p class="field-note">Package <code>{{ tool.package }}</code> in the <a href="{{ tool.codeRepository }}">{{ tool.repository | remove: 'ryanduguid/' }}</a> repository. Current release v{{ release.version }}.</p>
           <p class="lead-note">143 functions and 5 help tables for GST, financial years, depreciation, loans and leases. Open the workbook and try a formula; every definition is visible in Excel.</p>
     <p class="release-meta">Current release <a href="{{ release.url }}">v{{ release.version }}</a> ({{ release.dateLabel }}). Last reviewed 21 October 2026.</p>
+{% include tool-facts.html %}
           <div class="article-actions">
             <a class="button" href="https://github.com/ryanduguid/Ozzit/releases/download/v3.5.0/ozzit.xlsx">Download Ozzit v3.5.0</a>
             <a href="#functions">Browse worked formulas</a>

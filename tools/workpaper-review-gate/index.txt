@@ -12,6 +12,18 @@ Current release review-ready-gate v0.3.0 (14 October 2026). The worked example b
 
 Current release v0.3.0 (14 October 2026). Last reviewed 21 October 2026.
 
+Delivery
+
+Python
+
+Needs
+
+Python 3.10 or later
+
+Boundary
+
+READY means ready for human review, not approved or signed off.
+
 Published 25 August 2026. Last reviewed 21 October 2026.
 
 ## Inspect a fictional BAS pack

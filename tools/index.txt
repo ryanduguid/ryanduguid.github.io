@@ -14,7 +14,7 @@ Last reviewed 21 October 2026.
 
 Understand why profit and cash differ: A delayed receipt creates a cash shortfall. Read in your browser; Excel optional. Use accounting functions in Excel: Download Ozzit and try ten worked formulas. Microsoft 365 or Excel 2024 or later. Review a month-end close: Inspect eight exceptions in a fictional close. Read in your browser; Git and Python to rerun. Calculate a Coal LSL levy: Calculate eligible wages with the formula visible. Browser; nothing to install. Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.
 
-For browser calculations, choose the Coal LSL levy calculator or the 9 business planning calculators. For review prompts, browse 100 accounting questions.
+Browser: Coal LSL levy calculator or 9 business planning calculators. Review prompts: 100 accounting questions. Software: Works with Xero and Claude.
 
 Extract
 
@@ -233,6 +233,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Check a BAS pack before manager review: See missing work and unresolved items in a sample pack. Python needed to rerun.: https://duguid.com.au/evaluate/manager-review-gate/
 - 9 business planning calculators: https://duguid.com.au/tools/business-calculators/
 - 100 accounting questions: https://duguid.com.au/tools/accounting-questions/
+- Works with Xero and Claude: https://duguid.com.au/works-with/
 - Xero trial balance CSV export tool: https://duguid.com.au/tools/xero-trial-balance/
 - Try an example: https://duguid.com.au/evaluate/xero-trial-balance-integrity/
 - Source code: https://github.com/ryanduguid/accounting-review-pipeline/tree/main/packages/xero-trial-balance-export
