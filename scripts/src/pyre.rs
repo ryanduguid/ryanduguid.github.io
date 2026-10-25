@@ -189,6 +189,7 @@ fn members(out: &mut String, c: char, flags: u8) {
     } else if flags & I != 0 && c.is_alphabetic() {
         // shortcut: a non-ASCII letter matches its own simple lower and upper case, which
         // agrees with Python's lower()-based matching for the letters these patterns hold.
+        // Port Python's case matching if a pattern gains a letter with a special case mapping.
         for variant in [c]
             .into_iter()
             .chain(c.to_lowercase())

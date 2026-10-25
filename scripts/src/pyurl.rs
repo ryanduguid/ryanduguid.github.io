@@ -318,6 +318,7 @@ fn check_bracketed_netloc(netloc: &str) -> Result<(), String> {
     // ipaddress.ip_address: an IPv6 address may carry a %zone; IPv4 is refused in brackets.
     // shortcut: Rust's address grammar stands in for ipaddress's; both refuse leading-zero
     // IPv4 octets and accept embedded IPv4 in IPv6.
+    // Port ipaddress's grammar if an address is found that the two treat differently.
     let address = hostname.split_once('%').map_or(hostname, |(a, _)| a);
     if address.parse::<std::net::Ipv4Addr>().is_ok() {
         return Err("An IPv4 address cannot be in brackets".into());
