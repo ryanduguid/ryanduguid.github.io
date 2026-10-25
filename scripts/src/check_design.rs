@@ -1,4 +1,5 @@
 //! scripts/check_design.py: protect the site's factual surface and shipped design assets.
+use crate::cash_chart_webp;
 use crate::favicon_render::{self, RenderError};
 use crate::html::unescape;
 use crate::htmlparser::{self, Event};
@@ -370,6 +371,39 @@ pub fn check_favicon_assets(root: &Path) -> Result<Vec<String>, String> {
         if !matches {
             failures.push(format!(
                 "favicon raster out of date: {rel} (run site-tools favicon_render)"
+            ));
+        }
+    }
+    Ok(failures)
+}
+
+/// The pages show WebP copies of the cash chart PNGs; a re-exported PNG without a
+/// fresh copy would leave the page showing the old chart.
+pub fn check_cash_chart_copies(root: &Path) -> Result<Vec<String>, String> {
+    let charts = cash_chart_webp::CHARTS
+        .split('/')
+        .fold(root.to_path_buf(), |p, part| p.join(part));
+    let mut failures = Vec::new();
+    for name in cash_chart_webp::NAMES {
+        let (png, webp) = (
+            charts.join(format!("{name}.png")),
+            charts.join(format!("{name}.webp")),
+        );
+        let rel = format!("{}/{name}.webp", cash_chart_webp::CHARTS);
+        if !png.is_file() || !webp.is_file() {
+            failures.push(format!("cash chart image missing: {rel} or its PNG"));
+            continue;
+        }
+        let same = match (
+            cash_chart_webp::decode_png(&read_bytes(&png)?),
+            cash_chart_webp::decode_webp(&read_bytes(&webp)?),
+        ) {
+            (Ok(a), Ok(b)) => a == b,
+            _ => false,
+        };
+        if !same {
+            failures.push(format!(
+                "cash chart copy out of date: {rel} (run site-tools encode_cash_chart_webp)"
             ));
         }
     }
@@ -1486,6 +1520,7 @@ pub fn check_repository(root: &Path) -> Result<Vec<String>, String> {
     failures.extend(check_security_txt(root)?);
     failures.extend(check_favicon(root)?);
     failures.extend(check_favicon_assets(root)?);
+    failures.extend(check_cash_chart_copies(root)?);
     failures.extend(check_stylesheets(root, &baseline)?);
     let tokens_path = root.join("assets").join("tokens.css");
     if tokens_path.is_file() {

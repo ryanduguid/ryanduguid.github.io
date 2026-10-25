@@ -1,6 +1,7 @@
 pub mod agent_files;
 pub mod agent_skills;
 pub mod build_site;
+pub mod cash_chart_webp;
 pub mod check_design;
 pub mod check_links;
 mod check_links_data;
