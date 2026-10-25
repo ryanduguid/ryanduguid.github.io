@@ -1,4 +1,11 @@
-# ryanduguid.github.io
+<p align="center">
+  <picture>
+    <source media="(max-width: 600px) and (prefers-color-scheme: light)" srcset=".github/assets/banner-phone-light.svg">
+    <source media="(max-width: 600px)" srcset=".github/assets/banner-phone.svg">
+    <source media="(prefers-color-scheme: light)" srcset=".github/assets/banner-light.svg">
+    <img src=".github/assets/banner.svg" width="100%" alt="duguid.com.au. Tools for Australian accountants, workings shown. Pixel art of a laptop showing a web page beside the duguid.com.au wordmark in slab-serif block letters.">
+  </picture>
+</p>
 
 <div align="center">
 
