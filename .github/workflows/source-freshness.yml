@@ -6,11 +6,14 @@ name: source-freshness
 # A separate job flags newer stable releases for editorial review in a tracking
 # issue; it never rewrites capability descriptions or evaluation references.
 #
-# A pull request raised with GITHUB_TOKEN does not start the checks workflow, so
-# the stamp job runs the site checks itself and hands its change on only once they
-# pass. The change only rewrites date strings in tools/index.html, and
-# `site-tools check_site` holds the date contract; the live link, browser and
-# Lighthouse gates run on the merge to main. The site checks here run offline:
+# GitHub holds pull_request runs raised with GITHUB_TOKEN for a maintainer's
+# approval, and an unapproved run ends as a failed run with no jobs. The publish
+# job therefore pushes and opens the pull request with a GitHub App token, so the
+# checks workflow runs on it like any other pull request. The stamp job still runs
+# the site checks first and hands its change on only once they pass. The change
+# only rewrites date strings in tools/index.html and regenerates its text
+# mirrors, and `site-tools check_site` holds the date contract. The site checks
+# here run offline:
 # without a token the archived-repository lookups exhaust the runner's shared API
 # limit. The stamp job builds and runs site-tools with read-only access; the
 # publish job, which can write, applies the stamp job's patch and runs no tools.
@@ -273,11 +276,21 @@ jobs:
     if: needs.stamp.outputs.changed == 'true'
     timeout-minutes: 10
     runs-on: ubuntu-24.04
-    # The only job that writes: it pushes the stamp branch and opens the pull request.
+    # The only job that writes: it pushes the stamp branch and opens the pull request
+    # with the App token, so GITHUB_TOKEN stays read-only.
     permissions:
-      contents: write
-      pull-requests: write
+      contents: read
     steps:
+      # The App is installed on this repository alone; the token is limited to
+      # contents and pull requests, and has no workflows permission.
+      - name: Mint the pull request token
+        id: app-token
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          client-id: ${{ vars.SOURCE_FRESHNESS_APP_CLIENT_ID }}
+          private-key: ${{ secrets.SOURCE_FRESHNESS_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
       # No stored credentials; the push step authenticates itself.
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
@@ -289,7 +302,7 @@ jobs:
       - name: Open or update the pull request
         shell: bash
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           git apply --index "$RUNNER_TEMP/stamps/stamps.patch"
           git config user.name "github-actions[bot]"
@@ -303,5 +316,5 @@ jobs:
               --base main \
               --head "$BRANCH" \
               --title "Refresh source freshness stamps" \
-              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; live link checks run on the merge to main."
+              --body "The last commit date of one or more tool sources has moved. Dates come from the GitHub API at build time and are baked into tools/index.html, so the published site makes no runtime request. The offline site checks passed on this branch before it was pushed; the checks workflow runs on this pull request."
           fi

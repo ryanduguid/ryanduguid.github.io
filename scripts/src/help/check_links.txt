@@ -1,4 +1,4 @@
-usage: site-tools check_links [-h] [--offline]
+usage: site-tools check_links [-h] [--offline] [--transient-warnings]
 
 Link and content checks for every HTML file in the repository. Checks, in
 order, per file: 1. Every github.com/ryanduguid/<repo> link resolves to that
@@ -43,5 +43,7 @@ attribute checker, not a JavaScript parser. Exit 0 clean, 1 on any failure.
 Stdlib only.
 
 options:
-  -h, --help  show this help message and exit
-  --offline   skip external requests; check local links and content
+  -h, --help            show this help message and exit
+  --offline             skip external requests; check local links and content
+  --transient-warnings  report links still failing with HTTP 429, 5xx or a
+                        timeout after their retries as warnings, not failures
