@@ -54,8 +54,11 @@ cash-preview.png SHA-256: 139a5f42ca02f4e321a878f83c0dd331fa16f7e90f90c54367e35c
 cash-preview-narrow.png SHA-256: c324de0437ed7ca94d63f08ad4fd8a09c169c4da5eb12597e74caaddd3d35180
 
 The pages show lossless WebP copies of both PNGs, encoded on 13 October 2026
-by scripts/encode_cash_chart_webp.py. Each decodes to the same pixels as its
-PNG; the script checks this. The full-size link stays the wide PNG.
+by the Pillow script scripts/encode_cash_chart_webp.py, since removed. Each
+decodes to the same pixels as its PNG; the script checked this. Since 25 October 2026 the Rust
+`site-tools encode_cash_chart_webp` writes the same bytes, and
+`site-tools check_design` fails when a copy no longer matches its PNG.
+The full-size link stays the wide PNG.
 cash-preview.webp SHA-256: fa679d8a1b3cd7f3aee7c2af810e371173155318cee2a7cee76e4d6155453719
 cash-preview-narrow.webp SHA-256: 804974499d164496b0abd56786a188fc52ecf91401f1b844a3d147d83bb3cbc3
 
@@ -64,6 +67,6 @@ worksheet. It stays fixed when a reader edits a downloaded workbook.
 Refresh both with scripts/export-cash-chart.ps1 -Variant wide and -Variant
 narrow, the same native Excel export,
 when the source workbook, scenario or palette changes, then run
-uv run --script scripts/encode_cash_chart_webp.py and record the new
+site-tools encode_cash_chart_webp and record the new
 workbook and image hashes here.
 No generated illustration, stock image or hand-drawn chart is used.
