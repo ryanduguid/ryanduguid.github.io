@@ -10,7 +10,7 @@
 # Usage, from the repository root with Excel closed, once per variant:
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant wide
 #   powershell -NoProfile -ExecutionPolicy Bypass -File scripts/export-cash-chart.ps1 -Variant narrow
-# Then run `uv run --script scripts/encode_cash_chart_webp.py` for the WebP
+# Then run `site-tools encode_cash_chart_webp` for the WebP
 # copies the pages show, and record the printed PNG and WebP hashes in
 # assets/examples/lumbridge/preview-record.txt.
 #
