@@ -318,8 +318,10 @@ export function stampRegisterFacts(register, slug, tool) {
     throw new Error('tools/index.html: expected one register entry for ' + slug + ', found ' + found.length);
   }
   let entry = parts[found[0]];
-  for (const [label, value] of [['Delivery', tool.delivery], ['Boundary', tool.boundary]]) {
-    const field = new RegExp('(<dt>' + label + '</dt><dd>)[^<]*(</dd>)', 'g');
+  for (const [label, value, field] of [
+    ['Delivery', tool.delivery, /(<dt>Delivery<\/dt><dd>)[^<]*(<\/dd>)/g],
+    ['Boundary', tool.boundary, /(<dt>Boundary<\/dt><dd>)[^<]*(<\/dd>)/g],
+  ]) {
     const count = [...entry.matchAll(field)].length;
     if (count !== 1) throw new Error(`tools/index.html: expected one ${label} for ${slug}, found ${count}`);
     entry = entry.replace(field, (_, start, end) => start + escapeHtml(value) + end);
