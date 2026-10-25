@@ -92,10 +92,7 @@ impl Opener for Network {
         for (name, value) in headers {
             request = request.header(*name, value);
         }
-        let mut response = request.call().map_err(|e| match e {
-            ureq::Error::Timeout(_) => NetError::Timeout("timed out".into()),
-            other => NetError::Url(other.to_string()),
-        })?;
+        let mut response = request.call().map_err(net_error)?;
         let status = response.status().as_u16();
         let final_url = ureq::ResponseExt::get_uri(&response).to_string();
         if status >= 400 {
@@ -120,12 +117,21 @@ impl Opener for Network {
             .with_config()
             .limit(u64::MAX)
             .read_to_vec()
-            .map_err(|e| NetError::Url(e.to_string()))?;
+            .map_err(net_error)?;
         Ok(Opened {
             status,
             url: final_url,
             body,
         })
+    }
+}
+
+/// A transport error as urllib raises it. The 30-second limit also covers reading the
+/// body, so a timeout there is a timeout too.
+pub fn net_error(error: ureq::Error) -> NetError {
+    match error {
+        ureq::Error::Timeout(_) => NetError::Timeout("timed out".into()),
+        other => NetError::Url(other.to_string()),
     }
 }
 
@@ -680,6 +686,10 @@ impl<'a> Checker<'a> {
                         other => other.to_string(),
                     };
                     self.warnings.push(format!("{rel}: {href} -> {shown}"));
+                    // The repository identity and archive lookups stay strict.
+                    if own_repository(href).is_some() {
+                        resolved_own.push(href.clone());
+                    }
                     continue;
                 }
                 Err(NetError::Http { code, .. }) => {

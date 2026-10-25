@@ -614,6 +614,52 @@ fn transient_warnings_cover_only_exhausted_rate_limits_server_errors_and_timeout
 }
 
 #[test]
+fn transient_own_repository_links_keep_strict_identity_and_archive_lookups() {
+    let href = "https://github.com/ryanduguid/Ozzit";
+    for (verdict, failure) in [
+        (Ok(false), None),
+        (Ok(true), Some("ryanduguid/ozzit is archived")),
+        (
+            Err("renamed".to_owned()),
+            Some("archived lookup failed: renamed"),
+        ),
+    ] {
+        let harness = Harness::new(vec![http(503)]);
+        let (failures, warnings) = harness.run(|c| {
+            c.transient_warnings = true;
+            c.lookup_hook = Some(Box::new(move |_| verdict.clone()));
+            let failures = c
+                .check_hrefs("page.html", &strings(&[href]), false)
+                .unwrap();
+            (failures, c.warnings.clone())
+        });
+        assert_eq!(warnings, [format!("page.html: {href} -> HTTP 503")]);
+        match failure {
+            None => assert!(failures.is_empty(), "{failures:?}"),
+            Some(text) => {
+                assert_eq!(failures.len(), 1, "{failures:?}");
+                assert!(failures[0].contains(text), "{failures:?}");
+            }
+        }
+    }
+}
+
+#[test]
+fn response_body_timeouts_are_timeouts() {
+    use site_tools::check_links::net_error;
+    for timeout in [ureq::Timeout::RecvBody, ureq::Timeout::Global] {
+        assert_eq!(
+            net_error(ureq::Error::Timeout(timeout)),
+            NetError::Timeout("timed out".into())
+        );
+    }
+    assert!(matches!(
+        net_error(ureq::Error::HostNotFound),
+        NetError::Url(_)
+    ));
+}
+
+#[test]
 fn transient_warning_annotations_escape_workflow_command_characters() {
     use site_tools::check_links::annotation;
     assert_eq!(

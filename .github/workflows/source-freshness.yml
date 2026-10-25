@@ -11,8 +11,9 @@ name: source-freshness
 # job therefore pushes and opens the pull request with a GitHub App token, so the
 # checks workflow runs on it like any other pull request. The stamp job still runs
 # the site checks first and hands its change on only once they pass. The change
-# only rewrites date strings in tools/index.html, and `site-tools check_site`
-# holds the date contract. The site checks here run offline:
+# only rewrites date strings in tools/index.html and regenerates its text
+# mirrors, and `site-tools check_site` holds the date contract. The site checks
+# here run offline:
 # without a token the archived-repository lookups exhaust the runner's shared API
 # limit. The stamp job builds and runs site-tools with read-only access; the
 # publish job, which can write, applies the stamp job's patch and runs no tools.

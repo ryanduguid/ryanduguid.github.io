@@ -42,11 +42,13 @@ Transient HTTP 5xx and transport failures wait 1, 2, 4 and 8 seconds between
 attempts. HTTP 429 and 5xx `Retry-After` headers take precedence. Each fetch
 allows five attempts and at most 30 seconds of accumulated waiting; this is
 separate from each request's 30-second timeout. Exhausted retries and permanent
-HTTP errors still fail the live check, except on pull requests: there
-`check_site --ci` passes `--transient-warnings`, and a link still failing with
-HTTP 429, 5xx or a timeout after its retries is reported as a warning (a `WARN`
-line and an Actions annotation) instead. Other HTTP 4xx, DNS and other transport
-failures still fail pull requests. The weekly scheduled and manual runs keep
+HTTP errors still fail the live check, except on pull requests that run live
+link checks: there `check_site --ci` passes `--transient-warnings`, and a link
+still failing with HTTP 429, 5xx or a timeout after its retries is reported as a
+warning (a `WARN` line and an Actions annotation) instead. HTTP 4xx other than
+the allow-listed denials below, DNS and other transport failures still fail pull
+requests, and an own-repository link that warns still gets its identity and
+archive lookup. The weekly scheduled and manual runs keep
 every failure strict, so a host that stays down fails within a week.
 
 On a server error from a `github.com/ryanduguid/<repo>/blob/<ref>/<path>` file
