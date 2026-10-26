@@ -233,6 +233,69 @@ fn python_whitespace_and_word_boundaries_apply() {
     );
 }
 
+const OZZIT_ROW: &str = "<tr><td>19 October 2026</td><td>Ozzit</td><td><a href=\"https://example.test/v3.5.0\">v3.5.0</a></td></tr>";
+const OZZIT_LISTED: &str = "<section aria-labelledby=\"tool-releases\"><table><tr><td>19 October 2026</td><td>Ozzit</td><td><a href=\"https://example.test/v3.5.0\">v3.5.0</a></td></tr></table></section>";
+const OZZIT_RELEASE: &str = r#"{
+  "ozzit": {"tag": "v3.5.0", "date": "2026-10-19", "url": "https://example.test/v3.5.0"},
+  "coal-lsl-levy": {"version": "9218822", "date": "2026-10-19", "url": "https://example.test/commit/9218822"}
+}"#;
+const NO_OZZIT_ROW: &str = "changelog: Tool releases has no 19 October 2026 row linking v3.5.0 (ozzit in _data/tool_releases.json); add one";
+
+#[test]
+fn every_tagged_release_needs_a_row_on_its_date() {
+    // The untagged source revision needs no row.
+    assert_eq!(
+        feed::check_release_rows(OZZIT_LISTED, OZZIT_RELEASE),
+        Ok(())
+    );
+    let site_row = "<tr><td>19 October 2026</td><td>Ozzit v3.5.0 is out.</td></tr>";
+    let a_day_late = OZZIT_LISTED.replace("19 October", "20 October");
+    // A matching row outside the Tool releases section does not count.
+    let outside = format!(
+        "<section aria-labelledby=\"site-changes\"><table>{OZZIT_ROW}</table></section>\
+         <section aria-labelledby=\"tool-releases\"><table></table></section>"
+    );
+    for source in [site_row, &a_day_late, OZZIT_ROW, &outside] {
+        assert_eq!(
+            feed::check_release_rows(source, OZZIT_RELEASE),
+            Err(NO_OZZIT_ROW.into()),
+            "{source}"
+        );
+    }
+    for (releases, refusal) in [
+        (
+            r#"{"ozzit": {"tag": "v3.5.0", "url": "https://example.test/v3.5.0"}}"#,
+            "_data/tool_releases.json: ozzit has no date",
+        ),
+        (
+            r#"{"ozzit": {"tag": "v3.5.0", "date": "19 October 2026", "url": "u"}}"#,
+            "_data/tool_releases.json: ozzit has an unreadable date",
+        ),
+        (
+            "[]",
+            "_data/tool_releases.json: expected an object of releases",
+        ),
+        // Malformed records are refused, not skipped as untagged.
+        (
+            r#"{"ozzit": null}"#,
+            "_data/tool_releases.json: ozzit is not an object",
+        ),
+        (
+            r#"{"coal-lsl-levy": {"date": "2026-10-19"}}"#,
+            "_data/tool_releases.json: coal-lsl-levy has no url",
+        ),
+        (
+            r#"{"ozzit": {"date": "2026-10-19", "url": "https://example.test/releases/tag/v3.6.0"}}"#,
+            "_data/tool_releases.json: ozzit has no tag",
+        ),
+    ] {
+        assert_eq!(
+            feed::check_release_rows(OZZIT_LISTED, releases),
+            Err(refusal.into())
+        );
+    }
+}
+
 fn run(root: &Path, args: &[&str]) -> (Option<i32>, String, String) {
     let output = Command::new(env!("CARGO_BIN_EXE_site-tools"))
         .arg("build_feed")
@@ -260,6 +323,8 @@ fn eol(text: &str) -> String {
 fn command_writes_checks_and_explains_like_the_script() {
     let root = tempfile::tempdir().unwrap();
     std::fs::create_dir(root.path().join("changelog")).unwrap();
+    std::fs::create_dir(root.path().join("_data")).unwrap();
+    std::fs::write(root.path().join("_data/tool_releases.json"), "{}").unwrap();
     std::fs::write(
         root.path().join("changelog/index.html"),
         "<tr><td>1 May 2026</td><td>Copy</td></tr>\r\n",
@@ -306,6 +371,20 @@ fn command_writes_checks_and_explains_like_the_script() {
     let (code, stdout, stderr) = run(root.path(), &[]);
     assert_eq!((code, stderr), (Some(2), String::new()));
     assert_eq!(stdout, eol(&format!("{}\n", feed::DOC)));
+    std::fs::write(root.path().join("_data/tool_releases.json"), OZZIT_RELEASE).unwrap();
+    for mode in ["--check", "--write"] {
+        assert_eq!(
+            run(root.path(), &[mode]),
+            (Some(1), String::new(), eol(&format!("{NO_OZZIT_ROW}\n"))),
+            "{mode}"
+        );
+    }
+    assert!(
+        !std::fs::read_to_string(root.path().join("changelog/index.html"))
+            .unwrap()
+            .contains("v3.5.0"),
+        "--write must not add the release row"
+    );
     std::fs::write(
         root.path().join("changelog/index.html"),
         "<tr><td>soon</td><td>Copy</td></tr>",

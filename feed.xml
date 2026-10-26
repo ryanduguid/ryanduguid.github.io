@@ -8,11 +8,53 @@
   <updated>2026-10-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>Accounting question 46 cites the ATO’s Finalising your STP data page for the 14…</title>
+    <link href="https://duguid.com.au/changelog/#entry-f0682f3ca73a8920" />
+    <id>https://duguid.com.au/changelog/#entry-f0682f3ca73a8920</id>
+    <updated>2026-10-26T00:00:00Z</updated>
+    <summary>Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.</summary>
+  </entry>
+  <entry>
     <title>Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with…</title>
     <link href="https://duguid.com.au/changelog/#entry-0b348e462466a6c2" />
     <id>https://duguid.com.au/changelog/#entry-0b348e462466a6c2</id>
     <updated>2026-10-26T00:00:00Z</updated>
     <summary>Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.</summary>
+  </entry>
+  <entry>
+    <title>The Coal LSL levy calculator’s disclaimer now says its output may be…</title>
+    <link href="https://duguid.com.au/changelog/#entry-1961271e7e413d31" />
+    <id>https://duguid.com.au/changelog/#entry-1961271e7e413d31</id>
+    <updated>2026-10-26T00:00:00Z</updated>
+    <summary>The Coal LSL levy calculator’s disclaimer now says its output may be inaccurate, out of date or incomplete, replacing a statement that gave no guarantee and accepted no liability. Accounting question 16 limits the instant asset write-off to small businesses that use the simplified depreciation rules, for each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.</summary>
+  </entry>
+  <entry>
+    <title>A new Works with section finds tools for software readers already use. Its Xero…</title>
+    <link href="https://duguid.com.au/changelog/#entry-454c43c9d37453ca" />
+    <id>https://duguid.com.au/changelog/#entry-454c43c9d37453ca</id>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <summary>A new Works with section finds tools for software readers already use. Its Xero guide covers the trial balance exporter’s setup, read-only report access and fictional evaluation; its Claude guide covers the local Aus Accounting MCP server and the released accounting skills, with their read and write access, refusals and human review. Tools links the section, and the Xero exporter, MCP server and subcontract ledger pages link their guides.</summary>
+  </entry>
+  <entry>
+    <title>Tools adds keyword and delivery filters with a live result count. Ten tool…</title>
+    <link href="https://duguid.com.au/changelog/#entry-895744c3325623b5" />
+    <id>https://duguid.com.au/changelog/#entry-895744c3325623b5</id>
+    <updated>2026-10-25T00:00:00Z</updated>
+    <summary>Tools adds keyword and delivery filters with a live result count. Ten tool pages summarise their delivery, requirements and boundary before the install commands, 5 reproduction command blocks gain a Copy button, and the homepage lists the 3 latest tagged tool releases. The Xero trial balance install commands now check out the current release, v0.1.15, which needs Python 3.11 or later; its worked example stays pinned to v0.1.6.</summary>
+  </entry>
+  <entry>
+    <title>About and llms.txt credit planning-analytics-model and au-accounting-hotkeys as…</title>
+    <link href="https://duguid.com.au/changelog/#entry-34fac7fac41a8967" />
+    <id>https://duguid.com.au/changelog/#entry-34fac7fac41a8967</id>
+    <updated>2026-10-23T00:00:00Z</updated>
+    <summary>About and llms.txt credit planning-analytics-model and au-accounting-hotkeys as related source projects. The first is an IBM Planning Analytics budget model with an offline Rust rule evaluator and fictional data; the second provides Windows AutoHotkey v2 shortcuts for workpaper dates, period labels and draft snippets. The evidence page links the Xero exporter’s Python release workflow at xero-trial-balance-export/v0.1.15, since the Rust migration removed it.</summary>
+  </entry>
+  <entry>
+    <title>Each tool page now names its published package, current release and source…</title>
+    <link href="https://duguid.com.au/changelog/#entry-65528648b42e04cf" />
+    <id>https://duguid.com.au/changelog/#entry-65528648b42e04cf</id>
+    <updated>2026-10-21T00:00:00Z</updated>
+    <summary>Each tool page now names its published package, current release and source repository before any pinned worked example, and About gives Ryan’s title as Senior Accountant. llms-full.txt is also published as 15 smaller parts. The AASB standards portal, the Treasury consultation index and the ATO dataset catalogue on data.gov.au are cited through dated Wayback Machine copies; the pages still say to check the current primary source before each calculation.</summary>
   </entry>
   <entry>
     <title>Accounting questions 93 and 94 describe the first enacted stage of capital…</title>
@@ -90,6 +132,13 @@
     <id>https://duguid.com.au/changelog/#entry-c3514e3ece51d48f</id>
     <updated>2026-10-19T00:00:00Z</updated>
     <summary>The subcontract ledger and Workpaper Review Gate pages name the current releases, Australian Accounting Skills v0.4.0 and review-ready-gate/v0.3.0. Their worked examples stay pinned to the releases they were run against.</summary>
+  </entry>
+  <entry>
+    <title>Ozzit v3.5.0</title>
+    <link href="https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0" />
+    <id>https://duguid.com.au/changelog/#entry-d5eb864f905dc654</id>
+    <updated>2026-10-19T00:00:00Z</updated>
+    <summary>Ozzit: release v3.5.0.</summary>
   </entry>
   <entry>
     <title>Construction WIP schedule the-wip-tally/v0.2.0</title>
@@ -258,6 +307,13 @@
     <id>https://duguid.com.au/changelog/#entry-dc3f816733ffeaf0</id>
     <updated>2026-10-05T00:00:00Z</updated>
     <summary>Division 7A loan review: release div7a-loan-review/v0.2.0.</summary>
+  </entry>
+  <entry>
+    <title>Monthly Close Controls monthly-close-control-plane/v0.2.0</title>
+    <link href="https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v0.2.0" />
+    <id>https://duguid.com.au/changelog/#entry-d7159dbb7caf4ba7</id>
+    <updated>2026-10-05T00:00:00Z</updated>
+    <summary>Monthly Close Controls: release monthly-close-control-plane/v0.2.0.</summary>
   </entry>
   <entry>
     <title>Workpaper Review Gate review-ready-gate/v0.2.0</title>

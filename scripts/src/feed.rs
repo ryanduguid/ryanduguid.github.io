@@ -7,7 +7,7 @@ use std::path::Path;
 use std::sync::LazyLock;
 
 pub const CHANGELOG_URL: &str = "https://duguid.com.au/changelog/";
-pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. --write also gives each dated row the\nid=\"entry-<feed ID>\" anchor its site entry links to, and --check fails when one\nis missing. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
+pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. --write also gives each dated row the\nid=\"entry-<feed ID>\" anchor its site entry links to, and --check fails when one\nis missing. Both refuse a changelog without a Tool releases row, on the same\ndate and link, for each tagged release in _data/tool_releases.json; add the row\nby hand. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Entry {
@@ -219,6 +219,61 @@ pub fn anchored(source: &str) -> Result<String, String> {
     Ok(out)
 }
 
+/// Refuses a changelog whose Tool releases table lacks a row, on the same date and
+/// with the same link, for any tagged release in `_data/tool_releases.json`. Rows
+/// are written by hand; an entry without a tag records a source revision, not a
+/// release, so it needs no row but must not link a tagged release.
+pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
+    const DATA: &str = "_data/tool_releases.json";
+    let releases: serde_json::Value =
+        serde_json::from_str(releases).map_err(|e| format!("{DATA}: {e}"))?;
+    let releases = releases
+        .as_object()
+        .ok_or_else(|| format!("{DATA}: expected an object of releases"))?;
+    // Only rows inside the Tool releases section count; without one, every release is missing.
+    static SECTION: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(r#"(?s)<section\b[^>]*\baria-labelledby="tool-releases"[^>]*>(.*?)</section>"#)
+            .unwrap()
+    });
+    let section = SECTION
+        .captures(source)
+        .map_or("", |c| c.get(1).unwrap().as_str());
+    let rows: HashSet<(NaiveDate, String)> = rows(section)?
+        .into_iter()
+        .map(|r| (r.entry.date, r.entry.link))
+        .collect();
+    let mut missing = Vec::new();
+    for (slug, release) in releases {
+        let release = release
+            .as_object()
+            .ok_or_else(|| format!("{DATA}: {slug} is not an object"))?;
+        let field = |name: &str| {
+            release
+                .get(name)
+                .and_then(serde_json::Value::as_str)
+                .ok_or_else(|| format!("{DATA}: {slug} has no {name}"))
+        };
+        let url = field("url")?;
+        let date = NaiveDate::parse_from_str(field("date")?, "%Y-%m-%d")
+            .map_err(|_| format!("{DATA}: {slug} has an unreadable date"))?;
+        if !release.contains_key("tag") && !url.contains("/releases/tag/") {
+            continue;
+        }
+        let tag = field("tag")?;
+        if !rows.contains(&(date, url.to_owned())) {
+            missing.push(format!(
+                "changelog: Tool releases has no {} row linking {tag} ({slug} in {DATA}); add one",
+                date.format("%-d %B %Y")
+            ));
+        }
+    }
+    if missing.is_empty() {
+        Ok(())
+    } else {
+        Err(missing.join("\n"))
+    }
+}
+
 pub fn xml_char(c: char) -> bool {
     matches!(c as u32, 9 | 10 | 13 | 0x20..=0xd7ff | 0xe000..=0xfffd | 0x10000..=0x10ffff)
 }
@@ -265,6 +320,10 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let source = crate::read(&changelog)?;
     let with_anchors = anchored(&source)?;
     let feed = build(&with_anchors)?;
+    check_release_rows(
+        &source,
+        &crate::read(&root.join("_data/tool_releases.json"))?,
+    )?;
     let output = root.join("feed.xml");
     let (message, code) = if args.iter().any(|a| a == "--write") {
         if with_anchors != source {
