@@ -1,4 +1,5 @@
 //! scripts/check_seo.py: discover pages, run SEO checks and report their results.
+use crate::schema_vocab::Vocabulary;
 use crate::seo_core::{self as core, MetadataContext};
 use crate::site_contracts as contracts;
 use std::collections::HashSet;
@@ -10,6 +11,8 @@ fn say(line: &str) -> Result<(), String> {
 
 pub fn run(root: &Path) -> Result<u8, String> {
     let paths = core::html_files(root);
+    let mut vocabulary = Vocabulary::load(root)?;
+    vocabulary.allow_pending(&contracts::ALLOWED_PENDING_SCHEMA_TERMS)?;
     let not_indexed: HashSet<String> = contracts::NOT_INDEXED
         .iter()
         .map(|s| (*s).to_owned())
@@ -32,6 +35,7 @@ pub fn run(root: &Path) -> Result<u8, String> {
             &not_indexed,
             &mut warnings,
             &context,
+            &vocabulary,
             root,
         )?);
         failures.extend(contracts::check_file_contracts(path, root)?);

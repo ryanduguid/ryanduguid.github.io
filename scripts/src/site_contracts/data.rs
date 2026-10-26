@@ -3,6 +3,14 @@ use std::sync::LazyLock;
 
 pub const SITE: &str = "https://duguid.com.au";
 pub const NOT_INDEXED: [&str; 1] = ["404.html"];
+/// Pending schema.org terms the About page's credentials use. In schema.org 30.1 the
+/// range of the core `hasCredential` property is pending too, so no adopted term
+/// replaces them. Reviewed 27 October 2026.
+pub const ALLOWED_PENDING_SCHEMA_TERMS: [&str; 3] = [
+    "EducationalOccupationalCredential",
+    "credentialCategory",
+    "recognizedBy",
+];
 pub const PERSON_ID: &str = "https://duguid.com.au/about/#person";
 pub const EVIDENCE_REL: &str = "evidence/index.html";
 pub const EVIDENCE_URL: &str = "https://duguid.com.au/evidence/";

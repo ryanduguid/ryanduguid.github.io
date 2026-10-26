@@ -27,7 +27,7 @@ directory holding `_config.yml` or `scripts/`, or `SITE_ROOT` when set.
 | `check_links [--offline]` | links and content in every page |
 | `check_publication --repository R --commit C [--wait-seconds N]` | the deployment gate |
 | `check_rates_register` | the rates register |
-| `check_seo` | metadata, structured data, sitemap and site contracts |
+| `check_seo` | metadata, structured data (against the pinned schema.org vocabulary in `schemaorg/`), sitemap and site contracts |
 | `check_site [--offline] [--ci] [--ci-metadata-only]` | every check, in order |
 | `encode_cash_chart_webp` | the lossless WebP copies of the cash chart PNGs |
 | `extract_xero_badge [certificate.pdf]` | the Xero badge from its certificate |

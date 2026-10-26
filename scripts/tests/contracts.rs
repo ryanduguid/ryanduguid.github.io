@@ -1,10 +1,12 @@
 //! The seo_core and site_contracts parts of scripts/test_contracts.py: focused mutation
 //! tests for the site's public contracts, run against a copy of the committed site.
 use site_tools::pyjson::{self, Json};
+use site_tools::schema_vocab::{self, Vocabulary};
 use site_tools::seo_core::{self as core, MetadataContext, Tree};
 use site_tools::site_contracts as contracts;
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
+use std::sync::LazyLock;
 
 mod common;
 use common::*;
@@ -15,6 +17,14 @@ fn not_indexed() -> HashSet<String> {
         .map(|s| (*s).to_owned())
         .collect()
 }
+
+static VOCABULARY: LazyLock<Vocabulary> = LazyLock::new(|| {
+    let mut vocabulary = Vocabulary::load(&repository()).unwrap();
+    vocabulary
+        .allow_pending(&contracts::ALLOWED_PENDING_SCHEMA_TERMS)
+        .unwrap();
+    vocabulary
+});
 
 /// Run the configured metadata checks for one page under an arbitrary root.
 fn page_metadata_failures(root: &Path, rel: &str) -> Vec<String> {
@@ -31,6 +41,7 @@ fn page_metadata_failures(root: &Path, rel: &str) -> Vec<String> {
                 .contains(&rel)
                 .then_some(contracts::TIGHT_META_DESCRIPTION_LIMITS),
         },
+        &VOCABULARY,
         root,
     )
     .unwrap()
@@ -1682,4 +1693,204 @@ fn rendered_checked_tree_command_output() {
     assert!(stdout.ends_with(&format!(
         "checked sitemap.xml ({listed} URLs), llms.txt, robots.txt{eol}{eol}all clear{eol}"
     )));
+}
+
+fn vocabulary_failures(block: &str) -> Vec<String> {
+    let mut failures = Vec::new();
+    VOCABULARY.check_block(&pyjson::loads(block).unwrap(), "page.html", &mut failures);
+    failures
+}
+
+#[test]
+fn schema_vocabulary_terms() {
+    // Inherited domains, nested and untyped nodes, multiple types and keywords all pass.
+    assert_clean(
+        "schema.org terms",
+        &vocabulary_failures(
+            r##"{"@context": "https://schema.org", "@graph": [
+                {"@type": "SoftwareApplication", "@id": "#app", "name": "x",
+                 "applicationCategory": "FinanceApplication",
+                 "author": {"@type": "Person", "jobTitle": "Accountant"},
+                 "offers": {"@type": "Offer", "price": "0",
+                            "availability": "https://schema.org/InStock",
+                            "itemCondition": ["http://schema.org/NewCondition"]},
+                 "sameAs": "https://schema.org/docs/full.html",
+                 "mainEntityOfPage": {"@id": "https://duguid.com.au/"}},
+                {"@type": ["WebPage", "AboutPage"], "about": {"name": "untyped"}}]}"##,
+        ),
+    );
+    for (label, block, expected) in [
+        (
+            "unknown type",
+            r#"{"@type": "Persn"}"#,
+            "page.html: JSON-LD type Persn is not a schema.org 30.1 type",
+        ),
+        (
+            "enumeration member as a type",
+            r#"{"@type": "InStock"}"#,
+            "JSON-LD type InStock is not a schema.org 30.1 type",
+        ),
+        (
+            "type in place of a property",
+            r#"{"@type": "Person", "Person": "x"}"#,
+            "JSON-LD property Person on Person is not a schema.org 30.1 property",
+        ),
+        (
+            "untyped unknown property",
+            r#"{"@type": "WebPage", "about": {"favouriteColour": "teal"}}"#,
+            "JSON-LD property favouriteColour is not a schema.org 30.1 property",
+        ),
+        (
+            "property outside its domain",
+            r#"{"@type": "SoftwareApplication", "jobTitle": "x"}"#,
+            "JSON-LD property jobTitle on SoftwareApplication is outside its schema.org domain (Person)",
+        ),
+        (
+            "nested property outside its domain",
+            r#"{"@type": "WebPage", "about": {"@type": "Person", "applicationCategory": "x"}}"#,
+            "JSON-LD property applicationCategory on Person is outside its schema.org domain",
+        ),
+        (
+            "pending type",
+            r#"{"@type": "ConferenceEvent"}"#,
+            "JSON-LD type ConferenceEvent is pending in schema.org",
+        ),
+        (
+            "pending property",
+            r#"{"@type": "Product", "asin": "x"}"#,
+            "JSON-LD property asin on Product is pending in schema.org",
+        ),
+        (
+            "superseded type",
+            r#"{"@type": "Code"}"#,
+            "JSON-LD type Code is superseded by SoftwareSourceCode",
+        ),
+        (
+            "superseded property",
+            r#"{"@type": "MusicGroup", "albums": []}"#,
+            "JSON-LD property albums on MusicGroup is superseded by album",
+        ),
+        (
+            "attic type",
+            r#"{"@type": "StupidType"}"#,
+            "JSON-LD type StupidType is retired to the schema.org attic",
+        ),
+        (
+            "unknown enumeration value",
+            r#"{"@type": "Offer", "availability": "https://schema.org/InStok"}"#,
+            "JSON-LD value https://schema.org/InStok of availability on Offer is not a schema.org 30.1 term",
+        ),
+        (
+            "unknown term reference",
+            r#"{"@type": "Offer", "availability": {"@id": "http://schema.org/Discontinud"}}"#,
+            "JSON-LD value http://schema.org/Discontinud of @id is not a schema.org 30.1 term",
+        ),
+        (
+            "superseded enumeration value",
+            r#"{"@type": "Physician", "medicalSpecialty": ["https://schema.org/Dermatologic"]}"#,
+            "JSON-LD value https://schema.org/Dermatologic of medicalSpecialty on Physician is superseded by Dermatology",
+        ),
+        (
+            "pending enumeration value",
+            r#"{"@type": "Product", "hasAdultConsideration": "https://schema.org/AlcoholConsideration"}"#,
+            "JSON-LD value https://schema.org/AlcoholConsideration of hasAdultConsideration on Product is pending in schema.org",
+        ),
+        (
+            "non-string type",
+            r#"{"@type": ["Person", 1]}"#,
+            "JSON-LD @type 1 is not a string",
+        ),
+    ] {
+        expect_failure(label, &vocabulary_failures(block), expected);
+    }
+}
+
+#[test]
+fn schema_vocabulary_allowed_pending_terms() {
+    let block = r#"{"@type": "Person", "hasCredential": {
+        "@type": "EducationalOccupationalCredential", "credentialCategory": "certification",
+        "recognizedBy": {"@type": "Organization", "name": "SAP"}}}"#;
+    let mut strict = Vocabulary::load(&repository()).unwrap();
+    let mut failures = Vec::new();
+    strict.check_block(
+        &pyjson::loads(block).unwrap(),
+        "about/index.html",
+        &mut failures,
+    );
+    expect_failure(
+        "unreviewed pending credential",
+        &failures,
+        "JSON-LD type EducationalOccupationalCredential is pending in schema.org",
+    );
+    assert_clean("reviewed pending credential", &vocabulary_failures(block));
+    expect_failure(
+        "reviewed terms stay narrow",
+        &vocabulary_failures(r#"{"@type": "ConferenceEvent"}"#),
+        "is pending in schema.org",
+    );
+    for stale in ["Person", "Code", "Persn"] {
+        let error = strict.allow_pending(&[stale]).unwrap_err();
+        assert!(
+            error.contains(&format!("allowed term {stale} is not pending")),
+            "{error}"
+        );
+    }
+}
+
+#[test]
+fn schema_vocabulary_pin() {
+    let directory = tempfile::tempdir().unwrap();
+    let path = directory.path().join(schema_vocab::VOCABULARY_REL);
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let mut raw = std::fs::read(repository().join(schema_vocab::VOCABULARY_REL)).unwrap();
+    let readme = read_text(&repository(), "scripts/schemaorg/README.md");
+    assert!(
+        readme.contains(&format!(
+            "| SHA-256 | `{}` |",
+            schema_vocab::VOCABULARY_SHA256
+        )) && readme.contains(&format!(
+            "schema.org {}, tag `v{}`",
+            schema_vocab::VOCABULARY_RELEASE,
+            schema_vocab::VOCABULARY_RELEASE
+        )),
+        "scripts/schemaorg/README.md does not record the pinned release and SHA-256"
+    );
+    raw.extend_from_slice(b"\n");
+    std::fs::write(&path, raw).unwrap();
+    let error = Vocabulary::load(directory.path()).unwrap_err();
+    assert!(
+        error.contains("SHA-256 is") && error.contains(schema_vocab::VOCABULARY_SHA256),
+        "{error}"
+    );
+}
+
+#[test]
+fn schema_vocabulary_page_mutation() {
+    if !rendered() {
+        return;
+    }
+    let rel = "contact/index.html";
+    let directory = tempfile::tempdir().unwrap();
+    let path = directory.path().join(rel);
+    std::fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let original = read_text(root(), rel);
+    std::fs::write(&path, &original).unwrap();
+    assert_clean(
+        "contact page JSON-LD",
+        &page_metadata_failures(directory.path(), rel),
+    );
+    std::fs::write(
+        &path,
+        changed_text(
+            &original,
+            r#""@type": "ContactPage","#,
+            r#""@type": "ContactPage", "favouriteColour": "teal","#,
+        ),
+    )
+    .unwrap();
+    expect_failure(
+        "unknown JSON-LD property",
+        &page_metadata_failures(directory.path(), rel),
+        "contact/index.html: JSON-LD property favouriteColour on ContactPage is not a schema.org 30.1 property",
+    );
 }

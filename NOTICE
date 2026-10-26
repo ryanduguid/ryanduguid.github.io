@@ -22,3 +22,7 @@ This product includes work by Ryan Duguid
 
 The fonts in assets/fonts remain under the SIL Open Font License, Version 1.1;
 see the OFL files beside them.
+
+scripts/schemaorg/schemaorg-all-https.jsonld is the schema.org 30.1 vocabulary
+from https://github.com/schemaorg/schemaorg, unmodified, under the Apache
+License, Version 2.0; see the LICENSE file beside it.
