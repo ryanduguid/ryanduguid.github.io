@@ -200,6 +200,15 @@ pub struct Part {
     pub titles: Vec<String>,
 }
 
+/// An entry opens with its title line (see `build`).
+fn entry_title<'a>(url: &str, entry: &'a str) -> Result<&'a str, String> {
+    entry
+        .lines()
+        .next()
+        .and_then(|l| l.strip_prefix("# "))
+        .ok_or_else(|| format!("llms-full: {url} entry has no title line"))
+}
+
 /// Section files keep complete page entries and their citations below 100 KB.
 pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> {
     let mut sections = std::collections::BTreeMap::<String, Vec<(String, String)>>::new();
@@ -212,10 +221,7 @@ pub fn section_parts(entries: &[(String, String)]) -> Result<Vec<Part>, String> 
             .next()
             .filter(|s| !s.is_empty())
             .unwrap_or("home");
-        // An entry opens with its title line (see `build`).
-        let Some(title) = entry.lines().next().and_then(|l| l.strip_prefix("# ")) else {
-            return Err(format!("llms-full: {url} entry has no title line"));
-        };
+        let title = entry_title(url, entry)?;
         sections
             .entry(section.into())
             .or_default()
