@@ -7,6 +7,7 @@ use std::process::Command;
 /// with each PATHEXT extension, which finds Bundler's `bundle.bat`.
 // shortcut: Python 3.12+ also searches the current directory first on Windows; the
 // site's tools never sit there, so PATH alone is searched.
+// Search it too if a tool is ever run from there.
 fn which(name: &str) -> PathBuf {
     let extensions: Vec<OsString> = if cfg!(windows) {
         std::env::var("PATHEXT")

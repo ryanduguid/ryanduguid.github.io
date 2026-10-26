@@ -7,7 +7,7 @@
 //!
 //! shortcut: attribute lookup supports the numeric `.real`, `.imag`, `.numerator` and
 //! `.denominator`; other attributes, such as bound methods whose text carries a memory
-//! address, are refused as AttributeError.
+//! address, are refused as AttributeError. Add an attribute if a template needs one.
 use crate::py;
 use crate::pyjson::Json;
 use crate::pyobj::type_name;
@@ -243,6 +243,7 @@ fn double_to_string(val: f64, code: char, precision: i64, flags: FloatFlags) -> 
     }
     // shortcut: CPython allocates the digits and fails only when memory runs out; past
     // a hundred million places this reports MemoryError rather than risk an abort.
+    // Raise the limit if a real format needs more places.
     if precision > 100_000_000 {
         return Err("MemoryError".into());
     }

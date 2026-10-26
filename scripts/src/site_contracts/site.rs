@@ -1298,6 +1298,7 @@ pub fn check_robots_policy(robots: &str) -> Vec<String> {
     let groups = core::robots_groups(robots);
     // shortcut: Python builds this from sets, so its order varies with the process's hash
     // seed; the listing order here is one fixed choice among the orders Python can print.
+    // Compare order-independently if a check compares this listing with Python's.
     let mut expected: Vec<(&str, &str)> = vec![("*", "Allow: /")];
     expected.extend(RETRIEVAL_CRAWLERS.iter().map(|a| (*a, "Allow: /")));
     expected.extend(ALLOWED_TRAINING_CRAWLERS.iter().map(|a| (*a, "Allow: /")));

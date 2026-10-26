@@ -129,6 +129,7 @@ pub fn local(tag: &str) -> &str {
 pub fn parse_seal(svg_text: &str) -> Result<Seal, FaviconError> {
     // shortcut: roxmltree stands in for expat; the ParseError text after the colon is
     // roxmltree's, not expat's, while the outcome is the same for malformed XML.
+    // Match expat's text if a check depends on the message.
     let document = roxmltree::Document::parse(svg_text)
         .map_err(|e| FaviconError(format!("favicon is not valid SVG: {e}")))?;
     let svg = document.root_element();
@@ -184,7 +185,8 @@ fn scale(value: &BigInt, grid: &BigInt, size: u32, label: &str) -> Result<usize,
         // round(product / grid): true division to the nearest double, then half to even.
         let quotient = match (product.to_f64(), grid.to_f64()) {
             (Some(p), Some(g)) if p.abs() < 9e15 && g < 9e15 => p / g,
-            // shortcut: integers past 2^53 fall back to exact rational rounding.
+            // shortcut: integers past 2^53 fall back to exact rational rounding, which
+            // can differ from Python's float division. Match it if a test finds such a ratio.
             _ => {
                 let (q, r) = (&product / grid, &product % grid);
                 let twice = &r * 2u8;

@@ -295,6 +295,7 @@ pub fn check_favicon(root: &Path) -> Result<Vec<String>, String> {
     }
     let text = crate::read(&path)?;
     // shortcut: roxmltree stands in for expat, so the message after the colon differs.
+    // Match expat's text if a check depends on the message.
     let document = match roxmltree::Document::parse(&text) {
         Ok(document) => document,
         Err(error) => return Ok(vec![format!("favicon is not valid SVG: {error}")]),
@@ -1176,6 +1177,7 @@ fn text_alternate(rel: &str) -> Result<String, String> {
     };
     // pathlib drops empty and "." parts; a leading slash makes the path absolute.
     // shortcut: Windows drive and UNC forms are not given special parsing here.
+    // Parse them if a checked path can come from Windows input.
     let parts: Vec<&str> = normalised
         .split('/')
         .filter(|p| !p.is_empty() && *p != ".")
