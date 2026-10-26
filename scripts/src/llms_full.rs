@@ -247,13 +247,12 @@ pub fn part_index(parts: &[(String, String)]) -> String {
         let mut titles = Vec::new();
         let mut lines = text.lines();
         while let Some(line) = lines.next() {
-            if line == "---" {
-                if let Some(title) = lines
+            if line == "---"
+                && let Some(title) = lines
                     .find(|l| !l.is_empty())
                     .and_then(|l| l.strip_prefix("# "))
-                {
-                    titles.push(title);
-                }
+            {
+                titles.push(title);
             }
         }
         out.push_str(&format!(

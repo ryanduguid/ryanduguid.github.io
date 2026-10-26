@@ -927,6 +927,20 @@ pub fn collection_breadcrumb_shape(
             step("Tools", "/tools/"),
             step("Ozzit Excel LAMBDA library", "/tools/ozzit/"),
         ]
+    } else if let Some((name, hub)) = [
+        ("Business calculators", "business-calculators"),
+        ("Accounting questions", "accounting-questions"),
+    ]
+    .into_iter()
+    .find(|(_, hub)| {
+        rel.starts_with(&format!("tools/{hub}/")) && rel != format!("tools/{hub}/index.html")
+    }) {
+        // A calculator or question topic sits under its hub, as Ozzit modules do.
+        vec![
+            home,
+            step("Tools", "/tools/"),
+            step(name, &format!("/tools/{hub}/")),
+        ]
     } else if rel.starts_with("tools/") {
         vec![home, step("Tools", "/tools/")]
     } else if rel.starts_with("evaluate/") {

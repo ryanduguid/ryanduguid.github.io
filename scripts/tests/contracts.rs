@@ -1193,6 +1193,33 @@ fn public_contracts_calculator_mutations() {
     }
 }
 
+/// Calculators and question topics sit under their hub; the hubs sit under Tools.
+#[test]
+fn nested_collection_breadcrumbs_name_their_hub() {
+    let names = |rel: &str| -> Vec<String> {
+        contracts::collection_breadcrumb_shape(rel, "Leaf")
+            .unwrap()
+            .into_iter()
+            .map(|(name, _, _)| name)
+            .collect()
+    };
+    assert_eq!(
+        names("tools/business-calculators/margin/index.html"),
+        ["Home", "Tools", "Business calculators", "Leaf"]
+    );
+    assert_eq!(
+        names("tools/accounting-questions/gst-bas/index.html"),
+        ["Home", "Tools", "Accounting questions", "Leaf"]
+    );
+    for hub in [
+        "tools/business-calculators/index.html",
+        "tools/accounting-questions/index.html",
+        "tools/xero-trial-balance/index.html",
+    ] {
+        assert_eq!(names(hub), ["Home", "Tools", "Leaf"], "{hub}");
+    }
+}
+
 #[test]
 fn public_contracts_structure_and_assets() {
     if !rendered() {
