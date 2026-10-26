@@ -738,6 +738,15 @@ td {
   white-space: nowrap;
 }
 
+/* A feed entry links to its own row; mark that row so the reader lands on it. */
+.changelog-section tbody tr:target > * {
+  background: var(--colour-stamp-wash);
+}
+
+.changelog-section tbody tr:target > th {
+  box-shadow: inset 3px 0 0 var(--colour-stamp);
+}
+
 /* On phones a one-line date took half the table and left each change about
    18 characters a line, so the date wraps in a narrow track there. */
 @media (max-width: 40rem) {

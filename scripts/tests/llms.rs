@@ -118,12 +118,25 @@ fn machine_index_copy() {
         std::fs::read(&alias).unwrap(),
         std::fs::read(&canonical).unwrap()
     );
-    let mut changed = std::fs::read(&canonical).unwrap();
-    changed.extend_from_slice(b"\nIndex maintenance note.\n");
-    std::fs::write(&canonical, changed).unwrap();
+    let written = std::fs::read_to_string(&canonical).unwrap();
+    // A hand edit above the generated part index is kept and copied to the alias.
+    let changed = written.replacen(
+        "\n## Full text by section\n",
+        "\nIndex maintenance note.\n\n## Full text by section\n",
+        1,
+    );
+    assert_ne!(changed, written);
+    std::fs::write(&canonical, &changed).unwrap();
     let (code, stdout) = run(root, &["--check"]);
     assert!(
         code == Some(1) && stdout.contains(".well-known/llms.txt is stale"),
+        "{stdout}"
+    );
+    // A hand edit inside the generated part index is stale.
+    std::fs::write(&canonical, format!("{changed}- [extra.txt](x): y\n")).unwrap();
+    let (code, stdout) = run(root, &["--check"]);
+    assert!(
+        code == Some(1) && stdout.contains("llms.txt part index is stale"),
         "{stdout}"
     );
     assert_eq!(run(root, &["--write"]).0, Some(0));
@@ -168,4 +181,41 @@ fn section_parts_are_bounded_and_preserve_citations() {
                 && text.contains("https://example.com/a"))
     );
     assert!(section_parts(&[(format!("{SITE}tools/huge/"), "x".repeat(100_000))]).is_err());
+}
+
+/// llms.txt lists each part file with the titles of the pages it holds.
+#[test]
+fn part_index_lists_each_parts_pages() {
+    use site_tools::llms_full::{section_parts, with_part_index};
+    let entries = vec![
+        (
+            format!("{SITE}tools/a/"),
+            format!("# Tool A\n\nSource: {SITE}tools/a/\n\n> A.\n\nBody\n"),
+        ),
+        (
+            format!("{SITE}tools/b/"),
+            format!("# Tool B\n\nSource: {SITE}tools/b/\n\n> B.\n\n---\n"),
+        ),
+        (
+            format!("{SITE}about/"),
+            format!("# About\n\nSource: {SITE}about/\n\n> About.\n"),
+        ),
+    ];
+    let parts = section_parts(&entries).unwrap();
+    let index = "# Site\n\nIntro.\n\n## Full text by section\n\nOld list.\n";
+    let built = with_part_index(index, &parts).unwrap();
+    assert!(
+        built.starts_with("# Site\n\nIntro.\n\n## Full text by section\n\n"),
+        "{built}"
+    );
+    assert!(!built.contains("Old list."), "{built}");
+    assert!(
+        built.contains(
+            "- [llms-full-about-1.txt](https://duguid.com.au/llms-full-about-1.txt): About\n"
+        ),
+        "{built}"
+    );
+    assert!(built.ends_with(": Tool A; Tool B\n"), "{built}");
+    assert_eq!(with_part_index(&built, &parts).unwrap(), built);
+    assert!(with_part_index("# Site\n", &parts).is_err());
 }
