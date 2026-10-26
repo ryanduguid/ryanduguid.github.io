@@ -166,21 +166,28 @@ fn section_parts_are_bounded_and_preserve_citations() {
     let entries = vec![
         (
             format!("{SITE}tools/a/"),
-            format!("{}\nhttps://example.com/a", "a".repeat(60_000)),
+            format!("# A\n{}\nhttps://example.com/a", "a".repeat(60_000)),
         ),
-        (format!("{SITE}tools/b/"), "b".repeat(60_000)),
-        (format!("{SITE}about/"), "About".into()),
+        (
+            format!("{SITE}tools/b/"),
+            format!("# B\n{}", "b".repeat(60_000)),
+        ),
+        (format!("{SITE}about/"), "# About".into()),
     ];
     let parts = section_parts(&entries).unwrap();
     assert_eq!(parts.len(), 3);
-    assert!(parts.iter().all(|(_, text)| text.len() < 100_000));
+    assert!(parts.iter().all(|p| p.text.len() < 100_000));
+    assert!(parts.iter().any(|p| p.name == "llms-full-tools-1.txt"
+        && p.titles == ["A"]
+        && p.text.contains("https://example.com/a")));
     assert!(
-        parts
-            .iter()
-            .any(|(name, text)| name == "llms-full-tools-1.txt"
-                && text.contains("https://example.com/a"))
+        section_parts(&[(
+            format!("{SITE}tools/huge/"),
+            format!("# H\n{}", "x".repeat(100_000))
+        )])
+        .is_err()
     );
-    assert!(section_parts(&[(format!("{SITE}tools/huge/"), "x".repeat(100_000))]).is_err());
+    assert!(section_parts(&[(format!("{SITE}about/"), "About".into())]).is_err());
 }
 
 /// llms.txt lists each part file with the titles of the pages it holds.
@@ -218,4 +225,25 @@ fn part_index_lists_each_parts_pages() {
     assert!(built.ends_with(": Tool A; Tool B\n"), "{built}");
     assert_eq!(with_part_index(&built, &parts).unwrap(), built);
     assert!(with_part_index("# Site\n", &parts).is_err());
+}
+
+/// Page text that looks like a separator neither hides nor invents a title.
+#[test]
+fn part_index_ignores_separators_inside_pages() {
+    use site_tools::llms_full::{part_index, section_parts};
+    let entries = vec![
+        (
+            format!("{SITE}tools/a/"),
+            format!("# Tool A\n\nSource: {SITE}tools/a/\n\n---\n\n# Example\n\nBody\n\n---\n"),
+        ),
+        (
+            format!("{SITE}tools/b/"),
+            format!("# Tool B\n\nSource: {SITE}tools/b/\n\n> B.\n"),
+        ),
+    ];
+    let index = part_index(&section_parts(&entries).unwrap());
+    assert!(
+        index.ends_with("/llms-full-tools-1.txt): Tool A; Tool B\n"),
+        "{index}"
+    );
 }
