@@ -333,3 +333,7 @@ are Xero's document and artwork, published as a factual record of Ryan Duguid's
 own certification under the terms in `assets/credentials/SOURCES.md`.
 
 Nothing on the site is tax, legal or financial advice. Outputs of the tools it links are review aids for a qualified professional, not compliance determinations.
+
+---
+
+<p align="center"><sub>No matter where you go, everyone's connected.<br>Made in Newcastle, Australia by <a href="https://duguid.com.au/">Ryan Duguid</a>.</sub></p>
