@@ -7,6 +7,7 @@ use crate::htmlparser::{self, Event};
 use crate::py;
 use crate::pyjson::{self, Json};
 use crate::pyre::{self, I, M, S, re};
+use crate::schema_vocab::Vocabulary;
 use std::collections::HashSet;
 use std::path::{Path, PathBuf};
 
@@ -92,6 +93,7 @@ pub fn check_file_metadata(
     not_indexed: &HashSet<String>,
     warnings: &mut Vec<String>,
     context: &MetadataContext<'_>,
+    vocabulary: &Vocabulary,
     root: &Path,
 ) -> Result<Vec<String>, String> {
     let mut failures = Vec::new();
@@ -220,6 +222,7 @@ pub fn check_file_metadata(
             failures.push(format!("{rel}: JSON-LD @context is not https://schema.org"));
         }
         check_item_lists(block, &rel, &mut failures);
+        vocabulary.check_block(block, &rel, &mut failures);
         for node in nodes(block) {
             if node
                 .get("@type")
