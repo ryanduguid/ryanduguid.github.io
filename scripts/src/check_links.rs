@@ -28,6 +28,12 @@ const FRAGMENT_TARGET: &str = r#"\s(?:id|name)=(["'])([^"']+)\1"#;
 const OWN_REPO: &str = r"^https://github\.com/ryanduguid/([A-Za-z0-9._-]+)";
 const MARKDOWN_LINK: &str = r"\]\((https?://[^)\s]+)\)";
 const USAGE: &str = include_str!("help/check_links.usage");
+/// Archived repositories each page may cite: finished projects archived as
+/// their own maintained home (planning-analytics-model 1.0.0, 26 October 2026).
+pub const ARCHIVED_TARGET_ALLOWLIST: &[(&str, &[&str])] = &[
+    ("about/index.html", &["planning-analytics-model"]),
+    ("llms.txt", &["planning-analytics-model"]),
+];
 
 /// A failed request, rendered as urllib's exception text.
 #[derive(Debug, Clone, PartialEq)]
@@ -403,7 +409,15 @@ impl<'a> Checker<'a> {
             warnings: Vec::new(),
             fetch_hook: None,
             lookup_hook: None,
-            archived_allowlist: Vec::new(),
+            archived_allowlist: ARCHIVED_TARGET_ALLOWLIST
+                .iter()
+                .map(|(page, names)| {
+                    (
+                        page.to_string(),
+                        names.iter().map(|n| n.to_string()).collect(),
+                    )
+                })
+                .collect(),
             prefetched: Prefetched::new(),
             prefetched_verdicts: PrefetchedVerdicts::new(),
             fetched: HashMap::new(),

@@ -31,9 +31,11 @@ GitHub REST API, with the same transient-failure retries as the link fetch,
 and the verdict or the failure is cached so one repository costs one request
 however many pages link it. A lookup that cannot be completed is a failure,
 not a pass. ARCHIVED_TARGET_ALLOWLIST names, per page, the archived
-repositories that page may cite deliberately as provenance for a pre-
-consolidation release; it is empty today because the changelog links current
-releases only. Known gap: the calculator page loads its engine with an ES
+repositories that page may cite deliberately: provenance for a pre-
+consolidation release, or a finished project archived as its own maintained
+home. Today it lets the about page and llms.txt cite planning-analytics-model,
+archived at 1.0.0 on 26 October 2026; the changelog links current releases
+only. Known gap: the calculator page loads its engine with an ES
 module import ("import { ... } from '/assets/levy.mjs'" inside a <script
 type="module"> body), not an href or src attribute, so HTMLParser never sees
 that path and a typo there would not be caught here even after the module

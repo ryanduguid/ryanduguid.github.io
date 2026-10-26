@@ -3,7 +3,7 @@ name = "duguid-site-tools"
 version = "1.0.0"
 edition = "2024"
 rust-version = "1.99"
-license = "MIT"
+license = "FSL-1.1-ALv2"
 description = "Build and validation tools for duguid.com.au"
 publish = false
 

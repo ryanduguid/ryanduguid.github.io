@@ -1622,7 +1622,7 @@ pub fn check_social_cards_for(root: &Path, homepage_heading: &str) -> Result<Vec
     for required in [
         "assets/social-card-template.svg",
         "assets/social-cards.json",
-        "Apache-2.0",
+        "FSL-1.1-ALv2",
         "Playwright 1.63.0",
         "Chromium",
         "device scale 1",
