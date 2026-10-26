@@ -139,7 +139,7 @@ export function sameUrl(url) {
 // The legal database home lists the week's new documents, so its text changes
 // every week (the failed runs of 24 and 28 September 2026), and the portfolio
 // cites it only as the way into the database. Its status and removal still count.
-const CHANGE_EXEMPT = new Set([sameUrl('https://www.ato.gov.au/law/')]);
+const CHANGE_EXEMPT = new Set([sameUrl('https://www.ato.gov.au/single-page-applications/legaldatabase')]);
 
 // Non-breaking spaces and trailing blanks vary between renders of one page.
 export const tidy = (text) => text.replace(/[^\S\n\t]/g, ' ').replace(/(?<![ \t])[ \t]+$/gm, '').replace(/\n{3,}/g, '\n\n').trim();
