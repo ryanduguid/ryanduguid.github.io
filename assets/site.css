@@ -744,7 +744,8 @@ td {
 }
 
 .changelog-section tbody tr:target > th {
-  box-shadow: inset 3px 0 0 var(--colour-stamp);
+  text-decoration: underline 2px var(--colour-stamp);
+  text-underline-offset: 0.25em;
 }
 
 /* On phones a one-line date took half the table and left each change about
