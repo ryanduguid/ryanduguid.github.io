@@ -837,6 +837,28 @@ fn archived_targets() {
     assert_eq!(allowed.len(), 1);
     assert!(allowed[0].contains("workpaper-review-gate is archived"));
     assert_eq!(other.len(), 2);
+
+    // The default allowlist lets the about page and llms.txt cite the finished,
+    // archived planning-analytics-model, and only those pages; other archived
+    // repositories still fail there.
+    let hrefs = strings(&[
+        "https://github.com/ryanduguid/planning-analytics-model",
+        "https://github.com/ryanduguid/hardhat-ledger",
+    ]);
+    let harness = Harness::new(vec![]);
+    let (about, llms, home) = harness.run(|c| {
+        c.lookup_hook = Some(Box::new(|_| Ok(true)));
+        (
+            c.archived_target_failures("about/index.html", &hrefs),
+            c.archived_target_failures("llms.txt", &hrefs),
+            c.archived_target_failures("index.html", &hrefs),
+        )
+    });
+    for failures in [&about, &llms] {
+        assert_eq!(failures.len(), 1);
+        assert!(failures[0].contains("hardhat-ledger is archived"));
+    }
+    assert_eq!(home.len(), 2);
 }
 
 /// One repository costs one lookup, and a failed lookup is cached as a failure.
