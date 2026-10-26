@@ -990,6 +990,14 @@ caption {
   content: "/";
 }
 
+/* On phones a 4-level trail wrapped to a second line and pushed the working
+   control below the first screen; the H1 below already names the page. */
+@media (max-width: 40rem) {
+  .article-crumb li:nth-child(4)[aria-current="page"] {
+    display: none;
+  }
+}
+
 /* Caption-size standalone links keep their layout but gain a 24px-plus
    hit area: the padding is cancelled by an equal negative margin. */
 .article-crumb a,
