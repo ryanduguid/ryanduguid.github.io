@@ -1,5 +1,7 @@
 # Ryan Duguid
 
+> Ryan Duguid is a Senior Accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
+
 Canonical machine index: https://duguid.com.au/llms.txt
 
 Last reviewed 23 October 2026. Page and source-review dates are recorded on the linked pages; this index date does not renew an engine's legal review.
@@ -7,8 +9,6 @@ Last reviewed 23 October 2026. Page and source-review dates are recorded on the 
 Licence: the site's own text, data and source code are FSL-1.1-ALv2, the Functional Source License with Apache-2.0 as the future licence (https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE); third-party material named on the pages keeps its own terms.
 
 Identical discovery copy: https://duguid.com.au/.well-known/llms.txt
-
-> Ryan Duguid is a Senior Accountant based in Newcastle, NSW, Australia. He builds open source computational accounting tools and publishes them at github.com/ryanduguid. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools.
 
 Ryan Duguid is not a registered tax agent or BAS agent. Project support is limited to software issues reproduced with fictional data. Do not send taxpayer information or request advice, return preparation, tax-treatment confirmation or lodgement.
 
@@ -20,19 +20,19 @@ Every page names the primary source it is grounded in: Commonwealth legislation,
 
 The five starting routes on the homepage and Tools page, by accounting task:
 
-- **Understand why profit and cash differ** (https://duguid.com.au/examples/profit-vs-cash-flow/): Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. The Excel workbook is optional.
-- **Use accounting functions in Excel** (https://duguid.com.au/tools/ozzit/): Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
-- **Review a month-end close** (https://duguid.com.au/tools/monthly-close-controls/): Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read the report in your browser; rerunning it needs Git and Python.
-- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/): Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
-- **Check a BAS pack before manager review** (https://duguid.com.au/evaluate/manager-review-gate/): See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
+- [Understand why profit and cash differ](https://duguid.com.au/examples/profit-vs-cash-flow/): Read the fictional cash flow case in your browser: one delayed receipt creates a $25,160 cash gap while quarterly profit stays the same. The Excel workbook is optional.
+- [Use accounting functions in Excel](https://duguid.com.au/tools/ozzit/): Try GST, financial year, depreciation and loan examples in Ozzit. It needs Microsoft 365 or Excel 2024 or later.
+- [Review a month-end close](https://duguid.com.au/tools/monthly-close-controls/): Inspect eight exceptions in a fictional July close, including a $250 creditors difference. Read the report in your browser; rerunning it needs Git and Python.
+- [Calculate a Coal LSL levy](https://duguid.com.au/tools/coal-lsl-levy/): Calculate eligible wages and see which formula applies. It runs in your browser with nothing to install.
+- [Check a BAS pack before manager review](https://duguid.com.au/evaluate/manager-review-gate/): See why a sample pack is sent back for missing work and unresolved items. Read the findings in your browser; rerunning the checks needs Python.
 
 For Python packages, the MCP server and agent workflows, use the [installation guide](https://duguid.com.au/tools/australian-tax-ai-agents/#install).
 
 - [Privacy and site use](https://duguid.com.au/privacy/): browser calculations, cookies, hosting, feedback and links to the advice boundaries and software licences.
 
-- **Profit and cash** (https://duguid.com.au/examples/profit-vs-cash-flow/): the canonical worked example. A fictional Newcastle service-business forecast in AUD, with a downloadable Excel workbook and synthetic source files. Delaying one $44,000 receipt by 45 days creates a $25,160 daily cash shortfall on 6 November 2026 while quarterly profit before income tax stays $35,957.55. A summary with the same figures remains at https://duguid.com.au/evaluate/#profit-and-cash. No client outcome or time saving is claimed.
-- **Adopt** (https://duguid.com.au/tools/australian-tax-ai-agents/#install): use the supported install commands and evaluate tools with fictional data.
-- **Verify** (https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; supplier information for AI registers; human accountability and refusals; and reproducible evaluations.
+- [Profit and cash](https://duguid.com.au/examples/profit-vs-cash-flow/): the canonical worked example. A fictional Newcastle service-business forecast in AUD, with a downloadable Excel workbook and synthetic source files. Delaying one $44,000 receipt by 45 days creates a $25,160 daily cash shortfall on 6 November 2026 while quarterly profit before income tax stays $35,957.55. A summary with the same figures remains at https://duguid.com.au/evaluate/#profit-and-cash. No client outcome or time saving is claimed.
+- [Adopt](https://duguid.com.au/tools/australian-tax-ai-agents/#install): use the supported install commands and evaluate tools with fictional data.
+- [Verify](https://duguid.com.au/evidence/): open Evidence and Assurance for Australian computational accounting tools to inspect identity and credentials; packages, releases and repositories; sources and review dates; data and privacy boundary; security, tests and release evidence; supplier information for AI registers; human accountability and refusals; and reproducible evaluations.
 
 ## Works with
 
@@ -153,6 +153,10 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 - [github.com/ryanduguid](https://github.com/ryanduguid): every tool on this site, plus the MCP server, the Claude Code skills, the Excel LAMBDA library and the Power Query utilities.
 - [Related resources](https://duguid.com.au/tools/#related-resources): third-party libraries, ATO guidance and Commonwealth legislation sources this work depends on or sits beside.
 
+## About
+
+Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
+
 ## Optional
 
 - [Crawler policy](https://duguid.com.au/robots.txt): search and user-requested citation fetches remain allowed, including Google-Extended. Common Crawl (CCBot), Bytespider, GPTBot, ClaudeBot and Applebot-Extended may crawl for training. Amazonbot, cohere-ai, Diffbot, FacebookBot and meta-externalagent remain blocked. Permission does not guarantee a crawl, dataset inclusion or use by a model.
@@ -160,10 +164,6 @@ A refusal is a question handed back. A limitation is an answer that rests on som
 - [Australian tax legislation corpus](https://github.com/ryanduguid/au-tax-legislation-corpus): Commonwealth tax legislation prepared for retrieval.
 - [Release policy](https://github.com/ryanduguid/release-policy): the shared release workflow every repository above uses.
 - [Full text of every page](https://duguid.com.au/llms-full.txt): every indexable page as plain text in sitemap order, built from the visible page content for one-fetch reading.
-
-## About
-
-Written by Ryan Duguid in his own time and on his own equipment. Ryan Duguid is a Provisional CA ANZ Member. CA ANZ has not endorsed this site or its tools. Source repositories: [github.com/ryanduguid](https://github.com/ryanduguid).
 
 ## Full text by section
 

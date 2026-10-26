@@ -865,7 +865,7 @@ Inspect the case, files and reproduction command at the captured source commit. 
 
 ## Workpaper Review Gate evaluation
 
-This evaluation runs 2 fictional BAS packs through Workpaper Review Gate, fixes the stated failures and reproduces the READY result.
+The Workpaper Review Gate evaluation runs 2 fictional BAS packs through the gate, fixes the stated failures and reproduces the READY result.
 
 Fictional input
 
@@ -887,7 +887,7 @@ Evaluation source · Primary source: Australian Taxation Office, Business activi
 
 ## Xero trial balance integrity evaluation
 
-This evaluation runs 3 fictional CSV files through the movement and year-to-date balance checks without connecting to Xero.
+The Xero trial balance integrity evaluation runs 3 fictional CSV files through the movement and year-to-date balance checks without connecting to Xero.
 
 Fictional input
 
@@ -909,7 +909,7 @@ Evaluation source · Primary source: Xero, Accounting API Reports
 
 ## Payday Super timing evidence evaluation
 
-This evaluation reproduces 4 evidence-timing outcomes, including at-risk, on-time and late results.
+The Payday Super timing evidence evaluation reproduces 4 evidence-timing outcomes, including at-risk, on-time and late results.
 
 Fictional input
 
@@ -2216,7 +2216,7 @@ Type 1 is 2.0802 and Type 2 is 1.8868, unchanged for every FBT year ending 31 Ma
 
 ### When does the FBT year start and end?
 
-It runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 April 2026.
+The FBT year runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 April 2026.
 
 ### Which gross-up rate applies to reportable fringe benefits?
 
@@ -3406,7 +3406,7 @@ No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 202
 
 ### What is the white zone?
 
-It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
+The white zone covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
 
 ### How is each beneficiary’s share of trust income worked out?
 
@@ -3580,7 +3580,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.4.0.
 
-These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 
@@ -3816,7 +3816,7 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 Package xero-trial-balance-export in the accounting-review-pipeline repository. Current release v0.1.15.
 
-This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
 Current release v0.1.15 (12 October 2026). Last reviewed 25 October 2026.
 
@@ -4118,7 +4118,7 @@ No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO docum
 
 ### Does it calculate Division 7A repayments?
 
-It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
+Aus Accounting MCP reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
 
 ### Does it lodge with the ATO?
 
@@ -7957,7 +7957,7 @@ Source: https://duguid.com.au/privacy/
 
 # Privacy and site use
 
-This notice explains how this website handles browser calculations, hosting and feedback.
+The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
 Published 12 September 2026. Last reviewed 16 October 2026.
 
@@ -8277,7 +8277,7 @@ The Australian helpers are deliberately small: GST addition and extraction with 
 
 ## Who it is for and what it needs
 
-It suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.
+Ozzit suits an accountant or analyst who builds models in Excel and wants the working visible rather than hidden in an add-in or a macro. It is not a bookkeeping tool, and it never touches a ledger.
 
 What the workbook needs. Scroll sideways on small screens.
 

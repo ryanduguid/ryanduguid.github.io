@@ -76,7 +76,7 @@ Inspect the case, files and reproduction command at the captured source commit. 
 
 ## Workpaper Review Gate evaluation
 
-This evaluation runs 2 fictional BAS packs through Workpaper Review Gate, fixes the stated failures and reproduces the READY result.
+The Workpaper Review Gate evaluation runs 2 fictional BAS packs through the gate, fixes the stated failures and reproduces the READY result.
 
 Fictional input
 
@@ -98,7 +98,7 @@ Evaluation source · Primary source: Australian Taxation Office, Business activi
 
 ## Xero trial balance integrity evaluation
 
-This evaluation runs 3 fictional CSV files through the movement and year-to-date balance checks without connecting to Xero.
+The Xero trial balance integrity evaluation runs 3 fictional CSV files through the movement and year-to-date balance checks without connecting to Xero.
 
 Fictional input
 
@@ -120,7 +120,7 @@ Evaluation source · Primary source: Xero, Accounting API Reports
 
 ## Payday Super timing evidence evaluation
 
-This evaluation reproduces 4 evidence-timing outcomes, including at-risk, on-time and late results.
+The Payday Super timing evidence evaluation reproduces 4 evidence-timing outcomes, including at-risk, on-time and late results.
 
 Fictional input
 

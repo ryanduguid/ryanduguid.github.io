@@ -148,7 +148,7 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 Package xero-trial-balance-export in the accounting-review-pipeline repository. Current release v0.1.15.
 
-This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
 Current release v0.1.15 (12 October 2026). Last reviewed 25 October 2026.
 
@@ -450,7 +450,7 @@ No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO docum
 
 ### Does it calculate Division 7A repayments?
 
-It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
+Aus Accounting MCP reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
 
 ### Does it lodge with the ATO?
 

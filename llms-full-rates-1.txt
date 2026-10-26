@@ -924,7 +924,7 @@ Type 1 is 2.0802 and Type 2 is 1.8868, unchanged for every FBT year ending 31 Ma
 
 ### When does the FBT year start and end?
 
-It runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 April 2026.
+The FBT year runs from 1 April to 31 March, so the year ending 31 March 2027 began on 1 April 2026.
 
 ### Which gross-up rate applies to reportable fringe benefits?
 

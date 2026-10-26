@@ -844,8 +844,8 @@ fn public_contracts_routes_privacy_and_evaluations() {
     replace_file(
         site.path(),
         "llms.txt",
-        "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/):",
-        "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/):",
+        "- [Calculate a Coal LSL levy](https://duguid.com.au/tools/coal-lsl-levy/):",
+        "- [Calculate a Coal LSL levy](https://duguid.com.au/tools/):",
     );
     expect_failure(
         "machine route destination",

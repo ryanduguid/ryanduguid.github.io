@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.4.0.
 
-These are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
+The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
 Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
 

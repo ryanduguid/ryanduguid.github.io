@@ -1706,7 +1706,7 @@ pub fn check_task_routes(root: &Path) -> Result<Vec<String>, String> {
     let llms = read_if_file(&root.join("llms.txt"))?;
     let route_section = core::markdown_section(&llms, LLMS_ROUTE_SECTION);
     for (label, primary) in &expected {
-        let entry = format!("- **{label}** ({SITE}{primary}):");
+        let entry = format!("- [{label}]({SITE}{primary}):");
         if route_section.matches(&entry).count() != 1 {
             failures.push(format!(
                 "llms.txt: ## {LLMS_ROUTE_SECTION} must route {} to {SITE}{primary} exactly once",
