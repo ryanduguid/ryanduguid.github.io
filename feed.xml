@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-20T00:00:00Z</updated>
+  <updated>2026-10-26T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with…</title>
+    <link href="https://duguid.com.au/changelog/#site-changes" />
+    <id>https://duguid.com.au/changelog/#entry-0b348e462466a6c2</id>
+    <updated>2026-10-26T00:00:00Z</updated>
+    <summary>Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.</summary>
+  </entry>
   <entry>
     <title>Accounting questions 93 and 94 describe the first enacted stage of capital…</title>
     <link href="https://duguid.com.au/changelog/#site-changes" />

@@ -4375,6 +4375,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 October 2026 | Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.
 20 October 2026 | Accounting questions 93 and 94 describe the first enacted stage of capital gains tax reform for CGT events on or after 1 July 2027: cost base indexation for eligible later gains, a minimum 30% tax on certain net capital gains of individuals, and existing treatment for gains accrued before then, although the pre-CGT exemption does not cover later gains, with a records step for the market value immediately before that date of an asset acquired earlier. Question 93 notes the choice to keep the current rules for an eligible new residential dwelling or affordable housing. The manager review gate evaluation cites the ATO’s new address for monthly GST reporting, and the evidence page links the engines’ release workflow definitions at their last Python releases, since the Rust port removed those workflows.
 20 October 2026 | Six new Ozzit module pages document all 148 named formulas in v3.5.0 with their signatures, parameters, notes and worked examples, read from each function’s help in the release source. Each name in the Ozzit page’s index links to its entry.
 20 October 2026 | The Ozzit page documents v3.5.0, published on 19 October: 143 LAMBDA functions and 5 help tables, the Apache License 2.0 and the new download hash. Its ten worked formulas were rerun in desktop Excel against the v3.5.0 workbook with unchanged results.
@@ -8002,7 +8003,7 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
-The website's own text, data and source code are available under its Apache License 2.0, which includes its warranty terms; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+The website's own text, data and source code are available under its Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2), which includes its warranty terms and makes each version available under the Apache License 2.0 two years after publication; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
 
 ## Accessibility
 
@@ -8022,7 +8023,7 @@ Automated checks find only some barriers. I have not tested the site with screen
 - full page text: https://duguid.com.au/llms-full.txt
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
-- Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Functional Source License, Version 1.1, ALv2 Future License: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
 
 ---
 

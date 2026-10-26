@@ -52,7 +52,7 @@ If an AI answer misquotes this site, email ryan@duguid.com.au with the page addr
 
 Read the advice and review boundary and the site boundary before relying on a tool or example. Check each page’s assumptions, source links and review date, and have a qualified professional review outputs before acting on them.
 
-The website's own text, data and source code are available under its Apache License 2.0, which includes its warranty terms; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
+The website's own text, data and source code are available under its Functional Source License, Version 1.1, ALv2 Future License (FSL-1.1-ALv2), which includes its warranty terms and makes each version available under the Apache License 2.0 two years after publication; each page's structured data names that licence. Linked projects and third-party assets carry their own licences. Check those terms before reusing or distributing them.
 
 ## Accessibility
 
@@ -72,4 +72,4 @@ Automated checks find only some barriers. I have not tested the site with screen
 - full page text: https://duguid.com.au/llms-full.txt
 - advice and review boundary: https://duguid.com.au/about/#advice-boundary
 - site boundary: https://duguid.com.au/about/#contact
-- Apache License 2.0: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
+- Functional Source License, Version 1.1, ALv2 Future License: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/LICENSE
