@@ -218,7 +218,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
 - australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md
-- ATO Legal Database: https://www.ato.gov.au/law/
+- ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - Federal Register of Legislation: https://www.legislation.gov.au/
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
