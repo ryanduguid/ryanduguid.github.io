@@ -81,7 +81,7 @@ test('a changed page fails, carries its diff and moves the baseline on', () => {
 });
 
 test('the legal database home may change, but other law pages may not', () => {
-  const home = 'https://www.ato.gov.au/law/';
+  const home = 'https://www.ato.gov.au/single-page-applications/legaldatabase';
   assert.equal(classify(home, page(`${TEXT} and more`, { finalUrl: home }), TEXT).failure, undefined);
   assert.match(classify(home, page(TEXT, { finalUrl: home, status: 404 }), TEXT).failure, /HTTP 404/);
   const ruling = 'https://www.ato.gov.au/law/view/document?DocID=DPC/PCG2026D3/NAT/ATO/00001';

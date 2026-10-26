@@ -698,7 +698,7 @@ fn accepts_only_runner_confirmed_denials() {
         "https://www.ato.gov.au/tax-rates-and-codes/division-7a-benchmark-interest-rate",
         "https://www.ato.gov.au/law/view/view.htm?docid=COG%2FPCG20222%2FNAT%2FATO%2F00001",
         "https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines",
-        "https://www.ato.gov.au/law/",
+        "https://www.ato.gov.au/single-page-applications/legaldatabase",
         "https://www.ato.gov.au/individuals-and-families/your-tax-return",
         "https://www.ato.gov.au/businesses-and-organisations/gst-excise-and-indirect-taxes/gst/how-gst-works",
         "https://www.ato.gov.au/",

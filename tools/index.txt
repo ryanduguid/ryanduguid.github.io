@@ -280,7 +280,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Excel Labs Advanced Formula Environment: https://github.com/microsoft/excel-labs
 - STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
 - Federal Register of Legislation: https://www.legislation.gov.au/
-- ATO Legal Database: https://www.ato.gov.au/law/
+- ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - ATO dataset catalogue on data.gov.au (archived 19 April 2026): https://web.archive.org/web/20260419123949/https://data.gov.au/data/organization/australiantaxationoffice
 - Standard Business Reporting developer resources: https://www.sbr.gov.au/
 - SuperStream technical standards: https://softwaredevelopers.ato.gov.au/SuperStreamStandard

@@ -2533,7 +2533,7 @@ OpenAccountants tax guides for coding agents Xero Python SDK (official) Xero Nod
 - Excel Labs Advanced Formula Environment: https://github.com/microsoft/excel-labs
 - STP Phase 2 employer reporting guidelines: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/in-detail/single-touch-payroll-phase-2-employer-reporting-guidelines
 - Federal Register of Legislation: https://www.legislation.gov.au/
-- ATO Legal Database: https://www.ato.gov.au/law/
+- ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - ATO dataset catalogue on data.gov.au (archived 19 April 2026): https://web.archive.org/web/20260419123949/https://data.gov.au/data/organization/australiantaxationoffice
 - Standard Business Reporting developer resources: https://www.sbr.gov.au/
 - SuperStream technical standards: https://softwaredevelopers.ato.gov.au/SuperStreamStandard
@@ -4160,7 +4160,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
 - australian-tax-calculators: https://github.com/ryanduguid/australian-accounting/blob/australian-tax-calculators/v0.1.5/packages/australian-tax-calculators/README.md
-- ATO Legal Database: https://www.ato.gov.au/law/
+- ATO Legal Database: https://www.ato.gov.au/single-page-applications/legaldatabase
 - Federal Register of Legislation: https://www.legislation.gov.au/
 - payday-super-checker: https://github.com/ryanduguid/australian-accounting/tree/main/packages/payday-super-checker
 - ato-benchmark-compare: https://github.com/ryanduguid/australian-accounting/tree/main/packages/ato-benchmark-compare
@@ -6205,7 +6205,7 @@ Make the STP finalisation declaration by 14 July each year. Reconcile payroll to
 
 An ordinary payroll submission and a finalisation declaration are different steps.
 
-Single Touch Payroll · End-of-year finalisation through STP · Finalise your STP data by 14 July · Monthly close review pack
+Single Touch Payroll · Finalising your STP data · Finalise your STP data by 14 July · Monthly close review pack
 
 The bold answer was checked on 27 September 2026.
 
@@ -6315,7 +6315,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - Tax withheld calculator: https://www.ato.gov.au/calculators-and-tools/tax-withheld-calculator
 - Link to question 45: https://duguid.com.au/tools/accounting-questions/payroll-super/#q45
 - Single Touch Payroll: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll
-- End-of-year finalisation through STP: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/start-reporting/end-of-year-finalisation-through-stp
+- Finalising your STP data: https://www.ato.gov.au/businesses-and-organisations/hiring-and-paying-your-workers/single-touch-payroll/finalising-your-stp-data
 - Finalise your STP data by 14 July: https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/finalise-your-stp-data-by-14-july
 - Monthly close review pack: https://github.com/ryanduguid/accounting-review-pipeline
 - Link to question 46: https://duguid.com.au/tools/accounting-questions/payroll-super/#q46
