@@ -7,7 +7,7 @@ use std::path::Path;
 use std::sync::LazyLock;
 
 pub const CHANGELOG_URL: &str = "https://duguid.com.au/changelog/";
-pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
+pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. --write also gives each dated row the\nid=\"entry-<feed ID>\" anchor its site entry links to, and --check fails when one\nis missing. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Entry {
@@ -71,6 +71,24 @@ pub fn headline(summary: &str) -> String {
 }
 
 pub fn entries(source: &str) -> Result<Vec<Entry>, String> {
+    let mut found: Vec<Entry> = rows(source)?.into_iter().map(|r| r.entry).collect();
+    found.sort_by_key(|e| std::cmp::Reverse(e.date));
+    Ok(found)
+}
+
+/// A dated changelog row: its entry, where its attributes start and its `id` attribute.
+struct Row {
+    entry: Entry,
+    attributes_at: usize,
+    anchor: Option<String>,
+}
+
+/// Each dated row's anchor is `entry-<feed ID>`, so the Atom ID resolves to the row.
+fn anchor(id: &str) -> String {
+    format!("entry-{id}")
+}
+
+fn rows(source: &str) -> Result<Vec<Row>, String> {
     // Python's \b and \s use str.isalnum and str.isspace, not Unicode's word and space sets.
     static ROW: LazyLock<fancy_regex::Regex> = LazyLock::new(|| {
         fancy_regex::Regex::new(&format!(
@@ -91,6 +109,8 @@ pub fn entries(source: &str) -> Result<Vec<Entry>, String> {
         ))
         .unwrap()
     });
+    static ANCHOR: LazyLock<Regex> =
+        LazyLock::new(|| Regex::new(r#"(?:^|\s)id\s*=\s*(?:"([^"]*)"|'([^']*)')"#).unwrap());
     let mut found = Vec::new();
     let mut ids = HashSet::new();
     let plain = |s: &str| py::strip(&html::unescape(&TAG.replace_all(s, ""))).to_owned();
@@ -116,12 +136,7 @@ pub fn entries(source: &str) -> Result<Vec<Entry>, String> {
                         py::prefix_chars(&summary, 77).trim_end_matches(py::is_space)
                     )
                 };
-                (
-                    summary,
-                    title,
-                    id_title,
-                    format!("{CHANGELOG_URL}#site-changes"),
-                )
+                (summary, title, id_title, String::new())
             }
             3 => {
                 let tool = plain(&cells[1]);
@@ -161,16 +176,47 @@ pub fn entries(source: &str) -> Result<Vec<Entry>, String> {
         if !ids.insert(id.clone()) {
             return Err(format!("changelog: duplicate feed ID {id}"));
         }
-        found.push(Entry {
-            date,
-            title,
-            summary,
-            link,
-            id,
+        let existing = ANCHOR
+            .captures(&row[1])
+            .map(|c| c.get(1).or(c.get(2)).map_or("", |m| m.as_str()).to_owned());
+        if existing.as_ref().is_some_and(|a| *a != anchor(&id)) {
+            return Err(format!(
+                "changelog: the {date} row's id must be {}",
+                anchor(&id)
+            ));
+        }
+        let link = if link.is_empty() {
+            format!("{CHANGELOG_URL}#{}", anchor(&id))
+        } else {
+            link
+        };
+        found.push(Row {
+            entry: Entry {
+                date,
+                title,
+                summary,
+                link,
+                id,
+            },
+            attributes_at: row.get(1).expect("group 1").start(),
+            anchor: existing,
         });
     }
-    found.sort_by_key(|e| std::cmp::Reverse(e.date));
     Ok(found)
+}
+
+/// The changelog with an `id="entry-<feed ID>"` anchor on every dated row.
+pub fn anchored(source: &str) -> Result<String, String> {
+    let mut out = source.to_owned();
+    for row in rows(source)?.iter().rev() {
+        if row.anchor.is_none() {
+            out.insert_str(
+                row.attributes_at,
+                &format!(" id=\"{}\"", anchor(&row.entry.id)),
+            );
+        }
+    }
+    Ok(out)
 }
 
 pub fn xml_char(c: char) -> bool {
@@ -215,13 +261,24 @@ pub fn build(source: &str) -> Result<String, String> {
 }
 
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
-    let feed = build(&crate::read(&root.join("changelog/index.html"))?)?;
+    let changelog = root.join("changelog/index.html");
+    let source = crate::read(&changelog)?;
+    let with_anchors = anchored(&source)?;
+    let feed = build(&with_anchors)?;
     let output = root.join("feed.xml");
     let (message, code) = if args.iter().any(|a| a == "--write") {
+        if with_anchors != source {
+            std::fs::write(&changelog, &with_anchors).map_err(|e| e.to_string())?;
+        }
         std::fs::write(output, feed).map_err(|e| e.to_string())?;
         ("wrote feed.xml\n".into(), 0)
     } else if args.iter().any(|a| a == "--check") {
-        if !output.is_file() || crate::read(&output)? != feed {
+        if with_anchors != source {
+            (
+                "changelog rows lack entry anchors: run site-tools build_feed --write\n".into(),
+                1,
+            )
+        } else if !output.is_file() || crate::read(&output)? != feed {
             (
                 "feed.xml is stale: run site-tools build_feed --write\n".into(),
                 1,

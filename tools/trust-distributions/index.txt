@@ -94,7 +94,7 @@ No. The blue zone appeared only in the draft, PCG 2022/D1. The finalised PCG 202
 
 ### What is the white zone?
 
-It covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
+The white zone covers arrangements in income years ending before 1 July 2014. This tool does not take an income year, so the white zone is out of scope here.
 
 ### How is each beneficiary’s share of trust income worked out?
 

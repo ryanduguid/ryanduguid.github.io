@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/xero-trial-balance/
 
 Package xero-trial-balance-export in the accounting-review-pipeline repository. Current release v0.1.15.
 
-This tool pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
+The Xero trial balance export pulls the trial balance from Xero’s own reporting API and refuses to write the CSV unless both the month’s movement and the year-to-date figures balance. It asks Xero for report reading scope only, so it cannot write anything back to a ledger.
 
 Current release v0.1.15 (12 October 2026). Last reviewed 25 October 2026.
 

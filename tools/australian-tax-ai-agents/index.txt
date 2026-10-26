@@ -176,7 +176,7 @@ No. Aus Accounting MCP is a separate project from ato-mcp. It ships no ATO docum
 
 ### Does it calculate Division 7A repayments?
 
-It reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
+Aus Accounting MCP reviews s 109E minimum yearly repayments for one supplied amalgamated loan. This is experimental and requires human review. It refuses loan formation, s 109R repayment classification, unpaid present entitlements and distributable surplus.
 
 ### Does it lodge with the ATO?
 

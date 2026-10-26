@@ -282,7 +282,7 @@ pub fn check_llms_authority_surface(llms: &str) -> Vec<String> {
     let complete = AUTHORITY_PATHS.iter().all(|(identifier, label)| {
         re(
             &format!(
-                r"\*\*{}\*\*\s*\({}\)",
+                r"\[{}\]\({}\)",
                 pyre::escape(label),
                 pyre::escape(lookup(&AUTHORITY_URLS, identifier))
             ),
@@ -295,7 +295,9 @@ pub fn check_llms_authority_surface(llms: &str) -> Vec<String> {
         "not a practice",
         "not accepting professional engagements through this site",
     ];
-    let retired = route_section.contains("**Engage**") || llms.contains("/#engage");
+    let retired = route_section.contains("**Engage**")
+        || route_section.contains("[Engage]")
+        || llms.contains("/#engage");
     if !complete || retired || boundaries.iter().any(|b| !llms.contains(b)) {
         vec!["llms.txt: open source route boundary is incomplete".into()]
     } else {
@@ -1704,7 +1706,7 @@ pub fn check_task_routes(root: &Path) -> Result<Vec<String>, String> {
     let llms = read_if_file(&root.join("llms.txt"))?;
     let route_section = core::markdown_section(&llms, LLMS_ROUTE_SECTION);
     for (label, primary) in &expected {
-        let entry = format!("- **{label}** ({SITE}{primary}):");
+        let entry = format!("- [{label}]({SITE}{primary}):");
         if route_section.matches(&entry).count() != 1 {
             failures.push(format!(
                 "llms.txt: ## {LLMS_ROUTE_SECTION} must route {} to {SITE}{primary} exactly once",

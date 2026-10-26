@@ -6,7 +6,7 @@ Source: https://duguid.com.au/privacy/
 
 # Privacy and site use
 
-This notice explains how this website handles browser calculations, hosting and feedback.
+The duguid.com.au privacy notice explains how the site handles browser calculations, hosting and feedback.
 
 Published 12 September 2026. Last reviewed 16 October 2026.
 

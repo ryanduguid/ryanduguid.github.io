@@ -738,6 +738,16 @@ td {
   white-space: nowrap;
 }
 
+/* A feed entry links to its own row; mark that row so the reader lands on it. */
+.changelog-section tbody tr:target > * {
+  background: var(--colour-stamp-wash);
+}
+
+.changelog-section tbody tr:target > th {
+  text-decoration: underline 2px var(--colour-stamp);
+  text-underline-offset: 0.25em;
+}
+
 /* On phones a one-line date took half the table and left each change about
    18 characters a line, so the date wraps in a narrow track there. */
 @media (max-width: 40rem) {
@@ -978,6 +988,14 @@ caption {
   margin-right: var(--space-2);
   color: var(--colour-rule-strong);
   content: "/";
+}
+
+/* On phones a 4-level trail wrapped to a second line and pushed the working
+   control below the first screen; the H1 below already names the page. */
+@media (max-width: 40rem) {
+  .article-crumb li:nth-child(4)[aria-current="page"] {
+    display: none;
+  }
 }
 
 /* Caption-size standalone links keep their layout but gain a 24px-plus

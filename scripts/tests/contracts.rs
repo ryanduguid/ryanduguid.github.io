@@ -133,7 +133,18 @@ fn parked_consultancy_surface() {
         assert!(text.contains(boundary), "{rel}");
     }
     let llms = read_text(root(), "llms.txt");
-    assert!(!core::markdown_section(&llms, "Choose a route").contains("**Engage**"));
+    let routes = core::markdown_section(&llms, "Choose a route");
+    assert!(!routes.contains("**Engage**") && !routes.contains("[Engage]"));
+    assert!(contracts::check_llms_authority_surface(&llms).is_empty());
+    let bold = llms.replace(
+        &format!("- [Verify]({})", contracts::EVIDENCE_URL),
+        &format!("- **Verify** ({})", contracts::EVIDENCE_URL),
+    );
+    assert_ne!(bold, llms);
+    assert_eq!(
+        contracts::check_llms_authority_surface(&bold),
+        ["llms.txt: open source route boundary is incomplete"]
+    );
     let folded = site_tools::py::casefold(&llms);
     assert!(!folded.contains("firm workflow"));
     assert!(folded.contains("not accepting professional engagements through this site"));
@@ -844,8 +855,8 @@ fn public_contracts_routes_privacy_and_evaluations() {
     replace_file(
         site.path(),
         "llms.txt",
-        "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/coal-lsl-levy/):",
-        "- **Calculate a Coal LSL levy** (https://duguid.com.au/tools/):",
+        "- [Calculate a Coal LSL levy](https://duguid.com.au/tools/coal-lsl-levy/):",
+        "- [Calculate a Coal LSL levy](https://duguid.com.au/tools/):",
     );
     expect_failure(
         "machine route destination",
@@ -1201,6 +1212,33 @@ fn public_contracts_calculator_mutations() {
             &changed_text(&module, old, new),
         );
         expect_failure(label, &failures, expected);
+    }
+}
+
+/// Calculators and question topics sit under their hub; the hubs sit under Tools.
+#[test]
+fn nested_collection_breadcrumbs_name_their_hub() {
+    let names = |rel: &str| -> Vec<String> {
+        contracts::collection_breadcrumb_shape(rel, "Leaf")
+            .unwrap()
+            .into_iter()
+            .map(|(name, _, _)| name)
+            .collect()
+    };
+    assert_eq!(
+        names("tools/business-calculators/margin/index.html"),
+        ["Home", "Tools", "Business calculators", "Leaf"]
+    );
+    assert_eq!(
+        names("tools/accounting-questions/gst-bas/index.html"),
+        ["Home", "Tools", "Accounting questions", "Leaf"]
+    );
+    for hub in [
+        "tools/business-calculators/index.html",
+        "tools/accounting-questions/index.html",
+        "tools/xero-trial-balance/index.html",
+    ] {
+        assert_eq!(names(hub), ["Home", "Tools", "Leaf"], "{hub}");
     }
 }
 

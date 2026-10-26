@@ -52,6 +52,35 @@ fn edit_keeps_published_identity_when_rows_move() {
 }
 
 #[test]
+fn site_entries_link_to_their_own_row() {
+    let source = concat!(
+        "<tr><td>22 September 2026</td><td>A site change.</td></tr>",
+        "<tr data-feed-id=\"0123456789abcdef\"><td>1 May 2026</td><td>Older.</td></tr>",
+        "<tr><td>1 May 2026</td><td>Tool</td><td><a href=\"https://example.test/v1\">v1</a></td></tr>",
+    );
+    let with_anchors = feed::anchored(source).unwrap();
+    assert!(
+        with_anchors.contains(
+            "<tr id=\"entry-0123456789abcdef\" data-feed-id=\"0123456789abcdef\"><td>1 May 2026"
+        ),
+        "{with_anchors}"
+    );
+    assert_eq!(feed::anchored(&with_anchors).unwrap(), with_anchors);
+    for entry in feed::entries(&with_anchors).unwrap() {
+        let row_id = format!("id=\"entry-{}\"", entry.id);
+        assert!(with_anchors.contains(&row_id), "{row_id}");
+        if entry.title == "Tool v1" {
+            assert_eq!(entry.link, "https://example.test/v1");
+        } else {
+            assert_eq!(entry.link, format!("{CHANGELOG_URL}#entry-{}", entry.id));
+        }
+    }
+    // A hand-written id that is not the row's feed anchor is refused.
+    let wrong = "<tr id='x'><td>1 May 2026</td><td>Copy</td></tr>";
+    assert!(refusal(wrong).contains("row's id must be entry-"));
+}
+
+#[test]
 fn duplicate_ids_are_rejected() {
     let row = r#"<tr data-feed-id="0123456789abcdef"><td>22 September 2026</td><td>Copy</td></tr>"#;
     let source = format!("{row}{}", row.replace("Copy", "Different copy"));
@@ -240,7 +269,7 @@ fn command_writes_checks_and_explains_like_the_script() {
         run(root.path(), &["--check"]),
         (
             Some(1),
-            eol("feed.xml is stale: run site-tools build_feed --write\n"),
+            eol("changelog rows lack entry anchors: run site-tools build_feed --write\n"),
             String::new()
         )
     );
@@ -248,6 +277,20 @@ fn command_writes_checks_and_explains_like_the_script() {
         run(root.path(), &["--write", "--check"]),
         (Some(0), eol("wrote feed.xml\n"), String::new())
     );
+    let changelog = std::fs::read_to_string(root.path().join("changelog/index.html")).unwrap();
+    assert!(changelog.starts_with("<tr id=\"entry-"), "{changelog}");
+    // Like feed.xml, the rewritten changelog is read in text mode and written with LF.
+    assert!(changelog.ends_with("<td>Copy</td></tr>\n"), "{changelog}");
+    std::fs::remove_file(root.path().join("feed.xml")).unwrap();
+    assert_eq!(
+        run(root.path(), &["--check"]),
+        (
+            Some(1),
+            eol("feed.xml is stale: run site-tools build_feed --write\n"),
+            String::new()
+        )
+    );
+    assert_eq!(run(root.path(), &["--write"]).0, Some(0));
     let written = std::fs::read(root.path().join("feed.xml")).unwrap();
     assert!(!written.contains(&b'\r'));
     // Python's text-mode read translates CRLF, so a CRLF checkout is still current.
