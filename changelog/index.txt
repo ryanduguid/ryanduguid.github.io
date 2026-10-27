@@ -13,7 +13,13 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
+26 October 2026 | Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.
 26 October 2026 | Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.
+26 October 2026 | The Coal LSL levy calculator’s disclaimer now says its output may be inaccurate, out of date or incomplete, replacing a statement that gave no guarantee and accepted no liability. Accounting question 16 limits the instant asset write-off to small businesses that use the simplified depreciation rules, for each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.
+25 October 2026 | A new Works with section finds tools for software readers already use. Its Xero guide covers the trial balance exporter’s setup, read-only report access and fictional evaluation; its Claude guide covers the local Aus Accounting MCP server and the released accounting skills, with their read and write access, refusals and human review. Tools links the section, and the Xero exporter, MCP server and subcontract ledger pages link their guides.
+25 October 2026 | Tools adds keyword and delivery filters with a live result count. Ten tool pages summarise their delivery, requirements and boundary before the install commands, 5 reproduction command blocks gain a Copy button, and the homepage lists the 3 latest tagged tool releases. The Xero trial balance install commands now check out the current release, v0.1.15, which needs Python 3.11 or later; its worked example stays pinned to v0.1.6.
+23 October 2026 | About and llms.txt credit planning-analytics-model and au-accounting-hotkeys as related source projects. The first is an IBM Planning Analytics budget model with an offline Rust rule evaluator and fictional data; the second provides Windows AutoHotkey v2 shortcuts for workpaper dates, period labels and draft snippets. The evidence page links the Xero exporter’s Python release workflow at xero-trial-balance-export/v0.1.15, since the Rust migration removed it.
+21 October 2026 | Each tool page now names its published package, current release and source repository before any pinned worked example, and About gives Ryan’s title as Senior Accountant. llms-full.txt is also published as 15 smaller parts. The AASB standards portal, the Treasury consultation index and the ATO dataset catalogue on data.gov.au are cited through dated Wayback Machine copies; the pages still say to check the current primary source before each calculation.
 20 October 2026 | Accounting questions 93 and 94 describe the first enacted stage of capital gains tax reform for CGT events on or after 1 July 2027: cost base indexation for eligible later gains, a minimum 30% tax on certain net capital gains of individuals, and existing treatment for gains accrued before then, although the pre-CGT exemption does not cover later gains, with a records step for the market value immediately before that date of an asset acquired earlier. Question 93 notes the choice to keep the current rules for an eligible new residential dwelling or affordable housing. The manager review gate evaluation cites the ATO’s new address for monthly GST reporting, and the evidence page links the engines’ release workflow definitions at their last Python releases, since the Rust port removed those workflows.
 20 October 2026 | Six new Ozzit module pages document all 148 named formulas in v3.5.0 with their signatures, parameters, notes and worked examples, read from each function’s help in the release source. Each name in the Ozzit page’s index links to its entry.
 20 October 2026 | The Ozzit page documents v3.5.0, published on 19 October: 143 LAMBDA functions and 5 help tables, the Apache License 2.0 and the new download hash. Its ten worked formulas were rerun in desktop Excel against the v3.5.0 workbook with unchanged results.
@@ -83,6 +89,7 @@ Date | Tool | Release
 20 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.2.2
 20 October 2026 | Division 7A loan review | div7a-loan-review/v0.3.2
 20 October 2026 | Trust distribution checks | solomons-sword/v0.3.2
+19 October 2026 | Ozzit | v3.5.0
 19 October 2026 | Construction WIP schedule | the-wip-tally/v0.2.0
 19 October 2026 | Company tax and franking checks | the-exchequer-tally/v0.2.0
 17 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.5.0
@@ -98,6 +105,7 @@ Date | Tool | Release
 5 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.3.0
 5 October 2026 | Trust distribution checks | solomons-sword/v0.2.0
 5 October 2026 | Division 7A loan review | div7a-loan-review/v0.2.0
+5 October 2026 | Monthly Close Controls | monthly-close-control-plane/v0.2.0
 5 October 2026 | Workpaper Review Gate | review-ready-gate/v0.2.0
 4 October 2026 | Subcontract ledger skills | v0.3.1
 1 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.2.12
@@ -147,6 +155,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 - ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
 - div7a-loan-review/v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.3.2
 - solomons-sword/v0.3.2: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.3.2
+- v3.5.0: https://github.com/ryanduguid/Ozzit/releases/tag/v3.5.0
 - the-wip-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-wip-tally/v0.2.0
 - the-exchequer-tally/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/the-exchequer-tally/v0.2.0
 - aus-accounting-mcp/v0.5.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.5.0
@@ -162,6 +171,7 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 - aus-accounting-mcp/v0.3.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.3.0
 - solomons-sword/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/solomons-sword/v0.2.0
 - div7a-loan-review/v0.2.0: https://github.com/ryanduguid/australian-accounting/releases/tag/div7a-loan-review/v0.2.0
+- monthly-close-control-plane/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/monthly-close-control-plane/v0.2.0
 - review-ready-gate/v0.2.0: https://github.com/ryanduguid/accounting-review-pipeline/releases/tag/review-ready-gate/v0.2.0
 - v0.3.1: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.3.1
 - aus-accounting-mcp/v0.2.12: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.2.12

@@ -81,6 +81,42 @@ fn site_entries_link_to_their_own_row() {
 }
 
 #[test]
+fn a_build_that_drops_a_published_id_is_refused() {
+    let published = feed::anchored("<tr><td>28 August 2026</td><td>Redesign.</td></tr>").unwrap();
+    let committed = feed::build(&published).unwrap();
+    assert_eq!(feed::check_published_ids(&committed, &committed), Ok(()));
+    let id = feed_entries(&published)[0].0.clone();
+    let digest = id.rsplit_once("entry-").unwrap().1;
+    let edited = published.replace(digest, "0123456789abcdef");
+    assert_eq!(
+        feed::check_published_ids(&committed, &feed::build(&edited).unwrap()),
+        Err(format!(
+            "changelog: published feed ID {id} is gone; restore its row's anchor, or remove its feed.xml entry if the row was deliberately deleted"
+        ))
+    );
+}
+
+#[test]
+fn a_reworded_row_keeps_the_id_its_anchor_holds() {
+    let published =
+        feed::anchored("<tr><td>28 August 2026</td><td>True-black redesign.</td></tr>").unwrap();
+    let reworded = published.replace("True-black", "True black");
+    assert_eq!(feed::anchored(&reworded).unwrap(), reworded);
+    assert_eq!(
+        feed_entries(&reworded),
+        vec![(
+            feed_entries(&published)[0].0.clone(),
+            "True black redesign.".to_owned()
+        )]
+    );
+    let disagreeing = "<tr id=\"entry-0123456789abcdef\" data-feed-id=\"fedcba9876543210\"><td>1 May 2026</td><td>Copy</td></tr>";
+    assert_eq!(
+        refusal(disagreeing),
+        "changelog: the 2026-05-01 row's data-feed-id fedcba9876543210 and id entry-0123456789abcdef disagree; keep the published ID in both"
+    );
+}
+
+#[test]
 fn duplicate_ids_are_rejected() {
     let row = r#"<tr data-feed-id="0123456789abcdef"><td>22 September 2026</td><td>Copy</td></tr>"#;
     let source = format!("{row}{}", row.replace("Copy", "Different copy"));
@@ -233,6 +269,90 @@ fn python_whitespace_and_word_boundaries_apply() {
     );
 }
 
+const OZZIT_ROW: &str = "<tr><td>19 October 2026</td><td>Ozzit</td><td><a href=\"https://example.test/v3.5.0\">v3.5.0</a></td></tr>";
+const OZZIT_LISTED: &str = "<section aria-labelledby=\"tool-releases\"><table><tr><td>19 October 2026</td><td>Ozzit</td><td><a href=\"https://example.test/v3.5.0\">v3.5.0</a></td></tr></table></section>";
+const OZZIT_RELEASE: &str = r#"{
+  "ozzit": {"tag": "v3.5.0", "date": "2026-10-19", "url": "https://example.test/v3.5.0"},
+  "coal-lsl-levy": {"version": "9218822", "date": "2026-10-19", "url": "https://example.test/commit/9218822"}
+}"#;
+const NO_OZZIT_ROW: &str = "changelog: Tool releases has no 19 October 2026 row linking v3.5.0 (ozzit in _data/tool_releases.json); add one";
+
+#[test]
+fn every_tagged_release_needs_a_row_on_its_date() {
+    // The untagged source revision needs no row.
+    assert_eq!(
+        feed::check_release_rows(OZZIT_LISTED, OZZIT_RELEASE),
+        Ok(())
+    );
+    let site_row = "<tr><td>19 October 2026</td><td>Ozzit v3.5.0 is out.</td></tr>";
+    let a_day_late = OZZIT_LISTED.replace("19 October", "20 October");
+    // A matching row outside the Tool releases section does not count.
+    let outside = format!(
+        "<section aria-labelledby=\"site-changes\"><table>{OZZIT_ROW}</table></section>\
+         <section aria-labelledby=\"tool-releases\"><table></table></section>"
+    );
+    // A data-href attribute is not a link.
+    let not_a_link = OZZIT_LISTED.replace(" href=", " data-href=");
+    for source in [site_row, &a_day_late, OZZIT_ROW, &outside, &not_a_link] {
+        assert_eq!(
+            feed::check_release_rows(source, OZZIT_RELEASE),
+            Err(NO_OZZIT_ROW.into()),
+            "{source}"
+        );
+    }
+    // Every missing release is named, not only the first.
+    let two = r#"{
+      "ozzit": {"tag": "v3.5.0", "date": "2026-10-19", "url": "https://example.test/v3.5.0"},
+      "wip": {"tag": "wip/v0.2.0", "date": "2026-10-19", "url": "https://example.test/wip/v0.2.0"}
+    }"#;
+    assert_eq!(
+        feed::check_release_rows(site_row, two),
+        Err(format!(
+            "{NO_OZZIT_ROW}\nchangelog: Tool releases has no 19 October 2026 row linking wip/v0.2.0 (wip in _data/tool_releases.json); add one"
+        ))
+    );
+    for (releases, refusal) in [
+        (
+            r#"{"ozzit": {"tag": "v3.5.0", "url": "https://example.test/v3.5.0"}}"#,
+            "_data/tool_releases.json: ozzit has no date",
+        ),
+        (
+            r#"{"ozzit": {"tag": "v3.5.0", "date": "19 October 2026", "url": "u"}}"#,
+            "_data/tool_releases.json: ozzit has an unreadable date",
+        ),
+        (
+            "[]",
+            "_data/tool_releases.json: expected an object of releases",
+        ),
+        // Malformed records are refused, not skipped as untagged.
+        (
+            r#"{"ozzit": null}"#,
+            "_data/tool_releases.json: ozzit is not an object",
+        ),
+        (
+            r#"{"coal-lsl-levy": {"date": "2026-10-19"}}"#,
+            "_data/tool_releases.json: coal-lsl-levy has no url",
+        ),
+        (
+            r#"{"ozzit": {"date": "2026-10-19", "url": "https://example.test/releases/tag/v3.6.0"}}"#,
+            "_data/tool_releases.json: ozzit has no tag",
+        ),
+        (
+            r#"{"coal-lsl-levy": {"date": "2026-10-19", "url": ""}}"#,
+            "_data/tool_releases.json: coal-lsl-levy has no url",
+        ),
+        (
+            r#"{"ozzit": {"tag": "", "date": "2026-10-19", "url": "https://example.test/v3.5.0"}}"#,
+            "_data/tool_releases.json: ozzit has no tag",
+        ),
+    ] {
+        assert_eq!(
+            feed::check_release_rows(OZZIT_LISTED, releases),
+            Err(refusal.into())
+        );
+    }
+}
+
 fn run(root: &Path, args: &[&str]) -> (Option<i32>, String, String) {
     let output = Command::new(env!("CARGO_BIN_EXE_site-tools"))
         .arg("build_feed")
@@ -260,11 +380,21 @@ fn eol(text: &str) -> String {
 fn command_writes_checks_and_explains_like_the_script() {
     let root = tempfile::tempdir().unwrap();
     std::fs::create_dir(root.path().join("changelog")).unwrap();
+    std::fs::create_dir(root.path().join("_data")).unwrap();
+    std::fs::write(root.path().join("_data/tool_releases.json"), "{}").unwrap();
     std::fs::write(
         root.path().join("changelog/index.html"),
         "<tr><td>1 May 2026</td><td>Copy</td></tr>\r\n",
     )
     .unwrap();
+    // A failed feed write leaves the changelog unanchored, so the next build can recover.
+    std::fs::create_dir(root.path().join("feed.xml")).unwrap();
+    assert_eq!(run(root.path(), &["--write"]).0, Some(1));
+    assert_eq!(
+        std::fs::read_to_string(root.path().join("changelog/index.html")).unwrap(),
+        "<tr><td>1 May 2026</td><td>Copy</td></tr>\r\n"
+    );
+    std::fs::remove_dir(root.path().join("feed.xml")).unwrap();
     assert_eq!(
         run(root.path(), &["--check"]),
         (
@@ -281,7 +411,28 @@ fn command_writes_checks_and_explains_like_the_script() {
     assert!(changelog.starts_with("<tr id=\"entry-"), "{changelog}");
     // Like feed.xml, the rewritten changelog is read in text mode and written with LF.
     assert!(changelog.ends_with("<td>Copy</td></tr>\n"), "{changelog}");
+    let published = std::fs::read_to_string(root.path().join("feed.xml")).unwrap();
+    // Once rows are anchored, a missing feed cannot be rebuilt past the published-ID check.
     std::fs::remove_file(root.path().join("feed.xml")).unwrap();
+    for mode in ["--check", "--write"] {
+        assert_eq!(
+            run(root.path(), &[mode]),
+            (
+                Some(1),
+                String::new(),
+                eol(
+                    "feed.xml is missing but the changelog's rows are published: restore it from Git\n"
+                )
+            ),
+            "{mode}"
+        );
+    }
+    assert!(!root.path().join("feed.xml").exists());
+    std::fs::write(
+        root.path().join("feed.xml"),
+        published.replace("<title>Copy</title>", "<title>Old copy</title>"),
+    )
+    .unwrap();
     assert_eq!(
         run(root.path(), &["--check"]),
         (
@@ -306,6 +457,20 @@ fn command_writes_checks_and_explains_like_the_script() {
     let (code, stdout, stderr) = run(root.path(), &[]);
     assert_eq!((code, stderr), (Some(2), String::new()));
     assert_eq!(stdout, eol(&format!("{}\n", feed::DOC)));
+    std::fs::write(root.path().join("_data/tool_releases.json"), OZZIT_RELEASE).unwrap();
+    for mode in ["--check", "--write"] {
+        assert_eq!(
+            run(root.path(), &[mode]),
+            (Some(1), String::new(), eol(&format!("{NO_OZZIT_ROW}\n"))),
+            "{mode}"
+        );
+    }
+    assert!(
+        !std::fs::read_to_string(root.path().join("changelog/index.html"))
+            .unwrap()
+            .contains("v3.5.0"),
+        "--write must not add the release row"
+    );
     std::fs::write(
         root.path().join("changelog/index.html"),
         "<tr><td>soon</td><td>Copy</td></tr>",

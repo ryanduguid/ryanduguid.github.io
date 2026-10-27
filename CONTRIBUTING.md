@@ -402,12 +402,14 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
-Before editing a published changelog row, preserve its Atom ID: copy the
-16-character suffix after `#entry-` from its current `feed.xml` entry into
-`data-feed-id` on that row's `<tr>`. Keep this value when the row moves or its
-wording changes, then regenerate the feed. New rows without an explicit ID
-retain the existing date-and-title hash. The site checks test this behaviour
-and reject invalid or duplicate IDs.
+Each changelog row's `id="entry-<feed ID>"` anchor holds its published Atom ID,
+so a row keeps its ID when it moves or its wording changes. Never edit, copy or
+remove an anchor; regenerate the feed after the edit. A new row gets its anchor
+from `site-tools build_feed --write`, which hashes its date and title. A
+`data-feed-id` on a row's `<tr>` must match its anchor. The site checks test
+this behaviour and reject invalid, conflicting or duplicate IDs.
+Date each new site row by the day its change was published (merged), in
+Australia/Sydney time.
 The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
 Add or update tests with every change to behaviour: new functionality needs a
 test that fails without it, and a fixed defect needs a regression test, in the
@@ -421,4 +423,4 @@ they do not establish billed minutes or savings.
 
 ## Current tool releases
 
-Run `node scripts/stamp-source-freshness.mjs --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.
+Run `node scripts/stamp-source-freshness.mjs --write-tool-releases` to read published stable GitHub release tags and refresh `_data/tool_releases.json`, the twelve tool pages' software JSON-LD, `sitemap.xml`, names in `tools/index.html` and the current MCP version in `llms.txt`. `--build` performs the same source refresh and then runs the ordinary Jekyll build. Review capability prose and update each changed document's review date before committing; the refresh preserves document dates and uses them for sitemap `lastmod`, whilst software entries use the release date. Each tagged release in `_data/tool_releases.json` needs a Tool releases row in `changelog/index.html` with the same date and release link; write it by hand, since `site-tools build_feed` refuses the changelog without one. Regenerate text mirrors with `site-tools build_llms_full --write`. Offline builds use the checked snapshot. Tool identity and source paths live in `_data/tools.json`; the browser Coal LSL calculator has no release tag and records its own source revision instead. Dates use Australia/Sydney.
