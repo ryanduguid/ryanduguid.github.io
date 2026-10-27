@@ -7,10 +7,11 @@
 // Failures: a page that returns an error status or no text, and a page whose
 // text changed since the previous run, other than the legal database home
 // (CHANGE_EXEMPT). A changed page needs editorial review of every file that
-// cites it; the report lists those files and the lines that differ. A moved
-// page that still resolves is a note. The exit code is 1 when any page could
-// not be read and 2 when every failure is a changed page, so the scheduled run
-// can tell a change to review from a broken sweep.
+// cites it; the report lists those files and the lines that differ. A dead
+// link (HTTP 404 or 410) needs its citations repointed. A moved page that still
+// resolves is a note. The exit code is 1 when any page could not be read and 2
+// when every failure is a changed page or a dead link, so the scheduled run can
+// tell findings to review from a broken sweep.
 //
 // ponytail: every run overwrites the baseline, so a change fails one run and
 // the next run compares against the changed page. The report is the record, so
@@ -168,10 +169,18 @@ export function baselineFile(url) {
 
 // Sorts one page read into a failure, a note or nothing, and returns the text to
 // keep as the next baseline. previous is the baseline text, when there is one.
+// 0 when every page read cleanly, 2 when every failure is a finding to review (a
+// changed page or a dead link) and 1 when any page could not be read.
+export function exitCode(results) {
+  const failed = results.filter((result) => result.failure);
+  if (!failed.length) return 0;
+  return failed.every((result) => result.changed || result.dead) ? 2 : 1;
+}
+
 export function classify(url, page, previous) {
   if (!page) return { failure: 'no result from the browser' };
   if (page.error) return { failure: page.error };
-  if (!page.status || page.status >= 400) return { failure: `HTTP ${page.status ?? 'unknown'}` };
+  if (!page.status || page.status >= 400) return { failure: `HTTP ${page.status ?? 'unknown'}`, dead: page.status === 404 || page.status === 410 };
   if (page.truncated) return { failure: 'page text was cut off' };
   const text = tidy(page.text ?? '');
   if (text.length < MIN_TEXT) return { failure: 'no page text' };
@@ -290,12 +299,13 @@ async function main() {
   const review = [];
   const keep = new Map();
   let seeded = 0;
-  let changedPages = 0;
+  const results = [];
   for (const [url, files] of sources) {
     const file = join(values.baseline, baselineFile(url));
     const previous = existsSync(file) ? readFileSync(file, 'utf8') : undefined;
-    const { failure, changed, note, diff, text } = classify(url, pages.get(url), previous);
-    if (changed) changedPages++;
+    const result = classify(url, pages.get(url), previous);
+    results.push(result);
+    const { failure, note, diff, text } = result;
     if (text !== undefined) keep.set(file, text);
     if (text !== undefined && previous === undefined) seeded++;
     if (note) notes.push(`${url} ${note}`);
@@ -313,7 +323,7 @@ async function main() {
   saveResults({ out: values.out, baseline: values.baseline, date, report, keep });
   for (const note of notes) console.log(`note: ${note}`);
   for (const failure of failures) console.error(failure);
-  if (failures.length) return failures.length === changedPages ? 2 : 1;
+  if (failures.length) return exitCode(results);
   console.log(`${sources.size} sources read, ${seeded} new to the baseline`);
   return 0;
 }
