@@ -291,7 +291,9 @@ fn every_tagged_release_needs_a_row_on_its_date() {
         "<section aria-labelledby=\"site-changes\"><table>{OZZIT_ROW}</table></section>\
          <section aria-labelledby=\"tool-releases\"><table></table></section>"
     );
-    for source in [site_row, &a_day_late, OZZIT_ROW, &outside] {
+    // A data-href attribute is not a link.
+    let not_a_link = OZZIT_LISTED.replace(" href=", " data-href=");
+    for source in [site_row, &a_day_late, OZZIT_ROW, &outside, &not_a_link] {
         assert_eq!(
             feed::check_release_rows(source, OZZIT_RELEASE),
             Err(NO_OZZIT_ROW.into()),

@@ -100,7 +100,8 @@ fn rows(source: &str) -> Result<Vec<Row>, String> {
     static CELL: LazyLock<Regex> =
         LazyLock::new(|| Regex::new(r#"(?s)<(?:td|th scope="row")>(.*?)</t[dh]>"#).unwrap());
     static TAG: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"<[^>]+>").unwrap());
-    static HREF: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"href="([^"]+)""#).unwrap());
+    // A whole href attribute, so data-href cannot pass for a release link.
+    static HREF: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"\shref="([^"]+)""#).unwrap());
     static ID: LazyLock<fancy_regex::Regex> = LazyLock::new(|| {
         let s = &*py::S;
         fancy_regex::Regex::new(&format!(
