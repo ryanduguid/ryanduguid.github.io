@@ -264,6 +264,7 @@ pub fn check_release_rows(source: &str, releases: &str) -> Result<(), String> {
             release
                 .get(name)
                 .and_then(serde_json::Value::as_str)
+                .filter(|value| !value.is_empty())
                 .ok_or_else(|| format!("{DATA}: {slug} has no {name}"))
         };
         let url = field("url")?;
@@ -374,10 +375,11 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
         );
     }
     let (message, code) = if args.iter().any(|a| a == "--write") {
+        // The feed goes first: anchors written without it would block every later build.
+        std::fs::write(output, feed).map_err(|e| e.to_string())?;
         if with_anchors != source {
             std::fs::write(&changelog, &with_anchors).map_err(|e| e.to_string())?;
         }
-        std::fs::write(output, feed).map_err(|e| e.to_string())?;
         ("wrote feed.xml\n".into(), 0)
     } else if args.iter().any(|a| a == "--check") {
         if with_anchors != source {

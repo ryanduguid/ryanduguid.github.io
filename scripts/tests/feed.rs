@@ -298,6 +298,17 @@ fn every_tagged_release_needs_a_row_on_its_date() {
             "{source}"
         );
     }
+    // Every missing release is named, not only the first.
+    let two = r#"{
+      "ozzit": {"tag": "v3.5.0", "date": "2026-10-19", "url": "https://example.test/v3.5.0"},
+      "wip": {"tag": "wip/v0.2.0", "date": "2026-10-19", "url": "https://example.test/wip/v0.2.0"}
+    }"#;
+    assert_eq!(
+        feed::check_release_rows(site_row, two),
+        Err(format!(
+            "{NO_OZZIT_ROW}\nchangelog: Tool releases has no 19 October 2026 row linking wip/v0.2.0 (wip in _data/tool_releases.json); add one"
+        ))
+    );
     for (releases, refusal) in [
         (
             r#"{"ozzit": {"tag": "v3.5.0", "url": "https://example.test/v3.5.0"}}"#,
@@ -322,6 +333,14 @@ fn every_tagged_release_needs_a_row_on_its_date() {
         ),
         (
             r#"{"ozzit": {"date": "2026-10-19", "url": "https://example.test/releases/tag/v3.6.0"}}"#,
+            "_data/tool_releases.json: ozzit has no tag",
+        ),
+        (
+            r#"{"coal-lsl-levy": {"date": "2026-10-19", "url": ""}}"#,
+            "_data/tool_releases.json: coal-lsl-levy has no url",
+        ),
+        (
+            r#"{"ozzit": {"tag": "", "date": "2026-10-19", "url": "https://example.test/v3.5.0"}}"#,
             "_data/tool_releases.json: ozzit has no tag",
         ),
     ] {
@@ -366,6 +385,14 @@ fn command_writes_checks_and_explains_like_the_script() {
         "<tr><td>1 May 2026</td><td>Copy</td></tr>\r\n",
     )
     .unwrap();
+    // A failed feed write leaves the changelog unanchored, so the next build can recover.
+    std::fs::create_dir(root.path().join("feed.xml")).unwrap();
+    assert_eq!(run(root.path(), &["--write"]).0, Some(1));
+    assert_eq!(
+        std::fs::read_to_string(root.path().join("changelog/index.html")).unwrap(),
+        "<tr><td>1 May 2026</td><td>Copy</td></tr>\r\n"
+    );
+    std::fs::remove_dir(root.path().join("feed.xml")).unwrap();
     assert_eq!(
         run(root.path(), &["--check"]),
         (
