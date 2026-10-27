@@ -366,6 +366,12 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let output = root.join("feed.xml");
     if output.is_file() {
         check_published_ids(&crate::read(&output)?, &feed)?;
+    } else if rows(&source)?.iter().any(|r| r.anchor.is_some()) {
+        // Anchored rows have been published, so their IDs must be checked, not rebuilt.
+        return Err(
+            "feed.xml is missing but the changelog's rows are published: restore it from Git"
+                .into(),
+        );
     }
     let (message, code) = if args.iter().any(|a| a == "--write") {
         if with_anchors != source {

@@ -382,7 +382,28 @@ fn command_writes_checks_and_explains_like_the_script() {
     assert!(changelog.starts_with("<tr id=\"entry-"), "{changelog}");
     // Like feed.xml, the rewritten changelog is read in text mode and written with LF.
     assert!(changelog.ends_with("<td>Copy</td></tr>\n"), "{changelog}");
+    let published = std::fs::read_to_string(root.path().join("feed.xml")).unwrap();
+    // Once rows are anchored, a missing feed cannot be rebuilt past the published-ID check.
     std::fs::remove_file(root.path().join("feed.xml")).unwrap();
+    for mode in ["--check", "--write"] {
+        assert_eq!(
+            run(root.path(), &[mode]),
+            (
+                Some(1),
+                String::new(),
+                eol(
+                    "feed.xml is missing but the changelog's rows are published: restore it from Git\n"
+                )
+            ),
+            "{mode}"
+        );
+    }
+    assert!(!root.path().join("feed.xml").exists());
+    std::fs::write(
+        root.path().join("feed.xml"),
+        published.replace("<title>Copy</title>", "<title>Old copy</title>"),
+    )
+    .unwrap();
     assert_eq!(
         run(root.path(), &["--check"]),
         (
