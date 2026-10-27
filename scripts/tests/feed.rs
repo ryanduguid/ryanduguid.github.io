@@ -81,6 +81,26 @@ fn site_entries_link_to_their_own_row() {
 }
 
 #[test]
+fn a_reworded_row_keeps_the_id_its_anchor_holds() {
+    let published =
+        feed::anchored("<tr><td>28 August 2026</td><td>True-black redesign.</td></tr>").unwrap();
+    let reworded = published.replace("True-black", "True black");
+    assert_eq!(feed::anchored(&reworded).unwrap(), reworded);
+    assert_eq!(
+        feed_entries(&reworded),
+        vec![(
+            feed_entries(&published)[0].0.clone(),
+            "True black redesign.".to_owned()
+        )]
+    );
+    let disagreeing = "<tr id=\"entry-0123456789abcdef\" data-feed-id=\"fedcba9876543210\"><td>1 May 2026</td><td>Copy</td></tr>";
+    assert_eq!(
+        refusal(disagreeing),
+        "changelog: the 2026-05-01 row's data-feed-id fedcba9876543210 and id entry-0123456789abcdef disagree; keep the published ID in both"
+    );
+}
+
+#[test]
 fn duplicate_ids_are_rejected() {
     let row = r#"<tr data-feed-id="0123456789abcdef"><td>22 September 2026</td><td>Copy</td></tr>"#;
     let source = format!("{row}{}", row.replace("Copy", "Different copy"));

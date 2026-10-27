@@ -7,7 +7,7 @@ use std::path::Path;
 use std::sync::LazyLock;
 
 pub const CHANGELOG_URL: &str = "https://duguid.com.au/changelog/";
-pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. --write also gives each dated row the\nid=\"entry-<feed ID>\" anchor its site entry links to, and --check fails when one\nis missing. Both refuse a changelog without a Tool releases row, on the same\ndate and link, for each tagged release in _data/tool_releases.json; add the row\nby hand. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
+pub const DOC: &str = "Build feed.xml, an Atom feed of the changelog's dated rows.\n\nRun with --write to regenerate the feed, or --check to fail when the committed\nfeed is stale. Entries come from the two changelog tables only, so the feed can\nnever say more than the page does. --write also gives each dated row the\nid=\"entry-<feed ID>\" anchor its site entry links to, and --check fails when one\nis missing. The anchor then holds the row's published ID, so rewording or moving\nthe row keeps it. Both refuse a changelog without a Tool releases row, on the same\ndate and link, for each tagged release in _data/tool_releases.json; add the row\nby hand. The changelog records calendar dates in\nAustralian Eastern time; each becomes midnight UTC of that date, which needs no\ntime-zone database and stays the same on every machine.\n";
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Entry {
@@ -159,31 +159,44 @@ fn rows(source: &str) -> Result<Vec<Row>, String> {
             .captures(&row[1])
             .map_err(|e| e.to_string())?
             .map(|c| c[2].to_owned());
-        if row[1].contains("data-feed-id")
-            && !explicit.as_ref().is_some_and(|id| {
-                id.len() == 16
-                    && id
-                        .bytes()
-                        .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
-            })
-        {
+        let feed_id = |id: &str| {
+            id.len() == 16
+                && id
+                    .bytes()
+                    .all(|c| c.is_ascii_digit() || (b'a'..=b'f').contains(&c))
+        };
+        if row[1].contains("data-feed-id") && !explicit.as_deref().is_some_and(feed_id) {
             return Err(
                 "changelog: data-feed-id must be 16 lowercase hexadecimal characters".into(),
             );
         }
-        let id = explicit
-            .unwrap_or_else(|| crate::sha256(format!("{date}|{id_title}"))[..16].to_owned());
-        if !ids.insert(id.clone()) {
-            return Err(format!("changelog: duplicate feed ID {id}"));
-        }
         let existing = ANCHOR
             .captures(&row[1])
             .map(|c| c.get(1).or(c.get(2)).map_or("", |m| m.as_str()).to_owned());
-        if existing.as_ref().is_some_and(|a| *a != anchor(&id)) {
-            return Err(format!(
-                "changelog: the {date} row's id must be {}",
-                anchor(&id)
-            ));
+        // The anchor holds the published ID, so rewording a row cannot change it.
+        let anchored_id = match existing.as_deref() {
+            None => None,
+            Some(a) => match a.strip_prefix("entry-").filter(|id| feed_id(id)) {
+                Some(id) => Some(id.to_owned()),
+                None => {
+                    return Err(format!(
+                        "changelog: the {date} row's id must be entry- and its 16-character feed ID"
+                    ));
+                }
+            },
+        };
+        let id = match (explicit, anchored_id) {
+            (Some(explicit), Some(anchored)) if explicit != anchored => {
+                return Err(format!(
+                    "changelog: the {date} row's data-feed-id {explicit} and id entry-{anchored} disagree; keep the published ID in both"
+                ));
+            }
+            (explicit, anchored) => explicit
+                .or(anchored)
+                .unwrap_or_else(|| crate::sha256(format!("{date}|{id_title}"))[..16].to_owned()),
+        };
+        if !ids.insert(id.clone()) {
+            return Err(format!("changelog: duplicate feed ID {id}"));
         }
         let link = if link.is_empty() {
             format!("{CHANGELOG_URL}#{}", anchor(&id))

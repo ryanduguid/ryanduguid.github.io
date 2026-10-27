@@ -402,12 +402,14 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
-Before editing a published changelog row, preserve its Atom ID: copy the
-16-character suffix after `#entry-` from its current `feed.xml` entry into
-`data-feed-id` on that row's `<tr>`. Keep this value when the row moves or its
-wording changes, then regenerate the feed. New rows without an explicit ID
-retain the existing date-and-title hash. The site checks test this behaviour
-and reject invalid or duplicate IDs.
+Each changelog row's `id="entry-<feed ID>"` anchor holds its published Atom ID,
+so a row keeps its ID when it moves or its wording changes. Never edit, copy or
+remove an anchor; regenerate the feed after the edit. A new row gets its anchor
+from `site-tools build_feed --write`, which hashes its date and title. A
+`data-feed-id` on a row's `<tr>` must match its anchor. The site checks test
+this behaviour and reject invalid, conflicting or duplicate IDs.
+Date each new site row by the day its change was published (merged), in
+Australia/Sydney time.
 The sitemap contains indexable HTML only; `robots.txt` links both text indexes.
 Add or update tests with every change to behaviour: new functionality needs a
 test that fails without it, and a fixed defect needs a regression test, in the
