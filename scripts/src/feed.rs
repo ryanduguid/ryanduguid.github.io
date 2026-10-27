@@ -328,6 +328,32 @@ pub fn build(source: &str) -> Result<String, String> {
     Ok(feed)
 }
 
+/// Refuses a build that drops an entry ID the committed feed has already published,
+/// as an edited anchor or data-feed-id would. A deliberately deleted row's entry is
+/// removed from the committed feed by hand first.
+pub fn check_published_ids(committed: &str, built: &str) -> Result<(), String> {
+    let ids = |feed: &str| -> Result<HashSet<String>, String> {
+        let tree = roxmltree::Document::parse(feed).map_err(|e| format!("feed.xml: {e}"))?;
+        Ok(tree
+            .descendants()
+            .filter(|n| n.has_tag_name(("http://www.w3.org/2005/Atom", "id")))
+            .filter(|n| n.parent().is_some_and(|p| p.has_tag_name("entry")))
+            .filter_map(|n| n.text().map(str::to_owned))
+            .collect())
+    };
+    let built = ids(built)?;
+    let mut gone: Vec<String> = ids(committed)?.difference(&built).cloned().collect();
+    gone.sort();
+    if gone.is_empty() {
+        return Ok(());
+    }
+    Err(gone
+        .iter()
+        .map(|id| format!("changelog: published feed ID {id} is gone; restore its row's anchor, or remove its feed.xml entry if the row was deliberately deleted"))
+        .collect::<Vec<_>>()
+        .join("\n"))
+}
+
 pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
     let changelog = root.join("changelog/index.html");
     let source = crate::read(&changelog)?;
@@ -338,6 +364,9 @@ pub fn run(root: &Path, args: &[String]) -> Result<u8, String> {
         &crate::read(&root.join("_data/tool_releases.json"))?,
     )?;
     let output = root.join("feed.xml");
+    if output.is_file() {
+        check_published_ids(&crate::read(&output)?, &feed)?;
+    }
     let (message, code) = if args.iter().any(|a| a == "--write") {
         if with_anchors != source {
             std::fs::write(&changelog, &with_anchors).map_err(|e| e.to_string())?;

@@ -81,6 +81,22 @@ fn site_entries_link_to_their_own_row() {
 }
 
 #[test]
+fn a_build_that_drops_a_published_id_is_refused() {
+    let published = feed::anchored("<tr><td>28 August 2026</td><td>Redesign.</td></tr>").unwrap();
+    let committed = feed::build(&published).unwrap();
+    assert_eq!(feed::check_published_ids(&committed, &committed), Ok(()));
+    let id = feed_entries(&published)[0].0.clone();
+    let digest = id.rsplit_once("entry-").unwrap().1;
+    let edited = published.replace(digest, "0123456789abcdef");
+    assert_eq!(
+        feed::check_published_ids(&committed, &feed::build(&edited).unwrap()),
+        Err(format!(
+            "changelog: published feed ID {id} is gone; restore its row's anchor, or remove its feed.xml entry if the row was deliberately deleted"
+        ))
+    );
+}
+
+#[test]
 fn a_reworded_row_keeps_the_id_its_anchor_holds() {
     let published =
         feed::anchored("<tr><td>28 August 2026</td><td>True-black redesign.</td></tr>").unwrap();
