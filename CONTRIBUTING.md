@@ -120,7 +120,8 @@ only failed to reach its sources exits 2; with no drift elsewhere, that leaves
 the issue as it was. For a release-only verification after a fix, dispatch `source-freshness.yml`
 with `releases_only=true`. This runs the release check without the date-refresh or
 production jobs. Scheduled runs and manual runs with the default
-input still run every job.
+input on `main` still run every job. Date refreshes in GitHub Actions require
+`main`; a manual run from another ref fails before refreshing dates.
 
 When a date moves, the publish job pushes `automation/source-freshness` and opens
 its pull request with a GitHub App token. GitHub holds `pull_request` runs raised
