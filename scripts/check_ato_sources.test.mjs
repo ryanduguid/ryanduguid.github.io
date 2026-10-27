@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { baselineFile, classify, collectSources, collectValues, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
+import { baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -95,6 +95,16 @@ test('errors, bad statuses, empty text, cut-off text and missing results fail', 
   assert.match(classify(PAGE, page('Menu')).failure, /no page text/);
   assert.match(classify(PAGE, page(TEXT, { truncated: true })).failure, /cut off/);
   assert.match(classify(PAGE, undefined).failure, /no result/);
+});
+
+test('changed pages and dead links exit 2; any unreadable page exits 1', () => {
+  const changed = classify(PAGE, page(`${TEXT} and more`), TEXT);
+  const dead = classify(PAGE, page(TEXT, { status: 404 }));
+  const gone = classify(PAGE, page(TEXT, { status: 410 }));
+  assert.equal(exitCode([classify(PAGE, page())]), 0);
+  assert.equal(exitCode([changed, dead, gone, classify(PAGE, page())]), 2);
+  assert.equal(exitCode([dead, classify(PAGE, page(TEXT, { status: 403 }))]), 1);
+  assert.equal(exitCode([changed, classify(PAGE, { error: 'navigation timed out' })]), 1);
 });
 
 test('a redirect that still resolves is a note, not a failure', () => {
