@@ -148,9 +148,12 @@ Markdown report to its `--out` folder (a live run needs both). A page that
 returns an error status or no text, or whose text has changed since the previous
 run, fails the run and appears in the report with its diff and the files citing
 it. Review those files against the changed page; the next run compares against
-the new text, so the report is the record. The script saves the report before it
-moves any baseline, and a rerun the same day adds to that day's report. It
-refuses more than 500 URLs, and
+the new text, so the report is the record. A cited page whose 'Last updated'
+date is after the check date of an accounting question answer citing it
+(`fact_checked`, else `facts_checked` in `_data/accounting_questions.json`) also
+fails, even on the run that first reads it; recheck those answers and set their
+`fact_checked`. The script saves the report before it moves any baseline, and a
+rerun the same day adds to that day's report. It refuses more than 500 URLs, and
 `node scripts/check_ato_sources.mjs --list` prints the URLs and citing files
 offline. Its tests run through the site check command.
 

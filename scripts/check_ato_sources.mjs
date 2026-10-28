@@ -8,10 +8,12 @@
 // text changed since the previous run, other than the legal database home
 // (CHANGE_EXEMPT). A changed page needs editorial review of every file that
 // cites it; the report lists those files and the lines that differ. A dead
-// link (HTTP 404 or 410) needs its citations repointed. A moved page that still
-// resolves is a note. The exit code is 1 when any page could not be read and 2
-// when every failure is a changed page or a dead link, so the scheduled run can
-// tell findings to review from a broken sweep.
+// link (HTTP 404 or 410) needs its citations repointed. A cited page dated
+// after the accounting question answers citing it were checked needs those
+// answers rechecked (QUESTIONS below). A moved page that still resolves is a
+// note. The exit code is 1 when any page could not be read and 2 when every
+// failure is a changed page, a dead link or an answer to recheck, so the
+// scheduled run can tell findings to review from a broken sweep.
 //
 // ponytail: every run overwrites the baseline, so a change fails one run and
 // the next run compares against the changed page. The report is the record, so
@@ -170,11 +172,12 @@ export function baselineFile(url) {
 // Sorts one page read into a failure, a note or nothing, and returns the text to
 // keep as the next baseline. previous is the baseline text, when there is one.
 // 0 when every page read cleanly, 2 when every failure is a finding to review (a
-// changed page or a dead link) and 1 when any page could not be read.
+// changed page, a dead link or an answer to recheck) and 1 when any page could
+// not be read.
 export function exitCode(results) {
   const failed = results.filter((result) => result.failure);
   if (!failed.length) return 0;
-  return failed.every((result) => result.changed || result.dead) ? 2 : 1;
+  return failed.every((result) => result.changed || result.dead || result.recheck) ? 2 : 1;
 }
 
 export function classify(url, page, previous) {
@@ -189,6 +192,37 @@ export function classify(url, page, previous) {
     return { failure: 'changed since the previous run', changed: true, diff: lineDiff(previous, text), text, note };
   }
   return { text, note };
+}
+
+// The accounting questions date each bold answer (fact_checked, else the file's
+// facts_checked). A cited page the ATO dates later needs that answer rechecked,
+// even on the run that first reads the page and has no baseline to compare:
+// question 6 cited a page added on 13 October 2026, changed by the ATO on 15
+// October and first read on 19 October, so no run reported the change.
+export const QUESTIONS = '_data/accounting_questions.json';
+const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+export function lastUpdated(text) {
+  const match = text.match(/Last updated (\d{1,2}) (\w+) (\d{4})/);
+  const month = MONTHS.indexOf(match?.[2]) + 1;
+  return month ? `${match[3]}-${String(month).padStart(2, '0')}-${match[1].padStart(2, '0')}` : undefined;
+}
+
+// Returns url => { updated, ids } for cited pages dated after the answers citing them were checked.
+export function answersToRecheck(data, texts) {
+  const stale = new Map();
+  for (const question of data.questions) {
+    if (!question.fact) continue;
+    const checked = question.fact_checked ?? data.facts_checked;
+    for (const key of [question.source, ...(question.fact_sources ?? [])]) {
+      const url = data.sources[key]?.url;
+      const updated = texts.has(url) ? lastUpdated(texts.get(url)) : undefined;
+      if (!updated || updated <= checked) continue;
+      if (!stale.has(url)) stale.set(url, { updated, ids: [] });
+      if (!stale.get(url).ids.includes(question.id)) stale.get(url).ids.push(question.id);
+    }
+  }
+  return stale;
 }
 
 // Reads one batch with `nodriver batch`, which keeps going past a failed page and
@@ -298,6 +332,7 @@ async function main() {
   const notes = [];
   const review = [];
   const keep = new Map();
+  const texts = new Map();
   let seeded = 0;
   const results = [];
   for (const [url, files] of sources) {
@@ -306,7 +341,10 @@ async function main() {
     const result = classify(url, pages.get(url), previous);
     results.push(result);
     const { failure, note, diff, text } = result;
-    if (text !== undefined) keep.set(file, text);
+    if (text !== undefined) {
+      keep.set(file, text);
+      texts.set(url, text);
+    }
     if (text !== undefined && previous === undefined) seeded++;
     if (note) notes.push(`${url} ${note}`);
     if (!failure) continue;
@@ -316,6 +354,15 @@ async function main() {
       review.push(`\`${value}\` appears in: ${valueFiles.get(value).map((path) => `\`${path}\``).join(', ') || 'no file'}\n`);
     }
     if (diff) review.push('```diff', diff, '```', '');
+  }
+  for (const directory of directories.filter((dir) => existsSync(join(dir, QUESTIONS)))) {
+    const data = JSON.parse(readFileSync(join(directory, QUESTIONS), 'utf8'));
+    for (const [url, { updated, ids }] of answersToRecheck(data, texts)) {
+      const failure = `updated ${updated}, after the answers to questions ${ids.join(', ')} were checked`;
+      failures.push(`${url}: ${failure}`);
+      results.push({ failure, recheck: true });
+      review.push(`### ${url}\n\nPage ${failure}. Recheck them against the page and set their \`fact_checked\` in \`${basename(resolve(directory))}/${QUESTIONS}\`.\n`);
+    }
   }
   const date = new Date().toLocaleDateString('en-CA');
   const report = [`# ATO sources check ${date}`, '', `${sources.size} pages read, ${seeded} new to the baseline.`, '', '## To review', '', ...(review.length ? review : ['None.', ''])];
