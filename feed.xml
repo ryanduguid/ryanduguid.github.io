@@ -5,8 +5,15 @@
   <link href="https://duguid.com.au/feed.xml" rel="self" />
   <link href="https://duguid.com.au/changelog/" />
   <id>https://duguid.com.au/changelog/</id>
-  <updated>2026-10-26T00:00:00Z</updated>
+  <updated>2026-10-29T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
+  <entry>
+    <title>The six rate history tables mark the row in force today in words and gain a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3587045207f6138f" />
+    <id>https://duguid.com.au/changelog/#entry-3587045207f6138f</id>
+    <updated>2026-10-29T00:00:00Z</updated>
+    <summary>The six rate history tables mark the row in force today in words and gain a Copy for Excel button, which copies each table as tab-separated rows that paste one value per cell. A humans.txt file, linked from the footer, credits the site’s build, typefaces, portrait and checks.</summary>
+  </entry>
   <entry>
     <title>Accounting question 46 cites the ATO’s Finalising your STP data page for the 14…</title>
     <link href="https://duguid.com.au/changelog/#entry-f0682f3ca73a8920" />
