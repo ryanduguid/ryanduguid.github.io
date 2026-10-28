@@ -11,7 +11,9 @@ fn lines(text: &str) -> Vec<&str> {
 }
 
 fn entry_rotated(id: &str, date: &str) -> String {
-    entry_linked(id, date, "https://duguid.com.au/changelog/#site-changes")
+    // A site change links to its own row's anchor, as feed.rs writes it.
+    let link = format!("https://duguid.com.au/changelog/#entry-{id}");
+    entry_linked(id, date, &link)
 }
 
 fn entry_linked(id: &str, date: &str, link: &str) -> String {
@@ -31,6 +33,23 @@ fn same_day_rows_keep_the_incoming_side_on_top() {
     let incoming = row("20 October 2026", "Rebased pull request.");
     let resolved = resolve(&lines(&current), &[], &lines(&incoming)).unwrap();
     assert_eq!(resolved, format!("{incoming}{current}"));
+}
+
+#[test]
+fn anchored_rows_merge_like_new_ones() {
+    // build_feed --write gives every row an id="entry-<feed ID>" anchor.
+    let anchored = |id: &str, date: &str, text: &str| {
+        format!(
+            "                <tr id=\"entry-{id}\"><th scope=\"row\">{date}</th><td>{text}</td></tr>\n"
+        )
+    };
+    let current = anchored("aaaaaaaaaaaaaaaa", "20 October 2026", "Merged first.");
+    let incoming = row("21 October 2026", "Rebased pull request.");
+    let resolved = resolve(&lines(&current), &[], &lines(&incoming)).unwrap();
+    assert_eq!(resolved, format!("{incoming}{current}"));
+    let both = anchored("bbbbbbbbbbbbbbbb", "20 October 2026", "Also merged.");
+    let resolved = resolve(&lines(&current), &[], &lines(&both)).unwrap();
+    assert_eq!(resolved, format!("{both}{current}"));
 }
 
 #[test]
@@ -84,6 +103,17 @@ fn feed_entries_from_both_tables_stay_conflicts() {
         "https://github.com/ryanduguid/example/releases/tag/v1.0.0",
     );
     assert_eq!(resolve_conflicts(&conflict(&site, "", &release), 7), None);
+    // A release row without a link points at its table instead of a tag.
+    let unlinked = entry_linked(
+        "dddddddddddddddd",
+        "2026-10-20",
+        "https://duguid.com.au/changelog/#tool-releases",
+    );
+    assert_eq!(resolve_conflicts(&conflict(&site, "", &unlinked), 7), None);
+    assert_eq!(
+        resolve_conflicts(&conflict(&release, "", &unlinked), 7),
+        Some(format!("{unlinked}{release}"))
+    );
     let other_site = entry_rotated("cccccccccccccccc", "2026-10-20");
     assert_eq!(
         resolve_conflicts(&conflict(&site, "", &other_site), 7),
@@ -371,18 +401,14 @@ fn a_real_mixed_table_feed_conflict_falls_back_to_git_markers() {
     assert!(git(&["add", "."]).status.success());
     assert!(git(&["commit", "-qm", "base"]).status.success());
     assert!(git(&["branch", "incoming"]).status.success());
-    let ours = entry_linked(
-        "ours",
-        "2026-10-20",
-        "https://duguid.com.au/changelog/#site-changes",
-    );
+    let ours = entry_rotated("ours", "2026-10-20");
     std::fs::write(root.join("feed.xml"), doc(&format!("{ours}{old}"))).unwrap();
     assert!(git(&["commit", "-qam", "current"]).status.success());
     assert!(git(&["checkout", "-q", "incoming"]).status.success());
     let theirs = entry_linked(
         "theirs",
         "2026-10-20",
-        "https://duguid.com.au/changelog/#accounting-changes",
+        "https://github.com/ryanduguid/example/releases/tag/v1.0.0",
     );
     std::fs::write(root.join("feed.xml"), doc(&format!("{theirs}{old}"))).unwrap();
     assert!(git(&["commit", "-qam", "incoming"]).status.success());

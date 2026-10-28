@@ -167,13 +167,15 @@ pub fn holds_markers(text: &str, size: usize) -> bool {
         .any(|line| MARKS.iter().any(|&mark| is_marker(line, mark, size)))
 }
 
-/// Feed entries link to the site changes or to a release; the feed builder puts site
+/// A site change's feed entry links to its own changelog row (`#entry-<feed ID>`); a
+/// release links to its tag or to `#tool-releases`. The feed builder puts site
 /// changes first on the same date, so entries from both tables are left to a person.
 fn one_table(lines: &[&str]) -> bool {
+    let site = format!("    <link href=\"{}#entry-", crate::feed::CHANGELOG_URL);
     let mut links = lines
         .iter()
         .filter(|l| l.starts_with("    <link "))
-        .map(|l| l.contains("#site-changes\""));
+        .map(|l| l.starts_with(&site));
     links
         .next()
         .is_none_or(|first| links.all(|site| site == first))
