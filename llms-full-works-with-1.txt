@@ -153,7 +153,7 @@ Published 25 October 2026. Last reviewed 25 October 2026.
 
 ### Calculations through Aus Accounting MCP
 
-Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.6.0.
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.7.0.
 
 Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
 
@@ -197,7 +197,7 @@ These projects are not endorsed by Anthropic. For Xero report access, use the se
 ## Links
 
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
+- v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
 - released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
 - Australian Accounting Skills v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/

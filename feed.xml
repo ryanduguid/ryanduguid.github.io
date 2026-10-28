@@ -8,11 +8,25 @@
   <updated>2026-10-29T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub…</title>
+    <link href="https://duguid.com.au/changelog/#entry-6393f41284dbada5" />
+    <id>https://duguid.com.au/changelog/#entry-6393f41284dbada5</id>
+    <updated>2026-10-29T00:00:00Z</updated>
+    <summary>The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub, PyPI and the MCP registry. It adds lodgment due-date lookup and a bundled-data freshness report. The worked example remains pinned to v0.2.8.</summary>
+  </entry>
+  <entry>
     <title>The subcontract ledger page, the Adopt page and llms.txt name Australian…</title>
     <link href="https://duguid.com.au/changelog/#entry-0a66f34a47949def" />
     <id>https://duguid.com.au/changelog/#entry-0a66f34a47949def</id>
     <updated>2026-10-29T00:00:00Z</updated>
     <summary>The subcontract ledger page, the Adopt page and llms.txt name Australian Accounting Skills v0.5.0, published on 28 October: 76 skills under FSL-1.1-ALv2, with 72 of its 107 validation cards human-confirmed. The Adopt installation and the agent skills manifest stay on v0.4.0, and worked examples stay pinned to the releases they were run against. The profit and cash flow case links au-fpa-pack v0.4.0, the current published release.</summary>
+  </entry>
+  <entry>
+    <title>Australian Accounting &amp; Tax MCP server aus-accounting-mcp/v0.7.0</title>
+    <link href="https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0" />
+    <id>https://duguid.com.au/changelog/#entry-10b30d1a6aa53e7d</id>
+    <updated>2026-10-29T00:00:00Z</updated>
+    <summary>Australian Accounting &amp; Tax MCP server: release aus-accounting-mcp/v0.7.0.</summary>
   </entry>
   <entry>
     <title>Subcontract ledger skills v0.5.0</title>
