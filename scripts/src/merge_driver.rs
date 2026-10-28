@@ -2,7 +2,8 @@
 //!
 //! Concurrent pull requests each add a dated row at the top of a changelog table, so
 //! Git's line merge stops at the same place in changelog/index.html and again in
-//! changelog/index.txt, llms-full.txt and feed.xml. This driver runs Git's own
+//! changelog/index.txt, llms-full.txt, llms-full-changelog-1.txt and feed.xml. This
+//! driver runs Git's own
 //! three-way merge and resolves only conflicts where both sides added dated rows and
 //! removed nothing: both sides' rows are kept, newest date first, and on the same date
 //! the incoming side's rows go above the current side's. In a rebase the incoming side

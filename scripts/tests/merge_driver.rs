@@ -361,6 +361,50 @@ fn a_real_git_merge_preserves_all_four_builder_outputs_with_lf_and_crlf() {
 }
 
 #[test]
+fn every_committed_file_holding_changelog_rows_uses_the_driver() {
+    // build_llms_full also writes each section to llms-full-<section>-<n>.txt; a
+    // part holding the changelog page conflicts like llms-full.txt does.
+    let root = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("..");
+    let source = "Source: https://duguid.com.au/changelog/\n";
+    let mut files = vec![
+        "changelog/index.html".to_owned(),
+        "changelog/index.txt".to_owned(),
+        "feed.xml".to_owned(),
+    ];
+    for entry in std::fs::read_dir(&root).unwrap() {
+        let name = entry.unwrap().file_name().into_string().unwrap();
+        if name.starts_with("llms-full")
+            && name.ends_with(".txt")
+            && std::fs::read_to_string(root.join(&name))
+                .unwrap()
+                .replace("\r\n", "\n")
+                .contains(source)
+        {
+            files.push(name);
+        }
+    }
+    assert!(files.iter().any(|f| f == "llms-full.txt"), "{files:?}");
+    assert!(
+        files.len() > 4,
+        "no llms-full part holds the changelog: {files:?}"
+    );
+    let out = Command::new("git")
+        .args(["check-attr", "merge", "--"])
+        .args(&files)
+        .current_dir(&root)
+        .output()
+        .unwrap();
+    assert!(out.status.success());
+    let text = String::from_utf8(out.stdout).unwrap();
+    for file in &files {
+        assert!(
+            text.contains(&format!("{file}: merge: changelog-rows\n")),
+            "{file} is not assigned to the changelog-rows driver:\n{text}"
+        );
+    }
+}
+
+#[test]
 fn a_real_mixed_table_feed_conflict_falls_back_to_git_markers() {
     let dir = tempfile::tempdir().unwrap();
     let root = dir.path();

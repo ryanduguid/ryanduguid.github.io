@@ -415,7 +415,8 @@ copies by hand.
 
 Concurrent pull requests each add a dated row at the top of a changelog table,
 so a plain rebase stops in `changelog/index.html` and again in
-`changelog/index.txt`, `llms-full.txt` and `feed.xml`. `.gitattributes` assigns
+`changelog/index.txt`, `llms-full.txt`, its changelog part
+`llms-full-changelog-1.txt` and `feed.xml`. `.gitattributes` assigns
 those files to the `changelog-rows` merge driver. After installing `site-tools`,
 configure it once per clone; worktrees share the setting, and removing it means
 removing the whole `merge.changelog-rows` section:
@@ -427,8 +428,8 @@ git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B || git 
 
 The driver runs Git's three-way merge, then resolves only conflicts where both
 sides added dated changelog rows, or whole feed entries from one changelog table,
-and changed nothing else at that point. In `llms-full.txt` that means the
-changelog page's section. It keeps both sides' additions, newest date first; on
+and changed nothing else at that point. In `llms-full.txt` and its parts that
+means the changelog page's section. It keeps both sides' additions, newest date first; on
 the same date the incoming side goes above, so a rebased pull request's row stays
 on top. If any other conflict remains in a file, or `site-tools` cannot run, the
 command falls back to `git merge-file` and the whole file keeps Git's markers:
