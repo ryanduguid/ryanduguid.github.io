@@ -202,10 +202,17 @@ export function classify(url, page, previous) {
 export const QUESTIONS = '_data/accounting_questions.json';
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
+// A real calendar date written YYYY-MM-DD, so check dates compare as strings.
+export function isIsoDate(value) {
+  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  return new Date(`${value}T00:00:00Z`).toISOString().startsWith(value);
+}
+
 export function lastUpdated(text) {
-  const match = text.match(/Last updated (\d{1,2}) (\w+) (\d{4})/);
+  const match = text.match(/Last updated\s+(\d{1,2})\s+(\w+)\s+(\d{4})/);
   const month = MONTHS.indexOf(match?.[2]) + 1;
-  return month ? `${match[3]}-${String(month).padStart(2, '0')}-${match[1].padStart(2, '0')}` : undefined;
+  const date = month ? `${match[3]}-${String(month).padStart(2, '0')}-${match[1].padStart(2, '0')}` : undefined;
+  return isIsoDate(date) ? date : undefined;
 }
 
 // Returns url => { updated, ids } for cited pages dated after the answers citing them were checked.
@@ -214,6 +221,8 @@ export function answersToRecheck(data, texts) {
   for (const question of data.questions) {
     if (!question.fact) continue;
     const checked = question.fact_checked ?? data.facts_checked;
+    // A malformed date would compare wrongly and hide a stale answer, so it stops the run.
+    if (!isIsoDate(checked)) throw new Error(`${QUESTIONS}: question ${question.id} check date ${checked} is not a YYYY-MM-DD date`);
     for (const key of [question.source, ...(question.fact_sources ?? [])]) {
       const url = data.sources[key]?.url;
       const updated = texts.has(url) ? lastUpdated(texts.get(url)) : undefined;

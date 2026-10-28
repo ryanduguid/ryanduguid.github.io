@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { answersToRecheck, baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, lastUpdated, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
+import { answersToRecheck, baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, isIsoDate, lastUpdated, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -243,6 +243,20 @@ test('the ATO page date is read as an ISO date', () => {
   assert.equal(lastUpdated('Changes to credit card payments\nLast updated 15 October 2026\nPrint'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 1 July 2026'), '2026-07-01');
   assert.equal(lastUpdated(TEXT), undefined);
+  assert.equal(lastUpdated('Last updated\n15 October 2026'), '2026-10-15');
+  assert.equal(lastUpdated('Last updated 31 February 2026'), undefined);
+});
+
+test('check dates must be real YYYY-MM-DD dates', () => {
+  for (const good of ['2026-09-27', '2028-02-29']) assert.ok(isIsoDate(good), good);
+  for (const bad of ['2026-9-30', '2026-02-30', '30 September 2026', '', undefined]) assert.ok(!isIsoDate(bad), String(bad));
+  const data = { facts_checked: '2026-09-27', sources: {}, questions: [{ id: 6, source: 'pay', fact: 'x', fact_checked: '2026-9-30' }] };
+  assert.throws(() => answersToRecheck(data, new Map()), /question 6 check date 2026-9-30/);
+});
+
+test("every check date in this site's accounting questions is valid", () => {
+  const data = JSON.parse(readFileSync(new URL('../_data/accounting_questions.json', import.meta.url), 'utf8'));
+  assert.doesNotThrow(() => answersToRecheck(data, new Map()));
 });
 
 test('an answer is rechecked when a page it cites is dated after its check, even on first read', () => {
