@@ -1333,11 +1333,11 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 # Subcontractor ledger skills for construction and mining
 
-Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.4.0.
+Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.5.0.
 
 The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
+Current release v0.5.0 (28 October 2026). Last reviewed 29 October 2026.
 
 Delivery
 
@@ -1351,7 +1351,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+Published 24 August 2026. Last reviewed 29 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -1379,7 +1379,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. The current release, v0.5.0, has 76 skills, still including these 10 workflows, and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence; 72 of its 107 validation cards have human-confirmed verdicts, and none of the 24 added since v0.4.0 has one. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -1413,7 +1413,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
-- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install

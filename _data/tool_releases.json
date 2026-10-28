@@ -42,11 +42,11 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2"
   },
   "subcontractor-ledgers": {
-    "version": "0.4.0",
-    "tag": "v0.4.0",
-    "date": "2026-10-14",
-    "dateLabel": "14 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0"
+    "version": "0.5.0",
+    "tag": "v0.5.0",
+    "date": "2026-10-28",
+    "dateLabel": "28 October 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0"
   },
   "trust-distributions": {
     "version": "0.3.2",
