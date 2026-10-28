@@ -694,11 +694,12 @@
       "boundary": "This website does not collect payments or supply bank details.",
       "source": "pay",
       "tool": "",
-      "fact": "You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026.",
+      "fact": "You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted until 30 June 2027.",
       "fact_sources": [
         "how-to-pay",
         "credit-card-change"
-      ]
+      ],
+      "fact_checked": "2026-10-29"
     },
     {
       "id": 7,

@@ -8,7 +8,7 @@ Source: https://duguid.com.au/tools/accounting-questions/general-tax/
 
 Practical steps, records and official guidance on tax returns.
 
-10 of 10 answers checked 27 September 2026. Other guidance reviewed 11 September 2026. Page updated 27 September 2026.
+10 of 10 answers checked between 27 September 2026 and 29 October 2026. Other guidance reviewed 11 September 2026. Page updated 29 October 2026.
 
 Search or build a checklist
 
@@ -113,7 +113,7 @@ Link to question 5
 
 ### Which methods can I use to settle my tax bill?
 
-You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted only until 30 November 2026. Use the ATO payment instructions for the relevant account and payment reference.
+You can pay the ATO by BPAY, direct deposit, debit card, Government EasyPay, in person at Australia Post or through an international money remitter. Credit card payments are accepted until 30 June 2027. Use the ATO payment instructions for the relevant account and payment reference.
 
 - Check the amount owing and available payment methods in the official service.
 - Allow for processing time and keep the receipt; reconcile the payment when it appears.
@@ -122,7 +122,7 @@ This website does not collect payments or supply bank details.
 
 Paying the ATO · How to pay · Changes to credit card payments
 
-The bold answer was checked on 27 September 2026.
+The bold answer was checked on 29 October 2026.
 
 Link to question 6
 
