@@ -18,25 +18,26 @@
       "application_path": "apps/aus-accounting-mcp",
       "registry_identity": "io.github.ryanduguid/aus-accounting",
       "published": {
-        "version": "0.6.0",
-        "released_utc": "2026-10-19T20:09:42Z",
-        "verified": "2026-10-20",
-        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0",
+        "version": "0.7.0",
+        "released_utc": "2026-10-28T23:08:02Z",
+        "verified": "2026-10-29",
+        "release_url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0",
         "pypi_url": "https://pypi.org/project/aus-accounting-mcp/",
         "registry_url": "https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest",
         "registry_status": "active, latest"
       },
       "documented": {
         "page": "tools/australian-tax-ai-agents/index.html",
-        "version": "0.6.0",
-        "visible_label": "Aus Accounting MCP v0.6.0",
-        "software_version": "0.6.0",
+        "version": "0.7.0",
+        "visible_label": "Aus Accounting MCP v0.7.0",
+        "software_version": "0.7.0",
         "pinned_engines": {
           "payday-super-checker": "0.2.2",
           "ato-benchmark-compare": "0.2.2",
           "div7a-loan-review": "0.3.2",
           "australian-tax-calculators": "0.2.0",
-          "gst-review": "0.1.0"
+          "gst-review": "0.1.0",
+          "lodgment-calendar": "0.1.0"
         }
       },
       "pinned_engines": {
@@ -44,7 +45,8 @@
         "ato-benchmark-compare": "0.2.2",
         "div7a-loan-review": "0.3.2",
         "australian-tax-calculators": "0.2.0",
-        "gst-review": "0.1.0"
+        "gst-review": "0.1.0",
+        "lodgment-calendar": "0.1.0"
       },
       "pinned_commands": [
         "uvx --from aus-accounting-mcp==0.2.8 aus-accounting-mcp-demo"
@@ -54,9 +56,10 @@
         "codex mcp add aus-accounting -- uvx aus-accounting-mcp"
       ],
       "notes": [
-        "GitHub, PyPI and the MCP registry publish 0.6.0, verified on 20 October 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
+        "GitHub, PyPI and the MCP registry publish 0.7.0, verified on 29 October 2026. It requires Python 3.14 or later; 0.3.0 remains available for Python 3.11 to 3.13 and 0.2.12 for Python 3.10.",
         "0.6.0 adds GST coding review and BAS reconciliation through gst-review 0.1.0 and pins the Apache-2.0 releases of the payday, benchmark and Division 7A engines, which change no check, comparison or review.",
-        "The guide names current 0.6.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.6.0."
+        "The guide names current 0.7.0 first; its recorded demonstration remains pinned to 0.2.8. Documented engine pins belong to current 0.7.0.",
+        "0.7.0 adds lodgment due-date lookup through lodgment-calendar 0.1.0 and a bundled-data freshness report. Missing facts or recorded periods remain UNKNOWN."
       ]
     },
     "ozzit": {
