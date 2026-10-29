@@ -1,0 +1,22 @@
+/* TEAM */
+
+Built and maintained by: Ryan Duguid
+Role: Senior Accountant, Provisional CA ANZ Member
+Location: Newcastle, NSW, Australia
+Contact: https://duguid.com.au/contact/
+Source: https://github.com/ryanduguid/ryanduguid.github.io
+
+/* SITE */
+
+Last update: 2026-10-29
+Language: Australian English
+Build: Jekyll static files, hosted on GitHub Pages and delivered through Cloudflare
+Scripts: the site's own modules only; no analytics script is delivered (https://duguid.com.au/privacy/)
+Typefaces: Besley, Public Sans and Spline Sans Mono, self-hosted under the SIL Open Font License 1.1
+Portrait: the About page portrait is text, drawn from a headshot Ryan supplied by scripts/render_about_portrait.py
+Checks: Playwright with axe on every page, Lighthouse, Node tests and the repository's Rust site-tools checks
+Design record: https://github.com/ryanduguid/ryanduguid.github.io/blob/main/DESIGN.md
+
+/* FOR MACHINES */
+
+Index: https://duguid.com.au/llms.txt
