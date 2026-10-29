@@ -185,7 +185,7 @@ const substance = (text) => text.split('\n')
   .filter(Boolean)
   .join('\n');
 
-const stampText = (text) => /^Last updated (.+)$/m.exec(text)?.[1];
+const stampText = (text) => /^Last updated:? (.+)$/m.exec(text)?.[1];
 
 const andList = (items) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`);
 
@@ -260,7 +260,7 @@ export function isIsoDate(value) {
 }
 
 export function lastUpdated(text) {
-  const match = text.match(/Last updated\s+(\d{1,2})\s+(\w+)\s+(\d{4})/);
+  const match = text.match(/Last updated:?\s+(\d{1,2})\s+(\w+)\s+(\d{4})/);
   const month = MONTHS.indexOf(match?.[2]) + 1;
   const date = month ? `${match[3]}-${String(month).padStart(2, '0')}-${match[1].padStart(2, '0')}` : undefined;
   return isIsoDate(date) ? date : undefined;
@@ -374,10 +374,11 @@ export async function readPages(urls, { batch = runBatch, pdf = readPdf } = {}) 
 const cited = (files) => files.map((path) => `\`${path}\``).join(', ') || 'no file';
 const sentence = (text) => `${text[0].toUpperCase()}${text.slice(1)}.`;
 // A browser error can quote a file on the sweep machine; the issue is public.
-const publicText = (text) => text.replace(
-  /(?<![\w/.:-])(?:[A-Za-z]:[\\/]|\\\\|\/(?:Users|home|tmp|root|mnt|var|private|opt)\/)[^\s'",)]*/g,
-  '(local path)',
-);
+// A Windows path can hold spaces, so it is cut to the next quote or line end.
+const publicText = (text) => text
+  .replace(/file:\/\/\S*/gi, '(local path)')
+  .replace(/(?<![\w/.:-])(?:[A-Za-z]:[\\/]|\\\\)[^'"\n]*/g, '(local path)')
+  .replace(/(?<![\w/.:-])\/(?:Users|home|tmp|root|mnt|var|private|opt)\/[^\s'",)]*/g, '(local path)');
 
 const MOVES_HELP = 'Replace each cited URL with its target in every file listed, including `scripts/src/check_links_data.rs` (keep HTTP_403_AUTOMATION_DENIAL_URLS sorted and its length current) and `scripts/src/site_contracts/data.rs`.';
 // A cited page that now redirects to a hub or newsroom was withdrawn rather than moved.

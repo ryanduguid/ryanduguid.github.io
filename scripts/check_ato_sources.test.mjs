@@ -109,6 +109,8 @@ test('a Last updated stamp is a hint beside a real change, and link labels never
   assert.match(failure, /changed since/);
   assert.equal(change.hint, 'Last updated moved from 4 June 2025 to 14 October 2026.');
   assert.equal(change.diff, '- See the PEXA guide\n+ See the e-conveyancing guide');
+  const colon = classify(PAGE, page(after.replace('Last updated', 'Last updated:')), before.replace('Last updated', 'Last updated:'));
+  assert.equal(colon.change.hint, 'Last updated moved from 4 June 2025 to 14 October 2026.');
 });
 
 test('hubs, newsrooms and single-page applications change without review, judged by the cited URL', () => {
@@ -370,7 +372,7 @@ test('the issue body lists each finding with its citing files and names no local
   assert.match(body, /^The weekly ATO source sweep of 2026-10-19 read 370 pages: 1 changed substantively, 1 changed with nothing to review, 0 returned HTTP 404 or 410 \(dead links\), 0 need accounting answers rechecked, 1 could not be read and 2 cited URLs redirect permanently\./);
   assert.match(body, new RegExp(`### ${PAGE}\n\nChanged since the previous run\. Cited in: \`ryanduguid\.github\.io/rates/index\.html\`\n\nLast updated moved from 2 May 2026 to 1 May 2026\.`));
   assert.match(body, /<details><summary>Changed lines<\/summary>\n\n```diff\n- The rate for the September quarter is 11\.36%\.\n\+ The rate for the September quarter is 11\.36%\.!\n```\n\n<\/details>/);
-  assert.match(body, /## Pages that could not be read\n\n- \S+-old: PermissionError: \(local path\) is locked\. Cited in: no file/);
+  assert.match(body, /## Pages that could not be read\n\n- \S+-old: PermissionError: \(local path\)\. Cited in: no file/);
   assert.doesNotMatch(body, /Users|AppData|vault|ATO Watch/);
   assert.match(body, /## Permanent redirects\n\n.*`scripts\/src\/check_links_data\.rs` \(keep HTTP_403_AUTOMATION_DENIAL_URLS sorted/);
   assert.match(body, /- `https:\/\/www\.ato\.gov\.au\/rental` → `https:\/\/www\.ato\.gov\.au\/property\/rental`\. Cited in: `ryanduguid\.github\.io\/scripts\/src\/check_links_data\.rs`/);
@@ -386,12 +388,14 @@ test('no local path of any shape reaches the issue, and URLs keep their paths', 
     String.raw`share \\server\folder\x.txt missing`,
     'ENOENT: /home/someone/profile missing',
     'ENOENT: /root/.cache/x missing',
+    String.raw`EPERM: C:\Program Files\Client Name\file.txt`,
+    'open file:///home/someone/secret failed',
   ];
   base.review = failures.map((failure, i) => ({ url: `${PAGE}-${i}`, files: [], failure, values: [] }));
   base.notes = [`${PAGE}/x now resolves to https://www.ato.gov.au/home/y (redirect not checked: C:\\Temp\\a)`];
   const body = renderIssue(base);
-  assert.doesNotMatch(body, /Work|server|someone|\.cache|Temp/);
-  assert.equal(body.match(/\(local path\)/g).length, 5);
+  assert.doesNotMatch(body, /Work|server|someone|\.cache|Temp|Program|Client|secret/);
+  assert.equal(body.match(/\(local path\)/g).length, 7);
   assert.match(body, /https:\/\/www\.ato\.gov\.au\/home\/y/);
 });
 
@@ -438,6 +442,7 @@ test('the exit code is 1 for an unread page and 2 for a substantive change or a 
 test('the ATO page date is read as an ISO date', () => {
   assert.equal(lastUpdated('Changes to credit card payments\nLast updated 15 October 2026\nPrint'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 1 July 2026'), '2026-07-01');
+  assert.equal(lastUpdated('Last updated: 1 July 2026'), '2026-07-01');
   assert.equal(lastUpdated(TEXT), undefined);
   assert.equal(lastUpdated('Last updated\n15 October 2026'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 31 February 2026'), undefined);
