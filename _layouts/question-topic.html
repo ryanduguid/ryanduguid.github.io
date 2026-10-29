@@ -47,14 +47,14 @@
 {% include site-header.html %}
 {% assign topic = site.data.accounting_questions.topics | where: "id", page.topic | first %}
 {% assign questions = site.data.accounting_questions.questions | where: "topic", page.topic %}
-{% assign checked = 0 %}{% for question in questions %}{% if question.fact %}{% assign checked = checked | plus: 1 %}{% endif %}{% endfor %}
+{% assign checked = 0 %}{% assign first_check = '' %}{% assign last_check = '' %}{% for question in questions %}{% if question.fact %}{% assign checked = checked | plus: 1 %}{% assign check = question.fact_checked | default: site.data.accounting_questions.facts_checked %}{% if first_check == '' or check < first_check %}{% assign first_check = check %}{% endif %}{% if check > last_check %}{% assign last_check = check %}{% endif %}{% endif %}{% endfor %}
   <main id="main" class="site-main accounting-page">
     <article class="article">
       <header class="article-header site-shell">
         <nav class="article-crumb" aria-label="Breadcrumb"><ol><li><a href="/">Home</a></li><li><a href="/tools/">Tools</a></li><li><a href="/tools/accounting-questions/">Accounting questions</a></li><li aria-current="page">{{ page.heading }}</li></ol></nav>
         <h1>{{ page.heading }}</h1>
         <p class="lead-note">{{ page.lead }}</p>
-        <p class="page-meta">{% if checked > 0 %}{{ checked }} of {{ questions | size }} answers checked {{ site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}. Other guidance reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% else %}Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% endif %} Page updated {{ page.updated | date: "%e %B %Y" | strip }}.</p>
+        <p class="page-meta">{% if checked > 0 %}{{ checked }} of {{ questions | size }} answers checked {% if first_check == last_check %}{{ last_check | date: "%e %B %Y" | strip }}{% else %}between {{ first_check | date: "%e %B %Y" | strip }} and {{ last_check | date: "%e %B %Y" | strip }}{% endif %}. Other guidance reviewed {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% else %}Source review: {{ topic.reviewed | date: "%e %B %Y" | strip }}.{% endif %} Page updated {{ page.updated | date: "%e %B %Y" | strip }}.</p>
       </header>
       <div class="site-shell accounting-content">
         <details class="question-controls question-tools">
@@ -90,7 +90,7 @@
               <p class="question-boundary">{{ question.boundary | escape }}</p>
               <p class="question-links"><a href="{{ source.url | escape }}">{{ source.label | escape }}</a>{% for key in question.fact_sources %}{% assign fact_source = site.data.accounting_questions.sources[key] %} · <a href="{{ fact_source.url | escape }}">{{ fact_source.label | escape }}</a>{% endfor %}{% if tool %} · <a href="{{ tool.url | escape }}">{{ tool.label | escape }}</a>{% endif %}</p>
               <p class="question-select" hidden><label><input type="checkbox" value="{{ question.id }}" aria-label="Add to my checklist, question {{ question.id }}" /> Add to my checklist</label></p>
-              {% if question.fact %}<p class="field-note">The bold answer was checked on {{ site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}.</p>{% endif %}
+              {% if question.fact %}<p class="field-note">The bold answer was checked on {{ question.fact_checked | default: site.data.accounting_questions.facts_checked | date: "%e %B %Y" | strip }}.</p>{% endif %}
               <a class="question-permalink" href="#q{{ question.id }}">Link to question {{ question.id }}</a>
             </div>
           </details>
