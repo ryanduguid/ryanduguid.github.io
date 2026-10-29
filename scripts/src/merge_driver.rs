@@ -128,11 +128,16 @@ pub fn resolve(current: &[&str], base: &[&str], incoming: &[&str]) -> Option<Str
     // The same row added on both sides would be kept twice.
     // An anchored row is keyed by its feed ID, so a reworded copy still counts.
     fn key(line: &str) -> Option<&str> {
-        static ANCHOR: LazyLock<Regex> =
-            LazyLock::new(|| Regex::new(r#"^\s*<tr\b[^>]*\bid="(entry-[0-9a-f]{16})""#).unwrap());
+        // The row tag's own id attribute, in either quote style, as feed.rs reads it.
+        static TR: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^\s*<tr\b([^>]*)>").unwrap());
+        static ANCHOR: LazyLock<Regex> = LazyLock::new(|| {
+            Regex::new(r#"(?:^|\s)id\s*=\s*(?:"(entry-[0-9a-f]{16})"|'(entry-[0-9a-f]{16})')"#)
+                .unwrap()
+        });
         let line = line.trim_end_matches(['\n', '\r']);
-        if let Some(m) = ANCHOR.captures(line) {
-            return Some(m.get(1).unwrap().as_str());
+        let attributes = TR.captures(line).and_then(|m| m.get(1));
+        if let Some(m) = attributes.and_then(|a| ANCHOR.captures(a.as_str())) {
+            return m.get(1).or(m.get(2)).map(|id| id.as_str());
         }
         (matches!(classify(line), Some(Line::Row(_))) || line.starts_with("    <id>"))
             .then_some(line)

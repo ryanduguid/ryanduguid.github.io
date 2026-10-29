@@ -61,6 +61,11 @@ fn a_row_anchor_on_both_sides_stays_a_conflict_whatever_the_wording() {
     };
     let (current, incoming) = (anchored("One wording."), anchored("Another wording."));
     assert_eq!(resolve(&lines(&current), &[], &lines(&incoming)), None);
+    // The same anchor written another way, beside a data-id, is still the same row.
+    let other = "                <tr data-id=\"x\" id = 'entry-aaaaaaaaaaaaaaaa'><th scope=\"row\">20 October 2026</th><td>Third wording.</td></tr>\n";
+    assert_eq!(resolve(&lines(&current), &[], &lines(other)), None);
+    let distinct = "                <tr data-id=\"entry-aaaaaaaaaaaaaaaa\" id=\"entry-bbbbbbbbbbbbbbbb\"><th scope=\"row\">20 October 2026</th><td>Other row.</td></tr>\n";
+    assert!(resolve(&lines(&current), &[], &lines(distinct)).is_some());
 }
 
 #[test]
