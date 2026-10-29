@@ -6,7 +6,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import { baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
+import { answersToRecheck, baselineFile, classify, collectSources, collectValues, exitCode, extractUrls, isIsoDate, lastUpdated, lineDiff, readPages, sameUrl, saveResults, tidy, WATCHED } from './check_ato_sources.mjs';
 
 const PAGE = 'https://www.ato.gov.au/tax-rates-and-codes/general-interest-charge-rates';
 const TEXT = 'General interest charge rates\nThe rate for the December quarter is 11.17%.\nThe rate for the September quarter is 11.36%.';
@@ -97,12 +97,15 @@ test('errors, bad statuses, empty text, cut-off text and missing results fail', 
   assert.match(classify(PAGE, undefined).failure, /no result/);
 });
 
-test('changed pages and dead links exit 2; any unreadable page exits 1', () => {
+test('changed pages, dead links and answers to recheck exit 2; any unreadable page exits 1', () => {
   const changed = classify(PAGE, page(`${TEXT} and more`), TEXT);
   const dead = classify(PAGE, page(TEXT, { status: 404 }));
   const gone = classify(PAGE, page(TEXT, { status: 410 }));
+  const recheck = { failure: 'updated 2026-10-15, after the answers to questions 6 were checked', recheck: true };
   assert.equal(exitCode([classify(PAGE, page())]), 0);
   assert.equal(exitCode([changed, dead, gone, classify(PAGE, page())]), 2);
+  assert.equal(exitCode([recheck, classify(PAGE, page())]), 2);
+  assert.equal(exitCode([recheck, classify(PAGE, page(TEXT, { status: 403 }))]), 1);
   assert.equal(exitCode([dead, classify(PAGE, page(TEXT, { status: 403 }))]), 1);
   assert.equal(exitCode([changed, classify(PAGE, { error: 'navigation timed out' })]), 1);
 });
@@ -234,4 +237,41 @@ test('a live run without --out is refused before any page is read', () => {
   const run = spawnSync(process.execPath, [script, '--baseline', join(empty, 'baseline'), empty], { encoding: 'utf8' });
   assert.equal(run.status, 1);
   assert.match(run.stderr, /--out DIR/);
+});
+
+test('the ATO page date is read as an ISO date', () => {
+  assert.equal(lastUpdated('Changes to credit card payments\nLast updated 15 October 2026\nPrint'), '2026-10-15');
+  assert.equal(lastUpdated('Last updated 1 July 2026'), '2026-07-01');
+  assert.equal(lastUpdated(TEXT), undefined);
+  assert.equal(lastUpdated('Last updated\n15 October 2026'), '2026-10-15');
+  assert.equal(lastUpdated('Last updated 31 February 2026'), undefined);
+  assert.equal(lastUpdated('Last updated 32 October 2026'), undefined);
+});
+
+test('check dates must be real YYYY-MM-DD dates', () => {
+  for (const good of ['2026-09-27', '2028-02-29']) assert.ok(isIsoDate(good), good);
+  for (const bad of ['2026-9-30', '2026-02-30', '2026-13-01', '2026-10-32', '30 September 2026', '', undefined]) assert.ok(!isIsoDate(bad), String(bad));
+  const data = { facts_checked: '2026-09-27', sources: {}, questions: [{ id: 6, source: 'pay', fact: 'x', fact_checked: '2026-9-30' }] };
+  assert.throws(() => answersToRecheck(data, new Map()), /question 6 check date 2026-9-30/);
+});
+
+test("every check date in this site's accounting questions is valid", () => {
+  const data = JSON.parse(readFileSync(new URL('../_data/accounting_questions.json', import.meta.url), 'utf8'));
+  assert.doesNotThrow(() => answersToRecheck(data, new Map()));
+});
+
+test('an answer is rechecked when a page it cites is dated after its check, even on first read', () => {
+  const card = 'https://www.ato.gov.au/businesses-and-organisations/small-business-newsroom/changes-to-credit-card-payments';
+  const data = {
+    facts_checked: '2026-09-27',
+    sources: { pay: { url: PAGE }, card: { url: card }, none: { url: 'https://www.ato.gov.au/unread' } },
+    questions: [
+      { id: 6, source: 'pay', fact: 'Credit cards until 30 November 2026.', fact_sources: ['card', 'none'] },
+      { id: 7, source: 'card', fact: 'Rechecked.', fact_sources: [], fact_checked: '2026-10-20' },
+      { id: 8, source: 'card', fact: '', fact_sources: [] },
+      { id: 9, source: 'card', fact: 'Same day.', fact_sources: ['card'], fact_checked: '2026-10-15' },
+    ],
+  };
+  const texts = new Map([[PAGE, `${TEXT}\nLast updated 2 September 2026`], [card, 'Changes to credit card payments\nLast updated 15 October 2026']]);
+  assert.deepEqual([...answersToRecheck(data, texts)], [[card, { updated: '2026-10-15', ids: [6] }]]);
 });

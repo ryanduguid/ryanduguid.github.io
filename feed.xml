@@ -8,6 +8,20 @@
   <updated>2026-10-29T00:00:00Z</updated>
   <author><name>Ryan Duguid</name></author>
   <entry>
+    <title>The six rate history tables mark the row in force today in words and gain a…</title>
+    <link href="https://duguid.com.au/changelog/#entry-3587045207f6138f" />
+    <id>https://duguid.com.au/changelog/#entry-3587045207f6138f</id>
+    <updated>2026-10-29T00:00:00Z</updated>
+    <summary>The six rate history tables mark the row in force today in words and gain a Copy for Excel button, which copies each table as tab-separated rows that paste one value per cell. A humans.txt file, linked from the footer, credits the site’s build, typefaces, portrait and checks.</summary>
+  </entry>
+  <entry>
+    <title>Accounting question 6 now says the ATO accepts credit card payments until 30…</title>
+    <link href="https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca" />
+    <id>https://duguid.com.au/changelog/#entry-b52ad24c6adfe1ca</id>
+    <updated>2026-10-29T00:00:00Z</updated>
+    <summary>Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.</summary>
+  </entry>
+  <entry>
     <title>The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub…</title>
     <link href="https://duguid.com.au/changelog/#entry-6393f41284dbada5" />
     <id>https://duguid.com.au/changelog/#entry-6393f41284dbada5</id>

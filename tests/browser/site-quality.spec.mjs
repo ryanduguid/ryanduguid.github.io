@@ -62,8 +62,11 @@ const homeHeightBaseline = {
   // and 260px desktop. Keep the previous headroom above the new content height.
   // The 29 October Skills release replaces the shorter MCP link in the latest
   // releases list. Its extra wrapped line adds 50px on mobile; retain the margin.
-  mobile: 6596,
-  desktop: 4941,
+  // The footer's humans.txt link of 29 October adds a measured 52px mobile and
+  // 32px desktop to every page. Keep the previous headroom above the new
+  // content height, here and in the route ceilings below.
+  mobile: 6648,
+  desktop: 4973,
 };
 
 const representativeHeightBaseline = {
@@ -77,7 +80,8 @@ const representativeHeightBaseline = {
     // The 21 September Excel chooser row and calculator shortcut add 121px
     // at 390px in Camofox. Add that measured content cost to the existing
     // ceiling; Chromium CI run 35598730192 confirms this limit passes.
-    ['/tools/', 9333],
+    // The 29 October footer link adds 52px.
+    ['/tools/', 9385],
     // The Xero certification record adds a badge, 4 dated facts and its
     // boundary note to Identity and credentials. The upstream summary then
     // gained the detection-is-not-prevention qualification on 18 September
@@ -104,7 +108,8 @@ const representativeHeightBaseline = {
     // The fabricated quarter case of 4 October adds the checked narrative,
     // three cash rows and six evidence downloads. It measures 14,555px at
     // 390px; retain the existing 234px allowance above the content height.
-    ['/evidence/', 14789],
+    // The 29 October footer link adds 52px.
+    ['/evidence/', 14841],
   ]),
   desktop: new Map([
     // The browser-calculator route replaced 'nothing sent anywhere' with the
@@ -120,7 +125,8 @@ const representativeHeightBaseline = {
     // ceiling rises by 24px and keeps the same 9px allowance.
     // The keyword and delivery filter of 25 October measures 205px (5,840px);
     // the ceiling rises by that cost and keeps the same 9px allowance.
-    ['/tools/', 5849],
+    // The 29 October footer link adds 32px (5,872px); same allowance.
+    ['/tools/', 5881],
     // Evidence renders at 4,802px with the article body on the 68ch reading
     // measure and the Xero certification record under Identity and
     // credentials, plus the 234px guard.
@@ -140,7 +146,8 @@ const representativeHeightBaseline = {
     // plus the 234px guard.
     // The same quarter case measures 11,036px at 1440px. Retain the 234px
     // allowance; the new content accounts for this increase.
-    ['/evidence/', 11270],
+    // The 29 October footer link adds 32px.
+    ['/evidence/', 11302],
   ]),
 };
 
