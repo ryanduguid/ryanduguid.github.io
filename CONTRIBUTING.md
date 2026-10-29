@@ -236,6 +236,12 @@ takes it should keep the rendered output byte-identical where possible and run
 the full offline check, the browser suite and Lighthouse against the result
 before switching the Pages source.
 
+The same decision would let Actions build `feed.xml`, `llms-full.txt` and the
+`index.txt` pages at deploy time instead of committing them. That ends their merge
+conflicts, but it takes them out of the repository and changes what
+`build_feed --check` and `build_llms_full --check` verify. The `changelog-rows`
+merge driver (Pull requests, below) resolves the common conflict without it.
+
 The npm override pins `@puppeteer/browsers` to 3.2.2 because Lighthouse CI's
 dependency chain otherwise installs vulnerable `extract-zip` 2.0.1
 ([GHSA-7pqw-9j4j-h8q3](https://github.com/advisories/GHSA-7pqw-9j4j-h8q3)).
@@ -406,6 +412,35 @@ changelog edit, and regenerate `llms-full.txt` with `site-tools build_llms_full
 each page's entry to `index.txt` beside it (the Machine view fetches that file)
 and copies the canonical `llms.txt` to `.well-known/llms.txt`; do not edit those
 copies by hand.
+
+Concurrent pull requests each add a dated row at the top of a changelog table,
+so a plain rebase stops in `changelog/index.html` and again in
+`changelog/index.txt`, `llms-full.txt`, its changelog parts
+`llms-full-changelog-*.txt` and `feed.xml`. `.gitattributes` assigns
+those files to the `changelog-rows` merge driver. After installing `site-tools`,
+configure it once per clone; worktrees share the setting, and removing it means
+removing the whole `merge.changelog-rows` section:
+
+```bash
+git config merge.changelog-rows.name "changelog rows in date order"
+git config merge.changelog-rows.driver "site-tools merge_driver %O %A %B || git merge-file -L current -L base -L incoming --marker-size=%L %A %O %B"
+```
+
+The driver runs Git's three-way merge, then resolves only conflicts where both
+sides added dated changelog rows, or whole feed entries from one changelog table,
+and changed nothing else at that point, and the feed's own `<updated>` date,
+which takes the later side. In `llms-full.txt` and its parts that means the
+changelog page's section. It keeps both sides' additions, newest date first; on
+the same date the incoming side goes above, so a rebased pull request's row stays
+on top. If any other conflict remains in a file, or `site-tools` cannot run, the
+command falls back to `git merge-file` and the whole file keeps Git's markers:
+resolve the sources, restore `feed.xml` from either side (`git checkout --ours
+feed.xml`), since `build_feed` reads its published IDs, then rerun `build_feed
+--write` and `build_llms_full --write`. The `--check` runs still compare the committed files with a fresh
+build, so a resolution that differs fails the site checks. Without the
+configuration, or in GitHub's web conflict editor, Git merges these files as
+before.
+
 Each changelog row's `id="entry-<feed ID>"` anchor holds its published Atom ID,
 so a row keeps its ID when it moves or its wording changes. Never edit, copy or
 remove an anchor; regenerate the feed after the edit. A new row gets its anchor

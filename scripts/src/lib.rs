@@ -15,6 +15,7 @@ pub mod fetch;
 pub mod html;
 pub mod htmlparser;
 pub mod llms_full;
+pub mod merge_driver;
 pub mod mimetypes;
 pub mod ozzit_functions;
 pub mod ozzit_reference;
