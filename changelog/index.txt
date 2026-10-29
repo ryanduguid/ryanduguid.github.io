@@ -13,7 +13,7 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 ## Site
 
 Date | Change
-29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23 and 41 to 43 were rechecked on 20 October, and answer 46 on 29 October, against ATO pages updated since 27 September and are unchanged.
+29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.
 26 October 2026 | Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.
 26 October 2026 | Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.
 26 October 2026 | The Coal LSL levy calculator’s disclaimer now says its output may be inaccurate, out of date or incomplete, replacing a statement that gave no guarantee and accepted no liability. Accounting question 16 limits the instant asset write-off to small businesses that use the simplified depreciation rules, for each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.

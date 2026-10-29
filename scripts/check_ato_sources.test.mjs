@@ -245,11 +245,12 @@ test('the ATO page date is read as an ISO date', () => {
   assert.equal(lastUpdated(TEXT), undefined);
   assert.equal(lastUpdated('Last updated\n15 October 2026'), '2026-10-15');
   assert.equal(lastUpdated('Last updated 31 February 2026'), undefined);
+  assert.equal(lastUpdated('Last updated 32 October 2026'), undefined);
 });
 
 test('check dates must be real YYYY-MM-DD dates', () => {
   for (const good of ['2026-09-27', '2028-02-29']) assert.ok(isIsoDate(good), good);
-  for (const bad of ['2026-9-30', '2026-02-30', '30 September 2026', '', undefined]) assert.ok(!isIsoDate(bad), String(bad));
+  for (const bad of ['2026-9-30', '2026-02-30', '2026-13-01', '2026-10-32', '30 September 2026', '', undefined]) assert.ok(!isIsoDate(bad), String(bad));
   const data = { facts_checked: '2026-09-27', sources: {}, questions: [{ id: 6, source: 'pay', fact: 'x', fact_checked: '2026-9-30' }] };
   assert.throws(() => answersToRecheck(data, new Map()), /question 6 check date 2026-9-30/);
 });
