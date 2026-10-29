@@ -110,9 +110,9 @@ Before you use a tool, check its version and limits in the setup guide.
 
 ### Latest tool releases
 
+- Aus Accounting MCP v0.7.0 29 October 2026
+- Subcontractor ledger skills for construction and mining v0.5.0 28 October 2026
 - Trust distribution worksheets for professional review v0.3.2 20 October 2026
-- Payday Super receipt evidence v0.2.2 20 October 2026
-- Aus Accounting MCP v0.6.0 20 October 2026
 
 ## Check the source before the result
 
@@ -138,9 +138,9 @@ Explore the recorded software checks and contributions.
 - Open the evidence register: https://duguid.com.au/evidence/
 - Browse reproducible evaluations: https://duguid.com.au/evaluate/
 - Set up AI tools: https://duguid.com.au/tools/australian-tax-ai-agents/#install
+- Aus Accounting MCP v0.7.0: https://duguid.com.au/tools/australian-tax-ai-agents/
+- Subcontractor ledger skills for construction and mining v0.5.0: https://duguid.com.au/tools/subcontractor-ledgers/
 - Trust distribution worksheets for professional review v0.3.2: https://duguid.com.au/tools/trust-distributions/
-- Payday Super receipt evidence v0.2.2: https://duguid.com.au/tools/payday-super/
-- Aus Accounting MCP v0.6.0: https://duguid.com.au/tools/australian-tax-ai-agents/
 - 5 working rules: https://duguid.com.au/about/#grounding
 - Maintained rates: https://duguid.com.au/rates/
 
@@ -423,13 +423,13 @@ Published 25 October 2026. Last reviewed 25 October 2026.
 
 ### Calculations through Aus Accounting MCP
 
-Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.6.0.
+Aus Accounting MCP gives a compatible Claude client a local set of calculation and review tools, including ATO benchmark comparison, Payday Super timing and bounded tax worksheets. The current release is v0.7.0.
 
 Use Claude Code or Claude Desktop with a local stdio server. This server has no hosted endpoint that you can paste into Claude’s web app. The released client integration guide shows the local configuration.
 
 ### Preparation through accounting skills
 
-The released Australian Accounting Skills v0.4.0 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
+The released Australian Accounting Skills v0.5.0 gives Claude Code workflows for preparing and checking workpapers. The subcontract ledger guide covers progress claims, retentions and WIP preparation.
 
 Skills are instructions used by the agent. They do not disable the agent’s other tools or enforce its permissions. Review the agent’s file, command and external-service access separately.
 
@@ -467,9 +467,9 @@ These projects are not endorsed by Anthropic. For Xero report access, use the se
 ## Links
 
 - Aus Accounting MCP: https://duguid.com.au/tools/australian-tax-ai-agents/
-- v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
+- v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
 - released client integration guide: https://github.com/ryanduguid/australian-accounting/blob/aus-accounting-mcp/v0.6.0/apps/aus-accounting-mcp/README.md#client-integration
-- Australian Accounting Skills v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- Australian Accounting Skills v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - subcontract ledger guide: https://duguid.com.au/tools/subcontractor-ledgers/
 - installation guide: https://duguid.com.au/tools/australian-tax-ai-agents/#install
 - fictional MCP demonstration: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
@@ -3578,11 +3578,11 @@ Source: https://duguid.com.au/tools/subcontractor-ledgers/
 
 # Subcontractor ledger skills for construction and mining
 
-Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.4.0.
+Package australian-accounting-skills in the australian-accounting-skills repository. Current release v0.5.0.
 
 The subcontract ledger workflows are Claude Code skills rather than a standalone calculator, so an AI coding agent has to be set up first. They cover progress claims, retention schedules, work in progress and overbilling and underbilling under AASB 15, fuel tax credits, the Coal LSL levy, payroll tax on contractors, and plant and equipment costing.
 
-Current release v0.4.0 (14 October 2026). Last reviewed 21 October 2026.
+Current release v0.5.0 (28 October 2026). Last reviewed 29 October 2026.
 
 Delivery
 
@@ -3596,7 +3596,7 @@ Boundary
 
 Requires human review of contracts, classifications and source records.
 
-Published 24 August 2026. Last reviewed 21 October 2026.
+Published 24 August 2026. Last reviewed 29 October 2026.
 
 Each skill encodes the workflow: the steps, the tie-outs and the exceptions to chase. Rates and thresholds go stale and differ by state, so the skill sends the agent to the primary source for them. Two things the skills will not do: decide whether a security of payment Act covers a contract, or conclude that a worker is a contractor rather than an employee. Both stay with a person.
 
@@ -3624,7 +3624,7 @@ This method measures adherence to visible instructions. It does not test indepen
 
 Needs an AI coding agent such as Claude Code or Codex, and Node.
 
-Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. Use Adopt for the development install or the installation guide for the tagged release. The contracting workflows are included in this unified pack.
+Release v0.3.1 contains 65 skills, including these 10 subcontractor workflows; 72 of its 76 validation cards have confirmed results from a whole-card model run; the four core failure cards it adds have no recorded live verdict. The current release, v0.5.0, has 76 skills, still including these 10 workflows, and moves the pack from Apache-2.0 to FSL-1.1-ALv2, with Apache-2.0 as the future licence; 72 of its 107 validation cards have human-confirmed verdicts, and none of the 24 added since v0.4.0 has one. In v0.5.0, contractor-super-tpar points to the provision or ATO page for figures that change instead of stating them, so its cards need a rerun at the revised commit, and wip-over-under-billing gains steps for verifying and citing a local AASB corpus snapshot. Use Adopt for the v0.4.0 tagged installation or its separate development option. The v0.4.0 installation guide covers that historical tag. The contracting workflows are included in this unified pack.
 
 Source on GitHub
 
@@ -3658,11 +3658,11 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills/tree/main
-- v0.4.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0
+- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - TheWIPTally: https://duguid.com.au/tools/wip-schedule/
 - evaluation method: https://github.com/ryanduguid/australian-accounting-skills/blob/e152a3acf1b5daf59eecc52cbf8503b4d9fac31f/docs/EVAL.md
 - Adopt: https://duguid.com.au/tools/australian-tax-ai-agents/#install
-- installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
+- v0.4.0 installation guide: https://github.com/ryanduguid/australian-accounting-skills/blob/2e16e47016c6451c0fe8fc8af8a47cf7e7fc3034/docs/installation.md#tagged-65-workflow-release
 - Source on GitHub: https://github.com/ryanduguid/australian-accounting-skills
 - Open an issue: https://github.com/ryanduguid/australian-accounting-skills/issues
 - contact page: https://duguid.com.au/contact/
@@ -3944,15 +3944,15 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 
 Source: https://duguid.com.au/tools/australian-tax-ai-agents/
 
-> Aus Accounting MCP v0.6.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids, not advice.
+> Aus Accounting MCP v0.7.0: a local MCP server for ATO benchmarks, Payday Super timing, GST review and 14 tax worksheets. Review aids, not advice.
 
 # Aus Accounting MCP
 
-Package aus-accounting-mcp in the australian-accounting repository. Current release v0.6.0.
+Package aus-accounting-mcp in the australian-accounting repository. Current release v0.7.0.
 
-Aus Accounting MCP v0.6.0 (published 20 October 2026) is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. It runs on your machine, ships no ATO document library and lodges nothing. Outputs need human review. The worked example below is pinned to v0.2.8 so its figures stay reproducible.
+Aus Accounting MCP v0.7.0 (published 29 October 2026) is a local Model Context Protocol server for Australian accounting checks: ATO small business benchmarks, Payday Super timing, limited Division 7A review, GST coding and BAS reconciliation review, and 14 bounded tax and super worksheets. It runs on your machine, ships no ATO document library and lodges nothing. Outputs need human review. The worked example below is pinned to v0.2.8 so its figures stay reproducible.
 
-Current release v0.6.0 (20 October 2026). Last reviewed 21 October 2026.
+Current release v0.7.0 (29 October 2026). Last reviewed 29 October 2026.
 
 Delivery
 
@@ -3966,11 +3966,11 @@ Boundary
 
 Human review required. Optional local library excerpts enter the assistant’s context; Division 7A scope stays limited.
 
-The current published release is aus-accounting-mcp/v0.6.0, verified on GitHub, PyPI and the MCP registry on 20 October 2026. It requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Release v0.6.0 adds two GST review tools from the new gst-review engine: one gives each coded bank line a review state against the supplied GST registration dates, and the other compares lodged G1, G2, G3, G10, G11, 1A and 1B figures with the ledger for each period on the cash or accruals basis. Neither classifies a supply or prepares, revises or lodges a BAS. It also pins the Apache-2.0 releases of the Payday Super, benchmark and Division 7A engines, which change no check, comparison or review. The annual Medicare levy worksheet does not adjust payroll withholding. Those changes are outside this guide’s v0.2.8 worked example.
+The current published release is aus-accounting-mcp/v0.7.0, verified on GitHub, PyPI and the MCP registry on 29 October 2026. It requires Python 3.14 or later; v0.3.0 remains available for Python 3.11 to 3.13 and v0.2.12 for Python 3.10. Since v0.2.8 it has added contribution cap, account-based pension minimum, study and training support loan repayment, Schedule 8 study loan withholding, annual Medicare levy, low income tax offset and Division 293 worksheets, bringing the total to 14, and pins newer engine releases; v0.3.0 moves Division 7A review to 0.2.0, which finishes a review with an extremely large remaining term instead of hanging. It can also search and read ATO rulings from a point-in-time local copy you configure, and its benchmark comparison adds the labour, rent and motor vehicle ranges from the ATO’s industry pages, which never set the key ratio. Release v0.6.0 adds two GST review tools from the new gst-review engine: one gives each coded bank line a review state against the supplied GST registration dates, and the other compares lodged G1, G2, G3, G10, G11, 1A and 1B figures with the ledger for each period on the cash or accruals basis. Neither classifies a supply or prepares, revises or lodges a BAS. It also pins the Apache-2.0 releases of the Payday Super, benchmark and Division 7A engines, which change no check, comparison or review. The annual Medicare levy worksheet does not adjust payroll withholding. Release v0.7.0 adds lodgment due-date lookup and a bundled-data freshness report; missing facts or recorded periods remain UNKNOWN. Those changes are outside this guide’s v0.2.8 worked example.
 
-Published 25 August 2026. Last reviewed 21 October 2026. The current release pins ato-benchmark-compare 0.2.2 and australian-tax-calculators 0.2.0. The pinned v0.2.8 example ranks local legislation search results best first and reads long provisions in parts.
+Published 25 August 2026. Last reviewed 29 October 2026. The current release pins ato-benchmark-compare 0.2.2 and australian-tax-calculators 0.2.0. The pinned v0.2.8 example ranks local legislation search results best first and reads long provisions in parts.
 
-The comparisons and capability list below describe reference release v0.2.8. Current release v0.6.0 has 14 worksheets and the additional review tools described above. Use the current README for its complete scope.
+The comparisons and capability list below describe reference release v0.2.8. Current release v0.7.0 has 14 worksheets and the additional review tools described above. Use the current README for its complete scope.
 
 Choose the tool by the work it supports: a calculation on established facts, a source lookup or an accounting workflow. Ryan Duguid, an accountant in Newcastle, NSW, publishes the local engines and the MCP server that runs them. Aus Accounting MCP is a separate project from ato-mcp, the document-retrieval service compared below. The server ships no ATO document library and does not retrieve rulings from the web.
 
@@ -4090,7 +4090,7 @@ A fresh clone includes both runtime copies and needs no synchronisation. For ano
 
 The MCP install commands above are unpinned. uvx may reuse a cached environment or an already installed tool, so an unpinned command does not guarantee the latest release on every run. Upgrade deliberately, and check which version you are running before you compare a result with anything. The pinned command under Try two synthetic tool calls reproduces release 0.2.8, and each evaluation keeps the release it was run against.
 
-The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
+The Skills commands pin the installer to version 1.5.22. The primary Skills installation uses the published v0.4.0 tag. The current Skills release is v0.5.0, published on 28 October 2026, with 76 workflows under FSL-1.1-ALv2. The development Skills and GitHub workflow commands install the default branch, which can include work no tagged release carries. Individual tool pages name the release their worked example reproduces.
 
 aus-accounting-mcp is published on PyPI and from its source repository. Source on GitHub, PyPI and registry record. payday-super-checker is already on PyPI. The official Model Context Protocol registry lists this server as io.github.ryanduguid/aus-accounting.
 
@@ -4110,7 +4110,7 @@ Not tax, legal or financial advice, and using it creates no professional relatio
 
 ### What is aus-accounting-mcp?
 
-A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.6.0 has 14 and adds GST coding and BAS reconciliation review. Outputs need human review.
+A local Model Context Protocol server for ATO benchmark comparison, Payday Super timing, limited Division 7A review and optional search of a configured Markdown library. This guide’s v0.2.8 reference release has 7 bounded tax worksheets; published v0.7.0 has 14 and adds GST coding and BAS reconciliation review. Outputs need human review.
 
 ### Is aus-accounting-mcp a hosted ATO document library?
 
@@ -4155,7 +4155,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 ## Links
 
 - australian-accounting: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp
-- v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
+- v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
 - current README: https://github.com/ryanduguid/australian-accounting/tree/main/apps/aus-accounting-mcp/README.md
 - ato-mcp: https://github.com/william-laverty/ato-mcp
 - australian-accounting-skills: https://github.com/ryanduguid/australian-accounting-skills
@@ -4175,6 +4175,7 @@ Written by Ryan Duguid in his own time and on his own equipment. He is a Provisi
 - browser calculator: https://duguid.com.au/tools/coal-lsl-levy/
 - reproducible evaluation: https://duguid.com.au/evaluate/
 - Try two synthetic tool calls: https://duguid.com.au/tools/australian-tax-ai-agents/#try-example
+- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - PyPI: https://pypi.org/project/aus-accounting-mcp/
 - registry record: https://registry.modelcontextprotocol.io/v0.1/servers/io.github.ryanduguid%2Faus-accounting/versions/latest
 - PyPI: https://pypi.org/project/payday-super-checker/
@@ -4376,6 +4377,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.
+29 October 2026 | The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub, PyPI and the MCP registry. It adds lodgment due-date lookup and a bundled-data freshness report. The worked example remains pinned to v0.2.8.
+29 October 2026 | The subcontract ledger page, the Adopt page and llms.txt name Australian Accounting Skills v0.5.0, published on 28 October: 76 skills under FSL-1.1-ALv2, with 72 of its 107 validation cards human-confirmed. The Adopt installation and the agent skills manifest stay on v0.4.0, and worked examples stay pinned to the releases they were run against. The profit and cash flow case links au-fpa-pack v0.4.0, the current published release.
 26 October 2026 | Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.
 26 October 2026 | Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.
 26 October 2026 | The Coal LSL levy calculator’s disclaimer now says its output may be inaccurate, out of date or incomplete, replacing a statement that gave no guarantee and accepted no liability. Accounting question 16 limits the instant asset write-off to small businesses that use the simplified depreciation rules, for each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.
@@ -4447,6 +4450,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+29 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.7.0
+28 October 2026 | Subcontract ledger skills | v0.5.0
 20 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.6.0
 20 October 2026 | Payday Super timing | payday-super-checker/v0.2.2
 20 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.2.2
@@ -4513,6 +4518,8 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
+- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - aus-accounting-mcp/v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
 - payday-super-checker/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2
 - ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2
@@ -8165,7 +8172,7 @@ To reproduce the additional sensitivity rows, run the same command with --delay-
 
 ## Provenance and verification
 
-- Source. au-fpa-pack at commit 386c7ff. The example is part of that repository, not of the published au-fpa-pack v0.3.0 distribution, so the commit rather than the release identifies it.
+- Source. au-fpa-pack at commit 386c7ff. That captured commit identifies the example and its assumptions. The current published release is au-fpa-pack v0.4.0.
 - Distributed workbook. SHA-256 b150de6281fccb6dcb1d221c034b047eb610ad4064972c5d9ac9fca8916b8463, 23,506 bytes. Its model and all 6 input files match the captured source after normalising line endings.
 - Formula check. A fresh check on 11 September 2026 passed all 21 monthly workbook lines against the Python model, and the repository’s offline suite passed.
 - Native Excel record. The file distributed here is the exact workbook from the original native check, dated 11 September 2026, which exercised 116 cells and 13 chart values per case at 0, 45 and 100-day delays, plus invalid input bounds, formula errors and save-and-reopen behaviour. That record covers this artefact and that scenario control only.
@@ -8226,7 +8233,7 @@ Cite as Duguid, R. (2026). Lumbridge Services synthetic cash flow case [Data set
 - Jeff Brines / Guiderail’s openfpa: https://github.com/JeffBrines/openfpa
 - uv: https://docs.astral.sh/uv/
 - Read the source and assumptions at the captured commit: https://github.com/ryanduguid/au-fpa-pack/tree/386c7ff31f7989b86445ef37d83a912fcb02bb47/examples/lumbridge-services
-- au-fpa-pack v0.3.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.3.0
+- au-fpa-pack v0.4.0: https://github.com/ryanduguid/au-fpa-pack/releases/tag/v0.4.0
 - Payday Super timing: https://duguid.com.au/tools/payday-super/
 - Ozzit: Excel LAMBDA functions for Australian modelling: https://duguid.com.au/tools/ozzit/
 - Browser cash flow and planning calculators: https://duguid.com.au/tools/business-calculators/

@@ -14,6 +14,8 @@ What changed and when, across this site and the tagged tool releases. Dates are 
 
 Date | Change
 29 October 2026 | Accounting question 6 now says the ATO accepts credit card payments until 30 June 2027, following the extension announced on 9 October; it previously gave 30 November 2026. Each answer can now carry its own check date. Answers 10, 23, 41 to 43 and 46 were rechecked against ATO pages updated since 27 September and are unchanged.
+29 October 2026 | The Aus Accounting MCP page and release record name v0.7.0, verified on GitHub, PyPI and the MCP registry. It adds lodgment due-date lookup and a bundled-data freshness report. The worked example remains pinned to v0.2.8.
+29 October 2026 | The subcontract ledger page, the Adopt page and llms.txt name Australian Accounting Skills v0.5.0, published on 28 October: 76 skills under FSL-1.1-ALv2, with 72 of its 107 validation cards human-confirmed. The Adopt installation and the agent skills manifest stay on v0.4.0, and worked examples stay pinned to the releases they were run against. The profit and cash flow case links au-fpa-pack v0.4.0, the current published release.
 26 October 2026 | Accounting question 46 cites the ATO’s Finalising your STP data page for the 14 July finalisation date, since the old end-of-year finalisation address now redirects to the Single Touch Payroll landing page. Tools and the Aus Accounting MCP page link the ATO Legal Database at its current address.
 26 October 2026 | Relicensed from Apache-2.0 to FSL-1.1-ALv2 (Functional Source License, with Apache-2.0 as the future licence). Released versions keep their licence.
 26 October 2026 | The Coal LSL levy calculator’s disclaimer now says its output may be inaccurate, out of date or incomplete, replacing a statement that gave no guarantee and accepted no liability. Accounting question 16 limits the instant asset write-off to small businesses that use the simplified depreciation rules, for each eligible asset costing less than $20,000 that is first used or installed ready for use on or after 1 July 2023.
@@ -85,6 +87,8 @@ Date | Change
 Selected tool releases: each row names a tool’s current tagged release at the date shown. Earlier tags stay visible on each repository’s releases page, including the archived source repositories that hold the pre-consolidation tags.
 
 Date | Tool | Release
+29 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.7.0
+28 October 2026 | Subcontract ledger skills | v0.5.0
 20 October 2026 | Australian Accounting & Tax MCP server | aus-accounting-mcp/v0.6.0
 20 October 2026 | Payday Super timing | payday-super-checker/v0.2.2
 20 October 2026 | ATO benchmark comparison | ato-benchmark-compare/v0.2.2
@@ -151,6 +155,8 @@ Published 30 August 2026. Last reviewed 5 October 2026.
 ## Links
 
 - Follow this changelog as an Atom feed: https://duguid.com.au/feed.xml
+- aus-accounting-mcp/v0.7.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0
+- v0.5.0: https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0
 - aus-accounting-mcp/v0.6.0: https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0
 - payday-super-checker/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2
 - ato-benchmark-compare/v0.2.2: https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2

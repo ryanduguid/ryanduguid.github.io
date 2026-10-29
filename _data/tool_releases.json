@@ -7,11 +7,11 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/ato-benchmark-compare/v0.2.2"
   },
   "australian-tax-ai-agents": {
-    "version": "0.6.0",
-    "tag": "aus-accounting-mcp/v0.6.0",
-    "date": "2026-10-20",
-    "dateLabel": "20 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.6.0"
+    "version": "0.7.0",
+    "tag": "aus-accounting-mcp/v0.7.0",
+    "date": "2026-10-29",
+    "dateLabel": "29 October 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/aus-accounting-mcp/v0.7.0"
   },
   "company-tax-franking": {
     "version": "0.2.0",
@@ -42,11 +42,11 @@
     "url": "https://github.com/ryanduguid/australian-accounting/releases/tag/payday-super-checker/v0.2.2"
   },
   "subcontractor-ledgers": {
-    "version": "0.4.0",
-    "tag": "v0.4.0",
-    "date": "2026-10-14",
-    "dateLabel": "14 October 2026",
-    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.4.0"
+    "version": "0.5.0",
+    "tag": "v0.5.0",
+    "date": "2026-10-28",
+    "dateLabel": "28 October 2026",
+    "url": "https://github.com/ryanduguid/australian-accounting-skills/releases/tag/v0.5.0"
   },
   "trust-distributions": {
     "version": "0.3.2",
