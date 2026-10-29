@@ -53,6 +53,35 @@ fn anchored_rows_merge_like_new_ones() {
 }
 
 #[test]
+fn a_row_anchor_on_both_sides_stays_a_conflict_whatever_the_wording() {
+    let anchored = |text: &str| {
+        format!(
+            "                <tr id=\"entry-aaaaaaaaaaaaaaaa\"><th scope=\"row\">20 October 2026</th><td>{text}</td></tr>\n"
+        )
+    };
+    let (current, incoming) = (anchored("One wording."), anchored("Another wording."));
+    assert_eq!(resolve(&lines(&current), &[], &lines(&incoming)), None);
+}
+
+#[test]
+fn the_feed_header_takes_the_later_date_and_never_goes_back() {
+    let updated = |date: &str| format!("  <updated>{date}T00:00:00Z</updated>\n");
+    let (base, ours, theirs) = (
+        updated("2026-10-26"),
+        updated("2026-10-29"),
+        updated("2026-10-30"),
+    );
+    let merged =
+        |current: &str, incoming: &str| resolve_conflicts(&conflict(current, &base, incoming), 7);
+    assert_eq!(merged(&ours, &theirs), Some(theirs.clone()));
+    assert_eq!(merged(&theirs, &ours), Some(theirs.clone()));
+    assert_eq!(merged(&updated("2026-10-25"), &theirs), None);
+    // An entry's own <updated> is indented further and is not the header.
+    let entry_line = "    <updated>2026-10-30T00:00:00Z</updated>\n";
+    assert_eq!(merged(&ours, entry_line), None);
+}
+
+#[test]
 fn rows_stay_newest_first_whichever_side_is_newer() {
     let current = row("20 October 2026", "Newer.");
     let incoming = row("19 October 2026", "Older.");

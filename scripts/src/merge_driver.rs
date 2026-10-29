@@ -5,7 +5,8 @@
 //! changelog/index.txt, llms-full.txt, llms-full-changelog-1.txt and feed.xml. This
 //! driver runs Git's own
 //! three-way merge and resolves only conflicts where both sides added dated rows and
-//! removed nothing: both sides' rows are kept, newest date first, and on the same date
+//! removed nothing, and the feed's own <updated> date, which takes the later side: both
+//! sides' rows are kept, newest date first, and on the same date
 //! the incoming side's rows go above the current side's. In a rebase the incoming side
 //! is the pull request's commit, so its row lands on top, as a later merge would put
 //! it. When any other conflict remains, the driver leaves the file alone and exits 1,
@@ -125,8 +126,14 @@ pub fn resolve(current: &[&str], base: &[&str], incoming: &[&str]) -> Option<Str
         _ => return None,
     }
     // The same row added on both sides would be kept twice.
+    // An anchored row is keyed by its feed ID, so a reworded copy still counts.
     fn key(line: &str) -> Option<&str> {
+        static ANCHOR: LazyLock<Regex> =
+            LazyLock::new(|| Regex::new(r#"^\s*<tr\b[^>]*\bid="(entry-[0-9a-f]{16})""#).unwrap());
         let line = line.trim_end_matches(['\n', '\r']);
+        if let Some(m) = ANCHOR.captures(line) {
+            return Some(m.get(1).unwrap().as_str());
+        }
         (matches!(classify(line), Some(Line::Row(_))) || line.starts_with("    <id>"))
             .then_some(line)
     }
@@ -185,6 +192,29 @@ fn one_table(lines: &[&str]) -> bool {
 /// `git merge-file --diff3` output with every conflict resolved, or None when one of
 /// them is not a dated-row conflict. In the text files, which put each page under its
 /// "Source:" line, only conflicts on the changelog page count.
+/// The feed header's `<updated>` line is the newest entry's date. When both sides
+/// moved it on from the base, the merged feed's is the later of the two.
+fn feed_updated<'a>(current: &[&'a str], base: &[&str], incoming: &[&'a str]) -> Option<&'a str> {
+    static FEED_UPDATED: LazyLock<Regex> = LazyLock::new(|| {
+        Regex::new(r"^  <updated>(\d{4}-\d{2}-\d{2})T00:00:00Z</updated>\r?\n?$").unwrap()
+    });
+    let date = |lines: &[&str]| match lines {
+        [line] => FEED_UPDATED
+            .captures(line)
+            .and_then(|m| NaiveDate::parse_from_str(&m[1], "%Y-%m-%d").ok()),
+        _ => None,
+    };
+    let (ours, old, theirs) = (date(current)?, date(base)?, date(incoming)?);
+    if ours < old || theirs < old {
+        return None;
+    }
+    Some(if theirs >= ours {
+        incoming[0]
+    } else {
+        current[0]
+    })
+}
+
 pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
     let changelog = format!("Source: {}", crate::feed::CHANGELOG_URL);
     let mut out = String::new();
@@ -225,6 +255,10 @@ pub fn resolve_conflicts(merged: &str, size: usize) -> Option<String> {
         }
         if !one_table(&[current.as_slice(), incoming].concat()) {
             return None;
+        }
+        if let Some(line) = feed_updated(current, base, incoming) {
+            out.push_str(line);
+            continue;
         }
         out.push_str(&resolve(current, base, incoming)?);
     }
